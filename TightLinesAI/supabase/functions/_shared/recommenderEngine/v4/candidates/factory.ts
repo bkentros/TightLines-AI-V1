@@ -2,9 +2,13 @@ import type { EngineContext } from "../../../howFishingEngine/contracts/context.
 import type { WaterClarity } from "../../contracts/input.ts";
 import {
   type ArchetypeProfileV4,
+  CONDITION_TAGS_V4,
+  type ConditionTag,
   FLY_ARCHETYPE_IDS_V4,
   type FlyArchetypeIdV4,
   type ForageBucket,
+  GOAL_TAGS_V4,
+  type GoalTag,
   LURE_ARCHETYPE_IDS_V4,
   type LureArchetypeIdV4,
   type RecommenderV4Species,
@@ -28,6 +32,8 @@ type LureFactoryInput = {
   secondary_pace?: TacticalPace;
   forage_tags: readonly ForageBucket[];
   clarity_strengths: readonly WaterClarity[];
+  condition_tags: readonly ConditionTag[];
+  goal_tags: readonly GoalTag[];
   how_to_fish_variants: readonly [string, string, string];
 };
 
@@ -43,6 +49,8 @@ type FlyFactoryInput = {
   secondary_pace?: TacticalPace;
   forage_tags: readonly ForageBucket[];
   clarity_strengths: readonly WaterClarity[];
+  condition_tags: readonly ConditionTag[];
+  goal_tags: readonly GoalTag[];
   how_to_fish_variants: readonly [string, string, string];
 };
 
@@ -115,6 +123,33 @@ function assertForageAndClarity(
     throw new Error(
       `[recommender v4] archetype "${id}" must have at least one clarity_strengths entry (G2).`,
     );
+  }
+}
+
+function assertTagSet<T extends string>(
+  id: string,
+  fieldName: "condition_tags" | "goal_tags",
+  values: readonly T[] | undefined,
+  allowedValues: readonly string[],
+) {
+  if (values === undefined || values.length < 1) {
+    throw new Error(
+      `[recommender v4] archetype "${id}" must have at least one ${fieldName} entry (Pass 4A).`,
+    );
+  }
+  const seen = new Set<string>();
+  for (const value of values) {
+    if (!allowedValues.includes(value)) {
+      throw new Error(
+        `[recommender v4] archetype "${id}" invalid ${fieldName} value "${value}".`,
+      );
+    }
+    if (seen.has(value)) {
+      throw new Error(
+        `[recommender v4] archetype "${id}" duplicate ${fieldName} value "${value}".`,
+      );
+    }
+    seen.add(value);
   }
 }
 
@@ -252,6 +287,13 @@ export function lure(input: LureFactoryInput): ArchetypeProfileV4 {
   assertPrimaryPace(input.id, input.primary_pace);
   assertPacePair(input.id, input.primary_pace, input.secondary_pace);
   assertForageAndClarity(input.id, input);
+  assertTagSet(
+    input.id,
+    "condition_tags",
+    input.condition_tags,
+    CONDITION_TAGS_V4,
+  );
+  assertTagSet(input.id, "goal_tags", input.goal_tags, GOAL_TAGS_V4);
   assertSpeciesWater(
     input.id,
     input.species_allowed,
@@ -278,6 +320,13 @@ export function fly(input: FlyFactoryInput): ArchetypeProfileV4 {
   assertPrimaryPace(input.id, input.primary_pace);
   assertPacePair(input.id, input.primary_pace, input.secondary_pace);
   assertForageAndClarity(input.id, input);
+  assertTagSet(
+    input.id,
+    "condition_tags",
+    input.condition_tags,
+    CONDITION_TAGS_V4,
+  );
+  assertTagSet(input.id, "goal_tags", input.goal_tags, GOAL_TAGS_V4);
   assertSpeciesWater(
     input.id,
     input.species_allowed,

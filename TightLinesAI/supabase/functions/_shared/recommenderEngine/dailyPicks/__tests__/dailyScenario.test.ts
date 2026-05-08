@@ -1,0 +1,438 @@
+import { assert, assertEquals } from "jsr:@std/assert";
+import type { SharedConditionAnalysis } from "../../../howFishingEngine/analyzeSharedConditions.ts";
+import type { RecommenderRequest } from "../../contracts/input.ts";
+import type { SeasonalRowV4 } from "../../v4/contracts.ts";
+import { buildDailyScenario } from "../buildDailyScenario.ts";
+
+function baseReq(
+  overrides: Partial<RecommenderRequest> = {},
+): RecommenderRequest {
+  return {
+    location: {
+      latitude: 44.9,
+      longitude: -93.2,
+      state_code: "MN",
+      region_key: "great_lakes_upper_midwest",
+      local_date: "2026-06-15",
+      local_timezone: "UTC",
+      month: 6,
+    },
+    species: "largemouth_bass",
+    context: "freshwater_lake_pond",
+    water_clarity: "stained",
+    recommendation_goal: "all_purpose",
+    env_data: {
+      wind_speed_mph: 8,
+    },
+    ...overrides,
+  };
+}
+
+function baseRow(overrides: Partial<SeasonalRowV4> = {}): SeasonalRowV4 {
+  return {
+    species: "largemouth_bass",
+    region_key: "great_lakes_upper_midwest",
+    month: 6,
+    water_type: "freshwater_lake_pond",
+    column_range: ["bottom", "mid", "upper", "surface"],
+    column_baseline: "upper",
+    pace_range: ["slow", "medium", "fast"],
+    pace_baseline: "medium",
+    primary_forage: "baitfish",
+    secondary_forage: "bluegill_perch",
+    surface_seasonally_possible: true,
+    primary_lure_ids: ["walking_topwater"],
+    primary_fly_ids: ["clouser_minnow"],
+    ...overrides,
+  };
+}
+
+function analysis(
+  overrides: {
+    score?: number;
+    reliability?: "high" | "medium" | "low";
+    lightLabel?: string | null;
+    temperatureBand?: string | null;
+    temperatureTrend?: string | null;
+    temperatureShock?: string | null;
+    runoffLabel?: string | null;
+    pressureLabel?: string | null;
+  } = {},
+): SharedConditionAnalysis {
+  const normalized: Record<string, unknown> = {};
+  if (overrides.lightLabel !== undefined) {
+    normalized.light_cloud_condition = overrides.lightLabel == null
+      ? undefined
+      : {
+        label: overrides.lightLabel,
+        score: 0,
+      };
+  } else {
+    normalized.light_cloud_condition = { label: "mixed", score: 0 };
+  }
+  if (
+    overrides.temperatureBand !== null ||
+    overrides.temperatureTrend !== null ||
+    overrides.temperatureShock !== null
+  ) {
+    normalized.temperature = {
+      context_group: "freshwater",
+      measurement_source: "air_daily_mean",
+      measurement_value_f: 68,
+      band_label: overrides.temperatureBand ?? "optimal",
+      band_score: 1,
+      trend_label: overrides.temperatureTrend ?? "stable",
+      trend_adjustment: 0,
+      shock_label: overrides.temperatureShock ?? "none",
+      shock_adjustment: 0,
+      final_score: 1,
+    };
+  }
+  if (overrides.runoffLabel !== undefined) {
+    normalized.runoff_flow_disruption = overrides.runoffLabel == null
+      ? undefined
+      : {
+        label: overrides.runoffLabel,
+        score: 0,
+      };
+  }
+  if (overrides.pressureLabel !== undefined) {
+    normalized.pressure_regime = overrides.pressureLabel == null ? undefined : {
+      label: overrides.pressureLabel,
+      score: 0,
+    };
+  }
+
+  return {
+    norm: {
+      location: {
+        latitude: 44.9,
+        longitude: -93.2,
+        state_code: "MN",
+        region_key: "great_lakes_upper_midwest",
+        local_date: "2026-06-15",
+        local_timezone: "UTC",
+      },
+      context: "freshwater_lake_pond",
+      normalized,
+      available_variables: [],
+      missing_variables: [],
+      data_gaps: [],
+      reliability: overrides.reliability ?? "high",
+    },
+    scored: { score: overrides.score ?? 65 },
+    timing: {},
+    condition_context: {},
+  } as unknown as SharedConditionAnalysis;
+}
+
+function hourlyWindForUtcDate(
+  date: string,
+  daylightValue: number,
+  outsideValue: number,
+) {
+  return Array.from({ length: 24 }, (_, hour) => ({
+    time_utc: `${date}T${String(hour).padStart(2, "0")}:00:00Z`,
+    value: hour >= 5 && hour <= 21 ? daylightValue : outsideValue,
+  }));
+}
+
+Deno.test("DailyScenario maps How's score thresholds to activity levels", () => {
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq(),
+      analysis: analysis({ score: 35 }),
+      seasonalRow: baseRow(),
+    }).activity_level,
+    "suppressed",
+  );
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq(),
+      analysis: analysis({ score: 36 }),
+      seasonalRow: baseRow(),
+    }).activity_level,
+    "neutral",
+  );
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq(),
+      analysis: analysis({ score: 69 }),
+      seasonalRow: baseRow(),
+    }).activity_level,
+    "neutral",
+  );
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq(),
+      analysis: analysis({ score: 70 }),
+      seasonalRow: baseRow(),
+    }).activity_level,
+    "active",
+  );
+});
+
+Deno.test("DailyScenario missing wind does not become calm and closes surface", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({ env_data: {} }),
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.daylight_wind_mph, null);
+  assertEquals(scenario.wind_mode, "unknown");
+  assertEquals(scenario.surface_daily_gate, "closed");
+  assert(scenario.missing_inputs.includes("wind"));
+  assert(!scenario.scenario_tags.includes("calm_surface"));
+});
+
+Deno.test("DailyScenario valid hourly daylight wind beats scalar fallback", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      env_data: {
+        wind_speed_mph: 3,
+        hourly_wind_speed: hourlyWindForUtcDate("2026-06-15", 12, 2),
+        weather: { wind_speed_unit: "mph" },
+      },
+    }),
+    analysis: analysis({ score: 80 }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.daylight_wind_mph, 12);
+  assertEquals(scenario.wind_mode, "breezy");
+});
+
+Deno.test("DailyScenario wind thresholds are calm below 6, breezy through 14, windy above 14", () => {
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq({ env_data: { wind_speed_mph: 5.99 } }),
+      analysis: analysis(),
+      seasonalRow: baseRow(),
+    }).wind_mode,
+    "calm",
+  );
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq({ env_data: { wind_speed_mph: 6 } }),
+      analysis: analysis(),
+      seasonalRow: baseRow(),
+    }).wind_mode,
+    "breezy",
+  );
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq({ env_data: { wind_speed_mph: 14 } }),
+      analysis: analysis(),
+      seasonalRow: baseRow(),
+    }).wind_mode,
+    "breezy",
+  );
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq({ env_data: { wind_speed_mph: 14.01 } }),
+      analysis: analysis(),
+      seasonalRow: baseRow(),
+    }).wind_mode,
+    "windy",
+  );
+});
+
+Deno.test("DailyScenario seasonal surface false keeps surface closed on calm low-light active days", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({ env_data: { wind_speed_mph: 3 } }),
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow({
+      column_range: ["bottom", "mid", "upper"],
+      surface_seasonally_possible: false,
+    }),
+  });
+
+  assertEquals(scenario.surface_daily_gate, "closed");
+  assert(
+    scenario.surface_daily_reason_codes.includes("seasonal_surface_closed"),
+  );
+  assert(!scenario.scenario_tags.includes("calm_surface"));
+  assert(!scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario seasonally valid calm low-light active day opens surface and emits surface tags", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({ env_data: { wind_speed_mph: 3 } }),
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.surface_daily_gate, "open");
+  assert(scenario.surface_daily_reason_codes.includes("calm_surface_open"));
+  assert(scenario.scenario_tags.includes("calm_surface"));
+  assert(scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario clear bright water emits clear_subtle", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      water_clarity: "clear",
+      env_data: { wind_speed_mph: 4 },
+    }),
+    analysis: analysis({ lightLabel: "bright" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.light_mode, "bright");
+  assert(scenario.scenario_tags.includes("clear_subtle"));
+});
+
+Deno.test("DailyScenario dirty or stained windy conditions emit reaction and vibration tags", () => {
+  const stained = buildDailyScenario({
+    req: baseReq({
+      water_clarity: "stained",
+      env_data: { wind_speed_mph: 15 },
+    }),
+    analysis: analysis({ score: 70 }),
+    seasonalRow: baseRow(),
+  });
+  const dirty = buildDailyScenario({
+    req: baseReq({
+      water_clarity: "dirty",
+      env_data: { wind_speed_mph: 15 },
+    }),
+    analysis: analysis({ score: 70 }),
+    seasonalRow: baseRow(),
+  });
+
+  assert(stained.scenario_tags.includes("wind_reaction"));
+  assert(stained.scenario_tags.includes("dirty_vibration"));
+  assert(dirty.scenario_tags.includes("wind_reaction"));
+  assert(dirty.scenario_tags.includes("dirty_vibration"));
+});
+
+Deno.test("DailyScenario maps cold, warming, cooling/shock, and heat-limited thermal states", () => {
+  const cold = buildDailyScenario({
+    req: baseReq(),
+    analysis: analysis({ temperatureBand: "cool" }),
+    seasonalRow: baseRow(),
+  });
+  const warming = buildDailyScenario({
+    req: baseReq(),
+    analysis: analysis({
+      temperatureBand: "near_optimal",
+      temperatureTrend: "warming",
+    }),
+    seasonalRow: baseRow(),
+  });
+  const cooling = buildDailyScenario({
+    req: baseReq(),
+    analysis: analysis({ temperatureTrend: "cooling" }),
+    seasonalRow: baseRow(),
+  });
+  const shock = buildDailyScenario({
+    req: baseReq(),
+    analysis: analysis({ temperatureShock: "sharp_cooldown" }),
+    seasonalRow: baseRow(),
+  });
+  const heat = buildDailyScenario({
+    req: baseReq(),
+    analysis: analysis({ temperatureBand: "very_warm" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(cold.thermal_mode, "cold_slow");
+  assert(cold.scenario_tags.includes("cold_slow"));
+  assertEquals(warming.thermal_mode, "warming");
+  assert(warming.scenario_tags.includes("warming_search"));
+  assertEquals(cooling.thermal_mode, "cooling_or_shock");
+  assert(cooling.scenario_tags.includes("cold_slow"));
+  assertEquals(shock.thermal_mode, "cooling_or_shock");
+  assert(shock.scenario_tags.includes("cold_slow"));
+  assertEquals(heat.thermal_mode, "heat_limited");
+  assert(heat.scenario_tags.includes("heat_finesse"));
+});
+
+Deno.test("DailyScenario trout elevated river runoff emits runoff_streamer", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      species: "river_trout",
+      context: "freshwater_river",
+      water_clarity: "dirty",
+      env_data: { wind_speed_mph: 7 },
+    }),
+    analysis: analysis({ runoffLabel: "elevated" }),
+    seasonalRow: baseRow({
+      species: "trout",
+      water_type: "freshwater_river",
+    }),
+  });
+
+  assertEquals(scenario.species, "trout");
+  assertEquals(scenario.water_movement_mode, "elevated_or_dirty");
+  assert(scenario.scenario_tags.includes("runoff_streamer"));
+  assert(scenario.scenario_tags.includes("current_swing"));
+});
+
+Deno.test("DailyScenario breezy river with stable runoff does not emit current_swing", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      species: "smallmouth_bass",
+      context: "freshwater_river",
+      env_data: { wind_speed_mph: 8 },
+    }),
+    analysis: analysis({ runoffLabel: "stable" }),
+    seasonalRow: baseRow({
+      species: "smallmouth_bass",
+      water_type: "freshwater_river",
+    }),
+  });
+
+  assertEquals(scenario.wind_mode, "breezy");
+  assertEquals(scenario.water_movement_mode, "stable");
+  assert(!scenario.scenario_tags.includes("current_swing"));
+});
+
+Deno.test("DailyScenario breezy river with unknown runoff does not emit current_swing", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      species: "smallmouth_bass",
+      context: "freshwater_river",
+      env_data: { wind_speed_mph: 8 },
+    }),
+    analysis: analysis({ runoffLabel: null }),
+    seasonalRow: baseRow({
+      species: "smallmouth_bass",
+      water_type: "freshwater_river",
+    }),
+  });
+
+  assertEquals(scenario.wind_mode, "breezy");
+  assertEquals(scenario.water_movement_mode, "unknown");
+  assert(scenario.missing_inputs.includes("runoff"));
+  assert(!scenario.scenario_tags.includes("current_swing"));
+});
+
+Deno.test("DailyScenario preserves recommendation_goal without changing scenario scoring", () => {
+  const common = {
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  };
+  const allPurpose = buildDailyScenario({
+    req: baseReq({
+      recommendation_goal: "all_purpose",
+      env_data: { wind_speed_mph: 3 },
+    }),
+    ...common,
+  });
+  const bigFish = buildDailyScenario({
+    req: baseReq({
+      recommendation_goal: "big_fish",
+      env_data: { wind_speed_mph: 3 },
+    }),
+    ...common,
+  });
+
+  assertEquals(allPurpose.recommendation_goal, "all_purpose");
+  assertEquals(bigFish.recommendation_goal, "big_fish");
+  assertEquals(allPurpose.region_key, "great_lakes_upper_midwest");
+  assertEquals(allPurpose.month, 6);
+  assertEquals(allPurpose.scenario_tags, bigFish.scenario_tags);
+  assertEquals(allPurpose.surface_daily_gate, bigFish.surface_daily_gate);
+});

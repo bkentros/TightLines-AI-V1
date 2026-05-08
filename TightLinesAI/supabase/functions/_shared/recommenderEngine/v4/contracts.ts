@@ -46,6 +46,32 @@ export const FORAGE_BUCKETS_V4 = [
 ] as const;
 export type ForageBucket = (typeof FORAGE_BUCKETS_V4)[number];
 
+// ── Pass 4A daily-condition and goal catalog tags ────────────────────────────
+
+export const CONDITION_TAGS_V4 = [
+  "calm_surface",
+  "low_light_surface",
+  "wind_reaction",
+  "dirty_vibration",
+  "clear_subtle",
+  "cold_slow",
+  "warming_search",
+  "heat_finesse",
+  "runoff_streamer",
+  "current_swing",
+  "cover_ambush",
+  "open_water_search",
+] as const;
+export type ConditionTag = (typeof CONDITION_TAGS_V4)[number];
+
+export const GOAL_TAGS_V4 = [
+  "reliable_action",
+  "versatile_search",
+  "big_fish_upside",
+  "high_risk_high_reward",
+] as const;
+export type GoalTag = (typeof GOAL_TAGS_V4)[number];
+
 /** §15.1 G6 — authorable `primary_forage` / `secondary_forage` per species. */
 export const FORAGE_POLICY_V4: Record<
   RecommenderV4Species,
@@ -90,6 +116,7 @@ export const LURE_ARCHETYPE_IDS_V4 = [
   "spinnerbait",
   "bladed_jig",
   "paddle_tail_swimbait",
+  "glidebait",
   "soft_jerkbait",
   "suspending_jerkbait",
   "squarebill_crankbait",
@@ -110,6 +137,7 @@ export const LURE_ARCHETYPE_IDS_V4 = [
   "large_bucktail_spinner",
   "large_pike_topwater",
   "pike_jig_and_plastic",
+  "large_pike_tube",
 ] as const;
 
 export type LureArchetypeIdV4 = (typeof LURE_ARCHETYPE_IDS_V4)[number];
@@ -177,6 +205,8 @@ export type ArchetypeProfileV4 = {
   secondary_pace?: TacticalPace;
   forage_tags: readonly ForageBucket[];
   clarity_strengths: readonly WaterClarity[];
+  condition_tags: readonly ConditionTag[];
+  goal_tags: readonly GoalTag[];
   is_surface: boolean;
   how_to_fish_variants: readonly [string, string, string];
 };
@@ -215,63 +245,4 @@ export type DailyPayloadV4 = {
   wind_mph: number;
   water_clarity: WaterClarity;
   hows_fishing_score: number;
-};
-
-// ── §16.6 Resolved tactics ──────────────────────────────────────────────────
-
-export type ResolvedTacticsV4 = {
-  today_columns: readonly TacticalColumn[];
-  column_distribution: readonly [
-    TacticalColumn,
-    TacticalColumn,
-    TacticalColumn,
-  ];
-  pace_distribution: readonly [TacticalPace, TacticalPace, TacticalPace];
-};
-
-// ── §5.2 Output ─────────────────────────────────────────────────────────────
-
-export type RankedRecommendationV4 = {
-  id: string;
-  display_name: string;
-  family_group: string;
-  color_style: string;
-  why_chosen: string;
-  how_to_fish: string;
-  column: TacticalColumn;
-  pace: TacticalPace;
-  is_surface: boolean;
-};
-
-export type RecommenderSummaryV4 = {
-  posture: "aggressive" | "neutral" | "suppressed";
-  column_range: TacticalColumn[];
-  column_baseline: TacticalColumn;
-  pace_range: TacticalPace[];
-  pace_baseline: TacticalPace;
-  primary_forage: ForageBucket;
-  secondary_forage?: ForageBucket;
-  surface_available_today: boolean;
-  today_column_distribution: TacticalColumn[];
-  today_pace_distribution: TacticalPace[];
-};
-
-export type RecommenderResponseV4 = {
-  feature: "recommender_v4";
-  species: SpeciesGroup;
-  context: EngineContext;
-  water_clarity: WaterClarity;
-  generated_at: string;
-  cache_expires_at: string;
-  summary: RecommenderSummaryV4;
-  lure_recommendations: [
-    RankedRecommendationV4,
-    RankedRecommendationV4,
-    RankedRecommendationV4,
-  ];
-  fly_recommendations: [
-    RankedRecommendationV4,
-    RankedRecommendationV4,
-    RankedRecommendationV4,
-  ];
 };

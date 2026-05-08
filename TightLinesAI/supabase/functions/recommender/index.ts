@@ -5,8 +5,8 @@
  * No LLM. No external AI calls. Pure engine compute.
  *
  * **Live runtime:** auth + subscription gate + validation here; recommendation math is
- * `runRecommenderRebuildSurface` → deterministic rebuild (`recommenderEngine/rebuild/**`) using
- * Phase 2–4 seasonal rows and v4 archetype catalogs. Legacy v3 code remains for offline scripts only.
+ * `resolveDailyPicksSession` → daily-picks 2x2 (`recommenderEngine/dailyPicks/**`)
+ * using v4 seasonal rows and v4 archetype catalogs.
  *
  * Required POST body:
  *   latitude       number
@@ -19,6 +19,7 @@
  *
  * Optional:
  *   region_key     RegionKey (auto-resolved from coords if omitted)
+ *   recommendation_goal "all_purpose" | "big_fish" (defaults to all_purpose)
  *   refresh_requested boolean (server-authoritative one alternate set)
  */
 
@@ -31,61 +32,44 @@ import {
 import {
   ENGINE_CONTEXTS,
 } from "../_shared/howFishingEngine/contracts/context.ts";
-import { resolveRegionForCoordinates } from "../_shared/howFishingEngine/context/resolveRegion.ts";
 import {
-  isContextAllowedForRecommenderV3,
   isSpeciesValidForState,
-  type RecommenderResponse,
-  runRecommenderRebuildSurface,
-  SeasonalRowMissingError,
+} from "../_shared/recommenderEngine/config/stateSpeciesGating.ts";
+import {
+  type RecommendationGoal,
+  type WaterClarity,
+} from "../_shared/recommenderEngine/contracts/input.ts";
+import {
   SPECIES_GROUPS,
   type SpeciesGroup,
-  toRecommenderV3Species,
-  type WaterClarity,
-} from "../_shared/recommenderEngine/index.ts";
-import type { RecentRecommendationHistoryEntry } from "../_shared/recommenderEngine/rebuild/recentHistory.ts";
+} from "../_shared/recommenderEngine/contracts/species.ts";
 import {
-  loadRecentRecommendationHistory,
-  persistRecommendationHistory,
-} from "./recentHistory.ts";
+  isContextAllowedForRecommenderV4,
+  toRecommenderV4Species,
+} from "../_shared/recommenderEngine/v4/scope.ts";
 import {
-  type RecommenderDailyVariant,
-  resolveRecommenderDailySession,
-} from "./dailySession.ts";
+  DailyPicksVariantUnavailableError,
+  resolveDailyPicksSession,
+} from "./dailyPicksSession.ts";
+import {
+  DailyPicksSeasonalRowMissingError,
+} from "../_shared/recommenderEngine/dailyPicks/resolveDailyPicksSeasonalRow.ts";
 
 const VALID_WATER_CLARITY: WaterClarity[] = ["clear", "stained", "dirty"];
-
-function subtractDaysIso(localDate: string, days: number): string {
-  const utc = Date.parse(`${localDate}T00:00:00Z`);
-  if (Number.isNaN(utc)) return localDate;
-  return new Date(utc - days * 86_400_000).toISOString().slice(0, 10);
-}
-
-function responseToAvoidHistory(
-  response: RecommenderResponse,
-  localDate: string,
-): RecentRecommendationHistoryEntry[] {
-  const avoidDate = subtractDaysIso(localDate, 1);
-  return [
-    ...response.lure_recommendations.map((pick) => ({
-      archetype_id: pick.id,
-      gear_mode: "lure" as const,
-      local_date: avoidDate,
-    })),
-    ...response.fly_recommendations.map((pick) => ({
-      archetype_id: pick.id,
-      gear_mode: "fly" as const,
-      local_date: avoidDate,
-    })),
-  ];
-}
+const VALID_RECOMMENDATION_GOALS: RecommendationGoal[] = [
+  "all_purpose",
+  "big_fish",
+];
+const DEFAULT_RECOMMENDATION_GOAL: RecommendationGoal = "all_purpose";
+const DAILY_PICKS_PREVIEW_HEADER = "x-recommender-preview";
+const VALID_DAILY_PICKS_VIEW_VARIANTS = ["A", "B"] as const;
 
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
     "Access-Control-Allow-Headers":
-      "Content-Type, Authorization, apikey, x-user-token",
+      `Content-Type, Authorization, apikey, x-user-token, ${DAILY_PICKS_PREVIEW_HEADER}`,
   };
 }
 
@@ -160,6 +144,8 @@ export function buildRecommenderEngineRequest(body: Record<string, unknown>) {
   const species = body.species as SpeciesGroup;
   const context = body.context as EngineContext;
   const water_clarity = body.water_clarity as WaterClarity;
+  const recommendation_goal = (body.recommendation_goal ??
+    DEFAULT_RECOMMENDATION_GOAL) as RecommendationGoal;
   const envData = body.env_data as Record<string, unknown>;
   const timezone = extractTimezone(envData);
   const target_date = isIsoDateString(body.target_date)
@@ -197,6 +183,7 @@ export function buildRecommenderEngineRequest(body: Record<string, unknown>) {
       species,
       context,
       water_clarity,
+      recommendation_goal,
       env_data: buildRecommenderEnvData(
         shared_req.environment as Record<string, unknown>,
         envData,
@@ -307,6 +294,21 @@ export async function handleRecommenderRequest(
     );
   }
 
+  // ── Validate recommendation_goal ─────────────────────────────────────────
+  const recommendationGoal = body.recommendation_goal;
+  if (
+    recommendationGoal != null &&
+    !VALID_RECOMMENDATION_GOALS.includes(
+      recommendationGoal as RecommendationGoal,
+    )
+  ) {
+    return jsonError(
+      "Invalid recommendation_goal. Must be: all_purpose | big_fish",
+      "invalid_goal",
+      400,
+    );
+  }
+
   // ── Validate state_code ───────────────────────────────────────────────────
   const state_code = typeof body.state_code === "string"
     ? body.state_code.toUpperCase()
@@ -355,72 +357,69 @@ export async function handleRecommenderRequest(
       400,
     );
   }
+  if (
+    body.view_variant != null &&
+    !VALID_DAILY_PICKS_VIEW_VARIANTS.includes(
+      body.view_variant as typeof VALID_DAILY_PICKS_VIEW_VARIANTS[number],
+    )
+  ) {
+    return jsonError(
+      "Invalid view_variant. Must be: A | B",
+      "invalid_view_variant",
+      400,
+    );
+  }
+  if (body.refresh_requested === true && body.view_variant != null) {
+    return jsonError(
+      "refresh_requested and view_variant cannot be combined.",
+      "invalid_input",
+      400,
+    );
+  }
 
   const { engineReq } = buildRecommenderEngineRequest(body);
   const refreshRequested = body.refresh_requested === true;
+  const viewVariant = body.view_variant as "A" | "B" | undefined;
 
   // ── Run recommender ───────────────────────────────────────────────────────
   let result;
   try {
-    const v3Species = toRecommenderV3Species(engineReq.species);
+    const v4Species = toRecommenderV4Species(engineReq.species);
     if (
-      v3Species === null ||
-      !isContextAllowedForRecommenderV3(v3Species, engineReq.context)
+      v4Species === null ||
+      !isContextAllowedForRecommenderV4(v4Species, engineReq.context)
     ) {
       return jsonError(
-        "The recommender currently supports freshwater V3 species and water types only.",
+        "The recommender currently supports freshwater daily-picks species and water types only.",
         "unsupported_recommender_scope",
         422,
       );
     }
 
-    const recentHistory = await loadRecentRecommendationHistory({
-      supabase,
-      userId: user.id,
-      localDate: engineReq.location.local_date,
-      species: engineReq.species,
-      regionKey: engineReq.location.region_key,
-      waterType: engineReq.context,
-    });
-
-    const session = await resolveRecommenderDailySession({
+    const session = await resolveDailyPicksSession({
       supabase,
       userId: user.id,
       req: engineReq,
       refreshRequested,
-      generateVariant: async (variant: RecommenderDailyVariant, options) => {
-        const variantHistory = options.avoidResponse == null ? recentHistory : [
-          ...recentHistory,
-          ...responseToAvoidHistory(
-            options.avoidResponse,
-            engineReq.location.local_date,
-          ),
-        ];
-        return runRecommenderRebuildSurface(engineReq, {
-          userSeed:
-            `${user.id}|daily-session:${variant}|attempt:${options.attempt}`,
-          recentHistory: variantHistory,
-        });
-      },
+      viewVariant,
+      seed: `${user.id}|daily-picks-default|${engineReq.location.local_date}`,
     });
-
     result = session.result;
-
-    if (session.generatedVariant != null) {
-      await persistRecommendationHistory({
-        supabase,
-        userId: user.id,
-        localDate: engineReq.location.local_date,
-        species: engineReq.species,
-        regionKey: engineReq.location.region_key,
-        waterType: engineReq.context,
-        result,
-      });
-    }
+    return new Response(JSON.stringify(result), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    });
   } catch (err) {
-    if (err instanceof SeasonalRowMissingError) {
+    if (err instanceof DailyPicksVariantUnavailableError) {
       return jsonError(
-        "No seasonal biology row exists for this region, month, and water type. Try another month, switch lake vs river, or adjust your pin — or this combination may need authoring.",
+        err.message,
+        "variant_unavailable",
+        409,
+      );
+    }
+    if (err instanceof DailyPicksSeasonalRowMissingError) {
+      return jsonError(
+        "No exact daily-picks seasonal biology row exists for this species, region, month, and water type.",
         "seasonal_row_missing",
         422,
       );

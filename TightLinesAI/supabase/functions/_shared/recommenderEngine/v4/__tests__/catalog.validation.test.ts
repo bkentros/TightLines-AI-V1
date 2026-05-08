@@ -1,9 +1,11 @@
 import { assert, assertEquals, assertThrows } from "jsr:@std/assert";
 import {
+  CONDITION_TAGS_V4,
   FLY_ARCHETYPE_IDS_V4,
   type FlyArchetypeIdV4,
   FORAGE_BUCKETS_V4,
   FORAGE_POLICY_V4,
+  GOAL_TAGS_V4,
   LURE_ARCHETYPE_IDS_V4,
   type LureArchetypeIdV4,
   RECOMMENDER_V4_CONTEXTS,
@@ -27,10 +29,10 @@ function hasDuplicates(values: readonly string[]): boolean {
   return new Set(values).size !== values.length;
 }
 
-Deno.test("catalog: lure count and id set match Appendix A / contracts (37)", () => {
-  assertEquals(LURE_ARCHETYPES_V4.length, 37);
+Deno.test("catalog: lure count and id set match Appendix A / contracts (39)", () => {
+  assertEquals(LURE_ARCHETYPES_V4.length, 39);
   const ids = new Set(LURE_ARCHETYPES_V4.map((x) => x.id));
-  assertEquals(ids.size, 37);
+  assertEquals(ids.size, 39);
   for (const id of LURE_ARCHETYPE_IDS_V4) {
     assert(ids.has(id), `missing lure ${id}`);
   }
@@ -135,6 +137,8 @@ Deno.test("G2: non-surface fly with column surface must throw (synthetic woolly_
         primary_pace: "slow",
         forage_tags: ["leech_worm"],
         clarity_strengths: ["clear", "stained", "dirty"],
+        condition_tags: ["cold_slow"],
+        goal_tags: ["reliable_action"],
         species_allowed: ["trout"],
         water_types_allowed: ["freshwater_river"],
         how_to_fish_variants: ["a", "b", "c"],
@@ -159,6 +163,96 @@ Deno.test("G2: lure column and pace invariants hold for full lure catalog", () =
     assert(p.clarity_strengths.length >= 1);
     assertEquals(p.how_to_fish_variants.length, 3);
   }
+});
+
+Deno.test("Pass 4A: authored condition and goal tags are valid, unique, and non-empty", () => {
+  for (const p of ALL_ARCHETYPES_V4) {
+    assert(p.condition_tags.length >= 1, `${p.id} condition_tags`);
+    assert(p.goal_tags.length >= 1, `${p.id} goal_tags`);
+    assert(
+      !hasDuplicates([...p.condition_tags]),
+      `${p.id} duplicate condition_tags`,
+    );
+    assert(!hasDuplicates([...p.goal_tags]), `${p.id} duplicate goal_tags`);
+    for (const tag of p.condition_tags) {
+      assert(
+        (CONDITION_TAGS_V4 as readonly string[]).includes(tag),
+        `${p.id} invalid condition_tag ${tag}`,
+      );
+    }
+    for (const tag of p.goal_tags) {
+      assert(
+        (GOAL_TAGS_V4 as readonly string[]).includes(tag),
+        `${p.id} invalid goal_tag ${tag}`,
+      );
+    }
+  }
+});
+
+Deno.test("Pass 4A: buzzbait catalog identity stays fast surface reaction, not slow finesse", () => {
+  const buzzbait = LURE_ARCHETYPES_V4.find((lure) => lure.id === "buzzbait");
+  assert(buzzbait, "expected buzzbait in lure catalog");
+  assertEquals(buzzbait.column, "surface");
+  assertEquals(buzzbait.primary_pace, "fast");
+  assertEquals(buzzbait.secondary_pace, "medium");
+  assert(buzzbait.condition_tags.includes("low_light_surface"));
+  assert(buzzbait.condition_tags.includes("wind_reaction"));
+  assert(buzzbait.condition_tags.includes("dirty_vibration"));
+  assert(!buzzbait.condition_tags.includes("clear_subtle"));
+  assert(!buzzbait.condition_tags.includes("heat_finesse"));
+  assert(buzzbait.goal_tags.includes("big_fish_upside"));
+  assert(buzzbait.goal_tags.includes("high_risk_high_reward"));
+});
+
+Deno.test("Pass 5D.1: large pike tube is pike-first cold/slow bottom inventory", () => {
+  const largePikeTube = LURE_ARCHETYPES_V4.find((lure) =>
+    lure.id === "large_pike_tube"
+  );
+  assert(largePikeTube, "expected large_pike_tube in lure catalog");
+  assertEquals(largePikeTube.display_name, "Large Pike Tube");
+  assertEquals(largePikeTube.species_allowed, ["northern_pike"]);
+  assertEquals(largePikeTube.water_types_allowed, [
+    "freshwater_lake_pond",
+    "freshwater_river",
+  ]);
+  assertEquals(largePikeTube.column, "bottom");
+  assertEquals(largePikeTube.primary_pace, "slow");
+  assertEquals(largePikeTube.secondary_pace, "medium");
+  assertEquals(largePikeTube.forage_tags, ["baitfish", "bluegill_perch"]);
+  assert(largePikeTube.condition_tags.includes("cold_slow"));
+  assert(largePikeTube.condition_tags.includes("current_swing"));
+  assert(largePikeTube.condition_tags.includes("cover_ambush"));
+  assert(largePikeTube.goal_tags.includes("big_fish_upside"));
+  assert(largePikeTube.goal_tags.includes("reliable_action"));
+  assertEquals(largePikeTube.presentation_group, "pike_tube");
+});
+
+Deno.test("Pass 7C: glidebait is bass-only Big Fish mid-column inventory", () => {
+  const glidebait = LURE_ARCHETYPES_V4.find((lure) =>
+    lure.id === "glidebait"
+  );
+  assert(glidebait, "expected glidebait in lure catalog");
+  assertEquals(glidebait.display_name, "Glide Bait");
+  assertEquals(glidebait.species_allowed, [
+    "largemouth_bass",
+    "smallmouth_bass",
+  ]);
+  assertEquals(glidebait.water_types_allowed, ["freshwater_lake_pond"]);
+  assertEquals(glidebait.column, "mid");
+  assertEquals(glidebait.primary_pace, "slow");
+  assertEquals(glidebait.secondary_pace, "medium");
+  assertEquals(glidebait.is_surface, false);
+  assertEquals(glidebait.clarity_strengths, ["clear", "stained"]);
+  assertEquals(glidebait.condition_tags, [
+    "clear_subtle",
+    "open_water_search",
+    "cover_ambush",
+  ]);
+  assertEquals(glidebait.goal_tags, [
+    "big_fish_upside",
+    "high_risk_high_reward",
+  ]);
+  assertEquals(glidebait.presentation_group, "glidebait");
 });
 
 Deno.test("G2: fly invariants hold for full fly catalog", () => {
@@ -228,18 +322,38 @@ Deno.test("SMB quality: casting_spoon is pike/trout only, not bass", () => {
   assert(spoon.species_allowed.includes("trout"));
 });
 
-Deno.test("trout river quality: ned_rig remains trout eligible, other bass-coded target lures are not", () => {
+Deno.test("Pass 4B.1: weightless stick worm stays non-trout while Ned remains trout-compatible finesse", () => {
+  const stickWorm = LURE_ARCHETYPES_V4.find((candidate) =>
+    candidate.id === "weightless_stick_worm"
+  );
+  assert(stickWorm, "expected weightless_stick_worm in lure catalog");
+  assertEquals(stickWorm.species_allowed, [
+    "largemouth_bass",
+    "smallmouth_bass",
+  ]);
+  assert(
+    !stickWorm.species_allowed.includes("trout"),
+    "weightless_stick_worm should not be trout eligible",
+  );
+
   const nedRig = LURE_ARCHETYPES_V4.find((candidate) =>
     candidate.id === "ned_rig"
   );
   assert(nedRig, "expected ned_rig in lure catalog");
-  assert(nedRig.species_allowed.includes("trout"));
   assertEquals(nedRig.species_allowed, [
     "largemouth_bass",
     "smallmouth_bass",
     "trout",
   ]);
+  assertEquals(nedRig.column, "bottom");
+  assertEquals(nedRig.primary_pace, "slow");
+  assert(nedRig.condition_tags.includes("cold_slow"));
+  assert(nedRig.condition_tags.includes("clear_subtle"));
+  assertEquals(nedRig.goal_tags, ["reliable_action"]);
+  assert(!nedRig.goal_tags.includes("big_fish_upside"));
+});
 
+Deno.test("Pass 4B.1: row-authored broad eligibility is kept for current runtime compatibility", () => {
   const expectedSpeciesById = new Map<LureArchetypeIdV4, readonly string[]>([
     ["tube_jig", ["largemouth_bass", "smallmouth_bass", "northern_pike"]],
     [
@@ -251,22 +365,92 @@ Deno.test("trout river quality: ned_rig remains trout eligible, other bass-coded
       ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     ],
     [
+      "deep_diving_crankbait",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike"],
+    ],
+    [
       "lipless_crankbait",
       ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     ],
-    ["walking_topwater", ["largemouth_bass", "smallmouth_bass"]],
-    ["popping_topwater", ["largemouth_bass", "smallmouth_bass"]],
+    [
+      "soft_jerkbait",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "blade_bait",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    ],
+    ["buzzbait", ["largemouth_bass", "smallmouth_bass", "northern_pike"]],
   ]);
 
   for (const [id, expectedSpecies] of expectedSpeciesById) {
     const lure = LURE_ARCHETYPES_V4.find((candidate) => candidate.id === id);
     assert(lure, `expected ${id} in lure catalog`);
-    assert(
-      !lure.species_allowed.includes("trout"),
-      `${id} should not be trout eligible`,
-    );
     assertEquals(lure.species_allowed, expectedSpecies);
   }
+
+  const broadFlySpecies = new Map<FlyArchetypeIdV4, readonly string[]>([
+    [
+      "clouser_minnow",
+      ["smallmouth_bass", "largemouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "articulated_baitfish_streamer",
+      ["smallmouth_bass", "largemouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "woolly_bugger",
+      ["smallmouth_bass", "largemouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "rabbit_strip_leech",
+      ["smallmouth_bass", "largemouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "jighead_marabou_leech",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "lead_eye_leech",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "feather_jig_leech",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "unweighted_baitfish_streamer",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "baitfish_slider_fly",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "popper_fly",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    ],
+    [
+      "deer_hair_slider",
+      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+    ],
+  ]);
+
+  for (const [id, expectedSpecies] of broadFlySpecies) {
+    const flyProfile = FLY_ARCHETYPES_V4.find((candidate) =>
+      candidate.id === id
+    );
+    assert(flyProfile, `expected ${id} in fly catalog`);
+    assertEquals(flyProfile.species_allowed, expectedSpecies);
+  }
+
+  const popper = FLY_ARCHETYPES_V4.find((candidate) =>
+    candidate.id === "popper_fly"
+  );
+  assert(popper, "expected popper_fly in fly catalog");
+  assert(popper.goal_tags.includes("reliable_action"));
+  assert(popper.goal_tags.includes("versatile_search"));
+  assert(!popper.goal_tags.includes("high_risk_high_reward"));
 });
 
 Deno.test("Pass 5: forage and clarity tags are valid and species-compatible", () => {
@@ -315,6 +499,8 @@ Deno.test("Pass 1: catalog round-trip via lure() / fly() preserves presentation_
       secondary_pace: src.secondary_pace,
       forage_tags: src.forage_tags,
       clarity_strengths: src.clarity_strengths,
+      condition_tags: src.condition_tags,
+      goal_tags: src.goal_tags,
       species_allowed: src.species_allowed,
       water_types_allowed: [...src.water_types_allowed],
       how_to_fish_variants: src.how_to_fish_variants,
@@ -332,6 +518,8 @@ Deno.test("Pass 1: catalog round-trip via lure() / fly() preserves presentation_
       secondary_pace: src.secondary_pace,
       forage_tags: src.forage_tags,
       clarity_strengths: src.clarity_strengths,
+      condition_tags: src.condition_tags,
+      goal_tags: src.goal_tags,
       species_allowed: src.species_allowed,
       water_types_allowed: [...src.water_types_allowed],
       how_to_fish_variants: src.how_to_fish_variants,
@@ -387,6 +575,8 @@ Deno.test("valid surface flies from catalog reconstruct via factory", () => {
       secondary_pace: src.secondary_pace,
       forage_tags: src.forage_tags,
       clarity_strengths: src.clarity_strengths,
+      condition_tags: src.condition_tags,
+      goal_tags: src.goal_tags,
       species_allowed: src.species_allowed,
       water_types_allowed: [...src.water_types_allowed],
       how_to_fish_variants: src.how_to_fish_variants,
@@ -408,6 +598,8 @@ Deno.test("valid non-surface fly reconstruct via factory (clouser_minnow)", () =
     secondary_pace: src.secondary_pace,
     forage_tags: src.forage_tags,
     clarity_strengths: src.clarity_strengths,
+    condition_tags: src.condition_tags,
+    goal_tags: src.goal_tags,
     species_allowed: src.species_allowed,
     water_types_allowed: [...src.water_types_allowed],
     how_to_fish_variants: src.how_to_fish_variants,
@@ -429,6 +621,8 @@ Deno.test("G7: invalid popper species on synthetic input throws", () => {
         secondary_pace: "slow",
         forage_tags: ["surface_prey", "bluegill_perch"],
         clarity_strengths: ["clear", "stained"],
+        condition_tags: ["calm_surface"],
+        goal_tags: ["reliable_action"],
         species_allowed: [
           "largemouth_bass",
           "invalid_species" as "largemouth_bass",
@@ -453,6 +647,8 @@ Deno.test("representative lure reconstruct via factory (ned_rig)", () => {
     secondary_pace: src.secondary_pace,
     forage_tags: src.forage_tags,
     clarity_strengths: src.clarity_strengths,
+    condition_tags: src.condition_tags,
+    goal_tags: src.goal_tags,
     species_allowed: src.species_allowed,
     water_types_allowed: [...src.water_types_allowed],
     how_to_fish_variants: src.how_to_fish_variants,

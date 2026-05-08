@@ -1,8 +1,7 @@
 /**
  * §17.4 — Regenerate v4 seasonal TS from `data/seasonal-matrix/*.csv` and diff committed output.
  *
- * Validates the **CSV → generated TypeScript** pipeline only. It does not prove parity with
- * legacy v3 embedded seasonal tables used by the live edge recommender.
+ * Validates the **CSV -> generated TypeScript** pipeline consumed by daily-picks.
  */
 const ROOT = "supabase/functions/_shared/recommenderEngine/v4/seasonal/generated";
 const SPECIES_FILES = [

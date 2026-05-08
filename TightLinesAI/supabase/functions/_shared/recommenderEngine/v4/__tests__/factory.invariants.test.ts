@@ -12,6 +12,8 @@ const baseLure = {
   primary_pace: "slow" as const,
   forage_tags: ["leech_worm"] as const,
   clarity_strengths: ["clear", "stained"] as const,
+  condition_tags: ["clear_subtle", "cold_slow"] as const,
+  goal_tags: ["reliable_action"] as const,
   how_to_fish_variants: ["a", "b", "c"] as const,
 };
 
@@ -26,6 +28,8 @@ const baseFly = {
   primary_pace: "slow" as const,
   forage_tags: ["leech_worm"] as const,
   clarity_strengths: ["clear", "stained", "dirty"] as const,
+  condition_tags: ["cold_slow", "current_swing"] as const,
+  goal_tags: ["reliable_action"] as const,
   how_to_fish_variants: ["a", "b", "c"] as const,
 };
 
@@ -108,6 +112,80 @@ Deno.test("lure() throws on invalid secondary pace (Pass 5)", () => {
     () => lure({ ...baseLure, secondary_pace: "pause" as "medium" }),
     Error,
     "invalid secondary_pace",
+  );
+});
+
+Deno.test("lure() throws on missing condition_tags (Pass 4A)", () => {
+  assertThrows(
+    () =>
+      lure({
+        ...baseLure,
+        condition_tags: undefined as unknown as typeof baseLure.condition_tags,
+      }),
+    Error,
+    "condition_tags",
+  );
+});
+
+Deno.test("lure() throws on duplicate condition_tags (Pass 4A)", () => {
+  assertThrows(
+    () =>
+      lure({
+        ...baseLure,
+        condition_tags: ["clear_subtle", "clear_subtle"],
+      }),
+    Error,
+    "duplicate condition_tags",
+  );
+});
+
+Deno.test("lure() throws on invalid condition_tags value (Pass 4A)", () => {
+  assertThrows(
+    () =>
+      lure({
+        ...baseLure,
+        condition_tags: [
+          "made_up_weather",
+        ] as unknown as typeof baseLure.condition_tags,
+      }),
+    Error,
+    "invalid condition_tags",
+  );
+});
+
+Deno.test("fly() throws on missing goal_tags (Pass 4A)", () => {
+  assertThrows(
+    () =>
+      fly({
+        ...baseFly,
+        goal_tags: undefined as unknown as typeof baseFly.goal_tags,
+      }),
+    Error,
+    "goal_tags",
+  );
+});
+
+Deno.test("fly() throws on duplicate goal_tags (Pass 4A)", () => {
+  assertThrows(
+    () =>
+      fly({
+        ...baseFly,
+        goal_tags: ["reliable_action", "reliable_action"],
+      }),
+    Error,
+    "duplicate goal_tags",
+  );
+});
+
+Deno.test("fly() throws on invalid goal_tags value (Pass 4A)", () => {
+  assertThrows(
+    () =>
+      fly({
+        ...baseFly,
+        goal_tags: ["numbers_only"] as unknown as typeof baseFly.goal_tags,
+      }),
+    Error,
+    "invalid goal_tags",
   );
 });
 

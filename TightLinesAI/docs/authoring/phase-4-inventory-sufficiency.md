@@ -275,11 +275,11 @@ was entirely binding re-authoring:
 
 Phase 5 engine implementation must explicitly handle:
 
-1. **Fewer than 3 picks are a legal output.** The existing
-   `RecommenderV4EngineError: slot N could not be filled` behaviour
-   needs to degrade gracefully — probably to a truncated
-   `lure_recommendations` / `fly_recommendations` array with a
-   diagnostic marking honest thinness instead of a thrown error.
+1. **Fewer than 3 picks are a legal output in the superseded design.**
+   The historical `RecommenderV4EngineError: slot N could not be
+   filled` behaviour needed graceful degradation with diagnostics rather
+   than a thrown error. The live daily-picks 2x2 path now owns the active
+   output shape.
 2. **Integration tests §14.A and §14.C encode inventory realities.**
    They should assert "≤3 picks + diagnostic" instead of
    `assertEquals(picks.length, 3)` once Phase 5 decides the shape.

@@ -14,7 +14,7 @@ export const SYNTHETIC_HOWS_FIXTURE_TAG = "synthetic_hows_fixture_id" as const;
 /** Florida lake pin + April calendar row (matches seasonal matrix month). */
 export function syntheticLmbFloridaLakeAprilBase(): Pick<
   RecommenderRequest,
-  "location" | "species" | "context" | "water_clarity"
+  "location" | "species" | "context" | "water_clarity" | "recommendation_goal"
 > {
   return {
     location: {
@@ -29,6 +29,7 @@ export function syntheticLmbFloridaLakeAprilBase(): Pick<
     species: "largemouth_bass",
     context: "freshwater_lake_pond",
     water_clarity: "stained",
+    recommendation_goal: "all_purpose",
   };
 }
 
@@ -49,7 +50,10 @@ export function syntheticHowsEnvLmbLakeSuppressive(): Record<string, unknown> {
 }
 
 /** Target band: neutral (~50, used as “middling” anchor in tests). */
-export function syntheticHowsEnvLmbLakeNeutralMiddling(): Record<string, unknown> {
+export function syntheticHowsEnvLmbLakeNeutralMiddling(): Record<
+  string,
+  unknown
+> {
   return {
     [SYNTHETIC_HOWS_FIXTURE_TAG]: "lmb_lake_fl_apr_neutral_middling_v1",
     daily_mean_air_temp_f: 66,

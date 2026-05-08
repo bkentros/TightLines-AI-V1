@@ -2,7 +2,7 @@
  * §17.4 — Read `data/seasonal-matrix/*.csv`, validate §15.1, emit v4/generated/*.ts
  *
  * CSVs are the preferred seasonal authoring source (`data/seasonal-matrix/schema.md`).
- * Live edge recommender still uses legacy v3 embedded tables until engine cutover.
+ * The live daily-picks recommender consumes the generated v4 seasonal rows.
  *
  * Usage: deno run -A scripts/generate-seasonal-rows-v4.ts [--out-dir <path>]
  */

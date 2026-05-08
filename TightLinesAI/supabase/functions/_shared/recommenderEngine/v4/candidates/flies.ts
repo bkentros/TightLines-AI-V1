@@ -8,7 +8,8 @@ const R = "freshwater_river" as const satisfies EngineContext;
 /**
  * Full warmwater/trout fly catalog — Appendix A §22.2 (authoritative) plus
  * targeted post-cutover additions for mainstream exact-fit breadth.
- * `display_name` and `how_to_fish_variants` from v3 where the id existed.
+ * `display_name` and `how_to_fish_variants` were carried from the legacy catalog
+ * where the id existed.
  */
 export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   fly({
@@ -21,6 +22,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["current_swing", "open_water_search"],
+    goal_tags: ["reliable_action", "versatile_search"],
     species_allowed: [
       "smallmouth_bass",
       "largemouth_bass",
@@ -43,6 +46,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["open_water_search"],
+    goal_tags: ["versatile_search"],
     species_allowed: ["smallmouth_bass", "largemouth_bass", "northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -61,6 +66,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["current_swing", "open_water_search"],
+    goal_tags: ["versatile_search"],
     species_allowed: ["smallmouth_bass", "northern_pike", "trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -79,6 +86,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear"],
+    condition_tags: ["clear_subtle", "current_swing"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["smallmouth_bass", "trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -97,6 +106,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["open_water_search", "runoff_streamer"],
+    goal_tags: ["versatile_search", "big_fish_upside"],
     species_allowed: [
       "smallmouth_bass",
       "largemouth_bass",
@@ -120,6 +131,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["runoff_streamer", "cover_ambush"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: [
       "smallmouth_bass",
       "largemouth_bass",
@@ -142,6 +155,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["open_water_search"],
+    goal_tags: ["versatile_search", "big_fish_upside"],
     species_allowed: [
       "smallmouth_bass",
       "largemouth_bass",
@@ -165,6 +180,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["cold_slow", "current_swing"],
+    goal_tags: ["reliable_action"],
     species_allowed: [
       "smallmouth_bass",
       "largemouth_bass",
@@ -188,6 +205,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["cold_slow", "cover_ambush"],
+    goal_tags: ["reliable_action", "big_fish_upside"],
     species_allowed: [
       "smallmouth_bass",
       "largemouth_bass",
@@ -211,6 +230,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["cold_slow", "current_swing"],
+    goal_tags: ["reliable_action"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -233,6 +254,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["cold_slow", "clear_subtle"],
+    goal_tags: ["reliable_action"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -256,6 +279,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["warming_search", "current_swing"],
+    goal_tags: ["versatile_search"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -278,6 +303,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["cold_slow", "clear_subtle"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["trout"],
     water_types_allowed: [L],
     how_to_fish_variants: [
@@ -296,6 +323,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["open_water_search", "current_swing"],
+    goal_tags: ["versatile_search"],
     species_allowed: ["smallmouth_bass", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -313,6 +342,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["current_swing", "cold_slow", "runoff_streamer"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["smallmouth_bass", "trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -331,6 +362,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["baitfish", "crawfish"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["runoff_streamer", "current_swing"],
+    goal_tags: ["big_fish_upside"],
     species_allowed: ["smallmouth_bass", "trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -348,6 +381,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["current_swing", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["smallmouth_bass", "trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -365,6 +400,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["current_swing", "clear_subtle"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["smallmouth_bass", "trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -383,6 +420,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["cover_ambush", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -401,6 +440,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["cover_ambush", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -418,6 +459,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["current_swing", "open_water_search"],
+    goal_tags: ["versatile_search"],
     species_allowed: ["smallmouth_bass", "trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -436,6 +479,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["wind_reaction", "cover_ambush", "cold_slow"],
+    goal_tags: ["big_fish_upside"],
     species_allowed: ["northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -454,6 +499,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["wind_reaction", "cover_ambush"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: ["northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -472,6 +519,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "open_water_search"],
+    goal_tags: ["versatile_search"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -495,6 +544,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["open_water_search", "warming_search"],
+    goal_tags: ["versatile_search"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -518,6 +569,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["surface_prey", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["calm_surface", "low_light_surface"],
+    goal_tags: ["reliable_action", "versatile_search"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -541,6 +594,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["surface_prey", "baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["calm_surface", "low_light_surface"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -564,6 +619,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["surface_prey", "baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["calm_surface", "low_light_surface"],
+    goal_tags: ["reliable_action", "versatile_search"],
     species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -583,6 +640,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     forage_tags: ["surface_prey"],
     /** Stained/dirty are peak realism over cover; clear stays eligible — pads/vegetation break sightlines like stain does open water. */
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["calm_surface", "low_light_surface", "cover_ambush"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: ["largemouth_bass", "northern_pike"],
     water_types_allowed: [L],
     how_to_fish_variants: [
@@ -601,6 +660,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["surface_prey"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["calm_surface", "low_light_surface"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: ["trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -619,6 +680,8 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["wind_reaction", "open_water_search"],
+    goal_tags: ["big_fish_upside", "versatile_search"],
     species_allowed: ["northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [

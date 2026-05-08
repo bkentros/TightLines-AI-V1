@@ -6,10 +6,11 @@ const L = "freshwater_lake_pond" as const satisfies EngineContext;
 const R = "freshwater_river" as const satisfies EngineContext;
 
 /**
- * Full 37-lure catalog — values per Appendix A §22.1 (authoritative),
+ * Full lure catalog — values per Appendix A §22.1 (authoritative),
  * plus a focused trout river surface plug added during recommender QA tuning.
- * `display_name` and `how_to_fish_variants` carried from v3 where the id existed;
- * the three new pike archetypes use how_to_fish text adapted from v3 `inline_spinner`,
+ * `display_name` and `how_to_fish_variants` were carried from the legacy catalog
+ * where the id existed; the three new pike archetypes use how_to_fish text adapted
+ * from legacy `inline_spinner`,
  * `walking_topwater`, and `football_jig` respectively (Appendix does not specify copy).
  */
 export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
@@ -23,7 +24,9 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
+    condition_tags: ["clear_subtle", "heat_finesse"],
+    goal_tags: ["reliable_action", "versatile_search"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Pitch or skip it tight to cover and let it glide on a slack line — most hits come on the slow shimmying fall through the upper column; reset after each fall and fish the next pocket.",
@@ -40,6 +43,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["leech_worm", "baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L],
     how_to_fish_variants: [
@@ -57,6 +62,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["clear_subtle", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -74,6 +81,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["leech_worm"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "heat_finesse"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -91,6 +100,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "heat_finesse"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -108,6 +119,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["leech_worm", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["clear_subtle", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -126,6 +139,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["crawfish", "baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -147,6 +162,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["cover_ambush", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -165,6 +182,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["cold_slow", "cover_ambush"],
+    goal_tags: ["reliable_action", "big_fish_upside"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L],
     how_to_fish_variants: [
@@ -182,6 +201,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["crawfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["cover_ambush", "dirty_vibration"],
+    goal_tags: ["big_fish_upside"],
     species_allowed: ["largemouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -199,6 +220,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["crawfish", "leech_worm"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -217,6 +240,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["bluegill_perch", "baitfish"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["cover_ambush", "warming_search"],
+    goal_tags: ["versatile_search"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -235,6 +260,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["baitfish", "leech_worm"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "current_swing", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: ["smallmouth_bass", "trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -253,6 +280,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["open_water_search", "current_swing"],
+    goal_tags: ["reliable_action", "versatile_search"],
     species_allowed: ["smallmouth_bass", "trout", "northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -271,7 +300,14 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
+    condition_tags: ["wind_reaction", "dirty_vibration", "cover_ambush"],
+    goal_tags: ["versatile_search"],
+    species_allowed: [
+      "largemouth_bass",
+      "smallmouth_bass",
+      "northern_pike",
+      "trout",
+    ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Slow-roll it along the bottom edge of cover at a steady pace, keeping the blades just ticking; bump any piece of structure and let it rise.",
@@ -289,7 +325,13 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "crawfish"],
     clarity_strengths: ["stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    condition_tags: ["wind_reaction", "dirty_vibration", "cover_ambush"],
+    goal_tags: ["versatile_search", "big_fish_upside"],
+    species_allowed: [
+      "largemouth_bass",
+      "smallmouth_bass",
+      "northern_pike",
+    ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Yo-yo the blade: snap the rod so the head kicks and vibrates, then let it pendulum back with a controlled semi-slack fall.",
@@ -307,12 +349,38 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    condition_tags: ["open_water_search", "warming_search"],
+    goal_tags: ["versatile_search"],
+    species_allowed: [
+      "largemouth_bass",
+      "smallmouth_bass",
+      "northern_pike",
+    ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Reel at a steady pace with the rod low so the tail thumps consistently; speed up slightly over bait schools or slow down after a follow.",
       "Swim it at the speed where you feel a steady kick through the rod; use rod angle to change depth without changing retrieve speed.",
       "Slow-roll near the bottom on a consistent retrieve; the paddle thumps best just barely above the substrate, so keep the rod tip down and the pace even.",
+    ],
+  }),
+  lure({
+    id: "glidebait",
+    display_name: "Glide Bait",
+    family_group: "hard_swimbait",
+    presentation_group: "glidebait",
+    column: "mid",
+    primary_pace: "slow",
+    secondary_pace: "medium",
+    forage_tags: ["baitfish", "bluegill_perch"],
+    clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "open_water_search", "cover_ambush"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    water_types_allowed: [L],
+    how_to_fish_variants: [
+      "Retrieve slowly enough for a wide S-turn, then pause beside cover or a depth change so the bait glides and hangs before the next handle turn.",
+      "Use a slow reel-pause cadence: one or two handle turns to make the bait kick sideways, then a full stop so it stalls in the mid column.",
+      "Work it around points, grass edges, docks, or isolated cover with slow sweeps and pauses; keep the bait visible and deliberate instead of burning it back.",
     ],
   }),
   lure({
@@ -325,6 +393,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "open_water_search"],
+    goal_tags: ["versatile_search"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -347,6 +417,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "cold_slow"],
+    goal_tags: ["reliable_action", "versatile_search"],
     species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -365,11 +437,9 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
-    species_allowed: [
-      "largemouth_bass",
-      "smallmouth_bass",
-      "northern_pike",
-    ],
+    condition_tags: ["cover_ambush", "dirty_vibration", "wind_reaction"],
+    goal_tags: ["versatile_search"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Bang it directly into wood, rock, or stumps so the squared bill deflects the bait sideways — reaction strikes happen on that ricochet.",
@@ -386,6 +456,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["clear_subtle", "cold_slow"],
+    goal_tags: ["reliable_action"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -407,6 +479,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["open_water_search", "warming_search"],
+    goal_tags: ["versatile_search"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -424,6 +498,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["open_water_search", "cold_slow"],
+    goal_tags: ["versatile_search"],
     species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     water_types_allowed: [L],
     how_to_fish_variants: [
@@ -442,6 +518,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "crawfish"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["wind_reaction", "warming_search", "open_water_search"],
+    goal_tags: ["versatile_search"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -464,6 +542,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["cold_slow", "open_water_search"],
+    goal_tags: ["reliable_action"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -486,6 +566,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["open_water_search", "wind_reaction"],
+    goal_tags: ["versatile_search"],
     species_allowed: ["northern_pike", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -504,6 +586,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["surface_prey", "baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["calm_surface", "low_light_surface"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: ["trout"],
     water_types_allowed: [R],
     how_to_fish_variants: [
@@ -521,7 +605,9 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["surface_prey", "baitfish"],
     clarity_strengths: ["clear", "stained"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    condition_tags: ["calm_surface", "low_light_surface", "open_water_search"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Sweep the rod tip side to side in short, rhythmic twitches while reeling in just enough slack — the bait should walk in a steady side-to-side waddle.",
@@ -539,6 +625,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["surface_prey"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["calm_surface", "low_light_surface"],
+    goal_tags: ["reliable_action", "high_risk_high_reward"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -557,6 +645,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["surface_prey", "baitfish"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["low_light_surface", "wind_reaction", "dirty_vibration"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -574,6 +664,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "medium",
     forage_tags: ["surface_prey"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["calm_surface", "low_light_surface"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -593,6 +685,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     forage_tags: ["surface_prey"],
     /** Same rationale as `frog_fly`: hollow frogs shine in stain, but clear vegetated lakes are honest frog water. */
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["calm_surface", "low_light_surface", "cover_ambush"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: ["largemouth_bass", "northern_pike"],
     water_types_allowed: [L],
     how_to_fish_variants: [
@@ -611,6 +705,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["open_water_search", "cover_ambush"],
+    goal_tags: ["big_fish_upside"],
     species_allowed: ["northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -629,6 +725,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["wind_reaction", "open_water_search"],
+    goal_tags: ["big_fish_upside"],
     species_allowed: ["northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -647,6 +745,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["wind_reaction", "open_water_search"],
+    goal_tags: ["big_fish_upside", "versatile_search"],
     species_allowed: ["northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -665,6 +765,8 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "slow",
     forage_tags: ["surface_prey", "baitfish"],
     clarity_strengths: ["clear", "stained"],
+    condition_tags: ["calm_surface", "low_light_surface"],
+    goal_tags: ["big_fish_upside", "high_risk_high_reward"],
     species_allowed: ["northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -683,12 +785,34 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "medium",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
+    condition_tags: ["cold_slow", "dirty_vibration"],
+    goal_tags: ["big_fish_upside", "reliable_action"],
     species_allowed: ["northern_pike"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Drag it along hard bottom and ledges so the flat head kicks and rocks; lift only slightly on the pull so the trailer stays near the substrate.",
       "Work it with slow rod sweeps across rocky bottom, letting it tick and grind the structure rather than hop above it.",
       "Crawl it across rock, gravel, or shell beds with steady low lifts and long pauses — the football head keeps it upright and loud the whole time.",
+    ],
+  }),
+  lure({
+    id: "large_pike_tube",
+    display_name: "Large Pike Tube",
+    family_group: "pike_tube",
+    presentation_group: "pike_tube",
+    column: "bottom",
+    primary_pace: "slow",
+    secondary_pace: "medium",
+    forage_tags: ["baitfish", "bluegill_perch"],
+    clarity_strengths: ["clear", "stained", "dirty"],
+    condition_tags: ["cold_slow", "current_swing", "cover_ambush"],
+    goal_tags: ["big_fish_upside", "reliable_action"],
+    species_allowed: ["northern_pike"],
+    water_types_allowed: [L, R],
+    how_to_fish_variants: [
+      "Fish a large tube on a stout jig head with slow bottom contact; drag it through current seams and pause whenever it ticks rock or wood.",
+      "Use short lifts and controlled drops so the tube glides and flares near bottom; keep the bait heavy enough to stay down without sweeping it away.",
+      "Crawl it along deep bends, current breaks, or sparse cover with long pauses; the big hollow body should look like an easy baitfish-sized meal, not a bass finesse bait.",
     ],
   }),
 ];

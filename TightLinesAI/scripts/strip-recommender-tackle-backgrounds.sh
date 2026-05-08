@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 # Strip solid / soft backgrounds from recommender tackle PNGs using rembg (local ML).
+# Run ONLY after you've reviewed the opaque PNGs in assets/images/lures/ and flies/
+# (generation writes there first; this replaces each file in place with RGBA).
 # Install: pip install rembg  (or: pipx install rembg)
 # Usage from TightLinesAI/: bash scripts/strip-recommender-tackle-backgrounds.sh
 set -euo pipefail

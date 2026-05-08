@@ -3,10 +3,7 @@ import {
   buildRecommenderEngineRequest,
   handleRecommenderRequest,
 } from "./index.ts";
-import { RECOMMENDER_DAILY_SESSION_ENGINE_VERSION } from "../_shared/recommenderEngine/contracts/output.ts";
-import { locationLocalMidnightIso } from "../_shared/recommenderEngine/runRecommenderRebuildSurface.ts";
-import { analyzeRecommenderConditions } from "../_shared/recommenderEngine/sharedAnalysis.ts";
-import { computeRecommenderRebuild } from "../_shared/recommenderEngine/rebuild/runRecommenderRebuild.ts";
+import { DAILY_PICKS_SESSION_ENGINE_VERSION } from "./dailyPicksSession.ts";
 
 function makeRequest(
   body: Record<string, unknown>,
@@ -113,13 +110,19 @@ function floridaLargemouthWindBody(
   });
 }
 
-function recommendationIds(json: {
-  lure_recommendations: Array<{ id: string }>;
-  fly_recommendations: Array<{ id: string }>;
+function previewHeaders(): HeadersInit {
+  return { "x-recommender-preview": "daily_picks_2x2" };
+}
+
+function previewPickIds(json: {
+  diagnostics: {
+    selected_lure_ids: string[];
+    selected_fly_ids: string[];
+  };
 }): string[] {
   return [
-    ...json.lure_recommendations.map((pick) => `lure:${pick.id}`),
-    ...json.fly_recommendations.map((pick) => `fly:${pick.id}`),
+    ...json.diagnostics.selected_lure_ids.map((id) => `lure:${id}`),
+    ...json.diagnostics.selected_fly_ids.map((id) => `fly:${id}`),
   ];
 }
 
@@ -128,13 +131,11 @@ function mockClient(options: {
   authError?: unknown;
   subscriptionTier?: string | null;
   dailySessions?: Map<string, Record<string, unknown>>;
-  historyWrites?: unknown[][];
   firstCreateConflict?: boolean;
   refreshClaimConflict?: boolean;
 }) {
   const dailySessions = options.dailySessions ??
     new Map<string, Record<string, unknown>>();
-  const historyWrites = options.historyWrites ?? [];
   let firstCreateConflictUsed = false;
   let refreshClaimConflictUsed = false;
   const sessionKeyColumns = [
@@ -147,6 +148,7 @@ function mockClient(options: {
     "region_key",
     "water_type",
     "water_clarity",
+    "recommendation_goal",
     "engine_version",
   ];
   const keyForRow = (row: Record<string, unknown>) =>
@@ -171,30 +173,6 @@ function mockClient(options: {
               }),
             }),
           }),
-        };
-      }
-
-      if (table === "recommender_recent_history") {
-        return {
-          select: () => ({
-            eq: () => ({
-              eq: () => ({
-                eq: () => ({
-                  eq: () => ({
-                    lt: () => ({
-                      gte: () => ({
-                        order: async () => ({ data: [], error: null }),
-                      }),
-                    }),
-                  }),
-                }),
-              }),
-            }),
-          }),
-          upsert: async (rows: unknown[]) => {
-            historyWrites.push(rows);
-            return { error: null };
-          },
         };
       }
 
@@ -338,9 +316,10 @@ Deno.test("buildRecommenderEngineRequest keeps refined shared region routing", (
   assertEquals(built.shared_req.region_key, "mountain_alpine");
   assertEquals(built.engineReq.location.local_timezone, "America/Denver");
   assertEquals(built.engineReq.species, "smallmouth_bass");
+  assertEquals(built.engineReq.recommendation_goal, "all_purpose");
 });
 
-Deno.test("buildRecommenderEngineRequest preserves hourly wind inputs for the rebuild engine", () => {
+Deno.test("buildRecommenderEngineRequest preserves hourly wind inputs for daily-picks", () => {
   const rawHourlyWind = hourlyWindForLocalDate("2026-07-18", "-04:00", 18, 3);
   const built = buildRecommenderEngineRequest(floridaLargemouthWindBody(18));
 
@@ -359,28 +338,6 @@ Deno.test("buildRecommenderEngineRequest honors target_date snapshot semantics",
 
   assertEquals(built.local_date, "2026-07-11");
   assertEquals(built.engineReq.location.local_date, "2026-07-11");
-});
-
-Deno.test("production request path blocks seasonal surface on high daylight wind", () => {
-  const built = buildRecommenderEngineRequest(floridaLargemouthWindBody(18));
-  const analysis = analyzeRecommenderConditions(built.engineReq);
-  const eng = computeRecommenderRebuild(built.engineReq, analysis);
-
-  assert(eng.dailyTacticalProfile.daylightWindMph > 14);
-  assertEquals(eng.dailyTacticalProfile.windBand, "windy");
-  assertEquals(eng.dailyTacticalProfile.surfaceBlocked, true);
-  assertEquals(eng.dailyTacticalProfile.surfaceAllowedToday, false);
-});
-
-Deno.test("production request path keeps seasonal surface open on low daylight wind", () => {
-  const built = buildRecommenderEngineRequest(floridaLargemouthWindBody(5));
-  const analysis = analyzeRecommenderConditions(built.engineReq);
-  const eng = computeRecommenderRebuild(built.engineReq, analysis);
-
-  assertEquals(eng.dailyTacticalProfile.daylightWindMph, 5);
-  assertEquals(eng.dailyTacticalProfile.windBand, "calm");
-  assertEquals(eng.dailyTacticalProfile.surfaceBlocked, false);
-  assertEquals(eng.dailyTacticalProfile.surfaceAllowedToday, true);
 });
 
 Deno.test("buildRecommenderEngineRequest uses calendar-day profiling even without target_date", () => {
@@ -421,15 +378,6 @@ Deno.test("buildRecommenderEngineRequest uses calendar-day profiling even withou
   }));
 
   assertEquals(built.shared_req.environment.current_air_temp_f, 64);
-});
-
-Deno.test("locationLocalMidnightIso resolves the next local midnight", () => {
-  const iso = locationLocalMidnightIso(
-    "America/New_York",
-    new Date("2026-07-11T16:00:00.000Z"),
-  );
-
-  assertEquals(iso, "2026-07-12T04:00:00.000Z");
 });
 
 Deno.test("recommender handler rejects missing auth before doing work", async () => {
@@ -474,7 +422,7 @@ Deno.test("recommender handler rejects invalid state-species-context combos", as
   assertEquals(json.error, "species_not_available");
 });
 
-Deno.test("recommender handler rejects unsupported v3 species even if globally valid", async () => {
+Deno.test("recommender handler rejects unsupported daily-picks species even if globally valid", async () => {
   const response = await handleRecommenderRequest(
     makeRequest(
       validBody({
@@ -494,7 +442,25 @@ Deno.test("recommender handler rejects unsupported v3 species even if globally v
   assertEquals(json.error, "unsupported_recommender_scope");
 });
 
-Deno.test("recommender handler returns the public surface contract for valid requests", async () => {
+Deno.test("recommender handler rejects invalid recommendation_goal", async () => {
+  const response = await handleRecommenderRequest(
+    makeRequest(validBody({ recommendation_goal: "numbers_only" })),
+    {
+      createAdminClient: () =>
+        mockClient({ userId: "user-1", subscriptionTier: "pro" }) as never,
+    },
+  );
+
+  assertEquals(response.status, 400);
+  const json = await response.json();
+  assertEquals(json.error, "invalid_goal");
+  assertEquals(
+    json.message,
+    "Invalid recommendation_goal. Must be: all_purpose | big_fish",
+  );
+});
+
+Deno.test("recommender handler returns daily-picks 2x2 by default for valid requests", async () => {
   const response = await handleRecommenderRequest(makeRequest(validBody()), {
     createAdminClient: () =>
       mockClient({ userId: "user-1", subscriptionTier: "pro" }) as never,
@@ -502,25 +468,21 @@ Deno.test("recommender handler returns the public surface contract for valid req
 
   assertEquals(response.status, 200);
   const json = await response.json();
-  assertEquals(json.feature, "recommender_rebuild");
+  assertEquals(json.feature, "recommender_daily_picks_2x2_future");
+  assertEquals(json.engine_version, "daily_picks_2x2_response_v1");
   assertEquals(json.species, "smallmouth_bass");
   assertEquals(json.context, "freshwater_river");
-  assert(
-    json.lure_recommendations.length >= 0 &&
-      json.lure_recommendations.length <= 3,
-  );
-  assert(
-    json.fly_recommendations.length >= 0 &&
-      json.fly_recommendations.length <= 3,
-  );
-  assert(
-    json.lure_recommendations.length + json.fly_recommendations.length >= 1,
-  );
-  assertEquals(
-    typeof json.summary.daily_tactical_preference.posture_band,
-    "string",
-  );
+  assertEquals(json.recommendation_goal, "all_purpose");
+  assertEquals(Object.keys(json.picks).sort(), [
+    "fly_of_the_day",
+    "honorable_fly",
+    "honorable_lure",
+    "lure_of_the_day",
+  ]);
+  assertEquals("lure_recommendations" in json, false);
+  assertEquals("fly_recommendations" in json, false);
   assertEquals(json.recommendation_session.variant, "A");
+  assertEquals(json.recommendation_session.available_variants, ["A"]);
   assertEquals(json.recommendation_session.refreshes_remaining, 1);
   assertEquals(json.recommendation_session.can_refresh, true);
   assertEquals(
@@ -534,9 +496,254 @@ Deno.test("recommender handler returns the public surface contract for valid req
   assertEquals(expires > generated, true);
 });
 
-Deno.test("recommender daily session: first request creates variant A with one refresh remaining", async () => {
+Deno.test("recommender preview gate returns future daily-picks 2x2 response", async () => {
+  const response = await handleRecommenderRequest(
+    makeRequest(floridaLargemouthWindBody(5), previewHeaders()),
+    {
+      createAdminClient: () =>
+        mockClient({
+          userId: "00000000-0000-0000-0000-000000000101",
+          subscriptionTier: "pro",
+        }) as never,
+    },
+  );
+
+  assertEquals(response.status, 200);
+  const json = await response.json();
+  assertEquals(json.feature, "recommender_daily_picks_2x2_future");
+  assertEquals(Object.keys(json.picks).sort(), [
+    "fly_of_the_day",
+    "honorable_fly",
+    "honorable_lure",
+    "lure_of_the_day",
+  ]);
+  assertEquals("lure_recommendations" in json, false);
+  assertEquals("fly_recommendations" in json, false);
+  assertEquals(json.recommendation_session.variant, "A");
+  assertEquals(json.recommendation_session.available_variants, ["A"]);
+  assertEquals(json.recommendation_session.refreshes_remaining, 1);
+});
+
+Deno.test("recommender preview daily-picks session: repeat request returns same stored A", async () => {
   const dailySessions = new Map<string, Record<string, unknown>>();
-  const historyWrites: unknown[][] = [];
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000102",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+
+  const first = await handleRecommenderRequest(
+    makeRequest(floridaLargemouthWindBody(5), previewHeaders()),
+    { createAdminClient: () => client },
+  );
+  const second = await handleRecommenderRequest(
+    makeRequest(floridaLargemouthWindBody(5), previewHeaders()),
+    { createAdminClient: () => client },
+  );
+
+  const a = await first.json();
+  const again = await second.json();
+  assertEquals(again.recommendation_session.variant, "A");
+  assertEquals(previewPickIds(again), previewPickIds(a));
+  assertEquals(again.generated_at, a.generated_at);
+  assertEquals(dailySessions.size, 1);
+});
+
+Deno.test("recommender preview daily-picks session: refresh creates B with avoid IDs and locks", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000103",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+
+  const first = await handleRecommenderRequest(
+    makeRequest(floridaLargemouthWindBody(5), previewHeaders()),
+    { createAdminClient: () => client },
+  );
+  const refreshed = await handleRecommenderRequest(
+    makeRequest(
+      { ...floridaLargemouthWindBody(5), refresh_requested: true },
+      previewHeaders(),
+    ),
+    { createAdminClient: () => client },
+  );
+
+  const a = await first.json();
+  const b = await refreshed.json();
+  assertEquals(a.recommendation_session.variant, "A");
+  assertEquals(b.recommendation_session.variant, "B");
+  assertEquals(b.recommendation_session.available_variants, ["A", "B"]);
+  assertEquals(b.recommendation_session.can_refresh, false);
+  assertEquals(b.recommendation_session.refreshes_remaining, 0);
+  assertEquals(
+    b.diagnostics.avoid_lure_ids_applied,
+    a.diagnostics.selected_lure_ids,
+  );
+  assertEquals(
+    b.diagnostics.avoid_fly_ids_applied,
+    a.diagnostics.selected_fly_ids,
+  );
+  assertEquals([...dailySessions.values()][0].active_variant, "B");
+});
+
+Deno.test("recommender preview daily-picks session: repeated refresh returns stored B", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000104",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+
+  await handleRecommenderRequest(
+    makeRequest(floridaLargemouthWindBody(5), previewHeaders()),
+    { createAdminClient: () => client },
+  );
+  const firstRefresh = await handleRecommenderRequest(
+    makeRequest(
+      { ...floridaLargemouthWindBody(5), refresh_requested: true },
+      previewHeaders(),
+    ),
+    { createAdminClient: () => client },
+  );
+  const secondRefresh = await handleRecommenderRequest(
+    makeRequest(
+      { ...floridaLargemouthWindBody(5), refresh_requested: true },
+      previewHeaders(),
+    ),
+    { createAdminClient: () => client },
+  );
+
+  const b = await firstRefresh.json();
+  const bAgain = await secondRefresh.json();
+  assertEquals(bAgain.recommendation_session.variant, "B");
+  assertEquals(previewPickIds(bAgain), previewPickIds(b));
+  assertEquals(bAgain.generated_at, b.generated_at);
+  assertEquals(dailySessions.size, 1);
+});
+
+Deno.test("recommender preview daily-picks session: stored A can be viewed after B exists", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000104",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+
+  const first = await handleRecommenderRequest(
+    makeRequest(floridaLargemouthWindBody(5), previewHeaders()),
+    { createAdminClient: () => client },
+  );
+  await handleRecommenderRequest(
+    makeRequest(
+      { ...floridaLargemouthWindBody(5), refresh_requested: true },
+      previewHeaders(),
+    ),
+    { createAdminClient: () => client },
+  );
+  const viewedA = await handleRecommenderRequest(
+    makeRequest(
+      { ...floridaLargemouthWindBody(5), view_variant: "A" },
+      previewHeaders(),
+    ),
+    { createAdminClient: () => client },
+  );
+
+  const a = await first.json();
+  const aAgain = await viewedA.json();
+  assertEquals(viewedA.status, 200);
+  assertEquals(aAgain.recommendation_session.variant, "A");
+  assertEquals(aAgain.recommendation_session.can_refresh, false);
+  assertEquals(aAgain.recommendation_session.available_variants, ["A", "B"]);
+  assertEquals(previewPickIds(aAgain), previewPickIds(a));
+  assertEquals(dailySessions.size, 1);
+});
+
+Deno.test("recommender preview header remains compatible with default daily-picks sessions", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000105",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+
+  const production = await handleRecommenderRequest(
+    makeRequest(floridaLargemouthWindBody(5)),
+    { createAdminClient: () => client },
+  );
+  const preview = await handleRecommenderRequest(
+    makeRequest(floridaLargemouthWindBody(5), previewHeaders()),
+    { createAdminClient: () => client },
+  );
+
+  assertEquals(production.status, 200);
+  assertEquals(preview.status, 200);
+  const productionJson = await production.json();
+  const previewJson = await preview.json();
+  assertEquals(productionJson.feature, "recommender_daily_picks_2x2_future");
+  assertEquals(previewJson.feature, "recommender_daily_picks_2x2_future");
+  assertEquals(previewPickIds(previewJson), previewPickIds(productionJson));
+  assertEquals(dailySessions.size, 1);
+  assertEquals(
+    new Set([...dailySessions.values()].map((row) => row.engine_version)),
+    new Set([DAILY_PICKS_SESSION_ENGINE_VERSION]),
+  );
+});
+
+Deno.test("recommender preview all-purpose and big-fish sessions remain separate", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000106",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+  const baseBody = floridaLargemouthWindBody(5);
+
+  const allPurpose = await handleRecommenderRequest(
+    makeRequest(
+      { ...baseBody, recommendation_goal: "all_purpose" },
+      previewHeaders(),
+    ),
+    { createAdminClient: () => client },
+  );
+  const bigFish = await handleRecommenderRequest(
+    makeRequest(
+      { ...baseBody, recommendation_goal: "big_fish" },
+      previewHeaders(),
+    ),
+    { createAdminClient: () => client },
+  );
+
+  assertEquals(allPurpose.status, 200);
+  assertEquals(bigFish.status, 200);
+  const allJson = await allPurpose.json();
+  const bigJson = await bigFish.json();
+  assertEquals(allJson.recommendation_goal, "all_purpose");
+  assertEquals(bigJson.recommendation_goal, "big_fish");
+  assertEquals(dailySessions.size, 2);
+  assertEquals(
+    new Set([...dailySessions.values()].map((row) => row.recommendation_goal)),
+    new Set(["all_purpose", "big_fish"]),
+  );
+});
+
+Deno.test("recommender CORS allows internal preview header", async () => {
+  const response = await handleRecommenderRequest(
+    new Request("https://example.com/functions/v1/recommender", {
+      method: "OPTIONS",
+    }),
+  );
+
+  assertEquals(response.status, 204);
+  assert(
+    response.headers.get("Access-Control-Allow-Headers")?.includes(
+      "x-recommender-preview",
+    ),
+  );
+});
+
+Deno.test("recommender default daily-picks session: first request creates variant A with one refresh remaining", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
   const response = await handleRecommenderRequest(
     makeRequest(floridaLargemouthWindBody(5)),
     {
@@ -545,7 +752,6 @@ Deno.test("recommender daily session: first request creates variant A with one r
           userId: "00000000-0000-0000-0000-000000000001",
           subscriptionTier: "pro",
           dailySessions,
-          historyWrites,
         }) as never,
     },
   );
@@ -553,16 +759,17 @@ Deno.test("recommender daily session: first request creates variant A with one r
   assertEquals(response.status, 200);
   const json = await response.json();
   assertEquals(json.recommendation_session.variant, "A");
+  assertEquals(json.recommendation_session.available_variants, ["A"]);
   assertEquals(json.recommendation_session.refreshes_remaining, 1);
   assertEquals(json.recommendation_session.can_refresh, true);
   assertEquals(json.recommendation_session.locked_until, json.cache_expires_at);
   assertEquals(dailySessions.size, 1);
   const row = [...dailySessions.values()][0];
-  assertEquals(row.engine_version, RECOMMENDER_DAILY_SESSION_ENGINE_VERSION);
-  assertEquals(historyWrites.length, 1);
+  assertEquals(row.engine_version, DAILY_PICKS_SESSION_ENGINE_VERSION);
+  assertEquals(row.recommendation_goal, "all_purpose");
 });
 
-Deno.test("recommender daily session: repeat request returns same active A", async () => {
+Deno.test("recommender default daily-picks session: repeat request returns same active A", async () => {
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000002",
@@ -584,18 +791,16 @@ Deno.test("recommender daily session: repeat request returns same active A", asy
   const a = await first.json();
   const again = await second.json();
   assertEquals(again.recommendation_session.variant, "A");
-  assertEquals(recommendationIds(again), recommendationIds(a));
+  assertEquals(previewPickIds(again), previewPickIds(a));
   assertEquals(again.generated_at, a.generated_at);
 });
 
-Deno.test("recommender daily session: refresh after A returns B and locks refresh", async () => {
+Deno.test("recommender default daily-picks session: refresh after A returns B and locks refresh", async () => {
   const dailySessions = new Map<string, Record<string, unknown>>();
-  const historyWrites: unknown[][] = [];
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000003",
     subscriptionTier: "pro",
     dailySessions,
-    historyWrites,
   }) as never;
 
   const first = await handleRecommenderRequest(
@@ -613,24 +818,154 @@ Deno.test("recommender daily session: refresh after A returns B and locks refres
   const b = await refreshed.json();
   assertEquals(a.recommendation_session.variant, "A");
   assertEquals(b.recommendation_session.variant, "B");
+  assertEquals(b.recommendation_session.available_variants, ["A", "B"]);
   assertEquals(b.recommendation_session.refreshes_remaining, 0);
   assertEquals(b.recommendation_session.can_refresh, false);
   assertEquals(b.recommendation_session.locked_until, b.cache_expires_at);
-  assertEquals(historyWrites.length, 2);
   assert(
-    recommendationIds(a).join("|") !== recommendationIds(b).join("|"),
+    previewPickIds(a).join("|") !== previewPickIds(b).join("|"),
     "expected Set B to differ from Set A for rich Florida LMB pool",
   );
 });
 
-Deno.test("recommender daily session: repeated refresh returns B without third generation", async () => {
+Deno.test("recommender default daily-picks session: goal separates all-purpose and big-fish sessions", async () => {
   const dailySessions = new Map<string, Record<string, unknown>>();
-  const historyWrites: unknown[][] = [];
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000009",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+
+  const baseBody = floridaLargemouthWindBody(5);
+  const allPurpose = await handleRecommenderRequest(
+    makeRequest({ ...baseBody, recommendation_goal: "all_purpose" }),
+    { createAdminClient: () => client },
+  );
+  const bigFish = await handleRecommenderRequest(
+    makeRequest({ ...baseBody, recommendation_goal: "big_fish" }),
+    { createAdminClient: () => client },
+  );
+  const allPurposeAgain = await handleRecommenderRequest(
+    makeRequest({ ...baseBody, recommendation_goal: "all_purpose" }),
+    { createAdminClient: () => client },
+  );
+
+  assertEquals(allPurpose.status, 200);
+  assertEquals(bigFish.status, 200);
+  assertEquals(allPurposeAgain.status, 200);
+  const allJson = await allPurpose.json();
+  const bigJson = await bigFish.json();
+  const allAgainJson = await allPurposeAgain.json();
+
+  assertEquals(allJson.recommendation_goal, "all_purpose");
+  assertEquals(bigJson.recommendation_goal, "big_fish");
+  assertEquals(allAgainJson.recommendation_goal, "all_purpose");
+  assertEquals(allAgainJson.recommendation_session.variant, "A");
+  assertEquals(allAgainJson.generated_at, allJson.generated_at);
+  assertEquals(dailySessions.size, 2);
+  assertEquals(
+    new Set([...dailySessions.values()].map((row) => row.recommendation_goal)),
+    new Set(["all_purpose", "big_fish"]),
+  );
+});
+
+Deno.test("recommender default daily-picks session: refresh for one goal does not spend the other goal", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000010",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+
+  const baseBody = floridaLargemouthWindBody(5);
+  const allPurpose = await handleRecommenderRequest(
+    makeRequest({ ...baseBody, recommendation_goal: "all_purpose" }),
+    { createAdminClient: () => client },
+  );
+  const bigFish = await handleRecommenderRequest(
+    makeRequest({ ...baseBody, recommendation_goal: "big_fish" }),
+    { createAdminClient: () => client },
+  );
+  const refreshedBigFish = await handleRecommenderRequest(
+    makeRequest({
+      ...baseBody,
+      recommendation_goal: "big_fish",
+      refresh_requested: true,
+    }),
+    { createAdminClient: () => client },
+  );
+  const allPurposeAgain = await handleRecommenderRequest(
+    makeRequest({ ...baseBody, recommendation_goal: "all_purpose" }),
+    { createAdminClient: () => client },
+  );
+
+  assertEquals(allPurpose.status, 200);
+  assertEquals(bigFish.status, 200);
+  assertEquals(refreshedBigFish.status, 200);
+  assertEquals(allPurposeAgain.status, 200);
+
+  const allJson = await allPurpose.json();
+  const bigJson = await bigFish.json();
+  const refreshedBigJson = await refreshedBigFish.json();
+  const allAgainJson = await allPurposeAgain.json();
+
+  assertEquals(allJson.recommendation_session.variant, "A");
+  assertEquals(bigJson.recommendation_session.variant, "A");
+  assertEquals(refreshedBigJson.recommendation_goal, "big_fish");
+  assertEquals(refreshedBigJson.recommendation_session.variant, "B");
+  assertEquals(refreshedBigJson.recommendation_session.refreshes_remaining, 0);
+  assertEquals(allAgainJson.recommendation_goal, "all_purpose");
+  assertEquals(allAgainJson.recommendation_session.variant, "A");
+  assertEquals(allAgainJson.recommendation_session.refreshes_remaining, 1);
+  assertEquals(allAgainJson.generated_at, allJson.generated_at);
+  assertEquals(dailySessions.size, 2);
+});
+
+Deno.test("recommender default daily-picks session: water clarity creates a separate session with fresh refresh allowance", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000011",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+  const baseBody = floridaLargemouthWindBody(5);
+
+  await handleRecommenderRequest(
+    makeRequest({ ...baseBody, water_clarity: "stained" }),
+    { createAdminClient: () => client },
+  );
+  await handleRecommenderRequest(
+    makeRequest({
+      ...baseBody,
+      water_clarity: "stained",
+      refresh_requested: true,
+    }),
+    { createAdminClient: () => client },
+  );
+  const clear = await handleRecommenderRequest(
+    makeRequest({ ...baseBody, water_clarity: "clear" }),
+    { createAdminClient: () => client },
+  );
+
+  assertEquals(clear.status, 200);
+  const clearJson = await clear.json();
+  assertEquals(clearJson.water_clarity, "clear");
+  assertEquals(clearJson.recommendation_session.variant, "A");
+  assertEquals(clearJson.recommendation_session.refreshes_remaining, 1);
+  assertEquals(clearJson.recommendation_session.available_variants, ["A"]);
+  assertEquals(dailySessions.size, 2);
+  assertEquals(
+    new Set([...dailySessions.values()].map((row) => row.water_clarity)),
+    new Set(["stained", "clear"]),
+  );
+});
+
+Deno.test("recommender default daily-picks session: repeated refresh returns B without third generation", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000004",
     subscriptionTier: "pro",
     dailySessions,
-    historyWrites,
   }) as never;
 
   await handleRecommenderRequest(
@@ -650,12 +985,42 @@ Deno.test("recommender daily session: repeated refresh returns B without third g
   const bAgain = await secondRefresh.json();
   assertEquals(bAgain.recommendation_session.variant, "B");
   assertEquals(bAgain.recommendation_session.refreshes_remaining, 0);
-  assertEquals(recommendationIds(bAgain), recommendationIds(b));
+  assertEquals(previewPickIds(bAgain), previewPickIds(b));
   assertEquals(bAgain.generated_at, b.generated_at);
-  assertEquals(historyWrites.length, 2);
 });
 
-Deno.test("recommender daily session: refresh_requested on first request returns A without spending refresh", async () => {
+Deno.test("recommender default daily-picks session: stored A can be viewed after B exists", async () => {
+  const dailySessions = new Map<string, Record<string, unknown>>();
+  const client = mockClient({
+    userId: "00000000-0000-0000-0000-000000000012",
+    subscriptionTier: "pro",
+    dailySessions,
+  }) as never;
+
+  const first = await handleRecommenderRequest(
+    makeRequest(floridaLargemouthWindBody(5)),
+    { createAdminClient: () => client },
+  );
+  await handleRecommenderRequest(
+    makeRequest({ ...floridaLargemouthWindBody(5), refresh_requested: true }),
+    { createAdminClient: () => client },
+  );
+  const viewedA = await handleRecommenderRequest(
+    makeRequest({ ...floridaLargemouthWindBody(5), view_variant: "A" }),
+    { createAdminClient: () => client },
+  );
+
+  const a = await first.json();
+  const aAgain = await viewedA.json();
+  assertEquals(viewedA.status, 200);
+  assertEquals(aAgain.recommendation_session.variant, "A");
+  assertEquals(aAgain.recommendation_session.can_refresh, false);
+  assertEquals(aAgain.recommendation_session.available_variants, ["A", "B"]);
+  assertEquals(previewPickIds(aAgain), previewPickIds(a));
+  assertEquals(dailySessions.size, 1);
+});
+
+Deno.test("recommender default daily-picks session: refresh_requested on first request returns A without spending refresh", async () => {
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000005",
@@ -682,14 +1047,12 @@ Deno.test("recommender daily session: refresh_requested on first request returns
   assertEquals(b.recommendation_session.refreshes_remaining, 0);
 });
 
-Deno.test("recommender daily session: stale refresh claim returns stored B without history write", async () => {
+Deno.test("recommender default daily-picks session: stale refresh claim returns stored B", async () => {
   const dailySessions = new Map<string, Record<string, unknown>>();
-  const historyWrites: unknown[][] = [];
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000007",
     subscriptionTier: "pro",
     dailySessions,
-    historyWrites,
     refreshClaimConflict: true,
   }) as never;
 
@@ -707,12 +1070,10 @@ Deno.test("recommender daily session: stale refresh claim returns stored B witho
   assertEquals(b.recommendation_session.variant, "B");
   assertEquals(b.recommendation_session.refreshes_remaining, 0);
   assertEquals(b.generated_at, "2026-07-18T01:00:00.000Z");
-  assertEquals(historyWrites.length, 1);
 });
 
-Deno.test("recommender daily session: first-create conflict returns existing session", async () => {
+Deno.test("recommender default daily-picks session: first-create conflict returns existing session", async () => {
   const dailySessions = new Map<string, Record<string, unknown>>();
-  const historyWrites: unknown[][] = [];
   const response = await handleRecommenderRequest(
     makeRequest(floridaLargemouthWindBody(5)),
     {
@@ -721,7 +1082,6 @@ Deno.test("recommender daily session: first-create conflict returns existing ses
           userId: "00000000-0000-0000-0000-000000000008",
           subscriptionTier: "pro",
           dailySessions,
-          historyWrites,
           firstCreateConflict: true,
         }) as never,
     },
@@ -733,7 +1093,6 @@ Deno.test("recommender daily session: first-create conflict returns existing ses
   assertEquals(json.recommendation_session.refreshes_remaining, 1);
   assertEquals(json.generated_at, "2026-07-18T00:00:00.000Z");
   assertEquals(dailySessions.size, 1);
-  assertEquals(historyWrites.length, 0);
 });
 
 Deno.test("recommender handler rejects non-boolean refresh_requested", async () => {
@@ -751,4 +1110,21 @@ Deno.test("recommender handler rejects non-boolean refresh_requested", async () 
   assertEquals(response.status, 400);
   const json = await response.json();
   assertEquals(json.error, "invalid_input");
+});
+
+Deno.test("recommender handler rejects invalid view_variant", async () => {
+  const response = await handleRecommenderRequest(
+    makeRequest({ ...validBody(), view_variant: "C" }),
+    {
+      createAdminClient: () =>
+        mockClient({
+          userId: "00000000-0000-0000-0000-000000000108",
+          subscriptionTier: "pro",
+        }) as never,
+    },
+  );
+
+  assertEquals(response.status, 400);
+  const json = await response.json();
+  assertEquals(json.error, "invalid_view_variant");
 });

@@ -132,7 +132,7 @@ export function validateSeasonalRowV4(row: SeasonalRowV4): ValidationDiag[] {
       String(row.primary_lure_ids.length),
       `primary_lure_ids.length >= ${minPrimaryLure}`,
       "new archetype missing from primary_ids",
-      "Add curated lure ids (typically from eligible v3 pool) until at least 3 entries.",
+      "Add curated lure ids from the active v4 catalog until at least 3 entries.",
     );
   }
   if (row.primary_fly_ids.length < minPrimaryFly) {

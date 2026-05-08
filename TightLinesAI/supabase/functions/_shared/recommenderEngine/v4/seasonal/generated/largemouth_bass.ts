@@ -467,7 +467,7 @@ export const LARGEMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "bluegill_perch",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","compact_flipping_jig","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait","hollow_body_frog","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","compact_flipping_jig","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait","hollow_body_frog","weightless_stick_worm","glidebait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly"] as const,
 },
 
@@ -595,7 +595,7 @@ export const LARGEMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "baitfish",
     secondary_forage: "bluegill_perch",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","compact_flipping_jig","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait","hollow_body_frog"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","compact_flipping_jig","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait","hollow_body_frog","glidebait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","frog_fly"] as const,
 },
 
@@ -947,7 +947,7 @@ export const LARGEMOUTH_BASS_SEASONAL_ROWS_V4: readonly SeasonalRowV4[] = [
     primary_forage: "bluegill_perch",
     secondary_forage: "baitfish",
     surface_seasonally_possible: true,
-    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","compact_flipping_jig","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait","weightless_stick_worm"] as const,
+    primary_lure_ids: ["blade_bait","carolina_rigged_stick_worm","compact_flipping_jig","tube_jig","deep_diving_crankbait","drop_shot_minnow","bladed_jig","lipless_crankbait","medium_diving_crankbait","paddle_tail_swimbait","spinnerbait","suspending_jerkbait","swim_jig","flat_sided_crankbait","soft_jerkbait","squarebill_crankbait","walking_topwater","buzzbait","weightless_stick_worm","glidebait"] as const,
     primary_fly_ids: ["articulated_dungeon_streamer","articulated_baitfish_streamer","clouser_minnow","deceiver","game_changer","woolly_bugger","rabbit_strip_leech","jighead_marabou_leech","lead_eye_leech","feather_jig_leech","unweighted_baitfish_streamer","baitfish_slider_fly","popper_fly","deer_hair_slider","foam_gurgler_fly"] as const,
 },
 

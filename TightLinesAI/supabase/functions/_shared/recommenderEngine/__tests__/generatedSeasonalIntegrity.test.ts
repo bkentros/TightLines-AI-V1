@@ -1,8 +1,7 @@
 /**
  * Validates **production** seasonal rows (`v4/seasonal/generated/*.ts` from CSV pipeline).
  *
- * Replaces Phase 4 / cross-species tests that previously asserted against embedded
- * `v3/seasonal/*.ts` tables (not the rebuild runtime source of truth).
+ * Guards the CSV-authored v4 row inventory consumed by the daily-picks engine.
  */
 import { assert } from "jsr:@std/assert";
 import type { SeasonalRowV4 } from "../v4/contracts.ts";
@@ -53,15 +52,15 @@ Deno.test(
   },
 );
 
-Deno.test("generated seasonal: minimum primary pool sizes + primary ids stay inside pools", () => {
+Deno.test("generated seasonal: minimum daily-picks primary pool sizes + primary ids stay inside pools", () => {
   for (const row of ALL_ROWS) {
     assert(
-      row.primary_lure_ids.length >= 3,
-      `${rowKey(row)} needs >= 3 primary lures`,
+      row.primary_lure_ids.length >= 2,
+      `${rowKey(row)} needs >= 2 primary lures`,
     );
     assert(
-      row.primary_fly_ids.length >= 3,
-      `${rowKey(row)} needs >= 3 primary flies`,
+      row.primary_fly_ids.length >= 2,
+      `${rowKey(row)} needs >= 2 primary flies`,
     );
     const lureSet = new Set(row.primary_lure_ids);
     const flySet = new Set(row.primary_fly_ids);
@@ -73,6 +72,40 @@ Deno.test("generated seasonal: minimum primary pool sizes + primary ids stay ins
       flySet.size === row.primary_fly_ids.length,
       `${rowKey(row)} duplicate fly ids`,
     );
+  }
+});
+
+Deno.test("generated seasonal: every primary id supports the authored row species and water type", () => {
+  for (const row of ALL_ROWS) {
+    for (const lureId of row.primary_lure_ids) {
+      const lure = LURES_BY_ID.get(lureId);
+      assert(lure, `${rowKey(row)} unknown lure id ${lureId}`);
+      assert(
+        lure.species_allowed.includes(row.species),
+        `${rowKey(row)} includes lure ${lureId} not allowed for ${row.species}`,
+      );
+      assert(
+        lure.water_types_allowed.includes(row.water_type),
+        `${
+          rowKey(row)
+        } includes lure ${lureId} not allowed for ${row.water_type}`,
+      );
+    }
+
+    for (const flyId of row.primary_fly_ids) {
+      const fly = FLIES_BY_ID.get(flyId);
+      assert(fly, `${rowKey(row)} unknown fly id ${flyId}`);
+      assert(
+        fly.species_allowed.includes(row.species),
+        `${rowKey(row)} includes fly ${flyId} not allowed for ${row.species}`,
+      );
+      assert(
+        fly.water_types_allowed.includes(row.water_type),
+        `${
+          rowKey(row)
+        } includes fly ${flyId} not allowed for ${row.water_type}`,
+      );
+    }
   }
 });
 

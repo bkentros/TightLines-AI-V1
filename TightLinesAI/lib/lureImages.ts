@@ -32,6 +32,7 @@ const LURE_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
 
   // ── Swimbaits & jerkbaits ─────────────────────────────────────────────────
   paddle_tail_swimbait:             require('../assets/images/lures/paddle_tail_swimbait.png'),
+  glidebait:                        require('../assets/images/lures/glidebait.png'),
   soft_jerkbait:                    require('../assets/images/lures/soft_jerkbait.png'),
   suspending_jerkbait:              require('../assets/images/lures/suspending_jerkbait.png'),
 
@@ -60,6 +61,7 @@ const LURE_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   large_bucktail_spinner:           require('../assets/images/lures/large_bucktail_spinner.png'),
   large_pike_topwater:              require('../assets/images/lures/large_pike_topwater.png'),
   pike_jig_and_plastic:             require('../assets/images/lures/pike_jig_and_plastic.png'),
+  large_pike_tube:                  require('../assets/images/lures/large_pike_tube.png'),
 };
 
 /** Returns the image for a lure archetype, or null if not yet available. */

@@ -19,9 +19,10 @@
  *   --replace-catalog      Backup lures/ + flies/ PNGs, delete them, then generate (requires full `all` run, no `--id`)
  *   --kind=lures|flies|all
  *   --id=<archetype_id>
- *   --limit=<n>
+ *   --offset=<n>         skip first n catalog jobs (use with --limit for batches: 0, 10, 20, …)
+ *   --limit=<n>          stop after n images generated (or dry-run steps); skips from --skip-existing do not count
  *   --model=<id>         default gpt-image-2
- *   --quality=low|medium|high|auto
+ *   --quality=low|medium|high|auto   default medium (~$0.053/img @ 1024² for gpt-image-2)
  *   --size=1024x1024
  *   --delay-ms=1200
  *   --background=opaque|transparent|auto   (transparent disallowed for gpt-image-2)
@@ -31,14 +32,41 @@ import { LURE_ARCHETYPES_V4 } from "../supabase/functions/_shared/recommenderEng
 import { FLY_ARCHETYPES_V4 } from "../supabase/functions/_shared/recommenderEngine/v4/candidates/flies.ts";
 import type { ArchetypeProfileV4 } from "../supabase/functions/_shared/recommenderEngine/v4/contracts.ts";
 import {
+  ARTICULATED_DUNGEON_ANCHOR_BLOCK,
   BACKGROUND_BLOCK,
   COMPOSITION_BLOCK,
+  CONEHEAD_BUNNY_LEECH_ANCHOR_BLOCK,
+  DROP_SHOT_RIG_TOPOLOGY,
+  DROP_SHOT_WORM_ONLY_BLOCK,
   NEGATIVE_BLOCK,
   SHARED_STYLE_BLOCK,
+  SOFT_FLUKE_SIDE_VIEW_BLOCK,
   getTacklePromptEntry,
 } from "./data/recommenderTackleImageManifest.ts";
 
 type Kind = "lure" | "fly";
+
+/** Overrides display_name only when the catalog title misleads image models. */
+function illustrationSubject(
+  profile: ArchetypeProfileV4,
+  kind: Kind,
+): string {
+  if (kind === "lure" && profile.id === "soft_jerkbait") {
+    return "Unrigged Zoom Salty Super Fluke–style soft jerkbait (strict side-profile catalog photo)";
+  }
+  if (kind === "fly") {
+    if (profile.id === "warmwater_worm_fly") {
+      return "Weightless Texas-rigged Senko-style bass worm fly (EWG-style hook, point weedless in body)";
+    }
+    if (profile.id === "articulated_dungeon_streamer") {
+      return "Articulated dungeon streamer — Kelly Galloup Sex Dungeon class (wedge deer-hair head, marabou tail, two singles)";
+    }
+    if (profile.id === "rabbit_strip_leech") {
+      return "Conehead bunny leech — palmered crosscut rabbit (zonker) strip";
+    }
+  }
+  return profile.display_name;
+}
 
 function buildPrompt(profile: ArchetypeProfileV4, kind: Kind): string {
   const entry = getTacklePromptEntry(profile.id);
@@ -48,9 +76,48 @@ function buildPrompt(profile: ArchetypeProfileV4, kind: Kind): string {
     );
   }
   const lureOrFly = kind === "lure" ? "lure" : "fly";
+  const dropshot =
+    kind === "lure" &&
+    (profile.id === "drop_shot_worm" || profile.id === "drop_shot_minnow");
+
+  if (dropshot) {
+    const wormExtra =
+      profile.id === "drop_shot_worm"
+        ? ["", DROP_SHOT_WORM_ONLY_BLOCK]
+        : [];
+    return [
+      `Create one app-ready illustration of: ${profile.display_name} (real ${lureOrFly} anglers use).`,
+      "",
+      DROP_SHOT_RIG_TOPOLOGY,
+      "",
+      "Bait (apply to the rig above):",
+      entry.anatomy,
+      ...wormExtra,
+      "",
+      SHARED_STYLE_BLOCK,
+      "",
+      COMPOSITION_BLOCK,
+      "",
+      BACKGROUND_BLOCK,
+      "",
+      NEGATIVE_BLOCK,
+      "",
+      `Context (secondary only): fishing category ${profile.family_group.replace(/_/g, " ")}; water column ${profile.column}; imitates ${profile.forage_tags.join("/").replace(/_/g, " ")}.`,
+    ].join("\n");
+  }
+
   return [
-    `Create one app-ready illustration of: ${profile.display_name} (real ${lureOrFly} anglers use).`,
+    `Create one app-ready illustration of: ${illustrationSubject(profile, kind)} (real ${lureOrFly} anglers use).`,
     "",
+    ...(kind === "lure" && profile.id === "soft_jerkbait"
+      ? [SOFT_FLUKE_SIDE_VIEW_BLOCK, ""]
+      : []),
+    ...(kind === "fly" && profile.id === "articulated_dungeon_streamer"
+      ? [ARTICULATED_DUNGEON_ANCHOR_BLOCK, ""]
+      : []),
+    ...(kind === "fly" && profile.id === "rabbit_strip_leech"
+      ? [CONEHEAD_BUNNY_LEECH_ANCHOR_BLOCK, ""]
+      : []),
     SHARED_STYLE_BLOCK,
     "",
     COMPOSITION_BLOCK,
@@ -75,12 +142,32 @@ function assetsSubdir(sub: "lures" | "flies"): URL {
   return new URL(`../assets/images/${sub}/`, import.meta.url);
 }
 
+/** Absolute folder path for Finder / review (opaque paper BG — strip later). */
+function assetImagesDirPath(sub: "lures" | "flies"): string {
+  const raw = new URL(`../assets/images/${sub}/`, import.meta.url).pathname;
+  try {
+    return decodeURIComponent(raw);
+  } catch {
+    return raw;
+  }
+}
+
+function logWhereToReview(): void {
+  const lures = assetImagesDirPath("lures");
+  const flies = assetImagesDirPath("flies");
+  console.log("\nReview opaque PNGs here FIRST (paper background — do not run strip until happy):");
+  console.log(`   Lures: ${lures}`);
+  console.log(`   Flies: ${flies}`);
+  console.log(`   (macOS) open "${lures}" && open "${flies}"\n`);
+}
+
 type Cli = {
   dryRun: boolean;
   skipExisting: boolean;
   replaceCatalog: boolean;
   kind: "all" | "lures" | "flies";
   id: string | null;
+  offset: number;
   limit: number | null;
   model: string;
   quality: string;
@@ -104,6 +191,16 @@ function parseArgs(argv: string[]): Cli {
   const id = get("--id=");
   const limitStr = get("--limit=");
   const limit = limitStr != null && limitStr !== "" ? Number(limitStr) : null;
+  const offsetStr = get("--offset=");
+  let offset = 0;
+  if (offsetStr != null && offsetStr !== "") {
+    const n = Number(offsetStr);
+    if (!Number.isFinite(n) || n < 0) {
+      console.error("--offset must be a non-negative number.");
+      Deno.exit(1);
+    }
+    offset = Math.floor(n);
+  }
   const bgRaw = get("--background=");
   const background =
     bgRaw === "opaque" || bgRaw === "transparent" || bgRaw === "auto"
@@ -115,9 +212,10 @@ function parseArgs(argv: string[]): Cli {
     replaceCatalog,
     kind,
     id,
+    offset,
     limit: limit != null && Number.isFinite(limit) ? limit : null,
     model: get("--model=") ?? "gpt-image-2",
-    quality: get("--quality=") ?? "high",
+    quality: get("--quality=") ?? "medium",
     size: get("--size=") ?? "1024x1024",
     delayMs: Math.max(0, Number(get("--delay-ms=") ?? "1200") || 1200),
     background,
@@ -150,7 +248,11 @@ async function generateImage(
         " Billing/credits: https://platform.openai.com/settings/organization/billing";
     } else if (/must be verified|verify organization/i.test(msg)) {
       hint =
-        " Organization verification: https://platform.openai.com/settings/organization/general";
+        " Organization verification: https://platform.openai.com/settings/organization/general (can take ~15 min after approval).";
+      if (/gpt-image-2/i.test(msg)) {
+        hint +=
+          " Or use this script with --model=gpt-image-1.5 if that model is available on your tier without verification.";
+      }
     }
     throw new Error(`OpenAI images/generations ${res.status}: ${msg}${hint}`);
   }
@@ -211,12 +313,26 @@ async function backupAndClearPngFolders(args: {
 
 async function main(): Promise<void> {
   const cli = parseArgs(Deno.args);
+  logWhereToReview();
   const apiKeyRaw = Deno.env.get("OPENAI_API_KEY")?.trim();
   if (!cli.dryRun && !apiKeyRaw) {
     console.error("Missing OPENAI_API_KEY (optional for --dry-run only).");
     Deno.exit(1);
   }
   const apiKey = apiKeyRaw as string;
+
+  if (cli.replaceCatalog && cli.offset > 0) {
+    console.error(
+      "Do not combine --replace-catalog with --offset. Full replace only clears once from job 0; use batched commands without --replace-catalog.",
+    );
+    Deno.exit(1);
+  }
+  if (cli.replaceCatalog && cli.limit != null) {
+    console.error(
+      "Do not combine --replace-catalog with --limit (would delete every PNG but only regenerate some). Use a full replace with no --limit, or batched runs without --replace-catalog.",
+    );
+    Deno.exit(1);
+  }
 
   if (cli.background === "transparent" && cli.model === "gpt-image-2") {
     console.error(
@@ -259,6 +375,26 @@ async function main(): Promise<void> {
     Deno.exit(1);
   }
 
+  if (cli.offset >= filtered.length) {
+    console.error(
+      `--offset=${cli.offset} is past the end of the job list (${filtered.length} jobs).`,
+    );
+    Deno.exit(1);
+  }
+
+  const queue = filtered.slice(cli.offset);
+  if (queue.length === 0) {
+    console.error("No jobs in this window.");
+    Deno.exit(1);
+  }
+
+  if (cli.offset > 0 || cli.limit != null) {
+    const maxGen = cli.limit ?? queue.length;
+    console.log(
+      `\n→ batch: catalog indices ${cli.offset}–${cli.offset + queue.length - 1} (${queue.length} jobs in slice, up to ${maxGen} image(s) this run)`,
+    );
+  }
+
   if (cli.replaceCatalog) {
     const backupRoot = new URL(
       `../assets/images/_backups/tackle-${backupStamp()}/`,
@@ -274,15 +410,15 @@ async function main(): Promise<void> {
   }
 
   console.log(
-    `\n→ model: ${cli.model}` +
+    `\n→ model: ${cli.model}, quality: ${cli.quality}` +
       (effectiveBg ? `, background: ${effectiveBg}` : ""),
   );
   console.log(
-    "→ After generation: run strip-recommender-tackle-backgrounds.sh for RGBA (gpt-image-2 cannot output true transparency).",
+    "→ After you approve each image: run npm run postgen:recommender-tackle-alpha (or bash scripts/strip-recommender-tackle-backgrounds.sh) for RGBA.",
   );
 
   let done = 0;
-  for (const { kind, profile } of filtered) {
+  for (const { kind, profile } of queue) {
     if (cli.limit != null && done >= cli.limit) break;
 
     const dest = outUrl(kind, profile.id);
@@ -337,11 +473,13 @@ async function main(): Promise<void> {
     await Deno.writeFile(dest, bytes!);
     console.log(`Wrote ${dest.pathname} (${bytes!.byteLength} bytes)`);
     done++;
-    if (cli.delayMs > 0 && done < filtered.length) await sleep(cli.delayMs);
+    if (cli.delayMs > 0 && done < queue.length) await sleep(cli.delayMs);
   }
 
   console.log(`\nDone. ${done} image(s) processed.`);
-  console.log("Next: scripts/strip-recommender-tackle-backgrounds.sh (transparent PNGs).");
+  console.log(
+    "Next: open the folders above, fix any rejects (re-run with --id=…), then strip backgrounds when ready.",
+  );
 }
 
 await main();

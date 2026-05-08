@@ -8,7 +8,7 @@
  *   context?    EngineContext (pre-selected)
  *
  * Screen flow:
- *   1. Setup form: species selector + context selector + water clarity chips
+ *   1. Setup form: species selector + context selector + water clarity chips + goal chips
  *   2. Tap "Build plan" → loading state
  *   3. RecommenderView with results
  *   4. Pull-to-refresh for fresh results
@@ -62,28 +62,42 @@ import { getForecastScores } from '../lib/forecastScores';
 import { RecommenderView } from '../components/fishing/RecommenderView';
 import { RecommenderLoadingSkeleton } from '../components/fishing/RecommenderLoadingSkeleton';
 import type {
+  DailyPicksSpecies,
+  DailyPicksVariant,
   EngineContext,
+  RecommendationGoal,
   RecommenderResponse,
   SpeciesGroup,
   WaterClarity,
 } from '../lib/recommenderContracts';
 import {
   SPECIES_DISPLAY,
-  RECOMMENDER_V3_UI_CONTEXTS,
-  RECOMMENDER_V3_UI_SPECIES,
+  DAILY_PICKS_UI_CONTEXTS,
+  DAILY_PICKS_UI_SPECIES,
   getRecommenderSpeciesForState,
   getRecommenderContextsForState,
   getRecommenderContextsForStateSpecies,
-  isRecommenderV3UiContext,
-  isRecommenderV3UiSpecies,
+  isDailyPicksUiContext,
+  isDailyPicksUiSpecies,
 } from '../lib/recommenderContracts';
 
 const RIPPLE = { color: 'rgba(10,22,40,0.08)' };
 const IMG_IN = { duration: 200 } as const;
 
+const DAILY_PICKS_SPECIES_IMAGE_KEY: Record<DailyPicksSpecies, SpeciesGroup> = {
+  largemouth_bass: 'largemouth_bass',
+  smallmouth_bass: 'smallmouth_bass',
+  northern_pike: 'pike_musky',
+  trout: 'river_trout',
+};
+
+function getRecommenderResultSpeciesImage(result: RecommenderResponse) {
+  return getSpeciesImage(DAILY_PICKS_SPECIES_IMAGE_KEY[result.species]);
+}
+
 // ─── Static preload list — rendered off-screen so images are decoded before page shows ──
 const ALL_PRELOAD_IMAGES: ReturnType<typeof require>[] = [
-  ...RECOMMENDER_V3_UI_SPECIES
+  ...DAILY_PICKS_UI_SPECIES
     .map((sp) => getSpeciesImage(sp))
     .filter((img): img is ReturnType<typeof require> => img !== null),
   ...ALL_WATERTYPE_IMAGES,
@@ -96,7 +110,7 @@ const ALL_PRELOAD_IMAGES: ReturnType<typeof require>[] = [
 // ─── Context helpers ──────────────────────────────────────────────────────────
 
 const ENGINE_CONTEXTS: EngineContext[] = [
-  ...RECOMMENDER_V3_UI_CONTEXTS,
+  ...DAILY_PICKS_UI_CONTEXTS,
 ];
 
 function contextLabel(ctx: EngineContext): string {
@@ -335,10 +349,15 @@ const CLARITY_SUBTITLE: Record<WaterClarity, string> = {
   dirty:   'Visibility under 1 foot',
 };
 
+const GOAL_LABELS: Record<RecommendationGoal, string> = {
+  all_purpose: 'All Purpose',
+  big_fish: 'Big Fish',
+};
+
 // ─── Wizard step progress ────────────────────────────────────────────────────
 
 /**
- * Editorial 3-step progress bar — each step is a paper tile with an ink
+ * Editorial 4-step progress bar — each step is a paper tile with an ink
  * border and a numbered / checkmark medallion. The active step gets a
  * red medallion; completed steps fill forest and swap to a check.
  *
@@ -350,15 +369,16 @@ function WizardStepProgress({
   onJumpToStep,
   allowJumpToStep,
 }: {
-  current: 1 | 2 | 3;
+  current: 1 | 2 | 3 | 4;
   /** Tapping a completed step jumps back to it; active/pending tiles ignore taps. */
-  onJumpToStep: (step: 1 | 2 | 3) => void;
-  allowJumpToStep: (step: 1 | 2 | 3) => boolean;
+  onJumpToStep: (step: 1 | 2 | 3 | 4) => void;
+  allowJumpToStep: (step: 1 | 2 | 3 | 4) => boolean;
 }) {
-  const steps: { num: 1 | 2 | 3; label: string }[] = [
+  const steps: { num: 1 | 2 | 3 | 4; label: string }[] = [
     { num: 1, label: 'SPECIES' },
     { num: 2, label: 'WATER' },
     { num: 3, label: 'CLARITY' },
+    { num: 4, label: 'GOAL' },
   ];
   return (
     <View style={wizardStyles.progressRow}>
@@ -679,6 +699,60 @@ function ClaritySelector({
   );
 }
 
+// ─── Goal selector (paper) ───────────────────────────────────────────────────
+
+function GoalSelector({
+  selected,
+  onSelect,
+}: {
+  selected: RecommendationGoal;
+  onSelect: (goal: RecommendationGoal) => void;
+}) {
+  const options: { value: RecommendationGoal; icon: keyof typeof Ionicons.glyphMap }[] = [
+    { value: 'all_purpose', icon: 'compass-outline' },
+    { value: 'big_fish', icon: 'trophy-outline' },
+  ];
+
+  return (
+    <View style={wizardStyles.goalGrid}>
+      {options.map(({ value, icon }) => {
+        const isActive = selected === value;
+        return (
+          <Pressable
+            key={value}
+            style={({ pressed }) => [
+              wizardStyles.goalCard,
+              isActive && wizardStyles.goalCardActive,
+              Platform.OS === 'ios' && pressed && !isActive && { opacity: 0.9 },
+            ]}
+            onPress={() => {
+              hapticSelection();
+              onSelect(value);
+            }}
+            android_ripple={RIPPLE}
+          >
+            <View style={[wizardStyles.goalIconWrap, isActive && wizardStyles.goalIconWrapActive]}>
+              <Ionicons
+                name={icon}
+                size={24}
+                color={isActive ? paper.paper : paper.ink}
+              />
+            </View>
+            <Text style={wizardStyles.goalTitle} numberOfLines={1}>
+              {GOAL_LABELS[value]}
+            </Text>
+            {isActive && (
+              <View style={wizardStyles.selectBadge}>
+                <Ionicons name="checkmark" size={13} color={paper.paper} />
+              </View>
+            )}
+          </Pressable>
+        );
+      })}
+    </View>
+  );
+}
+
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
 type ScreenState = 'setup' | 'loading' | 'result' | 'error';
@@ -699,11 +773,11 @@ export default function RecommenderScreen() {
   const hasCoords = !isNaN(lat) && !isNaN(lon);
 
   const initialSpecies =
-    typeof params.species === 'string' && isRecommenderV3UiSpecies(params.species)
+    typeof params.species === 'string' && isDailyPicksUiSpecies(params.species)
       ? params.species
       : null;
   const initialContext =
-    typeof params.context === 'string' && isRecommenderV3UiContext(params.context)
+    typeof params.context === 'string' && isDailyPicksUiContext(params.context)
       ? params.context
       : null;
 
@@ -714,6 +788,7 @@ export default function RecommenderScreen() {
     initialContext,
   );
   const [clarity, setClarity] = useState<WaterClarity | null>(null);
+  const [recommendationGoal, setRecommendationGoal] = useState<RecommendationGoal>('all_purpose');
 
   // Resolved state code — drives chip filtering
   const [stateCode, setStateCode] = useState<string | null>(null);
@@ -726,19 +801,20 @@ export default function RecommenderScreen() {
 
   // ─── Wizard step (setup phase only) ──────────────────────────────────────
   // `wizardStep` is purely a UI convenience; the underlying selection state
-  // (`species`, `context`, `clarity`) is still the source of truth for
+  // (`species`, `context`, `clarity`, `recommendationGoal`) is still the source of truth for
   // readiness/build-plan. Whenever we come back to the setup screen (initial
   // mount, or bounce from result/error), we reset the wizard to step 1.
-  type WizardStep = 1 | 2 | 3;
+  type WizardStep = 1 | 2 | 3 | 4;
   const [wizardStep, setWizardStep] = useState<WizardStep>(1);
   useEffect(() => {
     if (screenState === 'setup') {
       setWizardStep((prev) => {
         // If we're on step 2 but species got wiped (state-change invalidation),
-        // or on step 3 but species/context got wiped, bounce back rather than
+        // or on later steps but species/context got wiped, bounce back rather than
         // letting the user sit on an empty step.
         if (prev === 2 && !species) return 1;
         if (prev === 3 && (!species || !context)) return species ? 2 : 1;
+        if (prev === 4 && (!species || !context)) return species ? 2 : 1;
         return prev;
       });
     }
@@ -802,7 +878,7 @@ export default function RecommenderScreen() {
   // apply to the selected species. Keeps the "what's available here?"
   // surface discoverable so someone in a LMB-only state still sees that
   // trout/pike/smallmouth exist in the product.
-  const allSpeciesForState: SpeciesGroup[] = RECOMMENDER_V3_UI_SPECIES;
+  const allSpeciesForState: SpeciesGroup[] = DAILY_PICKS_UI_SPECIES;
 
   const allContextsForState: EngineContext[] = stateCode
     ? getRecommenderContextsForState(stateCode)
@@ -813,7 +889,7 @@ export default function RecommenderScreen() {
     ? getRecommenderSpeciesForState(stateCode).filter(
         (sp) => !context || getRecommenderContextsForStateSpecies(stateCode, sp).includes(context),
       )
-    : RECOMMENDER_V3_UI_SPECIES.filter(
+    : DAILY_PICKS_UI_SPECIES.filter(
         (sp) => !context || defaultContextsForSpecies(sp).includes(context),
       );
 
@@ -830,6 +906,7 @@ export default function RecommenderScreen() {
     species !== null &&
     context !== null &&
     clarity !== null &&
+    recommendationGoal !== null &&
     hasCoords &&
     stateCode !== null &&
     availableSpecies.includes(species) &&
@@ -844,9 +921,15 @@ export default function RecommenderScreen() {
   });
 
   const handleFetch = useCallback(
-    async (forceRefresh = false) => {
+    async (
+      forceRefresh = false,
+      viewVariant?: DailyPicksVariant,
+    ) => {
       if (!isReady || !species || !context || !clarity) return;
-      const isInlineRefresh = forceRefresh && screenState === 'result' && result !== null;
+      const isInlineRefresh =
+        (forceRefresh || viewVariant != null) &&
+        screenState === 'result' &&
+        result !== null;
 
       if (isInlineRefresh) {
         setIsRefreshing(true);
@@ -872,15 +955,16 @@ export default function RecommenderScreen() {
             species,
             context,
             water_clarity: clarity,
+            recommendation_goal: recommendationGoal,
             env_data: dailySnapshot.envData,
             target_date: dailySnapshot.targetDate,
           },
-          { forceRefresh },
+          { forceRefresh, viewVariant },
         );
 
         // Preload the fish image so it's decoded before we flip to result —
         // everything renders together instead of popping in at different speeds.
-        const img = getSpeciesImage(res.species);
+        const img = getRecommenderResultSpeciesImage(res);
         if (img) {
           await Asset.fromModule(img).downloadAsync();
         }
@@ -890,7 +974,10 @@ export default function RecommenderScreen() {
       } catch (err: unknown) {
         const friendlyMessage = recommenderErrorMessage(err, species, context);
         if (isInlineRefresh) {
-          Alert.alert('Could not refresh recommendations', friendlyMessage);
+          Alert.alert(
+            viewVariant ? 'Could not load saved picks' : 'Could not refresh recommendations',
+            friendlyMessage,
+          );
         } else {
           setErrorMsg(friendlyMessage);
           setScreenState('error');
@@ -901,11 +988,12 @@ export default function RecommenderScreen() {
         }
       }
     },
-    [isReady, species, context, clarity, lat, lon, result, screenState],
+    [isReady, species, context, clarity, recommendationGoal, lat, lon, result, screenState],
   );
 
   const handleReset = useCallback(() => {
     setScreenState('setup');
+    setWizardStep(1);
     setResult(null);
     setErrorMsg(null);
   }, []);
@@ -1005,22 +1093,25 @@ export default function RecommenderScreen() {
 
       {/* ── Setup form (FinFindr tackle wizard) ── */}
       {screenState === 'setup' && setupImagesReady && (() => {
-        const stepConfig: { num: 1 | 2 | 3; question: string; caption: string }[] = [
+        const stepConfig: { num: 1 | 2 | 3 | 4; question: string; caption: string }[] = [
           { num: 1, question: 'What are you after?',       caption: 'Pick the species you are fishing for.' },
           { num: 2, question: 'Where are you fishing?',    caption: 'Pick the type of water you are on.' },
           { num: 3, question: "How's the water today?",    caption: 'Pick the clarity you are seeing.' },
+          { num: 4, question: "What's the goal?",           caption: 'Pick the style of recommendations.' },
         ];
         const current = stepConfig[wizardStep - 1];
 
         const canContinue =
           wizardStep === 1 ? species !== null && availableSpecies.includes(species)
           : wizardStep === 2 ? context !== null && availableContexts.includes(context)
-          : clarity !== null;
+          : wizardStep === 3 ? clarity !== null
+          : recommendationGoal !== null;
 
-        const allowJumpToStep = (step: 1 | 2 | 3) => {
+        const allowJumpToStep = (step: 1 | 2 | 3 | 4) => {
           if (step === 1) return true;
           if (step === 2) return species !== null && availableSpecies.includes(species);
-          return species !== null && context !== null;
+          if (step === 3) return species !== null && context !== null;
+          return species !== null && context !== null && clarity !== null;
         };
 
         const handleBack = () => {
@@ -1029,14 +1120,22 @@ export default function RecommenderScreen() {
             return;
           }
           hapticSelection();
-          setWizardStep((prev) => (prev === 3 ? 2 : 1));
+          setWizardStep((prev) => {
+            if (prev === 4) return 3;
+            if (prev === 3) return 2;
+            return 1;
+          });
         };
 
         const handleContinueOrSubmit = () => {
           if (!canContinue) return;
-          if (wizardStep < 3) {
+          if (wizardStep < 4) {
             hapticSelection();
-            setWizardStep((prev) => (prev === 1 ? 2 : 3));
+            setWizardStep((prev) => {
+              if (prev === 1) return 2;
+              if (prev === 2) return 3;
+              return 4;
+            });
             return;
           }
           if (!isReady) return;
@@ -1074,7 +1173,7 @@ export default function RecommenderScreen() {
                   <Text style={wizardStyles.heroTitleAccent}>YOUR PICKS.</Text>
                 </Text>
                 <Text style={wizardStyles.heroSubtitle}>
-                  Three quick questions and we'll rank the best lures and flies for today.
+                  Four quick questions and we'll rank the best lures and flies for today.
                 </Text>
               </View>
 
@@ -1106,7 +1205,7 @@ export default function RecommenderScreen() {
 
                 <View style={wizardStyles.stepCardHeader}>
                   <Text style={wizardStyles.stepCardEyebrow}>
-                    STEP {wizardStep} OF 3
+                    STEP {wizardStep} OF 4
                   </Text>
                   <Text style={wizardStyles.stepCardTitle} allowFontScaling={false}>
                     {current.question}
@@ -1162,11 +1261,18 @@ export default function RecommenderScreen() {
                     onSelect={setClarity}
                   />
                 )}
+
+                {wizardStep === 4 && (
+                  <GoalSelector
+                    selected={recommendationGoal}
+                    onSelect={setRecommendationGoal}
+                  />
+                )}
               </View>
 
               {/* Readiness hint on the last step only — so users understand
                   what's blocking the final CTA (e.g. location not resolved). */}
-              {wizardStep === 3 && !isReady && setupHint && (
+              {wizardStep === 4 && !isReady && setupHint && (
                 <Text style={wizardStyles.readinessHint}>{setupHint}</Text>
               )}
 
@@ -1191,11 +1297,11 @@ export default function RecommenderScreen() {
                   style={({ pressed }) => [
                     wizardStyles.continueButton,
                     !canContinue && wizardStyles.continueButtonDisabled,
-                    wizardStep === 3 && canContinue && isReady && wizardStyles.continueButtonFinal,
+                    wizardStep === 4 && canContinue && isReady && wizardStyles.continueButtonFinal,
                     Platform.OS === 'ios' && pressed && canContinue && { opacity: 0.9 },
                   ]}
                   onPress={handleContinueOrSubmit}
-                  disabled={!canContinue || (wizardStep === 3 && !isReady)}
+                  disabled={!canContinue || (wizardStep === 4 && !isReady)}
                   android_ripple={
                     canContinue ? { color: 'rgba(255,255,255,0.18)' } : undefined
                   }
@@ -1206,7 +1312,7 @@ export default function RecommenderScreen() {
                       !canContinue && wizardStyles.continueButtonTextDisabled,
                     ]}
                   >
-                    {wizardStep === 3 ? 'GENERATE PICKS' : 'CONTINUE'}
+                    {wizardStep === 4 ? 'GENERATE PICKS' : 'CONTINUE'}
                   </Text>
                   <Ionicons
                     name="arrow-forward"
@@ -1290,6 +1396,7 @@ export default function RecommenderScreen() {
           result={result}
           style={styles.resultView}
           onRefresh={() => handleFetch(true)}
+          onViewVariant={(variant) => handleFetch(false, variant)}
           isRefreshing={isRefreshing}
         />
       )}
@@ -2185,6 +2292,52 @@ const wizardStyles = StyleSheet.create({
     textAlign: 'center',
     marginTop: 3,
     lineHeight: 13,
+  },
+
+  // Goal grid
+  goalGrid: {
+    flexDirection: 'row',
+    gap: 14,
+  },
+  goalCard: {
+    flex: 1,
+    minHeight: 128,
+    backgroundColor: paper.paper,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    borderRadius: paperRadius.card,
+    paddingHorizontal: 14,
+    paddingVertical: 18,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    ...paperShadows.hard,
+  },
+  goalCardActive: {
+    borderColor: paper.red,
+    backgroundColor: paper.paperLight,
+    ...paperShadows.lift,
+  },
+  goalIconWrap: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    borderWidth: 2,
+    borderColor: paper.ink,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 12,
+    backgroundColor: paper.paper,
+  },
+  goalIconWrapActive: {
+    backgroundColor: paper.forest,
+  },
+  goalTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    color: paper.ink,
+    letterSpacing: -0.3,
+    textAlign: 'center',
   },
 
   // Shared select badge

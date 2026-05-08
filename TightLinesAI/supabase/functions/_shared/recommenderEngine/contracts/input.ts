@@ -3,6 +3,7 @@ import type { RegionKey } from "../../howFishingEngine/contracts/region.ts";
 import type { SpeciesGroup } from "./species.ts";
 
 export type WaterClarity = "clear" | "stained" | "dirty";
+export type RecommendationGoal = "all_purpose" | "big_fish";
 
 /**
  * Full request to the recommender edge function.
@@ -21,6 +22,7 @@ export type RecommenderRequest = {
   species: SpeciesGroup;
   context: EngineContext;
   water_clarity: WaterClarity;
+  recommendation_goal: RecommendationGoal;
   /** Raw environment data — same shape as howFishing engine input */
   env_data: Record<string, unknown>;
 };

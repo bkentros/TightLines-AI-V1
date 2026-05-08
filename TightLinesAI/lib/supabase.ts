@@ -25,6 +25,7 @@ export async function invokeEdgeFunction<TResponse>(
   options: {
     accessToken: string;
     body: unknown;
+    headers?: Record<string, string>;
   }
 ): Promise<TResponse> {
   const response = await fetch(`${supabaseUrl}/functions/v1/${functionName}`, {
@@ -34,6 +35,7 @@ export async function invokeEdgeFunction<TResponse>(
       apikey: supabaseAnonKey,
       Authorization: `Bearer ${supabaseAnonKey}`,
       'x-user-token': options.accessToken,
+      ...options.headers,
     },
     body: JSON.stringify(options.body),
   });

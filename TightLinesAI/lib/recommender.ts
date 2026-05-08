@@ -12,14 +12,39 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { invokeEdgeFunction, getValidAccessToken } from './supabase';
 import type {
   EngineContext,
+  DailyPicksVariant,
+  RecommendationGoal,
   RecommenderCallParams,
   RecommenderResponse,
   SpeciesGroup,
   WaterClarity,
 } from './recommenderContracts';
-import { RECOMMENDER_DAILY_SESSION_ENGINE_VERSION, RECOMMENDER_FEATURE } from './recommenderContracts';
+import {
+  DAILY_PICKS_RESPONSE_FEATURE,
+  DAILY_PICKS_RESPONSE_VERSION,
+  DAILY_PICKS_SESSION_ENGINE_VERSION,
+  isDailyPicksResponse,
+} from './recommenderContracts';
 
 const COORD_THRESHOLD = 0.01;
+const DEFAULT_RECOMMENDATION_GOAL: RecommendationGoal = 'all_purpose';
+
+type GoalAwareRecommenderCallParams = RecommenderCallParams & {
+  recommendation_goal: RecommendationGoal;
+};
+
+function normalizeRecommendationGoal(goal?: RecommendationGoal): RecommendationGoal {
+  return goal ?? DEFAULT_RECOMMENDATION_GOAL;
+}
+
+function withDefaultRecommendationGoal(
+  params: RecommenderCallParams,
+): GoalAwareRecommenderCallParams {
+  return {
+    ...params,
+    recommendation_goal: normalizeRecommendationGoal(params.recommendation_goal),
+  };
+}
 
 function normalizeTimezone(raw: unknown): string {
   return typeof raw === 'string' && raw.trim().length > 0 ? raw.trim() : 'America/New_York';
@@ -52,20 +77,23 @@ function extractRequestDay(params: Pick<RecommenderCallParams, 'target_date' | '
 function cacheKey(
   params: Pick<
     RecommenderCallParams,
-    'latitude' | 'longitude' | 'state_code' | 'context' | 'species' | 'water_clarity' | 'env_data' | 'target_date'
+    'latitude' | 'longitude' | 'state_code' | 'context' | 'species' | 'water_clarity' | 'recommendation_goal' | 'env_data' | 'target_date'
   >,
+  variant: DailyPicksVariant,
 ): string {
   const dayKey = extractRequestDay(params);
   return [
     // Prefix must change when the edge response contract or selection rules change.
-    RECOMMENDER_DAILY_SESSION_ENGINE_VERSION,
+    DAILY_PICKS_SESSION_ENGINE_VERSION,
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),
     params.context,
     params.species,
     params.water_clarity,
+    normalizeRecommendationGoal(params.recommendation_goal),
     dayKey,
+    `set_${variant}`,
   ].join('_');
 }
 
@@ -82,6 +110,8 @@ interface CacheEntry {
   context: EngineContext;
   species: SpeciesGroup;
   clarity: WaterClarity;
+  recommendation_goal: RecommendationGoal;
+  variant: DailyPicksVariant;
   day_key: string;
   cache_expires_at: string;
   result: RecommenderResponse;
@@ -95,26 +125,42 @@ const _memCache = new Map<string, CacheEntry>();
  * Guards against stale cached results from older API shapes.
  */
 function isCachedResultValid(result: RecommenderResponse): boolean {
-  if (result.feature !== RECOMMENDER_FEATURE) return false;
-  const lures = result.lure_recommendations;
-  const flies = result.fly_recommendations;
-  if (!Array.isArray(lures) || !Array.isArray(flies)) return false;
-  if (lures.length > 3 || flies.length > 3) return false;
-  if (lures.length + flies.length < 1) return false;
-  for (const rec of [...lures, ...flies]) {
-    if (!rec || typeof rec.id !== 'string' || typeof rec.why_chosen !== 'string') {
+  if (!isDailyPicksResponse(result)) return false;
+  if (result.feature !== DAILY_PICKS_RESPONSE_FEATURE) return false;
+  if (result.engine_version !== DAILY_PICKS_RESPONSE_VERSION) return false;
+  if (
+    result.recommendation_goal !== 'all_purpose' &&
+    result.recommendation_goal !== 'big_fish'
+  ) return false;
+  const picks = result.picks;
+  const ordered = [
+    picks.lure_of_the_day,
+    picks.honorable_lure,
+    picks.fly_of_the_day,
+    picks.honorable_fly,
+  ];
+  for (const rec of ordered) {
+    if (
+      !rec ||
+      typeof rec.id !== 'string' ||
+      typeof rec.why_chosen !== 'string' ||
+      typeof rec.how_to_fish !== 'string'
+    ) {
       return false;
     }
   }
-  if (typeof result.summary?.daily_tactical_preference?.posture_band !== 'string') {
-    return false;
-  }
-  if (typeof result.summary?.daily_tactical_preference?.preferred_column !== 'string') {
-    return false;
-  }
+  if (typeof result.scenario_summary?.activity_level !== 'string') return false;
+  if (typeof result.scenario_summary?.surface_daily_gate !== 'string') return false;
+  if (typeof result.scenario_summary?.confidence !== 'string') return false;
   const session = result.recommendation_session;
   if (!session) return false;
   if (session.variant !== 'A' && session.variant !== 'B') return false;
+  if (
+    !Array.isArray(session.available_variants) ||
+    session.available_variants.some((variant) => variant !== 'A' && variant !== 'B')
+  ) {
+    return false;
+  }
   if (typeof session.local_date !== 'string') return false;
   if (typeof session.locked_until !== 'string') return false;
   if (typeof session.can_refresh !== 'boolean') return false;
@@ -128,10 +174,12 @@ function isCachedResultValid(result: RecommenderResponse): boolean {
 // ─── Read cache ───────────────────────────────────────────────────────────────
 
 async function getCachedResult(
-  params: RecommenderCallParams,
+  params: GoalAwareRecommenderCallParams,
+  variant: DailyPicksVariant,
 ): Promise<RecommenderResponse | null> {
   const { latitude, longitude } = params;
-  const key = cacheKey(params);
+  const goal = normalizeRecommendationGoal(params.recommendation_goal);
+  const key = cacheKey(params, variant);
 
   // 1. In-memory first
   const mem = _memCache.get(key);
@@ -139,6 +187,15 @@ async function getCachedResult(
     const expires = new Date(mem.cache_expires_at).getTime();
     if (Number.isFinite(expires) && Date.now() < expires) {
       if (!isCachedResultValid(mem.result)) {
+        _memCache.delete(key);
+        return null;
+      }
+      if (
+        mem.recommendation_goal !== goal ||
+        mem.result.recommendation_goal !== goal ||
+        mem.variant !== variant ||
+        mem.result.recommendation_session.variant !== variant
+      ) {
         _memCache.delete(key);
         return null;
       }
@@ -153,6 +210,12 @@ async function getCachedResult(
     if (!raw) return null;
     const entry = JSON.parse(raw) as CacheEntry;
     if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
+    if (
+      entry.recommendation_goal !== goal ||
+      entry.result.recommendation_goal !== goal ||
+      entry.variant !== variant ||
+      entry.result.recommendation_session.variant !== variant
+    ) return null;
     const expires = new Date(entry.cache_expires_at).getTime();
     if (!Number.isFinite(expires) || Date.now() >= expires) return null;
     // Discard if shape is stale (old string-array format)
@@ -171,12 +234,15 @@ async function getCachedResult(
 // ─── Write cache ──────────────────────────────────────────────────────────────
 
 async function setCachedResult(
-  params: RecommenderCallParams,
+  params: GoalAwareRecommenderCallParams,
   result: RecommenderResponse,
 ): Promise<void> {
   if (!isCachedResultValid(result)) return;
+  const goal = normalizeRecommendationGoal(params.recommendation_goal);
+  if (result.recommendation_goal !== goal) return;
+  const variant = result.recommendation_session.variant;
   const dayKey = extractRequestDay(params);
-  const key = cacheKey(params);
+  const key = cacheKey(params, variant);
   const entry: CacheEntry = {
     lat: params.latitude,
     lon: params.longitude,
@@ -184,6 +250,8 @@ async function setCachedResult(
     context: params.context,
     species: params.species,
     clarity: params.water_clarity,
+    recommendation_goal: goal,
+    variant,
     day_key: dayKey,
     cache_expires_at: result.cache_expires_at,
     result,
@@ -200,23 +268,42 @@ async function setCachedResult(
 
 export async function fetchRecommendation(
   params: RecommenderCallParams,
-  opts: { forceRefresh?: boolean } = {},
+  opts: { forceRefresh?: boolean; viewVariant?: DailyPicksVariant } = {},
 ): Promise<RecommenderResponse> {
-  // Check cache unless force refresh
-  if (!opts.forceRefresh) {
-    const cached = await getCachedResult(params);
-    if (cached) return cached;
+  const requestParams = withDefaultRecommendationGoal(params);
+
+  // Check cache unless this request is meant to generate Set B or read a
+  // specific stored variant. Variant views go to the server so Set A metadata
+  // cannot stay stale after Set B exists.
+  if (!opts.forceRefresh && !opts.viewVariant) {
+    const cachedB = await getCachedResult(requestParams, 'B');
+    if (cachedB) return cachedB;
+    const cachedA = await getCachedResult(requestParams, 'A');
+    if (cachedA) return cachedA;
   }
 
   // Fetch from edge function
   const token = await getValidAccessToken();
   const result = await invokeEdgeFunction<RecommenderResponse>('recommender', {
     accessToken: token,
-    body: opts.forceRefresh ? { ...params, refresh_requested: true } : params,
+    headers: {
+      // Redundant after backend default cutover, but harmless for app builds
+      // that still talk to a preview-gated edge function.
+      'x-recommender-preview': 'daily_picks_2x2',
+    },
+    body: opts.forceRefresh
+      ? { ...requestParams, refresh_requested: true }
+      : opts.viewVariant
+        ? { ...requestParams, view_variant: opts.viewVariant }
+        : requestParams,
   });
 
-  // Cache the result
-  await setCachedResult(params, result);
+  if (!isCachedResultValid(result) || result.recommendation_goal !== requestParams.recommendation_goal) {
+    throw new Error('Unexpected recommender response shape. Please update and try again.');
+  }
+
+  // Cache only the daily-picks 2x2 result shape.
+  await setCachedResult(requestParams, result);
 
   return result;
 }
