@@ -532,15 +532,42 @@ export default function HomeScreen() {
     : null;
   const pressureTrendLabel = pressureTrendDisplay(envData?.weather?.pressure_trend);
   // 6-hour temp trend computed from the actual hourly_air_temp_f series.
-  // Compares "now" (last sample) with the sample 6 hours ago to produce
-  // a real signed delta in °F.
+  // We look at each entry's `time_utc` and pick the one closest to "now"
+  // (latest) and the one closest to "now − 6h" (past), so the delta is
+  // always (current − 6h ago) regardless of array order or whether the
+  // series mixes past + forecast hours.
   const tempTrendDisplay = useMemo(() => {
     const series = envData?.hourly_air_temp_f;
     if (!series || series.length < 2) return null;
-    const last = series[series.length - 1]?.value;
-    const sixAgo = series[series.length - 7]?.value ?? series[0]?.value;
-    if (last == null || sixAgo == null) return null;
-    return sixHourTrendChip(last - sixAgo);
+    const nowMs = Date.now();
+    const sixHoursAgoMs = nowMs - 6 * 60 * 60 * 1000;
+    let nowIdx = -1;
+    let nowDelta = Infinity;
+    let pastIdx = -1;
+    let pastDelta = Infinity;
+    for (let i = 0; i < series.length; i++) {
+      const t = Date.parse(series[i].time_utc);
+      if (Number.isNaN(t)) continue;
+      // "Now" candidate: closest entry that's not in the future.
+      if (t <= nowMs) {
+        const d = nowMs - t;
+        if (d < nowDelta) {
+          nowDelta = d;
+          nowIdx = i;
+        }
+      }
+      // Past candidate: closest entry to 6 hours ago (either side).
+      const d6 = Math.abs(t - sixHoursAgoMs);
+      if (d6 < pastDelta) {
+        pastDelta = d6;
+        pastIdx = i;
+      }
+    }
+    if (nowIdx === -1 || pastIdx === -1 || nowIdx === pastIdx) return null;
+    const currentTempReading = series[nowIdx]?.value;
+    const pastTempReading = series[pastIdx]?.value;
+    if (currentTempReading == null || pastTempReading == null) return null;
+    return sixHourTrendChip(currentTempReading - pastTempReading);
   }, [envData?.hourly_air_temp_f]);
   // Today's air temp range — index 14 of the 21-entry hi/lo arrays is "today".
   const todayHi = envData?.weather?.temp_7day_high?.[14];
@@ -577,13 +604,20 @@ export default function HomeScreen() {
     hapticImpact(ImpactFeedbackStyle.Light);
     setRefreshing(true);
     try {
+      // Pull-to-refresh only re-fetches LIVE CONDITIONS — it does not
+      // re-run the day's bite report (which the user generates manually
+      // by tapping "Get your read") and it does not re-fetch the 6-day
+      // forecast (which the engine produces on a slower cadence).
       lastAutoRefreshAtRef.current = 0;
       refreshLiveConditions();
-      await Promise.all([loadForecastScores(), loadCachedReportMean()]);
+      // Briefly hold the spinner so the gesture feels intentional even
+      // when the env API responds in a few hundred milliseconds from
+      // cache. ~600 ms is the sweet spot.
+      await new Promise((resolve) => setTimeout(resolve, 600));
     } finally {
       setRefreshing(false);
     }
-  }, [refreshLiveConditions, loadForecastScores, loadCachedReportMean]);
+  }, [refreshLiveConditions]);
 
   const handleRequestLocation = useCallback(async () => {
     if (__DEV__) {
@@ -1230,7 +1264,7 @@ function FinFindrEmblemView() {
   return (
     <Image
       source={require('../../assets/images/finfindr-logo.png')}
-      style={{ width: 38, height: 44 }}
+      style={{ width: 48, height: 52 }}
       resizeMode="contain"
     />
   );
