@@ -76,6 +76,7 @@ export function HowFishingLoadingSkeleton() {
 
         <View style={styles.gaugeWrap}>
           <View style={styles.gaugePanel}>
+            <View style={styles.gaugePanelSheen} />
             <View style={styles.gaugePanelHeader}>
               <Bone style={styles.gaugePanelLabelBone} />
               <View style={styles.gaugeBandPill}>
@@ -246,6 +247,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingTop: 10,
     paddingBottom: 12,
+    overflow: 'hidden',
+  },
+  gaugePanelSheen: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: '18%',
+    width: 76,
+    backgroundColor: 'rgba(255,255,255,0.42)',
   },
   gaugePanelHeader: {
     flexDirection: 'row',

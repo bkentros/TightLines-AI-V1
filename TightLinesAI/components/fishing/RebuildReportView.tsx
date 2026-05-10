@@ -166,7 +166,7 @@ function HeroMetaStrip({
             <Ionicons name="thermometer-outline" size={11} color={paper.dashboardMuted} />
             <Text style={styles.metaItemLabel}>AIR</Text>
             <Text style={styles.metaItemValue}>
-              {`${Math.round(lo!)}° / ${Math.round(hi!)}°F`}
+              {`${Math.round(hi!)}° / ${Math.round(lo!)}°F`}
             </Text>
           </View>
         ) : null}
@@ -523,7 +523,9 @@ function LinearScoreGauge({
 
   const progress = useRef(new Animated.Value(0)).current;
   const bandOpacity = useRef(new Animated.Value(0)).current;
+  const shimmerX = useRef(new Animated.Value(0)).current;
   const [displayScore, setDisplayScore] = useState('0.0');
+  const [panelWidth, setPanelWidth] = useState(0);
 
   useEffect(() => {
     progress.setValue(0);
@@ -557,6 +559,24 @@ function LinearScoreGauge({
     };
   }, [pct, clamped, progress, bandOpacity]);
 
+  useEffect(() => {
+    if (panelWidth === 0) return;
+    shimmerX.setValue(0);
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(shimmerX, {
+          toValue: 1,
+          duration: 3000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.delay(800),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [panelWidth, shimmerX]);
+
   const leftInterp = progress.interpolate({
     inputRange: [0, 1],
     outputRange: ['0%', '100%'],
@@ -564,7 +584,28 @@ function LinearScoreGauge({
 
   return (
     <View style={gaugeStyles.wrap}>
-      <View style={[gaugeStyles.panel, { borderColor: `${accent}55` }]}>
+      <View
+        style={[gaugeStyles.panel, { borderColor: `${accent}55` }]}
+        onLayout={(e) => setPanelWidth(e.nativeEvent.layout.width)}
+      >
+        {panelWidth > 0 && (
+          <Animated.View
+            pointerEvents="none"
+            style={[
+              gaugeStyles.panelShimmer,
+              {
+                transform: [
+                  {
+                    translateX: shimmerX.interpolate({
+                      inputRange: [0, 1],
+                      outputRange: [-panelWidth, panelWidth * 1.5],
+                    }),
+                  },
+                ],
+              },
+            ]}
+          />
+        )}
         <View style={gaugeStyles.panelHeader}>
           <Text style={gaugeStyles.panelLabel}>CONDITION SCORE</Text>
           <Animated.View
@@ -647,6 +688,14 @@ const gaugeStyles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingTop: 10,
     paddingBottom: 12,
+    overflow: 'hidden',
+  },
+  panelShimmer: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    width: 96,
+    backgroundColor: 'rgba(255,255,255,0.48)',
   },
   panelHeader: {
     flexDirection: 'row',
