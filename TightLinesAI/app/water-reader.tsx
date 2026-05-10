@@ -1115,11 +1115,11 @@ const styles = StyleSheet.create({
   },
   heroPines: {
     position: 'absolute',
-    right: -42,
-    top: -36,
-    width: 360,
-    height: 230,
-    opacity: 1,
+    right: -58,
+    top: -22,
+    width: 238,
+    height: 150,
+    opacity: 0.42,
     zIndex: 0,
   },
 
