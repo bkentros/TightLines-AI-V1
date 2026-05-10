@@ -313,6 +313,29 @@ Deno.test("DailyPick scoring favors big-fish candidates for big_fish when compar
   );
 });
 
+Deno.test("DailyPick scoring applies a strong caution penalty to surface candidates", () => {
+  const row = baseRow({
+    column_baseline: "upper",
+    pace_baseline: "medium",
+    primary_forage: "baitfish",
+    primary_lure_ids: ["buzzbait", "spinnerbait"],
+  });
+  const scenario = baseScenario({
+    recommendation_goal: "big_fish",
+    surface_daily_gate: "caution",
+    scenario_tags: ["wind_reaction", "dirty_vibration"],
+    water_clarity: "dirty",
+  });
+  const surface = scoreFor({ profile: lure("buzzbait"), row, scenario });
+  const subsurface = scoreFor({ profile: lure("spinnerbait"), row, scenario });
+
+  assert(surface.reasons.includes("surface_daily_gate:caution:-24"));
+  assert(
+    subsurface.score > surface.score,
+    `expected subsurface ${subsurface.score} to beat caution surface ${surface.score}`,
+  );
+});
+
 Deno.test("DailyPick pool and scoring preserve intrinsic catalog column and pace", () => {
   const row = baseRow({
     primary_lure_ids: ["buzzbait"],

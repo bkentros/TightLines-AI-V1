@@ -29,10 +29,10 @@ function hasDuplicates(values: readonly string[]): boolean {
   return new Set(values).size !== values.length;
 }
 
-Deno.test("catalog: lure count and id set match Appendix A / contracts (39)", () => {
-  assertEquals(LURE_ARCHETYPES_V4.length, 39);
+Deno.test("catalog: lure count and id set match Appendix A / contracts (48)", () => {
+  assertEquals(LURE_ARCHETYPES_V4.length, 48);
   const ids = new Set(LURE_ARCHETYPES_V4.map((x) => x.id));
-  assertEquals(ids.size, 39);
+  assertEquals(ids.size, 48);
   for (const id of LURE_ARCHETYPE_IDS_V4) {
     assert(ids.has(id), `missing lure ${id}`);
   }
@@ -61,10 +61,10 @@ Deno.test("trout river quality: small_floating_trout_plug is trout-only river su
   assertEquals(plug.how_to_fish_variants.length, 3);
 });
 
-Deno.test("catalog: fly count and id set match Appendix A / contracts (31)", () => {
-  assertEquals(FLY_ARCHETYPES_V4.length, 31);
+Deno.test("catalog: fly count and id set match Appendix A / contracts (32)", () => {
+  assertEquals(FLY_ARCHETYPES_V4.length, 32);
   const ids = new Set(FLY_ARCHETYPES_V4.map((x) => x.id));
-  assertEquals(ids.size, 31);
+  assertEquals(ids.size, 32);
   for (const id of FLY_ARCHETYPE_IDS_V4) {
     assert(ids.has(id), `missing fly ${id}`);
   }
@@ -119,8 +119,12 @@ Deno.test("G7: surface-fly species allowances on authored catalog", () => {
         );
       }
     } else if (f.id === "mouse_fly") {
-      assertEquals(f.species_allowed.length, 1);
-      assertEquals(f.species_allowed[0], "trout");
+      for (const s of f.species_allowed) {
+        assert(
+          s === "largemouth_bass" || s === "trout",
+          `mouse_fly species ${s}`,
+        );
+      }
     }
   }
 });
@@ -228,9 +232,7 @@ Deno.test("Pass 5D.1: large pike tube is pike-first cold/slow bottom inventory",
 });
 
 Deno.test("Pass 7C: glidebait is bass-only Big Fish mid-column inventory", () => {
-  const glidebait = LURE_ARCHETYPES_V4.find((lure) =>
-    lure.id === "glidebait"
-  );
+  const glidebait = LURE_ARCHETYPES_V4.find((lure) => lure.id === "glidebait");
   assert(glidebait, "expected glidebait in lure catalog");
   assertEquals(glidebait.display_name, "Glide Bait");
   assertEquals(glidebait.species_allowed, [
@@ -553,6 +555,137 @@ Deno.test("Pass 11: surface fly popper, slider, and gurgler use distinct present
 Deno.test("Pass 11: baitfish_slider_fly has slider-specific presentation group", () => {
   const slider = FLY_ARCHETYPES_V4.find((f) => f.id === "baitfish_slider_fly")!;
   assertEquals(slider.presentation_group, "baitfish_slider");
+});
+
+Deno.test("QA-5A: crawfish flies share family group for selector diversity", () => {
+  const riverCraw = FLY_ARCHETYPES_V4.find((f) =>
+    f.id === "crawfish_streamer"
+  )!;
+  const warmwaterCraw = FLY_ARCHETYPES_V4.find((f) =>
+    f.id === "warmwater_crawfish_fly"
+  )!;
+
+  assertEquals(riverCraw.family_group, "crawfish_fly");
+  assertEquals(warmwaterCraw.family_group, "crawfish_fly");
+  assertEquals(riverCraw.presentation_group, "crawfish_fly");
+  assertEquals(warmwaterCraw.presentation_group, "crawfish_fly");
+});
+
+Deno.test("QA-5A: spinnerbait is not trout catalog inventory", () => {
+  const spinnerbait = LURE_ARCHETYPES_V4.find((l) => l.id === "spinnerbait")!;
+
+  assert(!spinnerbait.species_allowed.includes("trout"));
+});
+
+Deno.test("QA-5B: new inventory keeps narrow species and water truth", () => {
+  const byLure = new Map(LURE_ARCHETYPES_V4.map((l) => [l.id, l]));
+  const byFly = new Map(FLY_ARCHETYPES_V4.map((f) => [f.id, f]));
+
+  const compactGlide = byLure.get("compact_glidebait")!;
+  assertEquals(compactGlide.species_allowed, ["smallmouth_bass"]);
+  assertEquals(compactGlide.water_types_allowed, ["freshwater_lake_pond"]);
+  assert(compactGlide.goal_tags.includes("big_fish_upside"));
+
+  const magnumWorm = byLure.get("magnum_worm")!;
+  assertEquals(magnumWorm.species_allowed, ["largemouth_bass"]);
+  assertEquals(magnumWorm.water_types_allowed, ["freshwater_lake_pond"]);
+
+  const pikeSpinnerbait = byLure.get("pike_spinnerbait")!;
+  assertEquals(pikeSpinnerbait.species_allowed, ["northern_pike"]);
+  assert(pikeSpinnerbait.goal_tags.includes("reliable_action"));
+  assert(pikeSpinnerbait.goal_tags.includes("big_fish_upside"));
+
+  const pikeGlide = byLure.get("pike_glidebait")!;
+  assertEquals(pikeGlide.species_allowed, ["northern_pike"]);
+  assertEquals(pikeGlide.water_types_allowed, ["freshwater_lake_pond"]);
+  assert(pikeGlide.goal_tags.includes("high_risk_high_reward"));
+
+  const bluegillStreamer = byFly.get("bluegill_streamer")!;
+  assertEquals(bluegillStreamer.species_allowed, ["largemouth_bass"]);
+  assertEquals(bluegillStreamer.water_types_allowed, ["freshwater_lake_pond"]);
+  assertEquals(bluegillStreamer.forage_tags, ["bluegill_perch", "baitfish"]);
+});
+
+Deno.test("QA-5C: same-style Big Fish expansions share selector families", () => {
+  const byLure = new Map(LURE_ARCHETYPES_V4.map((l) => [l.id, l]));
+
+  assertEquals(
+    byLure.get("compact_glidebait")!.family_group,
+    byLure.get("glidebait")!.family_group,
+  );
+  assertEquals(
+    byLure.get("big_smallmouth_tube")!.family_group,
+    byLure.get("tube_jig")!.family_group,
+  );
+  assertEquals(byLure.get("pike_spinnerbait")!.species_allowed, [
+    "northern_pike",
+  ]);
+  assertEquals(
+    byLure.get("pike_spinnerbait")!.family_group ===
+      byLure.get("spinnerbait")!.family_group,
+    false,
+  );
+});
+
+Deno.test("QA-7: pike bucktail participates in stained reaction traces", () => {
+  const bucktail = LURE_ARCHETYPES_V4.find((l) =>
+    l.id === "large_bucktail_spinner"
+  )!;
+
+  assert(bucktail.condition_tags.includes("wind_reaction"));
+  assert(bucktail.condition_tags.includes("dirty_vibration"));
+  assert(bucktail.goal_tags.includes("big_fish_upside"));
+});
+
+Deno.test("QA-5B: new inventory has manifest, asset, and frontend image mapping", async () => {
+  const newLureIds = [
+    "compact_glidebait",
+    "magnum_jerkbait",
+    "big_smallmouth_tube",
+    "wake_bait",
+    "magnum_worm",
+    "pike_spinnerbait",
+    "weedless_spoon",
+    "shallow_minnowbait",
+    "pike_glidebait",
+  ] as const;
+  const newFlyIds = ["bluegill_streamer"] as const;
+  const repoRoot = new URL("../../../../../../", import.meta.url);
+  const manifest = await Deno.readTextFile(
+    new URL("scripts/data/recommenderTackleImageManifest.ts", repoRoot),
+  );
+  const lureImageMap = await Deno.readTextFile(
+    new URL("lib/lureImages.ts", repoRoot),
+  );
+  const flyImageMap = await Deno.readTextFile(
+    new URL("lib/flyImages.ts", repoRoot),
+  );
+
+  for (const id of newLureIds) {
+    assert(manifest.includes(`key: "${id}"`), `${id} missing manifest entry`);
+    assert(
+      lureImageMap.includes(`${id}:`) &&
+        lureImageMap.includes(`assets/images/lures/${id}.png`),
+      `${id} missing frontend lure image mapping`,
+    );
+    const stat = await Deno.stat(
+      new URL(`assets/images/lures/${id}.png`, repoRoot),
+    );
+    assert(stat.isFile, `${id} lure asset is not a file`);
+  }
+
+  for (const id of newFlyIds) {
+    assert(manifest.includes(`key: "${id}"`), `${id} missing manifest entry`);
+    assert(
+      flyImageMap.includes(`${id}:`) &&
+        flyImageMap.includes(`assets/images/flies/${id}.png`),
+      `${id} missing frontend fly image mapping`,
+    );
+    const stat = await Deno.stat(
+      new URL(`assets/images/flies/${id}.png`, repoRoot),
+    );
+    assert(stat.isFile, `${id} fly asset is not a file`);
+  }
 });
 
 Deno.test("Pass 1: frog_fly and mouse_fly share surface_fly_frog_mouse", () => {

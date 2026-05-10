@@ -241,22 +241,19 @@ Deno.test("frog_fly: rejects smallmouth_bass (G7)", () => {
   );
 });
 
-Deno.test("mouse_fly: rejects multiple species (G7)", () => {
-  assertThrows(
-    () =>
-      fly({
-        ...baseFly,
-        id: "mouse_fly",
-        column: "surface",
-        primary_pace: "slow",
-        secondary_pace: "medium",
-        species_allowed: ["trout", "largemouth_bass"],
-        forage_tags: ["surface_prey"],
-        clarity_strengths: ["clear", "stained"],
-      }),
-    Error,
-    'mouse_fly species_allowed must be exactly ["trout"]',
-  );
+Deno.test("mouse_fly: accepts largemouth_bass and trout (G7)", () => {
+  const p = fly({
+    ...baseFly,
+    id: "mouse_fly",
+    column: "surface",
+    primary_pace: "slow",
+    secondary_pace: "medium",
+    species_allowed: ["largemouth_bass", "trout"],
+    forage_tags: ["surface_prey"],
+    clarity_strengths: ["clear", "stained"],
+  });
+
+  assertEquals(p.species_allowed, ["largemouth_bass", "trout"]);
 });
 
 Deno.test("mouse_fly: rejects pike-only species_allowed (G7)", () => {
@@ -273,7 +270,7 @@ Deno.test("mouse_fly: rejects pike-only species_allowed (G7)", () => {
         clarity_strengths: ["clear", "stained"],
       }),
     Error,
-    'mouse_fly species_allowed must be exactly ["trout"]',
+    "mouse_fly species_allowed must be largemouth_bass and/or trout",
   );
 });
 

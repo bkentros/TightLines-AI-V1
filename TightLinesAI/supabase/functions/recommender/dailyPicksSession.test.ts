@@ -105,6 +105,20 @@ function futureResponse(args: {
       surface_daily_gate: "open",
       missing_inputs: [],
       confidence: "high",
+      family_diversity: {
+        lures: {
+          top_family_group: "test_top_lure_family",
+          honorable_family_group: "test_honorable_lure_family",
+          different_family_selected: true,
+          different_family_available_in_band: true,
+        },
+        flies: {
+          top_family_group: "test_top_fly_family",
+          honorable_family_group: "test_honorable_fly_family",
+          different_family_selected: true,
+          different_family_available_in_band: true,
+        },
+      },
     },
     picks: {
       lure_of_the_day: { ...pick(lureIds[0], "lure"), slot: "lure_of_the_day" },
@@ -273,7 +287,9 @@ Deno.test("daily-picks session: first request creates variant A with one refresh
 
   assertEquals(resolved.generatedVariant, "A");
   assertEquals(resolved.result.recommendation_session.variant, "A");
-  assertEquals(resolved.result.recommendation_session.available_variants, ["A"]);
+  assertEquals(resolved.result.recommendation_session.available_variants, [
+    "A",
+  ]);
   assertEquals(resolved.result.recommendation_session.can_refresh, true);
   assertEquals(resolved.result.recommendation_session.refreshes_remaining, 1);
   assertEquals(dailySessions.size, 1);

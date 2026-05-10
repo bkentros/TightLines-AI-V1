@@ -266,12 +266,14 @@ function validateSurfaceFlySpeciesGate(
   }
 
   if (surfaceId === "mouse_fly") {
-    if (species_allowed.length !== 1 || species_allowed[0] !== "trout") {
-      throw new Error(
-        `[recommender v4] mouse_fly species_allowed must be exactly ["trout"] (G7/P23); got: ${
-          species_allowed.join(", ")
-        }.`,
-      );
+    for (const s of species_allowed) {
+      if (s !== "largemouth_bass" && s !== "trout") {
+        throw new Error(
+          `[recommender v4] mouse_fly species_allowed must be largemouth_bass and/or trout only (G7/P23); got: ${
+            species_allowed.join(", ")
+          }.`,
+        );
+      }
     }
   }
 }

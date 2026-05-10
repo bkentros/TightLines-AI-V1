@@ -41,6 +41,7 @@ const FLY_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   large_articulated_pike_streamer:  require('../assets/images/flies/large_articulated_pike_streamer.png'),
   unweighted_baitfish_streamer:     require('../assets/images/flies/unweighted_baitfish_streamer.png'),
   baitfish_slider_fly:              require('../assets/images/flies/baitfish_slider_fly.png'),
+  bluegill_streamer:                require('../assets/images/flies/bluegill_streamer.png'),
 
   // ── Surface flies ─────────────────────────────────────────────────────────
   popper_fly:                       require('../assets/images/flies/popper_fly.png'),

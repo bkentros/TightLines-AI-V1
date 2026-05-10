@@ -12,12 +12,14 @@ const LURE_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
 
   // ── Finesse soft plastics ─────────────────────────────────────────────────
   shaky_head_worm:                  require('../assets/images/lures/shaky_head_worm.png'),
+  magnum_worm:                      require('../assets/images/lures/magnum_worm.png'),
   drop_shot_worm:                   require('../assets/images/lures/drop_shot_worm.png'),
   drop_shot_minnow:                 require('../assets/images/lures/drop_shot_minnow.png'),
   ned_rig:                          require('../assets/images/lures/ned_rig.png'),
 
   // ── Jigs ──────────────────────────────────────────────────────────────────
   tube_jig:                         require('../assets/images/lures/tube_jig.png'),
+  big_smallmouth_tube:               require('../assets/images/lures/big_smallmouth_tube.png'),
   texas_rigged_soft_plastic_craw:   require('../assets/images/lures/texas_rigged_soft_plastic_craw.png'),
   football_jig:                     require('../assets/images/lures/football_jig.png'),
   compact_flipping_jig:             require('../assets/images/lures/compact_flipping_jig.png'),
@@ -33,8 +35,10 @@ const LURE_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   // ── Swimbaits & jerkbaits ─────────────────────────────────────────────────
   paddle_tail_swimbait:             require('../assets/images/lures/paddle_tail_swimbait.png'),
   glidebait:                        require('../assets/images/lures/glidebait.png'),
+  compact_glidebait:                require('../assets/images/lures/compact_glidebait.png'),
   soft_jerkbait:                    require('../assets/images/lures/soft_jerkbait.png'),
   suspending_jerkbait:              require('../assets/images/lures/suspending_jerkbait.png'),
+  magnum_jerkbait:                  require('../assets/images/lures/magnum_jerkbait.png'),
 
   // ── Crankbaits ────────────────────────────────────────────────────────────
   squarebill_crankbait:             require('../assets/images/lures/squarebill_crankbait.png'),
@@ -54,8 +58,13 @@ const LURE_IMAGES: Partial<Record<string, ReturnType<typeof require>>> = {
   buzzbait:                         require('../assets/images/lures/buzzbait.png'),
   prop_bait:                        require('../assets/images/lures/prop_bait.png'),
   hollow_body_frog:                 require('../assets/images/lures/hollow_body_frog.png'),
+  wake_bait:                        require('../assets/images/lures/wake_bait.png'),
 
   // ── Pike / musky ──────────────────────────────────────────────────────────
+  pike_spinnerbait:                 require('../assets/images/lures/pike_spinnerbait.png'),
+  weedless_spoon:                   require('../assets/images/lures/weedless_spoon.png'),
+  shallow_minnowbait:               require('../assets/images/lures/shallow_minnowbait.png'),
+  pike_glidebait:                   require('../assets/images/lures/pike_glidebait.png'),
   large_profile_pike_swimbait:      require('../assets/images/lures/large_profile_pike_swimbait.png'),
   pike_jerkbait:                    require('../assets/images/lures/pike_jerkbait.png'),
   large_bucktail_spinner:           require('../assets/images/lures/large_bucktail_spinner.png'),

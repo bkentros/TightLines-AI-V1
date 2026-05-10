@@ -113,7 +113,7 @@ function result(
     "condition_tag:cover_ambush:+16",
     "primary_forage:baitfish:+12",
     "clarity_strength:stained:+8",
-    "surface_daily_gate:caution:-8",
+    "surface_daily_gate:caution:-24",
   ]);
   const honorableLure = overrides.honorableLure ??
     score("spinnerbait", "lure");
@@ -121,6 +121,24 @@ function result(
   const honorableFly = overrides.honorableFly ?? score("deceiver", "fly");
   const lureScores = [lureOfDay, honorableLure];
   const flyScores = [flyOfDay, honorableFly];
+  const familyDiversity = {
+    lures: {
+      top_family_group: lureOfDay.profile.family_group,
+      honorable_family_group: honorableLure.profile.family_group,
+      different_family_selected: lureOfDay.profile.family_group !==
+        honorableLure.profile.family_group,
+      different_family_available_in_band: lureOfDay.profile.family_group !==
+        honorableLure.profile.family_group,
+    },
+    flies: {
+      top_family_group: flyOfDay.profile.family_group,
+      honorable_family_group: honorableFly.profile.family_group,
+      different_family_selected: flyOfDay.profile.family_group !==
+        honorableFly.profile.family_group,
+      different_family_available_in_band: flyOfDay.profile.family_group !==
+        honorableFly.profile.family_group,
+    },
+  };
 
   return {
     row: row(),
@@ -157,6 +175,7 @@ function result(
       surface_daily_gate: sc.surface_daily_gate,
       missing_inputs: sc.missing_inputs,
       confidence: sc.confidence,
+      family_diversity: familyDiversity,
     },
   };
 }
@@ -381,6 +400,30 @@ Deno.test("DailyPicks response includes diagnostics and scenario summary", () =>
     "wind_reaction",
     "dirty_vibration",
   ]);
+});
+
+Deno.test("DailyPicks response diagnostics preserve family-diversity fields", () => {
+  const response = shapeDailyPicksResponse({
+    result: result(),
+    seed: "shape-test",
+  });
+
+  assertEquals(
+    response.diagnostics.family_diversity.lures.top_family_group,
+    profile("buzzbait").family_group,
+  );
+  assertEquals(
+    response.diagnostics.family_diversity.lures.honorable_family_group,
+    profile("spinnerbait").family_group,
+  );
+  assertEquals(
+    response.diagnostics.family_diversity.flies.top_family_group,
+    profile("clouser_minnow").family_group,
+  );
+  assertEquals(
+    response.diagnostics.family_diversity.flies.honorable_family_group,
+    profile("deceiver").family_group,
+  );
 });
 
 Deno.test("DailyPicks response shaper does not import or call current 3:3 runtime paths", async () => {

@@ -245,6 +245,83 @@ Deno.test("generated seasonal: trout river repair lures are scoped to honest row
   );
 });
 
+Deno.test("generated seasonal: trout mouse fly stays in peak summer/early-fall surface rows", () => {
+  let mouseRows = 0;
+  let broaderPlugRows = 0;
+
+  for (const row of TROUT_SEASONAL_ROWS_V4) {
+    const hasMouseFly = row.primary_fly_ids.includes("mouse_fly");
+    const hasTroutPlug = row.primary_lure_ids.includes(
+      "small_floating_trout_plug",
+    );
+
+    if (hasTroutPlug && [5, 6].includes(row.month)) {
+      broaderPlugRows++;
+    }
+
+    if (!hasMouseFly) continue;
+    mouseRows++;
+    assert(
+      row.water_type === "freshwater_river",
+      `${rowKey(row)} mouse_fly should stay scoped to trout river rows`,
+    );
+    assert(
+      row.surface_seasonally_possible,
+      `${rowKey(row)} mouse_fly needs seasonal surface open`,
+    );
+    assert(
+      row.column_range.includes("surface"),
+      `${rowKey(row)} mouse_fly needs surface column`,
+    );
+    assert(
+      [7, 8, 9].includes(row.month),
+      `${rowKey(row)} mouse_fly should stay scoped to peak summer/early fall`,
+    );
+  }
+
+  assert(mouseRows > 0, "expected peak-season trout rows to include mouse_fly");
+  assert(
+    broaderPlugRows > 0,
+    "expected small_floating_trout_plug to remain broader than mouse_fly",
+  );
+});
+
+Deno.test("generated seasonal: winter pike rows do not use generic spinnerbait padding", () => {
+  for (const row of NORTHERN_PIKE_SEASONAL_ROWS_V4) {
+    if (![12, 1, 2].includes(row.month)) continue;
+    assert(
+      !row.primary_lure_ids.includes("spinnerbait"),
+      `${
+        rowKey(row)
+      } should use pike-first winter tools instead of generic spinnerbait`,
+    );
+  }
+});
+
+Deno.test("generated seasonal: pike rows avoid small generic leech fly padding", () => {
+  const smallGenericLeechFlyIds = new Set([
+    "lead_eye_leech",
+    "jighead_marabou_leech",
+    "feather_jig_leech",
+  ]);
+
+  for (const row of NORTHERN_PIKE_SEASONAL_ROWS_V4) {
+    for (const flyId of row.primary_fly_ids) {
+      assert(
+        !smallGenericLeechFlyIds.has(flyId),
+        `${rowKey(row)} should use pike-scaled flies instead of ${flyId}`,
+      );
+    }
+
+    if (row.water_type === "freshwater_lake_pond") {
+      assert(
+        !row.primary_fly_ids.includes("clouser_minnow"),
+        `${rowKey(row)} should not use clouser_minnow as lake pike padding`,
+      );
+    }
+  }
+});
+
 Deno.test("generated seasonal: surface flies respect catalog species and water eligibility", () => {
   const surfaceFlyIds = new Set<string>(SURFACE_FLY_IDS_V4);
   for (const row of ALL_ROWS) {

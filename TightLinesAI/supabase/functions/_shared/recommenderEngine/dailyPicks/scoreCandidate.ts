@@ -28,7 +28,7 @@ const SCORE = {
   baselineColumn: 10,
   baselinePrimaryPace: 10,
   baselineSecondaryPace: 6,
-  surfaceCautionPenalty: -8,
+  surfaceCautionPenalty: -24,
 } as const;
 
 function addScore(

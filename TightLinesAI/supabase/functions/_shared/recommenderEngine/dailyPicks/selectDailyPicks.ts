@@ -10,10 +10,23 @@ export type DailyPicksSelection = {
   honorable_fly: CandidateScore;
 };
 
+export type DailyPicksFamilyDiversitySideDiagnostics = {
+  top_family_group: string;
+  honorable_family_group: string;
+  different_family_selected: boolean;
+  different_family_available_in_band: boolean;
+};
+
+export type DailyPicksFamilyDiversityDiagnostics = {
+  lures: DailyPicksFamilyDiversitySideDiagnostics;
+  flies: DailyPicksFamilyDiversitySideDiagnostics;
+};
+
 const TOP_QUALITY_BAND = 18;
 const HONORABLE_QUALITY_BAND = 24;
-const TOP_JITTER_POINTS = 8;
-const HONORABLE_JITTER_POINTS = 4;
+const TOP_COMMANDING_SCORE_LEAD = 10;
+const TOP_JITTER_POINTS = TOP_QUALITY_BAND;
+const HONORABLE_JITTER_POINTS = 12;
 
 function hashString(input: string): number {
   let hash = 2166136261;
@@ -81,6 +94,14 @@ function scoreDescendingThenId(
   return a.candidate.profile.id.localeCompare(b.candidate.profile.id);
 }
 
+function rawScoreDescendingThenId(
+  a: CandidateScore,
+  b: CandidateScore,
+): number {
+  if (b.score !== a.score) return b.score - a.score;
+  return a.profile.id.localeCompare(b.profile.id);
+}
+
 function bestByAdjusted(
   candidates: CandidateScore[],
   adjustedScore: (candidate: CandidateScore) => number,
@@ -88,6 +109,58 @@ function bestByAdjusted(
   return candidates
     .map((candidate) => ({ candidate, adjusted: adjustedScore(candidate) }))
     .sort(scoreDescendingThenId)[0]!.candidate;
+}
+
+function hasScoreReasonPrefix(
+  candidate: CandidateScore,
+  prefix: string,
+): boolean {
+  return candidate.reasons.some((reason) => reason.startsWith(prefix));
+}
+
+function hasActiveGoalReason(
+  candidate: CandidateScore,
+  scenario: DailyScenario,
+): boolean {
+  return hasScoreReasonPrefix(
+    candidate,
+    `goal:${scenario.recommendation_goal}:`,
+  );
+}
+
+function hasConditionReason(candidate: CandidateScore): boolean {
+  return hasScoreReasonPrefix(candidate, "condition_tag:");
+}
+
+function hasPriorityConditionSignal(scenario: DailyScenario): boolean {
+  return scenario.scenario_tags.some((tag) =>
+    tag === "cold_slow" ||
+    tag === "dirty_vibration" ||
+    tag === "runoff_streamer" ||
+    tag === "current_swing"
+  );
+}
+
+function preferGoalAndConditionFitWhenAvailable(
+  candidates: CandidateScore[],
+  scenario: DailyScenario,
+): CandidateScore[] {
+  const goalAndConditionFit = candidates.filter((candidate) =>
+    hasActiveGoalReason(candidate, scenario) && hasConditionReason(candidate)
+  );
+  if (goalAndConditionFit.length > 0) return goalAndConditionFit;
+
+  const conditionFit = candidates.filter(hasConditionReason);
+  if (hasPriorityConditionSignal(scenario) && conditionFit.length > 0) {
+    return conditionFit;
+  }
+
+  const goalFit = candidates.filter((candidate) =>
+    hasActiveGoalReason(candidate, scenario)
+  );
+  if (goalFit.length > 0) return goalFit;
+
+  return conditionFit.length > 0 ? conditionFit : candidates;
 }
 
 function qualityBand(
@@ -111,6 +184,26 @@ function candidatesRespectingAvoids(args: {
   return notAvoided.length > 0 ? notAvoided : args.candidates;
 }
 
+function preferNonSurfaceOnCautionWhenAvailable(
+  candidates: CandidateScore[],
+  scenario: DailyScenario,
+): CandidateScore[] {
+  if (scenario.surface_daily_gate !== "caution") return candidates;
+  const nonSurface = candidates.filter((candidate) =>
+    !candidate.profile.is_surface
+  );
+  return nonSurface.length > 0 ? nonSurface : candidates;
+}
+
+function differentFamilyCandidates(args: {
+  candidates: CandidateScore[];
+  top: CandidateScore;
+}): CandidateScore[] {
+  return args.candidates.filter((candidate) =>
+    candidate.profile.family_group !== args.top.profile.family_group
+  );
+}
+
 function selectTop(args: {
   candidates: CandidateScore[];
   side: "lure" | "fly";
@@ -127,8 +220,26 @@ function selectTop(args: {
     candidates: inBand,
     avoidIds: args.avoidIds,
   });
+  const surfaceEligible = preferNonSurfaceOnCautionWhenAvailable(
+    eligible,
+    args.scenario,
+  );
+  const varietyEligible = preferGoalAndConditionFitWhenAvailable(
+    surfaceEligible,
+    args.scenario,
+  );
+  const rawRanked = [...varietyEligible].sort(rawScoreDescendingThenId);
+  const rawBest = rawRanked[0]!;
+  const rawSecond = rawRanked[1];
 
-  return bestByAdjusted(eligible, (candidate) =>
+  if (
+    rawSecond == null ||
+    rawBest.score - rawSecond.score >= TOP_COMMANDING_SCORE_LEAD
+  ) {
+    return rawBest;
+  }
+
+  return bestByAdjusted(varietyEligible, (candidate) =>
     candidate.score +
     deterministicJitter({
       scenario: args.scenario,
@@ -179,12 +290,27 @@ function selectHonorable(args: {
     bestRemainingScore,
     HONORABLE_QUALITY_BAND,
   );
-  const eligible = candidatesRespectingAvoids({
+  const differentFamilyInBand = differentFamilyCandidates({
     candidates: inBand,
+    top: args.top,
+  });
+  const familyEligible = differentFamilyInBand.length > 0
+    ? differentFamilyInBand
+    : inBand;
+  const eligible = candidatesRespectingAvoids({
+    candidates: familyEligible,
     avoidIds: args.avoidIds,
   });
+  const surfaceEligible = preferNonSurfaceOnCautionWhenAvailable(
+    eligible,
+    args.scenario,
+  );
+  const varietyEligible = preferGoalAndConditionFitWhenAvailable(
+    surfaceEligible,
+    args.scenario,
+  );
 
-  return bestByAdjusted(eligible, (candidate) =>
+  return bestByAdjusted(varietyEligible, (candidate) =>
     candidate.score +
     diversityBonus(candidate, args.top) +
     deterministicJitter({
@@ -229,6 +355,62 @@ function selectSide(args: {
     avoidIds,
   });
   return [top, honorable];
+}
+
+function familyDiversityForSide(args: {
+  scores: CandidateScore[];
+  side: "lure" | "fly";
+  top: CandidateScore;
+  honorable: CandidateScore;
+}): DailyPicksFamilyDiversitySideDiagnostics {
+  const candidates = uniqueBestScores({
+    scores: args.scores,
+    side: args.side,
+  });
+  const remaining = candidates.filter((candidate) =>
+    candidate.profile.id !== args.top.profile.id
+  );
+  const bestRemainingScore = Math.max(
+    ...remaining.map((candidate) => candidate.score),
+  );
+  const inBand = qualityBand(
+    remaining,
+    bestRemainingScore,
+    HONORABLE_QUALITY_BAND,
+  );
+  const differentFamilyAvailableInBand = differentFamilyCandidates({
+    candidates: inBand,
+    top: args.top,
+  }).length > 0;
+
+  return {
+    top_family_group: args.top.profile.family_group,
+    honorable_family_group: args.honorable.profile.family_group,
+    different_family_selected: args.top.profile.family_group !==
+      args.honorable.profile.family_group,
+    different_family_available_in_band: differentFamilyAvailableInBand,
+  };
+}
+
+export function buildDailyPicksFamilyDiversityDiagnostics(args: {
+  selection: DailyPicksSelection;
+  lureScores: CandidateScore[];
+  flyScores: CandidateScore[];
+}): DailyPicksFamilyDiversityDiagnostics {
+  return {
+    lures: familyDiversityForSide({
+      scores: args.lureScores,
+      side: "lure",
+      top: args.selection.lure_of_the_day,
+      honorable: args.selection.honorable_lure,
+    }),
+    flies: familyDiversityForSide({
+      scores: args.flyScores,
+      side: "fly",
+      top: args.selection.fly_of_the_day,
+      honorable: args.selection.honorable_fly,
+    }),
+  };
 }
 
 export function selectDailyPicks(args: {

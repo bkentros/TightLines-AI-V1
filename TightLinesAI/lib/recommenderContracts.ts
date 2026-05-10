@@ -246,6 +246,18 @@ export type DailyPicksScenarioSummary = {
   confidence: DailyPicksConfidence;
 };
 
+export type DailyPicksFamilyDiversitySideDiagnostics = {
+  top_family_group: string;
+  honorable_family_group: string;
+  different_family_selected: boolean;
+  different_family_available_in_band: boolean;
+};
+
+export type DailyPicksFamilyDiversityDiagnostics = {
+  lures: DailyPicksFamilyDiversitySideDiagnostics;
+  flies: DailyPicksFamilyDiversitySideDiagnostics;
+};
+
 export type DailyPicksDiagnostics = {
   row_authored_lure_count: number;
   row_authored_fly_count: number;
@@ -260,6 +272,7 @@ export type DailyPicksDiagnostics = {
   surface_daily_gate: DailyPicksSurfaceGate;
   confidence: DailyPicksConfidence;
   missing_inputs: string[];
+  family_diversity: DailyPicksFamilyDiversityDiagnostics;
 };
 
 export type DailyPicksRecommendationSession = {

@@ -290,6 +290,37 @@ Deno.test("DailyPicks engine diagnostics include counts, IDs, variant, scenario 
   assertEquals(result.diagnostics.surface_daily_gate, "closed");
   assert(result.diagnostics.missing_inputs.includes("wind"));
   assertEquals(result.diagnostics.confidence, "medium");
+  assertEquals(
+    result.diagnostics.family_diversity.lures.top_family_group,
+    result.selection.lure_of_the_day.profile.family_group,
+  );
+  assertEquals(
+    result.diagnostics.family_diversity.lures.honorable_family_group,
+    result.selection.honorable_lure.profile.family_group,
+  );
+  assertEquals(
+    result.diagnostics.family_diversity.flies.top_family_group,
+    result.selection.fly_of_the_day.profile.family_group,
+  );
+  assertEquals(
+    result.diagnostics.family_diversity.flies.honorable_family_group,
+    result.selection.honorable_fly.profile.family_group,
+  );
+});
+
+Deno.test("DailyPicks engine selected top and honorable families differ when in-band alternatives exist", () => {
+  const result = run();
+
+  for (
+    const side of [
+      result.diagnostics.family_diversity.lures,
+      result.diagnostics.family_diversity.flies,
+    ]
+  ) {
+    if (side.different_family_available_in_band) {
+      assert(side.different_family_selected);
+    }
+  }
 });
 
 Deno.test("DailyPicks engine keeps row/scenario mismatch protection active", () => {

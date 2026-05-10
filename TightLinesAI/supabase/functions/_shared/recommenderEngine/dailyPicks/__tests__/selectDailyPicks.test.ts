@@ -70,6 +70,7 @@ function candidate(args: {
   id: ArchetypeProfileV4["id"];
   side: "lure" | "fly";
   score: number;
+  reasons?: string[];
   family_group?: string;
   presentation_group?: string;
   column?: ArchetypeProfileV4["column"];
@@ -88,7 +89,7 @@ function candidate(args: {
     }),
     side: args.side,
     score: args.score,
-    reasons: [`test:${args.score}`],
+    reasons: args.reasons ?? [`test:${args.score}`],
   };
 }
 
@@ -159,6 +160,226 @@ Deno.test("DailyPick selector can rotate among similarly scored candidates on di
   }
 
   assert(topIds.size > 1);
+});
+
+Deno.test("DailyPick selector keeps a commanding clear winner despite date variety", () => {
+  const lureScores = [
+    candidate({ id: "spinnerbait", side: "lure", score: 140 }),
+    candidate({ id: "swim_jig", side: "lure", score: 128 }),
+    candidate({ id: "paddle_tail_swimbait", side: "lure", score: 127 }),
+  ];
+  const topIds = new Set<string>();
+
+  for (let day = 1; day <= 14; day++) {
+    const localDate = `2026-06-${String(day).padStart(2, "0")}`;
+    topIds.add(
+      selectDailyPicks({
+        lureScores,
+        flyScores: baseFlies(),
+        scenario: baseScenario({ local_date: localDate }),
+        seed: "clear-winner-seed",
+        variant: "A",
+      }).lure_of_the_day.profile.id,
+    );
+  }
+
+  assertEquals([...topIds], ["spinnerbait"]);
+});
+
+Deno.test("DailyPick selector can rotate close non-tied candidates without leaving the top quality band", () => {
+  const lureScores = [
+    candidate({ id: "spinnerbait", side: "lure", score: 140 }),
+    candidate({ id: "swim_jig", side: "lure", score: 134 }),
+    candidate({ id: "paddle_tail_swimbait", side: "lure", score: 132 }),
+    candidate({ id: "squarebill_crankbait", side: "lure", score: 100 }),
+  ];
+  const topIds = new Set<string>();
+
+  for (let day = 1; day <= 21; day++) {
+    const localDate = `2026-06-${String(day).padStart(2, "0")}`;
+    topIds.add(
+      selectDailyPicks({
+        lureScores,
+        flyScores: baseFlies(),
+        scenario: baseScenario({ local_date: localDate }),
+        seed: "close-variety-seed",
+        variant: "A",
+      }).lure_of_the_day.profile.id,
+    );
+  }
+
+  assert(topIds.size > 1);
+  assert(!topIds.has("squarebill_crankbait"));
+});
+
+Deno.test("DailyPick selector prefers active goal fit before condition-only fit inside variety band", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "spinnerbait",
+        side: "lure",
+        score: 140,
+        reasons: ["base:+100", "condition_tag:wind_reaction:+16"],
+      }),
+      candidate({
+        id: "swim_jig",
+        side: "lure",
+        score: 138,
+        reasons: ["base:+100", "goal:big_fish:big_fish_upside:+20"],
+      }),
+      candidate({
+        id: "paddle_tail_swimbait",
+        side: "lure",
+        score: 100,
+        reasons: ["base:+100"],
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "big_fish",
+      local_date: "2026-06-17",
+    }),
+    seed: "goal-fit-before-condition-fit",
+    variant: "A",
+  });
+
+  assertEquals(selection.lure_of_the_day.profile.id, "swim_jig");
+});
+
+Deno.test("DailyPick selector prefers candidates with both active goal and condition fit when available", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "spinnerbait",
+        side: "lure",
+        score: 140,
+        reasons: ["base:+100", "goal:big_fish:big_fish_upside:+20"],
+      }),
+      candidate({
+        id: "swim_jig",
+        side: "lure",
+        score: 138,
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:wind_reaction:+16",
+        ],
+      }),
+      candidate({
+        id: "paddle_tail_swimbait",
+        side: "lure",
+        score: 137,
+        reasons: ["base:+100", "condition_tag:wind_reaction:+16"],
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "big_fish",
+      local_date: "2026-06-18",
+    }),
+    seed: "goal-and-condition-fit",
+    variant: "A",
+  });
+
+  assertEquals(selection.lure_of_the_day.profile.id, "swim_jig");
+});
+
+Deno.test("DailyPick selector can preserve AP/BF separation when active goal-fit alternatives are in band", () => {
+  const lureScores = [
+    candidate({
+      id: "spinnerbait",
+      side: "lure",
+      score: 140,
+      reasons: [
+        "base:+100",
+        "goal:all_purpose:reliable_action:+18",
+        "condition_tag:wind_reaction:+16",
+      ],
+    }),
+    candidate({
+      id: "magnum_worm",
+      side: "lure",
+      score: 138,
+      reasons: [
+        "base:+100",
+        "goal:big_fish:big_fish_upside:+20",
+        "condition_tag:cover_oriented:+14",
+      ],
+    }),
+    candidate({
+      id: "paddle_tail_swimbait",
+      side: "lure",
+      score: 136,
+      reasons: ["base:+100", "condition_tag:wind_reaction:+16"],
+    }),
+  ];
+
+  const allPurpose = selectDailyPicks({
+    lureScores,
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "all_purpose",
+      local_date: "2026-06-19",
+    }),
+    seed: "goal-separation",
+    variant: "A",
+  });
+  const bigFish = selectDailyPicks({
+    lureScores,
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "big_fish",
+      local_date: "2026-06-19",
+    }),
+    seed: "goal-separation",
+    variant: "A",
+  });
+
+  assertEquals(allPurpose.lure_of_the_day.profile.id, "spinnerbait");
+  assertEquals(bigFish.lure_of_the_day.profile.id, "magnum_worm");
+});
+
+Deno.test("DailyPick selector avoids surface candidates under caution when in-band subsurface alternatives exist", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "walking_topwater",
+        side: "lure",
+        score: 140,
+        column: "surface",
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:low_light_surface:+16",
+        ],
+      }),
+      candidate({
+        id: "magnum_worm",
+        side: "lure",
+        score: 138,
+        family_group: "soft_plastic_worm",
+        reasons: ["base:+100", "goal:big_fish:big_fish_upside:+20"],
+      }),
+      candidate({
+        id: "bladed_jig",
+        side: "lure",
+        score: 136,
+        family_group: "bladed_jig",
+        reasons: ["base:+100", "condition_tag:wind_reaction:+16"],
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "big_fish",
+      surface_daily_gate: "caution",
+      local_date: "2026-06-20",
+    }),
+    seed: "surface-caution",
+    variant: "A",
+  });
+
+  assertEquals(selection.lure_of_the_day.profile.id, "magnum_worm");
+  assertNotEquals(selection.honorable_lure.profile.id, "walking_topwater");
 });
 
 Deno.test("DailyPick selector variant B avoids variant A IDs when alternatives exist", () => {
@@ -308,6 +529,74 @@ Deno.test("DailyPick honorable mention prefers different presentation group when
   assertEquals(selection.honorable_lure.profile.id, "swim_jig");
 });
 
+Deno.test("DailyPick honorable mention chooses different family when in-band alternative exists", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "spinnerbait",
+        side: "lure",
+        score: 140,
+        family_group: "wire_bait",
+      }),
+      candidate({
+        id: "bladed_jig",
+        side: "lure",
+        score: 138,
+        family_group: "wire_bait",
+      }),
+      candidate({
+        id: "swim_jig",
+        side: "lure",
+        score: 126,
+        family_group: "jig",
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario(),
+    seed: "family-diversity",
+    variant: "A",
+  });
+
+  assertEquals(selection.lure_of_the_day.profile.id, "spinnerbait");
+  assertEquals(selection.honorable_lure.profile.id, "swim_jig");
+});
+
+Deno.test("DailyPick honorable mention may reuse family when every in-band candidate shares top family", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "spinnerbait",
+        side: "lure",
+        score: 140,
+        family_group: "wire_bait",
+      }),
+      candidate({
+        id: "bladed_jig",
+        side: "lure",
+        score: 136,
+        family_group: "wire_bait",
+      }),
+      candidate({
+        id: "swim_jig",
+        side: "lure",
+        score: 134,
+        family_group: "wire_bait",
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario(),
+    seed: "family-unavailable",
+    variant: "A",
+  });
+
+  assertEquals(selection.lure_of_the_day.profile.family_group, "wire_bait");
+  assertEquals(selection.honorable_lure.profile.family_group, "wire_bait");
+  assertNotEquals(
+    selection.lure_of_the_day.profile.id,
+    selection.honorable_lure.profile.id,
+  );
+});
+
 Deno.test("DailyPick honorable mention does not drop far below the quality band for diversity", () => {
   const selection = selectDailyPicks({
     lureScores: [
@@ -338,6 +627,136 @@ Deno.test("DailyPick honorable mention does not drop far below the quality band 
 
   assertEquals(selection.lure_of_the_day.profile.id, "spinnerbait");
   assertEquals(selection.honorable_lure.profile.id, "bladed_jig");
+});
+
+Deno.test("DailyPick family diversity outranks presentation diversity inside honorable band", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "spinnerbait",
+        side: "lure",
+        score: 160,
+        family_group: "wire_bait",
+        presentation_group: "wire_bait",
+      }),
+      candidate({
+        id: "bladed_jig",
+        side: "lure",
+        score: 150,
+        family_group: "wire_bait",
+        presentation_group: "chatter",
+      }),
+      candidate({
+        id: "swim_jig",
+        side: "lure",
+        score: 130,
+        family_group: "jig",
+        presentation_group: "wire_bait",
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario(),
+    seed: "family-before-presentation",
+    variant: "A",
+  });
+
+  assertEquals(selection.lure_of_the_day.profile.id, "spinnerbait");
+  assertEquals(selection.honorable_lure.profile.id, "swim_jig");
+});
+
+Deno.test("DailyPick variant B avoidance still works with family diversity", () => {
+  const lureScores = [
+    candidate({
+      id: "spinnerbait",
+      side: "lure",
+      score: 140,
+      family_group: "wire_bait",
+    }),
+    candidate({
+      id: "bladed_jig",
+      side: "lure",
+      score: 138,
+      family_group: "jig",
+    }),
+    candidate({
+      id: "swim_jig",
+      side: "lure",
+      score: 136,
+      family_group: "jig",
+    }),
+    candidate({
+      id: "paddle_tail_swimbait",
+      side: "lure",
+      score: 134,
+      family_group: "swimbait",
+    }),
+  ];
+  const flyScores = [
+    candidate({
+      id: "clouser_minnow",
+      side: "fly",
+      score: 140,
+      family_group: "baitfish",
+    }),
+    candidate({
+      id: "deceiver",
+      side: "fly",
+      score: 138,
+      family_group: "baitfish",
+    }),
+    candidate({
+      id: "bucktail_baitfish_streamer",
+      side: "fly",
+      score: 136,
+      family_group: "bucktail",
+    }),
+    candidate({
+      id: "slim_minnow_streamer",
+      side: "fly",
+      score: 134,
+      family_group: "slim_streamer",
+    }),
+  ];
+  const scenario = baseScenario();
+  const first = selectDailyPicks({
+    lureScores,
+    flyScores,
+    scenario,
+    seed: "variant-family-diversity",
+    variant: "A",
+  });
+  const second = selectDailyPicks({
+    lureScores,
+    flyScores,
+    scenario,
+    seed: "variant-family-diversity",
+    variant: "B",
+    avoidLureIds: [
+      first.lure_of_the_day.profile.id,
+      first.honorable_lure.profile.id,
+    ],
+    avoidFlyIds: [
+      first.fly_of_the_day.profile.id,
+      first.honorable_fly.profile.id,
+    ],
+  });
+
+  assertNotEquals(
+    first.lure_of_the_day.profile.id,
+    second.lure_of_the_day.profile.id,
+  );
+  assertNotEquals(
+    first.honorable_lure.profile.id,
+    second.honorable_lure.profile.id,
+  );
+  assertNotEquals(
+    second.lure_of_the_day.profile.family_group,
+    second.honorable_lure.profile.family_group,
+  );
+  assertNotEquals(
+    second.fly_of_the_day.profile.family_group,
+    second.honorable_fly.profile.family_group,
+  );
 });
 
 Deno.test("DailyPick selector never selects duplicate IDs on one side", () => {

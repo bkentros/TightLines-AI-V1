@@ -22,7 +22,7 @@ export const COMPOSITION_BLOCK = `Layout: single object, side profile or slight 
 
 No drop shadow on the backdrop, no cast shadow on the background color.`;
 
-export const NEGATIVE_BLOCK = `No text, numerals, logos, watermarks, scale bars, UI, water, sky, hands, rods, boxes, or extra tackle. Do not add stray hooks, duplicate blades, duplicate eyes, floating split rings, or invented hardware.`;
+export const NEGATIVE_BLOCK = `No text, numerals, logos, watermarks, scale bars, UI, water, sky, hands, rods, boxes, or extra tackle. Do not add stray hooks, duplicate blades, duplicate eyes, floating split rings, or invented hardware. Do not invent crossed hooks, melting plastic, bioluminescent colors, or extra phantom hooks. Do not substitute Game Changer articulation, crankbait lips, or swimbait joints on standard dry/streamer flies.`;
 
 /**
  * Drop-shot: single factual topology block. Placed immediately after the title in generate-recommender-tackle-images.ts
@@ -62,6 +62,12 @@ Worm plastic: modest finesse size in frame, not elongated giant.`;
 export const SOFT_FLUKE_SIDE_VIEW_BLOCK = `CAMERA / VIEW (mandatory — prevents wrong angle): **Pure lateral side profile** — the same angle as a tackle-pack product photo or silhouette diagram: camera level with the bait, looking horizontally, bait length running **left–right** across the frame. You see exactly **one broadside** of the body (dainty nose on one end, forked tail on the other). Back is the **upper** edge, belly is the **lower** edge in the picture. FORBIDDEN: top-down, dorsal, bird's-eye, plan view, “floating above the bait” angles, three-quarter from above, any view where the wide **flat back** of the fluke faces the camera, or where both tail lobes spread out symmetrically like wings toward the lens. No “looking down the length” of the bait. No perspective twist — treat as flat orthographic broadside (not angled three-quarter). Keep orthographic side-view truth — Zoom Salty Super Fluke on its side on the paper.`;
 
 /**
+ * Locks camera to retail peg-board macro (reduces fantasy creatures on streamers / worm flies).
+ * Inject for patterns that were rendering like hallucinations.
+ */
+export const FLY_SHOP_PRODUCT_PHOTO_CAMERA_BLOCK = `CAMERA / FRAMING (mandatory — **retail fly-shop truth**, not concept art): Imagine **one real tied fly** lifted from a **peg bin** (macro like **Fulling Mill / Rainy’s / Solitude** pack shots). **Strict lateral broadside catalog view**: single hook shank runs **left–right** across frame (eye left, bend/point right); **dorsal fur/feathers = upper silhouette edge**, **belly / peacock / bare shank = lower edge**; camera **level** with the fly, **orthographic** (no dramatic low-angle hero shot, no top-down, no underwater). Proportions of **an ordinary tied shop sample** — if in doubt, **plain and conservative**, not a “cooler” fantasy lure.`;
+
+/**
  * Placed after the title for articulated_dungeon_streamer (Kelly Galloup Sex Dungeon class).
  * Matches common step-by-steps (e.g. Fly Life Media, Charlie's Fly Box tying demos).
  */
@@ -78,18 +84,190 @@ export const ARTICULATED_DUNGEON_ANCHOR_BLOCK = `PATTERN LOCK — **Kelly Gallou
 If the head reads as epoxy minnow, metal jig cone, or crankbait — wrong pattern.`;
 
 /**
- * Placed after the title for rabbit_strip_leech (Conehead Bunny Leech class).
- * Matches standard bunny-leech recipes (Orvis / Trident / Flylords conehead demos).
+ * Placed after the title for rabbit_strip_leech.
+ * Peg-card **rabbit strip (zonker) leech** — bead or cone, spiky collar, long zonker tail (matches common Umpqua-style bin photos).
+ * Reference snapshot (human audit): `assets/reference/fly-examples/rabbit-strip-leech-user-reference.png`
  */
-export const CONEHEAD_BUNNY_LEECH_ANCHOR_BLOCK = `PATTERN LOCK — **Conehead Bunny Leech** (same fly anglers call a **rabbit-strip / zonker leech**). Checklist:
+export const CONEHEAD_BUNNY_LEECH_ANCHOR_BLOCK = `RETAIL LOOK‑ALIKE (reference specimen): **Umpqua / fly-shop rabbit strip leech** macro — **small round bead at the hook eye** (often **gloss black**), **spiky palmered hackle / fiber collar** tight behind the bead, then a **long tapered rabbit zonker strip** as almost all of the fly’s length — **dense fur**, **hide edge** may read along the belly; **thin pearl or Krystal Flash** tucked **under** the fur; **single streamer hook**, point **down** in broadside. Catalog product shot.
 
-1) **One long streamer hook** + **brass or tungsten CONE** pressed to the **hook eye** (cone is **mandatory** for this id — not a bare bead head).
+PATTERN LOCK — **Rabbit-strip leech** (bunny / string leech — **not** peacock-belly zonker minnow, **not** Schultz dumbbells):
 
-2) **One cross-cut rabbit zonker strip**: tie **free tail at the bend** ~**1–1.25× shank** long, then **palmer the strip forward** in tight spirals — **hide leather shows as a spiral ridge**, **fur combed rearward** so the fly is a **thick furry cylinder** (dense “carrot” leech), **almost nothing but rabbit fur** from cone to bend.
+**Silhouette:** weighted front (**bead OR small metal cone** at eye) → **bristly collar** → **elongated rabbit fur** tapering toward the tail — **one dominant zonker strip** flowing aft.
 
-3) Optional **thin lead wire** under the cone only for weight — **not** a visible ribbed body.
+**Must show:**
+1) **Single hook**; **no dumbbells** on the shank (**lead_eye_leech** uses dumbbells).
 
-**FORBIDDEN**: dominant **gold wire rib** as the main pattern; skinny San Juan worm; woolly bugger (palmered hackle + marabou tail) without **zonker hide** spiraling the shank; articulated two-hook dungeon; treble hooks.`;
+2) **Collar** behind head: **hackle / schlappen / spiky fiber** — visibly **ragged**.
+
+3) **Long zonker rabbit strip** — the main visual mass; some palmering OK if still **long leech**, not a **short puff**.
+
+4) **Flash** under fur (optional, typical).
+
+**FORBIDDEN**: dumbbell / Clouser eyes; **slim zonker minnow** with **silver/mylar or peacock belly** + dorsal strip only (that is **zonker_streamer**); marabou-only without zonker; articulated dungeon; trebles; soft plastic.`;
+
+/** Placed after the title for lead_eye_leech.
+ * Primary reference: stillwater **lead dumbbell + marabou tail** leech (shop peg-card). Schultz rabbit variant also valid.
+ * Human ref: `assets/reference/fly-examples/lead-eye-leech-user-reference.png`
+ */
+export const LEAD_EYE_LEECH_ANCHOR_BLOCK = `RETAIL LOOK‑ALIKE (reference specimen): **lead-eye stillwater leech** — **silver or nickel dumbbell eyes** + **hot spot head** (pink / orange / chartreuse dub) + **black chenille** + **palmered hackle** + **long marabou tail** + sparse tail flash. **Single hook**, broadside catalog shot.
+
+**EYE PLACEMENT (mandatory — corrects “floating shelf” errors):** The dumbbells are **tied in at the hook eye** — **figure-eight lashed tight to the bend of the hook eye and the first millimeters of shank**, **not** hovering on a separate plane above the fly. **Dubbing fills around and between the eyes** (pink/head color **packed against** the lead) so the weights read **bedded into the head**, **flush** with the tie — **no air gap**, **no “tabletop”** of eyes sitting over empty space. In side profile, thread wraps and fur **touch the underside of the dumbbells**. **Do not** draw eyes as loose beads stacked on nothing.
+
+**Alternate valid retail id (Great Lakes):** **Fulling Mill “Schultzy’s Red Eye Leech”** — dumbbells **at eye / forward shank** + rabbit + mallard + spun rabbit — same **integrated** eye rule.
+
+PATTERN LOCK — **Lead-eye leech** (weighted dumbbell streamer — **not** bead-head rabbit strip leech, **not** Clouser bucktail minnow):
+
+**Non‑negotiable:** **Pair of dumbbell eyes** secured **at the hook eye region** on the **dorsal/top of the shank** with **visible thread integration** — **never** bead-only head (**rabbit_strip_leech**).
+
+**Typical build:**
+1) **Eyes:** metallic dumbbells **touching** dubbed head material; **lashed at eye**, not mid-body on a bare shelf.
+2) **Head:** **hot spot** dub forward of / wrapping the eyes.
+3) **Body:** chenille + palmered hackle — buggy.
+4) **Tail:** long marabou (+ flash).
+5) **No** brass cone at nose.
+
+**Schultz-style variant:** rabbit + mallard if dumbbells stay **eye‑lashed** and **bedded**.
+
+**FORBIDDEN**: bead or cone **without** dumbbells; dumbbells **floating** with no dub/thread against the shank; **slim silver-belly zonker** (**zonker_streamer**); bucktail **Clouser wing**; articulated dungeon; trebles.`;
+
+/** Placed after the title for zonker_streamer.
+ * Dorsal barred (or plain) zonker + reflective silver/mylar or peacock belly; thread head.
+ * Human ref: `assets/reference/fly-examples/zonker-streamer-user-reference.png`
+ */
+export const ZONKER_BAITFISH_ANCHOR_BLOCK = `RETAIL LOOK‑ALIKE (reference specimen): **Rabbit-zonker baitfish streamer** — **one zonker rabbit strip** along the **full dorsal / back** of the shank (often **barred**: pale cream, tan, or orange fur with **dark vertical bars**); fur **long and soft**, carrying **past the bend** to a **tapering tail**. **Ventral side** = **shiny fish belly**: **silver Mylar tinsel**, **mylar tube / piping**, or **wide pearl tinsel** wrapped on the shank (**high flash**); **peacock herl** is an acceptable alternate belly. **Head** = **small neat black thread** (or tiny bead) at the hook eye — **no tungsten cone**, **no lead dumbbells**. **Elongated minnow** silhouette ~**3–4× longer than it is deep**, single dark hook, point **down** in side view. Catalog broadside (neutral backdrop — **no** logos).
+
+PATTERN LOCK — **Zonker streamer** (slim baitfish — **not** **rabbit_strip_leech**, **not** **lead_eye_leech**):
+
+**Must show:**
+1) **Flash underbody** on the **lower half** of the shank — **silver/metallic** preferred, **not** a 360° fur leech cigar.
+
+2) **Zonker strip** on **top**: leather roughly straight along the back; fur sweeps **down the flanks**.
+
+3) **Minimal head** — thread finish obvious.
+
+**Split rule:**
+• **This id** = **dorsal zonker + reflective belly + minnow proportions**.
+• **rabbit_strip_leech** = weighted **bead/cone** + **spiky collar** + **long leech tail** (no silver minnow belly emphasis).
+
+**FORBIDDEN**: nose cone or dumbbell eyes; palmered fur **tube** filling the frame; two articulated hooks; hard plastic minnow; trebles.`;
+
+/** Placed after the title for sculpzilla (Kelly Galloup / Solitude — classic cone + olive + tan zonker look).
+ * Human ref: `assets/reference/fly-examples/sculpzilla-user-reference.png`
+ */
+export const SCULPZILLA_ANCHOR_BLOCK = `RETAIL LOOK‑ALIKE (reference specimen): **Sculpzilla** articulated sculpin (**Kelly Galloup / Solitude S103** class) — **heavy dark metallic cone** (black or dark gunmetal nickel) at the nose with **large round cherry-red 3D dome eyes** on **both sides** of the cone; **not** painted lure eyes on plastic. Immediately behind the cone, a **wide bushy olive-green collar** (**marabou, schlappen, or stacked soft hackle**) that **flares outward** then sweeps back.
+
+**Body / wing:** **one long natural tan or cream rabbit zonker strip** along the **dorsal line** — **dense fur** extending **horizontally well past the front hook bend** toward the tail; color reads **earthy** (tan / beige / natural), not hot chartreuse. **Articulation:** a **thin wire or heavy mono loop** may show **underneath** the fur, linking the **front dressed hook** to a **small trailing stinger hook** at the **rear of the zonker** — **one hinge only**, not a caterpillar of beads.
+
+**Proportions:** **front-heavy** (cone + olive bulk dominates the first third to half); rear is **mostly flowing zonker** on the stinger — **no second cone**, **no second eye pair** on the trailer.
+
+Output = **one isolated fly** on flat paper (**no tying vise**, **no hands**, **no blue studio** — use project background rules only).
+
+PATTERN LOCK — **Sculpzilla** (**two single hooks, one articulation**):
+
+**Non‑negotiable:** **metal cone** + **big red dome eyes** + **olive bushy collar** + **tan/cream zonker** + **stinger hook** at tail.
+
+**Optional (keep minor):** throat dub (pearl/olive), **guinea** flecks, **mallard flank** pectorals — many ties omit obvious pectorals; do **not** let extras obscure the **olive collar + tan zonker** read.
+
+**FORBIDDEN:** Game Changer multi-shank spine; molded swimbait plates; crankbait lip; trebles; **matching heavy dressings** on front and rear hooks; **cone without red eyes**; **only rabbit with no cone** (wrong id).`;
+
+/** Placed after the title for warmwater_worm_fly.
+ * Human ref: `assets/reference/fly-examples/warmwater-worm-fly-user-reference.png` — **stick-worm silhouette**, Texas-rig on offset hook, **tied fiber body**, mottled olive/tan/brown.
+ */
+export const RICH_ULTIMATE_WORM_ANCHOR_BLOCK = `RETAIL LOOK‑ALIKE — **warmwater worm fly**: **same silhouette and Texas-rig topology as a weightless soft-plastic stick worm**, but the **whole bait is hand-tied fly material** — **never** factory-molded plastic.
+
+**LOCK THIS TOPOLOGY (prevents generic chenille cigar worms):**
+1) **Shape:** Long **stick-worm** profile — **cylindrical**, **~pencil-thick**, **slight taper toward the tail**, **gentle S-curve** along the body (soft worm lying on paper — **not** ramrod straight).
+2) **Material (critical):** Body = **dense fuzzy pile** from **chenille, mop yarn, dubbing brush, or blended yarn** — **matte fibrous**, **cottony short hairs**, **compressible** — **zero** PVC gloss, **zero** mold seam, **zero** slick rubber read.
+3) **Color (mandatory):** **Mottled mix** of **olive + tan + yellow-brown** (watermelon / pumpkinseed vibe) — **speckled and blended** along the shank — **not** solid single-color olive only; **not** neat horizontal stripes.
+4) **Hook & rig — Texas / offset on a fly:** **Wide-gap offset worm hook**, dark finish. **Hook eye** at the **front “head”** of the worm. Shank **enters** the fuzzy body from the nose; **bend and point curve back** so the **point and barb are buried inside the fuzzy pile** around the **middle third** of the worm (**weedless / pegged** — **no** bare needle sticking out).
+5) **Head:** **Tiny black** bead or dense black thread **only** at the eye — **no** bullet weight, **no** jig head, **no** cone.
+
+**Single specimen**, strict lateral catalog view (S-curve stays **in the picture plane**). Match the **reference specimen** mentally — **do not** improvise a different worm pattern.
+
+**ANTI-HALLUCINATION:** Do **not** add **any text, titles, logos, watermarks, or captions**. Do **not** add second hooks, split shot, swivels, or line. Do **not** substitute a **straight fuzzy cigar** with **exposed hook point** — this id **must** read **Texas-rigged stick worm**.
+
+PATTERN LOCK — **Warmwater worm fly**
+
+**FORBIDDEN:** Molded **TPE / soft-plastic** stick-worm or ribbontail blank; **high-gloss** worm; **uniform olive** only; **jig/cone** at nose; **trebles**; **multiple worms**; **vise or hands**; **printing** or **lettering** on the image.`;
+
+/**
+ * High-viz warmwater deer-hair slider (stacked multi-tone head, yellow collar, grizzly tail, legs).
+ * Human ref: `assets/reference/fly-examples/deer-hair-slider-user-reference.png`
+ */
+export const DEER_HAIR_SLIDER_ANCHOR_BLOCK = `RETAIL LOOK‑ALIKE (reference specimen): **deer-hair slider** — **spun and densely packed deer hair**, **trimmed into a slick wedge / bullet head** (aerodynamic, **not** a flat foam popper face).
+
+**Head color bands (mandatory — busy shop tie):**
+- **Dorsal / top:** deep **navy blue** deer hair.
+- **Mid band:** **speckled orange and brown** (spotted / mottled).
+- **Ventral / belly:** **clean white** hair.
+- **Throat accent:** **neon hot pink** patch on the **lower front** of the head.
+
+**Eyes:** **Large 3D eyes both sides** — **silver or chrome outer ring** with **black pupil** (reflective doll-eye look, **not** tiny flat stick-ons only).
+
+**Collar:** **Bright canary yellow** hair or **soft feather** flaring **immediately behind the head** — crisp transition before the tail.
+
+**Tail / wing:** **Long streamer feathers** including **grizzly-style barred** black-and-tan feathers; **mixed with tan and light brown bucktail or calf** for bulk; tail extends **well past the bend**.
+
+**Legs (mandatory):** **several long thin dark rubber or silicone sili-legs** trailing **past the tail**, wiggly.
+
+**Hook:** **One** stout warmwater hook; point **down** in broadside; **no** treble.
+
+**Framing:** **Peg-bin lateral** — **eye left**, tail right; **flat warm paper backdrop per project** — **no vise**, **no hands**, **no sterile white sweep**.
+
+PATTERN LOCK — **Deer-hair slider (hi-vis)**
+
+**FORBIDDEN:** Hollow frog body; hard prop bait; foam **cup** popper; **plain solid brown head only** (wrong — must show **blue / orange speck / white / pink** zones); trebles; second fly.`;
+
+/**
+ * Simpler baitfish-style slide (wake minnow read — distinct from multi-band deer-hair slider above).
+ */
+export const BAITFISH_SLIDER_ANCHOR_BLOCK = `RETAIL LOOK‑ALIKE: **baitfish slider / slide** — **natural brown deer-hair stacked head** (trimmed bullet, **not** foam popper). **Large 3D eyes** — **white ring + black pupil** on **both sides**. **Rusty red / hot pink marabou or synthetic collar**; **long tapered tan bucktail tail** past the bend. **Single** surface hook. **Hi-minnow silhouette** — slightly **leaner tail** than bulky pike flies. Peg-bin broadside, paper background, **no vise**.
+
+**FORBIDDEN:** Multi-band navy/orange/white/pink competition slider head (that is **deer_hair_slider** id); trebles; hard topwater plug.`;
+
+/**
+ * Jack Gartside / catalog **foam gurgler** — dorsal foam strip + folded front lip (not deep popper cup).
+ * Human ref: `assets/reference/fly-examples/foam-gurgler-user-reference.png`
+ */
+export const FOAM_GURGLER_ANCHOR_BLOCK = `RETAIL LOOK‑ALIKE (reference specimen): **foam gurgler** topwater fly — **sheet or strip of white closed-cell foam** lashed along the **dorsal / top** of the hook shank.
+
+**Front lip (signature):** At the **hook eye**, the foam is **folded or stacked upward** into a **blunt rectangular or tab-shaped lip** that **projects above** the shank and **slightly forward** over the eye — **gurgle plate**, **not** a deeply dished bass-popper cup.
+
+**Body (ventral to foam):** **White fluffy dressing** under the foam — **palmered saddle/schlappen**, **chenille**, or similar — **matte**, fishable bulk along the shank.
+
+**Tail:** **Long white bucktail, calf, or synthetic** — **wispy**, **≈1.5–2× the dressed body length**, flowing aft from the bend.
+
+**Palette (reference tie):** **all white** — foam, hackle, and tail **matching** (cream-white OK); **no** hot-chartreuse foam unless you stay in white family.
+
+**Hook:** **One** surface streamer hook; **metal may read silver** at bend; point **down** in **strict lateral broadside** (**eye left**, **tail right**).
+
+**Output:** **pegged product shot on flat warm paper only** — **no** solid blue studio, **no** white mat border, **no** drop shadow on the backdrop (per project composition rules).
+
+PATTERN LOCK — **Foam gurgler**
+
+**FORBIDDEN:** Deer-hair slider head; hollow frog; **deep concave popper face only** with no dorsal foam strip; **trebles**; **vise**; **two-tone foam/rainbow** unless still reads as classic **white gurgler**.`;
+
+/**
+ * **Frog popper** — hard olive body, red cup face, yellow/black eyes, legs + hackle tail.
+ * Human ref: `assets/reference/fly-examples/frog-fly-user-reference.png`
+ */
+export const FROG_FLY_ANCHOR_BLOCK = `RETAIL LOOK‑ALIKE (reference specimen): **frog popper fly** — **hard buoyant head** (**balsa, cork, or turned dense foam** look) **bulbous and rounded**, **dark olive green** with **subtle darker green mottling / spots** like frog skin — **not** soft hollow plastic walking-frog bait.
+
+**Popping face (signature):** **Front is a deep concave / cupped popper mouth** — interior painted **solid bright red**. A **small metal line-tie eyelet** sits **in the center** of the red cup (or at the cup floor). **Not** a flat hair head.
+
+**Eyes:** **Large 3D eyes on both sides** of the head — **bright yellow outer ring** with **black pupil** in the center (**not** white googly eyes).
+
+**Tail assembly:** From the **rear of the head**, **several long thin tan or light-orange rubber/sili legs** trail back; mixed with **yellow and olive-green feathers** (**hackle, schlappen, or marabou**) for **bulk and movement**.
+
+**Hook:** **Single** gap hook **under** the body, point **down** / aft in broadside.
+
+**Weed guard:** **Thin stiff wire or heavy mono loop** from the **front/head area** toward the **hook point** — **snag deflector**, clearly visible in profile.
+
+**Framing:** **Strict lateral peg-card** — **hook eye / line tie to the right** or **left** consistently with other flies (**eye left, tail/legs right** preferred); **flat warm paper** backdrop per project (**not** pure white studio).
+
+PATTERN LOCK — **Frog popper (topwater bug)**
+
+**FORBIDDEN:** **Spun deer-hair** green-and-black **striped** hair-frog only (wrong id look); **trebles**; **molded bass walking frog** with hinged legs; **missing red cup face**; **vise**; white-only googly eyes as the only eye style.`;
 
 export const BACKGROUND_BLOCK = `The entire background must be a single flat solid color exactly ${CHROMA_KEY_HEX} (light warm paper) with zero gradient, vignette, texture spots, or props. The lure/fly may be grounded with realistic contact shading on itself only.`;
 
@@ -232,6 +410,13 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
       "Hard multi-section glide swimbait (two or three jointed segments) for wide S-glide swim — rigid resin/billboard plastic look, realistic baitfish sculpt, visible hinge pins or seams between sections. Line tie at nose only (split ring at nose OK). Two or three treble hooks typical, mounted only on belly and/or tail segment — hooks sit flush in hangers molded into the body; no Texas bullet, no jig skirt, no soft-plastic paddle tail, no deep diving lip like a jerkbait. FORBIDDEN at the tail: extra dangling split rings, swivels, stinger clips, spare singles, trailing wire, or any tiny loose hook hardware past the last body segment — tail section ends clean except approved trebles.",
   },
   {
+    key: "compact_glidebait",
+    kind: "lure",
+    displayName: "Compact Glide Bait",
+    anatomy:
+      "Compact hard glide swimbait scaled for smallmouth: shorter, slimmer two-section baitfish body than a trophy bass glide; one clean hinge, small nose line tie, two small trebles on belly/tail hangers. Realistic perch/shad profile. No diving lip, no soft paddle tail, no jig skirt.",
+  },
+  {
     key: "soft_jerkbait",
     kind: "lure",
     displayName: "Soft Plastic Jerkbait",
@@ -244,6 +429,13 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     displayName: "Suspending Jerkbait",
     anatomy:
       "Hard minnow jerkbait, pronounced diving lip, two or three treble hooks belly and tail typical, line tie forward. No paddle tail, no jig skirt.",
+  },
+  {
+    key: "magnum_jerkbait",
+    kind: "lure",
+    displayName: "Magnum Jerkbait",
+    anatomy:
+      "Oversized hard suspending jerkbait for bass: longer/deeper minnow body than standard jerkbait, clear diving lip, sturdy split rings, two or three trebles, baitfish paint. No soft tail, no glidebait joint, no pike/musky bucktail hardware.",
   },
   {
     key: "squarebill_crankbait",
@@ -337,11 +529,53 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
       "Hollow collapsible frog with twin upturned hooks tucked along back, legs trailing; weedless double hook frame.",
   },
   {
+    key: "wake_bait",
+    kind: "lure",
+    displayName: "Wake Bait",
+    anatomy:
+      "Hard-bodied shallow wake bait: short square/wake bill angled down from nose, buoyant baitfish/bluegill body, two treble hooks, built to bulge the surface. No popper cup, no propellers, no deep-diving crankbait bill.",
+  },
+  {
+    key: "magnum_worm",
+    kind: "lure",
+    displayName: "Magnum Worm",
+    anatomy:
+      "Oversized soft-plastic ribbon-tail or straight-tail bass worm rigged Texas-style: bullet weight ahead of offset wide-gap hook, long thick worm body, big swimming tail, hook point buried weedless. No jig skirt, no treble hooks.",
+  },
+  {
     key: "large_profile_pike_swimbait",
     kind: "lure",
     displayName: "Large Paddle-Tail Swimbait",
     anatomy:
       "Oversize musky/pike molded swimbait body with visible hook harness or jig hook, big paddle tail; show as rigged big bait typical for esox.",
+  },
+  {
+    key: "pike_spinnerbait",
+    kind: "lure",
+    displayName: "Pike Spinnerbait",
+    anatomy:
+      "Oversized safety-pin spinnerbait built for pike: heavy V-wire frame, large blades on upper arm, bulky skirt or pike-scale trailer on lower jig head, stout single hook. Larger and heavier than bass spinnerbait, no trebles.",
+  },
+  {
+    key: "weedless_spoon",
+    kind: "lure",
+    displayName: "Weedless Spoon",
+    anatomy:
+      "Classic weedless pike spoon: broad curved metal spoon body, single large hook at tail with wire weed guard over the point, split ring or line tie at nose. No treble hook, no jig skirt, no spinner arm.",
+  },
+  {
+    key: "shallow_minnowbait",
+    kind: "lure",
+    displayName: "Shallow Minnowbait",
+    anatomy:
+      "Shallow-running hard minnowbait for pike: elongated floating minnow body, tiny shallow lip or twitchbait bill, two or three trebles, durable pike-scale hardware. No deep diving bill, no glide joint, no soft plastic tail.",
+  },
+  {
+    key: "pike_glidebait",
+    kind: "lure",
+    displayName: "Pike Glide Bait",
+    anatomy:
+      "Large pike/musky glide bait: big hard two-section baitfish body with one visible hinge, heavy split rings and trebles, realistic perch or baitfish proportions. No diving lip, no spinner blades, no soft paddle tail.",
   },
   {
     key: "pike_jerkbait",
@@ -377,6 +611,13 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     displayName: "Large Pike Tube",
     anatomy:
       "Large pike tube rigged on a stout jig head: oversized hollow tube body with flared tentacles, heavy single hook, baitfish/perch-scale profile, built for pike/musky rather than bass finesse. It should look larger and heavier than tube_jig.",
+  },
+  {
+    key: "big_smallmouth_tube",
+    kind: "lure",
+    displayName: "Big Smallmouth Tube",
+    anatomy:
+      "Larger smallmouth tube jig: oversized hollow tube body on internal jig head, tentacle skirt flared at rear, exposed single jig hook, goby/craw/baitfish profile. Bigger than finesse tube_jig but not a pike tube.",
   },
   // ── Flies (31) ────────────────────────────────────────────────────────────
   {
@@ -419,7 +660,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     kind: "fly",
     displayName: "Articulated Dungeon Streamer",
     anatomy:
-      "Honor the opening **PATTERN LOCK** checklist (Sex Dungeon). Emphasize **bulk forward** from **deer hair** + **dumbbells**, **length aft** from **marabou**; total **5–7 inch** impression in frame. **Articulation** visible as **small metal loop** only — each half **fully dressed** with tying thread at wraps. **FORBIDDEN**: one-hook flat streamer; conehead zonker (that's rabbit_strip_leech); 3D molded shad body.",
+      "Honor the opening **PATTERN LOCK** checklist (Sex Dungeon). Emphasize **bulk forward** from **deer hair** + **dumbbells**, **length aft** from **marabou**; total **5–7 inch** impression in frame. **Articulation** visible as **small metal loop** only — each half **fully dressed** with tying thread at wraps. **FORBIDDEN**: one-hook flat streamer; rabbit strip leech bead/zonker tail (that's rabbit_strip_leech); 3D molded shad body.",
   },
   {
     key: "game_changer",
@@ -440,7 +681,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     kind: "fly",
     displayName: "Rabbit-Strip Leech",
     anatomy:
-      "Honor the opening **PATTERN LOCK** (**Conehead Bunny Leech**). Colors often **olive, black, brown, purple, or sculpin barred** — body texture must be **zonker fur** from palmering, not chenille segments. **Single hook point** exits under the fur near the rear third. **FORBIDDEN**: bead-chain eyes as main head weight (use **cone**); marabou tail without palmered strip; dungeon deer-hair head.",
+      "**Umpqua-class rabbit strip leech** (peg-card): **bead or small cone at eye** + **spiky collar** + **long zonker rabbit strip** (tapering tail) + flash under fur; single hook, point down in side view. **FORBIDDEN**: Schultz dumbbells; peacock-belly zonker minnow; dungeon; plastic; trebles.",
   },
   {
     key: "jighead_marabou_leech",
@@ -454,7 +695,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     kind: "fly",
     displayName: "Lead-Eye Leech",
     anatomy:
-      "**Classic lead-eye / dumbbell leech** (lake Stillwater–style): **moderate or large brass or lead dumbbell eyes** lashed **on top of the hook shank at the front third** (not Clouser-style eyes flipped under for keel). **Slim to medium body** — sparse chenille or dubbed thorax optional; **long leech tail** of **marabou, rabbit strip, or arctic fox** that **dominates the length** of the pattern, with **light Krystal Flash** OK. **One straight streamer hook**; **jig-style hook** OK but **no** spun deer-hair head. **FORBIDDEN**: massive jig cone like a tube jig; **treble hooks**; dumbbells so huge they read as a saltwater Clouser head profile with stacked bucktail wing; articulated wire.",
+      "**Lead-eye leech:** dumbbells **lashed at hook eye / forward shank**, **bedded in pink/chartreuse dub** (no floating shelf); black chenille + palmered hackle; long marabou tail + flash. **FORBIDDEN**: eyes hovering with gap; no dumbbells; zonker minnow; trebles.",
   },
   {
     key: "feather_jig_leech",
@@ -475,7 +716,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     kind: "fly",
     displayName: "Zonker Streamer",
     anatomy:
-      "**Rabbit zonker strip** fly: **hide strip with fur** tied **wing-style along the top of the shank** (or palmered once) so the **fur lays back** toward the tail — **clear lateral-line profile** of a **small baitfish**. **Single streamer hook**; **optional** small bead or dumbbell for jigging **OK**; barred olive/chartreuse/black **zonker** look typical. **Sparse** throat flash or saddle optional. **FORBIDDEN**: **molded sculpin helmet head** filling half the frame (that is a different pattern); **treble hooks**; hard plastic minnow body; long articulated shank with two full dressings unless still clearly **zonker-strip based**.",
+      "**Zonker streamer** (reference style): **barred (or solid) rabbit zonker on dorsal** + **silver Mylar/tinsel/piping** or **peacock** belly + **small black thread head** — **long lean minnow** ~3–4× length:height. **FORBIDDEN**: rabbit_strip_leech leech build; dumbbells; cone; dungeon; trebles.",
   },
   {
     key: "sculpin_streamer",
@@ -489,14 +730,14 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     kind: "fly",
     displayName: "Sculpzilla",
     anatomy:
-      "**Sculpzilla-class articulated sculpin** (Solitude / Galloup lineage): **two sections** — **rear stinger hook** with **zonker strip / bunny wing** as the tail; **front section** on a short shank with **cross-eyed or straight tungsten cone** forward, **buggy dubbed olive body** (picked/brushed), **guinea or speckled hackle** at the collar, **small mallard/chickabou pectoral accents**. Linked by **articulation wire** with a **jump ring** — **soft materials only**, unmistakably **tied flies**. **FORBIDDEN**: **treble hooks**; **crankbait lip**; hard plastic segments; single-shank muddler that is not articulated (this id is **articulated**); generic deer-hair bass bug without bunny tail.",
+      "**Sculpzilla** (reference style): **dark cone + BIG red 3D eyes** + **bushy olive marabou/schlappen collar** + **long natural tan/cream zonker** to **articulated stinger** (wire under fur OK) — **front heavy**. Optional guinea/mallard accents only if subtle. **FORBIDDEN**: Game Changer spine; tiny/missing eyes; second cone on trailer; trebles.",
   },
   {
     key: "muddler_sculpin",
     kind: "fly",
     displayName: "Muddler Minnow",
     anatomy:
-      "**Classic Muddler Minnow** (Gapen sculpin/baitfish): **single hook** — **spun natural deer-hair head** **trimmed into a rounded/muddlar collar** (bristly trimmed cup forward of wing); **gold oval tinsel or mylar body**; **mottled turkey** tail and often **gray squirrel** underwing; optional **black or red hackle collar** at the hair head base. **No dumbbell eyes** on classic version; **no** dumbbell keel. **FORBIDDEN**: heavy sculpin **helmet** cone dominating the nose; **treble hooks**; plastic bill; long zonker wing (that is zonker_streamer, not this id). Read as **historic muddler**, not a modern jig streamer.",
+      "**Classic Muddler Minnow** (Gapen): **single hook** — **spun natural deer hair** **packed and trimmed** into a **forward-sloping collar / muddlar head** (you see **clipped hair tips** in a **cone/cup** ahead of the wing, **not** a smooth 3D-printed dome); **flat tinsel or mylar body**; **mottled turkey tail** + **gray squirrel** underwing (often **slim**, **not** a full zonker blanket); optional **black or red saddle** at the hair base. **No dumbbells**; **no** sculpin **helmet cone**; **no** rabbit zonker strip along the back. **FORBIDDEN**: **Fish-Skull / molded baitfish head**; **lead eyes**; **articulated wire**; **treble hooks**; **long palmered rabbit carrot body**; modern **jig cone** with skirt. Read as **1960s–80s muddler**, not a tube jig.",
   },
   {
     key: "crawfish_streamer",
@@ -517,7 +758,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     kind: "fly",
     displayName: "Worm Fly",
     anatomy:
-      "**Weightless Texas-rigged Senko-style worm fly** (McElligott / bass-fly convention): **offset wide-gap worm hook** or **straight worm hook** with **one continuous, straight, slightly tapering soft-stick body** in **olive, black, green pumpkin, or brown** — body built from **dense worm chenille, EP-style cylinder, or stacked foam strip** so it reads like a **~4–5 inch class Senko**, **not** a wire-thin San Juan. **Texas rig**: hook point **buried back into the plastic/fiber body** (weedless slot), shank inside the body with **gentle belly bend**. **FORBIDDEN**: **bead head** or **cone** at the nose (weightless Texas); **split shot**; red wire-worm only; nymph abdomen with tail filaments; **treble hooks**. **No extra hardware** — must resemble **weightless senko on an EWG**, photographed side-on.",
+      "**Warmwater worm fly (Texas-rig, tied fibers):** **Wide-gap offset hook**; **stick-worm pencil profile** with **gentle S-curve**; body **mottled olive + tan + yellow-brown** speckle; **dense matte chenille/mop/dubbing pile** — **not** molded plastic. **Point buried in fuzz** ~**mid-body**. **Black micro head** at eye. One fly. **FORBIDDEN**: slick soft-plastic worm blank; solid olive only; exposed point; jig; text; trebles.",
   },
   {
     key: "conehead_streamer",
@@ -552,7 +793,14 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     kind: "fly",
     displayName: "Baitfish Slider Fly",
     anatomy:
-      "Slider or slide-style deer hair / stacked head that pushes water; baitfish profile, single hook.",
+      "**Baitfish slider (simpler tie):** **brown deer-hair bullet head**, **big white/black doll eyes**, **rust/pink collar**, **long tan bucktail** — lean wake **minnow** profile, single hook. **NOT** the multi-color navy-orange-white-pink banded head (**deer_hair_slider**). **FORBIDDEN**: foam popper; trebles; vise.",
+  },
+  {
+    key: "bluegill_streamer",
+    kind: "fly",
+    displayName: "Bluegill Streamer",
+    anatomy:
+      "Large warmwater bluegill/panfish streamer on one stout bass hook: broad flat sunfish profile with stacked deer hair or synthetic brush head, barred olive/blue/orange fibers, subtle flash, optional mono weed guard. Tied fly materials only; no hard plastic body, no treble hooks.",
   },
   {
     key: "popper_fly",
@@ -566,21 +814,21 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
     kind: "fly",
     displayName: "Deer Hair Slider",
     anatomy:
-      "Spun deer hair head with sliding/walking hair collar aesthetics, single hook; not a hard-bait walker.",
+      "**Deer-hair slider (hi-vis reference):** **wedge deer-hair head** with **navy top**, **speckled orange-brown mid**, **white belly**, **neon pink throat**; **silver-ring 3D eyes**; **canary yellow collar**; **grizzly barred + tan feather/bucktail tail**; **dark sili-legs** past tail. Single hook broadside. **FORBIDDEN**: plain brown-only head; foam popper; trebles; vise.",
   },
   {
     key: "foam_gurgler_fly",
     kind: "fly",
     displayName: "Foam Gurgler",
     anatomy:
-      "Stacked foam gurgler head ramp, short body stack, tail fibers; cupped foam lip feel; single hook.",
+      "**Foam gurgler:** **white closed-cell foam** strip on **top of shank**; **folded-up front lip/tab** over **hook eye** for gurgle (not big popper cup). **White palmer/chenille** underbody; **long white bucktail/synth tail** ~2× body. **All-white** reference tie. Single hook broadside. **FORBIDDEN**: deer-hair slider; trebles; vise; blue studio card.",
   },
   {
     key: "frog_fly",
     kind: "fly",
     displayName: "Frog Fly",
     anatomy:
-      "Deer hair or foam frog silhouette with splayed legs, weed guard or upturned hook; artificial fly, not hyper-real green frog photo.",
+      "**Frog popper (reference):** **hard olive mottled head**; **deep red concave popper face** with **central line tie**; **yellow ring + black pupil** eyes on sides; **tan rubber legs** + **yellow/olive hackle-marabou tail**; **mono/wire weed guard**; single hook beneath body, broadside. **FORBIDDEN**: deer-hair striped frog; trebles; walking hollow frog; vise.",
   },
   {
     key: "mouse_fly",

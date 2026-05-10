@@ -11,6 +11,8 @@ import {
 } from "./buildDailyScenario.ts";
 import { type CandidateScore, scoreCandidate } from "./scoreCandidate.ts";
 import {
+  buildDailyPicksFamilyDiversityDiagnostics,
+  type DailyPicksFamilyDiversityDiagnostics,
   type DailyPicksSelection,
   type DailyPicksVariant,
   selectDailyPicks,
@@ -30,6 +32,7 @@ export type DailyPicksEngineDiagnostics = {
   surface_daily_gate: DailyScenario["surface_daily_gate"];
   missing_inputs: DailyScenario["missing_inputs"];
   confidence: DailyScenario["confidence"];
+  family_diversity: DailyPicksFamilyDiversityDiagnostics;
 };
 
 export type DailyPicksEngineResult = {
@@ -113,6 +116,11 @@ export function runDailyPicksEngine(args: {
       surface_daily_gate: scenario.surface_daily_gate,
       missing_inputs: scenario.missing_inputs,
       confidence: scenario.confidence,
+      family_diversity: buildDailyPicksFamilyDiversityDiagnostics({
+        selection,
+        lureScores,
+        flyScores,
+      }),
     },
   };
 }
