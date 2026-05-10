@@ -31,15 +31,10 @@ import * as Location from 'expo-location';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 import {
-  PaperBackground,
-  PaperNavHeader,
-  SectionEyebrow,
-} from '../../components/paper';
+  PaperNavHeader,} from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
@@ -153,7 +148,7 @@ export default function OnboardingStep3() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <PaperBackground style={styles.flex}>
+      <View style={styles.flex}>
         <PaperNavHeader
           eyebrow="FINFINDR · ONBOARDING"
           title="LOCATION"
@@ -165,17 +160,13 @@ export default function OnboardingStep3() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.eyebrowRow}>
-            <SectionEyebrow dashes size={11} color={paper.red}>
-              ONE LAST PERMISSION
-            </SectionEyebrow>
-          </View>
+          <View style={styles.eyebrowRow}><Text style={styles.pageEyebrow}>ONE LAST PERMISSION</Text></View>
 
           <View style={styles.iconWrap}>
             <Ionicons
               name={locationGranted ? 'location' : 'location-outline'}
               size={32}
-              color={locationGranted ? paper.forest : paper.ink}
+              color={locationGranted ? paper.dashboardBlue : paper.dashboardInk}
             />
           </View>
 
@@ -192,7 +183,7 @@ export default function OnboardingStep3() {
                 <Ionicons
                   name="checkmark-circle"
                   size={18}
-                  color={paper.forest}
+                  color={paper.dashboardBlue}
                 />
                 <Text style={styles.benefitText}>{b}</Text>
               </View>
@@ -204,7 +195,7 @@ export default function OnboardingStep3() {
             <Ionicons
               name="shield-checkmark-outline"
               size={15}
-              color={paper.ink}
+              color={paper.dashboardInk}
             />
             <Text style={styles.privacyText}>
               Your exact coordinates are never shared. Location data is used
@@ -215,7 +206,7 @@ export default function OnboardingStep3() {
           {/* State banner */}
           {locationGranted && (
             <View style={[styles.banner, styles.bannerGranted]}>
-              <Ionicons name="checkmark-circle" size={18} color={paper.forest} />
+              <Ionicons name="checkmark-circle" size={18} color={paper.dashboardBlue} />
               <Text style={styles.bannerGrantedText}>
                 Location access granted!
               </Text>
@@ -226,7 +217,7 @@ export default function OnboardingStep3() {
               <Ionicons
                 name="information-circle-outline"
                 size={16}
-                color={paper.red}
+                color={paper.dashboardBlue}
               />
               <Text style={styles.bannerDeniedText}>
                 Location denied. You can turn it on later in Settings.
@@ -245,7 +236,7 @@ export default function OnboardingStep3() {
               onPress={requestLocation}
               disabled={locationStatus === 'requesting'}
             >
-              <Ionicons name="location" size={16} color={paper.ink} />
+              <Ionicons name="location" size={16} color={paper.dashboardInk} />
               <Text style={styles.secondaryBtnText}>
                 {locationStatus === 'requesting'
                   ? 'REQUESTING…'
@@ -267,20 +258,20 @@ export default function OnboardingStep3() {
             disabled={saving}
           >
             {saving ? (
-              <ActivityIndicator color={paper.paper} />
+              <ActivityIndicator color={paper.dashboardCream} />
             ) : (
               <>
                 <Text style={styles.ctaText}>
                   {locationGranted ? 'START FISHING' : 'SKIP FOR NOW'}
                 </Text>
-                <Ionicons name="arrow-forward" size={16} color={paper.paper} />
+                <Ionicons name="arrow-forward" size={16} color={paper.dashboardCream} />
               </>
             )}
           </Pressable>
 
           <Text style={styles.footnote}>— STEP 3 OF 3 · ALMOST THERE —</Text>
         </ScrollView>
-      </PaperBackground>
+      </View>
     </SafeAreaView>
   );
 }
@@ -296,43 +287,47 @@ function StepPill({ step, total }: { step: number; total: number }) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.paper },
+  safe: { flex: 1, backgroundColor: paper.dashboardCream },
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
+  },eyebrowRow: { marginBottom: paperSpacing.md },
+pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
   },
-
-  eyebrowRow: { marginBottom: paperSpacing.md },
 
   iconWrap: {
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
     borderWidth: 2,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     alignItems: 'center',
     justifyContent: 'center',
     alignSelf: 'flex-start',
     marginBottom: paperSpacing.md,
-    ...paperShadows.hard,
-  },
+      },
   heroTitle: {
     fontFamily: paperFonts.display,
     fontSize: 34,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -1.2,
+    letterSpacing: 0,
     lineHeight: 38,
     marginBottom: paperSpacing.xs,
   },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     lineHeight: 21,
     marginBottom: paperSpacing.section,
@@ -346,19 +341,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.sm + 2,
-    ...paperShadows.hard,
-  },
+      },
   benefitText: {
     flex: 1,
     fontFamily: paperFonts.body,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     lineHeight: 20,
   },
 
@@ -373,7 +367,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     lineHeight: 18,
   },
@@ -385,29 +379,29 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.sm + 2,
     borderWidth: 1.5,
-    borderRadius: paperRadius.card,
+    borderRadius: 12,
     marginBottom: paperSpacing.md,
   },
   bannerGranted: {
-    backgroundColor: paper.paperLight,
-    borderColor: paper.forest,
+    backgroundColor: paper.dashboardWhite,
+    borderColor: paper.dashboardBlue,
   },
   bannerGrantedText: {
     flex: 1,
     fontFamily: paperFonts.bodyBold,
     fontSize: 13,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 0.4,
   },
   bannerDenied: {
-    backgroundColor: paper.paperLight,
-    borderColor: paper.red,
+    backgroundColor: paper.dashboardWhite,
+    borderColor: paper.dashboardBlue,
   },
   bannerDeniedText: {
     flex: 1,
     fontFamily: paperFonts.body,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.85,
     lineHeight: 18,
   },
@@ -417,18 +411,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md,
     marginBottom: paperSpacing.md,
   },
-  secondaryBtnPressed: { backgroundColor: paper.paperDark },
+  secondaryBtnPressed: { backgroundColor: '#F6F9FB' },
   secondaryBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.4,
   },
 
@@ -437,19 +431,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md,
-    ...paperShadows.hard,
-  },
-  ctaPressed: { backgroundColor: paper.forestDk },
+      },
+  ctaPressed: { backgroundColor: paper.dashboardBlue },
   btnDisabled: { opacity: 0.55 },
   ctaText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.paper,
+    color: paper.dashboardCream,
     letterSpacing: 2.8,
   },
 
@@ -457,7 +450,7 @@ const styles = StyleSheet.create({
     marginTop: paperSpacing.md,
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.55,
     letterSpacing: 2.2,
     textAlign: 'center',
@@ -467,14 +460,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardInk,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
   },
   stepPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.6,
     fontWeight: '700',
   },

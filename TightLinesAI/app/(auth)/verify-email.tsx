@@ -1,5 +1,5 @@
 /**
- * Verify-email screen — FinFindr paper language.
+ * Verify-email screen — FinFindr dashboard language.
  *
  * Behavior preserved exactly:
  *   - 60-second resend cooldown
@@ -16,12 +16,10 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
   paperSpacing,
 } from '../../lib/theme';
 import { supabase } from '../../lib/supabase';
 import { useAuthStore } from '../../store/authStore';
-import { PaperBackground } from '../../components/paper';
 import {
   AuthBackButton,
   AuthStatusCard,
@@ -88,7 +86,7 @@ export default function VerifyEmailScreen() {
   const buttonDisabled = resending || cooldown > 0;
 
   return (
-    <PaperBackground>
+    <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <View style={styles.container}>
           <AuthBackButton onPress={handleBack} label="BACK TO SIGN IN" />
@@ -119,7 +117,7 @@ export default function VerifyEmailScreen() {
             >
               {justSent && cooldown > 0 ? (
                 <View style={styles.resendInner}>
-                  <Ionicons name="checkmark-circle" size={16} color={paper.forest} />
+                  <Ionicons name="checkmark-circle" size={16} color={paper.dashboardBlue} />
                   <Text style={styles.resendTextSent}>
                     SENT — RESEND IN {cooldown}S
                   </Text>
@@ -133,11 +131,12 @@ export default function VerifyEmailScreen() {
           </View>
         </View>
       </SafeAreaView>
-    </PaperBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   container: {
     flex: 1,
@@ -153,7 +152,7 @@ const styles = StyleSheet.create({
   body: {
     fontFamily: paperFonts.body,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.8,
     textAlign: 'center',
     lineHeight: 21,
@@ -162,7 +161,7 @@ const styles = StyleSheet.create({
   bodyMuted: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 13.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     textAlign: 'center',
     lineHeight: 19,
@@ -170,27 +169,27 @@ const styles = StyleSheet.create({
   },
   email: {
     fontFamily: paperFonts.bodyBold,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     opacity: 1,
   },
 
   resendBtn: {
     paddingVertical: paperSpacing.md - 2,
     paddingHorizontal: paperSpacing.lg,
-    borderRadius: paperRadius.card,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardInk,
+    backgroundColor: paper.dashboardWhite,
     alignItems: 'center',
     alignSelf: 'center',
     minWidth: 260,
   },
   resendBtnSent: {
-    backgroundColor: paper.paperLight,
-    borderColor: paper.forest,
+    backgroundColor: paper.dashboardWhite,
+    borderColor: paper.dashboardBlue,
   },
   resendBtnPressed: {
-    backgroundColor: paper.paperDark,
+    backgroundColor: '#F6F9FB',
   },
   resendBtnDisabled: {
     opacity: 0.55,
@@ -203,13 +202,13 @@ const styles = StyleSheet.create({
   resendText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 2.4,
   },
   resendTextSent: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 2.4,
   },
 });

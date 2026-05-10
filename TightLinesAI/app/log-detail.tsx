@@ -1,5 +1,5 @@
 /**
- * Log Detail — FinFindr paper language.
+ * Log Detail — FinFindr dashboard language.
  *
  * Visual migration only. Still using mock trip data (no live fetch wiring),
  * but the layout, actions, and share/feedback controls are preserved.
@@ -12,16 +12,9 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../lib/theme';
-import {
-  PaperBackground,
-  PaperColophon,
-  PaperNavHeader,
-  SectionEyebrow,
-} from '../components/paper';
+import {  PaperNavHeader,} from '../components/paper';
 import { hapticSelection } from '../lib/safeHaptics';
 
 const MOCK_TRIP = {
@@ -77,7 +70,7 @@ export default function LogDetailScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <PaperBackground style={styles.flex}>
+      <View style={styles.flex}>
         <PaperNavHeader
           eyebrow="FINFINDR · TRIP RECORD"
           title="LOG DETAIL"
@@ -88,11 +81,7 @@ export default function LogDetailScreen() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.eyebrowRow}>
-            <SectionEyebrow dashes size={11} color={paper.red}>
-              {t.date.toUpperCase()}
-            </SectionEyebrow>
-          </View>
+          <View style={styles.eyebrowRow}><Text style={styles.pageEyebrow}>{t.date.toUpperCase()}</Text></View>
 
           <View style={styles.header}>
             <Text style={styles.location}>{t.location}.</Text>
@@ -136,7 +125,7 @@ export default function LogDetailScreen() {
               <Text style={styles.catchTime}>{c.time}</Text>
             </View>
             <View style={styles.catchLureRow}>
-              <Ionicons name="color-wand-outline" size={12} color={paper.ink} />
+              <Ionicons name="color-wand-outline" size={12} color={paper.dashboardInk} />
               <Text style={styles.catchLure}>{c.lure}</Text>
             </View>
           </View>
@@ -156,7 +145,7 @@ export default function LogDetailScreen() {
         {t.fromAI ? (
           <View style={styles.aiContext}>
             <View style={styles.aiContextHeader}>
-              <Ionicons name="sparkles" size={13} color={paper.gold} />
+              <Ionicons name="sparkles" size={13} color={paper.bandFair} />
               <Text style={styles.aiContextTitle}>AI RECOMMENDATION LINKED</Text>
             </View>
             <Text style={styles.aiContextSub}>
@@ -172,14 +161,14 @@ export default function LogDetailScreen() {
                   hitSlop={8}
                   onPress={() => hapticSelection()}
                 >
-                  <Ionicons name="thumbs-up-outline" size={18} color={paper.forest} />
+                  <Ionicons name="thumbs-up-outline" size={18} color={paper.dashboardBlue} />
                 </Pressable>
                 <Pressable
                   style={styles.feedbackBtn}
                   hitSlop={8}
                   onPress={() => hapticSelection()}
                 >
-                  <Ionicons name="thumbs-down-outline" size={18} color={paper.red} />
+                  <Ionicons name="thumbs-down-outline" size={18} color={paper.dashboardBlue} />
                 </Pressable>
               </View>
             </View>
@@ -191,16 +180,11 @@ export default function LogDetailScreen() {
           style={({ pressed }) => [styles.shareBtn, pressed && styles.shareBtnPressed]}
           onPress={() => hapticSelection()}
         >
-          <Ionicons name="share-outline" size={16} color={paper.ink} />
+          <Ionicons name="share-outline" size={16} color={paper.dashboardInk} />
           <Text style={styles.shareBtnText}>SHARE TO COMMUNITY FEED</Text>
         </Pressable>
-
-        <PaperColophon
-          section="LOG"
-          tagline={(edition) => `NO. ${edition} · ALL CAUGHT, NEVER LOST`}
-        />
         </ScrollView>
-      </PaperBackground>
+      </View>
     </SafeAreaView>
   );
 }
@@ -208,7 +192,7 @@ export default function LogDetailScreen() {
 function CondTile({ icon, label, value }: { icon: string; label: string; value: string }) {
   return (
     <View style={styles.condTile}>
-      <Ionicons name={icon as any} size={13} color={paper.ink} />
+      <Ionicons name={icon as any} size={13} color={paper.dashboardInk} />
       <Text style={styles.condTileValue} numberOfLines={1}>
         {value}
       </Text>
@@ -220,38 +204,43 @@ function CondTile({ icon, label, value }: { icon: string; label: string; value: 
 function CondPill({ icon, text }: { icon: string; text: string }) {
   return (
     <View style={styles.condPill}>
-      <Ionicons name={icon as any} size={11} color={paper.ink} />
+      <Ionicons name={icon as any} size={11} color={paper.dashboardInk} />
       <Text style={styles.condPillText}>{text}</Text>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.paper },
+  safe: { flex: 1, backgroundColor: paper.dashboardCream },
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.sm,
     paddingBottom: paperSpacing.xxl,
+  },eyebrowRow: { marginBottom: paperSpacing.md },
+pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
   },
-
-  eyebrowRow: { marginBottom: paperSpacing.md },
 
   // Header
   header: { marginBottom: paperSpacing.section },
   location: {
     fontFamily: paperFonts.display,
     fontSize: 30,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -1,
+    letterSpacing: 0,
     lineHeight: 34,
   },
   dateLine: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     letterSpacing: 1.6,
     marginTop: paperSpacing.xs,
@@ -260,16 +249,16 @@ const styles = StyleSheet.create({
   section: {
     fontFamily: paperFonts.display,
     fontSize: 22,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -0.5,
+    letterSpacing: 0,
     marginBottom: paperSpacing.sm,
     marginTop: paperSpacing.xs,
   },
   sectionCount: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 18,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.55,
     fontWeight: '400',
   },
@@ -283,23 +272,23 @@ const styles = StyleSheet.create({
   condTile: {
     flex: 1,
     alignItems: 'center',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     paddingVertical: paperSpacing.sm + 2,
     gap: 3,
   },
   condTileValue: {
     fontFamily: paperFonts.mono,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 0.2,
   },
   condTileLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.6,
     letterSpacing: 1.8,
   },
@@ -313,30 +302,29 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.chip,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 999,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.sm + 2,
     paddingVertical: 4,
   },
   condPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.2,
   },
 
   // Catches
   catchCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.md,
-    ...paperShadows.hard,
-  },
+      },
   catchTop: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -345,7 +333,7 @@ const styles = StyleSheet.create({
     width: 26,
     height: 26,
     borderRadius: 13,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: paperSpacing.sm,
@@ -353,20 +341,20 @@ const styles = StyleSheet.create({
   catchNumText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.paper,
+    color: paper.dashboardCream,
     letterSpacing: 0.4,
   },
   catchInfo: { flex: 1 },
   catchSpecies: {
     fontFamily: paperFonts.display,
     fontSize: 16,
-    color: paper.ink,
-    letterSpacing: -0.3,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
   },
   catchMeta: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.6,
     letterSpacing: 1.4,
     marginTop: 2,
@@ -374,7 +362,7 @@ const styles = StyleSheet.create({
   catchTime: {
     fontFamily: paperFonts.mono,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
   },
   catchLureRow: {
@@ -384,44 +372,42 @@ const styles = StyleSheet.create({
     marginTop: paperSpacing.sm,
     paddingTop: paperSpacing.sm,
     borderTopWidth: 1,
-    borderTopColor: paper.inkHair,
+    borderTopColor: paper.dashboardHair,
   },
   catchLure: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.8,
   },
 
   // Notes
   notesCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.section,
     marginTop: paperSpacing.md,
-    ...paperShadows.hard,
-  },
+      },
   notesText: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
     lineHeight: 21,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.85,
   },
 
   // AI Context
   aiContext: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.section,
-    ...paperShadows.hard,
-  },
+      },
   aiContextHeader: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -431,13 +417,13 @@ const styles = StyleSheet.create({
   aiContextTitle: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10.5,
-    color: paper.goldDk,
+    color: paper.bandFair,
     letterSpacing: 2.4,
   },
   aiContextSub: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     marginBottom: paperSpacing.md,
   },
@@ -447,12 +433,12 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingTop: paperSpacing.sm,
     borderTopWidth: 1,
-    borderTopColor: paper.inkHair,
+    borderTopColor: paper.dashboardHair,
   },
   feedbackLabel: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
   },
   feedbackBtns: { flexDirection: 'row', gap: paperSpacing.lg },
@@ -464,18 +450,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
     borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md - 2,
-    ...paperShadows.hard,
-  },
-  shareBtnPressed: { backgroundColor: paper.paperDark },
+      },
+  shareBtnPressed: { backgroundColor: '#F6F9FB' },
   shareBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.4,
   },
 });

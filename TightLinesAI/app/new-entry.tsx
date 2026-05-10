@@ -1,5 +1,5 @@
 /**
- * New Entry — FinFindr paper language.
+ * New Entry — FinFindr dashboard language.
  *
  * Visual migration only. All form fields, catch-count state, conditions toggle,
  * and Select-driven dropdowns remain identical to the pre-migration version.
@@ -24,15 +24,10 @@ import Select from '../components/Select';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../lib/theme';
 import {
-  PaperBackground,
-  PaperNavHeader,
-  SectionEyebrow,
-} from '../components/paper';
+  PaperNavHeader,} from '../components/paper';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../lib/safeHaptics';
 
 const BODY_OPTIONS = [
@@ -68,7 +63,7 @@ export default function NewEntryScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <PaperBackground style={styles.flex}>
+      <View style={styles.flex}>
         <PaperNavHeader
           eyebrow="FINFINDR · NEW ENTRY"
           title="LOG A TRIP"
@@ -84,11 +79,7 @@ export default function NewEntryScreen() {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View style={styles.eyebrowRow}>
-              <SectionEyebrow dashes size={11} color={paper.red}>
-                {`FINFINDR · LOG ${new Date().getFullYear()}`}
-              </SectionEyebrow>
-            </View>
+            <View style={styles.eyebrowRow}><Text style={styles.pageEyebrow}>{`FINFINDR · LOG ${new Date().getFullYear()}`}</Text></View>
 
             <Text style={styles.heroTitle}>Log the trip.</Text>
           <Text style={styles.heroLede}>
@@ -103,7 +94,7 @@ export default function NewEntryScreen() {
               pressed && styles.voiceBtnPressed,
             ]}
           >
-            <Ionicons name="mic" size={16} color={paper.forest} />
+            <Ionicons name="mic" size={16} color={paper.dashboardBlue} />
             <Text style={styles.voiceBtnText}>VOICE LOG</Text>
             <Text style={styles.voiceBtnHint}>
               Tap to speak your trip details
@@ -119,7 +110,7 @@ export default function NewEntryScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="Today"
-                placeholderTextColor={paper.ink + '70'}
+                placeholderTextColor={paper.dashboardInk + '70'}
               />
             </View>
             <View style={styles.half}>
@@ -127,7 +118,7 @@ export default function NewEntryScreen() {
               <TextInput
                 style={styles.input}
                 placeholder="e.g. 4 hrs"
-                placeholderTextColor={paper.ink + '70'}
+                placeholderTextColor={paper.dashboardInk + '70'}
               />
             </View>
           </View>
@@ -138,7 +129,7 @@ export default function NewEntryScreen() {
             <TextInput
               style={styles.input}
               placeholder="e.g. Tampa Bay Inshore"
-              placeholderTextColor={paper.ink + '70'}
+              placeholderTextColor={paper.dashboardInk + '70'}
             />
           </View>
           <Pressable
@@ -147,7 +138,7 @@ export default function NewEntryScreen() {
               pressed && styles.syncBtnPressed,
             ]}
           >
-            <Ionicons name="location" size={14} color={paper.paper} />
+            <Ionicons name="location" size={14} color={paper.dashboardCream} />
             <Text style={styles.syncText}>SYNC LOCATION</Text>
           </Pressable>
 
@@ -193,7 +184,7 @@ export default function NewEntryScreen() {
             <TextInput
               style={styles.input}
               placeholder="e.g. 72"
-              placeholderTextColor={paper.ink + '70'}
+              placeholderTextColor={paper.dashboardInk + '70'}
               keyboardType="numeric"
             />
           </View>
@@ -210,7 +201,7 @@ export default function NewEntryScreen() {
             <Ionicons
               name={showConditions ? 'chevron-up' : 'chevron-down'}
               size={16}
-              color={paper.ink}
+              color={paper.dashboardInk}
             />
           </Pressable>
 
@@ -222,7 +213,7 @@ export default function NewEntryScreen() {
                   <TextInput
                     style={styles.input}
                     placeholder="72"
-                    placeholderTextColor={paper.ink + '70'}
+                    placeholderTextColor={paper.dashboardInk + '70'}
                     keyboardType="numeric"
                   />
                 </View>
@@ -231,7 +222,7 @@ export default function NewEntryScreen() {
                   <TextInput
                     style={styles.input}
                     placeholder="8"
-                    placeholderTextColor={paper.ink + '70'}
+                    placeholderTextColor={paper.dashboardInk + '70'}
                     keyboardType="numeric"
                   />
                 </View>
@@ -300,7 +291,7 @@ export default function NewEntryScreen() {
                   <TextInput
                     style={styles.input}
                     placeholder="e.g. Redfish"
-                    placeholderTextColor={paper.ink + '70'}
+                    placeholderTextColor={paper.dashboardInk + '70'}
                   />
                 </View>
                 <View style={styles.half}>
@@ -308,7 +299,7 @@ export default function NewEntryScreen() {
                   <TextInput
                     style={styles.input}
                     placeholder='e.g. 26"'
-                    placeholderTextColor={paper.ink + '70'}
+                    placeholderTextColor={paper.dashboardInk + '70'}
                   />
                 </View>
               </View>
@@ -318,7 +309,7 @@ export default function NewEntryScreen() {
                   <TextInput
                     style={styles.input}
                     placeholder="e.g. White Paddle Tail"
-                    placeholderTextColor={paper.ink + '70'}
+                    placeholderTextColor={paper.dashboardInk + '70'}
                   />
                 </View>
                 <View style={styles.half}>
@@ -341,7 +332,7 @@ export default function NewEntryScreen() {
               setCatchCount(catchCount + 1);
             }}
           >
-            <Ionicons name="add-circle-outline" size={16} color={paper.forest} />
+            <Ionicons name="add-circle-outline" size={16} color={paper.dashboardBlue} />
             <Text style={styles.addCatchText}>ADD ANOTHER CATCH</Text>
           </Pressable>
 
@@ -350,7 +341,7 @@ export default function NewEntryScreen() {
           <TextInput
             style={[styles.input, styles.textArea]}
             placeholder="Any notes about the trip..."
-            placeholderTextColor={paper.ink + '70'}
+            placeholderTextColor={paper.dashboardInk + '70'}
             multiline
             numberOfLines={3}
             textAlignVertical="top"
@@ -368,36 +359,41 @@ export default function NewEntryScreen() {
           >
             <Text style={styles.saveText}>SAVE ENTRY</Text>
           </Pressable>
-          </ScrollView>
+        </ScrollView>
         </KeyboardAvoidingView>
-      </PaperBackground>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.paper },
+  safe: { flex: 1, backgroundColor: paper.dashboardCream },
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.sm,
     paddingBottom: paperSpacing.xxl + 20,
+  },eyebrowRow: { marginBottom: paperSpacing.md },
+pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
   },
-
-  eyebrowRow: { marginBottom: paperSpacing.md },
   heroTitle: {
     fontFamily: paperFonts.display,
     fontSize: 30,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -1,
+    letterSpacing: 0,
     lineHeight: 34,
   },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     lineHeight: 20,
     marginBottom: paperSpacing.lg,
@@ -407,26 +403,26 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     paddingVertical: paperSpacing.sm + 4,
     paddingHorizontal: paperSpacing.md,
     marginBottom: paperSpacing.lg,
   },
-  voiceBtnPressed: { backgroundColor: paper.paperDark },
+  voiceBtnPressed: { backgroundColor: '#F6F9FB' },
   voiceBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 2.4,
   },
   voiceBtnHint: {
     flex: 1,
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.6,
     textAlign: 'right',
   },
@@ -434,9 +430,9 @@ const styles = StyleSheet.create({
   section: {
     fontFamily: paperFonts.display,
     fontSize: 20,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -0.4,
+    letterSpacing: 0,
     marginBottom: paperSpacing.sm,
     // Bumped from `sm` to `lg` so each form section opens with a
     // clear, paper-feeling break from the section above.
@@ -447,7 +443,7 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     letterSpacing: 1.6,
     marginBottom: 6,
@@ -455,21 +451,21 @@ const styles = StyleSheet.create({
   opt: {
     fontFamily: paperFonts.displayItalic,
     fontWeight: '400',
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.5,
     letterSpacing: 1.2,
   },
 
   input: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.sm + 4,
     fontFamily: paperFonts.body,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   textArea: { minHeight: 80, paddingTop: paperSpacing.sm + 4 },
   row: {
@@ -484,19 +480,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.xs + 2,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingVertical: paperSpacing.sm + 2,
     marginBottom: paperSpacing.lg,
-    ...paperShadows.hard,
-  },
-  syncBtnPressed: { backgroundColor: paper.forestDk },
+      },
+  syncBtnPressed: { backgroundColor: paper.dashboardBlue },
   syncText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.paper,
+    color: paper.dashboardCream,
     letterSpacing: 2.2,
   },
 
@@ -504,42 +499,41 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.md,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
   },
   condToggleText: {
     fontFamily: paperFonts.display,
     fontSize: 15,
-    color: paper.ink,
-    letterSpacing: -0.2,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
   },
   condSection: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.lg,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
   },
 
   // Catches
   catchCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.sm,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    ...paperShadows.hard,
-  },
+    borderColor: paper.dashboardInk,
+      },
   catchNum: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 2.2,
     marginBottom: paperSpacing.sm,
   },
@@ -554,25 +548,24 @@ const styles = StyleSheet.create({
   addCatchText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 2,
   },
 
   saveBtn: {
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md,
     alignItems: 'center',
     marginTop: paperSpacing.sm,
-    ...paperShadows.hard,
-  },
-  saveBtnPressed: { backgroundColor: paper.forestDk },
+      },
+  saveBtnPressed: { backgroundColor: paper.dashboardBlue },
   saveText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.paper,
+    color: paper.dashboardCream,
     letterSpacing: 2.8,
   },
 });

@@ -47,7 +47,6 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
   paperSpacing,
 } from '../../lib/theme';
 
@@ -61,10 +60,10 @@ interface PaperNavHeaderProps {
   /**
    * Editorial eyebrow above the title. Defaults to `FINFINDR`. Pass a
    * specific section eyebrow like `FINFINDR · TRIP RECORD` to mirror
-   * the way the body screens use `<SectionEyebrow>` at the top.
+   * the compact page eyebrow used in the body screens.
    */
   eyebrow?: string;
-  /** Color for the eyebrow line. Default `paper.red`. */
+  /** Color for the eyebrow line. Defaults to a muted white in the navy header. */
   eyebrowColor?: string;
   /**
    * Back press handler. Renders a `[⟵ BACK]` chip on the left when
@@ -87,7 +86,7 @@ interface PaperNavHeaderProps {
 export function PaperNavHeader({
   title,
   eyebrow = 'FINFINDR',
-  eyebrowColor = paper.red,
+  eyebrowColor = 'rgba(255,255,255,0.62)',
   onBack,
   backLabel = 'BACK',
   right,
@@ -107,7 +106,7 @@ export function PaperNavHeader({
           accessibilityLabel={backLabel}
           accessibilityRole="button"
         >
-          <Ionicons name="chevron-back" size={14} color={paper.ink} />
+          <Ionicons name="chevron-back" size={14} color="#FFFFFF" />
           <Text style={styles.navBackBtnText}>{backLabel}</Text>
         </Pressable>
       ) : (
@@ -134,10 +133,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm,
-    backgroundColor: paper.paper,
-    borderBottomWidth: 1,
-    borderBottomColor: paper.inkHairSoft,
+    paddingVertical: paperSpacing.md,
+    backgroundColor: paper.dashboardInk,
+    borderBottomWidth: 0,
   },
   navBackBtn: {
     flexDirection: 'row',
@@ -145,16 +143,16 @@ const styles = StyleSheet.create({
     gap: 5,
     paddingHorizontal: 10,
     paddingVertical: 6,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
+    borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.08)',
   },
   navBackBtnPressed: { opacity: 0.7 },
   navBackBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: '#FFFFFF',
     letterSpacing: 2.2,
     fontWeight: '700',
   },
@@ -162,21 +160,21 @@ const styles = StyleSheet.create({
     position: 'absolute',
     left: 0,
     right: 0,
-    top: paperSpacing.sm,
-    bottom: paperSpacing.sm,
+    top: paperSpacing.md,
+    bottom: paperSpacing.md,
     alignItems: 'center',
     justifyContent: 'center',
   },
   navEyebrow: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 8.5,
     letterSpacing: 2.6,
   },
   navTitle: {
     fontFamily: paperFonts.display,
     fontSize: 14,
-    color: paper.ink,
-    letterSpacing: -0.2,
+    color: '#FFFFFF',
+    letterSpacing: 0,
     marginTop: 1,
     fontWeight: '700',
   },

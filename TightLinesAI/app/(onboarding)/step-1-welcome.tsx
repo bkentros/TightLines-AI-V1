@@ -9,7 +9,7 @@
  * Visual structure (matches the rest of the paper screens):
  *   • Editorial nav header (BACK chip + "FINFINDR · ONBOARDING" + step pill).
  *   • Step indicator (3 dots, the active one elongated).
- *   • Hero: SectionEyebrow + Fraunces title + italic subhead.
+ *   • Hero: dashboard eyebrow + Fraunces title + italic subhead.
  *   • Three feature cards using the paper card language (forest accent
  *     icons, ink hairline borders, Fraunces titles, italic descriptions).
  *   • Primary forest CTA with paper hard-shadow.
@@ -24,15 +24,10 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 import {
-  PaperBackground,
-  PaperNavHeader,
-  SectionEyebrow,
-} from '../../components/paper';
+  PaperNavHeader,} from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 
@@ -78,7 +73,7 @@ export default function OnboardingStep1() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <PaperBackground style={styles.flex}>
+      <View style={styles.flex}>
         <PaperNavHeader
           eyebrow="FINFINDR · ONBOARDING"
           title="WELCOME"
@@ -90,11 +85,7 @@ export default function OnboardingStep1() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.eyebrowRow}>
-            <SectionEyebrow dashes size={11} color={paper.red}>
-              YOUR FISHING COMPANION
-            </SectionEyebrow>
-          </View>
+          <View style={styles.eyebrowRow}><Text style={styles.pageEyebrow}>YOUR FISHING COMPANION</Text></View>
 
           <Text style={styles.heroTitle}>
             Welcome to{'\n'}<Text style={styles.heroTitleBrand}>FINFINDR</Text>
@@ -110,7 +101,7 @@ export default function OnboardingStep1() {
             {FEATURES.map((f) => (
               <View key={f.icon} style={styles.featureCard}>
                 <View style={styles.featureBadge}>
-                  <Ionicons name={f.icon} size={20} color={paper.paper} />
+                  <Ionicons name={f.icon} size={20} color={paper.dashboardCream} />
                 </View>
                 <View style={styles.featureText}>
                   <Text style={styles.featureTitle}>{f.title}</Text>
@@ -132,14 +123,14 @@ export default function OnboardingStep1() {
             }}
           >
             <Text style={styles.ctaText}>GET STARTED</Text>
-            <Ionicons name="arrow-forward" size={16} color={paper.paper} />
+            <Ionicons name="arrow-forward" size={16} color={paper.dashboardCream} />
           </Pressable>
 
           <Text style={styles.footnote}>
             — STEP 1 OF 3 ·  TAKES ABOUT A MINUTE —
           </Text>
         </ScrollView>
-      </PaperBackground>
+      </View>
     </SafeAreaView>
   );
 }
@@ -160,34 +151,39 @@ function StepPill({ step, total }: { step: number; total: number }) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.paper },
+  safe: { flex: 1, backgroundColor: paper.dashboardCream },
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
+  },eyebrowRow: { marginBottom: paperSpacing.md },
+pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
   },
-
-  eyebrowRow: { marginBottom: paperSpacing.md },
 
   heroTitle: {
     fontFamily: paperFonts.display,
     fontSize: 38,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -1.4,
+    letterSpacing: 0,
     lineHeight: 42,
     marginBottom: paperSpacing.xs,
   },
   heroTitleBrand: {
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
-  heroDot: { color: paper.red },
+  heroDot: { color: paper.dashboardBlue },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     lineHeight: 22,
     marginBottom: paperSpacing.section,
@@ -199,22 +195,21 @@ const styles = StyleSheet.create({
   },
   featureCard: {
     flexDirection: 'row',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     padding: paperSpacing.md,
     gap: paperSpacing.md,
     alignItems: 'flex-start',
-    ...paperShadows.hard,
-  },
+      },
   featureBadge: {
     width: 40,
     height: 40,
     borderRadius: 20,
     borderWidth: 2,
-    borderColor: paper.ink,
-    backgroundColor: paper.forest,
+    borderColor: paper.dashboardInk,
+    backgroundColor: paper.dashboardBlue,
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
@@ -223,15 +218,15 @@ const styles = StyleSheet.create({
   featureTitle: {
     fontFamily: paperFonts.display,
     fontSize: 16,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -0.3,
+    letterSpacing: 0,
     marginBottom: 3,
   },
   featureDesc: {
     fontFamily: paperFonts.body,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.72,
     lineHeight: 18,
   },
@@ -241,18 +236,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md,
-    ...paperShadows.hard,
-  },
-  ctaPressed: { backgroundColor: paper.forestDk },
+      },
+  ctaPressed: { backgroundColor: paper.dashboardBlue },
   ctaText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.paper,
+    color: paper.dashboardCream,
     letterSpacing: 2.8,
   },
 
@@ -260,7 +254,7 @@ const styles = StyleSheet.create({
     marginTop: paperSpacing.md,
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.55,
     letterSpacing: 2.2,
     textAlign: 'center',
@@ -270,14 +264,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardInk,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
   },
   stepPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.6,
     fontWeight: '700',
   },

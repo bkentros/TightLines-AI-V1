@@ -38,15 +38,10 @@ import * as Location from 'expo-location';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 import {
-  PaperBackground,
-  PaperNavHeader,
-  SectionEyebrow,
-} from '../../components/paper';
+  PaperNavHeader,} from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import type { FishingMode } from '../../lib/types';
@@ -270,7 +265,7 @@ export default function OnboardingStep2() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <PaperBackground style={styles.flex}>
+      <View style={styles.flex}>
         <PaperNavHeader
           eyebrow="FINFINDR · ONBOARDING"
           title="PREFERENCES"
@@ -287,11 +282,7 @@ export default function OnboardingStep2() {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View style={styles.eyebrowRow}>
-              <SectionEyebrow dashes size={11} color={paper.red}>
-                A FEW QUESTIONS
-              </SectionEyebrow>
-            </View>
+            <View style={styles.eyebrowRow}><Text style={styles.pageEyebrow}>A FEW QUESTIONS</Text></View>
 
             <Text style={styles.heroTitle}>Your preferences.</Text>
             <Text style={styles.heroLede}>
@@ -311,7 +302,7 @@ export default function OnboardingStep2() {
                   value={username}
                   onChangeText={handleUsernameChange}
                   placeholder="e.g. redfish_brandon"
-                  placeholderTextColor={paper.ink + '70'}
+                  placeholderTextColor={paper.dashboardInk + '70'}
                   autoCapitalize="none"
                   autoCorrect={false}
                   returnKeyType="next"
@@ -319,13 +310,13 @@ export default function OnboardingStep2() {
                 />
                 <View style={styles.usernameStatusSlot}>
                   {usernameStatus === 'checking' && (
-                    <ActivityIndicator size="small" color={paper.forest} />
+                    <ActivityIndicator size="small" color={paper.dashboardBlue} />
                   )}
                   {usernameStatus === 'available' && (
-                    <Ionicons name="checkmark-circle" size={20} color={paper.forest} />
+                    <Ionicons name="checkmark-circle" size={20} color={paper.dashboardBlue} />
                   )}
                   {usernameStatus === 'taken' && (
-                    <Ionicons name="close-circle" size={20} color={paper.red} />
+                    <Ionicons name="close-circle" size={20} color={paper.dashboardBlue} />
                   )}
                 </View>
               </View>
@@ -344,7 +335,7 @@ export default function OnboardingStep2() {
                 value={displayName}
                 onChangeText={setDisplayName}
                 placeholder="e.g. Brandon K."
-                placeholderTextColor={paper.ink + '70'}
+                placeholderTextColor={paper.dashboardInk + '70'}
                 autoCorrect={false}
                 returnKeyType="next"
                 maxLength={50}
@@ -368,7 +359,7 @@ export default function OnboardingStep2() {
                       <Ionicons
                         name={mode.icon}
                         size={15}
-                        color={active ? paper.paper : paper.ink}
+                        color={active ? paper.dashboardCream : paper.dashboardInk}
                       />
                       <Text
                         style={[
@@ -421,9 +412,9 @@ export default function OnboardingStep2() {
                   disabled={locationLoading}
                 >
                   {locationLoading ? (
-                    <ActivityIndicator size="small" color={paper.forest} />
+                    <ActivityIndicator size="small" color={paper.dashboardBlue} />
                   ) : (
-                    <Ionicons name="location-outline" size={13} color={paper.forest} />
+                    <Ionicons name="location-outline" size={13} color={paper.dashboardBlue} />
                   )}
                   <Text style={styles.locAutoBtnText}>
                     {locationLoading ? 'FINDING…' : 'USE LOCATION'}
@@ -449,7 +440,7 @@ export default function OnboardingStep2() {
                 <Ionicons
                   name={showStateList ? 'chevron-up' : 'chevron-down'}
                   size={16}
-                  color={paper.ink}
+                  color={paper.dashboardInk}
                 />
               </Pressable>
 
@@ -483,7 +474,7 @@ export default function OnboardingStep2() {
                         </Text>
                       </Pressable>
                     ))}
-                  </ScrollView>
+        </ScrollView>
                 </View>
               )}
 
@@ -492,7 +483,7 @@ export default function OnboardingStep2() {
                 value={homeCity}
                 onChangeText={setHomeCity}
                 placeholder="City (e.g. Tampa)"
-                placeholderTextColor={paper.ink + '70'}
+                placeholderTextColor={paper.dashboardInk + '70'}
                 autoCorrect={false}
                 returnKeyType="done"
                 maxLength={60}
@@ -540,11 +531,11 @@ export default function OnboardingStep2() {
               disabled={loading}
             >
               {loading ? (
-                <ActivityIndicator color={paper.paper} />
+                <ActivityIndicator color={paper.dashboardCream} />
               ) : (
                 <>
                   <Text style={styles.ctaText}>CONTINUE</Text>
-                  <Ionicons name="arrow-forward" size={16} color={paper.paper} />
+                  <Ionicons name="arrow-forward" size={16} color={paper.dashboardCream} />
                 </>
               )}
             </Pressable>
@@ -552,9 +543,9 @@ export default function OnboardingStep2() {
             <Text style={styles.footnote}>
               — STEP 2 OF 3 ·  ONE MORE TO GO —
             </Text>
-          </ScrollView>
+        </ScrollView>
         </KeyboardAvoidingView>
-      </PaperBackground>
+      </View>
     </SafeAreaView>
   );
 }
@@ -588,29 +579,35 @@ function StepPill({ step, total }: { step: number; total: number }) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.paper },
+  safe: { flex: 1, backgroundColor: paper.dashboardCream },
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
+  },eyebrowRow: { marginBottom: paperSpacing.md },
+pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
   },
-  eyebrowRow: { marginBottom: paperSpacing.md },
 
   heroTitle: {
     fontFamily: paperFonts.display,
     fontSize: 34,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -1.2,
+    letterSpacing: 0,
     lineHeight: 38,
     marginBottom: paperSpacing.xs,
   },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     lineHeight: 20,
     marginBottom: paperSpacing.section,
@@ -626,7 +623,7 @@ const styles = StyleSheet.create({
   sectionLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.2,
     marginBottom: paperSpacing.xs,
     fontWeight: '700',
@@ -634,24 +631,24 @@ const styles = StyleSheet.create({
   sectionHint: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     marginBottom: paperSpacing.sm,
   },
 
   input: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 2,
     fontFamily: paperFonts.body,
     fontSize: 16,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
-  inputError: { borderColor: paper.red },
-  inputSuccess: { borderColor: paper.forest },
+  inputError: { borderColor: paper.dashboardBlue },
+  inputSuccess: { borderColor: paper.dashboardBlue },
 
   usernameRow: { flexDirection: 'row', alignItems: 'center', gap: paperSpacing.sm },
   usernameInput: { flex: 1 },
@@ -659,14 +656,14 @@ const styles = StyleSheet.create({
   errorText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11.5,
-    color: paper.red,
+    color: paper.dashboardBlue,
     marginTop: paperSpacing.xs,
     letterSpacing: 0.4,
   },
   successText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11.5,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     marginTop: paperSpacing.xs,
     letterSpacing: 0.4,
   },
@@ -678,40 +675,40 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.xs + 2,
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md - 2,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
   },
   modeBtnActive: {
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
   },
   modeBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.4,
   },
-  modeBtnTextActive: { color: paper.paper },
+  modeBtnTextActive: { color: paper.dashboardCream },
 
   chipGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: paperSpacing.xs + 2 },
   chip: {
     paddingHorizontal: paperSpacing.md - 2,
     paddingVertical: paperSpacing.sm - 1,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
   },
-  chipActive: { backgroundColor: paper.forest },
+  chipActive: { backgroundColor: paper.dashboardBlue },
   chipText: {
     fontFamily: paperFonts.bodyMedium,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   chipTextActive: {
-    color: paper.paper,
+    color: paper.dashboardCream,
     fontFamily: paperFonts.bodyBold,
   },
 
@@ -721,16 +718,16 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingHorizontal: paperSpacing.sm,
     paddingVertical: 4,
-    borderRadius: paperRadius.chip,
+    borderRadius: 999,
     borderWidth: 1.5,
-    borderColor: paper.forest,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardWhite,
   },
-  locAutoBtnPressed: { backgroundColor: paper.paperDark },
+  locAutoBtnPressed: { backgroundColor: '#F6F9FB' },
   locAutoBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 1.6,
   },
 
@@ -738,25 +735,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 2,
   },
   statePickerText: {
     fontFamily: paperFonts.body,
     fontSize: 16,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
-  statePickerPlaceholder: { color: paper.ink, opacity: 0.55 },
+  statePickerPlaceholder: { color: paper.dashboardInk, opacity: 0.55 },
   stateList: {
     marginTop: paperSpacing.xs,
-    borderRadius: paperRadius.card,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardInk,
+    backgroundColor: paper.dashboardWhite,
     overflow: 'hidden',
   },
   stateScroll: { maxHeight: 200 },
@@ -764,14 +761,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 4,
   },
-  stateOptionActive: { backgroundColor: paper.paperDark },
+  stateOptionActive: { backgroundColor: '#F6F9FB' },
   stateOptionText: {
     fontFamily: paperFonts.body,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   stateOptionTextActive: {
-    color: paper.forest,
+    color: paper.dashboardBlue,
     fontFamily: paperFonts.bodyBold,
   },
 
@@ -780,20 +777,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md,
     marginTop: paperSpacing.sm,
-    ...paperShadows.hard,
-  },
-  ctaPressed: { backgroundColor: paper.forestDk },
+      },
+  ctaPressed: { backgroundColor: paper.dashboardBlue },
   btnDisabled: { opacity: 0.55 },
   ctaText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.paper,
+    color: paper.dashboardCream,
     letterSpacing: 2.8,
   },
 
@@ -801,7 +797,7 @@ const styles = StyleSheet.create({
     marginTop: paperSpacing.md,
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.55,
     letterSpacing: 2.2,
     textAlign: 'center',
@@ -811,14 +807,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardInk,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
   },
   stepPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.6,
     fontWeight: '700',
   },

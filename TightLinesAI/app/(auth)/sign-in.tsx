@@ -1,5 +1,5 @@
 /**
- * Sign-in screen — FinFindr paper language.
+ * Sign-in screen — FinFindr dashboard language.
  *
  * Visual migration only. Auth behavior is identical to the previous version:
  *   - email/password via `signInWithEmail`
@@ -26,12 +26,10 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
   paperSpacing,
 } from '../../lib/theme';
 import { signInWithEmail, signInWithApple } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
-import { PaperBackground } from '../../components/paper';
 import {
   AuthBackButton,
   AuthDivider,
@@ -116,7 +114,7 @@ export default function SignInScreen() {
   };
 
   return (
-    <PaperBackground>
+    <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <KeyboardAvoidingView
           style={styles.kav}
@@ -172,7 +170,7 @@ export default function SignInScreen() {
                     <Ionicons
                       name={showPassword ? 'eye-off-outline' : 'eye-outline'}
                       size={18}
-                      color={paper.ink}
+                      color={paper.dashboardInk}
                     />
                   </Pressable>
                 }
@@ -206,7 +204,7 @@ export default function SignInScreen() {
                     buttonStyle={
                       AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
                     }
-                    cornerRadius={paperRadius.card}
+                    cornerRadius={12}
                     style={styles.appleBtn}
                     onPress={handleAppleSignIn}
                   />
@@ -222,11 +220,12 @@ export default function SignInScreen() {
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </PaperBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   kav: { flex: 1 },
   scroll: {
@@ -250,7 +249,7 @@ const styles = StyleSheet.create({
   forgotText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 2.4,
   },
   actions: {

@@ -1,5 +1,5 @@
 /**
- * Personal Bests — FinFindr paper language.
+ * Personal Bests — FinFindr dashboard language.
  *
  * Visual migration only. Filters, routing into log-detail, and data remain
  * identical to the previous screen (still using mock records).
@@ -20,17 +20,10 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../lib/theme';
 import {
-  MedalBadge,
-  PaperBackground,
-  PaperColophon,
-  PaperNavHeader,
-  SectionEyebrow,
-  type MedalTier,
+  MedalBadge,  PaperNavHeader,  type MedalTier,
 } from '../components/paper';
 import {
   hapticImpact,
@@ -103,10 +96,10 @@ export default function PersonalBestsScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <PaperBackground style={styles.flex}>
+      <View style={styles.flex}>
         <PaperNavHeader
           eyebrow="FINFINDR · THE RECORDS"
-          eyebrowColor={paper.gold}
+          eyebrowColor={paper.bandFair}
           title="PERSONAL BESTS"
           onBack={() => router.back()}
         />
@@ -118,17 +111,13 @@ export default function PersonalBestsScreen() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={handleRefresh}
-              tintColor={paper.forest}
-              colors={[paper.forest]}
-              progressBackgroundColor={paper.paper}
+              tintColor={paper.dashboardBlue}
+              colors={[paper.dashboardBlue]}
+              progressBackgroundColor={paper.dashboardCream}
             />
           }
         >
-          <View style={styles.eyebrowRow}>
-            <SectionEyebrow dashes size={11} color={paper.gold}>
-              YOUR HALL OF RECORDS
-            </SectionEyebrow>
-          </View>
+          <View style={styles.eyebrowRow}><Text style={styles.pageEyebrow}>PERSONAL BESTS</Text></View>
 
           <Text style={styles.heroTitle}>Personal bests.</Text>
           <Text style={styles.heroLede}>
@@ -220,11 +209,11 @@ export default function PersonalBestsScreen() {
                   {medal ? (
                     <MedalBadge tier={medal} size={26} />
                   ) : (
-                    <Ionicons name="trophy" size={14} color={paper.ink} />
+                    <Ionicons name="trophy" size={14} color={paper.dashboardInk} />
                   )}
                   <Text style={styles.pbSpecies}>{pb.species}</Text>
                 </View>
-                <Ionicons name="chevron-forward" size={14} color={paper.ink} />
+                <Ionicons name="chevron-forward" size={14} color={paper.dashboardInk} />
               </View>
 
               <View style={styles.pbStatsRow}>
@@ -243,47 +232,47 @@ export default function PersonalBestsScreen() {
 
         {filtered.length === 0 && (
           <View style={styles.empty}>
-            <Ionicons name="fish-outline" size={28} color={paper.ink} />
+            <Ionicons name="fish-outline" size={28} color={paper.dashboardInk} />
             <Text style={styles.emptyText}>
               No personal bests yet for this species.
             </Text>
           </View>
         )}
-
-        <PaperColophon
-          section="RECORDS"
-          tagline={(edition) => `NO. ${edition} · MEASURED, FILED, REMEMBERED`}
-        />
         </ScrollView>
-      </PaperBackground>
+      </View>
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.paper },
+  safe: { flex: 1, backgroundColor: paper.dashboardCream },
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.sm,
     paddingBottom: paperSpacing.xxl,
+  },eyebrowRow: { marginBottom: paperSpacing.md },
+pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
   },
-
-  eyebrowRow: { marginBottom: paperSpacing.md },
   heroTitle: {
     fontFamily: paperFonts.display,
     fontSize: 34,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -1,
+    letterSpacing: 0,
     lineHeight: 38,
     marginBottom: paperSpacing.xs,
   },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     lineHeight: 20,
     marginBottom: paperSpacing.section,
@@ -299,44 +288,43 @@ const styles = StyleSheet.create({
   filterPill: {
     paddingHorizontal: paperSpacing.sm + 2,
     paddingVertical: 6,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
   },
-  filterPillActive: { backgroundColor: paper.ink },
+  filterPillActive: { backgroundColor: paper.dashboardInk },
   filterText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.8,
   },
-  filterTextActive: { color: paper.paper },
+  filterTextActive: { color: paper.dashboardCream },
 
   // Cards
   pbCard: {
     position: 'relative',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     padding: paperSpacing.md,
     // Bumped from `sm` to `md` so the stack of personal-best records
     // reads as discrete cards rather than a tightly packed list.
     marginBottom: paperSpacing.md,
-    ...paperShadows.hard,
-  },
+      },
   pbCardTop: {
     paddingLeft: paperSpacing.md + 6,
   },
-  pbCardPressed: { backgroundColor: paper.paperDark },
+  pbCardPressed: { backgroundColor: '#F6F9FB' },
   goldRule: {
     position: 'absolute',
     left: 0,
     top: 0,
     bottom: 0,
     width: 4,
-    backgroundColor: paper.gold,
+    backgroundColor: paper.bandFair,
   },
   pbHeader: {
     flexDirection: 'row',
@@ -352,9 +340,9 @@ const styles = StyleSheet.create({
   pbSpecies: {
     fontFamily: paperFonts.display,
     fontSize: 18,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -0.3,
+    letterSpacing: 0,
   },
   pbStatsRow: {
     flexDirection: 'row',
@@ -365,20 +353,20 @@ const styles = StyleSheet.create({
   pbStat: {
     fontFamily: paperFonts.mono,
     fontSize: 15,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 0.3,
   },
   pbDot: {
     width: 3,
     height: 3,
     borderRadius: 1.5,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
     opacity: 0.5,
   },
   pbMeta: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     letterSpacing: 1.4,
     marginBottom: 2,
@@ -386,7 +374,7 @@ const styles = StyleSheet.create({
   pbConditions: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
   },
 
@@ -399,7 +387,7 @@ const styles = StyleSheet.create({
   emptyText: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
   },
 });

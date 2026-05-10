@@ -1,5 +1,5 @@
 /**
- * Welcome / landing screen — FinFindr paper language.
+ * Welcome / landing screen — FinFindr dashboard language.
  *
  * Behavior is unchanged from the previous TightLines-era version: email
  * sign-up, email sign-in, and Apple Sign-In routes all still trigger the
@@ -20,14 +20,11 @@ import * as Crypto from 'expo-crypto';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 import { signInWithApple } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
 import {
-  PaperBackground,
   CornerMarkSet,
   TopographicLines,
 } from '../../components/paper';
@@ -83,7 +80,7 @@ export default function WelcomeScreen() {
   };
 
   return (
-    <PaperBackground>
+    <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <View style={styles.container}>
           {/* Brand hero — ink-framed paper panel with topo lines and gold corners. */}
@@ -93,7 +90,7 @@ export default function WelcomeScreen() {
               color={paper.walnut}
               count={7}
             />
-            <CornerMarkSet color={paper.gold} size={16} thickness={2} inset={10} />
+            <CornerMarkSet color={paper.bandFair} size={16} thickness={2} inset={10} />
 
             <Text style={styles.eyebrow}>FIELD GUIDE</Text>
             <Text style={styles.brandMark}>FINFINDR.</Text>
@@ -112,7 +109,7 @@ export default function WelcomeScreen() {
             ].map((item) => (
               <View key={item.icon} style={styles.valueProp}>
                 <View style={styles.valueIconWrap}>
-                  <Ionicons name={item.icon as any} size={16} color={paper.forest} />
+                  <Ionicons name={item.icon as any} size={16} color={paper.dashboardBlue} />
                 </View>
                 <Text style={styles.valuePropText}>{item.text}</Text>
               </View>
@@ -142,7 +139,7 @@ export default function WelcomeScreen() {
                   buttonStyle={
                     AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
                   }
-                  cornerRadius={paperRadius.card}
+                  cornerRadius={12}
                   style={styles.appleBtn}
                   onPress={handleAppleSignIn}
                 />
@@ -157,11 +154,12 @@ export default function WelcomeScreen() {
           </View>
         </View>
       </SafeAreaView>
-    </PaperBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   container: {
     flex: 1,
@@ -176,13 +174,12 @@ const styles = StyleSheet.create({
     paddingVertical: paperSpacing.xl,
     paddingHorizontal: paperSpacing.lg,
     alignItems: 'center',
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
     borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     overflow: 'hidden',
-    ...paperShadows.hard,
-  },
+      },
   heroTopo: {
     position: 'absolute',
     top: 0,
@@ -194,15 +191,15 @@ const styles = StyleSheet.create({
   eyebrow: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10.5,
-    color: paper.red,
+    color: paper.dashboardBlue,
     letterSpacing: 3,
     zIndex: 1,
   },
   brandMark: {
     fontFamily: paperFonts.display,
     fontSize: 54,
-    color: paper.ink,
-    letterSpacing: -2,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     fontWeight: '700',
     marginTop: 6,
     zIndex: 1,
@@ -210,7 +207,7 @@ const styles = StyleSheet.create({
   brandRule: {
     width: 56,
     height: 3,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     marginTop: 10,
     borderRadius: 1,
     zIndex: 1,
@@ -218,7 +215,7 @@ const styles = StyleSheet.create({
   tagline: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     marginTop: 10,
     textAlign: 'center',
@@ -235,19 +232,19 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.md,
-    backgroundColor: paper.paper,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardCream,
+    borderRadius: 12,
     padding: paperSpacing.md,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
   },
   valueIconWrap: {
     width: 34,
     height: 34,
     borderRadius: 17,
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -255,7 +252,7 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: paperFonts.bodyMedium,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
 
   actions: { gap: paperSpacing.sm },
@@ -266,21 +263,21 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     borderTopWidth: 1.5,
-    borderTopColor: paper.ink,
+    borderTopColor: paper.dashboardInk,
     paddingTop: paperSpacing.sm + 2,
     marginTop: paperSpacing.sm,
   },
   footerText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.55,
     letterSpacing: 2.8,
   },
   footerMono: {
     fontFamily: paperFonts.mono,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.55,
     letterSpacing: 2.4,
   },

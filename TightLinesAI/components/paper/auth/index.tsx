@@ -26,8 +26,6 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../../lib/theme';
 
@@ -48,7 +46,7 @@ export function AuthBackButton({ onPress, label = 'BACK' }: AuthBackButtonProps)
         pressed && { opacity: 0.7 },
       ]}
     >
-      <Ionicons name="chevron-back" size={14} color={paper.ink} />
+      <Ionicons name="chevron-back" size={14} color={paper.dashboardInk} />
       <Text style={styles.backBtnText}>{label}</Text>
     </Pressable>
   );
@@ -102,9 +100,9 @@ export function AuthField({
   ...inputProps
 }: AuthFieldProps) {
   const borderColor =
-    status === 'valid' ? paper.forest
-    : status === 'invalid' ? paper.red
-    : paper.ink;
+    status === 'valid' ? paper.bandPrime
+    : status === 'invalid' ? paper.bandTough
+    : paper.dashboardLine;
 
   const showTrailing = trailing !== undefined || status !== undefined;
 
@@ -113,7 +111,7 @@ export function AuthField({
       <Text style={styles.label}>{label.toUpperCase()}</Text>
       <View style={[styles.inputRow, { borderColor }]}>
         <TextInput
-          placeholderTextColor="rgba(28,36,25,0.45)"
+          placeholderTextColor={paper.dashboardMuted}
           {...inputProps}
           style={[
             styles.input,
@@ -125,10 +123,10 @@ export function AuthField({
           <View style={styles.trailingSlot} pointerEvents="box-none">
             {trailing}
             {status === 'valid' && !trailing ? (
-              <Ionicons name="checkmark-circle" size={18} color={paper.forest} />
+              <Ionicons name="checkmark-circle" size={18} color={paper.bandPrime} />
             ) : null}
             {status === 'invalid' && !trailing ? (
-              <Ionicons name="close-circle" size={18} color={paper.red} />
+              <Ionicons name="close-circle" size={18} color={paper.bandTough} />
             ) : null}
           </View>
         ) : null}
@@ -229,7 +227,7 @@ interface AuthTipProps {
 export function AuthTip({ iconName = 'information-circle-outline', children }: AuthTipProps) {
   return (
     <View style={styles.tip}>
-      <Ionicons name={iconName} size={15} color={paper.ink} />
+      <Ionicons name={iconName} size={15} color={paper.dashboardInk} />
       <Text style={styles.tipText}>{children}</Text>
     </View>
   );
@@ -266,7 +264,7 @@ export function AuthStatusCard({ iconName, title, children }: AuthStatusCardProp
   return (
     <View style={styles.statusCard}>
       <View style={styles.statusIconWrap}>
-        <Ionicons name={iconName} size={28} color={paper.paper} />
+        <Ionicons name={iconName} size={28} color="#FFFFFF" />
       </View>
       <Text style={styles.statusTitle}>{title}</Text>
       <View style={styles.statusBody}>{children}</View>
@@ -284,15 +282,15 @@ const styles = StyleSheet.create({
     gap: 5,
     paddingHorizontal: 10,
     paddingVertical: 6,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 999,
     alignSelf: 'flex-start',
   },
   backBtnText: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.2,
   },
 
@@ -301,9 +299,9 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   eyebrow: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 10.5,
-    color: paper.red,
+    color: paper.dashboardBlue,
     letterSpacing: 3,
     marginBottom: 6,
   },
@@ -311,15 +309,14 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 36,
     lineHeight: 38,
-    color: paper.ink,
-    letterSpacing: -1.1,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     fontWeight: '700',
-    textTransform: 'uppercase',
   },
   subtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     lineHeight: 21,
     marginTop: 6,
@@ -332,23 +329,23 @@ const styles = StyleSheet.create({
   label: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     letterSpacing: 2.6,
   },
   inputRow: {
     position: 'relative',
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
-    backgroundColor: paper.paperLight,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardWhite,
   },
   input: {
     paddingHorizontal: paperSpacing.md,
     paddingVertical: 14,
     fontFamily: paperFonts.body,
     fontSize: 16,
-    color: paper.ink,
+    color: paper.dashboardInk,
     // Disable default iOS underline on Android would go here, but RN
     // TextInput handles this fine with the borderWidth pattern.
   },
@@ -366,13 +363,13 @@ const styles = StyleSheet.create({
   fieldError: {
     fontFamily: paperFonts.bodyMedium,
     fontSize: 12,
-    color: paper.red,
+    color: paper.bandTough,
     letterSpacing: 0.1,
   },
   fieldSuccess: {
     fontFamily: paperFonts.bodyMedium,
     fontSize: 12,
-    color: paper.forest,
+    color: paper.bandPrime,
     letterSpacing: 0.1,
   },
 
@@ -381,37 +378,36 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 14,
-    backgroundColor: paper.forest,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardInk,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
   },
   btnPrimaryPressed: {
-    backgroundColor: paper.forestDk,
+    backgroundColor: paper.dashboardBlue,
   },
   btnPrimaryText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.paper,
+    color: '#FFFFFF',
     letterSpacing: 2.8,
   },
   btnSecondary: {
     alignItems: 'center',
     justifyContent: 'center',
     paddingVertical: 13,
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
   },
   btnSecondaryPressed: {
-    backgroundColor: paper.paperDark,
+    backgroundColor: '#F6F9FB',
   },
   btnSecondaryText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.8,
   },
   btnDisabled: {
@@ -428,12 +424,12 @@ const styles = StyleSheet.create({
   dividerLine: {
     flex: 1,
     height: 1,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
   },
   dividerText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.6,
     opacity: 0.55,
   },
@@ -445,18 +441,18 @@ const styles = StyleSheet.create({
     gap: paperSpacing.sm,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.sm + 2,
-    backgroundColor: paper.paperLight,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderLeftWidth: 6,
-    borderLeftColor: paper.gold,
-    borderRadius: paperRadius.card,
+    borderLeftColor: paper.dashboardBlue,
+    borderRadius: 12,
   },
   tipText: {
     flex: 1,
     fontFamily: paperFonts.displayItalic,
     fontSize: 13.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.85,
     lineHeight: 19,
   },
@@ -469,12 +465,12 @@ const styles = StyleSheet.create({
   textLinkLead: {
     fontFamily: paperFonts.body,
     fontSize: 13.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
   },
   textLinkBold: {
     fontFamily: paperFonts.bodyBold,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     opacity: 1,
     letterSpacing: 0.3,
   },
@@ -483,30 +479,28 @@ const styles = StyleSheet.create({
   statusCard: {
     alignItems: 'center',
     padding: paperSpacing.xl,
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
     gap: paperSpacing.sm,
-    ...paperShadows.hard,
   },
   statusIconWrap: {
     width: 64,
     height: 64,
     borderRadius: 32,
-    backgroundColor: paper.forest,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
     alignItems: 'center',
     justifyContent: 'center',
-    ...paperShadows.hard,
   },
   statusTitle: {
     fontFamily: paperFonts.display,
     fontSize: 26,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -0.8,
+    letterSpacing: 0,
     textAlign: 'center',
     textTransform: 'uppercase',
     marginTop: 6,

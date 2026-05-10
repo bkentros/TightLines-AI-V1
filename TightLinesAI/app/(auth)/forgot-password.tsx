@@ -1,5 +1,5 @@
 /**
- * Forgot-password screen — FinFindr paper language.
+ * Forgot-password screen — FinFindr dashboard language.
  *
  * Visual migration only. The reset-email flow (including the
  * `tightlinesai://auth/reset-password` deep link) is unchanged so that
@@ -23,7 +23,6 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import { supabase } from '../../lib/supabase';
-import { PaperBackground } from '../../components/paper';
 import {
   AuthBackButton,
   AuthField,
@@ -63,7 +62,7 @@ export default function ForgotPasswordScreen() {
   };
 
   return (
-    <PaperBackground>
+    <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <KeyboardAvoidingView
           style={styles.kav}
@@ -132,11 +131,12 @@ export default function ForgotPasswordScreen() {
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </PaperBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   kav: { flex: 1 },
   container: {
@@ -163,7 +163,7 @@ const styles = StyleSheet.create({
   sentBody: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
     textAlign: 'center',
     lineHeight: 22,
     marginTop: paperSpacing.xs,
@@ -171,7 +171,7 @@ const styles = StyleSheet.create({
   sentBodyMuted: {
     fontFamily: paperFonts.body,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     textAlign: 'center',
     lineHeight: 19,
@@ -179,6 +179,6 @@ const styles = StyleSheet.create({
   },
   sentEmail: {
     fontFamily: paperFonts.bodyBold,
-    color: paper.forest,
+    color: paper.dashboardBlue,
   },
 });

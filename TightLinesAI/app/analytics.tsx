@@ -19,8 +19,6 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../lib/theme';
 import {
@@ -33,12 +31,7 @@ import {
   type EntryModeFilter,
   MAX_ANALYTICS_CATCH_ROWS,
 } from '../lib/fishingAnalytics';
-import {
-  PaperBackground,
-  PaperColophon,
-  PaperNavHeader,
-  SectionEyebrow,
-} from '../components/paper';
+import {  PaperNavHeader,} from '../components/paper';
 import {
   hapticImpact,
   hapticSelection,
@@ -148,7 +141,7 @@ export default function AnalyticsScreen() {
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
-      <PaperBackground style={styles.flex}>
+      <View style={styles.flex}>
         <PaperNavHeader
           eyebrow="FINFINDR · ANALYTICS"
           title="ANALYTICS"
@@ -163,17 +156,13 @@ export default function AnalyticsScreen() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={handleRefresh}
-              tintColor={paper.forest}
-              colors={[paper.forest]}
-              progressBackgroundColor={paper.paper}
+              tintColor={paper.dashboardBlue}
+              colors={[paper.dashboardBlue]}
+              progressBackgroundColor={paper.dashboardCream}
             />
           }
         >
-          <View style={styles.topBar}>
-            <SectionEyebrow dashes size={11} color={paper.red}>
-              YOUR NUMBERS, IN INK
-            </SectionEyebrow>
-          </View>
+          <View style={styles.topBar}><Text style={styles.pageEyebrow}>LOG ANALYTICS</Text></View>
 
           <Text style={styles.heroTitle}>Your numbers.</Text>
           <Text style={styles.heroLede}>
@@ -208,7 +197,7 @@ export default function AnalyticsScreen() {
           <TextInput
             style={styles.input}
             placeholder="e.g. bass, trout"
-            placeholderTextColor={`${paper.ink}55`}
+            placeholderTextColor={`${paper.dashboardInk}55`}
             value={filter.speciesQuery}
             onChangeText={(speciesQuery) => setFilter((f) => ({ ...f, speciesQuery }))}
             autoCapitalize="none"
@@ -375,7 +364,7 @@ export default function AnalyticsScreen() {
                             · {fmtIn(data.summary.biggestLengthIn)}
                           </Text>
                         </View>
-                        <Ionicons name="chevron-forward" size={18} color={paper.ink} />
+                        <Ionicons name="chevron-forward" size={18} color={paper.dashboardInk} />
                       </Pressable>
                     )}
 
@@ -400,7 +389,7 @@ export default function AnalyticsScreen() {
                             · {fmtLb(data.summary.biggestWeightLb)}
                           </Text>
                         </View>
-                        <Ionicons name="chevron-forward" size={18} color={paper.ink} />
+                        <Ionicons name="chevron-forward" size={18} color={paper.dashboardInk} />
                       </Pressable>
                     )}
 
@@ -444,17 +433,8 @@ export default function AnalyticsScreen() {
               )}
             </>
           )}
-
-          {!loading && (
-            <PaperColophon
-              section="ANALYTICS"
-              tagline={(edition) =>
-                `NO. ${edition} · TOTALS, RANKINGS, RECEIPTS`
-              }
-            />
-          )}
         </ScrollView>
-      </PaperBackground>
+      </View>
     </SafeAreaView>
   );
 }
@@ -549,7 +529,7 @@ function RankedTable(props: {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.paper },
+  safe: { flex: 1, backgroundColor: paper.dashboardCream },
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
@@ -560,18 +540,25 @@ const styles = StyleSheet.create({
     paddingTop: paperSpacing.sm,
     paddingBottom: paperSpacing.sm,
   },
+  pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
+  },
   heroTitle: {
     fontFamily: paperFonts.display,
     fontSize: 26,
     fontWeight: '700',
-    color: paper.ink,
-    letterSpacing: -0.5,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     marginBottom: paperSpacing.sm,
   },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.78,
     lineHeight: 21,
     marginBottom: paperSpacing.lg,
@@ -580,7 +567,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
     letterSpacing: 2,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     marginBottom: paperSpacing.xs,
   },
@@ -593,34 +580,34 @@ const styles = StyleSheet.create({
   pill: {
     paddingHorizontal: paperSpacing.sm,
     paddingVertical: 8,
-    borderRadius: paperRadius.chip,
+    borderRadius: 999,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardInk,
+    backgroundColor: paper.dashboardWhite,
   },
   pillActive: {
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
   },
   pillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 0.8,
   },
   pillTextActive: {
-    color: paper.paper,
+    color: paper.dashboardCream,
   },
   input: {
     fontFamily: paperFonts.body,
     fontSize: 15,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.sm,
     marginBottom: paperSpacing.md,
-    backgroundColor: paper.paperLight,
-    color: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    color: paper.dashboardInk,
   },
   clearBtn: {
     alignSelf: 'flex-start',
@@ -630,19 +617,18 @@ const styles = StyleSheet.create({
   clearBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 13,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 0.6,
   },
   loadingPanel: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.section,
     gap: paperSpacing.md,
-    ...paperShadows.hard,
-  },
+      },
   loadingHeaderRow: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -656,19 +642,19 @@ const styles = StyleSheet.create({
   loadingTile: {
     width: '48%',
     flexGrow: 1,
-    backgroundColor: paper.paper,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardCream,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: paper.inkHair,
+    borderColor: paper.dashboardHair,
     padding: paperSpacing.sm + 2,
     gap: 6,
   },
   loadingBigFishRow: {
     flexDirection: 'row',
-    backgroundColor: paper.paper,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardCream,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: paper.inkHair,
+    borderColor: paper.dashboardHair,
     padding: paperSpacing.md,
     gap: paperSpacing.sm,
   },
@@ -682,61 +668,61 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
     letterSpacing: 2.4,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.55,
   },
   bonePulseDot: {
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
   },
   boneEyebrow: {
     width: 80,
     height: 9,
     borderRadius: 2,
-    backgroundColor: paper.red,
+    backgroundColor: paper.dashboardBlue,
   },
   boneTitle: {
     width: 140,
     height: 16,
     borderRadius: 3,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
   },
   boneTileLabel: {
     width: 60,
     height: 8,
     borderRadius: 2,
-    backgroundColor: paper.red,
+    backgroundColor: paper.dashboardBlue,
   },
   boneTileValue: {
     width: 90,
     height: 22,
     borderRadius: 4,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
   },
   boneTileCaption: {
     width: '90%',
     height: 8,
     borderRadius: 2,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
   },
   errorBox: {
     padding: paperSpacing.md,
     borderWidth: 1.5,
-    borderColor: paper.red,
-    borderRadius: paperRadius.card,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardBlue,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardWhite,
   },
   errorText: {
     fontFamily: paperFonts.body,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   capNote: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.72,
     marginBottom: paperSpacing.md,
     lineHeight: 19,
@@ -744,23 +730,22 @@ const styles = StyleSheet.create({
   emptyBox: {
     padding: paperSpacing.lg,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
-    backgroundColor: paper.paperLight,
-    ...paperShadows.hard,
-    marginBottom: paperSpacing.lg,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardWhite,
+        marginBottom: paperSpacing.lg,
   },
   emptyTitle: {
     fontFamily: paperFonts.display,
     fontSize: 18,
     fontWeight: '700',
-    color: paper.ink,
+    color: paper.dashboardInk,
     marginBottom: paperSpacing.sm,
   },
   emptyBody: {
     fontFamily: paperFonts.body,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.82,
     lineHeight: 21,
   },
@@ -768,7 +753,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 18,
     fontWeight: '700',
-    color: paper.ink,
+    color: paper.dashboardInk,
     // Bumped from `md` to `lg` so analytics block headers visibly break
     // away from the previous block instead of feeling like a continuation.
     marginTop: paperSpacing.lg,
@@ -783,18 +768,17 @@ const styles = StyleSheet.create({
   tile: {
     width: '48%',
     flexGrow: 1,
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     padding: paperSpacing.md,
-    ...paperShadows.hard,
-  },
+      },
   tileLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
     letterSpacing: 2,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     marginBottom: 4,
   },
@@ -802,13 +786,13 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 22,
     fontWeight: '700',
-    color: paper.ink,
+    color: paper.dashboardInk,
     marginBottom: 6,
   },
   tileCaption: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.72,
     lineHeight: 15,
   },
@@ -818,20 +802,19 @@ const styles = StyleSheet.create({
     padding: paperSpacing.md,
     marginBottom: paperSpacing.md,
     borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardWhite,
     gap: paperSpacing.sm,
-    ...paperShadows.hard,
-  },
+      },
   bigFishRowPressed: {
-    backgroundColor: paper.paperDark,
+    backgroundColor: '#F6F9FB',
   },
   bigFishTitle: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
     letterSpacing: 1.8,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     marginBottom: 4,
   },
@@ -839,12 +822,12 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 16,
     fontWeight: '700',
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   muted: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     marginBottom: paperSpacing.md,
   },
@@ -854,7 +837,7 @@ const styles = StyleSheet.create({
   tableHint: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     marginBottom: paperSpacing.sm,
   },
@@ -863,12 +846,12 @@ const styles = StyleSheet.create({
     gap: paperSpacing.sm,
     paddingVertical: paperSpacing.sm,
     borderBottomWidth: 1,
-    borderBottomColor: `${paper.ink}22`,
+    borderBottomColor: `${paper.dashboardInk}22`,
   },
   rankCol: {
     fontFamily: paperFonts.mono,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.55,
     width: 22,
     paddingTop: 2,
@@ -878,19 +861,19 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 15,
     fontWeight: '700',
-    color: paper.ink,
+    color: paper.dashboardInk,
     marginBottom: 2,
   },
   rankPrimary: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.85,
   },
   rankSecondary: {
     fontFamily: paperFonts.mono,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.62,
     marginTop: 2,
     lineHeight: 15,

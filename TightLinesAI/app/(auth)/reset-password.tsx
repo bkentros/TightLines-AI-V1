@@ -1,5 +1,5 @@
 /**
- * Reset-password screen — FinFindr paper language.
+ * Reset-password screen — FinFindr dashboard language.
  *
  * Used as the landing target of the reset-password email link. Password
  * update logic (supabase.auth.updateUser) and success navigation are
@@ -25,7 +25,6 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import { supabase } from '../../lib/supabase';
-import { PaperBackground } from '../../components/paper';
 import {
   AuthField,
   AuthHeader,
@@ -66,7 +65,7 @@ export default function ResetPasswordScreen() {
 
   if (done) {
     return (
-      <PaperBackground>
+      <View style={styles.root}>
         <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
           <View style={styles.doneContainer}>
             <AuthStatusCard
@@ -86,12 +85,12 @@ export default function ResetPasswordScreen() {
             </View>
           </View>
         </SafeAreaView>
-      </PaperBackground>
+      </View>
     );
   }
 
   return (
-    <PaperBackground>
+    <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <KeyboardAvoidingView
           style={styles.kav}
@@ -125,7 +124,7 @@ export default function ResetPasswordScreen() {
                     <Ionicons
                       name={showPassword ? 'eye-off-outline' : 'eye-outline'}
                       size={18}
-                      color={paper.ink}
+                      color={paper.dashboardInk}
                     />
                   </Pressable>
                 }
@@ -154,11 +153,12 @@ export default function ResetPasswordScreen() {
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </PaperBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   kav: { flex: 1 },
   container: {
@@ -180,7 +180,7 @@ const styles = StyleSheet.create({
   doneBody: {
     fontFamily: paperFonts.body,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     textAlign: 'center',
     lineHeight: 21,

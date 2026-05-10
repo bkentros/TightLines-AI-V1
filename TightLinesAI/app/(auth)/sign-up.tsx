@@ -1,5 +1,5 @@
 /**
- * Sign-up screen — FinFindr paper language.
+ * Sign-up screen — FinFindr dashboard language.
  *
  * All validation, rate-limit, duplicate-account handling, and navigation
  * behavior are preserved exactly from the previous version. Only the
@@ -27,7 +27,6 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import { signUpWithEmail } from '../../lib/auth';
-import { PaperBackground } from '../../components/paper';
 import {
   AuthBackButton,
   AuthField,
@@ -243,7 +242,7 @@ export default function SignUpScreen() {
       : null;
 
   return (
-    <PaperBackground>
+    <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <KeyboardAvoidingView
           style={styles.kav}
@@ -300,7 +299,7 @@ export default function SignUpScreen() {
                     <Ionicons
                       name={showPassword ? 'eye-off-outline' : 'eye-outline'}
                       size={18}
-                      color={paper.ink}
+                      color={paper.dashboardInk}
                     />
                   </Pressable>
                 }
@@ -328,14 +327,14 @@ export default function SignUpScreen() {
                     hitSlop={8}
                   >
                     {confirmStatus === 'valid' ? (
-                      <Ionicons name="checkmark-circle" size={18} color={paper.forest} />
+                      <Ionicons name="checkmark-circle" size={18} color={paper.dashboardBlue} />
                     ) : confirmStatus === 'invalid' ? (
-                      <Ionicons name="close-circle" size={18} color={paper.red} />
+                      <Ionicons name="close-circle" size={18} color={paper.dashboardBlue} />
                     ) : (
                       <Ionicons
                         name={showConfirm ? 'eye-off-outline' : 'eye-outline'}
                         size={18}
-                        color={paper.ink}
+                        color={paper.dashboardInk}
                       />
                     )}
                   </Pressable>
@@ -367,11 +366,12 @@ export default function SignUpScreen() {
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </PaperBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   kav: { flex: 1 },
   scroll: {
@@ -390,14 +390,14 @@ const styles = StyleSheet.create({
   tosText: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     lineHeight: 18,
     marginTop: paperSpacing.xs,
   },
   tosLink: {
     fontFamily: paperFonts.bodyBold,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     opacity: 1,
     letterSpacing: 0.3,
   },
