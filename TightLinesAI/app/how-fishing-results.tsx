@@ -1,21 +1,7 @@
-/**
- * How's Fishing Results — Redirect Stub
- *
- * Phase 2: Results are now displayed inline in how-fishing.tsx.
- * This file exists as a fallback for deep links or back-navigation;
- * it briefly shows a paper-language "loading your read…" interstitial
- * while we redirect.
- *
- * Visual: matches the rest of the FinFindr paper system (PaperBackground
- * + Fraunces title + breathing forest dot) so the half-second the user
- * sees this stub never feels like a different app.
- */
-
 import { useEffect, useRef } from 'react';
 import { Animated, Easing, StyleSheet, Text, View } from 'react-native';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { paper, paperFonts, paperSpacing } from '../lib/theme';
-import { PaperBackground, SectionEyebrow } from '../components/paper';
 
 export default function HowFishingResultsRedirect() {
   const router = useRouter();
@@ -26,7 +12,6 @@ export default function HowFishingResultsRedirect() {
     target_date?: string;
   }>();
 
-  // Soft breathing dot — same opacity loop the Water Reader skeleton uses.
   const pulse = useRef(new Animated.Value(0.35)).current;
   useEffect(() => {
     const loop = Animated.loop(
@@ -63,54 +48,73 @@ export default function HowFishingResultsRedirect() {
   }, []);
 
   return (
-    <PaperBackground style={styles.container}>
-      <SectionEyebrow size={11} dashes color={paper.red}>
-        FINFINDR · DAILY READ
-      </SectionEyebrow>
-      <Text style={styles.title}>Loading your read…</Text>
-      <Text style={styles.subtitle}>
-        Pulling today&apos;s conditions for your spot.
-      </Text>
-      <Animated.View
-        style={[
-          styles.dot,
-          {
-            opacity: pulse,
-            transform: [
-              {
-                scale: pulse.interpolate({
-                  inputRange: [0.35, 1],
-                  outputRange: [0.85, 1.15],
-                }),
-              },
-            ],
-          },
-        ]}
-      />
-    </PaperBackground>
+    <View style={styles.container}>
+      <View style={styles.card}>
+        <Text style={styles.eyebrow}>FINFINDR CONDITIONS</Text>
+        <Text style={styles.title}>Loading Today&apos;s Bite.</Text>
+        <Text style={styles.subtitle}>
+          Pulling today&apos;s conditions for your spot.
+        </Text>
+        <Animated.View
+          style={[
+            styles.dot,
+            {
+              opacity: pulse,
+              transform: [
+                {
+                  scale: pulse.interpolate({
+                    inputRange: [0.35, 1],
+                    outputRange: [0.85, 1.15],
+                  }),
+                },
+              ],
+            },
+          ]}
+        />
+      </View>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: paper.dashboardCream,
     justifyContent: 'center',
     alignItems: 'center',
     paddingHorizontal: paperSpacing.lg,
+  },
+  card: {
+    width: '100%',
+    maxWidth: 360,
+    alignItems: 'center',
     gap: paperSpacing.md,
+    paddingHorizontal: paperSpacing.lg,
+    paddingVertical: paperSpacing.xl,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+  },
+  eyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2.2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
   },
   title: {
     fontFamily: paperFonts.display,
     fontSize: 26,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -0.6,
+    letterSpacing: 0,
     marginTop: paperSpacing.sm,
   },
   subtitle: {
-    fontFamily: paperFonts.displayItalic,
+    fontFamily: paperFonts.body,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.7,
     textAlign: 'center',
   },
@@ -118,7 +122,7 @@ const styles = StyleSheet.create({
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.bandPrime,
     marginTop: paperSpacing.md,
   },
 });

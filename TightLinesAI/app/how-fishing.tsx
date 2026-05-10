@@ -7,11 +7,13 @@ import {
   Pressable,
   Alert,
   ActivityIndicator,
+  Image,
   RefreshControl,
   useWindowDimensions,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
 } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -20,9 +22,6 @@ import {
   paper,
   paperFonts,
   paperSpacing,
-  paperRadius,
-  paperShadows,
-  paperBorders,
 } from '../lib/theme';
 import { getEnvironment } from '../lib/env';
 import { invokeEdgeFunction, getValidAccessToken } from '../lib/supabase';
@@ -44,12 +43,7 @@ import type { EnvironmentData } from '../lib/env/types';
 import { oceanCoastalZoneLabel } from '../lib/coastalProximity';
 import { RebuildReportView } from '../components/fishing/RebuildReportView';
 import { HowFishingLoadingSkeleton } from '../components/fishing/HowFishingLoadingSkeleton';
-import {
-  PaperBackground,
-  CornerMarkSet,
-  SectionEyebrow,
-  TopographicLines,
-} from '../components/paper';
+import { TopographicLines } from '../components/paper';
 import type { ForecastSnapshotEnv } from '../lib/forecastScores';
 
 /* ─── Date/time helpers ─────────────────────────────────────────────────── */
@@ -544,11 +538,19 @@ export default function HowFishingScreen() {
   /* ── No coords ───────────────────────────────────────────────────── */
   if (!hasCoords) {
     return (
-      <SafeAreaView style={styles.safe} edges={['top']}>
-        <PaperBackground style={styles.background}>
+      <View style={styles.root}>
+        <StatusBar style="light" />
+        <SafeAreaView style={styles.safeNav} edges={['top']}>
+          <TopLevelHeader
+            dateLabel={heroDateLabel}
+            locationLabel={locationLabel}
+            onBack={() => router.back()}
+          />
+        </SafeAreaView>
+        <View style={styles.background}>
           <View style={styles.centered}>
             <View style={styles.noLocationIcon}>
-              <Ionicons name="location-outline" size={28} color={paper.ink} />
+              <Ionicons name="location-outline" size={28} color={paper.dashboardInk} />
             </View>
             <Text style={styles.messageTitle}>ADD A LOCATION</Text>
             <Text style={styles.messageSub}>
@@ -561,8 +563,8 @@ export default function HowFishingScreen() {
               <Text style={styles.primaryBtnText}>GO BACK</Text>
             </Pressable>
           </View>
-        </PaperBackground>
-      </SafeAreaView>
+        </View>
+      </View>
     );
   }
 
@@ -572,13 +574,16 @@ export default function HowFishingScreen() {
     // same layout the user is already looking at.
     if (analysisLoading) {
       return (
-        <SafeAreaView style={styles.safe} edges={['top']}>
-          <PaperBackground style={styles.background}>
+        <View style={styles.root}>
+          <StatusBar style="light" />
+          <SafeAreaView style={styles.safeNav} edges={['top']}>
             <TopLevelHeader
               dateLabel={heroDateLabel}
               locationLabel={locationLabel}
               onBack={() => router.back()}
             />
+          </SafeAreaView>
+          <View style={styles.background}>
             <View style={styles.loadingWrap}>
               <ScrollView
                 style={styles.scroll}
@@ -589,62 +594,61 @@ export default function HowFishingScreen() {
                 <HowFishingLoadingSkeleton />
               </ScrollView>
               <View style={styles.loadingOverlay} pointerEvents="none">
-                <ActivityIndicator size="small" color={paper.forest} />
+                <ActivityIndicator size="small" color={paper.dashboardBlue} />
                 <Text style={styles.loadingCaption}>
                   READING CONDITIONS
                   {availableContexts.length > 1
                     ? ` · ${availableContexts.length} WATER TYPES`
                     : ''}
-                  …
                 </Text>
               </View>
             </View>
-          </PaperBackground>
-        </SafeAreaView>
+          </View>
+        </View>
       );
     }
 
     return (
-      <SafeAreaView style={styles.safe} edges={['top']}>
-        <PaperBackground style={styles.background}>
+      <View style={styles.root}>
+        <StatusBar style="light" />
+        <SafeAreaView style={styles.safeNav} edges={['top']}>
           <TopLevelHeader
             dateLabel={heroDateLabel}
             locationLabel={locationLabel}
             onBack={() => router.back()}
           />
+        </SafeAreaView>
 
+        <View style={styles.background}>
           <View style={styles.confirmOuter}>
             <TopographicLines style={styles.confirmLines} count={5} />
 
             {showConfirm ? (
               <View style={styles.confirmCard}>
-                <CornerMarkSet color={paper.red} />
-
-                <SectionEyebrow color={paper.red} size={10} tracking={3.5}>
+                <Text style={styles.confirmEyebrow}>
                   {isForecastDay ? 'FORECAST READ' : "TODAY'S READ"}
-                </SectionEyebrow>
+                </Text>
 
                 <Text style={styles.confirmTitle}>
-                  THE DAILY{'\n'}
-                  <Text style={{ color: paper.forest }}>{isForecastDay ? 'FORECAST READ' : 'READ'}</Text>
-                  <Text style={{ color: paper.red }}>.</Text>
+                  {isForecastDay ? 'Build forecast bite' : "Build today's bite"}
+                  <Text style={{ color: paper.dashboardBlue }}>.</Text>
                 </Text>
 
                 <View style={styles.confirmMetaRow}>
-                  <Ionicons name="location" size={12} color={paper.ink} />
+                  <Ionicons name="location" size={12} color={paper.dashboardInk} />
                   <Text style={styles.confirmMetaText} numberOfLines={1}>
                     {locationLabel}
                   </Text>
                 </View>
                 <View style={styles.confirmMetaRow}>
-                  <Ionicons name="calendar-outline" size={12} color={paper.ink} />
+                  <Ionicons name="calendar-outline" size={12} color={paper.dashboardInk} />
                   <Text style={styles.confirmMetaText}>{reportDateLabel}</Text>
                 </View>
 
                 <View style={styles.confirmContextList}>
                   {availableTabs.map((t) => (
                     <View key={t.key} style={styles.confirmContextChip}>
-                      <Ionicons name={t.icon} size={12} color={paper.ink} />
+                      <Ionicons name={t.icon} size={12} color={paper.dashboardInk} />
                       <Text style={styles.confirmContextLabel}>{t.label}</Text>
                     </View>
                   ))}
@@ -655,7 +659,7 @@ export default function HowFishingScreen() {
                   onPress={generateReports}
                   disabled={envLoading}
                 >
-                  <Ionicons name="sparkles" size={14} color={paper.paper} />
+                  <Ionicons name="sparkles" size={14} color="#FFFFFF" />
                   <Text style={styles.generateBtnText}>
                     {isForecastDay ? 'BUILD FORECAST READ' : "BUILD TODAY'S READ"}
                   </Text>
@@ -665,16 +669,17 @@ export default function HowFishingScreen() {
               </View>
             ) : null}
           </View>
-        </PaperBackground>
-      </SafeAreaView>
+        </View>
+      </View>
     );
   }
 
   /* ── Report view ─────────────────────────────────────────────────── */
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top']}>
-      <PaperBackground style={styles.background}>
+    <View style={styles.root}>
+      <StatusBar style="light" />
+      <SafeAreaView style={styles.safeNav} edges={['top']}>
         <TopLevelHeader
           dateLabel={heroDateLabel}
           locationLabel={locationLabel}
@@ -685,7 +690,9 @@ export default function HowFishingScreen() {
           }
           onBack={() => router.back()}
         />
+      </SafeAreaView>
 
+      <View style={styles.background}>
         {/* Context switcher — paper-styled tabs that span the full width
             equally so the user can clearly see which context is active. The
             bar is rendered only when there are at least 2 tabs. Preserves
@@ -710,7 +717,7 @@ export default function HowFishingScreen() {
                   <Ionicons
                     name={t.icon}
                     size={12}
-                    color={isActive ? paper.paper : paper.ink}
+                    color={isActive ? '#FFFFFF' : paper.dashboardInk}
                   />
                   <Text
                     style={[styles.contextTabLabel, isActive && styles.contextTabLabelActive]}
@@ -756,7 +763,7 @@ export default function HowFishingScreen() {
                       <RefreshControl
                         refreshing={refreshing}
                         onRefresh={handleRefresh}
-                        tintColor={paper.ink}
+                        tintColor={paper.dashboardInk}
                       />
                     }
                     showsVerticalScrollIndicator={false}
@@ -788,7 +795,7 @@ export default function HowFishingScreen() {
               <RefreshControl
                 refreshing={refreshing}
                 onRefresh={handleRefresh}
-                tintColor={paper.ink}
+                tintColor={paper.dashboardInk}
               />
             }
             showsVerticalScrollIndicator={false}
@@ -806,8 +813,8 @@ export default function HowFishingScreen() {
             )}
           </ScrollView>
         )}
-      </PaperBackground>
-    </SafeAreaView>
+      </View>
+    </View>
   );
 }
 
@@ -827,55 +834,37 @@ function TopLevelHeader({
 }) {
   return (
     <View style={headerStyles.root}>
-      <View style={headerStyles.topRow}>
-        <Pressable
-          onPress={onBack}
-          hitSlop={12}
-          style={({ pressed }) => [headerStyles.backBtn, pressed && { opacity: 0.7 }]}
-        >
-          <Ionicons name="chevron-back" size={14} color={paper.ink} />
-          <Text style={headerStyles.backLabel}>BACK</Text>
-        </Pressable>
+      <Pressable
+        onPress={onBack}
+        hitSlop={12}
+        style={({ pressed }) => [headerStyles.backBtn, pressed && headerStyles.backBtnPressed]}
+        accessibilityLabel="Back"
+      >
+        <Ionicons name="chevron-back" size={18} color="#FFFFFF" />
+      </Pressable>
 
-        {/*
-          Editorial center block — matches the Tackle Box and Water Read
-          headers so the three feature pages all read with the same
-          "FINFINDR · {feature name}" identity at the top of the screen.
-          Positioned absolute behind the BACK button so the title stays
-          centered regardless of button width.
-        */}
+      <View style={headerStyles.brand}>
+        <Image
+          source={require('../assets/images/finfindr-logo.png')}
+          style={headerStyles.logo}
+          resizeMode="contain"
+        />
         <View style={headerStyles.titleWrap} pointerEvents="none">
-          <Text style={headerStyles.titleEyebrow}>FINFINDR</Text>
-          <Text style={headerStyles.titleText} numberOfLines={1}>
-            DAILY READ
-          </Text>
+          <View style={headerStyles.titleRow}>
+            <Text style={headerStyles.titleText} numberOfLines={1}>
+              Today&apos;s Bite
+            </Text>
+            <Text style={headerStyles.titlePeriod}>.</Text>
+          </View>
+          <Text style={headerStyles.titleEyebrow}>CONDITION READ</Text>
         </View>
-
-        <View style={headerStyles.rightSpacer} />
       </View>
 
-      {/*
-        Thin meta sub-line under the title carries the existing date /
-        location / updated-at info. Stays as a single thin row so the
-        header chrome doesn't dominate the page even with three pieces
-        of metadata visible.
-      */}
-      <View style={headerStyles.metaRow}>
-        <Text style={headerStyles.metaDate} numberOfLines={1}>
-          {dateLabel}
+      <View style={headerStyles.metaPill}>
+        <View style={headerStyles.metaDot} />
+        <Text style={headerStyles.metaPillText} numberOfLines={1}>
+          {generatedAt ? `${dateLabel} · ${generatedAt}` : dateLabel}
         </Text>
-        <Text style={headerStyles.metaDivider}>·</Text>
-        <Text style={headerStyles.metaLoc} numberOfLines={1} ellipsizeMode="tail">
-          {locationLabel}
-        </Text>
-        {generatedAt ? (
-          <>
-            <Text style={headerStyles.metaDivider}>·</Text>
-            <Text style={headerStyles.metaTime} numberOfLines={1}>
-              {generatedAt}
-            </Text>
-          </>
-        ) : null}
       </View>
     </View>
   );
@@ -883,110 +872,102 @@ function TopLevelHeader({
 
 const headerStyles = StyleSheet.create({
   root: {
-    paddingTop: 8,
-    paddingBottom: 8,
-    backgroundColor: paper.paper,
-    borderBottomWidth: 1,
-    borderBottomColor: paper.inkHairSoft,
-  },
-  topRow: {
+    height: 56,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm,
-    minHeight: 44,
+    paddingHorizontal: 16,
+    backgroundColor: paper.dashboardInk,
   },
   backBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingVertical: 6,
-    paddingHorizontal: 10,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: 'transparent',
-  },
-  backLabel: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.2,
-    color: paper.ink,
-    fontWeight: '700',
-  },
-  titleWrap: {
-    position: 'absolute',
-    left: 96,
-    right: 96,
-    top: 0,
-    bottom: 0,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  backBtnPressed: { opacity: 0.7 },
+  brand: {
+    position: 'absolute',
+    left: 58,
+    right: 118,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  logo: {
+    width: 34,
+    height: 38,
+  },
+  titleWrap: {
+    flex: 1,
+    minWidth: 0,
+  },
   titleEyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 8.5,
-    color: paper.red,
-    letterSpacing: 2.6,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    color: 'rgba(255,255,255,0.62)',
+    letterSpacing: 1.6,
+    marginTop: -1,
+  },
+  titleRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    minWidth: 0,
   },
   titleText: {
     fontFamily: paperFonts.display,
-    fontSize: 14,
-    color: paper.ink,
+    fontSize: 24,
+    color: '#FFFFFF',
     letterSpacing: 0,
-    marginTop: 1,
-    fontWeight: '700',
+    lineHeight: 26,
+    fontWeight: '800',
   },
-  rightSpacer: {
-    width: 62,
+  titlePeriod: {
+    fontFamily: paperFonts.display,
+    fontSize: 24,
+    color: paper.dashboardBlueLight,
+    marginLeft: 1,
+    lineHeight: 26,
+    fontWeight: '800',
   },
-  metaRow: {
+  metaPill: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    paddingHorizontal: paperSpacing.md,
-    paddingTop: 2,
-    paddingBottom: paperSpacing.xs,
-    flexWrap: 'wrap',
     gap: 6,
+    maxWidth: 116,
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
   },
-  metaDate: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
-    letterSpacing: 1.8,
-    color: paper.red,
-    fontWeight: '700',
+  metaDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: paper.bandPrime,
   },
-  metaDivider: {
-    fontFamily: paperFonts.body,
-    fontSize: 10,
-    color: paper.ink,
-    opacity: 0.45,
-  },
-  metaLoc: {
-    fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
-    fontSize: 11,
-    color: paper.ink,
-    opacity: 0.75,
+  metaPillText: {
     flexShrink: 1,
-  },
-  metaTime: {
-    fontFamily: paperFonts.metaMono,
-    fontSize: 9.5,
-    color: paper.ink,
-    opacity: 0.55,
-    letterSpacing: 0.5,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: '#FFFFFF',
+    letterSpacing: 1,
   },
 });
 
 /* ─── Styles ────────────────────────────────────────────────────────────── */
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.paper },
-  background: { flex: 1 },
-  scroll: { flex: 1 },
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
+  safeNav: { backgroundColor: paper.dashboardInk },
+  background: { flex: 1, backgroundColor: paper.dashboardCream },
+  scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   pager: { flex: 1 },
   reportContent: {
     paddingHorizontal: paperSpacing.lg,
@@ -1002,10 +983,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     marginHorizontal: paperSpacing.lg,
     marginBottom: paperSpacing.md,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
     overflow: 'hidden',
   },
   contextTab: {
@@ -1019,21 +1000,21 @@ const styles = StyleSheet.create({
     // Vertical divider between inactive tabs so the split is obvious even
     // before a tab is active.
     borderRightWidth: 1,
-    borderRightColor: paper.inkHair,
+    borderRightColor: paper.dashboardHair,
   },
   contextTabActive: {
-    backgroundColor: paper.ink,
-    borderRightColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
+    borderRightColor: paper.dashboardInk,
   },
   contextTabLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10.5,
     letterSpacing: 1.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
   },
   contextTabLabelActive: {
-    color: paper.paper,
+    color: '#FFFFFF',
   },
 
   /* Confirmation surface */
@@ -1054,25 +1035,30 @@ const styles = StyleSheet.create({
   confirmCard: {
     width: '100%',
     maxWidth: 440,
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg + 6,
     paddingBottom: paperSpacing.lg,
     alignItems: 'center',
     overflow: 'hidden',
   },
+  confirmEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.8,
+    color: paper.dashboardBlue,
+  },
   confirmTitle: {
     fontFamily: paperFonts.display,
     fontSize: 28,
-    lineHeight: 30,
-    letterSpacing: -0.8,
+    lineHeight: 32,
+    letterSpacing: 0,
     fontWeight: '700',
-    color: paper.ink,
+    color: paper.dashboardInk,
     textAlign: 'center',
-    textTransform: 'uppercase',
     marginTop: paperSpacing.sm,
     marginBottom: paperSpacing.md,
   },
@@ -1080,7 +1066,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     textAlign: 'center',
     lineHeight: 20,
@@ -1095,7 +1081,7 @@ const styles = StyleSheet.create({
   confirmMetaText: {
     fontFamily: paperFonts.metaMono,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.8,
   },
   confirmContextList: {
@@ -1112,16 +1098,16 @@ const styles = StyleSheet.create({
     gap: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 999,
+    backgroundColor: '#F6F7F5',
   },
   confirmContextLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
     letterSpacing: 1.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
   },
   loadingWrap: {
@@ -1139,7 +1125,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
     letterSpacing: 2,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     textAlign: 'center',
     fontWeight: '700',
@@ -1149,24 +1135,22 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: 8,
-    backgroundColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 9,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
     minHeight: 48,
     paddingHorizontal: paperSpacing.lg,
     width: '100%',
-    ...paperShadows.hard,
   },
   generateBtnPressed: {
-    backgroundColor: paper.forest,
-    borderColor: paper.forest,
+    opacity: 0.82,
   },
   generateBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
     letterSpacing: 2,
-    color: paper.paper,
+    color: '#FFFFFF',
     fontWeight: '700',
   },
 
@@ -1182,9 +1166,9 @@ const styles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    backgroundColor: paper.paperLight,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: paperSpacing.sm,
@@ -1192,36 +1176,35 @@ const styles = StyleSheet.create({
   messageTitle: {
     fontFamily: paperFonts.display,
     fontSize: 22,
-    letterSpacing: -0.4,
+    letterSpacing: 0,
     fontWeight: '700',
-    color: paper.ink,
+    color: paper.dashboardInk,
     textAlign: 'center',
   },
   messageSub: {
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.75,
     textAlign: 'center',
     lineHeight: 20,
     paddingHorizontal: paperSpacing.md,
   },
   primaryBtn: {
-    backgroundColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 9,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
     alignItems: 'center',
     justifyContent: 'center',
     minHeight: 44,
     paddingHorizontal: paperSpacing.xl,
     marginTop: paperSpacing.sm,
-    ...paperShadows.hard,
   },
-  primaryBtnPressed: { backgroundColor: paper.forest, borderColor: paper.forest },
+  primaryBtnPressed: { opacity: 0.82 },
   primaryBtnText: {
-    color: paper.paper,
+    color: '#FFFFFF',
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
     letterSpacing: 2,
@@ -1230,17 +1213,17 @@ const styles = StyleSheet.create({
 
   errorInline: {
     fontFamily: paperFonts.body,
-    color: paper.red,
+    color: paper.bandTough,
     textAlign: 'center',
     marginTop: paperSpacing.sm,
     fontSize: 13,
   },
 
   noReportCard: {
-    backgroundColor: paper.paper,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     padding: paperSpacing.lg,
     alignItems: 'center',
   },
@@ -1248,7 +1231,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.75,
     textAlign: 'center',
   },

@@ -1,35 +1,7 @@
-/**
- * HowFishingLoadingSkeleton
- *
- * Paper-language placeholder that mirrors the shape of the final
- * How's Fishing report (`RebuildReportView`) so the transition feels
- * continuous while the engine pulls conditions + builds the bundle:
- *   • Hero card (eyebrow / HOW'S FISHING headline / linear score gauge /
- *     outlook line / summary / air-range strip)
- *   • WHAT'S HELPING card (forest header + factor rows)
- *   • WATCH OUT FOR card (red header + factor rows)
- *   • WHEN TO GO section (4 time-window tiles + daypart note)
- *   • Ornamental divider
- *   • GUIDE'S NOTE card
- *
- * Visual-only; no data or state is touched here.
- */
-
 import React, { createContext, useContext } from 'react';
 import { Animated, StyleSheet, View } from 'react-native';
-import {
-  paper,
-  paperBorders,
-  paperRadius,
-  paperShadows,
-  paperSpacing,
-} from '../../lib/theme';
-import {
-  CornerMarkSet,
-  SectionEyebrow,
-  SwimmingFish,
-  TopographicLines,
-} from '../paper';
+import { paper, paperSpacing } from '../../lib/theme';
+import { TopographicLines } from '../paper';
 import { usePaperBonePulse } from '../../lib/usePaperBonePulse';
 
 /**
@@ -62,14 +34,14 @@ function TimeWindowSkeleton({ highlighted }: { highlighted?: boolean }) {
     <View
       style={[
         styles.timeTile,
-        highlighted && { borderColor: paper.forest, borderWidth: 2 },
+        highlighted && { borderColor: paper.bandFair, borderWidth: 2 },
       ]}
     >
       <View style={styles.timeTileTop}>
         <View
           style={[
             styles.timeTileIcon,
-            highlighted && { backgroundColor: paper.forest, opacity: 0.25 },
+            highlighted && { backgroundColor: paper.bandFair, opacity: 0.25 },
           ]}
         />
       </View>
@@ -93,12 +65,8 @@ export function HowFishingLoadingSkeleton() {
     <View style={styles.root}>
       {/* ── HERO ─────────────────────────────────────────────────────────── */}
       <View style={styles.heroCard}>
-        <CornerMarkSet color={paper.red} />
-
         <View style={styles.heroEyebrow}>
-          <SectionEyebrow color={paper.red} size={9} tracking={3}>
-            READING CONDITIONS
-          </SectionEyebrow>
+          <Bone style={styles.heroEyebrowBone} />
         </View>
 
         <View style={styles.heroHeadlineWrap}>
@@ -114,9 +82,9 @@ export function HowFishingLoadingSkeleton() {
           </View>
           <View style={styles.gaugeTrackRow}>
             <View style={styles.gaugeTrack}>
-              <View style={[styles.gaugeStop, { backgroundColor: paper.red, opacity: 0.45 }]} />
-              <View style={[styles.gaugeStop, { backgroundColor: paper.gold, opacity: 0.45 }]} />
-              <View style={[styles.gaugeStop, { backgroundColor: paper.forest, opacity: 0.45 }]} />
+              <View style={[styles.gaugeStop, { backgroundColor: paper.bandTough, opacity: 0.45 }]} />
+              <View style={[styles.gaugeStop, { backgroundColor: paper.bandFair, opacity: 0.45 }]} />
+              <View style={[styles.gaugeStop, { backgroundColor: paper.bandPrime, opacity: 0.45 }]} />
             </View>
           </View>
           <View style={styles.gaugeScaleRow}>
@@ -131,9 +99,7 @@ export function HowFishingLoadingSkeleton() {
 
         <View style={styles.outlookRule} />
 
-        <SectionEyebrow color={paper.red} size={9} tracking={3}>
-          {"TODAY'S READ"}
-        </SectionEyebrow>
+        <Bone style={styles.outlookEyebrowBone} />
         <Bone style={styles.heroSublineBone} />
         <Bone style={styles.heroSummaryBone} />
         <Bone style={[styles.heroSummaryBone, { width: '78%' }]} />
@@ -146,26 +112,26 @@ export function HowFishingLoadingSkeleton() {
 
       {/* ── WHAT'S HELPING ─────────────────────────────────────────────── */}
       <View style={styles.factorCard}>
-        <View style={[styles.factorHeader, { backgroundColor: paper.forest }]}>
+        <View style={[styles.factorHeader, { backgroundColor: paper.bandPrime }]}>
           <View style={styles.factorHeaderIcon} />
           <Bone style={styles.factorHeaderLabelBone} />
         </View>
         <View style={styles.factorBody}>
-          <FactorRowSkeleton tint={paper.forest} />
-          <FactorRowSkeleton tint={paper.forest} />
-          <FactorRowSkeleton tint={paper.forest} isLast />
+          <FactorRowSkeleton tint={paper.bandPrime} />
+          <FactorRowSkeleton tint={paper.bandPrime} />
+          <FactorRowSkeleton tint={paper.bandPrime} isLast />
         </View>
       </View>
 
       {/* ── WATCH OUT FOR ──────────────────────────────────────────────── */}
       <View style={styles.factorCard}>
-        <View style={[styles.factorHeader, { backgroundColor: paper.red }]}>
+        <View style={[styles.factorHeader, { backgroundColor: '#F8E7E2' }]}>
           <View style={styles.factorHeaderIcon} />
           <Bone style={styles.factorHeaderLabelBone} />
         </View>
         <View style={styles.factorBody}>
-          <FactorRowSkeleton tint={paper.red} />
-          <FactorRowSkeleton tint={paper.red} isLast />
+          <FactorRowSkeleton tint={paper.bandTough} />
+          <FactorRowSkeleton tint={paper.bandTough} isLast />
         </View>
       </View>
 
@@ -185,28 +151,16 @@ export function HowFishingLoadingSkeleton() {
         <Bone style={[styles.daypartBone, { width: '82%' }]} />
       </View>
 
-      {/* ── Ornamental divider ─────────────────────────────────────────── */}
-      <View style={styles.ornamentRow}>
-        <View style={[styles.ornamentRule, { borderBottomColor: paper.ink }]} />
-        <View style={[styles.ornamentGlyph, { borderColor: paper.ink }]} />
-        <View style={[styles.ornamentRule, { borderBottomColor: paper.ink }]} />
-      </View>
-
-      {/* ── GUIDE'S NOTE ───────────────────────────────────────────────── */}
       <View style={styles.guideCard}>
         <TopographicLines
           style={styles.guideLines}
-          color={paper.walnut}
+          color={paper.dashboardBlue}
           count={5}
         />
-        <CornerMarkSet color={paper.walnut} />
         <View style={styles.guideRow}>
           <View style={styles.guideBadge} />
           <View style={styles.guideBody}>
-            <SectionEyebrow color={paper.red} size={10} tracking={3.5}>
-              GUIDE'S NOTE
-            </SectionEyebrow>
-            <Bone style={styles.guideQuoteMarkBone} />
+            <Bone style={styles.guideEyebrowBone} />
             <Bone style={styles.guideTextBone} />
             <Bone style={[styles.guideTextBone, { width: '94%' }]} />
             <Bone style={[styles.guideTextBone, { width: '68%' }]} />
@@ -214,22 +168,7 @@ export function HowFishingLoadingSkeleton() {
         </View>
       </View>
 
-      {/* ── Colophon ───────────────────────────────────────────────────── */}
-      <View style={styles.colophonRow}>
-        <View style={styles.colophonRule} />
-        <Bone style={styles.colophonBone} />
-        <View style={styles.colophonRule} />
-      </View>
-
-      {/*
-        SwimmingFish — a small marginalia fish glides across the bottom
-        of the loading skeleton (matches the live conditions card's
-        decorative drift). Pure visual decoration, no interaction.
-        Lives outside the bone column so it can roam the full width.
-      */}
-      <View style={styles.swimRow} pointerEvents="none">
-        <SwimmingFish bottom={0} size={26} opacity={0.35} duration={14_000} />
-      </View>
+      <View style={styles.footerRule} />
     </View>
     </PulseCtx.Provider>
   );
@@ -240,17 +179,17 @@ const styles = StyleSheet.create({
     gap: paperSpacing.md + 2,
   },
   bone: {
-    backgroundColor: paper.inkHair,
-    borderRadius: paperRadius.chip,
+    backgroundColor: paper.dashboardHair,
+    borderRadius: 999,
     opacity: 0.6,
   },
 
   // ── HERO ──────────────────────────────────────────────────────────────
   heroCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
     paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.md,
@@ -260,6 +199,12 @@ const styles = StyleSheet.create({
   heroEyebrow: {
     marginBottom: 4,
     alignItems: 'center',
+  },
+  heroEyebrowBone: {
+    width: 128,
+    height: 10,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.32,
   },
   heroHeadlineWrap: {
     alignSelf: 'stretch',
@@ -274,7 +219,7 @@ const styles = StyleSheet.create({
   },
   heroHeadlineBoneAccent: {
     width: '45%',
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     opacity: 0.22,
   },
 
@@ -295,7 +240,7 @@ const styles = StyleSheet.create({
     height: 40,
     width: 72,
     borderRadius: 6,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     opacity: 0.25,
   },
   gaugeScoreMaxBone: {
@@ -313,7 +258,7 @@ const styles = StyleSheet.create({
     height: 10,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     overflow: 'hidden',
   },
   gaugeStop: {
@@ -334,29 +279,35 @@ const styles = StyleSheet.create({
     paddingHorizontal: 14,
     paddingVertical: 5,
     borderRadius: 999,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardInk,
     opacity: 0.35,
   },
   gaugeBandPillBone: {
     height: 10,
     width: 68,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     opacity: 0.6,
   },
 
   outlookRule: {
     width: '80%',
     height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardLine,
     opacity: 0.35,
     marginVertical: paperSpacing.sm + 2,
+  },
+  outlookEyebrowBone: {
+    height: 10,
+    width: 104,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.28,
   },
   heroSublineBone: {
     height: 14,
     width: '65%',
     marginTop: 6,
     marginBottom: 6,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     opacity: 0.28,
     borderRadius: 4,
   },
@@ -375,7 +326,7 @@ const styles = StyleSheet.create({
   airLabelBone: {
     height: 9,
     width: 28,
-    backgroundColor: paper.red,
+    backgroundColor: paper.dashboardBlue,
     opacity: 0.3,
   },
   airRangeBone: {
@@ -385,10 +336,10 @@ const styles = StyleSheet.create({
 
   // ── Factor cards ──────────────────────────────────────────────────────
   factorCard: {
-    backgroundColor: paper.paper,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     overflow: 'hidden',
   },
   factorHeader: {
@@ -398,19 +349,19 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.md + 2,
     paddingVertical: 10,
     borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
+    borderBottomColor: paper.dashboardLine,
   },
   factorHeaderIcon: {
     width: 15,
     height: 15,
     borderRadius: 2,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     opacity: 0.5,
   },
   factorHeaderLabelBone: {
     height: 11,
     width: 118,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     opacity: 0.7,
   },
   factorBody: {
@@ -426,7 +377,7 @@ const styles = StyleSheet.create({
   },
   factorRowDivider: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: paper.ink,
+    borderBottomColor: paper.dashboardHair,
     borderStyle: 'solid',
   },
   factorSign: {
@@ -434,7 +385,7 @@ const styles = StyleSheet.create({
     height: 28,
     borderRadius: 14,
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     opacity: 0.4,
     flexShrink: 0,
   },
@@ -454,7 +405,7 @@ const styles = StyleSheet.create({
     alignItems: 'baseline',
     paddingBottom: paperSpacing.sm,
     borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
+    borderBottomColor: paper.dashboardLine,
     marginBottom: paperSpacing.sm + 2,
   },
   timingEyebrowBone: {
@@ -472,10 +423,10 @@ const styles = StyleSheet.create({
   },
   timeTile: {
     flex: 1,
-    backgroundColor: paper.paper,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     overflow: 'hidden',
     minHeight: 104,
     position: 'relative',
@@ -490,7 +441,7 @@ const styles = StyleSheet.create({
     width: 20,
     height: 20,
     borderRadius: 10,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
     opacity: 0.65,
   },
   timeTileBody: {
@@ -498,7 +449,7 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     paddingBottom: 10,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: paper.ink,
+    borderTopColor: paper.dashboardHair,
     alignItems: 'center',
     gap: 4,
   },
@@ -515,7 +466,7 @@ const styles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     right: 0,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardInk,
     paddingHorizontal: 6,
     paddingVertical: 3,
     opacity: 0.9,
@@ -523,7 +474,7 @@ const styles = StyleSheet.create({
   bestBadgeBone: {
     height: 7,
     width: 28,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     opacity: 0.9,
   },
   daypartBone: {
@@ -533,34 +484,12 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
 
-  // ── Ornamental divider ───────────────────────────────────────────────
-  ornamentRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginVertical: paperSpacing.md,
-    gap: paperSpacing.sm,
-  },
-  ornamentRule: {
-    flex: 1,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    opacity: 0.45,
-  },
-  ornamentGlyph: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
-    borderWidth: 1,
-    opacity: 0.5,
-  },
-
-  // ── Guide's note ─────────────────────────────────────────────────────
   guideCard: {
     position: 'relative',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.lg,
     paddingVertical: paperSpacing.lg,
     overflow: 'hidden',
@@ -583,20 +512,17 @@ const styles = StyleSheet.create({
     height: 58,
     borderRadius: 29,
     borderWidth: 2,
-    borderColor: paper.walnut,
-    backgroundColor: paper.paper,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlueSky,
     opacity: 0.55,
     flexShrink: 0,
   },
   guideBody: { flex: 1, gap: 6 },
-  guideQuoteMarkBone: {
-    height: 28,
-    width: 22,
-    backgroundColor: paper.walnut,
-    opacity: 0.3,
-    marginTop: 4,
-    marginBottom: 2,
-    borderRadius: 4,
+  guideEyebrowBone: {
+    height: 10,
+    width: 112,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.32,
   },
   guideTextBone: {
     height: 13,
@@ -605,35 +531,10 @@ const styles = StyleSheet.create({
     marginVertical: 2,
   },
 
-  // ── Colophon ─────────────────────────────────────────────────────────
-  colophonRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: paperSpacing.sm,
-    marginTop: paperSpacing.lg,
-    marginBottom: paperSpacing.sm,
-    paddingHorizontal: paperSpacing.sm,
-  },
-  colophonRule: {
-    flex: 1,
+  footerRule: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardLine,
     opacity: 0.3,
-  },
-  colophonBone: {
-    height: 9,
-    width: 160,
-    opacity: 0.45,
-  },
-
-  // Hosts the marginalia fish drift below the colophon. Has its own
-  // height so layout reserves space and the fish doesn't get clipped
-  // by the parent ScrollView's content padding.
-  swimRow: {
-    height: 36,
-    marginTop: paperSpacing.xs,
     marginBottom: paperSpacing.sm,
-    overflow: 'hidden',
-    position: 'relative',
   },
 });

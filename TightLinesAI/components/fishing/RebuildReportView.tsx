@@ -1,33 +1,3 @@
-/**
- * Daily Read report view — FinFindr "paper / ink" design system.
- *
- * Pass-6 renovation: the page now reads as a curated morning field-edition
- * rather than a stack of UI cards. Concrete moves:
- *
- *   • HERO turns into a magazine cover: the user's location is the headline,
- *     the score becomes a dramatic numeric, the verdict line lands as bold
- *     italic Fraunces, and a richer meta strip (air temp · timezone · date)
- *     anchors the bottom of the cover.
- *   • DRIVERS / WATCHOUTS use illuminated rows — a left vertical color band
- *     (forest / red), a small variable-type eyebrow ("BAROMETRIC TREND"),
- *     and the engine label below. Looks like a printed editorial column.
- *   • WHEN TO GO keeps the four-tile structure but the BEST treatment moves
- *     to a proper top ribbon ("★ GO") with stronger gold contrast.
- *   • SOLUNAR is promoted to a real "ALMANAC · MOON & TIDE" almanac block
- *     (the prior "BONUS" framing is gone).
- *   • GUIDE'S NOTE is the editorial centerpiece — bigger card, oversized
- *     pull-quote, an ActionableTipTag chip, and a "FROM THE GUIDE'S DESK"
- *     sign-off.
- *   • The bottom inline 3-row colophon is replaced with the shared
- *     `PaperColophon` component (matches Water Read's sign-off voice).
- *
- * Behavior preserved from prior implementation:
- *   - driver/suppressor truncation (top 3 / top 2) for hero focus.
- *   - Solunar data is rendered only when `solunarData` has periods.
- *   - formatFactorLabel handles multi-sentence engine text capitalization.
- *   - Score is expressed via a linear 0-10 gauge — no arc, no overlap.
- */
-
 import { useEffect, useRef, useState } from 'react';
 import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
@@ -35,22 +5,13 @@ import {
   paper,
   paperFonts,
   paperSpacing,
-  paperRadius,
-  paperShadows,
-  paperBorders,
   paperTierForScore,
   paperTier,
   scoreAccentColor,
   scoreTextOnColor,
   type PaperTier,
 } from '../../lib/theme';
-import {
-  CornerMark,
-  CornerMarkSet,
-  PaperColophon,
-  SectionEyebrow,
-  TopographicLines,
-} from '../paper';
+import { SectionEyebrow, TopographicLines } from '../paper';
 import {
   resolveTimingPeriods,
   resolveTimingFromPreset,
@@ -148,7 +109,7 @@ function buildHeadline(
     };
   }
   // Fallback — context label minus the parenthetical.
-  const context = (report.display_context_label ?? 'Daily Read').replace(
+  const context = (report.display_context_label ?? "Today's Bite").replace(
     /\s*\/.*$/,
     '',
   );
@@ -203,7 +164,7 @@ function HeroMetaStrip({
       <View style={styles.metaRow}>
         {hasTemp ? (
           <View style={styles.metaItem}>
-            <Ionicons name="thermometer-outline" size={11} color={paper.ink} />
+            <Ionicons name="thermometer-outline" size={11} color={paper.dashboardMuted} />
             <Text style={styles.metaItemLabel}>AIR</Text>
             <Text style={styles.metaItemValue}>
               {`${Math.round(lo!)}° / ${Math.round(hi!)}°F`}
@@ -213,7 +174,7 @@ function HeroMetaStrip({
         {hasTemp && (tz || ctxLabel) ? <View style={styles.metaSep} /> : null}
         {ctxLabel ? (
           <View style={styles.metaItem}>
-            <Ionicons name="map-outline" size={11} color={paper.ink} />
+            <Ionicons name="map-outline" size={11} color={paper.dashboardMuted} />
             <Text style={styles.metaItemValue} numberOfLines={1}>
               {ctxLabel}
             </Text>
@@ -222,7 +183,7 @@ function HeroMetaStrip({
         {ctxLabel && tz ? <View style={styles.metaSep} /> : null}
         {tz ? (
           <View style={styles.metaItem}>
-            <Ionicons name="time-outline" size={11} color={paper.ink} />
+            <Ionicons name="time-outline" size={11} color={paper.dashboardMuted} />
             <Text style={styles.metaItemValue} numberOfLines={1}>
               {tz}
             </Text>
@@ -245,7 +206,7 @@ function HeroMetaStrip({
 function SectionMasthead({
   title,
   meta,
-  color = paper.ink,
+  color = paper.dashboardInk,
 }: {
   title: string;
   meta?: string;
@@ -265,26 +226,6 @@ function SectionMasthead({
         ) : null}
       </View>
       <View style={[styles.sectionMastheadRule, { backgroundColor: color }, { opacity: 0.45 }]} />
-    </View>
-  );
-}
-
-// ─── Ornamental divider ─────────────────────────────────────────────────────
-
-function OrnamentalDivider({
-  icon = 'compass-outline',
-  color = paper.walnut,
-}: {
-  icon?: keyof typeof import('@expo/vector-icons/build/Ionicons').default.glyphMap;
-  color?: string;
-}) {
-  return (
-    <View style={styles.ornamentRow}>
-      <View style={[styles.ornamentRule, { borderColor: color }]} />
-      <View style={[styles.ornamentGlyph, { borderColor: color }]}>
-        <Ionicons name={icon} size={12} color={color} />
-      </View>
-      <View style={[styles.ornamentRule, { borderColor: color }]} />
     </View>
   );
 }
@@ -368,15 +309,10 @@ export function RebuildReportView({
           count={4}
         />
 
-        {/* Three corner marks — top-right is held for the verdict stamp. */}
-        <CornerMark position="tl" color={paper.red} />
-        <CornerMark position="bl" color={paper.red} />
-        <CornerMark position="br" color={paper.red} />
-
         <VerdictStamp accent={accent} tier={tier} band={report.band} />
 
         <View style={styles.heroEyebrow}>
-          <SectionEyebrow color={paper.red} size={9} tracking={3}>
+          <SectionEyebrow color={paper.dashboardBlue} size={9} tracking={2}>
             {dateLabel.toUpperCase()}
           </SectionEyebrow>
         </View>
@@ -414,14 +350,11 @@ export function RebuildReportView({
       </View>
 
       {/* ── ANALYTICAL SECTION (drivers + watchouts) ────────────────────── */}
-      <SectionMasthead
-        title="WHAT THE WATER IS SAYING"
-        meta={isFuture ? 'forecast read' : 'today’s read'}
-      />
+      <SectionMasthead title="BITE FACTORS" meta={isFuture ? 'forecast' : 'today'} />
 
       <View style={styles.factorCard}>
-        <View style={[styles.factorHeader, { backgroundColor: paper.forest }]}>
-          <Ionicons name="trending-up" size={14} color={paper.paper} />
+        <View style={[styles.factorHeader, { backgroundColor: paper.bandPrime }]}>
+          <Ionicons name="trending-up" size={14} color={paper.dashboardInk} />
           <Text style={styles.factorHeaderLabel}>WHAT'S HELPING</Text>
           <Text style={styles.factorHeaderCount}>
             {topDrivers.length}/{report.drivers.length}
@@ -433,7 +366,7 @@ export function RebuildReportView({
               <FactorRow
                 key={`d-${i}`}
                 index={i + 1}
-                ribbonColor={paper.forest}
+                ribbonColor={paper.bandPrime}
                 eyebrow={formatVariableEyebrow(d.variable)}
                 label={formatFactorLabel(d.label)}
                 isLast={i === topDrivers.length - 1}
@@ -449,8 +382,8 @@ export function RebuildReportView({
 
       {topSuppressors.length > 0 && (
         <View style={styles.factorCard}>
-          <View style={[styles.factorHeader, { backgroundColor: paper.red }]}>
-            <Ionicons name="trending-down" size={14} color={paper.paper} />
+          <View style={[styles.factorHeader, { backgroundColor: '#F8E7E2' }]}>
+            <Ionicons name="trending-down" size={14} color={paper.bandTough} />
             <Text style={styles.factorHeaderLabel}>WATCH OUT FOR</Text>
             <Text style={styles.factorHeaderCount}>
               {topSuppressors.length}/{report.suppressors.length}
@@ -461,7 +394,7 @@ export function RebuildReportView({
               <FactorRow
                 key={`s-${i}`}
                 index={i + 1}
-                ribbonColor={paper.red}
+                ribbonColor={paper.bandTough}
                 eyebrow={formatVariableEyebrow(s.variable)}
                 label={formatFactorLabel(s.label)}
                 isLast={i === topSuppressors.length - 1}
@@ -510,8 +443,8 @@ export function RebuildReportView({
           solunarData.minor_periods.length > 0) && (
           <View style={styles.almanacCard}>
             <View style={styles.almanacHeader}>
-              <Ionicons name="moon" size={14} color={paper.walnut} />
-              <Text style={styles.almanacTitle}>ALMANAC · MOON &amp; TIDE</Text>
+              <Ionicons name="moon" size={14} color={paper.dashboardBlue} />
+          <Text style={styles.almanacTitle}>MOON &amp; TIDE</Text>
             </View>
             <View style={styles.almanacRule} />
             <View style={styles.almanacRow}>
@@ -555,21 +488,16 @@ export function RebuildReportView({
           </View>
         )}
 
-      {/* Editorial divider — separates analytical section from the guide's
-          narrative advice below. Compass glyph reinforces the field-guide feel. */}
-      <OrnamentalDivider icon="compass-outline" />
-
       {/* ── GUIDE'S NOTE — editorial centerpiece ────────────────────────── */}
       <View style={styles.guideCard}>
         <TopographicLines
           style={styles.guideLines}
-          color={paper.walnut}
+          color={paper.dashboardBlue}
           count={5}
         />
-        <CornerMarkSet color={paper.walnut} />
         <View style={styles.guideEyebrowRow}>
-          <SectionEyebrow color={paper.red} size={10} tracking={3.5}>
-            FROM THE GUIDE'S DESK
+          <SectionEyebrow color={paper.dashboardBlue} size={10} tracking={2.4}>
+            GUIDE NOTE
           </SectionEyebrow>
           {tipTagLabel ? (
             <View style={styles.tipTagChip}>
@@ -579,24 +507,19 @@ export function RebuildReportView({
         </View>
         <View style={styles.guideRow}>
           <View style={styles.guideBadge}>
-            <Ionicons name="leaf" size={26} color={paper.walnut} />
+            <Ionicons name="sparkles-outline" size={24} color={paper.dashboardBlue} />
           </View>
           <View style={styles.guideBody}>
-            <Text style={styles.guideQuoteMark}>&#8220;</Text>
             <Text style={styles.guideText}>{report.actionable_tip}</Text>
-            <Text style={styles.guideSignoff}>— FINFINDR FIELD NOTES</Text>
+            <Text style={styles.guideSignoff}>FINFINDR CONDITIONS</Text>
           </View>
         </View>
       </View>
 
-      {/* ── COLOPHON ────────────────────────────────────────────────────── */}
-      <PaperColophon
-        section="DAILY READ"
-        tagline={(edition) =>
-          `NO. ${edition} · MADE FOR THE WATER`
-        }
-        style={styles.colophon}
-      />
+      <View style={styles.footerRow}>
+        <Ionicons name="analytics-outline" size={12} color={paper.dashboardMuted} />
+        <Text style={styles.footerText}>TODAY'S BITE - CONDITIONS READ</Text>
+      </View>
     </View>
   );
 }
@@ -621,7 +544,7 @@ function VerdictStamp({
     >
       <View style={[stampStyles.inner, { borderColor: accent }]}>
         <Text style={[stampStyles.text, { color: accent }]}>
-          {isPeak ? '★ ' : ''}
+          {isPeak ? 'BEST ' : ''}
           {label}
         </Text>
       </View>
@@ -728,14 +651,11 @@ function LinearScoreGauge({
 
       <View style={gaugeStyles.trackRow}>
         <View style={gaugeStyles.track}>
-          <View style={[gaugeStyles.stop, { flex: 2.5, backgroundColor: paper.redDk }]} />
-          <View style={[gaugeStyles.stop, { flex: 0.8, backgroundColor: paper.red }]} />
-          <View style={[gaugeStyles.stop, { flex: 0.7, backgroundColor: paper.rust }]} />
-          <View style={[gaugeStyles.stop, { flex: 1.0, backgroundColor: paper.goldDk }]} />
-          <View style={[gaugeStyles.stop, { flex: 1.0, backgroundColor: paper.gold }]} />
-          <View style={[gaugeStyles.stop, { flex: 1.0, backgroundColor: paper.moss }]} />
-          <View style={[gaugeStyles.stop, { flex: 1.0, backgroundColor: paper.forest }]} />
-          <View style={[gaugeStyles.stop, { flex: 2.0, backgroundColor: paper.forestDk }]} />
+          <View style={[gaugeStyles.stop, { flex: 2.2, backgroundColor: paper.bandTough }]} />
+          <View style={[gaugeStyles.stop, { flex: 1.2, backgroundColor: paper.bandPoor }]} />
+          <View style={[gaugeStyles.stop, { flex: 1.6, backgroundColor: paper.bandFair }]} />
+          <View style={[gaugeStyles.stop, { flex: 2.2, backgroundColor: paper.bandGood }]} />
+          <View style={[gaugeStyles.stop, { flex: 2.8, backgroundColor: paper.bandPrime }]} />
         </View>
 
         <Animated.View
@@ -809,14 +729,12 @@ const gaugeStyles = StyleSheet.create({
   },
   scoreNum: {
     fontFamily: paperFonts.monoBold,
-    // Bumped from 84 → 96 so the score reads as a magazine cover number,
-    // not a UI element. A drop-shadow underneath gives it embossed depth.
     fontSize: 96,
     lineHeight: 112,
-    letterSpacing: -4.5,
+    letterSpacing: 0,
     fontWeight: '700',
     includeFontPadding: false,
-    textShadowColor: 'rgba(26, 26, 22, 0.22)',
+    textShadowColor: 'rgba(7, 27, 45, 0.18)',
     textShadowOffset: { width: 0, height: 2 },
     textShadowRadius: 0,
   },
@@ -840,9 +758,9 @@ const gaugeStyles = StyleSheet.create({
     borderRadius: 7,
     flexDirection: 'row',
     borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
     overflow: 'hidden',
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
   },
   stop: {
     height: '100%',
@@ -869,7 +787,7 @@ const gaugeStyles = StyleSheet.create({
     height: 20,
     borderRadius: 10,
     borderWidth: 3,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardInk,
   },
   scaleRow: {
     width: '92%',
@@ -880,22 +798,21 @@ const gaugeStyles = StyleSheet.create({
   scaleTick: {
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.6,
   },
   bandPill: {
     marginTop: 12,
     paddingHorizontal: 14,
     paddingVertical: 4,
-    borderRadius: paperRadius.chip,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: 'rgba(7, 27, 45, 0.2)',
   },
   bandPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
     letterSpacing: 2.5,
-    color: paper.paper,
     fontWeight: '700',
   },
 });
@@ -977,7 +894,7 @@ function TimeWindowTile({
         <Ionicons
           name={icon}
           size={22}
-          color={isBest ? bestFg : paper.ink}
+          color={isBest ? bestFg : paper.dashboardInk}
         />
       </View>
       <View
@@ -1008,14 +925,14 @@ function TimeWindowTile({
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  wrap: { gap: paperSpacing.section },
+  wrap: { gap: paperSpacing.md + 6 },
 
   // ── HERO ─────────────────────────────────────────────────────────────
   heroCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
     paddingTop: paperSpacing.md + 6,
     paddingBottom: paperSpacing.md,
@@ -1038,7 +955,7 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardLine,
     opacity: 0.45,
   },
   heroTopoLines: {
@@ -1056,19 +973,19 @@ const styles = StyleSheet.create({
     fontWeight: '800',
     fontSize: 32,
     lineHeight: 36,
-    letterSpacing: -1.0,
+    letterSpacing: 0,
     textAlign: 'center',
-    color: paper.ink,
+    color: paper.dashboardInk,
     paddingHorizontal: paperSpacing.sm,
   },
   heroHeadlineDot: {
-    color: paper.red,
+    color: paper.dashboardBlue,
   },
   heroSecondary: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
     letterSpacing: 2.8,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.6,
     fontWeight: '700',
     marginTop: 4,
@@ -1076,7 +993,7 @@ const styles = StyleSheet.create({
   outlookRule: {
     width: '70%',
     height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardLine,
     opacity: 0.4,
     marginVertical: paperSpacing.sm + 2,
   },
@@ -1088,7 +1005,7 @@ const styles = StyleSheet.create({
     fontWeight: '700',
     fontSize: 21,
     lineHeight: 28,
-    letterSpacing: -0.4,
+    letterSpacing: 0,
     marginTop: 2,
     marginBottom: 10,
     textAlign: 'center',
@@ -1115,10 +1032,10 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontSize: 15,
     lineHeight: 22,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.88,
     textAlign: 'left',
-    letterSpacing: -0.1,
+    letterSpacing: 0,
   },
 
   // ── Hero meta strip (air · ctx · tz) ─────────────────────────────────
@@ -1128,7 +1045,7 @@ const styles = StyleSheet.create({
   },
   metaRule: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardLine,
     opacity: 0.45,
   },
   metaRow: {
@@ -1149,21 +1066,21 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     fontSize: 8.5,
     letterSpacing: 1.8,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.55,
     fontWeight: '700',
   },
   metaItemValue: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 0.6,
     fontWeight: '700',
   },
   metaSep: {
     width: StyleSheet.hairlineWidth,
     height: 12,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardLine,
     opacity: 0.35,
   },
 
@@ -1196,16 +1113,16 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.55,
   },
 
   // ── Factor cards ────────────────────────────────────────────────────
   factorCard: {
-    backgroundColor: paper.paper,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     overflow: 'hidden',
   },
   factorHeader: {
@@ -1215,13 +1132,13 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.md,
     paddingVertical: 9,
     borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
+    borderBottomColor: paper.dashboardLine,
   },
   factorHeaderLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
     letterSpacing: 2.6,
-    color: paper.paper,
+    color: paper.dashboardInk,
     fontWeight: '700',
     flex: 1,
   },
@@ -1229,7 +1146,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 9.5,
     letterSpacing: 1.4,
-    color: paper.paper,
+    color: paper.dashboardMuted,
     opacity: 0.7,
     fontWeight: '700',
   },
@@ -1246,7 +1163,7 @@ const styles = StyleSheet.create({
   },
   factorRowDivider: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: paper.inkHair,
+    borderBottomColor: paper.dashboardHair,
   },
   factorOrdinalCol: {
     width: 28,
@@ -1259,9 +1176,9 @@ const styles = StyleSheet.create({
     fontSize: 22,
     lineHeight: 24,
     fontWeight: '800',
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.32,
-    letterSpacing: -1,
+    letterSpacing: 0,
     includeFontPadding: false,
   },
   factorRibbon: {
@@ -1287,14 +1204,14 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.displaySemiBold,
     fontSize: 14.5,
     lineHeight: 20,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '600',
   },
   mutedText: {
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.55,
     paddingVertical: paperSpacing.sm,
   },
@@ -1313,7 +1230,7 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
     fontSize: 13,
     lineHeight: 20,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.78,
     marginTop: paperSpacing.sm + 2,
     paddingHorizontal: paperSpacing.xs,
@@ -1322,10 +1239,10 @@ const styles = StyleSheet.create({
   // ── Time tiles ──────────────────────────────────────────────────────
   timeTile: {
     flex: 1,
-    backgroundColor: paper.paper,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     overflow: 'hidden',
     minHeight: 110,
   },
@@ -1340,20 +1257,20 @@ const styles = StyleSheet.create({
     paddingTop: 6,
     paddingBottom: 10,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: paper.ink,
+    borderTopColor: paper.dashboardHair,
     alignItems: 'center',
   },
   timeTileLabel: {
     fontFamily: paperFonts.display,
     fontSize: 14.5,
     fontWeight: '700',
-    color: paper.ink,
-    letterSpacing: -0.3,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
   },
   timeTileRange: {
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.65,
     marginTop: 2,
   },
@@ -1365,7 +1282,7 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     right: 0,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
     paddingVertical: 4,
     alignItems: 'center',
     zIndex: 3,
@@ -1374,19 +1291,18 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
     letterSpacing: 2.2,
-    color: paper.gold,
+    color: paper.dashboardWhite,
     fontWeight: '700',
   },
 
   // ── Almanac (was Solunar) ──────────────────────────────────────────
   almanacCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.walnut,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md,
-    ...paperShadows.hard,
   },
   almanacHeader: {
     flexDirection: 'row',
@@ -1397,13 +1313,13 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
     letterSpacing: 2.8,
-    color: paper.walnut,
+    color: paper.dashboardBlue,
     fontWeight: '700',
     flex: 1,
   },
   almanacRule: {
     height: 1.5,
-    backgroundColor: paper.walnut,
+    backgroundColor: paper.dashboardLine,
     opacity: 0.7,
     marginTop: paperSpacing.sm,
     marginBottom: paperSpacing.sm + 2,
@@ -1415,14 +1331,14 @@ const styles = StyleSheet.create({
   almanacCol: { flex: 1 },
   almanacColRight: {
     borderLeftWidth: StyleSheet.hairlineWidth,
-    borderLeftColor: paper.walnut,
+    borderLeftColor: paper.dashboardLine,
     paddingLeft: paperSpacing.md,
   },
   almanacSubhead: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
     letterSpacing: 2.2,
-    color: paper.walnut,
+    color: paper.dashboardBlue,
     opacity: 0.85,
     marginBottom: paperSpacing.xs,
     fontWeight: '700',
@@ -1437,44 +1353,44 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: paper.walnut,
+    backgroundColor: paper.dashboardBlue,
   },
   almanacDotMinor: {
     width: 6,
     height: 6,
     borderRadius: 3,
     borderWidth: 1,
-    borderColor: paper.walnut,
+    borderColor: paper.dashboardBlue,
     opacity: 0.65,
   },
   almanacTime: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     flex: 1,
     fontWeight: '700',
   },
   almanacTimeMinor: {
     fontFamily: paperFonts.metaMono,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.7,
     flex: 1,
   },
   almanacType: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.walnut,
+    color: paper.dashboardBlue,
     opacity: 0.7,
   },
 
   // ── Guide's note (editorial centerpiece) ────────────────────────────
   guideCard: {
     position: 'relative',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.lg,
@@ -1498,15 +1414,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingVertical: 3,
     borderWidth: 1,
-    borderColor: paper.walnut,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
+    borderColor: paper.dashboardLine,
+    borderRadius: 999,
+    backgroundColor: '#F6F9FB',
   },
   tipTagChipText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 8.5,
     letterSpacing: 1.6,
-    color: paper.walnut,
+    color: paper.dashboardMuted,
     fontWeight: '700',
   },
   guideRow: {
@@ -1519,66 +1435,45 @@ const styles = StyleSheet.create({
     height: 64,
     borderRadius: 32,
     borderWidth: 2,
-    borderColor: paper.walnut,
-    backgroundColor: paper.paper,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlueSky,
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
     marginTop: 2,
   },
   guideBody: { flex: 1 },
-  guideQuoteMark: {
-    fontFamily: paperFonts.display,
-    fontSize: 56,
-    lineHeight: 48,
-    color: paper.walnut,
-    opacity: 0.55,
-    marginTop: -4,
-    marginBottom: -2,
-    fontWeight: '800',
-  },
   guideText: {
     fontFamily: paperFonts.displayMedium,
     fontSize: 16,
     lineHeight: 24,
-    color: paper.ink,
+    color: paper.dashboardInk,
     marginTop: 2,
   },
   guideSignoff: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
     letterSpacing: 2.4,
-    color: paper.walnut,
+    color: paper.dashboardMuted,
     opacity: 0.7,
     marginTop: paperSpacing.sm + 2,
     fontWeight: '700',
   },
 
-  // ── Ornamental divider ─────────────────────────────────────────────
-  ornamentRow: {
+  footerRow: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    marginVertical: paperSpacing.xs,
-    gap: paperSpacing.sm,
+    gap: 6,
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: paper.dashboardLine,
   },
-  ornamentRule: {
-    flex: 1,
-    borderBottomWidth: StyleSheet.hairlineWidth,
-    opacity: 0.55,
-  },
-  ornamentGlyph: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    borderWidth: 1,
-    opacity: 0.78,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-
-  // ── Colophon footer ───────────────────────────────────────────────
-  colophon: {
-    paddingVertical: paperSpacing.md,
+  footerText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.6,
+    color: paper.dashboardMuted,
+    fontWeight: '700',
   },
 });
