@@ -1103,7 +1103,7 @@ export default function HomeScreen() {
         visible={showLocationPicker}
         currentLabel={useCustom && savedLocation ? savedLocation.label : gpsLabel}
         isUsingCustom={useCustom && savedLocation != null}
-        savedLocation={useCustom && savedLocation ? savedLocation : null}
+        savedLocation={savedLocation}
         onSelect={handleLocationSelect}
         onUseGPS={handleUseGPS}
         onClose={() => setShowLocationPicker(false)}

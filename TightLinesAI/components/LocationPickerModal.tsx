@@ -144,28 +144,27 @@ export function LocationPickerModal({
   const showEmpty = query.trim().length >= 2 && !loading && !showResults && !error;
   const shortQuery = query.trim().length < 2;
   const showRecent = shortQuery && recentLocations.length > 0;
-  const showHint = shortQuery && !isUsingCustom && !showRecent;
-  const showCurrentCustom = shortQuery && isUsingCustom;
+  const showPinned = shortQuery && savedLocation != null;
+  const showHint = shortQuery && !showRecent && !showPinned;
 
   return (
     <Modal
       visible={visible}
       animationType="slide"
-      presentationStyle="pageSheet"
+      presentationStyle="fullScreen"
       onRequestClose={onClose}
     >
       <KeyboardAvoidingView
         style={{ flex: 1, backgroundColor: paper.dashboardCream }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
-        <View style={[styles.container, { paddingTop: insets.top > 0 ? 8 : 16 }]}>
+        <View style={styles.container}>
 
           {/* ── Header ── */}
-          <View style={styles.header}>
+          <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
             <View style={styles.headerSide} />
             <View style={styles.headerTitleWrap} pointerEvents="none">
-              <Text style={styles.eyebrow}>FINFINDR SPOT</Text>
-              <Text style={styles.title}>Choose Your Spot</Text>
+              <Text style={styles.title}>Choose Your Location</Text>
             </View>
             <View style={styles.headerSide}>
               <Pressable
@@ -298,9 +297,23 @@ export function LocationPickerModal({
                     <Text style={styles.resultLabel} numberOfLines={1}>
                       {item.label}
                     </Text>
-                    <Text style={styles.resultSub}>USE THIS SPOT</Text>
+                    <Text style={styles.resultSub}>PIN THIS SPOT</Text>
                   </View>
-                  <Ionicons name="chevron-forward" size={14} color={paper.dashboardInk} />
+                  <Pressable
+                    hitSlop={8}
+                    style={({ pressed }) => [
+                      styles.pinBtn,
+                      pressed && styles.pinBtnPressed,
+                    ]}
+                    onPress={() =>
+                      onSelect({ lat: item.lat, lon: item.lon, label: item.label })
+                    }
+                    accessibilityRole="button"
+                    accessibilityLabel={`Pin ${item.label}`}
+                  >
+                    <Ionicons name="pin" size={12} color="#FFFFFF" />
+                    <Text style={styles.pinBtnText}>PIN</Text>
+                  </Pressable>
                 </Pressable>
               )}
             />
@@ -314,6 +327,35 @@ export function LocationPickerModal({
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator={false}
             >
+              {/* ── Currently pinned custom location ── */}
+              {showPinned && savedLocation && (
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.currentCustomWrap,
+                    pressed && styles.currentCustomWrapPressed,
+                  ]}
+                  onPress={() => onSelect(savedLocation)}
+                >
+                  <Text style={styles.currentCustomHead}>
+                    PINNED SPOT
+                  </Text>
+                  <View style={styles.currentCustomRow}>
+                    <Ionicons name="pin" size={16} color={paper.dashboardInk} />
+                    <Text style={styles.currentCustomLabel} numberOfLines={1}>
+                      {savedLocation.label}
+                    </Text>
+                    <Ionicons
+                      name="chevron-forward"
+                      size={14}
+                      color={paper.dashboardInk}
+                    />
+                  </View>
+                  <Text style={styles.currentCustomSub}>
+                    Tap to use this pinned spot. Search above to pin a different city.
+                  </Text>
+                </Pressable>
+              )}
+
               {showRecent && (
                 <View style={styles.recentSection}>
                   <Text style={styles.recentSectionHead}>RECENT SPOTS</Text>
@@ -341,7 +383,7 @@ export function LocationPickerModal({
                             <Text style={styles.resultLabel} numberOfLines={1}>
                               {r.label}
                             </Text>
-                            <Text style={styles.resultSub}>USE THIS SPOT</Text>
+                            <Text style={styles.resultSub}>PIN THIS SPOT</Text>
                           </View>
                           <Ionicons
                             name="chevron-forward"
@@ -353,36 +395,6 @@ export function LocationPickerModal({
                     ))}
                   </View>
                 </View>
-              )}
-
-              {/* ── Currently pinned custom location ── */}
-              {showCurrentCustom && savedLocation && (
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.currentCustomWrap,
-                    pressed && styles.currentCustomWrapPressed,
-                  ]}
-                  onPress={() => onSelect(savedLocation)}
-                >
-                  <Text style={styles.currentCustomHead}>
-                    PINNED SPOT
-                  </Text>
-                  <View style={styles.currentCustomRow}>
-                    <Ionicons name="pin" size={16} color={paper.dashboardInk} />
-                    <Text style={styles.currentCustomLabel} numberOfLines={1}>
-                      {currentLabel}
-                    </Text>
-                    <Ionicons
-                      name="chevron-forward"
-                      size={14}
-                      color={paper.dashboardInk}
-                    />
-                  </View>
-                  <Text style={styles.currentCustomSub}>
-                    Search above to pin a different city, or use your current
-                    location.
-                  </Text>
-                </Pressable>
               )}
 
               {/* ── Hint when no query and no custom pinned ── */}
@@ -457,17 +469,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  eyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
-    color: 'rgba(255,255,255,0.62)',
-    letterSpacing: 1.8,
-    marginBottom: 2,
-    opacity: 0.75,
-  },
   title: {
     fontFamily: paperFonts.display,
-    fontSize: 20,
+    fontSize: 22,
     color: '#FFFFFF',
     textAlign: 'center',
     letterSpacing: 0,
@@ -694,11 +698,30 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     opacity: 0.65,
   },
+  pinBtn: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 999,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+  },
+  pinBtnPressed: {
+    backgroundColor: paper.dashboardBlue,
+  },
+  pinBtnText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: '#FFFFFF',
+    letterSpacing: 1.5,
+  },
 
   /* Currently pinned location */
   currentCustomWrap: {
     marginHorizontal: paperSpacing.lg,
     marginTop: paperSpacing.sm,
+    marginBottom: paperSpacing.md,
     padding: 14,
     backgroundColor: paper.dashboardWhite,
     borderRadius: 12,
