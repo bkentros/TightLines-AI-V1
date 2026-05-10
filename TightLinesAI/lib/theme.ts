@@ -408,6 +408,10 @@ export interface DashboardBandStyle {
   verdict: string;
   /** Slightly darker tone for inline italicized verdict text. */
   verdictColor: string;
+  /** Soft tinted background for chips/cards that key off this band. */
+  chipBg: string;
+  /** Border color companion to `chipBg` for tinted chips. */
+  chipBorder: string;
 }
 
 export const dashboardBandColor: Record<PaperScoreBand, DashboardBandStyle> = {
@@ -417,6 +421,8 @@ export const dashboardBandColor: Record<PaperScoreBand, DashboardBandStyle> = {
     label: 'Prime',
     verdict: 'exceptional',
     verdictColor: '#2A8A4A',
+    chipBg: '#E1F1D9',
+    chipBorder: 'rgba(61, 168, 95, 0.40)',
   },
   Good: {
     bg: paper.bandGood,
@@ -424,6 +430,8 @@ export const dashboardBandColor: Record<PaperScoreBand, DashboardBandStyle> = {
     label: 'Good',
     verdict: 'strong',
     verdictColor: '#3F8A4F',
+    chipBg: '#E8F4DF',
+    chipBorder: 'rgba(124, 195, 106, 0.45)',
   },
   Fair: {
     bg: paper.bandFair,
@@ -431,6 +439,8 @@ export const dashboardBandColor: Record<PaperScoreBand, DashboardBandStyle> = {
     label: 'Fair',
     verdict: 'solid',
     verdictColor: '#C99B2D',
+    chipBg: '#FAF1CF',
+    chipBorder: 'rgba(232, 197, 71, 0.55)',
   },
   Poor: {
     bg: paper.bandPoor,
@@ -438,6 +448,8 @@ export const dashboardBandColor: Record<PaperScoreBand, DashboardBandStyle> = {
     label: 'Poor',
     verdict: 'slow',
     verdictColor: '#D17A2E',
+    chipBg: '#FBE4CB',
+    chipBorder: 'rgba(232, 150, 71, 0.45)',
   },
   Tough: {
     bg: paper.bandTough,
@@ -445,6 +457,8 @@ export const dashboardBandColor: Record<PaperScoreBand, DashboardBandStyle> = {
     label: 'Tough',
     verdict: 'tough',
     verdictColor: '#C13D2D',
+    chipBg: '#F8D7D2',
+    chipBorder: 'rgba(217, 75, 58, 0.40)',
   },
 };
 

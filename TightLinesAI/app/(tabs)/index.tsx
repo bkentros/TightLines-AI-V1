@@ -39,6 +39,7 @@ import {
   Image,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
@@ -530,10 +531,17 @@ export default function HomeScreen() {
     ? (envData.weather.pressure / 33.8639).toFixed(1)
     : null;
   const pressureTrendLabel = pressureTrendDisplay(envData?.weather?.pressure_trend);
-  const tempTrendDisplay = tempTrendChip(
-    envData?.weather?.temp_trend_3day,
-    envData?.weather?.temp_trend_direction_f,
-  );
+  // 6-hour temp trend computed from the actual hourly_air_temp_f series.
+  // Compares "now" (last sample) with the sample 6 hours ago to produce
+  // a real signed delta in °F.
+  const tempTrendDisplay = useMemo(() => {
+    const series = envData?.hourly_air_temp_f;
+    if (!series || series.length < 2) return null;
+    const last = series[series.length - 1]?.value;
+    const sixAgo = series[series.length - 7]?.value ?? series[0]?.value;
+    if (last == null || sixAgo == null) return null;
+    return sixHourTrendChip(last - sixAgo);
+  }, [envData?.hourly_air_temp_f]);
   // Today's air temp range — index 14 of the 21-entry hi/lo arrays is "today".
   const todayHi = envData?.weather?.temp_7day_high?.[14];
   const todayLo = envData?.weather?.temp_7day_low?.[14];
@@ -649,6 +657,8 @@ export default function HomeScreen() {
   // ── Render ────────────────────────────────────────────────────────────────
   return (
     <View style={styles.root}>
+      {/* Light status bar text/icons so they read against the navy header. */}
+      <StatusBar style="light" />
       <SafeAreaView edges={['top']} style={styles.safeNav}>
         <View style={styles.navBar}>
           <View style={styles.navBarLeft}>
@@ -783,8 +793,15 @@ export default function HomeScreen() {
             <View style={styles.liveCardTopRow}>
               {/* Optional score chip on the left */}
               {hasReport && heroBandStyle && (
-                <View style={styles.liveCardScoreChip}>
-                  <Text style={styles.liveCardScoreEyebrow}>TODAY'S SCORE</Text>
+                <View
+                  style={[
+                    styles.liveCardScoreChip,
+                    { backgroundColor: heroBandStyle.chipBg, borderColor: heroBandStyle.chipBorder },
+                  ]}
+                >
+                  <Text style={[styles.liveCardScoreEyebrow, { color: heroBandStyle.verdictColor }]}>
+                    TODAY'S SCORE
+                  </Text>
                   <View style={styles.liveCardScoreNumberRow}>
                     <Text style={styles.liveCardScoreNumber}>{heroScore}</Text>
                     <Text style={styles.liveCardScoreUnit}>/10</Text>
@@ -854,7 +871,7 @@ export default function HomeScreen() {
                 <View>
                   <Text style={styles.biteCtaEyebrow}>TODAY'S BITE</Text>
                   <Text style={styles.biteCtaTitle}>
-                    {hasReport ? 'Refresh your read' : 'Get your read'}
+                    {hasReport ? "View today's report" : 'Get your read'}
                   </Text>
                 </View>
               </View>
@@ -956,9 +973,14 @@ export default function HomeScreen() {
                     </Text>
                   </View>
                   <View style={styles.forecastTileHiLo}>
-                    <Text style={styles.forecastTileHiLoText} numberOfLines={1}>
+                    <Text
+                      style={styles.forecastTileHiLoText}
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.75}
+                    >
                       {tileHi != null ? `${Math.round(tileHi)}°` : '—'}
-                      <Text style={styles.forecastTileHiLoSep}>  /  </Text>
+                      <Text style={styles.forecastTileHiLoSep}>/</Text>
                       {tileLo != null ? `${Math.round(tileLo)}°` : '—'}
                     </Text>
                   </View>
@@ -1129,8 +1151,21 @@ function SparklineBars({ points, width, height }: { points: number[] | null; wid
  * a per-segment phase offset). `amp` drives the breathe-in / breathe-out
  * of the wave height.
  */
+/**
+ * Pulsating wave for the bite CTA — a row of edge-touching segments whose
+ * vertical positions trace a traveling sine wave. Because the segments
+ * touch each other (no horizontal gap), the line reads as a continuous
+ * SOLID horizontal line when the wave's amplitude collapses to zero, and
+ * morphs into a smooth squiggle when amplitude rises. No dashes ever.
+ *
+ * `phase` drives the traveling-wave (each segment is interpolated against
+ * a sine-wave keyframe table with a per-segment phase offset). `amp`
+ * drives the breathe-in / breathe-out of the wave height.
+ */
 function BiteCtaWaveView() {
-  const N = 8;
+  const N = 22;
+  const SEG_W = 2.4;
+  const TOTAL_W = N * SEG_W;
   const phase = useRef(new Animated.Value(0)).current;
   const amp = useRef(new Animated.Value(0)).current;
 
@@ -1138,17 +1173,17 @@ function BiteCtaWaveView() {
     const phaseLoop = Animated.loop(
       Animated.timing(phase, {
         toValue: 1,
-        duration: 2200,
+        duration: 2400,
         easing: Easing.linear,
         useNativeDriver: true,
       }),
     );
     const ampLoop = Animated.loop(
       Animated.sequence([
-        Animated.timing(amp, { toValue: 1, duration: 1400, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
-        Animated.delay(200),
-        Animated.timing(amp, { toValue: 0, duration: 1400, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
-        Animated.delay(600),
+        Animated.timing(amp, { toValue: 1, duration: 1500, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        Animated.delay(250),
+        Animated.timing(amp, { toValue: 0, duration: 1500, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        Animated.delay(700),
       ]),
     );
     phaseLoop.start();
@@ -1159,29 +1194,24 @@ function BiteCtaWaveView() {
     };
   }, [phase, amp]);
 
-  // Pre-compute one sine-wave keyframe table per segment, offset by i/N
-  // along the wave so neighboring segments sit at adjacent points on
-  // the curve. Multiplied by the pulsing `amp` so the whole wave can
-  // collapse to a straight line and re-emerge.
   const segs = useMemo(() => {
     return Array.from({ length: N }, (_, i) => {
       const offset = i / N;
       const inputRange = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
-      const outputRange = inputRange.map((t) => Math.sin((t + offset) * 2 * Math.PI) * 4);
+      const outputRange = inputRange.map((t) => Math.sin((t + offset) * 2 * Math.PI) * 4.5);
       const sineY = phase.interpolate({ inputRange, outputRange });
       return Animated.multiply(sineY, amp);
     });
   }, [phase, amp]);
 
   return (
-    <View style={{ width: 52, height: 16, flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between' }}>
+    <View style={{ width: TOTAL_W, height: 16, flexDirection: 'row', alignItems: 'center' }}>
       {segs.map((ty, i) => (
         <Animated.View
           key={i}
           style={{
-            width: 4,
+            width: SEG_W,
             height: 1.5,
-            borderRadius: 1,
             backgroundColor: 'rgba(42,110,150,0.85)',
             transform: [{ translateY: ty }],
           }}
@@ -1192,61 +1222,17 @@ function BiteCtaWaveView() {
 }
 
 /**
- * View-based FinFindr emblem — solid white teardrop map-pin with the fish
- * glyph reversed out in the navy ink color, plus the brand's green upward
- * pointer triangle balanced on top. Closely matches the brand sheet on
- * the navy header strip without depending on react-native-svg.
- *
- * Construction:
- *   - Pointer:    pure-CSS upward triangle, filled bandPrime (brand green)
- *   - Pin body:   white circle with a sharp downward triangle stitched
- *                 below it for the teardrop tip; the two combine to read
- *                 as one shape
- *   - Fish glyph: Ionicons "fish" rendered in dashboardInk (navy) so it
- *                 reverses out of the white pin
- *   - Wave hint:  two thin blue lines floating just below the pin to echo
- *                 the brand sheet's stylized water lines
+ * FinFindr brand emblem rendered from the bundled PNG asset.
+ * The logo file has a transparent background so it sits cleanly on the
+ * dark navy header without a visible white block.
  */
 function FinFindrEmblemView() {
-  const PIN = 26;
   return (
-    <View style={{ width: PIN + 8, height: PIN + 18, alignItems: 'center' }}>
-      {/* Green upward pointer */}
-      <View style={{
-        width: 0, height: 0,
-        borderLeftWidth: 4, borderRightWidth: 4, borderBottomWidth: 5,
-        borderLeftColor: 'transparent', borderRightColor: 'transparent',
-        borderBottomColor: paper.bandPrime,
-        marginBottom: 0.5,
-      }} />
-      {/* Pin body — circle */}
-      <View style={{
-        width: PIN, height: PIN,
-        borderRadius: PIN / 2,
-        backgroundColor: '#FFFFFF',
-        justifyContent: 'center', alignItems: 'center',
-        shadowColor: '#000',
-        shadowOpacity: 0.18,
-        shadowOffset: { width: 0, height: 1 },
-        shadowRadius: 2,
-      }}>
-        {/* Fish glyph reversed out of the pin in navy ink */}
-        <Ionicons name="fish" size={15} color={paper.dashboardInk} style={{ transform: [{ rotate: '-12deg' }] }} />
-        {/* Tiny wave lines under the fish */}
-        <View style={{ position: 'absolute', bottom: 5, left: 5, right: 5, height: 3 }}>
-          <View style={{ height: 1, backgroundColor: '#7CB8DA', marginBottom: 1, borderRadius: 1 }} />
-          <View style={{ height: 1, backgroundColor: '#7CB8DA', opacity: 0.7, borderRadius: 1 }} />
-        </View>
-      </View>
-      {/* Pin teardrop tip */}
-      <View style={{
-        width: 0, height: 0,
-        borderLeftWidth: 5, borderRightWidth: 5, borderTopWidth: 7,
-        borderLeftColor: 'transparent', borderRightColor: 'transparent',
-        borderTopColor: '#FFFFFF',
-        marginTop: -3,
-      }} />
-    </View>
+    <Image
+      source={require('../../assets/images/finfindr-logo.png')}
+      style={{ width: 38, height: 44 }}
+      resizeMode="contain"
+    />
   );
 }
 
@@ -1424,24 +1410,22 @@ function humidityDisplay(h?: number): string {
   return 'LOW';
 }
 
-function tempTrendChip(
-  trend?: string,
-  deltaF?: number,
-): { label: string; color: string } | null {
-  if (!trend) return null;
-  const sign = deltaF != null ? (deltaF > 0 ? '+' : '') + Math.round(deltaF) + '°F' : null;
-  switch (trend) {
-    case 'rapid_warming':
-    case 'warming':
-      return { label: `↑ WARMING${sign ? ' · ' + sign : ''}`, color: paper.bandPrime };
-    case 'rapid_cooling':
-    case 'cooling':
-      return { label: `↓ COOLING${sign ? ' · ' + sign : ''}`, color: '#4F95C2' };
-    case 'stable':
-      return { label: '→ STEADY', color: paper.dashboardMuted };
-    default:
-      return null;
+/**
+ * 6-hour temp trend chip. Takes the signed delta (now − 6h ago) in °F
+ * and produces a human-friendly label + color. Anything within ±0.5°F
+ * reads as STEADY; outside that we show the actual delta as "+3°F" or
+ * "-2°F" with an arrow that matches direction.
+ */
+function sixHourTrendChip(deltaF: number): { label: string; color: string } {
+  const rounded = Math.round(deltaF);
+  if (Math.abs(deltaF) < 0.5) {
+    return { label: '→ STEADY · 6H', color: paper.dashboardMuted };
   }
+  const sign = rounded > 0 ? `+${rounded}°F` : `${rounded}°F`;
+  if (deltaF > 0) {
+    return { label: `↑ ${sign} · 6H`, color: paper.bandPrime };
+  }
+  return { label: `↓ ${sign} · 6H`, color: '#4F95C2' };
 }
 
 function formatAgo(seconds: number): string {
@@ -1854,6 +1838,7 @@ const styles = StyleSheet.create({
   forecastTileScore: { fontFamily: SERIF_BOLD, fontSize: 16, lineHeight: 18, letterSpacing: -0.5 },
   forecastTileHiLo: {
     paddingVertical: 3,
+    paddingHorizontal: 2,
     alignItems: 'center',
     backgroundColor: '#FAFAF7',
     borderTopWidth: 1,
@@ -1861,8 +1846,8 @@ const styles = StyleSheet.create({
   },
   forecastTileHiLoText: {
     fontFamily: MONO_BOLD,
-    fontSize: 8.5,
-    letterSpacing: 0.4,
+    fontSize: 9,
+    letterSpacing: 0.1,
     color: paper.dashboardMuted,
     lineHeight: 10,
   },

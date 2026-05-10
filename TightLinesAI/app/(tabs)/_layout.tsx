@@ -1,25 +1,21 @@
 /**
- * Tab bar — FinFindr paper chrome.
+ * Tab bar — FinFindr field-edition chrome.
  *
- * Warm paper background, 1.5px ink top rule, uppercase DM Sans labels with
- * the FinFindr editorial letter-spacing, and a small forest underline rule
- * under the active tab so the active state reads without fighting the
- * Home / report / recommender screens above.
- *
- * Behavior-only pass: nothing about routing, protected routes, or tab
- * configuration changed — only styling + a thin wrapper around each icon
- * to render the active indicator.
+ * White card body sitting on the cream canvas, hairline ink rule on top,
+ * JetBrains Mono uppercase labels with wide letter-spacing, and a small
+ * navy underline rule under the active tab's icon. Matches the May 2026
+ * dashboard redesign — inactive tabs use the same dashboard muted gray,
+ * the active tab uses the dashboard navy ink, and there are no drop
+ * shadows or rounded chrome.
  */
 
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import { StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import {
-  paper,
-  paperFonts,
-  paperSpacing,
-} from '../../lib/theme';
+import { paper } from '../../lib/theme';
+
+const MONO_BOLD = 'JetBrainsMono_600SemiBold';
 
 function TabIcon({
   iconName,
@@ -36,31 +32,26 @@ function TabIcon({
     <View style={styles.tabIconWrap}>
       <Ionicons
         name={focused ? iconNameActive : iconName}
-        size={22}
+        size={20}
         color={color}
       />
-      <View
-        style={[
-          styles.activeRule,
-          focused && styles.activeRuleActive,
-        ]}
-      />
+      <View style={[styles.activeRule, focused && styles.activeRuleActive]} />
     </View>
   );
 }
 
-function TabLabel({ label, color, focused }: {
+function TabLabel({
+  label,
+  color,
+  focused,
+}: {
   label: string;
   color: string;
   focused: boolean;
 }) {
   return (
     <Text
-      style={[
-        styles.tabLabel,
-        { color },
-        focused && styles.tabLabelFocused,
-      ]}
+      style={[styles.tabLabel, { color }, focused && styles.tabLabelFocused]}
     >
       {label}
     </Text>
@@ -69,24 +60,19 @@ function TabLabel({ label, color, focused }: {
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
-  // 58px bar body + safe-area inset — a hair taller than the old 52 to give
-  // the FinFindr letter-spacing on labels room to breathe.
-  const tabBarHeight = 58 + insets.bottom;
+  const tabBarHeight = 60 + insets.bottom;
 
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
-        tabBarActiveTintColor: paper.forest,
-        tabBarInactiveTintColor: 'rgba(28,36,25,0.55)',
+        tabBarActiveTintColor: paper.dashboardInk,
+        tabBarInactiveTintColor: paper.dashboardMuted,
         tabBarStyle: [
           styles.tabBar,
           { height: tabBarHeight, paddingBottom: insets.bottom },
         ],
         tabBarItemStyle: styles.tabItem,
-        // Label handled manually via tabBarLabel so we control the
-        // Fraunces/DM Sans mix exactly the way the rest of the paper
-        // system does.
         tabBarShowLabel: true,
       }}
     >
@@ -147,11 +133,9 @@ export default function TabLayout() {
 
 const styles = StyleSheet.create({
   tabBar: {
-    backgroundColor: paper.paper,
-    borderTopColor: paper.ink,
-    borderTopWidth: 1.5,
-    // Paper system does not use drop shadows on the footer; it uses the
-    // ink rule to separate from content above.
+    backgroundColor: paper.dashboardWhite,
+    borderTopColor: paper.dashboardLine,
+    borderTopWidth: 1,
     elevation: 0,
     shadowOpacity: 0,
     paddingTop: 6,
@@ -164,26 +148,23 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     gap: 3,
   },
-  // Small forest-green rule shown under the active tab's icon. Inactive
-  // tabs render an invisible spacer of the same height so icons don't
-  // jump on focus change.
   activeRule: {
-    width: 22,
-    height: 2,
+    width: 18,
+    height: 1.5,
     borderRadius: 1,
     backgroundColor: 'transparent',
     marginTop: 2,
   },
   activeRuleActive: {
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardInk,
   },
   tabLabel: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
-    letterSpacing: 2.2,
-    marginTop: paperSpacing.xs - 2,
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 2,
+    marginTop: 2,
   },
   tabLabelFocused: {
-    color: paper.forest,
+    color: paper.dashboardInk,
   },
 });
