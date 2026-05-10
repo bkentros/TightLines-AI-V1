@@ -126,6 +126,14 @@ export default function HomeScreen() {
   const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
   const [forecastCoastalEligible, setForecastCoastalEligible] = useState<boolean | null>(null);
   const [forecastLoading, setForecastLoading] = useState(false);
+  /**
+   * 21-entry hi/lo arrays from the forecast snapshot. Index 14 is "today";
+   * indices 15–20 are tomorrow → 6 days out. We snapshot them on the
+   * forecast fetch so each forecast tile can render its own daily high/low
+   * without re-querying the env API per tile.
+   */
+  const [forecastHighs, setForecastHighs] = useState<number[] | null>(null);
+  const [forecastLows, setForecastLows] = useState<number[] | null>(null);
 
   // ── Active coordinates and label ──────────────────────────────────────────
   const coords = useMemo(() => {
@@ -281,11 +289,16 @@ export default function HomeScreen() {
       if (result) {
         setForecastDays(result.forecast);
         setForecastCoastalEligible(Boolean(result.snapshot_env?.coastal));
+        const w = result.snapshot_env?.weather;
+        setForecastHighs(w?.temp_7day_high ?? null);
+        setForecastLows(w?.temp_7day_low ?? null);
       }
     } catch {
       if (mySeq === forecastFetchSeq.current) {
         setForecastDays(null);
         setForecastCoastalEligible(null);
+        setForecastHighs(null);
+        setForecastLows(null);
       }
     } finally {
       if (mySeq === forecastFetchSeq.current) setForecastLoading(false);
@@ -355,6 +368,8 @@ export default function HomeScreen() {
       setShowLocationPicker(false);
       setForecastDays(null);
       setForecastCoastalEligible(null);
+      setForecastHighs(null);
+      setForecastLows(null);
       setCachedScore(null);
       setCachedMeanRaw(null);
       const units = profile?.preferred_units ?? 'imperial';
@@ -916,6 +931,12 @@ export default function HomeScreen() {
               const isFirst = i === 0;
               const dateNum = day.month_day?.split(/[ /-]/).pop() ?? '';
               const dayLabel = isFirst ? 'TOMORROW' : abbreviateDay(day.day_label);
+              // 21-entry hi/lo arrays: index 14 = today, so 14 + day_offset
+              // gives this forecast day's slot. Fallback to em-dashes when
+              // the forecast snapshot didn't carry the temperature arrays.
+              const tIdx = 14 + day.day_offset;
+              const tileHi = forecastHighs?.[tIdx];
+              const tileLo = forecastLows?.[tIdx];
               return (
                 <Pressable
                   key={day.date}
@@ -932,6 +953,13 @@ export default function HomeScreen() {
                   <View style={[styles.forecastTileScoreBlock, { backgroundColor: tileBg }]}>
                     <Text style={[styles.forecastTileScore, { color: paper.dashboardInk }]}>
                       {formatScoreDisplay(raw)}
+                    </Text>
+                  </View>
+                  <View style={styles.forecastTileHiLo}>
+                    <Text style={styles.forecastTileHiLoText} numberOfLines={1}>
+                      {tileHi != null ? `${Math.round(tileHi)}°` : '—'}
+                      <Text style={styles.forecastTileHiLoSep}>  /  </Text>
+                      {tileLo != null ? `${Math.round(tileLo)}°` : '—'}
                     </Text>
                   </View>
                 </Pressable>
@@ -1233,7 +1261,7 @@ function MistyPinesView() {
   return (
     <Image
       source={require('../../assets/images/misty-pines.png')}
-      style={{ width: 220, height: 132 }}
+      style={{ width: 280, height: 200 }}
       resizeMode="contain"
     />
   );
@@ -1542,9 +1570,9 @@ const styles = StyleSheet.create({
   },
   headlinePines: {
     position: 'absolute',
-    right: -16,
-    top: -8,
-    opacity: 0.9,
+    right: -36,
+    top: -36,
+    opacity: 0.95,
   },
 
   headlineReadRow: { flexDirection: 'row', alignItems: 'center', gap: 14 },
@@ -1822,8 +1850,23 @@ const styles = StyleSheet.create({
   forecastTileHead: { paddingVertical: 5, alignItems: 'center', borderBottomWidth: 1, borderColor: paper.dashboardHair },
   forecastTileDay: { fontFamily: MONO_BOLD, fontSize: 8.5, letterSpacing: 1.2, color: paper.dashboardMuted, lineHeight: 10 },
   forecastTileDate: { fontFamily: SERIF_SEMI, fontSize: 13, color: paper.dashboardInk, marginTop: 2, lineHeight: 14 },
-  forecastTileScoreBlock: { height: 38, justifyContent: 'center', alignItems: 'center' },
+  forecastTileScoreBlock: { height: 36, justifyContent: 'center', alignItems: 'center' },
   forecastTileScore: { fontFamily: SERIF_BOLD, fontSize: 16, lineHeight: 18, letterSpacing: -0.5 },
+  forecastTileHiLo: {
+    paddingVertical: 3,
+    alignItems: 'center',
+    backgroundColor: '#FAFAF7',
+    borderTopWidth: 1,
+    borderColor: paper.dashboardHair,
+  },
+  forecastTileHiLoText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8.5,
+    letterSpacing: 0.4,
+    color: paper.dashboardMuted,
+    lineHeight: 10,
+  },
+  forecastTileHiLoSep: { fontFamily: MONO, color: paper.dashboardMuted, opacity: 0.5 },
 
   forecastLegend: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 12, paddingHorizontal: 2 },
   forecastLegendItem: { flexDirection: 'row', alignItems: 'center', gap: 5 },
