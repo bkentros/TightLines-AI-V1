@@ -45,7 +45,7 @@ const FEATURES: { icon: keyof typeof Ionicons.glyphMap; title: string; desc: str
   {
     icon: 'fish-outline',
     title: 'The Tackle Box',
-    desc: 'Three lures and three flies, ranked for weather, tide where available, and the season you fish.',
+    desc: 'Two lures and two flies, ranked for weather, water, and the season you fish.',
   },
   {
     icon: 'scan-outline',
