@@ -43,7 +43,7 @@ import {
 } from 'react-native';
 import { SvgXml } from 'react-native-svg';
 import type { WaterReaderProductionSvgResult } from '../../lib/waterReaderContracts';
-import { paper, paperRadius } from '../../lib/theme';
+import { paper } from '../../lib/theme';
 import { paperifyWaterReaderSvg } from '../../lib/water-reader-paperify-svg';
 
 export interface WaterReaderProductionMapProps {
@@ -178,8 +178,8 @@ const styles = StyleSheet.create({
     width: '100%',
     maxWidth: '100%',
     overflow: 'hidden',
-    borderRadius: paperRadius.card - 2,
-    backgroundColor: paper.paper,
+    borderRadius: 6,
+    backgroundColor: '#F6F7F5',
   },
   fillParent: {
     width: '100%',

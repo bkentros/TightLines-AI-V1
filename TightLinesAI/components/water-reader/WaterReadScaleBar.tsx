@@ -204,25 +204,23 @@ const styles = StyleSheet.create({
   tickEnd: {
     width: 1.5,
     height: 9,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
   },
   tickMid: {
     width: 1.5,
     height: 5,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
     opacity: 0.7,
   },
   bar: {
     height: 1.5,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
   },
   label: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 9,
-    letterSpacing: 1.6,
-    color: paper.ink,
-    opacity: 0.78,
-    fontWeight: '700',
+    letterSpacing: 1.2,
+    color: paper.dashboardInk,
     lineHeight: 11,
   },
 });

@@ -32,10 +32,7 @@ import {
 import Svg, { ClipPath, Defs, G, Path, Rect } from 'react-native-svg';
 import {
   paper,
-  paperBorders,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 import {
@@ -77,7 +74,7 @@ interface WaterReaderLakeSkeletonProps {
 export function WaterReaderLakeSkeleton({
   geojson,
   aspectRatioOverride,
-  eyebrow = 'READING THE WATER…',
+  eyebrow = 'BUILDING WATER READ',
   legendBoneCount = 5,
 }: WaterReaderLakeSkeletonProps) {
   const [width, setWidth] = useState(0);
@@ -236,18 +233,18 @@ export function WaterReaderLakeSkeleton({
               <ClipPath id={clipId}>
                 <Path
                   d={silhouetteSubpath}
-                  fill={paper.ink}
+                  fill={paper.dashboardInk}
                   fillRule="evenodd"
                 />
               </ClipPath>
             </Defs>
             {/* Lake fill — paperLight so the silhouette reads as "negative
-                space" cut out of the warm card, with an ink hairline shore. */}
+                space" cut out of the scan surface, with an ink hairline shore. */}
             <Path
               d={silhouetteSubpath}
-              fill={paper.paperLight}
+              fill={paper.dashboardBlueSky}
               fillRule="evenodd"
-              stroke={paper.ink}
+              stroke={paper.dashboardInk}
               strokeWidth={1.4}
             />
             {/* Topographic pulse, clipped to the lake shape. The whole
@@ -262,7 +259,7 @@ export function WaterReaderLakeSkeleton({
                 y={0}
                 width={width}
                 height={height}
-                fill={paper.paperDark}
+                fill={paper.dashboardBlueSky}
                 opacity={0.18}
               />
               {contourPaths.map((d, idx) => (
@@ -270,7 +267,7 @@ export function WaterReaderLakeSkeleton({
                   key={idx}
                   d={d}
                   fill="none"
-                  stroke={paper.forestDk}
+                  stroke={paper.dashboardBlue}
                   strokeWidth={idx % 2 === 0 ? 1.05 : 0.7}
                   strokeLinecap="round"
                   opacity={idx % 2 === 0 ? 0.42 : 0.28}
@@ -314,11 +311,11 @@ export function WaterReaderLakeSkeleton({
 const styles = StyleSheet.create({
   root: {
     width: '100%',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     padding: paperSpacing.md,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     gap: paperSpacing.md,
   },
   eyebrowRow: {
@@ -330,21 +327,20 @@ const styles = StyleSheet.create({
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: paper.red,
+    backgroundColor: paper.dashboardBlue,
   },
   eyebrowText: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
-    letterSpacing: 2.6,
-    color: paper.ink,
-    fontWeight: '700',
+    letterSpacing: 1.6,
+    color: paper.dashboardInk,
   },
   mapFrame: {
     width: '100%',
-    backgroundColor: paper.paper,
+    backgroundColor: '#F6F7F5',
     borderWidth: 1,
-    borderColor: paper.inkHair,
-    borderRadius: paperRadius.card - 2,
+    borderColor: paper.dashboardLine,
+    borderRadius: 8,
     overflow: 'hidden',
     minHeight: 200,
     alignItems: 'center',
@@ -360,7 +356,7 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 3,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
   },
   legendBoneList: {
     width: '100%',
@@ -376,15 +372,15 @@ const styles = StyleSheet.create({
     width: 22,
     height: 22,
     borderRadius: 11,
-    borderWidth: 1.5,
-    borderColor: paper.inkHair,
-    backgroundColor: paper.paper,
+    borderWidth: 1,
+    borderColor: paper.dashboardHair,
+    backgroundColor: '#FAFAF7',
   },
   legendBoneSwatch: {
     width: 8,
     height: 14,
     borderRadius: 2,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
     opacity: 0.55,
   },
   legendBoneTextStack: {
@@ -394,13 +390,13 @@ const styles = StyleSheet.create({
   legendBoneTitle: {
     height: 10,
     width: '60%',
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
     borderRadius: 2,
     opacity: 0.5,
   },
   legendBoneSubtitle: {
     height: 8,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
     borderRadius: 2,
     opacity: 0.32,
   },

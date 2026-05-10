@@ -33,10 +33,17 @@ import {
   type PaperWarmFeatureKey,
 } from './waterReaderZonePaperPalette';
 
+const SCAN_LAND_FILL = '#F6F7F5';
+const SCAN_WATER_TOP = '#D9F1FB';
+const SCAN_WATER_MID = '#BFE4F3';
+const SCAN_WATER_BOTTOM = '#9FD2E7';
+
 // ── Engine SVG color constants (mirror rendering/svg.ts) ────────────────────
 const ENGINE_BACKDROP = '#F7FAFC';
 const ENGINE_WATER_FILL = '#CFE6F7';
 const ENGINE_WATER_STROKE = '#275D7F';
+const PAPER_V4_WATER_FILL = '#DCE7DD';
+const PAPER_V4_WATER_STROKE = '#1C2419';
 const ENGINE_TEXT = '#0F172A';
 const ENGINE_MUTED = '#475569';
 const ENGINE_CALLOUT_LEADER = '#334155';
@@ -73,21 +80,21 @@ const ENGINE_FEATURE_COLORS: Record<PaperWarmFeatureKey, string> = {
  * brightens the palette, add the previous values here.
  */
 const PRIOR_PAPER_WARM_VALUES: Record<PaperWarmFeatureKey, string[]> = {
-  main_lake_point: ['#2E4A2A', '#366D33'],
-  secondary_point: ['#5B7A3E', '#7C9D4F', '#8FB85B'],
-  cove: ['#B87818', '#C68522', '#D4922A'],
-  neck: ['#CC6A22', '#DD7430'],
-  island: ['#3A2E22', '#5A4030'],
-  saddle: ['#357A6F', '#3F8B80', '#4DAA9C'],
-  dam: ['#C8352C', '#D74033'],
-  structure_confluence: ['#7A3A52', '#8C3F60', '#A04970'],
-  universal: ['#E8A02E', '#F2AC34'],
+  main_lake_point: ['#2E4A2A', '#366D33', '#2A6E96'],
+  secondary_point: ['#5B7A3E', '#7C9D4F', '#8FB85B', '#7CB8DA'],
+  cove: ['#B87818', '#C68522', '#D4922A', '#3DA85F'],
+  neck: ['#CC6A22', '#DD7430', '#D4AF37'],
+  island: ['#3A2E22', '#5A4030', '#5E7FA3'],
+  saddle: ['#357A6F', '#3F8B80', '#4DAA9C', '#37A7A1'],
+  dam: ['#C8352C', '#D74033', '#7A8A99'],
+  structure_confluence: ['#7A3A52', '#8C3F60', '#A04970', '#8E78B8'],
+  universal: ['#E8A02E', '#F2AC34', '#E8C547'],
 };
 
 // Marker comment indicating this SVG was already paperified — guards against
 // double-running and against accidentally mutating an SVG that the server-side
 // renderer has already painted in paper colors.
-const PAPERIFIED_SENTINEL = '<!-- wr-paperified -->';
+const PAPERIFIED_SENTINEL = '<!-- wr-finfindr-scan-v4 -->';
 
 export interface WaterReaderPaperifyOptions {
   /**
@@ -134,6 +141,18 @@ export function paperifyWaterReaderSvg(
     changes += 1;
   };
 
+  const beforeCleanup = svg;
+  svg = svg
+    .replace(/<!-- wr-paperified -->\s*/g, '')
+    .replace(/<!-- wr-finfindr-scan-v[123] -->\s*/g, '')
+    .replace(/<rect[^>]*class="wr-scan-surface"[^>]*\/>\s*/g, '')
+    .replace(/<rect[^>]*class="wr-scan-grid"[^>]*\/>\s*/g, '')
+    .replace(/\s*<linearGradient id="wr-lake-gradient"[\s\S]*?<\/linearGradient>/g, '')
+    .replace(/\s*<filter id="wr-lake-depth"[\s\S]*?<\/filter>/g, '')
+    .replace(/\s*<filter id="wr-callout-pop"[\s\S]*?<\/filter>/g, '')
+    .replace(/\s*<pattern id="wr-scan-grid"[\s\S]*?<\/pattern>/g, '');
+  tally(beforeCleanup, svg);
+
   // 1) Strip the embedded "Map Key" legend group.
   if (opts.stripEmbeddedLegend) {
     const next = svg.replace(
@@ -165,17 +184,19 @@ export function paperifyWaterReaderSvg(
     tally(beforeCredit, svg);
   }
 
-  // 3) Backdrop rect — engine emits `<rect width="100%" height="100%" fill="#F7FAFC"/>`.
+  // 3) Backdrop rect — strip any engine/emitted full-canvas backdrop. Older
+  // cached rows may carry beige paper fills; the v5 scan surface is injected
+  // later as a clean off-white land plane.
   if (opts.stripBackdrop) {
     const before = svg;
     svg = svg.replace(
-      /<rect[^>]*width="100%"[^>]*height="100%"[^>]*fill="#F7FAFC"[^>]*\/>\s*/g,
+      /<rect[^>]*width="100%"[^>]*height="100%"[^>]*fill="(?:#F7FAFC|#F0E8D4|#F6F7F5)"[^>]*\/>\s*/gi,
       '',
     );
     tally(before, svg);
   } else {
     const before = svg;
-    svg = svg.replace(/fill="#F7FAFC"/g, `fill="${paper.paperLight}"`);
+    svg = svg.replace(/fill="#F7FAFC"/g, `fill="${paper.dashboardCream}"`);
     tally(before, svg);
   }
 
@@ -214,12 +235,7 @@ export function paperifyWaterReaderSvg(
       // The land plate sits BEHIND the lake — same z-order as the engine's
       // backdrop rect (which we already strip) — so any zone polygons
       // rendered later still paint on top of both.
-      // Island land color — desaturated olive ("vegetated land") instead of
-      // the previous tan paperDark so islands read clearly as a third
-      // surface, distinct from both the water (blue) and the surrounding
-      // cream paper. Cartographic convention: green = land, blue = water.
-      const ISLAND_LAND_FILL = '#A8B574';
-      const landPlate = `<path d="${outerRingD}" fill="${ISLAND_LAND_FILL}" stroke="none" class="wr-island-land" pointer-events="none"/>`;
+      const landPlate = `<path d="${outerRingD}" fill="${SCAN_LAND_FILL}" stroke="none" class="wr-island-land" pointer-events="none"/>`;
       // Don't double-inject under hot reload. Sentinel-check via the class.
       if (!svg.includes('class="wr-island-land"')) {
         svg = svg.replace(fullLakeTag, `${landPlate}\n  ${fullLakeTag}`);
@@ -228,13 +244,22 @@ export function paperifyWaterReaderSvg(
   }
 
   svg = svg.split(`fill="${ENGINE_WATER_FILL}"`).join(`fill="url(#wr-lake-gradient)"`);
-  svg = svg.split(`stroke="${ENGINE_WATER_STROKE}"`).join(`stroke="${paper.ink}"`);
+  svg = svg.split(`fill="${PAPER_V4_WATER_FILL}"`).join(`fill="url(#wr-lake-gradient)"`);
+  svg = svg.replace(
+    /<path([^>]*class="wr-island-land"[^>]*)>/g,
+    (match, attrs: string) => {
+      if (!match.includes('fill=')) return `<path${attrs} fill="${SCAN_LAND_FILL}">`;
+      return `<path${attrs.replace(/fill="[^"]*"/, `fill="${SCAN_LAND_FILL}"`)}>`;
+    },
+  );
+  svg = svg.split(`stroke="${ENGINE_WATER_STROKE}"`).join(`stroke="${paper.dashboardInk}"`);
+  svg = svg.split(`stroke="${PAPER_V4_WATER_STROKE}"`).join(`stroke="${paper.dashboardInk}"`);
   // Bump the lake stroke from 1.6 → 1.8 so both the outer shoreline AND
   // the island shorelines (which share the same stroke under the path's
   // single class) read as confident, hand-pressed lines.
   svg = svg.replace(
     /(class="water-reader-lake"[^>]*?stroke-width=)"[^"]*"/g,
-    `$1"1.8"`,
+    `$1"1.55"`,
   );
   // Apply the soft drop-shadow we inject into <defs> below. Single match —
   // the engine only emits one lake path — and skip if a filter is already
@@ -250,17 +275,17 @@ export function paperifyWaterReaderSvg(
   // 5) Callout leader stroke — recolor to ink and convert to a fine dashed
   //    line so the leader reads as hand-drawn rather than as a screen rule.
   const before5 = svg;
-  svg = svg.split(`stroke="${ENGINE_CALLOUT_LEADER}"`).join(`stroke="${paper.ink}"`);
+  svg = svg.split(`stroke="${ENGINE_CALLOUT_LEADER}"`).join(`stroke="${paper.dashboardInk}"`);
   // Soften the engine's slate leader opacity (0.58 → 0.5) and apply a tight
   // dash pattern. We also reduce stroke-width a touch since dashes carry the
   // line on their own — a thinner dashed leader feels finer than a thick one.
   svg = svg.replace(
     /(class="water-reader-label-leader"[^>]*?stroke-opacity=)"[^"]*"/g,
-    `$1"0.5"`,
+    `$1"0.42"`,
   );
   svg = svg.replace(
     /(class="water-reader-label-leader"[^>]*?stroke-width=)"[^"]*"/g,
-    `$1"0.85"`,
+    `$1"0.75"`,
   );
   // Inject stroke-dasharray once per leader — only if not already present
   // (idempotent under hot reload). The engine emits self-closing leader
@@ -271,9 +296,9 @@ export function paperifyWaterReaderSvg(
       if (attrs.includes('stroke-dasharray')) return match;
       if (/\s*\/$/.test(attrs)) {
         const nextAttrs = attrs.replace(/\s*\/$/, '');
-        return `<path class="water-reader-label-leader"${nextAttrs} stroke-dasharray="3 2.4"/>`;
+        return `<path class="water-reader-label-leader"${nextAttrs} stroke-dasharray="4 3"/>`;
       }
-      return `<path class="water-reader-label-leader"${attrs} stroke-dasharray="3 2.4">`;
+      return `<path class="water-reader-label-leader"${attrs} stroke-dasharray="4 3">`;
     },
   );
   tally(before5, svg);
@@ -287,7 +312,11 @@ export function paperifyWaterReaderSvg(
   // Callout ring: <circle ... fill="#FFFFFF" stroke="#0F172A" stroke-width="1.15"/>
   svg = svg.replace(
     /(<circle[^>]*?)fill="#FFFFFF"([^>]*?)stroke="#0F172A"/g,
-    `$1fill="${paper.paperLight}"$2stroke="${paper.ink}"`,
+    `$1fill="${paper.dashboardWhite}"$2stroke="${paper.dashboardInk}"`,
+  );
+  svg = svg.replace(
+    /(<circle[^>]*?)fill="#F8F1DD"([^>]*?)stroke="#1C2419"/g,
+    `$1fill="${paper.dashboardWhite}"$2stroke="${paper.dashboardInk}"`,
   );
   // Bump the callout ring radius from 7.5 → 8.6 so the Fraunces digit lands
   // with more breathing room and the ring carries more visual weight against
@@ -299,10 +328,11 @@ export function paperifyWaterReaderSvg(
   // Bump the ring stroke a hair so it reads at the new radius.
   svg = svg.replace(
     /(<circle[^>]*?stroke=")[^"]*("[^>]*?stroke-width=")[^"]*(")/g,
-    (_match, p1, p2, p3) => `${p1}${paper.ink}${p2}1.3${p3}`,
+    (_match, p1, p2, p3) => `${p1}${paper.dashboardInk}${p2}1.3${p3}`,
   );
   // Engine number text uses fill="${TEXT}" === ENGINE_TEXT ('#0F172A').
-  svg = svg.split(`fill="${ENGINE_TEXT}"`).join(`fill="${paper.ink}"`);
+  svg = svg.split(`fill="${ENGINE_TEXT}"`).join(`fill="${paper.dashboardInk}"`);
+  svg = svg.split(`fill="${PAPER_V4_WATER_STROKE}"`).join(`fill="${paper.dashboardInk}"`);
   // Bump callout digit font-size to match the larger ring (engine emits 12px
   // → step to 13.5). The engine emits attributes in the order
   //   x, y, font-family, font-size, font-weight, fill, text-anchor,
@@ -316,7 +346,10 @@ export function paperifyWaterReaderSvg(
   );
   // Muted secondary text (legend "Map Key" / footer / etc) — even if the
   // legend strip didn't catch every fragment, this normalizes the residue.
-  svg = svg.split(`fill="${ENGINE_MUTED}"`).join(`fill="${paper.ink}"`);
+  svg = svg.split(`fill="${ENGINE_MUTED}"`).join(`fill="${paper.dashboardMuted}"`);
+  svg = svg
+    .split(`fill="rgba(28,36,25,0.55)"`)
+    .join(`fill="${paper.dashboardMuted}"`);
   tally(before6, svg);
 
   // 7) Feature zone colors + opacity bumps.
@@ -328,9 +361,9 @@ export function paperifyWaterReaderSvg(
   //    new mint-gradient water, with cleaner-defined edges.
   //
   //    Bump strategy:
-  //      - Standalone zone fill-opacity: 0.42 → 0.62
-  //      - Confluence zone fill-opacity: 0.4  → 0.55
-  //      - Zone stroke-opacity:          0.16 → 0.3
+  //      - Standalone zone fill-opacity: 0.42 → 0.72
+  //      - Confluence zone fill-opacity: 0.4  → 0.66
+  //      - Zone stroke-opacity:          0.16 → 0.5
   //
   //    We scope confluence vs standalone via class match in the regex so
   //    the two fill-opacity values are bumped independently (engine emits
@@ -338,11 +371,11 @@ export function paperifyWaterReaderSvg(
   const before7opacity = svg;
   svg = svg.replace(
     /(class="water-reader-entry water-reader-standalone-zone"[^>]*?fill-opacity=)"[^"]*"/g,
-    `$1"0.62"`,
+    `$1"0.72"`,
   );
   svg = svg.replace(
     /(class="water-reader-entry water-reader-confluence"[^>]*?fill-opacity=)"[^"]*"/g,
-    `$1"0.55"`,
+    `$1"0.66"`,
   );
   // Also catch any inner member-paths inside a confluence <g> wrapper —
   // those are emitted as bare <path d="..." fill="..." fill-opacity="0.4"
@@ -350,12 +383,20 @@ export function paperifyWaterReaderSvg(
   // We can't easily scope by parent class via regex, but standalone zones
   // ship with a stable fill-opacity="0.42" and confluence members with
   // exactly "0.4" — so swapping by exact value is reliable.
-  svg = svg.replace(/fill-opacity="0\.42"/g, `fill-opacity="0.62"`);
-  svg = svg.replace(/fill-opacity="0\.4"/g, `fill-opacity="0.55"`);
+  svg = svg.replace(/fill-opacity="0\.42"/g, `fill-opacity="0.5"`);
+  svg = svg.replace(/fill-opacity="0\.4"/g, `fill-opacity="0.66"`);
+  svg = svg.replace(/fill-opacity="0\.5"/g, `fill-opacity="0.72"`);
+  svg = svg.replace(/fill-opacity="0\.46"/g, `fill-opacity="0.66"`);
   // Zone stroke-opacity: engine emits 0.16 (standalone) and 0.14
   // (confluence members). Both bump to 0.3 for cleaner defined edges.
-  svg = svg.replace(/stroke-opacity="0\.16"/g, `stroke-opacity="0.3"`);
-  svg = svg.replace(/stroke-opacity="0\.14"/g, `stroke-opacity="0.3"`);
+  svg = svg.replace(/stroke-opacity="0\.16"/g, `stroke-opacity="0.5"`);
+  svg = svg.replace(/stroke-opacity="0\.14"/g, `stroke-opacity="0.5"`);
+  svg = svg.replace(/stroke-opacity="0\.22"/g, `stroke-opacity="0.5"`);
+  svg = svg.replace(
+    /(<path[^>]*class="water-reader-entry[^"]*"[^>]*?stroke-width=)"[^"]*"/g,
+    `$1"1.1"`,
+  );
+  svg = svg.replace(/stroke-width="0\.6"/g, `stroke-width="1.0"`);
   tally(before7opacity, svg);
 
   // Feature zone colors — recolor every spec hex AND every prior paper-warm
@@ -387,14 +428,13 @@ export function paperifyWaterReaderSvg(
 
   // Default legend fallback color (#334155) → ink (mostly relevant if the
   // legend strip option is disabled in some debug context).
-  svg = svg.split(`fill="${ENGINE_LEGEND_DEFAULT}"`).join(`fill="${paper.ink}"`);
+  svg = svg.split(`fill="${ENGINE_LEGEND_DEFAULT}"`).join(`fill="${paper.dashboardInk}"`);
 
-  // 8) Font swap — the engine sets a system stack on every <text>. Drop in
-  //    Fraunces with the system stack as fallback so labels feel hand-set.
+  // 8) Font swap — use dashboard-native UI fonts for a product scan feel.
   const before8 = svg;
   svg = svg.replace(
     /font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"/g,
-    `font-family="Fraunces, -apple-system, BlinkMacSystemFont, 'Segoe UI', serif"`,
+    `font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif"`,
   );
   tally(before8, svg);
 
@@ -403,7 +443,7 @@ export function paperifyWaterReaderSvg(
   const before9 = svg;
   svg = svg.replace(
     /flood-color="#0F172A"/g,
-    `flood-color="${paper.ink}"`,
+    `flood-color="${paper.dashboardInk}"`,
   );
   tally(before9, svg);
 
@@ -423,7 +463,19 @@ export function paperifyWaterReaderSvg(
   }
   tally(before10, svg);
 
-  // 11) (intentionally empty — we used to bake an in-SVG "FINFINDR · WATER
+  // 11) Dashboard-scan surface detail. With the engine backdrop stripped,
+  // inject a barely-visible scan grid behind the lake so the export feels
+  // native to FinFindr without returning to a printed-map texture.
+  const before11 = svg;
+  if (!svg.includes('class="wr-scan-surface"')) {
+    svg = svg.replace(
+      /(<svg[^>]*>)/,
+      `$1\n  <rect class="wr-scan-surface" width="100%" height="100%" fill="${SCAN_LAND_FILL}"/>\n  <rect class="wr-scan-grid" width="100%" height="100%" fill="url(#wr-scan-grid)" opacity="0.18"/>`,
+    );
+  }
+  tally(before11, svg);
+
+  // 12) (intentionally empty — we used to bake an in-SVG "FINFINDR · WATER
   //     READ" watermark into the bottom of the viewBox, but it could be
   //     overlapped by lake polygons that extended into the engine's bottom
   //     padding. The brand is already carried prominently by the cartouche
@@ -472,22 +524,25 @@ export function paperifyWaterReaderSvg(
 function buildDecorationDefs(): string {
   return `
     <linearGradient id="wr-lake-gradient" x1="0" y1="0" x2="0" y2="1" gradientUnits="objectBoundingBox">
-      <stop offset="0%" stop-color="#D2E5EC"/>
-      <stop offset="55%" stop-color="#B0CCD4"/>
-      <stop offset="100%" stop-color="#90B5BD"/>
+      <stop offset="0%" stop-color="${SCAN_WATER_TOP}"/>
+      <stop offset="52%" stop-color="${SCAN_WATER_MID}"/>
+      <stop offset="100%" stop-color="${SCAN_WATER_BOTTOM}"/>
     </linearGradient>
     <filter id="wr-lake-depth" x="-6%" y="-6%" width="112%" height="112%">
-      <feDropShadow dx="0" dy="2.4" stdDeviation="2.6" flood-color="${paper.ink}" flood-opacity="0.22"/>
+      <feDropShadow dx="0" dy="2" stdDeviation="2.2" flood-color="${paper.dashboardInk}" flood-opacity="0.14"/>
     </filter>
     <filter id="wr-callout-pop" x="-30%" y="-30%" width="160%" height="160%">
       <feGaussianBlur in="SourceAlpha" stdDeviation="1.2"/>
       <feOffset dx="0" dy="0.8"/>
-      <feFlood flood-color="${paper.ink}" flood-opacity="0.28"/>
+      <feFlood flood-color="${paper.dashboardInk}" flood-opacity="0.18"/>
       <feComposite in2="SourceAlpha" operator="in"/>
       <feMerge>
         <feMergeNode/>
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
-    </filter>`;
+    </filter>
+    <pattern id="wr-scan-grid" width="28" height="28" patternUnits="userSpaceOnUse">
+      <path d="M 28 0 L 0 0 0 28" fill="none" stroke="${paper.dashboardBlue}" stroke-width="0.45" stroke-opacity="0.22"/>
+      <circle cx="0" cy="0" r="0.9" fill="${paper.dashboardBlue}" fill-opacity="0.2"/>
+    </pattern>`;
 }
-

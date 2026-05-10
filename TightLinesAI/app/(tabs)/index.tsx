@@ -1044,7 +1044,7 @@ export default function HomeScreen() {
             code="01"
             title="Water Read"
             tag="POLYGON"
-            desc="Polygon scan any lake for structure & hotspots"
+            desc="Most lakes: structure + potential hotspots"
             iconBg={['#E8F2FA', '#C8DFF2']}
             iconBorder="#0F63B0"
             iconColor="#0A4A87"
@@ -1364,7 +1364,7 @@ function ModuleRow({
           <Text style={styles.moduleTitle}>{title}</Text>
           <Text style={styles.moduleTag}>{tag}</Text>
         </View>
-        <Text style={styles.moduleDesc} numberOfLines={2}>{desc}</Text>
+        <Text style={styles.moduleDesc} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.9}>{desc}</Text>
       </View>
       <Ionicons name="arrow-up" size={16} color={paper.dashboardInk} style={{ transform: [{ rotate: '45deg' }] }} />
     </Pressable>

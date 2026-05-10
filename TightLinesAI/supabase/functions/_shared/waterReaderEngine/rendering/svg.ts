@@ -1,6 +1,6 @@
 import type { PointM, PolygonM, RingM, WaterReaderFeatureClass } from '../contracts.ts';
 import type { WaterReaderDisplayEntry, WaterReaderDisplayModel, WaterReaderDisplayZoneGeometry } from '../display-model.ts';
-import { pointInWaterOrBoundary } from '../features/validation.ts';
+import { distanceToRing, pointInRing, pointInWaterOrBoundary } from '../features/validation.ts';
 import { waterReaderLegendForbiddenPhraseHits } from '../legend.ts';
 import type { WaterReaderZonePlacementKind } from '../zones/types.ts';
 import { buildWaterReaderSvgTransform, format, svgPathForPolygon, svgPathForRing, svgPoint } from './transform.ts';
@@ -28,12 +28,12 @@ import type {
 // (see `app/_layout.tsx`). The system stack is kept as a fallback so
 // server-side / preview rendering on machines without Fraunces still
 // produces sensible SVG.
-const FONT = "Fraunces, -apple-system, BlinkMacSystemFont, 'Segoe UI', serif";
-const WATER_FILL = '#DCE7DD';        // muted sage-mint that reads as water on warm paper.
-const WATER_STROKE = '#1C2419';      // paper.ink — confident shore line.
-const BACKDROP = '#F0E8D4';          // paper.paperLight — backdrop matches the host card.
-const TEXT = '#1C2419';              // paper.ink for primary text inside the SVG.
-const MUTED = 'rgba(28,36,25,0.55)'; // paper.inkSoft — muted copy still reads on paper.
+const FONT = "Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif";
+const WATER_FILL = '#BFE4F3';
+const WATER_STROKE = '#0A1B2E';
+const BACKDROP = '#F6F7F5';
+const TEXT = '#0A1B2E';
+const MUTED = 'rgba(10,27,46,0.58)';
 const CONFLUENCE = '#7A3A52';        // muted magenta-walnut, paired with WATER_READER_FEATURE_COLORS.structure_confluence.
 const DEFAULT_LEGEND_COLOR = '#1C2419';
 const ZONE_FILL_OPACITY = '0.42';
@@ -631,7 +631,7 @@ function outsideCalloutPoint(
   const scored = candidates
     .map((point, candidateIndex) => {
       const labelBounds = circleBounds(point, CALLOUT_LABEL_RADIUS + 3);
-      const outsideLake = !pointInsideLakeSvg(point, lakePolygon, transform);
+      const outsideLake = labelClearsLakeExteriorSvg(point, CALLOUT_LABEL_RADIUS + 3, lakePolygon, transform);
       const avoidsLabels = placed.every((other) => !boundsOverlap(labelBounds, other));
       const avoidsZones = zoneBounds.every((other) => !boundsOverlap(labelBounds, padBounds(other, 2)));
       const leaderLengthPx = distancePx(point, anchor);
@@ -654,7 +654,11 @@ function outsideCalloutPoint(
       a.localScore - b.localScore ||
       a.candidateIndex - b.candidateIndex
     );
-  const best = scored[0];
+  const best =
+    scored.find((candidate) => candidate.outsideLake && candidate.avoidsLabels && candidate.avoidsZones) ??
+    scored.find((candidate) => candidate.outsideLake && candidate.avoidsLabels) ??
+    scored.find((candidate) => candidate.outsideLake) ??
+    scored[0];
   if (best) {
     return {
       point: best.point,
@@ -758,13 +762,20 @@ function padBounds(bounds: Bounds, pad: number): Bounds {
   return { minX: bounds.minX - pad, maxX: bounds.maxX + pad, minY: bounds.minY - pad, maxY: bounds.maxY + pad };
 }
 
-function pointInsideLakeSvg(point: PointM, lakePolygon: PolygonM | null, transform: WaterReaderSvgTransform): boolean {
+function labelClearsLakeExteriorSvg(
+  point: PointM,
+  radiusPx: number,
+  lakePolygon: PolygonM | null,
+  transform: WaterReaderSvgTransform,
+): boolean {
   if (!lakePolygon) return false;
   const world = {
     x: (point.x - transform.padding - transform.mapOffsetX) / transform.scale + transform.minX,
     y: transform.maxY - (point.y - transform.padding - transform.mapOffsetY) / transform.scale,
   };
-  return pointInWaterOrBoundary(world, lakePolygon, Math.max(0.5, 1 / Math.max(transform.scale, 0.001)));
+  if (pointInRing(world, lakePolygon.exterior)) return false;
+  const clearancePx = distanceToRing(world, lakePolygon.exterior) * transform.scale;
+  return clearancePx >= radiusPx;
 }
 
 function labelAnchor(entry: WaterReaderDisplayEntry, warnings: WaterReaderRenderWarning[]): WaterReaderLabelAnchor {

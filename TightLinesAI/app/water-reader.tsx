@@ -22,6 +22,7 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
+  Image,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -33,20 +34,16 @@ import {
   View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   paper,
-  paperBorders,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../lib/theme';
 import { fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
 import {
-  CornerMarkSet,
-  PaperBackground,
   SectionEyebrow,
   TopographicLines,
 } from '../components/paper';
@@ -62,6 +59,14 @@ import type {
 const SEARCH_DEBOUNCE_MS = 650;
 const SEARCH_MIN_CHARS = 3;
 const SEARCH_RESULT_LIMIT = 20;
+
+const SERIF_BOLD = 'Fraunces_700Bold';
+const SERIF_ITALIC = 'Fraunces_500Medium_Italic';
+const SERIF_SEMI = 'Fraunces_600SemiBold';
+const MONO = 'JetBrainsMono_500Medium';
+const MONO_BOLD = 'JetBrainsMono_600SemiBold';
+const SANS = 'Inter_400Regular';
+const SANS_MEDIUM = 'Inter_500Medium';
 
 const STATE_NAME_TO_CODE: Record<string, string> = {
   Alabama: 'AL', Alaska: 'AK', Arizona: 'AZ', Arkansas: 'AR',
@@ -164,14 +169,14 @@ interface SupportPillTone {
 function supportPillTone(status: WaterReaderPolygonSupportStatus): SupportPillTone {
   switch (status) {
     case 'supported':
-      return { bg: paper.forest, fg: paper.paper, border: paper.ink };
+      return { bg: paper.bandPrime, fg: paper.dashboardInk, border: 'rgba(0,0,0,0.18)' };
     case 'limited':
-      return { bg: paper.paperLight, fg: paper.goldDk, border: paper.goldDk };
+      return { bg: paper.bandFair, fg: paper.dashboardInk, border: 'rgba(0,0,0,0.18)' };
     case 'needs_review':
-      return { bg: paper.paperLight, fg: paper.rust, border: paper.rust };
+      return { bg: paper.bandPoor, fg: paper.dashboardInk, border: 'rgba(0,0,0,0.18)' };
     case 'not_supported':
     default:
-      return { bg: paper.paperLight, fg: paper.ink, border: paper.inkHair };
+      return { bg: '#ECECEC', fg: paper.dashboardMuted, border: paper.dashboardLine };
   }
 }
 
@@ -402,9 +407,9 @@ export default function WaterReaderScreen() {
   })();
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top']}>
-      <PaperBackground style={styles.pageBg}>
-        {/* ── Custom paper nav header (mirrors Recommender shell) ── */}
+    <View style={styles.root}>
+      <StatusBar style="light" />
+      <SafeAreaView style={styles.safeNav} edges={['top']}>
         <View style={styles.navHeader}>
           <Pressable
             style={({ pressed }) => [
@@ -415,19 +420,23 @@ export default function WaterReaderScreen() {
             hitSlop={12}
             accessibilityLabel="Back"
           >
-            <Ionicons name="chevron-back" size={14} color={paper.ink} />
-            <Text style={styles.navBackBtnText}>BACK</Text>
+            <Ionicons name="chevron-back" size={18} color="#FFFFFF" />
           </Pressable>
 
-          <View style={styles.navTitleWrap} pointerEvents="none">
-            <Text style={styles.navEyebrow}>FINFINDR</Text>
-            <View style={styles.navTitleRow}>
-              <Text style={styles.navTitle} numberOfLines={1}>
-                WATER READ
-              </Text>
-              <View style={styles.navBetaChip}>
-                <Text style={styles.navBetaChipText}>BETA</Text>
+          <View style={styles.navBrand}>
+            <Image
+              source={require('../assets/images/finfindr-logo.png')}
+              style={styles.navLogo}
+              resizeMode="contain"
+            />
+            <View style={styles.navTitleWrap} pointerEvents="none">
+              <View style={styles.navTitleRow}>
+                <Text style={styles.navTitle} numberOfLines={1}>
+                  Water Read
+                </Text>
+                <Text style={styles.navTitlePeriod}>.</Text>
               </View>
+              <Text style={styles.navEyebrow}>POLYGON SCAN</Text>
             </View>
           </View>
 
@@ -442,14 +451,27 @@ export default function WaterReaderScreen() {
                 hitSlop={8}
                 accessibilityLabel="Change state"
               >
-                <Ionicons name="location" size={10} color={paper.ink} />
+                <View style={styles.navStateDot} />
                 <Text style={styles.navStatePillText}>{stateCode}</Text>
+                <Ionicons name="chevron-down" size={11} color="#FFFFFF" style={{ opacity: 0.7 }} />
               </Pressable>
             ) : (
-              <View style={styles.navStateSpacer} />
+              <Pressable
+                style={({ pressed }) => [
+                  styles.navStatePill,
+                  pressed && styles.navStatePillPressed,
+                ]}
+                onPress={() => setStateModalOpen(true)}
+                hitSlop={8}
+                accessibilityLabel="Select state"
+              >
+                <Text style={styles.navStatePillText}>STATE</Text>
+                <Ionicons name="chevron-down" size={11} color="#FFFFFF" style={{ opacity: 0.7 }} />
+              </Pressable>
             )}
           </View>
         </View>
+      </SafeAreaView>
 
         <KeyboardAvoidingView
           style={styles.flex}
@@ -463,27 +485,32 @@ export default function WaterReaderScreen() {
           >
             {/* ── Hero ── */}
             <View style={styles.hero}>
-              <SectionEyebrow size={10} tracking={3.5}>
-                READ THE WATER
-              </SectionEyebrow>
-              <Text style={styles.heroHeadline} allowFontScaling={false}>
-                Find the structure{'\n'}
-                <Text style={styles.heroHeadlineAccent}>before you cast.</Text>
-              </Text>
-              <Text style={styles.heroSubline}>
-                Pull a public-domain hydrography polygon for any supported lake
-                and read its deterministic structure areas.
-              </Text>
+              <Text style={styles.heroEyebrow}>WATER READ  ·  POLYGON INTELLIGENCE</Text>
+              <View style={styles.heroHeadlineRow}>
+                <View style={styles.heroHeadlineText}>
+                  <Text style={styles.heroHeadline} allowFontScaling={false}>
+                    Map the structure{'\n'}
+                    <Text style={styles.heroHeadlineAccent}>before you cast.</Text>
+                  </Text>
+                  <Text style={styles.heroSubline}>
+                    Public hydrography outlines, structure zones, and seasonal notes for supported lakes.
+                  </Text>
+                </View>
+                <Image
+                  source={require('../assets/images/misty-pines.png')}
+                  style={styles.heroPines}
+                  resizeMode="contain"
+                />
+              </View>
             </View>
 
             {/* ── Search console card ── */}
             <View style={styles.searchCard}>
               <TopographicLines
                 style={StyleSheet.absoluteFill}
-                color={paper.forestDk}
+                color={paper.dashboardBlue}
                 count={4}
               />
-              <CornerMarkSet color={paper.red} inset={10} size={12} />
 
               <Text style={styles.searchCardEyebrow}>STEP 1 · STATE</Text>
               <Pressable
@@ -494,7 +521,7 @@ export default function WaterReaderScreen() {
                 onPress={() => setStateModalOpen(true)}
                 accessibilityLabel="Select U.S. state"
               >
-                <Ionicons name="location-outline" size={14} color={paper.ink} />
+                <Ionicons name="location-outline" size={14} color={paper.dashboardInk} />
                 <Text
                   style={[
                     styles.stateButtonText,
@@ -504,7 +531,7 @@ export default function WaterReaderScreen() {
                 >
                   {stateDisplayLabel(stateCode)}
                 </Text>
-                <Ionicons name="chevron-down" size={12} color={paper.ink} />
+                <Ionicons name="chevron-down" size={12} color={paper.dashboardInk} />
               </Pressable>
 
               {!stateCode && (
@@ -524,7 +551,7 @@ export default function WaterReaderScreen() {
                     STEP 2 · LAKE NAME
                   </Text>
                   <View style={styles.searchInputWrap}>
-                    <Ionicons name="search" size={14} color={paper.ink} />
+                    <Ionicons name="search" size={14} color={paper.dashboardInk} />
                     <TextInput
                       style={styles.searchInput}
                       placeholder={`Lakes in ${stateNameForCode(stateCode) ?? stateCode}…`}
@@ -550,7 +577,7 @@ export default function WaterReaderScreen() {
                         <Ionicons
                           name="close-circle"
                           size={16}
-                          color={paper.inkHair}
+                          color={paper.dashboardMuted}
                         />
                       </Pressable>
                     )}
@@ -614,7 +641,7 @@ export default function WaterReaderScreen() {
                     <View style={styles.dropdownLoadingRow}>
                       <ActivityIndicator
                         size="small"
-                        color={paper.forest}
+                        color={paper.dashboardBlue}
                       />
                       <Text style={styles.dropdownLoadingText}>
                         {searchExpanded
@@ -628,7 +655,7 @@ export default function WaterReaderScreen() {
                       <Ionicons
                         name="alert-circle"
                         size={14}
-                        color={paper.red}
+                        color={paper.dashboardBlue}
                       />
                       <Text style={styles.dropdownErrorText}>
                         {searchError}
@@ -640,7 +667,7 @@ export default function WaterReaderScreen() {
                       <Ionicons
                         name="cloud-offline-outline"
                         size={16}
-                        color={paper.ink}
+                        color={paper.dashboardMuted}
                       />
                       <Text style={styles.dropdownEmptyText}>
                         No matching lakes in {stateNameForEmpty}. Try another
@@ -735,30 +762,13 @@ export default function WaterReaderScreen() {
             {/* ── Map + legend ── */}
             {!selected ? (
               <View style={styles.idleCard}>
-                <CornerMarkSet color={paper.walnut} inset={10} size={12} />
-                <View style={styles.idleBadge}>
-                  <Ionicons
-                    name="scan-outline"
-                    size={20}
-                    color={paper.paper}
-                  />
-                </View>
-                <SectionEyebrow
-                  color={paper.red}
-                  size={10}
-                  tracking={3}
-                  align="left"
-                  dashes={false}
-                >
-                  POLYGON STRUCTURE READ
-                </SectionEyebrow>
                 <Text style={styles.idleHeadline}>
                   Choose a lake to see its read.
                 </Text>
                 <Text style={styles.idleBody}>
-                  Water Read pulls the actual hydrography outline and marks
-                  the structure areas — points, coves, necks, islands — that
-                  matter for the season. No GPS, no exact spots, no promises.
+                  Water Read pulls your lake&apos;s hydrography outline and
+                  highlights structure patterns: points, secondary points,
+                  coves, necks, islands, saddles, and confluences.
                 </Text>
               </View>
             ) : (
@@ -791,12 +801,11 @@ export default function WaterReaderScreen() {
             <View style={styles.guardrailCard}>
               <TopographicLines
                 style={StyleSheet.absoluteFill}
-                color={paper.walnut}
+                color={paper.dashboardBlue}
                 count={5}
               />
-              <CornerMarkSet color={paper.walnut} inset={10} size={12} />
               <SectionEyebrow
-                color={paper.red}
+                color={paper.dashboardBlue}
                 size={10}
                 tracking={3}
                 align="left"
@@ -805,13 +814,11 @@ export default function WaterReaderScreen() {
                 GUARDRAILS
               </SectionEyebrow>
               <Text style={styles.guardrailHeadline}>
-                Read it like a guide&apos;s scribble — not a treasure map.
+                Read it like a guide&apos;s scribble.
               </Text>
               <Text style={styles.guardrailBody}>
-                Zones are computed from polygon geometry alone. State and date
-                only shape the seasonal guidance in the legend. Water Read
-                does not use photos, depth, species, weather, your position,
-                or exact coordinates.
+                Zones come from polygon geometry only. They do not use photos,
+                depth, species, weather, your position, or exact coordinates.
               </Text>
             </View>
 
@@ -826,7 +833,6 @@ export default function WaterReaderScreen() {
             </View>
           </ScrollView>
         </KeyboardAvoidingView>
-      </PaperBackground>
 
       {/* ── State picker modal ── */}
       <Modal
@@ -835,11 +841,11 @@ export default function WaterReaderScreen() {
         presentationStyle="pageSheet"
         onRequestClose={() => setStateModalOpen(false)}
       >
-        <PaperBackground style={styles.modalRoot}>
+        <View style={styles.modalRoot}>
           <View style={styles.modalHeader}>
             <View style={styles.modalHeaderLeft}>
-              <Text style={styles.modalEyebrow}>FINFINDR</Text>
-              <Text style={styles.modalTitle}>CHOOSE A STATE</Text>
+              <Text style={styles.modalEyebrow}>WATER READ</Text>
+              <Text style={styles.modalTitle}>Choose a state</Text>
             </View>
             <Pressable
               onPress={() => setStateModalOpen(false)}
@@ -849,7 +855,7 @@ export default function WaterReaderScreen() {
               ]}
               hitSlop={8}
             >
-              <Text style={styles.modalDoneText}>DONE</Text>
+              <Ionicons name="close" size={16} color="#FFFFFF" />
             </Pressable>
           </View>
           <ScrollView contentContainerStyle={styles.modalListContent}>
@@ -889,9 +895,9 @@ export default function WaterReaderScreen() {
               );
             })}
           </ScrollView>
-        </PaperBackground>
+        </View>
       </Modal>
-    </SafeAreaView>
+    </View>
   );
 }
 
@@ -966,151 +972,151 @@ function CountyFilterChip({
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.paper },
-  pageBg: { flex: 1 },
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
+  safeNav: { backgroundColor: paper.dashboardInk },
   flex: { flex: 1 },
-  scroll: { flex: 1 },
+  scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   scrollContent: {
-    // Tighter horizontal padding (lg=24 → md=16) so the map plate gets
-    // 16 more pixels of width to render the SVG. Combined with the map
-    // card's tightened internal padding, the polygon reads visibly larger.
-    paddingHorizontal: paperSpacing.md,
-    paddingTop: paperSpacing.md,
-    paddingBottom: paperSpacing.xxl,
-    // Top-level vertical gap between major Water Reader sections (hero,
-    // search console, selected lake summary, map card, legend, guardrails).
-    // Tightened section → lg so the map sits closer to the rest of the
-    // page and feels like the visual hero rather than an isolated card.
-    gap: paperSpacing.lg,
+    paddingHorizontal: 20,
+    paddingTop: 22,
+    paddingBottom: 40,
+    gap: 22,
   },
 
-  // Custom paper nav header
   navHeader: {
+    height: 56,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm,
-    backgroundColor: paper.paper,
-    borderBottomWidth: 1,
-    borderBottomColor: paper.inkHairSoft,
+    paddingHorizontal: 16,
+    backgroundColor: paper.dashboardInk,
   },
   navBackBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: 'transparent',
-  },
-  navBackBtnPressed: { opacity: 0.7 },
-  navBackBtnText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    color: paper.ink,
-    letterSpacing: 2.2,
-    fontWeight: '700',
-  },
-  navTitleWrap: {
-    position: 'absolute',
-    left: 96,
-    right: 96,
-    top: paperSpacing.sm,
-    bottom: paperSpacing.sm,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
     alignItems: 'center',
     justifyContent: 'center',
   },
+  navBackBtnPressed: { opacity: 0.7 },
+  navBrand: {
+    position: 'absolute',
+    left: 58,
+    right: 118,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  navLogo: {
+    width: 34,
+    height: 38,
+  },
+  navTitleWrap: {
+    flex: 1,
+    minWidth: 0,
+  },
   navEyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 8.5,
-    color: paper.red,
-    letterSpacing: 2.6,
+    fontFamily: MONO_BOLD,
+    fontSize: 8,
+    color: 'rgba(255,255,255,0.62)',
+    letterSpacing: 1.6,
+    marginTop: -1,
   },
   navTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 14,
-    color: paper.ink,
-    letterSpacing: 0,
-    marginTop: 1,
-    fontWeight: '700',
+    fontFamily: SERIF_BOLD,
+    fontSize: 24,
+    color: '#FFFFFF',
+    letterSpacing: -0.4,
+    lineHeight: 26,
   },
   navTitleRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
+    alignItems: 'baseline',
+    minWidth: 0,
   },
-  navBetaChip: {
-    paddingHorizontal: 5,
-    paddingVertical: 1,
-    borderRadius: paperRadius.chip,
-    borderWidth: 1,
-    borderColor: paper.rust,
-    backgroundColor: paper.paperLight,
-    marginTop: 1,
-  },
-  navBetaChipText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 8,
-    letterSpacing: 1.4,
-    color: paper.rust,
-    fontWeight: '700',
-    lineHeight: 10,
+  navTitlePeriod: {
+    fontFamily: SERIF_BOLD,
+    fontSize: 24,
+    color: paper.dashboardBlueLight,
+    marginLeft: 1,
+    lineHeight: 26,
   },
   navRight: {
-    minWidth: 62,
     alignItems: 'flex-end',
+    marginLeft: 'auto',
   },
-  navStateSpacer: { width: 62, height: 1 },
   navStatePill: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
-    paddingHorizontal: 9,
+    gap: 6,
+    paddingHorizontal: 10,
     paddingVertical: 5,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
+    borderRadius: 18,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
   },
   navStatePillPressed: { opacity: 0.7 },
+  navStateDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: paper.bandPrime,
+  },
   navStatePillText: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: MONO_BOLD,
     fontSize: 10,
-    color: paper.ink,
-    letterSpacing: 1.6,
-    fontWeight: '700',
+    color: '#FFFFFF',
+    letterSpacing: 1.2,
   },
 
-  // Hero
   hero: {
-    alignItems: 'center',
-    paddingTop: paperSpacing.sm,
-    gap: 10,
+    marginBottom: 2,
+  },
+  heroEyebrow: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 2.1,
+    color: '#444444',
+    marginBottom: 10,
+  },
+  heroHeadlineRow: {
+    minHeight: 120,
+    justifyContent: 'center',
+  },
+  heroHeadlineText: {
+    maxWidth: 270,
+    zIndex: 1,
   },
   heroHeadline: {
-    fontFamily: paperFonts.display,
-    fontSize: 32,
-    lineHeight: 36,
-    fontWeight: '700',
-    letterSpacing: 0,
-    color: paper.ink,
-    textAlign: 'center',
+    fontFamily: SERIF_BOLD,
+    fontSize: 36,
+    lineHeight: 38,
+    letterSpacing: -0.6,
+    color: paper.dashboardInk,
   },
   heroHeadlineAccent: {
-    color: paper.forest,
+    fontFamily: SERIF_ITALIC,
+    fontStyle: 'italic',
+    color: paper.dashboardBlue,
   },
   heroSubline: {
-    fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
-    fontSize: 14,
-    lineHeight: 20,
-    color: paper.ink,
-    opacity: 0.72,
-    textAlign: 'center',
-    maxWidth: 320,
+    marginTop: 8,
+    fontFamily: SANS_MEDIUM,
+    fontSize: 12,
+    lineHeight: 17,
+    color: '#555555',
+  },
+  heroPines: {
+    position: 'absolute',
+    right: -48,
+    top: -44,
+    width: 260,
+    height: 190,
+    opacity: 0.9,
   },
 
   // Search card. Slimmed in Pass-3 so the map plate below it dominates
@@ -1120,21 +1126,18 @@ const styles = StyleSheet.create({
   // left corner mark (red ▾) — those two were visually colliding.
   searchCard: {
     overflow: 'hidden',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    paddingHorizontal: paperSpacing.md,
-    paddingTop: paperSpacing.sm + 2,
-    paddingBottom: paperSpacing.md + 2,
-    ...paperBorders.card,
-    ...paperShadows.hard,
-    gap: paperSpacing.xs + 2,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    gap: 8,
   },
   searchCardEyebrow: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: MONO_BOLD,
     fontSize: 9,
-    letterSpacing: 2.4,
-    color: paper.red,
-    fontWeight: '700',
+    letterSpacing: 1.7,
+    color: paper.dashboardBlue,
   },
   searchCardEyebrowStep: {
     marginTop: paperSpacing.xs + 2,
@@ -1144,32 +1147,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: paperSpacing.sm,
     minHeight: 36,
-    paddingHorizontal: paperSpacing.sm + 2,
-    paddingVertical: paperSpacing.xs + 2,
-    borderRadius: paperRadius.chip,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    backgroundColor: paper.paper,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#FAFAF7',
   },
   stateButtonPressed: { transform: [{ translateY: 1 }] },
   stateButtonText: {
     flex: 1,
     minWidth: 0,
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 13,
-    color: paper.ink,
-    letterSpacing: 1.6,
-    fontWeight: '700',
+    fontFamily: MONO_BOLD,
+    fontSize: 11,
+    color: paper.dashboardInk,
+    letterSpacing: 1.2,
   },
   stateButtonTextEmpty: {
     opacity: 0.55,
   },
   searchHint: {
-    fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
-    fontSize: 12.5,
-    color: paper.ink,
-    opacity: 0.6,
+    fontFamily: SANS_MEDIUM,
+    fontSize: 12,
+    color: '#555555',
     lineHeight: 17,
   },
   searchInputWrap: {
@@ -1177,79 +1177,73 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: paperSpacing.sm,
     minHeight: 36,
-    paddingHorizontal: paperSpacing.sm + 2,
-    paddingVertical: paperSpacing.xs + 2,
-    borderRadius: paperRadius.chip,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    backgroundColor: paper.paper,
+    paddingHorizontal: 12,
+    paddingVertical: 8,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#FAFAF7',
   },
   searchInput: {
     flex: 1,
     minWidth: 0,
-    fontFamily: paperFonts.bodyMedium,
+    fontFamily: SANS_MEDIUM,
     fontSize: 14.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     paddingVertical: 0,
   },
   clearBtn: { padding: 2 },
 
   // Inline selected row
   selectedRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    alignItems: 'center',
     gap: paperSpacing.sm,
     marginTop: paperSpacing.sm + 2,
-    paddingTop: paperSpacing.sm + 2,
+    paddingTop: 12,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: paper.inkHair,
-    flexWrap: 'wrap',
+    borderTopColor: paper.dashboardLine,
   },
-  selectedTextStack: { flex: 1, minWidth: 0, gap: 3 },
+  selectedTextStack: { width: '100%', gap: 3, alignItems: 'center' },
   selectedTitle: {
-    fontFamily: paperFonts.display,
+    fontFamily: SERIF_SEMI,
     fontSize: 16,
-    fontWeight: '700',
-    color: paper.ink,
-    letterSpacing: 0,
+    color: paper.dashboardInk,
+    textAlign: 'center',
   },
   selectedContext: {
-    fontFamily: paperFonts.body,
+    fontFamily: SANS_MEDIUM,
     fontSize: 12,
-    color: paper.ink,
-    opacity: 0.7,
+    color: '#555555',
     lineHeight: 16,
+    textAlign: 'center',
   },
   selectedActions: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'center',
     gap: 6,
-    // Bumped marginTop 4 → 8 so the CHANGE LAKE / CHANGE STATE row sits
-    // a noticeable beat below the context line and well above the
-    // bottom-left corner mark of the search card. The earlier 4px gap
-    // was reading as "stuck onto the corner mark" on small phones.
-    marginTop: 8,
+    width: '100%',
+    marginTop: 10,
     flexWrap: 'wrap',
   },
   linkBtn: { paddingVertical: 2 },
   linkBtnPressed: { opacity: 0.6 },
   linkBtnText: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: MONO_BOLD,
     fontSize: 10,
-    letterSpacing: 1.8,
-    color: paper.forest,
-    fontWeight: '700',
+    letterSpacing: 1.4,
+    color: paper.dashboardBlue,
     lineHeight: 13,
   },
-  linkSep: { color: paper.inkHair, fontSize: 11 },
+  linkSep: { color: paper.dashboardMuted, fontSize: 11 },
 
   // Dropdown
   dropdown: {
     marginTop: paperSpacing.sm + 2,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    backgroundColor: paper.paper,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
     overflow: 'hidden',
   },
   dropdownLoadingRow: {
@@ -1261,11 +1255,10 @@ const styles = StyleSheet.create({
   },
   dropdownLoadingText: {
     flexShrink: 1,
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: MONO_BOLD,
     fontSize: 10,
-    letterSpacing: 2.2,
-    color: paper.ink,
-    opacity: 0.7,
+    letterSpacing: 1.5,
+    color: paper.dashboardMuted,
     lineHeight: 14,
   },
   dropdownErrorRow: {
@@ -1274,15 +1267,15 @@ const styles = StyleSheet.create({
     gap: paperSpacing.sm,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md,
-    backgroundColor: paper.paperLight,
+    backgroundColor: '#FAFAF7',
   },
   dropdownErrorText: {
     flex: 1,
     minWidth: 0,
-    fontFamily: paperFonts.body,
+    fontFamily: SANS,
     fontSize: 12.5,
     lineHeight: 17,
-    color: paper.red,
+    color: paper.dashboardBlue,
   },
   dropdownEmptyRow: {
     flexDirection: 'row',
@@ -1294,16 +1287,15 @@ const styles = StyleSheet.create({
   dropdownEmptyText: {
     flex: 1,
     minWidth: 0,
-    fontFamily: paperFonts.body,
+    fontFamily: SANS,
     fontSize: 12.5,
     lineHeight: 17,
-    color: paper.ink,
-    opacity: 0.7,
+    color: '#555555',
   },
   countyFilterWrap: {
     borderBottomWidth: StyleSheet.hairlineWidth,
-    borderBottomColor: paper.inkHair,
-    backgroundColor: paper.paperLight,
+    borderBottomColor: paper.dashboardHair,
+    backgroundColor: '#FAFAF7',
   },
   countyFilterContent: {
     gap: paperSpacing.xs,
@@ -1314,28 +1306,27 @@ const styles = StyleSheet.create({
     maxWidth: 138,
     paddingHorizontal: 9,
     paddingVertical: 5,
-    borderRadius: paperRadius.chip,
-    borderWidth: 1.2,
-    borderColor: paper.inkHair,
-    backgroundColor: paper.paper,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
   },
   countyFilterChipActive: {
-    borderColor: paper.ink,
-    backgroundColor: paper.forest,
+    borderColor: 'rgba(42,110,150,0.45)',
+    backgroundColor: paper.dashboardBlueSky,
   },
   countyFilterChipPressed: {
     opacity: 0.75,
   },
   countyFilterChipText: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: MONO_BOLD,
     fontSize: 8.5,
     lineHeight: 11,
-    letterSpacing: 1.3,
-    color: paper.ink,
-    fontWeight: '700',
+    letterSpacing: 1.1,
+    color: paper.dashboardInk,
   },
   countyFilterChipTextActive: {
-    color: paper.paper,
+    color: paper.dashboardInk,
   },
   dropdownList: { maxHeight: 430 },
   dropdownListContent: {
@@ -1347,44 +1338,40 @@ const styles = StyleSheet.create({
     gap: paperSpacing.sm,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.sm + 2,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
   },
   resultRowDivider: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: paper.inkHair,
+    borderTopColor: paper.dashboardHair,
   },
   resultRowDisabled: { opacity: 0.5 },
-  resultRowPressed: { backgroundColor: paper.paperLight },
+  resultRowPressed: { backgroundColor: '#FAFAF7' },
   resultRowMain: { flex: 1, minWidth: 0, gap: 3 },
   resultPrimary: {
-    fontFamily: paperFonts.display,
+    fontFamily: SERIF_SEMI,
     fontSize: 14.5,
-    color: paper.ink,
-    fontWeight: '700',
-    letterSpacing: 0,
+    color: paper.dashboardInk,
     lineHeight: 18,
   },
   resultSecondary: {
-    fontFamily: paperFonts.metaMono,
+    fontFamily: MONO,
     fontSize: 10.5,
     letterSpacing: 0.6,
-    color: paper.ink,
-    opacity: 0.62,
+    color: paper.dashboardMuted,
     lineHeight: 14,
   },
   resultAmbiguity: {
-    fontFamily: paperFonts.bodyMedium,
+    fontFamily: SANS_MEDIUM,
     fontSize: 11,
     lineHeight: 14,
     color: paper.goldDk,
     marginTop: 2,
   },
   resultBlocked: {
-    fontFamily: paperFonts.body,
+    fontFamily: SANS,
     fontSize: 11,
     lineHeight: 14,
-    color: paper.ink,
-    opacity: 0.55,
+    color: paper.dashboardMuted,
     marginTop: 2,
   },
 
@@ -1392,8 +1379,8 @@ const styles = StyleSheet.create({
   supportPill: {
     paddingHorizontal: 8,
     paddingVertical: 4,
-    borderRadius: paperRadius.chip,
-    borderWidth: 1.5,
+    borderRadius: 6,
+    borderWidth: 1,
     alignSelf: 'flex-start',
     flexShrink: 0,
     maxWidth: 142,
@@ -1404,10 +1391,9 @@ const styles = StyleSheet.create({
     maxWidth: 118,
   },
   supportPillText: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: MONO_BOLD,
     fontSize: 9,
-    letterSpacing: 1.5,
-    fontWeight: '700',
+    letterSpacing: 1.2,
     textAlign: 'center',
     lineHeight: 12,
   },
@@ -1418,76 +1404,56 @@ const styles = StyleSheet.create({
 
   // Idle state card (no lake selected)
   idleCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    padding: paperSpacing.lg,
-    ...paperBorders.card,
-    ...paperShadows.hard,
-    gap: paperSpacing.sm,
-  },
-  idleBadge: {
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: paper.walnut,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    alignItems: 'center',
-    justifyContent: 'center',
-    ...paperShadows.hard,
-    marginBottom: paperSpacing.xs,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    gap: 8,
   },
   idleHeadline: {
-    fontFamily: paperFonts.display,
+    fontFamily: SERIF_SEMI,
     fontSize: 20,
     lineHeight: 24,
-    fontWeight: '700',
-    letterSpacing: 0,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   idleBody: {
-    fontFamily: paperFonts.body,
+    fontFamily: SANS_MEDIUM,
     fontSize: 13,
     lineHeight: 19,
-    color: paper.ink,
-    opacity: 0.78,
+    color: '#555555',
   },
 
   // Limited / review notes under the map
   limitedNotesStack: { gap: paperSpacing.xs },
   limitedNote: {
-    fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
+    fontFamily: SANS_MEDIUM,
     fontSize: 12,
     lineHeight: 17,
-    color: paper.ink,
-    opacity: 0.7,
+    color: '#555555',
   },
 
   // Guardrails card
   guardrailCard: {
     overflow: 'hidden',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    padding: paperSpacing.lg,
-    ...paperBorders.card,
-    ...paperShadows.hard,
-    gap: paperSpacing.sm,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    gap: 10,
   },
   guardrailHeadline: {
-    fontFamily: paperFonts.display,
+    fontFamily: SERIF_SEMI,
     fontSize: 18,
     lineHeight: 22,
-    color: paper.ink,
-    fontWeight: '700',
-    letterSpacing: 0,
+    color: paper.dashboardInk,
   },
   guardrailBody: {
-    fontFamily: paperFonts.body,
+    fontFamily: SANS_MEDIUM,
     fontSize: 12.5,
     lineHeight: 18,
-    color: paper.ink,
-    opacity: 0.78,
+    color: '#555555',
   },
 
   // Footer
@@ -1498,110 +1464,102 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     gap: paperSpacing.sm,
     paddingTop: paperSpacing.md,
-    borderTopWidth: 1.5,
-    borderTopColor: paper.ink,
+    borderTopWidth: 1,
+    borderTopColor: paper.dashboardLine,
   },
   footerLeft: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.5,
-    color: paper.ink,
-    opacity: 0.55,
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1.5,
+    color: paper.dashboardMuted,
   },
   footerRight: {
     flexShrink: 1,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    letterSpacing: 2,
-    color: paper.ink,
-    opacity: 0.55,
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1.3,
+    color: paper.dashboardMuted,
     textAlign: 'right',
     lineHeight: 14,
   },
 
   // State picker modal
-  modalRoot: { flex: 1 },
+  modalRoot: { flex: 1, backgroundColor: paper.dashboardCream },
   modalHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.md,
-    paddingBottom: paperSpacing.md,
-    borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
-    backgroundColor: paper.paper,
+    paddingHorizontal: 20,
+    paddingTop: 18,
+    paddingBottom: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.16)',
+    backgroundColor: paper.dashboardInk,
   },
   modalHeaderLeft: { flex: 1, minWidth: 0, gap: 1 },
   modalEyebrow: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: MONO_BOLD,
     fontSize: 9,
-    letterSpacing: 2.6,
-    color: paper.red,
-    fontWeight: '700',
+    letterSpacing: 1.8,
+    color: 'rgba(255,255,255,0.62)',
   },
   modalTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 22,
-    color: paper.ink,
-    letterSpacing: 0,
-    fontWeight: '700',
+    fontFamily: SERIF_BOLD,
+    fontSize: 26,
+    color: '#FFFFFF',
+    letterSpacing: -0.4,
+    lineHeight: 30,
   },
   modalDoneBtn: {
-    paddingHorizontal: 12,
-    paddingVertical: 7,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.forest,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   modalDoneBtnPressed: { opacity: 0.85 },
-  modalDoneText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    letterSpacing: 2,
-    color: paper.paper,
-    fontWeight: '700',
-  },
   modalListContent: {
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.sm,
-    paddingBottom: paperSpacing.xxl,
+    paddingHorizontal: 20,
+    paddingTop: 14,
+    paddingBottom: 44,
   },
   modalRow: {
-    minHeight: 50,
+    minHeight: 52,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm + 2,
-    borderRadius: paperRadius.card,
-    marginBottom: 2,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    borderRadius: 8,
+    marginBottom: 6,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
   modalRowActive: {
-    backgroundColor: paper.paperLight,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: '#E8F2FA',
+    borderColor: 'rgba(42,110,150,0.45)',
   },
   modalRowPressed: {
-    backgroundColor: paper.paperLight,
+    opacity: 0.82,
   },
   modalRowName: {
     flex: 1,
     minWidth: 0,
-    fontFamily: paperFonts.display,
+    fontFamily: SERIF_SEMI,
     fontSize: 16,
-    color: paper.ink,
-    letterSpacing: 0,
+    color: paper.dashboardInk,
   },
-  modalRowNameActive: { fontWeight: '700' },
+  modalRowNameActive: { color: paper.dashboardInk },
   modalRowCode: {
-    fontFamily: paperFonts.metaMonoBold,
+    fontFamily: MONO_BOLD,
     fontSize: 11,
-    letterSpacing: 1.4,
-    color: paper.ink,
-    opacity: 0.6,
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
     marginLeft: paperSpacing.md,
   },
-  modalRowCodeActive: { color: paper.forest, opacity: 1 },
+  modalRowCodeActive: { color: paper.dashboardInk },
 });

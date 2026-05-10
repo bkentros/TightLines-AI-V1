@@ -37,18 +37,18 @@ const paperifiedLeaderFixture = paperifyWaterReaderSvg(leaderPaperifyFixture).sv
 assert(requestShape.lakeId.length > 0, 'read request contract should include lakeId');
 assert(responseShape.feature === 'water_reader_read_v1', 'read response feature marker should be stable');
 assert(!paperifiedLeaderFixture.includes('round"/ stroke-dasharray'), 'paperifier should not insert leader dash attributes after a self-closing slash');
-assert(paperifiedLeaderFixture.includes('stroke-linecap="round" stroke-dasharray="3 2.4"/>'), 'paperifier should insert leader dash attributes before the self-closing slash');
+assert(paperifiedLeaderFixture.includes('stroke-linecap="round" stroke-dasharray="4 3"/>'), 'paperifier should insert leader dash attributes before the self-closing slash');
 assert(clientSource.includes('export async function fetchWaterReaderRead'), 'fetchWaterReaderRead should be exported');
 assert(clientSource.includes('invokeEdgeFunction<WaterReaderReadResponse>("water-reader-read"'), 'client should call water-reader-read edge function');
 assert(contractSource.includes('export interface WaterReaderReadResponse'), 'app read response contract should exist');
 assert(contractSource.includes('legendEntries: WaterReaderProductionSvgLegendEntry[]'), 'app SVG contract should expose native legend entries');
-// v4 marks the FinFindr paper redesign of the renderer (paper-warm zone
-// palette, dropped in-SVG legend + footer, Fraunces font stack). Bumping
-// the constant intentionally invalidates the v3 cache. If the renderer or
-// palette change again, bump this string and the constants in the engine
-// contracts + cache builder in the same change.
-assert(serverContractsSource.includes('water-reader-engine-v4-paper-redesign'), 'server read contract should use the v4 paper-redesign cache version');
-assert(cacheBuilderSource.includes('water-reader-engine-v4-paper-redesign'), 'cache builder should use the v4 paper-redesign cache version');
+// v5 marks the dashboard-native renderer (off-white land, blue water,
+// high-signal zones, and outside-perimeter callout labels). Bumping the
+// constant intentionally invalidates the v4 paper/beige cache. If the
+// renderer or palette changes again, bump this string and the constants in
+// the engine contracts + cache builder in the same change.
+assert(serverContractsSource.includes('water-reader-engine-v5-dashboard-map'), 'server read contract should use the v5 dashboard-map cache version');
+assert(cacheBuilderSource.includes('water-reader-engine-v5-dashboard-map'), 'cache builder should use the v5 dashboard-map cache version');
 const oldEngineVersionNeedle = ['water-reader-engine', 'v1'].join('-');
 assert(!serverContractsSource.includes(oldEngineVersionNeedle), 'server read contract should not use v1 cache version');
 assert(!cacheBuilderSource.includes(oldEngineVersionNeedle), 'cache builder should not use v1 cache version');

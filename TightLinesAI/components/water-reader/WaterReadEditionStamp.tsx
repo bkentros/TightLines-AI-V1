@@ -1,62 +1,72 @@
 /**
- * WaterReadEditionStamp — small FinFindr publication mark for the
- * top-right corner of the map plate.
- *
- * The earlier circular rubber-stamp design was too visually loud (the
- * circle competed with the lake) and at smaller diameters the rotated
- * text bled past the ring border. We now render the FinFindr wordmark
- * with a red period, plus a tiny tracked "NO. {edition}" line beneath
- * — same publication-mark voice, far less footprint, and no chance of
- * the corner element overlapping the lake polygon.
+ * WaterReadEditionStamp — small FinFindr product mark for the map plate.
  */
 
-import { StyleSheet, Text, View } from 'react-native';
+import { Image, StyleSheet, Text, View } from 'react-native';
 import { paper, paperFonts } from '../../lib/theme';
 
-export interface WaterReadEditionStampProps {
-  edition: string;
-}
-
-export function WaterReadEditionStamp({ edition }: WaterReadEditionStampProps) {
+export function WaterReadEditionStamp() {
   return (
     <View
       style={styles.root}
       pointerEvents="none"
       accessibilityElementsHidden
     >
-      <Text style={styles.wordmark} numberOfLines={1}>
-        FinFindr<Text style={styles.wordmarkDot}>.</Text>
-      </Text>
-      <Text style={styles.edition} numberOfLines={1}>
-        NO. {edition}
-      </Text>
+      <Image
+        source={require('../../assets/images/finfindr-logo.png')}
+        style={styles.logo}
+        resizeMode="contain"
+      />
+      <View style={styles.typeStack}>
+        <Text style={styles.wordmark} numberOfLines={1}>
+          FinFindr<Text style={styles.wordmarkDot}>.</Text>
+        </Text>
+        <Text style={styles.edition} numberOfLines={1}>
+          WATER READ
+        </Text>
+      </View>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
   root: {
-    alignItems: 'flex-end',
-    gap: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 7,
+    paddingVertical: 5,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(10, 27, 46, 0.08)',
+    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+  },
+  logo: {
+    width: 24,
+    height: 28,
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 7,
+  },
+  typeStack: {
+    alignItems: 'flex-start',
+    gap: 0,
   },
   wordmark: {
     fontFamily: paperFonts.display,
-    fontSize: 14,
+    fontSize: 13,
     fontWeight: '800',
-    letterSpacing: -0.4,
-    color: paper.ink,
-    lineHeight: 16,
+    letterSpacing: 0,
+    color: paper.dashboardInk,
+    lineHeight: 15,
   },
   wordmarkDot: {
-    color: paper.red,
+    color: paper.dashboardBlue,
   },
   edition: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 8,
-    letterSpacing: 1.6,
-    color: paper.ink,
-    opacity: 0.55,
-    fontWeight: '700',
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
     lineHeight: 10,
   },
 });

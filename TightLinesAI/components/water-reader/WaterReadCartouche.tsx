@@ -1,17 +1,5 @@
 /**
- * WaterReadCartouche — masthead title block above the Water Read map plate.
- *
- * Replaces the prior compact "headerCard" with an editorial cartouche: red
- * eyebrow + edition stamp on the top row, lake name in display Fraunces,
- * a tracked masthead subline of geography / acreage / season, then a
- * thick-then-thin rule pair sandwiching the block so it reads as the top
- * of a printed plate rather than a UI card header.
- *
- * The component handles all three lifecycle states (idle / reading / ready)
- * so the lake name and status pill stay anchored across the read transition.
- * Engine data (state, county, acres, season) is opportunistic — when present
- * it composes the full masthead subline; when absent we fall back to the
- * `contextLine` the parent computed from the search row.
+ * WaterReadCartouche — lake identity block above the Water Read map.
  */
 
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
@@ -19,8 +7,6 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 
@@ -33,8 +19,6 @@ export interface WaterReadCartoucheProps {
   county?: string | null;
   acres?: number | null;
   season?: string | null;
-  /** Edition stamp string (mirrored in the bottom colophon). */
-  edition: string;
   status: 'idle' | 'reading' | 'ready';
   /** True after ~850ms of reading — flips the status pill from OPENING to BUILDING MAP. */
   readingSlow?: boolean;
@@ -47,7 +31,6 @@ export function WaterReadCartouche({
   county,
   acres,
   season,
-  edition,
   status,
   readingSlow,
 }: WaterReadCartoucheProps) {
@@ -57,11 +40,11 @@ export function WaterReadCartouche({
     <View style={styles.root}>
       <View style={styles.eyebrowRow}>
         <Text style={styles.eyebrow} numberOfLines={1}>
-          WATER READ · NO. {edition}
+          HYDROGRAPHY SCAN
         </Text>
         {status === 'reading' && (
           <View style={styles.statusPill}>
-            <ActivityIndicator size="small" color={paper.forest} />
+            <ActivityIndicator size="small" color={paper.dashboardBlue} />
             <Text style={styles.statusPillText} numberOfLines={1}>
               {readingSlow ? 'BUILDING MAP' : 'OPENING'}
             </Text>
@@ -69,7 +52,7 @@ export function WaterReadCartouche({
         )}
         {status === 'ready' && (
           <View style={[styles.statusPill, styles.statusPillReady]}>
-            <Ionicons name="checkmark" size={11} color={paper.paper} />
+            <Ionicons name="checkmark" size={11} color={paper.dashboardInk} />
             <Text
               style={[styles.statusPillText, styles.statusPillTextReady]}
               numberOfLines={1}
@@ -110,7 +93,7 @@ function buildSubline({
   contextLine?: string;
 }): string | null {
   // Prefer engine-provided fields; fall back to the parent's pre-engine
-  // context line so the masthead is never blank during the reading state.
+  // context line so the header is never blank during the reading state.
   const parts: string[] = [];
   if (state) parts.push(state.toUpperCase());
   if (county) parts.push(`${county.toUpperCase()} CO.`);
@@ -125,14 +108,13 @@ function buildSubline({
 
 const styles = StyleSheet.create({
   root: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.md,
-    paddingBottom: paperSpacing.md,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    paddingHorizontal: 16,
+    paddingTop: 14,
+    paddingBottom: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
   eyebrowRow: {
     flexDirection: 'row',
@@ -143,11 +125,10 @@ const styles = StyleSheet.create({
     minHeight: 26,
   },
   eyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
-    letterSpacing: 2.8,
-    color: paper.red,
-    fontWeight: '700',
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.7,
+    color: paper.dashboardBlue,
     flexShrink: 1,
   },
   statusPill: {
@@ -156,54 +137,51 @@ const styles = StyleSheet.create({
     gap: 6,
     paddingHorizontal: 10,
     paddingVertical: 5,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 7,
+    backgroundColor: '#FAFAF7',
     flexShrink: 0,
     maxWidth: 140,
   },
   statusPillReady: {
-    backgroundColor: paper.forest,
+    backgroundColor: paper.bandPrime,
+    borderColor: 'rgba(0,0,0,0.18)',
   },
   statusPillText: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 9,
-    letterSpacing: 2,
-    color: paper.ink,
-    fontWeight: '700',
+    letterSpacing: 1.3,
+    color: paper.dashboardInk,
     lineHeight: 12,
   },
   statusPillTextReady: {
-    color: paper.paper,
+    color: paper.dashboardInk,
   },
   thickRule: {
-    height: 2,
-    backgroundColor: paper.ink,
-    marginBottom: paperSpacing.sm + 2,
+    height: 1,
+    backgroundColor: paper.dashboardLine,
+    marginBottom: 10,
   },
   lakeName: {
     fontFamily: paperFonts.display,
-    fontSize: 30,
-    lineHeight: 34,
+    fontSize: 27,
+    lineHeight: 31,
     fontWeight: '700',
     letterSpacing: -0.6,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   subline: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
-    letterSpacing: 2.2,
-    color: paper.ink,
-    opacity: 0.7,
+    letterSpacing: 1.4,
+    color: paper.dashboardMuted,
     marginTop: 8,
-    fontWeight: '700',
     lineHeight: 14,
   },
   thinRule: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.ink,
-    opacity: 0.45,
+    backgroundColor: paper.dashboardHair,
     marginTop: paperSpacing.sm + 2,
   },
 });

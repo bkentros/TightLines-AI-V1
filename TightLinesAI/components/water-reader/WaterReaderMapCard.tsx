@@ -50,19 +50,11 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
-  paperBorders,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 import { fetchWaterbodyPolygon } from '../../lib/waterReader';
-import {
-  CompassRose,
-  CornerMarkSet,
-  PaperColophon,
-  TopographicLines,
-} from '../paper';
+import { TopographicLines } from '../paper';
 import { useAuthStore } from '../../store/authStore';
 import { WaterReadCartouche } from './WaterReadCartouche';
 import { WaterReadEditionStamp } from './WaterReadEditionStamp';
@@ -150,9 +142,6 @@ export function WaterReaderMapCard({
     setViewerMode(next);
   }, [viewerMode]);
 
-  // Edition stamp — day-of-year + 1000, mirroring `PaperColophon`'s logic so
-  // the masthead, the corner stamp, and the bottom colophon all agree.
-  const edition = useMemo(() => paperEditionToday(), []);
   const pressedDate = useMemo(() => formatPressedDate(), []);
 
   useEffect(() => {
@@ -228,7 +217,6 @@ export function WaterReaderMapCard({
         county={ready?.read.county ?? undefined}
         acres={ready?.read.areaAcres ?? null}
         season={ready?.read.season}
-        edition={edition}
         status={cartoucheStatus}
         readingSlow={readingSlow}
       />
@@ -240,8 +228,6 @@ export function WaterReaderMapCard({
       {state.status === 'ready' && state.read.productionSvgResult && (
         <View style={styles.mapAndLegend}>
           <View style={styles.mapCard}>
-            <CornerMarkSet color={paper.walnut} inset={8} size={11} />
-
             <View style={styles.viewerToolbar}>
               <ViewerModeButton
                 icon="scan-outline"
@@ -283,7 +269,7 @@ export function WaterReaderMapCard({
                 >
                   <TopographicLines
                     style={StyleSheet.absoluteFill}
-                    color={paper.forestDk}
+                    color={paper.dashboardBlue}
                     count={5}
                   />
                 </Animated.View>
@@ -306,14 +292,6 @@ export function WaterReaderMapCard({
                     ]}
                     pointerEvents="none"
                   >
-                    <View style={styles.compassWrap}>
-                      <CompassRose
-                        size={68}
-                        opacity={0.55}
-                        color={paper.ink}
-                        style={styles.compassReset}
-                      />
-                    </View>
                     <View style={styles.scaleBarWrap}>
                       <WaterReadScaleBar
                         areaAcres={state.read.areaAcres ?? null}
@@ -323,7 +301,7 @@ export function WaterReaderMapCard({
                       />
                     </View>
                     <View style={styles.editionStampWrap}>
-                      <WaterReadEditionStamp edition={edition} />
+                      <WaterReadEditionStamp />
                     </View>
                   </Animated.View>
                 )}
@@ -359,12 +337,15 @@ export function WaterReaderMapCard({
             onSelectNumber={setSelectedNumber}
           />
 
-          <PaperColophon
-            section="WATER READ"
-            edition={edition}
-            tagline={(ed) => `NO. ${ed} · PRESSED ${pressedDate} · POLYGON ONLY`}
-            style={styles.colophon}
-          />
+          <View style={styles.colophon}>
+            <View style={styles.colophonLeft}>
+              <Ionicons name="boat-outline" size={11} color={paper.dashboardMuted} />
+              <Text style={styles.colophonText}>POLYGON ONLY</Text>
+            </View>
+            <Text style={styles.colophonText} numberOfLines={1}>
+              SCANNED · {pressedDate}
+            </Text>
+          </View>
         </View>
       )}
 
@@ -382,7 +363,7 @@ export function WaterReaderMapCard({
       {state.status === 'error' && (
         <View style={styles.errorCard}>
           <View style={styles.errorBadge}>
-            <Ionicons name="alert" size={14} color={paper.paper} />
+            <Ionicons name="alert" size={14} color="#FFFFFF" />
           </View>
           <Text style={styles.errorTitle}>NO MAP DRAWN</Text>
           <Text style={styles.errorBody}>{state.errorMessage}</Text>
@@ -392,20 +373,6 @@ export function WaterReaderMapCard({
       {bottomSlot ? <View style={styles.bottomSlot}>{bottomSlot}</View> : null}
     </View>
   );
-}
-
-/**
- * Day-of-year + 1000 — same formula as `PaperColophon` so the cartouche,
- * corner edition stamp, and bottom colophon all agree on which "edition"
- * is being printed.
- */
-function paperEditionToday(): string {
-  const now = new Date();
-  const start = Date.UTC(now.getUTCFullYear(), 0, 0);
-  const diff =
-    Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate()) - start;
-  const dayOfYear = Math.floor(diff / 86_400_000);
-  return String(1000 + dayOfYear);
 }
 
 /** "MAY 7 · 2026" style date string for the colophon tagline. */
@@ -442,7 +409,7 @@ function ViewerModeButton({
       <Ionicons
         name={icon}
         size={11}
-        color={active ? paper.paper : paper.ink}
+        color={active ? '#FFFFFF' : paper.dashboardInk}
       />
       <Text
         style={[
@@ -582,14 +549,11 @@ const styles = StyleSheet.create({
     gap: paperSpacing.md,
   },
   mapCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    // Tightened from `md` → 10px so the plate gets ~12px more width on
-    // each side (combines with the parent page's reduced plate padding
-    // to make the SVG visibly larger).
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     padding: 10,
-    ...paperBorders.card,
-    ...paperShadows.hard,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
 
   // Viewer toolbar — two ink-stroked paper chips, slightly separated, that
@@ -607,27 +571,27 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
     paddingHorizontal: 10,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 7,
+    backgroundColor: '#FAFAF7',
   },
   viewerChipActive: {
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
+    borderColor: paper.dashboardInk,
   },
   viewerChipPressed: {
     opacity: 0.78,
   },
   viewerChipText: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 9,
-    letterSpacing: 1.8,
-    color: paper.ink,
-    fontWeight: '700',
+    letterSpacing: 1.2,
+    color: paper.dashboardInk,
     lineHeight: 12,
   },
   viewerChipTextActive: {
-    color: paper.paper,
+    color: '#FFFFFF',
   },
 
   // Plate frame: outer ink rule, hairline gap, inner ink hairline. The
@@ -636,20 +600,20 @@ const styles = StyleSheet.create({
   // gets every available pixel.
   plateOuter: {
     width: '100%',
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card - 4,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 8,
     padding: 3,
-    backgroundColor: paper.paperLight,
+    backgroundColor: '#FAFAF7',
   },
   plateInner: {
     position: 'relative',
     width: '100%',
     overflow: 'hidden',
-    borderRadius: paperRadius.card - 8,
-    backgroundColor: paper.paper,
+    borderRadius: 6,
+    backgroundColor: '#F6F7F5',
     borderWidth: StyleSheet.hairlineWidth,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardHair,
   },
   plateMapWrap: {
     width: '100%',
@@ -657,33 +621,16 @@ const styles = StyleSheet.create({
 
   // Marginalia anchors — each pointer-events-none so the FULL/DETAIL
   // toggle remains the only interactive surface in the plate.
-  compassWrap: {
-    position: 'absolute',
-    top: 8,
-    left: 8,
-    width: 68,
-    height: 68,
-  },
-  // CompassRose's root has `position: 'absolute'` baked in (it was designed
-  // to bleed off the corner of a card with negative offsets). We're already
-  // wrapping it in a positioned `compassWrap`, so neutralize the inner
-  // absolute so it fills its wrapper as a normal in-flow child.
-  compassReset: {
-    position: 'relative',
-  },
   scaleBarWrap: {
     position: 'absolute',
     bottom: 10,
     left: 12,
   },
-  // Pass-5 — moved from the bottom-right corner to the top-right.
-  // The FinFindr wordmark replaces the previous circular stamp; smaller
-  // footprint, no chance of overlap with the lake polygon's bottom
-  // edge, and reads as a publication mark in the corner of the plate.
+  // FinFindr mark anchored like product chrome, not newspaper marginalia.
   editionStampWrap: {
     position: 'absolute',
-    top: 8,
-    right: 10,
+    top: 10,
+    left: 10,
   },
 
   // Meta ribbon under the plate — typographic masthead, not a caption row.
@@ -693,8 +640,7 @@ const styles = StyleSheet.create({
   },
   metaRibbonRule: {
     height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.ink,
-    opacity: 0.45,
+    backgroundColor: paper.dashboardLine,
   },
   metaRibbonRow: {
     flexDirection: 'row',
@@ -705,18 +651,16 @@ const styles = StyleSheet.create({
     paddingVertical: 4,
   },
   metaRibbonText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.4,
-    color: paper.ink,
-    fontWeight: '700',
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.5,
+    color: paper.dashboardMuted,
     lineHeight: 13,
   },
   metaRibbonDivider: {
     fontFamily: paperFonts.body,
     fontSize: 10,
-    color: paper.ink,
-    opacity: 0.5,
+    color: paper.dashboardMuted,
     lineHeight: 13,
   },
 
@@ -728,7 +672,7 @@ const styles = StyleSheet.create({
   },
   inspectViewport: {
     width: '100%',
-    backgroundColor: paper.paper,
+    backgroundColor: '#F6F7F5',
   },
   inspectHorizontalContent: {
     flexGrow: 1,
@@ -743,42 +687,58 @@ const styles = StyleSheet.create({
   },
 
   colophon: {
-    paddingVertical: paperSpacing.md,
-    marginTop: -paperSpacing.xs,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: 10,
+    paddingTop: 12,
+    marginTop: 2,
+    borderTopWidth: 1,
+    borderTopColor: paper.dashboardLine,
+  },
+  colophonLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  colophonText: {
+    flexShrink: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
   },
 
   // Fallback (read succeeded but engine produced no SVG).
   fallbackCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     padding: paperSpacing.lg,
-    borderWidth: 1.5,
+    borderWidth: 1,
     borderColor: paper.goldDk,
     gap: paperSpacing.xs,
   },
   fallbackTitle: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
-    letterSpacing: 2.4,
+    letterSpacing: 1.5,
     color: paper.goldDk,
-    fontWeight: '700',
     marginTop: 4,
   },
   fallbackBody: {
-    fontFamily: paperFonts.body,
+    fontFamily: paperFonts.bodyMedium,
     fontSize: 13,
     lineHeight: 18,
-    color: paper.ink,
-    opacity: 0.78,
+    color: '#555555',
   },
 
   // Error state.
   errorCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     padding: paperSpacing.lg,
-    borderWidth: 1.5,
-    borderColor: paper.red,
+    borderWidth: 1,
+    borderColor: paper.bandTough,
     gap: paperSpacing.xs,
     alignItems: 'flex-start',
   },
@@ -786,26 +746,24 @@ const styles = StyleSheet.create({
     width: 28,
     height: 28,
     borderRadius: 14,
-    backgroundColor: paper.red,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: paper.bandTough,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.18)',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: paperSpacing.xs,
   },
   errorTitle: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
-    letterSpacing: 2.4,
-    color: paper.red,
-    fontWeight: '700',
+    letterSpacing: 1.5,
+    color: paper.bandTough,
   },
   errorBody: {
-    fontFamily: paperFonts.body,
+    fontFamily: paperFonts.bodyMedium,
     fontSize: 13,
     lineHeight: 18,
-    color: paper.ink,
-    opacity: 0.85,
+    color: '#555555',
   },
 
   bottomSlot: {

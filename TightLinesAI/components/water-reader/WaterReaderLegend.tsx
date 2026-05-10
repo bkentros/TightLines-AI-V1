@@ -33,9 +33,7 @@ import { memo, useCallback } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
 import {
   paper,
-  paperBorders,
   paperFonts,
-  paperRadius,
   paperSpacing,
 } from '../../lib/theme';
 import {
@@ -63,7 +61,8 @@ export function WaterReaderLegend({
 }: WaterReaderLegendProps) {
   if (!entries || entries.length === 0) return null;
 
-  const seasonLine = season ? `seasonal read — ${season.toLowerCase()}` : null;
+  const seasonLabel = season ? season.toLowerCase() : null;
+  const seasonStyle = seasonLabel ? seasonBadgeStyle(seasonLabel) : null;
 
   return (
     <View style={styles.root}>
@@ -73,8 +72,22 @@ export function WaterReaderLegend({
             MAP KEY · {entries.length}{' '}
             {entries.length === 1 ? 'STRUCTURE' : 'STRUCTURES'}
           </Text>
-          {seasonLine && <Text style={styles.subline}>{seasonLine}</Text>}
         </View>
+        {seasonLabel && seasonStyle ? (
+          <View
+            style={[
+              styles.seasonBadge,
+              {
+                backgroundColor: seasonStyle.backgroundColor,
+                borderColor: seasonStyle.borderColor,
+              },
+            ]}
+          >
+            <Text style={[styles.seasonBadgeText, { color: seasonStyle.color }]}>
+              {seasonLabel.toUpperCase()}
+            </Text>
+          </View>
+        ) : null}
       </View>
 
       <View style={styles.list}>
@@ -129,7 +142,7 @@ const LegendRow = memo(function LegendRow({
     ? 'structure_confluence'
     : entry.featureClass;
   const paletteColor = paperWarmColorForFeature(featureKey);
-  const accent = paletteColor ?? entry.colorHex ?? paper.ink;
+  const accent = paletteColor ?? entry.colorHex ?? paper.dashboardInk;
   const typeTag = structureTypeTag(featureKey);
 
   const titleParts = splitLegendTitle(entry.title);
@@ -246,6 +259,41 @@ function structureTypeTag(featureKey: string | undefined): string {
   }
 }
 
+function seasonBadgeStyle(season: string): {
+  backgroundColor: string;
+  borderColor: string;
+  color: string;
+} {
+  switch (season.toLowerCase()) {
+    case 'summer':
+      return {
+        backgroundColor: 'rgba(66, 232, 157, 0.22)',
+        borderColor: 'rgba(45, 168, 95, 0.38)',
+        color: '#1F7A45',
+      };
+    case 'fall':
+    case 'autumn':
+      return {
+        backgroundColor: 'rgba(255, 138, 42, 0.2)',
+        borderColor: 'rgba(255, 138, 42, 0.42)',
+        color: '#9A4E12',
+      };
+    case 'winter':
+      return {
+        backgroundColor: 'rgba(40, 200, 255, 0.2)',
+        borderColor: 'rgba(42, 110, 150, 0.36)',
+        color: paper.dashboardBlue,
+      };
+    case 'spring':
+    default:
+      return {
+        backgroundColor: 'rgba(185, 242, 77, 0.25)',
+        borderColor: 'rgba(61, 168, 95, 0.34)',
+        color: '#2E7A43',
+      };
+  }
+}
+
 /**
  * Engine titles look like "Main Lake Point - Point Tip" or "East Cove - Back
  * Shoreline". Split on the first " - " so the "head" (structure type) gets
@@ -261,20 +309,22 @@ function splitLegendTitle(title: string): { head: string; tail: string | null } 
 const styles = StyleSheet.create({
   root: {
     width: '100%',
-    backgroundColor: paper.paper,
-    borderRadius: paperRadius.card,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.md,
-    ...paperBorders.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     gap: paperSpacing.sm,
   },
   header: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    alignItems: 'flex-end',
-    paddingBottom: paperSpacing.xs,
-    borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    paddingBottom: paperSpacing.sm,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
   },
   headerLeft: {
     flex: 1,
@@ -282,18 +332,23 @@ const styles = StyleSheet.create({
     gap: 3,
   },
   eyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.6,
-    color: paper.ink,
-    fontWeight: '700',
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 12.5,
+    letterSpacing: 1.8,
+    color: paper.dashboardInk,
+    lineHeight: 17,
   },
-  subline: {
-    fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
-    fontSize: 11,
-    color: paper.ink,
-    opacity: 0.55,
+  seasonBadge: {
+    paddingHorizontal: 10,
+    paddingVertical: 5,
+    borderRadius: 999,
+    borderWidth: 1,
+  },
+  seasonBadgeText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.3,
+    lineHeight: 12,
   },
   list: {
     gap: 0,
@@ -304,45 +359,45 @@ const styles = StyleSheet.create({
     gap: paperSpacing.sm + 2,
     paddingVertical: paperSpacing.sm + 2,
     paddingHorizontal: paperSpacing.xs,
-    borderRadius: paperRadius.card - 2,
+    borderRadius: 8,
   },
   rowSelected: {
-    backgroundColor: paper.paperLight,
+    backgroundColor: '#E8F2FA',
   },
   rowDivider: {
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: paper.inkHair,
+    borderTopColor: paper.dashboardHair,
   },
   numberRing: {
     width: 26,
     height: 26,
     borderRadius: 13,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    backgroundColor: paper.paperLight,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#FAFAF7',
     alignItems: 'center',
     justifyContent: 'center',
     marginTop: 1,
   },
   numberRingSelected: {
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardInk,
+    borderColor: paper.dashboardInk,
   },
   numberText: {
-    fontFamily: paperFonts.display,
+    fontFamily: paperFonts.displaySemiBold,
     fontSize: 12,
-    fontWeight: '700',
-    color: paper.ink,
+    color: paper.dashboardInk,
     lineHeight: 14,
   },
   numberTextSelected: {
-    color: paper.paper,
+    color: '#FFFFFF',
   },
   colorSwatch: {
     width: 28,
     height: 28,
     borderRadius: 4,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.18)',
     marginTop: 1,
     // Subtle inner highlight so the swatch reads as a hand-painted chip,
     // not a flat color block — small detail but it makes the legend
@@ -356,37 +411,33 @@ const styles = StyleSheet.create({
     paddingTop: 1,
   },
   typeTag: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 9.5,
-    letterSpacing: 2.4,
-    fontWeight: '700',
-    color: paper.ink,
-    opacity: 0.75,
+    letterSpacing: 1.5,
+    color: paper.dashboardMuted,
     marginBottom: 1,
     lineHeight: 12,
   },
   title: {
     fontFamily: paperFonts.display,
     fontSize: 14.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     lineHeight: 19,
   },
   titleHead: {
     fontFamily: paperFonts.display,
     fontWeight: '700',
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   titleTail: {
     fontFamily: paperFonts.displaySemiBold,
-    color: paper.ink,
-    opacity: 0.78,
+    color: paper.dashboardMuted,
   },
   body: {
-    fontFamily: paperFonts.body,
+    fontFamily: paperFonts.bodyMedium,
     fontSize: 12.5,
     lineHeight: 18,
-    color: paper.ink,
-    opacity: 0.78,
+    color: '#555555',
   },
   transitionChip: {
     flexDirection: 'row',
@@ -395,16 +446,15 @@ const styles = StyleSheet.create({
     marginTop: 6,
     paddingHorizontal: 10,
     paddingVertical: 7,
-    backgroundColor: paper.paperLight,
+    backgroundColor: '#FBF1D9',
     borderWidth: 1,
-    borderColor: paper.goldDk,
-    borderRadius: paperRadius.chip,
+    borderColor: 'rgba(201,155,45,0.35)',
+    borderRadius: 7,
   },
   transitionGlyph: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
     color: paper.goldDk,
-    fontWeight: '700',
     marginTop: 1,
   },
   transitionText: {
@@ -420,31 +470,28 @@ const styles = StyleSheet.create({
     gap: paperSpacing.sm,
     paddingTop: paperSpacing.sm,
     borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: paper.inkHair,
+    borderTopColor: paper.dashboardHair,
   },
   betaFooterChip: {
     paddingHorizontal: 6,
     paddingVertical: 2,
-    borderRadius: paperRadius.chip,
+    borderRadius: 5,
     borderWidth: 1,
-    borderColor: paper.rust,
-    backgroundColor: paper.paperLight,
+    borderColor: 'rgba(0,0,0,0.18)',
+    backgroundColor: paper.bandPoor,
   },
   betaFooterChipText: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 8.5,
-    letterSpacing: 1.6,
-    color: paper.rust,
-    fontWeight: '700',
+    letterSpacing: 1.2,
+    color: paper.dashboardInk,
     lineHeight: 11,
   },
   betaFooterText: {
     flex: 1,
-    fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
+    fontFamily: paperFonts.bodyMedium,
     fontSize: 12,
     lineHeight: 16,
-    color: paper.ink,
-    opacity: 0.7,
+    color: paper.dashboardMuted,
   },
 });
