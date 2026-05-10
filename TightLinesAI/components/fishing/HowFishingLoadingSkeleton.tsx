@@ -74,26 +74,33 @@ export function HowFishingLoadingSkeleton() {
           <Bone style={[styles.heroHeadlineBone, styles.heroHeadlineBoneAccent]} />
         </View>
 
-        {/* Linear score gauge — score number + track + scale + band pill. */}
         <View style={styles.gaugeWrap}>
-          <View style={styles.gaugeScoreRow}>
-            <Bone style={styles.gaugeScoreBone} />
-            <Bone style={styles.gaugeScoreMaxBone} />
-          </View>
-          <View style={styles.gaugeTrackRow}>
-            <View style={styles.gaugeTrack}>
-              <View style={[styles.gaugeStop, { backgroundColor: paper.bandTough, opacity: 0.45 }]} />
-              <View style={[styles.gaugeStop, { backgroundColor: paper.bandFair, opacity: 0.45 }]} />
-              <View style={[styles.gaugeStop, { backgroundColor: paper.bandPrime, opacity: 0.45 }]} />
+          <View style={styles.gaugePanel}>
+            <View style={styles.gaugePanelHeader}>
+              <Bone style={styles.gaugePanelLabelBone} />
+              <View style={styles.gaugeBandPill}>
+                <Bone style={styles.gaugeBandPillBone} />
+              </View>
             </View>
-          </View>
-          <View style={styles.gaugeScaleRow}>
-            <Bone style={styles.gaugeScaleBone} />
-            <Bone style={styles.gaugeScaleBone} />
-            <Bone style={styles.gaugeScaleBone} />
-          </View>
-          <View style={styles.gaugeBandPill}>
-            <Bone style={styles.gaugeBandPillBone} />
+            <View style={styles.gaugeScoreRow}>
+              <Bone style={styles.gaugeScoreHalo} />
+              <Bone style={styles.gaugeScoreBone} />
+              <Bone style={styles.gaugeScoreMaxBone} />
+            </View>
+            <View style={styles.gaugeTrackRow}>
+              <View style={styles.gaugeTrack}>
+                <View style={[styles.gaugeStop, { flex: 3.5, backgroundColor: paper.bandTough, opacity: 0.45 }]} />
+                <View style={[styles.gaugeStop, { flex: 1.5, backgroundColor: paper.bandPoor, opacity: 0.45 }]} />
+                <View style={[styles.gaugeStop, { flex: 1.5, backgroundColor: paper.bandFair, opacity: 0.45 }]} />
+                <View style={[styles.gaugeStop, { flex: 1.5, backgroundColor: paper.bandGood, opacity: 0.45 }]} />
+                <View style={[styles.gaugeStop, { flex: 2, backgroundColor: paper.bandPrime, opacity: 0.45 }]} />
+              </View>
+            </View>
+            <View style={styles.gaugeScaleRow}>
+              <Bone style={styles.gaugeScaleBone} />
+              <Bone style={styles.gaugeScaleBone} />
+              <Bone style={styles.gaugeScaleBone} />
+            </View>
           </View>
         </View>
 
@@ -227,21 +234,59 @@ const styles = StyleSheet.create({
   gaugeWrap: {
     alignSelf: 'stretch',
     alignItems: 'center',
-    marginTop: paperSpacing.sm + 2,
-    marginBottom: paperSpacing.xs + 2,
+    marginTop: paperSpacing.sm,
+    marginBottom: paperSpacing.xs,
+  },
+  gaugePanel: {
+    alignSelf: 'stretch',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+    backgroundColor: '#F7FAFB',
+    paddingHorizontal: 14,
+    paddingTop: 10,
+    paddingBottom: 12,
+  },
+  gaugePanelHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+    marginBottom: 2,
+  },
+  gaugePanelLabelBone: {
+    height: 9,
+    width: 112,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.3,
   },
   gaugeScoreRow: {
+    alignSelf: 'stretch',
     flexDirection: 'row',
     alignItems: 'flex-end',
     gap: 6,
-    marginBottom: 10,
+    marginBottom: 6,
+    paddingHorizontal: 12,
+    paddingTop: 2,
+    paddingBottom: 4,
+    position: 'relative',
+  },
+  gaugeScoreHalo: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    right: 0,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.1,
   },
   gaugeScoreBone: {
-    height: 40,
-    width: 72,
+    height: 38,
+    width: 74,
     borderRadius: 6,
-    backgroundColor: paper.dashboardBlue,
-    opacity: 0.25,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.22,
   },
   gaugeScoreMaxBone: {
     height: 16,
@@ -250,22 +295,21 @@ const styles = StyleSheet.create({
     opacity: 0.35,
   },
   gaugeTrackRow: {
-    width: '92%',
-    marginBottom: 6,
+    width: '100%',
+    height: 22,
+    justifyContent: 'center',
   },
   gaugeTrack: {
     flexDirection: 'row',
     height: 10,
     borderRadius: 5,
     borderWidth: 1,
-    borderColor: paper.dashboardInk,
+    borderColor: paper.dashboardLine,
     overflow: 'hidden',
   },
-  gaugeStop: {
-    flex: 1,
-  },
+  gaugeStop: {},
   gaugeScaleRow: {
-    width: '92%',
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 2,
@@ -275,16 +319,15 @@ const styles = StyleSheet.create({
     width: 14,
   },
   gaugeBandPill: {
-    marginTop: 10,
-    paddingHorizontal: 14,
-    paddingVertical: 5,
+    paddingHorizontal: 10,
+    paddingVertical: 4,
     borderRadius: 999,
     backgroundColor: paper.dashboardInk,
     opacity: 0.35,
   },
   gaugeBandPillBone: {
-    height: 10,
-    width: 68,
+    height: 9,
+    width: 54,
     backgroundColor: paper.dashboardWhite,
     opacity: 0.6,
   },

@@ -1086,6 +1086,7 @@ const styles = StyleSheet.create({
   heroHeadlineRow: {
     minHeight: 120,
     justifyContent: 'center',
+    overflow: 'visible',
   },
   heroHeadlineText: {
     maxWidth: 270,
@@ -1112,11 +1113,11 @@ const styles = StyleSheet.create({
   },
   heroPines: {
     position: 'absolute',
-    right: -48,
-    top: -44,
-    width: 260,
-    height: 190,
-    opacity: 0.9,
+    right: -54,
+    top: -76,
+    width: 286,
+    height: 286,
+    opacity: 1,
   },
 
   // Search card. Slimmed in Pass-3 so the map plate below it dominates

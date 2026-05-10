@@ -592,11 +592,11 @@ function LinearScoreGauge({
 
         <View style={gaugeStyles.trackRow}>
           <View style={gaugeStyles.track}>
-            <View style={[gaugeStyles.stop, { flex: 2.2, backgroundColor: paper.bandTough }]} />
-            <View style={[gaugeStyles.stop, { flex: 1.2, backgroundColor: paper.bandPoor }]} />
-            <View style={[gaugeStyles.stop, { flex: 1.6, backgroundColor: paper.bandFair }]} />
-            <View style={[gaugeStyles.stop, { flex: 2.2, backgroundColor: paper.bandGood }]} />
-            <View style={[gaugeStyles.stop, { flex: 2.8, backgroundColor: paper.bandPrime }]} />
+            <View style={[gaugeStyles.stop, { flex: 3.5, backgroundColor: paper.bandTough }]} />
+            <View style={[gaugeStyles.stop, { flex: 1.5, backgroundColor: paper.bandPoor }]} />
+            <View style={[gaugeStyles.stop, { flex: 1.5, backgroundColor: paper.bandFair }]} />
+            <View style={[gaugeStyles.stop, { flex: 1.5, backgroundColor: paper.bandGood }]} />
+            <View style={[gaugeStyles.stop, { flex: 2, backgroundColor: paper.bandPrime }]} />
           </View>
 
           <Animated.View
@@ -663,23 +663,24 @@ const gaugeStyles = StyleSheet.create({
     fontWeight: '700',
   },
   scoreRow: {
+    alignSelf: 'stretch',
     flexDirection: 'row',
     alignItems: 'flex-end',
     gap: 4,
     marginBottom: 6,
-    paddingHorizontal: 4,
+    paddingHorizontal: 12,
     paddingTop: 2,
     paddingBottom: 4,
     position: 'relative',
   },
   scoreHalo: {
     position: 'absolute',
-    top: 4,
-    bottom: 2,
+    top: 0,
+    bottom: 0,
     left: 0,
-    width: 104,
+    right: 0,
     opacity: 0.1,
-    borderRadius: 60,
+    borderRadius: 12,
   },
   scoreNum: {
     fontFamily: paperFonts.monoBold,
