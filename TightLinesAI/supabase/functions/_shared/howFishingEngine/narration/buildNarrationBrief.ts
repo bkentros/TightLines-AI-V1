@@ -60,7 +60,7 @@ function metabolicConstraint(state: MetabolicState, band: string): string {
     case "post_front_recovery":
       return "Pressure jumped after a front — fish are adjusting, not committing freely. Finesse over power, slower and subtler wins here.";
     case "tough":
-      return `${band === "Poor" ? "Poor" : "Tough"} conditions overall. Be honest and constructive. Slower, more deliberate presentations outperform aggression when the bite is compromised.`;
+      return `${band === "Tough" ? "Tough" : "Poor"} conditions overall. Be honest and constructive. Slower, more deliberate presentations outperform aggression when the bite is compromised.`;
   }
 }
 
@@ -255,10 +255,11 @@ function formatTimingSection(report: HowsFishingReport): string {
 }
 
 function bandToPlain(band: string): string {
-  if (band === "Excellent") return "Excellent — one of the stronger days of the season";
+  if (band === "Prime") return "Prime — one of the stronger days of the season";
   if (band === "Good") return "Good — solid conditions, worth getting out";
   if (band === "Fair") return "Fair — some things working, some not; patience helps";
-  return "Poor — tough day, go in with realistic expectations";
+  if (band === "Poor") return "Poor — slow day, manage expectations";
+  return "Tough — go in with realistic expectations and fish patiently";
 }
 
 function contextToPlain(ctx: string): string {

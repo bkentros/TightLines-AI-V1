@@ -34,7 +34,7 @@ export type EngineContextKey =
   | 'coastal'
   | 'coastal_flats_estuary';
 
-export type RebuildScoreBand = 'Poor' | 'Fair' | 'Good' | 'Excellent';
+export type RebuildScoreBand = 'Tough' | 'Poor' | 'Fair' | 'Good' | 'Prime';
 export type RebuildReliability = 'high' | 'medium' | 'low';
 
 export type ActionableTipTag =

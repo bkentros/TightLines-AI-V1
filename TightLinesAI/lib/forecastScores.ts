@@ -162,13 +162,15 @@ export function formatScoreDisplay(raw: number): string {
 
 /**
  * Returns a color for the given 0–100 score.
- * Aligned with bandFromScore: Excellent ≥80, Good ≥60, Fair ≥40, Poor <40.
+ * Aligned with bandFromScore (5-band field-edition palette):
+ *   Prime ≥80, Good ≥65, Fair ≥50, Poor ≥35, Tough <35.
  */
 export function scoreColor(raw: number): string {
-  if (raw >= 80) return '#2E6F40'; // Excellent
-  if (raw >= 60) return '#3A8A54'; // Good
-  if (raw >= 40) return '#C29B2A'; // Fair
-  return '#C0504A';                // Poor
+  if (raw >= 80) return '#3DA85F'; // Prime
+  if (raw >= 65) return '#7CC36A'; // Good
+  if (raw >= 50) return '#E8C547'; // Fair
+  if (raw >= 35) return '#E89647'; // Poor
+  return '#D94B3A';                // Tough
 }
 
 // ---------------------------------------------------------------------------

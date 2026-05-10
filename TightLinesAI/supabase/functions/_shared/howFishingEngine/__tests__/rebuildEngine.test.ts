@@ -300,13 +300,16 @@ Deno.test("runoff: requires 24h + 72h + 7d together — no imputed zeros", () =>
 });
 
 Deno.test("band mapping exact thresholds", () => {
-  assertEquals(bandFromScore(0), "Poor");
-  assertEquals(bandFromScore(39), "Poor");
-  assertEquals(bandFromScore(40), "Fair");
-  assertEquals(bandFromScore(59), "Fair");
-  assertEquals(bandFromScore(60), "Good");
+  assertEquals(bandFromScore(0), "Tough");
+  assertEquals(bandFromScore(34), "Tough");
+  assertEquals(bandFromScore(35), "Poor");
+  assertEquals(bandFromScore(49), "Poor");
+  assertEquals(bandFromScore(50), "Fair");
+  assertEquals(bandFromScore(64), "Fair");
+  assertEquals(bandFromScore(65), "Good");
   assertEquals(bandFromScore(79), "Good");
-  assertEquals(bandFromScore(80), "Excellent");
+  assertEquals(bandFromScore(80), "Prime");
+  assertEquals(bandFromScore(100), "Prime");
 });
 
 Deno.test("reweight: missing one variable redistributes to 100", () => {
@@ -599,7 +602,7 @@ Deno.test("runHowFishingReport: contract fields", () => {
   };
   const r = runHowFishingReport(req);
   assertEquals(typeof r.score, "number");
-  assert(["Poor", "Fair", "Good", "Excellent"].includes(r.band));
+  assert(["Tough", "Poor", "Fair", "Good", "Prime"].includes(r.band));
   assert(r.drivers.length <= 2);
   assert(r.suppressors.length <= 2);
   assert(r.actionable_tip.length > 0);
@@ -1020,7 +1023,7 @@ Deno.test("golden: Feb Michigan river warm day yields Good+ outlook", () => {
     data_coverage: {},
   });
   assert(
-    r.band === "Good" || r.band === "Excellent" || r.band === "Fair",
+    r.band === "Good" || r.band === "Prime" || r.band === "Fair",
     `expected upper-mid band, got ${r.band}`
   );
   assert(r.score >= 45);

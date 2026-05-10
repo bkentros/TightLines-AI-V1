@@ -90,7 +90,7 @@ export type LlmEnvironmentSnapshot = {
   sky_narration_contract: LlmSkyNarrationContract | null;
 };
 
-export type ScoreBand = "Poor" | "Fair" | "Good" | "Excellent";
+export type ScoreBand = "Tough" | "Poor" | "Fair" | "Good" | "Prime";
 
 export type ReportReliabilityTier = "high" | "medium" | "low";
 

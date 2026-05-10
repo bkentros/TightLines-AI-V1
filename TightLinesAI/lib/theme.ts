@@ -197,6 +197,29 @@ export const paper = {
   tierFair: '#E8A02E',
   tierSkip: '#C8352C',
 
+  // ── Field-edition dashboard tokens (May 2026 redesign) ─────────────
+  // Navy header strip, off-white cream body, and the 5-band visual
+  // scoring palette that mirrors the engine's Tough/Poor/Fair/Good/Prime
+  // bands. Used by the dashboard at app/(tabs)/index.tsx and any other
+  // surface that wants to render the new 5-band scheme directly.
+  dashboardInk: '#0A1B2E',
+  dashboardInkSoft: '#13283F',
+  dashboardCream: '#F4F4F1',
+  dashboardWhite: '#FFFFFF',
+  dashboardLine: 'rgba(0,0,0,0.12)',
+  dashboardHair: 'rgba(0,0,0,0.06)',
+  dashboardMuted: '#666666',
+  dashboardBlue: '#2A6E96',
+  dashboardBlueLight: '#7CB8DA',
+  dashboardBlueSky: '#C9E4F2',
+
+  // 5-band scoring palette (matches finfindr-reference.jsx)
+  bandTough: '#D94B3A',
+  bandPoor: '#E89647',
+  bandFair: '#E8C547',
+  bandGood: '#7CC36A',
+  bandPrime: '#3DA85F',
+
   // Medal palette
   medalGold: '#D4AF37',
   medalSilver: '#B8B8B8',
@@ -343,50 +366,107 @@ export function paperTierForScore(score10: number): PaperTier {
 }
 
 /**
- * Engine-accurate 4-band label used for any "word that matches the number"
- * UI — home hero chip, report band pill, etc.
+ * Engine-accurate 5-band label used for any "word that matches the number"
+ * UI — dashboard hero chip, report band pill, etc.
  *
  * The cutoffs MUST mirror the server-side `bandFromScore` in
  * `supabase/functions/_shared/howFishingEngine/score/scoreDay.ts`, which
  * operates on a 0-100 scale:
- *   ≥ 80 → Excellent   (8.0+ on the 0-10 display)
- *   ≥ 60 → Good        (6.0 – 7.9)
- *   ≥ 40 → Fair        (4.0 – 5.9)
- *   otherwise → Poor
+ *   ≥ 80 → Prime   (8.0+ on the 0-10 display)  — top ~10% of days
+ *   ≥ 65 → Good    (6.5 – 7.9)                 — solid, worth fishing
+ *   ≥ 50 → Fair    (5.0 – 6.4)                 — workable, manage windows
+ *   ≥ 35 → Poor    (3.5 – 4.9)                 — slow day
+ *   otherwise → Tough                          — really hard
  *
  * Keeping this client-side helper in lock-step with the engine guarantees
- * that the label (Excellent / Good / Fair / Poor) always agrees with the
- * numeric score the user sees, across Home + How's Fishing + forecast.
+ * that the label (Tough / Poor / Fair / Good / Prime) always agrees with
+ * the numeric score the user sees, across the dashboard, How's Fishing,
+ * and the forecast strip.
  */
-export type PaperScoreBand = 'Excellent' | 'Good' | 'Fair' | 'Poor';
+export type PaperScoreBand = 'Tough' | 'Poor' | 'Fair' | 'Good' | 'Prime';
 export function paperBandForScore(score10: number): PaperScoreBand {
   if (!Number.isFinite(score10)) return 'Fair';
-  if (score10 >= 8) return 'Excellent';
-  if (score10 >= 6) return 'Good';
-  if (score10 >= 4) return 'Fair';
-  return 'Poor';
+  if (score10 >= 8) return 'Prime';
+  if (score10 >= 6.5) return 'Good';
+  if (score10 >= 5) return 'Fair';
+  if (score10 >= 3.5) return 'Poor';
+  return 'Tough';
 }
 
 /**
- * Tapered score-accent palette. Returns a background/foreground/label triple
- * that varies smoothly from deep red at the bottom of the 0-10 range through
- * rust + gold in the middle to deep forest at the top. The red→yellow→green
- * arc is preserved, but with more resolution than the 3-way `paperTier` so
- * that adjacent scores read visibly different (e.g. a 3.1 vs a 2.0).
+ * 5-band dashboard color/label table. Returns the screenshot-matching
+ * background, on-color text, verdict word, and a verdict accent that's
+ * slightly darker for inline emphasis. Indexed by band so callers can
+ * keep their own band derivation (or ours via `paperBandForScore`).
+ */
+export interface DashboardBandStyle {
+  bg: string;
+  fg: string;
+  /** Uppercased label suitable for legend / pill use, e.g. 'PRIME'. */
+  label: PaperScoreBand;
+  /** Editor's verdict word, e.g. 'EXCEPTIONAL', for the post-read headline. */
+  verdict: string;
+  /** Slightly darker tone for inline italicized verdict text. */
+  verdictColor: string;
+}
+
+export const dashboardBandColor: Record<PaperScoreBand, DashboardBandStyle> = {
+  Prime: {
+    bg: paper.bandPrime,
+    fg: '#0A1B2E',
+    label: 'Prime',
+    verdict: 'exceptional',
+    verdictColor: '#2A8A4A',
+  },
+  Good: {
+    bg: paper.bandGood,
+    fg: '#0A1B2E',
+    label: 'Good',
+    verdict: 'strong',
+    verdictColor: '#3F8A4F',
+  },
+  Fair: {
+    bg: paper.bandFair,
+    fg: '#0A1B2E',
+    label: 'Fair',
+    verdict: 'solid',
+    verdictColor: '#C99B2D',
+  },
+  Poor: {
+    bg: paper.bandPoor,
+    fg: '#0A1B2E',
+    label: 'Poor',
+    verdict: 'slow',
+    verdictColor: '#D17A2E',
+  },
+  Tough: {
+    bg: paper.bandTough,
+    fg: '#FFFFFF',
+    label: 'Tough',
+    verdict: 'tough',
+    verdictColor: '#C13D2D',
+  },
+};
+
+/**
+ * Convenience: derive the dashboard band style directly from a 0–10 score.
+ */
+export function dashboardBandStyleForScore(score10: number): DashboardBandStyle {
+  return dashboardBandColor[paperBandForScore(score10)];
+}
+
+/**
+ * Score-accent palette. Returns the field-edition 5-band hex value at the
+ * same thresholds the engine and `paperBandForScore` use, so any surface
+ * that color-codes a score (forecast tile background, score chip,
+ * RebuildReportView hero) lands on one of the five reference colors.
  *
  * Stops (inclusive lower bound):
- *   ≥ 8.0 → forestDk   (deep excellent)
- *   ≥ 7.0 → forest     (excellent / strong good)
- *   ≥ 6.0 → moss       (solid good)
- *   ≥ 5.0 → gold       (bright fair — the pivot point)
- *   ≥ 4.0 → goldDk     (deep fair)
- *   ≥ 3.3 → rust       (weak fair / borderline poor)
- *   ≥ 2.5 → red        (poor)
- *   else  → redDk      (deep poor)
- *
- * Note: labels (Poor/Fair/Good/Excellent) come from `paperBandForScore` —
- * this helper only controls the color swatch so the numeric value gets a
- * more nuanced tint than the 3-tier mapping alone can provide.
+ *   ≥ 8.5 → bandPrime   (#3DA85F — deep green)
+ *   ≥ 7.0 → bandGood    (#7CC36A — light green)
+ *   ≥ 5.5 → bandFair    (#E8C547 — yellow)
+ *   ≥ 4.0 → bandPoor    (#E89647 — orange)
+ *   else  → bandTough   (#D94B3A — red)
  */
 export interface PaperScoreStyle {
   bg: string;
@@ -395,22 +475,20 @@ export interface PaperScoreStyle {
 }
 
 export function scoreAccentColor(score10: number): string {
-  if (!Number.isFinite(score10)) return paper.goldDk;
-  if (score10 >= 8) return paper.forestDk;
-  if (score10 >= 7) return paper.forest;
-  if (score10 >= 6) return paper.moss;
-  if (score10 >= 5) return paper.gold;
-  if (score10 >= 4) return paper.goldDk;
-  if (score10 >= 3.3) return paper.rust;
-  if (score10 >= 2.5) return paper.red;
-  return paper.redDk;
+  if (!Number.isFinite(score10)) return paper.bandFair;
+  if (score10 >= 8) return paper.bandPrime;
+  if (score10 >= 6.5) return paper.bandGood;
+  if (score10 >= 5) return paper.bandFair;
+  if (score10 >= 3.5) return paper.bandPoor;
+  return paper.bandTough;
 }
 
 export function scoreTextOnColor(score10: number): string {
-  if (!Number.isFinite(score10)) return paper.textOnGold;
-  // Bright gold (5.0-5.9) needs ink text for contrast. Everything else uses cream.
-  if (score10 >= 5 && score10 < 6) return paper.textOnGold;
-  return paper.textOnForest;
+  if (!Number.isFinite(score10)) return paper.dashboardInk;
+  // Tough red gets cream text for contrast. The other four bands all read
+  // legibly with deep ink on top.
+  if (score10 < 3.5) return paper.dashboardWhite;
+  return paper.dashboardInk;
 }
 
 export function paperScoreStyle(score10: number): PaperScoreStyle {

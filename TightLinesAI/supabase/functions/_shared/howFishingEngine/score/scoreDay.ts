@@ -32,10 +32,11 @@ function scoreForKey(
 }
 
 export function bandFromScore(score0to100: number): ScoreBand {
-  if (score0to100 >= 80) return "Excellent";
-  if (score0to100 >= 60) return "Good";
-  if (score0to100 >= 40) return "Fair";
-  return "Poor";
+  if (score0to100 >= 80) return "Prime";
+  if (score0to100 >= 65) return "Good";
+  if (score0to100 >= 50) return "Fair";
+  if (score0to100 >= 35) return "Poor";
+  return "Tough";
 }
 
 export function scoreDay(norm: SharedNormalizedOutput): {

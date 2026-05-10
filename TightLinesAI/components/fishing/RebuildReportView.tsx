@@ -326,7 +326,7 @@ export function RebuildReportView({
   // as an editor's verdict rather than a UI label.
   const bandKey = (report.band ?? '').toLowerCase();
   const outlookLine =
-    bandKey === 'excellent'
+    bandKey === 'prime' || bandKey === 'excellent'
       ? isFuture
         ? 'A prime day shaping up.'
         : 'A prime day is shaping up.'
@@ -338,9 +338,13 @@ export function RebuildReportView({
           ? isFuture
             ? 'A fair window expected.'
             : 'A fair window today.'
-          : isFuture
-            ? 'A tougher day shaping up.'
-            : 'A tougher day ahead.';
+          : bandKey === 'poor'
+            ? isFuture
+              ? 'A tougher day shaping up.'
+              : 'A tougher day ahead.'
+            : isFuture
+              ? 'Tough water ahead — keep it patient.'
+              : 'Tough water today — keep it patient.';
 
   const tipTagLabel = TIP_TAG_LABELS[report.actionable_tip_tag] ?? null;
 
@@ -771,7 +775,9 @@ function LinearScoreGauge({
 }
 
 function fallbackBandFromTier(tier: PaperTier): string {
-  return tier === 'green' ? 'GOOD' : tier === 'yellow' ? 'FAIR' : 'POOR';
+  // Tier is a 3-bucket visual grouping; we surface the most-likely 5-band
+  // label for that bucket when the cached report doesn't carry one.
+  return tier === 'green' ? 'GOOD' : tier === 'yellow' ? 'FAIR' : 'TOUGH';
 }
 
 const gaugeStyles = StyleSheet.create({
