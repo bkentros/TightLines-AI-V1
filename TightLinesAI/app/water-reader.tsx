@@ -499,7 +499,7 @@ export default function WaterReaderScreen() {
                 <Image
                   source={require('../assets/images/water read image.png')}
                   style={styles.heroPines}
-                  resizeMode="contain"
+                  resizeMode="cover"
                 />
               </View>
             </View>
@@ -1084,12 +1084,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   heroHeadlineRow: {
+    position: 'relative',
     minHeight: 120,
     justifyContent: 'center',
     overflow: 'visible',
   },
   heroHeadlineText: {
     maxWidth: 270,
+    position: 'relative',
     zIndex: 1,
   },
   heroHeadline: {
@@ -1113,11 +1115,12 @@ const styles = StyleSheet.create({
   },
   heroPines: {
     position: 'absolute',
-    right: -54,
-    top: -76,
-    width: 286,
-    height: 286,
+    right: -22,
+    top: -28,
+    width: 310,
+    height: 176,
     opacity: 1,
+    zIndex: 0,
   },
 
   // Search card. Slimmed in Pass-3 so the map plate below it dominates
