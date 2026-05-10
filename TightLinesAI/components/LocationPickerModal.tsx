@@ -37,8 +37,6 @@ import {
   paper,
   paperFonts,
   paperSpacing,
-  paperRadius,
-  paperShadows,
 } from '../lib/theme';
 import type { SavedLocation } from '../store/locationStore';
 import { getRecentLocations, type RecentLocation } from '../lib/recentLocations';
@@ -157,7 +155,7 @@ export function LocationPickerModal({
       onRequestClose={onClose}
     >
       <KeyboardAvoidingView
-        style={{ flex: 1, backgroundColor: paper.paper }}
+        style={{ flex: 1, backgroundColor: paper.dashboardCream }}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <View style={[styles.container, { paddingTop: insets.top > 0 ? 8 : 16 }]}>
@@ -166,7 +164,7 @@ export function LocationPickerModal({
           <View style={styles.header}>
             <View style={styles.headerSide} />
             <View style={styles.headerTitleWrap} pointerEvents="none">
-              <Text style={styles.eyebrow}>FINFINDR · SPOT</Text>
+              <Text style={styles.eyebrow}>FINFINDR SPOT</Text>
               <Text style={styles.title}>Choose Your Spot</Text>
             </View>
             <View style={styles.headerSide}>
@@ -180,7 +178,7 @@ export function LocationPickerModal({
                 accessibilityRole="button"
                 accessibilityLabel="Close"
               >
-                <Ionicons name="close" size={18} color={paper.ink} />
+                <Ionicons name="close" size={18} color="#FFFFFF" />
               </Pressable>
             </View>
           </View>
@@ -190,31 +188,31 @@ export function LocationPickerModal({
             <Ionicons
               name="search-outline"
               size={16}
-              color={paper.ink}
+              color={paper.dashboardInk}
               style={styles.searchIcon}
             />
             <TextInput
               ref={inputRef}
               style={styles.searchInput}
-              placeholder="Search a city or town…"
-              placeholderTextColor={paper.inkSoft}
+              placeholder="Search a city or town..."
+              placeholderTextColor={paper.dashboardMuted}
               value={query}
               onChangeText={handleQueryChange}
               autoFocus
               autoCorrect={false}
               autoCapitalize="words"
               returnKeyType="search"
-              selectionColor={paper.forest}
+              selectionColor={paper.dashboardBlue}
             />
             {loading ? (
               <ActivityIndicator
                 size="small"
-                color={paper.ink}
+                color={paper.dashboardInk}
                 style={{ marginRight: 12 }}
               />
             ) : query.length > 0 ? (
               <Pressable onPress={handleClear} hitSlop={10} style={styles.clearBtn}>
-                <Ionicons name="close" size={16} color={paper.ink} />
+                <Ionicons name="close" size={16} color={paper.dashboardInk} />
               </Pressable>
             ) : null}
           </View>
@@ -237,7 +235,7 @@ export function LocationPickerModal({
               <Ionicons
                 name="locate"
                 size={16}
-                color={!isUsingCustom ? paper.textOnForest : paper.ink}
+                color={!isUsingCustom ? '#FFFFFF' : paper.dashboardInk}
               />
             </View>
             <View style={styles.gpsTextWrap}>
@@ -294,7 +292,7 @@ export function LocationPickerModal({
                   }
                 >
                   <View style={styles.resultIconWrap}>
-                    <Ionicons name="pin" size={14} color={paper.ink} />
+                    <Ionicons name="pin" size={14} color={paper.dashboardInk} />
                   </View>
                   <View style={styles.resultTextWrap}>
                     <Text style={styles.resultLabel} numberOfLines={1}>
@@ -302,7 +300,7 @@ export function LocationPickerModal({
                     </Text>
                     <Text style={styles.resultSub}>USE THIS SPOT</Text>
                   </View>
-                  <Ionicons name="chevron-forward" size={14} color={paper.ink} />
+                  <Ionicons name="chevron-forward" size={14} color={paper.dashboardInk} />
                 </Pressable>
               )}
             />
@@ -336,7 +334,7 @@ export function LocationPickerModal({
                             <Ionicons
                               name="time-outline"
                               size={14}
-                              color={paper.ink}
+                              color={paper.dashboardInk}
                             />
                           </View>
                           <View style={styles.resultTextWrap}>
@@ -348,7 +346,7 @@ export function LocationPickerModal({
                           <Ionicons
                             name="chevron-forward"
                             size={14}
-                            color={paper.ink}
+                            color={paper.dashboardInk}
                           />
                         </Pressable>
                       </React.Fragment>
@@ -370,14 +368,14 @@ export function LocationPickerModal({
                     PINNED SPOT
                   </Text>
                   <View style={styles.currentCustomRow}>
-                    <Ionicons name="pin" size={16} color={paper.ink} />
+                    <Ionicons name="pin" size={16} color={paper.dashboardInk} />
                     <Text style={styles.currentCustomLabel} numberOfLines={1}>
                       {currentLabel}
                     </Text>
                     <Ionicons
                       name="chevron-forward"
                       size={14}
-                      color={paper.ink}
+                      color={paper.dashboardInk}
                     />
                   </View>
                   <Text style={styles.currentCustomSub}>
@@ -393,7 +391,7 @@ export function LocationPickerModal({
                   <Ionicons
                     name="map-outline"
                     size={28}
-                    color={paper.ink}
+                    color={paper.dashboardBlue}
                     style={{ marginBottom: 10, opacity: 0.5 }}
                   />
                   <Text style={styles.hintTitle}>Planning a fishing trip?</Text>
@@ -438,17 +436,16 @@ export function LocationPickerModal({
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardCream,
   },
 
   /* Header */
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: paperSpacing.lg,
-    paddingBottom: paperSpacing.md,
-    borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
+    paddingHorizontal: 16,
+    paddingBottom: 14,
+    backgroundColor: paper.dashboardInk,
   },
   headerSide: {
     width: 44,
@@ -463,53 +460,52 @@ const styles = StyleSheet.create({
   eyebrow: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.ink,
-    letterSpacing: 2.2,
+    color: 'rgba(255,255,255,0.62)',
+    letterSpacing: 1.8,
     marginBottom: 2,
     opacity: 0.75,
   },
   title: {
     fontFamily: paperFonts.display,
     fontSize: 20,
-    color: paper.ink,
+    color: '#FFFFFF',
     textAlign: 'center',
-    letterSpacing: -0.2,
+    letterSpacing: 0,
   },
   closeBtn: {
     width: 32,
     height: 32,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
-    backgroundColor: paper.paperLight,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
+    borderRadius: 16,
+    backgroundColor: 'rgba(255,255,255,0.08)',
   },
   closeBtnPressed: {
-    backgroundColor: paper.paperDark,
+    opacity: 0.7,
   },
 
   /* Search */
   searchWrap: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     marginHorizontal: paperSpacing.lg,
     marginTop: paperSpacing.md,
     paddingLeft: 12,
     paddingRight: 6,
     height: 46,
-    ...paperShadows.hard,
   },
   searchIcon: { marginRight: 8 },
   searchInput: {
     flex: 1,
     fontFamily: paperFonts.body,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
     paddingVertical: 0,
   },
   clearBtn: {
@@ -528,13 +524,14 @@ const styles = StyleSheet.create({
     marginTop: paperSpacing.md,
     paddingVertical: 12,
     paddingHorizontal: 14,
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
   gpsRowActive: {
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardInk,
+    borderColor: paper.dashboardInk,
   },
   gpsRowPressed: {
     opacity: 0.85,
@@ -542,49 +539,50 @@ const styles = StyleSheet.create({
   gpsIconWrap: {
     width: 34,
     height: 34,
-    borderRadius: paperRadius.card,
-    backgroundColor: paper.paperDark,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderRadius: 10,
+    backgroundColor: '#F6F9FB',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     alignItems: 'center',
     justifyContent: 'center',
   },
   gpsIconWrapActive: {
-    backgroundColor: paper.paperLight,
+    backgroundColor: 'rgba(255,255,255,0.14)',
+    borderColor: 'rgba(255,255,255,0.24)',
   },
   gpsTextWrap: { flex: 1 },
   gpsLabel: {
     fontFamily: paperFonts.displaySemiBold,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
     marginBottom: 2,
   },
   gpsLabelActive: {
-    color: paper.textOnForest,
+    color: '#FFFFFF',
   },
   gpsSub: {
     fontFamily: paperFonts.body,
     fontSize: 11.5,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.72,
     lineHeight: 15,
   },
   gpsSubActive: {
-    color: paper.textOnForest,
+    color: 'rgba(255,255,255,0.75)',
     opacity: 0.85,
   },
   activePill: {
-    backgroundColor: paper.gold,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
+    backgroundColor: paper.bandPrime,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.18)',
+    borderRadius: 999,
     paddingHorizontal: 7,
     paddingVertical: 3,
   },
   activePillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.4,
   },
 
@@ -600,12 +598,12 @@ const styles = StyleSheet.create({
   dividerRule: {
     flex: 1,
     height: 1,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardLine,
   },
   dividerLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     letterSpacing: 2.2,
     opacity: 0.75,
   },
@@ -624,16 +622,16 @@ const styles = StyleSheet.create({
   recentSectionHead: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.ink,
+    color: paper.dashboardBlue,
     letterSpacing: 2.2,
     marginBottom: paperSpacing.sm,
     opacity: 0.75,
   },
   recentList: {
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
     overflow: 'hidden',
   },
   recentRow: {
@@ -650,10 +648,10 @@ const styles = StyleSheet.create({
     marginHorizontal: paperSpacing.lg,
   },
   resultsListContent: {
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
     overflow: 'hidden',
     paddingBottom: 0,
   },
@@ -665,20 +663,20 @@ const styles = StyleSheet.create({
     paddingVertical: 12,
   },
   resultRowPressed: {
-    backgroundColor: paper.paperDark,
+    backgroundColor: '#F6F9FB',
   },
   resultSep: {
     height: 1,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
     marginHorizontal: 14,
   },
   resultIconWrap: {
     width: 30,
     height: 30,
-    borderRadius: paperRadius.card,
-    backgroundColor: paper.paperDark,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderRadius: 10,
+    backgroundColor: paper.dashboardBlueSky,
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.28)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -686,13 +684,13 @@ const styles = StyleSheet.create({
   resultLabel: {
     fontFamily: paperFonts.displaySemiBold,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
     marginBottom: 2,
   },
   resultSub: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     letterSpacing: 1.4,
     opacity: 0.65,
   },
@@ -702,19 +700,18 @@ const styles = StyleSheet.create({
     marginHorizontal: paperSpacing.lg,
     marginTop: paperSpacing.sm,
     padding: 14,
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    ...paperShadows.hard,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
   currentCustomWrapPressed: {
-    backgroundColor: paper.paperDark,
+    backgroundColor: '#F6F9FB',
   },
   currentCustomHead: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.ink,
+    color: paper.dashboardBlue,
     letterSpacing: 2.2,
     marginBottom: 8,
     opacity: 0.75,
@@ -728,14 +725,14 @@ const styles = StyleSheet.create({
   currentCustomLabel: {
     fontFamily: paperFonts.display,
     fontSize: 18,
-    color: paper.ink,
+    color: paper.dashboardInk,
     flex: 1,
-    letterSpacing: -0.2,
+    letterSpacing: 0,
   },
   currentCustomSub: {
     fontFamily: paperFonts.body,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.72,
     lineHeight: 17,
   },
@@ -751,15 +748,15 @@ const styles = StyleSheet.create({
   hintTitle: {
     fontFamily: paperFonts.display,
     fontSize: 18,
-    color: paper.ink,
+    color: paper.dashboardInk,
     textAlign: 'center',
     marginBottom: 8,
-    letterSpacing: -0.2,
+    letterSpacing: 0,
   },
   hintSub: {
     fontFamily: paperFonts.body,
     fontSize: 13.5,
-    color: paper.ink,
+    color: paper.dashboardMuted,
     opacity: 0.72,
     textAlign: 'center',
     lineHeight: 19,

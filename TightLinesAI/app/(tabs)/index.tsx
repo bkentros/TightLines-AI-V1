@@ -1822,6 +1822,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     borderTopWidth: 1,
     borderLeftWidth: 1,
+    borderRightWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 6,
     overflow: 'hidden',

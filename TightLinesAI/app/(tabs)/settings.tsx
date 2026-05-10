@@ -27,8 +27,6 @@ import * as Location from 'expo-location';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
@@ -36,11 +34,6 @@ import { useDevTestingStore } from '../../store/devTestingStore';
 import type { FishingMode, UserProfile } from '../../lib/types';
 import { supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
-import {
-  PaperBackground,
-  PaperColophon,
-  SectionEyebrow,
-} from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { usePaperBonePulse } from '../../lib/usePaperBonePulse';
 
@@ -219,16 +212,16 @@ export default function SettingsScreen() {
 
   if (!profile) {
     return (
-      <PaperBackground>
+      <View style={styles.root}>
         <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
           <SettingsLoadingPanel />
         </SafeAreaView>
-      </PaperBackground>
+      </View>
     );
   }
 
   return (
-    <PaperBackground>
+    <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <KeyboardAvoidingView
           style={styles.kav}
@@ -240,9 +233,7 @@ export default function SettingsScreen() {
             showsVerticalScrollIndicator={false}
           >
             <View style={styles.eyebrowRow}>
-              <SectionEyebrow dashes size={11} color={paper.red}>
-                FINFINDR · PREFERENCES
-              </SectionEyebrow>
+              <Text style={styles.pageEyebrow}>FINFINDR SETTINGS</Text>
             </View>
             <Text style={styles.title}>Settings.</Text>
             <Text style={styles.subtitle}>
@@ -266,7 +257,7 @@ export default function SettingsScreen() {
                 value={displayName}
                 onChangeText={setDisplayName}
                 placeholder="e.g. Brandon K."
-                placeholderTextColor={paper.ink + '70'}
+                placeholderTextColor={paper.dashboardInk + '70'}
                 autoCorrect={false}
                 maxLength={50}
               />
@@ -290,7 +281,7 @@ export default function SettingsScreen() {
                       <Ionicons
                         name={mode.icon as any}
                         size={15}
-                        color={active ? paper.paper : paper.ink}
+                        color={active ? '#FFFFFF' : paper.dashboardInk}
                       />
                       <Text
                         style={[
@@ -343,9 +334,9 @@ export default function SettingsScreen() {
                   disabled={locationLoading}
                 >
                   {locationLoading ? (
-                    <ActivityIndicator size="small" color={paper.forest} />
+                    <ActivityIndicator size="small" color={paper.dashboardBlue} />
                   ) : (
-                    <Ionicons name="location-outline" size={13} color={paper.forest} />
+                    <Ionicons name="location-outline" size={13} color={paper.dashboardBlue} />
                   )}
                   <Text style={styles.locationAutoBtnText}>
                     {locationLoading ? 'FINDING…' : 'USE CURRENT LOCATION'}
@@ -367,7 +358,7 @@ export default function SettingsScreen() {
                 <Ionicons
                   name={showStateList ? 'chevron-up' : 'chevron-down'}
                   size={16}
-                  color={paper.ink}
+                  color={paper.dashboardInk}
                 />
               </Pressable>
               {showStateList && (
@@ -407,7 +398,7 @@ export default function SettingsScreen() {
                 value={homeCity}
                 onChangeText={setHomeCity}
                 placeholder="City (e.g. Tampa)"
-                placeholderTextColor={paper.ink + '70'}
+                placeholderTextColor={paper.dashboardInk + '70'}
                 autoCorrect={false}
                 maxLength={60}
               />
@@ -454,11 +445,11 @@ export default function SettingsScreen() {
               disabled={saving}
             >
               {saving ? (
-                <ActivityIndicator color={paper.paper} />
+                <ActivityIndicator color="#FFFFFF" />
               ) : (
                 <>
                   <Text style={styles.btnText}>SAVE PREFERENCES</Text>
-                  <Ionicons name="checkmark" size={16} color={paper.paper} />
+                  <Ionicons name="checkmark" size={16} color="#FFFFFF" />
                 </>
               )}
             </Pressable>
@@ -509,10 +500,10 @@ export default function SettingsScreen() {
                   disabled={clearingCaches}
                 >
                   {clearingCaches ? (
-                    <ActivityIndicator color={paper.paper} size="small" />
+                    <ActivityIndicator color="#FFFFFF" size="small" />
                   ) : (
                     <>
-                      <Ionicons name="trash-outline" size={16} color={paper.paper} />
+                      <Ionicons name="trash-outline" size={16} color="#FFFFFF" />
                       <Text style={styles.ownerClearBtnText}>
                         CLEAR FISHING DATA CACHES
                       </Text>
@@ -577,8 +568,8 @@ export default function SettingsScreen() {
                   <Switch
                     value={ignoreGps}
                     onValueChange={(v) => setIgnoreGps(v)}
-                    trackColor={{ false: paper.inkHair, true: paper.forest }}
-                    thumbColor={ignoreGps ? paper.paperLight : paper.paper}
+                    trackColor={{ false: paper.dashboardHair, true: paper.dashboardBlue }}
+                    thumbColor={ignoreGps ? paper.dashboardWhite : paper.dashboardWhite}
                   />
                 </View>
               </View>
@@ -591,20 +582,14 @@ export default function SettingsScreen() {
               ]}
               onPress={handleSignOut}
             >
-              <Ionicons name="log-out-outline" size={16} color={paper.ink} />
+              <Ionicons name="log-out-outline" size={16} color={paper.dashboardInk} />
               <Text style={styles.signOutText}>SIGN OUT</Text>
             </Pressable>
 
-            <PaperColophon
-              section="PREFERENCES"
-              tagline={(edition) =>
-                `NO. ${edition} · TUNE THE BASICS, ENJOY THE READS`
-              }
-            />
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
-    </PaperBackground>
+    </View>
   );
 }
 
@@ -619,9 +604,7 @@ function SettingsLoadingPanel() {
   const pulse = usePaperBonePulse();
   return (
     <View style={settingsLoadingStyles.wrap} accessibilityLabel="Loading preferences">
-      <SectionEyebrow size={11} dashes color={paper.red}>
-        FINFINDR · PREFERENCES
-      </SectionEyebrow>
+      <Text style={styles.pageEyebrow}>FINFINDR SETTINGS</Text>
       <View style={settingsLoadingStyles.card}>
         <Animated.View style={[settingsLoadingStyles.titleBone, { opacity: pulse }]} />
         <Animated.View style={[settingsLoadingStyles.subtitleBone, { opacity: pulse }]} />
@@ -647,31 +630,31 @@ const settingsLoadingStyles = StyleSheet.create({
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     gap: paperSpacing.md,
+    backgroundColor: paper.dashboardCream,
   },
   card: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     padding: paperSpacing.md,
     gap: paperSpacing.sm,
-    ...paperShadows.hard,
   },
   titleBone: {
     width: 160,
     height: 22,
     borderRadius: 4,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
   },
   subtitleBone: {
     width: '78%',
     height: 12,
     borderRadius: 3,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
   },
   divider: {
     height: 1,
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardHair,
     marginVertical: paperSpacing.xs,
   },
   row: {
@@ -684,13 +667,13 @@ const settingsLoadingStyles = StyleSheet.create({
     width: 100,
     height: 10,
     borderRadius: 2,
-    backgroundColor: paper.red,
+    backgroundColor: paper.bandTough,
   },
   rowValue: {
     width: 70,
     height: 14,
     borderRadius: 3,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
   },
   footer: {
     flexDirection: 'row',
@@ -703,23 +686,25 @@ const settingsLoadingStyles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
   },
   caption: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
     letterSpacing: 2.4,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.6,
   },
 });
 
 const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   kav: { flex: 1 },
   scroll: {
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
+    backgroundColor: paper.dashboardCream,
   },
   loadingWrap: { flex: 1, justifyContent: 'center', alignItems: 'center' },
 
@@ -727,61 +712,75 @@ const styles = StyleSheet.create({
     paddingTop: paperSpacing.sm,
     marginBottom: paperSpacing.md,
   },
+  pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
+  },
   title: {
     fontFamily: paperFonts.display,
     fontSize: 34,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -1,
+    letterSpacing: 0,
     marginBottom: paperSpacing.xs,
   },
   subtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     marginBottom: paperSpacing.xl,
     lineHeight: 20,
   },
 
-  section: { marginBottom: paperSpacing.xl },
+  section: {
+    marginBottom: paperSpacing.lg,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    padding: paperSpacing.md,
+  },
   sectionLabel: {
-    fontFamily: paperFonts.bodyBold,
+    fontFamily: paperFonts.metaMonoBold,
     fontSize: 10.5,
-    color: paper.ink,
+    color: paper.dashboardBlue,
     letterSpacing: 2,
     marginBottom: paperSpacing.xs + 2,
   },
   sectionHint: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     marginTop: paperSpacing.xs,
   },
   readOnlyValue: {
     fontFamily: paperFonts.body,
     fontSize: 16,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
-    backgroundColor: paper.paperDark,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: '#F6F9FB',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 2,
   },
 
   input: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 2,
     fontFamily: paperFonts.body,
     fontSize: 16,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
 
   modeRow: { flexDirection: 'row', gap: paperSpacing.sm },
@@ -791,42 +790,44 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.xs + 2,
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md - 2,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
   modeBtnActive: {
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
+    borderColor: paper.dashboardInk,
   },
   modeBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.4,
   },
-  modeBtnTextActive: { color: paper.paper },
+  modeBtnTextActive: { color: '#FFFFFF' },
 
   chipGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: paperSpacing.xs + 2 },
   chip: {
     paddingHorizontal: paperSpacing.md - 2,
     paddingVertical: paperSpacing.sm - 1,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
   chipActive: {
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
+    borderColor: paper.dashboardBlue,
   },
   chipText: {
     fontFamily: paperFonts.bodyMedium,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   chipTextActive: {
-    color: paper.paper,
+    color: '#FFFFFF',
     fontFamily: paperFonts.bodyBold,
   },
 
@@ -842,16 +843,16 @@ const styles = StyleSheet.create({
     gap: 4,
     paddingHorizontal: paperSpacing.sm,
     paddingVertical: 4,
-    borderRadius: paperRadius.chip,
-    borderWidth: 1.5,
-    borderColor: paper.forest,
-    backgroundColor: paper.paperLight,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardWhite,
   },
-  locationAutoBtnPressed: { backgroundColor: paper.paperDark },
+  locationAutoBtnPressed: { backgroundColor: '#F6F9FB' },
   locationAutoBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 1.6,
   },
 
@@ -859,25 +860,25 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 2,
   },
   statePickerText: {
     fontFamily: paperFonts.body,
     fontSize: 16,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
-  statePickerPlaceholder: { color: paper.ink, opacity: 0.5 },
+  statePickerPlaceholder: { color: paper.dashboardInk, opacity: 0.5 },
   stateList: {
     marginTop: paperSpacing.xs,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    backgroundColor: paper.paperLight,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
     overflow: 'hidden',
   },
   stateScroll: { maxHeight: 200 },
@@ -885,14 +886,14 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 4,
   },
-  stateOptionActive: { backgroundColor: paper.paperDark },
+  stateOptionActive: { backgroundColor: '#F6F9FB' },
   stateOptionText: {
     fontFamily: paperFonts.body,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   stateOptionTextActive: {
-    color: paper.forest,
+    color: paper.dashboardBlue,
     fontFamily: paperFonts.bodyBold,
   },
 
@@ -901,20 +902,19 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.forest,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardInk,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md,
     marginTop: paperSpacing.sm,
-    ...paperShadows.hard,
   },
-  btnPressed: { backgroundColor: paper.forestDk },
+  btnPressed: { backgroundColor: paper.dashboardBlue },
   btnDisabled: { opacity: 0.5 },
   btnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.paper,
+    color: '#FFFFFF',
     letterSpacing: 2.4,
   },
 
@@ -926,13 +926,13 @@ const styles = StyleSheet.create({
     marginTop: paperSpacing.xl,
     paddingVertical: paperSpacing.md,
     borderTopWidth: 1,
-    borderTopColor: paper.inkHair,
+    borderTopColor: paper.dashboardHair,
   },
   signOutBtnPressed: { opacity: 0.6 },
   signOutText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.4,
   },
 
@@ -940,19 +940,19 @@ const styles = StyleSheet.create({
     marginTop: paperSpacing.xl,
     paddingTop: paperSpacing.lg,
     borderTopWidth: 1,
-    borderTopColor: paper.inkHair,
+    borderTopColor: paper.dashboardLine,
   },
   ownerSectionTitle: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.4,
     marginBottom: paperSpacing.xs,
   },
   ownerSectionHint: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     marginBottom: paperSpacing.md,
     lineHeight: 18,
@@ -962,18 +962,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.red,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.bandTough,
+    borderWidth: 1,
+    borderColor: paper.bandTough,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md,
-    ...paperShadows.hard,
   },
   ownerClearBtnPressed: { opacity: 0.85 },
   ownerClearBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.paper,
+    color: '#FFFFFF',
     letterSpacing: 2,
   },
 
@@ -981,19 +980,19 @@ const styles = StyleSheet.create({
     marginTop: paperSpacing.xl,
     paddingTop: paperSpacing.lg,
     borderTopWidth: 1,
-    borderTopColor: paper.inkHair,
+    borderTopColor: paper.dashboardLine,
   },
   testingTitle: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.4,
     marginBottom: paperSpacing.xs,
   },
   testingHint: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     marginBottom: paperSpacing.md,
     lineHeight: 18,
@@ -1007,7 +1006,7 @@ const styles = StyleSheet.create({
   testingLabel: {
     fontFamily: paperFonts.body,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.8,
     marginBottom: paperSpacing.xs,
   },
@@ -1020,27 +1019,28 @@ const styles = StyleSheet.create({
   presetBtn: {
     paddingHorizontal: paperSpacing.sm + 2,
     paddingVertical: paperSpacing.xs + 1,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
   presetBtnActive: {
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
+    borderColor: paper.dashboardInk,
   },
   presetBtnText: {
     fontFamily: paperFonts.bodyMedium,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   presetBtnTextActive: {
-    color: paper.paper,
+    color: '#FFFFFF',
     fontFamily: paperFonts.bodyBold,
   },
   currentOverride: {
     fontFamily: paperFonts.mono,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     marginTop: paperSpacing.xs,
   },

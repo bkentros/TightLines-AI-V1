@@ -28,16 +28,9 @@ import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
-  paperRadius,
-  paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
-import {
-  PaperBackground,
-  PaperColophon,
-  SectionEyebrow,
-} from '../../components/paper';
 import {
   hapticImpact,
   hapticSelection,
@@ -237,7 +230,7 @@ export default function LogScreen() {
   })).filter((g) => g.items.length > 0);
 
   return (
-    <PaperBackground>
+    <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top']}>
         <ScrollView
           style={styles.scroll}
@@ -247,23 +240,21 @@ export default function LogScreen() {
             <RefreshControl
               refreshing={refreshing}
               onRefresh={handleRefresh}
-              tintColor={paper.forest}
-              colors={[paper.forest]}
-              progressBackgroundColor={paper.paper}
+              tintColor={paper.dashboardInk}
+              colors={[paper.dashboardInk]}
+              progressBackgroundColor={paper.dashboardCream}
             />
           }
         >
           {/* Top eyebrow / page mark */}
           <View style={styles.topBar}>
-            <SectionEyebrow dashes size={11} color={paper.red}>
-              FINFINDR · MY LOG
-            </SectionEyebrow>
+            <Text style={styles.pageEyebrow}>FINFINDR LOG</Text>
           </View>
 
           {/* Profile row */}
           <View style={styles.profileRow}>
             <View style={styles.avatar}>
-              <Ionicons name="person" size={22} color={paper.ink} />
+              <Ionicons name="person" size={22} color={paper.dashboardInk} />
             </View>
             <View style={styles.profileInfo}>
               <View style={styles.nameRow}>
@@ -277,13 +268,13 @@ export default function LogScreen() {
               </Text>
             </View>
             <Pressable hitSlop={8} style={styles.iconBtn}>
-              <Ionicons name="download-outline" size={18} color={paper.ink} />
+              <Ionicons name="download-outline" size={18} color={paper.dashboardInk} />
               <View style={styles.lockBadge}>
-                <Ionicons name="lock-closed" size={6} color={paper.paper} />
+                <Ionicons name="lock-closed" size={6} color="#FFFFFF" />
               </View>
             </Pressable>
             <Pressable hitSlop={8} onPress={handleSignOut} style={styles.iconBtn}>
-              <Ionicons name="log-out-outline" size={20} color={paper.ink} />
+              <Ionicons name="log-out-outline" size={20} color={paper.dashboardInk} />
             </Pressable>
           </View>
 
@@ -331,12 +322,12 @@ export default function LogScreen() {
             <View style={styles.analyticsGoldRule} />
             <View style={styles.analyticsCardInner}>
               <View style={styles.analyticsCardLeft}>
-                <Ionicons name="stats-chart" size={14} color={paper.forest} />
+                <Ionicons name="stats-chart" size={14} color={paper.dashboardBlue} />
                 <Text style={styles.analyticsCardLabel}>ANALYTICS</Text>
               </View>
               <View style={styles.analyticsCardRight}>
                 <Text style={styles.analyticsCardHint}>Totals & rankings</Text>
-                <Ionicons name="chevron-forward" size={14} color={paper.ink} />
+                <Ionicons name="chevron-forward" size={14} color={paper.dashboardInk} />
               </View>
             </View>
             <Text style={styles.analyticsCardSub}>
@@ -358,14 +349,14 @@ export default function LogScreen() {
             <View style={styles.pbGoldRule} />
             <View style={styles.pbHeader}>
               <View style={styles.pbHeaderLeft}>
-                <Ionicons name="trophy" size={14} color={paper.gold} />
+                <Ionicons name="trophy" size={14} color={paper.bandFair} />
                 <Text style={styles.pbLabel}>PERSONAL BESTS</Text>
               </View>
               <View style={styles.pbHeaderRight}>
                 <Text style={styles.pbSpeciesCount}>
                   {PB_PREVIEW.totalSpecies} SPECIES
                 </Text>
-                <Ionicons name="chevron-forward" size={14} color={paper.ink} />
+                <Ionicons name="chevron-forward" size={14} color={paper.dashboardInk} />
               </View>
             </View>
             <View style={styles.pbPreviewRow}>
@@ -389,7 +380,7 @@ export default function LogScreen() {
             ]}
             onPress={() => router.push('/new-entry')}
           >
-            <Ionicons name="add" size={18} color={paper.paper} />
+            <Ionicons name="add" size={18} color="#FFFFFF" />
             <Text style={styles.newEntryText}>NEW ENTRY</Text>
           </Pressable>
 
@@ -439,14 +430,14 @@ export default function LogScreen() {
                 >
                   <View style={styles.logTop}>
                     <Text style={styles.logLocation}>{e.location}</Text>
-                    <Ionicons name="chevron-forward" size={14} color={paper.ink} />
+                    <Ionicons name="chevron-forward" size={14} color={paper.dashboardInk} />
                   </View>
                   <Text style={styles.logDate}>
                     {e.date.toUpperCase()} · {e.duration.toUpperCase()}
                   </Text>
                   <View style={styles.logBottom}>
                     <View style={styles.logStat}>
-                      <Ionicons name="fish" size={12} color={paper.forest} />
+                      <Ionicons name="fish" size={12} color={paper.dashboardBlue} />
                       <Text style={styles.logStatText}>
                         {e.catches} {e.catches === 1 ? 'catch' : 'catches'}
                       </Text>
@@ -454,7 +445,7 @@ export default function LogScreen() {
                     <Text style={styles.logSpecies}>{e.topSpecies}</Text>
                     {e.fromAI && (
                       <View style={styles.aiBadge}>
-                        <Ionicons name="sparkles" size={9} color={paper.gold} />
+                        <Ionicons name="sparkles" size={9} color={paper.bandFair} />
                         <Text style={styles.aiBadgeText}>AI</Text>
                       </View>
                     )}
@@ -518,7 +509,7 @@ export default function LogScreen() {
                             : 'chevron-down'
                         }
                         size={14}
-                        color={paper.ink}
+                        color={paper.dashboardInk}
                       />
                     </View>
                   </Pressable>
@@ -535,7 +526,7 @@ export default function LogScreen() {
                                   : 'camera-outline'
                               }
                               size={12}
-                              color={paper.forest}
+                              color={paper.dashboardBlue}
                             />
                             <Text style={styles.historyTypeText}>
                               {item.type.toUpperCase()}
@@ -552,7 +543,7 @@ export default function LogScreen() {
                           <Ionicons
                             name="add-circle-outline"
                             size={14}
-                            color={paper.forest}
+                            color={paper.dashboardBlue}
                           />
                           <Text style={styles.addToLogText}>ADD TO LOG</Text>
                         </Pressable>
@@ -564,13 +555,14 @@ export default function LogScreen() {
           )}
         </ScrollView>
       </SafeAreaView>
-    </PaperBackground>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
-  scroll: { flex: 1 },
+  scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
@@ -579,6 +571,13 @@ const styles = StyleSheet.create({
   topBar: {
     paddingTop: paperSpacing.sm,
     paddingBottom: paperSpacing.lg,
+  },
+  pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
   },
 
   // Profile row
@@ -592,9 +591,9 @@ const styles = StyleSheet.create({
     width: 42,
     height: 42,
     borderRadius: 21,
-    backgroundColor: paper.paperLight,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -607,29 +606,29 @@ const styles = StyleSheet.create({
   profileName: {
     fontFamily: paperFonts.display,
     fontSize: 20,
-    color: paper.ink,
-    letterSpacing: -0.4,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
   },
   profileSub: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     marginTop: 2,
   },
 
   tierBadge: {
-    backgroundColor: paper.paperDark,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: '#F6F9FB',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: 6,
     paddingVertical: 1,
-    borderRadius: paperRadius.chip,
+    borderRadius: 999,
   },
   tierBadgeText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.6,
   },
 
@@ -639,10 +638,10 @@ const styles = StyleSheet.create({
     height: 36,
     alignItems: 'center',
     justifyContent: 'center',
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
   },
   lockBadge: {
     position: 'absolute',
@@ -651,7 +650,7 @@ const styles = StyleSheet.create({
     width: 12,
     height: 12,
     borderRadius: 6,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -660,26 +659,25 @@ const styles = StyleSheet.create({
   statsRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingVertical: paperSpacing.md,
     marginBottom: paperSpacing.lg,
-    ...paperShadows.hard,
   },
   stat: { flex: 1, alignItems: 'center' },
   statNum: {
     fontFamily: paperFonts.display,
     fontSize: 24,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -0.6,
+    letterSpacing: 0,
   },
   statLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     letterSpacing: 2.4,
     marginTop: 2,
@@ -687,24 +685,23 @@ const styles = StyleSheet.create({
   statDiv: {
     width: 1,
     height: 28,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
     opacity: 0.25,
   },
 
   analyticsCard: {
     position: 'relative',
-    backgroundColor: paper.paperLight,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md,
     paddingHorizontal: paperSpacing.md,
     paddingLeft: paperSpacing.md + 6,
     marginBottom: paperSpacing.lg,
-    ...paperShadows.hard,
   },
   analyticsCardPressed: {
-    backgroundColor: paper.paperDark,
+    backgroundColor: '#F6F9FB',
   },
   analyticsGoldRule: {
     position: 'absolute',
@@ -712,7 +709,7 @@ const styles = StyleSheet.create({
     top: 0,
     bottom: 0,
     width: 4,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
   },
   analyticsCardInner: {
     flexDirection: 'row',
@@ -733,20 +730,20 @@ const styles = StyleSheet.create({
   analyticsCardLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 2.6,
   },
   analyticsCardHint: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     letterSpacing: 1.4,
   },
   analyticsCardSub: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.72,
     lineHeight: 17,
   },
@@ -754,24 +751,23 @@ const styles = StyleSheet.create({
   // Personal Bests card
   pbCard: {
     position: 'relative',
-    backgroundColor: paper.paperLight,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md,
     paddingHorizontal: paperSpacing.md,
     paddingLeft: paperSpacing.md + 6,
     marginBottom: paperSpacing.section,
-    ...paperShadows.hard,
   },
-  pbCardPressed: { backgroundColor: paper.paperDark },
+  pbCardPressed: { backgroundColor: '#F6F9FB' },
   pbGoldRule: {
     position: 'absolute',
     left: 0,
     top: 0,
     bottom: 0,
     width: 4,
-    backgroundColor: paper.gold,
+    backgroundColor: paper.bandFair,
   },
   pbHeader: {
     flexDirection: 'row',
@@ -792,13 +788,13 @@ const styles = StyleSheet.create({
   pbLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.goldDk,
+    color: paper.dashboardBlue,
     letterSpacing: 2.6,
   },
   pbSpeciesCount: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     letterSpacing: 1.8,
   },
@@ -811,9 +807,9 @@ const styles = StyleSheet.create({
   pbSpecies: {
     fontFamily: paperFonts.display,
     fontSize: 20,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: -0.4,
+    letterSpacing: 0,
   },
   pbStatRow: {
     flexDirection: 'row',
@@ -823,20 +819,20 @@ const styles = StyleSheet.create({
   pbStat: {
     fontFamily: paperFonts.mono,
     fontSize: 14,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 0.2,
   },
   pbDot: {
     width: 3,
     height: 3,
     borderRadius: 1.5,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
     opacity: 0.5,
   },
   pbHint: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 11.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
   },
 
@@ -846,29 +842,28 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.xs + 2,
-    backgroundColor: paper.forest,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardInk,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
     paddingVertical: paperSpacing.md - 2,
     marginBottom: paperSpacing.lg,
-    ...paperShadows.hard,
   },
-  newEntryBtnPressed: { backgroundColor: paper.forestDk },
+  newEntryBtnPressed: { backgroundColor: paper.dashboardBlue },
   newEntryText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.paper,
+    color: '#FFFFFF',
     letterSpacing: 2.8,
   },
 
   // Segmented
   seg: {
     flexDirection: 'row',
-    backgroundColor: paper.paperDark,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: '#F6F9FB',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     padding: 3,
     marginBottom: paperSpacing.lg,
   },
@@ -876,18 +871,18 @@ const styles = StyleSheet.create({
     flex: 1,
     paddingVertical: paperSpacing.sm + 2,
     alignItems: 'center',
-    borderRadius: paperRadius.chip,
+    borderRadius: 999,
   },
-  segActive: { backgroundColor: paper.paper },
+  segActive: { backgroundColor: '#FFFFFF' },
   segText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.6,
     letterSpacing: 2.4,
   },
   segTextActive: {
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 1,
   },
 
@@ -896,14 +891,13 @@ const styles = StyleSheet.create({
 
   // Log cards
   logCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     padding: paperSpacing.md,
-    ...paperShadows.hard,
   },
-  logCardPressed: { backgroundColor: paper.paperDark },
+  logCardPressed: { backgroundColor: '#F6F9FB' },
   logTop: {
     flexDirection: 'row',
     justifyContent: 'space-between',
@@ -913,13 +907,13 @@ const styles = StyleSheet.create({
   logLocation: {
     fontFamily: paperFonts.display,
     fontSize: 16,
-    color: paper.ink,
-    letterSpacing: -0.3,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
   },
   logDate: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.6,
     letterSpacing: 1.6,
     marginBottom: paperSpacing.sm,
@@ -937,30 +931,30 @@ const styles = StyleSheet.create({
   logStatText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 0.5,
   },
   logSpecies: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
   },
   aiBadge: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 3,
-    backgroundColor: paper.paper,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: 6,
     paddingVertical: 1,
-    borderRadius: paperRadius.chip,
+    borderRadius: 999,
   },
   aiBadgeText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
-    color: paper.goldDk,
+    color: paper.dashboardBlue,
     letterSpacing: 1.4,
   },
 
@@ -974,21 +968,22 @@ const styles = StyleSheet.create({
   filterPill: {
     paddingHorizontal: paperSpacing.sm + 2,
     paddingVertical: 6,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
   filterPillActive: {
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
+    borderColor: paper.dashboardInk,
   },
   filterText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 1.8,
   },
-  filterTextActive: { color: paper.paper },
+  filterTextActive: { color: '#FFFFFF' },
 
   // Date groups
   dateGroup: { marginBottom: paperSpacing.xs },
@@ -998,14 +993,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     paddingVertical: paperSpacing.sm,
     paddingHorizontal: paperSpacing.xs,
-    borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
   },
   dateText: {
     fontFamily: paperFonts.display,
     fontSize: 15,
-    color: paper.ink,
-    letterSpacing: -0.2,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
   },
   dateRight: {
     flexDirection: 'row',
@@ -1015,17 +1010,17 @@ const styles = StyleSheet.create({
   dateCount: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.6,
     letterSpacing: 1.6,
   },
 
   // History cards
   historyCard: {
-    backgroundColor: paper.paperLight,
-    borderRadius: paperRadius.card,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     padding: paperSpacing.md,
     marginTop: paperSpacing.xs + 2,
   },
@@ -1043,20 +1038,20 @@ const styles = StyleSheet.create({
   historyTypeText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 2.2,
   },
   historyTarget: {
     fontFamily: paperFonts.display,
     fontSize: 15,
-    color: paper.ink,
-    letterSpacing: -0.2,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     marginBottom: 2,
   },
   historySummary: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12.5,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     marginBottom: paperSpacing.sm,
   },
@@ -1069,7 +1064,7 @@ const styles = StyleSheet.create({
   addToLogText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.forest,
+    color: paper.dashboardBlue,
     letterSpacing: 2,
   },
 });
