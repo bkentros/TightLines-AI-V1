@@ -1115,7 +1115,7 @@ const styles = StyleSheet.create({
   },
   heroPines: {
     position: 'absolute',
-    right: -66,
+    right: -36,
     top: -14,
     width: 204,
     height: 128,
