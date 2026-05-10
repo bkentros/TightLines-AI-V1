@@ -5,7 +5,7 @@
 import { useEffect, useState } from 'react';
 import { View, Text, StyleSheet, Pressable, ActivityIndicator, Alert } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts, spacing, radius, shadows } from '../lib/theme';
+import { colors, fonts, spacing, radius, shadows, paper } from '../lib/theme';
 import { useEnvStore } from '../store/envStore';
 import { useAuthStore } from '../store/authStore';
 import type { EnvironmentData } from '../lib/env';
@@ -50,11 +50,11 @@ function airTempTileContent(w: WeatherData): { value: string; label: string } {
 
 function pressureTrendInfo(trend: string | undefined): { label: string; color: string } | null {
   switch (trend) {
-    case 'rapidly_falling': return { label: '↓↓ Rapidly Falling', color: '#2E7D32' };
-    case 'slowly_falling': return { label: '↓ Falling', color: '#388E3C' };
+    case 'rapidly_falling': return { label: '↓↓ Rapidly Falling', color: paper.bandPrime };
+    case 'slowly_falling': return { label: '↓ Falling', color: paper.bandGood };
     case 'stable': return { label: 'Stable', color: colors.textMuted };
-    case 'slowly_rising': return { label: '↑ Rising', color: '#E65100' };
-    case 'rapidly_rising': return { label: '↑↑ Rapidly Rising', color: '#B71C1C' };
+    case 'slowly_rising': return { label: '↑ Rising', color: paper.bandFair };
+    case 'rapidly_rising': return { label: '↑↑ Rapidly Rising', color: paper.bandTough };
     default: return null;
   }
 }

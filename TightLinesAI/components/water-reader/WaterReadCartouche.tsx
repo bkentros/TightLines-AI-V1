@@ -168,7 +168,7 @@ const styles = StyleSheet.create({
     fontSize: 27,
     lineHeight: 31,
     fontWeight: '700',
-    letterSpacing: -0.6,
+    letterSpacing: 0,
     color: paper.dashboardInk,
   },
   subline: {

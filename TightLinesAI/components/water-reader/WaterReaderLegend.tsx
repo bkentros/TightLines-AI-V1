@@ -454,7 +454,7 @@ const styles = StyleSheet.create({
   transitionGlyph: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
-    color: paper.goldDk,
+    color: paper.dashboardBlue,
     marginTop: 1,
   },
   transitionText: {
@@ -462,7 +462,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyMedium,
     fontSize: 11.5,
     lineHeight: 16,
-    color: paper.goldDk,
+    color: paper.dashboardBlue,
   },
   betaFooter: {
     flexDirection: 'row',

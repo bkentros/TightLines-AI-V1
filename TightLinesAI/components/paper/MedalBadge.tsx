@@ -52,14 +52,14 @@ export function MedalBadge({ tier, size = 30, style, label }: MedalBadgeProps) {
 
 const styles = StyleSheet.create({
   medal: {
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     alignItems: 'center',
     justifyContent: 'center',
   },
   label: {
     fontFamily: paperFonts.display,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
   },
 });

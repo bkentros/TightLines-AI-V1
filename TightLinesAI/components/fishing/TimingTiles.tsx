@@ -6,7 +6,7 @@
 import React from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { colors, fonts, spacing, radius } from '../../lib/theme';
+import { colors, fonts, spacing, radius, paper } from '../../lib/theme';
 
 export type PeriodSlot = {
   label: string;
@@ -64,7 +64,7 @@ export function TimingTile({ label, icon, highlighted, subLabel }: {
         <Ionicons
           name={icon}
           size={20}
-          color={highlighted ? '#C29B2A' : colors.textMuted}
+          color={highlighted ? paper.bandPrime : colors.textMuted}
         />
       </View>
       <Text style={[styles.tileLabel, highlighted && styles.tileLabelActive]}>
@@ -108,8 +108,8 @@ const styles = StyleSheet.create({
     gap: 4,
   },
   tileActive: {
-    backgroundColor: '#FFFBEF',
-    borderColor: '#C29B2A50',
+    backgroundColor: paper.dashboardBlueSky,
+    borderColor: paper.dashboardBlue,
   },
   tileInactive: {
     backgroundColor: colors.backgroundAlt,
@@ -124,7 +124,7 @@ const styles = StyleSheet.create({
     marginBottom: 2,
   },
   iconWrapActive: {
-    backgroundColor: '#FDF6E8',
+    backgroundColor: paper.dashboardWhite,
   },
   iconWrapInactive: {
     backgroundColor: colors.background,
@@ -135,7 +135,7 @@ const styles = StyleSheet.create({
     color: colors.textMuted,
   },
   tileLabelActive: {
-    color: '#B8862D',
+    color: paper.dashboardInk,
   },
   tileSubLabel: {
     fontFamily: fonts.body,

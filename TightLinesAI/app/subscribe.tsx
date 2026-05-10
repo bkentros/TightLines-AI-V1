@@ -70,9 +70,6 @@ export default function SubscribeScreen() {
             ]}
             onPress={() => hapticImpact(ImpactFeedbackStyle.Medium)}
           >
-            {/* The "BEST VALUE" stamp tilts into the upper-right corner of
-                the Master Angler card. It is purely editorial — no interaction
-                — so it's marked accessibility-hidden via the stamp primitive. */}
             <PaperBestValueStamp />
             <View style={styles.masterBar} />
             <View style={styles.planHeader}>
@@ -150,9 +147,8 @@ pageEyebrow: {
   },
   planCardMaster: {
     paddingLeft: paperSpacing.md + 8,
-    // The BEST VALUE stamp pokes ~10px above & right of the card; reserve
-    // headroom on the row above so it does not visually collide with the
-    // section lede or the Angler card border.
+    // The BEST VALUE badge floats above the card edge; reserve headroom so it
+    // does not visually collide with the section lede or the Angler border.
     marginTop: paperSpacing.xs,
   },
   masterBar: {

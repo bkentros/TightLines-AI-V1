@@ -351,7 +351,7 @@ export function WaterReaderMapCard({
 
       {state.status === 'ready' && !state.read.productionSvgResult && (
         <View style={styles.fallbackCard}>
-          <Ionicons name="warning-outline" size={16} color={paper.goldDk} />
+          <Ionicons name="warning-outline" size={16} color={paper.dashboardBlue} />
           <Text style={styles.fallbackTitle}>NO MAP DRAWN</Text>
           <Text style={styles.fallbackBody}>
             {state.read.fallbackMessage ??
@@ -715,14 +715,14 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     padding: paperSpacing.lg,
     borderWidth: 1,
-    borderColor: paper.goldDk,
+    borderColor: paper.dashboardBlue,
     gap: paperSpacing.xs,
   },
   fallbackTitle: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
     letterSpacing: 1.5,
-    color: paper.goldDk,
+    color: paper.dashboardBlue,
     marginTop: 4,
   },
   fallbackBody: {

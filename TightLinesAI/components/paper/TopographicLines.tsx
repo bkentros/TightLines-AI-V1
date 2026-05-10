@@ -27,7 +27,7 @@ interface TopographicLinesProps {
 
 export function TopographicLines({
   style,
-  color = paper.forestDk,
+  color = paper.dashboardBlue,
   count = 5,
 }: TopographicLinesProps) {
   return (

@@ -158,8 +158,8 @@ function emphasizeDisplayNumber(
   if (!displayNumber) return svg;
   const filter = `
     <filter id="wr-selected-emphasis" x="-24%" y="-24%" width="148%" height="148%">
-      <feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="${paper.gold}" flood-opacity="0.75"/>
-      <feDropShadow dx="0" dy="0" stdDeviation="4.2" flood-color="${paper.gold}" flood-opacity="0.28"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="2.2" flood-color="${paper.dashboardBlueLight}" flood-opacity="0.75"/>
+      <feDropShadow dx="0" dy="0" stdDeviation="4.2" flood-color="${paper.dashboardBlueLight}" flood-opacity="0.28"/>
     </filter>`;
   const withFilter = svg.includes('id="wr-selected-emphasis"')
     ? svg

@@ -5,7 +5,7 @@
  *   <svg width=240 height=240 style="right:-60; top:-60; opacity:0.09">
  *     <circle r=110 /> <circle r=85 /> <circle r=55 />
  *     16 radial ticks (every 22.5°), thicker on the 4 cardinals.
- *     "N" marker at the top (in red, Fraunces 700)
+ *     "N" marker at the top (in blue, Fraunces 700)
  *
  * We recreate it with plain Views (no `react-native-svg`) so the dev client
  * does not need a native rebuild.
@@ -40,7 +40,7 @@ const TICK_COUNT = 16;
 
 export function CompassRose({
   size = 240,
-  color = paper.ink,
+  color = paper.dashboardInk,
   opacity = 0.09,
   showNorthLabel = true,
   style,
@@ -117,7 +117,7 @@ export function CompassRose({
             style={{
               fontFamily: paperFonts.display,
               fontSize: size * (12 / 240),
-              color: paper.red,
+              color: paper.dashboardBlue,
               fontWeight: '700',
             }}
           >

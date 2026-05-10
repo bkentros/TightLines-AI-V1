@@ -238,15 +238,15 @@ export default function RootLayout() {
       <StatusBar style="dark" />
       <Stack
         screenOptions={{
-          headerStyle: { backgroundColor: paper.paper },
-          headerTintColor: paper.ink,
+          headerStyle: { backgroundColor: paper.dashboardInk },
+          headerTintColor: '#FFFFFF',
           headerTitleStyle: {
             fontFamily: paperFonts.display,
             fontSize: 17,
-            color: paper.ink,
+            color: '#FFFFFF',
           },
           headerShadowVisible: false,
-          contentStyle: { backgroundColor: paper.paper },
+          contentStyle: { backgroundColor: paper.dashboardCream },
           headerBackTitle: '',
         }}
       >
@@ -359,7 +359,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardCream,
     paddingHorizontal: 24,
   },
   bootTopo: {
@@ -369,14 +369,14 @@ const styles = StyleSheet.create({
   },
   bootTopoLine: {
     height: 1,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardLine,
     borderRadius: 1,
   },
   bootEyebrow: {
     // Pre-fonts on purpose — system font; the styling (tracking + size)
     // is what carries the editorial voice while the real fonts load.
     fontSize: 9,
-    color: paper.red,
+    color: paper.dashboardBlue,
     letterSpacing: 2.6,
     fontWeight: '700',
     marginBottom: 14,
@@ -385,14 +385,14 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 34,
     fontWeight: '700',
-    color: paper.ink,
-    letterSpacing: -0.5,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     marginBottom: 6,
   },
   bootSubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     letterSpacing: 1.2,
   },
@@ -400,7 +400,7 @@ const styles = StyleSheet.create({
     width: 8,
     height: 8,
     borderRadius: 4,
-    backgroundColor: paper.forest,
+    backgroundColor: paper.dashboardBlue,
     marginTop: 22,
   },
 });

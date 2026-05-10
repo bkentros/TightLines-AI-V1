@@ -1,17 +1,17 @@
 /**
- * PaperBestValueStamp — an editorial "rubber stamp" badge tilted into
- * the corner of a card. Drawn with the paper system's accent red on
- * paper-light, double-ruled border, all-caps Fraunces interior.
+ * PaperBestValueStamp — a compact membership badge for the Master Angler
+ * card. It uses the dashboard palette so the upgrade callout feels native
+ * to the current FinFindr shell.
  *
  *   ┌───────────────┐
- *   │  ╔══════════╗ │   ← tilted stamp, sits absolute over a card
+ *   │  ╔══════════╗ │   ← compact badge, sits absolute over a card
  *   │  ║ ★ BEST ★ ║ │
  *   │  ║   VALUE   ║ │
  *   │  ╚══════════╝ │
  *   └───────────────┘
  *
  * Designed for the Subscribe screen's Master Angler tier so the
- * upgraded plan stands out without breaking the paper voice. The
+ * upgraded plan stands out without turning into a separate ad. The
  * component renders absolutely positioned by default — wrap the parent
  * in a `position: 'relative'` container.
  */
@@ -25,8 +25,8 @@ interface PaperBestValueStampProps {
   /** Bigger second word, default "VALUE". */
   bottomLine?: string;
   /**
-   * Tilt in degrees applied via transform. Default `-8` (slightly
-   * leftward — feels like a real ink stamp).
+   * Tilt in degrees applied via transform. Default `0` keeps it aligned
+   * with the dashboard chrome.
    */
   tilt?: number;
   /**
@@ -40,7 +40,7 @@ interface PaperBestValueStampProps {
 export function PaperBestValueStamp({
   topLine = 'BEST',
   bottomLine = 'VALUE',
-  tilt = -8,
+  tilt = 0,
   inline = false,
   style,
 }: PaperBestValueStampProps) {
@@ -53,11 +53,9 @@ export function PaperBestValueStamp({
       ]}
       accessibilityLabel={`${topLine} ${bottomLine}`}
     >
-      {/* Outer ruled border + inner ruled border = the "double rule"
-          that makes this read as a stamp rather than a button. */}
       <View style={styles.outer}>
         <View style={styles.inner}>
-          <Text style={styles.topLine}>★ {topLine} ★</Text>
+          <Text style={styles.topLine}>{topLine}</Text>
           <Text style={styles.bottomLine}>{bottomLine}</Text>
         </View>
       </View>
@@ -65,13 +63,13 @@ export function PaperBestValueStamp({
   );
 }
 
-const STAMP_WIDTH = 92;
+const STAMP_WIDTH = 86;
 
 const styles = StyleSheet.create({
   absoluteWrap: {
     position: 'absolute',
-    top: -10,
-    right: -10,
+    top: -8,
+    right: 10,
     width: STAMP_WIDTH,
     zIndex: 10,
   },
@@ -79,34 +77,35 @@ const styles = StyleSheet.create({
     width: STAMP_WIDTH,
   },
   outer: {
-    borderWidth: 2,
-    borderColor: paper.red,
-    backgroundColor: paper.paperLight,
-    paddingVertical: 5,
-    paddingHorizontal: 6,
-    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#F7FAFB',
+    paddingVertical: 4,
+    paddingHorizontal: 4,
+    borderRadius: 8,
   },
   inner: {
     borderWidth: 1,
-    borderColor: paper.red,
-    paddingVertical: 4,
+    borderColor: `${paper.dashboardBlue}44`,
+    paddingVertical: 3,
     paddingHorizontal: 4,
     alignItems: 'center',
     justifyContent: 'center',
     gap: 1,
+    borderRadius: 6,
   },
   topLine: {
-    fontFamily: paperFonts.bodyBold,
-    color: paper.red,
-    fontSize: 8.5,
-    letterSpacing: 1.6,
+    fontFamily: paperFonts.metaMonoBold,
+    color: paper.dashboardBlue,
+    fontSize: 8,
+    letterSpacing: 1.4,
     fontWeight: '700',
   },
   bottomLine: {
     fontFamily: paperFonts.display,
-    color: paper.red,
-    fontSize: 14,
-    letterSpacing: 0.5,
+    color: paper.dashboardInk,
+    fontSize: 13,
+    letterSpacing: 0,
     fontWeight: '800',
   },
 });

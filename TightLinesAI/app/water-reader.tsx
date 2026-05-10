@@ -43,10 +43,7 @@ import {
   paperSpacing,
 } from '../lib/theme';
 import { fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
-import {
-  SectionEyebrow,
-  TopographicLines,
-} from '../components/paper';
+import { TopographicLines } from '../components/paper';
 import { WaterReaderMapCard } from '../components/water-reader/WaterReaderMapCard';
 import type { WaterReaderMapCardState } from '../components/water-reader/WaterReaderMapCard';
 import type {
@@ -804,15 +801,7 @@ export default function WaterReaderScreen() {
                 color={paper.dashboardBlue}
                 count={5}
               />
-              <SectionEyebrow
-                color={paper.dashboardBlue}
-                size={10}
-                tracking={3}
-                align="left"
-                dashes={false}
-              >
-                GUARDRAILS
-              </SectionEyebrow>
+              <Text style={styles.guardrailEyebrow}>GUARDRAILS</Text>
               <Text style={styles.guardrailHeadline}>
                 Read it like a guide&apos;s scribble.
               </Text>
@@ -1029,7 +1018,7 @@ const styles = StyleSheet.create({
     fontFamily: SERIF_BOLD,
     fontSize: 24,
     color: '#FFFFFF',
-    letterSpacing: -0.4,
+    letterSpacing: 0,
     lineHeight: 26,
   },
   navTitleRow: {
@@ -1098,7 +1087,7 @@ const styles = StyleSheet.create({
     fontFamily: SERIF_BOLD,
     fontSize: 36,
     lineHeight: 38,
-    letterSpacing: -0.6,
+    letterSpacing: 0,
     color: paper.dashboardInk,
   },
   heroHeadlineAccent: {
@@ -1368,7 +1357,7 @@ const styles = StyleSheet.create({
     fontFamily: SANS_MEDIUM,
     fontSize: 11,
     lineHeight: 14,
-    color: paper.goldDk,
+    color: paper.dashboardBlue,
     marginTop: 2,
   },
   resultBlocked: {
@@ -1447,6 +1436,12 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardLine,
     gap: 10,
   },
+  guardrailEyebrow: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 3,
+    color: paper.dashboardBlue,
+  },
   guardrailHeadline: {
     fontFamily: SERIF_SEMI,
     fontSize: 18,
@@ -1511,7 +1506,7 @@ const styles = StyleSheet.create({
     fontFamily: SERIF_BOLD,
     fontSize: 26,
     color: '#FFFFFF',
-    letterSpacing: -0.4,
+    letterSpacing: 0,
     lineHeight: 30,
   },
   modalDoneBtn: {

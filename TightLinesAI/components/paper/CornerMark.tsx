@@ -24,7 +24,7 @@ interface CornerMarkProps {
 
 export function CornerMark({
   position,
-  color = paper.ink,
+  color = paper.dashboardBlue,
   size = 14,
   thickness = 2,
   inset = 8,
@@ -66,10 +66,10 @@ export function CornerMark({
 }
 
 /**
- * Convenience: four red corner marks framing the inside of a card.
+ * Convenience: four blue corner marks framing the inside of a card.
  */
 export function CornerMarkSet({
-  color = paper.red,
+  color = paper.dashboardBlue,
   size = 14,
   thickness = 2,
   inset = 8,
