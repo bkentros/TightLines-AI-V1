@@ -1119,7 +1119,7 @@ const styles = StyleSheet.create({
     top: -14,
     width: 204,
     height: 128,
-    opacity: 0.34,
+    opacity: 0.48,
     zIndex: 0,
   },
 
