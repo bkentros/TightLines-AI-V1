@@ -29,7 +29,7 @@ export type ReportSummaryInput = {
 };
 
 const OPENERS: Record<ScoreBand, readonly string[]> = {
-  Excellent: [
+  Prime: [
     "This is a very strong fishing day.",
     "Conditions look excellent today.",
     "The overall setup is lining up very well.",
@@ -84,6 +84,20 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
     "There are more problems than help here.",
     "This is a tougher read from top to bottom.",
     "The day does not offer many free advantages.",
+  ],
+  Tough: [
+    "This is a very difficult fishing day.",
+    "The setup is heavily stacked against you today.",
+    "Conditions look tough from the start.",
+    "This is a grind-it-out day.",
+    "The day offers very little easy help.",
+    "This is one of the harder reads on the calendar.",
+    "Most of the important signals are working against you today.",
+    "This is a day for low expectations and careful choices.",
+    "The setup is narrow, demanding, and unforgiving.",
+    "There is not much natural edge in the conditions today.",
+    "This is a tough setup from top to bottom.",
+    "The day asks you to earn every bite.",
   ],
 };
 
