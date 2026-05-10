@@ -1,6 +1,9 @@
 # Dependencies
 node_modules/
 
+# Local rembg venv (see scripts/strip-recommender-tackle-backgrounds.sh)
+.venv-rembg/
+
 # Local tools (e.g. cloudflared binary from npm run setup:cloudflared)
 .tools/
 

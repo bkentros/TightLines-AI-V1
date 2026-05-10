@@ -52,6 +52,10 @@ import {
 import { getSpeciesImage } from '../lib/speciesImages';
 import { getWatertypeImage, ALL_WATERTYPE_IMAGES } from '../lib/watertypeImages';
 import { getWaterclarityImage, ALL_WATERCLARITY_IMAGES } from '../lib/waterclarityImages';
+import {
+  getRecommendationGoalImage,
+  ALL_RECOMMENDATION_GOAL_IMAGES,
+} from '../lib/recommendationGoalImages';
 import { ALL_COLOR_PALETTE_IMAGES } from '../lib/colorPaletteImages';
 import { ALL_LURE_IMAGES } from '../lib/lureImages';
 import { ALL_FLY_IMAGES } from '../lib/flyImages';
@@ -105,6 +109,7 @@ const ALL_PRELOAD_IMAGES: ReturnType<typeof require>[] = [
   ...ALL_COLOR_PALETTE_IMAGES,
   ...ALL_LURE_IMAGES,
   ...ALL_FLY_IMAGES,
+  ...ALL_RECOMMENDATION_GOAL_IMAGES,
 ];
 
 // ─── Context helpers ──────────────────────────────────────────────────────────
@@ -350,8 +355,14 @@ const CLARITY_SUBTITLE: Record<WaterClarity, string> = {
 };
 
 const GOAL_LABELS: Record<RecommendationGoal, string> = {
-  all_purpose: 'All Purpose',
-  big_fish: 'Big Fish',
+  all_purpose: 'All-around',
+  big_fish: 'Big fish / PB',
+};
+
+/** Short lure metaphors — pairs with regenerated goal chip art. */
+const GOAL_SUBTITLE: Record<RecommendationGoal, string> = {
+  all_purpose: 'Crankbait-style: cover water, stay versatile',
+  big_fish: 'Big glide-style: trophy-minded offerings',
 };
 
 // ─── Wizard step progress ────────────────────────────────────────────────────
@@ -708,15 +719,13 @@ function GoalSelector({
   selected: RecommendationGoal;
   onSelect: (goal: RecommendationGoal) => void;
 }) {
-  const options: { value: RecommendationGoal; icon: keyof typeof Ionicons.glyphMap }[] = [
-    { value: 'all_purpose', icon: 'compass-outline' },
-    { value: 'big_fish', icon: 'trophy-outline' },
-  ];
+  const options: RecommendationGoal[] = ['all_purpose', 'big_fish'];
 
   return (
     <View style={wizardStyles.goalGrid}>
-      {options.map(({ value, icon }) => {
+      {options.map((value) => {
         const isActive = selected === value;
+        const img = getRecommendationGoalImage(value);
         return (
           <Pressable
             key={value}
@@ -731,15 +740,20 @@ function GoalSelector({
             }}
             android_ripple={RIPPLE}
           >
-            <View style={[wizardStyles.goalIconWrap, isActive && wizardStyles.goalIconWrapActive]}>
-              <Ionicons
-                name={icon}
-                size={24}
-                color={isActive ? paper.paper : paper.ink}
+            <View style={wizardStyles.goalImageArea}>
+              <ExpoImage
+                source={img}
+                style={wizardStyles.goalImage}
+                contentFit="contain"
+                transition={IMG_IN}
+                cachePolicy="memory-disk"
               />
             </View>
-            <Text style={wizardStyles.goalTitle} numberOfLines={1}>
+            <Text style={wizardStyles.goalTitle} numberOfLines={2}>
               {GOAL_LABELS[value]}
+            </Text>
+            <Text style={wizardStyles.goalSubtitle} numberOfLines={2} ellipsizeMode="tail">
+              {GOAL_SUBTITLE[value]}
             </Text>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
@@ -2301,15 +2315,16 @@ const wizardStyles = StyleSheet.create({
   },
   goalCard: {
     flex: 1,
-    minHeight: 128,
+    minHeight: 148,
     backgroundColor: paper.paper,
     borderWidth: 2,
     borderColor: paper.ink,
     borderRadius: paperRadius.card,
-    paddingHorizontal: 14,
-    paddingVertical: 18,
+    paddingHorizontal: 8,
+    paddingTop: 14,
+    paddingBottom: 12,
     alignItems: 'center',
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     position: 'relative',
     ...paperShadows.hard,
   },
@@ -2318,26 +2333,35 @@ const wizardStyles = StyleSheet.create({
     backgroundColor: paper.paperLight,
     ...paperShadows.lift,
   },
-  goalIconWrap: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
+  goalImageArea: {
+    width: 68,
+    height: 68,
+    borderRadius: 6,
     borderWidth: 2,
     borderColor: paper.ink,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 12,
-    backgroundColor: paper.paper,
+    overflow: 'hidden',
+    marginBottom: 10,
+    backgroundColor: paper.paperLight,
   },
-  goalIconWrapActive: {
-    backgroundColor: paper.forest,
+  goalImage: {
+    width: '100%',
+    height: '100%',
   },
   goalTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 18,
+    fontSize: 15,
     color: paper.ink,
-    letterSpacing: -0.3,
+    letterSpacing: -0.2,
     textAlign: 'center',
+  },
+  goalSubtitle: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 10,
+    color: paper.ink,
+    opacity: 0.65,
+    textAlign: 'center',
+    marginTop: 3,
+    lineHeight: 13,
   },
 
   // Shared select badge

@@ -54,7 +54,7 @@
     "audit:catalog-gaps": "deno run -A scripts/catalog-gap-analysis-v4.ts",
     "gen:recommender-tackle-images": "deno run --env-file=.env -A scripts/generate-recommender-tackle-images.ts",
     "gen:recommender-tackle-images:replace": "deno run --env-file=.env -A scripts/generate-recommender-tackle-images.ts --replace-catalog",
-    "postgen:recommender-tackle-alpha": "bash scripts/strip-recommender-tackle-backgrounds.sh",
+    "postgen:recommender-tackle-alpha": "if test -x .venv-rembg/bin/python; then exec .venv-rembg/bin/python scripts/strip-recommender-rgba.py; else exec python3 scripts/strip-recommender-rgba.py; fi",
     "gen:recommender-species-fish-images": "deno run -A scripts/generate-recommender-species-fish-images.ts",
     "gen:recommender-watertype-images": "deno run -A scripts/generate-recommender-watertype-images.ts",
     "gen:recommender-waterclarity-images": "deno run -A scripts/generate-recommender-waterclarity-images.ts",

@@ -1,28 +1,17 @@
 #!/usr/bin/env bash
-# Strip solid / soft backgrounds from recommender tackle PNGs using rembg (local ML).
-# Run ONLY after you've reviewed the opaque PNGs in assets/images/lures/ and flies/
-# (generation writes there first; this replaces each file in place with RGBA).
-# Install: pip install rembg  (or: pipx install rembg)
-# Usage from TightLinesAI/: bash scripts/strip-recommender-tackle-backgrounds.sh
+# Delegates to strip-recommender-rgba.py (rembg Python API — no CLI / gradio needed).
+#
+# Recommender preload PNGs → RGBA in place (see script header in .py for paths).
+#
+# One-time venv (macOS system Python avoids broken Homebrew 3.14 builds):
+#   cd TightLinesAI && /usr/bin/python3 -m venv .venv-rembg && . .venv-rembg/bin/activate \
+#     && pip install rembg onnxruntime
+#
+# From TightLinesAI/: npm run postgen:recommender-tackle-alpha
 set -euo pipefail
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-if ! command -v rembg >/dev/null 2>&1; then
-  echo "rembg not found. Install with: pip install rembg"
-  echo "Then ensure rembg is on PATH (or use: python3 -m rembg)."
-  exit 1
+PY="$ROOT/.venv-rembg/bin/python"
+if [[ -x "$PY" ]]; then
+  exec "$PY" "$ROOT/scripts/strip-recommender-rgba.py"
 fi
-strip_dir () {
-  local dir="$1"
-  [[ -d "$dir" ]] || return 0
-  local tmp
-  for f in "$dir"/*.png; do
-    [[ -e "$f" ]] || continue
-    tmp="${f%.png}.rgba-tmp.png"
-    rembg i "$f" "$tmp"
-    mv "$tmp" "$f"
-    echo "stripped: $f"
-  done
-}
-strip_dir "$ROOT/assets/images/lures"
-strip_dir "$ROOT/assets/images/flies"
-echo "Done. PNGs in lures/ and flies/ replaced with RGBA versions."
+exec python3 "$ROOT/scripts/strip-recommender-rgba.py"
