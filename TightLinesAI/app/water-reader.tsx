@@ -497,9 +497,9 @@ export default function WaterReaderScreen() {
                   </Text>
                 </View>
                 <Image
-                  source={require('../assets/images/water read image.png')}
+                  source={require('../assets/images/water-read-hero.png')}
                   style={styles.heroPines}
-                  resizeMode="cover"
+                  resizeMode="contain"
                 />
               </View>
             </View>
@@ -1115,10 +1115,10 @@ const styles = StyleSheet.create({
   },
   heroPines: {
     position: 'absolute',
-    right: -22,
-    top: -28,
-    width: 310,
-    height: 176,
+    right: -42,
+    top: -36,
+    width: 360,
+    height: 230,
     opacity: 1,
     zIndex: 0,
   },
