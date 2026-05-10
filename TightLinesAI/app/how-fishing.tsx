@@ -863,7 +863,7 @@ function TopLevelHeader({
       <View style={headerStyles.metaPill}>
         <View style={headerStyles.metaDot} />
         <Text style={headerStyles.metaPillText} numberOfLines={1}>
-          {generatedAt ? `${dateLabel} · ${generatedAt}` : dateLabel}
+          {generatedAt ? generatedAt : locationLabel}
         </Text>
       </View>
     </View>
@@ -893,7 +893,7 @@ const headerStyles = StyleSheet.create({
   brand: {
     position: 'absolute',
     left: 58,
-    right: 118,
+    right: 130,
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
@@ -938,7 +938,7 @@ const headerStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    maxWidth: 116,
+    maxWidth: 124,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 18,
@@ -972,7 +972,7 @@ const styles = StyleSheet.create({
   reportContent: {
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
-    paddingTop: paperSpacing.sm,
+    paddingTop: paperSpacing.md,
   },
 
   /* Context switcher — full-width tab bar. Each tab is `flex: 1` so two tabs
@@ -982,6 +982,7 @@ const styles = StyleSheet.create({
   contextTabBar: {
     flexDirection: 'row',
     marginHorizontal: paperSpacing.lg,
+    marginTop: paperSpacing.sm,
     marginBottom: paperSpacing.md,
     borderWidth: 1,
     borderColor: paper.dashboardLine,

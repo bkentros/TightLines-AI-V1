@@ -497,7 +497,7 @@ export default function WaterReaderScreen() {
                   </Text>
                 </View>
                 <Image
-                  source={require('../assets/images/misty-pines.png')}
+                  source={require('../assets/images/water read image.png')}
                   style={styles.heroPines}
                   resizeMode="contain"
                 />

@@ -6,7 +6,6 @@ import {
   paperFonts,
   paperSpacing,
   paperTierForScore,
-  paperTier,
   scoreAccentColor,
   scoreTextOnColor,
   type PaperTier,
@@ -291,29 +290,16 @@ export function RebuildReportView({
 
   return (
     <View style={styles.wrap}>
-      {/* ── HERO — magazine cover ────────────────────────────────────────── */}
       <View style={styles.heroCard}>
-        {/* Bold tier-colored masthead stripe, followed by a thin ink rule
-            so the band reads as a deliberate publication mark, not a
-            colored card edge. */}
-        <View
-          pointerEvents="none"
-          style={[styles.heroTopBand, { backgroundColor: accent }]}
-        />
-        <View pointerEvents="none" style={styles.heroTopRule} />
-
-        {/* Faint topographic watermark tinted to the tier accent. */}
         <TopographicLines
           style={styles.heroTopoLines}
-          color={accent}
+          color={paper.dashboardBlue}
           count={4}
         />
 
-        <VerdictStamp accent={accent} tier={tier} band={report.band} />
-
         <View style={styles.heroEyebrow}>
           <SectionEyebrow color={paper.dashboardBlue} size={9} tracking={2}>
-            {dateLabel.toUpperCase()}
+            {headline.secondary ?? dateLabel.toUpperCase()}
           </SectionEyebrow>
         </View>
 
@@ -321,10 +307,6 @@ export function RebuildReportView({
           {headline.primary}
           <Text style={styles.heroHeadlineDot}>.</Text>
         </Text>
-        {headline.secondary ? (
-          <Text style={styles.heroSecondary}>{headline.secondary}</Text>
-        ) : null}
-
         <LinearScoreGauge
           score={report.score / 10}
           tier={tier}
@@ -333,14 +315,10 @@ export function RebuildReportView({
           band={report.band}
         />
 
-        <View style={styles.outlookRule} />
-
-        <Text style={[styles.heroOutlookLine, { color: accent }]}>
+        <Text style={[styles.heroOutlookLine, { color: paper.dashboardInk }]}>
           {outlookLine}
         </Text>
 
-        {/* Pull-quote summary — italic Fraunces with a tier-colored left
-            rule, sized to read like an editor's lede. */}
         <View style={styles.heroSummaryWrap}>
           <View style={[styles.heroSummaryRule, { backgroundColor: accent }]} />
           <Text style={styles.heroSummary}>{report.summary_line}</Text>
@@ -411,7 +389,7 @@ export function RebuildReportView({
             title="WHEN TO GO"
             meta={
               report.location.timezone
-                ? `local time · ${shortTz(report.location.timezone)}`
+                ? `local time - ${shortTz(report.location.timezone)}`
                 : 'local time'
             }
           />
@@ -524,58 +502,6 @@ export function RebuildReportView({
   );
 }
 
-// ─── VerdictStamp ────────────────────────────────────────────────────────────
-
-function VerdictStamp({
-  accent,
-  tier,
-  band,
-}: {
-  accent: string;
-  tier: PaperTier;
-  band?: string;
-}) {
-  const label = (band ?? '').toUpperCase() || fallbackBandFromTier(tier);
-  const isPeak = tier === 'green' && label === 'EXCELLENT';
-  return (
-    <View
-      pointerEvents="none"
-      style={[stampStyles.outer, { borderColor: accent }]}
-    >
-      <View style={[stampStyles.inner, { borderColor: accent }]}>
-        <Text style={[stampStyles.text, { color: accent }]}>
-          {isPeak ? 'BEST ' : ''}
-          {label}
-        </Text>
-      </View>
-    </View>
-  );
-}
-
-const stampStyles = StyleSheet.create({
-  outer: {
-    position: 'absolute',
-    top: 14,
-    right: 14,
-    transform: [{ rotate: '-6deg' }],
-    borderWidth: 1.6,
-    padding: 2,
-    backgroundColor: 'transparent',
-    zIndex: 5,
-  },
-  inner: {
-    borderWidth: 0.8,
-    paddingHorizontal: 7,
-    paddingVertical: 2,
-  },
-  text: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.2,
-    fontWeight: '700',
-  },
-});
-
 // ─── LinearScoreGauge ────────────────────────────────────────────────────────
 
 function LinearScoreGauge({
@@ -638,58 +564,63 @@ function LinearScoreGauge({
 
   return (
     <View style={gaugeStyles.wrap}>
-      <View style={gaugeStyles.scoreRow}>
-        <View style={[gaugeStyles.scoreHalo, { backgroundColor: accent }]} />
-        <Text
-          style={[gaugeStyles.scoreNum, { color: accent }]}
-          allowFontScaling={false}
-        >
-          {displayScore}
-        </Text>
-        <Text style={[gaugeStyles.scoreMax, { color: accent }]}>/10</Text>
-      </View>
-
-      <View style={gaugeStyles.trackRow}>
-        <View style={gaugeStyles.track}>
-          <View style={[gaugeStyles.stop, { flex: 2.2, backgroundColor: paper.bandTough }]} />
-          <View style={[gaugeStyles.stop, { flex: 1.2, backgroundColor: paper.bandPoor }]} />
-          <View style={[gaugeStyles.stop, { flex: 1.6, backgroundColor: paper.bandFair }]} />
-          <View style={[gaugeStyles.stop, { flex: 2.2, backgroundColor: paper.bandGood }]} />
-          <View style={[gaugeStyles.stop, { flex: 2.8, backgroundColor: paper.bandPrime }]} />
+      <View style={[gaugeStyles.panel, { borderColor: `${accent}55` }]}>
+        <View style={gaugeStyles.panelHeader}>
+          <Text style={gaugeStyles.panelLabel}>CONDITION SCORE</Text>
+          <Animated.View
+            style={[
+              gaugeStyles.bandPill,
+              { backgroundColor: accent, opacity: bandOpacity },
+            ]}
+          >
+            <Text style={[gaugeStyles.bandPillText, { color: accentText }]}>
+              {bandLabel}
+            </Text>
+          </Animated.View>
         </View>
 
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            gaugeStyles.markerStem,
-            { left: leftInterp, backgroundColor: accent },
-          ]}
-        />
+        <View style={gaugeStyles.scoreRow}>
+          <View style={[gaugeStyles.scoreHalo, { backgroundColor: accent }]} />
+          <Text
+            style={[gaugeStyles.scoreNum, { color: paper.dashboardInk }]}
+            allowFontScaling={false}
+          >
+            {displayScore}
+          </Text>
+          <Text style={gaugeStyles.scoreMax}>/10</Text>
+        </View>
 
-        <Animated.View
-          pointerEvents="none"
-          style={[gaugeStyles.markerPinWrap, { left: leftInterp }]}
-        >
-          <View style={[gaugeStyles.markerPin, { backgroundColor: accent }]} />
-        </Animated.View>
+        <View style={gaugeStyles.trackRow}>
+          <View style={gaugeStyles.track}>
+            <View style={[gaugeStyles.stop, { flex: 2.2, backgroundColor: paper.bandTough }]} />
+            <View style={[gaugeStyles.stop, { flex: 1.2, backgroundColor: paper.bandPoor }]} />
+            <View style={[gaugeStyles.stop, { flex: 1.6, backgroundColor: paper.bandFair }]} />
+            <View style={[gaugeStyles.stop, { flex: 2.2, backgroundColor: paper.bandGood }]} />
+            <View style={[gaugeStyles.stop, { flex: 2.8, backgroundColor: paper.bandPrime }]} />
+          </View>
+
+          <Animated.View
+            pointerEvents="none"
+            style={[
+              gaugeStyles.markerStem,
+              { left: leftInterp, backgroundColor: accent },
+            ]}
+          />
+
+          <Animated.View
+            pointerEvents="none"
+            style={[gaugeStyles.markerPinWrap, { left: leftInterp }]}
+          >
+            <View style={[gaugeStyles.markerPin, { backgroundColor: accent }]} />
+          </Animated.View>
+        </View>
+
+        <View style={gaugeStyles.scaleRow}>
+          <Text style={gaugeStyles.scaleTick}>0</Text>
+          <Text style={gaugeStyles.scaleTick}>5</Text>
+          <Text style={gaugeStyles.scaleTick}>10</Text>
+        </View>
       </View>
-
-      <View style={gaugeStyles.scaleRow}>
-        <Text style={gaugeStyles.scaleTick}>0</Text>
-        <Text style={gaugeStyles.scaleTick}>5</Text>
-        <Text style={gaugeStyles.scaleTick}>10</Text>
-      </View>
-
-      <Animated.View
-        style={[
-          gaugeStyles.bandPill,
-          { backgroundColor: accent, opacity: bandOpacity },
-        ]}
-      >
-        <Text style={[gaugeStyles.bandPillText, { color: accentText }]}>
-          {bandLabel}
-        </Text>
-      </Animated.View>
     </View>
   );
 }
@@ -704,61 +635,81 @@ const gaugeStyles = StyleSheet.create({
   wrap: {
     alignSelf: 'stretch',
     alignItems: 'center',
-    marginTop: paperSpacing.sm + 4,
+    marginTop: paperSpacing.sm,
     marginBottom: paperSpacing.xs,
     width: '100%',
+  },
+  panel: {
+    alignSelf: 'stretch',
+    borderWidth: 1,
+    borderRadius: 12,
+    backgroundColor: '#F7FAFB',
+    paddingHorizontal: 14,
+    paddingTop: 10,
+    paddingBottom: 12,
+  },
+  panelHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 10,
+    marginBottom: 2,
+  },
+  panelLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.5,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
   },
   scoreRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     gap: 4,
-    marginBottom: 10,
-    paddingHorizontal: 20,
-    paddingTop: 14,
-    paddingBottom: 10,
+    marginBottom: 6,
+    paddingHorizontal: 4,
+    paddingTop: 2,
+    paddingBottom: 4,
     position: 'relative',
   },
   scoreHalo: {
     position: 'absolute',
-    top: 10,
-    bottom: 4,
-    left: 4,
-    right: 4,
-    opacity: 0.12,
+    top: 4,
+    bottom: 2,
+    left: 0,
+    width: 104,
+    opacity: 0.1,
     borderRadius: 60,
   },
   scoreNum: {
     fontFamily: paperFonts.monoBold,
-    fontSize: 96,
-    lineHeight: 112,
+    fontSize: 56,
+    lineHeight: 64,
     letterSpacing: 0,
     fontWeight: '700',
     includeFontPadding: false,
-    textShadowColor: 'rgba(7, 27, 45, 0.18)',
-    textShadowOffset: { width: 0, height: 2 },
-    textShadowRadius: 0,
   },
   scoreMax: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 20,
-    lineHeight: 24,
+    fontSize: 16,
+    lineHeight: 20,
     fontWeight: '700',
-    marginBottom: 16,
-    opacity: 0.75,
+    marginBottom: 9,
+    color: paper.dashboardMuted,
   },
   trackRow: {
-    width: '92%',
-    height: 24,
+    width: '100%',
+    height: 22,
     justifyContent: 'center',
     position: 'relative',
   },
   track: {
     width: '100%',
-    height: 14,
-    borderRadius: 7,
+    height: 10,
+    borderRadius: 5,
     flexDirection: 'row',
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     overflow: 'hidden',
     backgroundColor: paper.dashboardWhite,
   },
@@ -767,9 +718,9 @@ const gaugeStyles = StyleSheet.create({
   },
   markerStem: {
     position: 'absolute',
-    top: -10,
+    top: -8,
     width: 2,
-    height: 12,
+    height: 10,
     marginLeft: -1,
     opacity: 0.55,
   },
@@ -777,23 +728,23 @@ const gaugeStyles = StyleSheet.create({
     position: 'absolute',
     top: 0,
     bottom: 0,
-    marginLeft: -12,
-    width: 24,
+    marginLeft: -9,
+    width: 18,
     alignItems: 'center',
     justifyContent: 'center',
   },
   markerPin: {
-    width: 20,
-    height: 20,
-    borderRadius: 10,
-    borderWidth: 3,
+    width: 16,
+    height: 16,
+    borderRadius: 8,
+    borderWidth: 2,
     borderColor: paper.dashboardInk,
   },
   scaleRow: {
-    width: '92%',
+    width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginTop: 10,
+    marginTop: 6,
   },
   scaleTick: {
     fontFamily: paperFonts.metaMono,
@@ -802,8 +753,7 @@ const gaugeStyles = StyleSheet.create({
     opacity: 0.6,
   },
   bandPill: {
-    marginTop: 12,
-    paddingHorizontal: 14,
+    paddingHorizontal: 10,
     paddingVertical: 4,
     borderRadius: 999,
     borderWidth: 1,
@@ -811,8 +761,8 @@ const gaugeStyles = StyleSheet.create({
   },
   bandPillText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    letterSpacing: 2.5,
+    fontSize: 9,
+    letterSpacing: 1.8,
     fontWeight: '700',
   },
 });
@@ -872,8 +822,8 @@ function TimeWindowTile({
   icon: keyof typeof import('@expo/vector-icons/build/Ionicons').default.glyphMap;
   isBest: boolean;
 }) {
-  const bestBg = paperTier.yellow.bg;
-  const bestFg = paperTier.yellow.fg;
+  const bestBg = '#E7F5E1';
+  const bestFg = paper.dashboardInk;
 
   return (
     <View
@@ -886,8 +836,8 @@ function TimeWindowTile({
       ]}
     >
       {isBest && (
-        <View style={styles.bestRibbon}>
-          <Text style={styles.bestRibbonText}>★ GO</Text>
+        <View style={styles.bestBadge}>
+          <Ionicons name="checkmark" size={12} color="#FFFFFF" />
         </View>
       )}
       <View style={styles.timeTileTop}>
@@ -900,7 +850,7 @@ function TimeWindowTile({
       <View
         style={[
           styles.timeTileBody,
-          isBest && { borderTopColor: `${bestFg}55` },
+          isBest && { borderTopColor: 'rgba(47, 174, 99, 0.35)' },
         ]}
       >
         <Text
@@ -934,29 +884,11 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
-    paddingTop: paperSpacing.md + 6,
-    paddingBottom: paperSpacing.md,
+    paddingTop: paperSpacing.md,
+    paddingBottom: paperSpacing.md - 2,
     overflow: 'hidden',
     alignItems: 'center',
     position: 'relative',
-  },
-  // Pass-6: thicker (8px → 5px) tier band at the top of the hero, with a
-  // hairline rule beneath, so the hero reads as a magazine masthead.
-  heroTopBand: {
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    height: 7,
-  },
-  heroTopRule: {
-    position: 'absolute',
-    top: 7,
-    left: 0,
-    right: 0,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardLine,
-    opacity: 0.45,
   },
   heroTopoLines: {
     top: 0,
@@ -965,14 +897,14 @@ const styles = StyleSheet.create({
     right: 0,
   },
   heroEyebrow: {
-    marginBottom: 6,
+    marginBottom: 4,
     alignItems: 'center',
   },
   heroHeadline: {
     fontFamily: paperFonts.display,
     fontWeight: '800',
-    fontSize: 32,
-    lineHeight: 36,
+    fontSize: 24,
+    lineHeight: 28,
     letterSpacing: 0,
     textAlign: 'center',
     color: paper.dashboardInk,
@@ -981,33 +913,15 @@ const styles = StyleSheet.create({
   heroHeadlineDot: {
     color: paper.dashboardBlue,
   },
-  heroSecondary: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.8,
-    color: paper.dashboardMuted,
-    opacity: 0.6,
-    fontWeight: '700',
-    marginTop: 4,
-  },
-  outlookRule: {
-    width: '70%',
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardLine,
-    opacity: 0.4,
-    marginVertical: paperSpacing.sm + 2,
-  },
-  // Pass-6: bolder, larger Fraunces italic. Reads as an editor's verdict
-  // line, not a UI label. Tier-colored to inherit the cover hue.
   heroOutlookLine: {
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
     fontWeight: '700',
-    fontSize: 21,
-    lineHeight: 28,
+    fontSize: 16,
+    lineHeight: 21,
     letterSpacing: 0,
-    marginTop: 2,
-    marginBottom: 10,
+    marginTop: 8,
+    marginBottom: 8,
     textAlign: 'center',
     paddingHorizontal: paperSpacing.sm,
   },
@@ -1017,7 +931,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     maxWidth: 340,
     paddingHorizontal: paperSpacing.xs,
-    marginTop: 4,
+    marginTop: 0,
     marginBottom: paperSpacing.xs,
   },
   heroSummaryRule: {
@@ -1274,25 +1188,17 @@ const styles = StyleSheet.create({
     opacity: 0.65,
     marginTop: 2,
   },
-  // Pass-6: BEST treatment is now a top-spanning ink ribbon with "★ GO"
-  // gold text — much more imperative than the corner badge. Pulls the
-  // eye to the recommended window at first glance.
-  bestRibbon: {
+  bestBadge: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
+    top: 8,
+    right: 8,
+    width: 22,
+    height: 22,
+    borderRadius: 11,
     backgroundColor: paper.dashboardInk,
-    paddingVertical: 4,
     alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 3,
-  },
-  bestRibbonText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    letterSpacing: 2.2,
-    color: paper.dashboardWhite,
-    fontWeight: '700',
   },
 
   // ── Almanac (was Solunar) ──────────────────────────────────────────

@@ -34,14 +34,14 @@ function TimeWindowSkeleton({ highlighted }: { highlighted?: boolean }) {
     <View
       style={[
         styles.timeTile,
-        highlighted && { borderColor: paper.bandFair, borderWidth: 2 },
+        highlighted && { borderColor: paper.bandPrime, borderWidth: 2 },
       ]}
     >
       <View style={styles.timeTileTop}>
         <View
           style={[
             styles.timeTileIcon,
-            highlighted && { backgroundColor: paper.bandFair, opacity: 0.25 },
+            highlighted && { backgroundColor: paper.bandPrime, opacity: 0.25 },
           ]}
         />
       </View>
