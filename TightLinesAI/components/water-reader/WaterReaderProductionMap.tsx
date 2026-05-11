@@ -186,7 +186,9 @@ const styles = StyleSheet.create({
     maxWidth: '100%',
     overflow: 'hidden',
     borderRadius: 6,
-    backgroundColor: '#F6F7F5',
+    // Pass-8: tan to match the in-SVG land color so the brief
+    // InteractionManager wait window doesn't flash off-white.
+    backgroundColor: '#EFE4C8',
   },
   fillParent: {
     width: '100%',

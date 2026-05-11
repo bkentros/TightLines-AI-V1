@@ -447,14 +447,14 @@ function WaterReaderAdaptiveMap({
     const height = Math.max(1, result?.summary.height ?? 1);
     const aspectRatio = width / height;
     const availableWidth = Math.max(280, containerWidth || 320);
-    // Pass-7 — bumped the floor 370 → 460 so wide lakes (Pontiac-style)
-    // don't compress to a thin band that pushes brand marks and the
-    // scale bar against the polygon edge. Wider lakes now get a taller
-    // plate with generous beige around them in the corners. Tall lakes
-    // are unaffected (their natural fit was already > 460).
+    // Pass-8 — reverted floor to 380 (was 460 in Pass-7). The viewBox
+    // extension in paperify (scan-v8) now provides the guaranteed beige
+    // margin around the lake, so the React-side fitHeight no longer needs
+    // to fight for breathing room. Smaller plate on wide lakes lets the
+    // page show more above the fold, and the beige is baked into the SVG.
     const maxFitHeight = Math.max(580, Math.min(970, windowHeight * 0.88));
     const naturalFitHeight = availableWidth / aspectRatio;
-    const fitHeight = Math.max(460, Math.min(maxFitHeight, naturalFitHeight));
+    const fitHeight = Math.max(380, Math.min(maxFitHeight, naturalFitHeight));
     const fitWidth = Math.min(availableWidth, fitHeight * aspectRatio);
     const inspectViewportHeight = fullScreen
       ? Math.max(480, windowHeight * 0.56)
@@ -617,7 +617,9 @@ const styles = StyleSheet.create({
     width: '100%',
     overflow: 'hidden',
     borderRadius: 6,
-    backgroundColor: '#F6F7F5',
+    // Pass-8: tan to match the in-SVG land color so the brief wait-moment
+    // before the SVG fades in shows the same beige, not an off-white flash.
+    backgroundColor: '#EFE4C8',
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: paper.dashboardHair,
   },
@@ -681,7 +683,8 @@ const styles = StyleSheet.create({
   },
   inspectViewport: {
     width: '100%',
-    backgroundColor: '#F6F7F5',
+    // Pass-8: match the SVG's tan land color.
+    backgroundColor: '#EFE4C8',
   },
   inspectHorizontalContent: {
     flexGrow: 1,

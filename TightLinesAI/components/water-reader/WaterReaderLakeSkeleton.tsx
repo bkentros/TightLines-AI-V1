@@ -1,35 +1,33 @@
 /**
  * WaterReaderLakeSkeleton
  *
- * Renders the actual hydrography polygon as a paper-language "loading the
- * water" placeholder. The polygon endpoint (waterbody-polygon) is fast even
- * when the heavy water-reader-read pipeline is generating an SVG cold, so
- * we paint the real lake shape immediately, clip a stack of soft topographic
- * contour lines to it, and breathe their opacity. When the heavy SVG arrives
- * the parent crossfades in over the same polygon and the spatial frame
- * never jumps.
+ * Pass-8 rewrite — the skeleton now renders the SAME outer chrome as the
+ * production map plate (viewer toolbar placeholders, plate frame with tan
+ * land background, meta ribbon, paired legend card with bone rows). The
+ * only thing that changes when the heavy read resolves is the SVG inside
+ * the plate — not the surrounding card structure — so the
+ * "wig out" between reading and ready states is eliminated. Layout
+ * dimensions, padding, borders, colors all match WaterReaderMapCard's
+ * ready-state chrome.
  *
- * Visual language: ink-stroked silhouette (1.5px) on paper-light fill,
- * inside a paper card. A faint Fraunces eyebrow ("READING THE WATER…") sits
- * above the skeleton; ~5 paper "bones" stand in for the eventual legend rows
- * underneath. The pulse uses native driver — runs at 60fps with no JS work.
- *
- * The polygon transform pipeline (computeSilhouetteTransform / ringToSubpath)
- * is the same one LakePolygonSilhouette uses, so the skeleton, the placeholder
- * silhouette, and any future LakePolygonSilhouette consumer are all aligned
- * without a redundant projection.
+ * The lake silhouette uses the same gradient water + ink shoreline as the
+ * eventual paperified SVG, with a soft contour pulse breathing inside the
+ * polygon. When the heavy read arrives, WaterReaderMapCard swaps from
+ * this skeleton to WaterReaderProductionMap inside the same plate — the
+ * eye sees the lake refine rather than the page redraw.
  */
 
 import { useEffect, useMemo, useRef, useState } from 'react';
 import {
   Animated,
   Easing,
+  StyleSheet,
   Text,
   View,
-  StyleSheet,
   type LayoutChangeEvent,
 } from 'react-native';
-import Svg, { ClipPath, Defs, G, Path, Rect } from 'react-native-svg';
+import { Ionicons } from '@expo/vector-icons';
+import Svg, { ClipPath, Defs, G, LinearGradient, Path, Rect, Stop } from 'react-native-svg';
 import {
   paper,
   paperFonts,
@@ -42,15 +40,16 @@ import {
 } from '../../lib/waterReaderSilhouetteMath';
 import type { WaterbodyPolygonGeoJson } from '../../lib/waterReaderContracts';
 
-const SKELETON_PAD = 14;
+// Land color + lake gradient stops mirror the SVG paperify pipeline so the
+// skeleton reads as "the same plate, lake not yet drawn in detail".
+const LAND_BASE = '#EFE4C8';
+const WATER_TOP = '#D9F1FB';
+const WATER_MID = '#BFE4F3';
+const WATER_BOTTOM = '#9FD2E7';
 
+const SKELETON_PAD = 28; // matches the viewBox padding the SVG uses (~12%)
 const SKELETON_ASPECT_FALLBACK = 4 / 3;
-// Slightly snappier pulse than the launch value (was 2200) — keeps the
-// skeleton feeling like the system is actively working without crossing
-// over into a UI-spinner cadence.
 const PULSE_DURATION_MS = 1800;
-// Visibility range for the contour breathing. Bumped a hair so the contours
-// register clearly when the read finishes fast (which is most of the time).
 const PULSE_LOW = 0.22;
 const PULSE_HIGH = 0.52;
 
@@ -58,23 +57,12 @@ const AnimatedG = Animated.createAnimatedComponent(G);
 
 interface WaterReaderLakeSkeletonProps {
   geojson: WaterbodyPolygonGeoJson | null | undefined;
-  /**
-   * If we know the eventual SVG aspect ratio (width / height) up-front
-   * (e.g. once the heavy result has been fetched once) the parent can pass
-   * it so the skeleton frames identically and there is no layout jump on
-   * crossfade. When omitted we derive it from the polygon bounds.
-   */
-  aspectRatioOverride?: number;
-  /** Top eyebrow caption — defaults to "READING THE WATER…". */
-  eyebrow?: string;
   /** Number of legend bone rows to render under the map. Default 5. */
   legendBoneCount?: number;
 }
 
 export function WaterReaderLakeSkeleton({
   geojson,
-  aspectRatioOverride,
-  eyebrow = 'BUILDING WATER READ',
   legendBoneCount = 5,
 }: WaterReaderLakeSkeletonProps) {
   const [width, setWidth] = useState(0);
@@ -94,8 +82,6 @@ export function WaterReaderLakeSkeleton({
     if (!polygonBounds) return null;
     const lonSpan = Math.max(polygonBounds.maxLon - polygonBounds.minLon, 1e-9);
     const latSpan = Math.max(polygonBounds.maxLat - polygonBounds.minLat, 1e-9);
-    // Equirectangular adjustment so the skeleton frames at the same aspect
-    // the engine SVG will (which also uses a simple lon/lat box at this scale).
     const meanLat = (polygonBounds.minLat + polygonBounds.maxLat) / 2;
     const lonScale = Math.cos((meanLat * Math.PI) / 180);
     const screenLonSpan = lonSpan * lonScale;
@@ -103,9 +89,10 @@ export function WaterReaderLakeSkeleton({
     return screenLonSpan / latSpan;
   }, [polygonBounds]);
 
-  const aspect =
-    aspectRatioOverride ?? polygonAspect ?? SKELETON_ASPECT_FALLBACK;
-  const height = width > 0 ? Math.max(120, Math.round(width / aspect)) : 0;
+  const aspect = polygonAspect ?? SKELETON_ASPECT_FALLBACK;
+  // Match the production map's fitHeight floor so the plate is the same
+  // height in both states (no layout jump).
+  const height = width > 0 ? Math.max(380, Math.round(width / aspect)) : 380;
 
   const silhouetteSubpath = useMemo(() => {
     if (!geojson || !polygonBounds || width <= 0 || height <= 0) return null;
@@ -135,8 +122,6 @@ export function WaterReaderLakeSkeleton({
     return parts.length > 0 ? parts.join(' ') : null;
   }, [geojson, polygonBounds, width, height]);
 
-  // Native-driven opacity breathe on the contour group — slow, editorial,
-  // no horizontal motion. Cleans up if the parent unmounts mid-pulse.
   const pulse = useRef(new Animated.Value(PULSE_LOW)).current;
   useEffect(() => {
     const loop = Animated.loop(
@@ -159,8 +144,6 @@ export function WaterReaderLakeSkeleton({
     return () => loop.stop();
   }, [pulse]);
 
-  // Faint shimmer on the legend bones — same native-driver value, simple
-  // breathing. Keeps the bone rows from reading as static dead weight.
   const boneShimmer = useRef(new Animated.Value(0.55)).current;
   useEffect(() => {
     const loop = Animated.loop(
@@ -183,24 +166,20 @@ export function WaterReaderLakeSkeleton({
     return () => loop.stop();
   }, [boneShimmer]);
 
-  // A small set of contour curves to clip inside the polygon. Their geometry
-  // is derived from the silhouette frame (not the polygon itself) so we keep
-  // the renderer cheap; even on a complex shoreline this is ~7 path nodes.
   const contourPaths = useMemo(() => {
     if (width <= 0 || height <= 0) return [] as string[];
     const count = 6;
     const lines: string[] = [];
-    for (let i = 0; i < count; i++) {
+    for (let i = 0; i < count; i += 1) {
       const yBase = (height / (count + 1)) * (i + 1);
       const amplitude = height * 0.06 + i * 1.8;
       const phase = (i % 2 === 0 ? 0 : 1) * (Math.PI / 2);
       const segments = 5;
       const stepX = width / segments;
       const points: string[] = [];
-      for (let s = 0; s <= segments; s++) {
+      for (let s = 0; s <= segments; s += 1) {
         const x = s * stepX;
-        const y =
-          yBase + Math.sin((s / segments) * Math.PI * 2 + phase) * amplitude;
+        const y = yBase + Math.sin((s / segments) * Math.PI * 2 + phase) * amplitude;
         points.push(`${s === 0 ? 'M' : 'L'} ${x.toFixed(1)} ${y.toFixed(1)}`);
       }
       lines.push(points.join(' '));
@@ -208,96 +187,140 @@ export function WaterReaderLakeSkeleton({
     return lines;
   }, [width, height]);
 
+  const gradientId = useRef(
+    `wr-skel-water-${Math.random().toString(36).slice(2, 11)}`,
+  ).current;
   const clipId = useRef(
     `wr-skel-clip-${Math.random().toString(36).slice(2, 11)}`,
   ).current;
 
   return (
-    <View style={styles.root}>
-      <View style={styles.eyebrowRow}>
-        <View style={styles.eyebrowDot} />
-        <Text style={styles.eyebrowText}>{eyebrow}</Text>
-      </View>
+    <View style={styles.outer}>
+      {/* ── Plate shell — matches WaterReaderMapCard ready-state chrome ── */}
+      <View style={styles.mapCard}>
+        <View style={styles.viewerToolbar}>
+          <View style={[styles.viewerChip, styles.viewerChipActive]}>
+            <Ionicons name="scan-outline" size={11} color="#FFFFFF" />
+            <Text style={[styles.viewerChipText, styles.viewerChipTextActive]}>
+              FULL
+            </Text>
+          </View>
+          <View style={styles.viewerChip}>
+            <Ionicons name="move-outline" size={11} color={paper.dashboardInk} />
+            <Text style={styles.viewerChipText}>DETAIL</Text>
+          </View>
+        </View>
 
-      <View
-        style={[styles.mapFrame, height > 0 && { height }]}
-        onLayout={onMapLayout}
-      >
-        {width > 0 && height > 0 && silhouetteSubpath ? (
-          <Svg
-            width={width}
-            height={height}
-            viewBox={`0 0 ${width} ${height}`}
+        <View style={styles.plateOuter}>
+          <View
+            style={[styles.plateInner, height > 0 && { height }]}
+            onLayout={onMapLayout}
           >
-            <Defs>
-              <ClipPath id={clipId}>
-                <Path
-                  d={silhouetteSubpath}
-                  fill={paper.dashboardInk}
-                  fillRule="evenodd"
-                />
-              </ClipPath>
-            </Defs>
-            {/* Lake fill — paperLight so the silhouette reads as "negative
-                space" cut out of the scan surface, with an ink hairline shore. */}
-            <Path
-              d={silhouetteSubpath}
-              fill={paper.dashboardBlueSky}
-              fillRule="evenodd"
-              stroke={paper.dashboardInk}
-              strokeWidth={1.4}
-            />
-            {/* Topographic pulse, clipped to the lake shape. The whole
-                contour group breathes its opacity, so individual path nodes
-                stay constant and the native driver does all the work. */}
-            <AnimatedG
-              clipPath={`url(#${clipId})`}
-              opacity={pulse}
-            >
-              <Rect
-                x={0}
-                y={0}
+            {width > 0 && height > 0 && silhouetteSubpath ? (
+              <Svg
                 width={width}
                 height={height}
-                fill={paper.dashboardBlueSky}
-                opacity={0.18}
-              />
-              {contourPaths.map((d, idx) => (
+                viewBox={`0 0 ${width} ${height}`}
+              >
+                <Defs>
+                  <ClipPath id={clipId}>
+                    <Path
+                      d={silhouetteSubpath}
+                      fill={paper.dashboardInk}
+                      fillRule="evenodd"
+                    />
+                  </ClipPath>
+                  <LinearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
+                    <Stop offset="0%" stopColor={WATER_TOP} />
+                    <Stop offset="52%" stopColor={WATER_MID} />
+                    <Stop offset="100%" stopColor={WATER_BOTTOM} />
+                  </LinearGradient>
+                </Defs>
+
+                {/* Lake fill with the same blue gradient as the eventual SVG. */}
                 <Path
-                  key={idx}
-                  d={d}
-                  fill="none"
-                  stroke={paper.dashboardBlue}
-                  strokeWidth={idx % 2 === 0 ? 1.05 : 0.7}
-                  strokeLinecap="round"
-                  opacity={idx % 2 === 0 ? 0.42 : 0.28}
+                  d={silhouetteSubpath}
+                  fill={`url(#${gradientId})`}
+                  fillRule="evenodd"
+                  stroke={paper.dashboardInk}
+                  strokeWidth={1.95}
                 />
-              ))}
-            </AnimatedG>
-          </Svg>
-        ) : (
-          // Polygon hasn't arrived yet → very calm paper-light field with
-          // a centered ink dot pair so the box does not read as broken.
-          <View style={styles.preFrame}>
-            <View style={styles.preDot} />
-            <View style={[styles.preDot, { marginTop: 6 }]} />
+
+                {/* Topographic pulse, clipped inside the lake. */}
+                <AnimatedG clipPath={`url(#${clipId})`} opacity={pulse}>
+                  <Rect
+                    x={0}
+                    y={0}
+                    width={width}
+                    height={height}
+                    fill={WATER_MID}
+                    opacity={0.18}
+                  />
+                  {contourPaths.map((d, idx) => (
+                    <Path
+                      key={idx}
+                      d={d}
+                      fill="none"
+                      stroke={paper.dashboardBlue}
+                      strokeWidth={idx % 2 === 0 ? 1.05 : 0.7}
+                      strokeLinecap="round"
+                      opacity={idx % 2 === 0 ? 0.42 : 0.28}
+                    />
+                  ))}
+                </AnimatedG>
+              </Svg>
+            ) : (
+              <View style={styles.preFrame}>
+                <Animated.View style={[styles.preDot, { opacity: pulse }]} />
+                <Animated.View
+                  style={[styles.preDot, { marginTop: 6, opacity: pulse }]}
+                />
+              </View>
+            )}
           </View>
-        )}
+        </View>
+
+        <View style={styles.metaRibbon}>
+          <View style={styles.metaRibbonRule} />
+          <View style={styles.metaRibbonRow}>
+            <Text style={styles.metaRibbonText}>BUILDING WATER READ…</Text>
+          </View>
+          <View style={styles.metaRibbonRule} />
+        </View>
       </View>
 
+      {/* ── Legend card — matches WaterReaderLegend chrome ── */}
       <Animated.View
-        style={[styles.legendBoneList, { opacity: boneShimmer }]}
+        style={[styles.legendCard, { opacity: boneShimmer }]}
       >
+        <View style={styles.legendMasthead}>
+          <View style={styles.legendMastheadLeft}>
+            <View style={styles.legendBoneEyebrow} />
+            <View style={styles.legendBoneTitle} />
+          </View>
+          <View style={styles.legendBoneSeasonBadge} />
+        </View>
+        <View style={styles.legendMastheadRule} />
         {Array.from({ length: legendBoneCount }).map((_, idx) => (
-          <View key={idx} style={styles.legendBoneRow}>
+          <View
+            key={idx}
+            style={[styles.legendBoneRow, idx > 0 && styles.legendBoneRowDivider]}
+          >
             <View style={styles.legendBoneNumber} />
             <View style={styles.legendBoneSwatch} />
             <View style={styles.legendBoneTextStack}>
-              <View style={styles.legendBoneTitle} />
+              <View style={styles.legendBoneTypeTag} />
+              <View style={styles.legendBoneTitleLine} />
               <View
                 style={[
-                  styles.legendBoneSubtitle,
-                  { width: idx % 2 === 0 ? '76%' : '92%' },
+                  styles.legendBoneBodyLine,
+                  { width: idx % 2 === 0 ? '92%' : '78%' },
+                ]}
+              />
+              <View
+                style={[
+                  styles.legendBoneBodyLine,
+                  { width: idx % 2 === 0 ? '64%' : '88%' },
                 ]}
               />
             </View>
@@ -309,46 +332,72 @@ export function WaterReaderLakeSkeleton({
 }
 
 const styles = StyleSheet.create({
-  root: {
+  outer: {
     width: '100%',
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
-    padding: paperSpacing.md,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
     gap: paperSpacing.md,
   },
-  eyebrowRow: {
+
+  // ── Plate card — copies WaterReaderMapCard.mapCard exactly ──────────────
+  mapCard: {
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    padding: 10,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  viewerToolbar: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: paperSpacing.xs + 2,
+    marginBottom: paperSpacing.sm,
+  },
+  viewerChip: {
+    minHeight: 30,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: 5,
+    paddingHorizontal: 10,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 7,
+    backgroundColor: '#FAFAF7',
   },
-  eyebrowDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: paper.dashboardBlue,
+  viewerChipActive: {
+    backgroundColor: paper.dashboardInk,
+    borderColor: paper.dashboardInk,
   },
-  eyebrowText: {
+  viewerChipText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    letterSpacing: 1.6,
+    fontSize: 9,
+    letterSpacing: 1.2,
     color: paper.dashboardInk,
+    lineHeight: 12,
   },
-  mapFrame: {
+  viewerChipTextActive: {
+    color: '#FFFFFF',
+  },
+  plateOuter: {
     width: '100%',
-    backgroundColor: '#F6F7F5',
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 8,
+    padding: 3,
+    backgroundColor: '#FAFAF7',
+  },
+  plateInner: {
+    position: 'relative',
+    width: '100%',
     overflow: 'hidden',
-    minHeight: 200,
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderRadius: 6,
+    backgroundColor: LAND_BASE,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paper.dashboardHair,
   },
   preFrame: {
     width: '100%',
-    minHeight: 200,
+    flex: 1,
+    minHeight: 280,
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -356,48 +405,129 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 3,
-    backgroundColor: paper.dashboardHair,
+    backgroundColor: paper.dashboardBlue,
   },
-  legendBoneList: {
+  metaRibbon: {
+    marginTop: paperSpacing.sm + 4,
+    gap: 5,
+  },
+  metaRibbonRule: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardLine,
+  },
+  metaRibbonRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    gap: 8,
+    paddingVertical: 4,
+  },
+  metaRibbonText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.5,
+    color: paper.dashboardMuted,
+    lineHeight: 13,
+  },
+
+  // ── Legend bone card — copies WaterReaderLegend.root chrome ─────────────
+  legendCard: {
     width: '100%',
-    gap: paperSpacing.xs + 2,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    paddingHorizontal: 14,
+    paddingVertical: 14,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    gap: paperSpacing.sm,
+  },
+  legendMasthead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+  },
+  legendMastheadLeft: {
+    flex: 1,
+    minWidth: 0,
+    gap: 6,
+  },
+  legendBoneEyebrow: {
+    height: 9,
+    width: '50%',
+    backgroundColor: paper.dashboardHair,
+    borderRadius: 2,
+    opacity: 0.7,
+  },
+  legendBoneTitle: {
+    height: 18,
+    width: '36%',
+    backgroundColor: paper.dashboardHair,
+    borderRadius: 3,
+  },
+  legendBoneSeasonBadge: {
+    width: 70,
+    height: 30,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#FAFAF7',
+  },
+  legendMastheadRule: {
+    height: 2,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.18,
   },
   legendBoneRow: {
     flexDirection: 'row',
-    alignItems: 'center',
-    gap: 10,
-    paddingVertical: 6,
+    alignItems: 'flex-start',
+    gap: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.sm + 4,
+    paddingHorizontal: paperSpacing.xs,
+  },
+  legendBoneRowDivider: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.dashboardHair,
   },
   legendBoneNumber: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
+    width: 26,
+    height: 26,
+    borderRadius: 13,
     borderWidth: 1,
-    borderColor: paper.dashboardHair,
+    borderColor: paper.dashboardLine,
     backgroundColor: '#FAFAF7',
   },
   legendBoneSwatch: {
-    width: 8,
-    height: 14,
-    borderRadius: 2,
+    width: 30,
+    height: 30,
+    borderRadius: 4,
     backgroundColor: paper.dashboardHair,
-    opacity: 0.55,
+    opacity: 0.6,
   },
   legendBoneTextStack: {
     flex: 1,
-    gap: 4,
+    gap: 6,
+    paddingTop: 1,
   },
-  legendBoneTitle: {
-    height: 10,
-    width: '60%',
-    backgroundColor: paper.dashboardHair,
-    borderRadius: 2,
-    opacity: 0.5,
-  },
-  legendBoneSubtitle: {
+  legendBoneTypeTag: {
     height: 8,
+    width: '32%',
     backgroundColor: paper.dashboardHair,
     borderRadius: 2,
-    opacity: 0.32,
+    opacity: 0.6,
+  },
+  legendBoneTitleLine: {
+    height: 14,
+    width: '62%',
+    backgroundColor: paper.dashboardHair,
+    borderRadius: 2,
+    opacity: 0.8,
+  },
+  legendBoneBodyLine: {
+    height: 9,
+    backgroundColor: paper.dashboardHair,
+    borderRadius: 2,
+    opacity: 0.45,
   },
 });

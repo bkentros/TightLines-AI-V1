@@ -105,13 +105,22 @@ const PRIOR_PAPER_WARM_VALUES: Record<PaperWarmFeatureKey, string[]> = {
 
 // Marker comment indicating this SVG was already paperified — guards against
 // double-running and against accidentally mutating an SVG that the server-side
-// renderer has already painted in paper colors. Scan-v7 fixes apron stroke
-// pattern coverage (point-shoreline-buffer paths use `fill="none"` + stroke,
-// so the v6 fill swap missed them and they came out flat-colored), removes
-// the in-SVG top-right wordmark in favor of a redesigned top-left React
-// overlay, and uses a point-in-polygon test to push callout rings firmly
-// outside the lake polygon.
-const PAPERIFIED_SENTINEL = '<!-- wr-finfindr-scan-v7 -->';
+// renderer has already painted in paper colors. Scan-v8 extends the SVG
+// viewBox to add a guaranteed interior beige margin around the lake (so
+// brand chips, scale bar, and pushed-out callout numbers always sit on
+// land regardless of lake aspect), matches confluence fill-opacity to
+// apron stroke-opacity (no more two-tone pink), and pushes callouts more
+// aggressively into the new padding region.
+const PAPERIFIED_SENTINEL = '<!-- wr-finfindr-scan-v8 -->';
+
+/**
+ * Interior viewBox padding added around the engine's lake. Expressed as a
+ * fraction of the engine's larger viewBox dimension, so wide and tall
+ * lakes get proportional padding. ~12% per side gives ~24% of the rendered
+ * area as beige margin, plenty for brand chips + scale bar + callouts.
+ */
+const VIEWBOX_PAD_FRACTION = 0.12;
+const VIEWBOX_PAD_MIN_PX = 70;
 
 // Pattern id helper — stable strings keyed off feature class.
 const zonePatternId = (key: PaperWarmFeatureKey) => `wr-zone-pattern-${key}`;
@@ -173,7 +182,7 @@ export function paperifyWaterReaderSvg(
   const beforeCleanup = svg;
   svg = svg
     .replace(/<!-- wr-paperified -->\s*/g, '')
-    .replace(/<!-- wr-finfindr-scan-v[123456] -->\s*/g, '')
+    .replace(/<!-- wr-finfindr-scan-v[1234567] -->\s*/g, '')
     .replace(/<rect[^>]*class="wr-scan-surface"[^>]*\/>\s*/g, '')
     .replace(/<rect[^>]*class="wr-scan-grid"[^>]*\/>\s*/g, '')
     .replace(/<g[^>]*class="wr-brand-stamp"[\s\S]*?<\/g>\s*/g, '')
@@ -274,9 +283,12 @@ export function paperifyWaterReaderSvg(
   );
   svg = svg.split(`stroke="${ENGINE_WATER_STROKE}"`).join(`stroke="${BRAND_INK}"`);
   svg = svg.split(`stroke="${PAPER_V4_WATER_STROKE}"`).join(`stroke="${BRAND_INK}"`);
+  // Pass-8: bumped 1.55 -> 1.95 to compensate for the ~16% visual shrink
+  // from the extended viewBox (interior padding region added in step 13a).
+  // Lake outline stays a confident hand-pressed line at the new render scale.
   svg = svg.replace(
     /(class="water-reader-lake"[^>]*?stroke-width=)"[^"]*"/g,
-    `$1"1.55"`,
+    `$1"1.95"`,
   );
   if (!/class="water-reader-lake"[^>]*filter=/.test(svg)) {
     svg = svg.replace(
@@ -291,13 +303,16 @@ export function paperifyWaterReaderSvg(
   //    read as quiet pencil ticks rather than UI strokes.
   const before5 = svg;
   svg = svg.split(`stroke="${ENGINE_CALLOUT_LEADER}"`).join(`stroke="${BRAND_INK}"`);
+  // Pass-8: leader stroke bumped 0.7 -> 0.95 and dash 3 2.4 -> 4 3 to
+  // compensate for the viewBox-extension visual shrink while keeping the
+  // leader subtly etched (not a UI rule).
   svg = svg.replace(
     /(class="water-reader-label-leader"[^>]*?stroke-opacity=)"[^"]*"/g,
-    `$1"0.32"`,
+    `$1"0.4"`,
   );
   svg = svg.replace(
     /(class="water-reader-label-leader"[^>]*?stroke-width=)"[^"]*"/g,
-    `$1"0.7"`,
+    `$1"0.95"`,
   );
   svg = svg.replace(
     /<path class="water-reader-label-leader"([^>]*)>/g,
@@ -305,9 +320,9 @@ export function paperifyWaterReaderSvg(
       if (attrs.includes('stroke-dasharray')) return match;
       if (/\s*\/$/.test(attrs)) {
         const nextAttrs = attrs.replace(/\s*\/$/, '');
-        return `<path class="water-reader-label-leader"${nextAttrs} stroke-dasharray="3 2.4"/>`;
+        return `<path class="water-reader-label-leader"${nextAttrs} stroke-dasharray="4 3"/>`;
       }
-      return `<path class="water-reader-label-leader"${attrs} stroke-dasharray="3 2.4">`;
+      return `<path class="water-reader-label-leader"${attrs} stroke-dasharray="4 3">`;
     },
   );
   tally(before5, svg);
@@ -324,23 +339,30 @@ export function paperifyWaterReaderSvg(
     /(<circle[^>]*?)fill="#F8F1DD"([^>]*?)stroke="#1C2419"/g,
     `$1fill="${paper.dashboardWhite}"$2stroke="${BRAND_INK}"`,
   );
+  // Pass-8: callout ring radius and digit size both bumped to compensate
+  // for the ~16% visual shrink from the extended viewBox. Ring r=9.2,
+  // digit size=15 keep the callout glyph readable at the new render scale.
   svg = svg.replace(
     /(<circle[^>]*?)r="7\.5"/g,
-    `$1r="7.6"`,
+    `$1r="9.2"`,
   );
   svg = svg.replace(
     /(<circle[^>]*?)r="8\.6"/g,
-    `$1r="7.6"`,
+    `$1r="9.2"`,
+  );
+  svg = svg.replace(
+    /(<circle[^>]*?)r="7\.6"/g,
+    `$1r="9.2"`,
   );
   svg = svg.replace(
     /(<circle[^>]*?stroke=")[^"]*("[^>]*?stroke-width=")[^"]*(")/g,
-    (_match, p1, p2, p3) => `${p1}${BRAND_INK}${p2}1.15${p3}`,
+    (_match, p1, p2, p3) => `${p1}${BRAND_INK}${p2}1.4${p3}`,
   );
   svg = svg.split(`fill="${ENGINE_TEXT}"`).join(`fill="${BRAND_INK}"`);
   svg = svg.split(`fill="${PAPER_V4_WATER_STROKE}"`).join(`fill="${BRAND_INK}"`);
   svg = svg.replace(
     /(<text[^>]*?font-size=")[^"]*("[^>]*?text-anchor="middle"[^>]*?dominant-baseline="middle"[^>]*?>)/g,
-    `$1${'12.5'}$2`,
+    `$1${'15'}$2`,
   );
   svg = svg.split(`fill="${ENGINE_MUTED}"`).join(`fill="${paper.dashboardMuted}"`);
   svg = svg
@@ -353,22 +375,28 @@ export function paperifyWaterReaderSvg(
   //    exactly what we want: the texture mixes with whatever's behind so
   //    lake water still bleeds gently through low-opacity confluence
   //    members for layered depth.
+  // Pass-8 opacity scheme: confluence members and aprons get the SAME high
+  // opacity so a confluence reads as one solid hot-pink shape regardless of
+  // whether each member was painted as a fill or as a wide stroke. The
+  // engine ships confluence fills at 0.4 and standalone fills at 0.42; both
+  // bump to 0.92 so they match the apron stroke (which we bump to 0.92 in
+  // the next pass). Standard zone strokes also bump so the outline reads.
   const before7opacity = svg;
   svg = svg.replace(
     /(class="water-reader-entry water-reader-standalone-zone"[^>]*?fill-opacity=)"[^"]*"/g,
-    `$1"0.78"`,
+    `$1"0.85"`,
   );
   svg = svg.replace(
     /(class="water-reader-entry water-reader-confluence"[^>]*?fill-opacity=)"[^"]*"/g,
-    `$1"0.68"`,
+    `$1"0.92"`,
   );
-  svg = svg.replace(/fill-opacity="0\.42"/g, `fill-opacity="0.78"`);
-  svg = svg.replace(/fill-opacity="0\.4"/g, `fill-opacity="0.68"`);
-  svg = svg.replace(/fill-opacity="0\.5"/g, `fill-opacity="0.78"`);
-  svg = svg.replace(/fill-opacity="0\.46"/g, `fill-opacity="0.68"`);
-  svg = svg.replace(/stroke-opacity="0\.16"/g, `stroke-opacity="0.55"`);
-  svg = svg.replace(/stroke-opacity="0\.14"/g, `stroke-opacity="0.55"`);
-  svg = svg.replace(/stroke-opacity="0\.22"/g, `stroke-opacity="0.55"`);
+  svg = svg.replace(/fill-opacity="0\.42"/g, `fill-opacity="0.85"`);
+  svg = svg.replace(/fill-opacity="0\.4"/g, `fill-opacity="0.92"`);
+  svg = svg.replace(/fill-opacity="0\.5"/g, `fill-opacity="0.85"`);
+  svg = svg.replace(/fill-opacity="0\.46"/g, `fill-opacity="0.92"`);
+  svg = svg.replace(/stroke-opacity="0\.16"/g, `stroke-opacity="0.6"`);
+  svg = svg.replace(/stroke-opacity="0\.14"/g, `stroke-opacity="0.6"`);
+  svg = svg.replace(/stroke-opacity="0\.22"/g, `stroke-opacity="0.6"`);
   svg = svg.replace(
     /(<path[^>]*class="water-reader-entry[^"]*"[^>]*?stroke-width=)"[^"]*"/g,
     `$1"1.15"`,
@@ -441,12 +469,14 @@ export function paperifyWaterReaderSvg(
       svg = svg.replace(reStrokeFirst, `$1"${patternUrl}"$2`);
     }
   }
-  // Bump apron stroke-opacity so the pattern reads cleanly — engine ships
-  // 0.38 (confluence) and 0.42 (standalone) which mutes the texture too
-  // far against the new tan land. Both swap to 0.85 for a strong-but-not-
-  // opaque feel that lets the land hint through at the apron's softer edges.
-  svg = svg.replace(/stroke-opacity="0\.42"/g, `stroke-opacity="0.85"`);
-  svg = svg.replace(/stroke-opacity="0\.38"/g, `stroke-opacity="0.82"`);
+  // Pass-8: apron stroke-opacity matches the new confluence fill-opacity
+  // (0.92) so apron + cove members of a confluence read as one solid
+  // hot-pink zone, not a two-tone duller-cove + brighter-apron split.
+  // Standalone point aprons (POINT_BUFFER_STROKE_OPACITY=0.42) and
+  // confluence aprons (CONFLUENCE_POINT_BUFFER_STROKE_OPACITY=0.38) both
+  // land on 0.92 so the texture is at full strength.
+  svg = svg.replace(/stroke-opacity="0\.42"/g, `stroke-opacity="0.92"`);
+  svg = svg.replace(/stroke-opacity="0\.38"/g, `stroke-opacity="0.92"`);
   tally(before8, svg);
 
   // 9) Default legend fallback color (#334155) → ink (relevant only if the
@@ -497,45 +527,69 @@ export function paperifyWaterReaderSvg(
   }
   tally(before13, svg);
 
-  // 13b) Push callout numbers outward so they sit clear of the lake polygon.
+  // 13b) Extend the SVG viewBox to add a guaranteed beige margin around
+  //     the engine's lake. The engine emits viewBox="0 0 W H" with the
+  //     lake content at coords [0..W] × [0..H]. We rewrite to
+  //     viewBox="-padX -padY W' H'" where W' = W + 2*padX, H' = H + 2*padY.
+  //     The original content stays at original coordinates; the renderer
+  //     scales the larger viewBox to fit the host plate, so the lake
+  //     appears smaller within a larger beige canvas. Padding is a
+  //     fraction of the larger original side, with a px floor.
   //
-  //     The engine places callout rings near the zone they label; on lakes
-  //     where the zone is a peninsula or sits inside a complex shoreline,
-  //     the ring can land on top of the lake or another zone. We do a
-  //     cosmetic-only post-process: for each callout, we project the ring
-  //     OUTWARD along the leader vector (anchor → label), then iteratively
-  //     test if the new ring center is inside the lake polygon. If yes,
-  //     keep pushing in the same direction in 12-px increments until the
-  //     ring lands on land OR the viewBox margin is reached. The leader
-  //     endpoint, ring `<circle>`, and digit `<text>` all shift to the
-  //     final position. Numbers are guaranteed to sit outside the lake.
+  //     Land background rect uses width="100%" height="100%" so it auto-
+  //     extends to cover the new larger viewBox area. Same for the scan
+  //     grid and topographic patterns. Callout pushing (next pass) runs
+  //     against the NEW viewBox extents so it can push numbers into the
+  //     padding region. Brand colophon position uses NEW extents too.
+  const before13a = svg;
+  const originalVbMatch = svg.match(/viewBox="0\s+0\s+([\d.]+)\s+([\d.]+)"/);
+  let extendedVbW = 0;
+  let extendedVbH = 0;
+  let padX = 0;
+  let padY = 0;
+  let origVbW = 0;
+  let origVbH = 0;
+  if (originalVbMatch) {
+    origVbW = parseFloat(originalVbMatch[1]);
+    origVbH = parseFloat(originalVbMatch[2]);
+    const longSide = Math.max(origVbW, origVbH);
+    padX = Math.max(VIEWBOX_PAD_MIN_PX, longSide * VIEWBOX_PAD_FRACTION);
+    padY = padX; // equal padding on all sides for a square margin feel
+    extendedVbW = origVbW + 2 * padX;
+    extendedVbH = origVbH + 2 * padY;
+    const f = (n: number) => n.toFixed(2);
+    svg = svg.replace(
+      /viewBox="0\s+0\s+[\d.]+\s+[\d.]+"/,
+      `viewBox="${f(-padX)} ${f(-padY)} ${f(extendedVbW)} ${f(extendedVbH)}"`,
+    );
+  }
+  tally(before13a, svg);
+
+  // 13c) Push callout numbers outward so they sit clear of the lake polygon.
+  //
+  //     With the extended viewBox in place, pushing has lots of room — we
+  //     can push deep into the padding region and the ring will land on
+  //     guaranteed beige. The lake outer ring (in original coords) is
+  //     sampled as a polygon for the in-polygon test; rings keep getting
+  //     pushed until they're outside the lake or hit the (extended)
+  //     viewBox margin.
   const before13b = svg;
-  const viewBoxMatch1 = svg.match(/viewBox="0\s+0\s+([\d.]+)\s+([\d.]+)"/);
-  if (viewBoxMatch1) {
-    const vbW1 = parseFloat(viewBoxMatch1[1]);
-    const vbH1 = parseFloat(viewBoxMatch1[2]);
-    const lakePolygon = outerRingD ? sampleSvgPathToPolygon(outerRingD) : null;
-    svg = pushCalloutNumbersOutward(svg, vbW1, vbH1, lakePolygon);
+  if (originalVbMatch) {
+    const lakePolygon = outerRingD ? sampleSvgPathToPolygon(outerRingD, 6) : null;
+    svg = pushCalloutNumbersOutward(svg, padX, padY, origVbW, origVbH, lakePolygon);
   }
   tally(before13b, svg);
 
-  // 14) FinFindr brand stamp — wordmark in the top-right of the viewBox,
-  //     edition stamp in the bottom-right, and a slim colophon strip along
-  //     the bottom edge. ALL clipped to the land area via `wr-land-clip`,
-  //     so the lake polygon literally cannot cover them.
-  //
-  //     We render them at viewBox-px sizes (engine viewBox is ~1100×900 for
-  //     a typical lake; brand text is sized for that scale and shrinks
-  //     proportionally on smaller plates).
+  // 14) FinFindr bottom colophon strip — etched into land at the bottom of
+  //     the EXTENDED viewBox (so it sits 5 viewBox-units above the new
+  //     bottom edge, in the padding region). Land-clipped via wr-land-clip.
   const before14 = svg;
-  const viewBoxMatch = svg.match(/viewBox="0\s+0\s+([\d.]+)\s+([\d.]+)"/);
-  if (viewBoxMatch && !svg.includes('class="wr-brand-stamp"')) {
-    const vbW = parseFloat(viewBoxMatch[1]);
-    const vbH = parseFloat(viewBoxMatch[2]);
+  if (originalVbMatch && !svg.includes('class="wr-brand-stamp"')) {
     const lakeName = (opts.lakeName ?? '').trim().toUpperCase() || 'WATER READ';
-    const brandStamp = buildBrandStamp(vbW, vbH, lakeName, !!outerRingD);
-    // Insert the brand stamp BEFORE the closing </svg> so it sits on top
-    // of the land/lake but inside the land clip.
+    // Position arguments: original viewBox dims + padding so the colophon
+    // builder can place text at (origVbW/2, origVbH + padY - 5) — the
+    // bottom-center of the extended viewBox.
+    const brandStamp = buildBrandStamp(origVbW, origVbH, padX, padY, lakeName, !!outerRingD);
     svg = svg.replace('</svg>', `${brandStamp}\n</svg>`);
   }
   tally(before14, svg);
@@ -688,27 +742,32 @@ function buildLandClipPath(outerRingD: string): string {
 }
 
 /**
- * In-SVG FinFindr brand stamp — clipped to land if a clip is available.
+ * In-SVG FinFindr bottom colophon — etched into the bottom of the extended
+ * viewBox (in the padding region, on the beige land). Clipped to the
+ * land area via `wr-land-clip` for belt-and-suspenders safety even though
+ * the position is mathematically outside the engine's lake.
  *
- * Pass-7: bottom colophon strip only. The top-right wordmark moved to a
- * React overlay (`WaterReadEditionStamp`) at top-left of the plate so the
- * full FinFindr identity (logo + wordmark + edition eyebrow) lives on a
- * single React-rendered chip rather than being split between an SVG mark
- * and a React mark. The bottom colophon stays in-SVG (clipped to land)
- * because it's a wide ranged-text strip that benefits from being baked
- * into the export pixel-for-pixel.
+ * Pass-8 signature: takes the ORIGINAL viewBox dims plus the padding we
+ * added, so the colophon lands centered horizontally on the original
+ * lake's bbox and vertically 5 px above the EXTENDED viewBox bottom.
  */
 function buildBrandStamp(
-  vbW: number,
-  vbH: number,
+  origVbW: number,
+  origVbH: number,
+  padX: number,
+  padY: number,
   lakeName: string,
   hasLandClip: boolean,
 ): string {
   const clipAttr = hasLandClip ? ' clip-path="url(#wr-land-clip)"' : '';
-  const colophonSize = Math.max(7.4, Math.min(9.6, vbW * 0.009));
-  const colophonY = vbH - 5;
+  const colophonSize = Math.max(7.4, Math.min(11, origVbW * 0.011));
+  // Bottom of the extended viewBox is at y = origVbH + padY (since viewBox
+  // starts at y = -padY). Sit the colophon 8 units above that.
+  const colophonY = origVbH + padY - 8;
+  // Centered horizontally on the EXTENDED viewBox center.
+  const colophonX = origVbW / 2;
   const colophon = `
-    <text x="${vbW / 2}" y="${colophonY}" font-family="Inter, -apple-system, sans-serif" font-weight="600" font-size="${colophonSize.toFixed(2)}" fill="${BRAND_MUTED}" text-anchor="middle" letter-spacing="2.4">FINFINDR · WATER READ · ${escapeSvgText(lakeName)}</text>`;
+    <text x="${colophonX}" y="${colophonY}" font-family="Inter, -apple-system, sans-serif" font-weight="600" font-size="${colophonSize.toFixed(2)}" fill="${BRAND_MUTED}" text-anchor="middle" letter-spacing="2.4">FINFINDR · WATER READ · ${escapeSvgText(lakeName)}</text>`;
   return `<g class="wr-brand-stamp" pointer-events="none"${clipAttr}>${colophon}</g>`;
 }
 
@@ -721,38 +780,45 @@ function escapeSvgText(s: string): string {
 }
 
 /**
- * Initial outward push along the leader vector (viewBox units). After this
- * we iteratively push more if the ring is still inside the lake polygon.
+ * Initial outward push along the leader vector (viewBox units), then
+ * iterative incremental pushes if still inside the lake polygon. With
+ * the extended viewBox padding (scan-v8) we have ~70+ px of guaranteed
+ * beige around the lake, so push limits scale up accordingly.
  */
-const CALLOUT_INITIAL_PUSH_PX = 22;
-const CALLOUT_ITERATIVE_PUSH_PX = 12;
-const CALLOUT_MAX_PUSH_PX = 110;
-const CALLOUT_CLAMP_MARGIN_PX = 28;
+const CALLOUT_INITIAL_PUSH_PX = 30;
+const CALLOUT_ITERATIVE_PUSH_PX = 14;
+const CALLOUT_MAX_PUSH_PX = 240;
+const CALLOUT_CLAMP_INSET_PX = 18;
 
 /**
- * Walk every `<g class="water-reader-map-number ... data-label-placement="callout"
- * ...>` group in the SVG. Inside each group the engine emits:
- *   • a `<path class="water-reader-label-leader" d="M ax ay L lx ly" .../>`
- *   • a `<circle cx="lx" cy="ly" r="..." .../>`
- *   • a `<text x="lx" y="ly+0.15" ...>N</text>`
+ * Walk every callout group and push its ring outward along the leader
+ * vector. After the initial push we iteratively check whether the new
+ * ring center sits INSIDE the lake polygon (sampled from the lake outer
+ * ring). If yes we keep pushing in increments until it lands on land or
+ * hits the EXTENDED viewBox edge minus a small inset.
  *
- * We compute a unit vector from anchor (ax,ay) to label (lx,ly) — the
- * outward direction — push the label outward, and if a `lakePolygon`
- * (sampled from the lake outer ring) is supplied, iteratively check
- * whether the new ring center is INSIDE the polygon. If yes we keep
- * pushing in increments until it lands on land or hits the viewBox
- * margin. The leader endpoint, ring circle, and digit text all shift
- * to the final position.
+ * `originX/Y` and `vbW/H` describe the EXTENDED viewBox: origin is the
+ * top-left corner in user-space coords (e.g. `-padX, -padY` after the
+ * viewBox extension), and `vbW/H` are the new total dimensions. This
+ * ensures the clamp uses the new extended margins so rings can land
+ * anywhere in the padding region.
  *
- * Pure string manipulation — no SVG-parsing dependency. Idempotent
- * under the paperify sentinel guard.
+ * Pure string manipulation — no SVG-parsing dependency.
  */
 function pushCalloutNumbersOutward(
   svg: string,
-  vbW: number,
-  vbH: number,
+  padX: number,
+  padY: number,
+  origVbW: number,
+  origVbH: number,
   lakePolygon: Array<[number, number]> | null,
 ): string {
+  // Extended viewBox bounds in user-space (origin is top-left after pad).
+  const minX = -padX + CALLOUT_CLAMP_INSET_PX;
+  const maxX = origVbW + padX - CALLOUT_CLAMP_INSET_PX;
+  const minY = -padY + CALLOUT_CLAMP_INSET_PX;
+  const maxY = origVbH + padY - CALLOUT_CLAMP_INSET_PX;
+
   const groupRe = /<g\s+class="water-reader-map-number[^"]*"[^>]*data-label-placement="callout"[^>]*>([\s\S]*?)<\/g>/g;
   return svg.replace(groupRe, (groupTag, _inner) => {
     const inner = _inner as string;
@@ -767,63 +833,46 @@ function pushCalloutNumbersOutward(
     const dx = lx - ax;
     const dy = ly - ay;
     const len = Math.hypot(dx, dy);
-    if (len < 0.5) return groupTag; // zero-length leader, leave alone
+    if (len < 0.5) return groupTag;
     const ux = dx / len;
     const uy = dy / len;
 
-    // Start with the initial push.
     let pushed = CALLOUT_INITIAL_PUSH_PX;
     let nlx = lx + ux * pushed;
     let nly = ly + uy * pushed;
 
-    // If we have a lake polygon, iteratively push until the ring sits OUT
-    // of the lake (or we hit the max push / viewBox margin). Without the
-    // polygon, we just use the initial push (best-effort).
     if (lakePolygon && lakePolygon.length >= 3) {
       while (
         pushed < CALLOUT_MAX_PUSH_PX &&
         isInsidePolygon(nlx, nly, lakePolygon)
       ) {
         pushed += CALLOUT_ITERATIVE_PUSH_PX;
-        nlx = lx + ux * pushed;
-        nly = ly + uy * pushed;
-        const clampedLx = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbW - CALLOUT_CLAMP_MARGIN_PX, nlx));
-        const clampedLy = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbH - CALLOUT_CLAMP_MARGIN_PX, nly));
-        if (clampedLx !== nlx || clampedLy !== nly) {
-          // Clamp hit — stop pushing in this direction.
-          nlx = clampedLx;
-          nly = clampedLy;
-          break;
-        }
+        const candX = lx + ux * pushed;
+        const candY = ly + uy * pushed;
+        const clampedX = Math.max(minX, Math.min(maxX, candX));
+        const clampedY = Math.max(minY, Math.min(maxY, candY));
+        nlx = clampedX;
+        nly = clampedY;
+        if (clampedX !== candX || clampedY !== candY) break; // hit the wall
       }
     }
 
-    // Final clamp — never sit in the brand stamp area or off-canvas.
-    nlx = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbW - CALLOUT_CLAMP_MARGIN_PX, nlx));
-    nly = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbH - CALLOUT_CLAMP_MARGIN_PX, nly));
+    nlx = Math.max(minX, Math.min(maxX, nlx));
+    nly = Math.max(minY, Math.min(maxY, nly));
 
     const f = (n: number) => n.toFixed(2);
-
-    // Update leader d attribute.
     let nextInner = inner.replace(
       /(class="water-reader-label-leader"[^>]*d=")[^"]+(")/,
       `$1M ${f(ax)} ${f(ay)} L ${f(nlx)} ${f(nly)}$2`,
     );
-
-    // Update circle cx/cy. Scope to the first <circle> in the group.
     nextInner = nextInner.replace(
       /(<circle\s+)cx="[^"]+"\s+cy="[^"]+"/,
       `$1cx="${f(nlx)}" cy="${f(nly)}"`,
     );
-
-    // Update digit text x/y. Engine emits y as `ly + 0.15`; preserve the
-    // small baseline offset so the digit stays vertically centered in the
-    // ring after the move.
     nextInner = nextInner.replace(
       /(<text\s+)x="[^"]+"\s+y="[^"]+"/,
       `$1x="${f(nlx)}" y="${f(nly + 0.15)}"`,
     );
-
     return groupTag.replace(inner, nextInner);
   });
 }
