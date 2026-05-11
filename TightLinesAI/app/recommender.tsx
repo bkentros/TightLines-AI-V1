@@ -2054,9 +2054,13 @@ const wizardStyles = StyleSheet.create({
     backgroundColor: paper.dashboardWhite,
     minHeight: 82,
   },
+  // Active step uses the tackle-box gold accent (matches the home
+  // dashboard's Tackle Box module-row palette: iconBorder #C99B2D,
+  // iconBg gradient ['#FBF1D9', '#F4DFA4']). Visually ties the wizard
+  // to the feature's brand identity.
   progressTileActive: {
-    backgroundColor: paper.dashboardBlueSky,
-    borderColor: paper.dashboardBlue,
+    backgroundColor: '#FBF1D9',
+    borderColor: '#C99B2D',
     ...paperShadows.hard,
   },
   progressTileDone: {
@@ -2075,8 +2079,8 @@ const wizardStyles = StyleSheet.create({
     flexShrink: 0,
   },
   progressBadgeActive: {
-    backgroundColor: paper.dashboardBlue,
-    borderColor: paper.dashboardLine,
+    backgroundColor: '#C99B2D',
+    borderColor: '#8A6A1A',
   },
   progressBadgeDone: {
     backgroundColor: paper.dashboardWhite,

@@ -5,8 +5,10 @@
  * Lure of the Day, Honorable Mention Lure, Fly of the Day, Honorable Mention Fly.
  */
 
-import React from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
+  Animated,
+  Easing,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -14,6 +16,7 @@ import {
   View,
   type ViewStyle,
 } from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 import { Image as ExpoImage } from 'expo-image';
 import {
   paper,
@@ -50,12 +53,15 @@ import {
 
 const IMAGE_TX = { duration: 200 } as const;
 
-const PICK_ORDER: DailyPickSlot[] = [
-  'lure_of_the_day',
-  'honorable_lure',
-  'fly_of_the_day',
-  'honorable_fly',
-];
+/**
+ * Tackle-box brand gold — pulled from the home dashboard's Tackle Box
+ * module-row palette (iconBorder #C99B2D). Used as the TOP PICK accent
+ * so the badge feels like a "winner" ribbon tied to this feature's
+ * visual identity. Soft cream chip background pairs with it.
+ */
+const GOLD_ACCENT = '#C99B2D';
+const GOLD_SOFT = '#FBF1D9';
+const GOLD_INK = '#8A6A1A';
 
 const SLOT_LABEL: Record<DailyPickSlot, string> = {
   lure_of_the_day: 'Lure of the Day',
@@ -188,39 +194,183 @@ function WaterColumnDiagram({ active }: { active: TacticalColumn }) {
   );
 }
 
-function PickCard({ pick }: { pick: DailyPicksResponsePick }) {
+/**
+ * Masthead between LURE PICKS and FLY PICKS sections — same anatomy as
+ * the Today's Bite section mastheads (cap dot + rule + diamond ornament
+ * over a ruled chapter break). Gives each gear group its own "issue
+ * section" feel rather than four equal cards stacked together.
+ */
+function PicksSectionMasthead({
+  title,
+  meta,
+}: {
+  title: string;
+  meta?: string;
+}) {
+  return (
+    <View style={styles.picksMasthead}>
+      <View style={styles.picksMastheadRuleRow}>
+        <View style={styles.picksMastheadCap} />
+        <View style={styles.picksMastheadRule} />
+        <Text style={styles.picksMastheadOrnament}>◆</Text>
+      </View>
+      <View style={styles.picksMastheadInner}>
+        <Text style={styles.picksMastheadTitle} numberOfLines={1}>
+          {title}
+        </Text>
+        {meta ? (
+          <Text style={styles.picksMastheadMeta} numberOfLines={1}>
+            {meta}
+          </Text>
+        ) : null}
+      </View>
+      <View style={[styles.picksMastheadRule, { opacity: 0.45 }]} />
+    </View>
+  );
+}
+
+/**
+ * TOP PICK card — the hero of each gear section. Premium chrome:
+ *
+ *   - Gold ribbon header ("★ LURE OF THE DAY" / "★ FLY OF THE DAY")
+ *     with a pulsing live dot, on a tackle-box gold-soft background.
+ *   - Corner crosses pinned to each corner — instrument-panel touch
+ *     consistent with the Today's Bite hero card.
+ *   - Image band with a slow dual-shimmer sweep (native driver) on the
+ *     paper-light surface. Hero size — 220 px tall, image 168 px.
+ *   - Tall display title (Fraunces 32).
+ *   - Full meta row, water-column diagram, WHY + HOW sections.
+ *   - Gold-tinted hairlines and subtle bottom edge to reinforce the
+ *     "premium tier" feel.
+ */
+function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
   const image = pick.gear_mode === 'lure' ? getLureImage(pick.id) : getFlyImage(pick.id);
+  const dayLabel =
+    pick.slot === 'lure_of_the_day' ? 'LURE OF THE DAY' : 'FLY OF THE DAY';
+
+  const pulse = useRef(new Animated.Value(1)).current;
+  const shimmerX = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 0.35,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+
+  useEffect(() => {
+    shimmerX.setValue(0);
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(shimmerX, {
+          toValue: 1,
+          duration: 3400,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.delay(1100),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [shimmerX]);
 
   return (
-    <View style={styles.pickCard}>
-      <View style={styles.pickImageBand}>
+    <View style={styles.topPickCard}>
+      {/* Gold ribbon header */}
+      <View style={styles.topPickRibbon}>
+        <Animated.View style={[styles.topPickRibbonDot, { opacity: pulse }]} />
+        <Ionicons name="star" size={11} color={GOLD_INK} />
+        <Text style={styles.topPickRibbonText} numberOfLines={1}>
+          TOP PICK · {dayLabel}
+        </Text>
+        <View style={styles.topPickRibbonTail}>
+          <Text style={styles.topPickRibbonOrnament}>◆</Text>
+        </View>
+      </View>
+
+      {/* Corner crosses on the card itself — instrument-panel touch. */}
+      <View style={[styles.topPickCornerCross, styles.topPickCornerCrossTL]}>
+        <View style={styles.topPickCornerCrossH} />
+        <View style={styles.topPickCornerCrossV} />
+      </View>
+      <View style={[styles.topPickCornerCross, styles.topPickCornerCrossTR]}>
+        <View style={styles.topPickCornerCrossH} />
+        <View style={styles.topPickCornerCrossV} />
+      </View>
+      <View style={[styles.topPickCornerCross, styles.topPickCornerCrossBL]}>
+        <View style={styles.topPickCornerCrossH} />
+        <View style={styles.topPickCornerCrossV} />
+      </View>
+      <View style={[styles.topPickCornerCross, styles.topPickCornerCrossBR]}>
+        <View style={styles.topPickCornerCrossH} />
+        <View style={styles.topPickCornerCrossV} />
+      </View>
+
+      <View style={styles.topPickImageBand}>
+        {/* Slow shimmer sweep across the image area — same anatomy as
+            the score gauge polish. Native driver. */}
+        <Animated.View
+          pointerEvents="none"
+          style={[
+            styles.topPickImageShimmer,
+            {
+              transform: [
+                {
+                  translateX: shimmerX.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [-260, 540],
+                  }),
+                },
+                { skewX: '-20deg' },
+              ],
+            },
+          ]}
+        />
         {image ? (
           <ExpoImage
             source={image}
-            style={styles.pickImage}
+            style={styles.topPickImage}
             contentFit="contain"
             transition={IMAGE_TX}
             cachePolicy="memory-disk"
           />
         ) : (
-          <View style={[styles.pickImage, styles.pickImageEmpty]}>
+          <View style={[styles.topPickImage, styles.pickImageEmpty]}>
             <Text style={styles.pickImageEmptyText}>IMAGE PENDING</Text>
           </View>
         )}
-        <View style={styles.slotBadge}>
-          <Text style={styles.slotBadgeText} numberOfLines={1}>
-            {SLOT_LABEL[pick.slot].toUpperCase()}
-          </Text>
-        </View>
       </View>
 
-      <View style={styles.pickBody}>
-        <Text style={styles.pickTitle} numberOfLines={2}>
-          {pick.display_name}
-        </Text>
-        <Text style={styles.pickSubtitle} numberOfLines={1}>
-          {toTitleCase(pick.family_group)} · {toTitleCase(pick.presentation_group)}
-        </Text>
+      <View style={styles.topPickBody}>
+        <View style={styles.topPickTitleRow}>
+          <View style={styles.topPickTitleStack}>
+            <Text style={styles.topPickTitle} numberOfLines={2}>
+              {pick.display_name}
+            </Text>
+            <Text style={styles.topPickSubtitle} numberOfLines={1}>
+              {toTitleCase(pick.family_group)} · {toTitleCase(pick.presentation_group)}
+            </Text>
+          </View>
+          <View style={styles.topPickSeal}>
+            <Ionicons name="ribbon-outline" size={14} color={GOLD_INK} />
+            <Text style={styles.topPickSealText}>EDITOR'S PICK</Text>
+          </View>
+        </View>
 
         <View style={styles.metaRow}>
           <View style={styles.metaCell}>
@@ -247,11 +397,110 @@ function PickCard({ pick }: { pick: DailyPicksResponsePick }) {
 
         <WaterColumnDiagram active={pick.column} />
 
-        <Text style={styles.reasonEyebrow}>WHY THIS</Text>
-        <Text style={styles.reasonBody}>{pick.why_chosen}</Text>
+        <View style={styles.topPickReasonBlock}>
+          <View style={styles.topPickReasonHead}>
+            <View style={styles.topPickReasonCap} />
+            <Text style={styles.topPickReasonEyebrow}>WHY THIS</Text>
+          </View>
+          <Text style={styles.topPickReasonBody}>{pick.why_chosen}</Text>
+        </View>
 
-        <Text style={styles.reasonEyebrow}>HOW TO FISH IT</Text>
-        <Text style={styles.reasonBody}>{pick.how_to_fish}</Text>
+        <View style={styles.topPickReasonBlock}>
+          <View style={styles.topPickReasonHead}>
+            <View style={styles.topPickReasonCap} />
+            <Text style={styles.topPickReasonEyebrow}>HOW TO FISH IT</Text>
+          </View>
+          <Text style={styles.topPickReasonBody}>{pick.how_to_fish}</Text>
+        </View>
+
+        {/* Signoff strip — finishes the card like a printed credit. */}
+        <View style={styles.topPickSignoffRow}>
+          <View style={styles.topPickSignoffRule} />
+          <Text style={styles.topPickSignoffOrnament}>◆</Text>
+          <Text style={styles.topPickSignoffText}>FINFINDR TACKLE BOX</Text>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+/**
+ * HONORABLE MENTION card — companion to the TOP PICK, clearly supporting.
+ * Compact horizontal layout (image left, content right) and shorter
+ * copy treatment. "ALSO CONSIDER" eyebrow plus a smaller card chrome
+ * differentiate it from the hero pick without losing useful info.
+ */
+function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
+  const image = pick.gear_mode === 'lure' ? getLureImage(pick.id) : getFlyImage(pick.id);
+  const slotLabel = pick.slot === 'honorable_lure' ? 'HONORABLE LURE' : 'HONORABLE FLY';
+
+  return (
+    <View style={styles.honorableCard}>
+      <View style={styles.honorableEyebrowRow}>
+        <View style={styles.honorableEyebrowDot} />
+        <Text style={styles.honorableEyebrow}>ALSO CONSIDER · {slotLabel}</Text>
+      </View>
+
+      <View style={styles.honorableBody}>
+        <View style={styles.honorableImageWrap}>
+          {image ? (
+            <ExpoImage
+              source={image}
+              style={styles.honorableImage}
+              contentFit="contain"
+              transition={IMAGE_TX}
+              cachePolicy="memory-disk"
+            />
+          ) : (
+            <View style={[styles.honorableImage, styles.pickImageEmpty]}>
+              <Text style={styles.pickImageEmptyText}>IMAGE PENDING</Text>
+            </View>
+          )}
+        </View>
+        <View style={styles.honorableContent}>
+          <Text style={styles.honorableTitle} numberOfLines={2}>
+            {pick.display_name}
+          </Text>
+          <Text style={styles.honorableSubtitle} numberOfLines={1}>
+            {toTitleCase(pick.family_group)} · {toTitleCase(pick.presentation_group)}
+          </Text>
+
+          <View style={styles.honorableMetaRow}>
+            <View style={styles.honorableMetaCell}>
+              <Text style={styles.honorableMetaLabel}>WHERE</Text>
+              <Text style={styles.honorableMetaValue} numberOfLines={1}>
+                {COLUMN_LABEL[pick.column]}
+              </Text>
+            </View>
+            <View style={styles.honorableMetaCell}>
+              <Text style={styles.honorableMetaLabel}>PACE</Text>
+              <Text style={styles.honorableMetaValue} numberOfLines={1}>
+                {paceLabel(pick)}
+              </Text>
+            </View>
+            <View style={styles.honorableMetaCell}>
+              <Text style={styles.honorableMetaLabel}>SURFACE</Text>
+              <Text style={styles.honorableMetaValue} numberOfLines={1}>
+                {pick.is_surface ? 'Yes' : 'No'}
+              </Text>
+            </View>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.honorableRule} />
+
+      <View style={styles.honorableReasonStack}>
+        <Text style={styles.honorableReasonEyebrow}>WHY THIS</Text>
+        <Text style={styles.honorableReasonBody} numberOfLines={4}>
+          {pick.why_chosen}
+        </Text>
+        <Text style={[styles.honorableReasonEyebrow, { marginTop: paperSpacing.sm }]}>
+          HOW TO FISH IT
+        </Text>
+        <Text style={styles.honorableReasonBody} numberOfLines={4}>
+          {pick.how_to_fish}
+        </Text>
       </View>
     </View>
   );
@@ -513,10 +762,24 @@ export function RecommenderView({
             </Text>
           </View>
 
-          <View style={styles.cardStack}>
-            {PICK_ORDER.map((slot) => (
-              <PickCard key={slot} pick={result.picks[slot]} />
-            ))}
+          {/* LURE SECTION — top pick (hero) + honorable mention (compact). */}
+          <View style={styles.gearSection}>
+            <PicksSectionMasthead
+              title="LURE PICKS"
+              meta="of the day · honorable mention"
+            />
+            <TopPickCard pick={result.picks.lure_of_the_day} />
+            <HonorableMentionCard pick={result.picks.honorable_lure} />
+          </View>
+
+          {/* FLY SECTION — top pick (hero) + honorable mention (compact). */}
+          <View style={styles.gearSection}>
+            <PicksSectionMasthead
+              title="FLY PICKS"
+              meta="of the day · honorable mention"
+            />
+            <TopPickCard pick={result.picks.fly_of_the_day} />
+            <HonorableMentionCard pick={result.picks.honorable_fly} />
           </View>
         </View>
       </ScrollView>
@@ -902,29 +1165,161 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: paper.dashboardMuted,
   },
-  cardStack: {
-    gap: paperSpacing.md,
+  // Gear group section — LURE PICKS or FLY PICKS, plus its pair of
+  // cards (top pick + honorable mention) under a masthead.
+  gearSection: {
+    gap: paperSpacing.md + 2,
+    marginTop: paperSpacing.lg,
   },
-  pickCard: {
+
+  // ── Picks section masthead (LURE PICKS / FLY PICKS) ────────────────
+  picksMasthead: {
+    width: '100%',
+    gap: 4,
+    marginBottom: paperSpacing.xs,
+  },
+  picksMastheadRuleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    width: '100%',
+  },
+  picksMastheadCap: {
+    width: 5,
+    height: 5,
+    borderRadius: 1,
+    backgroundColor: paper.dashboardInk,
+  },
+  picksMastheadOrnament: {
+    fontFamily: paperFonts.body,
+    fontSize: 9,
+    lineHeight: 10,
+    opacity: 0.75,
+    color: paper.dashboardInk,
+  },
+  picksMastheadRule: {
+    height: 1.6,
+    flex: 1,
+    backgroundColor: paper.dashboardInk,
+  },
+  picksMastheadInner: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    paddingVertical: 4,
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  picksMastheadTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    letterSpacing: 2.8,
+    fontWeight: '700',
+    color: paper.dashboardInk,
+    flexShrink: 1,
+  },
+  picksMastheadMeta: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 11,
+    color: paper.dashboardMuted,
+    opacity: 0.6,
+  },
+
+  // ── TOP PICK CARD — hero treatment ─────────────────────────────────
+  topPickCard: {
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     overflow: 'hidden',
+    position: 'relative',
     ...paperShadows.lift,
   },
-  pickImageBand: {
-    minHeight: 170,
+  topPickRibbon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: 9,
+    backgroundColor: GOLD_SOFT,
+    borderBottomWidth: 1,
+    borderBottomColor: GOLD_ACCENT,
+  },
+  topPickRibbonDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 3.5,
+    backgroundColor: GOLD_ACCENT,
+  },
+  topPickRibbonText: {
+    flex: 1,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    letterSpacing: 2.4,
+    color: GOLD_INK,
+    fontWeight: '700',
+  },
+  topPickRibbonTail: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  topPickRibbonOrnament: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    color: GOLD_ACCENT,
+    opacity: 0.8,
+  },
+
+  // Corner crosses pinned to each corner of the top-pick card.
+  topPickCornerCross: {
+    position: 'absolute',
+    width: 10,
+    height: 10,
+    zIndex: 3,
+  },
+  topPickCornerCrossTL: { top: 46, left: 8 },
+  topPickCornerCrossTR: { top: 46, right: 8 },
+  topPickCornerCrossBL: { bottom: 8, left: 8 },
+  topPickCornerCrossBR: { bottom: 8, right: 8 },
+  topPickCornerCrossH: {
+    position: 'absolute',
+    top: 4.5,
+    left: 0,
+    width: 10,
+    height: 1,
+    backgroundColor: 'rgba(28, 36, 25, 0.32)',
+  },
+  topPickCornerCrossV: {
+    position: 'absolute',
+    left: 4.5,
+    top: 0,
+    width: 1,
+    height: 10,
+    backgroundColor: 'rgba(28, 36, 25, 0.32)',
+  },
+
+  topPickImageBand: {
+    minHeight: 200,
     borderBottomWidth: 1,
     borderBottomColor: paper.dashboardLine,
     backgroundColor: paper.dashboardWhite,
     alignItems: 'center',
     justifyContent: 'center',
     padding: paperSpacing.md,
+    overflow: 'hidden',
+    position: 'relative',
   },
-  pickImage: {
+  topPickImageShimmer: {
+    position: 'absolute',
+    top: -10,
+    bottom: -10,
+    width: 90,
+    backgroundColor: 'rgba(201, 155, 45, 0.16)',
+  },
+  topPickImage: {
     width: '100%',
-    height: 138,
+    height: 168,
   },
   pickImageEmpty: {
     alignItems: 'center',
@@ -938,36 +1333,230 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: paper.dashboardMuted,
   },
-  slotBadge: {
-    position: 'absolute',
-    left: paperSpacing.sm,
-    bottom: paperSpacing.sm,
+
+  topPickBody: {
+    padding: paperSpacing.md + 2,
+    gap: paperSpacing.sm + 2,
+  },
+  topPickTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: paperSpacing.sm,
+  },
+  topPickTitleStack: {
+    flex: 1,
+    minWidth: 0,
+    gap: 3,
+  },
+  topPickTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 28,
+    lineHeight: 32,
+    fontWeight: '800',
+    letterSpacing: -0.5,
+    color: paper.dashboardInk,
+  },
+  topPickSubtitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 1.6,
+    color: paper.dashboardMuted,
+  },
+  topPickSeal: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: paperRadius.chip,
+    backgroundColor: GOLD_SOFT,
+    borderWidth: 1,
+    borderColor: GOLD_ACCENT,
+  },
+  topPickSealText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    letterSpacing: 1.4,
+    color: GOLD_INK,
+    fontWeight: '700',
+  },
+
+  topPickReasonBlock: {
+    gap: 4,
+  },
+  topPickReasonHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  topPickReasonCap: {
+    width: 12,
+    height: 2,
+    borderRadius: 1,
+    backgroundColor: GOLD_ACCENT,
+  },
+  topPickReasonEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.6,
+    color: GOLD_INK,
+    fontWeight: '700',
+  },
+  topPickReasonBody: {
+    marginTop: 2,
+    fontFamily: paperFonts.body,
+    fontSize: 14,
+    lineHeight: 20,
+    color: paper.dashboardInk,
+  },
+
+  topPickSignoffRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    marginTop: paperSpacing.sm,
+    paddingTop: paperSpacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.dashboardHair,
+  },
+  topPickSignoffRule: {
+    height: StyleSheet.hairlineWidth,
+    flex: 1,
+    maxWidth: 32,
+    backgroundColor: GOLD_ACCENT,
+    opacity: 0.45,
+  },
+  topPickSignoffOrnament: {
+    fontFamily: paperFonts.body,
+    fontSize: 8,
+    color: GOLD_ACCENT,
+    opacity: 0.7,
+  },
+  topPickSignoffText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 2,
+    color: GOLD_INK,
+    opacity: 0.85,
+    fontWeight: '700',
+  },
+
+  // ── HONORABLE MENTION CARD — compact supporting layout ─────────────
+  honorableCard: {
+    backgroundColor: '#FAFAF7',
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.dashboardBlueSky,
-    paddingHorizontal: 9,
-    paddingVertical: 5,
+    borderRadius: paperRadius.card,
+    paddingHorizontal: paperSpacing.md,
+    paddingTop: paperSpacing.sm + 2,
+    paddingBottom: paperSpacing.md,
+    overflow: 'hidden',
   },
-  slotBadgeText: {
-    fontFamily: paperFonts.metaMono,
-    fontSize: 10,
-    color: paper.dashboardInk,
+  honorableEyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: paperSpacing.sm,
   },
-  pickBody: {
-    padding: paperSpacing.md,
+  honorableEyebrowDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: paper.dashboardMuted,
+    opacity: 0.55,
   },
-  pickTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 24,
-    lineHeight: 28,
-    color: paper.dashboardInk,
-  },
-  pickSubtitle: {
-    marginTop: 3,
-    fontFamily: paperFonts.metaMono,
-    fontSize: 10,
+  honorableEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 1.7,
     color: paper.dashboardMuted,
+    fontWeight: '700',
+  },
+  honorableBody: {
+    flexDirection: 'row',
+    gap: paperSpacing.md,
+    alignItems: 'flex-start',
+  },
+  honorableImageWrap: {
+    width: 96,
+    height: 96,
+    borderRadius: paperRadius.chip,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 6,
+    overflow: 'hidden',
+    flexShrink: 0,
+  },
+  honorableImage: {
+    width: '100%',
+    height: '100%',
+  },
+  honorableContent: {
+    flex: 1,
+    minWidth: 0,
+    gap: 2,
+  },
+  honorableTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 19,
+    lineHeight: 22,
+    fontWeight: '700',
+    color: paper.dashboardInk,
+  },
+  honorableSubtitle: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 9.5,
+    letterSpacing: 0.6,
+    color: paper.dashboardMuted,
+    marginBottom: 6,
+  },
+  honorableMetaRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  honorableMetaCell: {
+    minWidth: 0,
+  },
+  honorableMetaLabel: {
+    fontFamily: paperFonts.metaMono,
+    fontSize: 7.5,
+    letterSpacing: 1.4,
+    color: paper.dashboardMuted,
+    marginBottom: 2,
+  },
+  honorableMetaValue: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.dashboardInk,
+  },
+  honorableRule: {
+    marginTop: paperSpacing.sm + 2,
+    marginBottom: paperSpacing.sm,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardHair,
+  },
+  honorableReasonStack: {
+    gap: 2,
+  },
+  honorableReasonEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.4,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
+  },
+  honorableReasonBody: {
+    marginTop: 2,
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+    opacity: 0.92,
   },
   metaRow: {
     marginTop: paperSpacing.md,
