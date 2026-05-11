@@ -10,8 +10,10 @@
  * presentation-only.
  */
 
-import type { ReactNode } from 'react';
+import { useEffect, useRef, type ReactNode } from 'react';
 import {
+  Animated,
+  Easing,
   Pressable,
   StyleSheet,
   Text,
@@ -53,6 +55,13 @@ export function AuthBackButton({ onPress, label = 'BACK' }: AuthBackButtonProps)
 }
 
 // ─── Screen header (eyebrow + serif title + italic subtitle) ─────────────
+//
+// Premium polish: the eyebrow row now reads as a small section masthead —
+// pulsing live dot on the left, eyebrow label, then a hairline rule that
+// extends to a diamond ornament on the right. Same chapter-break grammar
+// the Today's Bite and Tackle Box section headers use, so every auth
+// screen feels native to the same editorial system. Pulse is native-
+// driver opacity — no per-frame layout work.
 
 interface AuthHeaderProps {
   eyebrow: string;
@@ -61,9 +70,39 @@ interface AuthHeaderProps {
 }
 
 export function AuthHeader({ eyebrow, title, subtitle }: AuthHeaderProps) {
+  const pulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 0.4,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+
   return (
     <View style={styles.header}>
-      <Text style={styles.eyebrow}>{eyebrow}</Text>
+      <View style={styles.eyebrowRow}>
+        <View style={styles.eyebrowPulseWrap}>
+          <View style={styles.eyebrowPulseRing} />
+          <Animated.View style={[styles.eyebrowPulseDot, { opacity: pulse }]} />
+        </View>
+        <Text style={styles.eyebrow}>{eyebrow}</Text>
+        <View style={styles.eyebrowRule} />
+        <Text style={styles.eyebrowOrnament}>◆</Text>
+      </View>
       <Text style={styles.title}>{title}</Text>
       {subtitle ? <Text style={styles.subtitle}>{subtitle}</Text> : null}
     </View>
@@ -253,6 +292,11 @@ export function AuthTextLink({ leadText, linkText, onPress }: AuthTextLinkProps)
 }
 
 // ─── Small gold-ruled emphasis card (for verify-email / success states) ──
+//
+// The icon now sits inside an editor's-seal-style concentric ring with
+// four ribbon-tinted accent dots at the cardinal points — same anatomy
+// as the renovated Today's Bite Guide Note badge. Reads as a pressed
+// almanac signet, not a plain icon chip.
 
 interface AuthStatusCardProps {
   iconName: keyof typeof Ionicons.glyphMap;
@@ -263,11 +307,42 @@ interface AuthStatusCardProps {
 export function AuthStatusCard({ iconName, title, children }: AuthStatusCardProps) {
   return (
     <View style={styles.statusCard}>
-      <View style={styles.statusIconWrap}>
-        <Ionicons name={iconName} size={28} color="#FFFFFF" />
+      <View style={styles.statusIconSealWrap}>
+        <View style={styles.statusIconSealOuter} />
+        <View style={styles.statusIconWrap}>
+          <Ionicons name={iconName} size={28} color="#FFFFFF" />
+        </View>
+        <View style={[styles.statusIconSealDot, styles.statusIconSealDotTop]} />
+        <View style={[styles.statusIconSealDot, styles.statusIconSealDotRight]} />
+        <View style={[styles.statusIconSealDot, styles.statusIconSealDotBottom]} />
+        <View style={[styles.statusIconSealDot, styles.statusIconSealDotLeft]} />
       </View>
       <Text style={styles.statusTitle}>{title}</Text>
       <View style={styles.statusBody}>{children}</View>
+    </View>
+  );
+}
+
+// ─── Edition stamp footer ────────────────────────────────────────────────
+//
+// Small pressed-edition stamp ("EDITION · MAY 11 · 2026") — the same
+// almanac signature that finishes the Today's Bite report. Gives every
+// auth screen a finished "this is an issue" voice. Date is computed at
+// render time (no engine plumbing). Centered between two short hairline
+// rules; JetBrains Mono Bold at 8.5 px with 2 px tracking and 70%
+// opacity.
+
+export function AuthFooterStamp() {
+  const d = new Date();
+  const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+  const day = d.getDate();
+  const year = d.getFullYear();
+  const label = `EDITION · ${month} ${day} · ${year}`;
+  return (
+    <View style={styles.footerStampRow}>
+      <View style={styles.footerStampRule} />
+      <Text style={styles.footerStampText}>{label}</Text>
+      <View style={styles.footerStampRule} />
     </View>
   );
 }
@@ -298,12 +373,51 @@ const styles = StyleSheet.create({
   header: {
     gap: 4,
   },
+  eyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 8,
+  },
+  eyebrowPulseWrap: {
+    width: 10,
+    height: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eyebrowPulseRing: {
+    position: 'absolute',
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.45,
+  },
+  eyebrowPulseDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: paper.dashboardBlue,
+  },
+  eyebrowRule: {
+    flex: 1,
+    height: 1,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.4,
+  },
+  eyebrowOrnament: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    color: paper.dashboardBlue,
+    opacity: 0.6,
+    lineHeight: 12,
+  },
   eyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10.5,
     color: paper.dashboardBlue,
     letterSpacing: 3,
-    marginBottom: 6,
   },
   title: {
     fontFamily: paperFonts.display,
@@ -485,6 +599,22 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     gap: paperSpacing.sm,
   },
+  statusIconSealWrap: {
+    width: 80,
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  statusIconSealOuter: {
+    position: 'absolute',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.45,
+  },
   statusIconWrap: {
     width: 64,
     height: 64,
@@ -495,6 +625,18 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  statusIconSealDot: {
+    position: 'absolute',
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.55,
+  },
+  statusIconSealDotTop: { top: 0, alignSelf: 'center' },
+  statusIconSealDotBottom: { bottom: 0, alignSelf: 'center' },
+  statusIconSealDotLeft: { left: 0, top: '50%', marginTop: -2 },
+  statusIconSealDotRight: { right: 0, top: '50%', marginTop: -2 },
   statusTitle: {
     fontFamily: paperFonts.display,
     fontSize: 26,
@@ -507,5 +649,28 @@ const styles = StyleSheet.create({
   },
   statusBody: {
     alignItems: 'center',
+  },
+
+  // Edition stamp footer — short hairline rules flanking a date string.
+  footerStampRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingTop: paperSpacing.sm,
+  },
+  footerStampRule: {
+    height: StyleSheet.hairlineWidth,
+    flex: 1,
+    maxWidth: 32,
+    backgroundColor: paper.dashboardLine,
+    opacity: 0.65,
+  },
+  footerStampText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 2,
+    color: paper.dashboardMuted,
+    opacity: 0.7,
   },
 });

@@ -27,6 +27,7 @@ import {
 import { supabase } from '../../lib/supabase';
 import {
   AuthField,
+  AuthFooterStamp,
   AuthHeader,
   AuthPrimaryButton,
   AuthStatusCard,
@@ -150,6 +151,8 @@ export default function ResetPasswordScreen() {
               loadingLabel="UPDATING…"
               onPress={handleReset}
             />
+
+            <AuthFooterStamp />
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

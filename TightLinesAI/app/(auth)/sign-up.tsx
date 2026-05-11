@@ -30,6 +30,7 @@ import { signUpWithEmail } from '../../lib/auth';
 import {
   AuthBackButton,
   AuthField,
+  AuthFooterStamp,
   AuthHeader,
   AuthPrimaryButton,
   AuthTextLink,
@@ -363,6 +364,8 @@ export default function SignUpScreen() {
                 onPress={() => router.replace('/(auth)/sign-in')}
               />
             </View>
+
+            <AuthFooterStamp />
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>

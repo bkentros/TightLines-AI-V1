@@ -6,7 +6,10 @@
  * same handlers against the same auth store. Only visuals changed.
  */
 
+import { useEffect, useRef } from 'react';
 import {
+  Animated,
+  Easing,
   View,
   Text,
   StyleSheet,
@@ -29,6 +32,7 @@ import {
   TopographicLines,
 } from '../../components/paper';
 import {
+  AuthFooterStamp,
   AuthPrimaryButton,
   AuthSecondaryButton,
   AuthDivider,
@@ -37,6 +41,30 @@ import {
 export default function WelcomeScreen() {
   const router = useRouter();
   const { fetchProfile, setSession } = useAuthStore();
+
+  // Live pulse on the eyebrow dot — matches the home dashboard and
+  // every renovated feature header. Native driver, native opacity loop.
+  const pulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 0.4,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
 
   const handleAppleSignIn = async () => {
     try {
@@ -92,7 +120,21 @@ export default function WelcomeScreen() {
             />
             <CornerMarkSet color={paper.bandFair} size={16} thickness={2} inset={10} />
 
-            <Text style={styles.eyebrow}>FIELD GUIDE</Text>
+            {/* Eyebrow row — pulse dot + label + ruled flank + diamond
+                ornament. Same anatomy as the renovated section
+                mastheads + AuthHeader so welcome reads as part of the
+                same editorial family. */}
+            <View style={styles.eyebrowRow}>
+              <View style={styles.eyebrowPulseWrap}>
+                <View style={styles.eyebrowPulseRing} />
+                <Animated.View
+                  style={[styles.eyebrowPulseDot, { opacity: pulse }]}
+                />
+              </View>
+              <Text style={styles.eyebrow}>FIELD GUIDE</Text>
+              <View style={styles.eyebrowFlankRule} />
+              <Text style={styles.eyebrowDiamond}>◆</Text>
+            </View>
             <Text style={styles.brandMark}>FINFINDR.</Text>
             <View style={styles.brandRule} />
             <Text style={styles.tagline}>
@@ -148,9 +190,14 @@ export default function WelcomeScreen() {
           </View>
 
           {/* Footer mark */}
-          <View style={styles.footerRow}>
-            <Text style={styles.footerText}>FINFINDR</Text>
-            <Text style={styles.footerMono}>MADE FOR THE WATER</Text>
+          <View style={styles.footerCol}>
+            <View style={styles.footerRow}>
+              <Text style={styles.footerText}>FINFINDR</Text>
+              <Text style={styles.footerMono}>MADE FOR THE WATER</Text>
+            </View>
+            {/* Pressed-edition stamp — same finishing signature used on
+                the Today's Bite report and every other auth screen. */}
+            <AuthFooterStamp />
           </View>
         </View>
       </SafeAreaView>
@@ -187,6 +234,47 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     opacity: 0.4,
+  },
+  eyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    zIndex: 1,
+    paddingHorizontal: 8,
+  },
+  eyebrowPulseWrap: {
+    width: 9,
+    height: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eyebrowPulseRing: {
+    position: 'absolute',
+    width: 9,
+    height: 9,
+    borderRadius: 4.5,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.45,
+  },
+  eyebrowPulseDot: {
+    width: 4.5,
+    height: 4.5,
+    borderRadius: 2.25,
+    backgroundColor: paper.dashboardBlue,
+  },
+  eyebrowFlankRule: {
+    width: 26,
+    height: 1,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.4,
+  },
+  eyebrowDiamond: {
+    fontFamily: paperFonts.body,
+    fontSize: 9,
+    color: paper.dashboardBlue,
+    opacity: 0.6,
+    lineHeight: 11,
   },
   eyebrow: {
     fontFamily: paperFonts.bodyBold,
@@ -258,6 +346,10 @@ const styles = StyleSheet.create({
   actions: { gap: paperSpacing.sm },
   appleBtn: { height: 52, width: '100%' },
 
+  footerCol: {
+    gap: 4,
+    marginTop: paperSpacing.sm,
+  },
   footerRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -265,7 +357,6 @@ const styles = StyleSheet.create({
     borderTopWidth: 1.5,
     borderTopColor: paper.dashboardInk,
     paddingTop: paperSpacing.sm + 2,
-    marginTop: paperSpacing.sm,
   },
   footerText: {
     fontFamily: paperFonts.bodyBold,

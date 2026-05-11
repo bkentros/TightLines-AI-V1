@@ -15,7 +15,10 @@ import {
   paperSpacing,
 } from '../lib/theme';
 import {
-  PaperBestValueStamp,  PaperNavHeader,} from '../components/paper';
+  PaperBestValueStamp,
+  PaperNavHeader,
+} from '../components/paper';
+import { AuthFooterStamp } from '../components/paper/auth';
 import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
 
 export default function SubscribeScreen() {
@@ -92,6 +95,11 @@ export default function SubscribeScreen() {
               is the intended launch rate.
             </Text>
           </View>
+
+          {/* Same pressed-edition stamp the auth screens and the Today's
+              Bite report use — gives every surface the same finishing
+              "this is an issue" voice. */}
+          <AuthFooterStamp />
         </ScrollView>
       </View>
     </SafeAreaView>

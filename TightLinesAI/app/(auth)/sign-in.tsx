@@ -34,6 +34,7 @@ import {
   AuthBackButton,
   AuthDivider,
   AuthField,
+  AuthFooterStamp,
   AuthHeader,
   AuthPrimaryButton,
   AuthTextLink,
@@ -217,6 +218,8 @@ export default function SignInScreen() {
                 onPress={() => router.replace('/(auth)/sign-up')}
               />
             </View>
+
+            <AuthFooterStamp />
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>

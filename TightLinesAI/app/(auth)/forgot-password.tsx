@@ -26,6 +26,7 @@ import { supabase } from '../../lib/supabase';
 import {
   AuthBackButton,
   AuthField,
+  AuthFooterStamp,
   AuthHeader,
   AuthPrimaryButton,
   AuthSecondaryButton,
@@ -128,6 +129,8 @@ export default function ForgotPasswordScreen() {
                 />
               </View>
             )}
+
+            <AuthFooterStamp />
           </View>
         </KeyboardAvoidingView>
       </SafeAreaView>

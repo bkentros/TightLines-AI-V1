@@ -22,6 +22,7 @@ import { supabase } from '../../lib/supabase';
 import { useAuthStore } from '../../store/authStore';
 import {
   AuthBackButton,
+  AuthFooterStamp,
   AuthStatusCard,
   AuthTip,
 } from '../../components/paper/auth';
@@ -129,6 +130,8 @@ export default function VerifyEmailScreen() {
               )}
             </Pressable>
           </View>
+
+          <AuthFooterStamp />
         </View>
       </SafeAreaView>
     </View>
