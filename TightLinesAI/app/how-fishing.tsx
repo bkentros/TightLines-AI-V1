@@ -84,8 +84,12 @@ function formatGeneratedTime(iso: string, timezone?: string): string {
 
 /* ─── Context tabs ──────────────────────────────────────────────────────── */
 
+// Tab labels tuned to fit cleanly when all four are visible (coastal
+// cities split the bar 25% each). Two-word "LAKE / POND" was the only
+// label that got smooshed against its icon and the active-pill edge —
+// dropped the spaces so it reads as one tight token like the others.
 const TAB_CONFIG: { key: EngineContextKey; label: string; icon: keyof typeof Ionicons.glyphMap }[] = [
-  { key: 'freshwater_lake_pond', label: 'LAKE / POND', icon: 'water' },
+  { key: 'freshwater_lake_pond', label: 'LAKE/POND', icon: 'water' },
   { key: 'freshwater_river', label: 'RIVER', icon: 'git-merge-outline' },
   { key: 'coastal', label: 'INSHORE', icon: 'boat-outline' },
   { key: 'coastal_flats_estuary', label: 'FLATS', icon: 'resize-outline' },
@@ -716,12 +720,14 @@ export default function HowFishingScreen() {
                 >
                   <Ionicons
                     name={t.icon}
-                    size={12}
+                    size={11}
                     color={isActive ? '#FFFFFF' : paper.dashboardInk}
                   />
                   <Text
                     style={[styles.contextTabLabel, isActive && styles.contextTabLabelActive]}
                     numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.85}
                   >
                     {t.label}
                   </Text>
@@ -995,11 +1001,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 6,
+    // Tightened from 6→4 px gap + 4→3 px horizontal padding so 4-tab
+    // mode (coastal cities) gives each label room to breathe inside
+    // its 25 % width slice — the prior values left "LAKE/POND"
+    // smooshed against its icon and the active-pill edge.
+    gap: 4,
     paddingVertical: 9,
-    paddingHorizontal: 4,
-    // Vertical divider between inactive tabs so the split is obvious even
-    // before a tab is active.
+    paddingHorizontal: 3,
     borderRightWidth: 1,
     borderRightColor: paper.dashboardHair,
   },
@@ -1009,8 +1017,11 @@ const styles = StyleSheet.create({
   },
   contextTabLabel: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10.5,
-    letterSpacing: 1.5,
+    // 10.5 → 9.5 and letterSpacing 1.5 → 1.1: enough to comfortably fit
+    // every label at four-tab width while keeping the all-caps tracked
+    // editorial voice consistent with the rest of the app.
+    fontSize: 9.5,
+    letterSpacing: 1.1,
     color: paper.dashboardInk,
     fontWeight: '700',
   },
