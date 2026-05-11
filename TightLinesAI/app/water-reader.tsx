@@ -33,16 +33,6 @@ import {
   TextInput,
   View,
 } from 'react-native';
-import Svg, {
-  Circle,
-  Defs,
-  Line,
-  LinearGradient,
-  Path,
-  Pattern,
-  Rect,
-  Stop,
-} from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
@@ -52,10 +42,6 @@ import {
   paperFonts,
   paperSpacing,
 } from '../lib/theme';
-import {
-  PAPER_WARM_FEATURE_COLORS,
-  PAPER_WARM_FEATURE_MOTIF_COLORS,
-} from '../lib/waterReaderZonePaperPalette';
 import { fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
 import { TopographicLines } from '../components/paper';
 import { WaterReaderMapCard } from '../components/water-reader/WaterReaderMapCard';
@@ -904,330 +890,151 @@ export default function WaterReaderScreen() {
 // visitors something to see before they pick a state, so the page no longer
 // feels bland on arrival.
 
-// Sample plate is built to look exactly like a real generated Water Read
-// (Mullett Lake-style tall polygon with patterned zones, ink-stroked
-// shoreline, blue water gradient, callouts pushed out to the beige, brand
-// chip top-left, scale bar bottom-left, bottom colophon, FULL/DETAIL
-// toolbar, meta ribbon). Same outer chrome as WaterReaderMapCard so the
-// preview reads as "this is the actual experience".
+// Sample plate is the REAL Pontiac Lake Water Read, fetched once per app
+// session and rendered through the same WaterReaderMapCard the user sees
+// when they pick a lake themselves. Avoids the "looks distorted because
+// it's a hand-drawn approximation" trap — the preview IS the real output.
+//
+// Module-level cache keeps the fetch to once per app session; subsequent
+// returns to the Water Read screen reuse the cached read instantly.
+const PREVIEW_LAKE_QUERY = 'Pontiac';
+const PREVIEW_LAKE_STATE_CODE = 'MI';
+const PREVIEW_LAKE_NAME_MATCH = 'pontiac lake';
+const PREVIEW_LAKE_COUNTY_HINT = 'oakland';
 
-const PREVIEW_VB_W = 240;
-const PREVIEW_VB_H = 420;
-const PREVIEW_COLORS = PAPER_WARM_FEATURE_COLORS;
-const PREVIEW_MOTIFS = PAPER_WARM_FEATURE_MOTIF_COLORS;
+type PreviewState =
+  | { status: 'loading' }
+  | { status: 'ready'; result: WaterbodySearchResult; read: WaterReaderReadResponse }
+  | { status: 'error' };
 
-// Lake outer ring — Mullett-style tall oval with right-side indentation
-// (for the confluence) and a small bottom-left bay (for the cove zone).
-// Subtle bulges keep it from reading as a perfect ellipse.
-const PREVIEW_LAKE_D =
-  'M 130 50 ' +
-  'C 152 50 168 60 174 90 ' +
-  'C 178 120 175 150 178 180 ' +
-  'C 188 195 196 215 195 235 ' +
-  'C 190 250 178 248 168 245 ' +
-  'C 170 265 172 285 168 305 ' +
-  'C 162 325 148 340 130 345 ' +
-  'C 115 348 100 348 88 340 ' +
-  'C 70 332 60 318 56 300 ' +
-  'C 48 305 36 300 32 290 ' +
-  'C 30 275 38 262 50 258 ' +
-  'C 48 235 50 210 55 185 ' +
-  'C 50 155 50 125 56 95 ' +
-  'C 65 65 95 50 130 50 Z';
+let cachedPreviewState:
+  | { result: WaterbodySearchResult; read: WaterReaderReadResponse }
+  | null = null;
 
 function WaterReadIdlePreview() {
+  const [previewState, setPreviewState] = useState<PreviewState>(() =>
+    cachedPreviewState
+      ? {
+          status: 'ready',
+          result: cachedPreviewState.result,
+          read: cachedPreviewState.read,
+        }
+      : { status: 'loading' },
+  );
+
+  // Fetch Pontiac Lake's REAL Water Read on first idle-preview mount of
+  // the session. The cached read is reused on subsequent visits. We do
+  // a search-then-read so we never rely on hardcoded lakeIds (which can
+  // shift as the underlying NHD data refreshes).
+  useEffect(() => {
+    if (cachedPreviewState) return;
+    let cancelled = false;
+    void (async () => {
+      try {
+        const search = await searchWaterbodies({
+          query: PREVIEW_LAKE_QUERY,
+          state: PREVIEW_LAKE_STATE_CODE,
+          limit: 12,
+        });
+        if (cancelled) return;
+        const match =
+          search.results.find(
+            (r) =>
+              r.name.toLowerCase() === PREVIEW_LAKE_NAME_MATCH &&
+              r.county?.toLowerCase() === PREVIEW_LAKE_COUNTY_HINT &&
+              canOpenWaterReaderRead(r),
+          ) ??
+          search.results.find(
+            (r) =>
+              r.name.toLowerCase().includes(PREVIEW_LAKE_NAME_MATCH) &&
+              canOpenWaterReaderRead(r),
+          );
+        if (!match) {
+          if (!cancelled) setPreviewState({ status: 'error' });
+          return;
+        }
+        const read = await fetchWaterReaderRead({ lakeId: match.lakeId });
+        if (cancelled) return;
+        cachedPreviewState = { result: match, read };
+        setPreviewState({ status: 'ready', result: match, read });
+      } catch {
+        if (!cancelled) setPreviewState({ status: 'error' });
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, []);
+
+  const mapCardState: WaterReaderMapCardState =
+    previewState.status === 'ready'
+      ? { status: 'ready', read: previewState.read }
+      : previewState.status === 'loading'
+        ? { status: 'reading' }
+        : { status: 'idle' };
+
+  // When the preview errors (auth/subscription/network), fall back to a
+  // minimal CTA card so the screen never reads as broken.
+  if (previewState.status === 'error') {
+    return (
+      <View style={styles.idleErrorCard}>
+        <Text style={styles.idleEyebrow}>SAMPLE PLATE · PREVIEW</Text>
+        <Text style={styles.idleHeadline}>See structure before you cast.</Text>
+        <Text style={styles.idleSubline}>
+          Pick a state and a lake above to scan one. The sample preview
+          couldn&apos;t load right now — usually a network blip.
+        </Text>
+        <View style={styles.idleCta}>
+          <Ionicons
+            name="arrow-up-outline"
+            size={13}
+            color={paper.dashboardBlue}
+          />
+          <Text style={styles.idleCtaText}>
+            Pick a state above to scan a real lake.
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  const lakeName =
+    previewState.status === 'ready' ? previewState.read.name : 'Pontiac Lake';
+  const contextLine =
+    previewState.status === 'ready'
+      ? selectionContextLine(previewState.result)
+      : 'MI · Oakland County';
+  // Stable fake-but-unique lakeId during loading so the polygon prefetch
+  // inside WaterReaderMapCard doesn't get re-keyed every render.
+  const lakeId =
+    previewState.status === 'ready'
+      ? previewState.result.lakeId
+      : 'preview-pontiac-mi';
+
   return (
     <View style={styles.idleOuter}>
       <View style={styles.idleHeaderText}>
         <Text style={styles.idleEyebrow}>SAMPLE PLATE · PREVIEW</Text>
         <Text style={styles.idleHeadline}>See structure before you cast.</Text>
         <Text style={styles.idleSubline}>
-          Pick a state and a lake above. Every Water Read is delivered as a
-          signed FinFindr plate like this one.
+          Below is a real Water Read for Pontiac Lake (Oakland County, MI).
+          Pick a state and a lake above to scan yours.
         </Text>
       </View>
 
-      {/* Plate — mirrors WaterReaderMapCard.mapCard chrome exactly. */}
-      <View style={styles.idleMapCard}>
-        <View style={styles.idleViewerToolbar}>
-          <View style={[styles.idleViewerChip, styles.idleViewerChipActive]}>
-            <Ionicons name="scan-outline" size={11} color="#FFFFFF" />
-            <Text
-              style={[styles.idleViewerChipText, styles.idleViewerChipTextActive]}
-            >
-              FULL
-            </Text>
-          </View>
-          <View style={styles.idleViewerChip}>
-            <Ionicons name="move-outline" size={11} color={paper.dashboardInk} />
-            <Text style={styles.idleViewerChipText}>DETAIL</Text>
-          </View>
-        </View>
-
-        <View style={styles.idlePlateOuter}>
-          <View style={styles.idlePlateInner}>
-            <Svg
-              width="100%"
-              height="100%"
-              viewBox={`0 0 ${PREVIEW_VB_W} ${PREVIEW_VB_H}`}
-              preserveAspectRatio="xMidYMid meet"
-            >
-              <Defs>
-                <LinearGradient id="idle-water" x1="0" y1="0" x2="0" y2="1">
-                  <Stop offset="0%" stopColor="#D9F1FB" />
-                  <Stop offset="52%" stopColor="#BFE4F3" />
-                  <Stop offset="100%" stopColor="#9FD2E7" />
-                </LinearGradient>
-                <Pattern
-                  id="idle-land-contour"
-                  width={60}
-                  height={22}
-                  patternUnits="userSpaceOnUse"
-                >
-                  <Path
-                    d="M 0 11 Q 15 4 30 11 T 60 11"
-                    fill="none"
-                    stroke="rgba(58, 46, 34, 0.18)"
-                    strokeWidth={0.6}
-                  />
-                  <Path
-                    d="M 0 22 Q 15 15 30 22 T 60 22"
-                    fill="none"
-                    stroke="rgba(58, 46, 34, 0.18)"
-                    strokeWidth={0.6}
-                    opacity={0.55}
-                  />
-                </Pattern>
-                <Pattern
-                  id="idle-zone-point"
-                  width={12}
-                  height={12}
-                  patternUnits="userSpaceOnUse"
-                >
-                  <Rect width={12} height={12} fill={PREVIEW_COLORS.main_lake_point} />
-                  <Circle cx={3} cy={3} r={1.3} fill={PREVIEW_MOTIFS.main_lake_point} />
-                  <Circle cx={9} cy={9} r={1.3} fill={PREVIEW_MOTIFS.main_lake_point} />
-                  <Circle cx={3} cy={9} r={0.7} fill={PREVIEW_MOTIFS.main_lake_point} opacity={0.6} />
-                  <Circle cx={9} cy={3} r={0.7} fill={PREVIEW_MOTIFS.main_lake_point} opacity={0.6} />
-                </Pattern>
-                <Pattern
-                  id="idle-zone-cove"
-                  width={18}
-                  height={10}
-                  patternUnits="userSpaceOnUse"
-                >
-                  <Rect width={18} height={10} fill={PREVIEW_COLORS.cove} />
-                  <Path
-                    d="M 0 5 Q 4.5 1 9 5 T 18 5"
-                    fill="none"
-                    stroke={PREVIEW_MOTIFS.cove}
-                    strokeWidth={0.9}
-                  />
-                  <Path
-                    d="M 0 9 Q 4.5 5 9 9 T 18 9"
-                    fill="none"
-                    stroke={PREVIEW_MOTIFS.cove}
-                    strokeWidth={0.7}
-                    opacity={0.6}
-                  />
-                </Pattern>
-                <Pattern
-                  id="idle-zone-confluence"
-                  width={16}
-                  height={16}
-                  patternUnits="userSpaceOnUse"
-                >
-                  <Rect width={16} height={16} fill={PREVIEW_COLORS.structure_confluence} />
-                  <Circle cx={8} cy={8} r={5} fill="none" stroke={PREVIEW_MOTIFS.structure_confluence} strokeWidth={0.9} />
-                  <Circle cx={8} cy={8} r={2.5} fill="none" stroke={PREVIEW_MOTIFS.structure_confluence} strokeWidth={0.7} opacity={0.7} />
-                  <Circle cx={8} cy={8} r={0.9} fill={PREVIEW_MOTIFS.structure_confluence} />
-                </Pattern>
-              </Defs>
-
-              {/* Land base + wave contour pattern (same as real plate). */}
-              <Rect
-                x={-10000}
-                y={-10000}
-                width={20000}
-                height={20000}
-                fill="#EFE4C8"
-              />
-              <Rect
-                x={-10000}
-                y={-10000}
-                width={20000}
-                height={20000}
-                fill="url(#idle-land-contour)"
-                opacity={0.7}
-              />
-
-              {/* Lake — water gradient + ink shoreline. */}
-              <Path
-                d={PREVIEW_LAKE_D}
-                fill="url(#idle-water)"
-                stroke="#1C2419"
-                strokeWidth={1.95}
-                strokeLinejoin="round"
-              />
-
-              {/* Patterned zones — mirror what a real read shows.
-                  Each zone path traces a slice of the lake's interior
-                  shoreline so they read as ribbons hugging the shore. */}
-
-              {/* Zone 1 — confluence (right side, hot pink with rings). */}
-              <Path
-                d="M 178 180 C 188 195 196 215 195 235 C 190 250 178 248 168 245 C 165 230 167 210 170 195 C 173 187 175 183 178 180 Z"
-                fill="url(#idle-zone-confluence)"
-                fillOpacity={0.92}
-                stroke={PREVIEW_COLORS.structure_confluence}
-                strokeOpacity={0.6}
-                strokeWidth={1.15}
-              />
-
-              {/* Zone 3 — main_lake_point at top (green with dots). */}
-              <Path
-                d="M 130 50 C 152 50 168 60 174 90 C 168 92 158 90 148 86 C 138 80 130 70 130 50 Z"
-                fill="url(#idle-zone-point)"
-                fillOpacity={0.85}
-                stroke={PREVIEW_COLORS.main_lake_point}
-                strokeOpacity={0.6}
-                strokeWidth={1.15}
-              />
-
-              {/* Zone 4 — main_lake_point below confluence (green). */}
-              <Path
-                d="M 168 245 C 170 265 172 285 168 305 C 156 305 145 295 148 278 C 152 262 158 252 168 245 Z"
-                fill="url(#idle-zone-point)"
-                fillOpacity={0.85}
-                stroke={PREVIEW_COLORS.main_lake_point}
-                strokeOpacity={0.6}
-                strokeWidth={1.15}
-              />
-
-              {/* Zone 2 — main_lake_point on left shore (green). */}
-              <Path
-                d="M 50 258 C 48 235 50 210 55 185 C 65 192 70 215 68 240 C 62 252 55 258 50 258 Z"
-                fill="url(#idle-zone-point)"
-                fillOpacity={0.85}
-                stroke={PREVIEW_COLORS.main_lake_point}
-                strokeOpacity={0.6}
-                strokeWidth={1.15}
-              />
-
-              {/* Zone 5 — cove bottom-left (blue with waves). */}
-              <Path
-                d="M 56 300 C 48 305 36 300 32 290 C 30 275 38 262 50 258 C 54 270 56 285 56 300 Z"
-                fill="url(#idle-zone-cove)"
-                fillOpacity={0.85}
-                stroke={PREVIEW_COLORS.cove}
-                strokeOpacity={0.6}
-                strokeWidth={1.15}
-              />
-
-              {/* Numbered callouts — pushed into the beige padding. */}
-              {[
-                // Zone 1 confluence — push right.
-                { n: '1', anchor: [188, 215], ring: [222, 215] },
-                // Zone 2 left point — push left.
-                { n: '2', anchor: [55, 220], ring: [22, 220] },
-                // Zone 3 top point — push up.
-                { n: '3', anchor: [150, 65], ring: [120, 28] },
-                // Zone 4 lower point — push right.
-                { n: '4', anchor: [158, 285], ring: [212, 290] },
-                // Zone 5 cove — push down-left.
-                { n: '5', anchor: [42, 295], ring: [22, 348] },
-              ].map((p) => (
-                <Path
-                  key={`idle-leader-${p.n}`}
-                  d={`M ${p.anchor[0]} ${p.anchor[1]} L ${p.ring[0]} ${p.ring[1]}`}
-                  stroke="#1C2419"
-                  strokeWidth={0.95}
-                  strokeOpacity={0.4}
-                  strokeDasharray="4 3"
-                  fill="none"
-                />
-              ))}
-              {[
-                { n: '1', cx: 222, cy: 215 },
-                { n: '2', cx: 22, cy: 220 },
-                { n: '3', cx: 120, cy: 28 },
-                { n: '4', cx: 212, cy: 290 },
-                { n: '5', cx: 22, cy: 348 },
-              ].map((p) => (
-                <Circle
-                  key={`idle-ring-${p.n}`}
-                  cx={p.cx}
-                  cy={p.cy}
-                  r={9.2}
-                  fill={paper.dashboardWhite}
-                  stroke="#1C2419"
-                  strokeWidth={1.4}
-                />
-              ))}
-
-              {/* Bottom colophon — etched into the land at the lake's
-                  vertical bottom (same convention as the real plate). */}
-              <Path
-                d={`M 30 ${PREVIEW_VB_H - 12} L ${PREVIEW_VB_W - 30} ${PREVIEW_VB_H - 12}`}
-                stroke="transparent"
-                fill="transparent"
-              />
-            </Svg>
-
-            {/* FinFindr brand chip — top-left, matches WaterReadEditionStamp
-                chrome exactly so the preview looks like a real plate. */}
-            <View style={styles.idleBrandChip} pointerEvents="none">
-              <Image
-                source={require('../assets/images/finfindr-logo.png')}
-                style={styles.idleBrandLogo}
-                resizeMode="contain"
-              />
-              <Text style={styles.idleBrandText} numberOfLines={1}>
-                FinFindr<Text style={styles.idleBrandDot}>.</Text>
-              </Text>
-              <View style={styles.idleBrandDivider} />
-              <Text style={styles.idleBrandEdition} numberOfLines={1}>
-                WATER READ · POLYGON SCAN
-              </Text>
-            </View>
-
-            {/* Scale bar — bottom-left, mirrors WaterReadScaleBar. */}
-            <View style={styles.idleScaleBar} pointerEvents="none">
-              <View style={styles.idleScaleBarRow}>
-                <View style={styles.idleScaleTickEnd} />
-                <View style={styles.idleScaleBarSegment} />
-                <View style={styles.idleScaleTickMid} />
-                <View style={styles.idleScaleBarSegment} />
-                <View style={styles.idleScaleTickEnd} />
-              </View>
-              <Text style={styles.idleScaleLabel}>2 MI</Text>
-            </View>
-
-            {/* Bottom colophon strip — etched, centered, sample-lake voice. */}
-            <View style={styles.idleColophon} pointerEvents="none">
-              <Text style={styles.idleColophonText}>
-                FINFINDR · WATER READ · SAMPLE PLATE
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        {/* Meta ribbon under plate (mirrors production). */}
-        <View style={styles.idleMetaRibbon}>
-          <View style={styles.idleMetaRule} />
-          <View style={styles.idleMetaRow}>
-            <Text style={styles.idleMetaText}>SAMPLE LAKE</Text>
-            <Text style={styles.idleMetaDivider}>·</Text>
-            <Text style={styles.idleMetaText}>5 STRUCTURES</Text>
-            <Text style={styles.idleMetaDivider}>·</Text>
-            <Text style={styles.idleMetaText}>SPRING</Text>
-          </View>
-          <View style={styles.idleMetaRule} />
-        </View>
-      </View>
+      <WaterReaderMapCard
+        lakeId={lakeId}
+        lakeName={lakeName}
+        lakeContextLine={contextLine}
+        state={mapCardState}
+      />
 
       <View style={styles.idleCta}>
-        <Ionicons name="arrow-up-outline" size={13} color={paper.dashboardBlue} />
+        <Ionicons
+          name="arrow-up-outline"
+          size={13}
+          color={paper.dashboardBlue}
+        />
         <Text style={styles.idleCtaText}>
           Pick a state above to scan a real lake.
         </Text>
@@ -1235,6 +1042,7 @@ function WaterReadIdlePreview() {
     </View>
   );
 }
+
 
 // ─── Support pill ────────────────────────────────────────────────────────────
 
@@ -1776,194 +1584,14 @@ const styles = StyleSheet.create({
     color: '#555555',
   },
 
-  // Plate chrome — copy of WaterReaderMapCard.mapCard styles.
-  idleMapCard: {
+  // Fallback card when the preview fetch fails (auth / network / etc.).
+  idleErrorCard: {
     backgroundColor: paper.dashboardWhite,
     borderRadius: 12,
-    padding: 10,
+    padding: 18,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-  },
-  idleViewerToolbar: {
-    flexDirection: 'row',
-    justifyContent: 'flex-end',
-    alignItems: 'center',
-    gap: paperSpacing.xs + 2,
-    marginBottom: paperSpacing.sm,
-  },
-  idleViewerChip: {
-    minHeight: 30,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 5,
-    paddingHorizontal: 10,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 7,
-    backgroundColor: '#FAFAF7',
-  },
-  idleViewerChipActive: {
-    backgroundColor: paper.dashboardInk,
-    borderColor: paper.dashboardInk,
-  },
-  idleViewerChipText: {
-    fontFamily: MONO_BOLD,
-    fontSize: 9,
-    letterSpacing: 1.2,
-    color: paper.dashboardInk,
-    lineHeight: 12,
-  },
-  idleViewerChipTextActive: {
-    color: '#FFFFFF',
-  },
-  idlePlateOuter: {
-    width: '100%',
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 8,
-    padding: 3,
-    backgroundColor: '#FAFAF7',
-  },
-  idlePlateInner: {
-    position: 'relative',
-    width: '100%',
-    aspectRatio: 240 / 420,
-    overflow: 'hidden',
-    borderRadius: 6,
-    backgroundColor: '#EFE4C8',
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: paper.dashboardHair,
-  },
-
-  // FinFindr brand chip — inline pill, matches WaterReadEditionStamp.
-  idleBrandChip: {
-    position: 'absolute',
-    top: 12,
-    left: 12,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 6,
-    paddingHorizontal: 8,
-    paddingVertical: 5,
-    borderRadius: 8,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: 'rgba(28, 36, 25, 0.22)',
-    backgroundColor: 'rgba(255, 255, 255, 0.94)',
-    shadowColor: '#000',
-    shadowOffset: { width: 0, height: 1 },
-    shadowOpacity: 0.05,
-    shadowRadius: 1.5,
-  },
-  idleBrandLogo: {
-    width: 18,
-    height: 22,
-    backgroundColor: paper.dashboardInk,
-    borderRadius: 5,
-  },
-  idleBrandText: {
-    fontFamily: SERIF_BOLD,
-    fontSize: 12.5,
-    fontWeight: '800',
-    color: paper.dashboardInk,
-    lineHeight: 14,
-  },
-  idleBrandDot: {
-    color: paper.dashboardBlue,
-  },
-  idleBrandDivider: {
-    width: StyleSheet.hairlineWidth,
-    height: 14,
-    backgroundColor: 'rgba(28, 36, 25, 0.28)',
-    marginHorizontal: 1,
-  },
-  idleBrandEdition: {
-    fontFamily: MONO_BOLD,
-    fontSize: 8.5,
-    letterSpacing: 1.3,
-    color: paper.dashboardMuted,
-    lineHeight: 10,
-  },
-
-  // Scale bar — bottom-left, matches WaterReadScaleBar visual grammar.
-  idleScaleBar: {
-    position: 'absolute',
-    bottom: 22,
-    left: 14,
-    alignItems: 'flex-start',
-    gap: 4,
-  },
-  idleScaleBarRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  idleScaleTickEnd: {
-    width: 1.5,
-    height: 9,
-    backgroundColor: paper.dashboardInk,
-  },
-  idleScaleTickMid: {
-    width: 1.5,
-    height: 5,
-    backgroundColor: paper.dashboardInk,
-    opacity: 0.7,
-  },
-  idleScaleBarSegment: {
-    width: 32,
-    height: 1.5,
-    backgroundColor: paper.dashboardInk,
-  },
-  idleScaleLabel: {
-    fontFamily: MONO_BOLD,
-    fontSize: 9,
-    letterSpacing: 1.2,
-    color: paper.dashboardInk,
-    lineHeight: 11,
-  },
-
-  // Bottom colophon strip — etched centered, matches in-SVG colophon.
-  idleColophon: {
-    position: 'absolute',
-    bottom: 4,
-    left: 0,
-    right: 0,
-    alignItems: 'center',
-  },
-  idleColophonText: {
-    fontFamily: MONO_BOLD,
-    fontSize: 8,
-    letterSpacing: 1.8,
-    color: 'rgba(28, 36, 25, 0.55)',
-  },
-
-  // Meta ribbon — matches WaterReaderMapCard.metaRibbon.
-  idleMetaRibbon: {
-    marginTop: paperSpacing.sm + 4,
-    gap: 5,
-  },
-  idleMetaRule: {
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardLine,
-  },
-  idleMetaRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
     gap: 8,
-    paddingVertical: 4,
-  },
-  idleMetaText: {
-    fontFamily: MONO_BOLD,
-    fontSize: 9,
-    letterSpacing: 1.5,
-    color: paper.dashboardMuted,
-    lineHeight: 13,
-  },
-  idleMetaDivider: {
-    fontFamily: SANS,
-    fontSize: 10,
-    color: paper.dashboardMuted,
-    lineHeight: 13,
   },
 
   // CTA below — pointer back to the search.
