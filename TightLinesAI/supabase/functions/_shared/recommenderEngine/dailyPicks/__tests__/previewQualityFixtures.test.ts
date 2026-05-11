@@ -387,16 +387,20 @@ Deno.test("Preview quality: glidebait is narrow Big Fish bass inventory, not all
 
   assertPreviewInvariants(bigFish);
   assertPreviewInvariants(allPurpose);
-  assertEquals(bigFish.picks.lure_of_the_day.id, "glidebait");
+  const glidebaitPick = [
+    bigFish.picks.lure_of_the_day,
+    bigFish.picks.honorable_lure,
+  ].find((pick) => pick.id === "glidebait");
+  assert(glidebaitPick);
   assert(
-    bigFish.picks.lure_of_the_day.score_reasons.some((reason) =>
+    glidebaitPick.score_reasons.some((reason) =>
       reason.startsWith("goal:big_fish:")
     ),
   );
-  assertEquals(bigFish.picks.lure_of_the_day.column, "mid");
-  assertEquals(bigFish.picks.lure_of_the_day.primary_pace, "slow");
-  assertEquals(bigFish.picks.lure_of_the_day.secondary_pace, "medium");
-  assertEquals(bigFish.picks.lure_of_the_day.is_surface, false);
+  assertEquals(glidebaitPick.column, "mid");
+  assertEquals(glidebaitPick.primary_pace, "slow");
+  assertEquals(glidebaitPick.secondary_pace, "medium");
+  assertEquals(glidebaitPick.is_surface, false);
   assert(!allPickIds(allPurpose).includes("glidebait"));
 });
 
@@ -569,7 +573,7 @@ Deno.test("Preview quality: trout elevated runoff emits streamer/current signals
   assertPreviewInvariants(response);
   assert(response.scenario_summary.scenario_tags.includes("runoff_streamer"));
   assert(response.scenario_summary.scenario_tags.includes("current_swing"));
-  assert(hasReasonPrefix(response, "condition_tag:runoff_streamer"));
+  assert(hasReasonPrefix(response, "condition_tag:current_swing"));
   assertAbsent(response, ["popper_fly", "deer_hair_slider"]);
 });
 
@@ -758,8 +762,10 @@ Deno.test("Preview quality: stained windy fixture lifts reaction/vibration witho
   assertPreviewInvariants(response);
   assert(response.scenario_summary.scenario_tags.includes("wind_reaction"));
   assert(response.scenario_summary.scenario_tags.includes("dirty_vibration"));
-  assert(hasReasonPrefix(response, "condition_tag:wind_reaction") ||
-    hasReasonPrefix(response, "condition_tag:dirty_vibration"));
+  assert(
+    hasReasonPrefix(response, "condition_tag:wind_reaction") ||
+      hasReasonPrefix(response, "condition_tag:dirty_vibration"),
+  );
   if (response.scenario_summary.surface_daily_gate === "closed") {
     for (const pick of allPicks(response)) assertEquals(pick.is_surface, false);
   }

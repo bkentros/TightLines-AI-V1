@@ -12,7 +12,9 @@ import {
 import { type CandidateScore, scoreCandidate } from "./scoreCandidate.ts";
 import {
   buildDailyPicksFamilyDiversityDiagnostics,
+  buildDailyPicksFinalistPoolDiagnostics,
   type DailyPicksFamilyDiversityDiagnostics,
+  type DailyPicksFinalistPoolDiagnostics,
   type DailyPicksSelection,
   type DailyPicksVariant,
   selectDailyPicks,
@@ -33,6 +35,7 @@ export type DailyPicksEngineDiagnostics = {
   missing_inputs: DailyScenario["missing_inputs"];
   confidence: DailyScenario["confidence"];
   family_diversity: DailyPicksFamilyDiversityDiagnostics;
+  finalist_pools: DailyPicksFinalistPoolDiagnostics;
 };
 
 export type DailyPicksEngineResult = {
@@ -120,6 +123,15 @@ export function runDailyPicksEngine(args: {
         selection,
         lureScores,
         flyScores,
+      }),
+      finalist_pools: buildDailyPicksFinalistPoolDiagnostics({
+        selection,
+        lureScores,
+        flyScores,
+        scenario,
+        variant: args.variant,
+        avoidLureIds: args.avoidLureIds,
+        avoidFlyIds: args.avoidFlyIds,
       }),
     },
   };

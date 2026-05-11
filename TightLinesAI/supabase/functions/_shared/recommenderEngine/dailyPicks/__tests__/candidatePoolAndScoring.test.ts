@@ -259,6 +259,254 @@ Deno.test("DailyPick scoring ranks condition-tag matches above non-matches", () 
   assert(matching.score > nonMatching.score);
 });
 
+Deno.test("DailyPick scoring diminishes same-family wind and dirty reaction tags", () => {
+  const row = baseRow({
+    primary_lure_ids: ["squarebill_crankbait"],
+    primary_forage: "baitfish",
+    secondary_forage: "crawfish",
+    column_baseline: "mid",
+    pace_baseline: "medium",
+  });
+  const scenario = baseScenario({
+    recommendation_goal: "big_fish",
+    scenario_tags: ["wind_reaction", "dirty_vibration"],
+    water_clarity: "stained",
+  });
+  const scored = scoreFor({
+    profile: lure("squarebill_crankbait"),
+    row,
+    scenario,
+  });
+
+  assert(scored.reasons.includes("condition_tag:wind_reaction:+16"));
+  assert(scored.reasons.includes("condition_tag:dirty_vibration:+0"));
+});
+
+Deno.test("DailyPick scoring no longer gives Bladed Jig crawfish forage credit", () => {
+  const row = baseRow({
+    primary_lure_ids: ["bladed_jig"],
+    primary_forage: "crawfish",
+    secondary_forage: "baitfish",
+    column_baseline: "mid",
+    pace_baseline: "medium",
+  });
+  const scenario = baseScenario({
+    recommendation_goal: "big_fish",
+    scenario_tags: ["wind_reaction"],
+    water_clarity: "stained",
+  });
+  const scored = scoreFor({ profile: lure("bladed_jig"), row, scenario });
+
+  assert(!scored.reasons.includes("primary_forage:crawfish:+12"));
+  assert(scored.reasons.includes("secondary_forage:baitfish:+6"));
+});
+
+Deno.test("DailyPick scoring no longer gives Lipless Crankbait permanent crawfish forage credit", () => {
+  const row = baseRow({
+    primary_lure_ids: ["lipless_crankbait"],
+    primary_forage: "crawfish",
+    secondary_forage: "baitfish",
+    column_baseline: "mid",
+    pace_baseline: "medium",
+  });
+  const scenario = baseScenario({
+    recommendation_goal: "all_purpose",
+    scenario_tags: ["wind_reaction", "warming_search"],
+    water_clarity: "stained",
+  });
+  const scored = scoreFor({
+    profile: lure("lipless_crankbait"),
+    row,
+    scenario,
+  });
+
+  assert(!scored.reasons.includes("primary_forage:crawfish:+12"));
+  assert(scored.reasons.includes("secondary_forage:baitfish:+6"));
+  assert(scored.reasons.includes("condition_tag:wind_reaction:+16"));
+  assert(!scored.reasons.includes("condition_tag:warming_search:+16"));
+});
+
+Deno.test("DailyPick scoring keeps Spinnerbait credible in big-fish wind and stain without explicit upside", () => {
+  const row = baseRow({
+    primary_lure_ids: ["bladed_jig", "spinnerbait"],
+    primary_forage: "baitfish",
+    secondary_forage: "bluegill_perch",
+    column_baseline: "mid",
+    pace_baseline: "medium",
+  });
+  const scenario = baseScenario({
+    recommendation_goal: "big_fish",
+    scenario_tags: ["wind_reaction", "dirty_vibration"],
+    water_clarity: "stained",
+    activity_level: "active",
+  });
+  const bladed = scoreFor({ profile: lure("bladed_jig"), row, scenario });
+  const spinnerbait = scoreFor({ profile: lure("spinnerbait"), row, scenario });
+
+  assert(
+    !spinnerbait.reasons.some((reason) =>
+      reason.startsWith("goal:big_fish:big_fish_upside:")
+    ),
+  );
+  assert(spinnerbait.reasons.includes("condition_tag:wind_reaction:+16"));
+  assert(spinnerbait.reasons.includes("condition_tag:dirty_vibration:+0"));
+  assert(
+    spinnerbait.score >= bladed.score - 24,
+    `expected Spinnerbait ${spinnerbait.score} to compete with Bladed Jig ${bladed.score}`,
+  );
+});
+
+Deno.test("DailyPick scoring keeps clear and cold finesse tags fully stackable", () => {
+  const row = baseRow({
+    primary_lure_ids: ["ned_rig"],
+    primary_forage: "crawfish",
+    column_baseline: "bottom",
+    pace_baseline: "slow",
+  });
+  const scenario = baseScenario({
+    scenario_tags: ["clear_subtle", "cold_slow"],
+    water_clarity: "clear",
+    activity_level: "suppressed",
+  });
+  const scored = scoreFor({ profile: lure("ned_rig"), row, scenario });
+
+  assert(scored.reasons.includes("condition_tag:clear_subtle:+16"));
+  assert(scored.reasons.includes("condition_tag:cold_slow:+16"));
+  assert(scored.reasons.includes("daily_lane:slow_subtle_all_purpose:+10"));
+  assert(scored.reasons.includes("daily_lane:craw_bottom_all_purpose:+6"));
+});
+
+Deno.test("DailyPick scoring rewards slow bottom finesse in heat-limited all-purpose windows", () => {
+  const row = baseRow({
+    primary_lure_ids: [
+      "ned_rig",
+      "finesse_jig",
+      "texas_rigged_soft_plastic_craw",
+    ],
+    primary_forage: "crawfish",
+    column_baseline: "bottom",
+    pace_baseline: "slow",
+  });
+  const scenario = baseScenario({
+    scenario_tags: ["heat_finesse", "clear_subtle"],
+    water_clarity: "clear",
+    activity_level: "neutral",
+  });
+
+  for (
+    const profileId of [
+      "ned_rig",
+      "finesse_jig",
+      "texas_rigged_soft_plastic_craw",
+    ] as const
+  ) {
+    const scored = scoreFor({ profile: lure(profileId), row, scenario });
+    assert(
+      scored.reasons.includes("condition_tag:heat_finesse:+16"),
+      `${profileId} should receive heat_finesse`,
+    );
+    assert(
+      scored.reasons.includes(
+        "daily_lane:heat_slow_bottom_all_purpose:+6",
+      ),
+      `${profileId} should receive heat slow-bottom lane`,
+    );
+  }
+});
+
+Deno.test("DailyPick scoring keeps LMB bottom finesse competitive in clear cold suppressed windows", () => {
+  const row = baseRow({
+    primary_lure_ids: [
+      "bladed_jig",
+      "ned_rig",
+      "carolina_rigged_stick_worm",
+      "finesse_jig",
+    ],
+    primary_forage: "crawfish",
+    secondary_forage: "baitfish",
+    column_baseline: "bottom",
+    pace_baseline: "slow",
+  });
+  const scenario = baseScenario({
+    scenario_tags: ["clear_subtle", "cold_slow"],
+    water_clarity: "clear",
+    activity_level: "suppressed",
+  });
+  const bladed = scoreFor({ profile: lure("bladed_jig"), row, scenario });
+  const finesseScores = [
+    scoreFor({ profile: lure("ned_rig"), row, scenario }),
+    scoreFor({ profile: lure("carolina_rigged_stick_worm"), row, scenario }),
+    scoreFor({ profile: lure("finesse_jig"), row, scenario }),
+  ];
+
+  assert(
+    finesseScores.some((score) => score.score >= bladed.score),
+    `expected a finesse profile to be competitive with bladed ${bladed.score}; got ${
+      finesseScores.map((score) => `${score.profile.id}:${score.score}`).join(
+        ", ",
+      )
+    }`,
+  );
+});
+
+Deno.test("DailyPick scoring keeps SMB finesse profiles competitive in clear cold suppressed windows", () => {
+  const row = baseRow({
+    species: "smallmouth_bass",
+    primary_lure_ids: [
+      "bladed_jig",
+      "ned_rig",
+      "tube_jig",
+      "drop_shot_minnow",
+    ],
+    primary_forage: "crawfish",
+    secondary_forage: "baitfish",
+    column_baseline: "bottom",
+    pace_baseline: "slow",
+  });
+  const scenario = baseScenario({
+    species: "smallmouth_bass",
+    scenario_tags: ["clear_subtle", "cold_slow"],
+    water_clarity: "clear",
+    activity_level: "suppressed",
+  });
+  const bladed = scoreFor({ profile: lure("bladed_jig"), row, scenario });
+  const finesseScores = [
+    scoreFor({ profile: lure("ned_rig"), row, scenario }),
+    scoreFor({ profile: lure("tube_jig"), row, scenario }),
+    scoreFor({ profile: lure("drop_shot_minnow"), row, scenario }),
+  ];
+
+  assert(
+    finesseScores.some((score) => score.score >= bladed.score),
+    `expected an SMB finesse profile to be competitive with bladed ${bladed.score}; got ${
+      finesseScores.map((score) => `${score.profile.id}:${score.score}`).join(
+        ", ",
+      )
+    }`,
+  );
+});
+
+Deno.test("DailyPick scoring keeps Bladed Jig strong in dirty windy Big Fish windows", () => {
+  const row = baseRow({
+    primary_lure_ids: ["bladed_jig", "ned_rig"],
+    primary_forage: "baitfish",
+    secondary_forage: "crawfish",
+    column_baseline: "mid",
+    pace_baseline: "medium",
+  });
+  const scenario = baseScenario({
+    recommendation_goal: "big_fish",
+    scenario_tags: ["wind_reaction", "dirty_vibration"],
+    water_clarity: "dirty",
+    activity_level: "active",
+  });
+
+  assert(
+    scoreFor({ profile: lure("bladed_jig"), row, scenario }).score >
+      scoreFor({ profile: lure("ned_rig"), row, scenario }).score,
+  );
+});
+
 Deno.test("DailyPick scoring favors reliable and versatile candidates for all_purpose when comparable", () => {
   const base = lure("weightless_stick_worm");
   const reliable = cloneWithGoalTags(base, [

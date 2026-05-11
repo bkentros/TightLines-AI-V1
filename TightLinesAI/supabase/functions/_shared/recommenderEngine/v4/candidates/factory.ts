@@ -131,8 +131,9 @@ function assertTagSet<T extends string>(
   fieldName: "condition_tags" | "goal_tags",
   values: readonly T[] | undefined,
   allowedValues: readonly string[],
+  options: { allowEmpty?: boolean } = {},
 ) {
-  if (values === undefined || values.length < 1) {
+  if (values === undefined || (!options.allowEmpty && values.length < 1)) {
     throw new Error(
       `[recommender v4] archetype "${id}" must have at least one ${fieldName} entry (Pass 4A).`,
     );
@@ -295,7 +296,9 @@ export function lure(input: LureFactoryInput): ArchetypeProfileV4 {
     input.condition_tags,
     CONDITION_TAGS_V4,
   );
-  assertTagSet(input.id, "goal_tags", input.goal_tags, GOAL_TAGS_V4);
+  assertTagSet(input.id, "goal_tags", input.goal_tags, GOAL_TAGS_V4, {
+    allowEmpty: true,
+  });
   assertSpeciesWater(
     input.id,
     input.species_allowed,
@@ -328,7 +331,9 @@ export function fly(input: FlyFactoryInput): ArchetypeProfileV4 {
     input.condition_tags,
     CONDITION_TAGS_V4,
   );
-  assertTagSet(input.id, "goal_tags", input.goal_tags, GOAL_TAGS_V4);
+  assertTagSet(input.id, "goal_tags", input.goal_tags, GOAL_TAGS_V4, {
+    allowEmpty: true,
+  });
   assertSpeciesWater(
     input.id,
     input.species_allowed,

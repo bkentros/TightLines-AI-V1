@@ -55,6 +55,7 @@ function analysis(
     temperatureBand?: string | null;
     temperatureTrend?: string | null;
     temperatureShock?: string | null;
+    temperatureFinalScore?: number;
     runoffLabel?: string | null;
     pressureLabel?: string | null;
   } = {},
@@ -80,12 +81,12 @@ function analysis(
       measurement_source: "air_daily_mean",
       measurement_value_f: 68,
       band_label: overrides.temperatureBand ?? "optimal",
-      band_score: 1,
+      band_score: overrides.temperatureFinalScore ?? 1,
       trend_label: overrides.temperatureTrend ?? "stable",
       trend_adjustment: 0,
       shock_label: overrides.temperatureShock ?? "none",
       shock_adjustment: 0,
-      final_score: 1,
+      final_score: overrides.temperatureFinalScore ?? 1,
     };
   }
   if (overrides.runoffLabel !== undefined) {
@@ -307,10 +308,16 @@ Deno.test("DailyScenario dirty or stained windy conditions emit reaction and vib
   assert(dirty.scenario_tags.includes("dirty_vibration"));
 });
 
-Deno.test("DailyScenario maps cold, warming, cooling/shock, and heat-limited thermal states", () => {
+Deno.test("DailyScenario maps thermal states without turning trend alone into cold_slow", () => {
   const cold = buildDailyScenario({
-    req: baseReq(),
-    analysis: analysis({ temperatureBand: "cool" }),
+    req: baseReq({
+      location: {
+        ...baseReq().location,
+        local_date: "2026-01-15",
+        month: 1,
+      },
+    }),
+    analysis: analysis({ temperatureBand: "very_cold", temperatureFinalScore: -2 }),
     seasonalRow: baseRow(),
   });
   const warming = buildDailyScenario({
@@ -318,17 +325,26 @@ Deno.test("DailyScenario maps cold, warming, cooling/shock, and heat-limited the
     analysis: analysis({
       temperatureBand: "near_optimal",
       temperatureTrend: "warming",
+      temperatureFinalScore: 1,
     }),
     seasonalRow: baseRow(),
   });
   const cooling = buildDailyScenario({
     req: baseReq(),
-    analysis: analysis({ temperatureTrend: "cooling" }),
+    analysis: analysis({
+      temperatureBand: "optimal",
+      temperatureTrend: "cooling",
+      temperatureFinalScore: 1,
+    }),
     seasonalRow: baseRow(),
   });
   const shock = buildDailyScenario({
     req: baseReq(),
-    analysis: analysis({ temperatureShock: "sharp_cooldown" }),
+    analysis: analysis({
+      temperatureBand: "optimal",
+      temperatureShock: "sharp_cooldown",
+      temperatureFinalScore: 1,
+    }),
     seasonalRow: baseRow(),
   });
   const heat = buildDailyScenario({
@@ -342,11 +358,105 @@ Deno.test("DailyScenario maps cold, warming, cooling/shock, and heat-limited the
   assertEquals(warming.thermal_mode, "warming");
   assert(warming.scenario_tags.includes("warming_search"));
   assertEquals(cooling.thermal_mode, "cooling_or_shock");
-  assert(cooling.scenario_tags.includes("cold_slow"));
+  assert(!cooling.scenario_tags.includes("cold_slow"));
   assertEquals(shock.thermal_mode, "cooling_or_shock");
-  assert(shock.scenario_tags.includes("cold_slow"));
+  assert(!shock.scenario_tags.includes("cold_slow"));
   assertEquals(heat.thermal_mode, "heat_limited");
   assert(heat.scenario_tags.includes("heat_finesse"));
+});
+
+Deno.test("DailyScenario hot summer cooling still behaves heat-limited, not cold_slow", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      location: {
+        ...baseReq().location,
+        latitude: 34.45,
+        longitude: -114.37,
+        state_code: "AZ",
+        region_key: "southwest_desert",
+        local_date: "2026-06-28",
+        local_timezone: "America/Phoenix",
+        month: 6,
+      },
+      env_data: { wind_speed_mph: 4 },
+    }),
+    analysis: analysis({
+      temperatureBand: "very_warm",
+      temperatureTrend: "cooling",
+      temperatureShock: "sharp_cooldown",
+      temperatureFinalScore: -1,
+    }),
+    seasonalRow: baseRow({
+      region_key: "southwest_desert",
+      month: 6,
+    }),
+  });
+
+  assertEquals(scenario.thermal_mode, "heat_limited");
+  assert(scenario.scenario_tags.includes("heat_finesse"));
+  assert(!scenario.scenario_tags.includes("cold_slow"));
+});
+
+Deno.test("DailyScenario summer relief cooldown does not become cold_slow", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      location: {
+        ...baseReq().location,
+        local_date: "2026-07-16",
+        month: 7,
+      },
+    }),
+    analysis: analysis({
+      temperatureBand: "cool",
+      temperatureTrend: "cooling",
+      temperatureShock: "sharp_cooldown",
+      temperatureFinalScore: 0.5,
+    }),
+    seasonalRow: baseRow({ month: 7 }),
+  });
+
+  assertEquals(scenario.thermal_mode, "cooling_or_shock");
+  assert(!scenario.scenario_tags.includes("cold_slow"));
+});
+
+Deno.test("DailyScenario warming trend only emits warming_search when credible", () => {
+  const suppressed = buildDailyScenario({
+    req: baseReq(),
+    analysis: analysis({
+      score: 30,
+      temperatureBand: "optimal",
+      temperatureTrend: "warming",
+      temperatureFinalScore: 1,
+    }),
+    seasonalRow: baseRow(),
+  });
+  const unfavorable = buildDailyScenario({
+    req: baseReq(),
+    analysis: analysis({
+      score: 65,
+      temperatureBand: "cool",
+      temperatureTrend: "warming",
+      temperatureFinalScore: -1,
+    }),
+    seasonalRow: baseRow(),
+  });
+  const credible = buildDailyScenario({
+    req: baseReq(),
+    analysis: analysis({
+      score: 65,
+      temperatureBand: "optimal",
+      temperatureTrend: "warming",
+      temperatureFinalScore: 1,
+    }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(suppressed.thermal_mode, "stable");
+  assert(!suppressed.scenario_tags.includes("warming_search"));
+  assertEquals(unfavorable.thermal_mode, "stable");
+  assert(!unfavorable.scenario_tags.includes("warming_search"));
+  assertEquals(credible.thermal_mode, "warming");
+  assert(credible.scenario_tags.includes("warming_search"));
 });
 
 Deno.test("DailyScenario trout elevated river runoff emits runoff_streamer", () => {

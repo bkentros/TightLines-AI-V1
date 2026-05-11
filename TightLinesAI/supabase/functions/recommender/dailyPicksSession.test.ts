@@ -119,6 +119,7 @@ function futureResponse(args: {
           different_family_available_in_band: true,
         },
       },
+      finalist_pools: [],
     },
     picks: {
       lure_of_the_day: { ...pick(lureIds[0], "lure"), slot: "lure_of_the_day" },

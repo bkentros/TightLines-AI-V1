@@ -18,6 +18,10 @@ export type CandidateScore = {
 const SCORE = {
   base: 100,
   conditionTag: 16,
+  secondaryConditionTagInGroup: 0,
+  subtleSlowLane: 10,
+  crawBottomLane: 6,
+  heatSlowBottomLane: 6,
   allPurposeReliable: 18,
   allPurposeVersatile: 12,
   bigFishUpside: 20,
@@ -30,6 +34,18 @@ const SCORE = {
   baselineSecondaryPace: 6,
   surfaceCautionPenalty: -24,
 } as const;
+
+const CONDITION_TAG_GROUPS: readonly (readonly string[])[] = [
+  ["wind_reaction", "dirty_vibration"],
+  ["warming_search", "open_water_search"],
+  ["low_light_surface", "calm_surface"],
+];
+
+const CONDITION_TAG_GROUP_BY_TAG = new Map<string, string>(
+  CONDITION_TAG_GROUPS.flatMap((group) =>
+    group.map((tag) => [tag, group.join("|")] as const)
+  ),
+);
 
 function addScore(
   reasons: string[],
@@ -56,6 +72,74 @@ function hasForage(
   return forage != null && profile.forage_tags.includes(forage);
 }
 
+function hasScenarioTag(
+  scenario: DailyScenario,
+  tags: readonly string[],
+): boolean {
+  return scenario.scenario_tags.some((tag) => tags.includes(tag));
+}
+
+function hasSlowPace(profile: ArchetypeProfileV4): boolean {
+  return profile.primary_pace === "slow" || profile.secondary_pace === "slow";
+}
+
+function isReliableSlowSubtleProfile(profile: ArchetypeProfileV4): boolean {
+  return hasSlowPace(profile) &&
+    profile.goal_tags.includes("reliable_action") &&
+    profile.condition_tags.some((tag) =>
+      tag === "clear_subtle" || tag === "cold_slow" ||
+      tag === "heat_finesse"
+    );
+}
+
+function isSlowSubtleAllPurposeLane(args: {
+  profile: ArchetypeProfileV4;
+  scenario: DailyScenario;
+}): boolean {
+  const { profile, scenario } = args;
+  return scenario.recommendation_goal === "all_purpose" &&
+    scenario.activity_level !== "active" &&
+    (scenario.water_clarity === "clear" ||
+      scenario.water_clarity === "stained") &&
+    hasScenarioTag(scenario, ["clear_subtle", "cold_slow", "heat_finesse"]) &&
+    isReliableSlowSubtleProfile(profile);
+}
+
+function isCrawBottomAllPurposeLane(args: {
+  profile: ArchetypeProfileV4;
+  row: SeasonalRowV4;
+  scenario: DailyScenario;
+}): boolean {
+  const { profile, row, scenario } = args;
+  return scenario.recommendation_goal === "all_purpose" &&
+    scenario.activity_level !== "active" &&
+    (scenario.water_clarity === "clear" ||
+      scenario.water_clarity === "stained") &&
+    !scenario.scenario_tags.includes("dirty_vibration") &&
+    profile.column === "bottom" &&
+    hasSlowPace(profile) &&
+    profile.goal_tags.includes("reliable_action") &&
+    profile.forage_tags.includes("crawfish") &&
+    (row.primary_forage === "crawfish" ||
+      row.secondary_forage === "crawfish") &&
+    hasScenarioTag(scenario, ["clear_subtle", "cold_slow", "current_swing"]);
+}
+
+function isHeatSlowBottomAllPurposeLane(args: {
+  profile: ArchetypeProfileV4;
+  scenario: DailyScenario;
+}): boolean {
+  const { profile, scenario } = args;
+  return scenario.recommendation_goal === "all_purpose" &&
+    scenario.activity_level !== "active" &&
+    (scenario.water_clarity === "clear" ||
+      scenario.water_clarity === "stained") &&
+    scenario.scenario_tags.includes("heat_finesse") &&
+    profile.column === "bottom" &&
+    hasSlowPace(profile) &&
+    profile.goal_tags.includes("reliable_action");
+}
+
 export function scoreCandidate(args: {
   profile: ArchetypeProfileV4;
   side: CandidateSide;
@@ -67,10 +151,17 @@ export function scoreCandidate(args: {
 
   const reasons: string[] = [`base:+${SCORE.base}`];
   let score = SCORE.base;
+  const conditionGroupMatches = new Map<string, number>();
 
   for (const tag of scenario.scenario_tags) {
     if (profile.condition_tags.includes(tag)) {
-      score += addScore(reasons, `condition_tag:${tag}`, SCORE.conditionTag);
+      const group = CONDITION_TAG_GROUP_BY_TAG.get(tag) ?? tag;
+      const previousMatches = conditionGroupMatches.get(group) ?? 0;
+      conditionGroupMatches.set(group, previousMatches + 1);
+      const value = previousMatches === 0
+        ? SCORE.conditionTag
+        : SCORE.secondaryConditionTagInGroup;
+      score += addScore(reasons, `condition_tag:${tag}`, value);
     }
   }
 
@@ -104,6 +195,28 @@ export function scoreCandidate(args: {
         SCORE.bigFishHighRisk,
       );
     }
+  }
+
+  if (isSlowSubtleAllPurposeLane({ profile, scenario })) {
+    score += addScore(
+      reasons,
+      "daily_lane:slow_subtle_all_purpose",
+      SCORE.subtleSlowLane,
+    );
+  }
+  if (isCrawBottomAllPurposeLane({ profile, row, scenario })) {
+    score += addScore(
+      reasons,
+      "daily_lane:craw_bottom_all_purpose",
+      SCORE.crawBottomLane,
+    );
+  }
+  if (isHeatSlowBottomAllPurposeLane({ profile, scenario })) {
+    score += addScore(
+      reasons,
+      "daily_lane:heat_slow_bottom_all_purpose",
+      SCORE.heatSlowBottomLane,
+    );
   }
 
   if (profile.clarity_strengths.includes(scenario.water_clarity)) {

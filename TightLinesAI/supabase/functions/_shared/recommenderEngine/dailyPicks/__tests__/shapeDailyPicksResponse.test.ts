@@ -176,6 +176,7 @@ function result(
       missing_inputs: sc.missing_inputs,
       confidence: sc.confidence,
       family_diversity: familyDiversity,
+      finalist_pools: [],
     },
   };
 }

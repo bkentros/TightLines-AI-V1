@@ -187,22 +187,51 @@ function lightModeFromLabel(label: string | null | undefined): DailyLightMode {
 }
 
 function thermalModeFromLabels(args: {
+  month: number;
+  activityLevel: DailyActivityLevel;
   temperatureBand: string | null | undefined;
   temperatureTrend: string | null | undefined;
   temperatureShock: string | null | undefined;
+  temperatureFinalScore: number | null | undefined;
 }): DailyThermalMode {
+  const finalScore = typeof args.temperatureFinalScore === "number" &&
+      Number.isFinite(args.temperatureFinalScore)
+    ? args.temperatureFinalScore
+    : null;
+  const summer = args.month >= 6 && args.month <= 8;
+
+  // The band describes the actual daily thermal lane. Let hard metabolic
+  // extremes win before trend/shock so hot cooldowns don't read as cold fishing.
+  if (args.temperatureBand === "very_warm") return "heat_limited";
+  if (args.temperatureBand === "very_cold") return "cold_slow";
+
+  if (args.temperatureBand === "cool") {
+    const winter = args.month === 12 || args.month <= 2;
+    const meaningfullyCold = finalScore == null || finalScore <= -0.75;
+    if (
+      winter ||
+      (!summer && meaningfullyCold) ||
+      (!summer && args.activityLevel === "suppressed" && (finalScore ?? -1) < 0)
+    ) {
+      return "cold_slow";
+    }
+  }
+
   if (args.temperatureShock != null && args.temperatureShock !== "none") {
     return "cooling_or_shock";
   }
   if (args.temperatureTrend === "cooling") return "cooling_or_shock";
   if (
-    args.temperatureBand === "very_cold" ||
-    args.temperatureBand === "cool"
+    args.temperatureTrend === "warming" &&
+    args.activityLevel !== "suppressed" &&
+    finalScore != null &&
+    finalScore >= 0 &&
+    (args.temperatureBand === "near_optimal" ||
+      args.temperatureBand === "optimal" ||
+      args.temperatureBand === "warm")
   ) {
-    return "cold_slow";
+    return "warming";
   }
-  if (args.temperatureBand === "very_warm") return "heat_limited";
-  if (args.temperatureTrend === "warming") return "warming";
   if (args.temperatureBand != null || args.temperatureTrend != null) {
     return "stable";
   }
@@ -329,9 +358,12 @@ export function buildDailyScenario(args: {
   const lightMode = lightModeFromLabel(lightLabel);
   const temp = analysis.norm.normalized.temperature;
   const thermalMode = thermalModeFromLabels({
+    month: req.location.month,
+    activityLevel,
     temperatureBand: temp?.band_label,
     temperatureTrend: temp?.trend_label,
     temperatureShock: temp?.shock_label,
+    temperatureFinalScore: temp?.final_score,
   });
   const runoffLabel = analysis.norm.normalized.runoff_flow_disruption?.label ??
     null;
@@ -388,7 +420,7 @@ export function buildDailyScenario(args: {
   ) {
     addTag(tags, "clear_subtle");
   }
-  if (thermalMode === "cold_slow" || thermalMode === "cooling_or_shock") {
+  if (thermalMode === "cold_slow") {
     addTag(tags, "cold_slow");
   }
   if (thermalMode === "warming") addTag(tags, "warming_search");
