@@ -1011,11 +1011,12 @@ function WaterReadIdlePreview() {
     ? seasonDisplayLabel(ready.read.season)
     : null;
 
-  // Compute preview width: 60% of the available content width. Available
+  // Compute preview width: 80% of the available content width. Available
   // content = window width minus the page's horizontal padding (20 each
-  // side) and a small inner gutter so the plate doesn't sit edge-to-edge.
+  // side). At 80% the plate is clearly smaller than a full read but
+  // doesn't leave awkward empty gutters on either side.
   const contentWidth = Math.max(240, windowDims.width - 40);
-  const previewWidth = Math.round(contentWidth * 0.6);
+  const previewWidth = Math.round(contentWidth * 0.8);
   // SVG aspect ratio from engine summary. Falls back to a near-square if
   // the read hasn't arrived yet so the placeholder doesn't jump on mount.
   const aspectRatio =
