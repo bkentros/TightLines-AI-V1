@@ -5,6 +5,7 @@ import {
   paper,
   paperFonts,
   paperSpacing,
+  paperBandForScore,
   paperTierForScore,
   scoreAccentColor,
   scoreTextOnColor,
@@ -255,6 +256,15 @@ export function RebuildReportView({
 }) {
   const tier = tierForScore(report.score);
   const accent = accentForScore100(report.score);
+  // Derive the band label locally from the numeric score using the same
+  // thresholds the home dashboard uses (paperBandForScore). The engine
+  // also returns a `report.band`, but its threshold table doesn't always
+  // match the client's — we've seen 4.4/10 come back as engine band
+  // "FAIR" while client thresholds put it in "POOR". Using one source of
+  // truth (the score → client thresholds) keeps the color, the label,
+  // and the verdict phrase aligned within Today's Bite AND consistent
+  // with the home page's Live Conditions chip.
+  const derivedBand = paperBandForScore(report.score / 10);
   const topDrivers = report.drivers.slice(0, 3);
   const topSuppressors = report.suppressors.slice(0, 2);
   const timingPeriods = getTimingPeriods(report);
@@ -265,10 +275,9 @@ export function RebuildReportView({
     !dateLabel.toUpperCase().startsWith('TODAY');
   const headline = buildHeadline(report, isFuture);
 
-  // Phrase is chosen off the engine's 4-band value so the word always
-  // matches the number. Sentence-case Fraunces italic so the line reads
-  // as an editor's verdict rather than a UI label.
-  const bandKey = (report.band ?? '').toLowerCase();
+  // Phrase keys off the score-derived band so the verdict word always
+  // matches the number and the displayed band label.
+  const bandKey = derivedBand.toLowerCase();
   const outlookLine =
     bandKey === 'prime' || bandKey === 'excellent'
       ? isFuture
@@ -336,7 +345,7 @@ export function RebuildReportView({
           tier={tier}
           accent={accent}
           accentText={scoreTextOnColor(report.score / 10)}
-          band={report.band}
+          band={derivedBand}
         />
 
         {/* Verdict line flanked by hairline rules + diamond ornaments —
@@ -929,12 +938,13 @@ function LinearScoreGauge({
 
         <View style={[gaugeStyles.headerRule, { backgroundColor: `${accent}33` }]} />
 
-        {/* Score crest — large accent-colored number with breathing color
-            halo, flanking ornaments, and a progress-driven colored
-            underline. Coloring the number itself in the band accent is
-            the biggest visual cue that the gauge is "alive" — green for
-            prime, gold for fair, red for tough — paired with a slightly
-            darker text-shadow for depth on lighter accents. */}
+        {/* Score crest — big ink digits sitting in a band-tinted chip,
+            matching the home page's Live Conditions score chip: color
+            comes from the BACKGROUND (band-tinted halo), the number
+            stays dark ink for maximum legibility. Halo breathes; a
+            soft outer wash + progress-width band-colored anchor under
+            the number give the chip extra "alive" presence without
+            tinting the typography itself. */}
         <View style={gaugeStyles.scoreRow}>
           <Animated.View
             style={[
@@ -943,7 +953,7 @@ function LinearScoreGauge({
                 backgroundColor: accent,
                 opacity: haloPulse.interpolate({
                   inputRange: [0.72, 1],
-                  outputRange: [0.16, 0.3],
+                  outputRange: [0.18, 0.28],
                 }),
               },
             ]}
@@ -955,7 +965,7 @@ function LinearScoreGauge({
                 backgroundColor: accent,
                 opacity: haloPulse.interpolate({
                   inputRange: [0.72, 1],
-                  outputRange: [0.05, 0.12],
+                  outputRange: [0.06, 0.12],
                 }),
               },
             ]}
@@ -967,28 +977,16 @@ function LinearScoreGauge({
           <View style={gaugeStyles.scoreNumberStack}>
             <View style={gaugeStyles.scoreNumberRow}>
               <Text
-                style={[
-                  gaugeStyles.scoreNum,
-                  {
-                    color: accent,
-                    // Subtle ink shadow gives the colored digits depth
-                    // and ensures legibility on the lightest band hues.
-                    textShadowColor: 'rgba(7, 27, 45, 0.18)',
-                    textShadowOffset: { width: 0, height: 1 },
-                    textShadowRadius: 2,
-                  },
-                ]}
+                style={[gaugeStyles.scoreNum, { color: paper.dashboardInk }]}
                 allowFontScaling={false}
               >
                 {displayScore}
               </Text>
-              <Text style={[gaugeStyles.scoreMax, { color: `${accent}DD` }]}>
-                /10
-              </Text>
+              <Text style={gaugeStyles.scoreMax}>/10</Text>
             </View>
-            {/* Progress-width colored underline beneath the number — fills
-                in as the score animates so the digit "lands" on a
-                color-matched anchor. */}
+            {/* Progress-width band-colored anchor beneath the number —
+                the digit "lands" on a color-matched bar as the count-up
+                completes. */}
             <Animated.View
               style={[
                 gaugeStyles.scoreUnderline,
@@ -996,7 +994,7 @@ function LinearScoreGauge({
                   backgroundColor: accent,
                   width: progress.interpolate({
                     inputRange: [0, 1],
-                    outputRange: ['22%', '88%'],
+                    outputRange: ['22%', '78%'],
                   }),
                 },
               ]}
@@ -1151,9 +1149,11 @@ const gaugeStyles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 14,
     backgroundColor: '#F7FAFB',
-    paddingHorizontal: 16,
-    paddingTop: 12,
-    paddingBottom: 14,
+    // Slightly larger panel (~20% more vertical room) to give the bumped
+    // score number plenty of breathing space.
+    paddingHorizontal: 18,
+    paddingTop: 14,
+    paddingBottom: 16,
     overflow: 'hidden',
     position: 'relative',
   },
@@ -1280,29 +1280,30 @@ const gaugeStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
-    gap: 12,
-    marginBottom: 8,
+    gap: 14,
+    marginTop: 4,
+    marginBottom: 10,
     paddingHorizontal: 4,
-    paddingTop: 2,
-    paddingBottom: 4,
+    paddingTop: 4,
+    paddingBottom: 6,
     position: 'relative',
     zIndex: 3,
   },
   scoreHalo: {
     position: 'absolute',
-    top: 8,
+    top: 4,
     bottom: 14,
-    left: '24%',
-    right: '24%',
-    borderRadius: 40,
+    left: '20%',
+    right: '20%',
+    borderRadius: 48,
   },
   scoreHaloOuter: {
     position: 'absolute',
-    top: 2,
-    bottom: 8,
-    left: '12%',
-    right: '12%',
-    borderRadius: 60,
+    top: -2,
+    bottom: 6,
+    left: '10%',
+    right: '10%',
+    borderRadius: 70,
   },
   scoreOrnamentLeft: {
     flexDirection: 'row',
@@ -1334,36 +1335,39 @@ const gaugeStyles = StyleSheet.create({
   },
   scoreNumberStack: {
     alignItems: 'center',
-    minWidth: 110,
+    minWidth: 138,
   },
   scoreNumberRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     gap: 2,
   },
+  // Bumped ~21% (56 → 68) per user feedback — the score now reads as the
+  // unambiguous hero of the panel. Mono Bold, ink color matches the home
+  // page's Live Conditions chip.
   scoreNum: {
     fontFamily: paperFonts.monoBold,
-    fontSize: 56,
-    lineHeight: 60,
-    letterSpacing: -1,
+    fontSize: 68,
+    lineHeight: 72,
+    letterSpacing: -1.2,
     fontWeight: '700',
     includeFontPadding: false,
   },
   scoreMax: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 16,
-    lineHeight: 20,
+    fontSize: 19,
+    lineHeight: 23,
     fontWeight: '700',
-    marginBottom: 8,
-    marginLeft: 1,
+    marginBottom: 10,
+    marginLeft: 2,
     color: paper.dashboardMuted,
   },
   scoreUnderline: {
-    height: 2,
-    borderRadius: 1.5,
-    marginTop: 2,
+    height: 2.5,
+    borderRadius: 2,
+    marginTop: 4,
     alignSelf: 'center',
-    opacity: 0.85,
+    opacity: 0.9,
   },
 
   // Tick gauge.
@@ -1742,10 +1746,13 @@ const styles = StyleSheet.create({
     flex: 1,
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
-    fontSize: 15,
-    lineHeight: 22,
+    // Shrunk 15 → 13 per user feedback — the bumped score number is now
+    // the headline weight on the page, so the summary paragraph reads as
+    // supporting detail rather than competing copy.
+    fontSize: 13,
+    lineHeight: 19,
     color: paper.dashboardInk,
-    opacity: 0.88,
+    opacity: 0.86,
     textAlign: 'left',
     letterSpacing: 0,
   },
