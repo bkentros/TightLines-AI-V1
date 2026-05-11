@@ -466,17 +466,23 @@ export function RebuildReportView({
           solunarData.minor_periods.length > 0) && (
           <View style={styles.almanacCard}>
             <View style={styles.almanacHeader}>
-              <Ionicons name="moon" size={14} color={paper.dashboardBlue} />
-          <Text style={styles.almanacTitle}>MOON &amp; TIDE</Text>
+              <AlmanacCrescent />
+              <Text style={styles.almanacTitle}>MOON &amp; TIDE</Text>
+              <View style={styles.almanacHeaderTag}>
+                <Text style={styles.almanacHeaderTagText}>SOLUNAR</Text>
+              </View>
             </View>
             <View style={styles.almanacRule} />
             <View style={styles.almanacRow}>
               {solunarData.major_periods.length > 0 && (
                 <View style={styles.almanacCol}>
-                  <Text style={styles.almanacSubhead}>STRONG WINDOWS</Text>
+                  <View style={styles.almanacSubheadRow}>
+                    <View style={styles.almanacSubheadBar} />
+                    <Text style={styles.almanacSubhead}>STRONG WINDOWS</Text>
+                  </View>
                   {solunarData.major_periods.map((p, i) => (
                     <View key={`maj-${i}`} style={styles.almanacPeriod}>
-                      <View style={styles.almanacDotStrong} />
+                      <AlmanacPulseDot kind="strong" />
                       <Text style={styles.almanacTime}>
                         {formatSolunarRange(p.start, p.end)}
                       </Text>
@@ -496,7 +502,12 @@ export function RebuildReportView({
                     solunarData.major_periods.length > 0 && styles.almanacColRight,
                   ]}
                 >
-                  <Text style={styles.almanacSubhead}>MINOR WINDOWS</Text>
+                  <View style={styles.almanacSubheadRow}>
+                    <View style={[styles.almanacSubheadBar, { opacity: 0.5 }]} />
+                    <Text style={[styles.almanacSubhead, { opacity: 0.7 }]}>
+                      MINOR WINDOWS
+                    </Text>
+                  </View>
                   {solunarData.minor_periods.map((p, i) => (
                     <View key={`min-${i}`} style={styles.almanacPeriod}>
                       <View style={styles.almanacDotMinor} />
@@ -529,8 +540,24 @@ export function RebuildReportView({
           ) : null}
         </View>
         <View style={styles.guideRow}>
-          <View style={styles.guideBadge}>
-            <Ionicons name="sparkles-outline" size={24} color={paper.dashboardBlue} />
+          {/* Editor's seal — concentric rings around the sparkles glyph
+              give the badge a "pressed mark" feel rather than a plain
+              icon circle. Outer hairline ring + dashed-ish dot frame
+              creates the printed-almanac signet vibe. */}
+          <View style={styles.guideBadgeWrap}>
+            <View style={styles.guideBadgeOuterRing} />
+            <View style={styles.guideBadge}>
+              <Ionicons
+                name="sparkles-outline"
+                size={24}
+                color={paper.dashboardBlue}
+              />
+            </View>
+            {/* Four small accent dots at the cardinal points of the seal. */}
+            <View style={[styles.guideBadgeAccentDot, styles.guideBadgeDotTop]} />
+            <View style={[styles.guideBadgeAccentDot, styles.guideBadgeDotRight]} />
+            <View style={[styles.guideBadgeAccentDot, styles.guideBadgeDotBottom]} />
+            <View style={[styles.guideBadgeAccentDot, styles.guideBadgeDotLeft]} />
           </View>
           <View style={styles.guideBody}>
             <Text style={styles.guideText}>{report.actionable_tip}</Text>
@@ -554,8 +581,32 @@ export function RebuildReportView({
           FINFINDR
         </Text>
       </View>
+
+      {/* Small pressed-edition stamp — gives the report a finished
+          "this is an issue" feel. The date is computed at render
+          time (no engine plumbing needed) and reads as a printed
+          almanac volume number. */}
+      <View style={styles.editionStampRow}>
+        <View style={styles.editionStampRule} />
+        <Text style={styles.editionStampText}>
+          EDITION · {formatEditionDate(new Date())}
+        </Text>
+        <View style={styles.editionStampRule} />
+      </View>
     </View>
   );
+}
+
+/**
+ * Pressed-edition date — "MAY 11 · 2026" — used in the report footer's
+ * issue stamp. Date is the current device time (no engine plumbing
+ * needed); regenerates only when the report mounts.
+ */
+function formatEditionDate(d: Date): string {
+  const month = d.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+  const day = d.getDate();
+  const year = d.getFullYear();
+  return `${month} ${day} · ${year}`;
 }
 
 /**
@@ -1550,7 +1601,12 @@ function FactorRow({
   return (
     <View style={[styles.factorRow, !isLast && styles.factorRowDivider]}>
       <View style={styles.factorOrdinalCol}>
-        <Text style={styles.factorOrdinal}>
+        {/* Ordinal is now ribbon-tinted at 75% opacity so it reads as a
+            small but confident editorial numeral rather than a muted
+            ghost. A tiny accent dot above the digit ties it to the
+            ribbon below. */}
+        <View style={[styles.factorOrdinalDot, { backgroundColor: ribbonColor }]} />
+        <Text style={[styles.factorOrdinal, { color: ribbonColor }]}>
           {String(index).padStart(2, '0')}
         </Text>
       </View>
@@ -1563,6 +1619,12 @@ function FactorRow({
           {eyebrow}
         </Text>
         <Text style={styles.factorLabel}>{label}</Text>
+      </View>
+      {/* Small ribbon-tinted notch on the right edge — adds a finishing
+          editorial cue and visually closes the row. */}
+      <View style={styles.factorTailWrap} pointerEvents="none">
+        <View style={[styles.factorTailGlyph, { backgroundColor: ribbonColor }]} />
+        <View style={[styles.factorTailGlyphSmall, { backgroundColor: ribbonColor }]} />
       </View>
     </View>
   );
@@ -1584,27 +1646,73 @@ function TimeWindowTile({
   const bestBg = '#E7F5E1';
   const bestFg = paper.dashboardInk;
 
+  // Soft pulse on the "best" tile's check badge — subtle native-driver
+  // opacity loop that signals the highlighted period without being noisy.
+  const badgePulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    if (!isBest) {
+      badgePulse.setValue(1);
+      return;
+    }
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(badgePulse, {
+          toValue: 0.6,
+          duration: 1100,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(badgePulse, {
+          toValue: 1,
+          duration: 1100,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [isBest, badgePulse]);
+
   return (
     <View
       style={[
         styles.timeTile,
         isBest && {
           backgroundColor: bestBg,
+          borderColor: 'rgba(47, 174, 99, 0.45)',
           transform: [{ translateY: -2 }],
         },
       ]}
     >
+      {/* Soft accent ring around the "best" tile — subtle glow that
+          rewards a closer look without competing with the badge. */}
+      {isBest && <View style={styles.timeTileGlowRing} pointerEvents="none" />}
+      {isBest && (
+        <Animated.View style={[styles.bestBadgePulse, { opacity: badgePulse }]}>
+          <View style={styles.bestBadgeRing} />
+        </Animated.View>
+      )}
       {isBest && (
         <View style={styles.bestBadge}>
           <Ionicons name="checkmark" size={12} color="#FFFFFF" />
         </View>
       )}
       <View style={styles.timeTileTop}>
-        <Ionicons
-          name={icon}
-          size={22}
-          color={isBest ? bestFg : paper.dashboardInk}
-        />
+        {/* Hairline ring around the icon adds a small premium touch even
+            when the tile isn't "best". On best, it tinks slightly green. */}
+        <View
+          style={[
+            styles.timeTileIconWrap,
+            isBest && { borderColor: 'rgba(47, 174, 99, 0.45)' },
+          ]}
+        >
+          <Ionicons
+            name={icon}
+            size={20}
+            color={isBest ? bestFg : paper.dashboardInk}
+          />
+        </View>
       </View>
       <View
         style={[
@@ -1627,6 +1735,65 @@ function TimeWindowTile({
           {subLabel}
         </Text>
       </View>
+    </View>
+  );
+}
+
+// ─── Almanac decorations ───────────────────────────────────────────────────
+
+/**
+ * Decorative crescent glyph for the MOON & TIDE header — two concentric
+ * circles with an offset that produces a crescent shape, all in
+ * dashboard blue. Reads as a small almanac seal in place of the plain
+ * moon icon.
+ */
+function AlmanacCrescent() {
+  return (
+    <View style={styles.almanacCrescentWrap}>
+      <View style={styles.almanacCrescentOuter} />
+      <View style={styles.almanacCrescentInner} />
+    </View>
+  );
+}
+
+/**
+ * Two-layer pulse dot for the strong-window list. The outer ring slowly
+ * breathes opacity while the inner core stays solid — signals "active
+ * window" without animating size (native-driver opacity loop, no
+ * per-frame layout cost).
+ */
+function AlmanacPulseDot({ kind }: { kind: 'strong' }) {
+  const pulse = useRef(new Animated.Value(0.6)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 1300,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 0.45,
+          duration: 1300,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+  void kind;
+  return (
+    <View style={styles.almanacPulseWrap}>
+      <Animated.View
+        style={[
+          styles.almanacPulseRing,
+          { opacity: pulse },
+        ]}
+      />
+      <View style={styles.almanacPulseCore} />
     </View>
   );
 }
@@ -1919,15 +2086,22 @@ const styles = StyleSheet.create({
     width: 28,
     alignItems: 'flex-start',
     justifyContent: 'flex-start',
-    paddingTop: 2,
+    paddingTop: 1,
+    gap: 4,
+  },
+  factorOrdinalDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    marginLeft: 4,
+    opacity: 0.85,
   },
   factorOrdinal: {
     fontFamily: paperFonts.display,
     fontSize: 22,
     lineHeight: 24,
     fontWeight: '800',
-    color: paper.dashboardInk,
-    opacity: 0.32,
+    opacity: 0.75,
     letterSpacing: 0,
     includeFontPadding: false,
   },
@@ -1936,6 +2110,25 @@ const styles = StyleSheet.create({
     alignSelf: 'stretch',
     borderRadius: 2,
     minHeight: 38,
+  },
+  factorTailWrap: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    gap: 3,
+    width: 6,
+    marginLeft: 4,
+    opacity: 0.65,
+  },
+  factorTailGlyph: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+  },
+  factorTailGlyphSmall: {
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+    opacity: 0.6,
   },
   factorTextStack: {
     flex: 1,
@@ -2034,7 +2227,45 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardInk,
     alignItems: 'center',
     justifyContent: 'center',
+    zIndex: 4,
+  },
+  bestBadgePulse: {
+    position: 'absolute',
+    top: 4,
+    right: 4,
+    width: 30,
+    height: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
     zIndex: 3,
+  },
+  bestBadgeRing: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1.5,
+    borderColor: 'rgba(47, 174, 99, 0.6)',
+  },
+  timeTileGlowRing: {
+    position: 'absolute',
+    top: -2,
+    bottom: -2,
+    left: -2,
+    right: -2,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: 'rgba(47, 174, 99, 0.18)',
+    zIndex: 1,
+  },
+  timeTileIconWrap: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paper.dashboardHair,
+    backgroundColor: '#FAFAF7',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 
   // ── Almanac (was Solunar) ──────────────────────────────────────────
@@ -2049,7 +2280,79 @@ const styles = StyleSheet.create({
   almanacHeader: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 7,
+    gap: 8,
+  },
+  almanacCrescentWrap: {
+    width: 16,
+    height: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+  },
+  almanacCrescentOuter: {
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardBlue,
+  },
+  almanacCrescentInner: {
+    position: 'absolute',
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    backgroundColor: paper.dashboardWhite,
+    top: 1,
+    left: 4,
+  },
+  almanacHeaderTag: {
+    marginLeft: 'auto',
+    paddingHorizontal: 7,
+    paddingVertical: 2,
+    borderRadius: 3,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#F6F9FB',
+  },
+  almanacHeaderTagText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.6,
+    color: paper.dashboardMuted,
+    fontWeight: '700',
+  },
+  almanacSubheadRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: paperSpacing.xs,
+  },
+  almanacSubheadBar: {
+    width: 3,
+    height: 10,
+    borderRadius: 1.5,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.85,
+  },
+  almanacPulseWrap: {
+    width: 12,
+    height: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  almanacPulseRing: {
+    position: 'absolute',
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+  },
+  almanacPulseCore: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: paper.dashboardBlue,
   },
   almanacTitle: {
     fontFamily: paperFonts.bodyBold,
@@ -2057,7 +2360,7 @@ const styles = StyleSheet.create({
     letterSpacing: 2.8,
     color: paper.dashboardBlue,
     fontWeight: '700',
-    flex: 1,
+    flexShrink: 1,
   },
   almanacRule: {
     height: 1.5,
@@ -2082,7 +2385,6 @@ const styles = StyleSheet.create({
     letterSpacing: 2.2,
     color: paper.dashboardBlue,
     opacity: 0.85,
-    marginBottom: paperSpacing.xs,
     fontWeight: '700',
   },
   almanacPeriod: {
@@ -2172,6 +2474,24 @@ const styles = StyleSheet.create({
     alignItems: 'flex-start',
     gap: paperSpacing.md + 4,
   },
+  guideBadgeWrap: {
+    width: 80,
+    height: 80,
+    alignItems: 'center',
+    justifyContent: 'center',
+    position: 'relative',
+    flexShrink: 0,
+    marginTop: 2,
+  },
+  guideBadgeOuterRing: {
+    position: 'absolute',
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.45,
+  },
   guideBadge: {
     width: 64,
     height: 64,
@@ -2181,9 +2501,19 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardBlueSky,
     alignItems: 'center',
     justifyContent: 'center',
-    flexShrink: 0,
-    marginTop: 2,
   },
+  guideBadgeAccentDot: {
+    position: 'absolute',
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.55,
+  },
+  guideBadgeDotTop: { top: 0, alignSelf: 'center' },
+  guideBadgeDotBottom: { bottom: 0, alignSelf: 'center' },
+  guideBadgeDotLeft: { left: 0, top: '50%', marginTop: -2 },
+  guideBadgeDotRight: { right: 0, top: '50%', marginTop: -2 },
   guideBody: { flex: 1 },
   guideText: {
     fontFamily: paperFonts.displayMedium,
@@ -2262,5 +2592,28 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 2.5,
+  },
+
+  // Edition stamp — small almanac signature beneath the footer row.
+  editionStampRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    paddingTop: 8,
+  },
+  editionStampRule: {
+    height: StyleSheet.hairlineWidth,
+    flex: 1,
+    maxWidth: 32,
+    backgroundColor: paper.dashboardLine,
+    opacity: 0.65,
+  },
+  editionStampText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 2,
+    color: paper.dashboardMuted,
+    opacity: 0.7,
   },
 });
