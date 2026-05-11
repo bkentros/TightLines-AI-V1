@@ -31,6 +31,7 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
+import { isAdminEmail } from '../../lib/adminAccess';
 import {
   hapticImpact,
   hapticSelection,
@@ -170,7 +171,8 @@ function CountUpNumber({
 
 export default function LogScreen() {
   const router = useRouter();
-  const { signOut } = useAuthStore();
+  const { signOut, user } = useAuthStore();
+  const canOpenSmartLog = isAdminEmail(user?.email);
   const [activeTab, setActiveTab] = useState<'log' | 'history'>('log');
   const [historyFilter, setHistoryFilter] = useState<HistoryType>('all');
   const [expandedDate, setExpandedDate] = useState<string | null>('Today');
@@ -228,6 +230,35 @@ export default function LogScreen() {
               : i.type === 'Water Read',
           ),
   })).filter((g) => g.items.length > 0);
+
+  if (!canOpenSmartLog) {
+    return (
+      <View style={styles.root}>
+        <SafeAreaView style={styles.safe} edges={['top']}>
+          <View style={[styles.content, styles.lockedContent]}>
+            <View style={styles.lockedIcon}>
+              <Ionicons name="lock-closed" size={24} color={paper.dashboardInk} />
+            </View>
+            <Text style={styles.pageEyebrow}>SMART LOG</Text>
+            <Text style={styles.lockedTitle}>Coming soon.</Text>
+            <Text style={styles.lockedBody}>
+              Smart Log is locked while we finish it up.
+            </Text>
+            <Pressable
+              style={({ pressed }) => [
+                styles.lockedHomeButton,
+                pressed && { opacity: 0.86 },
+              ]}
+              onPress={() => router.replace('/(tabs)')}
+            >
+              <Text style={styles.lockedHomeButtonText}>BACK HOME</Text>
+              <Ionicons name="arrow-forward" size={15} color="#FFFFFF" />
+            </Pressable>
+          </View>
+        </SafeAreaView>
+      </View>
+    );
+  }
 
   return (
     <View style={styles.root}>
@@ -566,6 +597,55 @@ const styles = StyleSheet.create({
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
+  },
+  lockedContent: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: paperSpacing.sm,
+  },
+  lockedIcon: {
+    width: 62,
+    height: 62,
+    borderRadius: 31,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: paperSpacing.xs,
+  },
+  lockedTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 34,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
+  },
+  lockedBody: {
+    fontFamily: paperFonts.body,
+    fontSize: 15,
+    color: paper.dashboardInk,
+    opacity: 0.68,
+    textAlign: 'center',
+    lineHeight: 22,
+    maxWidth: 280,
+  },
+  lockedHomeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 12,
+    paddingHorizontal: 20,
+    paddingVertical: 12,
+    marginTop: paperSpacing.md,
+  },
+  lockedHomeButtonText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    color: '#FFFFFF',
+    letterSpacing: 2,
   },
 
   topBar: {

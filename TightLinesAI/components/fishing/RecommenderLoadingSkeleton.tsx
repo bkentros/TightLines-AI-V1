@@ -96,13 +96,13 @@ export function RecommenderLoadingSkeleton() {
       <View style={styles.hero}>
         <TopographicLines
           style={styles.heroTopo}
-          color={paper.walnut}
+          color={paper.dashboardBlue}
           count={6}
         />
-        <CornerMarkSet color={paper.gold} size={16} thickness={2} inset={10} />
+        <CornerMarkSet color={paper.bandFair} size={16} thickness={2} inset={10} />
 
         <View style={styles.heroHeader}>
-          <SectionEyebrow color={paper.red} dashes size={10}>
+          <SectionEyebrow color={paper.dashboardBlue} dashes size={10}>
             TACKLE BOX · LOADING
           </SectionEyebrow>
         </View>
@@ -167,7 +167,7 @@ const styles = StyleSheet.create({
     gap: paperSpacing.md,
   },
   bone: {
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardLine,
     borderRadius: paperRadius.chip,
     opacity: 0.6,
   },
@@ -175,9 +175,9 @@ const styles = StyleSheet.create({
   // ── Hero ─────────────────────────────────────────────────────────────
   hero: {
     position: 'relative',
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     padding: paperSpacing.lg,
     gap: paperSpacing.md,
@@ -212,7 +212,7 @@ const styles = StyleSheet.create({
   },
   heroTitleBoneAccent: {
     width: '65%',
-    backgroundColor: paper.forest,
+    backgroundColor: paper.bandPrime,
     opacity: 0.2,
   },
   heroPortraitWrap: {
@@ -223,18 +223,18 @@ const styles = StyleSheet.create({
     width: 96,
     height: 96,
     borderRadius: 48,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    backgroundColor: paper.paperDark,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardBlueSky,
     opacity: 0.7,
   },
   heroPortraitPill: {
     paddingHorizontal: 10,
     paddingVertical: 3,
     borderWidth: 1,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardLine,
     borderRadius: 2,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
   },
   heroPortraitPillBone: {
     height: 8,
@@ -248,16 +248,16 @@ const styles = StyleSheet.create({
   heroTile: {
     flex: 1,
     padding: paperSpacing.sm + 2,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     gap: 6,
   },
   tileLabelBone: {
     height: 8,
     width: '40%',
-    backgroundColor: paper.red,
+    backgroundColor: paper.dashboardBlue,
     opacity: 0.35,
   },
   tileValueBone: {
@@ -273,8 +273,8 @@ const styles = StyleSheet.create({
     height: 18,
     borderRadius: 1,
     borderWidth: 1,
-    borderColor: paper.ink,
-    backgroundColor: paper.paperDark,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardBlueSky,
     opacity: 0.8,
   },
 
@@ -282,18 +282,18 @@ const styles = StyleSheet.create({
   themeNote: {
     padding: paperSpacing.md,
     paddingLeft: paperSpacing.md + 6,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderLeftWidth: 8,
-    borderLeftColor: paper.gold,
+    borderLeftColor: paper.bandFair,
     borderRadius: paperRadius.card,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     gap: 6,
   },
   themeEyebrowBone: {
     height: 8,
     width: 60,
-    backgroundColor: paper.red,
+    backgroundColor: paper.dashboardBlue,
     opacity: 0.35,
   },
   themeLineBone: {
@@ -308,7 +308,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     paddingBottom: 10,
     borderBottomWidth: 1.5,
-    borderBottomColor: paper.ink,
+    borderBottomColor: paper.dashboardLine,
   },
   sectionTitleBone: {
     height: 24,
@@ -321,9 +321,9 @@ const styles = StyleSheet.create({
 
   // ── Tackle card ──────────────────────────────────────────────────────
   tackleCard: {
-    backgroundColor: paper.paper,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     overflow: 'hidden',
     ...paperShadows.hard,
@@ -331,9 +331,9 @@ const styles = StyleSheet.create({
   tackleImageBand: {
     position: 'relative',
     height: 135,
-    borderBottomWidth: 2,
-    borderBottomColor: paper.ink,
-    backgroundColor: paper.paperDark,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardBlueSky,
     overflow: 'hidden',
   },
   tackleImageBone: {
@@ -349,15 +349,15 @@ const styles = StyleSheet.create({
     width: 40,
     height: 40,
     borderRadius: 20,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     alignItems: 'center',
     justifyContent: 'center',
   },
   medalText: {
     fontFamily: paperFonts.display,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
     fontWeight: '700',
   },
   tierBand: {
@@ -366,10 +366,10 @@ const styles = StyleSheet.create({
     left: 12,
     paddingHorizontal: 10,
     paddingVertical: 4,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: 2,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
   },
   tierBandBone: {
     height: 8,
@@ -395,7 +395,7 @@ const styles = StyleSheet.create({
     paddingVertical: paperSpacing.xs + 2,
     borderTopWidth: 1,
     borderBottomWidth: 1,
-    borderColor: paper.inkHair,
+    borderColor: paper.dashboardLine,
   },
   metaCell: {
     flex: 1,
@@ -405,12 +405,12 @@ const styles = StyleSheet.create({
   metaDivider: {
     width: 1,
     alignSelf: 'stretch',
-    backgroundColor: paper.inkHair,
+    backgroundColor: paper.dashboardLine,
   },
   metaLabelBone: {
     height: 8,
     width: 48,
-    backgroundColor: paper.red,
+    backgroundColor: paper.dashboardBlue,
     opacity: 0.3,
   },
   metaValueBone: {
@@ -426,13 +426,13 @@ const styles = StyleSheet.create({
     flex: 1,
     height: 20,
     borderRadius: 2,
-    backgroundColor: paper.inkHairSoft,
+    backgroundColor: paper.dashboardHair,
   },
   howEyebrowBone: {
     height: 8,
     width: 100,
     marginTop: paperSpacing.sm + 2,
-    backgroundColor: paper.red,
+    backgroundColor: paper.dashboardBlue,
     opacity: 0.3,
   },
   howLineBone: {

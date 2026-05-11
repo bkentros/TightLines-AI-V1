@@ -327,17 +327,17 @@ export const paperBorders = {
  */
 export const paperShadows = {
   hard: {
-    shadowColor: paper.ink,
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 1,
-    shadowRadius: 0,
+    shadowColor: paper.dashboardInk,
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 10,
     elevation: 2,
   },
   lift: {
-    shadowColor: paper.ink,
-    shadowOffset: { width: 0, height: 6 },
-    shadowOpacity: 0.22,
-    shadowRadius: 14,
+    shadowColor: paper.dashboardInk,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.14,
+    shadowRadius: 18,
     elevation: 6,
   },
 } as const;

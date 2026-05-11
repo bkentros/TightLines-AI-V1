@@ -297,33 +297,28 @@ function moonPhaseLabel(phase: string | undefined, illumination: number | undefi
 
 function pressureTrendInfo(trend: string): { label: string; color: string } | null {
   switch (trend) {
-    case 'rapidly_falling': return { label: '↓↓ Rapidly Falling', color: '#2E7D32' };
-    case 'slowly_falling':  return { label: '↓ Falling',          color: '#388E3C' };
+    case 'rapidly_falling': return { label: '↓↓ Rapidly Falling', color: paper.bandPrime };
+    case 'slowly_falling':  return { label: '↓ Falling',          color: paper.bandGood };
     case 'stable':          return { label: 'Stable',             color: colors.textMuted };
-    case 'slowly_rising':   return { label: '↑ Rising',           color: '#E65100' };
-    case 'rapidly_rising':  return { label: '↑↑ Rapidly Rising',  color: '#B71C1C' };
+    case 'slowly_rising':   return { label: '↑ Rising',           color: paper.bandFair };
+    case 'rapidly_rising':  return { label: '↑↑ Rapidly Rising',  color: paper.bandTough };
     default: return null;
   }
 }
 
-// ─── Wizard sub-components (paper / FinFindr tackle language) ────────────────
+// ─── Wizard sub-components (FinFindr tackle language) ────────────────────────
 
-/**
- * Species subtitle — a Latin-ish tag that mirrors the FinFindr tackle card
- * mock. Purely editorial and safe to show across regions since it's derived
- * from the species identity, not location data.
- */
 const SPECIES_SUBTITLE: Record<SpeciesGroup, string> = {
-  largemouth_bass: 'M. salmoides',
-  smallmouth_bass: 'M. dolomieu',
+  largemouth_bass: 'Micropterus nigricans',
+  smallmouth_bass: 'Micropterus dolomieu',
   pike_musky:      'Esox lucius',
-  river_trout:     'Salmonidae',
-  walleye:         'S. vitreus',
-  redfish:         'S. ocellatus',
-  snook:           'C. undecimalis',
-  seatrout:        'C. nebulosus',
-  striped_bass:    'M. saxatilis',
-  tarpon:          'M. atlanticus',
+  river_trout:     'Salmonidae spp.',
+  walleye:         'Sander vitreus',
+  redfish:         'Sciaenops ocellatus',
+  snook:           'Centropomus undecimalis',
+  seatrout:        'Cynoscion nebulosus',
+  striped_bass:    'Morone saxatilis',
+  tarpon:          'Megalops atlanticus',
 };
 
 /**
@@ -355,22 +350,21 @@ const CLARITY_SUBTITLE: Record<WaterClarity, string> = {
 };
 
 const GOAL_LABELS: Record<RecommendationGoal, string> = {
-  all_purpose: 'All-around',
-  big_fish: 'Big fish / PB',
+  all_purpose: 'Catch Fish',
+  big_fish: 'Catch a PB',
 };
 
 /** Short lure metaphors — pairs with regenerated goal chip art. */
 const GOAL_SUBTITLE: Record<RecommendationGoal, string> = {
-  all_purpose: 'Crankbait-style: cover water, stay versatile',
-  big_fish: 'Big glide-style: trophy-minded offerings',
+  all_purpose: 'Catch more fish with big-fish potential',
+  big_fish: 'Target a trophy or personal-best fish',
 };
 
 // ─── Wizard step progress ────────────────────────────────────────────────────
 
 /**
- * Editorial 4-step progress bar — each step is a paper tile with an ink
- * border and a numbered / checkmark medallion. The active step gets a
- * red medallion; completed steps fill forest and swap to a check.
+ * 4-step progress bar — each step is a compact tile with a numbered /
+ * checkmark medallion. The active step uses the dashboard blue accent.
  *
  * Matches the FinFindr `tackleStep` progress grid one-for-one in
  * proportion and affordance, adapted for React Native flex layout.
@@ -385,11 +379,11 @@ function WizardStepProgress({
   onJumpToStep: (step: 1 | 2 | 3 | 4) => void;
   allowJumpToStep: (step: 1 | 2 | 3 | 4) => boolean;
 }) {
-  const steps: { num: 1 | 2 | 3 | 4; label: string }[] = [
-    { num: 1, label: 'SPECIES' },
-    { num: 2, label: 'WATER' },
-    { num: 3, label: 'CLARITY' },
-    { num: 4, label: 'GOAL' },
+  const steps: { num: 1 | 2 | 3 | 4; label: string; icon: keyof typeof Ionicons.glyphMap }[] = [
+    { num: 1, label: 'SPECIES', icon: 'fish-outline' },
+    { num: 2, label: 'WATER', icon: 'water-outline' },
+    { num: 3, label: 'CLARITY', icon: 'eye-outline' },
+    { num: 4, label: 'GOAL', icon: 'trophy-outline' },
   ];
   return (
     <View style={wizardStyles.progressRow}>
@@ -421,23 +415,20 @@ function WizardStepProgress({
               ]}
             >
               {isDone ? (
-                <Ionicons name="checkmark" size={14} color={paper.forest} />
+                <Ionicons name="checkmark" size={15} color={paper.dashboardInk} />
               ) : (
-                <Text
-                  style={[
-                    wizardStyles.progressBadgeNum,
-                    isActive && { color: paper.paper },
-                  ]}
-                >
-                  {step.num}
-                </Text>
+                <Ionicons
+                  name={step.icon}
+                  size={16}
+                  color={isActive ? '#FFFFFF' : paper.dashboardInk}
+                />
               )}
             </View>
-            <View style={{ minWidth: 0, flexShrink: 1 }}>
+            <View style={wizardStyles.progressCopy}>
               <Text
                 style={[
                   wizardStyles.progressEyebrow,
-                  isDone && { color: paper.paper, opacity: 0.8 },
+                  isDone && { color: paper.dashboardWhite, opacity: 0.8 },
                 ]}
               >
                 STEP {step.num}
@@ -445,9 +436,11 @@ function WizardStepProgress({
               <Text
                 style={[
                   wizardStyles.progressLabel,
-                  isDone && { color: paper.paper },
+                  isDone && { color: paper.dashboardWhite },
                 ]}
                 numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.72}
               >
                 {step.label}
               </Text>
@@ -511,7 +504,7 @@ function SpeciesCard({
       </View>
       {isActive && (
         <View style={wizardStyles.selectBadge}>
-          <Ionicons name="checkmark" size={13} color={paper.paper} />
+          <Ionicons name="checkmark" size={13} color={paper.dashboardWhite} />
         </View>
       )}
       {isDisabled && (
@@ -628,7 +621,12 @@ function ContextSelector({
                 />
               )}
             </View>
-            <Text style={wizardStyles.contextTitle} numberOfLines={1} ellipsizeMode="tail">
+            <Text
+              style={wizardStyles.contextTitle}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.78}
+            >
               {contextLabel(opt)}
             </Text>
             <Text style={wizardStyles.contextSubtitle} numberOfLines={2} ellipsizeMode="tail">
@@ -636,7 +634,7 @@ function ContextSelector({
             </Text>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
-                <Ionicons name="checkmark" size={13} color={paper.paper} />
+                <Ionicons name="checkmark" size={13} color={paper.dashboardWhite} />
               </View>
             )}
             {isDisabled && (
@@ -700,7 +698,7 @@ function ClaritySelector({
             </Text>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
-                <Ionicons name="checkmark" size={13} color={paper.paper} />
+                <Ionicons name="checkmark" size={13} color={paper.dashboardWhite} />
               </View>
             )}
           </Pressable>
@@ -757,7 +755,7 @@ function GoalSelector({
             </Text>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
-                <Ionicons name="checkmark" size={13} color={paper.paper} />
+                <Ionicons name="checkmark" size={13} color={paper.dashboardWhite} />
               </View>
             )}
           </Pressable>
@@ -1031,7 +1029,7 @@ export default function RecommenderScreen() {
         ))}
       </View>
 
-      {/* Nav header — FinFindr paper language, shared across every state. */}
+      {/* Nav header — shared across every state. */}
       <View style={wizardStyles.navHeader}>
         <Pressable
           style={({ pressed }) => [
@@ -1048,7 +1046,7 @@ export default function RecommenderScreen() {
           hitSlop={12}
           android_ripple={RIPPLE}
         >
-          <Ionicons name="chevron-back" size={14} color={paper.ink} />
+          <Ionicons name="chevron-back" size={16} color="#FFFFFF" />
           <Text style={wizardStyles.navIconButtonText}>
             {screenState === 'result' || screenState === 'error' ? 'SETUP' : 'BACK'}
           </Text>
@@ -1066,12 +1064,12 @@ export default function RecommenderScreen() {
           {screenState === 'setup' && (resolvingRegion ? (
             <ActivityIndicator
               size="small"
-              color={paper.ink}
+              color="#FFFFFF"
               style={{ transform: [{ scale: 0.7 }] }}
             />
           ) : stateCode ? (
             <View style={wizardStyles.navStatePill}>
-              <Ionicons name="location" size={10} color={paper.ink} />
+              <Ionicons name="location" size={10} color={paper.bandPrime} />
               <Text style={wizardStyles.navStatePillText}>{stateCode}</Text>
             </View>
           ) : null)}
@@ -1089,7 +1087,7 @@ export default function RecommenderScreen() {
               hitSlop={12}
               android_ripple={RIPPLE}
             >
-              <Ionicons name="options-outline" size={14} color={paper.ink} />
+              <Ionicons name="options-outline" size={14} color="#FFFFFF" />
               <Text style={wizardStyles.navIconButtonText}>EDIT</Text>
             </Pressable>
           )}
@@ -1100,7 +1098,7 @@ export default function RecommenderScreen() {
       {screenState === 'setup' && !setupImagesReady && (
         <PaperBackground style={{ flex: 1 }}>
           <View style={styles.centerState}>
-            <ActivityIndicator size="large" color={paper.forest} />
+            <ActivityIndicator size="large" color={paper.bandPrime} />
           </View>
         </PaperBackground>
       )}
@@ -1194,7 +1192,7 @@ export default function RecommenderScreen() {
               {/* Location warning — only when no coords */}
               {!hasCoords && (
                 <View style={wizardStyles.warningBanner}>
-                  <Ionicons name="location-outline" size={14} color={paper.red} />
+                  <Ionicons name="location-outline" size={14} color={paper.dashboardBlue} />
                   <Text style={wizardStyles.warningText}>
                     Add a location on Home so today's conditions can be used.
                   </Text>
@@ -1212,10 +1210,10 @@ export default function RecommenderScreen() {
               <View style={wizardStyles.stepCard}>
                 <TopographicLines
                   style={StyleSheet.absoluteFill}
-                  color={paper.forestDk}
+                  color={paper.dashboardBlue}
                   count={4}
                 />
-                <CornerMarkSet color={paper.red} inset={10} size={12} />
+                <CornerMarkSet color={paper.dashboardBlue} inset={10} size={12} />
 
                 <View style={wizardStyles.stepCardHeader}>
                   <Text style={wizardStyles.stepCardEyebrow}>
@@ -1301,7 +1299,7 @@ export default function RecommenderScreen() {
                   android_ripple={{ color: 'rgba(10,22,40,0.08)' }}
                   hitSlop={8}
                 >
-                  <Ionicons name="chevron-back" size={14} color={paper.ink} />
+                  <Ionicons name="chevron-back" size={14} color={paper.dashboardInk} />
                   <Text style={wizardStyles.backButtonText}>
                     {wizardStep === 1 ? 'CANCEL' : 'BACK'}
                   </Text>
@@ -1331,7 +1329,7 @@ export default function RecommenderScreen() {
                   <Ionicons
                     name="arrow-forward"
                     size={16}
-                    color={canContinue ? paper.paper : paper.ink}
+                    color={canContinue ? paper.dashboardWhite : paper.dashboardInk}
                   />
                 </Pressable>
               </View>
@@ -1350,7 +1348,7 @@ export default function RecommenderScreen() {
           <View style={styles.loadingWrap}>
             <RecommenderLoadingSkeleton />
             <View style={styles.loadingOverlay} pointerEvents="none">
-              <ActivityIndicator size="small" color={paper.forest} />
+              <ActivityIndicator size="small" color={paper.bandPrime} />
               <Text style={wizardStyles.loadingCaption}>
                 MATCHING LURES &amp; FLIES…
               </Text>
@@ -1364,7 +1362,7 @@ export default function RecommenderScreen() {
         <PaperBackground style={{ flex: 1 }}>
           <View style={wizardStyles.errorState}>
             <View style={wizardStyles.errorBadge}>
-              <Ionicons name="alert" size={22} color={paper.paper} />
+              <Ionicons name="alert" size={22} color={paper.dashboardWhite} />
             </View>
             <Text style={wizardStyles.errorTitle}>
               COULD NOT BUILD YOUR PLAN
@@ -1383,7 +1381,7 @@ export default function RecommenderScreen() {
                 android_ripple={{ color: 'rgba(255,255,255,0.18)' }}
               >
                 <Text style={wizardStyles.errorPrimaryText}>TRY AGAIN</Text>
-                <Ionicons name="refresh" size={14} color={paper.paper} />
+                <Ionicons name="refresh" size={14} color={paper.dashboardWhite} />
               </Pressable>
               <Pressable
                 style={({ pressed }) => [
@@ -1396,7 +1394,7 @@ export default function RecommenderScreen() {
                 }}
                 android_ripple={RIPPLE}
               >
-                <Ionicons name="chevron-back" size={12} color={paper.ink} />
+                <Ionicons name="chevron-back" size={12} color={paper.dashboardInk} />
                 <Text style={wizardStyles.errorSecondaryText}>BACK TO SETUP</Text>
               </Pressable>
             </View>
@@ -1423,9 +1421,7 @@ export default function RecommenderScreen() {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    // Paper canvas, so the nav header + every sub-state sits on the same
-    // warm surface and transitions don't flash white.
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardInk,
   },
 
   // Nav
@@ -1442,7 +1438,7 @@ const styles = StyleSheet.create({
     borderBottomWidth: 0,
   },
   navHeaderResult: {
-    borderBottomWidth: 2,
+    borderBottomWidth: 1,
     borderBottomColor: colors.primaryDark,
   },
   backBtn: {
@@ -1453,7 +1449,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.serifBold,
     fontSize: 17,
     color: colors.text,
-    letterSpacing: -0.3,
+    letterSpacing: 0,
     textAlign: 'center',
   },
   navRight: {
@@ -1523,7 +1519,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     textAlign: 'center',
     lineHeight: 32,
-    letterSpacing: -0.5,
+    letterSpacing: 0,
   },
   heroSubtitle: {
     fontFamily: fonts.bodyItalic,
@@ -1539,18 +1535,18 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: spacing.sm,
-    backgroundColor: colors.reportScoreYellowBg,
+    backgroundColor: paper.dashboardWhite,
     borderRadius: radius.md,
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm + 2,
     borderWidth: 1,
-    borderColor: colors.reportScoreYellow + '22',
+    borderColor: paper.dashboardLine,
   },
   warningText: {
     flex: 1,
     fontFamily: fonts.bodyMedium,
     fontSize: 13,
-    color: colors.reportScoreYellow,
+    color: paper.dashboardBlue,
     lineHeight: 18,
   },
 
@@ -1618,7 +1614,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.serifBold,
     fontSize: 20,
     color: colors.text,
-    letterSpacing: -0.3,
+    letterSpacing: 0,
     lineHeight: 26,
     textAlign: 'center',
   },
@@ -1643,7 +1639,7 @@ const styles = StyleSheet.create({
   },
   speciesCardActive: {
     borderColor: colors.primary,
-    borderWidth: 2,
+    borderWidth: 1,
     backgroundColor: colors.primaryMist,
     ...shadows.md,
   },
@@ -1667,7 +1663,7 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: colors.text,
     textAlign: 'center',
-    letterSpacing: -0.1,
+    letterSpacing: 0,
   },
   speciesCheckBadge: {
     position: 'absolute',
@@ -1726,7 +1722,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodySemiBold,
     fontSize: 14,
     color: colors.text,
-    letterSpacing: -0.1,
+    letterSpacing: 0,
   },
   contextCheckBadge: {
     position: 'absolute',
@@ -1774,7 +1770,7 @@ const styles = StyleSheet.create({
   clarityCardTitle: {
     fontFamily: fonts.bodySemiBold,
     fontSize: 13,
-    letterSpacing: -0.1,
+    letterSpacing: 0,
   },
   clarityCardSub: {
     fontFamily: fonts.body,
@@ -1799,7 +1795,7 @@ const styles = StyleSheet.create({
   validationNote: {
     fontFamily: fonts.bodyItalic,
     fontSize: 13,
-    color: colors.reportScoreYellow,
+    color: paper.dashboardBlue,
     lineHeight: 18,
   },
 
@@ -1902,45 +1898,43 @@ const styles = StyleSheet.create({
 });
 
 // ─── Wizard styles ───────────────────────────────────────────────────────────
-// Paper / FinFindr tackle-setup language. Sits alongside the legacy `styles`
-// block because the wizard lives only in the setup phase — the loading /
-// error / result phases still use the original system.
+// FinFindr tackle-setup language. Sits alongside the legacy `styles`
+// block because the wizard lives only in the setup phase.
 
 const wizardStyles = StyleSheet.create({
-  // ─── Shared nav header (paper language) ─────────────────────────────────
+  // ─── Shared nav header ──────────────────────────────────────────────────
   navHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     paddingHorizontal: paperSpacing.md,
-    paddingTop: paperSpacing.sm,
-    paddingBottom: paperSpacing.sm,
-    backgroundColor: paper.paper,
-    borderBottomWidth: 1,
-    borderBottomColor: paper.inkHairSoft,
+    paddingTop: paperSpacing.lg,
+    paddingBottom: paperSpacing.md,
+    backgroundColor: paper.dashboardInk,
+    borderBottomWidth: 0,
     gap: paperSpacing.sm,
   },
   navTitleWrap: {
     position: 'absolute',
     left: 0,
     right: 0,
-    top: paperSpacing.sm,
-    bottom: paperSpacing.sm,
+    top: paperSpacing.lg,
+    bottom: paperSpacing.md,
     alignItems: 'center',
     justifyContent: 'center',
   },
   navEyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 8.5,
-    color: paper.red,
-    letterSpacing: 2.6,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    color: 'rgba(255,255,255,0.58)',
+    letterSpacing: 3,
   },
   navTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 14,
-    color: paper.ink,
-    letterSpacing: -0.2,
-    marginTop: 1,
+    fontSize: 24,
+    color: '#FFFFFF',
+    letterSpacing: 0,
+    marginTop: 0,
   },
   navIconButton: {
     flexDirection: 'row',
@@ -1948,15 +1942,15 @@ const wizardStyles = StyleSheet.create({
     gap: 5,
     paddingHorizontal: 10,
     paddingVertical: 6,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: 'transparent',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.08)',
   },
   navIconButtonText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: '#FFFFFF',
     letterSpacing: 2.2,
   },
   navRight: {
@@ -1969,15 +1963,15 @@ const wizardStyles = StyleSheet.create({
     gap: 4,
     paddingHorizontal: 9,
     paddingVertical: 5,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paperLight,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.2)',
+    borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.1)',
   },
   navStatePillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: '#FFFFFF',
     letterSpacing: 1.6,
   },
 
@@ -1998,20 +1992,20 @@ const wizardStyles = StyleSheet.create({
   heroTitle: {
     fontFamily: paperFonts.display,
     fontSize: 34,
-    color: paper.ink,
+    color: paper.dashboardInk,
     textAlign: 'center',
     lineHeight: 36,
-    letterSpacing: -1,
+    letterSpacing: 0,
     textTransform: 'uppercase',
     marginTop: 6,
   },
   heroTitleAccent: {
-    color: paper.forest,
+    color: paper.bandPrime,
   },
   heroSubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.75,
     textAlign: 'center',
     lineHeight: 20,
@@ -2024,9 +2018,9 @@ const wizardStyles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.paperLight,
-    borderWidth: 1.5,
-    borderColor: paper.red,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
     borderRadius: paperRadius.chip,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.sm,
@@ -2035,7 +2029,7 @@ const wizardStyles = StyleSheet.create({
     flex: 1,
     fontFamily: paperFonts.body,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     lineHeight: 17,
   },
 
@@ -2048,69 +2042,77 @@ const wizardStyles = StyleSheet.create({
   },
   progressTile: {
     flex: 1,
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'center',
-    gap: 8,
-    paddingVertical: 10,
-    paddingHorizontal: 10,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.card,
-    backgroundColor: paper.paper,
+    justifyContent: 'center',
+    gap: 6,
+    paddingVertical: 11,
+    paddingHorizontal: 6,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardWhite,
+    minHeight: 82,
   },
   progressTileActive: {
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardBlueSky,
+    borderColor: paper.dashboardBlue,
     ...paperShadows.hard,
   },
   progressTileDone: {
-    backgroundColor: paper.forest,
-    borderColor: paper.ink,
+    backgroundColor: paper.bandPrime,
+    borderColor: paper.dashboardLine,
   },
   progressBadge: {
-    width: 26,
-    height: 26,
-    borderRadius: 13,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
     flexShrink: 0,
   },
   progressBadgeActive: {
-    backgroundColor: paper.red,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardBlue,
+    borderColor: paper.dashboardLine,
   },
   progressBadgeDone: {
-    backgroundColor: paper.paper,
-    borderColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
+    borderColor: paper.dashboardWhite,
   },
   progressBadgeNum: {
     fontFamily: paperFonts.display,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     includeFontPadding: false,
   },
+  progressCopy: {
+    alignItems: 'center',
+    minWidth: 0,
+    width: '100%',
+  },
   progressEyebrow: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 8.5,
-    color: paper.ink,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    color: paper.dashboardInk,
     opacity: 0.6,
-    letterSpacing: 2,
+    letterSpacing: 1.5,
   },
   progressLabel: {
-    fontFamily: paperFonts.display,
-    fontSize: 12,
-    color: paper.ink,
-    letterSpacing: -0.2,
-    marginTop: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardInk,
+    letterSpacing: 1,
+    marginTop: 2,
   },
 
   // Step content card
   stepCard: {
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     paddingVertical: paperSpacing.lg,
     paddingHorizontal: paperSpacing.md,
@@ -2126,21 +2128,21 @@ const wizardStyles = StyleSheet.create({
   stepCardEyebrow: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.red,
+    color: paper.dashboardBlue,
     letterSpacing: 2.6,
   },
   stepCardTitle: {
     fontFamily: paperFonts.display,
     fontSize: 24,
-    color: paper.ink,
-    letterSpacing: -0.6,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     textAlign: 'center',
     lineHeight: 28,
   },
   stepCardCaption: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 13,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.7,
     textAlign: 'center',
     lineHeight: 18,
@@ -2156,26 +2158,26 @@ const wizardStyles = StyleSheet.create({
   },
   speciesCard: {
     flex: 1,
-    backgroundColor: paper.paper,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     overflow: 'hidden',
     position: 'relative',
     ...paperShadows.hard,
   },
   speciesCardActive: {
-    borderColor: paper.red,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlueSky,
     ...paperShadows.lift,
   },
   speciesImageArea: {
     width: '100%',
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     alignItems: 'center',
     justifyContent: 'center',
-    borderBottomWidth: 2,
-    borderBottomColor: paper.ink,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
   },
   speciesImage: {
     width: '92%',
@@ -2190,14 +2192,14 @@ const wizardStyles = StyleSheet.create({
   speciesTitle: {
     fontFamily: paperFonts.display,
     fontSize: 14,
-    color: paper.ink,
-    letterSpacing: -0.2,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     textAlign: 'center',
   },
   speciesSubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.6,
     textAlign: 'center',
   },
@@ -2211,9 +2213,9 @@ const wizardStyles = StyleSheet.create({
   contextCard: {
     flex: 1,
     minWidth: '46%',
-    backgroundColor: paper.paper,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     paddingHorizontal: 18,
     paddingTop: 22,
@@ -2223,32 +2225,36 @@ const wizardStyles = StyleSheet.create({
     ...paperShadows.hard,
   },
   contextCardActive: {
-    borderColor: paper.red,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlueSky,
     ...paperShadows.lift,
   },
   contextImageArea: {
-    width: '100%',
-    aspectRatio: 1.5,
+    width: 92,
+    height: 92,
+    borderRadius: 46,
+    overflow: 'hidden',
+    backgroundColor: 'transparent',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom: 10,
+    marginBottom: 12,
   },
   contextImage: {
-    width: '88%',
-    height: '88%',
+    width: '100%',
+    height: '100%',
   },
   contextTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 18,
-    color: paper.ink,
-    letterSpacing: -0.3,
+    fontSize: 16,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     textAlign: 'center',
+    width: '100%',
   },
   contextSubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     textAlign: 'center',
     marginTop: 4,
@@ -2262,9 +2268,9 @@ const wizardStyles = StyleSheet.create({
   },
   clarityCard: {
     flex: 1,
-    backgroundColor: paper.paper,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     paddingHorizontal: 8,
     paddingTop: 14,
@@ -2274,16 +2280,15 @@ const wizardStyles = StyleSheet.create({
     ...paperShadows.hard,
   },
   clarityCardActive: {
-    borderColor: paper.red,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlueSky,
     ...paperShadows.lift,
   },
   clarityImageArea: {
-    width: 68,
-    height: 68,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    width: 78,
+    height: 78,
+    borderRadius: 39,
+    backgroundColor: 'transparent',
     overflow: 'hidden',
     marginBottom: 10,
   },
@@ -2294,14 +2299,14 @@ const wizardStyles = StyleSheet.create({
   clarityTitle: {
     fontFamily: paperFonts.display,
     fontSize: 15,
-    color: paper.ink,
-    letterSpacing: -0.2,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     textAlign: 'center',
   },
   claritySubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     textAlign: 'center',
     marginTop: 3,
@@ -2316,9 +2321,9 @@ const wizardStyles = StyleSheet.create({
   goalCard: {
     flex: 1,
     minHeight: 148,
-    backgroundColor: paper.paper,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     paddingHorizontal: 8,
     paddingTop: 14,
@@ -2329,19 +2334,18 @@ const wizardStyles = StyleSheet.create({
     ...paperShadows.hard,
   },
   goalCardActive: {
-    borderColor: paper.red,
-    backgroundColor: paper.paperLight,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlueSky,
     ...paperShadows.lift,
   },
   goalImageArea: {
-    width: 68,
-    height: 68,
-    borderRadius: 6,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    overflow: 'hidden',
+    width: 86,
+    height: 72,
+    borderRadius: 0,
+    borderWidth: 0,
+    overflow: 'visible',
     marginBottom: 10,
-    backgroundColor: paper.paperLight,
+    backgroundColor: 'transparent',
   },
   goalImage: {
     width: '100%',
@@ -2350,14 +2354,14 @@ const wizardStyles = StyleSheet.create({
   goalTitle: {
     fontFamily: paperFonts.display,
     fontSize: 15,
-    color: paper.ink,
-    letterSpacing: -0.2,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
     textAlign: 'center',
   },
   goalSubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     textAlign: 'center',
     marginTop: 3,
@@ -2372,9 +2376,9 @@ const wizardStyles = StyleSheet.create({
     width: 26,
     height: 26,
     borderRadius: 13,
-    backgroundColor: paper.red,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardBlue,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     alignItems: 'center',
     justifyContent: 'center',
     zIndex: 3,
@@ -2385,14 +2389,14 @@ const wizardStyles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(232,223,201,0.62)',
+    backgroundColor: 'rgba(246,247,245,0.72)',
   },
 
   // Validation notes / readiness hint
   validationNote: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.red,
+    color: paper.dashboardBlue,
     textAlign: 'center',
     paddingHorizontal: paperSpacing.sm,
     lineHeight: 17,
@@ -2400,7 +2404,7 @@ const wizardStyles = StyleSheet.create({
   readinessHint: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.65,
     textAlign: 'center',
     paddingHorizontal: paperSpacing.md,
@@ -2422,15 +2426,15 @@ const wizardStyles = StyleSheet.create({
     gap: 6,
     paddingHorizontal: 16,
     paddingVertical: 11,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardWhite,
   },
   backButtonText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.4,
   },
   continueButton: {
@@ -2441,34 +2445,36 @@ const wizardStyles = StyleSheet.create({
     gap: 8,
     paddingHorizontal: 20,
     paddingVertical: 12,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.forest,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardInk,
     ...paperShadows.hard,
   },
   continueButtonFinal: {
-    backgroundColor: paper.forest,
+    backgroundColor: paper.bandPrime,
+    borderColor: paper.bandPrime,
   },
   continueButtonDisabled: {
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
+    borderColor: paper.dashboardLine,
     ...paperShadows.hard,
   },
   continueButtonText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.paper,
+    color: paper.dashboardWhite,
     letterSpacing: 2.6,
   },
   continueButtonTextDisabled: {
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.45,
   },
 
   disclaimer: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     opacity: 0.55,
     textAlign: 'center',
     paddingHorizontal: paperSpacing.sm,
@@ -2480,7 +2486,7 @@ const wizardStyles = StyleSheet.create({
   loadingCaption: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 3,
     opacity: 0.7,
     textAlign: 'center',
@@ -2498,9 +2504,9 @@ const wizardStyles = StyleSheet.create({
     width: 56,
     height: 56,
     borderRadius: 28,
-    backgroundColor: paper.red,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardBlue,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     alignItems: 'center',
     justifyContent: 'center',
     ...paperShadows.hard,
@@ -2508,7 +2514,7 @@ const wizardStyles = StyleSheet.create({
   errorTitle: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.red,
+    color: paper.dashboardBlue,
     letterSpacing: 2.8,
     textAlign: 'center',
     marginTop: paperSpacing.xs,
@@ -2516,7 +2522,7 @@ const wizardStyles = StyleSheet.create({
   errorBody: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
     textAlign: 'center',
     lineHeight: 20,
     paddingHorizontal: paperSpacing.sm,
@@ -2534,16 +2540,16 @@ const wizardStyles = StyleSheet.create({
     gap: 6,
     paddingHorizontal: 18,
     paddingVertical: 11,
-    backgroundColor: paper.forest,
-    borderWidth: 2,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
+    backgroundColor: paper.bandPrime,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
     ...paperShadows.hard,
   },
   errorPrimaryText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.paper,
+    color: paper.dashboardWhite,
     letterSpacing: 2.4,
   },
   errorSecondary: {
@@ -2552,15 +2558,15 @@ const wizardStyles = StyleSheet.create({
     gap: 4,
     paddingHorizontal: 14,
     paddingVertical: 10,
-    backgroundColor: paper.paper,
-    borderWidth: 1.5,
-    borderColor: paper.ink,
-    borderRadius: paperRadius.chip,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
   },
   errorSecondaryText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 2.2,
   },
 });

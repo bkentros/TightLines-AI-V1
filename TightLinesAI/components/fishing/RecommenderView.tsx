@@ -247,10 +247,10 @@ function PickCard({ pick }: { pick: DailyPicksResponsePick }) {
 
         <WaterColumnDiagram active={pick.column} />
 
-        <Text style={styles.reasonEyebrow}>- WHY THIS</Text>
+        <Text style={styles.reasonEyebrow}>WHY THIS</Text>
         <Text style={styles.reasonBody}>{pick.why_chosen}</Text>
 
-        <Text style={styles.reasonEyebrow}>- HOW TO FISH IT</Text>
+        <Text style={styles.reasonEyebrow}>HOW TO FISH IT</Text>
         <Text style={styles.reasonBody}>{pick.how_to_fish}</Text>
       </View>
     </View>
@@ -261,7 +261,7 @@ function ScenarioSummary({ result }: { result: DailyPicksResponse }) {
   const scenario = result.scenario_summary;
   return (
     <View style={styles.preferenceCard}>
-      <Text style={styles.preferenceHeader}>- TODAY'S READ</Text>
+      <Text style={styles.preferenceHeader}>TODAY'S READ</Text>
       <View style={styles.preferenceChipRow}>
         <View style={styles.preferenceChip}>
           <Text style={styles.preferenceChipLabel}>ACTIVITY</Text>
@@ -423,11 +423,11 @@ export function RecommenderView({
         showsVerticalScrollIndicator={false}
       >
         <View style={styles.hero}>
-          <TopographicLines style={styles.heroTopo} color={paper.walnut} count={7} />
-          <CornerMarkSet color={paper.gold} size={16} thickness={2} inset={10} />
+          <TopographicLines style={styles.heroTopo} color={paper.dashboardBlue} count={7} />
+          <CornerMarkSet color={paper.dashboardBlue} size={16} thickness={2} inset={10} />
 
           <View style={styles.heroHeader}>
-            <SectionEyebrow color={paper.red} dashes size={10.5}>
+            <SectionEyebrow color={paper.dashboardBlue} dashes={false} size={10.5}>
               {`TACKLE BOX · ${contextLabel(result.context)}`}
             </SectionEyebrow>
           </View>
@@ -536,9 +536,9 @@ const styles = StyleSheet.create({
   },
   hero: {
     position: 'relative',
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     padding: paperSpacing.md,
     overflow: 'hidden',
@@ -558,10 +558,10 @@ const styles = StyleSheet.create({
     marginBottom: paperSpacing.md,
   },
   refreshButton: {
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.chip,
-    backgroundColor: paper.gold,
+    backgroundColor: paper.dashboardBlueSky,
     paddingHorizontal: paperSpacing.sm,
     paddingVertical: 7,
     ...paperShadows.hard,
@@ -576,7 +576,7 @@ const styles = StyleSheet.create({
   refreshButtonText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: paper.dashboardInk,
     letterSpacing: 0,
   },
   heroTitleRow: {
@@ -593,14 +593,14 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 45,
     lineHeight: 45,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   heroTitleSecond: {
     flexDirection: 'row',
     alignItems: 'flex-end',
   },
   heroTitleAccent: {
-    color: paper.red,
+    color: paper.dashboardBlue,
   },
   heroLede: {
     marginTop: paperSpacing.sm,
@@ -608,7 +608,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.body,
     fontSize: 14,
     lineHeight: 20,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
   },
   heroPortraitWrap: {
     width: 112,
@@ -617,10 +617,10 @@ const styles = StyleSheet.create({
   heroPortrait: {
     width: 104,
     height: 104,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     overflow: 'hidden',
   },
   heroPortraitImage: {
@@ -629,17 +629,17 @@ const styles = StyleSheet.create({
   },
   heroPortraitPill: {
     marginTop: -10,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: 999,
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
     paddingHorizontal: 8,
     paddingVertical: 3,
   },
   heroPortraitPillText: {
     fontFamily: paperFonts.metaMono,
     fontSize: 9,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
   },
   heroTileRow: {
     marginTop: paperSpacing.md,
@@ -649,55 +649,58 @@ const styles = StyleSheet.create({
   heroTile: {
     flex: 1,
     minWidth: 0,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     padding: paperSpacing.sm,
   },
   heroTileLabel: {
     fontFamily: paperFonts.metaMono,
     fontSize: 9,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
     marginBottom: 4,
   },
   heroTileValue: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 15,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   heroTileSub: {
     marginTop: 3,
     fontFamily: paperFonts.metaMono,
     fontSize: 9,
-    color: paper.red,
+    color: paper.dashboardBlue,
   },
   themeNote: {
     flexDirection: 'row',
     gap: paperSpacing.sm,
     borderLeftWidth: 4,
-    borderLeftColor: paper.gold,
-    backgroundColor: paper.paperLight,
+    borderLeftColor: paper.dashboardBlue,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
     padding: paperSpacing.md,
   },
   themeNoteEyebrow: {
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.red,
+    color: paper.dashboardBlue,
   },
   themeNoteBody: {
     flex: 1,
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
     lineHeight: 20,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   secondOpinionCard: {
     alignItems: 'stretch',
     gap: paperSpacing.md,
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     padding: paperSpacing.md,
     ...paperShadows.hard,
@@ -709,27 +712,27 @@ const styles = StyleSheet.create({
   secondOpinionEyebrow: {
     fontFamily: paperFonts.metaMono,
     fontSize: 9,
-    color: paper.red,
+    color: paper.dashboardBlue,
     marginBottom: 4,
   },
   secondOpinionTitle: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 16,
     lineHeight: 20,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   secondOpinionBody: {
     marginTop: 4,
     fontFamily: paperFonts.body,
     fontSize: 12,
     lineHeight: 17,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
   },
   secondOpinionButton: {
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.chip,
-    backgroundColor: paper.gold,
+    backgroundColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.sm,
     paddingVertical: paperSpacing.sm,
     alignItems: 'center',
@@ -745,13 +748,13 @@ const styles = StyleSheet.create({
   secondOpinionButtonText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.ink,
+    color: '#FFFFFF',
     letterSpacing: 0,
   },
   variantPanel: {
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     padding: paperSpacing.md,
     ...paperShadows.hard,
@@ -759,16 +762,16 @@ const styles = StyleSheet.create({
   variantPanelEyebrow: {
     fontFamily: paperFonts.metaMono,
     fontSize: 9,
-    color: paper.red,
+    color: paper.dashboardBlue,
     marginBottom: paperSpacing.sm,
   },
   variantToggle: {
     flexDirection: 'row',
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.chip,
     overflow: 'hidden',
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
   },
   variantToggleButton: {
     flex: 1,
@@ -778,10 +781,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   variantToggleButtonActive: {
-    backgroundColor: paper.forest,
+    backgroundColor: paper.bandPrime,
   },
   variantToggleButtonPressed: {
-    backgroundColor: paper.paperLight,
+    backgroundColor: paper.dashboardWhite,
   },
   variantToggleButtonDisabled: {
     opacity: 0.65,
@@ -789,22 +792,22 @@ const styles = StyleSheet.create({
   variantToggleText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   variantToggleTextActive: {
-    color: paper.paper,
+    color: paper.dashboardWhite,
   },
   variantPanelBody: {
     marginTop: paperSpacing.sm,
     fontFamily: paperFonts.body,
     fontSize: 12,
     lineHeight: 17,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
   },
   preferenceCard: {
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     padding: paperSpacing.md,
     ...paperShadows.hard,
@@ -812,7 +815,7 @@ const styles = StyleSheet.create({
   preferenceHeader: {
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.red,
+    color: paper.dashboardBlue,
     marginBottom: paperSpacing.sm,
   },
   preferenceChipRow: {
@@ -824,23 +827,23 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     flexBasis: '42%',
     minWidth: 128,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.chip,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     paddingHorizontal: paperSpacing.sm,
     paddingVertical: paperSpacing.sm,
   },
   preferenceChipLabel: {
     fontFamily: paperFonts.metaMono,
     fontSize: 9,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
     marginBottom: 4,
   },
   preferenceChipValue: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 14,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   tagRow: {
     marginTop: paperSpacing.sm,
@@ -850,31 +853,31 @@ const styles = StyleSheet.create({
   },
   tagPill: {
     borderWidth: 1,
-    borderColor: paper.ink,
+    borderColor: paper.dashboardLine,
     borderRadius: 999,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardWhite,
     paddingHorizontal: 9,
     paddingVertical: 4,
   },
   tagText: {
     fontFamily: paperFonts.metaMono,
     fontSize: 9,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   missingInputs: {
     marginTop: paperSpacing.sm,
     fontFamily: paperFonts.body,
     fontSize: 12,
     lineHeight: 17,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
   },
   sectionBlock: {
     gap: paperSpacing.sm,
   },
   sectionDivider: {
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
-    borderColor: paper.ink,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingVertical: paperSpacing.sm,
   },
   sectionTitleRow: {
@@ -886,35 +889,35 @@ const styles = StyleSheet.create({
   sectionTitle: {
     fontFamily: paperFonts.display,
     fontSize: 25,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   sectionCount: {
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.red,
+    color: paper.dashboardBlue,
   },
   sectionMono: {
     marginTop: 2,
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
   },
   cardStack: {
     gap: paperSpacing.md,
   },
   pickCard: {
-    backgroundColor: paper.paperLight,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     overflow: 'hidden',
     ...paperShadows.lift,
   },
   pickImageBand: {
     minHeight: 170,
-    borderBottomWidth: 2,
-    borderBottomColor: paper.ink,
-    backgroundColor: paper.paper,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
     alignItems: 'center',
     justifyContent: 'center',
     padding: paperSpacing.md,
@@ -927,29 +930,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
-    borderColor: paper.inkSoft,
+    borderColor: paper.dashboardMuted,
     borderStyle: 'dashed',
   },
   pickImageEmptyText: {
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
   },
   slotBadge: {
     position: 'absolute',
     left: paperSpacing.sm,
     bottom: paperSpacing.sm,
-    borderWidth: 2,
-    borderColor: paper.ink,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     borderRadius: paperRadius.chip,
-    backgroundColor: paper.gold,
+    backgroundColor: paper.dashboardBlueSky,
     paddingHorizontal: 9,
     paddingVertical: 5,
   },
   slotBadgeText: {
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   pickBody: {
     padding: paperSpacing.md,
@@ -958,21 +961,21 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 24,
     lineHeight: 28,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   pickSubtitle: {
     marginTop: 3,
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
   },
   metaRow: {
     marginTop: paperSpacing.md,
     flexDirection: 'row',
-    borderTopWidth: 2,
-    borderBottomWidth: 2,
-    borderColor: paper.ink,
-    backgroundColor: paper.paper,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
   },
   metaCell: {
     flex: 1,
@@ -982,18 +985,18 @@ const styles = StyleSheet.create({
   },
   metaDivider: {
     width: 2,
-    backgroundColor: paper.ink,
+    backgroundColor: paper.dashboardInk,
   },
   metaLabel: {
     fontFamily: paperFonts.metaMono,
     fontSize: 8,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
     marginBottom: 3,
   },
   metaValue: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   columnDiagram: {
     marginTop: paperSpacing.md,
@@ -1009,39 +1012,39 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 22,
     borderWidth: 1,
-    borderColor: paper.ink,
-    backgroundColor: paper.paper,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
     alignItems: 'center',
     justifyContent: 'center',
   },
   columnBarActive: {
-    backgroundColor: paper.forest,
+    backgroundColor: paper.bandPrime,
   },
   columnDot: {
     width: 6,
     height: 6,
     borderRadius: 3,
-    backgroundColor: paper.gold,
+    backgroundColor: paper.bandFair,
   },
   columnLabel: {
     fontFamily: paperFonts.metaMono,
     fontSize: 7,
-    color: paper.inkSoft,
+    color: paper.dashboardMuted,
   },
   columnLabelActive: {
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
   reasonEyebrow: {
     marginTop: paperSpacing.md,
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
-    color: paper.red,
+    color: paper.dashboardBlue,
   },
   reasonBody: {
     marginTop: 5,
     fontFamily: paperFonts.body,
     fontSize: 14,
     lineHeight: 20,
-    color: paper.ink,
+    color: paper.dashboardInk,
   },
 });

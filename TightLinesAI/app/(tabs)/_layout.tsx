@@ -11,9 +11,11 @@
 
 import { Tabs } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { StyleSheet, Text, View } from 'react-native';
+import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { paper } from '../../lib/theme';
+import { isAdminEmail } from '../../lib/adminAccess';
+import { useAuthStore } from '../../store/authStore';
 
 const MONO_BOLD = 'JetBrainsMono_600SemiBold';
 
@@ -42,25 +44,36 @@ function TabIcon({
 
 function TabLabel({
   label,
+  subtitle,
   color,
   focused,
 }: {
   label: string;
+  subtitle?: string;
   color: string;
   focused: boolean;
 }) {
   return (
-    <Text
-      style={[styles.tabLabel, { color }, focused && styles.tabLabelFocused]}
-    >
-      {label}
-    </Text>
+    <View style={styles.tabLabelWrap}>
+      <Text
+        style={[styles.tabLabel, { color }, focused && styles.tabLabelFocused]}
+      >
+        {label}
+      </Text>
+      {subtitle ? (
+        <Text style={[styles.tabSubtitle, { color }]}>
+          {subtitle}
+        </Text>
+      ) : null}
+    </View>
   );
 }
 
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
   const tabBarHeight = 60 + insets.bottom;
+  const userEmail = useAuthStore((state) => state.user?.email);
+  const canOpenSmartLog = isAdminEmail(userEmail);
 
   return (
     <Tabs
@@ -95,8 +108,18 @@ export default function TabLayout() {
       />
       <Tabs.Screen
         name="log"
+        listeners={{
+          tabPress: (event) => {
+            if (canOpenSmartLog) return;
+            event.preventDefault();
+            Alert.alert(
+              'Smart Log coming soon',
+              'Smart Log is locked while we finish it up.',
+            );
+          },
+        }}
         options={{
-          title: 'Log',
+          title: 'Smart Log',
           tabBarIcon: ({ color, focused }) => (
             <TabIcon
               iconName="book-outline"
@@ -106,7 +129,12 @@ export default function TabLayout() {
             />
           ),
           tabBarLabel: ({ color, focused }) => (
-            <TabLabel label="LOG" color={color} focused={focused} />
+            <TabLabel
+              label="SMART LOG"
+              subtitle={canOpenSmartLog ? undefined : '(COMING SOON)'}
+              color={color}
+              focused={focused}
+            />
           ),
         }}
       />
@@ -143,6 +171,10 @@ const styles = StyleSheet.create({
   tabItem: {
     paddingTop: 2,
   },
+  tabLabelWrap: {
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   tabIconWrap: {
     alignItems: 'center',
     justifyContent: 'center',
@@ -166,5 +198,12 @@ const styles = StyleSheet.create({
   },
   tabLabelFocused: {
     color: paper.dashboardInk,
+  },
+  tabSubtitle: {
+    fontFamily: MONO_BOLD,
+    fontSize: 6.5,
+    letterSpacing: 0.8,
+    marginTop: 1,
+    opacity: 0.72,
   },
 });

@@ -5,7 +5,7 @@
  *
  * Images live in:  assets/images/watertype/
  *   lake.png    — used for freshwater_lake_pond
- *   river.png   — used for freshwater_river
+ *   river_circle.png — used for freshwater_river selector thumbnail
  *
  * Regenerate (field-guide style, same pipeline as species/tackle):
  *   deno run -A scripts/generate-recommender-watertype-images.ts
@@ -15,7 +15,7 @@ import type { EngineContext } from './recommenderContracts';
 
 const WATERTYPE_IMAGES: Partial<Record<EngineContext, ReturnType<typeof require>>> = {
   freshwater_lake_pond: require('../assets/images/watertype/lake.png'),
-  freshwater_river:     require('../assets/images/watertype/river.png'),
+  freshwater_river:     require('../assets/images/watertype/river_circle.png'),
 };
 
 /** Returns the landscape image for a water context, or null if not available. */

@@ -34,17 +34,9 @@ import { useDevTestingStore } from '../../store/devTestingStore';
 import type { FishingMode, UserProfile } from '../../lib/types';
 import { supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
+import { isAdminEmail } from '../../lib/adminAccess';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { usePaperBonePulse } from '../../lib/usePaperBonePulse';
-
-/** Accounts that see owner-only cache tools in Settings (production + dev). */
-const CACHE_OWNER_EMAILS = ['brandonkentros@icloud.com'];
-
-function isCacheOwnerEmail(email: string | undefined | null): boolean {
-  if (!email || typeof email !== 'string') return false;
-  const n = email.trim().toLowerCase();
-  return CACHE_OWNER_EMAILS.some((e) => e.toLowerCase() === n);
-}
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -455,7 +447,7 @@ export default function SettingsScreen() {
             </Pressable>
 
             {/* Owner-only: clear on-device fish caches */}
-            {isCacheOwnerEmail(user?.email) && (
+            {isAdminEmail(user?.email) && (
               <View style={styles.ownerSection}>
                 <Text style={styles.ownerSectionTitle}>DEVELOPER</Text>
                 <Text style={styles.ownerSectionHint}>

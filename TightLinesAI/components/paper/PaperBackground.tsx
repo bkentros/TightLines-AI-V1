@@ -25,6 +25,6 @@ export function PaperBackground({ children, style }: PaperBackgroundProps) {
 const styles = StyleSheet.create({
   root: {
     flex: 1,
-    backgroundColor: paper.paper,
+    backgroundColor: paper.dashboardCream,
   },
 });

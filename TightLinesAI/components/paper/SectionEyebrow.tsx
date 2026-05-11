@@ -4,7 +4,7 @@
  *
  *     <SectionEyebrow>GOOD MORNING, ANGLER</SectionEyebrow>
  *     <SectionEyebrow dashes={false}>RIGHT NOW</SectionEyebrow>
- *     <SectionEyebrow color={paper.ink}>THE WEEK AHEAD</SectionEyebrow>
+ *     <SectionEyebrow color={paper.dashboardInk}>THE WEEK AHEAD</SectionEyebrow>
  */
 
 import { StyleSheet, Text, View, type TextStyle, type ViewStyle } from 'react-native';
@@ -26,7 +26,7 @@ interface SectionEyebrowProps {
 export function SectionEyebrow({
   children,
   dashes = true,
-  color = paper.red,
+  color = paper.dashboardBlue,
   size = 11,
   tracking = 3,
   align = 'center',
