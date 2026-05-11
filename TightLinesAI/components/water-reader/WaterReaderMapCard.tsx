@@ -57,7 +57,6 @@ import { fetchWaterbodyPolygon } from '../../lib/waterReader';
 import { TopographicLines } from '../paper';
 import { useAuthStore } from '../../store/authStore';
 import { WaterReadCartouche } from './WaterReadCartouche';
-import { WaterReadEditionStamp } from './WaterReadEditionStamp';
 import { WaterReadScaleBar } from './WaterReadScaleBar';
 import { WaterReaderLakeSkeleton } from './WaterReaderLakeSkeleton';
 import { WaterReaderProductionMap } from './WaterReaderProductionMap';
@@ -301,9 +300,12 @@ export function WaterReaderMapCard({
                         mapWidthPx={mapContentWidth}
                       />
                     </View>
-                    <View style={styles.editionStampWrap}>
-                      <WaterReadEditionStamp />
-                    </View>
+                    {/* Edition stamp removed in scan-v6 — the in-SVG
+                        top-right wordmark and bottom colophon (both
+                        clipped to the land area) now carry the brand,
+                        and they're guaranteed never to overlap the lake
+                        polygon. The React overlay was redundant and
+                        sometimes drifted onto the lake on wide lakes. */}
                   </Animated.View>
                 )}
               </View>
@@ -631,13 +633,6 @@ const styles = StyleSheet.create({
     bottom: 10,
     left: 12,
   },
-  // FinFindr mark anchored like product chrome, not newspaper marginalia.
-  editionStampWrap: {
-    position: 'absolute',
-    top: 10,
-    left: 10,
-  },
-
   // Meta ribbon under the plate — typographic masthead, not a caption row.
   metaRibbon: {
     marginTop: paperSpacing.sm + 4,

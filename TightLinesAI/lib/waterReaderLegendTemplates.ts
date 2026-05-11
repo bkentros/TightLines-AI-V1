@@ -47,7 +47,7 @@ const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> =
     summer: [
       'Deepest tip and shaded side hold fish through midday. Drag a football jig along the 18–25 ft contour, then bring a topwater across the shallow shelf at first light.',
       'Bait stacks on the wind-blown edge as oxygen pulls in. Drop a drop-shot on the deep crown and clean it up with a deep diver on any short strikes.',
-      'Look for the longest finger reaching into the basin. Slow-roll a magnum spoon or big swimbait off the end, working the bottom third of the water column.',
+      'The longest finger reaching into the basin holds the day school. Vertical jig a magnum spoon off the end and follow with a deep crank when the bite slows.',
     ],
     fall: [
       'Schoolers herd shad onto the top of the point. Burn a lipless across the crown and follow up with a tail-spinner on any blowup off the tip.',
@@ -80,7 +80,7 @@ const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> =
     winter: [
       'Lay-down trees and brush on the steep face hold suspended fish. Pendulum-swing a jig down the break or hover a jerkbait above the limbs.',
       'Steepest face holds the most stable water. Hop a small jig down the rock and pause every two cranks — winter strikes are subtle.',
-      'Look for any pocket or undercut along the deeper edge. Vertical jig a spoon over the spot and let it sit on the bottom for 8–10 seconds between hops.',
+      'Pockets and undercuts along the deeper edge concentrate the bite. Vertical jig a spoon over the spot and let it sit on the bottom for 8–10 seconds between hops.',
     ],
   },
 
@@ -97,7 +97,7 @@ const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> =
     ],
     fall: [
       'Shad pour into the cove and bass follow all the way to the back. Run a squarebill along the wood and a wake bait across the flat at sunrise; keep moving.',
-      'Bait migration concentrates here for weeks. Burn a chatterbait through the throat and rotate to a topwater whenever shad flicker on the surface.',
+      'The cove becomes the seasonal funnel for weeks. Burn a chatterbait through the throat and rotate to a topwater whenever shad flicker on the surface.',
       'Roaming schools work the bank from mouth to back. Cast spinnerbaits along the shoreline and follow up with a fluke on any short strike.',
     ],
     winter: [
@@ -125,8 +125,8 @@ const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> =
     ],
     winter: [
       'A natural depth break holds the deepest fish in the area. Drag a small football jig along the bottom contour through the pinch on warming afternoons.',
-      'Wintering fish suspend in the deeper water just outside the choke. Hover a jerkbait or hair jig and let strikes come on a long pause.',
-      'Deepest flat at the neck stacks lethargic fish. Vertical-jig a blade bait and work it with subtle hops every 10 seconds.',
+      'Suspended bass hover in the deeper water just outside the choke. Hold a jerkbait at their depth and let strikes come on a long pause.',
+      'The deepest flat at the neck stacks lethargic fish. Vertical-jig a blade bait and work it with subtle hops every 10 seconds.',
     ],
   },
 
@@ -148,7 +148,7 @@ const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> =
     ],
     winter: [
       'Steep faces of the island concentrate suspended fish. Hover a jerkbait 4–8 ft down on the bluff side and let pauses do the work.',
-      'Wintering fish hold on the deepest contour around the island. Slow-stroke a hair jig and pause every hop — winter takes are barely there.',
+      'The deepest contour around the perimeter is the wintering address. Slow-stroke a hair jig and pause every hop — winter takes are barely there.',
       'Sun-warmed side holds the bite on the warmest hour of the day. Hop a small football jig along the rock and dead-stick on every flat spot.',
     ],
   },
@@ -171,7 +171,7 @@ const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> =
     ],
     winter: [
       'The deep flat between humps stacks lethargic fish. Slowly drag a finesse worm or shaky head across the deepest point and watch for soft bites.',
-      'Wintering fish suspend off either rise. Vertical-jig a blade or spoon over the deeper saddle and pause for 8–10 seconds between hops.',
+      'Suspended bass hold off either rise. Vertical-jig a blade or spoon over the deeper saddle and pause for 8–10 seconds between hops.',
       'A long, gentle saddle holds the most stable water. Drag a small football jig across the flat and dead-stick on every contour change.',
     ],
   },
@@ -190,11 +190,11 @@ const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> =
     fall: [
       'Shad gather along the rocks and get pinned by feeding fish. Crank a medium-diver tight to the riprap and hop a jig across the rocks for follow-up.',
       'Schoolers slam bait against the wall as fall progresses. Burn a lipless along the seam and switch to a topwater on every surface boil.',
-      'Bait migration funnels shad against the dam face. Cover the entire wall with a swimbait and slow down on any spot that gives up a fish.',
+      'Migrating shad pile up against the dam face. Cover the entire wall with a swimbait and slow down on any spot that gives up a fish.',
     ],
     winter: [
       'Deepest, most stable water in the lake — bass winter on or near the wall. Vertical-jig a spoon or hair jig along the face in 25–40 ft, focusing on pockets.',
-      'Wintering fish suspend off the deepest part of the wall. Hover a jerkbait or slow-stroke a blade and let strikes come on the longest pause you can stand.',
+      'Suspended bass hover off the deepest part of the wall. Hold a jerkbait at their depth or slow-stroke a blade and wait out the longest pause you can stand.',
       'Sun-exposed face warms a few degrees in the afternoon. Drag a small football jig along the rubble at the base and dead-stick on every flat spot.',
     ],
   },
@@ -212,12 +212,12 @@ const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> =
     ],
     fall: [
       'Roaming schools hit confluence zones hardest as bait routes overlap. Burn lipless cranks across the top and look for surface flickers — schoolers love these spots.',
-      'Multiple bait migration paths converge here. Cover water fast with a swimbait or chatterbait and slow down on the spot that gives up the first fish.',
+      'Two or three bait migration paths converge here at once. Cover water fast with a swimbait or chatterbait and slow down on the spot that gives up the first fish.',
       'Schoolers wolfpack the overlap morning and evening. Fan-cast a topwater across the entire zone and reload with a fluke on every short strike.',
     ],
     winter: [
       'Best wintering address on the lake — vertical breaks stacked over a deep flat. Vertical-jig spoons or blade baits, working the spot slowly and thoroughly all day.',
-      'Wintering fish suspend off the deepest shared contour. Hover a hair jig over the meeting point and let strikes come on the dead stick.',
+      'Suspended schools stack over the deepest shared contour. Hover a hair jig over the meeting point and let strikes come on the dead stick.',
       'Most stable water in the area sits right at the convergence. Slow-stroke a football jig across the deepest part and pause every hop for 5–8 seconds.',
     ],
   },
@@ -240,7 +240,7 @@ const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> =
     ],
     winter: [
       'Slow down on the deepest water available, near any rock or wood that holds heat. Drag a finesse worm or jig along the bottom and give every fish-shaped target a long pause.',
-      'Wintering fish hold tight to the deepest contour the pond offers. Hop a small jig and dead-stick on every change in the bottom.',
+      'The deepest contour the pond offers concentrates the bite. Hop a small jig and dead-stick on every change in the bottom.',
       'Sun-warmed afternoons bring a brief midday window. Slow-stroke a hair jig along the deepest available structure and watch for the lightest tick.',
     ],
   },

@@ -28,7 +28,11 @@ export type PaperWarmFeatureKey =
   | 'universal';
 
 export const PAPER_WARM_FEATURE_COLORS: Record<PaperWarmFeatureKey, string> = {
-  main_lake_point: '#FF4FA3',
+  // Pass-6: main_lake_point shifted from pink (#FF4FA3) to forest green
+  // to dial back the pink/purple bias of the palette (was point + island
+  // + confluence all in the magenta family). Green also reads naturally
+  // as "land jutting into water", strengthening the visual metaphor.
+  main_lake_point: '#1FA85C',
   secondary_point: '#B9F24D',
   cove: '#28C8FF',
   neck: '#FFD53D',
@@ -46,7 +50,7 @@ export const PAPER_WARM_FEATURE_COLORS: Record<PaperWarmFeatureKey, string> = {
  * "of the same family" rather than a foreign ink.
  */
 export const PAPER_WARM_FEATURE_MOTIF_COLORS: Record<PaperWarmFeatureKey, string> = {
-  main_lake_point: '#8E1B57',
+  main_lake_point: '#0F5430',
   secondary_point: '#4E7A1A',
   cove: '#0B6FA1',
   neck: '#8C6A0B',

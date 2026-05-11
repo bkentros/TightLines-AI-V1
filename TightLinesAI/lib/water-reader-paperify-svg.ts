@@ -91,7 +91,8 @@ const ENGINE_FEATURE_COLORS: Record<PaperWarmFeatureKey, string> = {
  * generated under any previous palette pass land on the latest hue.
  */
 const PRIOR_PAPER_WARM_VALUES: Record<PaperWarmFeatureKey, string[]> = {
-  main_lake_point: ['#2E4A2A', '#366D33', '#2A6E96'],
+  // '#FF4FA3' = Pass-5 pink, retired in Pass-6 in favor of forest green.
+  main_lake_point: ['#2E4A2A', '#366D33', '#2A6E96', '#FF4FA3'],
   secondary_point: ['#5B7A3E', '#7C9D4F', '#8FB85B', '#7CB8DA'],
   cove: ['#B87818', '#C68522', '#D4922A', '#3DA85F'],
   neck: ['#CC6A22', '#DD7430', '#D4AF37'],
@@ -104,9 +105,10 @@ const PRIOR_PAPER_WARM_VALUES: Record<PaperWarmFeatureKey, string[]> = {
 
 // Marker comment indicating this SVG was already paperified — guards against
 // double-running and against accidentally mutating an SVG that the server-side
-// renderer has already painted in paper colors. Scan-v5 introduces zone
-// patterns + tan land + in-SVG brand, so cached v4 rows are repainted.
-const PAPERIFIED_SENTINEL = '<!-- wr-finfindr-scan-v5 -->';
+// renderer has already painted in paper colors. Scan-v6 retires pink point
+// color, drops corner brackets + bottom-right edition, fixes confluence
+// pattern coverage on apron paths, and pushes callout numbers outward.
+const PAPERIFIED_SENTINEL = '<!-- wr-finfindr-scan-v6 -->';
 
 // Pattern id helper — stable strings keyed off feature class.
 const zonePatternId = (key: PaperWarmFeatureKey) => `wr-zone-pattern-${key}`;
@@ -168,7 +170,7 @@ export function paperifyWaterReaderSvg(
   const beforeCleanup = svg;
   svg = svg
     .replace(/<!-- wr-paperified -->\s*/g, '')
-    .replace(/<!-- wr-finfindr-scan-v[1234] -->\s*/g, '')
+    .replace(/<!-- wr-finfindr-scan-v[12345] -->\s*/g, '')
     .replace(/<rect[^>]*class="wr-scan-surface"[^>]*\/>\s*/g, '')
     .replace(/<rect[^>]*class="wr-scan-grid"[^>]*\/>\s*/g, '')
     .replace(/<g[^>]*class="wr-brand-stamp"[\s\S]*?<\/g>\s*/g, '')
@@ -400,26 +402,23 @@ export function paperifyWaterReaderSvg(
   // Now apply the pattern overlay. We swap the FILL only — the stroke keeps
   // the solid color so each zone has a clean ink outline. The pattern
   // background rect IS the base color, so we don't lose color identity.
+  //
+  // Pass-6 fix: swap is now UNCONDITIONAL on the fill hex (no class scoping).
+  // Apron paths emitted inside `<g class="water-reader-confluence-member
+  // water-reader-point-shoreline-buffer">` wrappers don't carry the
+  // confluence-member class on the inner paths themselves — only on the
+  // wrapper. Class-scoped regexes missed those inner paths and the apron
+  // came out as flat color without the rings pattern. Since each
+  // paper-warm hex is unique to its feature class and only appears on
+  // zone fills (lake, callouts, brand text use ink), an unconditional
+  // global swap is safe and catches everything.
   const before8 = svg;
   for (const key of Object.keys(PAPER_WARM_FEATURE_COLORS) as PaperWarmFeatureKey[]) {
     const baseHex = PAPER_WARM_FEATURE_COLORS[key];
     const patternUrl = `url(#${zonePatternId(key)})`;
-    // Only swap fill on water-reader-entry paths/groups. To stay regex-safe
-    // we restrict to lines that include the `water-reader-entry` token
-    // somewhere in the tag.
-    const re = new RegExp(
-      `(<(?:path|g)[^>]*class="[^"]*water-reader-entry[^"]*"[^>]*?)fill="${baseHex}"`,
-      'gi',
-    );
-    svg = svg.replace(re, `$1fill="${patternUrl}"`);
-    // Also handle confluence-member paths, which carry the confluence
-    // pattern even when emitted inside a confluence <g>.
-    if (key === 'structure_confluence') {
-      const reMember = new RegExp(
-        `(<path[^>]*class="[^"]*water-reader-confluence-member[^"]*"[^>]*?)fill="${baseHex}"`,
-        'gi',
-      );
-      svg = svg.replace(reMember, `$1fill="${patternUrl}"`);
+    const candidates = [baseHex, baseHex.toUpperCase(), baseHex.toLowerCase()];
+    for (const hex of candidates) {
+      svg = svg.split(`fill="${hex}"`).join(`fill="${patternUrl}"`);
     }
   }
   tally(before8, svg);
@@ -471,6 +470,26 @@ export function paperifyWaterReaderSvg(
     );
   }
   tally(before13, svg);
+
+  // 13b) Push callout numbers outward so they sit clear of the lake polygon.
+  //
+  //     The engine places callout rings near the zone they label; on lakes
+  //     where the zone is a peninsula or sits inside a complex shoreline,
+  //     the ring can land on top of the lake or another zone. We do a
+  //     cosmetic-only post-process: for each callout, we project the ring
+  //     OUTWARD along the leader vector (anchor → label) by a constant
+  //     delta, then update the leader endpoint, the ring `<circle>`, and
+  //     the digit `<text>` to match. The result is a longer leader and a
+  //     ring that lives further out toward the land. Clamps keep the new
+  //     ring inside the viewBox.
+  const before13b = svg;
+  const viewBoxMatch1 = svg.match(/viewBox="0\s+0\s+([\d.]+)\s+([\d.]+)"/);
+  if (viewBoxMatch1) {
+    const vbW1 = parseFloat(viewBoxMatch1[1]);
+    const vbH1 = parseFloat(viewBoxMatch1[2]);
+    svg = pushCalloutNumbersOutward(svg, vbW1, vbH1);
+  }
+  tally(before13b, svg);
 
   // 14) FinFindr brand stamp — wordmark in the top-right of the viewBox,
   //     edition stamp in the bottom-right, and a slim colophon strip along
@@ -643,14 +662,11 @@ function buildLandClipPath(outerRingD: string): string {
 /**
  * In-SVG FinFindr brand stamp — clipped to land if a clip is available.
  *
- *   • Top-right wordmark with a small ink underline.
- *   • Bottom-right edition stamp ("EDITION 01 · FINFINDR").
- *   • Slim bottom-edge colophon: "FINFINDR · WATER READ · {LAKE}" in
- *     JetBrains Mono Bold, etched in muted ink.
- *
- * If no land clip is available (the lake path couldn't be parsed for some
- * reason), we still render the brand but unclipped — the brand mark sits
- * in the OUTER margins of the viewBox where lakes don't typically reach.
+ * Pass-6: pruned for clarity. Two marks only — top-right wordmark and
+ * bottom colophon strip. Corner brackets and the bottom-right "SCANNED ·
+ * FINFINDR" stamp were removed because they kept colliding with the
+ * other brand marks and the React-overlay scale bar; the remaining two
+ * are spaced far enough apart that no overlap is possible.
  */
 function buildBrandStamp(
   vbW: number,
@@ -662,43 +678,26 @@ function buildBrandStamp(
 
   // Sizing scales gently with viewBox so brand reads well on tall vs. wide lakes.
   const wordmarkSize = Math.max(10, Math.min(15, vbW * 0.014));
-  const editionSize = Math.max(6.8, Math.min(9, vbW * 0.0085));
+  const subSize = Math.max(6.8, Math.min(9, vbW * 0.0085));
   const colophonSize = Math.max(7.4, Math.min(9.6, vbW * 0.009));
 
-  // Anchors — keep marks inside a 14 px margin from the viewBox edges so
-  // they sit just inboard of the host plate's frame.
+  // Margin keeps marks inboard of the viewBox edges so they sit just
+  // inside the plate's hairline frame.
   const margin = 14;
   const topY = margin + wordmarkSize;
   const wordmarkX = vbW - margin;
-  const editionX = vbW - margin;
-  const editionY = vbH - margin - editionSize - 2;
   const colophonY = vbH - 5;
 
-  // Faint corner brackets, rendered at viewBox corners on the land plane —
-  // a tiny "field-guide" detail that brands the export without a logo.
-  const bracketLen = Math.max(14, vbW * 0.018);
-  const bracketStroke = 'rgba(28,36,25,0.42)';
-  const bracketWidth = 1.1;
-  const corners = `
-    <path d="M ${margin} ${margin + bracketLen} L ${margin} ${margin} L ${margin + bracketLen} ${margin}" fill="none" stroke="${bracketStroke}" stroke-width="${bracketWidth}"/>
-    <path d="M ${vbW - margin - bracketLen} ${margin} L ${vbW - margin} ${margin} L ${vbW - margin} ${margin + bracketLen}" fill="none" stroke="${bracketStroke}" stroke-width="${bracketWidth}"/>
-    <path d="M ${margin} ${vbH - margin - bracketLen} L ${margin} ${vbH - margin} L ${margin + bracketLen} ${vbH - margin}" fill="none" stroke="${bracketStroke}" stroke-width="${bracketWidth}"/>
-    <path d="M ${vbW - margin - bracketLen} ${vbH - margin} L ${vbW - margin} ${vbH - margin} L ${vbW - margin} ${vbH - margin - bracketLen}" fill="none" stroke="${bracketStroke}" stroke-width="${bracketWidth}"/>`;
-
-  // Wordmark top-right (right-anchored).
+  // Wordmark top-right (right-anchored). Two-line: "FinFindr." + subline.
   const wordmark = `
     <text x="${wordmarkX}" y="${topY}" font-family="Fraunces, Inter, -apple-system, sans-serif" font-weight="700" font-size="${wordmarkSize.toFixed(2)}" fill="${BRAND_INK}" text-anchor="end" letter-spacing="0">FinFindr<tspan fill="${paper.dashboardBlue}">.</tspan></text>
-    <text x="${wordmarkX}" y="${topY + editionSize + 2}" font-family="Inter, -apple-system, sans-serif" font-weight="600" font-size="${editionSize.toFixed(2)}" fill="${BRAND_MUTED}" text-anchor="end" letter-spacing="1.6">WATER READ · POLYGON SCAN</text>`;
-
-  // Bottom-right edition stamp.
-  const edition = `
-    <text x="${editionX}" y="${editionY}" font-family="Inter, -apple-system, sans-serif" font-weight="600" font-size="${editionSize.toFixed(2)}" fill="${BRAND_MUTED}" text-anchor="end" letter-spacing="1.4">SCANNED · FINFINDR</text>`;
+    <text x="${wordmarkX}" y="${topY + subSize + 2}" font-family="Inter, -apple-system, sans-serif" font-weight="600" font-size="${subSize.toFixed(2)}" fill="${BRAND_MUTED}" text-anchor="end" letter-spacing="1.6">WATER READ · POLYGON SCAN</text>`;
 
   // Bottom colophon strip — etched, centered, with the lake name.
   const colophon = `
     <text x="${vbW / 2}" y="${colophonY}" font-family="Inter, -apple-system, sans-serif" font-weight="600" font-size="${colophonSize.toFixed(2)}" fill="${BRAND_MUTED}" text-anchor="middle" letter-spacing="2.4">FINFINDR · WATER READ · ${escapeSvgText(lakeName)}</text>`;
 
-  return `<g class="wr-brand-stamp" pointer-events="none"${clipAttr}>${corners}${wordmark}${edition}${colophon}</g>`;
+  return `<g class="wr-brand-stamp" pointer-events="none"${clipAttr}>${wordmark}${colophon}</g>`;
 }
 
 function escapeSvgText(s: string): string {
@@ -707,4 +706,88 @@ function escapeSvgText(s: string): string {
     .replace(/</g, '&lt;')
     .replace(/>/g, '&gt;')
     .replace(/"/g, '&quot;');
+}
+
+/**
+ * How far (in viewBox units) to push each callout ring outward along its
+ * leader vector. Tuned to a value that pulls rings off most peninsulas and
+ * islands without making the leader feel disconnected from its zone.
+ *
+ * The clamp margin keeps rings inside the viewBox so they never land in
+ * the brand-stamp zone or off-canvas.
+ */
+const CALLOUT_PUSH_DELTA_PX = 24;
+const CALLOUT_CLAMP_MARGIN_PX = 28;
+
+/**
+ * Walk every `<g class="water-reader-map-number ... data-label-placement="callout"
+ * ...>` group in the SVG. Inside each group the engine emits:
+ *   • a `<path class="water-reader-label-leader" d="M ax ay L lx ly" .../>`
+ *   • a `<circle cx="lx" cy="ly" r="..." .../>`
+ *   • a `<text x="lx" y="ly+0.15" ...>N</text>`
+ *
+ * We compute a unit vector from anchor (ax,ay) to label (lx,ly) — the
+ * outward direction — multiply by `CALLOUT_PUSH_DELTA_PX`, and shift the
+ * leader endpoint, circle center, and text origin by that delta. Clamps
+ * keep the new ring inside the viewBox margin.
+ *
+ * Pure string manipulation — no SVG parsing dependency. Idempotent under
+ * the paperify sentinel guard (paperify won't re-run on an already-marked
+ * SVG).
+ */
+function pushCalloutNumbersOutward(
+  svg: string,
+  vbW: number,
+  vbH: number,
+): string {
+  const groupRe = /<g\s+class="water-reader-map-number[^"]*"[^>]*data-label-placement="callout"[^>]*>([\s\S]*?)<\/g>/g;
+  return svg.replace(groupRe, (groupTag, _inner) => {
+    const inner = _inner as string;
+    const leaderMatch = inner.match(
+      /<path\s+class="water-reader-label-leader"[^>]*d="M\s+([\d.\-]+)\s+([\d.\-]+)\s+L\s+([\d.\-]+)\s+([\d.\-]+)"/,
+    );
+    if (!leaderMatch) return groupTag;
+    const ax = parseFloat(leaderMatch[1]);
+    const ay = parseFloat(leaderMatch[2]);
+    const lx = parseFloat(leaderMatch[3]);
+    const ly = parseFloat(leaderMatch[4]);
+    const dx = lx - ax;
+    const dy = ly - ay;
+    const len = Math.hypot(dx, dy);
+    if (len < 0.5) return groupTag; // zero-length leader, leave alone
+    const ux = dx / len;
+    const uy = dy / len;
+
+    // Compute new label position, clamped to viewBox - margin so the ring
+    // never lands in the brand stamp area or off-canvas.
+    let nlx = lx + ux * CALLOUT_PUSH_DELTA_PX;
+    let nly = ly + uy * CALLOUT_PUSH_DELTA_PX;
+    nlx = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbW - CALLOUT_CLAMP_MARGIN_PX, nlx));
+    nly = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbH - CALLOUT_CLAMP_MARGIN_PX, nly));
+
+    const f = (n: number) => n.toFixed(2);
+
+    // Update leader d attribute.
+    let nextInner = inner.replace(
+      /(class="water-reader-label-leader"[^>]*d=")[^"]+(")/,
+      `$1M ${f(ax)} ${f(ay)} L ${f(nlx)} ${f(nly)}$2`,
+    );
+
+    // Update circle cx/cy. Engine emits `cx="lx" cy="ly"`; we replace those
+    // with the new label position. Scope to the first <circle> in the group.
+    nextInner = nextInner.replace(
+      /(<circle\s+)cx="[^"]+"\s+cy="[^"]+"/,
+      `$1cx="${f(nlx)}" cy="${f(nly)}"`,
+    );
+
+    // Update digit text x/y. Engine emits y as `ly + 0.15`; preserve the
+    // small baseline offset so the digit stays vertically centered in the
+    // ring after the move.
+    nextInner = nextInner.replace(
+      /(<text\s+)x="[^"]+"\s+y="[^"]+"/,
+      `$1x="${f(nlx)}" y="${f(nly + 0.15)}"`,
+    );
+
+    return groupTag.replace(inner, nextInner);
+  });
 }
