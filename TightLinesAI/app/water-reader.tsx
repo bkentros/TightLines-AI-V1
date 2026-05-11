@@ -23,6 +23,7 @@ import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Image,
+  type ImageStyle,
   KeyboardAvoidingView,
   Modal,
   Platform,
@@ -32,6 +33,7 @@ import {
   Text,
   TextInput,
   View,
+  useWindowDimensions,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
@@ -46,6 +48,8 @@ import { fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
 import { TopographicLines } from '../components/paper';
 import { WaterReaderMapCard } from '../components/water-reader/WaterReaderMapCard';
 import type { WaterReaderMapCardState } from '../components/water-reader/WaterReaderMapCard';
+import { WaterReaderProductionMap } from '../components/water-reader/WaterReaderProductionMap';
+import { seasonDisplayLabel } from '../lib/waterReaderLegendTemplates';
 import type {
   WaterbodySearchResult,
   WaterReaderEngineSupportStatus,
@@ -423,7 +427,7 @@ export default function WaterReaderScreen() {
           <View style={styles.navBrand}>
             <Image
               source={require('../assets/images/finfindr-logo.png')}
-              style={styles.navLogo}
+              style={styles.navLogo as ImageStyle}
               resizeMode="contain"
             />
             <View style={styles.navTitleWrap} pointerEvents="none">
@@ -495,7 +499,7 @@ export default function WaterReaderScreen() {
                 </View>
                 <Image
                   source={require('../assets/images/water-read-hero.png')}
-                  style={styles.heroPines}
+                  style={styles.heroPines as ImageStyle}
                   resizeMode="contain"
                 />
               </View>
@@ -966,15 +970,15 @@ function WaterReadIdlePreview() {
     };
   }, []);
 
-  const mapCardState: WaterReaderMapCardState =
-    previewState.status === 'ready'
-      ? { status: 'ready', read: previewState.read }
-      : previewState.status === 'loading'
-        ? { status: 'reading' }
-        : { status: 'idle' };
+  const windowDims = useWindowDimensions();
 
-  // When the preview errors (auth/subscription/network), fall back to a
-  // minimal CTA card so the screen never reads as broken.
+  // Plate-only sample preview at ~60% of normal width. Renders just the
+  // map plate (FULL/DETAIL toolbar, polygon SVG, brand chip, scale bar,
+  // bottom colophon) and the acres/structures/season meta ribbon — no
+  // cartouche, no lake-name display, no legend, no outer colophon.
+  // Anonymized: the engine generates the actual Pontiac polygon, but we
+  // don't surface the lake's identity on the idle screen.
+
   if (previewState.status === 'error') {
     return (
       <View style={styles.idleErrorCard}>
@@ -998,18 +1002,31 @@ function WaterReadIdlePreview() {
     );
   }
 
-  const lakeName =
-    previewState.status === 'ready' ? previewState.read.name : 'Pontiac Lake';
-  const contextLine =
-    previewState.status === 'ready'
-      ? selectionContextLine(previewState.result)
-      : 'MI · Oakland County';
-  // Stable fake-but-unique lakeId during loading so the polygon prefetch
-  // inside WaterReaderMapCard doesn't get re-keyed every render.
-  const lakeId =
-    previewState.status === 'ready'
-      ? previewState.result.lakeId
-      : 'preview-pontiac-mi';
+  const ready =
+    previewState.status === 'ready' ? previewState : null;
+  const summary = ready?.read.productionSvgResult?.summary;
+  const acres = ready?.read.areaAcres ?? null;
+  const structureCount = ready?.read.displayedEntryCount ?? 0;
+  const seasonInfo = ready
+    ? seasonDisplayLabel(ready.read.season)
+    : null;
+
+  // Compute preview width: 60% of the available content width. Available
+  // content = window width minus the page's horizontal padding (20 each
+  // side) and a small inner gutter so the plate doesn't sit edge-to-edge.
+  const contentWidth = Math.max(240, windowDims.width - 40);
+  const previewWidth = Math.round(contentWidth * 0.6);
+  // SVG aspect ratio from engine summary. Falls back to a near-square if
+  // the read hasn't arrived yet so the placeholder doesn't jump on mount.
+  const aspectRatio =
+    summary && summary.width > 0 && summary.height > 0
+      ? summary.width / summary.height
+      : 1;
+  // Outer card (plate + meta ribbon) is sized by the SVG aspect plus
+  // chrome padding; we just need the plate's pixel dimensions for the
+  // SvgXml renderer so it picks a sharp size.
+  const platePixelWidth = previewWidth - 26; // minus mapCard padding + plateOuter padding
+  const platePixelHeight = Math.round(platePixelWidth / Math.max(0.3, aspectRatio));
 
   return (
     <View style={styles.idleOuter}>
@@ -1017,17 +1034,120 @@ function WaterReadIdlePreview() {
         <Text style={styles.idleEyebrow}>SAMPLE PLATE · PREVIEW</Text>
         <Text style={styles.idleHeadline}>See structure before you cast.</Text>
         <Text style={styles.idleSubline}>
-          Below is a real Water Read for Pontiac Lake (Oakland County, MI).
-          Pick a state and a lake above to scan yours.
+          Pick a state and a lake above. Every Water Read is delivered as a
+          signed FinFindr plate like this one.
         </Text>
       </View>
 
-      <WaterReaderMapCard
-        lakeId={lakeId}
-        lakeName={lakeName}
-        lakeContextLine={contextLine}
-        state={mapCardState}
-      />
+      <View style={styles.idlePreviewCenter}>
+        <View style={[styles.idleMapCard, { width: previewWidth }]}>
+          {/* FULL/DETAIL toolbar (visual placeholders — not interactive). */}
+          <View style={styles.idleViewerToolbar}>
+            <View style={[styles.idleViewerChip, styles.idleViewerChipActive]}>
+              <Ionicons name="scan-outline" size={9} color="#FFFFFF" />
+              <Text
+                style={[
+                  styles.idleViewerChipText,
+                  styles.idleViewerChipTextActive,
+                ]}
+              >
+                FULL
+              </Text>
+            </View>
+            <View style={styles.idleViewerChip}>
+              <Ionicons
+                name="move-outline"
+                size={9}
+                color={paper.dashboardInk}
+              />
+              <Text style={styles.idleViewerChipText}>DETAIL</Text>
+            </View>
+          </View>
+
+          <View style={styles.idlePlateOuter}>
+            <View
+              style={[
+                styles.idlePlateInner,
+                {
+                  width: platePixelWidth,
+                  height: platePixelHeight,
+                },
+              ]}
+            >
+              {ready?.read.productionSvgResult ? (
+                <WaterReaderProductionMap
+                  result={ready.read.productionSvgResult}
+                  lakeName={ready.read.name}
+                  width={platePixelWidth}
+                  height={platePixelHeight}
+                  style={{
+                    width: platePixelWidth,
+                    height: platePixelHeight,
+                  }}
+                />
+              ) : (
+                <View style={styles.idlePlateLoading}>
+                  <ActivityIndicator
+                    size="small"
+                    color={paper.dashboardBlue}
+                  />
+                </View>
+              )}
+
+              {/* FinFindr brand chip — smaller version of WaterReadEditionStamp. */}
+              <View style={styles.idleBrandChip} pointerEvents="none">
+                <Image
+                  source={require('../assets/images/finfindr-logo.png')}
+                  style={styles.idleBrandLogo as ImageStyle}
+                  resizeMode="contain"
+                />
+                <Text style={styles.idleBrandText} numberOfLines={1}>
+                  FinFindr<Text style={styles.idleBrandDot}>.</Text>
+                </Text>
+                <View style={styles.idleBrandDivider} />
+                <Text style={styles.idleBrandEdition} numberOfLines={1}>
+                  WATER READ
+                </Text>
+              </View>
+
+              {/* Scale bar — smaller version of WaterReadScaleBar. */}
+              <View style={styles.idleScaleBar} pointerEvents="none">
+                <View style={styles.idleScaleBarRow}>
+                  <View style={styles.idleScaleTickEnd} />
+                  <View style={styles.idleScaleBarSegment} />
+                  <View style={styles.idleScaleTickMid} />
+                  <View style={styles.idleScaleBarSegment} />
+                  <View style={styles.idleScaleTickEnd} />
+                </View>
+                <Text style={styles.idleScaleLabel}>SAMPLE</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* Meta ribbon — acres · structures · season. */}
+          <View style={styles.idleMetaRibbon}>
+            <View style={styles.idleMetaRule} />
+            <View style={styles.idleMetaRow}>
+              <Text style={styles.idleMetaText} numberOfLines={1}>
+                {typeof acres === 'number' && acres > 0
+                  ? `${Math.round(acres).toLocaleString()} ACRES`
+                  : '— ACRES'}
+              </Text>
+              <Text style={styles.idleMetaDivider}>·</Text>
+              <Text style={styles.idleMetaText} numberOfLines={1}>
+                {structureCount
+                  ? `${structureCount} STRUCTURES`
+                  : '— STRUCTURES'}
+              </Text>
+              <Text style={styles.idleMetaDivider}>·</Text>
+              <Text style={styles.idleMetaText} numberOfLines={1}>
+                {seasonInfo?.label ?? '— SEASON'}
+              </Text>
+            </View>
+            <View style={styles.idleMetaRule} />
+          </View>
+        </View>
+      </View>
 
       <View style={styles.idleCta}>
         <Ionicons
@@ -1042,6 +1162,7 @@ function WaterReadIdlePreview() {
     </View>
   );
 }
+
 
 
 // ─── Support pill ────────────────────────────────────────────────────────────
@@ -1592,6 +1713,188 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     gap: 8,
+  },
+
+  // ── Plate-only sample preview chrome ───────────────────────────────────
+  // Smaller variants of WaterReaderMapCard's plate chrome (mapCard,
+  // viewerToolbar, plateOuter, plateInner, brand chip, scale bar, meta
+  // ribbon). 60% width of the content area. Layout-natural (no transform:
+  // scale) so the surrounding flow stays clean.
+  idlePreviewCenter: {
+    width: '100%',
+    alignItems: 'center',
+  },
+  idleMapCard: {
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 10,
+    padding: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  idleViewerToolbar: {
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    gap: 4,
+    marginBottom: 6,
+  },
+  idleViewerChip: {
+    minHeight: 22,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 3,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 5,
+    backgroundColor: '#FAFAF7',
+  },
+  idleViewerChipActive: {
+    backgroundColor: paper.dashboardInk,
+    borderColor: paper.dashboardInk,
+  },
+  idleViewerChipText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 7.5,
+    letterSpacing: 1,
+    color: paper.dashboardInk,
+    lineHeight: 10,
+  },
+  idleViewerChipTextActive: { color: '#FFFFFF' },
+  idlePlateOuter: {
+    width: '100%',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 6,
+    padding: 2,
+    backgroundColor: '#FAFAF7',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  idlePlateInner: {
+    position: 'relative',
+    overflow: 'hidden',
+    borderRadius: 4,
+    backgroundColor: '#EFE4C8',
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paper.dashboardHair,
+  },
+  idlePlateLoading: {
+    width: '100%',
+    height: '100%',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  // Compact brand chip — top-left corner of preview plate.
+  idleBrandChip: {
+    position: 'absolute',
+    top: 6,
+    left: 6,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 5,
+    paddingVertical: 3,
+    borderRadius: 5,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: 'rgba(28, 36, 25, 0.22)',
+    backgroundColor: 'rgba(255, 255, 255, 0.94)',
+  },
+  idleBrandLogo: {
+    width: 11,
+    height: 13,
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 3,
+  },
+  idleBrandText: {
+    fontFamily: SERIF_BOLD,
+    fontSize: 8.5,
+    fontWeight: '800',
+    color: paper.dashboardInk,
+    lineHeight: 10,
+  },
+  idleBrandDot: { color: paper.dashboardBlue },
+  idleBrandDivider: {
+    width: StyleSheet.hairlineWidth,
+    height: 9,
+    backgroundColor: 'rgba(28, 36, 25, 0.28)',
+    marginHorizontal: 1,
+  },
+  idleBrandEdition: {
+    fontFamily: MONO_BOLD,
+    fontSize: 6.2,
+    letterSpacing: 1.1,
+    color: paper.dashboardMuted,
+    lineHeight: 8,
+  },
+
+  // Compact scale bar — bottom-left corner of preview plate.
+  idleScaleBar: {
+    position: 'absolute',
+    bottom: 12,
+    left: 8,
+    alignItems: 'flex-start',
+    gap: 2,
+  },
+  idleScaleBarRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
+  idleScaleTickEnd: {
+    width: 1,
+    height: 6,
+    backgroundColor: paper.dashboardInk,
+  },
+  idleScaleTickMid: {
+    width: 1,
+    height: 3,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.7,
+  },
+  idleScaleBarSegment: {
+    width: 18,
+    height: 1,
+    backgroundColor: paper.dashboardInk,
+  },
+  idleScaleLabel: {
+    fontFamily: MONO_BOLD,
+    fontSize: 6.2,
+    letterSpacing: 1,
+    color: paper.dashboardInk,
+    lineHeight: 8,
+  },
+
+  // Meta ribbon — acres · structures · season.
+  idleMetaRibbon: {
+    marginTop: 6,
+    gap: 3,
+  },
+  idleMetaRule: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardLine,
+  },
+  idleMetaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexWrap: 'wrap',
+    gap: 5,
+    paddingVertical: 3,
+  },
+  idleMetaText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 7.5,
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
+    lineHeight: 10,
+  },
+  idleMetaDivider: {
+    fontFamily: SANS,
+    fontSize: 8,
+    color: paper.dashboardMuted,
+    lineHeight: 10,
   },
 
   // CTA below — pointer back to the search.
