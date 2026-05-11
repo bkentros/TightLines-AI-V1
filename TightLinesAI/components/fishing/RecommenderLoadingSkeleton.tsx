@@ -1,38 +1,45 @@
 /**
  * RecommenderLoadingSkeleton
  *
- * Paper-language placeholder that mirrors the shape of the final
- * "What to Throw Today" result so the transition feels continuous:
- *   • Hero block with eyebrow / title / targeting + colors tiles
- *   • Theme-note band
- *   • One section header + three medal-ranked tackle cards
+ * Paper-language placeholder that mirrors the shape of the renovated
+ * "Tackle Box" picks page so the loading → ready transition feels
+ * continuous. Matches RecommenderView in every meaningful structural
+ * dimension:
+ *   • Hero card with eyebrow, large title + species portrait, two hero tiles
+ *   • Theme-note band (engine read summary)
+ *   • Scenario summary card with 4 preference chips + condition tag row
+ *   • DAILY PICKS section divider
+ *   • LURE PICKS masthead → TopPick bone (gold ribbon + big image)
+ *                         → HonorableMention bone (compact horizontal)
+ *   • FLY PICKS masthead  → TopPick bone
+ *                         → HonorableMention bone
  *
- * The actual recommender fetch is driven elsewhere; this component is
- * visual-only and does not touch any real data or state.
+ * Visual-only: no data, no state. One pulse value (native driver) drives
+ * every bone via React context — same pattern as HowFishingLoadingSkeleton.
  */
 
 import React, { createContext, useContext } from 'react';
-import { Animated, StyleSheet, Text, View } from 'react-native';
+import { Animated, StyleSheet, View } from 'react-native';
 import {
   paper,
-  paperFonts,
   paperRadius,
   paperShadows,
   paperSpacing,
 } from '../../lib/theme';
 import {
   CornerMarkSet,
-  SectionEyebrow,
   TopographicLines,
 } from '../paper';
 import { usePaperBonePulse } from '../../lib/usePaperBonePulse';
 
 /**
- * Shared pulse value (one Animated.Value, native driver) propagated to
- * every Bone via context — see HowFishingLoadingSkeleton for the same
- * pattern. The 0.32 → 0.72 range keeps the bones substantial while
- * still visibly breathing.
+ * Tackle-box brand gold — mirrors the constants in RecommenderView so
+ * the skeleton's TOP PICK ribbon reads as the same chromatic accent.
  */
+const GOLD_ACCENT = '#C99B2D';
+const GOLD_SOFT = '#FBF1D9';
+const GOLD_INK = '#8A6A1A';
+
 const PulseCtx = createContext<Animated.Value | null>(null);
 
 function Bone({ style }: { style?: object }) {
@@ -40,27 +47,78 @@ function Bone({ style }: { style?: object }) {
   return <Animated.View style={[styles.bone, style, pulse ? { opacity: pulse } : null]} />;
 }
 
-function SkeletonTackleCard({ tier }: { tier: 'gold' | 'silver' | 'bronze' }) {
-  const color =
-    tier === 'gold' ? paper.medalGold : tier === 'silver' ? paper.medalSilver : paper.medalBronze;
-  const rank = tier === 'gold' ? 'I' : tier === 'silver' ? 'II' : 'III';
+// ─── Section masthead bone ─────────────────────────────────────────────
+
+function PicksMastheadSkel() {
   return (
-    <View style={styles.tackleCard}>
-      <View style={styles.tackleImageBand}>
-        <Bone style={styles.tackleImageBone} />
-        <View style={[styles.medal, { backgroundColor: color }]}>
-          <Text style={styles.medalText}>{rank}</Text>
-        </View>
-        <View style={styles.tierBand}>
-          <Bone style={styles.tierBandBone} />
-        </View>
+    <View style={styles.picksMasthead}>
+      <View style={styles.picksMastheadRuleRow}>
+        <View style={styles.picksMastheadCap} />
+        <View style={styles.picksMastheadRule} />
+        <View style={styles.picksMastheadOrnament} />
+      </View>
+      <View style={styles.picksMastheadInner}>
+        <Bone style={styles.picksMastheadTitleBone} />
+        <Bone style={styles.picksMastheadMetaBone} />
+      </View>
+      <View style={[styles.picksMastheadRule, { opacity: 0.45 }]} />
+    </View>
+  );
+}
+
+// ─── Top pick bone (mirrors TopPickCard) ───────────────────────────────
+
+function TopPickSkel() {
+  return (
+    <View style={styles.topPickCard}>
+      {/* Gold ribbon header */}
+      <View style={styles.topPickRibbon}>
+        <View style={styles.topPickRibbonDot} />
+        <View style={styles.topPickRibbonStar} />
+        <Bone style={styles.topPickRibbonBone} />
+        <View style={styles.topPickRibbonOrnament} />
       </View>
 
-      <View style={styles.tackleBody}>
-        <Bone style={styles.titleBone} />
-        <Bone style={styles.subtitleBone} />
+      {/* Corner crosses on the card */}
+      <View style={[styles.topPickCornerCross, styles.topPickCornerCrossTL]}>
+        <View style={styles.topPickCornerCrossH} />
+        <View style={styles.topPickCornerCrossV} />
+      </View>
+      <View style={[styles.topPickCornerCross, styles.topPickCornerCrossTR]}>
+        <View style={styles.topPickCornerCrossH} />
+        <View style={styles.topPickCornerCrossV} />
+      </View>
+      <View style={[styles.topPickCornerCross, styles.topPickCornerCrossBL]}>
+        <View style={styles.topPickCornerCrossH} />
+        <View style={styles.topPickCornerCrossV} />
+      </View>
+      <View style={[styles.topPickCornerCross, styles.topPickCornerCrossBR]}>
+        <View style={styles.topPickCornerCrossH} />
+        <View style={styles.topPickCornerCrossV} />
+      </View>
 
+      <View style={styles.topPickImageBand}>
+        <Bone style={styles.topPickImageBone} />
+      </View>
+
+      <View style={styles.topPickBody}>
+        <View style={styles.topPickTitleRow}>
+          <View style={styles.topPickTitleStack}>
+            <Bone style={styles.topPickTitleBone} />
+            <Bone style={styles.topPickSubtitleBone} />
+          </View>
+          <View style={styles.topPickSeal}>
+            <Bone style={styles.topPickSealBone} />
+          </View>
+        </View>
+
+        {/* Meta row — 3 cells */}
         <View style={styles.metaRow}>
+          <View style={styles.metaCell}>
+            <Bone style={styles.metaLabelBone} />
+            <Bone style={styles.metaValueBone} />
+          </View>
+          <View style={styles.metaDivider} />
           <View style={styles.metaCell}>
             <Bone style={styles.metaLabelBone} />
             <Bone style={styles.metaValueBone} />
@@ -72,88 +130,195 @@ function SkeletonTackleCard({ tier }: { tier: 'gold' | 'silver' | 'bronze' }) {
           </View>
         </View>
 
+        {/* Water column diagram — 4 bars */}
         <View style={styles.columnRow}>
           {[0, 1, 2, 3].map((i) => (
             <Bone key={i} style={styles.columnBar} />
           ))}
         </View>
 
-        <Bone style={styles.howEyebrowBone} />
-        <Bone style={styles.howLineBone} />
-        <Bone style={[styles.howLineBone, { width: '85%' }]} />
-        <Bone style={[styles.howLineBone, { width: '70%' }]} />
+        {/* WHY THIS */}
+        <View style={styles.topPickReasonBlock}>
+          <View style={styles.topPickReasonHead}>
+            <View style={styles.topPickReasonCap} />
+            <Bone style={styles.topPickReasonEyebrowBone} />
+          </View>
+          <Bone style={styles.topPickReasonLineBone} />
+          <Bone style={[styles.topPickReasonLineBone, { width: '88%' }]} />
+          <Bone style={[styles.topPickReasonLineBone, { width: '72%' }]} />
+        </View>
+
+        {/* HOW TO FISH IT */}
+        <View style={styles.topPickReasonBlock}>
+          <View style={styles.topPickReasonHead}>
+            <View style={styles.topPickReasonCap} />
+            <Bone style={styles.topPickReasonEyebrowBone} />
+          </View>
+          <Bone style={styles.topPickReasonLineBone} />
+          <Bone style={[styles.topPickReasonLineBone, { width: '92%' }]} />
+        </View>
+
+        {/* Signoff strip */}
+        <View style={styles.topPickSignoffRow}>
+          <View style={styles.topPickSignoffRule} />
+          <View style={styles.topPickSignoffOrnament} />
+          <Bone style={styles.topPickSignoffBone} />
+        </View>
       </View>
     </View>
   );
 }
 
+// ─── Honorable mention bone (mirrors HonorableMentionCard) ─────────────
+
+function HonorableSkel() {
+  return (
+    <View style={styles.honorableCard}>
+      <View style={styles.honorableEyebrowRow}>
+        <View style={styles.honorableEyebrowDot} />
+        <Bone style={styles.honorableEyebrowBone} />
+      </View>
+
+      <View style={styles.honorableBody}>
+        <View style={styles.honorableImageWrap}>
+          <Bone style={styles.honorableImage} />
+        </View>
+        <View style={styles.honorableContent}>
+          <Bone style={styles.honorableTitleBone} />
+          <Bone style={styles.honorableSubtitleBone} />
+          <View style={styles.honorableMetaRow}>
+            <View style={styles.honorableMetaCell}>
+              <Bone style={styles.honorableMetaLabelBone} />
+              <Bone style={styles.honorableMetaValueBone} />
+            </View>
+            <View style={styles.honorableMetaCell}>
+              <Bone style={styles.honorableMetaLabelBone} />
+              <Bone style={styles.honorableMetaValueBone} />
+            </View>
+            <View style={styles.honorableMetaCell}>
+              <Bone style={styles.honorableMetaLabelBone} />
+              <Bone style={styles.honorableMetaValueBone} />
+            </View>
+          </View>
+        </View>
+      </View>
+
+      <View style={styles.honorableRule} />
+
+      <View style={styles.honorableReasonStack}>
+        <Bone style={styles.honorableReasonEyebrowBone} />
+        <Bone style={styles.honorableReasonLineBone} />
+        <Bone style={[styles.honorableReasonLineBone, { width: '78%' }]} />
+        <Bone
+          style={[styles.honorableReasonEyebrowBone, { marginTop: paperSpacing.sm }]}
+        />
+        <Bone style={styles.honorableReasonLineBone} />
+        <Bone style={[styles.honorableReasonLineBone, { width: '82%' }]} />
+      </View>
+    </View>
+  );
+}
+
+// ─── Main skeleton ─────────────────────────────────────────────────────
+
 export function RecommenderLoadingSkeleton() {
   const pulse = usePaperBonePulse({ from: 0.32, to: 0.72, duration: 1700 });
   return (
     <PulseCtx.Provider value={pulse}>
-    <View style={styles.root}>
-      {/* Hero — mirrors WhatToThrowHero dimensions. */}
-      <View style={styles.hero}>
-        <TopographicLines
-          style={styles.heroTopo}
-          color={paper.dashboardBlue}
-          count={6}
-        />
-        <CornerMarkSet color={paper.bandFair} size={16} thickness={2} inset={10} />
+      <View style={styles.root}>
+        {/* ── HERO ────────────────────────────────────────────────── */}
+        <View style={styles.hero}>
+          <TopographicLines
+            style={styles.heroTopo}
+            color={paper.dashboardBlue}
+            count={7}
+          />
+          <CornerMarkSet color={paper.dashboardBlue} size={16} thickness={2} inset={10} />
 
-        <View style={styles.heroHeader}>
-          <SectionEyebrow color={paper.dashboardBlue} dashes size={10}>
-            TACKLE BOX · LOADING
-          </SectionEyebrow>
-        </View>
-
-        <View style={styles.heroTitleRow}>
-          <View style={styles.heroTitleCol}>
-            <Bone style={styles.heroTitleBone} />
-            <Bone style={[styles.heroTitleBone, styles.heroTitleBoneAccent]} />
+          <View style={styles.heroHeader}>
+            <Bone style={styles.heroEyebrowBone} />
           </View>
-          <View style={styles.heroPortraitWrap}>
-            <Bone style={styles.heroPortrait} />
-            <View style={styles.heroPortraitPill}>
-              <Bone style={styles.heroPortraitPillBone} />
+
+          <View style={styles.heroTitleRow}>
+            <View style={styles.heroTitleCol}>
+              <Bone style={styles.heroTitleBone} />
+              <Bone style={[styles.heroTitleBone, styles.heroTitleBoneAccent]} />
+              <Bone style={styles.heroLedeBone} />
+              <Bone style={[styles.heroLedeBone, { width: '60%' }]} />
+            </View>
+
+            <View style={styles.heroPortraitWrap}>
+              <View style={styles.heroPortrait}>
+                <Bone style={styles.heroPortraitBone} />
+              </View>
+              <View style={styles.heroPortraitPill}>
+                <Bone style={styles.heroPortraitPillBone} />
+              </View>
+            </View>
+          </View>
+
+          <View style={styles.heroTileRow}>
+            <View style={styles.heroTile}>
+              <Bone style={styles.heroTileLabelBone} />
+              <Bone style={styles.heroTileValueBone} />
+              <Bone style={styles.heroTileSubBone} />
+            </View>
+            <View style={styles.heroTile}>
+              <Bone style={styles.heroTileLabelBone} />
+              <Bone style={styles.heroTileValueBone} />
+              <Bone style={styles.heroTileSubBone} />
             </View>
           </View>
         </View>
 
-        <View style={styles.heroTileRow}>
-          <View style={styles.heroTile}>
-            <Bone style={styles.tileLabelBone} />
-            <Bone style={styles.tileValueBone} />
+        {/* ── THEME NOTE BAND ─────────────────────────────────────── */}
+        <View style={styles.themeNote}>
+          <Bone style={styles.themeEyebrowBone} />
+          <Bone style={styles.themeLineBone} />
+          <Bone style={[styles.themeLineBone, { width: '72%' }]} />
+        </View>
+
+        {/* ── SCENARIO SUMMARY CARD ───────────────────────────────── */}
+        <View style={styles.preferenceCard}>
+          <Bone style={styles.preferenceHeaderBone} />
+          <View style={styles.preferenceChipRow}>
+            {[0, 1, 2, 3].map((i) => (
+              <View key={i} style={styles.preferenceChip}>
+                <Bone style={styles.preferenceChipLabelBone} />
+                <Bone style={styles.preferenceChipValueBone} />
+              </View>
+            ))}
           </View>
-          <View style={styles.heroTile}>
-            <Bone style={styles.tileLabelBone} />
-            <View style={styles.tileSwatchRow}>
-              <Bone style={styles.tileSwatch} />
-              <Bone style={styles.tileSwatch} />
-              <Bone style={styles.tileSwatch} />
-            </View>
-            <Bone style={styles.tileValueBone} />
+          <View style={styles.tagRow}>
+            {[60, 80, 50, 70].map((w, i) => (
+              <Bone key={i} style={[styles.tagPillBone, { width: w }]} />
+            ))}
           </View>
         </View>
-      </View>
 
-      {/* Theme note band */}
-      <View style={styles.themeNote}>
-        <Bone style={styles.themeEyebrowBone} />
-        <Bone style={styles.themeLineBone} />
-        <Bone style={[styles.themeLineBone, { width: '72%' }]} />
-      </View>
+        {/* ── DAILY PICKS section divider ─────────────────────────── */}
+        <View style={styles.sectionDivider}>
+          <View style={styles.sectionTitleRow}>
+            <Bone style={styles.sectionTitleBone} />
+            <Bone style={styles.sectionCountBone} />
+          </View>
+          <Bone style={styles.sectionMonoBone} />
+        </View>
 
-      {/* Lures section header */}
-      <View style={styles.sectionHeader}>
-        <Bone style={styles.sectionTitleBone} />
-        <Bone style={styles.sectionCountBone} />
-      </View>
+        {/* ── LURE PICKS section ──────────────────────────────────── */}
+        <View style={styles.gearSection}>
+          <PicksMastheadSkel />
+          <TopPickSkel />
+          <HonorableSkel />
+        </View>
 
-      <SkeletonTackleCard tier="gold" />
-      <SkeletonTackleCard tier="silver" />
-      <SkeletonTackleCard tier="bronze" />
-    </View>
+        {/* ── FLY PICKS section ───────────────────────────────────── */}
+        <View style={styles.gearSection}>
+          <PicksMastheadSkel />
+          <TopPickSkel />
+          <HonorableSkel />
+        </View>
+      </View>
     </PulseCtx.Provider>
   );
 }
@@ -179,119 +344,128 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
-    padding: paperSpacing.lg,
-    gap: paperSpacing.md,
+    padding: paperSpacing.md,
     overflow: 'hidden',
-    ...paperShadows.hard,
+    ...paperShadows.lift,
   },
   heroTopo: {
     position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
-    bottom: 0,
-    opacity: 0.35,
+    top: -16,
+    right: -24,
+    opacity: 0.2,
   },
   heroHeader: {
-    zIndex: 1,
+    marginBottom: paperSpacing.md,
+  },
+  heroEyebrowBone: {
+    height: 11,
+    width: 160,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.32,
   },
   heroTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     gap: paperSpacing.md,
-    zIndex: 1,
   },
   heroTitleCol: {
     flex: 1,
-    gap: 8,
+    minWidth: 0,
+    gap: 6,
   },
   heroTitleBone: {
-    height: 26,
-    width: '90%',
+    height: 42,
+    width: '70%',
     borderRadius: 4,
   },
   heroTitleBoneAccent: {
-    width: '65%',
-    backgroundColor: paper.bandPrime,
+    width: '55%',
+    backgroundColor: paper.dashboardBlue,
     opacity: 0.2,
   },
+  heroLedeBone: {
+    marginTop: paperSpacing.sm,
+    height: 11,
+    width: '90%',
+    opacity: 0.45,
+  },
   heroPortraitWrap: {
+    width: 112,
     alignItems: 'center',
-    gap: 6,
   },
   heroPortrait: {
-    width: 96,
-    height: 96,
-    borderRadius: 48,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    backgroundColor: paper.dashboardBlueSky,
-    opacity: 0.7,
-  },
-  heroPortraitPill: {
-    paddingHorizontal: 10,
-    paddingVertical: 3,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 2,
-    backgroundColor: paper.dashboardWhite,
-  },
-  heroPortraitPillBone: {
-    height: 8,
-    width: 60,
-  },
-  heroTileRow: {
-    flexDirection: 'row',
-    gap: paperSpacing.sm,
-    zIndex: 1,
-  },
-  heroTile: {
-    flex: 1,
-    padding: paperSpacing.sm + 2,
+    width: 104,
+    height: 104,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     backgroundColor: paper.dashboardWhite,
-    gap: 6,
+    overflow: 'hidden',
   },
-  tileLabelBone: {
+  heroPortraitBone: {
+    width: '100%',
+    height: '100%',
+    opacity: 0.45,
+    borderRadius: 0,
+  },
+  heroPortraitPill: {
+    marginTop: -10,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+  },
+  heroPortraitPillBone: {
+    height: 8,
+    width: 70,
+  },
+  heroTileRow: {
+    marginTop: paperSpacing.md,
+    flexDirection: 'row',
+    gap: paperSpacing.sm,
+  },
+  heroTile: {
+    flex: 1,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.dashboardWhite,
+    padding: paperSpacing.sm,
+    gap: 5,
+  },
+  heroTileLabelBone: {
     height: 8,
     width: '40%',
     backgroundColor: paper.dashboardBlue,
     opacity: 0.35,
   },
-  tileValueBone: {
+  heroTileValueBone: {
     height: 14,
-    width: '75%',
+    width: '78%',
   },
-  tileSwatchRow: {
-    flexDirection: 'row',
-    gap: 2,
-  },
-  tileSwatch: {
-    width: 10,
-    height: 18,
-    borderRadius: 1,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    backgroundColor: paper.dashboardBlueSky,
-    opacity: 0.8,
+  heroTileSubBone: {
+    height: 8,
+    width: '50%',
+    opacity: 0.4,
   },
 
-  // ── Theme note ───────────────────────────────────────────────────────
+  // ── Theme note band ──────────────────────────────────────────────────
   themeNote: {
-    padding: paperSpacing.md,
-    paddingLeft: paperSpacing.md + 6,
+    flexDirection: 'column',
+    gap: 6,
+    borderLeftWidth: 4,
+    borderLeftColor: paper.dashboardBlue,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderLeftWidth: 8,
-    borderLeftColor: paper.bandFair,
-    borderRadius: paperRadius.card,
     backgroundColor: paper.dashboardWhite,
-    gap: 6,
+    padding: paperSpacing.md,
   },
   themeEyebrowBone: {
-    height: 8,
+    height: 9,
     width: 60,
     backgroundColor: paper.dashboardBlue,
     opacity: 0.35,
@@ -301,101 +475,282 @@ const styles = StyleSheet.create({
     width: '92%',
   },
 
-  // ── Section header ───────────────────────────────────────────────────
-  sectionHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingBottom: 10,
-    borderBottomWidth: 1.5,
-    borderBottomColor: paper.dashboardLine,
+  // ── Scenario summary card ────────────────────────────────────────────
+  preferenceCard: {
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: paperRadius.card,
+    padding: paperSpacing.md,
+    ...paperShadows.hard,
   },
-  sectionTitleBone: {
-    height: 24,
-    width: 110,
-  },
-  sectionCountBone: {
+  preferenceHeaderBone: {
     height: 10,
-    width: 48,
+    width: 110,
+    marginBottom: paperSpacing.sm,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.35,
+  },
+  preferenceChipRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: paperSpacing.sm,
+  },
+  preferenceChip: {
+    flexGrow: 1,
+    flexBasis: '42%',
+    minWidth: 128,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.dashboardWhite,
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: paperSpacing.sm,
+    gap: 4,
+  },
+  preferenceChipLabelBone: {
+    height: 8,
+    width: '50%',
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.3,
+  },
+  preferenceChipValueBone: {
+    height: 14,
+    width: '75%',
+  },
+  tagRow: {
+    marginTop: paperSpacing.sm,
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 7,
+  },
+  tagPillBone: {
+    height: 18,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardLine,
+    opacity: 0.55,
   },
 
-  // ── Tackle card ──────────────────────────────────────────────────────
-  tackleCard: {
+  // ── DAILY PICKS section divider ─────────────────────────────────────
+  sectionDivider: {
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: paper.dashboardLine,
+    paddingVertical: paperSpacing.sm,
+    gap: 4,
+  },
+  sectionTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+  },
+  sectionTitleBone: {
+    height: 26,
+    width: 130,
+  },
+  sectionCountBone: {
+    height: 11,
+    width: 80,
+    opacity: 0.5,
+  },
+  sectionMonoBone: {
+    height: 9,
+    width: 180,
+    opacity: 0.4,
+    marginTop: 2,
+  },
+
+  // ── Gear section + picks masthead ────────────────────────────────────
+  gearSection: {
+    gap: paperSpacing.md + 2,
+    marginTop: paperSpacing.lg,
+  },
+  picksMasthead: {
+    width: '100%',
+    gap: 4,
+    marginBottom: paperSpacing.xs,
+  },
+  picksMastheadRuleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    width: '100%',
+  },
+  picksMastheadCap: {
+    width: 5,
+    height: 5,
+    borderRadius: 1,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.55,
+  },
+  picksMastheadOrnament: {
+    width: 6,
+    height: 6,
+    transform: [{ rotate: '45deg' }],
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.4,
+  },
+  picksMastheadRule: {
+    height: 1.6,
+    flex: 1,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.55,
+  },
+  picksMastheadInner: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+    justifyContent: 'space-between',
+    paddingVertical: 4,
+    gap: 8,
+    flexWrap: 'wrap',
+  },
+  picksMastheadTitleBone: {
+    height: 14,
+    width: 100,
+  },
+  picksMastheadMetaBone: {
+    height: 11,
+    width: 140,
+    opacity: 0.45,
+  },
+
+  // ── TOP PICK CARD bone ──────────────────────────────────────────────
+  topPickCard: {
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     overflow: 'hidden',
-    ...paperShadows.hard,
-  },
-  tackleImageBand: {
     position: 'relative',
-    height: 135,
-    borderBottomWidth: 1,
-    borderBottomColor: paper.dashboardLine,
-    backgroundColor: paper.dashboardBlueSky,
-    overflow: 'hidden',
+    ...paperShadows.lift,
   },
-  tackleImageBone: {
-    width: '100%',
-    height: '100%',
-    borderRadius: 0,
-    opacity: 0.5,
-  },
-  medal: {
-    position: 'absolute',
-    top: 14,
-    right: 14,
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  medalText: {
-    fontFamily: paperFonts.display,
-    fontSize: 15,
-    color: paper.dashboardInk,
-    fontWeight: '700',
-  },
-  tierBand: {
-    position: 'absolute',
-    bottom: 12,
-    left: 12,
-    paddingHorizontal: 10,
-    paddingVertical: 4,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 2,
-    backgroundColor: paper.dashboardWhite,
-  },
-  tierBandBone: {
-    height: 8,
-    width: 110,
-  },
-  tackleBody: {
-    padding: paperSpacing.md + 2,
-    gap: paperSpacing.xs + 2,
-  },
-  titleBone: {
-    height: 20,
-    width: '80%',
-  },
-  subtitleBone: {
-    height: 12,
-    width: '55%',
-    opacity: 0.45,
-  },
-  metaRow: {
+  topPickRibbon: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginTop: paperSpacing.sm,
-    paddingVertical: paperSpacing.xs + 2,
+    gap: 6,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: 9,
+    backgroundColor: GOLD_SOFT,
+    borderBottomWidth: 1,
+    borderBottomColor: GOLD_ACCENT,
+  },
+  topPickRibbonDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 3.5,
+    backgroundColor: GOLD_ACCENT,
+  },
+  topPickRibbonStar: {
+    width: 11,
+    height: 11,
+    borderRadius: 2,
+    backgroundColor: GOLD_INK,
+    opacity: 0.65,
+  },
+  topPickRibbonBone: {
+    flex: 1,
+    height: 11,
+    backgroundColor: GOLD_INK,
+    opacity: 0.4,
+  },
+  topPickRibbonOrnament: {
+    width: 7,
+    height: 7,
+    transform: [{ rotate: '45deg' }],
+    backgroundColor: GOLD_ACCENT,
+    opacity: 0.55,
+  },
+
+  topPickCornerCross: {
+    position: 'absolute',
+    width: 10,
+    height: 10,
+    zIndex: 3,
+  },
+  topPickCornerCrossTL: { top: 46, left: 8 },
+  topPickCornerCrossTR: { top: 46, right: 8 },
+  topPickCornerCrossBL: { bottom: 8, left: 8 },
+  topPickCornerCrossBR: { bottom: 8, right: 8 },
+  topPickCornerCrossH: {
+    position: 'absolute',
+    top: 4.5,
+    left: 0,
+    width: 10,
+    height: 1,
+    backgroundColor: 'rgba(28, 36, 25, 0.32)',
+  },
+  topPickCornerCrossV: {
+    position: 'absolute',
+    left: 4.5,
+    top: 0,
+    width: 1,
+    height: 10,
+    backgroundColor: 'rgba(28, 36, 25, 0.32)',
+  },
+
+  topPickImageBand: {
+    minHeight: 200,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: paperSpacing.md,
+  },
+  topPickImageBone: {
+    width: '85%',
+    height: 168,
+    borderRadius: paperRadius.chip,
+    opacity: 0.4,
+  },
+
+  topPickBody: {
+    padding: paperSpacing.md + 2,
+    gap: paperSpacing.sm + 2,
+  },
+  topPickTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: paperSpacing.sm,
+  },
+  topPickTitleStack: {
+    flex: 1,
+    minWidth: 0,
+    gap: 6,
+  },
+  topPickTitleBone: {
+    height: 28,
+    width: '85%',
+    borderRadius: 4,
+  },
+  topPickSubtitleBone: {
+    height: 10,
+    width: '60%',
+    opacity: 0.45,
+  },
+  topPickSeal: {
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderRadius: paperRadius.chip,
+    backgroundColor: GOLD_SOFT,
+    borderWidth: 1,
+    borderColor: GOLD_ACCENT,
+  },
+  topPickSealBone: {
+    height: 10,
+    width: 74,
+    backgroundColor: GOLD_INK,
+    opacity: 0.45,
+  },
+
+  metaRow: {
+    flexDirection: 'row',
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: paper.dashboardLine,
+    paddingVertical: paperSpacing.xs + 2,
+    backgroundColor: paper.dashboardWhite,
   },
   metaCell: {
     flex: 1,
@@ -403,39 +758,194 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.sm,
   },
   metaDivider: {
-    width: 1,
+    width: 2,
     alignSelf: 'stretch',
-    backgroundColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.5,
   },
   metaLabelBone: {
     height: 8,
-    width: 48,
+    width: 44,
     backgroundColor: paper.dashboardBlue,
     opacity: 0.3,
   },
   metaValueBone: {
-    height: 14,
-    width: 72,
+    height: 12,
+    width: 64,
   },
+
   columnRow: {
     flexDirection: 'row',
-    gap: 4,
+    gap: 6,
     marginTop: paperSpacing.xs,
   },
   columnBar: {
     flex: 1,
-    height: 20,
+    height: 22,
     borderRadius: 2,
     backgroundColor: paper.dashboardHair,
   },
-  howEyebrowBone: {
-    height: 8,
-    width: 100,
-    marginTop: paperSpacing.sm + 2,
+
+  topPickReasonBlock: {
+    gap: 4,
+  },
+  topPickReasonHead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  topPickReasonCap: {
+    width: 12,
+    height: 2,
+    borderRadius: 1,
+    backgroundColor: GOLD_ACCENT,
+  },
+  topPickReasonEyebrowBone: {
+    height: 10,
+    width: 70,
+    backgroundColor: GOLD_INK,
+    opacity: 0.4,
+  },
+  topPickReasonLineBone: {
+    height: 12,
+    width: '100%',
+    marginTop: 2,
+    opacity: 0.5,
+  },
+
+  topPickSignoffRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    marginTop: paperSpacing.sm,
+    paddingTop: paperSpacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.dashboardHair,
+  },
+  topPickSignoffRule: {
+    height: StyleSheet.hairlineWidth,
+    flex: 1,
+    maxWidth: 32,
+    backgroundColor: GOLD_ACCENT,
+    opacity: 0.45,
+  },
+  topPickSignoffOrnament: {
+    width: 5,
+    height: 5,
+    transform: [{ rotate: '45deg' }],
+    backgroundColor: GOLD_ACCENT,
+    opacity: 0.45,
+  },
+  topPickSignoffBone: {
+    height: 9,
+    width: 130,
+    backgroundColor: GOLD_INK,
+    opacity: 0.35,
+  },
+
+  // ── HONORABLE MENTION CARD bone ─────────────────────────────────────
+  honorableCard: {
+    backgroundColor: '#FAFAF7',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: paperRadius.card,
+    paddingHorizontal: paperSpacing.md,
+    paddingTop: paperSpacing.sm + 2,
+    paddingBottom: paperSpacing.md,
+    overflow: 'hidden',
+  },
+  honorableEyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: paperSpacing.sm,
+  },
+  honorableEyebrowDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: paper.dashboardMuted,
+    opacity: 0.55,
+  },
+  honorableEyebrowBone: {
+    height: 10,
+    width: 200,
+    opacity: 0.5,
+  },
+  honorableBody: {
+    flexDirection: 'row',
+    gap: paperSpacing.md,
+    alignItems: 'flex-start',
+  },
+  honorableImageWrap: {
+    width: 96,
+    height: 96,
+    borderRadius: paperRadius.chip,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+    padding: 6,
+    flexShrink: 0,
+    overflow: 'hidden',
+  },
+  honorableImage: {
+    width: '100%',
+    height: '100%',
+    opacity: 0.45,
+    borderRadius: 0,
+  },
+  honorableContent: {
+    flex: 1,
+    minWidth: 0,
+    gap: 4,
+  },
+  honorableTitleBone: {
+    height: 20,
+    width: '85%',
+    borderRadius: 3,
+  },
+  honorableSubtitleBone: {
+    height: 9,
+    width: '60%',
+    opacity: 0.4,
+    marginBottom: 6,
+  },
+  honorableMetaRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: 10,
+  },
+  honorableMetaCell: {
+    minWidth: 0,
+    gap: 3,
+  },
+  honorableMetaLabelBone: {
+    height: 7,
+    width: 36,
     backgroundColor: paper.dashboardBlue,
     opacity: 0.3,
   },
-  howLineBone: {
+  honorableMetaValueBone: {
+    height: 11,
+    width: 52,
+  },
+  honorableRule: {
+    marginTop: paperSpacing.sm + 2,
+    marginBottom: paperSpacing.sm,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardHair,
+  },
+  honorableReasonStack: {
+    gap: 4,
+  },
+  honorableReasonEyebrowBone: {
+    height: 9,
+    width: 64,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.3,
+  },
+  honorableReasonLineBone: {
     height: 11,
     width: '100%',
     opacity: 0.5,

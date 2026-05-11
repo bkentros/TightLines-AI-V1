@@ -301,6 +301,13 @@ export function WaterReaderLakeSkeleton({
           <View style={styles.legendBoneSeasonBadge} />
         </View>
         <View style={styles.legendMastheadRule} />
+        {/* Masthead meta row — count + italic hint "Notes tuned for the
+            season above" — added in scan-v9 to the live legend. */}
+        <View style={styles.legendMastheadMeta}>
+          <View style={styles.legendBoneCount} />
+          <View style={styles.legendBoneDot} />
+          <View style={styles.legendBoneHint} />
+        </View>
         {Array.from({ length: legendBoneCount }).map((_, idx) => (
           <View
             key={idx}
@@ -326,6 +333,15 @@ export function WaterReaderLakeSkeleton({
             </View>
           </View>
         ))}
+        {/* Colophon footer — rule + pressed date stamp, matches the
+            live legend's bottom row. */}
+        <View style={styles.legendColophon}>
+          <View style={styles.legendColophonRule} />
+          <View style={styles.legendColophonRow}>
+            <View style={styles.legendColophonBoneLeft} />
+            <View style={styles.legendColophonBoneRight} />
+          </View>
+        </View>
       </Animated.View>
     </View>
   );
@@ -529,5 +545,67 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardHair,
     borderRadius: 2,
     opacity: 0.45,
+  },
+
+  // Masthead meta row (count · italic hint) — present in production
+  // since scan-v9 to surface the "Notes tuned for the season above"
+  // disclosure under the masthead rule.
+  legendMastheadMeta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingTop: 6,
+  },
+  legendBoneCount: {
+    height: 10,
+    width: 90,
+    backgroundColor: paper.dashboardHair,
+    borderRadius: 2,
+    opacity: 0.65,
+  },
+  legendBoneDot: {
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+    backgroundColor: paper.dashboardMuted,
+    opacity: 0.5,
+  },
+  legendBoneHint: {
+    flex: 1,
+    height: 10,
+    backgroundColor: paper.dashboardHair,
+    borderRadius: 2,
+    opacity: 0.4,
+  },
+
+  // Colophon footer bones — pressed date stamp at the bottom of the
+  // live legend; reserved here so the skeleton's height matches.
+  legendColophon: {
+    marginTop: paperSpacing.sm,
+  },
+  legendColophonRule: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardLine,
+    marginBottom: 6,
+  },
+  legendColophonRow: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+  },
+  legendColophonBoneLeft: {
+    height: 9,
+    width: 110,
+    backgroundColor: paper.dashboardHair,
+    borderRadius: 2,
+    opacity: 0.5,
+  },
+  legendColophonBoneRight: {
+    height: 9,
+    width: 90,
+    backgroundColor: paper.dashboardHair,
+    borderRadius: 2,
+    opacity: 0.5,
   },
 });
