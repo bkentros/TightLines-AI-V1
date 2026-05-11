@@ -213,7 +213,11 @@ function SectionMasthead({
 }) {
   return (
     <View style={styles.sectionMasthead}>
-      <View style={[styles.sectionMastheadRule, { backgroundColor: color }]} />
+      <View style={styles.sectionMastheadRuleRow}>
+        <View style={[styles.sectionMastheadCap, { backgroundColor: color }]} />
+        <View style={[styles.sectionMastheadRule, { backgroundColor: color }]} />
+        <Text style={[styles.sectionMastheadOrnament, { color }]}>◆</Text>
+      </View>
       <View style={styles.sectionMastheadInner}>
         <Text style={[styles.sectionMastheadTitle, { color }]} numberOfLines={1}>
           {title}
@@ -297,6 +301,26 @@ export function RebuildReportView({
           count={4}
         />
 
+        {/* Corner crosses — instrument marginalia matching the dashboard's
+            Live Conditions card. Just outside the rounded interior so they
+            read as field-guide reference marks, not UI ornaments. */}
+        <View style={[styles.heroCornerCross, styles.heroCornerCrossTL]}>
+          <View style={styles.heroCornerCrossH} />
+          <View style={styles.heroCornerCrossV} />
+        </View>
+        <View style={[styles.heroCornerCross, styles.heroCornerCrossTR]}>
+          <View style={styles.heroCornerCrossH} />
+          <View style={styles.heroCornerCrossV} />
+        </View>
+        <View style={[styles.heroCornerCross, styles.heroCornerCrossBL]}>
+          <View style={styles.heroCornerCrossH} />
+          <View style={styles.heroCornerCrossV} />
+        </View>
+        <View style={[styles.heroCornerCross, styles.heroCornerCrossBR]}>
+          <View style={styles.heroCornerCrossH} />
+          <View style={styles.heroCornerCrossV} />
+        </View>
+
         <View style={styles.heroEyebrow}>
           <SectionEyebrow color={paper.dashboardBlue} size={9} tracking={2}>
             {headline.secondary ?? dateLabel.toUpperCase()}
@@ -315,9 +339,21 @@ export function RebuildReportView({
           band={report.band}
         />
 
-        <Text style={[styles.heroOutlookLine, { color: paper.dashboardInk }]}>
-          {outlookLine}
-        </Text>
+        {/* Verdict line flanked by hairline rules + diamond ornaments —
+            reads like a printed editor's verdict between the gauge and
+            the summary copy. Color-matched to the band accent. */}
+        <View style={styles.heroOutlookRow}>
+          <View style={[styles.heroOutlookFlank, { backgroundColor: `${accent}55` }]} />
+          <Text style={[styles.heroOutlookDiamond, { color: accent }]}>◆</Text>
+          <Text
+            style={[styles.heroOutlookLine, { color: paper.dashboardInk }]}
+            numberOfLines={2}
+          >
+            {outlookLine}
+          </Text>
+          <Text style={[styles.heroOutlookDiamond, { color: accent }]}>◆</Text>
+          <View style={[styles.heroOutlookFlank, { backgroundColor: `${accent}55` }]} />
+        </View>
 
         <View style={styles.heroSummaryWrap}>
           <View style={[styles.heroSummaryRule, { backgroundColor: accent }]} />
@@ -489,20 +525,105 @@ export function RebuildReportView({
           </View>
           <View style={styles.guideBody}>
             <Text style={styles.guideText}>{report.actionable_tip}</Text>
-            <Text style={styles.guideSignoff}>FINFINDR CONDITIONS</Text>
+            <View style={styles.guideSignoffRow}>
+              <View style={styles.guideSignoffRule} />
+              <Text style={styles.guideSignoffOrnament}>◆</Text>
+              <Text style={styles.guideSignoff}>FINFINDR CONDITIONS</Text>
+            </View>
           </View>
         </View>
       </View>
 
       <View style={styles.footerRow}>
-        <Ionicons name="analytics-outline" size={12} color={paper.dashboardMuted} />
-        <Text style={styles.footerText}>TODAY'S BITE - CONDITIONS READ</Text>
+        <FooterLivePulse color={accent} />
+        <Text style={styles.footerText}>TODAY'S BITE</Text>
+        <View style={styles.footerSep} />
+        <Ionicons name="analytics-outline" size={11} color={paper.dashboardMuted} />
+        <Text style={styles.footerText}>CONDITIONS READ</Text>
+        <View style={styles.footerSep} />
+        <Text style={[styles.footerText, { color: accent, opacity: 0.85 }]}>
+          FINFINDR
+        </Text>
       </View>
     </View>
   );
 }
 
-// ─── LinearScoreGauge ────────────────────────────────────────────────────────
+/**
+ * Tiny pulsing dot for the page footer — mirrors the home dashboard's
+ * "LIVE" indicator at a smaller scale. The pulse runs on the native
+ * driver so it doesn't pay any JS-thread cost per frame.
+ */
+function FooterLivePulse({ color }: { color: string }) {
+  const pulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 0.3,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+  return (
+    <View style={styles.footerPulseWrap}>
+      <View style={[styles.footerPulseRing, { borderColor: color }]} />
+      <Animated.View
+        style={[styles.footerPulseDot, { backgroundColor: color, opacity: pulse }]}
+      />
+    </View>
+  );
+}
+
+// ─── LinearScoreGauge — precision instrument panel ─────────────────────────
+//
+// The hero score gauge is the page's signature moment — the surface a user
+// stares at when they first open Today's Bite. It's built like a hand-
+// pressed instrument: a row of 21 colored tick marks (one per 0.5 score),
+// a glowing needle that lands on the user's score with a slight bounce,
+// a pulsing live dot in the header, a band pill that stamps in, and a
+// dual-shimmer sweep that polishes the panel. Five tier dots under the
+// gauge give a glance-readable summary (4/5 etc.). Corner crosses at the
+// plate corners mirror the home dashboard's live-conditions card so the
+// gauge feels native.
+//
+// All motion uses the native driver where possible. The tick "reveal" is
+// done with a single clipped overlay (one Animated.View on the JS thread)
+// rather than 21 per-tick animations, keeping per-frame work tiny.
+
+// 21 ticks across the 0–10 range, every 0.5 unit. Heights vary so every
+// "whole number" tick is taller (major), and the band-boundary ticks are
+// even taller for legibility.
+const GAUGE_TICK_COUNT = 21;
+const GAUGE_TICK_VALUES = Array.from({ length: GAUGE_TICK_COUNT }, (_, i) => i * 0.5);
+
+function tickBandColor(value: number): string {
+  if (value >= 8.0) return paper.bandPrime;
+  if (value >= 6.5) return paper.bandGood;
+  if (value >= 5.0) return paper.bandFair;
+  if (value >= 3.5) return paper.bandPoor;
+  return paper.bandTough;
+}
+
+function tickHeight(value: number): number {
+  // Band boundaries (3.5 / 5.0 / 6.5 / 8.0) and the extremes (0/5/10) are
+  // tallest; whole numbers are mid; half-points are short.
+  if (value === 0 || value === 5 || value === 10) return 22;
+  if (value === 3.5 || value === 6.5 || value === 8.0) return 20;
+  if (Math.floor(value) === value) return 18; // whole numbers
+  return 12; // half points
+}
 
 function LinearScoreGauge({
   score,
@@ -520,16 +641,27 @@ function LinearScoreGauge({
   const clamped = Math.max(0, Math.min(10, Number.isFinite(score) ? score : 0));
   const pct = clamped / 10;
   const bandLabel = (band ?? '').toUpperCase() || fallbackBandFromTier(tier);
+  const tierIndex = bandTierIndex(bandLabel);
 
   const progress = useRef(new Animated.Value(0)).current;
   const bandOpacity = useRef(new Animated.Value(0)).current;
+  const bandScale = useRef(new Animated.Value(0.7)).current;
   const shimmerX = useRef(new Animated.Value(0)).current;
+  const shimmerSlowX = useRef(new Animated.Value(0)).current;
+  const pulse = useRef(new Animated.Value(1)).current;
+  const scanY = useRef(new Animated.Value(0)).current;
+  const haloPulse = useRef(new Animated.Value(0.85)).current;
   const [displayScore, setDisplayScore] = useState('0.0');
   const [panelWidth, setPanelWidth] = useState(0);
+  const [panelHeight, setPanelHeight] = useState(0);
+  const [tickRowWidth, setTickRowWidth] = useState(0);
 
+  // Entrance: progress + band pill stamp-in
   useEffect(() => {
     progress.setValue(0);
     bandOpacity.setValue(0);
+    bandScale.setValue(0.7);
+    haloPulse.setValue(0.85);
     setDisplayScore('0.0');
 
     const listenerId = progress.addListener(({ value }) => {
@@ -539,17 +671,27 @@ function LinearScoreGauge({
     Animated.parallel([
       Animated.timing(progress, {
         toValue: pct,
-        duration: 750,
+        duration: 900,
         easing: Easing.out(Easing.cubic),
         useNativeDriver: false,
       }),
-      Animated.timing(bandOpacity, {
-        toValue: 1,
-        duration: 260,
-        delay: 520,
-        easing: Easing.out(Easing.quad),
-        useNativeDriver: true,
-      }),
+      Animated.sequence([
+        Animated.delay(560),
+        Animated.parallel([
+          Animated.timing(bandOpacity, {
+            toValue: 1,
+            duration: 260,
+            easing: Easing.out(Easing.quad),
+            useNativeDriver: true,
+          }),
+          Animated.spring(bandScale, {
+            toValue: 1,
+            friction: 5,
+            tension: 110,
+            useNativeDriver: true,
+          }),
+        ]),
+      ]),
     ]).start(() => {
       setDisplayScore(clamped.toFixed(1));
     });
@@ -557,27 +699,111 @@ function LinearScoreGauge({
     return () => {
       progress.removeListener(listenerId);
     };
-  }, [pct, clamped, progress, bandOpacity]);
+  }, [pct, clamped, progress, bandOpacity, bandScale, haloPulse]);
 
+  // Live-pulse on the header dot (breathes 1 → 0.4 → 1).
   useEffect(() => {
-    if (panelWidth === 0) return;
-    shimmerX.setValue(0);
     const loop = Animated.loop(
       Animated.sequence([
-        Animated.timing(shimmerX, {
-          toValue: 1,
-          duration: 3000,
+        Animated.timing(pulse, {
+          toValue: 0.35,
+          duration: 850,
           easing: Easing.inOut(Easing.ease),
           useNativeDriver: true,
         }),
-        Animated.delay(800),
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 850,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
       ]),
     );
     loop.start();
     return () => loop.stop();
-  }, [panelWidth, shimmerX]);
+  }, [pulse]);
+
+  // Slow halo breathe under the score number.
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(haloPulse, {
+          toValue: 1,
+          duration: 1800,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.timing(haloPulse, {
+          toValue: 0.72,
+          duration: 1800,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [haloPulse]);
+
+  // Dual shimmer — a fast narrow sweep + a slow wide sweep behind it.
+  useEffect(() => {
+    if (panelWidth === 0) return;
+    shimmerX.setValue(0);
+    shimmerSlowX.setValue(0);
+    const fast = Animated.loop(
+      Animated.sequence([
+        Animated.timing(shimmerX, {
+          toValue: 1,
+          duration: 2400,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.delay(900),
+      ]),
+    );
+    const slow = Animated.loop(
+      Animated.sequence([
+        Animated.delay(400),
+        Animated.timing(shimmerSlowX, {
+          toValue: 1,
+          duration: 4200,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.delay(700),
+      ]),
+    );
+    fast.start();
+    slow.start();
+    return () => {
+      fast.stop();
+      slow.stop();
+    };
+  }, [panelWidth, shimmerX, shimmerSlowX]);
+
+  // Scan-line down the panel — mirrors home dashboard's liveCard motion.
+  useEffect(() => {
+    if (panelHeight === 0) return;
+    scanY.setValue(0);
+    const loop = Animated.loop(
+      Animated.timing(scanY, {
+        toValue: 1,
+        duration: 6800,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [panelHeight, scanY]);
 
   const leftInterp = progress.interpolate({
+    inputRange: [0, 1],
+    outputRange: ['0%', '100%'],
+  });
+
+  // For the tick-reveal: width of the lit overlay scales with progress.
+  const litWidth = progress.interpolate({
     inputRange: [0, 1],
     outputRange: ['0%', '100%'],
   });
@@ -586,19 +812,41 @@ function LinearScoreGauge({
     <View style={gaugeStyles.wrap}>
       <View
         style={[gaugeStyles.panel, { borderColor: `${accent}55` }]}
-        onLayout={(e) => setPanelWidth(e.nativeEvent.layout.width)}
+        onLayout={(e) => {
+          setPanelWidth(e.nativeEvent.layout.width);
+          setPanelHeight(e.nativeEvent.layout.height);
+        }}
       >
-        {panelWidth > 0 && (
+        {/* Corner crosses — instrument-panel marginalia, matches dashboard. */}
+        <View style={[gaugeStyles.cornerCross, gaugeStyles.cornerCrossTL]}>
+          <View style={gaugeStyles.cornerCrossH} />
+          <View style={gaugeStyles.cornerCrossV} />
+        </View>
+        <View style={[gaugeStyles.cornerCross, gaugeStyles.cornerCrossTR]}>
+          <View style={gaugeStyles.cornerCrossH} />
+          <View style={gaugeStyles.cornerCrossV} />
+        </View>
+        <View style={[gaugeStyles.cornerCross, gaugeStyles.cornerCrossBL]}>
+          <View style={gaugeStyles.cornerCrossH} />
+          <View style={gaugeStyles.cornerCrossV} />
+        </View>
+        <View style={[gaugeStyles.cornerCross, gaugeStyles.cornerCrossBR]}>
+          <View style={gaugeStyles.cornerCrossH} />
+          <View style={gaugeStyles.cornerCrossV} />
+        </View>
+
+        {/* Slow vertical scan line — barely perceivable, alive. */}
+        {panelHeight > 0 && (
           <Animated.View
             pointerEvents="none"
             style={[
-              gaugeStyles.panelShimmer,
+              gaugeStyles.scanLine,
               {
                 transform: [
                   {
-                    translateX: shimmerX.interpolate({
+                    translateY: scanY.interpolate({
                       inputRange: [0, 1],
-                      outputRange: [-panelWidth, panelWidth * 1.5],
+                      outputRange: [-40, panelHeight + 40],
                     }),
                   },
                 ],
@@ -606,12 +854,71 @@ function LinearScoreGauge({
             ]}
           />
         )}
+
+        {/* Dual shimmer sweeps — wide slow base + narrow fast highlight. */}
+        {panelWidth > 0 && (
+          <>
+            <Animated.View
+              pointerEvents="none"
+              style={[
+                gaugeStyles.panelShimmerSlow,
+                {
+                  transform: [
+                    {
+                      translateX: shimmerSlowX.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-panelWidth * 0.6, panelWidth * 1.4],
+                      }),
+                    },
+                    { skewX: '-22deg' },
+                  ],
+                },
+              ]}
+            />
+            <Animated.View
+              pointerEvents="none"
+              style={[
+                gaugeStyles.panelShimmer,
+                {
+                  transform: [
+                    {
+                      translateX: shimmerX.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-panelWidth, panelWidth * 1.5],
+                      }),
+                    },
+                    { skewX: '-18deg' },
+                  ],
+                },
+              ]}
+            />
+          </>
+        )}
+
+        {/* Header — live dot + eyebrow + band pill stamp. */}
         <View style={gaugeStyles.panelHeader}>
-          <Text style={gaugeStyles.panelLabel}>CONDITION SCORE</Text>
+          <View style={gaugeStyles.panelHeaderLeft}>
+            <View style={gaugeStyles.liveDotWrap}>
+              <View style={[gaugeStyles.liveDotRing, { borderColor: accent }]} />
+              <Animated.View
+                style={[
+                  gaugeStyles.liveDot,
+                  { backgroundColor: accent, opacity: pulse },
+                ]}
+              />
+            </View>
+            <Text style={gaugeStyles.panelLabel}>CONDITION SCORE</Text>
+            <View style={gaugeStyles.panelLabelSep} />
+            <Text style={gaugeStyles.panelLabelDim}>LIVE READ</Text>
+          </View>
           <Animated.View
             style={[
               gaugeStyles.bandPill,
-              { backgroundColor: accent, opacity: bandOpacity },
+              {
+                backgroundColor: accent,
+                opacity: bandOpacity,
+                transform: [{ scale: bandScale }],
+              },
             ]}
           >
             <Text style={[gaugeStyles.bandPillText, { color: accentText }]}>
@@ -620,46 +927,145 @@ function LinearScoreGauge({
           </Animated.View>
         </View>
 
+        <View style={[gaugeStyles.headerRule, { backgroundColor: `${accent}33` }]} />
+
+        {/* Score crest — large number with breathing halo + flanking ornaments. */}
         <View style={gaugeStyles.scoreRow}>
-          <View style={[gaugeStyles.scoreHalo, { backgroundColor: accent }]} />
-          <Text
-            style={[gaugeStyles.scoreNum, { color: paper.dashboardInk }]}
-            allowFontScaling={false}
-          >
-            {displayScore}
-          </Text>
-          <Text style={gaugeStyles.scoreMax}>/10</Text>
+          <Animated.View
+            style={[
+              gaugeStyles.scoreHalo,
+              { backgroundColor: accent, opacity: haloPulse.interpolate({ inputRange: [0.72, 1], outputRange: [0.07, 0.16] }) },
+            ]}
+          />
+          <View style={gaugeStyles.scoreOrnamentLeft}>
+            <View style={[gaugeStyles.ornamentRule, { backgroundColor: `${accent}55` }]} />
+            <Text style={[gaugeStyles.ornamentGlyph, { color: accent }]}>◆</Text>
+          </View>
+          <View style={gaugeStyles.scoreNumberStack}>
+            <View style={gaugeStyles.scoreNumberRow}>
+              <Text
+                style={[gaugeStyles.scoreNum, { color: paper.dashboardInk }]}
+                allowFontScaling={false}
+              >
+                {displayScore}
+              </Text>
+              <Text style={gaugeStyles.scoreMax}>/10</Text>
+            </View>
+          </View>
+          <View style={gaugeStyles.scoreOrnamentRight}>
+            <Text style={[gaugeStyles.ornamentGlyph, { color: accent }]}>◆</Text>
+            <View style={[gaugeStyles.ornamentRule, { backgroundColor: `${accent}55` }]} />
+          </View>
         </View>
 
-        <View style={gaugeStyles.trackRow}>
-          <View style={gaugeStyles.track}>
-            <View style={[gaugeStyles.stop, { flex: 3.5, backgroundColor: paper.bandTough }]} />
-            <View style={[gaugeStyles.stop, { flex: 1.5, backgroundColor: paper.bandPoor }]} />
-            <View style={[gaugeStyles.stop, { flex: 1.5, backgroundColor: paper.bandFair }]} />
-            <View style={[gaugeStyles.stop, { flex: 1.5, backgroundColor: paper.bandGood }]} />
-            <View style={[gaugeStyles.stop, { flex: 2, backgroundColor: paper.bandPrime }]} />
+        {/* Tick gauge — 21 ticks across, lit overlay revealed L→R as score
+            animates. Each tick colored by its band; muted base layer is
+            always rendered, full-color lit layer is clipped by progress. */}
+        <View
+          style={gaugeStyles.tickGauge}
+          onLayout={(e) => setTickRowWidth(e.nativeEvent.layout.width)}
+        >
+          {/* Muted base layer (always full width). */}
+          <View style={gaugeStyles.tickRow}>
+            {GAUGE_TICK_VALUES.map((v) => (
+              <View
+                key={`base-${v}`}
+                style={[
+                  gaugeStyles.tick,
+                  {
+                    height: tickHeight(v),
+                    backgroundColor: tickBandColor(v),
+                    opacity: 0.18,
+                  },
+                ]}
+              />
+            ))}
           </View>
 
+          {/* Lit overlay — clipped to progress width. */}
+          <Animated.View
+            style={[
+              gaugeStyles.tickLitClip,
+              { width: litWidth },
+            ]}
+          >
+            <View
+              style={[
+                gaugeStyles.tickRow,
+                tickRowWidth > 0 && { width: tickRowWidth },
+              ]}
+            >
+              {GAUGE_TICK_VALUES.map((v) => (
+                <View
+                  key={`lit-${v}`}
+                  style={[
+                    gaugeStyles.tick,
+                    {
+                      height: tickHeight(v),
+                      backgroundColor: tickBandColor(v),
+                    },
+                  ]}
+                />
+              ))}
+            </View>
+          </Animated.View>
+
+          {/* Needle — travels above the ticks to mark the exact score. */}
           <Animated.View
             pointerEvents="none"
             style={[
-              gaugeStyles.markerStem,
-              { left: leftInterp, backgroundColor: accent },
+              gaugeStyles.needleWrap,
+              { left: leftInterp },
             ]}
-          />
-
-          <Animated.View
-            pointerEvents="none"
-            style={[gaugeStyles.markerPinWrap, { left: leftInterp }]}
           >
-            <View style={[gaugeStyles.markerPin, { backgroundColor: accent }]} />
+            <View style={[gaugeStyles.needleGlow, { backgroundColor: accent }]} />
+            <View style={[gaugeStyles.needleStem, { backgroundColor: accent }]} />
+            <View style={[gaugeStyles.needleTip, { backgroundColor: accent, borderColor: paper.dashboardInk }]} />
           </Animated.View>
         </View>
 
+        {/* Scale labels — five anchor points across the gauge. */}
         <View style={gaugeStyles.scaleRow}>
           <Text style={gaugeStyles.scaleTick}>0</Text>
+          <Text style={gaugeStyles.scaleTick}>2.5</Text>
           <Text style={gaugeStyles.scaleTick}>5</Text>
+          <Text style={gaugeStyles.scaleTick}>7.5</Text>
           <Text style={gaugeStyles.scaleTick}>10</Text>
+        </View>
+
+        {/* Tier dots — five-band summary for at-a-glance read. */}
+        <View style={gaugeStyles.tierDotsRow}>
+          {([
+            paper.bandTough,
+            paper.bandPoor,
+            paper.bandFair,
+            paper.bandGood,
+            paper.bandPrime,
+          ] as const).map((c, i) => {
+            const active = i === tierIndex;
+            return (
+              <View
+                key={`tier-${i}`}
+                style={[
+                  gaugeStyles.tierDot,
+                  {
+                    backgroundColor: active ? c : 'transparent',
+                    borderColor: active ? c : `${c}55`,
+                  },
+                  active && gaugeStyles.tierDotActive,
+                ]}
+              />
+            );
+          })}
+          <View style={gaugeStyles.tierDotsLabelWrap}>
+            <Text style={gaugeStyles.tierDotsLabel}>
+              TIER {tierIndex + 1} / 5
+            </Text>
+            <View style={[gaugeStyles.tierDotsAccent, { backgroundColor: accent }]} />
+            <Text style={[gaugeStyles.tierDotsBand, { color: accent }]}>
+              {bandLabel}
+            </Text>
+          </View>
         </View>
       </View>
     </View>
@@ -670,6 +1076,16 @@ function fallbackBandFromTier(tier: PaperTier): string {
   // Tier is a 3-bucket visual grouping; we surface the most-likely 5-band
   // label for that bucket when the cached report doesn't carry one.
   return tier === 'green' ? 'GOOD' : tier === 'yellow' ? 'FAIR' : 'TOUGH';
+}
+
+function bandTierIndex(bandLabel: string): number {
+  // Map the 5-band label to a 0..4 tier index for the dot row.
+  const b = bandLabel.toUpperCase();
+  if (b === 'PRIME' || b === 'EXCELLENT') return 4;
+  if (b === 'GOOD') return 3;
+  if (b === 'FAIR') return 2;
+  if (b === 'POOR') return 1;
+  return 0; // tough / unknown
 }
 
 const gaugeStyles = StyleSheet.create({
@@ -683,59 +1099,195 @@ const gaugeStyles = StyleSheet.create({
   panel: {
     alignSelf: 'stretch',
     borderWidth: 1,
-    borderRadius: 12,
+    borderRadius: 14,
     backgroundColor: '#F7FAFB',
-    paddingHorizontal: 14,
-    paddingTop: 10,
-    paddingBottom: 12,
+    paddingHorizontal: 16,
+    paddingTop: 12,
+    paddingBottom: 14,
     overflow: 'hidden',
+    position: 'relative',
   },
+
+  // Corner crosses — instrument-panel marginalia.
+  cornerCross: {
+    position: 'absolute',
+    width: 10,
+    height: 10,
+    zIndex: 2,
+  },
+  cornerCrossTL: { top: 5, left: 5 },
+  cornerCrossTR: { top: 5, right: 5 },
+  cornerCrossBL: { bottom: 5, left: 5 },
+  cornerCrossBR: { bottom: 5, right: 5 },
+  cornerCrossH: {
+    position: 'absolute',
+    top: 4.5,
+    left: 0,
+    width: 10,
+    height: 1,
+    backgroundColor: 'rgba(28, 36, 25, 0.35)',
+  },
+  cornerCrossV: {
+    position: 'absolute',
+    left: 4.5,
+    top: 0,
+    width: 1,
+    height: 10,
+    backgroundColor: 'rgba(28, 36, 25, 0.35)',
+  },
+
+  // Scan line — slow vertical sweep, faint blue.
+  scanLine: {
+    position: 'absolute',
+    left: 0,
+    right: 0,
+    height: 38,
+    backgroundColor: 'rgba(124, 184, 218, 0.10)',
+    zIndex: 1,
+  },
+
+  // Dual shimmer.
   panelShimmer: {
     position: 'absolute',
-    top: 0,
-    bottom: 0,
-    width: 96,
-    backgroundColor: 'rgba(255,255,255,0.48)',
+    top: -10,
+    bottom: -10,
+    width: 70,
+    backgroundColor: 'rgba(255,255,255,0.55)',
   },
+  panelShimmerSlow: {
+    position: 'absolute',
+    top: -10,
+    bottom: -10,
+    width: 180,
+    backgroundColor: 'rgba(255,255,255,0.18)',
+  },
+
   panelHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    gap: 10,
-    marginBottom: 2,
+    gap: 8,
+    marginBottom: 6,
+    zIndex: 3,
+  },
+  panelHeaderLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    flex: 1,
+    minWidth: 0,
+  },
+  liveDotWrap: {
+    width: 14,
+    height: 14,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  liveDotRing: {
+    position: 'absolute',
+    width: 14,
+    height: 14,
+    borderRadius: 7,
+    borderWidth: 1,
+    opacity: 0.5,
+  },
+  liveDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 3.5,
   },
   panelLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    letterSpacing: 1.5,
-    color: paper.dashboardBlue,
+    fontSize: 9.5,
+    letterSpacing: 1.6,
+    color: paper.dashboardInk,
     fontWeight: '700',
   },
+  panelLabelDim: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 1.6,
+    color: paper.dashboardMuted,
+    fontWeight: '700',
+    opacity: 0.65,
+  },
+  panelLabelSep: {
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+    backgroundColor: paper.dashboardMuted,
+    opacity: 0.55,
+  },
+
+  headerRule: {
+    height: StyleSheet.hairlineWidth,
+    marginBottom: 8,
+    zIndex: 3,
+  },
+
   scoreRow: {
     alignSelf: 'stretch',
     flexDirection: 'row',
-    alignItems: 'flex-end',
-    gap: 4,
-    marginBottom: 6,
-    paddingHorizontal: 12,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 12,
+    marginBottom: 8,
+    paddingHorizontal: 4,
     paddingTop: 2,
     paddingBottom: 4,
     position: 'relative',
+    zIndex: 3,
   },
   scoreHalo: {
     position: 'absolute',
-    top: 0,
-    bottom: 0,
-    left: 0,
-    right: 0,
-    opacity: 0.1,
-    borderRadius: 12,
+    top: 6,
+    bottom: 6,
+    left: '20%',
+    right: '20%',
+    borderRadius: 18,
+  },
+  scoreOrnamentLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    flex: 1,
+    justifyContent: 'flex-end',
+    maxWidth: 80,
+  },
+  scoreOrnamentRight: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    flex: 1,
+    justifyContent: 'flex-start',
+    maxWidth: 80,
+  },
+  ornamentRule: {
+    flex: 1,
+    height: 1,
+    minWidth: 28,
+    maxWidth: 60,
+  },
+  ornamentGlyph: {
+    fontFamily: paperFonts.body,
+    fontSize: 9,
+    opacity: 0.75,
+    lineHeight: 11,
+  },
+  scoreNumberStack: {
+    alignItems: 'center',
+    minWidth: 110,
+  },
+  scoreNumberRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-end',
+    gap: 2,
   },
   scoreNum: {
     fontFamily: paperFonts.monoBold,
     fontSize: 56,
-    lineHeight: 64,
-    letterSpacing: 0,
+    lineHeight: 60,
+    letterSpacing: -1,
     fontWeight: '700',
     includeFontPadding: false,
   },
@@ -744,70 +1296,144 @@ const gaugeStyles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 20,
     fontWeight: '700',
-    marginBottom: 9,
+    marginBottom: 8,
+    marginLeft: 1,
     color: paper.dashboardMuted,
   },
-  trackRow: {
+
+  // Tick gauge.
+  tickGauge: {
     width: '100%',
-    height: 22,
-    justifyContent: 'center',
-    position: 'relative',
-  },
-  track: {
-    width: '100%',
-    height: 10,
-    borderRadius: 5,
+    height: 26,
     flexDirection: 'row',
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    overflow: 'hidden',
-    backgroundColor: paper.dashboardWhite,
+    alignItems: 'center',
+    position: 'relative',
+    marginTop: 4,
+    zIndex: 3,
   },
-  stop: {
+  tickRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    width: '100%',
     height: '100%',
   },
-  markerStem: {
-    position: 'absolute',
-    top: -8,
-    width: 2,
-    height: 10,
-    marginLeft: -1,
-    opacity: 0.55,
+  tick: {
+    width: 3,
+    borderRadius: 1.5,
   },
-  markerPinWrap: {
+  tickLitClip: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    height: '100%',
+    overflow: 'hidden',
+  },
+  needleWrap: {
+    position: 'absolute',
+    top: -6,
+    bottom: -6,
+    width: 14,
+    marginLeft: -7,
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    zIndex: 4,
+  },
+  needleGlow: {
     position: 'absolute',
     top: 0,
     bottom: 0,
-    marginLeft: -9,
-    width: 18,
-    alignItems: 'center',
-    justifyContent: 'center',
+    width: 14,
+    borderRadius: 7,
+    opacity: 0.18,
   },
-  markerPin: {
-    width: 16,
-    height: 16,
-    borderRadius: 8,
-    borderWidth: 2,
-    borderColor: paper.dashboardInk,
+  needleStem: {
+    width: 1.5,
+    flex: 1,
+    marginTop: 4,
+    marginBottom: 4,
+    opacity: 0.85,
   },
+  needleTip: {
+    position: 'absolute',
+    top: -2,
+    width: 9,
+    height: 9,
+    borderRadius: 4.5,
+    borderWidth: 1.5,
+  },
+
+  // Scale labels.
   scaleRow: {
     width: '100%',
     flexDirection: 'row',
     justifyContent: 'space-between',
     marginTop: 6,
+    zIndex: 3,
   },
   scaleTick: {
     fontFamily: paperFonts.metaMono,
-    fontSize: 10,
+    fontSize: 9.5,
     color: paper.dashboardMuted,
     opacity: 0.6,
+    width: 24,
+    textAlign: 'center',
   },
+
+  // Tier dots row.
+  tierDotsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: 10,
+    paddingTop: 8,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.dashboardHair,
+    zIndex: 3,
+  },
+  tierDot: {
+    width: 8,
+    height: 8,
+    borderRadius: 4,
+    borderWidth: 1.2,
+  },
+  tierDotActive: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    borderWidth: 1.5,
+  },
+  tierDotsLabelWrap: {
+    marginLeft: 'auto',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+  },
+  tierDotsLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.4,
+    color: paper.dashboardMuted,
+    fontWeight: '700',
+  },
+  tierDotsAccent: {
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+  },
+  tierDotsBand: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 1.6,
+    fontWeight: '700',
+  },
+
   bandPill: {
-    paddingHorizontal: 10,
+    paddingHorizontal: 11,
     paddingVertical: 4,
     borderRadius: 999,
     borderWidth: 1,
-    borderColor: 'rgba(7, 27, 45, 0.2)',
+    borderColor: 'rgba(7, 27, 45, 0.18)',
   },
   bandPillText: {
     fontFamily: paperFonts.bodyBold,
@@ -963,6 +1589,29 @@ const styles = StyleSheet.create({
   heroHeadlineDot: {
     color: paper.dashboardBlue,
   },
+  heroOutlookRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    marginTop: 10,
+    marginBottom: 8,
+    paddingHorizontal: paperSpacing.xs,
+    alignSelf: 'stretch',
+  },
+  heroOutlookFlank: {
+    height: 1,
+    flex: 1,
+    maxWidth: 36,
+    minWidth: 14,
+    opacity: 0.9,
+  },
+  heroOutlookDiamond: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    lineHeight: 12,
+    opacity: 0.85,
+  },
   heroOutlookLine: {
     fontFamily: paperFonts.displayItalic,
     fontStyle: 'italic',
@@ -970,10 +1619,37 @@ const styles = StyleSheet.create({
     fontSize: 16,
     lineHeight: 21,
     letterSpacing: 0,
-    marginTop: 8,
-    marginBottom: 8,
     textAlign: 'center',
-    paddingHorizontal: paperSpacing.sm,
+    flexShrink: 1,
+  },
+
+  // Hero corner crosses — small instrument-panel marks pinned to each
+  // corner of the hero card. Matches the home dashboard's liveCard motif.
+  heroCornerCross: {
+    position: 'absolute',
+    width: 11,
+    height: 11,
+    zIndex: 2,
+  },
+  heroCornerCrossTL: { top: 7, left: 7 },
+  heroCornerCrossTR: { top: 7, right: 7 },
+  heroCornerCrossBL: { bottom: 7, left: 7 },
+  heroCornerCrossBR: { bottom: 7, right: 7 },
+  heroCornerCrossH: {
+    position: 'absolute',
+    top: 5,
+    left: 0,
+    width: 11,
+    height: 1,
+    backgroundColor: 'rgba(28, 36, 25, 0.32)',
+  },
+  heroCornerCrossV: {
+    position: 'absolute',
+    left: 5,
+    top: 0,
+    width: 1,
+    height: 11,
+    backgroundColor: 'rgba(28, 36, 25, 0.32)',
   },
   heroSummaryWrap: {
     flexDirection: 'row',
@@ -1054,9 +1730,26 @@ const styles = StyleSheet.create({
     alignItems: 'stretch',
     gap: 4,
   },
+  sectionMastheadRuleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    width: '100%',
+  },
+  sectionMastheadCap: {
+    width: 5,
+    height: 5,
+    borderRadius: 1,
+  },
+  sectionMastheadOrnament: {
+    fontFamily: paperFonts.body,
+    fontSize: 9,
+    lineHeight: 10,
+    opacity: 0.75,
+  },
   sectionMastheadRule: {
     height: 1.6,
-    width: '100%',
+    flex: 1,
   },
   sectionMastheadInner: {
     flexDirection: 'row',
@@ -1406,13 +2099,31 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     marginTop: 2,
   },
+  guideSignoffRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: paperSpacing.sm + 2,
+  },
+  guideSignoffRule: {
+    width: 16,
+    height: 1,
+    backgroundColor: paper.dashboardLine,
+    opacity: 0.85,
+  },
+  guideSignoffOrnament: {
+    fontFamily: paperFonts.body,
+    fontSize: 8,
+    color: paper.dashboardBlue,
+    opacity: 0.65,
+    lineHeight: 10,
+  },
   guideSignoff: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9,
     letterSpacing: 2.4,
     color: paper.dashboardMuted,
     opacity: 0.7,
-    marginTop: paperSpacing.sm + 2,
     fontWeight: '700',
   },
 
@@ -1431,5 +2142,32 @@ const styles = StyleSheet.create({
     letterSpacing: 1.6,
     color: paper.dashboardMuted,
     fontWeight: '700',
+  },
+  footerSep: {
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
+    backgroundColor: paper.dashboardMuted,
+    opacity: 0.45,
+    marginHorizontal: 1,
+  },
+  footerPulseWrap: {
+    width: 10,
+    height: 10,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  footerPulseRing: {
+    position: 'absolute',
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+    borderWidth: 1,
+    opacity: 0.45,
+  },
+  footerPulseDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
   },
 });
