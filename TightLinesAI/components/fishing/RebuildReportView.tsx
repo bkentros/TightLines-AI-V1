@@ -929,12 +929,35 @@ function LinearScoreGauge({
 
         <View style={[gaugeStyles.headerRule, { backgroundColor: `${accent}33` }]} />
 
-        {/* Score crest — large number with breathing halo + flanking ornaments. */}
+        {/* Score crest — large accent-colored number with breathing color
+            halo, flanking ornaments, and a progress-driven colored
+            underline. Coloring the number itself in the band accent is
+            the biggest visual cue that the gauge is "alive" — green for
+            prime, gold for fair, red for tough — paired with a slightly
+            darker text-shadow for depth on lighter accents. */}
         <View style={gaugeStyles.scoreRow}>
           <Animated.View
             style={[
               gaugeStyles.scoreHalo,
-              { backgroundColor: accent, opacity: haloPulse.interpolate({ inputRange: [0.72, 1], outputRange: [0.07, 0.16] }) },
+              {
+                backgroundColor: accent,
+                opacity: haloPulse.interpolate({
+                  inputRange: [0.72, 1],
+                  outputRange: [0.16, 0.3],
+                }),
+              },
+            ]}
+          />
+          <Animated.View
+            style={[
+              gaugeStyles.scoreHaloOuter,
+              {
+                backgroundColor: accent,
+                opacity: haloPulse.interpolate({
+                  inputRange: [0.72, 1],
+                  outputRange: [0.05, 0.12],
+                }),
+              },
             ]}
           />
           <View style={gaugeStyles.scoreOrnamentLeft}>
@@ -944,13 +967,40 @@ function LinearScoreGauge({
           <View style={gaugeStyles.scoreNumberStack}>
             <View style={gaugeStyles.scoreNumberRow}>
               <Text
-                style={[gaugeStyles.scoreNum, { color: paper.dashboardInk }]}
+                style={[
+                  gaugeStyles.scoreNum,
+                  {
+                    color: accent,
+                    // Subtle ink shadow gives the colored digits depth
+                    // and ensures legibility on the lightest band hues.
+                    textShadowColor: 'rgba(7, 27, 45, 0.18)',
+                    textShadowOffset: { width: 0, height: 1 },
+                    textShadowRadius: 2,
+                  },
+                ]}
                 allowFontScaling={false}
               >
                 {displayScore}
               </Text>
-              <Text style={gaugeStyles.scoreMax}>/10</Text>
+              <Text style={[gaugeStyles.scoreMax, { color: `${accent}DD` }]}>
+                /10
+              </Text>
             </View>
+            {/* Progress-width colored underline beneath the number — fills
+                in as the score animates so the digit "lands" on a
+                color-matched anchor. */}
+            <Animated.View
+              style={[
+                gaugeStyles.scoreUnderline,
+                {
+                  backgroundColor: accent,
+                  width: progress.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: ['22%', '88%'],
+                  }),
+                },
+              ]}
+            />
           </View>
           <View style={gaugeStyles.scoreOrnamentRight}>
             <Text style={[gaugeStyles.ornamentGlyph, { color: accent }]}>◆</Text>
@@ -1240,11 +1290,19 @@ const gaugeStyles = StyleSheet.create({
   },
   scoreHalo: {
     position: 'absolute',
-    top: 6,
-    bottom: 6,
-    left: '20%',
-    right: '20%',
-    borderRadius: 18,
+    top: 8,
+    bottom: 14,
+    left: '24%',
+    right: '24%',
+    borderRadius: 40,
+  },
+  scoreHaloOuter: {
+    position: 'absolute',
+    top: 2,
+    bottom: 8,
+    left: '12%',
+    right: '12%',
+    borderRadius: 60,
   },
   scoreOrnamentLeft: {
     flexDirection: 'row',
@@ -1299,6 +1357,13 @@ const gaugeStyles = StyleSheet.create({
     marginBottom: 8,
     marginLeft: 1,
     color: paper.dashboardMuted,
+  },
+  scoreUnderline: {
+    height: 2,
+    borderRadius: 1.5,
+    marginTop: 2,
+    alignSelf: 'center',
+    opacity: 0.85,
   },
 
   // Tick gauge.
@@ -1585,6 +1650,13 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: paper.dashboardInk,
     paddingHorizontal: paperSpacing.sm,
+    // Reserve two lines of vertical space even when the headline only
+    // takes one. This keeps the score gauge below at the same Y position
+    // across context tabs (lake / river / inshore / flats) — without the
+    // minHeight, a 1-line headline on the river tab caused the gauge to
+    // sit visibly higher than on the lake tab.
+    minHeight: 56,
+    textAlignVertical: 'center',
   },
   heroHeadlineDot: {
     color: paper.dashboardBlue,
