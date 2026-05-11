@@ -1,5 +1,16 @@
 /**
- * WaterReadEditionStamp — small FinFindr product mark for the map plate.
+ * WaterReadEditionStamp — top-left FinFindr brand chip on the map plate.
+ *
+ * Single horizontal pill containing: logo • "FinFindr." wordmark •
+ * "WATER READ · POLYGON SCAN" eyebrow. Combining the brand mark + edition
+ * tagline into one compact pill keeps the map's top-left clean (one mark,
+ * not two) and ensures the chip fits within the engine's typical land
+ * margin even on wide lakes.
+ *
+ * White-pill background with a hairline ink stroke so the chip reads
+ * cleanly against either the tan land OR the gradient lake water — i.e.
+ * even if a very wide lake brings the polygon close to the corner, the
+ * pill maintains contrast.
  */
 
 import { Image, StyleSheet, Text, View } from 'react-native';
@@ -17,14 +28,13 @@ export function WaterReadEditionStamp() {
         style={styles.logo}
         resizeMode="contain"
       />
-      <View style={styles.typeStack}>
-        <Text style={styles.wordmark} numberOfLines={1}>
-          FinFindr<Text style={styles.wordmarkDot}>.</Text>
-        </Text>
-        <Text style={styles.edition} numberOfLines={1}>
-          WATER READ
-        </Text>
-      </View>
+      <Text style={styles.wordmark} numberOfLines={1}>
+        FinFindr<Text style={styles.wordmarkDot}>.</Text>
+      </Text>
+      <View style={styles.divider} />
+      <Text style={styles.edition} numberOfLines={1}>
+        WATER READ · POLYGON SCAN
+      </Text>
     </View>
   );
 }
@@ -34,38 +44,46 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 6,
-    paddingHorizontal: 7,
+    paddingHorizontal: 8,
     paddingVertical: 5,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(10, 27, 46, 0.08)',
-    backgroundColor: 'rgba(255, 255, 255, 0.9)',
+    borderRadius: 8,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: 'rgba(28, 36, 25, 0.22)',
+    backgroundColor: 'rgba(255, 255, 255, 0.94)',
+    // Subtle ink shadow so the chip lifts off the paper texture.
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 1 },
+    shadowOpacity: 0.05,
+    shadowRadius: 1.5,
+    alignSelf: 'flex-start',
   },
   logo: {
-    width: 24,
-    height: 28,
+    width: 18,
+    height: 22,
     backgroundColor: paper.dashboardInk,
-    borderRadius: 7,
-  },
-  typeStack: {
-    alignItems: 'flex-start',
-    gap: 0,
+    borderRadius: 5,
   },
   wordmark: {
     fontFamily: paperFonts.display,
-    fontSize: 13,
+    fontSize: 12.5,
     fontWeight: '800',
     letterSpacing: 0,
     color: paper.dashboardInk,
-    lineHeight: 15,
+    lineHeight: 14,
   },
   wordmarkDot: {
     color: paper.dashboardBlue,
   },
+  divider: {
+    width: StyleSheet.hairlineWidth,
+    height: 14,
+    backgroundColor: 'rgba(28, 36, 25, 0.28)',
+    marginHorizontal: 1,
+  },
   edition: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 1.2,
+    fontSize: 8.5,
+    letterSpacing: 1.3,
     color: paper.dashboardMuted,
     lineHeight: 10,
   },

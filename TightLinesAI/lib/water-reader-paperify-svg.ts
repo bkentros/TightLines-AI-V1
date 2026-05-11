@@ -105,10 +105,13 @@ const PRIOR_PAPER_WARM_VALUES: Record<PaperWarmFeatureKey, string[]> = {
 
 // Marker comment indicating this SVG was already paperified — guards against
 // double-running and against accidentally mutating an SVG that the server-side
-// renderer has already painted in paper colors. Scan-v6 retires pink point
-// color, drops corner brackets + bottom-right edition, fixes confluence
-// pattern coverage on apron paths, and pushes callout numbers outward.
-const PAPERIFIED_SENTINEL = '<!-- wr-finfindr-scan-v6 -->';
+// renderer has already painted in paper colors. Scan-v7 fixes apron stroke
+// pattern coverage (point-shoreline-buffer paths use `fill="none"` + stroke,
+// so the v6 fill swap missed them and they came out flat-colored), removes
+// the in-SVG top-right wordmark in favor of a redesigned top-left React
+// overlay, and uses a point-in-polygon test to push callout rings firmly
+// outside the lake polygon.
+const PAPERIFIED_SENTINEL = '<!-- wr-finfindr-scan-v7 -->';
 
 // Pattern id helper — stable strings keyed off feature class.
 const zonePatternId = (key: PaperWarmFeatureKey) => `wr-zone-pattern-${key}`;
@@ -170,7 +173,7 @@ export function paperifyWaterReaderSvg(
   const beforeCleanup = svg;
   svg = svg
     .replace(/<!-- wr-paperified -->\s*/g, '')
-    .replace(/<!-- wr-finfindr-scan-v[12345] -->\s*/g, '')
+    .replace(/<!-- wr-finfindr-scan-v[123456] -->\s*/g, '')
     .replace(/<rect[^>]*class="wr-scan-surface"[^>]*\/>\s*/g, '')
     .replace(/<rect[^>]*class="wr-scan-grid"[^>]*\/>\s*/g, '')
     .replace(/<g[^>]*class="wr-brand-stamp"[\s\S]*?<\/g>\s*/g, '')
@@ -399,28 +402,51 @@ export function paperifyWaterReaderSvg(
     }
   }
 
-  // Now apply the pattern overlay. We swap the FILL only — the stroke keeps
-  // the solid color so each zone has a clean ink outline. The pattern
-  // background rect IS the base color, so we don't lose color identity.
+  // Now apply the pattern overlay. We swap the FILL on every paper-warm
+  // hex so zones with `fill="<hex>"` render with the textured pattern.
+  // The stroke stays a solid color so each zone has a clean ink outline.
   //
-  // Pass-6 fix: swap is now UNCONDITIONAL on the fill hex (no class scoping).
-  // Apron paths emitted inside `<g class="water-reader-confluence-member
-  // water-reader-point-shoreline-buffer">` wrappers don't carry the
-  // confluence-member class on the inner paths themselves — only on the
-  // wrapper. Class-scoped regexes missed those inner paths and the apron
-  // came out as flat color without the rings pattern. Since each
-  // paper-warm hex is unique to its feature class and only appears on
-  // zone fills (lake, callouts, brand text use ink), an unconditional
-  // global swap is safe and catches everything.
+  // Pass-7 ALSO swaps the STROKE for apron paths. The engine renders
+  // point-shoreline-buffer aprons (both standalone secondary points and
+  // confluence point members) as a wide STROKE on a `fill="none"` path —
+  // so the pattern fill swap misses them entirely and they come out as
+  // flat-color halos instead of textured zones. We detect apron paths by
+  // the presence of `fill="none"` in the same tag, then swap their stroke
+  // to the pattern URL. SVG patterns work as both fill AND stroke; the
+  // pattern tile fills the stroke's geometric area. We also bump the
+  // apron stroke-opacity so the pattern reads strongly (engine ships at
+  // 0.38–0.42, which mutes the texture). Idempotent: if the stroke was
+  // already swapped to a pattern URL, we leave it alone.
   const before8 = svg;
   for (const key of Object.keys(PAPER_WARM_FEATURE_COLORS) as PaperWarmFeatureKey[]) {
     const baseHex = PAPER_WARM_FEATURE_COLORS[key];
     const patternUrl = `url(#${zonePatternId(key)})`;
     const candidates = [baseHex, baseHex.toUpperCase(), baseHex.toLowerCase()];
     for (const hex of candidates) {
+      // Fill swap (zones with fill+stroke; standalone polygons).
       svg = svg.split(`fill="${hex}"`).join(`fill="${patternUrl}"`);
+      // Stroke swap, scoped to apron paths via the `fill="none"` neighbor.
+      // Two regexes to handle both attribute orders (the engine emits
+      // fill="none" before stroke= on aprons, but be defensive).
+      const escapedHex = hex.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+      const reFillNoneFirst = new RegExp(
+        `(<path\\b[^>]*\\bfill="none"[^>]*?\\bstroke=)"${escapedHex}"`,
+        'g',
+      );
+      const reStrokeFirst = new RegExp(
+        `(<path\\b[^>]*\\bstroke=)"${escapedHex}"([^>]*?\\bfill="none")`,
+        'g',
+      );
+      svg = svg.replace(reFillNoneFirst, `$1"${patternUrl}"`);
+      svg = svg.replace(reStrokeFirst, `$1"${patternUrl}"$2`);
     }
   }
+  // Bump apron stroke-opacity so the pattern reads cleanly — engine ships
+  // 0.38 (confluence) and 0.42 (standalone) which mutes the texture too
+  // far against the new tan land. Both swap to 0.85 for a strong-but-not-
+  // opaque feel that lets the land hint through at the apron's softer edges.
+  svg = svg.replace(/stroke-opacity="0\.42"/g, `stroke-opacity="0.85"`);
+  svg = svg.replace(/stroke-opacity="0\.38"/g, `stroke-opacity="0.82"`);
   tally(before8, svg);
 
   // 9) Default legend fallback color (#334155) → ink (relevant only if the
@@ -477,17 +503,19 @@ export function paperifyWaterReaderSvg(
   //     where the zone is a peninsula or sits inside a complex shoreline,
   //     the ring can land on top of the lake or another zone. We do a
   //     cosmetic-only post-process: for each callout, we project the ring
-  //     OUTWARD along the leader vector (anchor → label) by a constant
-  //     delta, then update the leader endpoint, the ring `<circle>`, and
-  //     the digit `<text>` to match. The result is a longer leader and a
-  //     ring that lives further out toward the land. Clamps keep the new
-  //     ring inside the viewBox.
+  //     OUTWARD along the leader vector (anchor → label), then iteratively
+  //     test if the new ring center is inside the lake polygon. If yes,
+  //     keep pushing in the same direction in 12-px increments until the
+  //     ring lands on land OR the viewBox margin is reached. The leader
+  //     endpoint, ring `<circle>`, and digit `<text>` all shift to the
+  //     final position. Numbers are guaranteed to sit outside the lake.
   const before13b = svg;
   const viewBoxMatch1 = svg.match(/viewBox="0\s+0\s+([\d.]+)\s+([\d.]+)"/);
   if (viewBoxMatch1) {
     const vbW1 = parseFloat(viewBoxMatch1[1]);
     const vbH1 = parseFloat(viewBoxMatch1[2]);
-    svg = pushCalloutNumbersOutward(svg, vbW1, vbH1);
+    const lakePolygon = outerRingD ? sampleSvgPathToPolygon(outerRingD) : null;
+    svg = pushCalloutNumbersOutward(svg, vbW1, vbH1, lakePolygon);
   }
   tally(before13b, svg);
 
@@ -662,11 +690,13 @@ function buildLandClipPath(outerRingD: string): string {
 /**
  * In-SVG FinFindr brand stamp — clipped to land if a clip is available.
  *
- * Pass-6: pruned for clarity. Two marks only — top-right wordmark and
- * bottom colophon strip. Corner brackets and the bottom-right "SCANNED ·
- * FINFINDR" stamp were removed because they kept colliding with the
- * other brand marks and the React-overlay scale bar; the remaining two
- * are spaced far enough apart that no overlap is possible.
+ * Pass-7: bottom colophon strip only. The top-right wordmark moved to a
+ * React overlay (`WaterReadEditionStamp`) at top-left of the plate so the
+ * full FinFindr identity (logo + wordmark + edition eyebrow) lives on a
+ * single React-rendered chip rather than being split between an SVG mark
+ * and a React mark. The bottom colophon stays in-SVG (clipped to land)
+ * because it's a wide ranged-text strip that benefits from being baked
+ * into the export pixel-for-pixel.
  */
 function buildBrandStamp(
   vbW: number,
@@ -675,29 +705,11 @@ function buildBrandStamp(
   hasLandClip: boolean,
 ): string {
   const clipAttr = hasLandClip ? ' clip-path="url(#wr-land-clip)"' : '';
-
-  // Sizing scales gently with viewBox so brand reads well on tall vs. wide lakes.
-  const wordmarkSize = Math.max(10, Math.min(15, vbW * 0.014));
-  const subSize = Math.max(6.8, Math.min(9, vbW * 0.0085));
   const colophonSize = Math.max(7.4, Math.min(9.6, vbW * 0.009));
-
-  // Margin keeps marks inboard of the viewBox edges so they sit just
-  // inside the plate's hairline frame.
-  const margin = 14;
-  const topY = margin + wordmarkSize;
-  const wordmarkX = vbW - margin;
   const colophonY = vbH - 5;
-
-  // Wordmark top-right (right-anchored). Two-line: "FinFindr." + subline.
-  const wordmark = `
-    <text x="${wordmarkX}" y="${topY}" font-family="Fraunces, Inter, -apple-system, sans-serif" font-weight="700" font-size="${wordmarkSize.toFixed(2)}" fill="${BRAND_INK}" text-anchor="end" letter-spacing="0">FinFindr<tspan fill="${paper.dashboardBlue}">.</tspan></text>
-    <text x="${wordmarkX}" y="${topY + subSize + 2}" font-family="Inter, -apple-system, sans-serif" font-weight="600" font-size="${subSize.toFixed(2)}" fill="${BRAND_MUTED}" text-anchor="end" letter-spacing="1.6">WATER READ · POLYGON SCAN</text>`;
-
-  // Bottom colophon strip — etched, centered, with the lake name.
   const colophon = `
     <text x="${vbW / 2}" y="${colophonY}" font-family="Inter, -apple-system, sans-serif" font-weight="600" font-size="${colophonSize.toFixed(2)}" fill="${BRAND_MUTED}" text-anchor="middle" letter-spacing="2.4">FINFINDR · WATER READ · ${escapeSvgText(lakeName)}</text>`;
-
-  return `<g class="wr-brand-stamp" pointer-events="none"${clipAttr}>${wordmark}${colophon}</g>`;
+  return `<g class="wr-brand-stamp" pointer-events="none"${clipAttr}>${colophon}</g>`;
 }
 
 function escapeSvgText(s: string): string {
@@ -709,14 +721,12 @@ function escapeSvgText(s: string): string {
 }
 
 /**
- * How far (in viewBox units) to push each callout ring outward along its
- * leader vector. Tuned to a value that pulls rings off most peninsulas and
- * islands without making the leader feel disconnected from its zone.
- *
- * The clamp margin keeps rings inside the viewBox so they never land in
- * the brand-stamp zone or off-canvas.
+ * Initial outward push along the leader vector (viewBox units). After this
+ * we iteratively push more if the ring is still inside the lake polygon.
  */
-const CALLOUT_PUSH_DELTA_PX = 24;
+const CALLOUT_INITIAL_PUSH_PX = 22;
+const CALLOUT_ITERATIVE_PUSH_PX = 12;
+const CALLOUT_MAX_PUSH_PX = 110;
 const CALLOUT_CLAMP_MARGIN_PX = 28;
 
 /**
@@ -727,18 +737,21 @@ const CALLOUT_CLAMP_MARGIN_PX = 28;
  *   • a `<text x="lx" y="ly+0.15" ...>N</text>`
  *
  * We compute a unit vector from anchor (ax,ay) to label (lx,ly) — the
- * outward direction — multiply by `CALLOUT_PUSH_DELTA_PX`, and shift the
- * leader endpoint, circle center, and text origin by that delta. Clamps
- * keep the new ring inside the viewBox margin.
+ * outward direction — push the label outward, and if a `lakePolygon`
+ * (sampled from the lake outer ring) is supplied, iteratively check
+ * whether the new ring center is INSIDE the polygon. If yes we keep
+ * pushing in increments until it lands on land or hits the viewBox
+ * margin. The leader endpoint, ring circle, and digit text all shift
+ * to the final position.
  *
- * Pure string manipulation — no SVG parsing dependency. Idempotent under
- * the paperify sentinel guard (paperify won't re-run on an already-marked
- * SVG).
+ * Pure string manipulation — no SVG-parsing dependency. Idempotent
+ * under the paperify sentinel guard.
  */
 function pushCalloutNumbersOutward(
   svg: string,
   vbW: number,
   vbH: number,
+  lakePolygon: Array<[number, number]> | null,
 ): string {
   const groupRe = /<g\s+class="water-reader-map-number[^"]*"[^>]*data-label-placement="callout"[^>]*>([\s\S]*?)<\/g>/g;
   return svg.replace(groupRe, (groupTag, _inner) => {
@@ -758,10 +771,34 @@ function pushCalloutNumbersOutward(
     const ux = dx / len;
     const uy = dy / len;
 
-    // Compute new label position, clamped to viewBox - margin so the ring
-    // never lands in the brand stamp area or off-canvas.
-    let nlx = lx + ux * CALLOUT_PUSH_DELTA_PX;
-    let nly = ly + uy * CALLOUT_PUSH_DELTA_PX;
+    // Start with the initial push.
+    let pushed = CALLOUT_INITIAL_PUSH_PX;
+    let nlx = lx + ux * pushed;
+    let nly = ly + uy * pushed;
+
+    // If we have a lake polygon, iteratively push until the ring sits OUT
+    // of the lake (or we hit the max push / viewBox margin). Without the
+    // polygon, we just use the initial push (best-effort).
+    if (lakePolygon && lakePolygon.length >= 3) {
+      while (
+        pushed < CALLOUT_MAX_PUSH_PX &&
+        isInsidePolygon(nlx, nly, lakePolygon)
+      ) {
+        pushed += CALLOUT_ITERATIVE_PUSH_PX;
+        nlx = lx + ux * pushed;
+        nly = ly + uy * pushed;
+        const clampedLx = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbW - CALLOUT_CLAMP_MARGIN_PX, nlx));
+        const clampedLy = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbH - CALLOUT_CLAMP_MARGIN_PX, nly));
+        if (clampedLx !== nlx || clampedLy !== nly) {
+          // Clamp hit — stop pushing in this direction.
+          nlx = clampedLx;
+          nly = clampedLy;
+          break;
+        }
+      }
+    }
+
+    // Final clamp — never sit in the brand stamp area or off-canvas.
     nlx = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbW - CALLOUT_CLAMP_MARGIN_PX, nlx));
     nly = Math.max(CALLOUT_CLAMP_MARGIN_PX, Math.min(vbH - CALLOUT_CLAMP_MARGIN_PX, nly));
 
@@ -773,8 +810,7 @@ function pushCalloutNumbersOutward(
       `$1M ${f(ax)} ${f(ay)} L ${f(nlx)} ${f(nly)}$2`,
     );
 
-    // Update circle cx/cy. Engine emits `cx="lx" cy="ly"`; we replace those
-    // with the new label position. Scope to the first <circle> in the group.
+    // Update circle cx/cy. Scope to the first <circle> in the group.
     nextInner = nextInner.replace(
       /(<circle\s+)cx="[^"]+"\s+cy="[^"]+"/,
       `$1cx="${f(nlx)}" cy="${f(nly)}"`,
@@ -790,4 +826,123 @@ function pushCalloutNumbersOutward(
 
     return groupTag.replace(inner, nextInner);
   });
+}
+
+/**
+ * Sample an SVG path `d` (M/L/C/Q/Z commands) into a polygon by walking
+ * commands and sampling each curve at `samplesPerCurve` evenly-spaced t
+ * values. Good enough for point-in-polygon containment tests at typical
+ * lake scale (a few hundred sample points across the shoreline).
+ *
+ * Returns an empty array if the path is unparseable.
+ */
+function sampleSvgPathToPolygon(
+  d: string,
+  samplesPerCurve = 4,
+): Array<[number, number]> {
+  const points: Array<[number, number]> = [];
+  const tokens = d.match(/[MLCQZmlcqz]|[-+]?[\d.]+/g);
+  if (!tokens) return points;
+  let i = 0;
+  let curX = 0;
+  let curY = 0;
+  let startX = 0;
+  let startY = 0;
+
+  const num = (j: number): number => {
+    const n = parseFloat(tokens[j]);
+    return Number.isFinite(n) ? n : 0;
+  };
+
+  while (i < tokens.length) {
+    const cmd = tokens[i];
+    if (cmd === 'M' || cmd === 'm') {
+      const x = num(i + 1);
+      const y = num(i + 2);
+      curX = cmd === 'M' ? x : curX + x;
+      curY = cmd === 'M' ? y : curY + y;
+      startX = curX;
+      startY = curY;
+      points.push([curX, curY]);
+      i += 3;
+    } else if (cmd === 'L' || cmd === 'l') {
+      const x = num(i + 1);
+      const y = num(i + 2);
+      curX = cmd === 'L' ? x : curX + x;
+      curY = cmd === 'L' ? y : curY + y;
+      points.push([curX, curY]);
+      i += 3;
+    } else if (cmd === 'C' || cmd === 'c') {
+      const cx1 = cmd === 'C' ? num(i + 1) : curX + num(i + 1);
+      const cy1 = cmd === 'C' ? num(i + 2) : curY + num(i + 2);
+      const cx2 = cmd === 'C' ? num(i + 3) : curX + num(i + 3);
+      const cy2 = cmd === 'C' ? num(i + 4) : curY + num(i + 4);
+      const ex = cmd === 'C' ? num(i + 5) : curX + num(i + 5);
+      const ey = cmd === 'C' ? num(i + 6) : curY + num(i + 6);
+      for (let k = 1; k <= samplesPerCurve; k += 1) {
+        const t = k / samplesPerCurve;
+        const omt = 1 - t;
+        const ix =
+          curX * omt * omt * omt +
+          3 * cx1 * omt * omt * t +
+          3 * cx2 * omt * t * t +
+          ex * t * t * t;
+        const iy =
+          curY * omt * omt * omt +
+          3 * cy1 * omt * omt * t +
+          3 * cy2 * omt * t * t +
+          ey * t * t * t;
+        points.push([ix, iy]);
+      }
+      curX = ex;
+      curY = ey;
+      i += 7;
+    } else if (cmd === 'Q' || cmd === 'q') {
+      const cx1 = cmd === 'Q' ? num(i + 1) : curX + num(i + 1);
+      const cy1 = cmd === 'Q' ? num(i + 2) : curY + num(i + 2);
+      const ex = cmd === 'Q' ? num(i + 3) : curX + num(i + 3);
+      const ey = cmd === 'Q' ? num(i + 4) : curY + num(i + 4);
+      for (let k = 1; k <= samplesPerCurve; k += 1) {
+        const t = k / samplesPerCurve;
+        const omt = 1 - t;
+        const ix = curX * omt * omt + 2 * cx1 * omt * t + ex * t * t;
+        const iy = curY * omt * omt + 2 * cy1 * omt * t + ey * t * t;
+        points.push([ix, iy]);
+      }
+      curX = ex;
+      curY = ey;
+      i += 5;
+    } else if (cmd === 'Z' || cmd === 'z') {
+      curX = startX;
+      curY = startY;
+      i += 1;
+    } else {
+      // Unknown / unsupported command — skip the token to avoid infinite
+      // loops on H/V/T/S/A which we don't expect in the engine output but
+      // would break parsing if encountered.
+      i += 1;
+    }
+  }
+  return points;
+}
+
+/**
+ * Point-in-polygon test via ray casting. The polygon is a flat list of
+ * `[x, y]` vertices forming a closed ring (last → first wraps).
+ */
+function isInsidePolygon(
+  x: number,
+  y: number,
+  polygon: Array<[number, number]>,
+): boolean {
+  let inside = false;
+  for (let i = 0, j = polygon.length - 1; i < polygon.length; j = i, i += 1) {
+    const [xi, yi] = polygon[i];
+    const [xj, yj] = polygon[j];
+    const intersects =
+      yi > y !== yj > y &&
+      x < ((xj - xi) * (y - yi)) / (yj - yi + 1e-12) + xi;
+    if (intersects) inside = !inside;
+  }
+  return inside;
 }

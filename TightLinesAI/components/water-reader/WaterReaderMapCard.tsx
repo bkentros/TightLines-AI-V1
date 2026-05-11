@@ -57,6 +57,7 @@ import { fetchWaterbodyPolygon } from '../../lib/waterReader';
 import { TopographicLines } from '../paper';
 import { useAuthStore } from '../../store/authStore';
 import { WaterReadCartouche } from './WaterReadCartouche';
+import { WaterReadEditionStamp } from './WaterReadEditionStamp';
 import { WaterReadScaleBar } from './WaterReadScaleBar';
 import { WaterReaderLakeSkeleton } from './WaterReaderLakeSkeleton';
 import { WaterReaderProductionMap } from './WaterReaderProductionMap';
@@ -292,6 +293,9 @@ export function WaterReaderMapCard({
                     ]}
                     pointerEvents="none"
                   >
+                    <View style={styles.editionStampWrap}>
+                      <WaterReadEditionStamp />
+                    </View>
                     <View style={styles.scaleBarWrap}>
                       <WaterReadScaleBar
                         areaAcres={state.read.areaAcres ?? null}
@@ -300,12 +304,6 @@ export function WaterReaderMapCard({
                         mapWidthPx={mapContentWidth}
                       />
                     </View>
-                    {/* Edition stamp removed in scan-v6 — the in-SVG
-                        top-right wordmark and bottom colophon (both
-                        clipped to the land area) now carry the brand,
-                        and they're guaranteed never to overlap the lake
-                        polygon. The React overlay was redundant and
-                        sometimes drifted onto the lake on wide lakes. */}
                   </Animated.View>
                 )}
               </View>
@@ -449,13 +447,14 @@ function WaterReaderAdaptiveMap({
     const height = Math.max(1, result?.summary.height ?? 1);
     const aspectRatio = width / height;
     const availableWidth = Math.max(280, containerWidth || 320);
-    // Pass-4 — another 5–10% on top of Pass-3's ~25% bump:
-    //   floor 340 → 370, ceiling 880 → 970, vh share 0.82 → 0.88.
-    // The map plate is the page's visual hero; we want the polygon to
-    // dominate the screen without making the user squint.
+    // Pass-7 — bumped the floor 370 → 460 so wide lakes (Pontiac-style)
+    // don't compress to a thin band that pushes brand marks and the
+    // scale bar against the polygon edge. Wider lakes now get a taller
+    // plate with generous beige around them in the corners. Tall lakes
+    // are unaffected (their natural fit was already > 460).
     const maxFitHeight = Math.max(580, Math.min(970, windowHeight * 0.88));
     const naturalFitHeight = availableWidth / aspectRatio;
-    const fitHeight = Math.max(370, Math.min(maxFitHeight, naturalFitHeight));
+    const fitHeight = Math.max(460, Math.min(maxFitHeight, naturalFitHeight));
     const fitWidth = Math.min(availableWidth, fitHeight * aspectRatio);
     const inspectViewportHeight = fullScreen
       ? Math.max(480, windowHeight * 0.56)
@@ -628,9 +627,19 @@ const styles = StyleSheet.create({
 
   // Marginalia anchors — each pointer-events-none so the FULL/DETAIL
   // toggle remains the only interactive surface in the plate.
+  // Bumped `bottom` 10 → 22 in scan-v7 so the scale bar's two-line
+  // (bar + label) layout always sits firmly within the beige land area
+  // even on plates where the host card adds tight inner padding.
   scaleBarWrap: {
     position: 'absolute',
-    bottom: 10,
+    bottom: 22,
+    left: 14,
+  },
+  // Top-left brand chip — single-line pill (logo + FinFindr. + edition
+  // tagline). Sits inside the beige margin on virtually every lake.
+  editionStampWrap: {
+    position: 'absolute',
+    top: 12,
     left: 12,
   },
   // Meta ribbon under the plate — typographic masthead, not a caption row.
