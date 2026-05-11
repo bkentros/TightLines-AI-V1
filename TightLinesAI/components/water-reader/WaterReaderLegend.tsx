@@ -46,6 +46,7 @@ import {
 } from '../../lib/waterReaderZonePaperPalette';
 import {
   pickLegendBody,
+  seasonDisplayLabel,
 } from '../../lib/waterReaderLegendTemplates';
 import type {
   WaterReaderProductionSvgFeatureClass,
@@ -69,8 +70,18 @@ export function WaterReaderLegend({
 }: WaterReaderLegendProps) {
   if (!entries || entries.length === 0) return null;
 
-  const seasonLabel = season ? season.toLowerCase() : null;
-  const seasonStyle = seasonLabel ? seasonBadgeStyle(seasonLabel) : null;
+  // Pass-9: season display surfaces transitions. When the engine's season
+  // of record differs from the calendar season for today, the badge shows
+  // "SPRING → SUMMER" (etc.) so the angler sees that this region is
+  // already behaving like summer even though the calendar still says
+  // spring. `seasonBadgeStyle` keys off the engine season (the climate-
+  // adjusted reality) for color, regardless of whether we're showing a
+  // single-season or transition label.
+  const seasonInfo = useMemo(
+    () => (season ? seasonDisplayLabel(season) : null),
+    [season],
+  );
+  const seasonStyle = season ? seasonBadgeStyle(season.toLowerCase()) : null;
   const pressedDate = useMemo(() => formatPressedDate(), []);
 
   return (
@@ -84,19 +95,28 @@ export function WaterReaderLegend({
               Map Key<Text style={styles.mastheadTitleDot}>.</Text>
             </Text>
           </View>
-          {seasonLabel && seasonStyle ? (
+          {seasonInfo && seasonStyle ? (
             <View
               style={[
                 styles.seasonBadge,
+                seasonInfo.isTransition && styles.seasonBadgeTransition,
                 {
                   backgroundColor: seasonStyle.backgroundColor,
                   borderColor: seasonStyle.borderColor,
                 },
               ]}
             >
-              <Text style={styles.seasonBadgeEyebrow}>SEASON</Text>
-              <Text style={[styles.seasonBadgeText, { color: seasonStyle.color }]}>
-                {seasonLabel.toUpperCase()}
+              <Text style={styles.seasonBadgeEyebrow}>
+                {seasonInfo.isTransition ? 'SEASON · TRANSITION' : 'SEASON'}
+              </Text>
+              <Text
+                style={[
+                  styles.seasonBadgeText,
+                  seasonInfo.isTransition && styles.seasonBadgeTextTransition,
+                  { color: seasonStyle.color },
+                ]}
+              >
+                {seasonInfo.label}
               </Text>
             </View>
           ) : null}
@@ -109,7 +129,9 @@ export function WaterReaderLegend({
           </Text>
           <Text style={styles.mastheadDot}>·</Text>
           <Text style={styles.mastheadHint} numberOfLines={2}>
-            Notes tuned for the season above.
+            {seasonInfo?.isTransition
+              ? 'This region is on a seasonal transition — notes lean on the season the climate is moving into.'
+              : 'Notes tuned for the season above.'}
           </Text>
         </View>
       </View>
@@ -522,6 +544,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 1,
   },
+  seasonBadgeTransition: {
+    minWidth: 132,
+    paddingHorizontal: 12,
+  },
   seasonBadgeEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 7,
@@ -534,6 +560,10 @@ const styles = StyleSheet.create({
     fontSize: 11,
     letterSpacing: 1.6,
     lineHeight: 14,
+  },
+  seasonBadgeTextTransition: {
+    fontSize: 10,
+    letterSpacing: 1.3,
   },
   mastheadRule: {
     height: 2,

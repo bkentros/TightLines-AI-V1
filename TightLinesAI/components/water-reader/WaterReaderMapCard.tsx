@@ -54,8 +54,8 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import { fetchWaterbodyPolygon } from '../../lib/waterReader';
-import { TopographicLines } from '../paper';
 import { useAuthStore } from '../../store/authStore';
+import { seasonDisplayLabel } from '../../lib/waterReaderLegendTemplates';
 import { WaterReadCartouche } from './WaterReadCartouche';
 import { WaterReadEditionStamp } from './WaterReadEditionStamp';
 import { WaterReadScaleBar } from './WaterReadScaleBar';
@@ -263,16 +263,12 @@ export function WaterReaderMapCard({
               }}
             >
               <View style={styles.plateInner}>
-                <Animated.View
-                  style={[StyleSheet.absoluteFill, { opacity: marginaliaFade }]}
-                  pointerEvents="none"
-                >
-                  <TopographicLines
-                    style={StyleSheet.absoluteFill}
-                    color={paper.dashboardBlue}
-                    count={5}
-                  />
-                </Animated.View>
+                {/* Pass-9: removed the TopographicLines React overlay.
+                    The in-SVG wave-contour pattern now covers the entire
+                    extended viewBox (corner to corner), so a second React
+                    decoration behind the SVG was both redundant and
+                    visible as "lined paper" through the SVG's padding
+                    region when the SVG patterns didn't reach the edges. */}
 
                 <View style={styles.plateMapWrap}>
                   <WaterReaderAdaptiveMap
@@ -324,7 +320,7 @@ export function WaterReaderMapCard({
                 </Text>
                 <Text style={styles.metaRibbonDivider}>·</Text>
                 <Text style={styles.metaRibbonText} numberOfLines={1}>
-                  {state.read.season.toUpperCase()}
+                  {seasonDisplayLabel(state.read.season).label}
                 </Text>
               </View>
               <View style={styles.metaRibbonRule} />

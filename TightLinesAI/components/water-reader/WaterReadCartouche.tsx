@@ -34,7 +34,10 @@ export function WaterReadCartouche({
   status,
   readingSlow,
 }: WaterReadCartoucheProps) {
-  const subline = buildSubline({ state, county, acres, season, contextLine });
+  // season is intentionally not passed to buildSubline — it's surfaced in
+  // the legend badge and meta ribbon, not the cartouche subline.
+  void season;
+  const subline = buildSubline({ state, county, acres, contextLine });
 
   return (
     <View style={styles.root}>
@@ -83,24 +86,27 @@ function buildSubline({
   state,
   county,
   acres,
-  season,
   contextLine,
 }: {
   state?: string | null;
   county?: string | null;
   acres?: number | null;
-  season?: string | null;
   contextLine?: string;
 }): string | null {
   // Prefer engine-provided fields; fall back to the parent's pre-engine
   // context line so the header is never blank during the reading state.
+  // Pass-9: season is no longer included here — it's surfaced in the
+  // legend masthead badge and the meta ribbon under the map, so adding
+  // it to the cartouche subline created a wrapped third line on lakes
+  // with long names (e.g. "FL · PALM BEACH CO. · 339,989 ACRES · SUMMER"
+  // pushing SUMMER onto a new row). The subline now reads as a clean
+  // state · county · acres locator.
   const parts: string[] = [];
   if (state) parts.push(state.toUpperCase());
   if (county) parts.push(`${county.toUpperCase()} CO.`);
   if (typeof acres === 'number' && acres > 0) {
     parts.push(`${Math.round(acres).toLocaleString()} ACRES`);
   }
-  if (season) parts.push(season.toUpperCase());
   if (parts.length > 0) return parts.join('  ·  ');
   if (contextLine) return contextLine.toUpperCase();
   return null;

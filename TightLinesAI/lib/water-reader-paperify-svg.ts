@@ -105,13 +105,12 @@ const PRIOR_PAPER_WARM_VALUES: Record<PaperWarmFeatureKey, string[]> = {
 
 // Marker comment indicating this SVG was already paperified — guards against
 // double-running and against accidentally mutating an SVG that the server-side
-// renderer has already painted in paper colors. Scan-v8 extends the SVG
-// viewBox to add a guaranteed interior beige margin around the lake (so
-// brand chips, scale bar, and pushed-out callout numbers always sit on
-// land regardless of lake aspect), matches confluence fill-opacity to
-// apron stroke-opacity (no more two-tone pink), and pushes callouts more
-// aggressively into the new padding region.
-const PAPERIFIED_SENTINEL = '<!-- wr-finfindr-scan-v8 -->';
+// renderer has already painted in paper colors. Scan-v9 unifies the land
+// texture to a single wave-contour pattern (drops the scan-grid layer that
+// peeked through and read as "lined paper" in the padding region) and
+// makes the surface rects explicitly cover the extended viewBox so the
+// pattern reaches every corner.
+const PAPERIFIED_SENTINEL = '<!-- wr-finfindr-scan-v9 -->';
 
 /**
  * Interior viewBox padding added around the engine's lake. Expressed as a
@@ -182,7 +181,7 @@ export function paperifyWaterReaderSvg(
   const beforeCleanup = svg;
   svg = svg
     .replace(/<!-- wr-paperified -->\s*/g, '')
-    .replace(/<!-- wr-finfindr-scan-v[1234567] -->\s*/g, '')
+    .replace(/<!-- wr-finfindr-scan-v[12345678] -->\s*/g, '')
     .replace(/<rect[^>]*class="wr-scan-surface"[^>]*\/>\s*/g, '')
     .replace(/<rect[^>]*class="wr-scan-grid"[^>]*\/>\s*/g, '')
     .replace(/<g[^>]*class="wr-brand-stamp"[\s\S]*?<\/g>\s*/g, '')
@@ -512,17 +511,23 @@ export function paperifyWaterReaderSvg(
   }
   tally(before12, svg);
 
-  // 13) Land surface — tan field + faint topographic contour pattern + a
-  //     barely-visible dot grid. Layered so the surface has texture without
-  //     pulling attention from the lake.
+  // 13) Land surface — tan field + a single wave-contour pattern. Pass-9
+  //     dropped the scan-grid pattern layer (it read as "lined paper" in
+  //     the extended-viewBox padding region and clashed with the waves).
+  //
+  //     Rects use explicit far-negative coords with very large dimensions
+  //     instead of width="100%" so they cover the EXTENDED viewBox edge to
+  //     edge (the viewBox extension in step 13a moves the origin into
+  //     negative coords; "100%"-positioned rects at default x=0 y=0 only
+  //     cover the original 0..W × 0..H region, leaving the padding zone
+  //     uncolored and showing whatever React renders behind the SVG).
   const before13 = svg;
   if (!svg.includes('class="wr-scan-surface"')) {
     svg = svg.replace(
       /(<svg[^>]*>)/,
       `$1
-  <rect class="wr-scan-surface" width="100%" height="100%" fill="${LAND_BASE}"/>
-  <rect class="wr-scan-grid" width="100%" height="100%" fill="url(#wr-land-contour)" opacity="0.65"/>
-  <rect class="wr-scan-grid" width="100%" height="100%" fill="url(#wr-scan-grid)" opacity="0.16"/>`,
+  <rect class="wr-scan-surface" x="-10000" y="-10000" width="20000" height="20000" fill="${LAND_BASE}"/>
+  <rect class="wr-scan-grid" x="-10000" y="-10000" width="20000" height="20000" fill="url(#wr-land-contour)" opacity="0.7"/>`,
     );
   }
   tally(before13, svg);
@@ -636,10 +641,6 @@ function buildDecorationDefs(outerRingD: string | null): string {
         <feMergeNode in="SourceGraphic"/>
       </feMerge>
     </filter>
-    <pattern id="wr-scan-grid" width="34" height="34" patternUnits="userSpaceOnUse">
-      <path d="M 34 0 L 0 0 0 34" fill="none" stroke="${LAND_TONE_DARK}" stroke-width="0.5"/>
-      <circle cx="0" cy="0" r="0.9" fill="${LAND_TONE_DARK}"/>
-    </pattern>
     <pattern id="wr-land-contour" width="60" height="22" patternUnits="userSpaceOnUse">
       <path d="M 0 11 Q 15 4 30 11 T 60 11" fill="none" stroke="${LAND_CONTOUR_INK}" stroke-width="0.6"/>
       <path d="M 0 22 Q 15 15 30 22 T 60 22" fill="none" stroke="${LAND_CONTOUR_INK}" stroke-width="0.6" opacity="0.55"/>

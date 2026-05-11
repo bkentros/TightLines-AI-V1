@@ -35,6 +35,75 @@ export function normalizeSeason(season: string | undefined | null): LegendSeason
   return FALLBACK_SEASON;
 }
 
+/**
+ * Northern-hemisphere meteorological seasons, by calendar:
+ *   spring: Mar 1 – May 31
+ *   summer: Jun 1 – Aug 31
+ *   fall:   Sep 1 – Nov 30
+ *   winter: Dec 1 – Feb (28|29)
+ */
+export function calendarSeasonFor(date: Date): LegendSeason {
+  const m = date.getMonth(); // 0..11
+  if (m >= 2 && m <= 4) return 'spring';
+  if (m >= 5 && m <= 7) return 'summer';
+  if (m >= 8 && m <= 10) return 'fall';
+  return 'winter';
+}
+
+/**
+ * Build a season display label that surfaces regional transitions.
+ *
+ * When the engine's season-of-record matches the calendar season for the
+ * current date, we show a single season ("SPRING"). When they DIFFER, the
+ * region's climate is offset from the calendar — Florida is already on a
+ * summer pattern in mid-May; far-north lakes are still on winter in early
+ * March — and we surface that as "SPRING → SUMMER" so the angler knows
+ * the region they're in is behaving differently than the calendar season
+ * alone would suggest.
+ *
+ * Order in the transition label: earlier season → later season in the
+ * cyclical order spring → summer → fall → winter → spring …, regardless
+ * of which side the engine landed on. Reads as "the region is moving
+ * from X conditions toward Y conditions."
+ *
+ * `now` is injectable for testing; production callers pass `new Date()`.
+ */
+export function seasonDisplayLabel(
+  engineSeason: string | undefined | null,
+  now: Date = new Date(),
+): { label: string; isTransition: boolean } {
+  const engine = normalizeSeason(engineSeason);
+  const calendar = calendarSeasonFor(now);
+  if (engine === calendar) {
+    return { label: engine.toUpperCase(), isTransition: false };
+  }
+  const [from, to] = orderSeasons(calendar, engine);
+  return {
+    label: `${from.toUpperCase()} → ${to.toUpperCase()}`,
+    isTransition: true,
+  };
+}
+
+const SEASON_ORDER: LegendSeason[] = ['spring', 'summer', 'fall', 'winter'];
+
+/**
+ * Given two distinct seasons, return them in cyclical order (spring →
+ * summer → fall → winter → spring …) for display. We pick the ordering
+ * that produces the SHORTER forward step between the two — so we get
+ * "WINTER → SPRING" rather than "SPRING → WINTER" (3 steps).
+ */
+function orderSeasons(
+  a: LegendSeason,
+  b: LegendSeason,
+): [LegendSeason, LegendSeason] {
+  if (a === b) return [a, b];
+  const ai = SEASON_ORDER.indexOf(a);
+  const bi = SEASON_ORDER.indexOf(b);
+  const forward = (bi - ai + 4) % 4;
+  if (forward <= 2) return [a, b];
+  return [b, a];
+}
+
 type SeasonTemplates = Record<LegendSeason, string[]>;
 
 const TEMPLATES: Record<WaterReaderProductionSvgFeatureClass, SeasonTemplates> = {
