@@ -1335,32 +1335,46 @@ const gaugeStyles = StyleSheet.create({
   },
   scoreNumberStack: {
     alignItems: 'center',
-    minWidth: 138,
+    // Fraunces digits at 76 px are wider than mono digits of the same
+    // visual size — give the stack more breathing room so 8.8 / 10 etc.
+    // never bumps into the flanking ornament rules.
+    minWidth: 168,
   },
   scoreNumberRow: {
     flexDirection: 'row',
     alignItems: 'flex-end',
     gap: 2,
   },
-  // Bumped ~21% (56 → 68) per user feedback — the score now reads as the
-  // unambiguous hero of the panel. Mono Bold, ink color matches the home
-  // page's Live Conditions chip.
+  // Score number matches the home dashboard's Live Conditions chip
+  // typography exactly: Fraunces 700 Bold (serif), tight negative
+  // letter-spacing, dark ink. The serif has more weight at the bottom
+  // of each digit and reads as confident magazine-cover numerics — the
+  // visual hero the user is looking for. Scaled up from the home page's
+  // 32px to 76px so it dominates the report page; tracking goes more
+  // negative as the size grows to keep the digits feeling cut from one
+  // block rather than four lonely glyphs.
   scoreNum: {
-    fontFamily: paperFonts.monoBold,
-    fontSize: 68,
-    lineHeight: 72,
-    letterSpacing: -1.2,
-    fontWeight: '700',
+    fontFamily: paperFonts.display,
+    fontSize: 76,
+    lineHeight: 78,
+    letterSpacing: -3,
+    fontWeight: '800',
+    color: paper.dashboardInk,
     includeFontPadding: false,
   },
+  // "/10" matches the home dashboard's `liveCardScoreUnit`: JetBrains
+  // Mono SemiBold, small, muted gray, positioned near the baseline of
+  // the big serif numerals so it reads as a denominator, not a label.
   scoreMax: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 19,
-    lineHeight: 23,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 16,
+    lineHeight: 20,
+    letterSpacing: 0.4,
     fontWeight: '700',
-    marginBottom: 10,
-    marginLeft: 2,
+    marginBottom: 13,
+    marginLeft: 3,
     color: paper.dashboardMuted,
+    opacity: 0.85,
   },
   scoreUnderline: {
     height: 2.5,
