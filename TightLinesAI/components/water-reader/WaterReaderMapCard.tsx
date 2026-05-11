@@ -281,6 +281,7 @@ export function WaterReaderMapCard({
                     containerWidth={mapContentWidth}
                     windowHeight={window.height}
                     selectedNumber={selectedNumber}
+                    lakeName={state.read.name ?? lakeName}
                   />
                 </View>
 
@@ -430,6 +431,7 @@ function WaterReaderAdaptiveMap({
   containerWidth,
   windowHeight,
   selectedNumber,
+  lakeName,
   fullScreen = false,
 }: {
   result: WaterReaderReadResponse['productionSvgResult'];
@@ -437,6 +439,7 @@ function WaterReaderAdaptiveMap({
   containerWidth: number;
   windowHeight: number;
   selectedNumber?: number | string | null;
+  lakeName?: string;
   fullScreen?: boolean;
 }) {
   const dimensions = useMemo(() => {
@@ -504,6 +507,7 @@ function WaterReaderAdaptiveMap({
               width={dimensions.inspectWidth}
               height={dimensions.inspectHeight}
               selectedNumber={selectedNumber}
+              lakeName={lakeName}
               style={[
                 styles.mapCanvas,
                 {
@@ -525,6 +529,7 @@ function WaterReaderAdaptiveMap({
         width={dimensions.fitWidth}
         height={dimensions.fitHeight}
         selectedNumber={selectedNumber}
+        lakeName={lakeName}
         style={[
           styles.mapCanvas,
           {

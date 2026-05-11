@@ -33,6 +33,14 @@ import {
   TextInput,
   View,
 } from 'react-native';
+import Svg, {
+  Circle,
+  Defs,
+  Line,
+  Path,
+  Pattern,
+  Rect,
+} from 'react-native-svg';
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
@@ -42,6 +50,10 @@ import {
   paperFonts,
   paperSpacing,
 } from '../lib/theme';
+import {
+  PAPER_WARM_FEATURE_COLORS,
+  PAPER_WARM_FEATURE_MOTIF_COLORS,
+} from '../lib/waterReaderZonePaperPalette';
 import { fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
 import { TopographicLines } from '../components/paper';
 import { WaterReaderMapCard } from '../components/water-reader/WaterReaderMapCard';
@@ -758,16 +770,7 @@ export default function WaterReaderScreen() {
 
             {/* ── Map + legend ── */}
             {!selected ? (
-              <View style={styles.idleCard}>
-                <Text style={styles.idleHeadline}>
-                  Choose a lake to see its read.
-                </Text>
-                <Text style={styles.idleBody}>
-                  Water Read pulls your lake&apos;s hydrography outline and
-                  highlights structure patterns: points, secondary points,
-                  coves, necks, islands, saddles, and confluences.
-                </Text>
-              </View>
+              <WaterReadIdlePreview />
             ) : (
               <WaterReaderMapCard
                 lakeId={selected.lakeId}
@@ -886,6 +889,273 @@ export default function WaterReaderScreen() {
           </ScrollView>
         </View>
       </Modal>
+    </View>
+  );
+}
+
+// ─── Idle preview plate ──────────────────────────────────────────────────────
+//
+// Replaces the prior "Choose a lake" body card with a small teaser plate that
+// previews exactly what Water Read produces — a stylized lake outline, three
+// patterned structure zones (point / cove / island), a numbered callout, and
+// FinFindr brand marginalia mirroring the real map plate. Gives first-time
+// visitors something to see before they pick a state, so the page no longer
+// feels bland on arrival.
+
+const PREVIEW_VB_W = 320;
+const PREVIEW_VB_H = 180;
+const PREVIEW_COLORS = PAPER_WARM_FEATURE_COLORS;
+const PREVIEW_MOTIFS = PAPER_WARM_FEATURE_MOTIF_COLORS;
+
+function WaterReadIdlePreview() {
+  return (
+    <View style={styles.idleCard}>
+      <View style={styles.idleHeaderRow}>
+        <View style={styles.idleHeaderText}>
+          <Text style={styles.idleEyebrow}>SAMPLE PLATE · PREVIEW</Text>
+          <Text style={styles.idleHeadline}>
+            See structure before you cast.
+          </Text>
+          <Text style={styles.idleSubline}>
+            Pick a state and a lake above. Every Water Read comes with patterned
+            zones, season-tuned notes, and a signed FinFindr plate.
+          </Text>
+        </View>
+      </View>
+
+      <View style={styles.idlePlate}>
+        <Svg
+          width="100%"
+          height="100%"
+          viewBox={`0 0 ${PREVIEW_VB_W} ${PREVIEW_VB_H}`}
+          preserveAspectRatio="xMidYMid meet"
+        >
+          <Defs>
+            {/* Land contour pattern — mirrors the real map. */}
+            <Pattern
+              id="idle-land-contour"
+              width={42}
+              height={16}
+              patternUnits="userSpaceOnUse"
+            >
+              <Path
+                d="M 0 8 Q 10 3 21 8 T 42 8"
+                fill="none"
+                stroke="rgba(58, 46, 34, 0.18)"
+                strokeWidth={0.6}
+              />
+            </Pattern>
+            {/* Three sample zone patterns. */}
+            <Pattern
+              id="idle-zone-point"
+              width={12}
+              height={12}
+              patternUnits="userSpaceOnUse"
+            >
+              <Rect width={12} height={12} fill={PREVIEW_COLORS.main_lake_point} />
+              <Circle cx={3} cy={3} r={1.3} fill={PREVIEW_MOTIFS.main_lake_point} />
+              <Circle cx={9} cy={9} r={1.3} fill={PREVIEW_MOTIFS.main_lake_point} />
+            </Pattern>
+            <Pattern
+              id="idle-zone-cove"
+              width={18}
+              height={10}
+              patternUnits="userSpaceOnUse"
+            >
+              <Rect width={18} height={10} fill={PREVIEW_COLORS.cove} />
+              <Path
+                d="M 0 5 Q 4.5 1 9 5 T 18 5"
+                fill="none"
+                stroke={PREVIEW_MOTIFS.cove}
+                strokeWidth={0.9}
+              />
+              <Path
+                d="M 0 9 Q 4.5 5 9 9 T 18 9"
+                fill="none"
+                stroke={PREVIEW_MOTIFS.cove}
+                strokeWidth={0.7}
+                opacity={0.6}
+              />
+            </Pattern>
+            <Pattern
+              id="idle-zone-island"
+              width={10}
+              height={10}
+              patternUnits="userSpaceOnUse"
+            >
+              <Rect width={10} height={10} fill={PREVIEW_COLORS.island} />
+              <Line x1={0} y1={0} x2={10} y2={10} stroke={PREVIEW_MOTIFS.island} strokeWidth={0.9} />
+              <Line x1={10} y1={0} x2={0} y2={10} stroke={PREVIEW_MOTIFS.island} strokeWidth={0.9} />
+            </Pattern>
+          </Defs>
+
+          {/* Land base + faint contour pattern. */}
+          <Rect width={PREVIEW_VB_W} height={PREVIEW_VB_H} fill="#EFE4C8" />
+          <Rect
+            width={PREVIEW_VB_W}
+            height={PREVIEW_VB_H}
+            fill="url(#idle-land-contour)"
+            opacity={0.65}
+          />
+
+          {/* Corner brackets — field-guide marginalia. */}
+          {[
+            [10, 22, 10, 10, 22, 10],
+            [PREVIEW_VB_W - 22, 10, PREVIEW_VB_W - 10, 10, PREVIEW_VB_W - 10, 22],
+            [10, PREVIEW_VB_H - 22, 10, PREVIEW_VB_H - 10, 22, PREVIEW_VB_H - 10],
+            [
+              PREVIEW_VB_W - 22,
+              PREVIEW_VB_H - 10,
+              PREVIEW_VB_W - 10,
+              PREVIEW_VB_H - 10,
+              PREVIEW_VB_W - 10,
+              PREVIEW_VB_H - 22,
+            ],
+          ].map((pts, i) => (
+            <Path
+              key={`idle-bracket-${i}`}
+              d={`M ${pts[0]} ${pts[1]} L ${pts[2]} ${pts[3]} L ${pts[4]} ${pts[5]}`}
+              fill="none"
+              stroke="rgba(28,36,25,0.42)"
+              strokeWidth={1}
+            />
+          ))}
+
+          {/* Lake polygon with one island cutout (evenodd). */}
+          <Path
+            d="M 70 50 C 110 30 180 30 230 50 C 260 60 270 100 250 130 C 220 160 130 165 90 145 C 60 130 50 90 70 50 Z M 175 90 C 188 85 198 95 192 105 C 184 115 168 110 168 100 C 168 94 170 91 175 90 Z"
+            fill="#BFE4F3"
+            stroke="#1C2419"
+            strokeWidth={1.4}
+            fillRule="evenodd"
+          />
+
+          {/* Sample patterned zones — point, cove, island. */}
+          <Path
+            d="M 230 50 C 260 60 270 100 250 130 C 240 142 225 145 215 138 C 220 120 225 90 230 50 Z"
+            fill="url(#idle-zone-point)"
+            fillOpacity={0.78}
+            stroke={PREVIEW_COLORS.main_lake_point}
+            strokeOpacity={0.55}
+            strokeWidth={1.1}
+          />
+          <Path
+            d="M 90 145 C 60 130 50 90 70 50 C 85 55 100 90 100 110 C 100 130 95 142 90 145 Z"
+            fill="url(#idle-zone-cove)"
+            fillOpacity={0.78}
+            stroke={PREVIEW_COLORS.cove}
+            strokeOpacity={0.55}
+            strokeWidth={1.1}
+          />
+          <Path
+            d="M 175 90 C 188 85 198 95 192 105 C 184 115 168 110 168 100 C 168 94 170 91 175 90 Z"
+            fill="url(#idle-zone-island)"
+            fillOpacity={0.78}
+            stroke={PREVIEW_COLORS.island}
+            strokeOpacity={0.55}
+            strokeWidth={1.1}
+          />
+
+          {/* Numbered callouts. */}
+          {[
+            { n: '1', cx: 235, cy: 95, lx: 235, ly: 78 },
+            { n: '2', cx: 78, cy: 100, lx: 92, ly: 100 },
+            { n: '3', cx: 180, cy: 98, lx: 200, ly: 60 },
+          ].map((p) => (
+            <Path
+              key={`idle-leader-${p.n}`}
+              d={`M ${p.lx} ${p.ly} L ${p.cx} ${p.cy}`}
+              stroke="#1C2419"
+              strokeWidth={0.7}
+              strokeOpacity={0.32}
+              strokeDasharray="3 2.4"
+              fill="none"
+            />
+          ))}
+          {[
+            { n: '1', cx: 235, cy: 78 },
+            { n: '2', cx: 92, cy: 100 },
+            { n: '3', cx: 200, cy: 60 },
+          ].map((p) => (
+            <Circle
+              key={`idle-ring-${p.n}`}
+              cx={p.cx}
+              cy={p.cy}
+              r={7.6}
+              fill={paper.dashboardWhite}
+              stroke="#1C2419"
+              strokeWidth={1.15}
+            />
+          ))}
+
+          {/* Brand stamp — top right wordmark + bottom colophon strip. */}
+          <Rect
+            x={PREVIEW_VB_W - 86}
+            y={14}
+            width={72}
+            height={20}
+            fill="rgba(255,255,255,0.85)"
+            stroke="rgba(28,36,25,0.18)"
+            strokeWidth={0.8}
+            rx={4}
+          />
+        </Svg>
+
+        {/* React-overlaid wordmark + colophon for crisper type than SVG <text>. */}
+        <View style={styles.idlePlateWordmark} pointerEvents="none">
+          <Text style={styles.idlePlateWordmarkText}>
+            FinFindr<Text style={styles.idlePlateWordmarkDot}>.</Text>
+          </Text>
+          <Text style={styles.idlePlateWordmarkSub}>SAMPLE</Text>
+        </View>
+        <View style={styles.idlePlateColophon} pointerEvents="none">
+          <Text style={styles.idlePlateColophonText}>
+            FINFINDR · WATER READ · SAMPLE PLATE
+          </Text>
+        </View>
+      </View>
+
+      {/* What you'll get — small pattern legend tied to the preview. */}
+      <View style={styles.idleLegend}>
+        {[
+          { label: 'POINTS', color: PREVIEW_COLORS.main_lake_point },
+          { label: 'COVES', color: PREVIEW_COLORS.cove },
+          { label: 'ISLANDS', color: PREVIEW_COLORS.island },
+          { label: '+ 6 MORE', muted: true },
+        ].map((chip) => (
+          <View
+            key={chip.label}
+            style={[
+              styles.idleLegendChip,
+              chip.muted && styles.idleLegendChipMuted,
+            ]}
+          >
+            {!chip.muted && chip.color ? (
+              <View
+                style={[
+                  styles.idleLegendDot,
+                  { backgroundColor: chip.color },
+                ]}
+              />
+            ) : null}
+            <Text
+              style={[
+                styles.idleLegendChipText,
+                chip.muted && styles.idleLegendChipTextMuted,
+              ]}
+            >
+              {chip.label}
+            </Text>
+          </View>
+        ))}
+      </View>
+
+      <View style={styles.idleCta}>
+        <Ionicons name="arrow-up-outline" size={13} color={paper.dashboardBlue} />
+        <Text style={styles.idleCtaText}>
+          Pick a state above to scan a real lake.
+        </Text>
+      </View>
     </View>
   );
 }
@@ -1395,26 +1665,153 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
   },
 
-  // Idle state card (no lake selected)
+  // Idle state card (no lake selected) — sample plate preview.
   idleCard: {
     backgroundColor: paper.dashboardWhite,
     borderRadius: 12,
-    padding: 18,
+    padding: 16,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    gap: 8,
+    gap: 14,
+  },
+  idleHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+  },
+  idleHeaderText: {
+    flex: 1,
+    minWidth: 0,
+    gap: 4,
+  },
+  idleEyebrow: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1.7,
+    color: paper.dashboardBlue,
+    lineHeight: 12,
   },
   idleHeadline: {
-    fontFamily: SERIF_SEMI,
-    fontSize: 20,
-    lineHeight: 24,
+    fontFamily: SERIF_BOLD,
+    fontSize: 22,
+    lineHeight: 26,
     color: paper.dashboardInk,
+    marginTop: 2,
   },
-  idleBody: {
+  idleSubline: {
+    marginTop: 2,
     fontFamily: SANS_MEDIUM,
-    fontSize: 13,
-    lineHeight: 19,
+    fontSize: 12.5,
+    lineHeight: 18,
     color: '#555555',
+  },
+  idlePlate: {
+    width: '100%',
+    aspectRatio: 320 / 180,
+    position: 'relative',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#EFE4C8',
+    overflow: 'hidden',
+  },
+  idlePlateWordmark: {
+    position: 'absolute',
+    top: 9,
+    right: 14,
+    backgroundColor: 'rgba(255,255,255,0.92)',
+    borderRadius: 5,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: 'rgba(28,36,25,0.18)',
+    alignItems: 'flex-end',
+  },
+  idlePlateWordmarkText: {
+    fontFamily: SERIF_BOLD,
+    fontSize: 12,
+    color: paper.dashboardInk,
+    lineHeight: 14,
+  },
+  idlePlateWordmarkDot: {
+    color: paper.dashboardBlue,
+  },
+  idlePlateWordmarkSub: {
+    fontFamily: MONO_BOLD,
+    fontSize: 7,
+    letterSpacing: 1.4,
+    color: paper.dashboardMuted,
+    lineHeight: 9,
+    marginTop: 1,
+  },
+  idlePlateColophon: {
+    position: 'absolute',
+    bottom: 4,
+    left: 0,
+    right: 0,
+    alignItems: 'center',
+  },
+  idlePlateColophonText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8,
+    letterSpacing: 1.8,
+    color: 'rgba(28,36,25,0.55)',
+  },
+  idleLegend: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    alignItems: 'center',
+    gap: 6,
+  },
+  idleLegendChip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#FAFAF7',
+  },
+  idleLegendChipMuted: {
+    borderColor: 'rgba(28,36,25,0.14)',
+    backgroundColor: 'transparent',
+  },
+  idleLegendDot: {
+    width: 9,
+    height: 9,
+    borderRadius: 2,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: 'rgba(0,0,0,0.22)',
+  },
+  idleLegendChipText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1.4,
+    color: paper.dashboardInk,
+    lineHeight: 12,
+  },
+  idleLegendChipTextMuted: {
+    color: paper.dashboardMuted,
+  },
+  idleCta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    paddingTop: 4,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.dashboardHair,
+    marginTop: 2,
+  },
+  idleCtaText: {
+    flex: 1,
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 1.4,
+    color: paper.dashboardBlue,
+    lineHeight: 13,
   },
 
   // Limited / review notes under the map

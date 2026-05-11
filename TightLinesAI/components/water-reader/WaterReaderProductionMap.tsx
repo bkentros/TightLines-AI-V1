@@ -52,6 +52,12 @@ export interface WaterReaderProductionMapProps {
   height?: number | string;
   style?: StyleProp<ViewStyle>;
   selectedNumber?: number | string | null;
+  /**
+   * Lake name etched into the in-SVG colophon strip ("FINFINDR · WATER
+   * READ · {LAKE}"). Passing it from the parent keeps every screenshot
+   * branded with the specific lake. Optional — falls back to "WATER READ".
+   */
+  lakeName?: string;
 }
 
 export function WaterReaderProductionMap({
@@ -60,12 +66,13 @@ export function WaterReaderProductionMap({
   height = '100%',
   style,
   selectedNumber = null,
+  lakeName,
 }: WaterReaderProductionMapProps) {
   // Heavy paperify pipeline runs once per lake (per `result.svg` change).
   // This is the expensive memo: 10+ regex sweeps + decoration injection.
   const paperifiedBase = useMemo(
-    () => paperifyWaterReaderSvg(result.svg).svg,
-    [result.svg],
+    () => paperifyWaterReaderSvg(result.svg, { lakeName }).svg,
+    [result.svg, lakeName],
   );
 
   // Cheap emphasis memo runs on every selection change — string replace

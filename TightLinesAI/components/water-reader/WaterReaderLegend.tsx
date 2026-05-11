@@ -3,34 +3,36 @@
  *
  * Paper-language legend rendered in React from `legendEntries` returned by
  * the water-reader-read edge function. Replaces the engine's embedded
- * "Map Key" SVG panel — the renderer now strips its own legend block (and
- * the client paperifier strips it as a fallback for cached pre-bump rows),
- * leaving the React layer free to paint the legend in Fraunces / DM Sans /
- * paper colors that match every other surface in the app.
+ * "Map Key" SVG panel.
  *
- * Visual contract:
- *   • Section eyebrow "MAP KEY · {N} STRUCTURES" + italic season subline.
- *   • Each row reads as a printed legend entry rather than a UI list item:
- *       - Number ring on the left, mirroring the SVG callout glyph.
- *       - Bold left-side vertical color ribbon (4 px × full row height) in
- *         the zone's paper-warm hue. Replaces the prior tiny rectangle
- *         swatch — gives each row strong color identity at a glance.
- *       - Structure-type tag eyebrow ("POINT", "COVE", "NECK", "ISLAND"…)
- *         above the title so users can scan structure types without
- *         reading the full title.
- *       - Title in Fraunces 700 (split into structure-type "head" + a
- *         lighter placement-variant "tail") and DM Sans body.
- *   • Confluence rows get a "CONFLUENCE" type tag — same anatomy as other
- *     rows, no special background, the ribbon color carries the difference.
- *   • Transition warnings render as gold "FAIR-tier" chip rows, prefixed
- *     with the same ◐ glyph the band system uses elsewhere.
+ * Renovation (scan-v5):
+ *   • Masthead band — Fraunces "Map Key" wordmark, season badge, hint
+ *     line ("Reads tuned for the season above") so the season carries from
+ *     the page header into the legend without repeating it on every row.
+ *   • Mini-SVG pattern swatches — every row's color block carries the same
+ *     pattern stamp as its zone in the map (dots / waves / hatch / rings /
+ *     …), making swatch ↔ zone identification unmistakable.
+ *   • Body copy — sourced from `waterReaderLegendTemplates`, picking
+ *     deterministically by `zoneId + season + featureClass` so each lake
+ *     reads original. The engine `entry.body` is used as a fallback if
+ *     a feature class isn't in the template table.
+ *   • Colophon footer — pressed-date + FinFindr signature mirroring the
+ *     map-card colophon for visual continuity.
  *
  * The component is purely presentational — no state, no fetching. Rows are
  * `React.memo`'d so a tap doesn't cascade re-renders through 8–9 rows.
  */
 
-import { memo, useCallback } from 'react';
+import { memo, useCallback, useMemo } from 'react';
 import { Pressable, StyleSheet, Text, View } from 'react-native';
+import Svg, {
+  Circle,
+  Defs,
+  Line,
+  Path,
+  Pattern,
+  Rect,
+} from 'react-native-svg';
 import {
   paper,
   paperFonts,
@@ -38,12 +40,18 @@ import {
 } from '../../lib/theme';
 import {
   PAPER_WARM_FEATURE_COLORS,
+  PAPER_WARM_FEATURE_MOTIF_COLORS,
   paperWarmColorForFeature,
+  type PaperWarmFeatureKey,
 } from '../../lib/waterReaderZonePaperPalette';
-import type { WaterReaderProductionSvgLegendEntry } from '../../lib/waterReaderContracts';
+import {
+  pickLegendBody,
+} from '../../lib/waterReaderLegendTemplates';
+import type {
+  WaterReaderProductionSvgFeatureClass,
+  WaterReaderProductionSvgLegendEntry,
+} from '../../lib/waterReaderContracts';
 
-// Match the confluence color in the paper palette so the legend eyebrow
-// reads as the same hue family as the SVG zone color.
 const CONFLUENCE_ACCENT = PAPER_WARM_FEATURE_COLORS.structure_confluence;
 
 export interface WaterReaderLegendProps {
@@ -63,38 +71,56 @@ export function WaterReaderLegend({
 
   const seasonLabel = season ? season.toLowerCase() : null;
   const seasonStyle = seasonLabel ? seasonBadgeStyle(seasonLabel) : null;
+  const pressedDate = useMemo(() => formatPressedDate(), []);
 
   return (
     <View style={styles.root}>
-      <View style={styles.header}>
-        <View style={styles.headerLeft}>
-          <Text style={styles.eyebrow}>
-            MAP KEY · {entries.length}{' '}
-            {entries.length === 1 ? 'STRUCTURE' : 'STRUCTURES'}
-          </Text>
-        </View>
-        {seasonLabel && seasonStyle ? (
-          <View
-            style={[
-              styles.seasonBadge,
-              {
-                backgroundColor: seasonStyle.backgroundColor,
-                borderColor: seasonStyle.borderColor,
-              },
-            ]}
-          >
-            <Text style={[styles.seasonBadgeText, { color: seasonStyle.color }]}>
-              {seasonLabel.toUpperCase()}
+      {/* ── Masthead ───────────────────────────────────────────────────── */}
+      <View style={styles.masthead}>
+        <View style={styles.mastheadTop}>
+          <View style={styles.mastheadLeft}>
+            <Text style={styles.mastheadEyebrow}>FINFINDR · WATER READ</Text>
+            <Text style={styles.mastheadTitle} allowFontScaling={false}>
+              Map Key<Text style={styles.mastheadTitleDot}>.</Text>
             </Text>
           </View>
-        ) : null}
+          {seasonLabel && seasonStyle ? (
+            <View
+              style={[
+                styles.seasonBadge,
+                {
+                  backgroundColor: seasonStyle.backgroundColor,
+                  borderColor: seasonStyle.borderColor,
+                },
+              ]}
+            >
+              <Text style={styles.seasonBadgeEyebrow}>SEASON</Text>
+              <Text style={[styles.seasonBadgeText, { color: seasonStyle.color }]}>
+                {seasonLabel.toUpperCase()}
+              </Text>
+            </View>
+          ) : null}
+        </View>
+        <View style={styles.mastheadRule} />
+        <View style={styles.mastheadMeta}>
+          <Text style={styles.mastheadCount}>
+            {entries.length}{' '}
+            {entries.length === 1 ? 'STRUCTURE' : 'STRUCTURES'}
+          </Text>
+          <Text style={styles.mastheadDot}>·</Text>
+          <Text style={styles.mastheadHint} numberOfLines={2}>
+            Notes tuned for the season above.
+          </Text>
+        </View>
       </View>
 
+      {/* ── Rows ───────────────────────────────────────────────────────── */}
       <View style={styles.list}>
         {entries.map((entry, idx) => (
           <LegendRow
             key={`${entry.number ?? entry.zoneId}-${entry.zoneIds.join('|')}`}
             entry={entry}
+            season={season}
             isFirst={idx === 0}
             selected={selectedNumber != null && String(selectedNumber) === String(entry.number)}
             onSelectNumber={onSelectNumber}
@@ -102,12 +128,19 @@ export function WaterReaderLegend({
         ))}
       </View>
 
-      <View style={styles.betaFooter}>
-        <View style={styles.betaFooterChip}>
-          <Text style={styles.betaFooterChipText}>BETA</Text>
+      {/* ── Colophon ──────────────────────────────────────────────────── */}
+      <View style={styles.colophon}>
+        <View style={styles.colophonRule} />
+        <View style={styles.colophonRow}>
+          <Text style={styles.colophonLeft} numberOfLines={1}>
+            POLYGON ONLY · BETA READ
+          </Text>
+          <Text style={styles.colophonRight} numberOfLines={1}>
+            {pressedDate}
+          </Text>
         </View>
-        <Text style={styles.betaFooterText}>
-          Water Read is in beta. Read the zones as a starting point, not the last word.
+        <Text style={styles.colophonNote}>
+          Read the zones as a starting point, not the last word.
         </Text>
       </View>
     </View>
@@ -116,39 +149,40 @@ export function WaterReaderLegend({
 
 interface LegendRowProps {
   entry: WaterReaderProductionSvgLegendEntry;
+  season?: string;
   isFirst: boolean;
   selected: boolean;
   onSelectNumber?: (n: number | string | null) => void;
 }
 
-/**
- * `React.memo`'d so a single legend tap doesn't cascade a re-render through
- * every row in the legend (8–9 of them is enough to feel sluggish on a
- * mid-range device). Pulling the toggle logic inside the row also lets the
- * parent pass a stable `onSelectNumber` reference (the state setter) instead
- * of a fresh arrow per render — without that, memoization would be defeated.
- */
 const LegendRow = memo(function LegendRow({
   entry,
+  season,
   isFirst,
   selected,
   onSelectNumber,
 }: LegendRowProps) {
-  // Trust the paper-warm palette — but if the engine emits a hex we don't
-  // recognize, fall back to the entry's `colorHex`. This keeps the legend
-  // forward-compatible if a new feature class ships before the palette is
-  // updated.
   const featureKey = entry.isConfluence
     ? 'structure_confluence'
     : entry.featureClass;
   const paletteColor = paperWarmColorForFeature(featureKey);
   const accent = paletteColor ?? entry.colorHex ?? paper.dashboardInk;
   const typeTag = structureTypeTag(featureKey);
-
   const titleParts = splitLegendTitle(entry.title);
 
-  // Stable handler: the parent's `onSelectNumber` is the state setter, so
-  // the only thing that changes between renders is `selected` + `entry`.
+  const body = useMemo(
+    () =>
+      pickLegendBody({
+        featureClass: (entry.isConfluence
+          ? 'structure_confluence'
+          : entry.featureClass) as WaterReaderProductionSvgFeatureClass,
+        season,
+        zoneId: entry.zoneId,
+        fallbackBody: entry.body,
+      }),
+    [entry.body, entry.featureClass, entry.isConfluence, entry.zoneId, season],
+  );
+
   const handlePress = useCallback(() => {
     if (!onSelectNumber) return;
     onSelectNumber(selected ? null : entry.number ?? null);
@@ -181,16 +215,14 @@ const LegendRow = memo(function LegendRow({
         </Text>
       </View>
 
-      {/* Bold color square — strong row identity. Sized to match the
-          number ring so the marker column reads as two paired chips. */}
-      <View
-        style={[
-          styles.colorSwatch,
-          { backgroundColor: accent },
-        ]}
+      {/* Pattern swatch — mirrors the SVG zone fill so swatch ↔ zone is
+          unmistakable. The same motif logic lives in
+          `lib/water-reader-paperify-svg.ts`. */}
+      <ZonePatternSwatch
+        featureKey={(featureKey ?? 'universal') as PaperWarmFeatureKey}
+        accentFallback={accent}
       />
 
-      {/* Copy column. */}
       <View style={styles.copyColumn}>
         {typeTag ? (
           <Text
@@ -213,7 +245,7 @@ const LegendRow = memo(function LegendRow({
           ) : null}
         </Text>
         <Text style={styles.body} numberOfLines={8}>
-          {entry.body}
+          {body}
         </Text>
         {entry.transitionWarning ? (
           <View style={styles.transitionChip}>
@@ -228,34 +260,163 @@ const LegendRow = memo(function LegendRow({
   );
 });
 
+// ─── Pattern swatch ──────────────────────────────────────────────────────────
+
+interface ZonePatternSwatchProps {
+  featureKey: PaperWarmFeatureKey;
+  accentFallback: string;
+}
+
+const SWATCH_SIZE = 30;
+
 /**
- * Maps engine feature classes to the short, all-caps "structure-type" tag
- * shown above each legend row's title. These are the words a guide would
- * use to scan the legend at a glance — point, cove, neck, etc. — short
- * enough to fit on a single tracked line.
+ * Render a tiny SVG that mirrors the zone's pattern in the map. We use
+ * `react-native-svg` (already a project dep — no new packages) and define
+ * the same motif inline as `<Pattern>` in `<Defs>`, then fill a `<Rect>`.
  */
+const ZonePatternSwatch = memo(function ZonePatternSwatch({
+  featureKey,
+  accentFallback,
+}: ZonePatternSwatchProps) {
+  const base =
+    PAPER_WARM_FEATURE_COLORS[featureKey] ?? accentFallback;
+  const motif =
+    PAPER_WARM_FEATURE_MOTIF_COLORS[featureKey] ?? 'rgba(28,36,25,0.55)';
+  const patternId = `swatch-${featureKey}`;
+
+  return (
+    <View style={styles.swatchWrap}>
+      <Svg width={SWATCH_SIZE} height={SWATCH_SIZE}>
+        <Defs>{renderSwatchPattern(featureKey, base, motif, patternId)}</Defs>
+        <Rect width={SWATCH_SIZE} height={SWATCH_SIZE} fill={`url(#${patternId})`} />
+        {/* Hairline ink frame so the swatch reads as a hand-pressed chip. */}
+        <Rect
+          x={0.5}
+          y={0.5}
+          width={SWATCH_SIZE - 1}
+          height={SWATCH_SIZE - 1}
+          fill="none"
+          stroke="rgba(0,0,0,0.22)"
+          strokeWidth={1}
+        />
+      </Svg>
+    </View>
+  );
+});
+
+function renderSwatchPattern(
+  key: PaperWarmFeatureKey,
+  base: string,
+  motif: string,
+  id: string,
+) {
+  switch (key) {
+    case 'main_lake_point':
+      return (
+        <Pattern id={id} width={12} height={12} patternUnits="userSpaceOnUse">
+          <Rect width={12} height={12} fill={base} />
+          <Circle cx={3} cy={3} r={1.3} fill={motif} />
+          <Circle cx={9} cy={9} r={1.3} fill={motif} />
+          <Circle cx={3} cy={9} r={0.7} fill={motif} opacity={0.6} />
+          <Circle cx={9} cy={3} r={0.7} fill={motif} opacity={0.6} />
+        </Pattern>
+      );
+    case 'secondary_point':
+      return (
+        <Pattern
+          id={id}
+          width={10}
+          height={10}
+          patternUnits="userSpaceOnUse"
+          patternTransform="rotate(45)"
+        >
+          <Rect width={10} height={10} fill={base} />
+          <Line x1={0} y1={2} x2={10} y2={2} stroke={motif} strokeWidth={1.2} />
+          <Line x1={0} y1={6} x2={10} y2={6} stroke={motif} strokeWidth={0.7} opacity={0.7} />
+        </Pattern>
+      );
+    case 'cove':
+      return (
+        <Pattern id={id} width={18} height={10} patternUnits="userSpaceOnUse">
+          <Rect width={18} height={10} fill={base} />
+          <Path d="M 0 5 Q 4.5 1 9 5 T 18 5" fill="none" stroke={motif} strokeWidth={0.9} />
+          <Path d="M 0 9 Q 4.5 5 9 9 T 18 9" fill="none" stroke={motif} strokeWidth={0.7} opacity={0.6} />
+        </Pattern>
+      );
+    case 'neck':
+      return (
+        <Pattern id={id} width={10} height={10} patternUnits="userSpaceOnUse">
+          <Rect width={10} height={10} fill={base} />
+          <Line x1={2} y1={0} x2={2} y2={10} stroke={motif} strokeWidth={1.4} />
+          <Line x1={6} y1={0} x2={6} y2={10} stroke={motif} strokeWidth={0.7} opacity={0.65} />
+        </Pattern>
+      );
+    case 'island':
+      return (
+        <Pattern id={id} width={10} height={10} patternUnits="userSpaceOnUse">
+          <Rect width={10} height={10} fill={base} />
+          <Line x1={0} y1={0} x2={10} y2={10} stroke={motif} strokeWidth={0.9} />
+          <Line x1={10} y1={0} x2={0} y2={10} stroke={motif} strokeWidth={0.9} />
+        </Pattern>
+      );
+    case 'saddle':
+      return (
+        <Pattern id={id} width={14} height={10} patternUnits="userSpaceOnUse">
+          <Rect width={14} height={10} fill={base} />
+          <Path
+            d="M 0 8 L 3.5 3 L 7 8 L 10.5 3 L 14 8"
+            fill="none"
+            stroke={motif}
+            strokeWidth={1}
+          />
+        </Pattern>
+      );
+    case 'dam':
+      return (
+        <Pattern id={id} width={14} height={10} patternUnits="userSpaceOnUse">
+          <Rect width={14} height={10} fill={base} />
+          <Rect x={0.6} y={0.6} width={6} height={3.4} fill="none" stroke={motif} strokeWidth={0.9} />
+          <Rect x={7.4} y={0.6} width={6} height={3.4} fill="none" stroke={motif} strokeWidth={0.9} />
+          <Rect x={-2.6} y={5.4} width={6} height={3.4} fill="none" stroke={motif} strokeWidth={0.9} />
+          <Rect x={4.2} y={5.4} width={6} height={3.4} fill="none" stroke={motif} strokeWidth={0.9} />
+          <Rect x={11} y={5.4} width={6} height={3.4} fill="none" stroke={motif} strokeWidth={0.9} />
+        </Pattern>
+      );
+    case 'structure_confluence':
+      return (
+        <Pattern id={id} width={16} height={16} patternUnits="userSpaceOnUse">
+          <Rect width={16} height={16} fill={base} />
+          <Circle cx={8} cy={8} r={5} fill="none" stroke={motif} strokeWidth={0.9} />
+          <Circle cx={8} cy={8} r={2.5} fill="none" stroke={motif} strokeWidth={0.7} opacity={0.7} />
+          <Circle cx={8} cy={8} r={0.9} fill={motif} />
+        </Pattern>
+      );
+    case 'universal':
+    default:
+      return (
+        <Pattern id={id} width={14} height={14} patternUnits="userSpaceOnUse">
+          <Rect width={14} height={14} fill={base} />
+          <Circle cx={3.5} cy={3.5} r={0.95} fill="none" stroke={motif} strokeWidth={0.7} />
+          <Circle cx={10.5} cy={10.5} r={0.95} fill="none" stroke={motif} strokeWidth={0.7} />
+        </Pattern>
+      );
+  }
+}
+
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+
 function structureTypeTag(featureKey: string | undefined): string {
   switch (featureKey) {
-    case 'main_lake_point':
-      return 'MAIN POINT';
-    case 'secondary_point':
-      return 'POINT';
-    case 'cove':
-      return 'COVE';
-    case 'neck':
-      return 'NECK';
-    case 'island':
-      return 'ISLAND';
-    case 'saddle':
-      return 'SADDLE';
-    case 'dam':
-      return 'DAM';
-    case 'structure_confluence':
-      return 'CONFLUENCE';
-    case 'universal':
-      return 'POND';
-    default:
-      return 'STRUCTURE';
+    case 'main_lake_point': return 'MAIN POINT';
+    case 'secondary_point': return 'POINT';
+    case 'cove': return 'COVE';
+    case 'neck': return 'NECK';
+    case 'island': return 'ISLAND';
+    case 'saddle': return 'SADDLE';
+    case 'dam': return 'DAM';
+    case 'structure_confluence': return 'CONFLUENCE';
+    case 'universal': return 'POND';
+    default: return 'STRUCTURE';
   }
 }
 
@@ -268,42 +429,42 @@ function seasonBadgeStyle(season: string): {
     case 'summer':
       return {
         backgroundColor: 'rgba(66, 232, 157, 0.22)',
-        borderColor: 'rgba(45, 168, 95, 0.38)',
+        borderColor: 'rgba(45, 168, 95, 0.42)',
         color: '#1F7A45',
       };
     case 'fall':
     case 'autumn':
       return {
-        backgroundColor: 'rgba(255, 138, 42, 0.2)',
-        borderColor: 'rgba(255, 138, 42, 0.42)',
+        backgroundColor: 'rgba(255, 138, 42, 0.22)',
+        borderColor: 'rgba(255, 138, 42, 0.46)',
         color: '#9A4E12',
       };
     case 'winter':
       return {
-        backgroundColor: 'rgba(40, 200, 255, 0.2)',
-        borderColor: 'rgba(42, 110, 150, 0.36)',
+        backgroundColor: 'rgba(40, 200, 255, 0.22)',
+        borderColor: 'rgba(42, 110, 150, 0.40)',
         color: paper.dashboardBlue,
       };
     case 'spring':
     default:
       return {
-        backgroundColor: 'rgba(185, 242, 77, 0.25)',
-        borderColor: 'rgba(61, 168, 95, 0.34)',
+        backgroundColor: 'rgba(185, 242, 77, 0.28)',
+        borderColor: 'rgba(61, 168, 95, 0.38)',
         color: '#2E7A43',
       };
   }
 }
 
-/**
- * Engine titles look like "Main Lake Point - Point Tip" or "East Cove - Back
- * Shoreline". Split on the first " - " so the "head" (structure type) gets
- * the heavier display weight and the "tail" (placement variant) gets a
- * lighter, secondary treatment.
- */
 function splitLegendTitle(title: string): { head: string; tail: string | null } {
   const idx = title.indexOf(' - ');
   if (idx <= 0) return { head: title, tail: null };
   return { head: title.slice(0, idx), tail: title.slice(idx + 3) };
+}
+
+function formatPressedDate(): string {
+  const now = new Date();
+  const month = now.toLocaleString('en-US', { month: 'short' }).toUpperCase();
+  return `SCANNED · ${month} ${now.getDate()} · ${now.getFullYear()}`;
 }
 
 const styles = StyleSheet.create({
@@ -317,47 +478,102 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardLine,
     gap: paperSpacing.sm,
   },
-  header: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    gap: paperSpacing.sm,
-    paddingBottom: paperSpacing.sm,
-    borderBottomWidth: 1,
-    borderBottomColor: paper.dashboardLine,
+
+  // ── Masthead ────────────────────────────────────────────────────────────
+  masthead: {
+    gap: 8,
   },
-  headerLeft: {
+  mastheadTop: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+  },
+  mastheadLeft: {
     flex: 1,
     minWidth: 0,
-    gap: 3,
+    gap: 2,
   },
-  eyebrow: {
+  mastheadEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 12.5,
-    letterSpacing: 1.8,
+    fontSize: 9,
+    letterSpacing: 1.7,
+    color: paper.dashboardMuted,
+    lineHeight: 12,
+  },
+  mastheadTitle: {
+    fontFamily: paperFonts.display,
+    fontWeight: '700',
+    fontSize: 22,
     color: paper.dashboardInk,
-    lineHeight: 17,
+    letterSpacing: 0,
+    lineHeight: 24,
+    marginTop: 1,
+  },
+  mastheadTitleDot: {
+    color: paper.dashboardBlue,
   },
   seasonBadge: {
+    minWidth: 76,
     paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 999,
+    paddingVertical: 6,
+    borderRadius: 8,
     borderWidth: 1,
+    alignItems: 'center',
+    gap: 1,
+  },
+  seasonBadgeEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: 1.4,
+    color: paper.dashboardMuted,
+    lineHeight: 9,
   },
   seasonBadgeText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    letterSpacing: 1.3,
-    lineHeight: 12,
+    fontSize: 11,
+    letterSpacing: 1.6,
+    lineHeight: 14,
   },
-  list: {
-    gap: 0,
+  mastheadRule: {
+    height: 2,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.85,
   },
+  mastheadMeta: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    flexWrap: 'wrap',
+    gap: 6,
+  },
+  mastheadCount: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.5,
+    color: paper.dashboardInk,
+  },
+  mastheadDot: {
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    color: paper.dashboardMuted,
+  },
+  mastheadHint: {
+    flex: 1,
+    minWidth: 0,
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    fontStyle: 'italic',
+    color: paper.dashboardMuted,
+    lineHeight: 14,
+  },
+
+  // ── Rows ────────────────────────────────────────────────────────────────
+  list: { gap: 0 },
   row: {
     flexDirection: 'row',
     alignItems: 'stretch',
     gap: paperSpacing.sm + 2,
-    paddingVertical: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.sm + 4,
     paddingHorizontal: paperSpacing.xs,
     borderRadius: 8,
   },
@@ -392,17 +608,12 @@ const styles = StyleSheet.create({
   numberTextSelected: {
     color: '#FFFFFF',
   },
-  colorSwatch: {
-    width: 28,
-    height: 28,
-    borderRadius: 4,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.18)',
+  swatchWrap: {
+    width: SWATCH_SIZE,
+    height: SWATCH_SIZE,
     marginTop: 1,
-    // Subtle inner highlight so the swatch reads as a hand-painted chip,
-    // not a flat color block — small detail but it makes the legend
-    // feel printed rather than UI-rendered.
     overflow: 'hidden',
+    borderRadius: 4,
   },
   copyColumn: {
     flex: 1,
@@ -437,7 +648,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyMedium,
     fontSize: 12.5,
     lineHeight: 18,
-    color: '#555555',
+    color: '#444444',
   },
   transitionChip: {
     flexDirection: 'row',
@@ -464,34 +675,40 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     color: paper.dashboardBlue,
   },
-  betaFooter: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: paperSpacing.sm,
+
+  // ── Colophon ────────────────────────────────────────────────────────────
+  colophon: {
+    gap: 6,
     paddingTop: paperSpacing.sm,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderTopColor: paper.dashboardHair,
   },
-  betaFooterChip: {
-    paddingHorizontal: 6,
-    paddingVertical: 2,
-    borderRadius: 5,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.18)',
-    backgroundColor: paper.bandPoor,
+  colophonRule: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardLine,
   },
-  betaFooterChipText: {
+  colophonRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+    paddingTop: 6,
+  },
+  colophonLeft: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 1.2,
-    color: paper.dashboardInk,
-    lineHeight: 11,
+    fontSize: 9,
+    letterSpacing: 1.4,
+    color: paper.dashboardMuted,
   },
-  betaFooterText: {
-    flex: 1,
-    fontFamily: paperFonts.bodyMedium,
-    fontSize: 12,
-    lineHeight: 16,
+  colophonRight: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.4,
+    color: paper.dashboardMuted,
+  },
+  colophonNote: {
+    fontFamily: paperFonts.body,
+    fontSize: 11,
+    fontStyle: 'italic',
+    lineHeight: 14,
     color: paper.dashboardMuted,
   },
 });
