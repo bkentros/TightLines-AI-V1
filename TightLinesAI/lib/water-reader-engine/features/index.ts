@@ -3,7 +3,7 @@ import { detectCoveCandidates, detectSmoothLakeCoveCandidates } from './coves';
 import { resolveWaterReaderFeatureConflicts } from './conflicts';
 import { detectDamCandidates } from './dams';
 import { detectIslandFeatures } from './islands';
-import { detectNeckAndSaddleCandidates, detectPointSeededNeckCandidates } from './necks';
+import { detectNeckAndSaddleCandidates, detectPointSeededNeckCandidates, detectPointSeededPinchCandidates } from './necks';
 import { detectPointCandidates, detectSmoothLakePointCandidates } from './points';
 import { smoothLakeEnrichmentProfile } from './smoothness';
 import type { WaterReaderDetectedFeature } from './types';
@@ -20,10 +20,11 @@ export function detectWaterReaderFeatures(
   const islands = detectIslandFeatures(primaryPolygon);
   const coves = detectCoveCandidates(preprocessResult, input);
   const points = detectPointCandidates(preprocessResult, input);
-  const { necks, saddles } = detectNeckAndSaddleCandidates(preprocessResult);
+  const { necks, saddles } = detectNeckAndSaddleCandidates(preprocessResult, { islands, points });
   const pointSeededNecks = detectPointSeededNeckCandidates(preprocessResult, points);
+  const pointSeededPinches = detectPointSeededPinchCandidates(preprocessResult, points);
   const dams = detectDamCandidates(preprocessResult, input);
-  const normalFeatures = resolveWaterReaderFeatureConflicts({ coves, points, islands, necks: [...necks, ...pointSeededNecks], saddles, dams, metrics });
+  const normalFeatures = resolveWaterReaderFeatureConflicts({ coves, points, islands, necks: [...necks, ...pointSeededNecks, ...pointSeededPinches], saddles, dams, metrics });
   const smoothProfile = smoothLakeEnrichmentProfile(preprocessResult, normalFeatures);
   if (!smoothProfile.eligible) return normalFeatures;
 
@@ -35,7 +36,7 @@ export function detectWaterReaderFeatures(
     coves: [...coves, ...smoothCoves],
     points: [...points, ...smoothPoints],
     islands,
-    necks: [...necks, ...pointSeededNecks],
+    necks: [...necks, ...pointSeededNecks, ...pointSeededPinches],
     saddles,
     dams,
     metrics,

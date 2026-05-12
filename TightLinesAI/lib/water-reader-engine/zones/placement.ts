@@ -550,6 +550,7 @@ function pointStructureAreaDrafts(
       }
     }
   }
+
   return drafts;
 }
 
@@ -916,6 +917,7 @@ function constrictionStructureAreaDrafts(
   const expansionBalance = weakerExpansionRatio / Math.max(1, strongerExpansionRatio);
   const oneSidedExpansion = expansionBalance < 0.62;
   const pointSeededNeck = feature.featureClass === 'neck' && feature.metrics?.seededFromPoint === true;
+  const pointSeededPinch = pointSeededNeck && feature.metrics?.seededFromPointPinch === true;
   const clearNeckReadableFootprintBoost = feature.featureClass === 'neck' &&
     !oneSidedExpansion &&
     widthToAverage >= 0.035 &&
@@ -1057,6 +1059,27 @@ function constrictionStructureAreaDrafts(
             constrictionTwoSidedExpansion: !oneSidedExpansion,
             constrictionScore: roundDiagnosticNumber(feature.score),
             constrictionConfidence: roundDiagnosticNumber(feature.confidence),
+            constrictionKind: typeof feature.metrics.constrictionKind === 'string' ? feature.metrics.constrictionKind : (
+              feature.featureClass === 'neck' ? 'neck' : 'pinch_point'
+            ),
+            saddleGapType: typeof feature.metrics.saddleGapType === 'string' ? feature.metrics.saddleGapType : null,
+            constrictionTravelValueScore: roundDiagnosticNumber(metricNumber(feature.metrics.constrictionTravelValueScore)),
+            constrictionScoreDampener: roundDiagnosticNumber(metricNumber(feature.metrics.scoreDampener)),
+            constrictionSideAreaBalance: roundDiagnosticNumber(metricNumber(feature.metrics.sideAreaBalance)),
+            constrictionMinSideAreaSqM: roundDiagnosticNumber(metricNumber(feature.metrics.minSideAreaSqM)),
+            constrictionMaxSideAreaSqM: roundDiagnosticNumber(metricNumber(feature.metrics.maxSideAreaSqM)),
+            constrictionMinSideLakeAreaRatio: roundDiagnosticNumber(metricNumber(feature.metrics.minSideLakeAreaRatio)),
+            constrictionMinSideLakeAreaRatioPrecise: roundDiagnosticRatio(metricNumber(feature.metrics.minSideLakeAreaRatio)),
+            constrictionTerminalBackwaterRejected: feature.metrics.terminalBackwaterRejected === true,
+            minConnectorBasinAreaSqM: roundDiagnosticNumber(metricNumber(feature.metrics.minConnectorBasinAreaSqM)),
+            minConnectorBasinLakeAreaRatio: roundDiagnosticNumber(metricNumber(feature.metrics.minConnectorBasinLakeAreaRatio)),
+            minConnectorBasinLakeAreaRatioPrecise: roundDiagnosticRatio(metricNumber(feature.metrics.minConnectorBasinLakeAreaRatio)),
+            connectorBasinBalance: roundDiagnosticNumber(metricNumber(feature.metrics.connectorBasinBalance)),
+            terminalPocketConnector: feature.metrics.terminalPocketConnector === true,
+            connectorBasinInconclusive: feature.metrics.connectorBasinInconclusive === true,
+            connectorBasinSplitSucceeded: feature.metrics.connectorBasinSplitSucceeded === true,
+            connectorBasinSplitFailed: feature.metrics.connectorBasinSplitFailed === true,
+            connectorBasinApproximation: typeof feature.metrics.connectorBasinApproximation === 'string' ? feature.metrics.connectorBasinApproximation : null,
             constrictionReadabilityClass,
             constrictionEnvelopeLakeCapM: roundDiagnosticNumber(lakeCapM),
             constrictionEnvelopeWidthCapM: roundDiagnosticNumber(widthCapM),
@@ -1064,6 +1087,7 @@ function constrictionStructureAreaDrafts(
             clearNeckReadableFootprintBoost,
             clearNeckReadableFootprintMultiplier,
             pointSeededNeck,
+            pointSeededPinch,
             featureEnvelopeRenderShape: 'paired_shoulder_lobes',
             featureEnvelopeRenderLobeCount: clearNeckReadableFootprintBoost ? 4 : 2,
             featureEnvelopeRenderLobe1Kind: 'shoreline_a_shoulder_lobe',
@@ -1110,6 +1134,94 @@ function constrictionStructureAreaDrafts(
           },
         }));
       }
+    }
+  }
+  const saddleGapType = typeof feature.metrics.saddleGapType === 'string' ? feature.metrics.saddleGapType : null;
+  const saddleShoulderBiasedMinWidthM = Math.max(
+    520,
+    Math.min(params.longestDimensionM * 0.04, averageWidthM * 0.24),
+  );
+  if (feature.featureClass === 'saddle' && saddleGapType && feature.widthM >= saddleShoulderBiasedMinWidthM && drafts.length > 0) {
+    const shoulderBiasedMajorAxisM = clamp(
+      Math.max(floorM * 0.72, Math.min(feature.widthM * 0.72, majorAxisM * 0.62)),
+      floorM * 0.58,
+      majorAxisM * 0.76,
+    );
+    const shoulderBiasedMinorAxisM = clamp(
+      Math.max(floorM * 0.42, shoulderBiasedMajorAxisM * 0.48, feature.widthM * 0.28),
+      floorM * 0.34,
+      shoulderBiasedMajorAxisM * 0.72,
+    );
+    const renderLobeMajorAxisM = clamp(
+      Math.max(floorM * 0.55, shoulderBiasedMajorAxisM * 0.82),
+      floorM * 0.48,
+      shoulderBiasedMajorAxisM,
+    );
+    const renderLobeMinorAxisM = clamp(
+      Math.max(floorM * 0.36, shoulderBiasedMinorAxisM * 0.9),
+      floorM * 0.3,
+      renderLobeMajorAxisM * 0.74,
+    );
+    const shoulderCenters = [
+      {
+        label: 'a',
+        endpoint: feature.endpointA,
+        anchor: anchors[0] ?? feature.endpointA,
+        ovalCenter: lerpPoint(center, feature.endpointA, 0.68),
+      },
+      {
+        label: 'b',
+        endpoint: feature.endpointB,
+        anchor: anchors[1] ?? feature.endpointB,
+        ovalCenter: lerpPoint(center, feature.endpointB, 0.68),
+      },
+    ] as const;
+    const baseDraft = drafts[0]!;
+    for (const shoulder of shoulderCenters) {
+      const localContactAnchors = uniquePoints([
+        shoulder.anchor,
+        shoulder.endpoint,
+        { x: shoulder.endpoint.x + axis.x * shoulderWindowM * 0.72, y: shoulder.endpoint.y + axis.y * shoulderWindowM * 0.72 },
+        { x: shoulder.endpoint.x - axis.x * shoulderWindowM * 0.72, y: shoulder.endpoint.y - axis.y * shoulderWindowM * 0.72 },
+      ]);
+      drafts.push({
+        ...baseDraft,
+        anchor: shoulder.anchor,
+        ovalCenter: shoulder.ovalCenter,
+        majorAxisM: shoulderBiasedMajorAxisM,
+        minorAxisM: shoulderBiasedMinorAxisM,
+        featureFrameContactAnchors: localContactAnchors,
+        featureFrameContactToleranceM: Math.max(10, shoulderBiasedMinorAxisM * 0.32, shoulderWindowM * 0.72),
+        featureFrameContactMinCount: 2,
+        featureFrameLocalityRadiusM: Math.max(shoulderBiasedMajorAxisM * 1.05, feature.widthM * 0.56),
+        diagnostics: {
+          ...baseDraft.diagnostics,
+          selectedSizeFactor: roundDiagnosticNumber(shoulderBiasedMajorAxisM / Math.max(1, majorAxisM)),
+          saddleShoulderBiasedPlacementUsed: true,
+          saddleShoulderPlacementReason: 'saddle_gap_visible_fraction_too_high_recovery',
+          previousUnrepresentableReason: 'zone_visible_fraction_too_high',
+          featureEnvelopeRecoveryTier: 'saddle_shoulder_biased_recovery',
+          featureFrameFallbackTier: 'saddle_shoulder_biased_recovery',
+          readabilityFallbackReason: 'saddle_shoulder_biased_feature_frame',
+          featureEnvelopeRenderLobe1MajorAxisM: roundDiagnosticNumber(renderLobeMajorAxisM),
+          featureEnvelopeRenderLobe1MinorAxisM: roundDiagnosticNumber(renderLobeMinorAxisM),
+          featureEnvelopeRenderLobe2MajorAxisM: roundDiagnosticNumber(renderLobeMajorAxisM),
+          featureEnvelopeRenderLobe2MinorAxisM: roundDiagnosticNumber(renderLobeMinorAxisM),
+          constrictionEnvelopeRatio: roundDiagnosticNumber(shoulderBiasedMajorAxisM / Math.max(1, spanM)),
+          constrictionEnvelopeRecoveryCenterIndex: shoulder.label === 'a' ? centers.length + 1 : centers.length + 2,
+          constrictionEnvelopeRecoveryAnchorIndex: shoulder.label === 'a' ? 1 : 2,
+          constrictionEnvelopeRecoverySizeFactor: roundDiagnosticNumber(shoulderBiasedMajorAxisM / Math.max(1, majorAxisM)),
+          featureFrameCandidateCenterCount: centers.length + shoulderCenters.length,
+          featureFrameContactAnchorCount: localContactAnchors.length,
+          featureFrameWaterSideInteriorCandidateCount: centers.length + shoulderCenters.length,
+          selectedAnchorIndex: shoulder.label === 'a' ? 1 : 2,
+        },
+        qaFlags: [
+          ...baseDraft.qaFlags,
+          'saddle_shoulder_biased_placement_candidate',
+          `feature_envelope_candidate:saddle-shoulder-biased-${shoulder.label}`,
+        ],
+      });
     }
   }
   return drafts;
@@ -3802,8 +3914,16 @@ function finiteNumber(value: number | undefined, fallback: number): number {
   return typeof value === 'number' && Number.isFinite(value) ? value : fallback;
 }
 
+function metricNumber(value: number | string | boolean | string[] | null | undefined): number {
+  return typeof value === 'number' && Number.isFinite(value) ? value : 0;
+}
+
 function roundDiagnosticNumber(value: number): number {
   return Number.isFinite(value) ? Number(value.toFixed(2)) : 0;
+}
+
+function roundDiagnosticRatio(value: number): number {
+  return Number.isFinite(value) ? Number(value.toFixed(5)) : 0;
 }
 
 function clampReason(value: number, min: number, max: number): string {
@@ -4760,7 +4880,13 @@ function confluencePairCandidate(
 
 function crossFeatureOverlapPair(a: WaterReaderPlacedZone, b: WaterReaderPlacedZone): string | null {
   const pair = crossFeatureOverlapCandidatePair(a, b);
-  if (pair === 'cove+point' || pair === 'cove+neck' || pair === 'cove+saddle') return pair;
+  if (
+    pair === 'cove+point' ||
+    pair === 'cove+neck' ||
+    pair === 'cove+saddle' ||
+    pair === 'island+neck' ||
+    pair === 'island+saddle'
+  ) return pair;
   return null;
 }
 
@@ -4773,6 +4899,8 @@ function crossFeatureOverlapCandidatePair(a: WaterReaderPlacedZone, b: WaterRead
   if (key === 'cove+saddle') return 'cove+saddle';
   if (key === 'island+main_lake_point') return 'island+point';
   if (key === 'island+secondary_point') return 'island+point';
+  if (key === 'island+neck') return 'island+neck';
+  if (key === 'island+saddle') return 'island+saddle';
   return null;
 }
 

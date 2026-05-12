@@ -687,10 +687,14 @@ function retainQuestionableConstrictions(params: {
   for (const unit of params.displayedUnits) {
     const retainReason = constrictionDisplayRetainReason(unit, params.displayedUnits);
     if (retainReason) {
+      const tracePinchDemoted = retainReason === 'trace_pinch_low_value';
       retainedUnits.push(annotateUnitZones(unit, {
         constrictionDisplayRetainedReason: retainReason,
         constrictionDisplayClass: 'retained_questionable_constriction',
-      }, QUESTIONABLE_CONSTRICTION_RETENTION_DIAGNOSTIC));
+        microPinchRejected: retainReason === 'micro_pinch_low_value' ? true : null,
+        tracePinchLowValue: tracePinchDemoted ? true : null,
+        tracePinchDisplayDemoted: tracePinchDemoted ? true : null,
+      }, QUESTIONABLE_CONSTRICTION_RETENTION_DIAGNOSTIC, tracePinchDemoted ? tracePinchQaFlagsForUnit(unit) : []));
     } else {
       displayedUnits.push(unit);
     }
@@ -813,6 +817,8 @@ function candidateRecoveryRank(unit: DisplayUnit): number {
 function constrictionDisplayRetainReason(unit: DisplayUnit, displayedUnits: DisplayUnit[]): string | null {
   const displayClass = primaryConstrictionDisplayClass(unit);
   if (!displayClass) return null;
+  if (unit.entryType !== 'structure_confluence' && unit.zones.some(tracePinchLowValueZone)) return 'trace_pinch_low_value';
+  if (unit.entryType !== 'structure_confluence' && unit.zones.some(microPinchLowValueZone)) return 'micro_pinch_low_value';
   if (displayClass === 'retained_questionable_constriction') return 'low_confidence_or_tiny_constriction';
   if (displayClass === 'broad_saddle') {
     if (unit.zones.some(broadOneSidedSaddleZone)) return 'broad_saddle_not_visually_substantial';
@@ -828,6 +834,80 @@ function constrictionDisplayRetainReason(unit: DisplayUnit, displayedUnits: Disp
     return nearbyStrongerConstrictionRetainReason(unit, displayedUnits);
   }
   return null;
+}
+
+function tracePinchLowValueZone(zone: WaterReaderPlacedZone): boolean {
+  if (zone.featureClass !== 'neck') return false;
+  const constrictionKind = typeof zone.diagnostics.constrictionKind === 'string' ? zone.diagnostics.constrictionKind : '';
+  if (constrictionKind !== 'pinch_point') return false;
+  if (zone.diagnostics.pointSeededNeck === true || zone.diagnostics.pointSeededPinch === true) return false;
+  const qaFlags = zone.qaFlags ?? [];
+  if (
+    qaFlags.includes('point_seeded_neck_rescue') ||
+    qaFlags.includes('point_seeded_pinch_rescue') ||
+    qaFlags.includes('premium_neck_connector')
+  ) return false;
+
+  const widthToAverage = diagnosticNumber(zone.diagnostics.constrictionWidthToAverage);
+  const envelopeRatio = diagnosticNumber(zone.diagnostics.constrictionEnvelopeRatio);
+  const minSideLakeAreaRatio = diagnosticNumber(
+    zone.diagnostics.constrictionMinSideLakeAreaRatioPrecise,
+    diagnosticNumber(zone.diagnostics.constrictionMinSideLakeAreaRatio),
+  );
+  const minConnectorRatio = diagnosticNumber(
+    zone.diagnostics.minConnectorBasinLakeAreaRatioPrecise,
+    diagnosticNumber(zone.diagnostics.minConnectorBasinLakeAreaRatio),
+  );
+  const basinInconclusive = zone.diagnostics.connectorBasinInconclusive === true ||
+    zone.diagnostics.connectorBasinSplitFailed === true;
+  const weakSideEvidence = (minSideLakeAreaRatio > 0 && minSideLakeAreaRatio <= 0.004) ||
+    (minConnectorRatio > 0 && minConnectorRatio <= 0.002);
+
+  return basinInconclusive &&
+    widthToAverage > 0 &&
+    widthToAverage <= 0.035 &&
+    envelopeRatio >= 12 &&
+    weakSideEvidence;
+}
+
+function tracePinchQaFlagsForUnit(unit: DisplayUnit): string[] {
+  const traceZones = unit.zones.filter(tracePinchLowValueZone);
+  if (traceZones.length === 0) return [];
+  const hasHighEnvelope = traceZones.some((zone) => diagnosticNumber(zone.diagnostics.constrictionEnvelopeRatio) >= 12);
+  const hasBasinInconclusive = traceZones.some((zone) =>
+    zone.diagnostics.connectorBasinInconclusive === true || zone.diagnostics.connectorBasinSplitFailed === true
+  );
+  return [
+    'trace_pinch_low_value',
+    ...(hasHighEnvelope ? ['trace_pinch_high_envelope'] : []),
+    ...(hasBasinInconclusive ? ['trace_pinch_basin_inconclusive'] : []),
+    'trace_pinch_display_demoted',
+  ];
+}
+
+function microPinchLowValueZone(zone: WaterReaderPlacedZone): boolean {
+  if (zone.featureClass !== 'neck' && zone.featureClass !== 'saddle') return false;
+  const constrictionKind = typeof zone.diagnostics.constrictionKind === 'string' ? zone.diagnostics.constrictionKind : '';
+  if (constrictionKind !== 'micro_pinch') return false;
+  const envelopeRatio = diagnosticNumber(zone.diagnostics.constrictionEnvelopeRatio);
+  const widthM = diagnosticNumber(zone.diagnostics.constrictionWidthM);
+  const widthToAverage = diagnosticNumber(zone.diagnostics.constrictionWidthToAverage);
+  const sideAreaBalance = diagnosticNumber(zone.diagnostics.constrictionSideAreaBalance, 1);
+  const travelValue = diagnosticNumber(zone.diagnostics.constrictionTravelValueScore);
+  const minConnectorRatio = diagnosticNumber(zone.diagnostics.minConnectorBasinLakeAreaRatio);
+  const basinInconclusive = zone.diagnostics.connectorBasinInconclusive === true;
+  const terminalPocket = zone.diagnostics.terminalPocketConnector === true ||
+    zone.diagnostics.constrictionTerminalBackwaterRejected === true;
+  const badSignalCount = [
+    widthM > 0 && widthM < 28,
+    widthToAverage > 0 && widthToAverage < 0.04,
+    envelopeRatio >= 7.5,
+    sideAreaBalance < 0.22,
+    travelValue < 0.22,
+    terminalPocket && !basinInconclusive,
+    minConnectorRatio > 0 && minConnectorRatio < 0.004,
+  ].filter(Boolean).length;
+  return badSignalCount >= 3;
 }
 
 function broadOneSidedSaddleZone(zone: WaterReaderPlacedZone): boolean {
@@ -1120,11 +1200,13 @@ function annotateUnitZones(
   unit: DisplayUnit,
   diagnostics: Record<string, number | string | boolean | string[] | null>,
   rankingDiagnostic?: string,
+  qaFlags: string[] = [],
 ): DisplayUnit {
   return {
     ...unit,
     zones: unit.zones.map((zone) => ({
       ...zone,
+      qaFlags: qaFlags.length > 0 ? unique([...zone.qaFlags, ...qaFlags]) : zone.qaFlags,
       diagnostics: {
         ...zone.diagnostics,
         ...diagnostics,
@@ -1272,16 +1354,21 @@ function crossFeatureDisplayPair(zones: WaterReaderPlacedZone[]): string | null 
   if (classes.has('cove') && classes.has('neck')) return 'cove+neck';
   if (classes.has('cove') && classes.has('saddle')) return 'cove+saddle';
   if (classes.has('island') && hasPoint) return 'island+point';
+  if (classes.has('island') && classes.has('neck')) return 'island+neck';
+  if (classes.has('island') && classes.has('saddle')) return 'island+saddle';
   return null;
 }
 
 function crossFeatureExactTouchPair(pair: string | null): boolean {
-  return pair === 'cove+neck' || pair === 'cove+point';
+  return pair === 'cove+neck' || pair === 'cove+point' || pair === 'island+neck' || pair === 'island+saddle';
 }
 
 function zonePairMatchesCrossFeaturePair(a: WaterReaderPlacedZone, b: WaterReaderPlacedZone, pair: string | null): boolean {
+  if (!pair) return false;
   if (pair === 'cove+point') return oneZoneIsCoveAndOtherIsPoint(a, b);
   if (pair === 'cove+neck') return oneZoneIsFeatureClass(a, b, 'cove', 'neck');
+  if (pair === 'island+neck') return oneZoneIsFeatureClass(a, b, 'island', 'neck');
+  if (pair === 'island+saddle') return oneZoneIsFeatureClass(a, b, 'island', 'saddle');
   return true;
 }
 
@@ -2391,6 +2478,7 @@ function constrictionDisplayClassForZone(
   const appAreaPx = displayReadability.estimatedAppFootprintAreaPx;
   const oldTinyGate = displayReadability.displayReadabilityTier !== 'readable' || appMaxPx < 16;
   const trulyUnreadable = appMaxPx < 8 && appAreaPx < 60;
+  if (zone.diagnostics.constrictionKind === 'micro_pinch') return { displayClass: 'retained_questionable_constriction' };
   if (confidence > 0 && confidence < 0.58) return { displayClass: 'retained_questionable_constriction' };
   if (zone.featureClass === 'saddle') {
     if (

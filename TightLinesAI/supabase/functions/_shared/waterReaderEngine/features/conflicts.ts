@@ -304,9 +304,9 @@ function featureSort(a: WaterReaderDetectedFeature, b: WaterReaderDetectedFeatur
         return 1;
       case 'neck':
         return 2;
-      case 'main_lake_point':
-        return 3;
       case 'saddle':
+        return 3;
+      case 'main_lake_point':
         return 4;
       case 'island':
         return 5;
