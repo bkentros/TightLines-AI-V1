@@ -14,7 +14,6 @@ import {
   Pressable,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -30,9 +29,12 @@ import {
   AuthField,
   AuthFooterStamp,
   AuthHeader,
+  AuthNotice,
   AuthPrimaryButton,
   AuthStatusCard,
 } from '../../components/paper/auth';
+
+type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
 export default function ResetPasswordScreen() {
   const router = useRouter();
@@ -42,14 +44,24 @@ export default function ResetPasswordScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
+  const [notice, setNotice] = useState<Notice | null>(null);
 
   const handleReset = async () => {
+    setNotice(null);
     if (password.length < 8) {
-      Alert.alert('Too short', 'Password must be at least 8 characters.');
+      setNotice({
+        title: 'Too short',
+        message: 'Password must be at least 8 characters.',
+        tone: 'error',
+      });
       return;
     }
     if (password !== confirmPassword) {
-      Alert.alert('Passwords don\'t match', 'Please make sure both fields match.');
+      setNotice({
+        title: "Passwords don't match",
+        message: 'Please make sure both fields match.',
+        tone: 'error',
+      });
       return;
     }
 
@@ -57,7 +69,7 @@ export default function ResetPasswordScreen() {
     try {
       const { error } = await supabase.auth.updateUser({ password });
       if (error) {
-        Alert.alert('Error', error.message);
+        setNotice({ title: 'Could not update password', message: error.message, tone: 'error' });
         return;
       }
       await signOut();
@@ -108,6 +120,14 @@ export default function ResetPasswordScreen() {
             />
 
             <View style={styles.fields}>
+              {notice ? (
+                <AuthNotice
+                  title={notice.title}
+                  message={notice.message}
+                  tone={notice.tone}
+                />
+              ) : null}
+
               <AuthField
                 label="New password"
                 value={password}

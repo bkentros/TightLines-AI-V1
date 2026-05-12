@@ -9,7 +9,7 @@
  */
 
 import { useState, useEffect, useRef } from 'react';
-import { View, Text, StyleSheet, Pressable, Alert } from 'react-native';
+import { View, Text, StyleSheet, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter, useLocalSearchParams } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -24,6 +24,7 @@ import { useAuthStore } from '../../store/authStore';
 import {
   AuthBackButton,
   AuthFooterStamp,
+  AuthNotice,
   AuthStatusCard,
   AuthTip,
 } from '../../components/paper/auth';
@@ -39,6 +40,7 @@ export default function VerifyEmailScreen() {
   const [resending, setResending] = useState(false);
   const [justSent, setJustSent] = useState(false);
   const [cooldown, setCooldown] = useState(0);
+  const [notice, setNotice] = useState('');
   const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
@@ -62,6 +64,7 @@ export default function VerifyEmailScreen() {
 
   const handleResend = async () => {
     if (!emailToShow || cooldown > 0) return;
+    setNotice('');
     setResending(true);
     try {
       const { error } = await supabase.auth.resend({
@@ -70,7 +73,7 @@ export default function VerifyEmailScreen() {
         options: { emailRedirectTo: getAuthEmailRedirectUrl() },
       });
       if (error) {
-        Alert.alert('Could not resend', error.message);
+        setNotice(error.message);
       } else {
         setJustSent(true);
         startCooldown();
@@ -106,6 +109,13 @@ export default function VerifyEmailScreen() {
             </AuthStatusCard>
 
             <AuthTip>Don't see it? Check your spam or junk folder.</AuthTip>
+            {notice ? (
+              <AuthNotice
+                title="Could not resend"
+                message={notice}
+                tone="error"
+              />
+            ) : null}
 
             <Pressable
               style={({ pressed }) => [

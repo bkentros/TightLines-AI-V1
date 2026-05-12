@@ -1,42 +1,26 @@
-/**
- * Settings — FinFindr paper language.
- *
- * Visual migration only. All logic (profile load, Supabase update, location
- * autofill, species chips, units toggle, owner-only cache clear, dev-only
- * overrides, sign-out) is identical to the previous screen.
- */
-
-import { useState, useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import {
-  Animated,
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  Pressable,
-  ScrollView,
+  ActivityIndicator,
   KeyboardAvoidingView,
   Platform,
-  Alert,
-  ActivityIndicator,
+  Pressable,
+  ScrollView,
+  StyleSheet,
   Switch,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import {
-  paper,
-  paperFonts,
-  paperSpacing,
-} from '../../lib/theme';
+import { paper, paperFonts, paperSpacing } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
 import { useDevTestingStore } from '../../store/devTestingStore';
-import type { FishingMode, UserProfile } from '../../lib/types';
 import { supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
-import { isAdminEmail } from '../../lib/adminAccess';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
-import { usePaperBonePulse } from '../../lib/usePaperBonePulse';
+import type { UserProfile } from '../../lib/types';
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -44,25 +28,6 @@ const US_STATES = [
   'MA','MI','MN','MS','MO','MT','NE','NV','NH','NJ',
   'NM','NY','NC','ND','OH','OK','OR','PA','RI','SC',
   'SD','TN','TX','UT','VT','VA','WA','WV','WI','WY',
-];
-
-const SPECIES_LIST = [
-  'Bass',
-  'Trout',
-  'Salmon',
-  'Redfish (Red Drum)',
-  'Snook',
-  'Tarpon',
-  'Walleye',
-  'Pike / Muskie',
-  'Tuna',
-  'Mahi-Mahi',
-];
-
-const FISHING_MODES: { value: FishingMode; label: string; icon: string }[] = [
-  { value: 'conventional', label: 'Conventional', icon: 'fish-outline' },
-  { value: 'fly', label: 'Fly Fishing', icon: 'leaf-outline' },
-  { value: 'both', label: 'Both', icon: 'options-outline' },
 ];
 
 const STATE_NAME_TO_ABBR: Record<string, string> = {
@@ -80,6 +45,8 @@ const STATE_NAME_TO_ABBR: Record<string, string> = {
   Wyoming: 'WY',
 };
 
+type NoticeTone = 'info' | 'success' | 'error';
+
 export default function SettingsScreen() {
   const { profile, user, setProfile, signOut } = useAuthStore();
   const {
@@ -90,38 +57,29 @@ export default function SettingsScreen() {
     setOverrideSubscriptionTier,
   } = useDevTestingStore();
 
-  const [displayName, setDisplayName] = useState('');
-  const [fishingMode, setFishingMode] = useState<FishingMode>('both');
-  const [selectedSpecies, setSelectedSpecies] = useState<string[]>([]);
   const [homeState, setHomeState] = useState('');
   const [homeCity, setHomeCity] = useState('');
   const [showStateList, setShowStateList] = useState(false);
-  const [units, setUnits] = useState<'imperial' | 'metric'>('imperial');
-  const [locationLoading, setLocationLoading] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [locationLoading, setLocationLoading] = useState(false);
   const [clearingCaches, setClearingCaches] = useState(false);
+  const [deleting, setDeleting] = useState(false);
+  const [confirmDelete, setConfirmDelete] = useState(false);
+  const [notice, setNotice] = useState<{
+    title: string;
+    message?: string;
+    tone?: NoticeTone;
+  } | null>(null);
 
   useEffect(() => {
     if (!profile) return;
-    setDisplayName(profile.display_name ?? '');
-    setFishingMode(profile.fishing_mode ?? 'both');
-    setSelectedSpecies(profile.target_species ?? []);
     setHomeState(profile.home_state ?? '');
     setHomeCity(profile.home_city ?? '');
-    setUnits((profile.preferred_units ?? 'imperial') as 'imperial' | 'metric');
   }, [profile?.id]);
 
   useEffect(() => {
     if (__DEV__) loadDevTesting();
   }, [loadDevTesting]);
-
-  const toggleSpecies = (species: string) => {
-    setSelectedSpecies((prev) =>
-      prev.includes(species)
-        ? prev.filter((s) => s !== species)
-        : [...prev, species],
-    );
-  };
 
   const buildHomeRegion = () => {
     if (homeCity.trim() && homeState) return `${homeCity.trim()}, ${homeState}`;
@@ -130,17 +88,21 @@ export default function SettingsScreen() {
   };
 
   const autoFillLocation = async () => {
+    setNotice(null);
     setLocationLoading(true);
     try {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
-        Alert.alert(
-          'Location permission needed',
-          'Allow location access to fill in your home water region, or enter it manually below.',
-        );
+        setNotice({
+          title: 'Location permission needed',
+          message: 'Allow location access to fill your state and city, or enter them manually.',
+          tone: 'error',
+        });
         return;
       }
-      const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      const loc = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
       const [geo] = await Location.reverseGeocodeAsync({
         latitude: loc.coords.latitude,
         longitude: loc.coords.longitude,
@@ -151,25 +113,26 @@ export default function SettingsScreen() {
         if (geo.city) setHomeCity(geo.city);
       }
     } catch {
-      Alert.alert('Could not find your location', 'Please enter your home water region manually.');
+      setNotice({
+        title: 'Could not find your location',
+        message: 'Please enter your home state and city manually.',
+        tone: 'error',
+      });
     } finally {
       setLocationLoading(false);
     }
   };
 
-  const handleSave = async () => {
+  const handleSaveLocation = async () => {
     if (!user) return;
+    setNotice(null);
     hapticImpact(ImpactFeedbackStyle.Medium);
     setSaving(true);
     try {
       const updates = {
-        display_name: displayName.trim() || null,
-        fishing_mode: fishingMode,
-        target_species: selectedSpecies,
         home_region: buildHomeRegion() || null,
         home_state: homeState || null,
         home_city: homeCity.trim() || null,
-        preferred_units: units,
         updated_at: new Date().toISOString(),
       };
 
@@ -182,35 +145,84 @@ export default function SettingsScreen() {
 
       if (error) throw error;
       setProfile(data as UserProfile);
-      Alert.alert('Saved', 'Your fishing preferences have been updated.');
-    } catch (err) {
-      console.error(err);
-      Alert.alert('Could not save', 'Please try again.');
+      setNotice({
+        title: 'Location saved',
+        message: 'Your home water location has been updated.',
+        tone: 'success',
+      });
+    } catch {
+      setNotice({
+        title: 'Could not save',
+        message: 'Please try again in a moment.',
+        tone: 'error',
+      });
     } finally {
       setSaving(false);
     }
   };
 
-  const handleSignOut = () => {
-    Alert.alert(
-      'Sign out',
-      'Are you sure you want to sign out?',
-      [
-        { text: 'Cancel', style: 'cancel' },
-        { text: 'Sign out', style: 'destructive', onPress: () => signOut() },
-      ],
-    );
+  const handleClearCaches = async () => {
+    setNotice(null);
+    setClearingCaches(true);
+    try {
+      await clearOwnerFishCaches();
+      setNotice({
+        title: 'Caches cleared',
+        message: 'Fresh fishing data will load the next time you open Home, Daily Read, or Tackle Box.',
+        tone: 'success',
+      });
+    } catch {
+      setNotice({
+        title: 'Could not clear caches',
+        message: 'Please try again in a moment.',
+        tone: 'error',
+      });
+    } finally {
+      setClearingCaches(false);
+    }
+  };
+
+  const handleDeleteAccount = async () => {
+    if (!confirmDelete) {
+      setConfirmDelete(true);
+      setNotice({
+        title: 'Confirm account deletion',
+        message: 'Tap Delete account again to permanently delete your FinFindr account and sign out.',
+        tone: 'error',
+      });
+      return;
+    }
+
+    setDeleting(true);
+    try {
+      const { error } = await supabase.rpc('delete_current_user_account');
+      if (error) throw error;
+      await signOut();
+    } catch {
+      setNotice({
+        title: 'Could not delete account',
+        message: 'Please try again in a moment.',
+        tone: 'error',
+      });
+      setDeleting(false);
+      setConfirmDelete(false);
+    }
   };
 
   if (!profile) {
     return (
       <View style={styles.root}>
         <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-          <SettingsLoadingPanel />
+          <View style={styles.loadingWrap}>
+            <ActivityIndicator color={paper.dashboardBlue} />
+            <Text style={styles.loadingText}>READING YOUR PROFILE...</Text>
+          </View>
         </SafeAreaView>
       </View>
     );
   }
+
+  const effectiveTier = overrideSubscriptionTier ?? profile.subscription_tier ?? 'free';
 
   return (
     <View style={styles.root}>
@@ -224,102 +236,32 @@ export default function SettingsScreen() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            <View style={styles.eyebrowRow}>
-              <Text style={styles.pageEyebrow}>FINFINDR SETTINGS</Text>
-            </View>
+            <Text style={styles.pageEyebrow}>FINFINDR SETTINGS</Text>
             <Text style={styles.title}>Settings.</Text>
-            <Text style={styles.subtitle}>
-              Tune the basics FinFindr uses for your reports and tackle picks.
-            </Text>
+            <Text style={styles.subtitle}>Account basics, location, and local app data.</Text>
 
-            {/* Username (read-only) */}
+            {notice ? (
+              <NoticeCard
+                title={notice.title}
+                message={notice.message}
+                tone={notice.tone}
+                onDismiss={() => setNotice(null)}
+              />
+            ) : null}
+
             <View style={styles.section}>
               <Text style={styles.sectionLabel}>USERNAME</Text>
               <Text style={styles.readOnlyValue}>@{profile.username}</Text>
-              <Text style={styles.sectionHint}>
-                Public on your profile. Cannot be changed here.
-              </Text>
+              <Text style={styles.sectionHint}>Public username for your FinFindr account.</Text>
             </View>
 
-            {/* Display Name */}
-            <View style={styles.section}>
-              <Text style={styles.sectionLabel}>DISPLAY NAME</Text>
-              <TextInput
-                style={styles.input}
-                value={displayName}
-                onChangeText={setDisplayName}
-                placeholder="e.g. Brandon K."
-                placeholderTextColor={paper.dashboardInk + '70'}
-                autoCorrect={false}
-                maxLength={50}
-              />
-            </View>
-
-            {/* Fishing Mode */}
-            <View style={styles.section}>
-              <Text style={styles.sectionLabel}>PREFERRED GEAR</Text>
-              <View style={styles.modeRow}>
-                {FISHING_MODES.map((mode) => {
-                  const active = fishingMode === mode.value;
-                  return (
-                    <Pressable
-                      key={mode.value}
-                      style={[styles.modeBtn, active && styles.modeBtnActive]}
-                      onPress={() => {
-                        hapticSelection();
-                        setFishingMode(mode.value);
-                      }}
-                    >
-                      <Ionicons
-                        name={mode.icon as any}
-                        size={15}
-                        color={active ? '#FFFFFF' : paper.dashboardInk}
-                      />
-                      <Text
-                        style={[
-                          styles.modeBtnText,
-                          active && styles.modeBtnTextActive,
-                        ]}
-                      >
-                        {mode.label}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-            </View>
-
-            {/* Target Species */}
-            <View style={styles.section}>
-              <Text style={styles.sectionLabel}>FAVORITE SPECIES</Text>
-              <View style={styles.chipGrid}>
-                {SPECIES_LIST.map((species) => {
-                  const active = selectedSpecies.includes(species);
-                  return (
-                    <Pressable
-                      key={species}
-                      style={[styles.chip, active && styles.chipActive]}
-                      onPress={() => toggleSpecies(species)}
-                    >
-                      <Text
-                        style={[styles.chipText, active && styles.chipTextActive]}
-                      >
-                        {species}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-            </View>
-
-            {/* Home Region */}
             <View style={styles.section}>
               <View style={styles.sectionLabelRow}>
-                <Text style={styles.sectionLabel}>HOME WATER REGION</Text>
+                <Text style={styles.sectionLabel}>HOME LOCATION</Text>
                 <Pressable
                   style={({ pressed }) => [
-                    styles.locationAutoBtn,
-                    pressed && styles.locationAutoBtnPressed,
+                    styles.smallAction,
+                    pressed && styles.smallActionPressed,
                     locationLoading && styles.btnDisabled,
                   ]}
                   onPress={autoFillLocation}
@@ -330,20 +272,21 @@ export default function SettingsScreen() {
                   ) : (
                     <Ionicons name="location-outline" size={13} color={paper.dashboardBlue} />
                   )}
-                  <Text style={styles.locationAutoBtnText}>
-                    {locationLoading ? 'FINDING…' : 'USE CURRENT LOCATION'}
+                  <Text style={styles.smallActionText}>
+                    {locationLoading ? 'FINDING...' : 'USE LOCATION'}
                   </Text>
                 </Pressable>
               </View>
+
               <Pressable
                 style={styles.statePicker}
-                onPress={() => setShowStateList((v) => !v)}
+                onPress={() => {
+                  hapticSelection();
+                  setShowStateList((v) => !v);
+                }}
               >
                 <Text
-                  style={[
-                    styles.statePickerText,
-                    !homeState && styles.statePickerPlaceholder,
-                  ]}
+                  style={[styles.statePickerText, !homeState && styles.statePickerPlaceholder]}
                 >
                   {homeState || 'Select your state'}
                 </Text>
@@ -353,21 +296,16 @@ export default function SettingsScreen() {
                   color={paper.dashboardInk}
                 />
               </Pressable>
+
               {showStateList && (
                 <View style={styles.stateList}>
-                  <ScrollView
-                    style={styles.stateScroll}
-                    nestedScrollEnabled
-                    showsVerticalScrollIndicator={false}
-                  >
+                  <ScrollView style={styles.stateScroll} nestedScrollEnabled>
                     {US_STATES.map((state) => (
                       <Pressable
                         key={state}
-                        style={[
-                          styles.stateOption,
-                          homeState === state && styles.stateOptionActive,
-                        ]}
+                        style={[styles.stateOption, homeState === state && styles.stateOptionActive]}
                         onPress={() => {
+                          hapticSelection();
                           setHomeState(state);
                           setShowStateList(false);
                         }}
@@ -385,199 +323,119 @@ export default function SettingsScreen() {
                   </ScrollView>
                 </View>
               )}
+
               <TextInput
                 style={[styles.input, { marginTop: paperSpacing.sm }]}
                 value={homeCity}
                 onChangeText={setHomeCity}
-                placeholder="City (e.g. Tampa)"
+                placeholder="City (optional)"
                 placeholderTextColor={paper.dashboardInk + '70'}
                 autoCorrect={false}
                 maxLength={60}
               />
+
+              <PrimaryAction
+                label="Save location"
+                icon="checkmark"
+                loading={saving}
+                onPress={handleSaveLocation}
+              />
             </View>
 
-            {/* Units */}
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>PREFERRED UNITS</Text>
-              <View style={styles.modeRow}>
-                {(['imperial', 'metric'] as const).map((u) => {
-                  const active = units === u;
-                  return (
-                    <Pressable
-                      key={u}
-                      style={[styles.modeBtn, active && styles.modeBtnActive]}
-                      onPress={() => {
-                        hapticSelection();
-                        setUnits(u);
-                      }}
-                    >
-                      <Text
-                        style={[
-                          styles.modeBtnText,
-                          active && styles.modeBtnTextActive,
-                        ]}
-                      >
-                        {u === 'imperial'
-                          ? 'Imperial (lbs, in, °F)'
-                          : 'Metric (kg, cm, °C)'}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
+              <Text style={styles.sectionLabel}>SUBSCRIPTION</Text>
+              <Text style={styles.readOnlyValue}>{effectiveTier.replace('_', ' ')}</Text>
+              {overrideSubscriptionTier ? (
+                <Text style={styles.sectionHint}>Using dev override. Real tier: {profile.subscription_tier}</Text>
+              ) : (
+                <Text style={styles.sectionHint}>Current account tier.</Text>
+              )}
             </View>
 
-            <Pressable
-              style={({ pressed }) => [
-                styles.btn,
-                pressed && styles.btnPressed,
-                saving && styles.btnDisabled,
-              ]}
-              onPress={handleSave}
-              disabled={saving}
-            >
-              {saving ? (
-                <ActivityIndicator color="#FFFFFF" />
-              ) : (
-                <>
-                  <Text style={styles.btnText}>SAVE PREFERENCES</Text>
-                  <Ionicons name="checkmark" size={16} color="#FFFFFF" />
-                </>
-              )}
-            </Pressable>
+            <View style={styles.section}>
+              <Text style={styles.sectionLabel}>LOCAL CACHE</Text>
+              <Text style={styles.sectionHint}>
+                Clears saved Daily Read, forecast, live conditions, and Tackle Box data on this device.
+              </Text>
+              <PrimaryAction
+                label="Clear cache"
+                icon="trash-outline"
+                loading={clearingCaches}
+                onPress={handleClearCaches}
+                variant="secondary"
+              />
+            </View>
 
-            {/* Owner-only: clear on-device fish caches */}
-            {isAdminEmail(user?.email) && (
-              <View style={styles.ownerSection}>
-                <Text style={styles.ownerSectionTitle}>DEVELOPER</Text>
-                <Text style={styles.ownerSectionHint}>
-                  Clear saved Daily Read entries (today and forecast days), 7-day outlook chips,
-                  live conditions cache, and cached Tackle Box picks for the day. Open Home,
-                  the Daily Read, or the Tackle Box again to regenerate.
-                </Text>
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.ownerClearBtn,
-                    pressed && styles.ownerClearBtnPressed,
-                    clearingCaches && styles.btnDisabled,
-                  ]}
-                  onPress={() => {
-                    if (clearingCaches) return;
-                    Alert.alert(
-                      'Clear local caches?',
-                      "Removes this device's cached Daily Read entries, outlook chips, live conditions, and Tackle Box picks. You'll fetch fresh data the next time you load Home, generate a Daily Read, or open the Tackle Box.",
-                      [
-                        { text: 'Cancel', style: 'cancel' },
-                        {
-                          text: 'Clear caches',
-                          style: 'destructive',
-                          onPress: async () => {
-                            setClearingCaches(true);
-                            try {
-                              await clearOwnerFishCaches();
-                              Alert.alert(
-                                'Caches cleared',
-                                'Go to Home, the Daily Read, or the Tackle Box to load new data.',
-                              );
-                            } catch {
-                              Alert.alert('Could not clear', 'Try again in a moment.');
-                            } finally {
-                              setClearingCaches(false);
-                            }
-                          },
-                        },
-                      ],
-                    );
-                  }}
-                  disabled={clearingCaches}
-                >
-                  {clearingCaches ? (
-                    <ActivityIndicator color="#FFFFFF" size="small" />
-                  ) : (
-                    <>
-                      <Ionicons name="trash-outline" size={16} color="#FFFFFF" />
-                      <Text style={styles.ownerClearBtnText}>
-                        CLEAR FISHING DATA CACHES
-                      </Text>
-                    </>
-                  )}
-                </Pressable>
-              </View>
-            )}
-
-            {/* Dev-only: subscription tier + ignore GPS */}
             {__DEV__ && (
-              <View style={styles.testingSection}>
-                <Text style={styles.testingTitle}>TESTING (DEV BUILD)</Text>
-                <Text style={styles.testingHint}>
-                  Subscription tier override and GPS simulation. Set your pin on the Home screen.
-                </Text>
+              <View style={styles.section}>
+                <Text style={styles.sectionLabel}>TESTING</Text>
+                <Text style={styles.sectionHint}>Dev-only subscription and GPS controls.</Text>
 
                 <Text style={styles.testingLabel}>Override subscription tier</Text>
                 <View style={styles.presetRow}>
-                  {(['free', 'angler', 'master_angler', null] as const).map((t) => {
+                  {(['free', 'angler', 'master_angler', null] as const).map((tier) => {
                     const label =
-                      t === null
-                        ? 'Use real'
-                        : t === 'angler'
-                          ? 'Angler'
-                          : t === 'master_angler'
-                            ? 'Master'
-                            : t;
-                    const isActive = overrideSubscriptionTier === t;
+                      tier === null ? 'Use real'
+                      : tier === 'master_angler' ? 'Master'
+                      : tier;
+                    const active = overrideSubscriptionTier === tier;
                     return (
                       <Pressable
                         key={String(label)}
-                        style={[
-                          styles.presetBtn,
-                          isActive && styles.presetBtnActive,
-                        ]}
-                        onPress={() => setOverrideSubscriptionTier(t)}
+                        style={[styles.presetBtn, active && styles.presetBtnActive]}
+                        onPress={() => setOverrideSubscriptionTier(tier)}
                       >
-                        <Text
-                          style={[
-                            styles.presetBtnText,
-                            isActive && styles.presetBtnTextActive,
-                          ]}
-                          numberOfLines={1}
-                        >
+                        <Text style={[styles.presetBtnText, active && styles.presetBtnTextActive]}>
                           {label}
                         </Text>
                       </Pressable>
                     );
                   })}
                 </View>
-                {overrideSubscriptionTier != null && (
-                  <Text style={styles.currentOverride}>
-                    Using tier: {overrideSubscriptionTier}
-                  </Text>
-                )}
 
-                <View style={[styles.testingRow, { marginTop: paperSpacing.md }]}>
-                  <Text style={styles.testingLabel}>
-                    Ignore GPS (simulate no location)
-                  </Text>
+                <View style={styles.testingRow}>
+                  <Text style={styles.testingLabel}>Ignore GPS</Text>
                   <Switch
                     value={ignoreGps}
                     onValueChange={(v) => setIgnoreGps(v)}
                     trackColor={{ false: paper.dashboardHair, true: paper.dashboardBlue }}
-                    thumbColor={ignoreGps ? paper.dashboardWhite : paper.dashboardWhite}
+                    thumbColor={paper.dashboardWhite}
                   />
                 </View>
               </View>
             )}
 
-            <Pressable
-              style={({ pressed }) => [
-                styles.signOutBtn,
-                pressed && styles.signOutBtnPressed,
-              ]}
-              onPress={handleSignOut}
-            >
-              <Ionicons name="log-out-outline" size={16} color={paper.dashboardInk} />
-              <Text style={styles.signOutText}>SIGN OUT</Text>
-            </Pressable>
+            <PrimaryAction
+              label="Sign out"
+              icon="log-out-outline"
+              onPress={() => signOut()}
+              variant="secondary"
+            />
 
+            <View style={styles.dangerSection}>
+              <Text style={styles.dangerTitle}>DELETE ACCOUNT</Text>
+              <Text style={styles.dangerCopy}>
+                Permanently removes your FinFindr account. This cannot be undone.
+              </Text>
+              <PrimaryAction
+                label={confirmDelete ? 'Delete account forever' : 'Delete account'}
+                icon="trash-outline"
+                loading={deleting}
+                onPress={handleDeleteAccount}
+                variant="danger"
+              />
+              {confirmDelete ? (
+                <Pressable
+                  style={styles.cancelDelete}
+                  onPress={() => {
+                    setConfirmDelete(false);
+                    setNotice(null);
+                  }}
+                >
+                  <Text style={styles.cancelDeleteText}>CANCEL DELETE</Text>
+                </Pressable>
+              ) : null}
+            </View>
           </ScrollView>
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -585,109 +443,86 @@ export default function SettingsScreen() {
   );
 }
 
-/**
- * SettingsLoadingPanel — paper-language replacement for the bare
- * ActivityIndicator the screen used to render before profile data
- * arrives. Three pulsing rows + an editorial caption. Pulse uses the
- * shared `usePaperBonePulse` so it matches every other paper skeleton
- * in the app.
- */
-function SettingsLoadingPanel() {
-  const pulse = usePaperBonePulse();
+function NoticeCard({
+  title,
+  message,
+  tone = 'info',
+  onDismiss,
+}: {
+  title: string;
+  message?: string;
+  tone?: NoticeTone;
+  onDismiss: () => void;
+}) {
+  const color =
+    tone === 'success' ? paper.bandPrime
+    : tone === 'error' ? paper.bandTough
+    : paper.dashboardBlue;
   return (
-    <View style={settingsLoadingStyles.wrap} accessibilityLabel="Loading preferences">
-      <Text style={styles.pageEyebrow}>FINFINDR SETTINGS</Text>
-      <View style={settingsLoadingStyles.card}>
-        <Animated.View style={[settingsLoadingStyles.titleBone, { opacity: pulse }]} />
-        <Animated.View style={[settingsLoadingStyles.subtitleBone, { opacity: pulse }]} />
-        <View style={settingsLoadingStyles.divider} />
-        {[0, 1, 2].map((i) => (
-          <View key={i} style={settingsLoadingStyles.row}>
-            <Animated.View style={[settingsLoadingStyles.rowLabel, { opacity: pulse }]} />
-            <Animated.View style={[settingsLoadingStyles.rowValue, { opacity: pulse }]} />
-          </View>
-        ))}
+    <View style={[styles.notice, { borderColor: color }]}>
+      <View style={styles.noticeHeader}>
+        <Ionicons
+          name={tone === 'success' ? 'checkmark-circle-outline' : tone === 'error' ? 'alert-circle-outline' : 'information-circle-outline'}
+          size={18}
+          color={color}
+        />
+        <Text style={styles.noticeTitle}>{title}</Text>
+        <Pressable onPress={onDismiss} hitSlop={8}>
+          <Ionicons name="close" size={16} color={paper.dashboardInk} />
+        </Pressable>
       </View>
-      <View style={settingsLoadingStyles.footer}>
-        <Animated.View style={[settingsLoadingStyles.dot, { opacity: pulse }]} />
-        <Text style={settingsLoadingStyles.caption}>READING YOUR PROFILE…</Text>
-      </View>
+      {message ? <Text style={styles.noticeMessage}>{message}</Text> : null}
     </View>
   );
 }
 
-const settingsLoadingStyles = StyleSheet.create({
-  wrap: {
-    flex: 1,
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.lg,
-    gap: paperSpacing.md,
-    backgroundColor: paper.dashboardCream,
-  },
-  card: {
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    padding: paperSpacing.md,
-    gap: paperSpacing.sm,
-  },
-  titleBone: {
-    width: 160,
-    height: 22,
-    borderRadius: 4,
-    backgroundColor: paper.dashboardInk,
-  },
-  subtitleBone: {
-    width: '78%',
-    height: 12,
-    borderRadius: 3,
-    backgroundColor: paper.dashboardHair,
-  },
-  divider: {
-    height: 1,
-    backgroundColor: paper.dashboardHair,
-    marginVertical: paperSpacing.xs,
-  },
-  row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    paddingVertical: 6,
-  },
-  rowLabel: {
-    width: 100,
-    height: 10,
-    borderRadius: 2,
-    backgroundColor: paper.bandTough,
-  },
-  rowValue: {
-    width: 70,
-    height: 14,
-    borderRadius: 3,
-    backgroundColor: paper.dashboardInk,
-  },
-  footer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: paperSpacing.xs + 2,
-    paddingTop: paperSpacing.sm,
-  },
-  dot: {
-    width: 8,
-    height: 8,
-    borderRadius: 4,
-    backgroundColor: paper.dashboardBlue,
-  },
-  caption: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 2.4,
-    color: paper.dashboardInk,
-    opacity: 0.6,
-  },
-});
+function PrimaryAction({
+  label,
+  icon,
+  loading,
+  onPress,
+  variant = 'primary',
+}: {
+  label: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  loading?: boolean;
+  onPress: () => void;
+  variant?: 'primary' | 'secondary' | 'danger';
+}) {
+  return (
+    <Pressable
+      style={({ pressed }) => [
+        styles.actionBtn,
+        variant === 'secondary' && styles.actionBtnSecondary,
+        variant === 'danger' && styles.actionBtnDanger,
+        pressed && !loading && styles.actionBtnPressed,
+        loading && styles.btnDisabled,
+      ]}
+      onPress={onPress}
+      disabled={loading}
+    >
+      {loading ? (
+        <ActivityIndicator color={variant === 'secondary' ? paper.dashboardInk : '#FFFFFF'} />
+      ) : (
+        <>
+          <Ionicons
+            name={icon}
+            size={16}
+            color={variant === 'secondary' ? paper.dashboardInk : '#FFFFFF'}
+          />
+          <Text
+            style={[
+              styles.actionBtnText,
+              variant === 'secondary' && styles.actionBtnTextSecondary,
+            ]}
+          >
+            {label.toUpperCase()}
+          </Text>
+        </>
+      )}
+    </Pressable>
+  );
+}
 
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
@@ -695,14 +530,23 @@ const styles = StyleSheet.create({
   kav: { flex: 1 },
   scroll: {
     paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.xxl,
+    gap: paperSpacing.md,
+  },
+  loadingWrap: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: paperSpacing.sm,
     backgroundColor: paper.dashboardCream,
   },
-  loadingWrap: { flex: 1, justifyContent: 'center', alignItems: 'center' },
-
-  eyebrowRow: {
-    paddingTop: paperSpacing.sm,
-    marginBottom: paperSpacing.md,
+  loadingText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 2.2,
+    color: paper.dashboardInk,
+    opacity: 0.6,
   },
   pageEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
@@ -717,52 +561,54 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     fontWeight: '700',
     letterSpacing: 0,
-    marginBottom: paperSpacing.xs,
   },
   subtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
     color: paper.dashboardInk,
-    opacity: 0.7,
-    marginBottom: paperSpacing.xl,
+    opacity: 0.72,
     lineHeight: 20,
+    marginBottom: paperSpacing.sm,
   },
-
   section: {
-    marginBottom: paperSpacing.lg,
     backgroundColor: paper.dashboardWhite,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     padding: paperSpacing.md,
+    gap: paperSpacing.sm,
+  },
+  sectionLabelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
   },
   sectionLabel: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10.5,
     color: paper.dashboardBlue,
     letterSpacing: 2,
-    marginBottom: paperSpacing.xs + 2,
   },
   sectionHint: {
     fontFamily: paperFonts.displayItalic,
-    fontSize: 12,
+    fontSize: 12.5,
     color: paper.dashboardInk,
-    opacity: 0.65,
-    marginTop: paperSpacing.xs,
+    opacity: 0.68,
+    lineHeight: 18,
   },
   readOnlyValue: {
     fontFamily: paperFonts.body,
     fontSize: 16,
     color: paper.dashboardInk,
-    opacity: 0.75,
     backgroundColor: '#F6F9FB',
     borderRadius: 12,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 2,
+    textTransform: 'capitalize',
   },
-
   input: {
     backgroundColor: paper.dashboardWhite,
     borderRadius: 12,
@@ -774,80 +620,24 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: paper.dashboardInk,
   },
-
-  modeRow: { flexDirection: 'row', gap: paperSpacing.sm },
-  modeBtn: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: paperSpacing.xs + 2,
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
-    paddingVertical: paperSpacing.md - 2,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-  },
-  modeBtnActive: {
-    backgroundColor: paper.dashboardInk,
-    borderColor: paper.dashboardInk,
-  },
-  modeBtnText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 1.4,
-  },
-  modeBtnTextActive: { color: '#FFFFFF' },
-
-  chipGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: paperSpacing.xs + 2 },
-  chip: {
-    paddingHorizontal: paperSpacing.md - 2,
-    paddingVertical: paperSpacing.sm - 1,
-    borderRadius: 999,
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-  },
-  chipActive: {
-    backgroundColor: paper.dashboardBlue,
-    borderColor: paper.dashboardBlue,
-  },
-  chipText: {
-    fontFamily: paperFonts.bodyMedium,
-    fontSize: 13,
-    color: paper.dashboardInk,
-  },
-  chipTextActive: {
-    color: '#FFFFFF',
-    fontFamily: paperFonts.bodyBold,
-  },
-
-  sectionLabelRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: paperSpacing.xs + 2,
-  },
-  locationAutoBtn: {
+  smallAction: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
     paddingHorizontal: paperSpacing.sm,
-    paddingVertical: 4,
+    paddingVertical: 5,
     borderRadius: 999,
     borderWidth: 1,
     borderColor: paper.dashboardBlue,
     backgroundColor: paper.dashboardWhite,
   },
-  locationAutoBtnPressed: { backgroundColor: '#F6F9FB' },
-  locationAutoBtnText: {
+  smallActionPressed: { backgroundColor: '#F6F9FB' },
+  smallActionText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
     color: paper.dashboardBlue,
     letterSpacing: 1.6,
   },
-
   statePicker: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -864,9 +654,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: paper.dashboardInk,
   },
-  statePickerPlaceholder: { color: paper.dashboardInk, opacity: 0.5 },
+  statePickerPlaceholder: { opacity: 0.55 },
   stateList: {
-    marginTop: paperSpacing.xs,
     borderRadius: 12,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
@@ -888,125 +677,41 @@ const styles = StyleSheet.create({
     color: paper.dashboardBlue,
     fontFamily: paperFonts.bodyBold,
   },
-
-  btn: {
+  actionBtn: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.sm,
     backgroundColor: paper.dashboardInk,
     borderWidth: 1,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
+    paddingVertical: paperSpacing.md,
+    marginTop: paperSpacing.xs,
+  },
+  actionBtnSecondary: {
+    backgroundColor: paper.dashboardWhite,
     borderColor: paper.dashboardLine,
-    borderRadius: 12,
-    paddingVertical: paperSpacing.md,
-    marginTop: paperSpacing.sm,
   },
-  btnPressed: { backgroundColor: paper.dashboardBlue },
-  btnDisabled: { opacity: 0.5 },
-  btnText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 12,
-    color: '#FFFFFF',
-    letterSpacing: 2.4,
-  },
-
-  signOutBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: paperSpacing.sm,
-    marginTop: paperSpacing.xl,
-    paddingVertical: paperSpacing.md,
-    borderTopWidth: 1,
-    borderTopColor: paper.dashboardHair,
-  },
-  signOutBtnPressed: { opacity: 0.6 },
-  signOutText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 2.4,
-  },
-
-  ownerSection: {
-    marginTop: paperSpacing.xl,
-    paddingTop: paperSpacing.lg,
-    borderTopWidth: 1,
-    borderTopColor: paper.dashboardLine,
-  },
-  ownerSectionTitle: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 2.4,
-    marginBottom: paperSpacing.xs,
-  },
-  ownerSectionHint: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 12.5,
-    color: paper.dashboardInk,
-    opacity: 0.65,
-    marginBottom: paperSpacing.md,
-    lineHeight: 18,
-  },
-  ownerClearBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: paperSpacing.sm,
+  actionBtnDanger: {
     backgroundColor: paper.bandTough,
-    borderWidth: 1,
     borderColor: paper.bandTough,
-    borderRadius: 12,
-    paddingVertical: paperSpacing.md,
   },
-  ownerClearBtnPressed: { opacity: 0.85 },
-  ownerClearBtnText: {
+  actionBtnPressed: { opacity: 0.85 },
+  actionBtnText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
     color: '#FFFFFF',
-    letterSpacing: 2,
+    letterSpacing: 2.2,
   },
-
-  testingSection: {
-    marginTop: paperSpacing.xl,
-    paddingTop: paperSpacing.lg,
-    borderTopWidth: 1,
-    borderTopColor: paper.dashboardLine,
-  },
-  testingTitle: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
+  actionBtnTextSecondary: {
     color: paper.dashboardInk,
-    letterSpacing: 2.4,
-    marginBottom: paperSpacing.xs,
   },
-  testingHint: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 12.5,
-    color: paper.dashboardInk,
-    opacity: 0.65,
-    marginBottom: paperSpacing.md,
-    lineHeight: 18,
-  },
-  testingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    marginBottom: paperSpacing.md,
-  },
-  testingLabel: {
-    fontFamily: paperFonts.body,
-    fontSize: 13,
-    color: paper.dashboardInk,
-    opacity: 0.8,
-    marginBottom: paperSpacing.xs,
-  },
+  btnDisabled: { opacity: 0.5 },
   presetRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: paperSpacing.xs + 2,
-    marginBottom: paperSpacing.sm,
   },
   presetBtn: {
     paddingHorizontal: paperSpacing.sm + 2,
@@ -1024,16 +729,75 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyMedium,
     fontSize: 12,
     color: paper.dashboardInk,
+    textTransform: 'capitalize',
   },
   presetBtnTextActive: {
     color: '#FFFFFF',
     fontFamily: paperFonts.bodyBold,
   },
-  currentOverride: {
-    fontFamily: paperFonts.mono,
-    fontSize: 11,
+  testingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  testingLabel: {
+    fontFamily: paperFonts.body,
+    fontSize: 13,
     color: paper.dashboardInk,
-    opacity: 0.65,
-    marginTop: paperSpacing.xs,
+    opacity: 0.82,
+  },
+  notice: {
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    padding: paperSpacing.md,
+    gap: paperSpacing.xs,
+  },
+  noticeHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.xs + 2,
+  },
+  noticeTitle: {
+    flex: 1,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13,
+    color: paper.dashboardInk,
+  },
+  noticeMessage: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    color: paper.dashboardInk,
+    opacity: 0.75,
+    lineHeight: 18,
+  },
+  dangerSection: {
+    borderTopWidth: 1,
+    borderTopColor: paper.dashboardHair,
+    paddingTop: paperSpacing.lg,
+    gap: paperSpacing.sm,
+  },
+  dangerTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.bandTough,
+    letterSpacing: 2.2,
+  },
+  dangerCopy: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12.5,
+    color: paper.dashboardInk,
+    opacity: 0.72,
+    lineHeight: 18,
+  },
+  cancelDelete: {
+    alignItems: 'center',
+    paddingVertical: paperSpacing.sm,
+  },
+  cancelDeleteText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.dashboardBlue,
+    letterSpacing: 2,
   },
 });

@@ -15,7 +15,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Alert,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -36,6 +35,7 @@ import {
   AuthField,
   AuthFooterStamp,
   AuthHeader,
+  AuthNotice,
   AuthPrimaryButton,
   AuthTextLink,
 } from '../../components/paper/auth';
@@ -44,6 +44,13 @@ const RATE_LIMIT_COOLDOWN_MINUTES = 15;
 const RATE_LIMIT_STORAGE_KEY = 'signup_rate_limit_until';
 
 type FieldStatus = 'idle' | 'valid' | 'invalid';
+type Notice = {
+  title: string;
+  message?: string;
+  tone?: 'info' | 'success' | 'error';
+  actionLabel?: string;
+  onAction?: () => void;
+};
 
 export default function SignUpScreen() {
   const router = useRouter();
@@ -59,6 +66,7 @@ export default function SignUpScreen() {
   const [emailError, setEmailError] = useState('');
   const [confirmStatus, setConfirmStatus] = useState<FieldStatus>('idle');
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
+  const [notice, setNotice] = useState<Notice | null>(null);
 
   const emailDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -141,33 +149,48 @@ export default function SignUpScreen() {
 
   const handleSignUp = async () => {
     const trimmedEmail = email.trim().toLowerCase();
+    setNotice(null);
 
     if (cooldownSeconds > 0) {
       const m = Math.floor(cooldownSeconds / 60);
       const s = cooldownSeconds % 60;
-      Alert.alert(
-        'Please wait',
-        `Too many sign-up attempts. Try again in ${m}:${s.toString().padStart(2, '0')}.`,
-      );
+      setNotice({
+        title: 'Please wait',
+        message: `Too many sign-up attempts. Try again in ${m}:${s.toString().padStart(2, '0')}.`,
+        tone: 'error',
+      });
       return;
     }
     if (!trimmedEmail || !isSignUpEmailFormatAcceptable(trimmedEmail)) {
-      Alert.alert(
-        'Check your details',
-        'Enter a valid email from a supported provider (Gmail, Yahoo, Outlook, iCloud, etc.).',
-      );
+      setNotice({
+        title: 'Check your details',
+        message: 'Enter a valid email from a supported provider (Gmail, Yahoo, Outlook, iCloud, etc.).',
+        tone: 'error',
+      });
       return;
     }
     if (emailStatus === 'invalid') {
-      Alert.alert('Check your details', emailError || 'Please fix your email.');
+      setNotice({
+        title: 'Check your details',
+        message: emailError || 'Please fix your email.',
+        tone: 'error',
+      });
       return;
     }
     if (password.length < 8) {
-      Alert.alert('Check your details', 'Password must be at least 8 characters.');
+      setNotice({
+        title: 'Check your details',
+        message: 'Password must be at least 8 characters.',
+        tone: 'error',
+      });
       return;
     }
     if (password !== confirmPassword) {
-      Alert.alert('Check your details', 'Passwords do not match.');
+      setNotice({
+        title: 'Check your details',
+        message: 'Passwords do not match.',
+        tone: 'error',
+      });
       return;
     }
 
@@ -191,23 +214,23 @@ export default function SignUpScreen() {
             await AsyncStorage.setItem(RATE_LIMIT_STORAGE_KEY, String(until));
             setCooldownSeconds(RATE_LIMIT_COOLDOWN_MINUTES * 60);
           }
-          Alert.alert(
-            'Email limit reached',
-            'Sign-up emails are limited to 3 per hour. Try again in about an hour, or use Sign in with Apple to continue now.',
-          );
+          setNotice({
+            title: 'Email limit reached',
+            message: 'Sign-up emails are limited to 3 per hour. Try again in about an hour, or use Sign in with Apple to continue now.',
+            tone: 'error',
+          });
         } else if (isAlreadyRegistered) {
           setEmailStatus('invalid');
           setEmailError('An account with this email already exists');
-          Alert.alert(
-            'Account already exists',
-            'An account with this email already exists. Please sign in or reset your password.',
-            [
-              { text: 'Sign In', onPress: () => router.replace('/(auth)/sign-in') },
-              { text: 'Cancel', style: 'cancel' },
-            ],
-          );
+          setNotice({
+            title: 'Account already exists',
+            message: 'An account with this email already exists. Please sign in or reset your password.',
+            tone: 'error',
+            actionLabel: 'Sign in',
+            onAction: () => router.replace('/(auth)/sign-in'),
+          });
         } else {
-          Alert.alert('Sign Up Failed', error.message);
+          setNotice({ title: 'Sign up failed', message: error.message, tone: 'error' });
         }
         return;
       }
@@ -220,14 +243,13 @@ export default function SignUpScreen() {
         if (isExistingAccount) {
           setEmailStatus('invalid');
           setEmailError('An account with this email already exists');
-          Alert.alert(
-            'Account already exists',
-            'An account with this email already exists. Please sign in or reset your password.',
-            [
-              { text: 'Sign In', onPress: () => router.replace('/(auth)/sign-in') },
-              { text: 'Cancel', style: 'cancel' },
-            ],
-          );
+          setNotice({
+            title: 'Account already exists',
+            message: 'An account with this email already exists. Please sign in or reset your password.',
+            tone: 'error',
+            actionLabel: 'Sign in',
+            onAction: () => router.replace('/(auth)/sign-in'),
+          });
         } else {
           // New unverified account — go to verify screen.
           // Pass the email as a param so the verify screen can show it and resend.
@@ -275,6 +297,16 @@ export default function SignUpScreen() {
             </View>
 
             <View style={styles.form}>
+              {notice ? (
+                <AuthNotice
+                  title={notice.title}
+                  message={notice.message}
+                  tone={notice.tone}
+                  actionLabel={notice.actionLabel}
+                  onAction={notice.onAction}
+                />
+              ) : null}
+
               <AuthField
                 label="Email"
                 value={email}

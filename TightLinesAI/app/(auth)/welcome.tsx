@@ -6,7 +6,7 @@
  * same handlers against the same auth store. Only visuals changed.
  */
 
-import { useEffect, useRef, useCallback } from 'react';
+import { useEffect, useRef, useCallback, useState } from 'react';
 import {
   Animated,
   Easing,
@@ -14,7 +14,6 @@ import {
   Text,
   StyleSheet,
   Platform,
-  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -39,11 +38,15 @@ import {
   AuthPrimaryButton,
   AuthSecondaryButton,
   AuthDivider,
+  AuthNotice,
 } from '../../components/paper/auth';
+
+type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
 export default function WelcomeScreen() {
   const router = useRouter();
   const { fetchProfile, setSession } = useAuthStore();
+  const [notice, setNotice] = useState<Notice | null>(null);
 
   // Live pulse on the eyebrow dot — matches the home dashboard and
   // every renovated feature header. Native driver, native opacity loop.
@@ -73,6 +76,7 @@ export default function WelcomeScreen() {
 
   const handleAppleSignIn = useCallback(async () => {
     if (appleSignInInFlight.current) return;
+    setNotice(null);
     appleSignInInFlight.current = true;
     try {
       try {
@@ -107,7 +111,11 @@ export default function WelcomeScreen() {
         }
       } catch (err: unknown) {
         await reportAppleSignInFailureIfStillSignedOut(err, () => {
-          Alert.alert('Apple Sign-In Failed', 'Please try again.');
+          setNotice({
+            title: 'Apple Sign-In failed',
+            message: 'Please try again.',
+            tone: 'error',
+          });
         });
       }
     } finally {
@@ -149,6 +157,13 @@ export default function WelcomeScreen() {
               Find the bite before you head out.
             </Text>
           </View>
+          {notice ? (
+            <AuthNotice
+              title={notice.title}
+              message={notice.message}
+              tone={notice.tone}
+            />
+          ) : null}
 
           {/* Value props — editorial bullet list */}
           <View style={styles.valueProps}>

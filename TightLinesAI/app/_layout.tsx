@@ -223,6 +223,12 @@ export default function RootLayout() {
         });
       }
       const params = { ...queryParams, ...fragmentParams };
+      const type = linkingParam(params['type'] as string | string[] | undefined);
+      const isRecoveryLink = type === 'recovery';
+
+      if (isRecoveryLink) {
+        setPasswordRecoveryInFlight(true);
+      }
 
       const accessToken = linkingParam(params['access_token'] as string | string[] | undefined);
       const refreshToken = linkingParam(params['refresh_token'] as string | string[] | undefined);
@@ -234,15 +240,11 @@ export default function RootLayout() {
         if (!error && data.session) {
           setSession(data.session);
           void fetchProfile(data.session.user.id);
+          if (isRecoveryLink) {
+            router.replace('/(auth)/reset-password');
+          }
         }
         return;
-      }
-
-      const type = linkingParam(params['type'] as string | string[] | undefined);
-      const isRecoveryLink = type === 'recovery';
-
-      if (isRecoveryLink) {
-        setPasswordRecoveryInFlight(true);
       }
 
       const authCode = linkingParam(params['code'] as string | string[] | undefined);

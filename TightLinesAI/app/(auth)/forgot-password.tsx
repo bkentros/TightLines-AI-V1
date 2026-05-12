@@ -12,7 +12,6 @@ import {
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
-  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -28,11 +27,14 @@ import {
   AuthField,
   AuthFooterStamp,
   AuthHeader,
+  AuthNotice,
   AuthPrimaryButton,
   AuthSecondaryButton,
   AuthStatusCard,
   AuthTip,
 } from '../../components/paper/auth';
+
+type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
 export default function ForgotPasswordScreen() {
   const router = useRouter();
@@ -40,11 +42,17 @@ export default function ForgotPasswordScreen() {
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
   const [lookupMessage, setLookupMessage] = useState('');
+  const [notice, setNotice] = useState<Notice | null>(null);
 
   const handleSend = async () => {
     const trimmed = email.trim().toLowerCase();
+    setNotice(null);
     if (!trimmed) {
-      Alert.alert('Email required', 'Please enter your email address.');
+      setNotice({
+        title: 'Email required',
+        message: 'Please enter your email address.',
+        tone: 'error',
+      });
       return;
     }
 
@@ -56,10 +64,11 @@ export default function ForgotPasswordScreen() {
         { raw_email: trimmed },
       );
       if (lookupError) {
-        Alert.alert(
-          'Could not check account',
-          'Please try again in a moment.',
-        );
+        setNotice({
+          title: 'Could not check account',
+          message: 'Please try again in a moment.',
+          tone: 'error',
+        });
         return;
       }
       if (!emailRegistered) {
@@ -71,7 +80,7 @@ export default function ForgotPasswordScreen() {
         redirectTo: getPasswordResetEmailRedirectUrl(),
       });
       if (error) {
-        Alert.alert('Error', error.message);
+        setNotice({ title: 'Could not send reset link', message: error.message, tone: 'error' });
         return;
       }
       setSent(true);
@@ -101,6 +110,14 @@ export default function ForgotPasswordScreen() {
             {!sent ? (
               <>
                 <View style={styles.form}>
+                  {notice ? (
+                    <AuthNotice
+                      title={notice.title}
+                      message={notice.message}
+                      tone={notice.tone}
+                    />
+                  ) : null}
+
                   <AuthField
                     label="Email"
                     value={email}

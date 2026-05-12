@@ -16,7 +16,6 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
-  Alert,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
@@ -39,9 +38,12 @@ import {
   AuthField,
   AuthFooterStamp,
   AuthHeader,
+  AuthNotice,
   AuthPrimaryButton,
   AuthTextLink,
 } from '../../components/paper/auth';
+
+type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
 export default function SignInScreen() {
   const router = useRouter();
@@ -51,12 +53,18 @@ export default function SignInScreen() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [notice, setNotice] = useState<Notice | null>(null);
   const appleSignInInFlight = useRef(false);
 
   const handleSignIn = async () => {
     const trimmedEmail = email.trim().toLowerCase();
+    setNotice(null);
     if (!trimmedEmail || !password) {
-      Alert.alert('Missing fields', 'Please enter your email and password.');
+      setNotice({
+        title: 'Missing fields',
+        message: 'Please enter your email and password.',
+        tone: 'error',
+      });
       return;
     }
 
@@ -64,7 +72,7 @@ export default function SignInScreen() {
     try {
       const { data, error } = await signInWithEmail(trimmedEmail, password);
       if (error) {
-        Alert.alert('Sign In Failed', error.message);
+        setNotice({ title: 'Sign in failed', message: error.message, tone: 'error' });
         return;
       }
       if (data.session) {
@@ -115,7 +123,11 @@ export default function SignInScreen() {
         }
       } catch (err: unknown) {
         await reportAppleSignInFailureIfStillSignedOut(err, () => {
-          Alert.alert('Apple Sign-In Failed', 'Please try again.');
+          setNotice({
+            title: 'Apple Sign-In failed',
+            message: 'Please try again.',
+            tone: 'error',
+          });
         });
       }
     } finally {
@@ -146,6 +158,14 @@ export default function SignInScreen() {
             </View>
 
             <View style={styles.form}>
+              {notice ? (
+                <AuthNotice
+                  title={notice.title}
+                  message={notice.message}
+                  tone={notice.tone}
+                />
+              ) : null}
+
               <AuthField
                 label="Email"
                 value={email}

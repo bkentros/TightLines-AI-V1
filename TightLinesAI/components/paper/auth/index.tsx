@@ -272,6 +272,55 @@ export function AuthTip({ iconName = 'information-circle-outline', children }: A
   );
 }
 
+interface AuthNoticeProps {
+  title: string;
+  message?: string;
+  tone?: 'info' | 'success' | 'error';
+  actionLabel?: string;
+  onAction?: () => void;
+}
+
+export function AuthNotice({
+  title,
+  message,
+  tone = 'info',
+  actionLabel,
+  onAction,
+}: AuthNoticeProps) {
+  const iconName =
+    tone === 'success' ? 'checkmark-circle-outline'
+    : tone === 'error' ? 'alert-circle-outline'
+    : 'information-circle-outline';
+  const accent =
+    tone === 'success' ? paper.bandPrime
+    : tone === 'error' ? paper.bandTough
+    : paper.dashboardBlue;
+
+  return (
+    <View style={[styles.notice, { borderColor: accent }]}>
+      <View style={styles.noticeHeader}>
+        <Ionicons name={iconName} size={18} color={accent} />
+        <Text style={styles.noticeTitle}>{title}</Text>
+      </View>
+      {message ? <Text style={styles.noticeMessage}>{message}</Text> : null}
+      {actionLabel && onAction ? (
+        <Pressable
+          onPress={onAction}
+          style={({ pressed }) => [
+            styles.noticeAction,
+            { borderColor: accent },
+            pressed && styles.noticeActionPressed,
+          ]}
+        >
+          <Text style={[styles.noticeActionText, { color: accent }]}>
+            {actionLabel.toUpperCase()}
+          </Text>
+        </Pressable>
+      ) : null}
+    </View>
+  );
+}
+
 // ─── Textual link (footer "already have an account?" style row) ──────────
 
 interface AuthTextLinkProps {
@@ -569,6 +618,50 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     opacity: 0.85,
     lineHeight: 19,
+  },
+
+  // Notice card
+  notice: {
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1.5,
+    borderRadius: 12,
+    padding: paperSpacing.md,
+    gap: paperSpacing.xs,
+  },
+  noticeHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.xs + 2,
+  },
+  noticeTitle: {
+    flex: 1,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13,
+    color: paper.dashboardInk,
+    letterSpacing: 0.2,
+  },
+  noticeMessage: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    color: paper.dashboardInk,
+    opacity: 0.75,
+    lineHeight: 18,
+  },
+  noticeAction: {
+    alignSelf: 'flex-start',
+    borderWidth: 1,
+    borderRadius: 999,
+    paddingHorizontal: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.xs,
+    marginTop: paperSpacing.xs,
+  },
+  noticeActionPressed: {
+    backgroundColor: '#F6F9FB',
+  },
+  noticeActionText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    letterSpacing: 1.8,
   },
 
   // Text link row
