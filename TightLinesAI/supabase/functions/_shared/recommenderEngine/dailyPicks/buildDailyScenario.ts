@@ -281,6 +281,8 @@ function surfaceGate(args: {
   activityLevel: DailyActivityLevel;
   lightMode: DailyLightMode;
   daylightWindMph: number | null;
+  pikeColdSurfaceClosed: boolean;
+  pikeHeatSurfaceClosed: boolean;
 }): { gate: DailySurfaceGate; reasonCodes: string[] } {
   const reasons: string[] = [];
   if (!args.seasonalSurfaceAllowed) {
@@ -288,6 +290,16 @@ function surfaceGate(args: {
     return { gate: "closed", reasonCodes: reasons };
   }
   reasons.push("seasonal_surface_open");
+
+  if (args.pikeColdSurfaceClosed) {
+    reasons.push("pike_cold_surface_closed");
+    return { gate: "closed", reasonCodes: reasons };
+  }
+
+  if (args.pikeHeatSurfaceClosed) {
+    reasons.push("pike_heat_surface_closed");
+    return { gate: "closed", reasonCodes: reasons };
+  }
 
   if (args.daylightWindMph == null || args.windMode === "unknown") {
     reasons.push("missing_wind_surface_closed");
@@ -317,6 +329,31 @@ function surfaceGate(args: {
 
   reasons.push("surface_caution_mixed_daily_conditions");
   return { gate: "caution", reasonCodes: reasons };
+}
+
+function pikeColdSurfaceClosed(args: {
+  species: DailyScenario["species"];
+  thermalMode: DailyThermalMode;
+  temperatureBand: string | null | undefined;
+}): boolean {
+  if (args.species !== "northern_pike") return false;
+  return args.thermalMode === "cold_slow" ||
+    args.temperatureBand === "very_cold";
+}
+
+function pikeHeatSurfaceClosed(args: {
+  species: DailyScenario["species"];
+  thermalMode: DailyThermalMode;
+  activityLevel: DailyActivityLevel;
+  lightMode: DailyLightMode;
+}): boolean {
+  if (args.species !== "northern_pike") return false;
+  if (args.thermalMode !== "heat_limited") return false;
+
+  const exceptionalLowLightSurfaceWindow = args.lightMode === "low_light" &&
+    (args.activityLevel === "active" ||
+      args.activityLevel === "high_opportunity");
+  return !exceptionalLowLightSurfaceWindow;
 }
 
 function addTag(
@@ -390,6 +427,17 @@ export function buildDailyScenario(args: {
     activityLevel,
     lightMode,
     daylightWindMph,
+    pikeColdSurfaceClosed: pikeColdSurfaceClosed({
+      species,
+      thermalMode,
+      temperatureBand: temp?.band_label,
+    }),
+    pikeHeatSurfaceClosed: pikeHeatSurfaceClosed({
+      species,
+      thermalMode,
+      activityLevel,
+      lightMode,
+    }),
   });
 
   const tags: DailyScenarioTag[] = [];

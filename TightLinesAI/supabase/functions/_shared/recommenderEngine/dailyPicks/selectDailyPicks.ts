@@ -74,6 +74,9 @@ const DIRTY_WIND_COVERAGE_QUALITY_BAND = 24;
 const SPECIALIST_FINALIST_QUALITY_BAND = 36;
 const AVOIDED_DIRTY_WIND_REUSE_LEAD = 30;
 const BIG_FISH_PAIR_GOAL_COVERAGE_BAND = 30;
+const PIKE_SET_B_ALL_PURPOSE_FLY_RISK_RELIABILITY_BAND = 12;
+const PIKE_CLEAR_CALM_CONTROL_BAND = 24;
+const OPEN_SURFACE_SAME_SIDE_DIVERSITY_BAND = 24;
 
 function hashString(input: string): number {
   let hash = 2166136261;
@@ -757,6 +760,88 @@ function isDirtyStainedWindReactionScenario(scenario: DailyScenario): boolean {
   );
 }
 
+function isPikeClearCalmControlScenario(scenario: DailyScenario): boolean {
+  const lowWind = scenario.wind_mode === "calm" ||
+    (scenario.daylight_wind_mph != null && scenario.daylight_wind_mph < 6);
+  const closedOrCaution = scenario.surface_daily_gate === "closed" ||
+    scenario.surface_daily_gate === "caution";
+  return scenario.species === "northern_pike" &&
+    scenario.water_clarity === "clear" &&
+    (scenario.light_mode === "bright" || scenario.light_mode === "glare") &&
+    lowWind &&
+    closedOrCaution &&
+    !scenario.scenario_tags.includes("dirty_vibration") &&
+    !scenario.scenario_tags.includes("wind_reaction");
+}
+
+function pikeClearControlText(candidate: CandidateScore): string {
+  return [
+    candidate.profile.id,
+    candidate.profile.display_name,
+    candidate.profile.family_group,
+    candidate.profile.presentation_group,
+  ].join(" ").toLowerCase();
+}
+
+function isPikeNoisyFlashProfile(candidate: CandidateScore): boolean {
+  const text = pikeClearControlText(candidate);
+  return text.includes("flash") ||
+    text.includes("spinner") ||
+    text.includes("spoon") ||
+    text.includes("bucktail") ||
+    text.includes("buzz") ||
+    text.includes("topwater");
+}
+
+function isControlledPikeBigFishUpside(candidate: CandidateScore): boolean {
+  return candidate.profile.goal_tags.includes("big_fish_upside") &&
+    !candidate.profile.is_surface &&
+    !isPikeNoisyFlashProfile(candidate);
+}
+
+function isPikeClearCalmNoisySelection(
+  candidate: CandidateScore,
+  scenario: DailyScenario,
+): boolean {
+  if (!isPikeClearCalmControlScenario(scenario)) return false;
+  if (candidate.profile.is_surface || isPikeNoisyFlashProfile(candidate)) {
+    return true;
+  }
+  return candidate.profile.goal_tags.includes("high_risk_high_reward") &&
+    !isControlledPikeBigFishUpside(candidate);
+}
+
+function isPikeClearCalmControlledAlternative(
+  candidate: CandidateScore,
+  scenario: DailyScenario,
+): boolean {
+  if (candidate.profile.is_surface || isPikeNoisyFlashProfile(candidate)) {
+    return false;
+  }
+
+  if (scenario.recommendation_goal === "all_purpose") {
+    const reliableOrVersatile =
+      candidate.profile.goal_tags.includes("reliable_action") ||
+      candidate.profile.goal_tags.includes("versatile_search");
+    return reliableOrVersatile &&
+      hasActiveGoalReason(candidate, scenario) &&
+      !candidate.profile.goal_tags.includes("high_risk_high_reward") &&
+      (hasPriorityConditionReason(candidate, scenario) ||
+        hasConditionReason(candidate) ||
+        hasScenarioClarityReason(candidate, scenario) ||
+        hasDailyLaneReason(candidate) ||
+        hasSpecialistDailyLaneReason(candidate));
+  }
+
+  return hasActiveGoalReason(candidate, scenario) &&
+    isControlledPikeBigFishUpside(candidate) &&
+    (hasPriorityConditionReason(candidate, scenario) ||
+      hasConditionReason(candidate) ||
+      hasScenarioClarityReason(candidate, scenario) ||
+      hasDailyLaneReason(candidate) ||
+      hasSpecialistDailyLaneReason(candidate));
+}
+
 function dirtyWindCoverageCandidates(args: {
   candidates: CandidateScore[];
   side: "lure" | "fly";
@@ -1030,6 +1115,83 @@ function preferDifferentFamilyWhenAvailable(args: {
   return differentFamily.length > 0 ? differentFamily : args.candidates;
 }
 
+function isCredibleOpenSurfaceColumnAlternative(args: {
+  candidate: CandidateScore;
+  selected: CandidateScore;
+  scenario: DailyScenario;
+}): boolean {
+  if (args.candidate.profile.is_surface) return false;
+  if (
+    args.candidate.score <
+      args.selected.score - OPEN_SURFACE_SAME_SIDE_DIVERSITY_BAND
+  ) {
+    return false;
+  }
+
+  if (args.scenario.recommendation_goal === "all_purpose") {
+    return isReliableAllPurposeNonSurface(args.candidate, args.scenario) ||
+      (!hasHighRiskOnlyProfile(args.candidate) &&
+        (hasPriorityConditionReason(args.candidate, args.scenario) ||
+          hasConditionReason(args.candidate) ||
+          hasScenarioClarityReason(args.candidate, args.scenario) ||
+          hasDailyLaneReason(args.candidate) ||
+          hasSpecialistDailyLaneReason(args.candidate)));
+  }
+
+  const strongConditionFit = hasConditionReason(args.candidate) &&
+    (hasPriorityConditionReason(args.candidate, args.scenario) ||
+      hasScenarioClarityReason(args.candidate, args.scenario) ||
+      hasDailyLaneReason(args.candidate) ||
+      hasSpecialistDailyLaneReason(args.candidate));
+
+  return hasActiveGoalReason(args.candidate, args.scenario) ||
+    hasGuideCredibleBigFishGoalFit(args.candidate, args.scenario) ||
+    strongConditionFit;
+}
+
+function applyOpenSurfaceSameSideColumnDiversity(args: {
+  top: CandidateScore;
+  honorable: CandidateScore;
+  candidates: CandidateScore[];
+  scenario: DailyScenario;
+  avoidIds: ReadonlySet<string>;
+  avoidedGroups: AvoidedGroupContext;
+}): [CandidateScore, CandidateScore] {
+  if (
+    args.scenario.surface_daily_gate !== "open" ||
+    !args.top.profile.is_surface ||
+    !args.honorable.profile.is_surface
+  ) {
+    return [args.top, args.honorable];
+  }
+
+  const nonAvoided = candidatesRespectingAvoids({
+    candidates: args.candidates,
+    avoidIds: args.avoidIds,
+  });
+  const replacement = bestRawCloseCandidate({
+    candidates: preferDifferentFamilyWhenAvailable({
+      candidates: nonAvoided,
+      top: args.top,
+    }),
+    selected: args.honorable,
+    predicate: (candidate) =>
+      candidate.profile.id !== args.top.profile.id &&
+      !args.avoidIds.has(candidate.profile.id) &&
+      candidate.profile.family_group !== args.top.profile.family_group &&
+      isCredibleOpenSurfaceColumnAlternative({
+        candidate,
+        selected: args.honorable,
+        scenario: args.scenario,
+      }),
+    scenario: args.scenario,
+    top: args.top,
+    avoidedGroups: args.avoidedGroups,
+  });
+
+  return replacement ? [args.top, replacement] : [args.top, args.honorable];
+}
+
 function topFinalistCandidates(args: {
   candidates: CandidateScore[];
   scenario: DailyScenario;
@@ -1156,8 +1318,14 @@ function selectTop(args: {
     scenario: args.scenario,
     avoidedGroups: args.avoidedGroups,
   });
-  return applyTopGoalSafety({
+  const pikeClearControlSafe = applyPikeClearCalmControlSafety({
     selected: heatSafe,
+    broadCandidates: broadSurfaceEligible,
+    scenario: args.scenario,
+    avoidedGroups: args.avoidedGroups,
+  });
+  return applyTopGoalSafety({
+    selected: pikeClearControlSafe,
     broadCandidates: broadSurfaceEligible,
     scenario: args.scenario,
     avoidedGroups: args.avoidedGroups,
@@ -1243,7 +1411,9 @@ function applyHonorableGoalSafety(args: {
   broadCandidates: CandidateScore[];
   avoidedFallbackCandidates?: CandidateScore[];
   top: CandidateScore;
+  side: "lure" | "fly";
   scenario: DailyScenario;
+  variant: DailyPicksVariant;
   avoidedGroups: AvoidedGroupContext;
 }): CandidateScore {
   if (
@@ -1368,6 +1538,19 @@ function applyHonorableGoalSafety(args: {
     if (avoidedUpside) return avoidedUpside;
   }
 
+  const setBPikeFlyReliability = protectPikeSetBAllPurposeFlyReliability({
+    selected: args.selected,
+    broadCandidates: args.broadCandidates,
+    top: args.top,
+    side: args.side,
+    scenario: args.scenario,
+    variant: args.variant,
+    avoidedGroups: args.avoidedGroups,
+  });
+  if (setBPikeFlyReliability !== args.selected) {
+    return setBPikeFlyReliability;
+  }
+
   if (
     args.scenario.recommendation_goal === "all_purpose" &&
     isRiskyAllPurposeSurfacePick(args.top, args.scenario) &&
@@ -1412,6 +1595,84 @@ function applyHonorableGoalSafety(args: {
   }
 
   return args.selected;
+}
+
+function isPikeSetBAllPurposeRiskOnlyFly(args: {
+  candidate: CandidateScore;
+  scenario: DailyScenario;
+}): boolean {
+  if (
+    args.scenario.species !== "northern_pike" ||
+    args.scenario.recommendation_goal !== "all_purpose" ||
+    args.candidate.side !== "fly" ||
+    hasActiveGoalReason(args.candidate, args.scenario)
+  ) {
+    return false;
+  }
+  return args.candidate.profile.goal_tags.includes("high_risk_high_reward") ||
+    args.candidate.profile.goal_tags.includes("big_fish_upside");
+}
+
+function isReliablePikeAllPurposeFlyAlternative(args: {
+  candidate: CandidateScore;
+  scenario: DailyScenario;
+}): boolean {
+  if (
+    args.candidate.side !== "fly" ||
+    !hasActiveGoalReason(args.candidate, args.scenario)
+  ) {
+    return false;
+  }
+  const reliableOrVersatile =
+    args.candidate.profile.goal_tags.includes("reliable_action") ||
+    args.candidate.profile.goal_tags.includes("versatile_search");
+  if (!reliableOrVersatile) return false;
+  return hasPriorityConditionReason(args.candidate, args.scenario) ||
+    hasConditionReason(args.candidate) ||
+    hasScenarioClarityReason(args.candidate, args.scenario) ||
+    hasDailyLaneReason(args.candidate) ||
+    hasSpecialistDailyLaneReason(args.candidate);
+}
+
+function protectPikeSetBAllPurposeFlyReliability(args: {
+  selected: CandidateScore;
+  broadCandidates: CandidateScore[];
+  top: CandidateScore;
+  side: "lure" | "fly";
+  scenario: DailyScenario;
+  variant: DailyPicksVariant;
+  avoidedGroups: AvoidedGroupContext;
+}): CandidateScore {
+  if (
+    args.variant !== "B" ||
+    args.side !== "fly" ||
+    !isPikeSetBAllPurposeRiskOnlyFly({
+      candidate: args.selected,
+      scenario: args.scenario,
+    })
+  ) {
+    return args.selected;
+  }
+
+  return bestRawCloseCandidate({
+    candidates: preferDifferentFamilyWhenAvailable({
+      candidates: args.broadCandidates,
+      top: args.top,
+    }),
+    selected: args.selected,
+    predicate: (candidate) =>
+      candidate.profile.id !== args.top.profile.id &&
+      candidate.score >=
+        args.selected.score -
+          PIKE_SET_B_ALL_PURPOSE_FLY_RISK_RELIABILITY_BAND &&
+      isReliablePikeAllPurposeFlyAlternative({
+        candidate,
+        scenario: args.scenario,
+      }),
+    scenario: args.scenario,
+    top: args.top,
+    avoidedGroups: args.avoidedGroups,
+  }) ?? args.selected;
 }
 
 function applyTopGoalSafety(args: {
@@ -1675,6 +1936,37 @@ function applyHeatFinesseSafety(args: {
   }) ?? args.selected;
 }
 
+function applyPikeClearCalmControlSafety(args: {
+  selected: CandidateScore;
+  broadCandidates: CandidateScore[];
+  scenario: DailyScenario;
+  top?: CandidateScore;
+  avoidedGroups: AvoidedGroupContext;
+}): CandidateScore {
+  if (!isPikeClearCalmNoisySelection(args.selected, args.scenario)) {
+    return args.selected;
+  }
+
+  const candidates = args.top
+    ? preferDifferentFamilyWhenAvailable({
+      candidates: args.broadCandidates,
+      top: args.top,
+    })
+    : args.broadCandidates;
+  return bestRawCloseCandidate({
+    candidates,
+    selected: args.selected,
+    predicate: (candidate) =>
+      candidate.profile.id !== args.top?.profile.id &&
+      candidate.score >=
+        args.selected.score - PIKE_CLEAR_CALM_CONTROL_BAND &&
+      isPikeClearCalmControlledAlternative(candidate, args.scenario),
+    scenario: args.scenario,
+    top: args.top ?? null,
+    avoidedGroups: args.avoidedGroups,
+  }) ?? args.selected;
+}
+
 function selectHonorable(args: {
   candidates: CandidateScore[];
   top: CandidateScore;
@@ -1843,12 +2135,21 @@ function selectHonorable(args: {
     top: args.top,
     avoidedGroups: args.avoidedGroups,
   });
-  return applyHonorableGoalSafety({
+  const pikeClearControlSafe = applyPikeClearCalmControlSafety({
     selected: heatSafe,
+    broadCandidates: safetyCandidates,
+    scenario: args.scenario,
+    top: args.top,
+    avoidedGroups: args.avoidedGroups,
+  });
+  return applyHonorableGoalSafety({
+    selected: pikeClearControlSafe,
     broadCandidates: safetyCandidates,
     avoidedFallbackCandidates,
     top: args.top,
+    side: args.side,
     scenario: args.scenario,
+    variant: args.variant,
     avoidedGroups: args.avoidedGroups,
   });
 }
@@ -2010,7 +2311,7 @@ function selectSide(args: {
     avoidIds,
     avoidedGroups,
   });
-  return ensureBigFishPairGoalCoverage({
+  const [coveredTop, coveredHonorable] = ensureBigFishPairGoalCoverage({
     top,
     honorable,
     candidates,
@@ -2019,6 +2320,14 @@ function selectSide(args: {
     seed: args.seed,
     variant: args.variant,
     avoidIds,
+  });
+  return applyOpenSurfaceSameSideColumnDiversity({
+    top: coveredTop,
+    honorable: coveredHonorable,
+    candidates,
+    scenario: args.scenario,
+    avoidIds,
+    avoidedGroups,
   });
 }
 

@@ -1009,6 +1009,237 @@ Deno.test("DailyPick selector elevates clear bright subtle fits when close", () 
   assertEquals(selection.lure_of_the_day.profile.id, "weightless_stick_worm");
 });
 
+Deno.test("DailyPick Pike clear calm glare avoids close noisy all-purpose picks", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "inline_spinner",
+        side: "lure",
+        score: 190,
+        family_group: "spinner",
+        presentation_group: "spinner_vibration",
+        goal_tags: ["reliable_action", "versatile_search"],
+        reasons: [
+          "base:+100",
+          "goal:all_purpose:reliable_action:+18",
+          "goal:all_purpose:versatile_search:+12",
+        ],
+      }),
+      candidate({
+        id: "shallow_minnowbait",
+        side: "lure",
+        score: 178,
+        family_group: "pike_minnowbait",
+        presentation_group: "jerkbait",
+        goal_tags: ["reliable_action", "versatile_search"],
+        reasons: [
+          "base:+100",
+          "goal:all_purpose:reliable_action:+18",
+          "goal:all_purpose:versatile_search:+12",
+          "condition_tag:clear_subtle:+16",
+        ],
+      }),
+      candidate({
+        id: "paddle_tail_swimbait",
+        side: "lure",
+        score: 176,
+        family_group: "swimbait",
+        presentation_group: "swimbait",
+        goal_tags: ["reliable_action", "versatile_search"],
+        reasons: [
+          "base:+100",
+          "goal:all_purpose:reliable_action:+18",
+          "goal:all_purpose:versatile_search:+12",
+          "clarity_strength:clear:+8",
+        ],
+      }),
+      candidate({
+        id: "weedless_spoon",
+        side: "lure",
+        score: 174,
+        family_group: "spoon",
+        presentation_group: "blade_spoon",
+        goal_tags: ["reliable_action"],
+        reasons: ["base:+100", "goal:all_purpose:reliable_action:+18"],
+      }),
+    ],
+    flyScores: [
+      candidate({
+        id: "pike_flash_fly",
+        side: "fly",
+        score: 170,
+        family_group: "pike_flash_fly",
+        presentation_group: "pike_flash_fly",
+        goal_tags: ["versatile_search"],
+        reasons: ["base:+100", "goal:all_purpose:versatile_search:+12"],
+      }),
+      candidate({
+        id: "unweighted_baitfish_streamer",
+        side: "fly",
+        score: 164,
+        family_group: "streamer_unweighted",
+        presentation_group: "baitfish_streamer",
+        goal_tags: ["versatile_search"],
+        reasons: [
+          "base:+100",
+          "goal:all_purpose:versatile_search:+12",
+          "condition_tag:clear_subtle:+16",
+        ],
+      }),
+      candidate({
+        id: "baitfish_slider_fly",
+        side: "fly",
+        score: 162,
+        family_group: "streamer_slider",
+        presentation_group: "baitfish_slider",
+        goal_tags: ["versatile_search"],
+        reasons: [
+          "base:+100",
+          "goal:all_purpose:versatile_search:+12",
+          "condition_tag:clear_subtle:+16",
+        ],
+      }),
+    ],
+    scenario: baseScenario({
+      species: "northern_pike",
+      recommendation_goal: "all_purpose",
+      water_clarity: "clear",
+      light_mode: "glare",
+      wind_mode: "calm",
+      daylight_wind_mph: 3,
+      surface_daily_gate: "closed",
+      scenario_tags: ["clear_subtle"],
+      local_date: "2026-09-15",
+    }),
+    seed: "pike-clear-calm-control-ap",
+    variant: "A",
+  });
+
+  const selectedIds = new Set([
+    selection.lure_of_the_day.profile.id,
+    selection.honorable_lure.profile.id,
+    selection.fly_of_the_day.profile.id,
+    selection.honorable_fly.profile.id,
+  ]);
+  assert(!selectedIds.has("inline_spinner"));
+  assert(!selectedIds.has("pike_flash_fly"));
+});
+
+Deno.test("DailyPick Pike clear calm glare keeps controlled Big Fish upside over noisy flash", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "large_bucktail_spinner",
+        side: "lure",
+        score: 186,
+        family_group: "large_spinner",
+        presentation_group: "spinner_vibration",
+        goal_tags: ["big_fish_upside"],
+        reasons: ["base:+100", "goal:big_fish:big_fish_upside:+20"],
+      }),
+      candidate({
+        id: "large_profile_pike_swimbait",
+        side: "lure",
+        score: 184,
+        family_group: "pike_swimbait",
+        presentation_group: "swimbait",
+        goal_tags: ["big_fish_upside"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "clarity_strength:clear:+8",
+        ],
+      }),
+      candidate({
+        id: "pike_jerkbait",
+        side: "lure",
+        score: 182,
+        family_group: "pike_jerkbait",
+        presentation_group: "jerkbait",
+        goal_tags: ["big_fish_upside"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "clarity_strength:clear:+8",
+        ],
+      }),
+      candidate({
+        id: "pike_glidebait",
+        side: "lure",
+        score: 180,
+        family_group: "pike_glidebait",
+        presentation_group: "glidebait",
+        goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "goal:big_fish:high_risk_high_reward:+12",
+          "condition_tag:clear_subtle:+16",
+        ],
+      }),
+    ],
+    flyScores: [
+      candidate({
+        id: "pike_flash_fly",
+        side: "fly",
+        score: 170,
+        family_group: "pike_flash_fly",
+        presentation_group: "pike_flash_fly",
+        goal_tags: ["big_fish_upside"],
+        reasons: ["base:+100", "goal:big_fish:big_fish_upside:+20"],
+      }),
+      candidate({
+        id: "game_changer",
+        side: "fly",
+        score: 168,
+        family_group: "streamer_segmented",
+        presentation_group: "baitfish_streamer",
+        goal_tags: ["big_fish_upside"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "clarity_strength:clear:+8",
+        ],
+      }),
+      candidate({
+        id: "articulated_baitfish_streamer",
+        side: "fly",
+        score: 166,
+        family_group: "streamer_articulated",
+        presentation_group: "baitfish_streamer",
+        goal_tags: ["big_fish_upside"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "clarity_strength:clear:+8",
+        ],
+      }),
+    ],
+    scenario: baseScenario({
+      species: "northern_pike",
+      recommendation_goal: "big_fish",
+      water_clarity: "clear",
+      light_mode: "glare",
+      wind_mode: "calm",
+      daylight_wind_mph: 3,
+      surface_daily_gate: "closed",
+      scenario_tags: ["clear_subtle"],
+      local_date: "2026-09-15",
+    }),
+    seed: "pike-clear-calm-control-bf",
+    variant: "A",
+  });
+
+  const selectedIds = new Set([
+    selection.lure_of_the_day.profile.id,
+    selection.honorable_lure.profile.id,
+    selection.fly_of_the_day.profile.id,
+    selection.honorable_fly.profile.id,
+  ]);
+  assert(!selectedIds.has("large_bucktail_spinner"));
+  assert(!selectedIds.has("pike_flash_fly"));
+});
+
 Deno.test("DailyPick selector favors heat finesse for all-purpose when close", () => {
   const selection = selectDailyPicks({
     lureScores: [

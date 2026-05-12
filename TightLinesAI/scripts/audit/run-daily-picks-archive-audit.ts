@@ -1331,8 +1331,546 @@ const SMB_WEATHER_PLAN: readonly WeatherPlan[] = [
   },
 ] as const;
 
+const PIKE_FISHERIES: readonly Fishery[] = [
+  {
+    key: "mn_lake_of_woods_pike",
+    label: "Lake of the Woods pike water",
+    state: "MN",
+    region_key: "great_lakes_upper_midwest",
+    latitude: 48.74,
+    longitude: -94.69,
+    timezone: "America/Chicago",
+    water_types: ["freshwater_lake_pond"],
+  },
+  {
+    key: "mn_mille_lacs_pike",
+    label: "Mille Lacs / Upper Midwest pike lake",
+    state: "MN",
+    region_key: "great_lakes_upper_midwest",
+    latitude: 46.20,
+    longitude: -93.78,
+    timezone: "America/Chicago",
+    water_types: ["freshwater_lake_pond"],
+  },
+  {
+    key: "wi_green_bay_pike",
+    label: "Green Bay / Door County pike water",
+    state: "WI",
+    region_key: "great_lakes_upper_midwest",
+    latitude: 44.83,
+    longitude: -87.37,
+    timezone: "America/Chicago",
+    water_types: ["freshwater_lake_pond"],
+  },
+  {
+    key: "vt_champlain_pike",
+    label: "Lake Champlain pike water",
+    state: "VT",
+    region_key: "northeast",
+    latitude: 44.55,
+    longitude: -73.35,
+    timezone: "America/New_York",
+    water_types: ["freshwater_lake_pond"],
+  },
+  {
+    key: "ny_st_lawrence_pike",
+    label: "St. Lawrence River pike backwater",
+    state: "NY",
+    region_key: "northeast",
+    latitude: 44.33,
+    longitude: -75.98,
+    timezone: "America/New_York",
+    water_types: ["freshwater_river"],
+  },
+  {
+    key: "me_belgrade_pike",
+    label: "Maine Belgrade Lakes pike water",
+    state: "ME",
+    region_key: "northeast",
+    latitude: 44.53,
+    longitude: -69.84,
+    timezone: "America/New_York",
+    water_types: ["freshwater_lake_pond"],
+  },
+  {
+    key: "nd_devils_lake_pike",
+    label: "Devils Lake prairie pike water",
+    state: "ND",
+    region_key: "midwest_interior",
+    latitude: 48.10,
+    longitude: -98.89,
+    timezone: "America/Chicago",
+    water_types: ["freshwater_lake_pond"],
+  },
+  {
+    key: "sd_oahe_pike",
+    label: "Lake Oahe prairie reservoir pike water",
+    state: "SD",
+    region_key: "midwest_interior",
+    latitude: 44.45,
+    longitude: -100.39,
+    timezone: "America/Chicago",
+    water_types: ["freshwater_lake_pond"],
+  },
+  {
+    key: "nd_missouri_backwater_pike",
+    label: "Missouri River backwater pike context",
+    state: "ND",
+    region_key: "midwest_interior",
+    latitude: 47.50,
+    longitude: -101.30,
+    timezone: "America/Chicago",
+    water_types: ["freshwater_river"],
+  },
+  {
+    key: "ne_merritt_pike",
+    label: "Nebraska Sandhills pike reservoir",
+    state: "NE",
+    region_key: "midwest_interior",
+    latitude: 42.63,
+    longitude: -100.88,
+    timezone: "America/Chicago",
+    water_types: ["freshwater_lake_pond"],
+  },
+  {
+    key: "mt_fort_peck_pike",
+    label: "Fort Peck prairie pike reservoir",
+    state: "MT",
+    region_key: "midwest_interior",
+    latitude: 47.99,
+    longitude: -106.45,
+    timezone: "America/Denver",
+    water_types: ["freshwater_lake_pond"],
+  },
+] as const;
+
+const PIKE_WEATHER_PLAN: readonly WeatherPlan[] = [
+  {
+    fishery_key: "mn_lake_of_woods_pike",
+    date: "2025-01-16",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-01-18",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+  {
+    fishery_key: "nd_devils_lake_pike",
+    date: "2025-01-26",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-02-11",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+  {
+    fishery_key: "sd_oahe_pike",
+    date: "2025-02-15",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+  {
+    fishery_key: "me_belgrade_pike",
+    date: "2025-02-20",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["winter_sanity"],
+  },
+  {
+    fishery_key: "nd_devils_lake_pike",
+    date: "2025-03-18",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["warming_search", "cold_slow"],
+  },
+  {
+    fishery_key: "mn_mille_lacs_pike",
+    date: "2025-03-20",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["cold_slow", "warming_search"],
+  },
+  {
+    fishery_key: "mt_fort_peck_pike",
+    date: "2025-03-25",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["warming_search"],
+  },
+  {
+    fishery_key: "nd_missouri_backwater_pike",
+    date: "2025-03-26",
+    water_type: "freshwater_river",
+    intended_buckets: ["warming_search", "river_current"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-03-28",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["warming_search"],
+  },
+  {
+    fishery_key: "me_belgrade_pike",
+    date: "2025-03-30",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["clear_subtle", "warming_search"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-03-26",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["warming_search"],
+  },
+  {
+    fishery_key: "ny_st_lawrence_pike",
+    date: "2025-04-04",
+    water_type: "freshwater_river",
+    intended_buckets: ["river_elevated_current", "cold_slow"],
+  },
+  {
+    fishery_key: "nd_missouri_backwater_pike",
+    date: "2025-04-05",
+    water_type: "freshwater_river",
+    intended_buckets: ["dirty_vibration", "river_current"],
+  },
+  {
+    fishery_key: "sd_oahe_pike",
+    date: "2025-04-12",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["wind_reaction", "dirty_vibration"],
+  },
+  {
+    fishery_key: "ne_merritt_pike",
+    date: "2025-04-17",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["wind_reaction"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-04-18",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["cold_slow", "clear_subtle"],
+  },
+  {
+    fishery_key: "mn_lake_of_woods_pike",
+    date: "2025-04-24",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["wind_reaction"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-04-27",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["cold_slow", "clear_subtle"],
+  },
+  {
+    fishery_key: "me_belgrade_pike",
+    date: "2025-04-30",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["clear_subtle"],
+  },
+  {
+    fishery_key: "ny_st_lawrence_pike",
+    date: "2025-05-06",
+    water_type: "freshwater_river",
+    intended_buckets: ["current_swing", "warming_search"],
+  },
+  {
+    fishery_key: "me_belgrade_pike",
+    date: "2025-05-08",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["low_light_surface"],
+  },
+  {
+    fishery_key: "nd_devils_lake_pike",
+    date: "2025-05-10",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["stable_pleasant"],
+  },
+  {
+    fishery_key: "mn_mille_lacs_pike",
+    date: "2025-05-15",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["clear_subtle"],
+  },
+  {
+    fishery_key: "sd_oahe_pike",
+    date: "2025-05-18",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["stable_pleasant"],
+  },
+  {
+    fishery_key: "mt_fort_peck_pike",
+    date: "2025-05-19",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["warming_search"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-05-23",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["stable_pleasant"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-05-23",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["stable_pleasant"],
+  },
+  {
+    fishery_key: "me_belgrade_pike",
+    date: "2025-06-07",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["low_light_surface", "surface_opportunity"],
+  },
+  {
+    fishery_key: "nd_devils_lake_pike",
+    date: "2025-06-14",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["dirty_vibration", "wind_reaction"],
+  },
+  {
+    fishery_key: "ny_st_lawrence_pike",
+    date: "2025-06-17",
+    water_type: "freshwater_river",
+    intended_buckets: ["dirty_vibration", "river_elevated_current"],
+  },
+  {
+    fishery_key: "sd_oahe_pike",
+    date: "2025-06-18",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["stable_pleasant"],
+  },
+  {
+    fishery_key: "mn_lake_of_woods_pike",
+    date: "2025-06-21",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["stable_pleasant", "surface_opportunity"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-06-21",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["clear_subtle", "stable_pleasant"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-06-21",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["stable_pleasant"],
+  },
+  {
+    fishery_key: "ny_st_lawrence_pike",
+    date: "2025-07-12",
+    water_type: "freshwater_river",
+    intended_buckets: ["heat_finesse", "river_current"],
+  },
+  {
+    fishery_key: "mn_mille_lacs_pike",
+    date: "2025-07-16",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["clear_subtle", "heat_finesse"],
+  },
+  {
+    fishery_key: "sd_oahe_pike",
+    date: "2025-07-19",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["heat_finesse", "clear_subtle"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-07-24",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["heat_finesse"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-07-28",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["heat_finesse"],
+  },
+  {
+    fishery_key: "nd_devils_lake_pike",
+    date: "2025-07-12",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["heat_finesse"],
+  },
+  {
+    fishery_key: "me_belgrade_pike",
+    date: "2025-08-02",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["heat_finesse", "surface_opportunity"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-08-12",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["surface_opportunity"],
+  },
+  {
+    fishery_key: "mn_lake_of_woods_pike",
+    date: "2025-08-14",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["clear_subtle"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-08-16",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["heat_finesse", "clear_subtle"],
+  },
+  {
+    fishery_key: "nd_devils_lake_pike",
+    date: "2025-08-21",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["heat_limited"],
+  },
+  {
+    fishery_key: "sd_oahe_pike",
+    date: "2025-08-23",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["heat_limited"],
+  },
+  {
+    fishery_key: "sd_oahe_pike",
+    date: "2025-09-18",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["fall_reaction"],
+  },
+  {
+    fishery_key: "mn_mille_lacs_pike",
+    date: "2025-09-20",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["low_light_surface", "adjacent_pair_similar"],
+  },
+  {
+    fishery_key: "mn_mille_lacs_pike",
+    date: "2025-09-21",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["adjacent_pair_similar"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-09-13",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["fall_reaction"],
+  },
+  {
+    fishery_key: "me_belgrade_pike",
+    date: "2025-09-15",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["fall_reaction"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-09-27",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["wind_reaction", "fall_reaction"],
+  },
+  {
+    fishery_key: "nd_missouri_backwater_pike",
+    date: "2025-09-29",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_current", "river_current"],
+  },
+  {
+    fishery_key: "ny_st_lawrence_pike",
+    date: "2025-10-04",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_current", "river_current"],
+  },
+  {
+    fishery_key: "mn_lake_of_woods_pike",
+    date: "2025-10-05",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["fall_reaction"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-10-12",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["cold_front_like", "fall_reaction"],
+  },
+  {
+    fishery_key: "nd_devils_lake_pike",
+    date: "2025-10-14",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["fall_reaction"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-10-19",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["fall_reaction", "adjacent_pair_change"],
+  },
+  {
+    fishery_key: "wi_green_bay_pike",
+    date: "2025-10-20",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["fall_reaction", "adjacent_pair_change"],
+  },
+  {
+    fishery_key: "me_belgrade_pike",
+    date: "2025-10-25",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["fall_reaction"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-11-08",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["late_fall"],
+  },
+  {
+    fishery_key: "mn_mille_lacs_pike",
+    date: "2025-11-08",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["late_fall"],
+  },
+  {
+    fishery_key: "sd_oahe_pike",
+    date: "2025-11-11",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["late_fall"],
+  },
+  {
+    fishery_key: "ny_st_lawrence_pike",
+    date: "2025-11-11",
+    water_type: "freshwater_river",
+    intended_buckets: ["late_fall", "river_current"],
+  },
+  {
+    fishery_key: "nd_devils_lake_pike",
+    date: "2025-11-15",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["late_fall"],
+  },
+  {
+    fishery_key: "mn_lake_of_woods_pike",
+    date: "2025-12-12",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+  {
+    fishery_key: "vt_champlain_pike",
+    date: "2025-12-12",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["winter_sanity"],
+  },
+  {
+    fishery_key: "nd_devils_lake_pike",
+    date: "2025-12-12",
+    water_type: "freshwater_lake_pond",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+] as const;
+
+type AuditSpeciesFlag = "largemouth_bass" | "smallmouth_bass" | "northern_pike";
+
 const AUDIT_CONFIGS: Record<
-  "largemouth_bass" | "smallmouth_bass",
+  AuditSpeciesFlag,
   SpeciesAuditConfig
 > = {
   largemouth_bass: {
@@ -1350,6 +1888,14 @@ const AUDIT_CONFIGS: Record<
     seed_prefix: "smb_archive_audit_v1",
     fisheries: SMB_FISHERIES,
     weather_plan: SMB_WEATHER_PLAN,
+  },
+  northern_pike: {
+    species: "pike_musky",
+    output_key: "pike",
+    title_label: "Pike",
+    seed_prefix: "pike_archive_audit_v1",
+    fisheries: PIKE_FISHERIES,
+    weather_plan: PIKE_WEATHER_PLAN,
   },
 };
 
@@ -1399,9 +1945,12 @@ function parseMonths(args: readonly string[]): Set<number> | null {
 
 function parseSpeciesConfig(args: readonly string[]): SpeciesAuditConfig {
   const raw = argValue(args, "--species") ?? "largemouth_bass";
-  if (raw !== "largemouth_bass" && raw !== "smallmouth_bass") {
+  if (
+    raw !== "largemouth_bass" && raw !== "smallmouth_bass" &&
+    raw !== "northern_pike"
+  ) {
     throw new Error(
-      "Expected --species to be largemouth_bass or smallmouth_bass.",
+      "Expected --species to be largemouth_bass, smallmouth_bass, or northern_pike.",
     );
   }
   return AUDIT_CONFIGS[raw];
@@ -3295,6 +3844,1027 @@ ${summary.length === 1 ? "None." : table(summary)}
 ### Shoulder-Season Topwater Selections
 
 ${shoulderLines.length === 1 ? "None." : table(shoulderLines)}`;
+}
+
+type BroadWaterColumnBand = "surface" | "upper" | "mid" | "bottom";
+
+function broadWaterColumnBand(
+  candidate: Pick<PickSnapshot | ScoreSnapshot, "column" | "is_surface">,
+): BroadWaterColumnBand {
+  if (candidate.is_surface) return "surface";
+  if (candidate.column === "top" || candidate.column === "upper") {
+    return "upper";
+  }
+  if (candidate.column === "bottom") return "bottom";
+  return "mid";
+}
+
+function closeColumnAlternatives(args: {
+  row: AuditRow;
+  side: Side;
+  selected: readonly PickSnapshot[];
+  predicate: (candidate: ScoreSnapshot) => boolean;
+}): ScoreSnapshot[] {
+  if (args.selected.length === 0) return [];
+  const selectedIds = new Set(args.selected.map((pick) => pick.id));
+  const floor = Math.max(...args.selected.map((pick) => pick.score)) -
+    HONORABLE_QUALITY_BAND;
+  return sideCandidates(args.row, args.side)
+    .filter((candidate) =>
+      !selectedIds.has(candidate.id) &&
+      candidate.score >= floor &&
+      args.predicate(candidate)
+    )
+    .sort((a, b) => b.score - a.score || a.id.localeCompare(b.id));
+}
+
+function sideColumnDiversityStats(rows: readonly AuditRow[]): string {
+  const lines = [[
+    "Side",
+    "Same exact column",
+    "Same broad band",
+    "Same broad band with close different-band alt",
+  ]];
+  for (const side of ["lure", "fly"] as const) {
+    let sameColumn = 0;
+    let sameBand = 0;
+    let sameBandWithAlt = 0;
+    for (const row of rows) {
+      const picks = row.selected_picks.filter((pick) =>
+        pick.gear_mode === side
+      );
+      if (picks.length !== 2) continue;
+      if (picks[0]!.column === picks[1]!.column) sameColumn += 1;
+      const firstBand = broadWaterColumnBand(picks[0]!);
+      const secondBand = broadWaterColumnBand(picks[1]!);
+      if (firstBand !== secondBand) continue;
+      sameBand += 1;
+      if (
+        closeColumnAlternatives({
+          row,
+          side,
+          selected: picks,
+          predicate: (candidate) =>
+            broadWaterColumnBand(candidate) !== firstBand,
+        }).length > 0
+      ) {
+        sameBandWithAlt += 1;
+      }
+    }
+    lines.push([
+      side,
+      String(sameColumn),
+      String(sameBand),
+      String(sameBandWithAlt),
+    ]);
+  }
+  return table(lines);
+}
+
+function openSurfaceColumnPressureStats(rows: readonly AuditRow[]): string {
+  const openRows = rows.filter((row) =>
+    row.daily_scenario_summary.surface_gate === "open"
+  );
+  let twoPlusSurface = 0;
+  let twoPlusSurfaceWithNonSurfaceAlt = 0;
+  let threePlusSurface = 0;
+  let threePlusSurfaceWithNonSurfaceAlt = 0;
+  let threePlusSurfaceUpper = 0;
+  let threePlusSurfaceUpperWithMidBottomAlt = 0;
+  let lureSurfaceSurfaceAndFlySurfaceUpper = 0;
+  let lureSurfaceSurfaceAndFlySurfaceUpperWithAlt = 0;
+
+  for (const row of openRows) {
+    const surfaceCount = row.selected_picks.filter((pick) =>
+      pick.is_surface
+    ).length;
+    const surfaceUpperCount = row.selected_picks.filter((pick) => {
+      const band = broadWaterColumnBand(pick);
+      return band === "surface" || band === "upper";
+    }).length;
+    const hasCloseNonSurfaceAlt = (side: Side) => {
+      const selected = row.selected_picks.filter((pick) =>
+        pick.gear_mode === side
+      );
+      return closeColumnAlternatives({
+        row,
+        side,
+        selected,
+        predicate: (candidate) => !candidate.is_surface,
+      }).length > 0;
+    };
+    const hasCloseMidBottomAlt = (side: Side) => {
+      const selected = row.selected_picks.filter((pick) =>
+        pick.gear_mode === side
+      );
+      return closeColumnAlternatives({
+        row,
+        side,
+        selected,
+        predicate: (candidate) => {
+          const band = broadWaterColumnBand(candidate);
+          return band === "mid" || band === "bottom";
+        },
+      }).length > 0;
+    };
+
+    if (surfaceCount >= 2) {
+      twoPlusSurface += 1;
+      if (hasCloseNonSurfaceAlt("lure") || hasCloseNonSurfaceAlt("fly")) {
+        twoPlusSurfaceWithNonSurfaceAlt += 1;
+      }
+    }
+    if (surfaceCount >= 3) {
+      threePlusSurface += 1;
+      if (hasCloseNonSurfaceAlt("lure") || hasCloseNonSurfaceAlt("fly")) {
+        threePlusSurfaceWithNonSurfaceAlt += 1;
+      }
+    }
+    if (surfaceUpperCount >= 3) {
+      threePlusSurfaceUpper += 1;
+      if (hasCloseMidBottomAlt("lure") || hasCloseMidBottomAlt("fly")) {
+        threePlusSurfaceUpperWithMidBottomAlt += 1;
+      }
+    }
+
+    const lurePicks = row.selected_picks.filter((pick) =>
+      pick.gear_mode === "lure"
+    );
+    const flyPicks = row.selected_picks.filter((pick) =>
+      pick.gear_mode === "fly"
+    );
+    const lureSurfaceSurface = lurePicks.length === 2 &&
+      lurePicks.every((pick) => pick.is_surface);
+    const flyHasSurface = flyPicks.some((pick) => pick.is_surface);
+    const flyAllSurfaceUpper = flyPicks.length === 2 &&
+      flyPicks.every((pick) => {
+        const band = broadWaterColumnBand(pick);
+        return band === "surface" || band === "upper";
+      });
+    if (lureSurfaceSurface && flyHasSurface && flyAllSurfaceUpper) {
+      lureSurfaceSurfaceAndFlySurfaceUpper += 1;
+      if (hasCloseNonSurfaceAlt("lure") || hasCloseMidBottomAlt("fly")) {
+        lureSurfaceSurfaceAndFlySurfaceUpperWithAlt += 1;
+      }
+    }
+  }
+
+  return table([
+    ["Metric", "Runs", "With close lower-column alt"],
+    ["open-surface rows", String(openRows.length), "-"],
+    [
+      "open-surface rows with 2+ surface picks",
+      String(twoPlusSurface),
+      String(twoPlusSurfaceWithNonSurfaceAlt),
+    ],
+    [
+      "open-surface rows with 3+ surface picks",
+      String(threePlusSurface),
+      String(threePlusSurfaceWithNonSurfaceAlt),
+    ],
+    [
+      "open-surface rows with 3+ surface/upper picks (watch-only)",
+      String(threePlusSurfaceUpper),
+      String(threePlusSurfaceUpperWithMidBottomAlt),
+    ],
+    [
+      "lure surface/surface plus fly surface/upper",
+      String(lureSurfaceSurfaceAndFlySurfaceUpper),
+      String(lureSurfaceSurfaceAndFlySurfaceUpperWithAlt),
+    ],
+  ]);
+}
+
+function surfaceTagGroup(row: AuditRow): string {
+  const tags = row.daily_scenario_summary.condition_tags.filter((tag) =>
+    tag === "low_light_surface" || tag === "calm_surface"
+  );
+  return tags.length > 0 ? tags.join("+") : "no_surface_tag";
+}
+
+function snapshotHasScenarioClarityReason(
+  candidate: ScoreSnapshot,
+  row: AuditRow,
+): boolean {
+  return candidate.score_reasons.some((reason) =>
+    reason.startsWith(`clarity_strength:${row.water_clarity}:`)
+  );
+}
+
+function credibleNonSurfaceSurfacePairAlternative(
+  row: AuditRow,
+  candidate: ScoreSnapshot,
+): boolean {
+  if (candidate.is_surface) return false;
+  if (row.recommendation_goal === "all_purpose") {
+    return snapshotIsReliableAllPurpose(candidate) &&
+      (hasConditionReason(candidate) ||
+        snapshotHasScenarioClarityReason(candidate, row) ||
+        candidate.score_reasons.some((reason) =>
+          reason.startsWith("daily_lane:")
+        ));
+  }
+  return snapshotHasGoalReason(candidate, "big_fish") ||
+    hasConditionReason(candidate);
+}
+
+function sameSideSurfaceSurfaceEntries(rows: readonly AuditRow[]): Array<{
+  row: AuditRow;
+  side: Side;
+  picks: PickSnapshot[];
+  rawCloseNonSurfaceAlternatives: ScoreSnapshot[];
+  closeNonSurfaceAlternatives: ScoreSnapshot[];
+  credibleNonSurfaceAlternatives: ScoreSnapshot[];
+  setAExactRepeatAlternatives: ScoreSnapshot[];
+}> {
+  const entries = [];
+  const rowsById = new Map(rows.map((row) => [row.scenario_id, row]));
+  for (const row of rows) {
+    if (row.daily_scenario_summary.surface_gate !== "open") continue;
+    for (const side of ["lure", "fly"] as const) {
+      const picks = row.selected_picks.filter((pick) =>
+        pick.gear_mode === side
+      );
+      if (picks.length !== 2 || !picks.every((pick) => pick.is_surface)) {
+        continue;
+      }
+      const rawCloseNonSurfaceAlternatives = closeColumnAlternatives({
+        row,
+        side,
+        selected: picks,
+        predicate: (candidate) => !candidate.is_surface,
+      });
+      const setAIds = row.set === "B"
+        ? new Set(
+          rowsById.get(row.scenario_id.replace(/__B$/, "__A"))
+            ?.selected_picks
+            .filter((pick) => pick.gear_mode === side)
+            .map((pick) => pick.id) ?? [],
+        )
+        : new Set<string>();
+      const closeNonSurfaceAlternatives = rawCloseNonSurfaceAlternatives
+        .filter((candidate) => !setAIds.has(candidate.id));
+      entries.push({
+        row,
+        side,
+        picks,
+        rawCloseNonSurfaceAlternatives,
+        closeNonSurfaceAlternatives,
+        credibleNonSurfaceAlternatives: closeNonSurfaceAlternatives.filter((
+          candidate,
+        ) => credibleNonSurfaceSurfacePairAlternative(row, candidate)),
+        setAExactRepeatAlternatives: rawCloseNonSurfaceAlternatives.filter((
+          candidate,
+        ) => setAIds.has(candidate.id)),
+      });
+    }
+  }
+  return entries;
+}
+
+function sameSideSurfaceSurfaceSummary(rows: readonly AuditRow[]): string {
+  const grouped = new Map<
+    string,
+    {
+      side: Side;
+      goal: Goal;
+      set: DailyPicksVariant;
+      region: string;
+      month: number;
+      clarity: WaterClarity;
+      surfaceTags: string;
+      count: number;
+      closeAltCount: number;
+      credibleAltCount: number;
+    }
+  >();
+  for (const entry of sameSideSurfaceSurfaceEntries(rows)) {
+    const key = [
+      entry.side,
+      entry.row.recommendation_goal,
+      entry.row.set,
+      entry.row.region_key,
+      entry.row.month,
+      entry.row.water_clarity,
+      surfaceTagGroup(entry.row),
+    ].join("|");
+    const current = grouped.get(key) ?? {
+      side: entry.side,
+      goal: entry.row.recommendation_goal,
+      set: entry.row.set,
+      region: entry.row.region_key,
+      month: entry.row.month,
+      clarity: entry.row.water_clarity,
+      surfaceTags: surfaceTagGroup(entry.row),
+      count: 0,
+      closeAltCount: 0,
+      credibleAltCount: 0,
+    };
+    current.count += 1;
+    if (entry.closeNonSurfaceAlternatives.length > 0) {
+      current.closeAltCount += 1;
+    }
+    if (entry.credibleNonSurfaceAlternatives.length > 0) {
+      current.credibleAltCount += 1;
+    }
+    grouped.set(key, current);
+  }
+
+  const lines = [[
+    "Side",
+    "Goal",
+    "Set",
+    "Region",
+    "Month",
+    "Clarity",
+    "Surface tags",
+    "Rows",
+    "Close non-surface alt",
+    "Credible non-surface alt",
+  ]];
+  for (
+    const entry of [...grouped.values()].sort((a, b) =>
+      b.count - a.count ||
+      a.side.localeCompare(b.side) ||
+      a.region.localeCompare(b.region) ||
+      a.month - b.month ||
+      a.clarity.localeCompare(b.clarity)
+    ).slice(0, 40)
+  ) {
+    lines.push([
+      entry.side,
+      entry.goal,
+      entry.set,
+      entry.region,
+      monthLabel(entry.month),
+      entry.clarity,
+      entry.surfaceTags,
+      String(entry.count),
+      String(entry.closeAltCount),
+      String(entry.credibleAltCount),
+    ]);
+  }
+
+  return lines.length === 1 ? "None." : table(lines);
+}
+
+function sameSideSurfaceSurfaceRemainingExamples(
+  rows: readonly AuditRow[],
+): string {
+  const lines = [[
+    "Scenario",
+    "Side",
+    "Selected surface pair",
+    "Close non-surface alternatives",
+    "Why left",
+  ]];
+  for (const entry of sameSideSurfaceSurfaceEntries(rows).slice(0, 20)) {
+    const { row, side, picks } = entry;
+    const close = entry.closeNonSurfaceAlternatives.slice(0, 3).map((
+      candidate,
+    ) =>
+      `${candidate.display_name} (${
+        broadWaterColumnBand(candidate)
+      }, ${candidate.score})`
+    );
+    const credible = entry.credibleNonSurfaceAlternatives.slice(0, 3).map((
+      candidate,
+    ) =>
+      `${candidate.display_name} (${
+        broadWaterColumnBand(candidate)
+      }, ${candidate.score})`
+    );
+    const why = entry.closeNonSurfaceAlternatives.length === 0 &&
+        entry.setAExactRepeatAlternatives.length > 0
+      ? "Close non-surface alternatives were Set A exact-ID repeats; Set B avoidance held."
+      : entry.closeNonSurfaceAlternatives.length === 0
+      ? "No close non-surface alternative in the audit band."
+      : entry.credibleNonSurfaceAlternatives.length === 0
+      ? "Close alternatives lacked clear goal or daily-condition fit."
+      : isExceptionallyStrongSurfaceWindow(row)
+      ? "Exceptionally strong surface window; remaining pair is guide-plausible."
+      : "Credible alternative still exists; keep as watch item.";
+    lines.push([
+      `${row.fishery_label}<br>${row.date} ${row.water_clarity} ${row.recommendation_goal} ${row.set}`,
+      side,
+      picks.map((pick) => `${pick.display_name} (${pick.score})`).join("; "),
+      [
+        `close: ${close.join("; ") || "none"}`,
+        `credible: ${credible.join("; ") || "none"}`,
+      ].join("<br>"),
+      why,
+    ]);
+  }
+  return lines.length === 1 ? "None." : table(lines);
+}
+
+function openSurfaceColumnPressureExamples(rows: readonly AuditRow[]): string {
+  const lines = [[
+    "Scenario",
+    "Daily",
+    "Selected bands",
+    "Close lower-column alternatives",
+  ]];
+  for (const row of rows) {
+    if (row.daily_scenario_summary.surface_gate !== "open") continue;
+    const lurePicks = row.selected_picks.filter((pick) =>
+      pick.gear_mode === "lure"
+    );
+    const flyPicks = row.selected_picks.filter((pick) =>
+      pick.gear_mode === "fly"
+    );
+    const lureSurfaceSurface = lurePicks.length === 2 &&
+      lurePicks.every((pick) => pick.is_surface);
+    const flyHasSurface = flyPicks.some((pick) => pick.is_surface);
+    const flyAllSurfaceUpper = flyPicks.length === 2 &&
+      flyPicks.every((pick) => {
+        const band = broadWaterColumnBand(pick);
+        return band === "surface" || band === "upper";
+      });
+    if (!lureSurfaceSurface || !flyHasSurface || !flyAllSurfaceUpper) continue;
+
+    const lureAlts = closeColumnAlternatives({
+      row,
+      side: "lure",
+      selected: lurePicks,
+      predicate: (candidate) => !candidate.is_surface,
+    }).slice(0, 3);
+    const flyAlts = closeColumnAlternatives({
+      row,
+      side: "fly",
+      selected: flyPicks,
+      predicate: (candidate) => {
+        const band = broadWaterColumnBand(candidate);
+        return band === "mid" || band === "bottom";
+      },
+    }).slice(0, 3);
+
+    lines.push([
+      `${row.fishery_label}<br>${row.date} ${row.water_clarity} ${row.recommendation_goal} ${row.set}`,
+      `${
+        row.daily_scenario_summary.condition_tags.join("+") || "no tags"
+      }; ${row.daily_scenario_summary.activity}`,
+      row.selected_picks.map((pick) =>
+        `${pick.display_name} (${broadWaterColumnBand(pick)}, ${pick.score})`
+      ).join("; "),
+      [
+        `lure: ${
+          lureAlts.map((candidate) =>
+            `${candidate.display_name} (${
+              broadWaterColumnBand(candidate)
+            }, ${candidate.score})`
+          ).join("; ") || "none"
+        }`,
+        `fly: ${
+          flyAlts.map((candidate) =>
+            `${candidate.display_name} (${
+              broadWaterColumnBand(candidate)
+            }, ${candidate.score})`
+          ).join("; ") || "none"
+        }`,
+      ].join("<br>"),
+    ]);
+    if (lines.length >= 16) break;
+  }
+
+  return lines.length === 1 ? "None." : table(lines);
+}
+
+function waterColumnDiversityDiagnostics(rows: readonly AuditRow[]): string {
+  return `### Same-Side Surface/Surface Summary
+
+${sameSideSurfaceSurfaceSummary(rows)}
+
+### Remaining Same-Side Surface/Surface Examples
+
+${sameSideSurfaceSurfaceRemainingExamples(rows)}
+
+### Same-Side Column/Band Summary
+
+${sideColumnDiversityStats(rows)}
+
+### Surface/Upper Watch Summary
+
+${openSurfaceColumnPressureStats(rows)}
+
+### Surface/Upper Watch Examples
+
+${openSurfaceColumnPressureExamples(rows)}`;
+}
+
+function pikeColdOpenSurfaceDiagnostics(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
+  if (config.species !== "pike_musky") return "Not applicable.";
+  const coldSurfaceRows = rows.filter((row) =>
+    row.daily_scenario_summary.surface_gate === "open" &&
+    row.selected_picks.some((pick) => pick.is_surface) &&
+    isColdOpenSurfaceContext(row)
+  );
+  const mayColdRows = coldSurfaceRows.filter((row) => row.month === 5);
+  const summary = table([
+    ["Split", "Runs"],
+    ["cold/open rows with surface picks", String(coldSurfaceRows.length)],
+    ["May cold/open rows", String(mayColdRows.length)],
+    [
+      "May rows at or below 50F high",
+      String(
+        mayColdRows.filter((row) =>
+          (row.archive_weather_summary.temp_high_f ?? 99) <= 50
+        ).length,
+      ),
+    ],
+  ]);
+
+  const detailLines = [[
+    "Scenario",
+    "Weather",
+    "Daily",
+    "Surface picks",
+  ]];
+  for (const row of coldSurfaceRows.slice(0, 30)) {
+    detailLines.push([
+      `${row.fishery_label}<br>${row.date} ${row.water_clarity} ${row.recommendation_goal} ${row.set}`,
+      `${fmt(row.archive_weather_summary.temp_low_f)}-${
+        fmt(row.archive_weather_summary.temp_high_f)
+      }F, noon ${fmt(row.archive_weather_summary.temp_noon_f)}F`,
+      `${row.daily_scenario_summary.surface_gate}, ${
+        row.daily_scenario_summary.condition_tags.join("+")
+      }`,
+      row.selected_picks.filter((pick) => pick.is_surface).map((pick) =>
+        `${pick.display_name} (${pick.score})`
+      ).join("; "),
+    ]);
+  }
+
+  return `### Cold/Open Surface Summary
+
+${summary}
+
+### Cold/Open Surface Rows
+
+${detailLines.length === 1 ? "None." : table(detailLines)}`;
+}
+
+function isColdOpenSurfaceContext(row: AuditRow): boolean {
+  const high = row.archive_weather_summary.temp_high_f;
+  const noon = row.archive_weather_summary.temp_noon_f;
+  const low = row.archive_weather_summary.temp_low_f;
+  return rowHasTag(row, "cold_slow") ||
+    (high != null && high <= 55) ||
+    (noon != null && noon <= 50) ||
+    (low != null && low <= 45);
+}
+
+function pikeClearBrightDiagnostics(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
+  if (config.species !== "pike_musky") return "Not applicable.";
+  const watchRows: Array<{
+    row: AuditRow;
+    pick: PickSnapshot;
+    alternative: ScoreSnapshot;
+    split: PikeClearBrightSplit;
+  }> = [];
+  const splitRows = rows
+    .map((row) => ({ row, split: pikeClearBrightSplit(row) }))
+    .filter((entry): entry is { row: AuditRow; split: PikeClearBrightSplit } =>
+      entry.split != null
+    );
+  for (const { row, split } of splitRows) {
+    for (const pick of row.selected_picks.filter(isLoudFlashHighRiskPick)) {
+      const alternative = closeAlternativeForPick({
+        row,
+        pick,
+        predicate: (candidate) =>
+          isControlledNaturalPikeAlternative(row, candidate),
+      });
+      if (alternative) watchRows.push({ row, pick, alternative, split });
+    }
+  }
+
+  const summaryRows = [[
+    "Split",
+    "Rows checked",
+    "Watch picks",
+    "Common selected",
+    "Common alternatives",
+  ]];
+  for (
+    const split of [
+      "true_clear_calm_glare_control",
+      "clear_breezy_wind_reaction",
+    ] as const
+  ) {
+    const rowsInSplit = splitRows.filter((entry) => entry.split === split);
+    const watches = watchRows.filter((entry) => entry.split === split);
+    summaryRows.push([
+      clearBrightSplitLabel(split),
+      String(rowsInSplit.length),
+      String(watches.length),
+      topCounts(watches.map((entry) => entry.pick.display_name), 4)
+        .map(([name, count]) => `${name} (${count})`).join(", ") || "None",
+      topCounts(watches.map((entry) => entry.alternative.display_name), 4)
+        .map(([name, count]) => `${name} (${count})`).join(", ") || "None",
+    ]);
+  }
+  const detailLines = [[
+    "Split",
+    "Scenario",
+    "Context",
+    "Selected",
+    "Close controlled/natural alternative",
+  ]];
+  for (const entry of watchRows.slice(0, 30)) {
+    detailLines.push([
+      clearBrightSplitLabel(entry.split),
+      `${entry.row.fishery_label}<br>${entry.row.date} ${entry.row.recommendation_goal} ${entry.row.set}`,
+      `${entry.row.water_clarity}, ${entry.row.daily_scenario_summary.light_mode}, ${entry.row.daily_scenario_summary.wind_mode}, gate ${entry.row.daily_scenario_summary.surface_gate}`,
+      `${entry.pick.display_name} (${entry.pick.gear_mode}, ${entry.pick.score})`,
+      `${entry.alternative.display_name} (${entry.alternative.score})`,
+    ]);
+  }
+
+  return `### Clear/Bright Summary
+
+${table(summaryRows)}
+
+### Clear/Bright Watch Rows
+
+${detailLines.length === 1 ? "None." : table(detailLines)}`;
+}
+
+type PikeClearBrightSplit =
+  | "true_clear_calm_glare_control"
+  | "clear_breezy_wind_reaction";
+
+function clearBrightSplitLabel(split: PikeClearBrightSplit): string {
+  return split === "true_clear_calm_glare_control"
+    ? "true clear-calm/glare control"
+    : "clear breezy/wind-reaction";
+}
+
+function pikeClearBrightSplit(row: AuditRow): PikeClearBrightSplit | null {
+  const bright = row.daily_scenario_summary.light_mode === "bright" ||
+    row.daily_scenario_summary.light_mode === "glare";
+  const closedOrCaution = row.daily_scenario_summary.surface_gate ===
+      "closed" ||
+    row.daily_scenario_summary.surface_gate === "caution";
+  if (row.water_clarity !== "clear" || !bright || !closedOrCaution) {
+    return null;
+  }
+  if (rowHasTag(row, "dirty_vibration")) return null;
+
+  const lowWind = row.daily_scenario_summary.wind_mode === "calm" ||
+    ((row.archive_weather_summary.wind_daylight_avg_mph ?? Infinity) < 6);
+  const strongWindReaction = rowHasTag(row, "wind_reaction");
+  if (lowWind && !strongWindReaction) {
+    return "true_clear_calm_glare_control";
+  }
+  if (
+    strongWindReaction ||
+    row.daily_scenario_summary.wind_mode === "breezy" ||
+    row.daily_scenario_summary.wind_mode === "windy"
+  ) {
+    return "clear_breezy_wind_reaction";
+  }
+  return null;
+}
+
+function isLoudFlashHighRiskPick(pick: PickSnapshot): boolean {
+  const profile = catalogProfileForPick(pick);
+  const text = [
+    pick.id,
+    pick.display_name,
+    pick.family_group,
+    pick.presentation_group,
+  ].join(" ").toLowerCase();
+  return profile?.goal_tags.includes("high_risk_high_reward") === true ||
+    text.includes("flash") ||
+    text.includes("spinner") ||
+    text.includes("spoon") ||
+    text.includes("bucktail") ||
+    text.includes("buzz") ||
+    text.includes("topwater");
+}
+
+function isControlledNaturalPikeAlternative(
+  row: AuditRow,
+  candidate: ScoreSnapshot,
+): boolean {
+  const text = [
+    candidate.id,
+    candidate.display_name,
+    candidate.family_group,
+    candidate.presentation_group,
+  ].join(" ").toLowerCase();
+  const loudOrFlash = text.includes("flash") ||
+    text.includes("spinner") ||
+    text.includes("spoon") ||
+    text.includes("bucktail") ||
+    text.includes("buzz") ||
+    text.includes("topwater");
+  if (loudOrFlash || candidate.primary_pace === "fast") return false;
+
+  const hasFit = snapshotHasTag(candidate, "clear_subtle") ||
+    candidate.score_reasons.some((reason) =>
+      reason.startsWith("condition_tag:") ||
+      reason.startsWith("clarity_strength:")
+    );
+  if (row.recommendation_goal === "big_fish") {
+    return snapshotHasGoalReason(candidate, "big_fish") && hasFit;
+  }
+  return snapshotHasGoalReason(candidate, "all_purpose") && hasFit;
+}
+
+type PikeHeatClassification =
+  | "controlled_deeper_slower_acceptable"
+  | "reckless_surface_fast_high_risk"
+  | "mixed_watch";
+
+type PikeHeatContext = "true_heat_limited" | "warm_adjacent";
+
+function pikeHeatLimitedDiagnostics(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
+  if (config.species !== "pike_musky") return "Not applicable.";
+  const heatRows = rows.filter(isPikeHeatLimitedContext);
+  const classified = heatRows.map((row) => ({
+    row,
+    context: pikeHeatContext(row),
+    classification: classifyPikeHeatRow(row),
+  }));
+  const summary = [[
+    "Context",
+    "Controlled/deeper/slower",
+    "Reckless surface/fast/high-risk",
+    "Surface pick rows",
+    "Surface picks",
+    "Non-surface high-risk rows",
+    "Non-surface high-risk picks",
+    "Mixed watch",
+    "Total",
+  ]];
+  for (const context of ["true_heat_limited", "warm_adjacent"] as const) {
+    const group = classified.filter((entry) => entry.context === context);
+    summary.push([
+      context,
+      String(
+        group.filter((entry) =>
+          entry.classification === "controlled_deeper_slower_acceptable"
+        ).length,
+      ),
+      String(
+        group.filter((entry) =>
+          entry.classification === "reckless_surface_fast_high_risk"
+        ).length,
+      ),
+      String(
+        group.filter((entry) => pikeHeatSurfacePicks(entry.row).length > 0)
+          .length,
+      ),
+      String(
+        group.reduce(
+          (sum, entry) => sum + pikeHeatSurfacePicks(entry.row).length,
+          0,
+        ),
+      ),
+      String(
+        group.filter((entry) =>
+          pikeHeatNonSurfaceHighRiskPicks(entry.row).length > 0
+        ).length,
+      ),
+      String(
+        group.reduce(
+          (sum, entry) =>
+            sum + pikeHeatNonSurfaceHighRiskPicks(entry.row).length,
+          0,
+        ),
+      ),
+      String(
+        group.filter((entry) => entry.classification === "mixed_watch")
+          .length,
+      ),
+      String(group.length),
+    ]);
+  }
+  const detailLines = [[
+    "Context",
+    "Split",
+    "Scenario",
+    "Weather/thermal",
+    "Selected picks",
+    "Heat risk split",
+  ]];
+  for (
+    const entry of classified
+      .sort((a, b) =>
+        a.context.localeCompare(b.context) ||
+        a.row.scenario_id.localeCompare(b.row.scenario_id)
+      )
+      .slice(0, 30)
+  ) {
+    detailLines.push([
+      entry.context,
+      entry.classification,
+      `${entry.row.fishery_label}<br>${entry.row.date} ${entry.row.water_clarity} ${entry.row.recommendation_goal} ${entry.row.set}`,
+      `${fmt(entry.row.archive_weather_summary.temp_low_f)}-${
+        fmt(entry.row.archive_weather_summary.temp_high_f)
+      }F, ${entry.row.daily_scenario_summary.thermal_mode}`,
+      entry.row.selected_picks.map((pick) =>
+        `${pick.display_name} (${pick.primary_pace}/${pick.column})`
+      ).join("; "),
+      [
+        `surface: ${
+          pikeHeatSurfacePicks(entry.row).map((pick) => pick.display_name).join(
+            ", ",
+          ) || "None"
+        }`,
+        `non-surface high-risk: ${
+          pikeHeatNonSurfaceHighRiskPicks(entry.row).map((pick) =>
+            pick.display_name
+          ).join(", ") || "None"
+        }`,
+      ].join("<br>"),
+    ]);
+  }
+
+  return `### Heat-Limited Pike Summary
+
+${table(summary)}
+
+### Heat-Limited Pike Rows
+
+${detailLines.length === 1 ? "None." : table(detailLines)}`;
+}
+
+function pikeHeatContext(row: AuditRow): PikeHeatContext {
+  return row.daily_scenario_summary.thermal_mode === "heat_limited"
+    ? "true_heat_limited"
+    : "warm_adjacent";
+}
+
+function isPikeHeatLimitedContext(row: AuditRow): boolean {
+  const high = row.archive_weather_summary.temp_high_f;
+  const noon = row.archive_weather_summary.temp_noon_f;
+  return row.daily_scenario_summary.thermal_mode === "heat_limited" ||
+    row.intended_buckets.some((bucket) => bucket.includes("heat")) ||
+    row.condition_buckets.some((bucket) => bucket.includes("heat_limited")) ||
+    (high != null && high >= 80) ||
+    (noon != null && noon >= 78);
+}
+
+function classifyPikeHeatRow(row: AuditRow): PikeHeatClassification {
+  if (row.selected_picks.some((pick) => isRecklessPikeHeatPick(row, pick))) {
+    return "reckless_surface_fast_high_risk";
+  }
+  if (row.selected_picks.every((pick) => isControlledPikeHeatPick(pick))) {
+    return "controlled_deeper_slower_acceptable";
+  }
+  return "mixed_watch";
+}
+
+function pikeHeatSurfacePicks(row: AuditRow): PickSnapshot[] {
+  return row.selected_picks.filter((pick) => pick.is_surface);
+}
+
+function pikeHeatNonSurfaceHighRiskPicks(row: AuditRow): PickSnapshot[] {
+  return row.selected_picks.filter((pick) => {
+    if (pick.is_surface) return false;
+    const profile = catalogProfileForPick(pick);
+    return profile?.goal_tags.includes("high_risk_high_reward") === true;
+  });
+}
+
+function isRecklessPikeHeatPick(row: AuditRow, pick: PickSnapshot): boolean {
+  const profile = catalogProfileForPick(pick);
+  const upsideOnlyAllPurpose = row.recommendation_goal === "all_purpose" &&
+    profile?.goal_tags.includes("big_fish_upside") === true &&
+    !pickHasGoalReason(pick, "all_purpose");
+  return pick.is_surface ||
+    pick.primary_pace === "fast" ||
+    profile?.goal_tags.includes("high_risk_high_reward") === true ||
+    upsideOnlyAllPurpose;
+}
+
+function isControlledPikeHeatPick(pick: PickSnapshot): boolean {
+  return !pick.is_surface &&
+    (pick.primary_pace === "slow" ||
+      pick.secondary_pace === "slow" ||
+      pick.column === "bottom" ||
+      pick.column === "mid");
+}
+
+type PikeBigFishUpsideClass =
+  | "controlled_upside"
+  | "high_risk_or_reckless_upside"
+  | "no_explicit_upside";
+
+function pikeBigFishUpsideSplitDiagnostics(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
+  if (config.species !== "pike_musky") return "Not applicable.";
+  const bigFishPicks = rows
+    .filter((row) => row.recommendation_goal === "big_fish")
+    .flatMap((row) => row.selected_picks.map((pick) => ({ row, pick })));
+  const classified = bigFishPicks.map((entry) => ({
+    ...entry,
+    classification: classifyPikeBigFishUpside(entry.row, entry.pick),
+  }));
+  const summary = [[
+    "Class",
+    "Picks",
+    "Share",
+    "Common profiles",
+  ]];
+  for (
+    const classification of [
+      "controlled_upside",
+      "high_risk_or_reckless_upside",
+      "no_explicit_upside",
+    ] as const
+  ) {
+    const group = classified.filter((entry) =>
+      entry.classification === classification
+    );
+    summary.push([
+      classification,
+      String(group.length),
+      bigFishPicks.length === 0
+        ? ""
+        : percent(group.length / bigFishPicks.length),
+      topCounts(
+        group.map((entry) =>
+          `${entry.pick.display_name} [${entry.pick.gear_mode}]`
+        ),
+        5,
+      ).map(([name, count]) => `${name} (${count})`).join(", ") || "None",
+    ]);
+  }
+
+  const detailLines = [[
+    "Scenario",
+    "Pick",
+    "Class",
+    "Reasons",
+  ]];
+  for (
+    const entry of classified
+      .filter((candidate) =>
+        candidate.classification === "high_risk_or_reckless_upside"
+      )
+      .slice(0, 30)
+  ) {
+    detailLines.push([
+      `${entry.row.fishery_label}<br>${entry.row.date} ${entry.row.water_clarity} ${entry.row.set}`,
+      `${entry.pick.display_name} (${entry.pick.gear_mode}, ${entry.pick.score})`,
+      entry.classification,
+      recklessPikeBigFishReasons(entry.row, entry.pick).join(", "),
+    ]);
+  }
+
+  return `### Pike Big Fish Upside Split Summary
+
+${table(summary)}
+
+### High-Risk/Reckless Pike Big Fish Upside Rows
+
+${detailLines.length === 1 ? "None." : table(detailLines)}`;
+}
+
+function classifyPikeBigFishUpside(
+  row: AuditRow,
+  pick: PickSnapshot,
+): PikeBigFishUpsideClass {
+  if (!pickHasGoalReason(pick, "big_fish")) return "no_explicit_upside";
+  return recklessPikeBigFishReasons(row, pick).length > 0
+    ? "high_risk_or_reckless_upside"
+    : "controlled_upside";
+}
+
+function recklessPikeBigFishReasons(
+  row: AuditRow,
+  pick: PickSnapshot,
+): string[] {
+  const profile = catalogProfileForPick(pick);
+  const reasons: string[] = [];
+  if (profile?.goal_tags.includes("high_risk_high_reward") === true) {
+    reasons.push("high_risk_high_reward");
+  }
+  if (pick.is_surface && !isStrongSurfaceWindow(row)) {
+    reasons.push("surface_without_strong_window");
+  }
+  if (isPikeHeatLimitedContext(row) && isRecklessPikeHeatPick(row, pick)) {
+    reasons.push("heat_surface_fast_or_high_risk");
+  }
+  if (rowHasTag(row, "cold_slow") && pick.is_surface) {
+    reasons.push("cold_surface");
+  }
+  return reasons;
 }
 
 function setBDiagnostics(rows: readonly AuditRow[]): string {
@@ -5612,6 +7182,25 @@ const STAPLE_REVIEW_IDS: Partial<Record<SpeciesGroup, readonly string[]>> = {
     "bladed_jig",
     "lipless_crankbait",
   ],
+  pike_musky: [
+    "casting_spoon",
+    "weedless_spoon",
+    "inline_spinner",
+    "large_bucktail_spinner",
+    "pike_spinnerbait",
+    "large_profile_pike_swimbait",
+    "pike_jerkbait",
+    "pike_glidebait",
+    "pike_jig_and_plastic",
+    "large_pike_tube",
+    "large_pike_topwater",
+    "pike_bunny_streamer",
+    "large_articulated_pike_streamer",
+    "articulated_baitfish_streamer",
+    "bucktail_baitfish_streamer",
+    "deceiver",
+    "pike_flash_fly",
+  ],
 };
 
 type ProfileHomeUsage = {
@@ -6436,6 +8025,34 @@ const SIGNATURE_PROFILES: Record<
     { id: "rabbit_strip_leech", side: "fly" },
     { id: "sculpzilla", side: "fly" },
   ],
+  pike_musky: [
+    { id: "casting_spoon", side: "lure" },
+    { id: "weedless_spoon", side: "lure" },
+    { id: "inline_spinner", side: "lure" },
+    { id: "large_bucktail_spinner", side: "lure" },
+    { id: "pike_spinnerbait", side: "lure" },
+    { id: "large_profile_pike_swimbait", side: "lure" },
+    { id: "pike_jerkbait", side: "lure" },
+    { id: "pike_glidebait", side: "lure" },
+    { id: "pike_jig_and_plastic", side: "lure" },
+    { id: "large_pike_tube", side: "lure" },
+    { id: "large_pike_topwater", side: "lure" },
+    { id: "articulated_dungeon_streamer", side: "fly" },
+    { id: "large_articulated_pike_streamer", side: "fly" },
+    { id: "pike_bunny_streamer", side: "fly" },
+    { id: "articulated_baitfish_streamer", side: "fly" },
+    { id: "bucktail_baitfish_streamer", side: "fly" },
+    { id: "deceiver", side: "fly" },
+    { id: "game_changer", side: "fly" },
+    { id: "rabbit_strip_leech", side: "fly" },
+    { id: "unweighted_baitfish_streamer", side: "fly" },
+    { id: "baitfish_slider_fly", side: "fly" },
+    { id: "popper_fly", side: "fly" },
+    { id: "deer_hair_slider", side: "fly" },
+    { id: "foam_gurgler_fly", side: "fly" },
+    { id: "frog_fly", side: "fly" },
+    { id: "pike_flash_fly", side: "fly" },
+  ],
 };
 
 function rowHasTag(row: AuditRow, tag: ConditionTag): boolean {
@@ -6524,6 +8141,40 @@ function isCrawBottomHome(row: AuditRow, candidate: ScoreSnapshot): boolean {
       row.water_type === "freshwater_river");
 }
 
+function isPikeColdOrLateHome(row: AuditRow): boolean {
+  return rowHasTag(row, "cold_slow") ||
+    row.condition_buckets.includes("cold_slow_or_front") ||
+    row.month <= 4 ||
+    row.month >= 11;
+}
+
+function isPikeRiverCurrentHome(row: AuditRow): boolean {
+  return row.water_type === "freshwater_river" &&
+    (rowHasTag(row, "current_swing") ||
+      row.condition_buckets.includes("river_elevated_runoff_current"));
+}
+
+function isPikeReactionHome(row: AuditRow): boolean {
+  return rowHasAnyTag(row, ["wind_reaction", "dirty_vibration"]) ||
+    row.water_clarity === "dirty" ||
+    row.daily_scenario_summary.activity === "active";
+}
+
+function isPikeBaitfishSearchHome(row: AuditRow): boolean {
+  return rowHasAnyTag(row, [
+    "warming_search",
+    "open_water_search",
+    "wind_reaction",
+    "current_swing",
+  ]) || (row.month >= 5 && row.month <= 10);
+}
+
+function isPikeClearControlledHome(row: AuditRow): boolean {
+  return isClearOrStained(row) &&
+    rowHasAnyTag(row, ["clear_subtle", "cold_slow", "warming_search"]) &&
+    !rowHasTag(row, "dirty_vibration");
+}
+
 function classifySignatureWindow(
   config: SpeciesAuditConfig,
   row: AuditRow,
@@ -6537,6 +8188,123 @@ function classifySignatureWindow(
   const springReaction = isSpringFallWinter(row) &&
     isClearOrStained(row) &&
     rowHasAnyTag(row, ["cold_slow", "clear_subtle", "warming_search"]);
+
+  if (config.species === "pike_musky") {
+    const pikeCold = isPikeColdOrLateHome(row);
+    const pikeRiver = isPikeRiverCurrentHome(row);
+    const pikeReaction = isPikeReactionHome(row);
+    const pikeSearch = isPikeBaitfishSearchHome(row);
+    const pikeClearControlled = isPikeClearControlledHome(row);
+    const pikeHeatCaution = rowHasTag(row, "heat_finesse");
+    const pikeFall = row.month >= 9 && row.month <= 11;
+
+    if (
+      id === "large_pike_topwater" || id === "popper_fly" ||
+      id === "deer_hair_slider" || id === "foam_gurgler_fly" ||
+      id === "frog_fly"
+    ) {
+      if (surfaceHome) return "home_window";
+      if (
+        row.daily_scenario_summary.surface_gate === "open" &&
+        row.month >= 5 && row.month <= 9
+      ) return "secondary_window";
+      return "poor_window";
+    }
+
+    if (id === "pike_jig_and_plastic" || id === "large_pike_tube") {
+      if (
+        pikeCold || pikeRiver || pikeHeatCaution ||
+        (id === "pike_jig_and_plastic" && pikeReaction)
+      ) return "home_window";
+      if (isBottomSlow(candidate) || isClearOrStained(row)) {
+        return "secondary_window";
+      }
+      return "poor_window";
+    }
+
+    if (id === "casting_spoon" || id === "weedless_spoon") {
+      if (
+        id === "weedless_spoon" &&
+        row.water_type === "freshwater_lake_pond" &&
+        (pikeReaction || surfaceHome || (row.month >= 5 && row.month <= 9))
+      ) return "home_window";
+      if (
+        id === "casting_spoon" &&
+        (pikeCold || pikeReaction || pikeRiver || pikeFall)
+      ) return "home_window";
+      if (pikeSearch || isClearOrStained(row)) return "secondary_window";
+      return "poor_window";
+    }
+
+    if (
+      id === "inline_spinner" || id === "large_bucktail_spinner" ||
+      id === "pike_spinnerbait"
+    ) {
+      if (
+        id === "pike_spinnerbait" &&
+        row.water_clarity !== "clear" &&
+        pikeReaction
+      ) return "home_window";
+      if (
+        id === "large_bucktail_spinner" &&
+        (pikeReaction || pikeSearch || pikeRiver)
+      ) return "home_window";
+      if (
+        id === "inline_spinner" &&
+        (pikeRiver || pikeReaction || rowHasTag(row, "warming_search"))
+      ) return "home_window";
+      if (pikeSearch || row.water_clarity !== "dirty") {
+        return "secondary_window";
+      }
+      return "poor_window";
+    }
+
+    if (
+      id === "large_profile_pike_swimbait" || id === "pike_jerkbait" ||
+      id === "pike_glidebait"
+    ) {
+      if (
+        id === "pike_glidebait" &&
+        row.recommendation_goal === "big_fish" &&
+        (pikeClearControlled || pikeFall)
+      ) return "home_window";
+      if (
+        id === "pike_jerkbait" &&
+        (pikeCold || pikeReaction || pikeClearControlled || pikeFall)
+      ) return "home_window";
+      if (
+        id === "large_profile_pike_swimbait" &&
+        (pikeSearch || pikeReaction || row.recommendation_goal === "big_fish")
+      ) return "home_window";
+      if (isClearOrStained(row) || pikeSearch) return "secondary_window";
+      return "poor_window";
+    }
+
+    if (
+      id === "articulated_dungeon_streamer" ||
+      id === "large_articulated_pike_streamer" ||
+      id === "pike_bunny_streamer"
+    ) {
+      if (
+        pikeCold || pikeReaction || pikeRiver ||
+        row.recommendation_goal === "big_fish"
+      ) return "home_window";
+      if (pikeSearch || isClearOrStained(row)) return "secondary_window";
+      return "poor_window";
+    }
+
+    if (
+      id === "articulated_baitfish_streamer" ||
+      id === "bucktail_baitfish_streamer" || id === "deceiver" ||
+      id === "game_changer" || id === "rabbit_strip_leech" ||
+      id === "unweighted_baitfish_streamer" ||
+      id === "baitfish_slider_fly" || id === "pike_flash_fly"
+    ) {
+      if (pikeSearch || pikeReaction || pikeRiver) return "home_window";
+      if (isClearOrStained(row) || pikeCold) return "secondary_window";
+      return "poor_window";
+    }
+  }
 
   if (config.species === "smallmouth_bass") {
     if (id === "ned_rig") {
@@ -7755,6 +9523,22 @@ ${thermalDiagnostics(rows)}
 
 ${surfaceDiagnostics(rows)}
 
+## Water Column Diversity Diagnostics
+
+${waterColumnDiversityDiagnostics(rows)}
+
+## Pike Cold/Open Surface Diagnostics
+
+${pikeColdOpenSurfaceDiagnostics(config, rows)}
+
+## Pike Clear/Bright Diagnostics
+
+${pikeClearBrightDiagnostics(config, rows)}
+
+## Pike Heat-Limited Diagnostics
+
+${pikeHeatLimitedDiagnostics(config, rows)}
+
 ## Set B Diagnostics
 
 ${setBDiagnostics(rows)}
@@ -7766,6 +9550,10 @@ ${goalContrastDiagnostics(rows)}
 ## Big Fish No-Upside Diagnostics
 
 ${bigFishNoUpsideDiagnostics(rows)}
+
+## Pike Big Fish Upside Split Diagnostics
+
+${pikeBigFishUpsideSplitDiagnostics(config, rows)}
 
 ## Condition Warning Diagnostics
 

@@ -270,6 +270,100 @@ Deno.test("DailyScenario seasonally valid calm low-light active day opens surfac
   assert(scenario.scenario_tags.includes("low_light_surface"));
 });
 
+Deno.test("DailyScenario closes northern pike surface during cold thermal windows", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      species: "pike_musky",
+      env_data: { wind_speed_mph: 3 },
+    }),
+    analysis: analysis({
+      score: 80,
+      lightLabel: "low_light",
+      temperatureBand: "very_cold",
+      temperatureFinalScore: -2,
+    }),
+    seasonalRow: baseRow({ species: "northern_pike" }),
+  });
+
+  assertEquals(scenario.species, "northern_pike");
+  assertEquals(scenario.thermal_mode, "cold_slow");
+  assertEquals(scenario.surface_daily_gate, "closed");
+  assert(
+    scenario.surface_daily_reason_codes.includes("pike_cold_surface_closed"),
+  );
+  assert(scenario.scenario_tags.includes("cold_slow"));
+  assert(!scenario.scenario_tags.includes("calm_surface"));
+  assert(!scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario keeps warm low-light northern pike surface open", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      species: "pike_musky",
+      env_data: { wind_speed_mph: 3 },
+    }),
+    analysis: analysis({
+      score: 80,
+      lightLabel: "low_light",
+      temperatureBand: "optimal",
+      temperatureFinalScore: 1,
+    }),
+    seasonalRow: baseRow({ species: "northern_pike" }),
+  });
+
+  assertEquals(scenario.species, "northern_pike");
+  assertEquals(scenario.surface_daily_gate, "open");
+  assert(scenario.scenario_tags.includes("calm_surface"));
+  assert(scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario closes northern pike surface during heat-limited mixed-light windows", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      species: "pike_musky",
+      env_data: { wind_speed_mph: 3 },
+    }),
+    analysis: analysis({
+      score: 80,
+      lightLabel: "mixed",
+      temperatureBand: "very_warm",
+    }),
+    seasonalRow: baseRow({ species: "northern_pike" }),
+  });
+
+  assertEquals(scenario.species, "northern_pike");
+  assertEquals(scenario.thermal_mode, "heat_limited");
+  assertEquals(scenario.surface_daily_gate, "closed");
+  assert(
+    scenario.surface_daily_reason_codes.includes("pike_heat_surface_closed"),
+  );
+  assert(scenario.scenario_tags.includes("heat_finesse"));
+  assert(!scenario.scenario_tags.includes("calm_surface"));
+  assert(!scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario keeps exceptional low-light active northern pike heat surface open", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      species: "pike_musky",
+      env_data: { wind_speed_mph: 3 },
+    }),
+    analysis: analysis({
+      score: 80,
+      lightLabel: "low_light",
+      temperatureBand: "very_warm",
+    }),
+    seasonalRow: baseRow({ species: "northern_pike" }),
+  });
+
+  assertEquals(scenario.species, "northern_pike");
+  assertEquals(scenario.thermal_mode, "heat_limited");
+  assertEquals(scenario.surface_daily_gate, "open");
+  assert(scenario.scenario_tags.includes("heat_finesse"));
+  assert(scenario.scenario_tags.includes("calm_surface"));
+  assert(scenario.scenario_tags.includes("low_light_surface"));
+});
+
 Deno.test("DailyScenario clear bright water emits clear_subtle", () => {
   const scenario = buildDailyScenario({
     req: baseReq({
@@ -317,7 +411,10 @@ Deno.test("DailyScenario maps thermal states without turning trend alone into co
         month: 1,
       },
     }),
-    analysis: analysis({ temperatureBand: "very_cold", temperatureFinalScore: -2 }),
+    analysis: analysis({
+      temperatureBand: "very_cold",
+      temperatureFinalScore: -2,
+    }),
     seasonalRow: baseRow(),
   });
   const warming = buildDailyScenario({
