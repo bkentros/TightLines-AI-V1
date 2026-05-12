@@ -26,6 +26,10 @@ import {
 import { supabase } from '../../lib/supabase';
 import { useAuthStore } from '../../store/authStore';
 import {
+  getPasswordValidationError,
+  PASSWORD_POLICY_LABEL,
+} from '../../lib/passwordValidation';
+import {
   AuthField,
   AuthFooterStamp,
   AuthHeader,
@@ -48,10 +52,11 @@ export default function ResetPasswordScreen() {
 
   const handleReset = async () => {
     setNotice(null);
-    if (password.length < 8) {
+    const passwordError = getPasswordValidationError(password);
+    if (passwordError) {
       setNotice({
-        title: 'Too short',
-        message: 'Password must be at least 8 characters.',
+        title: 'Check your password',
+        message: passwordError,
         tone: 'error',
       });
       return;
@@ -132,7 +137,7 @@ export default function ResetPasswordScreen() {
                 label="New password"
                 value={password}
                 onChangeText={setPassword}
-                placeholder="At least 8 characters"
+                placeholder={PASSWORD_POLICY_LABEL}
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
                 autoCorrect={false}

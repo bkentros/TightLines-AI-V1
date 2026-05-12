@@ -31,6 +31,11 @@ import {
   isSignUpEmailFormatAcceptable,
 } from '../../lib/emailValidation';
 import {
+  getPasswordValidationError,
+  isPasswordValid,
+  PASSWORD_POLICY_LABEL,
+} from '../../lib/passwordValidation';
+import {
   AuthBackButton,
   AuthField,
   AuthFooterStamp,
@@ -177,10 +182,11 @@ export default function SignUpScreen() {
       });
       return;
     }
-    if (password.length < 8) {
+    const passwordError = getPasswordValidationError(password);
+    if (passwordError) {
       setNotice({
         title: 'Check your details',
-        message: 'Password must be at least 8 characters.',
+        message: passwordError,
         tone: 'error',
       });
       return;
@@ -265,7 +271,7 @@ export default function SignUpScreen() {
   const canSubmit =
     cooldownSeconds === 0 &&
     emailStatus === 'valid' &&
-    password.length >= 8 &&
+    isPasswordValid(password) &&
     confirmStatus === 'valid' &&
     !loading;
 
@@ -326,7 +332,7 @@ export default function SignUpScreen() {
                 label="Password"
                 value={password}
                 onChangeText={handlePasswordChange}
-                placeholder="At least 8 characters"
+                placeholder={PASSWORD_POLICY_LABEL}
                 secureTextEntry={!showPassword}
                 autoCapitalize="none"
                 autoCorrect={false}
