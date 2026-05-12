@@ -239,6 +239,33 @@ Deno.test("DailyScenario wind thresholds are calm below 6, breezy through 14, wi
   );
 });
 
+Deno.test("DailyScenario does not let a light breeze drive wind-reaction tags", () => {
+  const lightBreeze = buildDailyScenario({
+    req: baseReq({
+      water_clarity: "dirty",
+      env_data: { wind_speed_mph: 7.4 },
+    }),
+    analysis: analysis({ score: 70 }),
+    seasonalRow: baseRow(),
+  });
+  const meaningfulBreeze = buildDailyScenario({
+    req: baseReq({
+      water_clarity: "dirty",
+      env_data: { wind_speed_mph: 7.5 },
+    }),
+    analysis: analysis({ score: 70 }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(lightBreeze.wind_mode, "breezy");
+  assert(!lightBreeze.scenario_tags.includes("wind_reaction"));
+  assert(!lightBreeze.scenario_tags.includes("dirty_vibration"));
+  assert(!lightBreeze.scenario_tags.includes("open_water_search"));
+  assert(meaningfulBreeze.scenario_tags.includes("wind_reaction"));
+  assert(meaningfulBreeze.scenario_tags.includes("dirty_vibration"));
+  assert(meaningfulBreeze.scenario_tags.includes("open_water_search"));
+});
+
 Deno.test("DailyScenario seasonal surface false keeps surface closed on calm low-light active days", () => {
   const scenario = buildDailyScenario({
     req: baseReq({ env_data: { wind_speed_mph: 3 } }),
@@ -400,6 +427,7 @@ Deno.test("DailyScenario dirty or stained windy conditions emit reaction and vib
   assert(stained.scenario_tags.includes("dirty_vibration"));
   assert(dirty.scenario_tags.includes("wind_reaction"));
   assert(dirty.scenario_tags.includes("dirty_vibration"));
+  assert(!dirty.scenario_tags.includes("open_water_search"));
 });
 
 Deno.test("DailyScenario maps thermal states without turning trend alone into cold_slow", () => {

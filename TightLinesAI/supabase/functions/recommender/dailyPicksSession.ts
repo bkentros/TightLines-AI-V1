@@ -12,7 +12,7 @@ type SupabaseLike = {
 };
 
 export const DAILY_PICKS_SESSION_ENGINE_VERSION =
-  "recommender_daily_picks_2x2_sessionv1_goalv1" as const;
+  "recommender_daily_picks_2x2_sessionv1_goalv2" as const;
 
 export type DailyPicksRecommendationSession = {
   local_date: string;
@@ -177,7 +177,9 @@ function responseForVariant(
   row: SessionRow,
   variant: DailyPicksVariant,
 ): DailyPicksSessionResponse {
-  const response = variant === "A" ? row.variant_a_response : row.variant_b_response;
+  const response = variant === "A"
+    ? row.variant_a_response
+    : row.variant_b_response;
   if (!response) {
     throw new DailyPicksVariantUnavailableError(variant);
   }

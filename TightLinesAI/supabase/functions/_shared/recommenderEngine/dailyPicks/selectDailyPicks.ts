@@ -1997,10 +1997,16 @@ function applyHeatFinesseSafety(args: {
   top?: CandidateScore;
   avoidedGroups: AvoidedGroupContext;
 }): CandidateScore {
+  const hasHeatPriority = hasPriorityConditionReason(
+    args.selected,
+    args.scenario,
+  );
+  const weakHeatSelection = !hasHeatPriority &&
+    !hasActiveGoalReason(args.selected, args.scenario);
   if (
     !args.scenario.scenario_tags.includes("heat_finesse") ||
-    args.selected.profile.primary_pace !== "fast" ||
-    hasPriorityConditionReason(args.selected, args.scenario)
+    (!weakHeatSelection && args.selected.profile.primary_pace !== "fast") ||
+    hasHeatPriority
   ) {
     return args.selected;
   }
@@ -2229,7 +2235,7 @@ function selectHonorable(args: {
     top: args.top,
     avoidedGroups: args.avoidedGroups,
   });
-  return applyHonorableGoalSafety({
+  const goalSafe = applyHonorableGoalSafety({
     selected: pikeClearControlSafe,
     broadCandidates: safetyCandidates,
     avoidedFallbackCandidates,
@@ -2237,6 +2243,24 @@ function selectHonorable(args: {
     side: args.side,
     scenario: args.scenario,
     variant: args.variant,
+    avoidedGroups: args.avoidedGroups,
+  });
+  const heatRecoveryById = new Map(
+    safetyCandidates.map((candidate) => [candidate.profile.id, candidate]),
+  );
+  for (const candidate of avoidedFallbackCandidates ?? []) {
+    if (candidate.side === args.side) {
+      heatRecoveryById.set(candidate.profile.id, candidate);
+    }
+  }
+  const heatRecoveryCandidates = heatRecoveryById.size >= 2
+    ? [...heatRecoveryById.values()]
+    : safetyCandidates;
+  return applyHeatFinesseSafety({
+    selected: goalSafe,
+    broadCandidates: heatRecoveryCandidates,
+    scenario: args.scenario,
+    top: args.top,
     avoidedGroups: args.avoidedGroups,
   });
 }

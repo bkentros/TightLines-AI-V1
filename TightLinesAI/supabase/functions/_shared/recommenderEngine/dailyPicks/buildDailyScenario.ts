@@ -164,6 +164,17 @@ function windModeFromMph(daylightWindMph: number | null): DailyWindMode {
   return "windy";
 }
 
+function hasDailyWindReaction(args: {
+  daylightWindMph: number | null;
+  windMode: DailyWindMode;
+  activityLevel: DailyActivityLevel;
+}): boolean {
+  if (args.activityLevel === "suppressed") return false;
+  if (args.daylightWindMph == null) return false;
+  if (args.windMode === "windy") return true;
+  return args.daylightWindMph >= 7.5;
+}
+
 function activityLevelFromScore(score: number): DailyActivityLevel {
   if (score <= 35) return "suppressed";
   if (score >= 70) return "active";
@@ -466,6 +477,11 @@ export function buildDailyScenario(args: {
       lightMode,
     }),
   });
+  const dailyWindReaction = hasDailyWindReaction({
+    daylightWindMph,
+    windMode,
+    activityLevel,
+  });
 
   const tags: DailyScenarioTag[] = [];
   if (surface.gate === "open" && windMode === "calm") {
@@ -474,15 +490,12 @@ export function buildDailyScenario(args: {
   if (surface.gate === "open" && lightMode === "low_light") {
     addTag(tags, "low_light_surface");
   }
-  if (
-    windMode === "windy" ||
-    (windMode === "breezy" && activityLevel !== "suppressed")
-  ) {
+  if (dailyWindReaction) {
     addTag(tags, "wind_reaction");
   }
   if (
     (req.water_clarity === "dirty" || req.water_clarity === "stained") &&
-    (windMode === "breezy" || windMode === "windy" ||
+    (dailyWindReaction ||
       waterMovementMode === "elevated_or_dirty" ||
       waterMovementMode === "blown_out")
   ) {
@@ -517,6 +530,7 @@ export function buildDailyScenario(args: {
   }
   if (
     windMode === "breezy" &&
+    dailyWindReaction &&
     seasonalRow.primary_forage === "baitfish" &&
     seasonalRow.column_range.some((column) =>
       column === "mid" || column === "upper"

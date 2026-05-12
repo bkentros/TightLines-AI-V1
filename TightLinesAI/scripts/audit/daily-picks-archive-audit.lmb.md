@@ -1,5 +1,5 @@
 # FinFindr LMB Daily-Picks Archive Audit
-Generated: 2026-05-12T12:57:45.162Z
+Generated: 2026-05-12T14:39:13.094Z
 
 ## Scope Summary
 
@@ -22,8 +22,8 @@ Generated: 2026-05-12T12:57:45.162Z
 | --- | --- |
 | calm_low_light_surface | 72 |
 | calm_bright_clear_subtle | 48 |
-| breezy_windy_stained_reaction | 164 |
-| dirty_vibration | 180 |
+| breezy_windy_stained_reaction | 108 |
+| dirty_vibration | 120 |
 | cold_slow_or_front | 216 |
 | warming_search | 192 |
 | heat_limited_finesse | 120 |
@@ -39,9 +39,9 @@ Generated: 2026-05-12T12:57:45.162Z
 
 | Pair | Class | Wind delta | Temp delta | Tag delta |
 | --- | --- | --- | --- | --- |
-| Lake Okeechobee / central FL bass lake<br>2025-03-18 -> 2025-03-19 | changed | 7.8 | 3.5 | dirty_vibration|cold_slow -> calm_surface|cold_slow |
+| Lake Okeechobee / central FL bass lake<br>2025-03-18 -> 2025-03-19 | changed | 7.8 | 3.5 | cold_slow -> calm_surface|cold_slow |
 | Guntersville / Tennessee River reservoir<br>2025-10-19 -> 2025-10-20 | changed | 8.3 | 3.3 | wind_reaction|dirty_vibration|open_water_search -> none |
-| Minnesota natural bass lake<br>2025-09-20 -> 2025-09-21 | changed | 1.8 | 1.5 | wind_reaction|dirty_vibration|open_water_search -> calm_surface |
+| Minnesota natural bass lake<br>2025-09-20 -> 2025-09-21 | changed | 1.8 | 1.5 | none -> calm_surface |
 
 ## Hard Fails
 
@@ -53,31 +53,27 @@ None.
 
 | Bucket | Runs with warnings | Top warning codes |
 | --- | --- | --- |
-| breezy_windy_stained_reaction | 84 | WIND_NOT_ELEVATING_REACTION (94), BIG_FISH_NOT_FAVORING_UPSIDE (7), TOPWATER_SHOULDER_SEASON_REGION (2), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (1), COLD_CLEAR_TOO_FAST (1) |
+| breezy_windy_stained_reaction | 55 | WIND_NOT_ELEVATING_REACTION (62), BIG_FISH_NOT_FAVORING_UPSIDE (4), TOPWATER_SHOULDER_SEASON_REGION (2), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (1), COLD_CLEAR_TOO_FAST (1) |
 | calm_bright_clear_subtle | 1 | CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (1) |
 | calm_low_light_surface | 2 | ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (2) |
-| cold_slow_or_front | 63 | WIND_NOT_ELEVATING_REACTION (58), TOPWATER_SHOULDER_SEASON_REGION (8), CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (7), BIG_FISH_NOT_FAVORING_UPSIDE (5), COLD_CLEAR_TOO_FAST (3) |
-| dirty_vibration | 71 | WIND_NOT_ELEVATING_REACTION (67), BIG_FISH_NOT_FAVORING_UPSIDE (8), DIRTY_WIND_NOT_ELEVATING_VIBRATION (4), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (3), TOPWATER_SHOULDER_SEASON_REGION (3) |
-| heat_limited_finesse | 10 | BIG_FISH_NOT_FAVORING_UPSIDE (7), HEAT_LIMITED_TOO_AGGRESSIVE (2), DIRTY_WIND_NOT_ELEVATING_VIBRATION (1) |
-| medium_confidence_archive | 249 | WIND_NOT_ELEVATING_REACTION (250), BIG_FISH_NOT_FAVORING_UPSIDE (22), CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (20), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (8), TOPWATER_SHOULDER_SEASON_REGION (8) |
-| river_elevated_runoff_current | 9 | WIND_NOT_ELEVATING_REACTION (6), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (2), BIG_FISH_NOT_FAVORING_UPSIDE (2) |
-| stable_pleasant_medium_confidence_archive | 124 | WIND_NOT_ELEVATING_REACTION (132), CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (13), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (7), BIG_FISH_NOT_FAVORING_UPSIDE (4), DIRTY_WIND_NOT_ELEVATING_VIBRATION (2) |
-| warming_search | 46 | WIND_NOT_ELEVATING_REACTION (51), BIG_FISH_NOT_FAVORING_UPSIDE (6), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (1) |
+| cold_slow_or_front | 56 | WIND_NOT_ELEVATING_REACTION (49), TOPWATER_SHOULDER_SEASON_REGION (8), CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (7), BIG_FISH_NOT_FAVORING_UPSIDE (6), COLD_CLEAR_TOO_FAST (3) |
+| dirty_vibration | 46 | WIND_NOT_ELEVATING_REACTION (42), BIG_FISH_NOT_FAVORING_UPSIDE (5), DIRTY_WIND_NOT_ELEVATING_VIBRATION (4), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (3), TOPWATER_SHOULDER_SEASON_REGION (3) |
+| heat_limited_finesse | 4 | BIG_FISH_NOT_FAVORING_UPSIDE (3), DIRTY_WIND_NOT_ELEVATING_VIBRATION (1) |
+| medium_confidence_archive | 168 | WIND_NOT_ELEVATING_REACTION (160), CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (18), BIG_FISH_NOT_FAVORING_UPSIDE (15), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (9), TOPWATER_SHOULDER_SEASON_REGION (8) |
+| river_elevated_runoff_current | 5 | ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (3), BIG_FISH_NOT_FAVORING_UPSIDE (2), DIRTY_WIND_NOT_ELEVATING_VIBRATION (1) |
+| stable_pleasant_medium_confidence_archive | 82 | WIND_NOT_ELEVATING_REACTION (82), CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (11), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (8), BIG_FISH_NOT_FAVORING_UPSIDE (4), DIRTY_WIND_NOT_ELEVATING_VIBRATION (3) |
+| warming_search | 20 | WIND_NOT_ELEVATING_REACTION (20), BIG_FISH_NOT_FAVORING_UPSIDE (2), ALL_PURPOSE_OVER_SELECTING_HIGH_RISK (1) |
 
-- WIND_NOT_ELEVATING_REACTION: 250
-- BIG_FISH_NOT_FAVORING_UPSIDE: 22
-- CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE: 20
-- ALL_PURPOSE_OVER_SELECTING_HIGH_RISK: 8
+- WIND_NOT_ELEVATING_REACTION: 160
+- CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE: 18
+- BIG_FISH_NOT_FAVORING_UPSIDE: 15
+- ALL_PURPOSE_OVER_SELECTING_HIGH_RISK: 9
 - TOPWATER_SHOULDER_SEASON_REGION: 8
 - DIRTY_WIND_NOT_ELEVATING_VIBRATION: 4
 - COLD_CLEAR_TOO_FAST: 3
-- HEAT_LIMITED_TOO_AGGRESSIVE: 2
 
 - co_pueblo__2025-08-12__freshwater_lake_pond__clear__big_fish__A: CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE, WIND_NOT_ELEVATING_REACTION. Picks: Magnum Worm (lure); Medium-Diving Crankbait (lure); Bluegill Streamer (fly); Game Changer (fly)
 - ca_clear_lake__2025-10-25__freshwater_lake_pond__clear__big_fish__A: TOPWATER_SHOULDER_SEASON_REGION, COLD_CLEAR_TOO_FAST. Picks: Buzzbait (lure); Magnum Jerkbait (lure); Deer Hair Slider (fly); Game Changer (fly)
-- fl_okeechobee__2025-08-18__freshwater_lake_pond__clear__big_fish__A: WIND_NOT_ELEVATING_REACTION, CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE. Picks: Magnum Worm (lure); Suspending Jerkbait (lure); Bluegill Streamer (fly); Game Changer (fly)
-- fl_okeechobee__2025-08-18__freshwater_lake_pond__clear__big_fish__B: CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE, WIND_NOT_ELEVATING_REACTION. Picks: Paddle-Tail Swimbait (lure); Medium-Diving Crankbait (lure); Unweighted Baitfish Streamer (fly); Articulated Baitfish Streamer (fly)
-- fl_okeechobee__2025-08-18__freshwater_lake_pond__dirty__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Worm (lure); Compact Flipping Jig (lure); Game Changer (fly); Bluegill Streamer (fly)
 - tx_sam_rayburn__2025-03-28__freshwater_lake_pond__clear__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Football Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
 - tx_sam_rayburn__2025-03-28__freshwater_lake_pond__dirty__big_fish__B: WIND_NOT_ELEVATING_REACTION. Picks: Bladed Jig (lure); Football Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
 - tx_sam_rayburn__2025-05-10__freshwater_lake_pond__stained__all_purpose__A: WIND_NOT_ELEVATING_REACTION. Picks: Bladed Jig (lure); Flat-Sided Crankbait (lure); Unweighted Baitfish Streamer (fly); Clouser Minnow (fly)
@@ -90,8 +86,6 @@ None.
 - al_guntersville__2025-04-11__freshwater_lake_pond__clear__big_fish__A: WIND_NOT_ELEVATING_REACTION, CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE. Picks: Spinnerbait (lure); Magnum Jerkbait (lure); Articulated Dungeon Streamer (fly); Game Changer (fly)
 - al_guntersville__2025-04-11__freshwater_lake_pond__clear__big_fish__B: CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE, WIND_NOT_ELEVATING_REACTION. Picks: Squarebill Crankbait (lure); Compact Flipping Jig (lure); Unweighted Baitfish Streamer (fly); Articulated Baitfish Streamer (fly)
 - al_guntersville__2025-04-11__freshwater_lake_pond__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Compact Flipping Jig (lure); Articulated Dungeon Streamer (fly); Game Changer (fly)
-- al_guntersville__2025-06-07__freshwater_lake_pond__clear__all_purpose__A: WIND_NOT_ELEVATING_REACTION. Picks: Paddle-Tail Swimbait (lure); Swim Jig (lure); Popper Fly (fly); Clouser Minnow (fly)
-- al_guntersville__2025-06-07__freshwater_lake_pond__stained__big_fish__B: WIND_NOT_ELEVATING_REACTION. Picks: Walking Topwater (lure); Compact Flipping Jig (lure); Deer Hair Slider (fly); Game Changer (fly)
 - al_guntersville__2025-10-19__freshwater_lake_pond__stained__big_fish__B: BIG_FISH_NOT_FAVORING_UPSIDE, WIND_NOT_ELEVATING_REACTION. Picks: Medium-Diving Crankbait (lure); Lipless Crankbait (lure); Game Changer (fly); Articulated Dungeon Streamer (fly)
 - al_guntersville__2025-10-19__freshwater_lake_pond__dirty__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Compact Flipping Jig (lure); Magnum Jerkbait (lure); Articulated Baitfish Streamer (fly); Game Changer (fly)
 - sc_santee_cooper__2025-04-05__freshwater_lake_pond__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Walking Topwater (lure); Compact Flipping Jig (lure); Deer Hair Slider (fly); Game Changer (fly)
@@ -112,19 +106,12 @@ None.
 - mn_minnetonka__2025-05-15__freshwater_lake_pond__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Football Jig (lure); Magnum Jerkbait (lure); Bluegill Streamer (fly); Articulated Baitfish Streamer (fly)
 - mn_minnetonka__2025-05-15__freshwater_lake_pond__dirty__big_fish__B: WIND_NOT_ELEVATING_REACTION. Picks: Bladed Jig (lure); Football Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
 - mn_minnetonka__2025-07-16__freshwater_lake_pond__dirty__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Wake Bait (lure); Compact Flipping Jig (lure); Game Changer (fly); Deer Hair Slider (fly)
-- mn_minnetonka__2025-09-20__freshwater_lake_pond__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Compact Flipping Jig (lure); Bluegill Streamer (fly); Articulated Baitfish Streamer (fly)
 - il_fox_chain__2025-04-18__freshwater_lake_pond__clear__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Football Jig (lure); Game Changer (fly); Articulated Dungeon Streamer (fly)
 - il_fox_chain__2025-04-18__freshwater_lake_pond__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Compact Flipping Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
-- il_fox_chain__2025-06-14__freshwater_lake_pond__clear__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Glide Bait (lure); Magnum Worm (lure); Rabbit-Strip Leech (fly); Bluegill Streamer (fly)
 - vt_champlain__2025-08-14__freshwater_lake_pond__clear__all_purpose__B: WIND_NOT_ELEVATING_REACTION, CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE. Picks: Soft Plastic Jerkbait (lure); Paddle-Tail Swimbait (lure); Deceiver (fly); Baitfish Slider Fly (fly)
 - vt_champlain__2025-08-14__freshwater_lake_pond__clear__big_fish__A: WIND_NOT_ELEVATING_REACTION, CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE. Picks: Magnum Worm (lure); Suspending Jerkbait (lure); Bluegill Streamer (fly); Game Changer (fly)
 - vt_champlain__2025-08-14__freshwater_lake_pond__clear__big_fish__B: CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE. Picks: Paddle-Tail Swimbait (lure); Lipless Crankbait (lure); Deceiver (fly); Articulated Baitfish Streamer (fly)
-- wv_stonewall__2025-11-08__freshwater_lake_pond__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Compact Flipping Jig (lure); Articulated Dungeon Streamer (fly); Game Changer (fly)
-- wv_stonewall__2025-11-08__freshwater_lake_pond__dirty__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Compact Flipping Jig (lure); Articulated Baitfish Streamer (fly); Game Changer (fly)
-- wv_new_river__2025-06-17__freshwater_river__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Walking Topwater (lure); Compact Flipping Jig (lure); Deer Hair Slider (fly); Articulated Baitfish Streamer (fly)
-- co_pueblo__2025-04-23__freshwater_lake_pond__clear__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Football Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
-- co_pueblo__2025-04-23__freshwater_lake_pond__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Compact Flipping Jig (lure); Articulated Baitfish Streamer (fly); Rabbit-Strip Leech (fly)
-- co_pueblo__2025-04-23__freshwater_lake_pond__dirty__big_fish__B: WIND_NOT_ELEVATING_REACTION. Picks: Bladed Jig (lure); Magnum Jerkbait (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
+- wv_new_river__2025-06-17__freshwater_river__dirty__all_purpose__A: ALL_PURPOSE_OVER_SELECTING_HIGH_RISK, DIRTY_WIND_NOT_ELEVATING_VIBRATION. Picks: Weightless Stick Worm (lure); Buzzbait (lure); Clouser Minnow (fly); Popper Fly (fly)
 - co_pueblo__2025-10-05__freshwater_lake_pond__clear__all_purpose__B: WIND_NOT_ELEVATING_REACTION, CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE. Picks: Tube Jig (lure); Drop-Shot Minnow (lure); Clouser Minnow (fly); Baitfish Slider Fly (fly)
 - co_pueblo__2025-10-05__freshwater_lake_pond__stained__big_fish__B: BIG_FISH_NOT_FAVORING_UPSIDE, WIND_NOT_ELEVATING_REACTION. Picks: Medium-Diving Crankbait (lure); Lipless Crankbait (lure); Articulated Dungeon Streamer (fly); Game Changer (fly)
 - co_pueblo__2025-10-05__freshwater_lake_pond__dirty__big_fish__B: BIG_FISH_NOT_FAVORING_UPSIDE, WIND_NOT_ELEVATING_REACTION. Picks: Lipless Crankbait (lure); Medium-Diving Crankbait (lure); Game Changer (fly); Articulated Dungeon Streamer (fly)
@@ -132,48 +119,66 @@ None.
 - ca_clear_lake__2025-10-25__freshwater_lake_pond__dirty__big_fish__A: TOPWATER_SHOULDER_SEASON_REGION, COLD_CLEAR_TOO_FAST. Picks: Magnum Jerkbait (lure); Buzzbait (lure); Articulated Baitfish Streamer (fly); Game Changer (fly)
 - ca_clear_lake__2025-10-25__freshwater_lake_pond__dirty__big_fish__B: TOPWATER_SHOULDER_SEASON_REGION. Picks: Compact Flipping Jig (lure); Walking Topwater (lure); Deer Hair Slider (fly); Articulated Dungeon Streamer (fly)
 - ca_castaic__2025-02-18__freshwater_lake_pond__clear__all_purpose__A: WIND_NOT_ELEVATING_REACTION. Picks: Carolina-Rigged Stick Worm (lure); Blade Bait (lure); Feather Jig Leech (fly); Articulated Baitfish Streamer (fly)
-- az_havasu__2025-11-15__freshwater_lake_pond__clear__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Walking Topwater (lure); Articulated Baitfish Streamer (fly); Deer Hair Slider (fly)
+- fl_okeechobee__2025-08-18__freshwater_lake_pond__clear__big_fish__A: CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE. Picks: Soft Plastic Jerkbait (lure); Magnum Worm (lure); Bluegill Streamer (fly); Articulated Baitfish Streamer (fly)
+- tx_sam_rayburn__2025-03-28__freshwater_lake_pond__stained__all_purpose__A: WIND_NOT_ELEVATING_REACTION. Picks: Bladed Jig (lure); Lipless Crankbait (lure); Articulated Baitfish Streamer (fly); Clouser Minnow (fly)
+- tx_sam_rayburn__2025-03-28__freshwater_lake_pond__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Compact Flipping Jig (lure); Magnum Jerkbait (lure); Deceiver (fly); Game Changer (fly)
+- tx_sam_rayburn__2025-03-28__freshwater_lake_pond__stained__big_fish__B: WIND_NOT_ELEVATING_REACTION. Picks: Medium-Diving Crankbait (lure); Football Jig (lure); Articulated Baitfish Streamer (fly); Rabbit-Strip Leech (fly)
+- tx_sam_rayburn__2025-03-28__freshwater_lake_pond__dirty__all_purpose__A: WIND_NOT_ELEVATING_REACTION. Picks: Compact Flipping Jig (lure); Bladed Jig (lure); Deceiver (fly); Articulated Baitfish Streamer (fly)
+- tx_sam_rayburn__2025-05-10__freshwater_lake_pond__clear__all_purpose__B: WIND_NOT_ELEVATING_REACTION. Picks: Soft Plastic Jerkbait (lure); Suspending Jerkbait (lure); Unweighted Baitfish Streamer (fly); Clouser Minnow (fly)
+- tx_sam_rayburn__2025-05-10__freshwater_lake_pond__clear__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Medium-Diving Crankbait (lure); Magnum Jerkbait (lure); Game Changer (fly); Bluegill Streamer (fly)
+- tx_sam_rayburn__2025-05-10__freshwater_lake_pond__stained__big_fish__B: WIND_NOT_ELEVATING_REACTION. Picks: Squarebill Crankbait (lure); Buzzbait (lure); Bluegill Streamer (fly); Game Changer (fly)
+- tx_sam_rayburn__2025-05-10__freshwater_lake_pond__dirty__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Squarebill Crankbait (lure); Compact Flipping Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
+- tx_lake_fork__2025-03-29__freshwater_lake_pond__clear__all_purpose__A: WIND_NOT_ELEVATING_REACTION. Picks: Suspending Jerkbait (lure); Drop-Shot Minnow (lure); Clouser Minnow (fly); Game Changer (fly)
+- tx_lake_fork__2025-03-29__freshwater_lake_pond__clear__big_fish__B: WIND_NOT_ELEVATING_REACTION. Picks: Medium-Diving Crankbait (lure); Football Jig (lure); Game Changer (fly); Articulated Dungeon Streamer (fly)
+- tx_lake_fork__2025-03-29__freshwater_lake_pond__stained__all_purpose__A: WIND_NOT_ELEVATING_REACTION. Picks: Paddle-Tail Swimbait (lure); Suspending Jerkbait (lure); Clouser Minnow (fly); Articulated Baitfish Streamer (fly)
+- tx_lake_fork__2025-03-29__freshwater_lake_pond__stained__big_fish__A: WIND_NOT_ELEVATING_REACTION. Picks: Magnum Jerkbait (lure); Compact Flipping Jig (lure); Deceiver (fly); Articulated Dungeon Streamer (fly)
 
 ## Variety Warnings
 
 Audit priority: top/honorable same-family on the same side is a hard invariant. Set B exact-ID reuse is a real variety failure unless scarcity makes it unavoidable. Set B same-family or same-presentation overlap with Set A is advisory/watch only when exact IDs are avoided and the top/honorable family invariant holds. Top/honorable same presentation with different families is acceptable.
 
-- SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE: 76
-- SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE: 31
-- ADJACENT_DAY_EXACT_REPEAT: 4
+- SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE: 81
+- SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE: 30
+- ADJACENT_DAY_EXACT_REPEAT: 6
+- SET_B_ID_OVERLAP_AVOIDABLE: 5
 
 - fl_okeechobee__2025-01-16__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Suspending Jerkbait (lure); Compact Flipping Jig (lure); Articulated Dungeon Streamer (fly); Game Changer (fly)
 - fl_okeechobee__2025-01-16__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Suspending Jerkbait (lure); Football Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
-- tx_sam_rayburn__2025-02-11__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Compact Flipping Jig (lure); Suspending Jerkbait (lure); Deceiver (fly); Articulated Baitfish Streamer (fly)
-- tx_sam_rayburn__2025-02-11__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Lipless Crankbait (lure); Football Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
+- fl_okeechobee__2025-03-19__freshwater_lake_pond__stained__all_purpose__A: ADJACENT_DAY_EXACT_REPEAT. Picks: Soft Plastic Jerkbait (lure); Carolina-Rigged Stick Worm (lure); Rabbit-Strip Leech (fly); Woolly Bugger (fly)
 - tx_sam_rayburn__2025-03-28__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Compact Flipping Jig (lure); Deceiver (fly); Articulated Dungeon Streamer (fly)
 - tx_sam_rayburn__2025-03-28__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Bladed Jig (lure); Football Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
 - tx_lake_fork__2025-03-29__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Football Jig (lure); Game Changer (fly); Articulated Dungeon Streamer (fly)
 - nc_jordan_lake__2025-03-22__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Football Jig (lure); Deceiver (fly); Articulated Baitfish Streamer (fly)
 - nc_jordan_lake__2025-03-22__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Football Jig (lure); Articulated Baitfish Streamer (fly); Game Changer (fly)
-- mo_lake_ozarks__2025-04-24__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Compact Flipping Jig (lure); Weightless Stick Worm (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
-- mo_lake_ozarks__2025-04-24__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Magnum Jerkbait (lure); Compact Flipping Jig (lure); Articulated Baitfish Streamer (fly); Game Changer (fly)
+- mo_lake_ozarks__2025-04-24__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Weightless Stick Worm (lure); Compact Flipping Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
+- mo_lake_ozarks__2025-04-24__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Weightless Stick Worm (lure); Compact Flipping Jig (lure); Articulated Baitfish Streamer (fly); Game Changer (fly)
 - mn_minnetonka__2025-03-20__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Compact Flipping Jig (lure); Medium-Diving Crankbait (lure); Deceiver (fly); Articulated Baitfish Streamer (fly)
 - mn_minnetonka__2025-05-15__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Compact Flipping Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
 - il_fox_chain__2025-04-18__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Compact Flipping Jig (lure); Magnum Jerkbait (lure); Deceiver (fly); Articulated Baitfish Streamer (fly)
 - vt_champlain__2025-10-12__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Compact Flipping Jig (lure); Game Changer (fly); Articulated Dungeon Streamer (fly)
 - wv_stonewall__2025-03-26__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Deep-Diving Crankbait (lure); Compact Flipping Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
-- co_pueblo__2025-04-23__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Compact Flipping Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
+- wv_stonewall__2025-11-08__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Paddle-Tail Swimbait (lure); Compact Flipping Jig (lure); Rabbit-Strip Leech (fly); Articulated Baitfish Streamer (fly)
+- wv_stonewall__2025-11-08__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Football Jig (lure); Medium-Diving Crankbait (lure); Game Changer (fly); Articulated Dungeon Streamer (fly)
+- co_pueblo__2025-04-23__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Compact Flipping Jig (lure); Rabbit-Strip Leech (fly); Articulated Baitfish Streamer (fly)
 - ca_clear_lake__2025-03-30__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Football Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
 - ca_castaic__2025-02-18__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Compact Flipping Jig (lure); Suspending Jerkbait (lure); Deceiver (fly); Articulated Dungeon Streamer (fly)
 - ca_castaic__2025-02-18__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Compact Flipping Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
 - az_havasu__2025-03-25__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Drop-Shot Minnow (lure); Compact Flipping Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
+- nm_elephant_butte__2025-10-14__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Compact Flipping Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
 - fl_okeechobee__2025-01-16__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Tube Jig (lure); Compact Flipping Jig (lure); Baitfish Slider Fly (fly); Articulated Dungeon Streamer (fly)
-- fl_okeechobee__2025-03-18__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Glide Bait (lure); Bladed Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
-- fl_okeechobee__2025-03-18__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Spinnerbait (lure); Glide Bait (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
+- fl_okeechobee__2025-03-18__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Flat-Sided Crankbait (lure); Compact Flipping Jig (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
+- fl_okeechobee__2025-03-18__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Glide Bait (lure); Flat-Sided Crankbait (lure); Game Changer (fly); Articulated Baitfish Streamer (fly)
 - fl_okeechobee__2025-03-19__freshwater_lake_pond__clear__all_purpose__A: ADJACENT_DAY_EXACT_REPEAT. Picks: Soft Plastic Jerkbait (lure); Carolina-Rigged Stick Worm (lure); Lead-Eye Leech (fly); Baitfish Slider Fly (fly)
-- fl_okeechobee__2025-03-19__freshwater_lake_pond__stained__all_purpose__A: ADJACENT_DAY_EXACT_REPEAT. Picks: Soft Plastic Jerkbait (lure); Carolina-Rigged Stick Worm (lure); Rabbit-Strip Leech (fly); Woolly Bugger (fly)
+- fl_okeechobee__2025-03-19__freshwater_lake_pond__stained__all_purpose__B: ADJACENT_DAY_EXACT_REPEAT. Picks: Flat-Sided Crankbait (lure); Tube Jig (lure); Popper Fly (fly); Baitfish Slider Fly (fly)
 - fl_okeechobee__2025-03-19__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Hollow-Body Frog (lure); Magnum Jerkbait (lure); Frog Fly (fly); Articulated Dungeon Streamer (fly)
 - fl_okeechobee__2025-03-19__freshwater_lake_pond__dirty__all_purpose__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Blade Bait (lure); Carolina-Rigged Stick Worm (lure); Baitfish Slider Fly (fly); Unweighted Baitfish Streamer (fly)
 - fl_okeechobee__2025-12-12__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Flat-Sided Crankbait (lure); Compact Flipping Jig (lure); Articulated Dungeon Streamer (fly); Game Changer (fly)
 - fl_okeechobee__2025-12-12__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Football Jig (lure); Swim Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
 - fl_okeechobee__2025-12-12__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Football Jig (lure); Paddle-Tail Swimbait (lure); Articulated Baitfish Streamer (fly); Rabbit-Strip Leech (fly)
-- tx_sam_rayburn__2025-02-11__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Football Jig (lure); Lipless Crankbait (lure); Deceiver (fly); Articulated Dungeon Streamer (fly)
+- tx_sam_rayburn__2025-02-11__freshwater_lake_pond__clear__all_purpose__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Carolina-Rigged Stick Worm (lure); Deep-Diving Crankbait (lure); Woolly Bugger (fly); Feather Jig Leech (fly)
+- tx_sam_rayburn__2025-02-11__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Compact Flipping Jig (lure); Drop-Shot Minnow (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
+- tx_sam_rayburn__2025-02-11__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Football Jig (lure); Drop-Shot Minnow (lure); Articulated Baitfish Streamer (fly); Game Changer (fly)
+- tx_sam_rayburn__2025-02-11__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Football Jig (lure); Ned Rig (lure); Articulated Baitfish Streamer (fly); Game Changer (fly)
 - tx_sam_rayburn__2025-03-28__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Football Jig (lure); Articulated Baitfish Streamer (fly); Rabbit-Strip Leech (fly)
 - tx_sam_rayburn__2025-04-12__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Magnum Jerkbait (lure); Buzzbait (lure); Articulated Dungeon Streamer (fly); Frog Fly (fly)
 - tx_sam_rayburn__2025-04-12__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Buzzbait (lure); Hollow-Body Frog (lure); Articulated Dungeon Streamer (fly); Deer Hair Slider (fly)
@@ -197,11 +202,6 @@ Audit priority: top/honorable same-family on the same side is a hard invariant. 
 - mo_lake_ozarks__2025-11-11__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Lipless Crankbait (lure); Deceiver (fly); Articulated Baitfish Streamer (fly)
 - mo_lake_ozarks__2025-11-11__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Lipless Crankbait (lure); Articulated Dungeon Streamer (fly); Deceiver (fly)
 - mn_minnetonka__2025-03-20__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Compact Flipping Jig (lure); Deceiver (fly); Articulated Dungeon Streamer (fly)
-- mn_minnetonka__2025-03-20__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Football Jig (lure); Spinnerbait (lure); Game Changer (fly); Rabbit-Strip Leech (fly)
-- mn_minnetonka__2025-05-15__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Squarebill Crankbait (lure); Compact Flipping Jig (lure); Baitfish Slider Fly (fly); Bluegill Streamer (fly)
-- mn_minnetonka__2025-05-15__freshwater_lake_pond__dirty__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Bladed Jig (lure); Football Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
-- il_fox_chain__2025-04-18__freshwater_lake_pond__clear__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Compact Flipping Jig (lure); Baitfish Slider Fly (fly); Rabbit-Strip Leech (fly)
-- il_fox_chain__2025-04-18__freshwater_lake_pond__stained__big_fish__B: SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE. Picks: Medium-Diving Crankbait (lure); Football Jig (lure); Articulated Dungeon Streamer (fly); Rabbit-Strip Leech (fly)
 
 ## Temperature/Thermal Diagnostics
 
@@ -297,7 +297,7 @@ None.
 | Lake of the Ozarks<br>2025-04-24 stained big_fish A | 56.2-78.4F | Articulated Baitfish Streamer (medium) |
 | Lake of the Ozarks<br>2025-04-24 dirty all_purpose A | 56.2-78.4F | Game Changer (medium) |
 | Lake of the Ozarks<br>2025-04-24 dirty all_purpose B | 56.2-78.4F | Baitfish Slider Fly (medium) |
-| Lake of the Ozarks<br>2025-04-24 dirty big_fish B | 56.2-78.4F | Magnum Jerkbait (medium); Articulated Baitfish Streamer (medium) |
+| Lake of the Ozarks<br>2025-04-24 dirty big_fish B | 56.2-78.4F | Articulated Baitfish Streamer (medium) |
 | Lake of the Ozarks<br>2025-09-13 clear all_purpose A | 71.4-93.8F | Foam Gurgler (medium) |
 | Lake of the Ozarks<br>2025-09-13 clear all_purpose B | 71.4-93.8F | Popper Fly (medium) |
 | Lake of the Ozarks<br>2025-09-13 clear big_fish B | 71.4-93.8F | Walking Topwater (medium); Game Changer (medium) |
@@ -323,7 +323,7 @@ None.
 | Aug | great_lakes_upper_midwest | open | mixed | big_fish | 6 | 58.5-77.6F | 4.7 |
 | Aug | southeast_atlantic | open | low_light | all_purpose | 4 | 72.1-80.9F | 4.6 |
 | Aug | southeast_atlantic | open | low_light | big_fish | 6 | 72.1-80.9F | 4.6 |
-| Aug | southwest_high_desert | caution | bright | big_fish | 1 | 67.7-95.6F | 6.7 |
+| Aug | southwest_high_desert | caution | bright | big_fish | 3 | 67.7-95.6F | 6.7 |
 | Jul | appalachian | open | bright | all_purpose | 4 | 69.2-86.6F | 4.8 |
 | Jul | appalachian | open | bright | big_fish | 6 | 69.2-86.6F | 4.8 |
 | Jul | great_lakes_upper_midwest | open | low_light | all_purpose | 3 | 56.8-70.2F | 13.8 |
@@ -334,18 +334,18 @@ None.
 | Jul | southeast_atlantic | open | mixed | big_fish | 6 | 80.4-94.6F | 4.2 |
 | Jul | southern_california | open | glare | all_purpose | 5 | 64.3-89.0F | 5.6 |
 | Jul | southern_california | open | glare | big_fish | 6 | 64.3-89.0F | 5.6 |
-| Jun | appalachian | open | low_light | all_purpose | 5 | 64.2-78.3F | 6.2 |
+| Jun | appalachian | open | low_light | all_purpose | 6 | 64.2-78.3F | 6.2 |
 | Jun | appalachian | open | low_light | big_fish | 6 | 64.2-78.3F | 6.2 |
 | Jun | florida | open | low_light | all_purpose | 3 | 78.3-85.4F | 5.7 |
 | Jun | florida | open | low_light | big_fish | 6 | 78.3-85.4F | 5.7 |
 | Jun | great_lakes_upper_midwest | caution | mixed | big_fish | 1 | 56.6-75.0F | 7.2 |
 | Jun | midwest_interior | open | low_light | all_purpose | 6 | 66.9-79.1F | 10.1 |
 | Jun | midwest_interior | open | low_light | big_fish | 6 | 66.9-79.1F | 10.1 |
-| Jun | mountain_west | caution | glare | big_fish | 2 | 61.5-93.6F | 6.5 |
+| Jun | mountain_west | caution | glare | big_fish | 1 | 61.5-93.6F | 6.5 |
 | Jun | northeast | open | mixed | all_purpose | 6 | 58.4-74.2F | 5.2 |
 | Jun | northeast | open | mixed | big_fish | 6 | 58.4-74.2F | 5.2 |
-| Jun | south_central | caution | mixed | big_fish | 2 | 74.8-84.7F | 7.3 |
-| Jun | south_central | open | low_light | all_purpose | 1 | 71.3-84.0F | 7.2 |
+| Jun | south_central | caution | mixed | big_fish | 3 | 74.8-84.7F | 7.3 |
+| Jun | south_central | open | low_light | all_purpose | 2 | 71.3-84.0F | 7.2 |
 | Jun | south_central | open | low_light | big_fish | 6 | 71.3-84.0F | 7.2 |
 | Jun | southwest_high_desert | open | mixed | all_purpose | 6 | 66.8-83.2F | 4.8 |
 | Jun | southwest_high_desert | open | mixed | big_fish | 6 | 66.8-83.2F | 4.8 |
@@ -358,7 +358,8 @@ None.
 | May | south_central | caution | mixed | big_fish | 1 | 62.6-76.0F | 10.1 |
 | May | southeast_atlantic | open | low_light | all_purpose | 6 | 60.5-85.1F | 5.3 |
 | May | southeast_atlantic | open | low_light | big_fish | 12 | 60.5-85.1F | 5.3 |
-| Nov | southwest_desert | open | low_light | big_fish | 5 | 64.4-73.2F | 6.2 |
+| Nov | southwest_desert | open | low_light | all_purpose | 1 | 64.4-73.2F | 6.2 |
+| Nov | southwest_desert | open | low_light | big_fish | 6 | 64.4-73.2F | 6.2 |
 | Oct | northern_california | open | low_light | big_fish | 6 | 49.9-59.6F | 9.9 |
 | Oct | southeast_atlantic | open | mixed | big_fish | 6 | 54.6-75.9F | 3 |
 | Sep | appalachian | open | low_light | all_purpose | 3 | 55.8-73.2F | 5.6 |
@@ -415,6 +416,7 @@ None.
 
 | Side | Goal | Set | Region | Month | Clarity | Surface tags | Rows | Close non-surface alt | Credible non-surface alt |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
+| lure | big_fish | A | appalachian | Jun | clear | low_light_surface | 1 | 0 | 0 |
 | lure | big_fish | A | appalachian | Sep | stained | calm_surface+low_light_surface | 1 | 0 | 0 |
 | lure | big_fish | B | florida | Jun | clear | calm_surface+low_light_surface | 1 | 0 | 0 |
 | lure | big_fish | B | florida | Jun | dirty | calm_surface+low_light_surface | 1 | 0 | 0 |
@@ -462,23 +464,23 @@ None.
 | Lake of the Ozarks<br>2025-09-13 dirty big_fish B | lure | Wake Bait (172); Walking Topwater (170) | close: none<br>credible: none | Close non-surface alternatives were Set A exact-ID repeats; Set B avoidance held. |
 | Lake Champlain<br>2025-06-21 clear big_fish A | lure | Walking Topwater (172); Wake Bait (180) | close: none<br>credible: none | No close non-surface alternative in the audit band. |
 | Lake Champlain<br>2025-06-21 stained big_fish A | lure | Walking Topwater (172); Wake Bait (180) | close: none<br>credible: none | No close non-surface alternative in the audit band. |
-| Appalachian river LMB context<br>2025-09-29 stained big_fish A | lure | Walking Topwater (178); Buzzbait (190) | close: none<br>credible: none | No close non-surface alternative in the audit band. |
+| Appalachian river LMB context<br>2025-06-17 clear big_fish A | lure | Buzzbait (160); Walking Topwater (172) | close: none<br>credible: none | No close non-surface alternative in the audit band. |
 
 ### Same-Side Column/Band Summary
 
 | Side | Same exact column | Same broad band | Same broad band with close different-band alt |
 | --- | --- | --- | --- |
-| lure | 309 | 309 | 252 |
-| fly | 294 | 294 | 288 |
+| lure | 298 | 298 | 248 |
+| fly | 290 | 290 | 281 |
 
 ### Surface/Upper Watch Summary
 
 | Metric | Runs | With close lower-column alt |
 | --- | --- | --- |
 | open-surface rows | 372 | - |
-| open-surface rows with 2+ surface picks | 148 | 148 |
-| open-surface rows with 3+ surface picks | 19 | 19 |
-| open-surface rows with 3+ surface/upper picks (watch-only) | 99 | 99 |
+| open-surface rows with 2+ surface picks | 150 | 150 |
+| open-surface rows with 3+ surface picks | 20 | 20 |
+| open-surface rows with 3+ surface/upper picks (watch-only) | 101 | 101 |
 | lure surface/surface plus fly surface/upper | 2 | 2 |
 
 ### Surface/Upper Watch Examples
@@ -508,20 +510,22 @@ Audit priority: top/honorable same-family on the same side is a hard invariant. 
 
 | Kind | Cause | Lure | Fly | Total |
 | --- | --- | --- | --- | --- |
+| exact_id | truly_avoidable | 5 | 0 | 5 |
 | exact_id | unavoidable_due_score_band | 2 | 0 | 2 |
 | exact_id | unavoidable_because_only_alternative_already_selected_in_set_b | 1 | 0 | 1 |
-| same_family_same_presentation | truly_avoidable | 61 | 15 | 76 |
-| same_family_same_presentation | unavoidable_due_score_band | 8 | 6 | 14 |
-| same_family_same_presentation | unavoidable_because_only_alternative_already_selected_in_set_b | 1 | 0 | 1 |
-| same_family_same_presentation | unavoidable_due_goal_condition_fit | 0 | 3 | 3 |
-| same_family_different_presentation | truly_avoidable | 0 | 31 | 31 |
-| same_family_different_presentation | unavoidable_due_score_band | 0 | 11 | 11 |
-| same_family_different_presentation | unavoidable_because_only_alternative_already_selected_in_set_b | 0 | 8 | 8 |
+| same_family_same_presentation | truly_avoidable | 68 | 13 | 81 |
+| same_family_same_presentation | unavoidable_due_score_band | 10 | 7 | 17 |
+| same_family_same_presentation | unavoidable_because_only_alternative_already_selected_in_set_b | 0 | 2 | 2 |
+| same_family_same_presentation | unavoidable_due_goal_condition_fit | 0 | 5 | 5 |
+| same_family_different_presentation | truly_avoidable | 0 | 30 | 30 |
+| same_family_different_presentation | unavoidable_due_score_band | 0 | 18 | 18 |
+| same_family_different_presentation | unavoidable_because_only_alternative_already_selected_in_set_b | 0 | 7 | 7 |
 
 ### Top True Set B Variety Examples
 
 | Scenario | Issue | Set A | Set B | Close alternative |
 | --- | --- | --- | --- | --- |
+| WV/VA highland reservoir<br>2025-11-08 clear big_fish | lure honorable: same_family_same_presentation | Magnum Jerkbait (160); Football Jig (134) | Paddle-Tail Swimbait (156); Compact Flipping Jig (126) | Medium-Diving Crankbait (162, alt edge 36) |
 | Lake Okeechobee / central FL bass lake<br>2025-12-12 clear big_fish | lure honorable: same_family_same_presentation | Soft Plastic Jerkbait (146); Football Jig (134) | Flat-Sided Crankbait (146); Compact Flipping Jig (126) | Suspending Jerkbait (156, alt edge 30) |
 | Lake Champlain<br>2025-10-12 clear big_fish | lure honorable: same_family_same_presentation | Magnum Jerkbait (160); Football Jig (134) | Medium-Diving Crankbait (162); Compact Flipping Jig (126) | Paddle-Tail Swimbait (156, alt edge 30) |
 | Lake of the Ozarks<br>2025-04-24 clear big_fish | lure honorable: same_family_same_presentation | Football Jig (140); Magnum Jerkbait (160) | Drop-Shot Minnow (158); Compact Flipping Jig (132) | Weightless Stick Worm (160, alt edge 28) |
@@ -530,13 +534,12 @@ Audit priority: top/honorable same-family on the same side is a hard invariant. 
 | Guntersville / Tennessee River reservoir<br>2025-04-11 clear big_fish | fly honorable: same_family_same_presentation | Articulated Dungeon Streamer (156); Game Changer (144) | Unweighted Baitfish Streamer (162); Articulated Baitfish Streamer (136) | Baitfish Slider Fly (162, alt edge 26) |
 | Guntersville / Tennessee River reservoir<br>2025-10-20 clear big_fish | lure honorable: same_family_same_presentation | Magnum Jerkbait (176); Football Jig (134) | Tube Jig (148); Compact Flipping Jig (126) | Drop-Shot Minnow (152, alt edge 26) |
 | Lake Okeechobee / central FL bass lake<br>2025-01-16 clear big_fish | lure honorable: same_family_same_presentation | Squarebill Crankbait (142); Football Jig (156) | Tube Jig (148); Compact Flipping Jig (132) | Suspending Jerkbait (156, alt edge 24) |
+| Colorado mountain-west reservoir<br>2025-04-23 dirty big_fish | lure top: same_family_same_presentation | Magnum Jerkbait (146); Compact Flipping Jig (140) | Football Jig (140); Paddle-Tail Swimbait (150) | Medium-Diving Crankbait (162, alt edge 22) |
+| Colorado mountain-west reservoir<br>2025-04-23 stained big_fish | lure top: same_family_same_presentation | Magnum Jerkbait (154); Compact Flipping Jig (140) | Football Jig (140); Paddle-Tail Swimbait (150) | Medium-Diving Crankbait (162, alt edge 22) |
+| Southwest high-desert reservoir<br>2025-10-14 dirty big_fish | lure top: same_family_same_presentation | Magnum Jerkbait (152); Compact Flipping Jig (134) | Football Jig (134); Medium-Diving Crankbait (162) | Paddle-Tail Swimbait (156, alt edge 22) |
+| Southwest high-desert reservoir<br>2025-10-14 stained big_fish | lure top: same_family_same_presentation | Magnum Jerkbait (160); Compact Flipping Jig (134) | Football Jig (134); Medium-Diving Crankbait (162) | Paddle-Tail Swimbait (156, alt edge 22) |
 | Lake Champlain<br>2025-10-12 stained big_fish | lure honorable: same_family_same_presentation | Magnum Jerkbait (160); Compact Flipping Jig (134) | Medium-Diving Crankbait (162); Football Jig (134) | Paddle-Tail Swimbait (156, alt edge 22) |
-| Southwest desert bass reservoir<br>2025-03-25 clear big_fish | lure honorable: same_family_same_presentation | Magnum Jerkbait (170); Football Jig (140) | Drop-Shot Minnow (168); Compact Flipping Jig (132) | Ned Rig (152, alt edge 20) |
-| Northern California bass lake<br>2025-03-30 clear big_fish | lure honorable: same_family_same_presentation | Football Jig (156); Magnum Jerkbait (170) | Medium-Diving Crankbait (162); Compact Flipping Jig (132) | Deep-Diving Crankbait (152, alt edge 20) |
-| Minnesota natural bass lake<br>2025-05-15 clear big_fish | lure honorable: same_family_same_presentation | Football Jig (140); Magnum Jerkbait (144) | Squarebill Crankbait (142); Compact Flipping Jig (132) | Medium-Diving Crankbait (152, alt edge 20) |
-| Lake of the Ozarks<br>2025-02-20 clear big_fish | lure honorable: same_family_same_presentation | Football Jig (170); Shaky-Head Worm (160) | Tube Jig (178); Compact Flipping Jig (146) | Ned Rig (166, alt edge 20) |
-| Jordan Lake / Piedmont reservoir<br>2025-03-22 clear big_fish | lure honorable: same_family_same_presentation | Football Jig (140); Magnum Jerkbait (170) | Medium-Diving Crankbait (162); Compact Flipping Jig (132) | Drop-Shot Minnow (152, alt edge 20) |
-| Lake Champlain<br>2025-04-27 clear big_fish | lure honorable: same_family_same_presentation | Magnum Jerkbait (170); Football Jig (156) | Medium-Diving Crankbait (162); Compact Flipping Jig (132) | Deep-Diving Crankbait (152, alt edge 20) |
+| WV/VA highland reservoir<br>2025-11-08 dirty big_fish | lure top: same_family_same_presentation | Magnum Jerkbait (152); Compact Flipping Jig (134) | Football Jig (134); Medium-Diving Crankbait (162) | Paddle-Tail Swimbait (156, alt edge 22) |
 
 ## Goal Contrast Diagnostics
 
@@ -550,7 +553,6 @@ Audit priority: top/honorable same-family on the same side is a hard invariant. 
 
 | Scenario | Side | Selected |
 | --- | --- | --- |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 clear B | lure | Paddle-Tail Swimbait; Medium-Diving Crankbait |
 | Guntersville / Tennessee River reservoir<br>2025-10-19 stained B | lure | Medium-Diving Crankbait; Lipless Crankbait |
 | Guntersville / Tennessee River reservoir<br>2025-10-19 dirty B | lure | Lipless Crankbait; Medium-Diving Crankbait |
 | Lake of the Ozarks<br>2025-11-11 clear B | lure | Medium-Diving Crankbait; Lipless Crankbait |
@@ -560,34 +562,25 @@ Audit priority: top/honorable same-family on the same side is a hard invariant. 
 | Illinois / Indiana natural-lake example<br>2025-10-18 stained B | lure | Lipless Crankbait; Medium-Diving Crankbait |
 | Illinois / Indiana natural-lake example<br>2025-10-18 dirty B | lure | Medium-Diving Crankbait; Lipless Crankbait |
 | Lake Champlain<br>2025-08-14 clear B | lure | Paddle-Tail Swimbait; Lipless Crankbait |
-| WV/VA highland reservoir<br>2025-11-08 stained B | lure | Lipless Crankbait; Medium-Diving Crankbait |
-| WV/VA highland reservoir<br>2025-11-08 dirty B | lure | Medium-Diving Crankbait; Lipless Crankbait |
 | Appalachian river LMB context<br>2025-04-04 stained B | lure | Medium-Diving Crankbait; Spinnerbait |
 | Appalachian river LMB context<br>2025-04-04 dirty B | lure | Medium-Diving Crankbait; Spinnerbait |
-| Appalachian river LMB context<br>2025-05-06 stained B | lure | Squarebill Crankbait; Medium-Diving Crankbait |
-| Appalachian river LMB context<br>2025-05-06 dirty B | lure | Flat-Sided Crankbait; Medium-Diving Crankbait |
+| Appalachian river LMB context<br>2025-05-06 clear B | lure | Flat-Sided Crankbait; Tube Jig |
+| Appalachian river LMB context<br>2025-05-06 stained B | lure | Tube Jig; Flat-Sided Crankbait |
+| Appalachian river LMB context<br>2025-05-06 dirty B | lure | Ned Rig; Flat-Sided Crankbait |
 | Colorado mountain-west reservoir<br>2025-08-12 clear B | lure | Soft Plastic Jerkbait; Suspending Jerkbait |
 | Colorado mountain-west reservoir<br>2025-10-05 stained B | lure | Medium-Diving Crankbait; Lipless Crankbait |
 | Colorado mountain-west reservoir<br>2025-10-05 dirty B | lure | Lipless Crankbait; Medium-Diving Crankbait |
-| Southwest desert bass reservoir<br>2025-06-28 stained B | lure | Drop-Shot Minnow; Bladed Jig |
-| Southwest desert bass reservoir<br>2025-06-28 dirty B | lure | Drop-Shot Minnow; Squarebill Crankbait |
-| Southwest desert bass reservoir<br>2025-08-21 stained B | lure | Medium-Diving Crankbait; Drop-Shot Minnow |
-| Southwest desert bass reservoir<br>2025-08-21 dirty B | lure | Lipless Crankbait; Drop-Shot Minnow |
-| Southwest high-desert reservoir<br>2025-08-23 clear A | lure | Medium-Diving Crankbait; Suspending Jerkbait |
-| Southwest high-desert reservoir<br>2025-10-14 stained B | lure | Lipless Crankbait; Medium-Diving Crankbait |
-| Southwest high-desert reservoir<br>2025-10-14 dirty B | lure | Lipless Crankbait; Medium-Diving Crankbait |
 
 ## Big Fish No-Upside Diagnostics
 
 | Selected no-upside profile | Count | Common close upside alternatives | Avg alt score edge |
 | --- | --- | --- | --- |
-| Medium-Diving Crankbait [lure] | 19 | Magnum Jerkbait (15), Compact Flipping Jig (3), Magnum Worm (1) | -3.5 |
-| Lipless Crankbait [lure] | 15 | Magnum Jerkbait (14), Magnum Worm (1) | 2.3 |
-| Drop-Shot Minnow [lure] | 4 | Magnum Worm (4) | 8 |
+| Medium-Diving Crankbait [lure] | 12 | Magnum Jerkbait (10), Compact Flipping Jig (2) | -5.3 |
+| Lipless Crankbait [lure] | 10 | Magnum Jerkbait (10) | 2.4 |
+| Flat-Sided Crankbait [lure] | 3 | Magnum Jerkbait (3) | 10 |
 | Spinnerbait [lure] | 2 | Compact Flipping Jig (2) | 6 |
-| Squarebill Crankbait [lure] | 2 | Magnum Jerkbait (1), Magnum Worm (1) | 12 |
-| Bladed Jig [lure] | 1 | Magnum Worm (1) | 10 |
-| Flat-Sided Crankbait [lure] | 1 | Compact Flipping Jig (1) | 14 |
+| Tube Jig [lure] | 2 | Magnum Jerkbait (2) | 12 |
+| Ned Rig [lure] | 1 | Magnum Jerkbait (1) | 16 |
 
 ## Pike Big Fish Upside Split Diagnostics
 
@@ -597,69 +590,68 @@ Not applicable.
 
 | Scenario | Warning | Selected side | Close fit alternative | Likely selector pressure |
 | --- | --- | --- | --- | --- |
-| Lake Okeechobee / central FL bass lake<br>2025-03-18 dirty all_purpose B | DIRTY_WIND_NOT_ELEVATING_VIBRATION (fly) | Clouser Minnow (146; goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12); Unweighted Baitfish Streamer (150; goal:all_purpose:versatile_search:+12) | Baitfish Slider Fly (158, alt edge 8) | goal fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 clear all_purpose A | WIND_NOT_ELEVATING_REACTION (lure) | Soft Plastic Jerkbait (202; condition_tag:clear_subtle:+16, condition_tag:open_water_search:+16, goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12); Carolina-Rigged Stick Worm (176; condition_tag:clear_subtle:+16, goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12) | Suspending Jerkbait (202, alt edge 0) | goal fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 clear big_fish A | WIND_NOT_ELEVATING_REACTION (fly) | Bluegill Streamer (162; goal:big_fish:big_fish_upside:+20); Game Changer (176; condition_tag:open_water_search:+16, goal:big_fish:big_fish_upside:+20) | Deceiver (172, alt edge -4) | goal fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 clear big_fish A | CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (fly) | Bluegill Streamer (162; goal:big_fish:big_fish_upside:+20); Game Changer (176; condition_tag:open_water_search:+16, goal:big_fish:big_fish_upside:+20) | Unweighted Baitfish Streamer (168, alt edge -8) | goal fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 clear big_fish B | CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (lure) | Paddle-Tail Swimbait (162; condition_tag:open_water_search:+16); Medium-Diving Crankbait (172; condition_tag:wind_reaction:+16, condition_tag:open_water_search:+16) | Suspending Jerkbait (172, alt edge 0) | other condition fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 clear big_fish B | WIND_NOT_ELEVATING_REACTION (fly) | Unweighted Baitfish Streamer (168; condition_tag:clear_subtle:+16, condition_tag:open_water_search:+16); Articulated Baitfish Streamer (168; condition_tag:open_water_search:+16, goal:big_fish:big_fish_upside:+20) | Deceiver (172, alt edge 4) | goal fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 stained all_purpose B | WIND_NOT_ELEVATING_REACTION (fly) | Clouser Minnow (186; condition_tag:open_water_search:+16, goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12); Game Changer (168; condition_tag:open_water_search:+16, goal:all_purpose:versatile_search:+12) | Deceiver (184, alt edge -2) | goal fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 stained big_fish A | WIND_NOT_ELEVATING_REACTION (lure) | Magnum Worm (134; goal:big_fish:big_fish_upside:+20); Compact Flipping Jig (150; condition_tag:dirty_vibration:+16, goal:big_fish:big_fish_upside:+20) | Lipless Crankbait (172, alt edge 22) | goal fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 stained big_fish B | WIND_NOT_ELEVATING_REACTION (fly) | Game Changer (176; condition_tag:open_water_search:+16, goal:big_fish:big_fish_upside:+20); Bluegill Streamer (162; goal:big_fish:big_fish_upside:+20) | Deceiver (172, alt edge -4) | goal fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 dirty big_fish A | WIND_NOT_ELEVATING_REACTION (lure) | Magnum Worm (134; goal:big_fish:big_fish_upside:+20); Compact Flipping Jig (150; condition_tag:dirty_vibration:+16, goal:big_fish:big_fish_upside:+20) | Lipless Crankbait (172, alt edge 22) | goal fit likely competed |
-| Lake Okeechobee / central FL bass lake<br>2025-08-18 dirty big_fish A | WIND_NOT_ELEVATING_REACTION (fly) | Game Changer (176; condition_tag:open_water_search:+16, goal:big_fish:big_fish_upside:+20); Bluegill Streamer (154; goal:big_fish:big_fish_upside:+20) | Deceiver (172, alt edge -4) | goal fit likely competed |
-| Sam Rayburn Reservoir<br>2025-02-11 clear all_purpose A | WIND_NOT_ELEVATING_REACTION (fly) | Game Changer (148; condition_tag:open_water_search:+16, goal:all_purpose:versatile_search:+12); Jighead Marabou Leech (146; goal:all_purpose:reliable_action:+18) | Deceiver (164, alt edge 16) | goal fit likely competed |
-| Sam Rayburn Reservoir<br>2025-02-11 clear all_purpose B | WIND_NOT_ELEVATING_REACTION (lure) | Deep-Diving Crankbait (164; condition_tag:open_water_search:+16, goal:all_purpose:versatile_search:+12); Tube Jig (164; goal:all_purpose:reliable_action:+18) | Suspending Jerkbait (166, alt edge 2) | goal fit likely competed |
-| Sam Rayburn Reservoir<br>2025-02-11 clear big_fish A | WIND_NOT_ELEVATING_REACTION (fly) | Articulated Dungeon Streamer (154; goal:big_fish:big_fish_upside:+20, goal:big_fish:high_risk_high_reward:+12); Game Changer (156; condition_tag:open_water_search:+16, goal:big_fish:big_fish_upside:+20) | Deceiver (152, alt edge -4) | goal fit likely competed |
-| Sam Rayburn Reservoir<br>2025-02-11 stained all_purpose A | WIND_NOT_ELEVATING_REACTION (fly) | Articulated Baitfish Streamer (154; condition_tag:open_water_search:+16, goal:all_purpose:versatile_search:+12); Clouser Minnow (166; condition_tag:open_water_search:+16, goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12) | Deceiver (164, alt edge -2) | goal fit likely competed |
-| Sam Rayburn Reservoir<br>2025-02-11 stained all_purpose B | WIND_NOT_ELEVATING_REACTION (lure) | Carolina-Rigged Stick Worm (170; goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12); Compact Flipping Jig (150; condition_tag:dirty_vibration:+16) | Suspending Jerkbait (166, alt edge -4) | goal fit likely competed |
-| Sam Rayburn Reservoir<br>2025-02-11 stained big_fish A | WIND_NOT_ELEVATING_REACTION (fly) | Rabbit-Strip Leech (148; goal:big_fish:big_fish_upside:+20); Articulated Baitfish Streamer (162; condition_tag:open_water_search:+16, goal:big_fish:big_fish_upside:+20) | Deceiver (152, alt edge -10) | goal fit likely competed |
-| Sam Rayburn Reservoir<br>2025-02-11 dirty all_purpose A | WIND_NOT_ELEVATING_REACTION (fly) | Lead-Eye Leech (146; goal:all_purpose:reliable_action:+18); Articulated Baitfish Streamer (154; condition_tag:open_water_search:+16, goal:all_purpose:versatile_search:+12) | Deceiver (164, alt edge 10) | goal fit likely competed |
-| Sam Rayburn Reservoir<br>2025-02-11 dirty all_purpose B | WIND_NOT_ELEVATING_REACTION (lure) | Deep-Diving Crankbait (164; condition_tag:open_water_search:+16, goal:all_purpose:versatile_search:+12); Bladed Jig (136; condition_tag:dirty_vibration:+16) | Medium-Diving Crankbait (158, alt edge -6) | goal fit likely competed |
-| Sam Rayburn Reservoir<br>2025-02-11 dirty big_fish B | WIND_NOT_ELEVATING_REACTION (fly) | Game Changer (156; condition_tag:open_water_search:+16, goal:big_fish:big_fish_upside:+20); Articulated Baitfish Streamer (162; condition_tag:open_water_search:+16, goal:big_fish:big_fish_upside:+20) | Deceiver (152, alt edge -10) | goal fit likely competed |
+| Lake Okeechobee / central FL bass lake<br>2025-08-18 clear big_fish A | CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE (fly) | Bluegill Streamer (162; goal:big_fish:big_fish_upside:+20); Articulated Baitfish Streamer (152; goal:big_fish:big_fish_upside:+20) | Unweighted Baitfish Streamer (152, alt edge -10) | goal fit likely competed |
 | Sam Rayburn Reservoir<br>2025-03-28 clear big_fish A | WIND_NOT_ELEVATING_REACTION (lure) | Magnum Jerkbait (154; goal:big_fish:big_fish_upside:+20); Football Jig (140; goal:big_fish:big_fish_upside:+20) | Medium-Diving Crankbait (162, alt edge 8) | goal fit likely competed |
 | Sam Rayburn Reservoir<br>2025-03-28 clear big_fish A | WIND_NOT_ELEVATING_REACTION (fly) | Game Changer (154; goal:big_fish:big_fish_upside:+20); Articulated Baitfish Streamer (146; goal:big_fish:big_fish_upside:+20) | Deceiver (150, alt edge -4) | goal fit likely competed |
 | Sam Rayburn Reservoir<br>2025-03-28 stained all_purpose A | WIND_NOT_ELEVATING_REACTION (fly) | Articulated Baitfish Streamer (146; goal:all_purpose:versatile_search:+12); Clouser Minnow (164; goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12) | Deceiver (162, alt edge -2) | goal fit likely competed |
 | Sam Rayburn Reservoir<br>2025-03-28 stained big_fish A | WIND_NOT_ELEVATING_REACTION (lure) | Compact Flipping Jig (156; condition_tag:dirty_vibration:+16, goal:big_fish:big_fish_upside:+20); Magnum Jerkbait (154; goal:big_fish:big_fish_upside:+20) | Medium-Diving Crankbait (162, alt edge 6) | goal fit likely competed |
 | Sam Rayburn Reservoir<br>2025-03-28 stained big_fish B | WIND_NOT_ELEVATING_REACTION (fly) | Articulated Baitfish Streamer (154; goal:big_fish:big_fish_upside:+20); Rabbit-Strip Leech (134; goal:big_fish:big_fish_upside:+20) | Deceiver (150, alt edge -4) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-03-28 dirty all_purpose A | WIND_NOT_ELEVATING_REACTION (lure) | Compact Flipping Jig (136; condition_tag:dirty_vibration:+16); Bladed Jig (150; condition_tag:dirty_vibration:+16) | Suspending Jerkbait (172, alt edge 22) | other condition fit likely competed |
+| Sam Rayburn Reservoir<br>2025-03-28 dirty big_fish B | WIND_NOT_ELEVATING_REACTION (lure) | Bladed Jig (150; condition_tag:dirty_vibration:+16); Football Jig (140; goal:big_fish:big_fish_upside:+20) | Medium-Diving Crankbait (162, alt edge 12) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-03-28 dirty big_fish B | WIND_NOT_ELEVATING_REACTION (fly) | Game Changer (154; goal:big_fish:big_fish_upside:+20); Articulated Baitfish Streamer (154; goal:big_fish:big_fish_upside:+20) | Deceiver (150, alt edge -4) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 clear all_purpose B | WIND_NOT_ELEVATING_REACTION (fly) | Unweighted Baitfish Streamer (158; goal:all_purpose:versatile_search:+12); Clouser Minnow (154; goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12) | Baitfish Slider Fly (174, alt edge 16) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 clear big_fish A | WIND_NOT_ELEVATING_REACTION (fly) | Game Changer (144; goal:big_fish:big_fish_upside:+20); Bluegill Streamer (152; goal:big_fish:big_fish_upside:+20) | Baitfish Slider Fly (162, alt edge 10) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 stained all_purpose A | WIND_NOT_ELEVATING_REACTION (lure) | Bladed Jig (140; condition_tag:dirty_vibration:+16); Flat-Sided Crankbait (152; goal:all_purpose:reliable_action:+18) | Squarebill Crankbait (174, alt edge 22) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 stained all_purpose A | WIND_NOT_ELEVATING_REACTION (fly) | Unweighted Baitfish Streamer (158; goal:all_purpose:versatile_search:+12); Clouser Minnow (154; goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12) | Baitfish Slider Fly (174, alt edge 16) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 stained big_fish A | WIND_NOT_ELEVATING_REACTION (lure) | Magnum Jerkbait (144; goal:big_fish:big_fish_upside:+20); Compact Flipping Jig (156; condition_tag:dirty_vibration:+16, goal:big_fish:big_fish_upside:+20) | Squarebill Crankbait (162, alt edge 6) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 stained big_fish A | WIND_NOT_ELEVATING_REACTION (fly) | Articulated Dungeon Streamer (164; goal:big_fish:big_fish_upside:+20, goal:big_fish:high_risk_high_reward:+12); Rabbit-Strip Leech (134; goal:big_fish:big_fish_upside:+20) | Baitfish Slider Fly (162, alt edge -2) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 stained big_fish B | WIND_NOT_ELEVATING_REACTION (fly) | Bluegill Streamer (152; goal:big_fish:big_fish_upside:+20); Game Changer (144; goal:big_fish:big_fish_upside:+20) | Baitfish Slider Fly (162, alt edge 10) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 dirty all_purpose B | DIRTY_WIND_NOT_ELEVATING_VIBRATION (fly) | Clouser Minnow (146; goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12); Unweighted Baitfish Streamer (150; goal:all_purpose:versatile_search:+12) | Baitfish Slider Fly (174, alt edge 24) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 dirty all_purpose B | WIND_NOT_ELEVATING_REACTION (fly) | Clouser Minnow (146; goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12); Unweighted Baitfish Streamer (150; goal:all_purpose:versatile_search:+12) | Baitfish Slider Fly (174, alt edge 24) | goal fit likely competed |
+| Sam Rayburn Reservoir<br>2025-05-10 dirty big_fish A | WIND_NOT_ELEVATING_REACTION (fly) | Articulated Dungeon Streamer (164; goal:big_fish:big_fish_upside:+20, goal:big_fish:high_risk_high_reward:+12); Rabbit-Strip Leech (134; goal:big_fish:big_fish_upside:+20) | Baitfish Slider Fly (162, alt edge -2) | goal fit likely competed |
+| Lake Fork<br>2025-03-29 clear all_purpose A | WIND_NOT_ELEVATING_REACTION (fly) | Clouser Minnow (164; goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12); Game Changer (146; goal:all_purpose:versatile_search:+12) | Baitfish Slider Fly (168, alt edge 4) | goal fit likely competed |
+| Lake Fork<br>2025-03-29 clear big_fish A | WIND_NOT_ELEVATING_REACTION (lure) | Magnum Jerkbait (154; goal:big_fish:big_fish_upside:+20); Compact Flipping Jig (132; goal:big_fish:big_fish_upside:+20) | Medium-Diving Crankbait (178, alt edge 24) | goal fit likely competed |
+| Lake Fork<br>2025-03-29 clear big_fish A | WIND_NOT_ELEVATING_REACTION (fly) | Articulated Baitfish Streamer (146; goal:big_fish:big_fish_upside:+20); Rabbit-Strip Leech (126; goal:big_fish:big_fish_upside:+20) | Baitfish Slider Fly (156, alt edge 10) | goal fit likely competed |
+| Lake Fork<br>2025-03-29 clear big_fish B | WIND_NOT_ELEVATING_REACTION (fly) | Game Changer (154; goal:big_fish:big_fish_upside:+20); Articulated Dungeon Streamer (154; goal:big_fish:big_fish_upside:+20, goal:big_fish:high_risk_high_reward:+12) | Baitfish Slider Fly (156, alt edge 2) | goal fit likely competed |
+| Lake Fork<br>2025-03-29 stained all_purpose A | WIND_NOT_ELEVATING_REACTION (fly) | Clouser Minnow (164; goal:all_purpose:reliable_action:+18, goal:all_purpose:versatile_search:+12); Articulated Baitfish Streamer (146; goal:all_purpose:versatile_search:+12) | Baitfish Slider Fly (168, alt edge 4) | goal fit likely competed |
+| Lake Fork<br>2025-03-29 stained big_fish A | WIND_NOT_ELEVATING_REACTION (lure) | Magnum Jerkbait (154; goal:big_fish:big_fish_upside:+20); Compact Flipping Jig (156; condition_tag:dirty_vibration:+16, goal:big_fish:big_fish_upside:+20) | Medium-Diving Crankbait (178, alt edge 22) | goal fit likely competed |
 
 ## Wind Warning Split Diagnostics
 
 | Wind warning split | Rows |
 | --- | --- |
-| dirty_vibration_acceptable | 95 |
-| clear_subtle_wind_watch | 73 |
-| current_open_water_acceptable | 22 |
-| other_wind_watch | 10 |
-| surface_low_light_acceptable | 4 |
+| dirty_vibration_acceptable | 60 |
+| clear_subtle_wind_watch | 44 |
+| current_open_water_acceptable | 13 |
+| other_wind_watch | 9 |
+| surface_low_light_acceptable | 3 |
 | true_dirty_stained_wind_miss | 1 |
 
 | Split | Scenario | Bucket/activity | Lure picks |
 | --- | --- | --- | --- |
-| clear_subtle_wind_watch | Lake Okeechobee / central FL bass lake<br>2025-08-18 all_purpose clear A | stable_pleasant_medium_confidence_archive<br>neutral | Soft Plastic Jerkbait 202<br>Carolina-Rigged Stick Worm 176 |
-| clear_subtle_wind_watch | Lake Okeechobee / central FL bass lake<br>2025-08-18 big_fish clear A | stable_pleasant_medium_confidence_archive<br>neutral | Magnum Worm 134<br>Suspending Jerkbait 172 |
-| clear_subtle_wind_watch | Lake Okeechobee / central FL bass lake<br>2025-08-18 big_fish clear B | stable_pleasant_medium_confidence_archive<br>neutral | Paddle-Tail Swimbait 162<br>Medium-Diving Crankbait 172 |
-| clear_subtle_wind_watch | Sam Rayburn Reservoir<br>2025-02-11 all_purpose clear A | stable_pleasant_medium_confidence_archive<br>active | Suspending Jerkbait 166<br>Carolina-Rigged Stick Worm 170 |
-| clear_subtle_wind_watch | Sam Rayburn Reservoir<br>2025-02-11 all_purpose clear B | stable_pleasant_medium_confidence_archive<br>active | Deep-Diving Crankbait 164<br>Tube Jig 164 |
-| current_open_water_acceptable | Lake Okeechobee / central FL bass lake<br>2025-08-18 all_purpose stained B | breezy_windy_stained_reaction<br>neutral | Suspending Jerkbait 186<br>Paddle-Tail Swimbait 174 |
-| current_open_water_acceptable | Sam Rayburn Reservoir<br>2025-02-11 all_purpose stained A | breezy_windy_stained_reaction<br>active | Blade Bait 174<br>Suspending Jerkbait 166 |
-| current_open_water_acceptable | Sam Rayburn Reservoir<br>2025-02-11 all_purpose dirty A | dirty_vibration<br>active | Carolina-Rigged Stick Worm 162<br>Medium-Diving Crankbait 158 |
-| current_open_water_acceptable | Sam Rayburn Reservoir<br>2025-02-11 big_fish dirty B | dirty_vibration<br>active | Lipless Crankbait 152<br>Football Jig 154 |
-| current_open_water_acceptable | Lake Fork<br>2025-06-15 all_purpose stained B | breezy_windy_stained_reaction<br>neutral | Suspending Jerkbait 186<br>Medium-Diving Crankbait 172 |
-| dirty_vibration_acceptable | Lake Okeechobee / central FL bass lake<br>2025-08-18 big_fish stained A | breezy_windy_stained_reaction<br>neutral | Magnum Worm 134<br>Compact Flipping Jig 150 |
-| dirty_vibration_acceptable | Lake Okeechobee / central FL bass lake<br>2025-08-18 big_fish stained B | breezy_windy_stained_reaction<br>neutral | Medium-Diving Crankbait 172<br>Buzzbait 150 |
-| dirty_vibration_acceptable | Lake Okeechobee / central FL bass lake<br>2025-08-18 big_fish dirty A | dirty_vibration<br>neutral | Magnum Worm 134<br>Compact Flipping Jig 150 |
-| dirty_vibration_acceptable | Sam Rayburn Reservoir<br>2025-02-11 all_purpose stained B | breezy_windy_stained_reaction<br>active | Carolina-Rigged Stick Worm 170<br>Compact Flipping Jig 150 |
-| dirty_vibration_acceptable | Sam Rayburn Reservoir<br>2025-02-11 big_fish stained A | breezy_windy_stained_reaction<br>active | Compact Flipping Jig 170<br>Medium-Diving Crankbait 158 |
+| clear_subtle_wind_watch | Sam Rayburn Reservoir<br>2025-03-28 big_fish clear A | cold_slow_or_front<br>active | Magnum Jerkbait 154<br>Football Jig 140 |
+| clear_subtle_wind_watch | Sam Rayburn Reservoir<br>2025-05-10 all_purpose clear B | stable_pleasant_medium_confidence_archive<br>neutral | Soft Plastic Jerkbait 164<br>Suspending Jerkbait 170 |
+| clear_subtle_wind_watch | Sam Rayburn Reservoir<br>2025-05-10 big_fish clear A | stable_pleasant_medium_confidence_archive<br>neutral | Medium-Diving Crankbait 140<br>Magnum Jerkbait 144 |
+| clear_subtle_wind_watch | Lake Fork<br>2025-03-29 all_purpose clear A | warming_search<br>neutral | Suspending Jerkbait 180<br>Drop-Shot Minnow 154 |
+| clear_subtle_wind_watch | Lake Fork<br>2025-03-29 big_fish clear A | warming_search<br>neutral | Magnum Jerkbait 154<br>Compact Flipping Jig 132 |
+| dirty_vibration_acceptable | Sam Rayburn Reservoir<br>2025-03-28 all_purpose stained A | breezy_windy_stained_reaction<br>active | Bladed Jig 150<br>Lipless Crankbait 150 |
+| dirty_vibration_acceptable | Sam Rayburn Reservoir<br>2025-03-28 big_fish stained A | breezy_windy_stained_reaction<br>active | Compact Flipping Jig 156<br>Magnum Jerkbait 154 |
+| dirty_vibration_acceptable | Sam Rayburn Reservoir<br>2025-03-28 all_purpose dirty A | dirty_vibration<br>active | Compact Flipping Jig 136<br>Bladed Jig 150 |
+| dirty_vibration_acceptable | Sam Rayburn Reservoir<br>2025-03-28 big_fish dirty B | dirty_vibration<br>active | Bladed Jig 150<br>Football Jig 140 |
+| dirty_vibration_acceptable | Sam Rayburn Reservoir<br>2025-05-10 all_purpose stained A | breezy_windy_stained_reaction<br>neutral | Bladed Jig 140<br>Flat-Sided Crankbait 152 |
 | other_wind_watch | Sam Rayburn Reservoir<br>2025-03-28 big_fish stained B | breezy_windy_stained_reaction<br>active | Medium-Diving Crankbait 162<br>Football Jig 140 |
 | other_wind_watch | Lake Fork<br>2025-03-29 all_purpose stained A | breezy_windy_stained_reaction<br>neutral | Paddle-Tail Swimbait 162<br>Suspending Jerkbait 180 |
 | other_wind_watch | Lake Fork<br>2025-03-29 big_fish stained B | breezy_windy_stained_reaction<br>neutral | Medium-Diving Crankbait 178<br>Football Jig 140 |
 | other_wind_watch | Santee Cooper<br>2025-05-18 all_purpose stained A | breezy_windy_stained_reaction<br>active | Suspending Jerkbait 170<br>Medium-Diving Crankbait 140 |
 | other_wind_watch | Jordan Lake / Piedmont reservoir<br>2025-03-22 all_purpose stained B | breezy_windy_stained_reaction<br>neutral | Suspending Jerkbait 180<br>Drop-Shot Minnow 154 |
 | surface_low_light_acceptable | Lake Fork<br>2025-04-30 all_purpose stained B | breezy_windy_stained_reaction<br>active | Suspending Jerkbait 170<br>Soft Plastic Jerkbait 164 |
-| surface_low_light_acceptable | Guntersville / Tennessee River reservoir<br>2025-06-07 big_fish dirty A | dirty_vibration<br>active | Hollow-Body Frog 162<br>Lipless Crankbait 172 |
 | surface_low_light_acceptable | Santee Cooper<br>2025-04-05 all_purpose stained A | breezy_windy_stained_reaction<br>active | Suspending Jerkbait 170<br>Lipless Crankbait 140 |
 | surface_low_light_acceptable | Minnesota natural bass lake<br>2025-07-16 all_purpose dirty A | dirty_vibration<br>neutral | Lipless Crankbait 172<br>Medium-Diving Crankbait 172 |
+| current_open_water_acceptable | Guntersville / Tennessee River reservoir<br>2025-10-19 big_fish stained B | breezy_windy_stained_reaction<br>neutral | Medium-Diving Crankbait 178<br>Lipless Crankbait 172 |
+| current_open_water_acceptable | Lake of the Ozarks<br>2025-11-11 all_purpose dirty B | dirty_vibration<br>neutral | Medium-Diving Crankbait 178<br>Lipless Crankbait 172 |
+| current_open_water_acceptable | Minnesota natural bass lake<br>2025-03-20 big_fish stained A | breezy_windy_stained_reaction<br>neutral | Football Jig 154<br>Magnum Jerkbait 162 |
+| current_open_water_acceptable | Lake Champlain<br>2025-08-14 big_fish stained B | breezy_windy_stained_reaction<br>active | Magnum Worm 134<br>Medium-Diving Crankbait 172 |
+| current_open_water_acceptable | Colorado mountain-west reservoir<br>2025-08-12 big_fish stained B | breezy_windy_stained_reaction<br>neutral | Paddle-Tail Swimbait 162<br>Magnum Worm 134 |
 | true_dirty_stained_wind_miss | Minnesota natural bass lake<br>2025-05-15 big_fish stained A | breezy_windy_stained_reaction<br>active | Football Jig 140<br>Magnum Jerkbait 144 |
 
 ## Guide Verdict Summary
@@ -667,102 +659,102 @@ Not applicable.
 | Exact pick verdict | Pick count |
 | --- | --- |
 | likely_miss | 0 |
-| watch | 672 |
-| acceptable_fit | 1158 |
-| strong_fit | 1722 |
+| watch | 579 |
+| acceptable_fit | 1488 |
+| strong_fit | 1485 |
 
 ### Bucketed Pick Verdict Counts
 
 | Verdict | Goal | Set | Side | Condition bucket | Pick count |
 | --- | --- | --- | --- | --- | --- |
-| watch | big_fish | A | fly | medium_confidence_archive | 180 |
-| watch | big_fish | A | lure | medium_confidence_archive | 112 |
-| watch | big_fish | B | fly | medium_confidence_archive | 108 |
-| watch | big_fish | B | lure | medium_confidence_archive | 96 |
-| watch | big_fish | A | fly | stable_pleasant_medium_confidence_archive | 66 |
-| watch | all_purpose | A | fly | medium_confidence_archive | 64 |
-| watch | big_fish | A | fly | cold_slow_or_front | 53 |
-| watch | big_fish | A | fly | dirty_vibration | 53 |
-| watch | big_fish | A | fly | breezy_windy_stained_reaction | 48 |
-| watch | all_purpose | A | lure | medium_confidence_archive | 43 |
-| watch | all_purpose | B | fly | medium_confidence_archive | 40 |
-| watch | big_fish | B | fly | stable_pleasant_medium_confidence_archive | 39 |
-| watch | big_fish | B | fly | breezy_windy_stained_reaction | 36 |
-| watch | big_fish | A | lure | warming_search | 34 |
-| watch | big_fish | A | fly | warming_search | 33 |
-| watch | big_fish | A | lure | stable_pleasant_medium_confidence_archive | 33 |
-| watch | big_fish | B | fly | dirty_vibration | 32 |
-| watch | big_fish | B | lure | stable_pleasant_medium_confidence_archive | 31 |
-| watch | all_purpose | B | lure | medium_confidence_archive | 29 |
-| watch | big_fish | B | fly | cold_slow_or_front | 29 |
-| watch | all_purpose | A | fly | stable_pleasant_medium_confidence_archive | 27 |
-| watch | all_purpose | A | lure | stable_pleasant_medium_confidence_archive | 26 |
-| watch | big_fish | B | lure | cold_slow_or_front | 25 |
-| watch | big_fish | A | lure | heat_limited_finesse | 23 |
-| watch | big_fish | A | fly | heat_limited_finesse | 22 |
-| watch | big_fish | B | fly | warming_search | 22 |
-| watch | big_fish | B | lure | dirty_vibration | 22 |
-| watch | big_fish | B | lure | heat_limited_finesse | 22 |
-| watch | all_purpose | A | fly | breezy_windy_stained_reaction | 20 |
-| watch | all_purpose | B | fly | cold_slow_or_front | 19 |
-| watch | big_fish | A | lure | breezy_windy_stained_reaction | 19 |
-| watch | big_fish | A | lure | cold_slow_or_front | 18 |
-| watch | all_purpose | A | fly | dirty_vibration | 17 |
-| watch | all_purpose | B | lure | stable_pleasant_medium_confidence_archive | 16 |
-| watch | big_fish | B | lure | breezy_windy_stained_reaction | 16 |
-| watch | big_fish | B | lure | warming_search | 16 |
+| watch | big_fish | A | fly | medium_confidence_archive | 148 |
+| watch | big_fish | A | lure | medium_confidence_archive | 104 |
+| watch | big_fish | B | fly | medium_confidence_archive | 83 |
+| watch | big_fish | B | lure | medium_confidence_archive | 83 |
+| watch | all_purpose | A | fly | medium_confidence_archive | 59 |
+| watch | big_fish | A | fly | stable_pleasant_medium_confidence_archive | 51 |
+| watch | big_fish | A | fly | cold_slow_or_front | 49 |
+| watch | all_purpose | A | lure | medium_confidence_archive | 41 |
+| watch | big_fish | A | fly | dirty_vibration | 38 |
+| watch | all_purpose | B | fly | medium_confidence_archive | 35 |
+| watch | big_fish | A | fly | breezy_windy_stained_reaction | 34 |
+| watch | big_fish | B | fly | stable_pleasant_medium_confidence_archive | 33 |
+| watch | big_fish | A | lure | warming_search | 31 |
+| watch | all_purpose | B | lure | medium_confidence_archive | 26 |
+| watch | all_purpose | A | fly | stable_pleasant_medium_confidence_archive | 25 |
+| watch | big_fish | B | fly | breezy_windy_stained_reaction | 25 |
+| watch | big_fish | B | lure | stable_pleasant_medium_confidence_archive | 25 |
+| watch | big_fish | A | lure | heat_limited_finesse | 24 |
+| watch | big_fish | B | lure | cold_slow_or_front | 24 |
+| watch | big_fish | A | lure | stable_pleasant_medium_confidence_archive | 23 |
+| watch | all_purpose | A | lure | stable_pleasant_medium_confidence_archive | 22 |
+| watch | big_fish | A | fly | warming_search | 22 |
+| watch | big_fish | A | lure | cold_slow_or_front | 22 |
+| watch | big_fish | B | fly | cold_slow_or_front | 21 |
+| watch | big_fish | B | fly | dirty_vibration | 21 |
+| watch | big_fish | A | fly | heat_limited_finesse | 20 |
+| watch | all_purpose | A | fly | breezy_windy_stained_reaction | 17 |
+| watch | all_purpose | B | fly | cold_slow_or_front | 17 |
+| watch | big_fish | B | lure | heat_limited_finesse | 17 |
 | watch | all_purpose | A | fly | cold_slow_or_front | 15 |
-| watch | big_fish | A | lure | dirty_vibration | 14 |
-| watch | all_purpose | A | lure | dirty_vibration | 13 |
-| watch | all_purpose | B | lure | breezy_windy_stained_reaction | 13 |
-| watch | big_fish | B | fly | heat_limited_finesse | 13 |
-| watch | all_purpose | A | fly | warming_search | 10 |
-| watch | all_purpose | B | fly | breezy_windy_stained_reaction | 10 |
-| watch | all_purpose | B | fly | dirty_vibration | 10 |
+| watch | big_fish | B | fly | warming_search | 15 |
+| watch | big_fish | B | lure | dirty_vibration | 15 |
+| watch | big_fish | B | lure | warming_search | 15 |
+| watch | all_purpose | B | lure | stable_pleasant_medium_confidence_archive | 14 |
+| watch | big_fish | A | lure | breezy_windy_stained_reaction | 13 |
+| watch | all_purpose | A | fly | dirty_vibration | 12 |
+| watch | big_fish | B | lure | breezy_windy_stained_reaction | 12 |
+| watch | all_purpose | A | lure | dirty_vibration | 11 |
+| watch | all_purpose | B | lure | breezy_windy_stained_reaction | 10 |
 | watch | big_fish | A | fly | calm_bright_clear_subtle | 10 |
-| watch | big_fish | A | fly | river_elevated_runoff_current | 10 |
+| watch | big_fish | A | lure | dirty_vibration | 10 |
+| watch | big_fish | A | fly | river_elevated_runoff_current | 9 |
 | watch | big_fish | B | fly | calm_bright_clear_subtle | 9 |
-| watch | all_purpose | A | fly | heat_limited_finesse | 8 |
-| watch | all_purpose | B | fly | stable_pleasant_medium_confidence_archive | 8 |
-| watch | all_purpose | B | lure | dirty_vibration | 8 |
+| watch | big_fish | B | fly | heat_limited_finesse | 9 |
+| watch | all_purpose | A | fly | warming_search | 8 |
+| watch | all_purpose | A | lure | river_elevated_runoff_current | 8 |
+| watch | all_purpose | B | fly | breezy_windy_stained_reaction | 8 |
 | watch | big_fish | A | lure | calm_low_light_surface | 8 |
-| watch | all_purpose | A | lure | river_elevated_runoff_current | 7 |
+| watch | all_purpose | A | fly | heat_limited_finesse | 7 |
 | watch | all_purpose | A | lure | warming_search | 7 |
-| watch | all_purpose | B | fly | warming_search | 6 |
+| watch | all_purpose | B | fly | dirty_vibration | 7 |
+| watch | all_purpose | B | fly | stable_pleasant_medium_confidence_archive | 7 |
+| watch | all_purpose | B | lure | dirty_vibration | 7 |
+| watch | big_fish | B | fly | river_elevated_runoff_current | 6 |
 | watch | big_fish | B | lure | calm_bright_clear_subtle | 6 |
 | watch | big_fish | B | lure | calm_low_light_surface | 6 |
 | watch | all_purpose | A | fly | calm_bright_clear_subtle | 5 |
-| watch | all_purpose | B | fly | heat_limited_finesse | 5 |
-| watch | all_purpose | B | lure | heat_limited_finesse | 5 |
+| watch | all_purpose | A | lure | cold_slow_or_front | 5 |
+| watch | all_purpose | A | lure | heat_limited_finesse | 5 |
+| watch | all_purpose | B | fly | warming_search | 5 |
 | watch | big_fish | A | fly | calm_low_light_surface | 5 |
 | watch | big_fish | B | fly | calm_low_light_surface | 5 |
 | watch | all_purpose | A | lure | breezy_windy_stained_reaction | 4 |
-| watch | all_purpose | A | lure | cold_slow_or_front | 4 |
-| watch | all_purpose | A | lure | heat_limited_finesse | 4 |
+| watch | all_purpose | B | fly | heat_limited_finesse | 4 |
 | watch | big_fish | A | lure | calm_bright_clear_subtle | 4 |
-| watch | big_fish | A | lure | river_elevated_runoff_current | 4 |
-| watch | big_fish | B | fly | river_elevated_runoff_current | 4 |
 | watch | all_purpose | A | fly | calm_low_light_surface | 3 |
 | watch | all_purpose | A | lure | calm_low_light_surface | 3 |
 | watch | all_purpose | B | fly | river_elevated_runoff_current | 3 |
+| watch | all_purpose | B | lure | cold_slow_or_front | 3 |
+| watch | all_purpose | B | lure | heat_limited_finesse | 3 |
 | watch | all_purpose | B | lure | river_elevated_runoff_current | 3 |
 | watch | all_purpose | B | lure | warming_search | 3 |
+| watch | big_fish | A | lure | river_elevated_runoff_current | 3 |
+| watch | all_purpose | A | fly | river_elevated_runoff_current | 2 |
 | watch | all_purpose | B | fly | calm_low_light_surface | 2 |
-| watch | all_purpose | B | lure | cold_slow_or_front | 2 |
-| watch | all_purpose | A | fly | river_elevated_runoff_current | 1 |
-| acceptable_fit | big_fish | B | lure | medium_confidence_archive | 228 |
-| acceptable_fit | big_fish | B | fly | medium_confidence_archive | 215 |
-| acceptable_fit | all_purpose | A | lure | medium_confidence_archive | 173 |
-| acceptable_fit | all_purpose | B | lure | medium_confidence_archive | 168 |
-| acceptable_fit | all_purpose | B | fly | medium_confidence_archive | 118 |
+| watch | big_fish | B | lure | river_elevated_runoff_current | 1 |
+| acceptable_fit | big_fish | B | fly | medium_confidence_archive | 263 |
+| acceptable_fit | big_fish | B | lure | medium_confidence_archive | 241 |
+| acceptable_fit | all_purpose | B | lure | medium_confidence_archive | 199 |
+| acceptable_fit | all_purpose | A | lure | medium_confidence_archive | 196 |
 
 ## Recalibrated All Purpose Risk Summary
 
 | Metric | Count |
 | --- | --- |
-| Old ALL_PURPOSE_OVER_SELECTING_HIGH_RISK warnings | 8 |
+| Old ALL_PURPOSE_OVER_SELECTING_HIGH_RISK warnings | 9 |
 | Risk-balance likely_miss picks | 0 |
-| Risk-balance watch picks | 8 |
+| Risk-balance watch picks | 9 |
 | All-purpose rows with 4/4 surface picks | 0 |
 | 4/4 surface rows with row-level watch/likely_miss | 0 |
 
@@ -776,46 +768,46 @@ None.
 | --- | --- | --- |
 | Northern California bass lake<br>2025-10-25 stained all_purpose A | Suspending Jerkbait (lure_of_the_day, lure, score 202) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+cold_slow+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 | Northern California bass lake<br>2025-10-25 dirty all_purpose A | Suspending Jerkbait (honorable_lure, lure, score 194) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit<br>low_light_surface+wind_reaction+dirty_vibration+cold_slow+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
-| Guntersville / Tennessee River reservoir<br>2025-06-07 dirty big_fish B | Buzzbait (lure_of_the_day, lure, score 190) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit, surface_window_strength<br>low_light_surface+wind_reaction+dirty_vibration+warming_search+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
-| Guntersville / Tennessee River reservoir<br>2025-06-07 stained big_fish A | Buzzbait (lure_of_the_day, lure, score 190) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit, surface_window_strength<br>low_light_surface+wind_reaction+dirty_vibration+warming_search+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 | Appalachian river LMB context<br>2025-09-29 dirty big_fish A | Buzzbait (lure_of_the_day, lure, score 190) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit, surface_window_strength<br>calm_surface+low_light_surface+dirty_vibration+warming_search+current_swing<br>Selected pick has active goal plus priority daily-condition fit. |
-| Guntersville / Tennessee River reservoir<br>2025-06-07 stained all_purpose A | Clouser Minnow (fly_of_the_day, fly, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+warming_search+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 | Northern California bass lake<br>2025-10-25 stained all_purpose B | Clouser Minnow (fly_of_the_day, fly, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+cold_slow+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 | Appalachian river LMB context<br>2025-09-29 stained all_purpose B | Clouser Minnow (fly_of_the_day, fly, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>calm_surface+low_light_surface+dirty_vibration+warming_search+current_swing<br>Selected pick has active goal plus priority daily-condition fit. |
-| Guntersville / Tennessee River reservoir<br>2025-06-07 dirty all_purpose A | Deceiver (fly_of_the_day, fly, score 184) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+warming_search+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 | Northern California bass lake<br>2025-10-25 dirty all_purpose B | Deceiver (fly_of_the_day, fly, score 184) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+cold_slow+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 | Northern California bass lake<br>2025-10-25 clear all_purpose A | Suspending Jerkbait (honorable_lure, lure, score 202) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+cold_slow+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
-| Southwest desert bass reservoir<br>2025-11-15 dirty big_fish A | Buzzbait (lure_of_the_day, lure, score 190) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit, surface_window_strength<br>low_light_surface+wind_reaction+dirty_vibration+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
-| Southwest desert bass reservoir<br>2025-11-15 stained big_fish A | Buzzbait (honorable_lure, lure, score 190) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit, surface_window_strength<br>low_light_surface+wind_reaction+dirty_vibration+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 | Minnesota natural bass lake<br>2025-07-16 dirty big_fish B | Buzzbait (lure_of_the_day, lure, score 190) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit, surface_window_strength<br>low_light_surface+wind_reaction+dirty_vibration+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 | Minnesota natural bass lake<br>2025-07-16 stained big_fish A | Buzzbait (lure_of_the_day, lure, score 190) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit, surface_window_strength<br>low_light_surface+wind_reaction+dirty_vibration+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 | Jordan Lake / Piedmont reservoir<br>2025-05-08 clear all_purpose A | Soft Plastic Jerkbait (lure_of_the_day, lure, score 190) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>calm_surface+low_light_surface+clear_subtle+warming_search<br>Selected pick has active goal plus priority daily-condition fit. |
-| Guntersville / Tennessee River reservoir<br>2025-06-07 clear all_purpose A | Clouser Minnow (honorable_fly, fly, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+warming_search+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
-| Guntersville / Tennessee River reservoir<br>2025-06-07 clear all_purpose B | Suspending Jerkbait (lure_of_the_day, lure, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+warming_search+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
-| Southwest desert bass reservoir<br>2025-11-15 stained all_purpose A | Clouser Minnow (fly_of_the_day, fly, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
-| Southwest desert bass reservoir<br>2025-11-15 stained all_purpose B | Suspending Jerkbait (honorable_lure, lure, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
+| Northern California bass lake<br>2025-10-25 clear all_purpose B | Clouser Minnow (honorable_fly, fly, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+cold_slow+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
+| Illinois / Indiana natural-lake example<br>2025-10-18 stained all_purpose A | Soft Plastic Jerkbait (lure_of_the_day, lure, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>wind_reaction+dirty_vibration+heat_finesse+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
+| Illinois / Indiana natural-lake example<br>2025-10-18 stained all_purpose A | Clouser Minnow (honorable_fly, fly, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>wind_reaction+dirty_vibration+heat_finesse+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
+| Minnesota natural bass lake<br>2025-07-16 stained all_purpose B | Suspending Jerkbait (lure_of_the_day, lure, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
+| Minnesota natural bass lake<br>2025-07-16 stained all_purpose B | Clouser Minnow (honorable_fly, fly, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
+| Appalachian river LMB context<br>2025-09-29 clear all_purpose A | Clouser Minnow (fly_of_the_day, fly, score 186) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>calm_surface+low_light_surface+warming_search+current_swing<br>Selected pick has active goal plus priority daily-condition fit. |
+| Northern California bass lake<br>2025-10-25 clear all_purpose B | Deceiver (fly_of_the_day, fly, score 184) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+cold_slow+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
+| Illinois / Indiana natural-lake example<br>2025-10-18 dirty all_purpose B | Deceiver (fly_of_the_day, fly, score 184) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>wind_reaction+dirty_vibration+heat_finesse+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
+| Illinois / Indiana natural-lake example<br>2025-10-18 stained all_purpose B | Deceiver (honorable_fly, fly, score 184) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, set_b_second_opinion_role, goal_fit, condition_fit, clarity_fit<br>wind_reaction+dirty_vibration+heat_finesse+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
+| Minnesota natural bass lake<br>2025-07-16 stained all_purpose A | Deceiver (fly_of_the_day, fly, score 184) | species_valid, seasonal_row_valid, water_type_valid, column_pace_valid, surface_gate_ok, goal_fit, condition_fit, clarity_fit<br>low_light_surface+wind_reaction+dirty_vibration+open_water_search<br>Selected pick has active goal plus priority daily-condition fit. |
 
 ## Condition Satisfaction Rates
 
 | Signal | Opportunities | Satisfied | Rate |
 | --- | --- | --- | --- |
-| wind_reaction | 1968 | 770 | 39% |
-| clear_subtle | 560 | 263 | 47% |
-| dirty_vibration | 1440 | 253 | 18% |
-| heat_finesse | 480 | 82 | 17% |
-| cold_slow | 432 | 214 | 50% |
-| low_light_surface | 720 | 220 | 31% |
+| wind_reaction | 1296 | 499 | 39% |
+| clear_subtle | 560 | 265 | 47% |
+| dirty_vibration | 960 | 172 | 18% |
+| heat_finesse | 480 | 92 | 19% |
+| cold_slow | 432 | 238 | 55% |
+| low_light_surface | 720 | 227 | 32% |
 | calm_surface | 1056 | 327 | 31% |
-| Big Fish upside | 1776 | 1374 | 77% |
-| All Purpose reliable/versatile | 1776 | 1607 | 90% |
+| Big Fish upside | 1776 | 1426 | 80% |
+| All Purpose reliable/versatile | 1776 | 1652 | 93% |
 
 ## Most-Selected Lures/Flies
 
 | Scope | Most selected |
 | --- | --- |
-| Overall | Game Changer [fly] (251), Baitfish Slider Fly [fly] (206), Articulated Baitfish Streamer [fly] (205), Clouser Minnow [fly] (173), Deceiver [fly] (173), Suspending Jerkbait [lure] (162), Compact Flipping Jig [lure] (160), Medium-Diving Crankbait [lure] (154), Soft Plastic Jerkbait [lure] (132), Magnum Jerkbait [lure] (119), Articulated Dungeon Streamer [fly] (113), Rabbit-Strip Leech [fly] (102) |
-| All-purpose | Clouser Minnow [fly] (171), Baitfish Slider Fly [fly] (148), Suspending Jerkbait [lure] (146), Soft Plastic Jerkbait [lure] (126), Deceiver [fly] (125), Paddle-Tail Swimbait [lure] (81), Popper Fly [fly] (70), Medium-Diving Crankbait [lure] (69) |
-| Big-fish | Game Changer [fly] (185), Compact Flipping Jig [lure] (156), Articulated Baitfish Streamer [fly] (154), Magnum Jerkbait [lure] (119), Articulated Dungeon Streamer [fly] (113), Rabbit-Strip Leech [fly] (90), Medium-Diving Crankbait [lure] (85), Walking Topwater [lure] (81) |
+| Overall | Game Changer [fly] (255), Articulated Baitfish Streamer [fly] (206), Clouser Minnow [fly] (177), Baitfish Slider Fly [fly] (169), Compact Flipping Jig [lure] (163), Suspending Jerkbait [lure] (154), Deceiver [fly] (142), Soft Plastic Jerkbait [lure] (138), Medium-Diving Crankbait [lure] (125), Rabbit-Strip Leech [fly] (124), Magnum Jerkbait [lure] (119), Articulated Dungeon Streamer [fly] (115) |
+| All-purpose | Clouser Minnow [fly] (175), Suspending Jerkbait [lure] (142), Baitfish Slider Fly [fly] (133), Soft Plastic Jerkbait [lure] (131), Deceiver [fly] (110), Paddle-Tail Swimbait [lure] (82), Popper Fly [fly] (72), Unweighted Baitfish Streamer [fly] (71) |
+| Big-fish | Game Changer [fly] (187), Compact Flipping Jig [lure] (160), Articulated Baitfish Streamer [fly] (157), Magnum Jerkbait [lure] (119), Articulated Dungeon Streamer [fly] (115), Rabbit-Strip Leech [fly] (111), Walking Topwater [lure] (83), Bluegill Streamer [fly] (81) |
 
 ## Profile Utilization Summary
 
@@ -828,105 +820,105 @@ None.
 
 | Profile | Gear | Selected/Opp | Rate | Goal | Set | Slot | Clarity | Water | Selected tags |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Game Changer<br>game_changer | fly | 251/888 | 28.3% | big_fish:185, all_purpose:66 | A:143, B:108 | honorable:143, top:108 | dirty:92, stained:80, clear:79 | freshwater_lake_pond:240, freshwater_river:11 | wind_reaction:149, dirty_vibration:110, open_water_search:91, warming_search:62 |
-| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 206/840 | 24.5% | all_purpose:148, big_fish:58 | B:117, A:89 | top:127, honorable:79 | dirty:80, clear:64, stained:62 | freshwater_lake_pond:194, freshwater_river:12 | wind_reaction:155, dirty_vibration:108, open_water_search:70, low_light_surface:51 |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 205/888 | 23.1% | big_fish:154, all_purpose:51 | A:115, B:90 | honorable:121, top:84 | dirty:83, stained:77, clear:45 | freshwater_lake_pond:194, freshwater_river:11 | wind_reaction:125, dirty_vibration:101, open_water_search:86, warming_search:46 |
-| Clouser Minnow<br>clouser_minnow | fly | 173/888 | 19.5% | all_purpose:171, big_fish:2 | B:104, A:69 | top:87, honorable:86 | stained:66, clear:60, dirty:47 | freshwater_lake_pond:161, freshwater_river:12 | wind_reaction:94, dirty_vibration:65, open_water_search:50, calm_surface:49 |
-| Deceiver<br>deceiver | fly | 173/888 | 19.5% | all_purpose:125, big_fish:48 | B:101, A:72 | top:102, honorable:71 | dirty:66, stained:60, clear:47 | freshwater_lake_pond:168, freshwater_river:5 | wind_reaction:156, dirty_vibration:110, open_water_search:91, warming_search:36 |
-| Suspending Jerkbait<br>suspending_jerkbait | lure | 162/888 | 18.2% | all_purpose:146, big_fish:16 | B:87, A:75 | top:90, honorable:72 | clear:70, stained:58, dirty:34 | freshwater_lake_pond:156, freshwater_river:6 | wind_reaction:109, dirty_vibration:63, open_water_search:57, calm_surface:38 |
-| Compact Flipping Jig<br>compact_flipping_jig | lure | 160/888 | 18% | big_fish:156, all_purpose:4 | A:97, B:63 | honorable:126, top:34 | dirty:67, stained:62, clear:31 | freshwater_lake_pond:149, freshwater_river:11 | wind_reaction:104, dirty_vibration:94, open_water_search:47, warming_search:29 |
-| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 154/888 | 17.3% | big_fish:85, all_purpose:69 | B:88, A:66 | top:91, honorable:63 | dirty:53, stained:51, clear:50 | freshwater_lake_pond:147, freshwater_river:7 | wind_reaction:139, dirty_vibration:97, open_water_search:77, warming_search:49 |
-| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 132/840 | 15.7% | all_purpose:126, big_fish:6 | A:74, B:58 | top:67, honorable:65 | clear:58, stained:45, dirty:29 | freshwater_lake_pond:125, freshwater_river:7 | wind_reaction:63, calm_surface:52, dirty_vibration:39, clear_subtle:36 |
-| Magnum Jerkbait<br>magnum_jerkbait | lure | 119/552 | 21.6% | big_fish:119 | A:101, B:18 | honorable:67, top:52 | clear:43, stained:41, dirty:35 | freshwater_lake_pond:112, freshwater_river:7 | wind_reaction:64, dirty_vibration:47, calm_surface:34, open_water_search:29 |
-| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 113/504 | 22.4% | big_fish:113 | B:63, A:50 | top:68, honorable:45 | dirty:39, stained:38, clear:36 | freshwater_lake_pond:113 | wind_reaction:70, dirty_vibration:52, open_water_search:29, cold_slow:22 |
-| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 102/888 | 11.5% | big_fish:90, all_purpose:12 | A:54, B:48 | honorable:84, top:18 | stained:41, dirty:39, clear:22 | freshwater_lake_pond:90, freshwater_river:12 | wind_reaction:52, dirty_vibration:51, cold_slow:33, heat_finesse:19 |
-| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 100/888 | 11.3% | all_purpose:81, big_fish:19 | A:50, B:50 | honorable:50, top:50 | dirty:44, stained:35, clear:21 | freshwater_lake_pond:97, freshwater_river:3 | warming_search:48, calm_surface:47, wind_reaction:43, open_water_search:33 |
-| Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 86/840 | 10.2% | all_purpose:69, big_fish:17 | B:44, A:42 | honorable:55, top:31 | clear:50, stained:19, dirty:17 | freshwater_lake_pond:86 | clear_subtle:46, calm_surface:35, wind_reaction:35, dirty_vibration:20 |
-| Squarebill Crankbait<br>squarebill_crankbait | lure | 84/840 | 10% | all_purpose:53, big_fish:31 | B:55, A:29 | top:44, honorable:40 | dirty:40, stained:29, clear:15 | freshwater_lake_pond:73, freshwater_river:11 | wind_reaction:62, dirty_vibration:53, low_light_surface:33, calm_surface:14 |
-| Walking Topwater<br>walking_topwater | lure | 82/528 | 15.5% | big_fish:81, all_purpose:1 | A:41, B:41 | top:61, honorable:21 | clear:30, stained:27, dirty:25 | freshwater_lake_pond:76, freshwater_river:6 | calm_surface:65, low_light_surface:34, warming_search:20, clear_subtle:17 |
-| Deer Hair Slider<br>deer_hair_slider | fly | 80/528 | 15.2% | big_fish:80 | A:46, B:34 | top:43, honorable:37 | clear:29, dirty:26, stained:25 | freshwater_lake_pond:74, freshwater_river:6 | calm_surface:54, low_light_surface:38, wind_reaction:26, warming_search:22 |
-| Bluegill Streamer<br>bluegill_streamer | fly | 76/408 | 18.6% | big_fish:75, all_purpose:1 | A:43, B:33 | top:44, honorable:32 | clear:31, stained:29, dirty:16 | freshwater_lake_pond:76 | calm_surface:40, wind_reaction:30, clear_subtle:20, open_water_search:17 |
-| Lipless Crankbait<br>lipless_crankbait | lure | 71/888 | 8% | big_fish:41, all_purpose:30 | B:44, A:27 | top:36, honorable:35 | dirty:31, stained:27, clear:13 | freshwater_lake_pond:71 | wind_reaction:69, open_water_search:62, dirty_vibration:56, warming_search:16 |
-| Popper Fly<br>popper_fly | fly | 70/456 | 15.4% | all_purpose:70 | A:35, B:35 | top:53, honorable:17 | clear:26, stained:23, dirty:21 | freshwater_lake_pond:68, freshwater_river:2 | calm_surface:56, low_light_surface:28, clear_subtle:17, wind_reaction:14 |
-| Football Jig<br>football_jig | lure | 68/360 | 18.9% | big_fish:68 | B:35, A:33 | honorable:41, top:27 | clear:28, stained:21, dirty:19 | freshwater_lake_pond:68 | wind_reaction:47, dirty_vibration:28, cold_slow:16, open_water_search:16 |
-| Wake Bait<br>wake_bait | lure | 64/372 | 17.2% | big_fish:61, all_purpose:3 | A:36, B:28 | top:53, honorable:11 | clear:22, stained:22, dirty:20 | freshwater_lake_pond:64 | calm_surface:53, low_light_surface:25, warming_search:15, clear_subtle:14 |
-| Drop-Shot Minnow<br>drop_shot_minnow | lure | 63/888 | 7.1% | all_purpose:46, big_fish:17 | B:37, A:26 | top:33, honorable:30 | clear:31, stained:19, dirty:13 | freshwater_lake_pond:59, freshwater_river:4 | heat_finesse:36, clear_subtle:26, calm_surface:24, wind_reaction:11 |
-| Swim Jig<br>swim_jig | lure | 59/888 | 6.6% | all_purpose:51, big_fish:8 | B:38, A:21 | honorable:34, top:25 | dirty:27, stained:24, clear:8 | freshwater_lake_pond:56, freshwater_river:3 | calm_surface:39, warming_search:35, low_light_surface:14, wind_reaction:12 |
-| Buzzbait<br>buzzbait | lure | 57/528 | 10.8% | big_fish:53, all_purpose:4 | B:33, A:24 | top:36, honorable:21 | stained:24, dirty:23, clear:10 | freshwater_lake_pond:48, freshwater_river:9 | low_light_surface:40, wind_reaction:37, dirty_vibration:34, calm_surface:20 |
-| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 56/840 | 6.7% | all_purpose:55, big_fish:1 | B:36, A:20 | top:29, honorable:27 | clear:33, stained:17, dirty:6 | freshwater_lake_pond:56 | calm_surface:26, clear_subtle:26, wind_reaction:15, cold_slow:14 |
-| Spinnerbait<br>spinnerbait | lure | 54/888 | 6.1% | all_purpose:35, big_fish:19 | B:30, A:24 | honorable:33, top:21 | dirty:31, stained:17, clear:6 | freshwater_lake_pond:45, freshwater_river:9 | dirty_vibration:47, wind_reaction:43, open_water_search:18, warming_search:13 |
-| Magnum Worm<br>magnum_worm | lure | 50/336 | 14.9% | big_fish:49, all_purpose:1 | A:27, B:23 | honorable:29, top:21 | clear:18, dirty:17, stained:15 | freshwater_lake_pond:50 | wind_reaction:27, open_water_search:21, heat_finesse:19, dirty_vibration:18 |
-| Woolly Bugger<br>woolly_bugger | fly | 49/888 | 5.5% | all_purpose:46, big_fish:3 | A:25, B:24 | honorable:35, top:14 | clear:17, stained:17, dirty:15 | freshwater_lake_pond:44, freshwater_river:5 | cold_slow:22, wind_reaction:19, dirty_vibration:17, heat_finesse:12 |
-| Weightless Stick Worm<br>weightless_stick_worm | lure | 46/288 | 16% | all_purpose:44, big_fish:2 | A:27, B:19 | honorable:25, top:21 | clear:20, dirty:17, stained:9 | freshwater_lake_pond:44, freshwater_river:2 | calm_surface:21, wind_reaction:21, clear_subtle:13, dirty_vibration:11 |
-| Tube Jig<br>tube_jig | lure | 44/888 | 5% | all_purpose:37, big_fish:7 | B:28, A:16 | honorable:23, top:21 | clear:28, stained:12, dirty:4 | freshwater_lake_pond:38, freshwater_river:6 | cold_slow:24, wind_reaction:19, clear_subtle:17, calm_surface:9 |
-| Foam Gurgler<br>foam_gurgler_fly | fly | 44/276 | 15.9% | all_purpose:44 | B:24, A:20 | top:35, honorable:9 | clear:15, dirty:15, stained:14 | freshwater_lake_pond:39, freshwater_river:5 | calm_surface:36, low_light_surface:14, warming_search:14, clear_subtle:8 |
-| Mouse Fly<br>mouse_fly | fly | 33/312 | 10.6% | big_fish:33 | A:17, B:16 | top:22, honorable:11 | clear:14, dirty:10, stained:9 | freshwater_lake_pond:33 | calm_surface:29, low_light_surface:14, clear_subtle:9, warming_search:8 |
-| Lead-Eye Leech<br>lead_eye_leech | fly | 30/888 | 3.4% | all_purpose:30 | A:21, B:9 | top:16, honorable:14 | clear:25, dirty:3, stained:2 | freshwater_lake_pond:30 | clear_subtle:23, calm_surface:11, heat_finesse:9, wind_reaction:8 |
-| Frog Fly<br>frog_fly | fly | 29/192 | 15.1% | big_fish:29 | A:15, B:14 | honorable:15, top:14 | dirty:11, clear:10, stained:8 | freshwater_lake_pond:29 | calm_surface:19, low_light_surface:17, wind_reaction:10, dirty_vibration:7 |
-| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 27/840 | 3.2% | all_purpose:16, big_fish:11 | B:15, A:12 | top:16, honorable:11 | clear:18, stained:5, dirty:4 | freshwater_lake_pond:25, freshwater_river:2 | clear_subtle:14, calm_surface:12, wind_reaction:12, cold_slow:7 |
-| Bladed Jig<br>bladed_jig | lure | 26/888 | 2.9% | all_purpose:21, big_fish:5 | A:15, B:11 | honorable:14, top:12 | dirty:15, stained:11 | freshwater_lake_pond:26 | dirty_vibration:25, wind_reaction:21, open_water_search:9, cold_slow:6 |
-| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 20/204 | 9.8% | all_purpose:20 | A:13, B:7 | top:12, honorable:8 | clear:8, stained:7, dirty:5 | freshwater_lake_pond:15, freshwater_river:5 | wind_reaction:15, dirty_vibration:11, cold_slow:8, clear_subtle:4 |
-| Jighead Marabou Leech<br>jighead_marabou_leech | fly | 19/888 | 2.1% | all_purpose:19 | A:11, B:8 | honorable:13, top:6 | stained:9, clear:7, dirty:3 | freshwater_lake_pond:16, freshwater_river:3 | cold_slow:13, wind_reaction:10, dirty_vibration:7, heat_finesse:3 |
-| Hollow-Body Frog<br>hollow_body_frog | lure | 19/192 | 9.9% | big_fish:19 | B:10, A:9 | top:15, honorable:4 | clear:7, dirty:7, stained:5 | freshwater_lake_pond:19 | calm_surface:15, low_light_surface:10, warming_search:6, clear_subtle:4 |
-| Blade Bait<br>blade_bait | lure | 18/888 | 2% | all_purpose:18 | A:13, B:5 | top:10, honorable:8 | dirty:9, stained:5, clear:4 | freshwater_lake_pond:18 | open_water_search:11, wind_reaction:11, dirty_vibration:8, cold_slow:6 |
-| Feather Jig Leech<br>feather_jig_leech | fly | 17/888 | 1.9% | all_purpose:16, big_fish:1 | B:9, A:8 | honorable:13, top:4 | clear:7, stained:6, dirty:4 | freshwater_lake_pond:10, freshwater_river:7 | warming_search:16, calm_surface:7, current_swing:7, dirty_vibration:6 |
-| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 16/840 | 1.9% | all_purpose:13, big_fish:3 | A:9, B:7 | honorable:8, top:8 | dirty:10, clear:4, stained:2 | freshwater_lake_pond:16 | wind_reaction:7, dirty_vibration:6, open_water_search:6, cold_slow:5 |
-| Ned Rig<br>ned_rig | lure | 14/396 | 3.5% | all_purpose:13, big_fish:1 | B:9, A:5 | honorable:8, top:6 | clear:8, dirty:5, stained:1 | freshwater_lake_pond:13, freshwater_river:1 | heat_finesse:7, cold_slow:6, wind_reaction:6, clear_subtle:4 |
-| Finesse Jig<br>finesse_jig | lure | 12/396 | 3% | all_purpose:12 | B:7, A:5 | honorable:9, top:3 | clear:8, stained:3, dirty:1 | freshwater_lake_pond:11, freshwater_river:1 | heat_finesse:6, clear_subtle:5, cold_slow:5, wind_reaction:4 |
-| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 9/396 | 2.3% | all_purpose:9 | B:7, A:2 | honorable:6, top:3 | clear:4, dirty:3, stained:2 | freshwater_lake_pond:8, freshwater_river:1 | cold_slow:5, clear_subtle:4, heat_finesse:4, wind_reaction:3 |
-| Glide Bait<br>glidebait | lure | 9/36 | 25% | big_fish:9 | B:6, A:3 | honorable:6, top:3 | clear:3, dirty:3, stained:3 | freshwater_lake_pond:9 | cold_slow:6, dirty_vibration:4, calm_surface:3, wind_reaction:3 |
+| Game Changer<br>game_changer | fly | 255/888 | 28.7% | big_fish:187, all_purpose:68 | A:146, B:109 | honorable:131, top:124 | dirty:93, stained:84, clear:78 | freshwater_lake_pond:243, freshwater_river:12 | wind_reaction:92, dirty_vibration:69, warming_search:58, calm_surface:57 |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 206/888 | 23.2% | big_fish:157, all_purpose:49 | A:120, B:86 | honorable:113, top:93 | dirty:89, stained:75, clear:42 | freshwater_lake_pond:194, freshwater_river:12 | wind_reaction:75, dirty_vibration:63, warming_search:48, open_water_search:47 |
+| Clouser Minnow<br>clouser_minnow | fly | 177/888 | 19.9% | all_purpose:175, big_fish:2 | B:105, A:72 | top:93, honorable:84 | stained:67, clear:61, dirty:49 | freshwater_lake_pond:166, freshwater_river:11 | wind_reaction:62, calm_surface:49, dirty_vibration:45, warming_search:44 |
+| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 169/840 | 20.1% | all_purpose:133, big_fish:36 | B:103, A:66 | top:95, honorable:74 | dirty:64, stained:53, clear:52 | freshwater_lake_pond:165, freshwater_river:4 | wind_reaction:96, dirty_vibration:67, low_light_surface:45, calm_surface:44 |
+| Compact Flipping Jig<br>compact_flipping_jig | lure | 163/888 | 18.4% | big_fish:160, all_purpose:3 | A:95, B:68 | honorable:128, top:35 | dirty:66, stained:60, clear:37 | freshwater_lake_pond:151, freshwater_river:12 | wind_reaction:70, dirty_vibration:63, warming_search:29, open_water_search:26 |
+| Suspending Jerkbait<br>suspending_jerkbait | lure | 154/888 | 17.3% | all_purpose:142, big_fish:12 | B:79, A:75 | top:92, honorable:62 | clear:62, stained:53, dirty:39 | freshwater_lake_pond:151, freshwater_river:3 | wind_reaction:73, dirty_vibration:43, calm_surface:38, warming_search:38 |
+| Deceiver<br>deceiver | fly | 142/888 | 16% | all_purpose:110, big_fish:32 | B:77, A:65 | top:78, honorable:64 | dirty:55, stained:47, clear:40 | freshwater_lake_pond:141, freshwater_river:1 | wind_reaction:103, dirty_vibration:71, open_water_search:50, warming_search:26 |
+| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 138/840 | 16.4% | all_purpose:131, big_fish:7 | A:79, B:59 | top:70, honorable:68 | clear:60, stained:49, dirty:29 | freshwater_lake_pond:131, freshwater_river:7 | calm_surface:52, wind_reaction:39, clear_subtle:37, low_light_surface:32 |
+| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 125/888 | 14.1% | big_fish:66, all_purpose:59 | B:80, A:45 | top:76, honorable:49 | dirty:45, stained:43, clear:37 | freshwater_lake_pond:121, freshwater_river:4 | wind_reaction:96, dirty_vibration:72, open_water_search:45, warming_search:45 |
+| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 124/888 | 14% | big_fish:111, all_purpose:13 | A:66, B:58 | honorable:101, top:23 | stained:49, dirty:46, clear:29 | freshwater_lake_pond:112, freshwater_river:12 | wind_reaction:36, dirty_vibration:35, cold_slow:34, warming_search:25 |
+| Magnum Jerkbait<br>magnum_jerkbait | lure | 119/552 | 21.6% | big_fish:119 | A:104, B:15 | honorable:61, top:58 | clear:43, stained:41, dirty:35 | freshwater_lake_pond:112, freshwater_river:7 | wind_reaction:47, calm_surface:34, dirty_vibration:32, warming_search:26 |
+| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 115/504 | 22.8% | big_fish:115 | B:68, A:47 | top:71, honorable:44 | dirty:39, stained:39, clear:37 | freshwater_lake_pond:115 | wind_reaction:57, dirty_vibration:39, warming_search:23, cold_slow:22 |
+| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 107/888 | 12% | all_purpose:82, big_fish:25 | B:54, A:53 | honorable:61, top:46 | dirty:50, stained:36, clear:21 | freshwater_lake_pond:103, freshwater_river:4 | warming_search:54, calm_surface:47, low_light_surface:30, wind_reaction:20 |
+| Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 88/840 | 10.5% | all_purpose:71, big_fish:17 | B:45, A:43 | honorable:57, top:31 | clear:53, dirty:18, stained:17 | freshwater_lake_pond:87, freshwater_river:1 | clear_subtle:46, calm_surface:35, wind_reaction:24, low_light_surface:22 |
+| Walking Topwater<br>walking_topwater | lure | 84/528 | 15.9% | big_fish:83, all_purpose:1 | A:44, B:40 | top:63, honorable:21 | clear:31, stained:27, dirty:26 | freshwater_lake_pond:78, freshwater_river:6 | calm_surface:65, low_light_surface:35, warming_search:20, clear_subtle:18 |
+| Bluegill Streamer<br>bluegill_streamer | fly | 82/408 | 20.1% | big_fish:81, all_purpose:1 | A:43, B:39 | top:53, honorable:29 | clear:31, stained:30, dirty:21 | freshwater_lake_pond:82 | calm_surface:40, clear_subtle:20, low_light_surface:17, warming_search:17 |
+| Deer Hair Slider<br>deer_hair_slider | fly | 81/528 | 15.3% | big_fish:80, all_purpose:1 | A:45, B:36 | top:45, honorable:36 | clear:29, dirty:26, stained:26 | freshwater_lake_pond:75, freshwater_river:6 | calm_surface:54, low_light_surface:39, warming_search:22, wind_reaction:17 |
+| Drop-Shot Minnow<br>drop_shot_minnow | lure | 76/888 | 8.6% | all_purpose:55, big_fish:21 | B:46, A:30 | top:44, honorable:32 | clear:35, stained:26, dirty:15 | freshwater_lake_pond:72, freshwater_river:4 | heat_finesse:40, clear_subtle:28, calm_surface:24, warming_search:11 |
+| Squarebill Crankbait<br>squarebill_crankbait | lure | 76/840 | 9% | all_purpose:48, big_fish:28 | B:50, A:26 | honorable:41, top:35 | dirty:36, stained:26, clear:14 | freshwater_lake_pond:68, freshwater_river:8 | wind_reaction:44, dirty_vibration:38, low_light_surface:33, calm_surface:14 |
+| Swim Jig<br>swim_jig | lure | 74/888 | 8.3% | all_purpose:64, big_fish:10 | B:45, A:29 | honorable:44, top:30 | dirty:32, stained:31, clear:11 | freshwater_lake_pond:71, freshwater_river:3 | warming_search:41, calm_surface:39, low_light_surface:18, none:13 |
+| Football Jig<br>football_jig | lure | 74/360 | 20.6% | big_fish:74 | A:37, B:37 | honorable:40, top:34 | clear:29, stained:23, dirty:22 | freshwater_lake_pond:74 | wind_reaction:40, dirty_vibration:23, warming_search:20, cold_slow:16 |
+| Popper Fly<br>popper_fly | fly | 73/456 | 16% | all_purpose:72, big_fish:1 | B:37, A:36 | top:53, honorable:20 | clear:27, stained:24, dirty:22 | freshwater_lake_pond:69, freshwater_river:4 | calm_surface:56, low_light_surface:31, clear_subtle:17, warming_search:13 |
+| Wake Bait<br>wake_bait | lure | 69/372 | 18.5% | big_fish:66, all_purpose:3 | A:36, B:33 | top:53, honorable:16 | stained:26, clear:23, dirty:20 | freshwater_lake_pond:69 | calm_surface:53, low_light_surface:25, warming_search:15, clear_subtle:14 |
+| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 62/840 | 7.4% | all_purpose:61, big_fish:1 | B:40, A:22 | honorable:33, top:29 | clear:36, stained:20, dirty:6 | freshwater_lake_pond:62 | calm_surface:26, clear_subtle:26, cold_slow:14, heat_finesse:12 |
+| Woolly Bugger<br>woolly_bugger | fly | 60/888 | 6.8% | all_purpose:57, big_fish:3 | B:34, A:26 | honorable:43, top:17 | stained:22, clear:20, dirty:18 | freshwater_lake_pond:52, freshwater_river:8 | cold_slow:24, wind_reaction:17, dirty_vibration:13, heat_finesse:12 |
+| Magnum Worm<br>magnum_worm | lure | 55/336 | 16.4% | big_fish:54, all_purpose:1 | B:28, A:27 | honorable:35, top:20 | dirty:20, clear:18, stained:17 | freshwater_lake_pond:55 | heat_finesse:24, calm_surface:16, none:13, clear_subtle:12 |
+| Buzzbait<br>buzzbait | lure | 54/528 | 10.2% | big_fish:49, all_purpose:5 | B:31, A:23 | top:35, honorable:19 | dirty:23, stained:21, clear:10 | freshwater_lake_pond:44, freshwater_river:10 | low_light_surface:41, dirty_vibration:24, calm_surface:20, wind_reaction:20 |
+| Tube Jig<br>tube_jig | lure | 49/888 | 5.5% | all_purpose:41, big_fish:8 | B:30, A:19 | top:26, honorable:23 | clear:29, stained:15, dirty:5 | freshwater_lake_pond:42, freshwater_river:7 | cold_slow:27, clear_subtle:17, wind_reaction:14, calm_surface:9 |
+| Weightless Stick Worm<br>weightless_stick_worm | lure | 49/288 | 17% | all_purpose:46, big_fish:3 | A:29, B:20 | top:26, honorable:23 | clear:20, dirty:19, stained:10 | freshwater_lake_pond:46, freshwater_river:3 | calm_surface:21, wind_reaction:15, clear_subtle:13, low_light_surface:12 |
+| Foam Gurgler<br>foam_gurgler_fly | fly | 45/276 | 16.3% | all_purpose:45 | B:24, A:21 | top:35, honorable:10 | clear:15, dirty:15, stained:15 | freshwater_lake_pond:39, freshwater_river:6 | calm_surface:36, low_light_surface:15, warming_search:14, clear_subtle:8 |
+| Lipless Crankbait<br>lipless_crankbait | lure | 41/888 | 4.6% | big_fish:26, all_purpose:15 | B:24, A:17 | honorable:22, top:19 | dirty:17, stained:15, clear:9 | freshwater_lake_pond:41 | wind_reaction:38, open_water_search:33, dirty_vibration:29, low_light_surface:7 |
+| Spinnerbait<br>spinnerbait | lure | 40/888 | 4.5% | all_purpose:22, big_fish:18 | B:23, A:17 | honorable:24, top:16 | dirty:24, stained:11, clear:5 | freshwater_lake_pond:33, freshwater_river:7 | dirty_vibration:32, wind_reaction:29, open_water_search:11, low_light_surface:9 |
+| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 35/840 | 4.2% | all_purpose:19, big_fish:16 | B:22, A:13 | top:18, honorable:17 | clear:21, stained:9, dirty:5 | freshwater_lake_pond:32, freshwater_river:3 | clear_subtle:16, calm_surface:12, cold_slow:11, wind_reaction:8 |
+| Mouse Fly<br>mouse_fly | fly | 34/312 | 10.9% | big_fish:34 | A:18, B:16 | top:23, honorable:11 | clear:15, dirty:10, stained:9 | freshwater_lake_pond:34 | calm_surface:29, low_light_surface:15, clear_subtle:9, warming_search:9 |
+| Lead-Eye Leech<br>lead_eye_leech | fly | 30/888 | 3.4% | all_purpose:30 | A:21, B:9 | honorable:17, top:13 | clear:25, dirty:3, stained:2 | freshwater_lake_pond:28, freshwater_river:2 | clear_subtle:22, calm_surface:11, cold_slow:9, heat_finesse:9 |
+| Frog Fly<br>frog_fly | fly | 28/192 | 14.6% | big_fish:28 | A:15, B:13 | honorable:14, top:14 | clear:10, dirty:10, stained:8 | freshwater_lake_pond:28 | calm_surface:19, low_light_surface:16, wind_reaction:9, clear_subtle:6 |
+| Feather Jig Leech<br>feather_jig_leech | fly | 27/888 | 3% | all_purpose:26, big_fish:1 | B:14, A:13 | honorable:21, top:6 | clear:12, stained:8, dirty:7 | freshwater_lake_pond:20, freshwater_river:7 | warming_search:22, calm_surface:7, current_swing:7, dirty_vibration:6 |
+| Ned Rig<br>ned_rig | lure | 23/396 | 5.8% | all_purpose:20, big_fish:3 | B:14, A:9 | honorable:14, top:9 | dirty:11, clear:10, stained:2 | freshwater_lake_pond:18, freshwater_river:5 | cold_slow:11, heat_finesse:7, wind_reaction:6, clear_subtle:4 |
+| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 22/204 | 10.8% | all_purpose:19, big_fish:3 | A:13, B:9 | top:14, honorable:8 | clear:9, stained:8, dirty:5 | freshwater_lake_pond:14, freshwater_river:8 | cold_slow:11, wind_reaction:11, dirty_vibration:8, clear_subtle:4 |
+| Blade Bait<br>blade_bait | lure | 21/888 | 2.4% | all_purpose:20, big_fish:1 | A:14, B:7 | top:11, honorable:10 | dirty:12, clear:5, stained:4 | freshwater_lake_pond:20, freshwater_river:1 | open_water_search:9, wind_reaction:9, cold_slow:6, dirty_vibration:5 |
+| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 20/840 | 2.4% | all_purpose:14, big_fish:6 | A:12, B:8 | honorable:14, top:6 | dirty:13, stained:4, clear:3 | freshwater_lake_pond:20 | cold_slow:7, none:5, warming_search:4, wind_reaction:4 |
+| Hollow-Body Frog<br>hollow_body_frog | lure | 19/192 | 9.9% | big_fish:19 | B:10, A:9 | top:15, honorable:4 | clear:7, dirty:6, stained:6 | freshwater_lake_pond:19 | calm_surface:15, low_light_surface:10, warming_search:6, clear_subtle:4 |
+| Jighead Marabou Leech<br>jighead_marabou_leech | fly | 18/888 | 2% | all_purpose:18 | A:12, B:6 | honorable:11, top:7 | stained:9, clear:7, dirty:2 | freshwater_lake_pond:16, freshwater_river:2 | cold_slow:14, wind_reaction:5, heat_finesse:3, dirty_vibration:2 |
+| Bladed Jig<br>bladed_jig | lure | 16/888 | 1.8% | all_purpose:13, big_fish:3 | A:10, B:6 | top:9, honorable:7 | dirty:10, stained:6 | freshwater_lake_pond:16 | dirty_vibration:15, wind_reaction:15, open_water_search:5, low_light_surface:3 |
+| Finesse Jig<br>finesse_jig | lure | 14/396 | 3.5% | all_purpose:14 | B:9, A:5 | honorable:9, top:5 | clear:8, stained:5, dirty:1 | freshwater_lake_pond:12, freshwater_river:2 | cold_slow:7, heat_finesse:6, clear_subtle:5, wind_reaction:3 |
+| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 9/396 | 2.3% | all_purpose:9 | B:7, A:2 | honorable:6, top:3 | clear:4, stained:3, dirty:2 | freshwater_lake_pond:9 | cold_slow:5, clear_subtle:4, heat_finesse:4, wind_reaction:2 |
+| Glide Bait<br>glidebait | lure | 9/36 | 25% | big_fish:9 | A:6, B:3 | top:5, honorable:4 | clear:3, dirty:3, stained:3 | freshwater_lake_pond:9 | cold_slow:6, calm_surface:3, none:3, clear_subtle:2 |
 | Shaky-Head Worm<br>shaky_head_worm | lure | 1/48 | 2.1% | big_fish:1 | A:1 | honorable:1 | clear:1 | freshwater_lake_pond:1 | clear_subtle:1, cold_slow:1 |
 
 ## Actual Recommendation Slot Share
 
 | Profile | Gear | Combined all slots | Top slots | Honorable slots | Lure-side slots | Fly-side slots | Flags |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Game Changer<br>game_changer | fly | 251/3552 (7.1%) | 108/1776 (6.1%) | 143/1776 (8.1%) | - | 251/1776 (14.1%) |  |
-| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 206/3552 (5.8%) | 127/1776 (7.2%) | 79/1776 (4.4%) | - | 206/1776 (11.6%) |  |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 205/3552 (5.8%) | 84/1776 (4.7%) | 121/1776 (6.8%) | - | 205/1776 (11.5%) |  |
-| Clouser Minnow<br>clouser_minnow | fly | 173/3552 (4.9%) | 87/1776 (4.9%) | 86/1776 (4.8%) | - | 173/1776 (9.7%) |  |
-| Deceiver<br>deceiver | fly | 173/3552 (4.9%) | 102/1776 (5.7%) | 71/1776 (4%) | - | 173/1776 (9.7%) |  |
-| Suspending Jerkbait<br>suspending_jerkbait | lure | 162/3552 (4.6%) | 90/1776 (5.1%) | 72/1776 (4.1%) | 162/1776 (9.1%) | - |  |
-| Compact Flipping Jig<br>compact_flipping_jig | lure | 160/3552 (4.5%) | 34/1776 (1.9%) | 126/1776 (7.1%) | 160/1776 (9%) | - |  |
-| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 154/3552 (4.3%) | 91/1776 (5.1%) | 63/1776 (3.5%) | 154/1776 (8.7%) | - |  |
-| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 132/3552 (3.7%) | 67/1776 (3.8%) | 65/1776 (3.7%) | 132/1776 (7.4%) | - |  |
-| Magnum Jerkbait<br>magnum_jerkbait | lure | 119/3552 (3.4%) | 52/1776 (2.9%) | 67/1776 (3.8%) | 119/1776 (6.7%) | - |  |
-| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 113/3552 (3.2%) | 68/1776 (3.8%) | 45/1776 (2.5%) | - | 113/1776 (6.4%) |  |
-| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 102/3552 (2.9%) | 18/1776 (1%) | 84/1776 (4.7%) | - | 102/1776 (5.7%) |  |
-| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 100/3552 (2.8%) | 50/1776 (2.8%) | 50/1776 (2.8%) | 100/1776 (5.6%) | - |  |
-| Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 86/3552 (2.4%) | 31/1776 (1.7%) | 55/1776 (3.1%) | - | 86/1776 (4.8%) |  |
-| Squarebill Crankbait<br>squarebill_crankbait | lure | 84/3552 (2.4%) | 44/1776 (2.5%) | 40/1776 (2.3%) | 84/1776 (4.7%) | - |  |
-| Walking Topwater<br>walking_topwater | lure | 82/3552 (2.3%) | 61/1776 (3.4%) | 21/1776 (1.2%) | 82/1776 (4.6%) | - |  |
-| Deer Hair Slider<br>deer_hair_slider | fly | 80/3552 (2.3%) | 43/1776 (2.4%) | 37/1776 (2.1%) | - | 80/1776 (4.5%) |  |
-| Bluegill Streamer<br>bluegill_streamer | fly | 76/3552 (2.1%) | 44/1776 (2.5%) | 32/1776 (1.8%) | - | 76/1776 (4.3%) |  |
-| Lipless Crankbait<br>lipless_crankbait | lure | 71/3552 (2%) | 36/1776 (2%) | 35/1776 (2%) | 71/1776 (4%) | - |  |
-| Popper Fly<br>popper_fly | fly | 70/3552 (2%) | 53/1776 (3%) | 17/1776 (1%) | - | 70/1776 (3.9%) |  |
-| Football Jig<br>football_jig | lure | 68/3552 (1.9%) | 27/1776 (1.5%) | 41/1776 (2.3%) | 68/1776 (3.8%) | - |  |
-| Wake Bait<br>wake_bait | lure | 64/3552 (1.8%) | 53/1776 (3%) | 11/1776 (0.6%) | 64/1776 (3.6%) | - |  |
-| Drop-Shot Minnow<br>drop_shot_minnow | lure | 63/3552 (1.8%) | 33/1776 (1.9%) | 30/1776 (1.7%) | 63/1776 (3.5%) | - |  |
-| Swim Jig<br>swim_jig | lure | 59/3552 (1.7%) | 25/1776 (1.4%) | 34/1776 (1.9%) | 59/1776 (3.3%) | - |  |
-| Buzzbait<br>buzzbait | lure | 57/3552 (1.6%) | 36/1776 (2%) | 21/1776 (1.2%) | 57/1776 (3.2%) | - |  |
-| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 56/3552 (1.6%) | 29/1776 (1.6%) | 27/1776 (1.5%) | 56/1776 (3.2%) | - |  |
-| Spinnerbait<br>spinnerbait | lure | 54/3552 (1.5%) | 21/1776 (1.2%) | 33/1776 (1.9%) | 54/1776 (3%) | - |  |
-| Magnum Worm<br>magnum_worm | lure | 50/3552 (1.4%) | 21/1776 (1.2%) | 29/1776 (1.6%) | 50/1776 (2.8%) | - |  |
-| Woolly Bugger<br>woolly_bugger | fly | 49/3552 (1.4%) | 14/1776 (0.8%) | 35/1776 (2%) | - | 49/1776 (2.8%) |  |
-| Weightless Stick Worm<br>weightless_stick_worm | lure | 46/3552 (1.3%) | 21/1776 (1.2%) | 25/1776 (1.4%) | 46/1776 (2.6%) | - |  |
-| Foam Gurgler<br>foam_gurgler_fly | fly | 44/3552 (1.2%) | 35/1776 (2%) | 9/1776 (0.5%) | - | 44/1776 (2.5%) |  |
-| Tube Jig<br>tube_jig | lure | 44/3552 (1.2%) | 21/1776 (1.2%) | 23/1776 (1.3%) | 44/1776 (2.5%) | - |  |
-| Mouse Fly<br>mouse_fly | fly | 33/3552 (0.9%) | 22/1776 (1.2%) | 11/1776 (0.6%) | - | 33/1776 (1.9%) |  |
-| Lead-Eye Leech<br>lead_eye_leech | fly | 30/3552 (0.8%) | 16/1776 (0.9%) | 14/1776 (0.8%) | - | 30/1776 (1.7%) |  |
-| Frog Fly<br>frog_fly | fly | 29/3552 (0.8%) | 14/1776 (0.8%) | 15/1776 (0.8%) | - | 29/1776 (1.6%) |  |
-| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 27/3552 (0.8%) | 16/1776 (0.9%) | 11/1776 (0.6%) | 27/1776 (1.5%) | - |  |
-| Bladed Jig<br>bladed_jig | lure | 26/3552 (0.7%) | 12/1776 (0.7%) | 14/1776 (0.8%) | 26/1776 (1.5%) | - |  |
-| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 20/3552 (0.6%) | 12/1776 (0.7%) | 8/1776 (0.5%) | - | 20/1776 (1.1%) |  |
-| Jighead Marabou Leech<br>jighead_marabou_leech | fly | 19/3552 (0.5%) | 6/1776 (0.3%) | 13/1776 (0.7%) | - | 19/1776 (1.1%) |  |
+| Game Changer<br>game_changer | fly | 255/3552 (7.2%) | 124/1776 (7%) | 131/1776 (7.4%) | - | 255/1776 (14.4%) |  |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 206/3552 (5.8%) | 93/1776 (5.2%) | 113/1776 (6.4%) | - | 206/1776 (11.6%) |  |
+| Clouser Minnow<br>clouser_minnow | fly | 177/3552 (5%) | 93/1776 (5.2%) | 84/1776 (4.7%) | - | 177/1776 (10%) |  |
+| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 169/3552 (4.8%) | 95/1776 (5.3%) | 74/1776 (4.2%) | - | 169/1776 (9.5%) |  |
+| Compact Flipping Jig<br>compact_flipping_jig | lure | 163/3552 (4.6%) | 35/1776 (2%) | 128/1776 (7.2%) | 163/1776 (9.2%) | - |  |
+| Suspending Jerkbait<br>suspending_jerkbait | lure | 154/3552 (4.3%) | 92/1776 (5.2%) | 62/1776 (3.5%) | 154/1776 (8.7%) | - |  |
+| Deceiver<br>deceiver | fly | 142/3552 (4%) | 78/1776 (4.4%) | 64/1776 (3.6%) | - | 142/1776 (8%) |  |
+| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 138/3552 (3.9%) | 70/1776 (3.9%) | 68/1776 (3.8%) | 138/1776 (7.8%) | - |  |
+| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 125/3552 (3.5%) | 76/1776 (4.3%) | 49/1776 (2.8%) | 125/1776 (7%) | - |  |
+| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 124/3552 (3.5%) | 23/1776 (1.3%) | 101/1776 (5.7%) | - | 124/1776 (7%) |  |
+| Magnum Jerkbait<br>magnum_jerkbait | lure | 119/3552 (3.4%) | 58/1776 (3.3%) | 61/1776 (3.4%) | 119/1776 (6.7%) | - |  |
+| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 115/3552 (3.2%) | 71/1776 (4%) | 44/1776 (2.5%) | - | 115/1776 (6.5%) |  |
+| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 107/3552 (3%) | 46/1776 (2.6%) | 61/1776 (3.4%) | 107/1776 (6%) | - |  |
+| Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 88/3552 (2.5%) | 31/1776 (1.7%) | 57/1776 (3.2%) | - | 88/1776 (5%) |  |
+| Walking Topwater<br>walking_topwater | lure | 84/3552 (2.4%) | 63/1776 (3.5%) | 21/1776 (1.2%) | 84/1776 (4.7%) | - |  |
+| Bluegill Streamer<br>bluegill_streamer | fly | 82/3552 (2.3%) | 53/1776 (3%) | 29/1776 (1.6%) | - | 82/1776 (4.6%) |  |
+| Deer Hair Slider<br>deer_hair_slider | fly | 81/3552 (2.3%) | 45/1776 (2.5%) | 36/1776 (2%) | - | 81/1776 (4.6%) |  |
+| Drop-Shot Minnow<br>drop_shot_minnow | lure | 76/3552 (2.1%) | 44/1776 (2.5%) | 32/1776 (1.8%) | 76/1776 (4.3%) | - |  |
+| Squarebill Crankbait<br>squarebill_crankbait | lure | 76/3552 (2.1%) | 35/1776 (2%) | 41/1776 (2.3%) | 76/1776 (4.3%) | - |  |
+| Football Jig<br>football_jig | lure | 74/3552 (2.1%) | 34/1776 (1.9%) | 40/1776 (2.3%) | 74/1776 (4.2%) | - |  |
+| Swim Jig<br>swim_jig | lure | 74/3552 (2.1%) | 30/1776 (1.7%) | 44/1776 (2.5%) | 74/1776 (4.2%) | - |  |
+| Popper Fly<br>popper_fly | fly | 73/3552 (2.1%) | 53/1776 (3%) | 20/1776 (1.1%) | - | 73/1776 (4.1%) |  |
+| Wake Bait<br>wake_bait | lure | 69/3552 (1.9%) | 53/1776 (3%) | 16/1776 (0.9%) | 69/1776 (3.9%) | - |  |
+| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 62/3552 (1.7%) | 29/1776 (1.6%) | 33/1776 (1.9%) | 62/1776 (3.5%) | - |  |
+| Woolly Bugger<br>woolly_bugger | fly | 60/3552 (1.7%) | 17/1776 (1%) | 43/1776 (2.4%) | - | 60/1776 (3.4%) |  |
+| Magnum Worm<br>magnum_worm | lure | 55/3552 (1.5%) | 20/1776 (1.1%) | 35/1776 (2%) | 55/1776 (3.1%) | - |  |
+| Buzzbait<br>buzzbait | lure | 54/3552 (1.5%) | 35/1776 (2%) | 19/1776 (1.1%) | 54/1776 (3%) | - |  |
+| Tube Jig<br>tube_jig | lure | 49/3552 (1.4%) | 26/1776 (1.5%) | 23/1776 (1.3%) | 49/1776 (2.8%) | - |  |
+| Weightless Stick Worm<br>weightless_stick_worm | lure | 49/3552 (1.4%) | 26/1776 (1.5%) | 23/1776 (1.3%) | 49/1776 (2.8%) | - |  |
+| Foam Gurgler<br>foam_gurgler_fly | fly | 45/3552 (1.3%) | 35/1776 (2%) | 10/1776 (0.6%) | - | 45/1776 (2.5%) |  |
+| Lipless Crankbait<br>lipless_crankbait | lure | 41/3552 (1.2%) | 19/1776 (1.1%) | 22/1776 (1.2%) | 41/1776 (2.3%) | - |  |
+| Spinnerbait<br>spinnerbait | lure | 40/3552 (1.1%) | 16/1776 (0.9%) | 24/1776 (1.4%) | 40/1776 (2.3%) | - |  |
+| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 35/3552 (1%) | 18/1776 (1%) | 17/1776 (1%) | 35/1776 (2%) | - |  |
+| Mouse Fly<br>mouse_fly | fly | 34/3552 (1%) | 23/1776 (1.3%) | 11/1776 (0.6%) | - | 34/1776 (1.9%) |  |
+| Lead-Eye Leech<br>lead_eye_leech | fly | 30/3552 (0.8%) | 13/1776 (0.7%) | 17/1776 (1%) | - | 30/1776 (1.7%) |  |
+| Frog Fly<br>frog_fly | fly | 28/3552 (0.8%) | 14/1776 (0.8%) | 14/1776 (0.8%) | - | 28/1776 (1.6%) |  |
+| Feather Jig Leech<br>feather_jig_leech | fly | 27/3552 (0.8%) | 6/1776 (0.3%) | 21/1776 (1.2%) | - | 27/1776 (1.5%) |  |
+| Ned Rig<br>ned_rig | lure | 23/3552 (0.6%) | 9/1776 (0.5%) | 14/1776 (0.8%) | 23/1776 (1.3%) | - |  |
+| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 22/3552 (0.6%) | 14/1776 (0.8%) | 8/1776 (0.5%) | - | 22/1776 (1.2%) |  |
+| Blade Bait<br>blade_bait | lure | 21/3552 (0.6%) | 11/1776 (0.6%) | 10/1776 (0.6%) | 21/1776 (1.2%) | - |  |
+| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 20/3552 (0.6%) | 6/1776 (0.3%) | 14/1776 (0.8%) | 20/1776 (1.1%) | - |  |
 | Hollow-Body Frog<br>hollow_body_frog | lure | 19/3552 (0.5%) | 15/1776 (0.8%) | 4/1776 (0.2%) | 19/1776 (1.1%) | - |  |
-| Blade Bait<br>blade_bait | lure | 18/3552 (0.5%) | 10/1776 (0.6%) | 8/1776 (0.5%) | 18/1776 (1%) | - |  |
-| Feather Jig Leech<br>feather_jig_leech | fly | 17/3552 (0.5%) | 4/1776 (0.2%) | 13/1776 (0.7%) | - | 17/1776 (1%) |  |
-| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 16/3552 (0.5%) | 8/1776 (0.5%) | 8/1776 (0.5%) | 16/1776 (0.9%) | - |  |
-| Ned Rig<br>ned_rig | lure | 14/3552 (0.4%) | 6/1776 (0.3%) | 8/1776 (0.5%) | 14/1776 (0.8%) | - |  |
-| Finesse Jig<br>finesse_jig | lure | 12/3552 (0.3%) | 3/1776 (0.2%) | 9/1776 (0.5%) | 12/1776 (0.7%) | - |  |
-| Glide Bait<br>glidebait | lure | 9/3552 (0.3%) | 3/1776 (0.2%) | 6/1776 (0.3%) | 9/1776 (0.5%) | - |  |
+| Jighead Marabou Leech<br>jighead_marabou_leech | fly | 18/3552 (0.5%) | 7/1776 (0.4%) | 11/1776 (0.6%) | - | 18/1776 (1%) |  |
+| Bladed Jig<br>bladed_jig | lure | 16/3552 (0.5%) | 9/1776 (0.5%) | 7/1776 (0.4%) | 16/1776 (0.9%) | - |  |
+| Finesse Jig<br>finesse_jig | lure | 14/3552 (0.4%) | 5/1776 (0.3%) | 9/1776 (0.5%) | 14/1776 (0.8%) | - |  |
+| Glide Bait<br>glidebait | lure | 9/3552 (0.3%) | 5/1776 (0.3%) | 4/1776 (0.2%) | 9/1776 (0.5%) | - |  |
 | Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 9/3552 (0.3%) | 3/1776 (0.2%) | 6/1776 (0.3%) | 9/1776 (0.5%) | - |  |
 | Shaky-Head Worm<br>shaky_head_worm | lure | 1/3552 (0%) | 0/1776 (0%) | 1/1776 (0.1%) | 1/1776 (0.1%) | - |  |
 
@@ -942,82 +934,84 @@ None.
 
 | Profile | Gear | Selected/Opp | Rate | Dominant goals | Dominant condition tags |
 | --- | --- | --- | --- | --- | --- |
-| Game Changer<br>game_changer | fly | 251/888 | 28.3% | big_fish:185, all_purpose:66 | wind_reaction:149, dirty_vibration:110, open_water_search:91, warming_search:62, calm_surface:57 |
+| Game Changer<br>game_changer | fly | 255/888 | 28.7% | big_fish:187, all_purpose:68 | wind_reaction:92, dirty_vibration:69, warming_search:58, calm_surface:57, open_water_search:48 |
 
 ## Overdominance Guardrail Summary
 
 | Profile | Gear | Trigger | Selected/Opp | Rate | Likely cause | Context |
 | --- | --- | --- | --- | --- | --- | --- |
-| Game Changer<br>game_changer | fly | home-window >30% severe | 53/168 | 31.5% | goal_tags:53 | AP/BF 16/84, 37/84<br>clarity clear:112, dirty:28, stained:28<br>bucket warming_search:68, stable_pleasant_medium_confidence_archive:40, calm_low_light_surface:28 |
-| Baitfish Slider Fly<br>baitfish_slider_fly | fly | home-window >25% overdominant | 41/156 | 26.3% | goal_tags:88 | AP/BF 33/78, 8/78<br>clarity clear:100, dirty:28, stained:28<br>bucket warming_search:64, stable_pleasant_medium_confidence_archive:32, calm_low_light_surface:28 |
-| Soft Plastic Jerkbait<br>soft_jerkbait | lure | home-window >25% overdominant | 34/132 | 25.8% | goal_tags:38 | AP/BF 29/66, 5/66<br>clarity clear:132<br>bucket calm_bright_clear_subtle:40, stable_pleasant_medium_confidence_archive:32, heat_limited_finesse:24 |
-| Football Jig<br>football_jig | lure | home-window >25% overdominant | 22/86 | 25.6% | goal_tags:41 | AP/BF 0/38, 22/48<br>clarity clear:68, stained:18<br>bucket cold_slow_or_front:48, calm_bright_clear_subtle:12, heat_limited_finesse:12 |
-| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | home-window >20% watch | 102/408 | 25% | goal_tags:199 | AP/BF 48/204, 54/204<br>clarity dirty:204, stained:204<br>bucket dirty_vibration:176, breezy_windy_stained_reaction:164, warming_search:28 |
-| Wake Bait<br>wake_bait | lure | home-window >20% watch | 63/252 | 25% | goal_tags:117 | AP/BF 3/126, 60/126<br>clarity clear:84, dirty:84, stained:84<br>bucket stable_pleasant_medium_confidence_archive:72, calm_low_light_surface:60, heat_limited_finesse:32 |
-| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | home-window >20% watch | 41/168 | 24.4% | goal_tags:82 | AP/BF 26/84, 15/84<br>clarity clear:112, dirty:28, stained:28<br>bucket warming_search:68, stable_pleasant_medium_confidence_archive:40, calm_low_light_surface:28 |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | home-window >20% watch | 39/168 | 23.2% | goal_tags:58 | AP/BF 7/84, 32/84<br>clarity clear:112, dirty:28, stained:28<br>bucket warming_search:68, stable_pleasant_medium_confidence_archive:40, calm_low_light_surface:28 |
-| Foam Gurgler<br>foam_gurgler_fly | fly | home-window >20% watch | 44/192 | 22.9% | goal_tags:90 | AP/BF 44/96, 0/96<br>clarity clear:64, dirty:64, stained:64<br>bucket stable_pleasant_medium_confidence_archive:72, warming_search:28, calm_low_light_surface:24 |
-| Bluegill Streamer<br>bluegill_streamer | fly | home-window >20% watch | 22/96 | 22.9% | goal_tags:48 | AP/BF 1/48, 21/48<br>clarity clear:56, dirty:20, stained:20<br>bucket warming_search:32, calm_low_light_surface:24, stable_pleasant_medium_confidence_archive:24 |
-| Clouser Minnow<br>clouser_minnow | fly | home-window >20% watch | 37/168 | 22% | goal_tags:74 | AP/BF 37/84, 0/84<br>clarity clear:112, dirty:28, stained:28<br>bucket warming_search:68, stable_pleasant_medium_confidence_archive:40, calm_low_light_surface:28 |
-| Walking Topwater<br>walking_topwater | lure | home-window >20% watch | 66/300 | 22% | goal_tags:141 | AP/BF 1/150, 65/150<br>clarity clear:100, dirty:100, stained:100<br>bucket stable_pleasant_medium_confidence_archive:76, calm_low_light_surface:72, warming_search:44 |
-| Compact Flipping Jig<br>compact_flipping_jig | lure | home-window >20% watch | 21/98 | 21.4% | goal_tags:50 | AP/BF 0/44, 21/54<br>clarity clear:80, stained:18<br>bucket cold_slow_or_front:52, calm_bright_clear_subtle:12, heat_limited_finesse:12 |
-| Deer Hair Slider<br>deer_hair_slider | fly | home-window >20% watch | 64/300 | 21.3% | goal_tags:168 | AP/BF 0/150, 64/150<br>clarity clear:100, dirty:100, stained:100<br>bucket stable_pleasant_medium_confidence_archive:76, calm_low_light_surface:72, warming_search:44 |
-| Popper Fly<br>popper_fly | fly | home-window >20% watch | 55/264 | 20.8% | goal_tags:123 | AP/BF 55/132, 0/132<br>clarity clear:88, dirty:88, stained:88<br>bucket stable_pleasant_medium_confidence_archive:76, calm_low_light_surface:60, heat_limited_finesse:32 |
+| Game Changer<br>game_changer | fly | home-window >30% severe | 51/168 | 30.4% | goal_tags:56 | AP/BF 16/84, 35/84<br>clarity clear:88, dirty:40, stained:40<br>bucket warming_search:92, calm_low_light_surface:28, stable_pleasant_medium_confidence_archive:20 |
+| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | home-window >25% overdominant | 48/168 | 28.6% | goal_tags:76 | AP/BF 30/84, 18/84<br>clarity clear:88, dirty:40, stained:40<br>bucket warming_search:92, calm_low_light_surface:28, stable_pleasant_medium_confidence_archive:20 |
+| Football Jig<br>football_jig | lure | home-window >25% overdominant | 28/102 | 27.5% | goal_tags:47 | AP/BF 0/42, 28/60<br>clarity clear:68, stained:34<br>bucket cold_slow_or_front:56, calm_bright_clear_subtle:12, heat_limited_finesse:12 |
+| Soft Plastic Jerkbait<br>soft_jerkbait | lure | home-window >25% overdominant | 35/132 | 26.5% | goal_tags:38 | AP/BF 29/66, 6/66<br>clarity clear:132<br>bucket calm_bright_clear_subtle:40, stable_pleasant_medium_confidence_archive:32, heat_limited_finesse:24 |
+| Wake Bait<br>wake_bait | lure | home-window >20% watch | 63/252 | 25% | goal_tags:117 | AP/BF 3/126, 60/126<br>clarity clear:84, dirty:84, stained:84<br>bucket stable_pleasant_medium_confidence_archive:72, calm_low_light_surface:60, warming_search:40 |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | home-window >20% watch | 41/168 | 24.4% | goal_tags:65 | AP/BF 10/84, 31/84<br>clarity clear:88, dirty:40, stained:40<br>bucket warming_search:92, calm_low_light_surface:28, stable_pleasant_medium_confidence_archive:20 |
+| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | home-window >20% watch | 83/344 | 24.1% | goal_tags:178 | AP/BF 43/172, 40/172<br>clarity dirty:172, stained:172<br>bucket dirty_vibration:116, breezy_windy_stained_reaction:108, warming_search:52 |
+| Baitfish Slider Fly<br>baitfish_slider_fly | fly | home-window >20% watch | 38/160 | 23.8% | goal_tags:96 | AP/BF 32/80, 6/80<br>clarity clear:80, dirty:40, stained:40<br>bucket warming_search:88, calm_low_light_surface:28, cold_slow_or_front:16 |
+| Compact Flipping Jig<br>compact_flipping_jig | lure | home-window >20% watch | 28/118 | 23.7% | goal_tags:58 | AP/BF 0/50, 28/68<br>clarity clear:80, stained:38<br>bucket cold_slow_or_front:64, warming_search:14, calm_bright_clear_subtle:12 |
+| Foam Gurgler<br>foam_gurgler_fly | fly | home-window >20% watch | 45/192 | 23.4% | goal_tags:92 | AP/BF 45/96, 0/96<br>clarity clear:64, dirty:64, stained:64<br>bucket stable_pleasant_medium_confidence_archive:76, warming_search:28, calm_low_light_surface:24 |
+| Bluegill Streamer<br>bluegill_streamer | fly | home-window >20% watch | 20/88 | 22.7% | goal_tags:44 | AP/BF 1/44, 19/44<br>clarity clear:40, dirty:24, stained:24<br>bucket warming_search:40, calm_low_light_surface:24, calm_bright_clear_subtle:8 |
+| Walking Topwater<br>walking_topwater | lure | home-window >20% watch | 66/300 | 22% | goal_tags:141 | AP/BF 1/150, 65/150<br>clarity clear:100, dirty:100, stained:100<br>bucket stable_pleasant_medium_confidence_archive:80, calm_low_light_surface:72, warming_search:52 |
+| Popper Fly<br>popper_fly | fly | home-window >20% watch | 58/264 | 22% | goal_tags:125 | AP/BF 57/132, 1/132<br>clarity clear:88, dirty:88, stained:88<br>bucket stable_pleasant_medium_confidence_archive:80, calm_low_light_surface:60, warming_search:40 |
+| Clouser Minnow<br>clouser_minnow | fly | home-window >20% watch | 36/168 | 21.4% | goal_tags:78 | AP/BF 36/84, 0/84<br>clarity clear:88, dirty:40, stained:40<br>bucket warming_search:92, calm_low_light_surface:28, stable_pleasant_medium_confidence_archive:20 |
+| Deer Hair Slider<br>deer_hair_slider | fly | home-window >20% watch | 64/300 | 21.3% | goal_tags:168 | AP/BF 0/150, 64/150<br>clarity clear:100, dirty:100, stained:100<br>bucket stable_pleasant_medium_confidence_archive:80, calm_low_light_surface:72, warming_search:52 |
+| Drop-Shot Minnow<br>drop_shot_minnow | lure | home-window >20% watch | 29/136 | 21.3% | goal_tags:74 | AP/BF 20/68, 9/68<br>clarity clear:136<br>bucket calm_bright_clear_subtle:44, stable_pleasant_medium_confidence_archive:32, heat_limited_finesse:24 |
 
 ## Slot Utilization Guardrails
 
 | Profile | Gear | Actual combined | Actual top | Actual honorable | Actual side | Home | Home top/HM | Flags |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Game Changer<br>game_changer | fly | 251/3552 (7.1%) | 108/1776 (6.1%) | 143/1776 (8.1%) | 251/1776 (14.1%) | 53/168 (31.5%) | 21/168 (12.5%) / 32/168 (19%) | home>20%<br>home>25%<br>home>30% |
-| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 206/3552 (5.8%) | 127/1776 (7.2%) | 79/1776 (4.4%) | 206/1776 (11.6%) | 41/156 (26.3%) | 20/156 (12.8%) / 21/156 (13.5%) | home>20%<br>home>25% |
-| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 132/3552 (3.7%) | 67/1776 (3.8%) | 65/1776 (3.7%) | 132/1776 (7.4%) | 34/132 (25.8%) | 24/132 (18.2%) / 10/132 (7.6%) | home>20%<br>home>25% |
-| Football Jig<br>football_jig | lure | 68/3552 (1.9%) | 27/1776 (1.5%) | 41/1776 (2.3%) | 68/1776 (3.8%) | 22/86 (25.6%) | 11/86 (12.8%) / 11/86 (12.8%) | home>20%<br>home>25% |
-| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 154/3552 (4.3%) | 91/1776 (5.1%) | 63/1776 (3.5%) | 154/1776 (8.7%) | 102/408 (25%) | 62/408 (15.2%) / 40/408 (9.8%) | home>20% |
-| Wake Bait<br>wake_bait | lure | 64/3552 (1.8%) | 53/1776 (3%) | 11/1776 (0.6%) | 64/1776 (3.6%) | 63/252 (25%) | 53/252 (21%) / 10/252 (4%) | home>20% |
-| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 100/3552 (2.8%) | 50/1776 (2.8%) | 50/1776 (2.8%) | 100/1776 (5.6%) | 41/168 (24.4%) | 18/168 (10.7%) / 23/168 (13.7%) | home>20% |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 205/3552 (5.8%) | 84/1776 (4.7%) | 121/1776 (6.8%) | 205/1776 (11.5%) | 39/168 (23.2%) | 17/168 (10.1%) / 22/168 (13.1%) | home>20% |
-| Bluegill Streamer<br>bluegill_streamer | fly | 76/3552 (2.1%) | 44/1776 (2.5%) | 32/1776 (1.8%) | 76/1776 (4.3%) | 22/96 (22.9%) | 11/96 (11.5%) / 11/96 (11.5%) | home>20% |
-| Foam Gurgler<br>foam_gurgler_fly | fly | 44/3552 (1.2%) | 35/1776 (2%) | 9/1776 (0.5%) | 44/1776 (2.5%) | 44/192 (22.9%) | 35/192 (18.2%) / 9/192 (4.7%) | home>20% |
-| Clouser Minnow<br>clouser_minnow | fly | 173/3552 (4.9%) | 87/1776 (4.9%) | 86/1776 (4.8%) | 173/1776 (9.7%) | 37/168 (22%) | 26/168 (15.5%) / 11/168 (6.5%) | home>20% |
-| Walking Topwater<br>walking_topwater | lure | 82/3552 (2.3%) | 61/1776 (3.4%) | 21/1776 (1.2%) | 82/1776 (4.6%) | 66/300 (22%) | 54/300 (18%) / 12/300 (4%) | home>20% |
-| Compact Flipping Jig<br>compact_flipping_jig | lure | 160/3552 (4.5%) | 34/1776 (1.9%) | 126/1776 (7.1%) | 160/1776 (9%) | 21/98 (21.4%) | 4/98 (4.1%) / 17/98 (17.3%) | home>20% |
-| Deer Hair Slider<br>deer_hair_slider | fly | 80/3552 (2.3%) | 43/1776 (2.4%) | 37/1776 (2.1%) | 80/1776 (4.5%) | 64/300 (21.3%) | 34/300 (11.3%) / 30/300 (10%) | home>20% |
-| Popper Fly<br>popper_fly | fly | 70/3552 (2%) | 53/1776 (3%) | 17/1776 (1%) | 70/1776 (3.9%) | 55/264 (20.8%) | 41/264 (15.5%) / 14/264 (5.3%) | home>20% |
+| Game Changer<br>game_changer | fly | 255/3552 (7.2%) | 124/1776 (7%) | 131/1776 (7.4%) | 255/1776 (14.4%) | 51/168 (30.4%) | 21/168 (12.5%) / 30/168 (17.9%) | home>20%<br>home>25%<br>home>30% |
+| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 107/3552 (3%) | 46/1776 (2.6%) | 61/1776 (3.4%) | 107/1776 (6%) | 48/168 (28.6%) | 19/168 (11.3%) / 29/168 (17.3%) | home>20%<br>home>25% |
+| Football Jig<br>football_jig | lure | 74/3552 (2.1%) | 34/1776 (1.9%) | 40/1776 (2.3%) | 74/1776 (4.2%) | 28/102 (27.5%) | 14/102 (13.7%) / 14/102 (13.7%) | home>20%<br>home>25% |
+| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 138/3552 (3.9%) | 70/1776 (3.9%) | 68/1776 (3.8%) | 138/1776 (7.8%) | 35/132 (26.5%) | 25/132 (18.9%) / 10/132 (7.6%) | home>20%<br>home>25% |
+| Wake Bait<br>wake_bait | lure | 69/3552 (1.9%) | 53/1776 (3%) | 16/1776 (0.9%) | 69/1776 (3.9%) | 63/252 (25%) | 53/252 (21%) / 10/252 (4%) | home>20% |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 206/3552 (5.8%) | 93/1776 (5.2%) | 113/1776 (6.4%) | 206/1776 (11.6%) | 41/168 (24.4%) | 21/168 (12.5%) / 20/168 (11.9%) | home>20% |
+| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 125/3552 (3.5%) | 76/1776 (4.3%) | 49/1776 (2.8%) | 125/1776 (7%) | 83/344 (24.1%) | 52/344 (15.1%) / 31/344 (9%) | home>20% |
+| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 169/3552 (4.8%) | 95/1776 (5.3%) | 74/1776 (4.2%) | 169/1776 (9.5%) | 38/160 (23.8%) | 17/160 (10.6%) / 21/160 (13.1%) | home>20% |
+| Compact Flipping Jig<br>compact_flipping_jig | lure | 163/3552 (4.6%) | 35/1776 (2%) | 128/1776 (7.2%) | 163/1776 (9.2%) | 28/118 (23.7%) | 4/118 (3.4%) / 24/118 (20.3%) | home>20% |
+| Foam Gurgler<br>foam_gurgler_fly | fly | 45/3552 (1.3%) | 35/1776 (2%) | 10/1776 (0.6%) | 45/1776 (2.5%) | 45/192 (23.4%) | 35/192 (18.2%) / 10/192 (5.2%) | home>20% |
+| Bluegill Streamer<br>bluegill_streamer | fly | 82/3552 (2.3%) | 53/1776 (3%) | 29/1776 (1.6%) | 82/1776 (4.6%) | 20/88 (22.7%) | 9/88 (10.2%) / 11/88 (12.5%) | home>20% |
+| Walking Topwater<br>walking_topwater | lure | 84/3552 (2.4%) | 63/1776 (3.5%) | 21/1776 (1.2%) | 84/1776 (4.7%) | 66/300 (22%) | 53/300 (17.7%) / 13/300 (4.3%) | home>20% |
+| Popper Fly<br>popper_fly | fly | 73/3552 (2.1%) | 53/1776 (3%) | 20/1776 (1.1%) | 73/1776 (4.1%) | 58/264 (22%) | 41/264 (15.5%) / 17/264 (6.4%) | home>20% |
+| Clouser Minnow<br>clouser_minnow | fly | 177/3552 (5%) | 93/1776 (5.2%) | 84/1776 (4.7%) | 177/1776 (10%) | 36/168 (21.4%) | 25/168 (14.9%) / 11/168 (6.5%) | home>20% |
+| Deer Hair Slider<br>deer_hair_slider | fly | 81/3552 (2.3%) | 45/1776 (2.5%) | 36/1776 (2%) | 81/1776 (4.6%) | 64/300 (21.3%) | 34/300 (11.3%) / 30/300 (10%) | home>20% |
+| Drop-Shot Minnow<br>drop_shot_minnow | lure | 76/3552 (2.1%) | 44/1776 (2.5%) | 32/1776 (1.8%) | 76/1776 (4.3%) | 29/136 (21.3%) | 15/136 (11%) / 14/136 (10.3%) | home>20% |
 
 ## Finalist Pool Diagnostics
 
-Average pre-expansion selected-tier pool size: 2.39.
-Average expanded finalist pool size: 3.64.
+Average pre-expansion selected-tier pool size: 2.50.
+Average expanded finalist pool size: 3.67.
 Minimum pre-expansion selected-tier pool size: 1.
 Minimum expanded finalist pool size: 1.
-Rows/slots with selected-tier pool size 1: 1345.
-Rows/slots with expanded finalist pool size 1: 511.
-Selected-tier singleton slots expanded above 1: 834.
+Rows/slots with selected-tier pool size 1: 1304.
+Rows/slots with expanded finalist pool size 1: 516.
+Selected-tier singleton slots expanded above 1: 788.
 
 | Side/slot | Avg selected-tier | Avg expanded | Min selected-tier | Min expanded | Selected-tier singletons | Expanded singletons |
 | --- | --- | --- | --- | --- | --- | --- |
-| fly/honorable | 2.11 | 3.49 | 1 | 1 | 374 | 136 |
-| fly/top | 2.29 | 3.34 | 1 | 1 | 312 | 127 |
-| lure/honorable | 2.81 | 3.88 | 1 | 1 | 286 | 99 |
-| lure/top | 2.36 | 3.86 | 1 | 1 | 373 | 149 |
+| fly/honorable | 2.18 | 3.52 | 1 | 1 | 378 | 143 |
+| fly/top | 2.31 | 3.30 | 1 | 1 | 308 | 130 |
+| lure/honorable | 2.98 | 3.94 | 1 | 1 | 272 | 102 |
+| lure/top | 2.54 | 3.92 | 1 | 1 | 346 | 141 |
 
 | Pre-expansion selected finalist tier | Slots |
 | --- | --- |
-| goal_and_priority_condition | 1945 |
-| goal_or_priority_condition | 1550 |
-| credible_fallback | 57 |
+| goal_and_priority_condition | 1767 |
+| goal_or_priority_condition | 1655 |
+| credible_fallback | 130 |
 
 | Expanded finalist tiers included | Slots |
 | --- | --- |
-| goal_or_priority_condition | 2839 |
-| goal_and_priority_condition | 1945 |
-| credible_fallback | 364 |
+| goal_or_priority_condition | 2774 |
+| goal_and_priority_condition | 1767 |
+| credible_fallback | 520 |
 
 | Expanded singleton cause | Slots |
 | --- | --- |
-| hard_gated_scarcity | 232 |
-| family_diversity_scarcity | 187 |
-| surface_safety_scarcity | 92 |
+| hard_gated_scarcity | 230 |
+| family_diversity_scarcity | 197 |
+| surface_safety_scarcity | 89 |
 
 Representative expanded singleton finalist pools:
 - fl_okeechobee__2025-01-16__freshwater_lake_pond__stained__all_purpose__B lure/top: suspending_jerkbait (goal_and_priority_condition; hard_gated_scarcity)
@@ -1026,7 +1020,6 @@ Representative expanded singleton finalist pools:
 - fl_okeechobee__2025-03-18__freshwater_lake_pond__clear__big_fish__B lure/top: flat_sided_crankbait (goal_or_priority_condition; hard_gated_scarcity)
 - fl_okeechobee__2025-03-18__freshwater_lake_pond__clear__big_fish__B lure/honorable: suspending_jerkbait (goal_or_priority_condition; family_diversity_scarcity)
 - fl_okeechobee__2025-03-18__freshwater_lake_pond__clear__big_fish__B fly/honorable: unweighted_baitfish_streamer (goal_or_priority_condition; family_diversity_scarcity)
-- fl_okeechobee__2025-03-18__freshwater_lake_pond__dirty__all_purpose__B lure/top: squarebill_crankbait (goal_and_priority_condition; hard_gated_scarcity)
 - fl_okeechobee__2025-03-18__freshwater_lake_pond__dirty__big_fish__B fly/top: baitfish_slider_fly (credible_fallback; hard_gated_scarcity)
 - fl_okeechobee__2025-03-19__freshwater_lake_pond__clear__all_purpose__B fly/honorable: unweighted_baitfish_streamer (goal_and_priority_condition; family_diversity_scarcity)
 - fl_okeechobee__2025-03-19__freshwater_lake_pond__clear__big_fish__B lure/honorable: glidebait (goal_and_priority_condition; family_diversity_scarcity)
@@ -1040,103 +1033,106 @@ Representative expanded singleton finalist pools:
 - fl_okeechobee__2025-06-20__freshwater_lake_pond__dirty__all_purpose__B fly/top: baitfish_slider_fly (goal_or_priority_condition; hard_gated_scarcity)
 - fl_okeechobee__2025-06-20__freshwater_lake_pond__dirty__all_purpose__B fly/honorable: clouser_minnow (goal_or_priority_condition; family_diversity_scarcity)
 - fl_okeechobee__2025-06-20__freshwater_lake_pond__dirty__big_fish__B fly/honorable: deer_hair_slider (goal_and_priority_condition; family_diversity_scarcity)
+- fl_okeechobee__2025-08-18__freshwater_lake_pond__clear__all_purpose__B lure/top: suspending_jerkbait (goal_and_priority_condition; surface_safety_scarcity)
 
 Set B finalist-pool novelty diagnostics:
 | Stage | Average pool size / slots |
 | --- | --- |
-| After exact-ID avoidance and hard/safety gates | 4.37 |
-| Different-presentation close candidates | 1.60 |
-| Different-family close candidates | 2.41 |
-| Final expanded Set B pool | 2.30 |
-| Same-family/same-presentation reintroduced | 58/1776 |
+| After exact-ID avoidance and hard/safety gates | 4.46 |
+| Different-presentation close candidates | 1.68 |
+| Different-family close candidates | 2.46 |
+| Final expanded Set B pool | 2.33 |
+| Same-family/same-presentation reintroduced | 66/1776 |
 
 ## Dirty/Stained Wind Coverage Pool Diagnostics
 
 | Metric | Value |
 | --- | --- |
-| Coverage rows checked | 360 |
-| Coverage pool used | 139 |
-| Average used coverage pool size | 4.27 |
+| Coverage rows checked | 240 |
+| Coverage pool used | 88 |
+| Average used coverage pool size | 4.06 |
 | Singleton used coverage pools | 1 |
-| Broad pool larger than narrowed pool | 67 |
-| Broad pool same as narrowed pool | 72 |
-| Spinnerbait/Lipless selected with 3+ other active candidates | 19 |
+| Broad pool larger than narrowed pool | 42 |
+| Broad pool same as narrowed pool | 46 |
+| Spinnerbait/Lipless selected with 3+ other active candidates | 9 |
 
 Coverage source:
 
 | Coverage source | Rows |
 | --- | --- |
-| none | 221 |
-| broad | 139 |
+| none | 152 |
+| broad | 88 |
 
 Top coverage-pool IDs by frequency:
 
 | Profile ID in coverage pool | Rows |
 | --- | --- |
-| spinnerbait | 107 |
-| bladed_jig | 95 |
-| medium_diving_crankbait | 89 |
-| squarebill_crankbait | 88 |
-| lipless_crankbait | 81 |
-| suspending_jerkbait | 72 |
-| compact_flipping_jig | 41 |
-| buzzbait | 21 |
+| spinnerbait | 64 |
+| bladed_jig | 59 |
+| squarebill_crankbait | 55 |
+| medium_diving_crankbait | 52 |
+| lipless_crankbait | 47 |
+| suspending_jerkbait | 41 |
+| compact_flipping_jig | 20 |
+| buzzbait | 19 |
 
 Selected coverage IDs by frequency:
 
 | Selected coverage ID | Rows |
 | --- | --- |
-| compact_flipping_jig | 37 |
-| spinnerbait | 22 |
-| medium_diving_crankbait | 18 |
-| squarebill_crankbait | 17 |
-| suspending_jerkbait | 14 |
-| lipless_crankbait | 10 |
-| bladed_jig | 9 |
+| compact_flipping_jig | 21 |
+| spinnerbait | 15 |
+| medium_diving_crankbait | 13 |
+| squarebill_crankbait | 13 |
+| buzzbait | 6 |
+| suspending_jerkbait | 6 |
 | magnum_jerkbait | 5 |
-| buzzbait | 4 |
+| lipless_crankbait | 4 |
+| bladed_jig | 3 |
 | magnum_worm | 2 |
-| football_jig | 1 |
 
 Spinnerbait/Lipless selected despite 3+ other active candidates:
 
-- fl_okeechobee__2025-08-18__freshwater_lake_pond__stained__all_purpose__A: Spinnerbait; pool lipless_crankbait, medium_diving_crankbait, spinnerbait, squarebill_crankbait, suspending_jerkbait
-- fl_okeechobee__2025-08-18__freshwater_lake_pond__dirty__all_purpose__A: Lipless Crankbait; pool bladed_jig, lipless_crankbait, medium_diving_crankbait, spinnerbait, squarebill_crankbait, suspending_jerkbait
-- fl_okeechobee__2025-08-18__freshwater_lake_pond__dirty__all_purpose__B: Spinnerbait; pool bladed_jig, medium_diving_crankbait, spinnerbait, squarebill_crankbait, suspending_jerkbait
 - tx_sam_rayburn__2025-05-10__freshwater_lake_pond__dirty__all_purpose__B: Spinnerbait; pool bladed_jig, lipless_crankbait, medium_diving_crankbait, spinnerbait, suspending_jerkbait
-- tx_lake_fork__2025-06-15__freshwater_lake_pond__dirty__all_purpose__A: Lipless Crankbait; pool bladed_jig, lipless_crankbait, medium_diving_crankbait, spinnerbait, squarebill_crankbait, suspending_jerkbait
-- al_guntersville__2025-06-07__freshwater_lake_pond__stained__all_purpose__A: Spinnerbait; pool lipless_crankbait, medium_diving_crankbait, spinnerbait, squarebill_crankbait, suspending_jerkbait
 - sc_santee_cooper__2025-04-05__freshwater_lake_pond__dirty__all_purpose__A: Spinnerbait; pool buzzbait, spinnerbait, squarebill_crankbait, suspending_jerkbait
 - mo_lake_ozarks__2025-11-11__freshwater_lake_pond__dirty__all_purpose__A: Spinnerbait; pool bladed_jig, lipless_crankbait, medium_diving_crankbait, spinnerbait, squarebill_crankbait, suspending_jerkbait
 - mn_minnetonka__2025-03-20__freshwater_lake_pond__dirty__all_purpose__B: Spinnerbait; pool bladed_jig, lipless_crankbait, medium_diving_crankbait, spinnerbait, suspending_jerkbait
 - mn_minnetonka__2025-05-15__freshwater_lake_pond__dirty__all_purpose__B: Spinnerbait; pool bladed_jig, lipless_crankbait, spinnerbait, squarebill_crankbait, suspending_jerkbait
+- wv_new_river__2025-09-29__freshwater_river__stained__all_purpose__A: Spinnerbait; pool bladed_jig, buzzbait, spinnerbait, squarebill_crankbait
+- ca_clear_lake__2025-08-16__freshwater_lake_pond__stained__big_fish__B: Lipless Crankbait; pool bladed_jig, lipless_crankbait, spinnerbait, squarebill_crankbait, suspending_jerkbait
+- ca_clear_lake__2025-08-16__freshwater_lake_pond__dirty__all_purpose__B: Lipless Crankbait; pool bladed_jig, lipless_crankbait, squarebill_crankbait, suspending_jerkbait
+- ca_castaic__2025-02-18__freshwater_lake_pond__dirty__all_purpose__B: Spinnerbait; pool bladed_jig, compact_flipping_jig, lipless_crankbait, spinnerbait, suspending_jerkbait
 
 ## Surface Safety Expansion Check
 
 | Surface gate | Slots checked | Selected surface picks | Surface finalist IDs |
 | --- | --- | --- | --- |
 | closed | 1440 | 0 | 0 |
-| caution | 624 | 10 | 6 |
+| caution | 624 | 12 | 15 |
 
 Caution-gate selected surface examples:
-- fl_okeechobee__2025-08-18__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
+- fl_okeechobee__2025-08-18__freshwater_lake_pond__stained__big_fish__B: honorable_lure:wake_bait
 - fl_okeechobee__2025-08-18__freshwater_lake_pond__dirty__big_fish__B: honorable_lure:buzzbait
 - tx_sam_rayburn__2025-05-10__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
-- tx_lake_fork__2025-06-15__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
+- tx_lake_fork__2025-06-15__freshwater_lake_pond__clear__big_fish__B: honorable_lure:wake_bait
+- tx_lake_fork__2025-06-15__freshwater_lake_pond__stained__big_fish__B: honorable_lure:wake_bait
 - tx_lake_fork__2025-06-15__freshwater_lake_pond__dirty__big_fish__B: honorable_lure:buzzbait
 - al_guntersville__2025-04-11__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
 - il_fox_chain__2025-06-14__freshwater_lake_pond__clear__big_fish__B: honorable_lure:wake_bait
-- co_pueblo__2025-06-22__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
-- co_pueblo__2025-06-22__freshwater_lake_pond__dirty__big_fish__B: honorable_lure:buzzbait
-- nm_elephant_butte__2025-08-23__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
+- co_pueblo__2025-06-22__freshwater_lake_pond__stained__big_fish__B: honorable_lure:wake_bait
+- nm_elephant_butte__2025-08-23__freshwater_lake_pond__clear__big_fish__B: honorable_lure:walking_topwater
 
 Caution-gate surface finalist examples:
+- fl_okeechobee__2025-08-18__freshwater_lake_pond__stained__big_fish__B lure/honorable: wake_bait, walking_topwater
 - tx_sam_rayburn__2025-05-10__freshwater_lake_pond__stained__big_fish__B lure/honorable: buzzbait
 - tx_sam_rayburn__2025-05-10__freshwater_lake_pond__dirty__big_fish__B lure/honorable: buzzbait
+- tx_lake_fork__2025-06-15__freshwater_lake_pond__clear__big_fish__B lure/honorable: wake_bait, walking_topwater
+- tx_lake_fork__2025-06-15__freshwater_lake_pond__stained__big_fish__B lure/honorable: wake_bait, walking_topwater
 - al_guntersville__2025-04-11__freshwater_lake_pond__stained__big_fish__B lure/honorable: buzzbait
 - il_fox_chain__2025-06-14__freshwater_lake_pond__clear__big_fish__B lure/honorable: wake_bait
-- co_pueblo__2025-06-22__freshwater_lake_pond__stained__big_fish__B lure/honorable: buzzbait
-- co_pueblo__2025-06-22__freshwater_lake_pond__dirty__big_fish__B lure/honorable: buzzbait
+- co_pueblo__2025-06-22__freshwater_lake_pond__stained__big_fish__B lure/honorable: wake_bait
+- nm_elephant_butte__2025-08-23__freshwater_lake_pond__clear__big_fish__B lure/honorable: wake_bait, walking_topwater
+- nm_elephant_butte__2025-08-23__freshwater_lake_pond__stained__big_fish__B lure/honorable: wake_bait, walking_topwater
 
 ## Tag Load And Stack Risk
 
@@ -1197,133 +1193,135 @@ Caution-gate surface finalist examples:
 
 | Profile | Gear | Signals | Selected/Opp | Home selected/opp | Stack risk flags |
 | --- | --- | --- | --- | --- | --- |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 7 | 205/888 | 39/168 | goal_tags>1<br>versatile_search+big_fish_upside<br>home-window share>20% |
-| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 8 | 113/504 | 0/0 | goal_tags>1 |
-| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 9 | 206/840 | 41/156 | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20%<br>home-window share>25% overdominant |
-| Bluegill Streamer<br>bluegill_streamer | fly | 7 | 76/408 | 22/96 | home-window share>20% |
-| Clouser Minnow<br>clouser_minnow | fly | 7 | 173/888 | 37/168 | goal_tags>1<br>home-window share>20% |
-| Deceiver<br>deceiver | fly | 7 | 173/888 | 33/168 | clear+stained+dirty clarity |
-| Deer Hair Slider<br>deer_hair_slider | fly | 8 | 80/528 | 64/300 | clear+stained+dirty clarity<br>home-window share>20% |
-| Feather Jig Leech<br>feather_jig_leech | fly | 7 | 17/888 | 0/0 | clear+stained+dirty clarity |
-| Foam Gurgler<br>foam_gurgler_fly | fly | 9 | 44/276 | 44/192 | clear+stained+dirty clarity<br>goal_tags>1<br>home-window share>20% |
-| Frog Fly<br>frog_fly | fly | 9 | 29/192 | 17/96 | clear+stained+dirty clarity<br>goal_tags>1<br>surface+calm+low_light+big_fish+high_risk |
-| Game Changer<br>game_changer | fly | 7 | 251/888 | 53/168 | clear+stained+dirty clarity<br>goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
-| Jighead Marabou Leech<br>jighead_marabou_leech | fly | 7 | 19/888 | 0/0 | clear+stained+dirty clarity |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 7 | 206/888 | 41/168 | goal_tags>1<br>versatile_search+big_fish_upside<br>home-window share>20% |
+| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 8 | 115/504 | 0/0 | goal_tags>1 |
+| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 9 | 169/840 | 38/160 | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20% |
+| Bluegill Streamer<br>bluegill_streamer | fly | 7 | 82/408 | 20/88 | home-window share>20% |
+| Clouser Minnow<br>clouser_minnow | fly | 7 | 177/888 | 36/168 | goal_tags>1<br>home-window share>20% |
+| Deceiver<br>deceiver | fly | 7 | 142/888 | 28/168 | clear+stained+dirty clarity |
+| Deer Hair Slider<br>deer_hair_slider | fly | 8 | 81/528 | 64/300 | clear+stained+dirty clarity<br>home-window share>20% |
+| Feather Jig Leech<br>feather_jig_leech | fly | 7 | 27/888 | 0/0 | clear+stained+dirty clarity |
+| Foam Gurgler<br>foam_gurgler_fly | fly | 9 | 45/276 | 45/192 | clear+stained+dirty clarity<br>goal_tags>1<br>home-window share>20% |
+| Frog Fly<br>frog_fly | fly | 9 | 28/192 | 16/96 | clear+stained+dirty clarity<br>goal_tags>1<br>surface+calm+low_light+big_fish+high_risk |
+| Game Changer<br>game_changer | fly | 7 | 255/888 | 51/168 | clear+stained+dirty clarity<br>goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
+| Jighead Marabou Leech<br>jighead_marabou_leech | fly | 7 | 18/888 | 0/0 | clear+stained+dirty clarity |
 | Lead-Eye Leech<br>lead_eye_leech | fly | 7 | 30/888 | 0/0 | clear+stained+dirty clarity |
-| Mouse Fly<br>mouse_fly | fly | 7 | 33/312 | 0/0 | goal_tags>1<br>surface+calm+low_light+big_fish+high_risk |
-| Popper Fly<br>popper_fly | fly | 8 | 70/456 | 55/264 | goal_tags>1<br>home-window share>20% |
-| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 7 | 102/888 | 42/260 | goal_tags>1<br>reliable_action+big_fish_upside |
-| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 7 | 20/204 | 12/68 | clear+stained+dirty clarity |
-| Woolly Bugger<br>woolly_bugger | fly | 7 | 49/888 | 29/236 | clear+stained+dirty clarity |
-| Blade Bait<br>blade_bait | lure | 7 | 18/888 | 0/0 | clear+stained+dirty clarity |
-| Buzzbait<br>buzzbait | lure | 9 | 57/528 | 35/300 | goal_tags>1<br>wind+dirty+big_fish_upside<br>wind+dirty+stained/dirty clarity |
-| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 8 | 56/840 | 40/256 | goal_tags>1 |
-| Compact Flipping Jig<br>compact_flipping_jig | lure | 7 | 160/888 | 21/98 | home-window share>20% |
-| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 8 | 16/840 | 9/376 | clear+stained+dirty clarity |
-| Football Jig<br>football_jig | lure | 7 | 68/360 | 22/86 | clear+stained+dirty clarity<br>home-window share>20%<br>home-window share>25% overdominant |
+| Mouse Fly<br>mouse_fly | fly | 7 | 34/312 | 0/0 | goal_tags>1<br>surface+calm+low_light+big_fish+high_risk |
+| Popper Fly<br>popper_fly | fly | 8 | 73/456 | 58/264 | goal_tags>1<br>home-window share>20% |
+| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 7 | 124/888 | 45/264 | goal_tags>1<br>reliable_action+big_fish_upside |
+| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 7 | 22/204 | 15/68 | clear+stained+dirty clarity |
+| Woolly Bugger<br>woolly_bugger | fly | 7 | 60/888 | 31/236 | clear+stained+dirty clarity |
+| Blade Bait<br>blade_bait | lure | 7 | 21/888 | 0/0 | clear+stained+dirty clarity |
+| Buzzbait<br>buzzbait | lure | 9 | 54/528 | 36/300 | goal_tags>1<br>wind+dirty+big_fish_upside<br>wind+dirty+stained/dirty clarity |
+| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 8 | 62/840 | 41/256 | goal_tags>1 |
+| Compact Flipping Jig<br>compact_flipping_jig | lure | 7 | 163/888 | 28/118 | home-window share>20% |
+| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 8 | 20/840 | 10/320 | clear+stained+dirty clarity |
+| Drop-Shot Minnow<br>drop_shot_minnow | lure | 7 | 76/888 | 29/136 | home-window share>20% |
+| Football Jig<br>football_jig | lure | 7 | 74/360 | 28/102 | clear+stained+dirty clarity<br>home-window share>20%<br>home-window share>25% overdominant |
 | Glide Bait<br>glidebait | lure | 9 | 9/36 | 0/0 | goal_tags>1 |
 | Hollow-Body Frog<br>hollow_body_frog | lure | 9 | 19/192 | 11/96 | clear+stained+dirty clarity<br>goal_tags>1<br>surface+calm+low_light+big_fish+high_risk |
-| Magnum Worm<br>magnum_worm | lure | 7 | 50/336 | 0/0 | clear+stained+dirty clarity |
-| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 8 | 154/888 | 102/408 | clear+stained+dirty clarity<br>home-window share>20% |
-| Ned Rig<br>ned_rig | lure | 9 | 14/396 | 8/124 | clear+stained+dirty clarity |
-| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 8 | 100/888 | 41/168 | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20% |
+| Magnum Worm<br>magnum_worm | lure | 7 | 55/336 | 0/0 | clear+stained+dirty clarity |
+| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 8 | 125/888 | 83/344 | clear+stained+dirty clarity<br>home-window share>20% |
+| Ned Rig<br>ned_rig | lure | 9 | 23/396 | 10/124 | clear+stained+dirty clarity |
+| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 8 | 107/888 | 48/168 | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20%<br>home-window share>25% overdominant |
 | Shaky-Head Worm<br>shaky_head_worm | lure | 8 | 1/48 | 1/8 | clear+stained+dirty clarity |
-| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 7 | 132/840 | 34/132 | goal_tags>1<br>home-window share>20%<br>home-window share>25% overdominant |
-| Spinnerbait<br>spinnerbait | lure | 7 | 54/888 | 47/408 | wind+dirty+stained/dirty clarity |
-| Squarebill Crankbait<br>squarebill_crankbait | lure | 8 | 84/840 | 54/384 | wind+dirty+versatile_search<br>wind+dirty+stained/dirty clarity |
-| Suspending Jerkbait<br>suspending_jerkbait | lure | 8 | 162/888 | 42/224 | goal_tags>1 |
-| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 9 | 9/396 | 5/88 | condition_tags>3<br>clear+stained+dirty clarity |
-| Wake Bait<br>wake_bait | lure | 9 | 64/372 | 63/252 | forage_tags>2<br>goal_tags>1<br>surface+calm+low_light+big_fish+high_risk<br>home-window share>20% |
-| Walking Topwater<br>walking_topwater | lure | 8 | 82/528 | 66/300 | goal_tags>1<br>surface+calm+low_light+big_fish+high_risk<br>home-window share>20% |
-| Weightless Stick Worm<br>weightless_stick_worm | lure | 8 | 46/288 | 12/52 | clear+stained+dirty clarity<br>goal_tags>1 |
+| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 7 | 138/840 | 35/132 | goal_tags>1<br>home-window share>20%<br>home-window share>25% overdominant |
+| Spinnerbait<br>spinnerbait | lure | 7 | 40/888 | 33/344 | wind+dirty+stained/dirty clarity |
+| Squarebill Crankbait<br>squarebill_crankbait | lure | 8 | 76/840 | 43/320 | wind+dirty+versatile_search<br>wind+dirty+stained/dirty clarity |
+| Suspending Jerkbait<br>suspending_jerkbait | lure | 8 | 154/888 | 38/224 | goal_tags>1 |
+| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 9 | 9/396 | 6/100 | condition_tags>3<br>clear+stained+dirty clarity |
+| Wake Bait<br>wake_bait | lure | 9 | 69/372 | 63/252 | forage_tags>2<br>goal_tags>1<br>surface+calm+low_light+big_fish+high_risk<br>home-window share>20% |
+| Walking Topwater<br>walking_topwater | lure | 8 | 84/528 | 66/300 | goal_tags>1<br>surface+calm+low_light+big_fish+high_risk<br>home-window share>20% |
+| Weightless Stick Worm<br>weightless_stick_worm | lure | 8 | 49/288 | 12/52 | clear+stained+dirty clarity<br>goal_tags>1 |
 
 ### Tag Load vs Selection Share
 
 | Profile | Gear | Signals | Overall selected/rate | Home selected/rate | AP/BF | Top/HM | Common selected buckets |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Game Changer<br>game_changer | fly | 7 | 251/888 (28.3%) | 53/168 (31.5%) | big_fish:185, all_purpose:66 | honorable:143, top:108 | wind_reaction:149, dirty_vibration:110, open_water_search:91, warming_search:62, calm_surface:57 |
-| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 9 | 206/840 (24.5%) | 41/156 (26.3%) | all_purpose:148, big_fish:58 | top:127, honorable:79 | wind_reaction:155, dirty_vibration:108, open_water_search:70, low_light_surface:51, warming_search:45 |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 7 | 205/888 (23.1%) | 39/168 (23.2%) | big_fish:154, all_purpose:51 | honorable:121, top:84 | wind_reaction:125, dirty_vibration:101, open_water_search:86, warming_search:46, calm_surface:43 |
-| Clouser Minnow<br>clouser_minnow | fly | 7 | 173/888 (19.5%) | 37/168 (22%) | all_purpose:171, big_fish:2 | top:87, honorable:86 | wind_reaction:94, dirty_vibration:65, open_water_search:50, calm_surface:49, warming_search:45 |
-| Deceiver<br>deceiver | fly | 7 | 173/888 (19.5%) | 33/168 (19.6%) | all_purpose:125, big_fish:48 | top:102, honorable:71 | wind_reaction:156, dirty_vibration:110, open_water_search:91, warming_search:36, low_light_surface:25 |
-| Suspending Jerkbait<br>suspending_jerkbait | lure | 8 | 162/888 (18.2%) | 42/224 (18.8%) | all_purpose:146, big_fish:16 | top:90, honorable:72 | wind_reaction:109, dirty_vibration:63, open_water_search:57, calm_surface:38, warming_search:38 |
-| Compact Flipping Jig<br>compact_flipping_jig | lure | 7 | 160/888 (18%) | 21/98 (21.4%) | big_fish:156, all_purpose:4 | honorable:126, top:34 | wind_reaction:104, dirty_vibration:94, open_water_search:47, warming_search:29, cold_slow:23 |
-| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 8 | 154/888 (17.3%) | 102/408 (25%) | big_fish:85, all_purpose:69 | top:91, honorable:63 | wind_reaction:139, dirty_vibration:97, open_water_search:77, warming_search:49, low_light_surface:19 |
-| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 7 | 132/840 (15.7%) | 34/132 (25.8%) | all_purpose:126, big_fish:6 | top:67, honorable:65 | wind_reaction:63, calm_surface:52, dirty_vibration:39, clear_subtle:36, open_water_search:35 |
-| Magnum Jerkbait<br>magnum_jerkbait | lure | 7 | 119/552 (21.6%) | 0/0 | big_fish:119 | honorable:67, top:52 | wind_reaction:64, dirty_vibration:47, calm_surface:34, open_water_search:29, warming_search:26 |
-| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 8 | 113/504 (22.4%) | 0/0 | big_fish:113 | top:68, honorable:45 | wind_reaction:70, dirty_vibration:52, open_water_search:29, cold_slow:22, warming_search:22 |
-| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 7 | 102/888 (11.5%) | 42/260 (16.2%) | big_fish:90, all_purpose:12 | honorable:84, top:18 | wind_reaction:52, dirty_vibration:51, cold_slow:33, heat_finesse:19, warming_search:18 |
-| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 8 | 100/888 (11.3%) | 41/168 (24.4%) | all_purpose:81, big_fish:19 | honorable:50, top:50 | warming_search:48, calm_surface:47, wind_reaction:43, open_water_search:33, dirty_vibration:31 |
-| Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 7 | 86/840 (10.2%) | 13/156 (8.3%) | all_purpose:69, big_fish:17 | honorable:55, top:31 | clear_subtle:46, calm_surface:35, wind_reaction:35, dirty_vibration:20, low_light_surface:20 |
-| Squarebill Crankbait<br>squarebill_crankbait | lure | 8 | 84/840 (10%) | 54/384 (14.1%) | all_purpose:53, big_fish:31 | top:44, honorable:40 | wind_reaction:62, dirty_vibration:53, low_light_surface:33, calm_surface:14, cold_slow:11 |
-| Walking Topwater<br>walking_topwater | lure | 8 | 82/528 (15.5%) | 66/300 (22%) | big_fish:81, all_purpose:1 | top:61, honorable:21 | calm_surface:65, low_light_surface:34, warming_search:20, clear_subtle:17, wind_reaction:17 |
-| Deer Hair Slider<br>deer_hair_slider | fly | 8 | 80/528 (15.2%) | 64/300 (21.3%) | big_fish:80 | top:43, honorable:37 | calm_surface:54, low_light_surface:38, wind_reaction:26, warming_search:22, dirty_vibration:19 |
-| Bluegill Streamer<br>bluegill_streamer | fly | 7 | 76/408 (18.6%) | 22/96 (22.9%) | big_fish:75, all_purpose:1 | top:44, honorable:32 | calm_surface:40, wind_reaction:30, clear_subtle:20, open_water_search:17, dirty_vibration:16 |
-| Lipless Crankbait<br>lipless_crankbait | lure | 5 | 71/888 (8%) | 56/408 (13.7%) | big_fish:41, all_purpose:30 | top:36, honorable:35 | wind_reaction:69, open_water_search:62, dirty_vibration:56, warming_search:16, low_light_surface:14 |
-| Popper Fly<br>popper_fly | fly | 8 | 70/456 (15.4%) | 55/264 (20.8%) | all_purpose:70 | top:53, honorable:17 | calm_surface:56, low_light_surface:28, clear_subtle:17, wind_reaction:14, warming_search:12 |
-| Football Jig<br>football_jig | lure | 7 | 68/360 (18.9%) | 22/86 (25.6%) | big_fish:68 | honorable:41, top:27 | wind_reaction:47, dirty_vibration:28, cold_slow:16, open_water_search:16, warming_search:15 |
-| Wake Bait<br>wake_bait | lure | 9 | 64/372 (17.2%) | 63/252 (25%) | big_fish:61, all_purpose:3 | top:53, honorable:11 | calm_surface:53, low_light_surface:25, warming_search:15, clear_subtle:14, wind_reaction:11 |
-| Drop-Shot Minnow<br>drop_shot_minnow | lure | 7 | 63/888 (7.1%) | 27/136 (19.9%) | all_purpose:46, big_fish:17 | top:33, honorable:30 | heat_finesse:36, clear_subtle:26, calm_surface:24, wind_reaction:11, warming_search:9 |
-| Swim Jig<br>swim_jig | lure | 7 | 59/888 (6.6%) | 39/544 (7.2%) | all_purpose:51, big_fish:8 | honorable:34, top:25 | calm_surface:39, warming_search:35, low_light_surface:14, wind_reaction:12, dirty_vibration:11 |
-| Buzzbait<br>buzzbait | lure | 9 | 57/528 (10.8%) | 35/300 (11.7%) | big_fish:53, all_purpose:4 | top:36, honorable:21 | low_light_surface:40, wind_reaction:37, dirty_vibration:34, calm_surface:20, open_water_search:16 |
-| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 8 | 56/840 (6.7%) | 40/256 (15.6%) | all_purpose:55, big_fish:1 | top:29, honorable:27 | calm_surface:26, clear_subtle:26, wind_reaction:15, cold_slow:14, heat_finesse:11 |
-| Spinnerbait<br>spinnerbait | lure | 7 | 54/888 (6.1%) | 47/408 (11.5%) | all_purpose:35, big_fish:19 | honorable:33, top:21 | dirty_vibration:47, wind_reaction:43, open_water_search:18, warming_search:13, low_light_surface:12 |
-| Magnum Worm<br>magnum_worm | lure | 7 | 50/336 (14.9%) | 0/0 | big_fish:49, all_purpose:1 | honorable:29, top:21 | wind_reaction:27, open_water_search:21, heat_finesse:19, dirty_vibration:18, calm_surface:16 |
-| Woolly Bugger<br>woolly_bugger | fly | 7 | 49/888 (5.5%) | 29/236 (12.3%) | all_purpose:46, big_fish:3 | honorable:35, top:14 | cold_slow:22, wind_reaction:19, dirty_vibration:17, heat_finesse:12, clear_subtle:9 |
-| Weightless Stick Worm<br>weightless_stick_worm | lure | 8 | 46/288 (16%) | 12/52 (23.1%) | all_purpose:44, big_fish:2 | honorable:25, top:21 | calm_surface:21, wind_reaction:21, clear_subtle:13, dirty_vibration:11, heat_finesse:10 |
-| Foam Gurgler<br>foam_gurgler_fly | fly | 9 | 44/276 (15.9%) | 44/192 (22.9%) | all_purpose:44 | top:35, honorable:9 | calm_surface:36, low_light_surface:14, warming_search:14, clear_subtle:8, wind_reaction:8 |
-| Tube Jig<br>tube_jig | lure | 7 | 44/888 (5%) | 0/0 | all_purpose:37, big_fish:7 | honorable:23, top:21 | cold_slow:24, wind_reaction:19, clear_subtle:17, calm_surface:9, dirty_vibration:8 |
-| Mouse Fly<br>mouse_fly | fly | 7 | 33/312 (10.6%) | 0/0 | big_fish:33 | top:22, honorable:11 | calm_surface:29, low_light_surface:14, clear_subtle:9, warming_search:8, heat_finesse:6 |
-| Lead-Eye Leech<br>lead_eye_leech | fly | 7 | 30/888 (3.4%) | 0/0 | all_purpose:30 | top:16, honorable:14 | clear_subtle:23, calm_surface:11, heat_finesse:9, wind_reaction:8, cold_slow:7 |
-| Frog Fly<br>frog_fly | fly | 9 | 29/192 (15.1%) | 17/96 (17.7%) | big_fish:29 | honorable:15, top:14 | calm_surface:19, low_light_surface:17, wind_reaction:10, dirty_vibration:7, warming_search:7 |
-| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 6 | 27/840 (3.2%) | 5/384 (1.3%) | all_purpose:16, big_fish:11 | top:16, honorable:11 | clear_subtle:14, calm_surface:12, wind_reaction:12, cold_slow:7, low_light_surface:6 |
-| Bladed Jig<br>bladed_jig | lure | 5 | 26/888 (2.9%) | 25/360 (6.9%) | all_purpose:21, big_fish:5 | honorable:14, top:12 | dirty_vibration:25, wind_reaction:21, open_water_search:9, cold_slow:6, low_light_surface:4 |
-| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 7 | 20/204 (9.8%) | 12/68 (17.6%) | all_purpose:20 | top:12, honorable:8 | wind_reaction:15, dirty_vibration:11, cold_slow:8, clear_subtle:4, heat_finesse:4 |
-| Hollow-Body Frog<br>hollow_body_frog | lure | 9 | 19/192 (9.9%) | 11/96 (11.5%) | big_fish:19 | top:15, honorable:4 | calm_surface:15, low_light_surface:10, warming_search:6, clear_subtle:4, wind_reaction:4 |
-| Jighead Marabou Leech<br>jighead_marabou_leech | fly | 7 | 19/888 (2.1%) | 0/0 | all_purpose:19 | honorable:13, top:6 | cold_slow:13, wind_reaction:10, dirty_vibration:7, heat_finesse:3, open_water_search:2 |
-| Blade Bait<br>blade_bait | lure | 7 | 18/888 (2%) | 0/0 | all_purpose:18 | top:10, honorable:8 | open_water_search:11, wind_reaction:11, dirty_vibration:8, cold_slow:6, calm_surface:4 |
-| Feather Jig Leech<br>feather_jig_leech | fly | 7 | 17/888 (1.9%) | 0/0 | all_purpose:16, big_fish:1 | honorable:13, top:4 | warming_search:16, calm_surface:7, current_swing:7, dirty_vibration:6, low_light_surface:5 |
-| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 8 | 16/840 (1.9%) | 9/376 (2.4%) | all_purpose:13, big_fish:3 | honorable:8, top:8 | wind_reaction:7, dirty_vibration:6, open_water_search:6, cold_slow:5, warming_search:4 |
-| Ned Rig<br>ned_rig | lure | 9 | 14/396 (3.5%) | 8/124 (6.5%) | all_purpose:13, big_fish:1 | honorable:8, top:6 | heat_finesse:7, cold_slow:6, wind_reaction:6, clear_subtle:4, dirty_vibration:2 |
-| Finesse Jig<br>finesse_jig | lure | 8 | 12/396 (3%) | 9/88 (10.2%) | all_purpose:12 | honorable:9, top:3 | heat_finesse:6, clear_subtle:5, cold_slow:5, wind_reaction:4 |
-| Glide Bait<br>glidebait | lure | 9 | 9/36 (25%) | 0/0 | big_fish:9 | honorable:6, top:3 | cold_slow:6, dirty_vibration:4, calm_surface:3, wind_reaction:3, clear_subtle:2 |
-| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 9 | 9/396 (2.3%) | 5/88 (5.7%) | all_purpose:9 | honorable:6, top:3 | cold_slow:5, clear_subtle:4, heat_finesse:4, wind_reaction:3, dirty_vibration:2 |
+| Game Changer<br>game_changer | fly | 7 | 255/888 (28.7%) | 51/168 (30.4%) | big_fish:187, all_purpose:68 | honorable:131, top:124 | wind_reaction:92, dirty_vibration:69, warming_search:58, calm_surface:57, open_water_search:48 |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 7 | 206/888 (23.2%) | 41/168 (24.4%) | big_fish:157, all_purpose:49 | honorable:113, top:93 | wind_reaction:75, dirty_vibration:63, warming_search:48, open_water_search:47, calm_surface:43 |
+| Clouser Minnow<br>clouser_minnow | fly | 7 | 177/888 (19.9%) | 36/168 (21.4%) | all_purpose:175, big_fish:2 | top:93, honorable:84 | wind_reaction:62, calm_surface:49, dirty_vibration:45, warming_search:44, low_light_surface:34 |
+| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 9 | 169/840 (20.1%) | 38/160 (23.8%) | all_purpose:133, big_fish:36 | top:95, honorable:74 | wind_reaction:96, dirty_vibration:67, low_light_surface:45, calm_surface:44, warming_search:40 |
+| Compact Flipping Jig<br>compact_flipping_jig | lure | 7 | 163/888 (18.4%) | 28/118 (23.7%) | big_fish:160, all_purpose:3 | honorable:128, top:35 | wind_reaction:70, dirty_vibration:63, warming_search:29, open_water_search:26, cold_slow:23 |
+| Suspending Jerkbait<br>suspending_jerkbait | lure | 8 | 154/888 (17.3%) | 38/224 (17%) | all_purpose:142, big_fish:12 | top:92, honorable:62 | wind_reaction:73, dirty_vibration:43, calm_surface:38, warming_search:38, low_light_surface:31 |
+| Deceiver<br>deceiver | fly | 7 | 142/888 (16%) | 28/168 (16.7%) | all_purpose:110, big_fish:32 | top:78, honorable:64 | wind_reaction:103, dirty_vibration:71, open_water_search:50, warming_search:26, low_light_surface:21 |
+| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 7 | 138/840 (16.4%) | 35/132 (26.5%) | all_purpose:131, big_fish:7 | top:70, honorable:68 | calm_surface:52, wind_reaction:39, clear_subtle:37, low_light_surface:32, dirty_vibration:26 |
+| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 8 | 125/888 (14.1%) | 83/344 (24.1%) | big_fish:66, all_purpose:59 | top:76, honorable:49 | wind_reaction:96, dirty_vibration:72, open_water_search:45, warming_search:45, low_light_surface:14 |
+| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 7 | 124/888 (14%) | 45/264 (17%) | big_fish:111, all_purpose:13 | honorable:101, top:23 | wind_reaction:36, dirty_vibration:35, cold_slow:34, warming_search:25, heat_finesse:20 |
+| Magnum Jerkbait<br>magnum_jerkbait | lure | 7 | 119/552 (21.6%) | 0/0 | big_fish:119 | honorable:61, top:58 | wind_reaction:47, calm_surface:34, dirty_vibration:32, warming_search:26, cold_slow:21 |
+| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 8 | 115/504 (22.8%) | 0/0 | big_fish:115 | top:71, honorable:44 | wind_reaction:57, dirty_vibration:39, warming_search:23, cold_slow:22, calm_surface:20 |
+| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 8 | 107/888 (12%) | 48/168 (28.6%) | all_purpose:82, big_fish:25 | honorable:61, top:46 | warming_search:54, calm_surface:47, low_light_surface:30, wind_reaction:20, dirty_vibration:17 |
+| Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 7 | 88/840 (10.5%) | 11/160 (6.9%) | all_purpose:71, big_fish:17 | honorable:57, top:31 | clear_subtle:46, calm_surface:35, wind_reaction:24, low_light_surface:22, heat_finesse:17 |
+| Walking Topwater<br>walking_topwater | lure | 8 | 84/528 (15.9%) | 66/300 (22%) | big_fish:83, all_purpose:1 | top:63, honorable:21 | calm_surface:65, low_light_surface:35, warming_search:20, clear_subtle:18, wind_reaction:11 |
+| Bluegill Streamer<br>bluegill_streamer | fly | 7 | 82/408 (20.1%) | 20/88 (22.7%) | big_fish:81, all_purpose:1 | top:53, honorable:29 | calm_surface:40, clear_subtle:20, low_light_surface:17, warming_search:17, heat_finesse:16 |
+| Deer Hair Slider<br>deer_hair_slider | fly | 8 | 81/528 (15.3%) | 64/300 (21.3%) | big_fish:80, all_purpose:1 | top:45, honorable:36 | calm_surface:54, low_light_surface:39, warming_search:22, wind_reaction:17, clear_subtle:15 |
+| Squarebill Crankbait<br>squarebill_crankbait | lure | 8 | 76/840 (9%) | 43/320 (13.4%) | all_purpose:48, big_fish:28 | honorable:41, top:35 | wind_reaction:44, dirty_vibration:38, low_light_surface:33, calm_surface:14, none:9 |
+| Drop-Shot Minnow<br>drop_shot_minnow | lure | 7 | 76/888 (8.6%) | 29/136 (21.3%) | all_purpose:55, big_fish:21 | top:44, honorable:32 | heat_finesse:40, clear_subtle:28, calm_surface:24, warming_search:11, low_light_surface:9 |
+| Football Jig<br>football_jig | lure | 7 | 74/360 (20.6%) | 28/102 (27.5%) | big_fish:74 | honorable:40, top:34 | wind_reaction:40, dirty_vibration:23, warming_search:20, cold_slow:16, open_water_search:11 |
+| Swim Jig<br>swim_jig | lure | 7 | 74/888 (8.3%) | 46/464 (9.9%) | all_purpose:64, big_fish:10 | honorable:44, top:30 | warming_search:41, calm_surface:39, low_light_surface:18, none:13, dirty_vibration:7 |
+| Popper Fly<br>popper_fly | fly | 8 | 73/456 (16%) | 58/264 (22%) | all_purpose:72, big_fish:1 | top:53, honorable:20 | calm_surface:56, low_light_surface:31, clear_subtle:17, warming_search:13, wind_reaction:11 |
+| Wake Bait<br>wake_bait | lure | 9 | 69/372 (18.5%) | 63/252 (25%) | big_fish:66, all_purpose:3 | top:53, honorable:16 | calm_surface:53, low_light_surface:25, warming_search:15, clear_subtle:14, heat_finesse:10 |
+| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 8 | 62/840 (7.4%) | 41/256 (16%) | all_purpose:61, big_fish:1 | honorable:33, top:29 | calm_surface:26, clear_subtle:26, cold_slow:14, heat_finesse:12, none:9 |
+| Woolly Bugger<br>woolly_bugger | fly | 7 | 60/888 (6.8%) | 31/236 (13.1%) | all_purpose:57, big_fish:3 | honorable:43, top:17 | cold_slow:24, wind_reaction:17, dirty_vibration:13, heat_finesse:12, clear_subtle:9 |
+| Magnum Worm<br>magnum_worm | lure | 7 | 55/336 (16.4%) | 0/0 | big_fish:54, all_purpose:1 | honorable:35, top:20 | heat_finesse:24, calm_surface:16, none:13, clear_subtle:12, open_water_search:9 |
+| Buzzbait<br>buzzbait | lure | 9 | 54/528 (10.2%) | 36/300 (12%) | big_fish:49, all_purpose:5 | top:35, honorable:19 | low_light_surface:41, dirty_vibration:24, calm_surface:20, wind_reaction:20, current_swing:10 |
+| Weightless Stick Worm<br>weightless_stick_worm | lure | 8 | 49/288 (17%) | 12/52 (23.1%) | all_purpose:46, big_fish:3 | top:26, honorable:23 | calm_surface:21, wind_reaction:15, clear_subtle:13, low_light_surface:12, heat_finesse:11 |
+| Tube Jig<br>tube_jig | lure | 7 | 49/888 (5.5%) | 0/0 | all_purpose:41, big_fish:8 | top:26, honorable:23 | cold_slow:27, clear_subtle:17, wind_reaction:14, calm_surface:9, dirty_vibration:5 |
+| Foam Gurgler<br>foam_gurgler_fly | fly | 9 | 45/276 (16.3%) | 45/192 (23.4%) | all_purpose:45 | top:35, honorable:10 | calm_surface:36, low_light_surface:15, warming_search:14, clear_subtle:8, dirty_vibration:8 |
+| Lipless Crankbait<br>lipless_crankbait | lure | 5 | 41/888 (4.6%) | 29/344 (8.4%) | big_fish:26, all_purpose:15 | honorable:22, top:19 | wind_reaction:38, open_water_search:33, dirty_vibration:29, low_light_surface:7, heat_finesse:4 |
+| Spinnerbait<br>spinnerbait | lure | 7 | 40/888 (4.5%) | 33/344 (9.6%) | all_purpose:22, big_fish:18 | honorable:24, top:16 | dirty_vibration:32, wind_reaction:29, open_water_search:11, low_light_surface:9, warming_search:9 |
+| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 6 | 35/840 (4.2%) | 5/320 (1.6%) | all_purpose:19, big_fish:16 | top:18, honorable:17 | clear_subtle:16, calm_surface:12, cold_slow:11, wind_reaction:8, low_light_surface:6 |
+| Mouse Fly<br>mouse_fly | fly | 7 | 34/312 (10.9%) | 0/0 | big_fish:34 | top:23, honorable:11 | calm_surface:29, low_light_surface:15, clear_subtle:9, warming_search:9, heat_finesse:6 |
+| Lead-Eye Leech<br>lead_eye_leech | fly | 7 | 30/888 (3.4%) | 0/0 | all_purpose:30 | honorable:17, top:13 | clear_subtle:22, calm_surface:11, cold_slow:9, heat_finesse:9, wind_reaction:4 |
+| Frog Fly<br>frog_fly | fly | 9 | 28/192 (14.6%) | 16/96 (16.7%) | big_fish:28 | honorable:14, top:14 | calm_surface:19, low_light_surface:16, wind_reaction:9, clear_subtle:6, dirty_vibration:6 |
+| Feather Jig Leech<br>feather_jig_leech | fly | 7 | 27/888 (3%) | 0/0 | all_purpose:26, big_fish:1 | honorable:21, top:6 | warming_search:22, calm_surface:7, current_swing:7, dirty_vibration:6, low_light_surface:6 |
+| Ned Rig<br>ned_rig | lure | 9 | 23/396 (5.8%) | 10/124 (8.1%) | all_purpose:20, big_fish:3 | honorable:14, top:9 | cold_slow:11, heat_finesse:7, wind_reaction:6, clear_subtle:4, none:3 |
+| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 7 | 22/204 (10.8%) | 15/68 (22.1%) | all_purpose:19, big_fish:3 | top:14, honorable:8 | cold_slow:11, wind_reaction:11, dirty_vibration:8, clear_subtle:4, heat_finesse:4 |
+| Blade Bait<br>blade_bait | lure | 7 | 21/888 (2.4%) | 0/0 | all_purpose:20, big_fish:1 | top:11, honorable:10 | open_water_search:9, wind_reaction:9, cold_slow:6, dirty_vibration:5, calm_surface:4 |
+| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 8 | 20/840 (2.4%) | 10/320 (3.1%) | all_purpose:14, big_fish:6 | honorable:14, top:6 | cold_slow:7, none:5, warming_search:4, wind_reaction:4, dirty_vibration:3 |
+| Hollow-Body Frog<br>hollow_body_frog | lure | 9 | 19/192 (9.9%) | 11/96 (11.5%) | big_fish:19 | top:15, honorable:4 | calm_surface:15, low_light_surface:10, warming_search:6, clear_subtle:4, cold_slow:3 |
+| Jighead Marabou Leech<br>jighead_marabou_leech | fly | 7 | 18/888 (2%) | 0/0 | all_purpose:18 | honorable:11, top:7 | cold_slow:14, wind_reaction:5, heat_finesse:3, dirty_vibration:2, clear_subtle:1 |
+| Bladed Jig<br>bladed_jig | lure | 5 | 16/888 (1.8%) | 15/240 (6.3%) | all_purpose:13, big_fish:3 | top:9, honorable:7 | dirty_vibration:15, wind_reaction:15, open_water_search:5, low_light_surface:3, cold_slow:2 |
+| Finesse Jig<br>finesse_jig | lure | 8 | 14/396 (3.5%) | 11/100 (11%) | all_purpose:14 | honorable:9, top:5 | cold_slow:7, heat_finesse:6, clear_subtle:5, wind_reaction:3 |
+| Glide Bait<br>glidebait | lure | 9 | 9/36 (25%) | 0/0 | big_fish:9 | top:5, honorable:4 | cold_slow:6, calm_surface:3, none:3, clear_subtle:2 |
+| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 9 | 9/396 (2.3%) | 6/100 (6%) | all_purpose:9 | honorable:6, top:3 | cold_slow:5, clear_subtle:4, heat_finesse:4, wind_reaction:2, dirty_vibration:1 |
 | Shaky-Head Worm<br>shaky_head_worm | lure | 8 | 1/48 (2.1%) | 1/8 (12.5%) | big_fish:1 | honorable:1 | clear_subtle:1, cold_slow:1 |
 
 ### Likely Cause Classification
 
 | Profile | Gear | Selected/Opp | Home selected/opp | Cause classification | Stack flags |
 | --- | --- | --- | --- | --- | --- |
-| Game Changer<br>game_changer | fly | 251/888 (28.3%) | 53/168 (31.5%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias<br>scenario_coverage_bias | clear+stained+dirty clarity<br>goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
-| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 206/840 (24.5%) | 41/156 (26.3%) | catalog_tag_stack<br>condition_tag_stack<br>forage_clarity_stack<br>selector_direct_score_bias<br>scenario_coverage_bias | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20%<br>home-window share>25% overdominant |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 205/888 (23.1%) | 39/168 (23.2%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias<br>scenario_coverage_bias | goal_tags>1<br>versatile_search+big_fish_upside<br>home-window share>20% |
-| Clouser Minnow<br>clouser_minnow | fly | 173/888 (19.5%) | 37/168 (22%) | catalog_tag_stack<br>selector_direct_score_bias<br>scenario_coverage_bias | goal_tags>1<br>home-window share>20% |
-| Compact Flipping Jig<br>compact_flipping_jig | lure | 160/888 (18%) | 21/98 (21.4%) | catalog_tag_stack<br>goal_tag_pressure<br>scenario_coverage_bias | home-window share>20% |
-| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 154/888 (17.3%) | 102/408 (25%) | catalog_tag_stack<br>goal_tag_pressure<br>condition_tag_stack<br>forage_clarity_stack<br>selector_direct_score_bias | clear+stained+dirty clarity<br>home-window share>20% |
-| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 132/840 (15.7%) | 34/132 (25.8%) | catalog_tag_stack<br>selector_direct_score_bias<br>scenario_coverage_bias | goal_tags>1<br>home-window share>20%<br>home-window share>25% overdominant |
+| Game Changer<br>game_changer | fly | 255/888 (28.7%) | 51/168 (30.4%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias<br>scenario_coverage_bias | clear+stained+dirty clarity<br>goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 206/888 (23.2%) | 41/168 (24.4%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias<br>scenario_coverage_bias | goal_tags>1<br>versatile_search+big_fish_upside<br>home-window share>20% |
+| Clouser Minnow<br>clouser_minnow | fly | 177/888 (19.9%) | 36/168 (21.4%) | catalog_tag_stack<br>selector_direct_score_bias<br>scenario_coverage_bias | goal_tags>1<br>home-window share>20% |
+| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 169/840 (20.1%) | 38/160 (23.8%) | catalog_tag_stack<br>condition_tag_stack<br>forage_clarity_stack<br>selector_direct_score_bias<br>scenario_coverage_bias | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20% |
+| Compact Flipping Jig<br>compact_flipping_jig | lure | 163/888 (18.4%) | 28/118 (23.7%) | catalog_tag_stack<br>goal_tag_pressure<br>scenario_coverage_bias | home-window share>20% |
+| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 138/840 (16.4%) | 35/132 (26.5%) | catalog_tag_stack<br>selector_direct_score_bias<br>scenario_coverage_bias | goal_tags>1<br>home-window share>20%<br>home-window share>25% overdominant |
+| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 125/888 (14.1%) | 83/344 (24.1%) | catalog_tag_stack<br>goal_tag_pressure<br>condition_tag_stack<br>forage_clarity_stack<br>selector_direct_score_bias | clear+stained+dirty clarity<br>home-window share>20% |
 | Magnum Jerkbait<br>magnum_jerkbait | lure | 119/552 (21.6%) | 0/0 | goal_tag_pressure<br>condition_tag_stack<br>selector_direct_score_bias |  |
-| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 113/504 (22.4%) | 0/0 | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | goal_tags>1 |
-| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 100/888 (11.3%) | 41/168 (24.4%) | catalog_tag_stack<br>forage_clarity_stack<br>selector_direct_score_bias<br>scenario_coverage_bias | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20% |
-| Walking Topwater<br>walking_topwater | lure | 82/528 (15.5%) | 66/300 (22%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | goal_tags>1<br>surface+calm+low_light+big_fish+high_risk<br>home-window share>20% |
-| Deer Hair Slider<br>deer_hair_slider | fly | 80/528 (15.2%) | 64/300 (21.3%) | catalog_tag_stack<br>goal_tag_pressure<br>forage_clarity_stack<br>selector_direct_score_bias | clear+stained+dirty clarity<br>home-window share>20% |
-| Bluegill Streamer<br>bluegill_streamer | fly | 76/408 (18.6%) | 22/96 (22.9%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | home-window share>20% |
-| Popper Fly<br>popper_fly | fly | 70/456 (15.4%) | 55/264 (20.8%) | catalog_tag_stack<br>selector_direct_score_bias | goal_tags>1<br>home-window share>20% |
-| Football Jig<br>football_jig | lure | 68/360 (18.9%) | 22/86 (25.6%) | catalog_tag_stack<br>goal_tag_pressure | clear+stained+dirty clarity<br>home-window share>20%<br>home-window share>25% overdominant |
-| Wake Bait<br>wake_bait | lure | 64/372 (17.2%) | 63/252 (25%) | catalog_tag_stack<br>goal_tag_pressure<br>forage_clarity_stack<br>selector_direct_score_bias | forage_tags>2<br>goal_tags>1<br>surface+calm+low_light+big_fish+high_risk<br>home-window share>20% |
-| Foam Gurgler<br>foam_gurgler_fly | fly | 44/276 (15.9%) | 44/192 (22.9%) | catalog_tag_stack<br>forage_clarity_stack<br>selector_direct_score_bias | clear+stained+dirty clarity<br>goal_tags>1<br>home-window share>20% |
+| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 115/504 (22.8%) | 0/0 | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | goal_tags>1 |
+| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 107/888 (12%) | 48/168 (28.6%) | catalog_tag_stack<br>forage_clarity_stack<br>selector_direct_score_bias<br>scenario_coverage_bias | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20%<br>home-window share>25% overdominant |
+| Walking Topwater<br>walking_topwater | lure | 84/528 (15.9%) | 66/300 (22%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | goal_tags>1<br>surface+calm+low_light+big_fish+high_risk<br>home-window share>20% |
+| Bluegill Streamer<br>bluegill_streamer | fly | 82/408 (20.1%) | 20/88 (22.7%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | home-window share>20% |
+| Deer Hair Slider<br>deer_hair_slider | fly | 81/528 (15.3%) | 64/300 (21.3%) | catalog_tag_stack<br>goal_tag_pressure<br>forage_clarity_stack<br>selector_direct_score_bias | clear+stained+dirty clarity<br>home-window share>20% |
+| Drop-Shot Minnow<br>drop_shot_minnow | lure | 76/888 (8.6%) | 29/136 (21.3%) | catalog_tag_stack<br>selector_direct_score_bias<br>scenario_coverage_bias | home-window share>20% |
+| Football Jig<br>football_jig | lure | 74/360 (20.6%) | 28/102 (27.5%) | catalog_tag_stack<br>goal_tag_pressure | clear+stained+dirty clarity<br>home-window share>20%<br>home-window share>25% overdominant |
+| Popper Fly<br>popper_fly | fly | 73/456 (16%) | 58/264 (22%) | catalog_tag_stack<br>selector_direct_score_bias | goal_tags>1<br>home-window share>20% |
+| Wake Bait<br>wake_bait | lure | 69/372 (18.5%) | 63/252 (25%) | catalog_tag_stack<br>goal_tag_pressure<br>forage_clarity_stack<br>selector_direct_score_bias | forage_tags>2<br>goal_tags>1<br>surface+calm+low_light+big_fish+high_risk<br>home-window share>20% |
+| Foam Gurgler<br>foam_gurgler_fly | fly | 45/276 (16.3%) | 45/192 (23.4%) | catalog_tag_stack<br>forage_clarity_stack<br>selector_direct_score_bias | clear+stained+dirty clarity<br>goal_tags>1<br>home-window share>20% |
 
 ### Staple Underuse vs Tag Support
 
 | Profile | Gear | Tag support | Home opp | Selected home rate | Common winners beating it | Likely issue |
 | --- | --- | --- | --- | --- | --- | --- |
-| Ned Rig<br>ned_rig | lure | forage 2: leech_worm, crawfish<br>clarity 3: clear, stained, dirty<br>condition 3: clear_subtle, cold_slow, heat_finesse<br>goal 1: reliable_action | 124 | 8/124 (6.5%) | Football Jig (top), Magnum Jerkbait (honorable):6, Magnum Jerkbait (top), Compact Flipping Jig (honorable):6, Magnum Jerkbait (top), Football Jig (honorable):5, Medium-Diving Crankbait (top), Football Jig (honorable):5 | selector/direct-score or overpowered competitors |
-| Finesse Jig<br>finesse_jig | lure | forage 2: crawfish, leech_worm<br>clarity 2: clear, stained<br>condition 3: clear_subtle, cold_slow, heat_finesse<br>goal 1: reliable_action | 88 | 9/88 (10.2%) | Magnum Jerkbait (top), Football Jig (honorable):6, Football Jig (top), Magnum Jerkbait (honorable):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Tube Jig (top), Compact Flipping Jig (honorable):4 | selector/direct-score or overpowered competitors |
-| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | forage 1: crawfish<br>clarity 3: clear, stained, dirty<br>condition 4: cover_ambush, cold_slow, clear_subtle, heat_finesse<br>goal 1: reliable_action | 88 | 5/88 (5.7%) | Magnum Jerkbait (top), Football Jig (honorable):6, Football Jig (top), Magnum Jerkbait (honorable):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Tube Jig (top), Compact Flipping Jig (honorable):4 | selector/direct-score or overpowered competitors |
-| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | forage 2: leech_worm, baitfish<br>clarity 2: clear, stained<br>condition 2: clear_subtle, cold_slow<br>goal 2: reliable_action, versatile_search | 256 | 40/256 (15.6%) | Drop-Shot Minnow (top), Soft Plastic Jerkbait (honorable):9, Soft Plastic Jerkbait (top), Weightless Stick Worm (honorable):7, Football Jig (top), Magnum Jerkbait (honorable):6, Magnum Jerkbait (top), Compact Flipping Jig (honorable):6 | healthy / not underused |
-| Drop-Shot Minnow<br>drop_shot_minnow | lure | forage 2: baitfish, crawfish<br>clarity 2: clear, stained<br>condition 2: clear_subtle, heat_finesse<br>goal 1: reliable_action | 136 | 27/136 (19.9%) | Soft Plastic Jerkbait (top), Carolina-Rigged Stick Worm (honorable):9, Carolina-Rigged Stick Worm (top), Tube Jig (honorable):7, Soft Plastic Jerkbait (top), Weightless Stick Worm (honorable):7, Flat-Sided Crankbait (top), Compact Flipping Jig (honorable):5 | healthy / not underused |
-| Spinnerbait<br>spinnerbait | lure | forage 2: baitfish, bluegill_perch<br>clarity 2: stained, dirty<br>condition 3: wind_reaction, dirty_vibration, cover_ambush<br>goal 0: none | 408 | 47/408 (11.5%) | Magnum Jerkbait (top), Compact Flipping Jig (honorable):22, Compact Flipping Jig (top), Magnum Jerkbait (honorable):15, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):14, Medium-Diving Crankbait (top), Football Jig (honorable):13 | selector/direct-score or overpowered competitors |
-| Bladed Jig<br>bladed_jig | lure | forage 1: baitfish<br>clarity 2: stained, dirty<br>condition 2: dirty_vibration, cover_ambush<br>goal 0: none | 360 | 25/360 (6.9%) | Magnum Jerkbait (top), Compact Flipping Jig (honorable):20, Compact Flipping Jig (top), Magnum Jerkbait (honorable):15, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):14, Medium-Diving Crankbait (top), Football Jig (honorable):12 | selector/direct-score or overpowered competitors |
-| Lipless Crankbait<br>lipless_crankbait | lure | forage 1: baitfish<br>clarity 2: stained, dirty<br>condition 2: wind_reaction, open_water_search<br>goal 0: none | 408 | 56/408 (13.7%) | Magnum Jerkbait (top), Compact Flipping Jig (honorable):22, Compact Flipping Jig (top), Magnum Jerkbait (honorable):15, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):14, Medium-Diving Crankbait (top), Football Jig (honorable):13 | healthy / not underused |
+| Ned Rig<br>ned_rig | lure | forage 2: leech_worm, crawfish<br>clarity 3: clear, stained, dirty<br>condition 3: clear_subtle, cold_slow, heat_finesse<br>goal 1: reliable_action | 124 | 10/124 (8.1%) | Magnum Jerkbait (top), Compact Flipping Jig (honorable):7, Football Jig (top), Magnum Jerkbait (honorable):6, Magnum Jerkbait (top), Football Jig (honorable):6, Medium-Diving Crankbait (top), Football Jig (honorable):5 | selector/direct-score or overpowered competitors |
+| Finesse Jig<br>finesse_jig | lure | forage 2: crawfish, leech_worm<br>clarity 2: clear, stained<br>condition 3: clear_subtle, cold_slow, heat_finesse<br>goal 1: reliable_action | 100 | 11/100 (11%) | Magnum Jerkbait (top), Football Jig (honorable):7, Football Jig (top), Magnum Jerkbait (honorable):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Drop-Shot Minnow (top), Carolina-Rigged Stick Worm (honorable):3 | selector/direct-score or overpowered competitors |
+| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | forage 1: crawfish<br>clarity 3: clear, stained, dirty<br>condition 4: cover_ambush, cold_slow, clear_subtle, heat_finesse<br>goal 1: reliable_action | 100 | 6/100 (6%) | Magnum Jerkbait (top), Football Jig (honorable):7, Football Jig (top), Magnum Jerkbait (honorable):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Drop-Shot Minnow (top), Carolina-Rigged Stick Worm (honorable):3 | selector/direct-score or overpowered competitors |
+| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | forage 2: leech_worm, baitfish<br>clarity 2: clear, stained<br>condition 2: clear_subtle, cold_slow<br>goal 2: reliable_action, versatile_search | 256 | 41/256 (16%) | Drop-Shot Minnow (top), Soft Plastic Jerkbait (honorable):9, Soft Plastic Jerkbait (top), Weightless Stick Worm (honorable):7, Suspending Jerkbait (top), Drop-Shot Minnow (honorable):7, Football Jig (top), Magnum Jerkbait (honorable):6 | healthy / not underused |
+| Drop-Shot Minnow<br>drop_shot_minnow | lure | forage 2: baitfish, crawfish<br>clarity 2: clear, stained<br>condition 2: clear_subtle, heat_finesse<br>goal 1: reliable_action | 136 | 29/136 (21.3%) | Soft Plastic Jerkbait (top), Carolina-Rigged Stick Worm (honorable):9, Carolina-Rigged Stick Worm (top), Tube Jig (honorable):7, Soft Plastic Jerkbait (top), Weightless Stick Worm (honorable):7, Flat-Sided Crankbait (top), Compact Flipping Jig (honorable):5 | healthy / not underused |
+| Spinnerbait<br>spinnerbait | lure | forage 2: baitfish, bluegill_perch<br>clarity 2: stained, dirty<br>condition 3: wind_reaction, dirty_vibration, cover_ambush<br>goal 0: none | 344 | 33/344 (9.6%) | Magnum Jerkbait (top), Compact Flipping Jig (honorable):20, Medium-Diving Crankbait (top), Football Jig (honorable):13, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):11, Compact Flipping Jig (top), Magnum Jerkbait (honorable):10 | selector/direct-score or overpowered competitors |
+| Bladed Jig<br>bladed_jig | lure | forage 1: baitfish<br>clarity 2: stained, dirty<br>condition 2: dirty_vibration, cover_ambush<br>goal 0: none | 240 | 15/240 (6.3%) | Magnum Jerkbait (top), Compact Flipping Jig (honorable):12, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):11, Medium-Diving Crankbait (top), Football Jig (honorable):11, Compact Flipping Jig (top), Magnum Jerkbait (honorable):10 | selector/direct-score or overpowered competitors |
+| Lipless Crankbait<br>lipless_crankbait | lure | forage 1: baitfish<br>clarity 2: stained, dirty<br>condition 2: wind_reaction, open_water_search<br>goal 0: none | 344 | 29/344 (8.4%) | Magnum Jerkbait (top), Compact Flipping Jig (honorable):20, Medium-Diving Crankbait (top), Football Jig (honorable):13, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):11, Compact Flipping Jig (top), Magnum Jerkbait (honorable):10 | selector/direct-score or overpowered competitors |
 
 ### Guide Review Tag Candidates
 
@@ -1334,10 +1332,10 @@ Articulated Baitfish Streamer (articulated_baitfish_streamer), Articulated Dunge
 None from audit alone.
 
 ### Needs guide review
-Articulated Baitfish Streamer (articulated_baitfish_streamer), Articulated Dungeon Streamer (articulated_dungeon_streamer), Baitfish Slider Fly (baitfish_slider_fly), Bluegill Streamer (bluegill_streamer), Clouser Minnow (clouser_minnow), Compact Flipping Jig (compact_flipping_jig), Deer Hair Slider (deer_hair_slider), Foam Gurgler (foam_gurgler_fly), Football Jig (football_jig), Game Changer (game_changer), Magnum Jerkbait (magnum_jerkbait), Medium-Diving Crankbait (medium_diving_crankbait), Paddle-Tail Swimbait (paddle_tail_swimbait), Popper Fly (popper_fly), Soft Plastic Jerkbait (soft_jerkbait), Wake Bait (wake_bait), Walking Topwater (walking_topwater)
+Articulated Baitfish Streamer (articulated_baitfish_streamer), Articulated Dungeon Streamer (articulated_dungeon_streamer), Baitfish Slider Fly (baitfish_slider_fly), Bluegill Streamer (bluegill_streamer), Clouser Minnow (clouser_minnow), Compact Flipping Jig (compact_flipping_jig), Deer Hair Slider (deer_hair_slider), Drop-Shot Minnow (drop_shot_minnow), Foam Gurgler (foam_gurgler_fly), Football Jig (football_jig), Game Changer (game_changer), Magnum Jerkbait (magnum_jerkbait), Medium-Diving Crankbait (medium_diving_crankbait), Paddle-Tail Swimbait (paddle_tail_swimbait), Popper Fly (popper_fly), Soft Plastic Jerkbait (soft_jerkbait), Wake Bait (wake_bait), Walking Topwater (walking_topwater)
 
 ### Probably selector problem, not catalog problem
-Bladed Jig (bladed_jig), Finesse Jig (finesse_jig), Ned Rig (ned_rig), Spinnerbait (spinnerbait), Texas-Rigged Soft-Plastic Craw (texas_rigged_soft_plastic_craw)
+Bladed Jig (bladed_jig), Finesse Jig (finesse_jig), Lipless Crankbait (lipless_crankbait), Ned Rig (ned_rig), Spinnerbait (spinnerbait), Texas-Rigged Soft-Plastic Craw (texas_rigged_soft_plastic_craw)
 
 ## Utilization Notes / Coverage Gaps
 
@@ -1347,54 +1345,54 @@ Bladed Jig (bladed_jig), Finesse Jig (finesse_jig), Ned Rig (ned_rig), Spinnerba
 
 | Diagnosis | Profiles |
 | --- | --- |
-| healthy | Deer Hair Slider, Popper Fly, Rabbit-Strip Leech, Woolly Bugger, Foam Gurgler, Articulated Baitfish Streamer, Clouser Minnow, Deceiver, Unweighted Baitfish Streamer, Bluegill Streamer, Frog Fly, Warmwater Crawfish Fly, Lipless Crankbait, Medium-Diving Crankbait, Spinnerbait, Squarebill Crankbait, Buzzbait, Walking Topwater, Carolina-Rigged Stick Worm, Wake Bait, Suspending Jerkbait, Paddle-Tail Swimbait, Drop-Shot Minnow, Compact Flipping Jig, Hollow-Body Frog, Finesse Jig, Weightless Stick Worm |
-| underused_home_window | Swim Jig, Flat-Sided Crankbait, Deep-Diving Crankbait, Bladed Jig, Ned Rig, Texas-Rigged Soft-Plastic Craw |
+| healthy | Deer Hair Slider, Popper Fly, Rabbit-Strip Leech, Woolly Bugger, Foam Gurgler, Articulated Baitfish Streamer, Clouser Minnow, Deceiver, Baitfish Slider Fly, Frog Fly, Bluegill Streamer, Warmwater Crawfish Fly, Swim Jig, Lipless Crankbait, Medium-Diving Crankbait, Spinnerbait, Squarebill Crankbait, Buzzbait, Walking Topwater, Carolina-Rigged Stick Worm, Wake Bait, Suspending Jerkbait, Drop-Shot Minnow, Ned Rig, Compact Flipping Jig, Finesse Jig, Hollow-Body Frog, Weightless Stick Worm |
+| underused_home_window | Unweighted Baitfish Streamer, Deep-Diving Crankbait, Flat-Sided Crankbait, Bladed Jig, Texas-Rigged Soft-Plastic Craw |
 | no_home_window_coverage | None |
-| over-dominant | Game Changer, Baitfish Slider Fly, Soft Plastic Jerkbait, Football Jig |
+| over-dominant | Game Changer, Paddle-Tail Swimbait, Soft Plastic Jerkbait, Football Jig |
 | probably okay niche profile | Worm Fly, Shaky-Head Worm, Topwater Popper |
 
 ## LMB Species-Staple Floor Audit
 
 | Profile | Gear | Actual side share | Selected/Opp | Selected/home | Selected overall | Selected home | Home win rate | AP home | Big Fish home | Close home losses | Diagnosis | Home context split | Common home winners |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Deer Hair Slider<br>deer_hair_slider | fly | 4.5% | 80/528 | 64/300 | 80 | 64 | 21.3% | 0/150 | 64/150 | 95 | healthy | activity neutral:216, active:84<br>clarity clear:100, dirty:100, stained:100<br>water freshwater_lake_pond:276, freshwater_river:24<br>bucket stable_pleasant_medium_confidence_archive:76, calm_low_light_surface:72, warming_search:44 | Popper Fly (top), Unweighted Baitfish Streamer (honorable):12, Foam Gurgler (top), Clouser Minnow (honorable):11, Clouser Minnow (honorable), Popper Fly (top):8 |
-| Popper Fly<br>popper_fly | fly | 3.9% | 70/456 | 55/264 | 70 | 55 | 20.8% | 55/132 | 0/132 | 64 | healthy | activity neutral:204, active:60<br>clarity clear:88, dirty:88, stained:88<br>water freshwater_lake_pond:252, freshwater_river:12<br>bucket stable_pleasant_medium_confidence_archive:76, calm_low_light_surface:60, heat_limited_finesse:32 | Foam Gurgler (top), Clouser Minnow (honorable):11, Deer Hair Slider (honorable), Game Changer (top):10, Baitfish Slider Fly (top), Clouser Minnow (honorable):7 |
-| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 5.7% | 102/888 | 42/260 | 102 | 42 | 16.2% | 8/130 | 34/130 | 47 | healthy | activity neutral:188, suppressed:52, active:20<br>clarity clear:184, stained:40, dirty:36<br>water freshwater_lake_pond:240, freshwater_river:20<br>bucket cold_slow_or_front:84, calm_bright_clear_subtle:48, stable_pleasant_medium_confidence_archive:36 | Articulated Dungeon Streamer (top), Game Changer (honorable):8, Popper Fly (top), Unweighted Baitfish Streamer (honorable):8, Clouser Minnow (honorable), Deceiver (top):6 |
-| Woolly Bugger<br>woolly_bugger | fly | 2.8% | 49/888 | 29/236 | 49 | 29 | 12.3% | 26/118 | 3/118 | 34 | healthy | activity neutral:180, suppressed:48, active:8<br>clarity clear:164, dirty:36, stained:36<br>water freshwater_lake_pond:220, freshwater_river:16<br>bucket cold_slow_or_front:64, calm_bright_clear_subtle:48, stable_pleasant_medium_confidence_archive:36 | Articulated Dungeon Streamer (top), Game Changer (honorable):8, Popper Fly (top), Unweighted Baitfish Streamer (honorable):8, Articulated Dungeon Streamer (top), Rabbit-Strip Leech (honorable):7 |
-| Foam Gurgler<br>foam_gurgler_fly | fly | 2.5% | 44/276 | 44/192 | 44 | 44 | 22.9% | 44/96 | 0/96 | 58 | healthy | activity neutral:144, active:48<br>clarity clear:64, dirty:64, stained:64<br>water freshwater_lake_pond:168, freshwater_river:24<br>bucket stable_pleasant_medium_confidence_archive:72, warming_search:28, calm_low_light_surface:24 | Deer Hair Slider (honorable), Game Changer (top):11, Popper Fly (top), Unweighted Baitfish Streamer (honorable):8, Clouser Minnow (honorable), Popper Fly (top):6 |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 11.5% | 205/888 | 39/168 | 205 | 39 | 23.2% | 7/84 | 32/84 | 45 | healthy | activity neutral:88, active:80<br>clarity clear:112, dirty:28, stained:28<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:68, stable_pleasant_medium_confidence_archive:40, calm_low_light_surface:28 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Clouser Minnow (top), Deceiver (honorable):5, Clouser Minnow (honorable), Popper Fly (top):4 |
-| Clouser Minnow<br>clouser_minnow | fly | 9.7% | 173/888 | 37/168 | 173 | 37 | 22% | 37/84 | 0/84 | 53 | healthy | activity neutral:88, active:80<br>clarity clear:112, dirty:28, stained:28<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:68, stable_pleasant_medium_confidence_archive:40, calm_low_light_surface:28 | Game Changer (honorable), Articulated Baitfish Streamer (top):5, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):4, Deceiver (honorable), Baitfish Slider Fly (top):4 |
-| Deceiver<br>deceiver | fly | 9.7% | 173/888 | 33/168 | 173 | 33 | 19.6% | 24/84 | 9/84 | 63 | healthy | activity neutral:88, active:80<br>clarity clear:112, dirty:28, stained:28<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:68, stable_pleasant_medium_confidence_archive:40, calm_low_light_surface:28 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Game Changer (honorable), Articulated Baitfish Streamer (top):5, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):4 |
-| Game Changer<br>game_changer | fly | 14.1% | 251/888 | 53/168 | 251 | 53 | 31.5% | 16/84 | 37/84 | 43 | over-dominant | activity neutral:88, active:80<br>clarity clear:112, dirty:28, stained:28<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:68, stable_pleasant_medium_confidence_archive:40, calm_low_light_surface:28 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Clouser Minnow (top), Deceiver (honorable):5, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):4 |
-| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 11.6% | 206/840 | 41/156 | 206 | 41 | 26.3% | 33/78 | 8/78 | 78 | over-dominant | activity neutral:84, active:72<br>clarity clear:100, dirty:28, stained:28<br>water freshwater_lake_pond:152, freshwater_river:4<br>bucket warming_search:64, stable_pleasant_medium_confidence_archive:32, calm_low_light_surface:28 | Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):4, Clouser Minnow (honorable), Popper Fly (top):4, Clouser Minnow (top), Articulated Baitfish Streamer (honorable):4 |
-| Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 4.8% | 86/840 | 13/156 | 86 | 13 | 8.3% | 11/78 | 2/78 | 20 | healthy | activity neutral:84, active:72<br>clarity clear:100, dirty:28, stained:28<br>water freshwater_lake_pond:152, freshwater_river:4<br>bucket warming_search:64, stable_pleasant_medium_confidence_archive:32, calm_low_light_surface:28 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):4, Clouser Minnow (honorable), Popper Fly (top):4 |
-| Bluegill Streamer<br>bluegill_streamer | fly | 4.3% | 76/408 | 22/96 | 76 | 22 | 22.9% | 1/48 | 21/48 | 33 | healthy | activity neutral:60, active:36<br>clarity clear:56, dirty:20, stained:20<br>water freshwater_lake_pond:96<br>bucket warming_search:32, calm_low_light_surface:24, stable_pleasant_medium_confidence_archive:24 | Clouser Minnow (honorable), Popper Fly (top):4, Clouser Minnow (top), Baitfish Slider Fly (honorable):3, Clouser Minnow (top), Game Changer (honorable):3 |
-| Frog Fly<br>frog_fly | fly | 1.6% | 29/192 | 17/96 | 29 | 17 | 17.7% | 0/48 | 17/48 | 26 | healthy | activity neutral:60, active:36<br>clarity clear:32, dirty:32, stained:32<br>water freshwater_lake_pond:96<br>bucket calm_low_light_surface:48, warming_search:16, heat_limited_finesse:12 | Baitfish Slider Fly (top), Clouser Minnow (honorable):6, Mouse Fly (top), Articulated Baitfish Streamer (honorable):5, Popper Fly (top), Unweighted Baitfish Streamer (honorable):4 |
-| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 1.1% | 20/204 | 12/68 | 20 | 12 | 17.6% | 12/34 | 0/34 | 19 | healthy | activity neutral:56, suppressed:8, active:4<br>clarity clear:40, stained:16, dirty:12<br>water freshwater_lake_pond:48, freshwater_river:20<br>bucket cold_slow_or_front:20, breezy_windy_stained_reaction:12, dirty_vibration:12 | Articulated Baitfish Streamer (top), Game Changer (honorable):4, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):3, Clouser Minnow (honorable), Deceiver (top):3 |
+| Deer Hair Slider<br>deer_hair_slider | fly | 4.6% | 81/528 | 64/300 | 81 | 64 | 21.3% | 0/150 | 64/150 | 96 | healthy | activity neutral:216, active:84<br>clarity clear:100, dirty:100, stained:100<br>water freshwater_lake_pond:276, freshwater_river:24<br>bucket stable_pleasant_medium_confidence_archive:80, calm_low_light_surface:72, warming_search:52 | Popper Fly (top), Unweighted Baitfish Streamer (honorable):13, Foam Gurgler (top), Clouser Minnow (honorable):11, Articulated Baitfish Streamer (top), Game Changer (honorable):7 |
+| Popper Fly<br>popper_fly | fly | 4.1% | 73/456 | 58/264 | 73 | 58 | 22% | 57/132 | 1/132 | 69 | healthy | activity neutral:204, active:60<br>clarity clear:88, dirty:88, stained:88<br>water freshwater_lake_pond:252, freshwater_river:12<br>bucket stable_pleasant_medium_confidence_archive:80, calm_low_light_surface:60, warming_search:40 | Deer Hair Slider (honorable), Game Changer (top):11, Foam Gurgler (top), Clouser Minnow (honorable):11, Baitfish Slider Fly (top), Clouser Minnow (honorable):7 |
+| Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 7% | 124/888 | 45/264 | 124 | 45 | 17% | 9/132 | 36/132 | 45 | healthy | activity neutral:188, suppressed:52, active:24<br>clarity clear:184, stained:44, dirty:36<br>water freshwater_lake_pond:244, freshwater_river:20<br>bucket cold_slow_or_front:104, calm_bright_clear_subtle:48, stable_pleasant_medium_confidence_archive:36 | Articulated Dungeon Streamer (top), Game Changer (honorable):8, Popper Fly (top), Unweighted Baitfish Streamer (honorable):8, Articulated Baitfish Streamer (top), Game Changer (honorable):5 |
+| Woolly Bugger<br>woolly_bugger | fly | 3.4% | 60/888 | 31/236 | 60 | 31 | 13.1% | 28/118 | 3/118 | 35 | healthy | activity neutral:180, suppressed:48, active:8<br>clarity clear:164, dirty:36, stained:36<br>water freshwater_lake_pond:220, freshwater_river:16<br>bucket cold_slow_or_front:80, calm_bright_clear_subtle:48, stable_pleasant_medium_confidence_archive:36 | Articulated Dungeon Streamer (top), Game Changer (honorable):8, Popper Fly (top), Unweighted Baitfish Streamer (honorable):8, Articulated Dungeon Streamer (top), Rabbit-Strip Leech (honorable):7 |
+| Foam Gurgler<br>foam_gurgler_fly | fly | 2.5% | 45/276 | 45/192 | 45 | 45 | 23.4% | 45/96 | 0/96 | 60 | healthy | activity neutral:144, active:48<br>clarity clear:64, dirty:64, stained:64<br>water freshwater_lake_pond:168, freshwater_river:24<br>bucket stable_pleasant_medium_confidence_archive:76, warming_search:28, calm_low_light_surface:24 | Deer Hair Slider (honorable), Game Changer (top):12, Popper Fly (top), Unweighted Baitfish Streamer (honorable):8, Clouser Minnow (honorable), Popper Fly (top):6 |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 11.6% | 206/888 | 41/168 | 206 | 41 | 24.4% | 10/84 | 31/84 | 47 | healthy | activity active:84, neutral:84<br>clarity clear:88, dirty:40, stained:40<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:92, calm_low_light_surface:28, stable_pleasant_medium_confidence_archive:20 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Clouser Minnow (top), Deceiver (honorable):6, Articulated Dungeon Streamer (top), Game Changer (honorable):4 |
+| Clouser Minnow<br>clouser_minnow | fly | 10% | 177/888 | 36/168 | 177 | 36 | 21.4% | 36/84 | 0/84 | 49 | healthy | activity active:84, neutral:84<br>clarity clear:88, dirty:40, stained:40<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:92, calm_low_light_surface:28, stable_pleasant_medium_confidence_archive:20 | Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):7, Articulated Baitfish Streamer (top), Game Changer (honorable):5, Articulated Dungeon Streamer (top), Game Changer (honorable):4 |
+| Deceiver<br>deceiver | fly | 8% | 142/888 | 28/168 | 142 | 28 | 16.7% | 22/84 | 6/84 | 45 | healthy | activity active:84, neutral:84<br>clarity clear:88, dirty:40, stained:40<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:92, calm_low_light_surface:28, stable_pleasant_medium_confidence_archive:20 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):7, Articulated Baitfish Streamer (top), Game Changer (honorable):5 |
+| Game Changer<br>game_changer | fly | 14.4% | 255/888 | 51/168 | 255 | 51 | 30.4% | 16/84 | 35/84 | 48 | over-dominant | activity active:84, neutral:84<br>clarity clear:88, dirty:40, stained:40<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:92, calm_low_light_surface:28, stable_pleasant_medium_confidence_archive:20 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):7, Clouser Minnow (top), Deceiver (honorable):6 |
+| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 9.5% | 169/840 | 38/160 | 169 | 38 | 23.8% | 32/80 | 6/80 | 74 | healthy | activity active:80, neutral:80<br>clarity clear:80, dirty:40, stained:40<br>water freshwater_lake_pond:156, freshwater_river:4<br>bucket warming_search:88, calm_low_light_surface:28, cold_slow_or_front:16 | Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):7, Articulated Baitfish Streamer (top), Game Changer (honorable):5, Clouser Minnow (top), Deceiver (honorable):5 |
+| Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 5% | 88/840 | 11/160 | 88 | 11 | 6.9% | 10/80 | 1/80 | 18 | underused_home_window | activity active:80, neutral:80<br>clarity clear:80, dirty:40, stained:40<br>water freshwater_lake_pond:156, freshwater_river:4<br>bucket warming_search:88, calm_low_light_surface:28, cold_slow_or_front:16 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):7, Articulated Baitfish Streamer (top), Game Changer (honorable):5 |
+| Frog Fly<br>frog_fly | fly | 1.6% | 28/192 | 16/96 | 28 | 16 | 16.7% | 0/48 | 16/48 | 30 | healthy | activity neutral:60, active:36<br>clarity clear:32, dirty:32, stained:32<br>water freshwater_lake_pond:96<br>bucket calm_low_light_surface:48, warming_search:24, heat_limited_finesse:12 | Baitfish Slider Fly (top), Clouser Minnow (honorable):6, Mouse Fly (top), Articulated Baitfish Streamer (honorable):5, Popper Fly (top), Unweighted Baitfish Streamer (honorable):5 |
+| Bluegill Streamer<br>bluegill_streamer | fly | 4.6% | 82/408 | 20/88 | 82 | 20 | 22.7% | 1/44 | 19/44 | 39 | healthy | activity neutral:48, active:40<br>clarity clear:40, dirty:24, stained:24<br>water freshwater_lake_pond:88<br>bucket warming_search:40, calm_low_light_surface:24, calm_bright_clear_subtle:8 | Articulated Baitfish Streamer (top), Game Changer (honorable):3, Clouser Minnow (honorable), Popper Fly (top):3, Clouser Minnow (top), Baitfish Slider Fly (honorable):3 |
+| Warmwater Crawfish Fly<br>warmwater_crawfish_fly | fly | 1.2% | 22/204 | 15/68 | 22 | 15 | 22.1% | 12/34 | 3/34 | 16 | healthy | activity neutral:56, suppressed:8, active:4<br>clarity clear:40, stained:16, dirty:12<br>water freshwater_lake_pond:48, freshwater_river:20<br>bucket cold_slow_or_front:28, breezy_windy_stained_reaction:8, dirty_vibration:8 | Articulated Baitfish Streamer (top), Game Changer (honorable):4, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):3, Articulated Dungeon Streamer (top), Game Changer (honorable):2 |
 | Worm Fly<br>warmwater_worm_fly | fly | 0% | 0/0 | 0/0 | 0 | 0 | 0% | 0/0 | 0/0 | 0 | probably okay niche profile | activity <br>clarity <br>water <br>bucket  |  |
-| Swim Jig<br>swim_jig | lure | 3.3% | 59/888 | 39/544 | 59 | 39 | 7.2% | 32/272 | 7/272 | 96 | underused_home_window | activity neutral:304, active:224, suppressed:16<br>clarity dirty:216, stained:216, clear:112<br>water freshwater_lake_pond:508, freshwater_river:36<br>bucket dirty_vibration:176, breezy_windy_stained_reaction:164, warming_search:72 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):10 |
-| Lipless Crankbait<br>lipless_crankbait | lure | 4% | 71/888 | 56/408 | 71 | 56 | 13.7% | 26/204 | 30/204 | 123 | healthy | activity neutral:216, active:176, suppressed:16<br>clarity dirty:204, stained:204<br>water freshwater_lake_pond:376, freshwater_river:32<br>bucket dirty_vibration:176, breezy_windy_stained_reaction:164, warming_search:28 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):10 |
-| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 8.7% | 154/888 | 102/408 | 154 | 102 | 25% | 48/204 | 54/204 | 167 | healthy | activity neutral:216, active:176, suppressed:16<br>clarity dirty:204, stained:204<br>water freshwater_lake_pond:376, freshwater_river:32<br>bucket dirty_vibration:176, breezy_windy_stained_reaction:164, warming_search:28 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Buzzbait (top), Compact Flipping Jig (honorable):10, Compact Flipping Jig (honorable), Magnum Jerkbait (top):9 |
-| Spinnerbait<br>spinnerbait | lure | 3% | 54/888 | 47/408 | 54 | 47 | 11.5% | 35/204 | 12/204 | 128 | healthy | activity neutral:216, active:176, suppressed:16<br>clarity dirty:204, stained:204<br>water freshwater_lake_pond:376, freshwater_river:32<br>bucket dirty_vibration:176, breezy_windy_stained_reaction:164, warming_search:28 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):10 |
-| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 1.5% | 27/840 | 5/384 | 27 | 5 | 1.3% | 3/192 | 2/192 | 37 | underused_home_window | activity neutral:208, active:160, suppressed:16<br>clarity dirty:192, stained:192<br>water freshwater_lake_pond:352, freshwater_river:32<br>bucket dirty_vibration:164, breezy_windy_stained_reaction:152, warming_search:28 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):10 |
-| Squarebill Crankbait<br>squarebill_crankbait | lure | 4.7% | 84/840 | 54/384 | 84 | 54 | 14.1% | 34/192 | 20/192 | 117 | healthy | activity neutral:208, active:160, suppressed:16<br>clarity dirty:192, stained:192<br>water freshwater_lake_pond:352, freshwater_river:32<br>bucket dirty_vibration:164, breezy_windy_stained_reaction:152, warming_search:28 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):10 |
-| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 0.9% | 16/840 | 9/376 | 16 | 9 | 2.4% | 8/188 | 1/188 | 72 | underused_home_window | activity neutral:192, active:168, suppressed:16<br>clarity dirty:188, stained:188<br>water freshwater_lake_pond:376<br>bucket dirty_vibration:164, breezy_windy_stained_reaction:156, warming_search:24 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Magnum Jerkbait (honorable), Compact Flipping Jig (top):8 |
-| Bladed Jig<br>bladed_jig | lure | 1.5% | 26/888 | 25/360 | 26 | 25 | 6.9% | 21/180 | 4/180 | 72 | underused_home_window | activity neutral:216, active:128, suppressed:16<br>clarity dirty:180, stained:180<br>water freshwater_lake_pond:328, freshwater_river:32<br>bucket dirty_vibration:176, breezy_windy_stained_reaction:164, calm_low_light_surface:8 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):11, Medium-Diving Crankbait (top), Football Jig (honorable):11, Buzzbait (top), Compact Flipping Jig (honorable):10 |
-| Buzzbait<br>buzzbait | lure | 3.2% | 57/528 | 35/300 | 57 | 35 | 11.7% | 4/150 | 31/150 | 63 | healthy | activity neutral:216, active:84<br>clarity clear:100, dirty:100, stained:100<br>water freshwater_lake_pond:276, freshwater_river:24<br>bucket stable_pleasant_medium_confidence_archive:76, calm_low_light_surface:72, warming_search:44 | Walking Topwater (top), Compact Flipping Jig (honorable):12, Wake Bait (top), Magnum Jerkbait (honorable):10, Wake Bait (honorable), Walking Topwater (top):9 |
-| Walking Topwater<br>walking_topwater | lure | 4.6% | 82/528 | 66/300 | 82 | 66 | 22% | 1/150 | 65/150 | 84 | healthy | activity neutral:216, active:84<br>clarity clear:100, dirty:100, stained:100<br>water freshwater_lake_pond:276, freshwater_river:24<br>bucket stable_pleasant_medium_confidence_archive:76, calm_low_light_surface:72, warming_search:44 | Wake Bait (top), Magnum Jerkbait (honorable):10, Buzzbait (top), Compact Flipping Jig (honorable):8, Wake Bait (top), Paddle-Tail Swimbait (honorable):8 |
-| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 3.2% | 56/840 | 40/256 | 56 | 40 | 15.6% | 39/128 | 1/128 | 42 | healthy | activity neutral:208, suppressed:48<br>clarity clear:160, stained:96<br>water freshwater_lake_pond:256<br>bucket cold_slow_or_front:72, heat_limited_finesse:48, breezy_windy_stained_reaction:44 | Drop-Shot Minnow (top), Soft Plastic Jerkbait (honorable):9, Soft Plastic Jerkbait (top), Weightless Stick Worm (honorable):7, Magnum Jerkbait (honorable), Football Jig (top):6 |
-| Wake Bait<br>wake_bait | lure | 3.6% | 64/372 | 63/252 | 64 | 63 | 25% | 3/126 | 60/126 | 78 | healthy | activity neutral:192, active:60<br>clarity clear:84, dirty:84, stained:84<br>water freshwater_lake_pond:252<br>bucket stable_pleasant_medium_confidence_archive:72, calm_low_light_surface:60, heat_limited_finesse:32 | Walking Topwater (top), Compact Flipping Jig (honorable):10, Walking Topwater (top), Magnum Jerkbait (honorable):7, Carolina-Rigged Stick Worm (top), Tube Jig (honorable):6 |
-| Suspending Jerkbait<br>suspending_jerkbait | lure | 9.1% | 162/888 | 42/224 | 162 | 42 | 18.8% | 39/112 | 3/112 | 100 | healthy | activity neutral:136, active:60, suppressed:28<br>clarity clear:144, stained:80<br>water freshwater_lake_pond:200, freshwater_river:24<br>bucket cold_slow_or_front:52, warming_search:48, breezy_windy_stained_reaction:44 | Medium-Diving Crankbait (top), Football Jig (honorable):7, Magnum Jerkbait (top), Compact Flipping Jig (honorable):6, Magnum Jerkbait (top), Football Jig (honorable):6 |
-| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 5.6% | 100/888 | 41/168 | 100 | 41 | 24.4% | 26/84 | 15/84 | 66 | healthy | activity neutral:88, active:80<br>clarity clear:112, dirty:28, stained:28<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:68, stable_pleasant_medium_confidence_archive:40, calm_low_light_surface:28 | Soft Plastic Jerkbait (top), Carolina-Rigged Stick Worm (honorable):5, Suspending Jerkbait (top), Drop-Shot Minnow (honorable):4, Walking Topwater (top), Swim Jig (honorable):4 |
-| Drop-Shot Minnow<br>drop_shot_minnow | lure | 3.5% | 63/888 | 27/136 | 63 | 27 | 19.9% | 18/68 | 9/68 | 40 | healthy | activity neutral:116, suppressed:20<br>clarity clear:136<br>water freshwater_lake_pond:132, freshwater_river:4<br>bucket calm_bright_clear_subtle:44, stable_pleasant_medium_confidence_archive:32, heat_limited_finesse:24 | Soft Plastic Jerkbait (top), Carolina-Rigged Stick Worm (honorable):9, Carolina-Rigged Stick Worm (top), Tube Jig (honorable):7, Soft Plastic Jerkbait (top), Weightless Stick Worm (honorable):7 |
-| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 7.4% | 132/840 | 34/132 | 132 | 34 | 25.8% | 29/66 | 5/66 | 57 | over-dominant | activity neutral:116, suppressed:16<br>clarity clear:132<br>water freshwater_lake_pond:128, freshwater_river:4<br>bucket calm_bright_clear_subtle:40, stable_pleasant_medium_confidence_archive:32, heat_limited_finesse:24 | Carolina-Rigged Stick Worm (top), Tube Jig (honorable):6, Flat-Sided Crankbait (top), Compact Flipping Jig (honorable):5, Suspending Jerkbait (top), Drop-Shot Minnow (honorable):5 |
-| Ned Rig<br>ned_rig | lure | 0.8% | 14/396 | 8/124 | 14 | 8 | 6.5% | 8/62 | 0/62 | 28 | underused_home_window | activity neutral:100, suppressed:24<br>clarity clear:68, stained:56<br>water freshwater_lake_pond:112, freshwater_river:12<br>bucket cold_slow_or_front:48, breezy_windy_stained_reaction:36, heat_limited_finesse:16 | Magnum Jerkbait (honorable), Football Jig (top):6, Magnum Jerkbait (top), Compact Flipping Jig (honorable):5, Magnum Jerkbait (top), Football Jig (honorable):5 |
-| Compact Flipping Jig<br>compact_flipping_jig | lure | 9% | 160/888 | 21/98 | 160 | 21 | 21.4% | 0/44 | 21/54 | 4 | healthy | activity neutral:62, suppressed:20, active:16<br>clarity clear:80, stained:18<br>water freshwater_lake_pond:86, freshwater_river:12<br>bucket cold_slow_or_front:52, calm_bright_clear_subtle:12, heat_limited_finesse:12 | Magnum Jerkbait (honorable), Football Jig (top):6, Magnum Jerkbait (top), Football Jig (honorable):6, Carolina-Rigged Stick Worm (top), Tube Jig (honorable):2 |
-| Hollow-Body Frog<br>hollow_body_frog | lure | 1.1% | 19/192 | 11/96 | 19 | 11 | 11.5% | 0/48 | 11/48 | 13 | healthy | activity neutral:60, active:36<br>clarity clear:32, dirty:32, stained:32<br>water freshwater_lake_pond:96<br>bucket calm_low_light_surface:48, warming_search:16, heat_limited_finesse:12 | Wake Bait (honorable), Walking Topwater (top):5, Wake Bait (top), Drop-Shot Minnow (honorable):4, Buzzbait (top), Compact Flipping Jig (honorable):3 |
-| Finesse Jig<br>finesse_jig | lure | 0.7% | 12/396 | 9/88 | 12 | 9 | 10.2% | 9/44 | 0/44 | 21 | healthy | activity neutral:56, suppressed:20, active:12<br>clarity clear:80, stained:8<br>water freshwater_lake_pond:76, freshwater_river:12<br>bucket cold_slow_or_front:52, calm_bright_clear_subtle:12, heat_limited_finesse:8 | Magnum Jerkbait (top), Football Jig (honorable):6, Magnum Jerkbait (honorable), Football Jig (top):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5 |
-| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 0.5% | 9/396 | 5/88 | 9 | 5 | 5.7% | 5/44 | 0/44 | 24 | underused_home_window | activity neutral:56, suppressed:20, active:12<br>clarity clear:80, stained:8<br>water freshwater_lake_pond:76, freshwater_river:12<br>bucket cold_slow_or_front:52, calm_bright_clear_subtle:12, heat_limited_finesse:8 | Magnum Jerkbait (top), Football Jig (honorable):6, Magnum Jerkbait (honorable), Football Jig (top):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5 |
-| Football Jig<br>football_jig | lure | 3.8% | 68/360 | 22/86 | 68 | 22 | 25.6% | 0/38 | 22/48 | 10 | over-dominant | activity neutral:54, suppressed:20, active:12<br>clarity clear:68, stained:18<br>water freshwater_lake_pond:86<br>bucket cold_slow_or_front:48, calm_bright_clear_subtle:12, heat_limited_finesse:12 | Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Magnum Jerkbait (top), Compact Flipping Jig (honorable):3, Tube Jig (top), Compact Flipping Jig (honorable):3 |
-| Weightless Stick Worm<br>weightless_stick_worm | lure | 2.6% | 46/288 | 12/52 | 46 | 12 | 23.1% | 11/26 | 1/26 | 24 | healthy | activity neutral:48, suppressed:4<br>clarity clear:52<br>water freshwater_lake_pond:52<br>bucket stable_pleasant_medium_confidence_archive:16, heat_limited_finesse:12, calm_bright_clear_subtle:8 | Carolina-Rigged Stick Worm (top), Tube Jig (honorable):4, Flat-Sided Crankbait (top), Compact Flipping Jig (honorable):4, Wake Bait (honorable), Walking Topwater (top):4 |
+| Swim Jig<br>swim_jig | lure | 4.2% | 74/888 | 46/464 | 74 | 46 | 9.9% | 37/232 | 9/232 | 118 | healthy | activity neutral:252, active:212<br>clarity dirty:188, stained:188, clear:88<br>water freshwater_lake_pond:436, freshwater_river:28<br>bucket dirty_vibration:116, breezy_windy_stained_reaction:108, warming_search:104 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):15, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):9 |
+| Lipless Crankbait<br>lipless_crankbait | lure | 2.3% | 41/888 | 29/344 | 41 | 29 | 8.4% | 12/172 | 17/172 | 91 | healthy | activity active:176, neutral:168<br>clarity dirty:172, stained:172<br>water freshwater_lake_pond:320, freshwater_river:24<br>bucket dirty_vibration:116, breezy_windy_stained_reaction:108, warming_search:52 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):9 |
+| Medium-Diving Crankbait<br>medium_diving_crankbait | lure | 7% | 125/888 | 83/344 | 125 | 83 | 24.1% | 43/172 | 40/172 | 127 | healthy | activity active:176, neutral:168<br>clarity dirty:172, stained:172<br>water freshwater_lake_pond:320, freshwater_river:24<br>bucket dirty_vibration:116, breezy_windy_stained_reaction:108, warming_search:52 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Buzzbait (top), Compact Flipping Jig (honorable):9, Compact Flipping Jig (honorable), Magnum Jerkbait (top):7 |
+| Spinnerbait<br>spinnerbait | lure | 2.3% | 40/888 | 33/344 | 40 | 33 | 9.6% | 22/172 | 11/172 | 90 | healthy | activity active:176, neutral:168<br>clarity dirty:172, stained:172<br>water freshwater_lake_pond:320, freshwater_river:24<br>bucket dirty_vibration:116, breezy_windy_stained_reaction:108, warming_search:52 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):9 |
+| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 1.1% | 20/840 | 10/320 | 20 | 10 | 3.1% | 8/160 | 2/160 | 52 | underused_home_window | activity active:168, neutral:152<br>clarity dirty:160, stained:160<br>water freshwater_lake_pond:320<br>bucket breezy_windy_stained_reaction:108, dirty_vibration:108, warming_search:48 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Suspending Jerkbait (top), Soft Plastic Jerkbait (honorable):7 |
+| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 2% | 35/840 | 5/320 | 35 | 5 | 1.6% | 4/160 | 1/160 | 33 | underused_home_window | activity active:160, neutral:160<br>clarity dirty:160, stained:160<br>water freshwater_lake_pond:296, freshwater_river:24<br>bucket dirty_vibration:108, breezy_windy_stained_reaction:100, warming_search:52 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):9 |
+| Squarebill Crankbait<br>squarebill_crankbait | lure | 4.3% | 76/840 | 43/320 | 76 | 43 | 13.4% | 26/160 | 17/160 | 88 | healthy | activity active:160, neutral:160<br>clarity dirty:160, stained:160<br>water freshwater_lake_pond:296, freshwater_river:24<br>bucket dirty_vibration:108, breezy_windy_stained_reaction:100, warming_search:52 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):9 |
+| Buzzbait<br>buzzbait | lure | 3% | 54/528 | 36/300 | 54 | 36 | 12% | 5/150 | 31/150 | 61 | healthy | activity neutral:216, active:84<br>clarity clear:100, dirty:100, stained:100<br>water freshwater_lake_pond:276, freshwater_river:24<br>bucket stable_pleasant_medium_confidence_archive:80, calm_low_light_surface:72, warming_search:52 | Walking Topwater (top), Compact Flipping Jig (honorable):11, Wake Bait (top), Magnum Jerkbait (honorable):10, Wake Bait (honorable), Walking Topwater (top):9 |
+| Walking Topwater<br>walking_topwater | lure | 4.7% | 84/528 | 66/300 | 84 | 66 | 22% | 1/150 | 65/150 | 84 | healthy | activity neutral:216, active:84<br>clarity clear:100, dirty:100, stained:100<br>water freshwater_lake_pond:276, freshwater_river:24<br>bucket stable_pleasant_medium_confidence_archive:80, calm_low_light_surface:72, warming_search:52 | Wake Bait (top), Magnum Jerkbait (honorable):10, Wake Bait (top), Paddle-Tail Swimbait (honorable):8, Buzzbait (top), Compact Flipping Jig (honorable):7 |
+| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | lure | 3.5% | 62/840 | 41/256 | 62 | 41 | 16% | 40/128 | 1/128 | 47 | healthy | activity neutral:208, suppressed:48<br>clarity clear:160, stained:96<br>water freshwater_lake_pond:256<br>bucket cold_slow_or_front:72, heat_limited_finesse:52, calm_bright_clear_subtle:44 | Drop-Shot Minnow (top), Soft Plastic Jerkbait (honorable):9, Soft Plastic Jerkbait (top), Weightless Stick Worm (honorable):7, Suspending Jerkbait (top), Drop-Shot Minnow (honorable):7 |
+| Wake Bait<br>wake_bait | lure | 3.9% | 69/372 | 63/252 | 69 | 63 | 25% | 3/126 | 60/126 | 79 | healthy | activity neutral:192, active:60<br>clarity clear:84, dirty:84, stained:84<br>water freshwater_lake_pond:252<br>bucket stable_pleasant_medium_confidence_archive:72, calm_low_light_surface:60, warming_search:40 | Walking Topwater (top), Compact Flipping Jig (honorable):9, Walking Topwater (top), Magnum Jerkbait (honorable):7, Carolina-Rigged Stick Worm (top), Tube Jig (honorable):6 |
+| Bladed Jig<br>bladed_jig | lure | 0.9% | 16/888 | 15/240 | 16 | 15 | 6.3% | 13/120 | 2/120 | 52 | underused_home_window | activity neutral:168, active:72<br>clarity dirty:120, stained:120<br>water freshwater_lake_pond:216, freshwater_river:24<br>bucket dirty_vibration:116, breezy_windy_stained_reaction:108, calm_low_light_surface:8 | Medium-Diving Crankbait (top), Football Jig (honorable):10, Buzzbait (top), Compact Flipping Jig (honorable):8, Compact Flipping Jig (honorable), Magnum Jerkbait (top):7 |
+| Suspending Jerkbait<br>suspending_jerkbait | lure | 8.7% | 154/888 | 38/224 | 154 | 38 | 17% | 35/112 | 3/112 | 99 | healthy | activity neutral:136, active:60, suppressed:28<br>clarity clear:144, stained:80<br>water freshwater_lake_pond:200, freshwater_river:24<br>bucket warming_search:60, cold_slow_or_front:56, calm_bright_clear_subtle:32 | Magnum Jerkbait (top), Football Jig (honorable):9, Magnum Jerkbait (top), Compact Flipping Jig (honorable):8, Medium-Diving Crankbait (top), Football Jig (honorable):7 |
+| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 6% | 107/888 | 48/168 | 107 | 48 | 28.6% | 30/84 | 18/84 | 74 | over-dominant | activity active:84, neutral:84<br>clarity clear:88, dirty:40, stained:40<br>water freshwater_lake_pond:164, freshwater_river:4<br>bucket warming_search:92, calm_low_light_surface:28, stable_pleasant_medium_confidence_archive:20 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):6, Magnum Jerkbait (top), Football Jig (honorable):5, Medium-Diving Crankbait (honorable), Football Jig (top):4 |
+| Drop-Shot Minnow<br>drop_shot_minnow | lure | 4.3% | 76/888 | 29/136 | 76 | 29 | 21.3% | 20/68 | 9/68 | 44 | healthy | activity neutral:116, suppressed:20<br>clarity clear:136<br>water freshwater_lake_pond:132, freshwater_river:4<br>bucket calm_bright_clear_subtle:44, stable_pleasant_medium_confidence_archive:32, heat_limited_finesse:24 | Soft Plastic Jerkbait (top), Carolina-Rigged Stick Worm (honorable):9, Carolina-Rigged Stick Worm (top), Tube Jig (honorable):7, Soft Plastic Jerkbait (top), Weightless Stick Worm (honorable):7 |
+| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 7.8% | 138/840 | 35/132 | 138 | 35 | 26.5% | 29/66 | 6/66 | 56 | over-dominant | activity neutral:116, suppressed:16<br>clarity clear:132<br>water freshwater_lake_pond:128, freshwater_river:4<br>bucket calm_bright_clear_subtle:40, stable_pleasant_medium_confidence_archive:32, heat_limited_finesse:24 | Carolina-Rigged Stick Worm (top), Tube Jig (honorable):6, Suspending Jerkbait (top), Drop-Shot Minnow (honorable):6, Flat-Sided Crankbait (top), Compact Flipping Jig (honorable):5 |
+| Ned Rig<br>ned_rig | lure | 1.3% | 23/396 | 10/124 | 23 | 10 | 8.1% | 10/62 | 0/62 | 28 | healthy | activity neutral:100, suppressed:24<br>clarity clear:68, stained:56<br>water freshwater_lake_pond:112, freshwater_river:12<br>bucket cold_slow_or_front:52, breezy_windy_stained_reaction:32, heat_limited_finesse:16 | Magnum Jerkbait (honorable), Football Jig (top):6, Magnum Jerkbait (top), Compact Flipping Jig (honorable):6, Magnum Jerkbait (top), Football Jig (honorable):6 |
+| Compact Flipping Jig<br>compact_flipping_jig | lure | 9.2% | 163/888 | 28/118 | 163 | 28 | 23.7% | 0/50 | 28/68 | 7 | healthy | activity neutral:68, active:26, suppressed:24<br>clarity clear:80, stained:38<br>water freshwater_lake_pond:102, freshwater_river:16<br>bucket cold_slow_or_front:64, warming_search:14, calm_bright_clear_subtle:12 | Magnum Jerkbait (top), Football Jig (honorable):7, Magnum Jerkbait (honorable), Football Jig (top):6, Drop-Shot Minnow (top), Carolina-Rigged Stick Worm (honorable):3 |
+| Football Jig<br>football_jig | lure | 4.2% | 74/360 | 28/102 | 74 | 28 | 27.5% | 0/42 | 28/60 | 12 | over-dominant | activity neutral:56, suppressed:24, active:22<br>clarity clear:68, stained:34<br>water freshwater_lake_pond:102<br>bucket cold_slow_or_front:56, calm_bright_clear_subtle:12, heat_limited_finesse:12 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):6, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Drop-Shot Minnow (top), Carolina-Rigged Stick Worm (honorable):3 |
+| Finesse Jig<br>finesse_jig | lure | 0.8% | 14/396 | 11/100 | 14 | 11 | 11% | 11/50 | 0/50 | 22 | healthy | activity neutral:60, suppressed:24, active:16<br>clarity clear:80, stained:20<br>water freshwater_lake_pond:84, freshwater_river:16<br>bucket cold_slow_or_front:64, calm_bright_clear_subtle:12, heat_limited_finesse:8 | Magnum Jerkbait (top), Football Jig (honorable):7, Magnum Jerkbait (honorable), Football Jig (top):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5 |
+| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 0.5% | 9/396 | 6/100 | 9 | 6 | 6% | 6/50 | 0/50 | 27 | underused_home_window | activity neutral:60, suppressed:24, active:16<br>clarity clear:80, stained:20<br>water freshwater_lake_pond:84, freshwater_river:16<br>bucket cold_slow_or_front:64, calm_bright_clear_subtle:12, heat_limited_finesse:8 | Magnum Jerkbait (top), Football Jig (honorable):7, Magnum Jerkbait (honorable), Football Jig (top):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5 |
+| Hollow-Body Frog<br>hollow_body_frog | lure | 1.1% | 19/192 | 11/96 | 19 | 11 | 11.5% | 0/48 | 11/48 | 17 | healthy | activity neutral:60, active:36<br>clarity clear:32, dirty:32, stained:32<br>water freshwater_lake_pond:96<br>bucket calm_low_light_surface:48, warming_search:24, heat_limited_finesse:12 | Wake Bait (honorable), Walking Topwater (top):5, Wake Bait (top), Drop-Shot Minnow (honorable):4, Suspending Jerkbait (top), Drop-Shot Minnow (honorable):3 |
+| Weightless Stick Worm<br>weightless_stick_worm | lure | 2.8% | 49/288 | 12/52 | 49 | 12 | 23.1% | 11/26 | 1/26 | 24 | healthy | activity neutral:48, suppressed:4<br>clarity clear:52<br>water freshwater_lake_pond:52<br>bucket stable_pleasant_medium_confidence_archive:16, heat_limited_finesse:12, calm_bright_clear_subtle:8 | Carolina-Rigged Stick Worm (top), Tube Jig (honorable):4, Flat-Sided Crankbait (top), Compact Flipping Jig (honorable):4, Wake Bait (honorable), Walking Topwater (top):4 |
 | Shaky-Head Worm<br>shaky_head_worm | lure | 0.1% | 1/48 | 1/8 | 1 | 1 | 12.5% | 0/4 | 1/4 | 3 | probably okay niche profile | activity suppressed:8<br>clarity clear:4, stained:4<br>water freshwater_lake_pond:8<br>bucket calm_bright_clear_subtle:4, cold_slow_or_front:4 | Carolina-Rigged Stick Worm (top), Tube Jig (honorable):2, Carolina-Rigged Stick Worm (honorable), Compact Flipping Jig (top):1, Finesse Jig (honorable), Texas-Rigged Soft-Plastic Craw (top):1 |
 | Topwater Popper<br>popping_topwater | lure | 0% | 0/0 | 0/0 | 0 | 0 | 0% | 0/0 | 0/0 | 0 | probably okay niche profile | activity <br>clarity <br>water <br>bucket  |  |
 
@@ -1402,13 +1400,10 @@ Bladed Jig (bladed_jig), Finesse Jig (finesse_jig), Ned Rig (ned_rig), Spinnerba
 
 | Cause | Bladed Jig home-window wins |
 | --- | --- |
-| forage_clarity_stack | 25 |
+| forage_clarity_stack | 15 |
 
 | Context | Goal/clarity/water | Bucket/activity | Score | Cause | Reasons |
 | --- | --- | --- | --- | --- | --- |
-| Lake Okeechobee / central FL bass lake<br>2025-03-18 | all_purpose<br>stained<br>freshwater_lake_pond | cold_slow_or_front<br>suppressed | 140 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6<br>baseline_primary_pace:medium:+10 |
-| Lake Okeechobee / central FL bass lake<br>2025-03-18 | big_fish<br>stained<br>freshwater_lake_pond | cold_slow_or_front<br>suppressed | 140 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6<br>baseline_primary_pace:medium:+10 |
-| Sam Rayburn Reservoir<br>2025-02-11 | all_purpose<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>active | 136 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>primary_forage:baitfish:+12 |
 | Sam Rayburn Reservoir<br>2025-03-28 | all_purpose<br>stained<br>freshwater_lake_pond | breezy_windy_stained_reaction<br>active | 150 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
 | Sam Rayburn Reservoir<br>2025-03-28 | all_purpose<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>active | 150 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
 | Sam Rayburn Reservoir<br>2025-03-28 | big_fish<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>active | 150 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
@@ -1419,31 +1414,29 @@ Bladed Jig (bladed_jig), Finesse Jig (finesse_jig), Ned Rig (ned_rig), Spinnerba
 | Minnesota natural bass lake<br>2025-03-20 | all_purpose<br>stained<br>freshwater_lake_pond | breezy_windy_stained_reaction<br>neutral | 136 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:stained:+8<br>primary_forage:baitfish:+12 |
 | Minnesota natural bass lake<br>2025-05-15 | big_fish<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>active | 140 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>secondary_forage:baitfish:+6<br>baseline_primary_pace:medium:+10 |
 | Minnesota natural bass lake<br>2025-07-16 | all_purpose<br>stained<br>freshwater_lake_pond | breezy_windy_stained_reaction<br>neutral | 156 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:stained:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
-| Minnesota natural bass lake<br>2025-09-20 | all_purpose<br>stained<br>freshwater_lake_pond | breezy_windy_stained_reaction<br>active | 156 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:stained:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
 | Lake Champlain<br>2025-04-27 | all_purpose<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>neutral | 150 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
 | Lake Champlain<br>2025-08-14 | all_purpose<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>active | 156 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
-| WV/VA highland reservoir<br>2025-03-26 | all_purpose<br>stained<br>freshwater_lake_pond | cold_slow_or_front<br>suppressed | 150 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
-| WV/VA highland reservoir<br>2025-03-26 | all_purpose<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>suppressed | 150 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
-| WV/VA highland reservoir<br>2025-11-08 | all_purpose<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>active | 156 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
-| Colorado mountain-west reservoir<br>2025-04-23 | all_purpose<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>active | 150 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
+| Colorado mountain-west reservoir<br>2025-08-12 | all_purpose<br>stained<br>freshwater_lake_pond | breezy_windy_stained_reaction<br>neutral | 156 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:stained:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
+| Northern California bass lake<br>2025-03-30 | all_purpose<br>dirty<br>freshwater_lake_pond | dirty_vibration<br>neutral | 150 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:dirty:+8<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
+| Northern California bass lake<br>2025-08-16 | all_purpose<br>stained<br>freshwater_lake_pond | breezy_windy_stained_reaction<br>neutral | 156 | forage_clarity_stack | base:+100<br>condition_tag:dirty_vibration:+16<br>clarity_strength:stained:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
 
 ## Underused Signature Loss Diagnosis
 
 | Profile | AP home selected/opp | Big Fish home selected/opp | Loss causes | Best close losses |
 | --- | --- | --- | --- | --- |
-| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | 39/128 | 1/128 | goal_tags:83, daily_condition_tags:76, seasonal_baseline:32, forage_clarity_stack:18, selector_filtering_variety_jitter:7 | Lake Okeechobee / central FL bass lake 2025-03-18 all_purpose clear: lost to Flat-Sided Crankbait by -2 (selector_filtering_variety_jitter)<br>Lake Okeechobee / central FL bass lake 2025-03-19 all_purpose stained: lost to Flat-Sided Crankbait by -2 (selector_filtering_variety_jitter)<br>Lake Okeechobee / central FL bass lake 2025-03-19 all_purpose clear: lost to Suspending Jerkbait by 0 (selector_filtering_variety_jitter) |
-| Ned Rig<br>ned_rig | 8/62 | 0/62 | goal_tags:65, forage_clarity_stack:35, daily_condition_tags:11, selector_filtering_variety_jitter:4, seasonal_baseline:1 | Jordan Lake / Piedmont reservoir 2025-03-22 all_purpose clear: lost to Drop-Shot Minnow by 10 (forage_clarity_stack)<br>Lake Okeechobee / central FL bass lake 2025-01-16 big_fish clear: lost to Tube Jig by 12 (forage_clarity_stack)<br>Lake Okeechobee / central FL bass lake 2025-01-16 all_purpose stained: lost to Tube Jig by 12 (forage_clarity_stack) |
-| Finesse Jig<br>finesse_jig | 9/44 | 0/44 | goal_tags:46, forage_clarity_stack:22, daily_condition_tags:6, selector_filtering_variety_jitter:5 | Lake Okeechobee / central FL bass lake 2025-01-16 all_purpose clear: lost to Carolina-Rigged Stick Worm by 0 (selector_filtering_variety_jitter)<br>Lake Okeechobee / central FL bass lake 2025-01-16 big_fish clear: lost to Tube Jig by 12 (forage_clarity_stack)<br>Lake of the Ozarks 2025-02-20 all_purpose clear: lost to Carolina-Rigged Stick Worm by 12 (goal_tags) |
-| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | 5/44 | 0/44 | goal_tags:48, forage_clarity_stack:25, daily_condition_tags:6, selector_filtering_variety_jitter:4 | Lake Okeechobee / central FL bass lake 2025-01-16 all_purpose clear: lost to Carolina-Rigged Stick Worm by 0 (selector_filtering_variety_jitter)<br>Jordan Lake / Piedmont reservoir 2025-03-22 all_purpose clear: lost to Drop-Shot Minnow by 10 (forage_clarity_stack)<br>Lake Okeechobee / central FL bass lake 2025-01-16 big_fish clear: lost to Tube Jig by 12 (forage_clarity_stack) |
+| Carolina-Rigged Stick Worm<br>carolina_rigged_stick_worm | 40/128 | 1/128 | goal_tags:84, daily_condition_tags:68, seasonal_baseline:36, forage_clarity_stack:19, selector_filtering_variety_jitter:8 | Lake Okeechobee / central FL bass lake 2025-03-18 all_purpose clear: lost to Flat-Sided Crankbait by -2 (selector_filtering_variety_jitter)<br>Lake Okeechobee / central FL bass lake 2025-03-18 all_purpose stained: lost to Flat-Sided Crankbait by -2 (selector_filtering_variety_jitter)<br>Lake Okeechobee / central FL bass lake 2025-03-19 all_purpose stained: lost to Flat-Sided Crankbait by -2 (selector_filtering_variety_jitter) |
+| Ned Rig<br>ned_rig | 10/62 | 0/62 | goal_tags:61, forage_clarity_stack:35, daily_condition_tags:11, selector_filtering_variety_jitter:4, seasonal_baseline:3 | Jordan Lake / Piedmont reservoir 2025-03-22 all_purpose clear: lost to Drop-Shot Minnow by 10 (forage_clarity_stack)<br>Lake Okeechobee / central FL bass lake 2025-01-16 big_fish clear: lost to Tube Jig by 12 (forage_clarity_stack)<br>Lake Okeechobee / central FL bass lake 2025-01-16 all_purpose stained: lost to Tube Jig by 12 (forage_clarity_stack) |
+| Finesse Jig<br>finesse_jig | 11/50 | 0/50 | goal_tags:51, forage_clarity_stack:26, daily_condition_tags:5, selector_filtering_variety_jitter:5, seasonal_baseline:2 | Lake Okeechobee / central FL bass lake 2025-01-16 all_purpose clear: lost to Carolina-Rigged Stick Worm by 0 (selector_filtering_variety_jitter)<br>Lake Okeechobee / central FL bass lake 2025-01-16 big_fish clear: lost to Tube Jig by 12 (forage_clarity_stack)<br>Lake of the Ozarks 2025-02-20 all_purpose clear: lost to Carolina-Rigged Stick Worm by 12 (goal_tags) |
+| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | 6/50 | 0/50 | goal_tags:53, forage_clarity_stack:28, selector_filtering_variety_jitter:6, daily_condition_tags:5, seasonal_baseline:2 | Lake Okeechobee / central FL bass lake 2025-01-16 all_purpose clear: lost to Carolina-Rigged Stick Worm by 0 (selector_filtering_variety_jitter)<br>Jordan Lake / Piedmont reservoir 2025-03-22 all_purpose clear: lost to Drop-Shot Minnow by 10 (forage_clarity_stack)<br>Lake Okeechobee / central FL bass lake 2025-01-16 big_fish clear: lost to Tube Jig by 12 (forage_clarity_stack) |
 
 | Profile/context | Candidate | Selected alternative | Delta | Cause | Candidate reasons | Winner reasons |
 | --- | --- | --- | --- | --- | --- | --- |
 | Carolina-Rigged Stick Worm<br>Lake Okeechobee / central FL bass lake 2025-03-18<br>all_purpose clear cold_slow_or_front | 186 | Flat-Sided Crankbait<br>184 | -2 | selector_filtering_variety_jitter | base:+100<br>condition_tag:clear_subtle:+16<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6 | base:+100<br>condition_tag:clear_subtle:+16<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6<br>baseline_column:upper:+10<br>baseline_primary_pace:medium:+10 |
+| Carolina-Rigged Stick Worm<br>Lake Okeechobee / central FL bass lake 2025-03-18<br>all_purpose stained cold_slow_or_front | 170 | Flat-Sided Crankbait<br>168 | -2 | selector_filtering_variety_jitter | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6<br>baseline_column:upper:+10<br>baseline_primary_pace:medium:+10 |
 | Carolina-Rigged Stick Worm<br>Lake Okeechobee / central FL bass lake 2025-03-19<br>all_purpose stained cold_slow_or_front | 170 | Flat-Sided Crankbait<br>168 | -2 | selector_filtering_variety_jitter | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6<br>baseline_column:upper:+10<br>baseline_primary_pace:medium:+10 |
 | Carolina-Rigged Stick Worm<br>Lake Okeechobee / central FL bass lake 2025-03-19<br>all_purpose clear calm_bright_clear_subtle | 186 | Suspending Jerkbait<br>186 | 0 | selector_filtering_variety_jitter | base:+100<br>condition_tag:clear_subtle:+16<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6 | base:+100<br>condition_tag:clear_subtle:+16<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6<br>baseline_primary_pace:medium:+10 |
 | Finesse Jig<br>Lake Okeechobee / central FL bass lake 2025-01-16<br>all_purpose clear cold_slow_or_front | 170 | Carolina-Rigged Stick Worm<br>170 | 0 | selector_filtering_variety_jitter | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6 |
 | Texas-Rigged Soft-Plastic Craw<br>Lake Okeechobee / central FL bass lake 2025-01-16<br>all_purpose clear cold_slow_or_front | 170 | Carolina-Rigged Stick Worm<br>170 | 0 | selector_filtering_variety_jitter | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6 |
-| Carolina-Rigged Stick Worm<br>Lake Okeechobee / central FL bass lake 2025-03-18<br>all_purpose stained cold_slow_or_front | 170 | Soft Plastic Jerkbait<br>174 | 4 | seasonal_baseline | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6 | base:+100<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6<br>baseline_column:upper:+10<br>baseline_primary_pace:medium:+10 |
 | Ned Rig<br>Jordan Lake / Piedmont reservoir 2025-03-22<br>all_purpose clear cold_slow_or_front | 170 | Drop-Shot Minnow<br>180 | 10 | forage_clarity_stack | base:+100<br>condition_tag:clear_subtle:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:clear_subtle:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10 |
 | Texas-Rigged Soft-Plastic Craw<br>Jordan Lake / Piedmont reservoir 2025-03-22<br>all_purpose clear cold_slow_or_front | 170 | Drop-Shot Minnow<br>180 | 10 | forage_clarity_stack | base:+100<br>condition_tag:clear_subtle:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:clear_subtle:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12<br>secondary_forage:baitfish:+6<br>baseline_column:mid:+10 |
 | Finesse Jig<br>Lake Okeechobee / central FL bass lake 2025-01-16<br>big_fish clear cold_slow_or_front | 136 | Tube Jig<br>148 | 12 | forage_clarity_stack | base:+100<br>condition_tag:cold_slow:+16<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:cold_slow:+16<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12<br>secondary_forage:baitfish:+6<br>baseline_secondary_pace:medium:+6 |
@@ -1459,8 +1452,8 @@ Bladed Jig (bladed_jig), Finesse Jig (finesse_jig), Ned Rig (ned_rig), Spinnerba
 
 | Cause | Equal-or-better underused losses |
 | --- | --- |
-| avoidIds | 22 |
-| jitter_or_id_tiebreak | 6 |
+| avoidIds | 23 |
+| jitter_or_id_tiebreak | 8 |
 | honorable_diversity_or_replacement | 2 |
 | set_b_group_novelty | 2 |
 
@@ -1481,6 +1474,7 @@ Bladed Jig (bladed_jig), Finesse Jig (finesse_jig), Ned Rig (ned_rig), Spinnerba
 | Lake of the Ozarks<br>2025-09-13 all_purpose clear<br>heat_limited_finesse | B<br>honorable_lure | Suspending Jerkbait<br>186 | Drop-Shot Minnow<br>190 | -4 | avoidIds | base:+100<br>condition_tag:clear_subtle:+16<br>condition_tag:heat_finesse:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10 | base:+100<br>condition_tag:clear_subtle:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>clarity_strength:clear:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
 | Southern California reservoir<br>2025-09-15 all_purpose clear<br>calm_bright_clear_subtle | B<br>honorable_lure | Suspending Jerkbait<br>186 | Drop-Shot Minnow<br>190 | -4 | avoidIds | base:+100<br>condition_tag:clear_subtle:+16<br>condition_tag:heat_finesse:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10 | base:+100<br>condition_tag:clear_subtle:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>clarity_strength:clear:+8<br>primary_forage:baitfish:+12<br>baseline_column:mid:+10<br>baseline_primary_pace:medium:+10 |
 | Lake Okeechobee / central FL bass lake<br>2025-03-18 all_purpose clear<br>cold_slow_or_front | B<br>lure_of_the_day | Flat-Sided Crankbait<br>184 | Carolina-Rigged Stick Worm<br>186 | -2 | avoidIds | base:+100<br>condition_tag:clear_subtle:+16<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6 | base:+100<br>condition_tag:clear_subtle:+16<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6<br>baseline_column:upper:+10<br>baseline_primary_pace:medium:+10 |
+| Lake Okeechobee / central FL bass lake<br>2025-03-18 all_purpose stained<br>cold_slow_or_front | B<br>honorable_lure | Flat-Sided Crankbait<br>168 | Carolina-Rigged Stick Worm<br>170 | -2 | avoidIds | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6<br>baseline_column:upper:+10<br>baseline_primary_pace:medium:+10 |
 | Lake Okeechobee / central FL bass lake<br>2025-03-19 all_purpose stained<br>cold_slow_or_front | B<br>lure_of_the_day | Flat-Sided Crankbait<br>168 | Carolina-Rigged Stick Worm<br>170 | -2 | avoidIds | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>clarity_strength:stained:+8<br>secondary_forage:baitfish:+6<br>baseline_column:upper:+10<br>baseline_primary_pace:medium:+10 |
 | Lake Okeechobee / central FL bass lake<br>2025-01-16 all_purpose clear<br>cold_slow_or_front | B<br>honorable_lure | Carolina-Rigged Stick Worm<br>170 | Finesse Jig<br>170 | 0 | honorable_diversity_or_replacement | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6 |
 | Lake Okeechobee / central FL bass lake<br>2025-01-16 all_purpose clear<br>cold_slow_or_front | B<br>honorable_lure | Carolina-Rigged Stick Worm<br>170 | Texas-Rigged Soft-Plastic Craw<br>170 | 0 | honorable_diversity_or_replacement | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6 |
@@ -1498,26 +1492,27 @@ Bladed Jig (bladed_jig), Finesse Jig (finesse_jig), Ned Rig (ned_rig), Spinnerba
 | Lake of the Ozarks<br>2025-04-24 all_purpose stained<br>heat_limited_finesse | B<br>lure_of_the_day | Drop-Shot Minnow<br>170 | Texas-Rigged Soft-Plastic Craw<br>170 | 0 | jitter_or_id_tiebreak | base:+100<br>condition_tag:heat_finesse:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:heat_slow_bottom_all_purpose:+6<br>clarity_strength:stained:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:heat_finesse:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:stained:+8<br>primary_forage:crawfish:+12<br>secondary_forage:baitfish:+6 |
 | Lake Champlain<br>2025-04-27 all_purpose clear<br>cold_slow_or_front | B<br>lure_of_the_day | Finesse Jig<br>170 | Carolina-Rigged Stick Worm<br>170 | 0 | jitter_or_id_tiebreak | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>goal:all_purpose:versatile_search:+12<br>daily_lane:slow_subtle_all_purpose:+10<br>clarity_strength:clear:+8<br>secondary_forage:baitfish:+6 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 |
 | Lake Champlain<br>2025-04-27 all_purpose clear<br>cold_slow_or_front | B<br>lure_of_the_day | Finesse Jig<br>170 | Texas-Rigged Soft-Plastic Craw<br>170 | 0 | jitter_or_id_tiebreak | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 |
+| Appalachian river LMB context<br>2025-05-06 all_purpose clear<br>cold_slow_or_front | B<br>lure_of_the_day | Finesse Jig<br>170 | Texas-Rigged Soft-Plastic Craw<br>170 | 0 | jitter_or_id_tiebreak | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:clear:+8<br>primary_forage:crawfish:+12 |
+| Appalachian river LMB context<br>2025-05-06 all_purpose stained<br>cold_slow_or_front | B<br>lure_of_the_day | Finesse Jig<br>170 | Texas-Rigged Soft-Plastic Craw<br>170 | 0 | jitter_or_id_tiebreak | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:stained:+8<br>primary_forage:crawfish:+12 | base:+100<br>condition_tag:cold_slow:+16<br>goal:all_purpose:reliable_action:+18<br>daily_lane:slow_subtle_all_purpose:+10<br>daily_lane:craw_bottom_all_purpose:+6<br>clarity_strength:stained:+8<br>primary_forage:crawfish:+12 |
 
 ## Underused In Home Windows
 
 | Profile | Gear | Home selected/opp | Home rate | Close home losses | Home contexts | Loss causes | Common winners |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Swim Jig<br>swim_jig | lure | 39/544 | 7.2% | 96 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:82, big_fish / dirty / freshwater_lake_pond / dirty_vibration:82, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:78, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:78 | goal_tags:312, daily_condition_tags:151, selector_filtering_variety_jitter:34, forage_clarity_stack:7 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):10, Suspending Jerkbait (top), Medium-Diving Crankbait (honorable):10 |
-| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 5/384 | 1.3% | 37 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:76, big_fish / dirty / freshwater_lake_pond / dirty_vibration:76, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:72, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:72 | goal_tags:209, daily_condition_tags:145, forage_clarity_stack:19, selector_filtering_variety_jitter:6 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):10, Compact Flipping Jig (honorable), Magnum Jerkbait (top):9 |
-| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 9/376 | 2.4% | 72 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:82, big_fish / dirty / freshwater_lake_pond / dirty_vibration:82, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:78, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:78 | goal_tags:215, daily_condition_tags:118, forage_clarity_stack:18, seasonal_baseline:9 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Magnum Jerkbait (honorable), Compact Flipping Jig (top):8, Medium-Diving Crankbait (honorable), Lipless Crankbait (top):8 |
-| Bladed Jig<br>bladed_jig | lure | 25/360 | 6.9% | 72 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:82, big_fish / dirty / freshwater_lake_pond / dirty_vibration:82, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:78, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:78 | goal_tags:234, daily_condition_tags:65, forage_clarity_stack:27, selector_filtering_variety_jitter:9 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):11, Medium-Diving Crankbait (top), Football Jig (honorable):11, Buzzbait (top), Compact Flipping Jig (honorable):10, Compact Flipping Jig (honorable), Magnum Jerkbait (top):9 |
-| Ned Rig<br>ned_rig | lure | 8/124 | 6.5% | 28 | all_purpose / clear / freshwater_lake_pond / cold_slow_or_front:16, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:16, big_fish / clear / freshwater_lake_pond / cold_slow_or_front:16, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:16 | goal_tags:65, forage_clarity_stack:35, daily_condition_tags:11, selector_filtering_variety_jitter:4 | Magnum Jerkbait (honorable), Football Jig (top):6, Magnum Jerkbait (top), Compact Flipping Jig (honorable):5, Magnum Jerkbait (top), Football Jig (honorable):5, Drop-Shot Minnow (top), Finesse Jig (honorable):4 |
-| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 5/88 | 5.7% | 24 | all_purpose / clear / freshwater_lake_pond / cold_slow_or_front:20, big_fish / clear / freshwater_lake_pond / cold_slow_or_front:20, all_purpose / clear / freshwater_lake_pond / calm_bright_clear_subtle:6, big_fish / clear / freshwater_lake_pond / calm_bright_clear_subtle:6 | goal_tags:48, forage_clarity_stack:25, daily_condition_tags:6, selector_filtering_variety_jitter:4 | Magnum Jerkbait (top), Football Jig (honorable):6, Magnum Jerkbait (honorable), Football Jig (top):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Tube Jig (top), Compact Flipping Jig (honorable):4 |
+| Deep-Diving Crankbait<br>deep_diving_crankbait | lure | 10/320 | 3.1% | 52 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:54, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:54, big_fish / dirty / freshwater_lake_pond / dirty_vibration:54, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:54 | goal_tags:186, daily_condition_tags:95, forage_clarity_stack:16, seasonal_baseline:7 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Suspending Jerkbait (top), Soft Plastic Jerkbait (honorable):7, Buzzbait (top), Compact Flipping Jig (honorable):6 |
+| Flat-Sided Crankbait<br>flat_sided_crankbait | lure | 5/320 | 1.6% | 33 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:50, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:50, big_fish / dirty / freshwater_lake_pond / dirty_vibration:50, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:50 | goal_tags:177, daily_condition_tags:114, forage_clarity_stack:22, selector_filtering_variety_jitter:2 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):13, Medium-Diving Crankbait (top), Football Jig (honorable):12, Buzzbait (top), Compact Flipping Jig (honorable):9, Compact Flipping Jig (honorable), Magnum Jerkbait (top):7 |
+| Bladed Jig<br>bladed_jig | lure | 15/240 | 6.3% | 52 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:54, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:54, big_fish / dirty / freshwater_lake_pond / dirty_vibration:54, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:54 | goal_tags:162, daily_condition_tags:39, forage_clarity_stack:21, selector_filtering_variety_jitter:3 | Medium-Diving Crankbait (top), Football Jig (honorable):10, Buzzbait (top), Compact Flipping Jig (honorable):8, Compact Flipping Jig (honorable), Magnum Jerkbait (top):7, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):6 |
+| Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 11/160 | 6.9% | 18 | all_purpose / dirty / freshwater_lake_pond / warming_search:16, all_purpose / stained / freshwater_lake_pond / warming_search:16, big_fish / dirty / freshwater_lake_pond / warming_search:16, big_fish / stained / freshwater_lake_pond / warming_search:16 | goal_tags:119, daily_condition_tags:17, forage_clarity_stack:6, seasonal_baseline:6 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):7, Articulated Baitfish Streamer (top), Game Changer (honorable):5, Clouser Minnow (top), Deceiver (honorable):5 |
+| Texas-Rigged Soft-Plastic Craw<br>texas_rigged_soft_plastic_craw | lure | 6/100 | 6% | 27 | all_purpose / clear / freshwater_lake_pond / cold_slow_or_front:20, big_fish / clear / freshwater_lake_pond / cold_slow_or_front:20, all_purpose / stained / freshwater_lake_pond / cold_slow_or_front:8, big_fish / stained / freshwater_lake_pond / cold_slow_or_front:8 | goal_tags:53, forage_clarity_stack:28, selector_filtering_variety_jitter:6, daily_condition_tags:5 | Magnum Jerkbait (top), Football Jig (honorable):7, Magnum Jerkbait (honorable), Football Jig (top):5, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Drop-Shot Minnow (top), Carolina-Rigged Stick Worm (honorable):3 |
 
 ## Over-Dominant Profiles
 
 | Profile | Gear | Home selected/opp | Home rate | Close home losses | Home contexts | Loss causes | Common winners |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Game Changer<br>game_changer | fly | 53/168 | 31.5% | 43 | all_purpose / clear / freshwater_lake_pond / stable_pleasant_medium_confidence_archive:20, big_fish / clear / freshwater_lake_pond / stable_pleasant_medium_confidence_archive:20, all_purpose / clear / freshwater_lake_pond / warming_search:14, big_fish / clear / freshwater_lake_pond / warming_search:14 | goal_tags:53, daily_condition_tags:34, selector_filtering_variety_jitter:26, forage_clarity_stack:1 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Clouser Minnow (top), Deceiver (honorable):5, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):4, Clouser Minnow (honorable), Popper Fly (top):4 |
-| Baitfish Slider Fly<br>baitfish_slider_fly | fly | 41/156 | 26.3% | 78 | all_purpose / clear / freshwater_lake_pond / stable_pleasant_medium_confidence_archive:16, big_fish / clear / freshwater_lake_pond / stable_pleasant_medium_confidence_archive:16, all_purpose / clear / freshwater_lake_pond / warming_search:12, big_fish / clear / freshwater_lake_pond / warming_search:12 | goal_tags:88, selector_filtering_variety_jitter:14, seasonal_baseline:13 | Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):4, Clouser Minnow (honorable), Popper Fly (top):4, Clouser Minnow (top), Articulated Baitfish Streamer (honorable):4, Deceiver (top), Articulated Baitfish Streamer (honorable):4 |
-| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 34/132 | 25.8% | 57 | all_purpose / clear / freshwater_lake_pond / calm_bright_clear_subtle:20, big_fish / clear / freshwater_lake_pond / calm_bright_clear_subtle:20, all_purpose / clear / freshwater_lake_pond / stable_pleasant_medium_confidence_archive:16, big_fish / clear / freshwater_lake_pond / stable_pleasant_medium_confidence_archive:16 | goal_tags:38, selector_filtering_variety_jitter:35, daily_condition_tags:14, seasonal_baseline:6 | Carolina-Rigged Stick Worm (top), Tube Jig (honorable):6, Flat-Sided Crankbait (top), Compact Flipping Jig (honorable):5, Suspending Jerkbait (top), Drop-Shot Minnow (honorable):5, Drop-Shot Minnow (top), Compact Flipping Jig (honorable):4 |
-| Football Jig<br>football_jig | lure | 22/86 | 25.6% | 10 | all_purpose / clear / freshwater_lake_pond / cold_slow_or_front:20, big_fish / clear / freshwater_lake_pond / cold_slow_or_front:20, all_purpose / clear / freshwater_lake_pond / calm_bright_clear_subtle:6, big_fish / clear / freshwater_lake_pond / calm_bright_clear_subtle:6 | goal_tags:41, daily_condition_tags:14, forage_clarity_stack:5, selector_filtering_variety_jitter:3 | Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Magnum Jerkbait (top), Compact Flipping Jig (honorable):3, Tube Jig (top), Compact Flipping Jig (honorable):3, Carolina-Rigged Stick Worm (top), Tube Jig (honorable):2 |
+| Paddle-Tail Swimbait<br>paddle_tail_swimbait | lure | 48/168 | 28.6% | 74 | all_purpose / dirty / freshwater_lake_pond / warming_search:16, all_purpose / stained / freshwater_lake_pond / warming_search:16, big_fish / dirty / freshwater_lake_pond / warming_search:16, big_fish / stained / freshwater_lake_pond / warming_search:16 | goal_tags:76, selector_filtering_variety_jitter:25, daily_condition_tags:12, forage_clarity_stack:7 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):6, Magnum Jerkbait (top), Football Jig (honorable):5, Medium-Diving Crankbait (honorable), Football Jig (top):4, Suspending Jerkbait (honorable), Soft Plastic Jerkbait (top):4 |
+| Game Changer<br>game_changer | fly | 51/168 | 30.4% | 48 | all_purpose / dirty / freshwater_lake_pond / warming_search:16, all_purpose / stained / freshwater_lake_pond / warming_search:16, big_fish / dirty / freshwater_lake_pond / warming_search:16, big_fish / stained / freshwater_lake_pond / warming_search:16 | goal_tags:56, daily_condition_tags:35, selector_filtering_variety_jitter:25, seasonal_baseline:1 | Clouser Minnow (top), Baitfish Slider Fly (honorable):8, Articulated Baitfish Streamer (top), Rabbit-Strip Leech (honorable):7, Clouser Minnow (top), Deceiver (honorable):6, Bluegill Streamer (honorable), Deer Hair Slider (top):4 |
+| Soft Plastic Jerkbait<br>soft_jerkbait | lure | 35/132 | 26.5% | 56 | all_purpose / clear / freshwater_lake_pond / calm_bright_clear_subtle:20, big_fish / clear / freshwater_lake_pond / calm_bright_clear_subtle:20, all_purpose / clear / freshwater_lake_pond / stable_pleasant_medium_confidence_archive:16, big_fish / clear / freshwater_lake_pond / stable_pleasant_medium_confidence_archive:16 | goal_tags:38, selector_filtering_variety_jitter:36, daily_condition_tags:14, forage_clarity_stack:5 | Carolina-Rigged Stick Worm (top), Tube Jig (honorable):6, Suspending Jerkbait (top), Drop-Shot Minnow (honorable):6, Flat-Sided Crankbait (top), Compact Flipping Jig (honorable):5, Drop-Shot Minnow (top), Compact Flipping Jig (honorable):4 |
+| Football Jig<br>football_jig | lure | 28/102 | 27.5% | 12 | all_purpose / clear / freshwater_lake_pond / cold_slow_or_front:20, big_fish / clear / freshwater_lake_pond / cold_slow_or_front:20, big_fish / stained / freshwater_lake_pond / warming_search:10, all_purpose / stained / freshwater_lake_pond / cold_slow_or_front:8 | goal_tags:47, daily_condition_tags:13, forage_clarity_stack:7, selector_filtering_variety_jitter:5 | Magnum Jerkbait (top), Compact Flipping Jig (honorable):6, Medium-Diving Crankbait (top), Compact Flipping Jig (honorable):5, Drop-Shot Minnow (top), Carolina-Rigged Stick Worm (honorable):3, Tube Jig (top), Compact Flipping Jig (honorable):3 |
 
 ## Home-Window Coverage Gaps
 
@@ -1529,22 +1524,22 @@ None.
 | --- | --- | --- | --- |
 | calm_surface | all_purpose | Popper Fly [fly] (42), Foam Gurgler [fly] (31), Soft Plastic Jerkbait [lure] (25), Paddle-Tail Swimbait [lure] (22), Baitfish Slider Fly [fly] (21) | Popper Fly [fly] (56), Soft Plastic Jerkbait [lure] (50), Clouser Minnow [fly] (49), Baitfish Slider Fly [fly] (42), Foam Gurgler [fly] (36) |
 | calm_surface | big_fish | Walking Topwater [lure] (51), Wake Bait [lure] (42), Bluegill Streamer [fly] (28), Deer Hair Slider [fly] (27), Game Changer [fly] (20) | Walking Topwater [lure] (64), Deer Hair Slider [fly] (54), Wake Bait [lure] (50), Game Changer [fly] (44), Bluegill Streamer [fly] (39) |
-| low_light_surface | all_purpose | Baitfish Slider Fly [fly] (23), Suspending Jerkbait [lure] (21), Popper Fly [fly] (19), Clouser Minnow [fly] (17), Soft Plastic Jerkbait [lure] (14) | Baitfish Slider Fly [fly] (37), Clouser Minnow [fly] (35), Soft Plastic Jerkbait [lure] (31), Suspending Jerkbait [lure] (31), Popper Fly [fly] (28) |
-| low_light_surface | big_fish | Buzzbait [lure] (30), Walking Topwater [lure] (22), Deer Hair Slider [fly] (21), Wake Bait [lure] (19), Game Changer [fly] (12) | Deer Hair Slider [fly] (38), Buzzbait [lure] (36), Walking Topwater [lure] (33), Game Changer [fly] (28), Articulated Baitfish Streamer [fly] (25) |
-| wind_reaction | all_purpose | Baitfish Slider Fly [fly] (60), Suspending Jerkbait [lure] (58), Deceiver [fly] (56), Clouser Minnow [fly] (52), Medium-Diving Crankbait [lure] (31) | Deceiver [fly] (108), Baitfish Slider Fly [fly] (99), Suspending Jerkbait [lure] (98), Clouser Minnow [fly] (94), Medium-Diving Crankbait [lure] (64) |
-| wind_reaction | big_fish | Medium-Diving Crankbait [lure] (51), Game Changer [fly] (45), Baitfish Slider Fly [fly] (42), Deceiver [fly] (39), Articulated Baitfish Streamer [fly] (36) | Game Changer [fly] (108), Compact Flipping Jig [lure] (101), Articulated Baitfish Streamer [fly] (89), Medium-Diving Crankbait [lure] (75), Articulated Dungeon Streamer [fly] (70) |
-| dirty_vibration | all_purpose | Baitfish Slider Fly [fly] (44), Deceiver [fly] (39), Suspending Jerkbait [lure] (36), Clouser Minnow [fly] (35), Medium-Diving Crankbait [lure] (21) | Deceiver [fly] (75), Baitfish Slider Fly [fly] (69), Clouser Minnow [fly] (63), Suspending Jerkbait [lure] (61), Medium-Diving Crankbait [lure] (46) |
-| dirty_vibration | big_fish | Game Changer [fly] (38), Medium-Diving Crankbait [lure] (38), Baitfish Slider Fly [fly] (30), Deceiver [fly] (30), Articulated Baitfish Streamer [fly] (27) | Compact Flipping Jig [lure] (90), Game Changer [fly] (78), Articulated Baitfish Streamer [fly] (68), Articulated Dungeon Streamer [fly] (52), Medium-Diving Crankbait [lure] (51) |
-| clear_subtle | all_purpose | Soft Plastic Jerkbait [lure] (22), Carolina-Rigged Stick Worm [lure] (15), Popper Fly [fly] (15), Lead-Eye Leech [fly] (12), Suspending Jerkbait [lure] (11) | Soft Plastic Jerkbait [lure] (30), Unweighted Baitfish Streamer [fly] (29), Carolina-Rigged Stick Worm [lure] (26), Clouser Minnow [fly] (23), Lead-Eye Leech [fly] (23) |
-| clear_subtle | big_fish | Bluegill Streamer [fly] (15), Articulated Dungeon Streamer [fly] (13), Game Changer [fly] (13), Walking Topwater [lure] (13), Wake Bait [lure] (10) | Game Changer [fly] (28), Bluegill Streamer [fly] (20), Magnum Jerkbait [lure] (19), Unweighted Baitfish Streamer [fly] (17), Walking Topwater [lure] (17) |
-| cold_slow | all_purpose | Suspending Jerkbait [lure] (13), Tube Jig [lure] (10), Deceiver [fly] (9), Clouser Minnow [fly] (7), Woolly Bugger [fly] (7) | Woolly Bugger [fly] (20), Suspending Jerkbait [lure] (19), Tube Jig [lure] (19), Clouser Minnow [fly] (15), Baitfish Slider Fly [fly] (14) |
-| cold_slow | big_fish | Articulated Dungeon Streamer [fly] (16), Articulated Baitfish Streamer [fly] (11), Game Changer [fly] (10), Magnum Jerkbait [lure] (10), Compact Flipping Jig [lure] (7) | Game Changer [fly] (25), Rabbit-Strip Leech [fly] (25), Compact Flipping Jig [lure] (23), Articulated Dungeon Streamer [fly] (22), Magnum Jerkbait [lure] (21) |
-| warming_search | all_purpose | Clouser Minnow [fly] (29), Paddle-Tail Swimbait [lure] (22), Suspending Jerkbait [lure] (18), Baitfish Slider Fly [fly] (15), Deceiver [fly] (14) | Clouser Minnow [fly] (43), Baitfish Slider Fly [fly] (35), Paddle-Tail Swimbait [lure] (35), Suspending Jerkbait [lure] (34), Swim Jig [lure] (28) |
-| warming_search | big_fish | Articulated Baitfish Streamer [fly] (21), Game Changer [fly] (21), Walking Topwater [lure] (20), Medium-Diving Crankbait [lure] (18), Wake Bait [lure] (14) | Game Changer [fly] (43), Articulated Baitfish Streamer [fly] (35), Compact Flipping Jig [lure] (28), Medium-Diving Crankbait [lure] (28), Magnum Jerkbait [lure] (26) |
-| heat_finesse | all_purpose | Drop-Shot Minnow [lure] (19), Carolina-Rigged Stick Worm [lure] (11), Clouser Minnow [fly] (11), Baitfish Slider Fly [fly] (8), Weightless Stick Worm [lure] (8) | Clouser Minnow [fly] (24), Drop-Shot Minnow [lure] (23), Soft Plastic Jerkbait [lure] (21), Deceiver [fly] (13), Unweighted Baitfish Streamer [fly] (13) |
-| heat_finesse | big_fish | Game Changer [fly] (13), Bluegill Streamer [fly] (11), Articulated Dungeon Streamer [fly] (9), Wake Bait [lure] (9), Articulated Baitfish Streamer [fly] (8) | Game Changer [fly] (28), Articulated Baitfish Streamer [fly] (22), Compact Flipping Jig [lure] (20), Magnum Worm [lure] (18), Magnum Jerkbait [lure] (17) |
-| current_swing | all_purpose | Clouser Minnow [fly] (7), Soft Plastic Jerkbait [lure] (5), Foam Gurgler [fly] (4), Woolly Bugger [fly] (3), Feather Jig Leech [fly] (2) | Clouser Minnow [fly] (9), Feather Jig Leech [fly] (6), Soft Plastic Jerkbait [lure] (6), Baitfish Slider Fly [fly] (5), Foam Gurgler [fly] (5) |
-| current_swing | big_fish | Buzzbait [lure] (6), Game Changer [fly] (6), Walking Topwater [lure] (5), Articulated Baitfish Streamer [fly] (3), Baitfish Slider Fly [fly] (3) | Game Changer [fly] (8), Rabbit-Strip Leech [fly] (8), Articulated Baitfish Streamer [fly] (7), Buzzbait [lure] (7), Compact Flipping Jig [lure] (7) |
+| low_light_surface | all_purpose | Baitfish Slider Fly [fly] (24), Suspending Jerkbait [lure] (21), Popper Fly [fly] (18), Clouser Minnow [fly] (15), Soft Plastic Jerkbait [lure] (13) | Clouser Minnow [fly] (34), Baitfish Slider Fly [fly] (33), Soft Plastic Jerkbait [lure] (32), Popper Fly [fly] (30), Suspending Jerkbait [lure] (30) |
+| low_light_surface | big_fish | Buzzbait [lure] (30), Walking Topwater [lure] (24), Deer Hair Slider [fly] (23), Wake Bait [lure] (19), Mouse Fly [fly] (13) | Deer Hair Slider [fly] (38), Buzzbait [lure] (36), Walking Topwater [lure] (34), Articulated Baitfish Streamer [fly] (27), Game Changer [fly] (27) |
+| wind_reaction | all_purpose | Baitfish Slider Fly [fly] (43), Suspending Jerkbait [lure] (40), Deceiver [fly] (38), Clouser Minnow [fly] (31), Medium-Diving Crankbait [lure] (23) | Deceiver [fly] (71), Suspending Jerkbait [lure] (67), Baitfish Slider Fly [fly] (64), Clouser Minnow [fly] (62), Medium-Diving Crankbait [lure] (47) |
+| wind_reaction | big_fish | Medium-Diving Crankbait [lure] (37), Game Changer [fly] (30), Articulated Dungeon Streamer [fly] (28), Deceiver [fly] (26), Articulated Baitfish Streamer [fly] (23) | Game Changer [fly] (70), Compact Flipping Jig [lure] (68), Articulated Dungeon Streamer [fly] (57), Articulated Baitfish Streamer [fly] (53), Medium-Diving Crankbait [lure] (49) |
+| dirty_vibration | all_purpose | Baitfish Slider Fly [fly] (30), Deceiver [fly] (26), Suspending Jerkbait [lure] (26), Clouser Minnow [fly] (23), Medium-Diving Crankbait [lure] (18) | Deceiver [fly] (49), Baitfish Slider Fly [fly] (45), Clouser Minnow [fly] (43), Suspending Jerkbait [lure] (41), Medium-Diving Crankbait [lure] (37) |
+| dirty_vibration | big_fish | Medium-Diving Crankbait [lure] (28), Game Changer [fly] (24), Articulated Baitfish Streamer [fly] (20), Articulated Dungeon Streamer [fly] (20), Deceiver [fly] (19) | Compact Flipping Jig [lure] (60), Game Changer [fly] (52), Articulated Baitfish Streamer [fly] (43), Articulated Dungeon Streamer [fly] (39), Medium-Diving Crankbait [lure] (35) |
+| clear_subtle | all_purpose | Soft Plastic Jerkbait [lure] (22), Carolina-Rigged Stick Worm [lure] (15), Popper Fly [fly] (15), Suspending Jerkbait [lure] (11), Unweighted Baitfish Streamer [fly] (11) | Soft Plastic Jerkbait [lure] (30), Unweighted Baitfish Streamer [fly] (29), Carolina-Rigged Stick Worm [lure] (26), Clouser Minnow [fly] (24), Lead-Eye Leech [fly] (22) |
+| clear_subtle | big_fish | Bluegill Streamer [fly] (16), Game Changer [fly] (14), Articulated Dungeon Streamer [fly] (13), Walking Topwater [lure] (13), Wake Bait [lure] (10) | Game Changer [fly] (28), Bluegill Streamer [fly] (20), Magnum Jerkbait [lure] (19), Walking Topwater [lure] (18), Unweighted Baitfish Streamer [fly] (17) |
+| cold_slow | all_purpose | Tube Jig [lure] (13), Suspending Jerkbait [lure] (11), Woolly Bugger [fly] (8), Clouser Minnow [fly] (7), Deceiver [fly] (7) | Woolly Bugger [fly] (22), Tube Jig [lure] (21), Suspending Jerkbait [lure] (18), Clouser Minnow [fly] (14), Jighead Marabou Leech [fly] (14) |
+| cold_slow | big_fish | Articulated Dungeon Streamer [fly] (16), Magnum Jerkbait [lure] (13), Articulated Baitfish Streamer [fly] (11), Game Changer [fly] (11), Football Jig [lure] (7) | Game Changer [fly] (25), Rabbit-Strip Leech [fly] (25), Compact Flipping Jig [lure] (23), Articulated Dungeon Streamer [fly] (22), Magnum Jerkbait [lure] (21) |
+| warming_search | all_purpose | Clouser Minnow [fly] (30), Suspending Jerkbait [lure] (21), Paddle-Tail Swimbait [lure] (19), Swim Jig [lure] (15), Baitfish Slider Fly [fly] (14) | Clouser Minnow [fly] (42), Paddle-Tail Swimbait [lure] (35), Suspending Jerkbait [lure] (35), Baitfish Slider Fly [fly] (32), Swim Jig [lure] (32) |
+| warming_search | big_fish | Articulated Baitfish Streamer [fly] (22), Game Changer [fly] (21), Walking Topwater [lure] (20), Magnum Jerkbait [lure] (17), Medium-Diving Crankbait [lure] (15) | Game Changer [fly] (41), Articulated Baitfish Streamer [fly] (35), Compact Flipping Jig [lure] (28), Magnum Jerkbait [lure] (26), Medium-Diving Crankbait [lure] (25) |
+| heat_finesse | all_purpose | Drop-Shot Minnow [lure] (20), Clouser Minnow [fly] (13), Carolina-Rigged Stick Worm [lure] (11), Weightless Stick Worm [lure] (9), Baitfish Slider Fly [fly] (8) | Clouser Minnow [fly] (25), Drop-Shot Minnow [lure] (25), Soft Plastic Jerkbait [lure] (21), Unweighted Baitfish Streamer [fly] (13), Carolina-Rigged Stick Worm [lure] (12) |
+| heat_finesse | big_fish | Game Changer [fly] (14), Bluegill Streamer [fly] (13), Drop-Shot Minnow [lure] (11), Articulated Dungeon Streamer [fly] (9), Wake Bait [lure] (9) | Game Changer [fly] (29), Magnum Worm [lure] (23), Articulated Baitfish Streamer [fly] (21), Compact Flipping Jig [lure] (20), Rabbit-Strip Leech [fly] (18) |
+| current_swing | all_purpose | Clouser Minnow [fly] (6), Foam Gurgler [fly] (4), Soft Plastic Jerkbait [lure] (4), Paddle-Tail Swimbait [lure] (3), Squarebill Crankbait [lure] (3) | Clouser Minnow [fly] (9), Feather Jig Leech [fly] (6), Foam Gurgler [fly] (6), Soft Plastic Jerkbait [lure] (5), Squarebill Crankbait [lure] (5) |
+| current_swing | big_fish | Game Changer [fly] (7), Buzzbait [lure] (6), Walking Topwater [lure] (4), Articulated Baitfish Streamer [fly] (3), Rabbit-Strip Leech [fly] (3) | Game Changer [fly] (9), Articulated Baitfish Streamer [fly] (8), Compact Flipping Jig [lure] (8), Rabbit-Strip Leech [fly] (8), Buzzbait [lure] (7) |
 
 ## Representative Guide Review Rows
 
@@ -1555,33 +1550,33 @@ None.
 | Southern California reservoir<br>2025-02-18 dirty big_fish B | 47.6-72.9F, 7.9 mph wind, 68.8% cloud, 0 in precip | active, closed, wind_reaction+dirty_vibration+warming_search+open_water_search, medium | Medium-Diving Crankbait (158); Compact Flipping Jig (170); Game Changer (156); Articulated Baitfish Streamer (162) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE |
 | Northern California bass lake<br>2025-10-25 clear big_fish A | 49.9-59.6F, 9.9 mph wind, 99.3% cloud, 0.1 in precip | neutral, open, low_light_surface+wind_reaction+cold_slow+open_water_search, medium | Buzzbait (182); Magnum Jerkbait (192); Deer Hair Slider (166); Game Changer (176) | TOPWATER_SHOULDER_SEASON_REGION, COLD_CLEAR_TOO_FAST, TOPWATER_SHOULDER_SEASON_REGION |
 | Northern California bass lake<br>2025-10-25 dirty big_fish B | 49.9-59.6F, 9.9 mph wind, 99.3% cloud, 0.1 in precip | neutral, open, low_light_surface+wind_reaction+dirty_vibration+cold_slow+open_water_search, medium | Compact Flipping Jig (150); Walking Topwater (170); Deer Hair Slider (166); Articulated Dungeon Streamer (168) | TOPWATER_SHOULDER_SEASON_REGION, TOPWATER_SHOULDER_SEASON_REGION, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
-| Colorado mountain-west reservoir<br>2025-04-23 clear big_fish B | 43.9-72.1F, 7.1 mph wind, 71.2% cloud, 0 in precip | active, closed, wind_reaction+warming_search, medium | Medium-Diving Crankbait (178); Compact Flipping Jig (132); Game Changer (154); Articulated Baitfish Streamer (146) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
-| Colorado mountain-west reservoir<br>2025-04-23 dirty big_fish B | 43.9-72.1F, 7.1 mph wind, 71.2% cloud, 0 in precip | active, closed, wind_reaction+dirty_vibration+warming_search, medium | Bladed Jig (150); Magnum Jerkbait (146); Game Changer (154); Articulated Baitfish Streamer (154) | WIND_NOT_ELEVATING_REACTION, WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
 | Colorado mountain-west reservoir<br>2025-08-12 clear big_fish A | 60.3-86.9F, 7.6 mph wind, 27.3% cloud, 0 in precip | neutral, caution, wind_reaction+clear_subtle+open_water_search, medium | Magnum Worm (134); Medium-Diving Crankbait (172); Bluegill Streamer (162); Game Changer (176) | CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE, WIND_NOT_ELEVATING_REACTION, CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE |
 | Colorado mountain-west reservoir<br>2025-10-05 stained big_fish B | 47.5-74.9F, 7.6 mph wind, 6.3% cloud, 0 in precip | neutral, closed, wind_reaction+dirty_vibration+open_water_search, medium | Medium-Diving Crankbait (178); Lipless Crankbait (172); Articulated Dungeon Streamer (168); Game Changer (176) | BIG_FISH_NOT_FAVORING_UPSIDE, WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
 | Illinois / Indiana natural-lake example<br>2025-04-18 dirty big_fish B | 55-77.3F, 12.3 mph wind, 81.4% cloud, 1.1 in precip | neutral, closed, wind_reaction+dirty_vibration, medium | Compact Flipping Jig (156); Magnum Jerkbait (146); Deceiver (150); Articulated Baitfish Streamer (154) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE |
 | Minnesota natural bass lake<br>2025-05-15 dirty big_fish B | 60.3-76.3F, 18.2 mph wind, 86.5% cloud, 0.3 in precip | active, closed, wind_reaction+dirty_vibration, medium | Bladed Jig (140); Football Jig (140); Articulated Dungeon Streamer (152); Rabbit-Strip Leech (134) | WIND_NOT_ELEVATING_REACTION, WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE |
 | Minnesota natural bass lake<br>2025-05-15 stained big_fish B | 60.3-76.3F, 18.2 mph wind, 86.5% cloud, 0.3 in precip | active, closed, wind_reaction+dirty_vibration, medium | Medium-Diving Crankbait (152); Compact Flipping Jig (156); Articulated Dungeon Streamer (152); Rabbit-Strip Leech (134) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
 | Jordan Lake / Piedmont reservoir<br>2025-03-22 dirty big_fish B | 44.6-71.1F, 9.8 mph wind, 0.4% cloud, 0 in precip | neutral, closed, wind_reaction+dirty_vibration, medium | Medium-Diving Crankbait (162); Football Jig (140); Articulated Baitfish Streamer (154); Game Changer (154) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
-| Southwest high-desert reservoir<br>2025-10-14 dirty big_fish B | 58.1-77.9F, 6.3 mph wind, 45.1% cloud, 0.1 in precip | neutral, caution, wind_reaction+dirty_vibration+warming_search+open_water_search, medium | Lipless Crankbait (172); Medium-Diving Crankbait (178); Game Changer (176); Articulated Baitfish Streamer (176) | BIG_FISH_NOT_FAVORING_UPSIDE, WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE |
 | Lake Fork<br>2025-03-29 clear big_fish B | 60.8-80.6F, 9.6 mph wind, 56.9% cloud, 0 in precip | neutral, closed, wind_reaction+warming_search, medium | Medium-Diving Crankbait (178); Football Jig (140); Game Changer (154); Articulated Dungeon Streamer (154) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
-| Sam Rayburn Reservoir<br>2025-02-11 dirty big_fish B | 49.9-70.6F, 6.8 mph wind, 100% cloud, 0.7 in precip | active, closed, wind_reaction+dirty_vibration+open_water_search, medium | Lipless Crankbait (152); Football Jig (154); Game Changer (156); Articulated Baitfish Streamer (162) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE |
 | Guntersville / Tennessee River reservoir<br>2025-04-11 clear big_fish A | 48.7-60.9F, 9.6 mph wind, 25.8% cloud, 0 in precip | neutral, caution, wind_reaction+clear_subtle, medium | Spinnerbait (144); Magnum Jerkbait (160); Articulated Dungeon Streamer (156); Game Changer (144) | WIND_NOT_ELEVATING_REACTION, CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE |
 | Guntersville / Tennessee River reservoir<br>2025-04-11 stained big_fish A | 48.7-60.9F, 9.6 mph wind, 25.8% cloud, 0 in precip | neutral, caution, wind_reaction+dirty_vibration, medium | Magnum Jerkbait (144); Compact Flipping Jig (156); Articulated Dungeon Streamer (164); Game Changer (144) | WIND_NOT_ELEVATING_REACTION, WIND_NOT_ELEVATING_REACTION |
-| Guntersville / Tennessee River reservoir<br>2025-06-07 clear all_purpose A | 71.3-84F, 7.2 mph wind, 91.3% cloud, 0.1 in precip | active, open, low_light_surface+wind_reaction+warming_search+open_water_search, medium | Paddle-Tail Swimbait (174); Swim Jig (166); Popper Fly (170); Clouser Minnow (186) | WIND_NOT_ELEVATING_REACTION, WIND_NOT_ELEVATING_REACTION |
-| Guntersville / Tennessee River reservoir<br>2025-06-07 stained big_fish B | 71.3-84F, 7.2 mph wind, 91.3% cloud, 0.1 in precip | active, open, low_light_surface+wind_reaction+dirty_vibration+warming_search+open_water_search, medium | Walking Topwater (178); Compact Flipping Jig (150); Deer Hair Slider (166); Game Changer (176) | WIND_NOT_ELEVATING_REACTION, WIND_NOT_ELEVATING_REACTION |
 | Guntersville / Tennessee River reservoir<br>2025-10-19 dirty big_fish A | 54.1-72F, 12.4 mph wind, 33.6% cloud, 1.1 in precip | neutral, caution, wind_reaction+dirty_vibration+open_water_search, medium | Compact Flipping Jig (150); Magnum Jerkbait (168); Articulated Baitfish Streamer (176); Game Changer (176) | WIND_NOT_ELEVATING_REACTION, WIND_NOT_ELEVATING_REACTION |
 | Guntersville / Tennessee River reservoir<br>2025-10-19 stained big_fish B | 54.1-72F, 12.4 mph wind, 33.6% cloud, 1.1 in precip | neutral, caution, wind_reaction+dirty_vibration+open_water_search, medium | Medium-Diving Crankbait (178); Lipless Crankbait (172); Game Changer (176); Articulated Dungeon Streamer (168) | BIG_FISH_NOT_FAVORING_UPSIDE, WIND_NOT_ELEVATING_REACTION |
 | Guntersville / Tennessee River reservoir<br>2025-10-20 clear big_fish B | 47.1-68.9F, 4.1 mph wind, 13.7% cloud, 0 in precip | suppressed, closed, clear_subtle, medium | Tube Jig (148); Compact Flipping Jig (126); Articulated Baitfish Streamer (152); Rabbit-Strip Leech (126) | CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE |
 | Southwest desert bass reservoir<br>2025-03-25 clear big_fish B | 67.7-95.9F, 4.4 mph wind, 16.2% cloud, 0 in precip | neutral, closed, clear_subtle+heat_finesse, medium | Drop-Shot Minnow (168); Compact Flipping Jig (132); Game Changer (154); Articulated Baitfish Streamer (146) | SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
-| Southwest desert bass reservoir<br>2025-11-15 clear big_fish A | 64.4-73.2F, 6.2 mph wind, 94% cloud, 0.4 in precip | active, open, low_light_surface+wind_reaction+open_water_search, medium | Magnum Jerkbait (176); Walking Topwater (178); Articulated Baitfish Streamer (168); Deer Hair Slider (166) | WIND_NOT_ELEVATING_REACTION, WIND_NOT_ELEVATING_REACTION |
-| Southwest desert bass reservoir<br>2025-11-15 dirty all_purpose A | 64.4-73.2F, 6.2 mph wind, 94% cloud, 0.4 in precip | active, open, low_light_surface+wind_reaction+dirty_vibration+open_water_search, medium | Paddle-Tail Swimbait (168); Bladed Jig (156); Clouser Minnow (178); Game Changer (168) | WIND_NOT_ELEVATING_REACTION, WIND_NOT_ELEVATING_REACTION |
-| Southwest desert bass reservoir<br>2025-11-15 stained big_fish B | 64.4-73.2F, 6.2 mph wind, 94% cloud, 0.4 in precip | active, open, low_light_surface+wind_reaction+dirty_vibration+open_water_search, medium | Lipless Crankbait (172); Magnum Jerkbait (176); Game Changer (176); Articulated Baitfish Streamer (176) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
 | Southern California reservoir<br>2025-02-18 clear all_purpose A | 47.6-72.9F, 7.9 mph wind, 68.8% cloud, 0 in precip | active, closed, wind_reaction+warming_search+open_water_search, medium | Carolina-Rigged Stick Worm (170); Blade Bait (174); Feather Jig Leech (152); Articulated Baitfish Streamer (146) | WIND_NOT_ELEVATING_REACTION, WIND_NOT_ELEVATING_REACTION |
 | Southern California reservoir<br>2025-02-18 clear big_fish B | 47.6-72.9F, 7.9 mph wind, 68.8% cloud, 0 in precip | active, closed, wind_reaction+warming_search+open_water_search, medium | Compact Flipping Jig (146); Suspending Jerkbait (136); Deceiver (152); Articulated Dungeon Streamer (154) | SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
 | Southern California reservoir<br>2025-02-18 stained big_fish B | 47.6-72.9F, 7.9 mph wind, 68.8% cloud, 0 in precip | active, closed, wind_reaction+dirty_vibration+warming_search+open_water_search, medium | Lipless Crankbait (152); Football Jig (154); Game Changer (156); Articulated Dungeon Streamer (162) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE |
 | Northern California bass lake<br>2025-03-30 stained big_fish B | 39.7-55.9F, 11.2 mph wind, 82.5% cloud, 0.4 in precip | neutral, closed, wind_reaction+dirty_vibration+cold_slow, medium | Medium-Diving Crankbait (162); Football Jig (156); Game Changer (154); Articulated Baitfish Streamer (154) | SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
 | Northern California bass lake<br>2025-10-25 dirty big_fish A | 49.9-59.6F, 9.9 mph wind, 99.3% cloud, 0.1 in precip | neutral, open, low_light_surface+wind_reaction+dirty_vibration+cold_slow+open_water_search, medium | Magnum Jerkbait (184); Buzzbait (190); Articulated Baitfish Streamer (176); Game Changer (176) | TOPWATER_SHOULDER_SEASON_REGION, COLD_CLEAR_TOO_FAST |
+| Northern California bass lake<br>2025-10-25 stained big_fish A | 49.9-59.6F, 9.9 mph wind, 99.3% cloud, 0.1 in precip | neutral, open, low_light_surface+wind_reaction+dirty_vibration+cold_slow+open_water_search, medium | Magnum Jerkbait (192); Buzzbait (190); Baitfish Slider Fly (162); Articulated Baitfish Streamer (176) | TOPWATER_SHOULDER_SEASON_REGION, COLD_CLEAR_TOO_FAST |
+| Northern California bass lake<br>2025-10-25 stained big_fish B | 49.9-59.6F, 9.9 mph wind, 99.3% cloud, 0.1 in precip | neutral, open, low_light_surface+wind_reaction+dirty_vibration+cold_slow+open_water_search, medium | Walking Topwater (178); Compact Flipping Jig (150); Articulated Dungeon Streamer (168); Game Changer (176) | TOPWATER_SHOULDER_SEASON_REGION, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
+| Colorado mountain-west reservoir<br>2025-04-23 clear big_fish B | 43.9-72.1F, 7.1 mph wind, 71.2% cloud, 0 in precip | active, closed, warming_search, medium | Medium-Diving Crankbait (162); Compact Flipping Jig (132); Rabbit-Strip Leech (126); Articulated Baitfish Streamer (146) | SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE |
+| Colorado mountain-west reservoir<br>2025-10-05 clear all_purpose B | 47.5-74.9F, 7.6 mph wind, 6.3% cloud, 0 in precip | neutral, closed, wind_reaction+clear_subtle+open_water_search, medium | Tube Jig (182); Drop-Shot Minnow (180); Clouser Minnow (186); Baitfish Slider Fly (174) | WIND_NOT_ELEVATING_REACTION, CLEAR_BRIGHT_NOT_ELEVATING_SUBTLE |
+| Colorado mountain-west reservoir<br>2025-10-05 clear big_fish B | 47.5-74.9F, 7.6 mph wind, 6.3% cloud, 0 in precip | neutral, closed, wind_reaction+clear_subtle+open_water_search, medium | Football Jig (134); Suspending Jerkbait (172); Unweighted Baitfish Streamer (162); Articulated Dungeon Streamer (160) | WIND_NOT_ELEVATING_REACTION, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
+| Colorado mountain-west reservoir<br>2025-10-05 dirty big_fish B | 47.5-74.9F, 7.6 mph wind, 6.3% cloud, 0 in precip | neutral, closed, wind_reaction+dirty_vibration+open_water_search, medium | Lipless Crankbait (172); Medium-Diving Crankbait (178); Game Changer (176); Articulated Dungeon Streamer (168) | BIG_FISH_NOT_FAVORING_UPSIDE, WIND_NOT_ELEVATING_REACTION |
+| Lake Okeechobee / central FL bass lake<br>2025-01-16 dirty big_fish B | 58.1-65.4F, 12.4 mph wind, 92.6% cloud, 0 in precip | neutral, closed, wind_reaction+dirty_vibration+cold_slow, medium | Suspending Jerkbait (148); Football Jig (156); Articulated Dungeon Streamer (152); Rabbit-Strip Leech (150) | SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
+| Lake Okeechobee / central FL bass lake<br>2025-01-16 stained big_fish B | 58.1-65.4F, 12.4 mph wind, 92.6% cloud, 0 in precip | neutral, closed, wind_reaction+dirty_vibration+cold_slow, medium | Suspending Jerkbait (156); Compact Flipping Jig (156); Articulated Dungeon Streamer (152); Game Changer (144) | SET_B_SAME_FAMILY_SAME_PRESENTATION_AVOIDABLE, SET_B_SAME_FAMILY_DIFFERENT_PRESENTATION_AVOIDABLE |
+| Lake Okeechobee / central FL bass lake<br>2025-03-19 stained all_purpose A | 59.2-76.4F, 5.9 mph wind, 19.1% cloud, 0 in precip | neutral, open, calm_surface+cold_slow, medium | Soft Plastic Jerkbait (174); Carolina-Rigged Stick Worm (170); Rabbit-Strip Leech (158); Woolly Bugger (158) | ADJACENT_DAY_EXACT_REPEAT, ADJACENT_DAY_EXACT_REPEAT |
 
 ## Known Coverage Gaps
 
