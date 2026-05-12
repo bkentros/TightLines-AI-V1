@@ -138,6 +138,25 @@ function hourlyWindForUtcDate(
   }));
 }
 
+function hourlyWindForLocalDate(
+  date: string,
+  timeZoneUtcOffsetHours: number,
+  valueForLocalHour: (hour: number) => number,
+) {
+  const [year, month, day] = date.split("-").map(Number);
+  return Array.from({ length: 24 }, (_, localHour) => ({
+    time_utc: new Date(
+      Date.UTC(
+        year!,
+        month! - 1,
+        day!,
+        localHour - timeZoneUtcOffsetHours,
+      ),
+    ).toISOString(),
+    value: valueForLocalHour(localHour),
+  }));
+}
+
 Deno.test("DailyScenario maps How's score thresholds to activity levels", () => {
   assertEquals(
     buildDailyScenario({
@@ -202,6 +221,32 @@ Deno.test("DailyScenario valid hourly daylight wind beats scalar fallback", () =
 
   assertEquals(scenario.daylight_wind_mph, 12);
   assertEquals(scenario.wind_mode, "breezy");
+});
+
+Deno.test("DailyScenario daylight wind uses local 5am-9pm mean, not a single spike", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      location: {
+        ...baseReq().location,
+        local_timezone: "America/New_York",
+      },
+      env_data: {
+        wind_speed_mph: 20,
+        hourly_wind_speed: hourlyWindForLocalDate(
+          "2026-06-15",
+          -4,
+          (hour) => hour === 14 ? 30 : 4,
+        ),
+        weather: { wind_speed_unit: "mph" },
+      },
+    }),
+    analysis: analysis({ score: 80 }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(Number(scenario.daylight_wind_mph?.toFixed(2)), 5.53);
+  assertEquals(scenario.wind_mode, "calm");
+  assert(!scenario.scenario_tags.includes("wind_reaction"));
 });
 
 Deno.test("DailyScenario wind thresholds are calm below 6, breezy through 14, windy above 14", () => {
