@@ -20,3 +20,5 @@ $$;
 
 revoke all on function public.delete_current_user_account() from public;
 grant execute on function public.delete_current_user_account() to authenticated;
+-- Supabase may default-grant EXECUTE to anon; account deletion must stay authenticated-only.
+revoke execute on function public.delete_current_user_account() from anon;
