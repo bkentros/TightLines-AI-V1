@@ -39,9 +39,17 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   onboardingPrefs: {},
 
   setSession: (session) => {
+    const currentProfile = get().profile;
+    const profileMatchesSession =
+      !!session?.user && currentProfile?.id === session.user.id;
+    const userChanged =
+      !!session?.user && !profileMatchesSession;
     set({
       session,
       user: session?.user ?? null,
+      isProfileLoading: userChanged ? true : false,
+      profile: profileMatchesSession ? currentProfile : null,
+      isOnboarded: profileMatchesSession ? currentProfile.onboarding_complete : false,
     });
   },
 

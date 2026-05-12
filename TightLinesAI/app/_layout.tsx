@@ -55,6 +55,29 @@ function linkingParam(v: string | string[] | undefined): string | undefined {
   return Array.isArray(v) ? v[0] : v;
 }
 
+function isPasswordResetLink(params: Record<string, unknown>): boolean {
+  const type = linkingParam(params['type'] as string | string[] | undefined);
+  const flow = linkingParam(params['flow'] as string | string[] | undefined);
+  const mode = linkingParam(params['mode'] as string | string[] | undefined);
+  return (
+    type === 'recovery' ||
+    flow === 'password-reset' ||
+    flow === 'reset-password' ||
+    mode === 'password-reset' ||
+    mode === 'reset-password'
+  );
+}
+
+async function hasExistingCompletedProfile(userId: string): Promise<boolean> {
+  const { data, error } = await supabase
+    .from('profiles')
+    .select('id,onboarding_complete')
+    .eq('id', userId)
+    .maybeSingle();
+  if (error || !data) return false;
+  return data.onboarding_complete === true;
+}
+
 const ONBOARDING_STEP_SEGMENTS = new Set([
   'step-1-welcome',
   'step-2-preferences',
@@ -224,9 +247,13 @@ export default function RootLayout() {
       }
       const params = { ...queryParams, ...fragmentParams };
       const type = linkingParam(params['type'] as string | string[] | undefined);
-      const isRecoveryLink = type === 'recovery';
+      const isRecoveryLink = isPasswordResetLink(params);
+      const hasAuthPayload =
+        Boolean(params['access_token'] && params['refresh_token']) ||
+        Boolean(params['code']) ||
+        Boolean(params['token_hash'] ?? params['token']);
 
-      if (isRecoveryLink) {
+      if (hasAuthPayload) {
         setPasswordRecoveryInFlight(true);
       }
 
@@ -238,11 +265,18 @@ export default function RootLayout() {
           refresh_token: refreshToken,
         });
         if (!error && data.session) {
+          const shouldReset =
+            isRecoveryLink ||
+            (!type && (await hasExistingCompletedProfile(data.session.user.id)));
           setSession(data.session);
           void fetchProfile(data.session.user.id);
-          if (isRecoveryLink) {
+          if (shouldReset) {
             router.replace('/(auth)/reset-password');
+          } else {
+            setPasswordRecoveryInFlight(false);
           }
+        } else {
+          setPasswordRecoveryInFlight(false);
         }
         return;
       }
@@ -254,11 +288,18 @@ export default function RootLayout() {
           console.warn('[deep link] exchangeCodeForSession failed', error.message);
         }
         if (!error && data.session) {
+          const shouldReset =
+            isRecoveryLink ||
+            (!type && (await hasExistingCompletedProfile(data.session.user.id)));
           setSession(data.session);
           void fetchProfile(data.session.user.id);
-          if (isRecoveryLink) {
+          if (shouldReset) {
             router.replace('/(auth)/reset-password');
+          } else {
+            setPasswordRecoveryInFlight(false);
           }
+        } else {
+          setPasswordRecoveryInFlight(false);
         }
         return;
       }
@@ -278,7 +319,11 @@ export default function RootLayout() {
 
           if (type === 'recovery') {
             router.replace('/(auth)/reset-password');
+          } else {
+            setPasswordRecoveryInFlight(false);
           }
+        } else {
+          setPasswordRecoveryInFlight(false);
         }
         return;
       }
