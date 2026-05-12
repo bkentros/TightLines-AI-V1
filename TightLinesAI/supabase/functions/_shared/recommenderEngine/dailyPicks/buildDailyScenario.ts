@@ -164,6 +164,10 @@ function windModeFromMph(daylightWindMph: number | null): DailyWindMode {
   return "windy";
 }
 
+function finiteNumber(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
+}
+
 function hasDailyWindReaction(args: {
   daylightWindMph: number | null;
   windMode: DailyWindMode;
@@ -198,8 +202,10 @@ function lightModeFromLabel(label: string | null | undefined): DailyLightMode {
 }
 
 function thermalModeFromLabels(args: {
+  species: DailyScenario["species"];
   month: number;
   activityLevel: DailyActivityLevel;
+  dailyHighAirTempF: number | null;
   temperatureBand: string | null | undefined;
   temperatureTrend: string | null | undefined;
   temperatureShock: string | null | undefined;
@@ -214,6 +220,23 @@ function thermalModeFromLabels(args: {
   // The band describes the actual daily thermal lane. Let hard metabolic
   // extremes win before trend/shock so hot cooldowns don't read as cold fishing.
   if (args.temperatureBand === "very_warm") return "heat_limited";
+  if (
+    args.species === "trout" &&
+    args.dailyHighAirTempF != null &&
+    args.dailyHighAirTempF >= 85 &&
+    args.month >= 6 &&
+    args.month <= 9
+  ) {
+    return "heat_limited";
+  }
+  if (
+    args.species === "trout" &&
+    args.temperatureBand === "warm" &&
+    args.month >= 6 &&
+    args.month <= 9
+  ) {
+    return "heat_limited";
+  }
   if (args.temperatureBand === "very_cold") return "cold_slow";
 
   if (args.temperatureBand === "cool") {
@@ -427,8 +450,10 @@ export function buildDailyScenario(args: {
   const lightMode = lightModeFromLabel(lightLabel);
   const temp = analysis.norm.normalized.temperature;
   const thermalMode = thermalModeFromLabels({
+    species,
     month: req.location.month,
     activityLevel,
+    dailyHighAirTempF: finiteNumber(req.env_data.daily_high_air_temp_f),
     temperatureBand: temp?.band_label,
     temperatureTrend: temp?.trend_label,
     temperatureShock: temp?.shock_label,

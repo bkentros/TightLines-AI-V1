@@ -9,6 +9,7 @@ import React, { useEffect, useRef } from 'react';
 import {
   Animated,
   Easing,
+  Image,
   Pressable,
   ScrollView,
   StyleSheet,
@@ -17,7 +18,6 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-import { Image as ExpoImage } from 'expo-image';
 import {
   paper,
   paperFonts,
@@ -51,7 +51,6 @@ import {
   WATER_CLARITY_LABELS,
 } from '../../lib/recommenderContracts';
 
-const IMAGE_TX = { duration: 200 } as const;
 
 /**
  * Tackle-box brand gold — pulled from the home dashboard's Tackle Box
@@ -342,12 +341,10 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
           ]}
         />
         {image ? (
-          <ExpoImage
+          <Image
             source={image}
             style={styles.topPickImage}
-            contentFit="contain"
-            transition={IMAGE_TX}
-            cachePolicy="memory-disk"
+            resizeMode="contain"
           />
         ) : (
           <View style={[styles.topPickImage, styles.pickImageEmpty]}>
@@ -444,12 +441,10 @@ function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
       <View style={styles.honorableBody}>
         <View style={styles.honorableImageWrap}>
           {image ? (
-            <ExpoImage
+            <Image
               source={image}
               style={styles.honorableImage}
-              contentFit="contain"
-              transition={IMAGE_TX}
-              cachePolicy="memory-disk"
+              resizeMode="contain"
             />
           ) : (
             <View style={[styles.honorableImage, styles.pickImageEmpty]}>
@@ -696,12 +691,10 @@ export function RecommenderView({
             {speciesImage ? (
               <View style={styles.heroPortraitWrap}>
                 <View style={styles.heroPortrait}>
-                  <ExpoImage
+                  <Image
                     source={speciesImage}
                     style={styles.heroPortraitImage}
-                    contentFit="cover"
-                    transition={IMAGE_TX}
-                    cachePolicy="memory-disk"
+                    resizeMode="cover"
                   />
                 </View>
                 <View style={styles.heroPortraitPill}>

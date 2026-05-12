@@ -376,7 +376,7 @@ Deno.test("Pass 4B.1: row-authored broad eligibility is kept for current runtime
     ],
     [
       "soft_jerkbait",
-      ["largemouth_bass", "smallmouth_bass", "northern_pike", "trout"],
+      ["largemouth_bass", "smallmouth_bass", "northern_pike"],
     ],
     [
       "blade_bait",

@@ -6,36 +6,41 @@
  * 7-day outlook stays stable all day and future-day reports can reuse the same snapshot.
  */
 
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { WeatherData } from './env/types';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import type { EnvironmentData, WeatherData } from "./env/types";
 
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
 /** v6 invalidates stale coastal-eligibility snapshots after the 15-mile gating change. */
-const CACHE_KEY_PREFIX = 'forecast_scores_v6';
+const CACHE_KEY_PREFIX = "forecast_scores_v6";
 
 const LEGACY_FORECAST_CACHE_PREFIXES = [
-  'forecast_scores_v1',
-  'forecast_scores_v2',
-  'forecast_scores_v3',
-  'forecast_scores_v4',
-  'forecast_scores_v5',
-  'forecast_scores_v6',
+  "forecast_scores_v1",
+  "forecast_scores_v2",
+  "forecast_scores_v3",
+  "forecast_scores_v4",
+  "forecast_scores_v5",
+  "forecast_scores_v6",
 ] as const;
 
 /**
  * Next instant (UTC ms) when the calendar date advances in `timeZone` (IANA).
  * Falls back to device-local next midnight if the zone is invalid.
  */
-export function nextMidnightInTimeZoneMs(timeZone: string, fromMs: number = Date.now()): number {
-  const tz = typeof timeZone === 'string' && timeZone.trim().length > 0 ? timeZone.trim() : 'UTC';
+export function nextMidnightInTimeZoneMs(
+  timeZone: string,
+  fromMs: number = Date.now(),
+): number {
+  const tz = typeof timeZone === "string" && timeZone.trim().length > 0
+    ? timeZone.trim()
+    : "UTC";
   try {
-    const dayFmt = new Intl.DateTimeFormat('en-CA', {
+    const dayFmt = new Intl.DateTimeFormat("en-CA", {
       timeZone: tz,
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
     });
     const startKey = dayFmt.format(new Date(fromMs));
     let lo = fromMs;
@@ -61,10 +66,10 @@ export function nextMidnightInTimeZoneMs(timeZone: string, fromMs: number = Date
 // ---------------------------------------------------------------------------
 
 export interface DayForecastScore {
-  date: string;         // "YYYY-MM-DD"
-  day_offset: number;   // 0 = today, 1 = tomorrow, …, 6 = day+6
-  day_label: string;    // "Today" | "Tmrw" | "Mon" | "Tue" | …
-  month_day: string;    // "3/22" — short display date
+  date: string; // "YYYY-MM-DD"
+  day_offset: number; // 0 = today, 1 = tomorrow, …, 6 = day+6
+  day_label: string; // "Today" | "Tmrw" | "Mon" | "Tue" | …
+  month_day: string; // "3/22" — short display date
   freshwater_lake_pond: number; // 0–100 raw score
   freshwater_river: number;
   coastal: number;
@@ -82,7 +87,7 @@ export interface ForecastSnapshotTideDay {
   date: string;
   station_id: string;
   station_name: string;
-  high_low: Array<{ time: string; type: 'H' | 'L'; value: number }>;
+  high_low: Array<{ time: string; type: "H" | "L"; value: number }>;
   phase?: string;
   unit: string;
 }
@@ -93,6 +98,10 @@ export interface ForecastSnapshotEnv {
   coastal?: boolean;
   tides_available?: boolean;
   nearest_tide_station_id?: string | null;
+  measured_water_temp_f?: number | null;
+  measured_water_temp_24h_ago_f?: number | null;
+  measured_water_temp_72h_ago_f?: number | null;
+  measured_water_temp_source?: string | null;
   weather: WeatherData;
   hourly_pressure_mb?: Array<{ time_utc: string; value: number }>;
   hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
@@ -101,7 +110,46 @@ export interface ForecastSnapshotEnv {
   forecast_tides_by_date?: ForecastSnapshotTideDay[];
 }
 
-function normalizeForecastRows(rows: Partial<DayForecastScore>[]): DayForecastScore[] {
+const MEASURED_WATER_TEMP_KEYS = [
+  "measured_water_temp_f",
+  "measured_water_temp_24h_ago_f",
+  "measured_water_temp_72h_ago_f",
+  "measured_water_temp_source",
+] as const;
+
+export function mergeMeasuredWaterTempFields<T extends Record<string, unknown>>(
+  forecastEnv: T,
+  envData:
+    | Pick<EnvironmentData, typeof MEASURED_WATER_TEMP_KEYS[number]>
+    | Record<string, unknown>
+    | null
+    | undefined,
+): T {
+  if (!envData || typeof envData !== "object") return forecastEnv;
+  const out: Record<string, unknown> = { ...forecastEnv };
+  let changed = false;
+  for (const key of MEASURED_WATER_TEMP_KEYS) {
+    if (Object.prototype.hasOwnProperty.call(envData, key)) {
+      out[key] = (envData as Record<string, unknown>)[key];
+      changed = true;
+    }
+  }
+  return changed ? (out as T) : forecastEnv;
+}
+
+export function stripMeasuredWaterTempFields<T extends Record<string, unknown>>(
+  envData: T,
+): T {
+  const out: Record<string, unknown> = { ...envData };
+  for (const key of MEASURED_WATER_TEMP_KEYS) {
+    delete out[key];
+  }
+  return out as T;
+}
+
+function normalizeForecastRows(
+  rows: Partial<DayForecastScore>[],
+): DayForecastScore[] {
   return rows.map((row) => ({
     date: row.date!,
     day_offset: row.day_offset!,
@@ -134,7 +182,12 @@ function cacheKey(lat: number, lon: number): string {
  */
 export function bestDayScore(day: DayForecastScore): number {
   const flats = day.coastal_flats_estuary ?? day.coastal;
-  return Math.max(day.freshwater_lake_pond, day.freshwater_river, day.coastal, flats);
+  return Math.max(
+    day.freshwater_lake_pond,
+    day.freshwater_river,
+    day.coastal,
+    flats,
+  );
 }
 
 /**
@@ -142,7 +195,10 @@ export function bestDayScore(day: DayForecastScore): number {
  * Matches how the 7-day outlook aligns with multi-tab reports: inland = lake + river;
  * coastal-eligible = lake + river + inshore + flats/estuary (four-way mean).
  */
-export function meanDayScore(day: DayForecastScore, isCoastalEligible: boolean): number {
+export function meanDayScore(
+  day: DayForecastScore,
+  isCoastalEligible: boolean,
+): number {
   if (isCoastalEligible) {
     const flats = day.coastal_flats_estuary ?? day.coastal;
     return (
@@ -166,11 +222,11 @@ export function formatScoreDisplay(raw: number): string {
  *   Prime ≥80, Good ≥65, Fair ≥50, Poor ≥35, Tough <35.
  */
 export function scoreColor(raw: number): string {
-  if (raw >= 80) return '#3DA85F'; // Prime
-  if (raw >= 65) return '#7CC36A'; // Good
-  if (raw >= 50) return '#E8C547'; // Fair
-  if (raw >= 35) return '#E89647'; // Poor
-  return '#D94B3A';                // Tough
+  if (raw >= 80) return "#3DA85F"; // Prime
+  if (raw >= 65) return "#7CC36A"; // Good
+  if (raw >= 50) return "#E8C547"; // Fair
+  if (raw >= 35) return "#E89647"; // Poor
+  return "#D94B3A"; // Tough
 }
 
 // ---------------------------------------------------------------------------
@@ -210,9 +266,9 @@ export async function getForecastScores(
   // Fetch from edge function
   try {
     const res = await fetch(`${SUPABASE_URL}/functions/v1/forecast-scores`, {
-      method: 'POST',
+      method: "POST",
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
         apikey: SUPABASE_ANON_KEY,
         Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
       },
@@ -221,7 +277,7 @@ export async function getForecastScores(
 
     if (!res.ok) {
       if (__DEV__) {
-        const text = await res.text().catch(() => '(unreadable)');
+        const text = await res.text().catch(() => "(unreadable)");
         console.error(`[forecastScores] edge fn returned ${res.status}:`, text);
       }
       return null;
@@ -233,13 +289,18 @@ export async function getForecastScores(
       snapshot_env?: ForecastSnapshotEnv;
     };
     if (!Array.isArray(json.forecast) || json.forecast.length === 0) {
-      if (__DEV__) console.error('[forecastScores] empty or missing forecast array:', json);
+      if (__DEV__) {
+        console.error(
+          "[forecastScores] empty or missing forecast array:",
+          json,
+        );
+      }
       return null;
     }
 
     const data: ForecastScoresResult = {
       forecast: normalizeForecastRows(json.forecast),
-      timezone: json.timezone ?? 'UTC',
+      timezone: json.timezone ?? "UTC",
       fetched_at: new Date().toISOString(),
       snapshot_env: json.snapshot_env,
     };
@@ -260,7 +321,7 @@ export async function getForecastScores(
 
     return data;
   } catch (err) {
-    if (__DEV__) console.error('[forecastScores] fetch error:', err);
+    if (__DEV__) console.error("[forecastScores] fetch error:", err);
     return null;
   }
 }

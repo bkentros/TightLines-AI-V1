@@ -14,57 +14,71 @@
  *   4. Pull-to-refresh for fresh results
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Pressable,
-  Platform,
   ActivityIndicator,
   Alert,
-} from 'react-native';
-import { Image as ExpoImage } from 'expo-image';
-import { hapticSelection, hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter, useLocalSearchParams } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import * as Location from 'expo-location';
+  Image,
+  Platform,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import {
+  hapticImpact,
+  hapticSelection,
+  ImpactFeedbackStyle,
+} from "../lib/safeHaptics";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import * as Location from "expo-location";
 import {
   colors,
   fonts,
-  spacing,
-  radius,
-  shadows,
   paper,
   paperFonts,
-  paperSpacing,
   paperRadius,
   paperShadows,
-} from '../lib/theme';
+  paperSpacing,
+  radius,
+  shadows,
+  spacing,
+} from "../lib/theme";
 import {
+  CornerMarkSet,
   PaperBackground,
   SectionEyebrow,
-  CornerMarkSet,
   TopographicLines,
-} from '../components/paper';
-import { getSpeciesImage } from '../lib/speciesImages';
-import { getWatertypeImage, ALL_WATERTYPE_IMAGES } from '../lib/watertypeImages';
-import { getWaterclarityImage, ALL_WATERCLARITY_IMAGES } from '../lib/waterclarityImages';
+} from "../components/paper";
+import { getSpeciesImage } from "../lib/speciesImages";
 import {
-  getRecommendationGoalImage,
+  ALL_WATERTYPE_IMAGES,
+  getWatertypeImage,
+} from "../lib/watertypeImages";
+import {
+  ALL_WATERCLARITY_IMAGES,
+  getWaterclarityImage,
+} from "../lib/waterclarityImages";
+import {
   ALL_RECOMMENDATION_GOAL_IMAGES,
-} from '../lib/recommendationGoalImages';
-import { ALL_COLOR_PALETTE_IMAGES } from '../lib/colorPaletteImages';
-import { ALL_LURE_IMAGES } from '../lib/lureImages';
-import { ALL_FLY_IMAGES } from '../lib/flyImages';
-import { Asset } from 'expo-asset';
-import { useAuthStore } from '../store/authStore';
-import { fetchRecommendation } from '../lib/recommender';
-import { getForecastScores } from '../lib/forecastScores';
-import { RecommenderView } from '../components/fishing/RecommenderView';
-import { RecommenderLoadingSkeleton } from '../components/fishing/RecommenderLoadingSkeleton';
+  getRecommendationGoalImage,
+} from "../lib/recommendationGoalImages";
+import { ALL_COLOR_PALETTE_IMAGES } from "../lib/colorPaletteImages";
+import { ALL_LURE_IMAGES } from "../lib/lureImages";
+import { ALL_FLY_IMAGES } from "../lib/flyImages";
+import { Asset } from "expo-asset";
+import { useAuthStore } from "../store/authStore";
+import { fetchRecommendation } from "../lib/recommender";
+import {
+  getForecastScores,
+  mergeMeasuredWaterTempFields,
+} from "../lib/forecastScores";
+import { getEnvironment } from "../lib/env";
+import { RecommenderView } from "../components/fishing/RecommenderView";
+import { RecommenderLoadingSkeleton } from "../components/fishing/RecommenderLoadingSkeleton";
 import type {
   DailyPicksSpecies,
   DailyPicksVariant,
@@ -73,26 +87,25 @@ import type {
   RecommenderResponse,
   SpeciesGroup,
   WaterClarity,
-} from '../lib/recommenderContracts';
+} from "../lib/recommenderContracts";
 import {
-  SPECIES_DISPLAY,
   DAILY_PICKS_UI_CONTEXTS,
   DAILY_PICKS_UI_SPECIES,
-  getRecommenderSpeciesForState,
   getRecommenderContextsForState,
   getRecommenderContextsForStateSpecies,
+  getRecommenderSpeciesForState,
   isDailyPicksUiContext,
   isDailyPicksUiSpecies,
-} from '../lib/recommenderContracts';
+  SPECIES_DISPLAY,
+} from "../lib/recommenderContracts";
 
-const RIPPLE = { color: 'rgba(10,22,40,0.08)' };
-const IMG_IN = { duration: 200 } as const;
+const RIPPLE = { color: "rgba(10,22,40,0.08)" };
 
 const DAILY_PICKS_SPECIES_IMAGE_KEY: Record<DailyPicksSpecies, SpeciesGroup> = {
-  largemouth_bass: 'largemouth_bass',
-  smallmouth_bass: 'smallmouth_bass',
-  northern_pike: 'pike_musky',
-  trout: 'river_trout',
+  largemouth_bass: "largemouth_bass",
+  smallmouth_bass: "smallmouth_bass",
+  northern_pike: "pike_musky",
+  trout: "river_trout",
 };
 
 function getRecommenderResultSpeciesImage(result: RecommenderResponse) {
@@ -120,37 +133,48 @@ const ENGINE_CONTEXTS: EngineContext[] = [
 
 function contextLabel(ctx: EngineContext): string {
   switch (ctx) {
-    case 'freshwater_lake_pond':    return 'Lake / Pond';
-    case 'freshwater_river':        return 'River / Stream';
-    case 'coastal':                 return 'Coastal';
-    case 'coastal_flats_estuary':   return 'Flats / Estuary';
-    default: return 'Freshwater';
+    case "freshwater_lake_pond":
+      return "Lake / Pond";
+    case "freshwater_river":
+      return "River / Stream";
+    case "coastal":
+      return "Coastal";
+    case "coastal_flats_estuary":
+      return "Flats / Estuary";
+    default:
+      return "Freshwater";
   }
 }
 
 function contextIcon(ctx: EngineContext): string {
   switch (ctx) {
-    case 'freshwater_lake_pond':  return 'water-outline';
-    case 'freshwater_river':      return 'git-merge-outline';
-    default: return 'water-outline';
+    case "freshwater_lake_pond":
+      return "water-outline";
+    case "freshwater_river":
+      return "git-merge-outline";
+    default:
+      return "water-outline";
   }
 }
 
 function contextAccentColor(ctx: EngineContext): string {
   switch (ctx) {
-    case 'freshwater_lake_pond':  return colors.contextFreshwater;
-    case 'freshwater_river':      return colors.contextFreshwater;
-    default: return colors.contextFreshwater;
+    case "freshwater_lake_pond":
+      return colors.contextFreshwater;
+    case "freshwater_river":
+      return colors.contextFreshwater;
+    default:
+      return colors.contextFreshwater;
   }
 }
 
 function defaultContextsForSpecies(species: SpeciesGroup): EngineContext[] {
   switch (species) {
-    case 'river_trout':
-      return ['freshwater_river'];
-    case 'largemouth_bass':
-    case 'smallmouth_bass':
-    case 'pike_musky':
+    case "river_trout":
+      return ["freshwater_river"];
+    case "largemouth_bass":
+    case "smallmouth_bass":
+    case "pike_musky":
       return [...ENGINE_CONTEXTS];
     default:
       return [];
@@ -160,52 +184,97 @@ function defaultContextsForSpecies(species: SpeciesGroup): EngineContext[] {
 // ─── State code extraction ────────────────────────────────────────────────────
 
 const STATE_NAME_TO_CODE: Record<string, string> = {
-  'Alabama': 'AL', 'Alaska': 'AK', 'Arizona': 'AZ', 'Arkansas': 'AR',
-  'California': 'CA', 'Colorado': 'CO', 'Connecticut': 'CT', 'Delaware': 'DE',
-  'Florida': 'FL', 'Georgia': 'GA', 'Hawaii': 'HI', 'Idaho': 'ID',
-  'Illinois': 'IL', 'Indiana': 'IN', 'Iowa': 'IA', 'Kansas': 'KS',
-  'Kentucky': 'KY', 'Louisiana': 'LA', 'Maine': 'ME', 'Maryland': 'MD',
-  'Massachusetts': 'MA', 'Michigan': 'MI', 'Minnesota': 'MN', 'Mississippi': 'MS',
-  'Missouri': 'MO', 'Montana': 'MT', 'Nebraska': 'NE', 'Nevada': 'NV',
-  'New Hampshire': 'NH', 'New Jersey': 'NJ', 'New Mexico': 'NM', 'New York': 'NY',
-  'North Carolina': 'NC', 'North Dakota': 'ND', 'Ohio': 'OH', 'Oklahoma': 'OK',
-  'Oregon': 'OR', 'Pennsylvania': 'PA', 'Rhode Island': 'RI', 'South Carolina': 'SC',
-  'South Dakota': 'SD', 'Tennessee': 'TN', 'Texas': 'TX', 'Utah': 'UT',
-  'Vermont': 'VT', 'Virginia': 'VA', 'Washington': 'WA', 'West Virginia': 'WV',
-  'Wisconsin': 'WI', 'Wyoming': 'WY',
+  "Alabama": "AL",
+  "Alaska": "AK",
+  "Arizona": "AZ",
+  "Arkansas": "AR",
+  "California": "CA",
+  "Colorado": "CO",
+  "Connecticut": "CT",
+  "Delaware": "DE",
+  "Florida": "FL",
+  "Georgia": "GA",
+  "Hawaii": "HI",
+  "Idaho": "ID",
+  "Illinois": "IL",
+  "Indiana": "IN",
+  "Iowa": "IA",
+  "Kansas": "KS",
+  "Kentucky": "KY",
+  "Louisiana": "LA",
+  "Maine": "ME",
+  "Maryland": "MD",
+  "Massachusetts": "MA",
+  "Michigan": "MI",
+  "Minnesota": "MN",
+  "Mississippi": "MS",
+  "Missouri": "MO",
+  "Montana": "MT",
+  "Nebraska": "NE",
+  "Nevada": "NV",
+  "New Hampshire": "NH",
+  "New Jersey": "NJ",
+  "New Mexico": "NM",
+  "New York": "NY",
+  "North Carolina": "NC",
+  "North Dakota": "ND",
+  "Ohio": "OH",
+  "Oklahoma": "OK",
+  "Oregon": "OR",
+  "Pennsylvania": "PA",
+  "Rhode Island": "RI",
+  "South Carolina": "SC",
+  "South Dakota": "SD",
+  "Tennessee": "TN",
+  "Texas": "TX",
+  "Utah": "UT",
+  "Vermont": "VT",
+  "Virginia": "VA",
+  "Washington": "WA",
+  "West Virginia": "WV",
+  "Wisconsin": "WI",
+  "Wyoming": "WY",
 };
 
 async function resolveStateCode(lat: number, lon: number): Promise<string> {
   try {
-    const [geo] = await Location.reverseGeocodeAsync({ latitude: lat, longitude: lon });
-    if (!geo) return 'XX';
-    const region = geo.region ?? '';
+    const [geo] = await Location.reverseGeocodeAsync({
+      latitude: lat,
+      longitude: lon,
+    });
+    if (!geo) return "XX";
+    const region = geo.region ?? "";
     if (region.length === 2 && /^[A-Z]{2}$/.test(region)) return region;
-    return STATE_NAME_TO_CODE[region] ?? 'XX';
+    return STATE_NAME_TO_CODE[region] ?? "XX";
   } catch {
-    return 'XX';
+    return "XX";
   }
 }
 
-function recommenderErrorMessage(error: unknown, species: SpeciesGroup, context: EngineContext): string {
-  const msg =
-    error instanceof Error
-      ? error.message
-      : 'Something went wrong. Please try again.';
-  if (msg === 'species_not_available') {
-    return `${SPECIES_DISPLAY[species]} is not supported here for ${contextLabel(context)} yet. Try a different species or water type.`;
+function recommenderErrorMessage(
+  error: unknown,
+  species: SpeciesGroup,
+  context: EngineContext,
+): string {
+  const msg = error instanceof Error
+    ? error.message
+    : "Something went wrong. Please try again.";
+  if (msg === "species_not_available") {
+    return `${SPECIES_DISPLAY[species]} is not supported here for ${
+      contextLabel(context)
+    } yet. Try a different species or water type.`;
   }
-  if (msg === 'unsupported_recommender_scope') {
-    return 'Right now, FinFindr supports freshwater largemouth, smallmouth, northern pike, and trout.';
+  if (msg === "unsupported_recommender_scope") {
+    return "Right now, FinFindr supports freshwater largemouth, smallmouth, northern pike, and trout.";
   }
-  if (msg === 'seasonal_row_missing') {
-    return 'We do not have seasonal guidance for this spot, month, and water type yet. Try another water type or move your pin nearby.';
+  if (msg === "seasonal_row_missing") {
+    return "We do not have seasonal guidance for this spot, month, and water type yet. Try another water type or move your pin nearby.";
   }
-  if (msg === 'state_resolution_failed') {
-    return 'We could not read the state for this spot. Move the pin or refresh your location before building a plan.';
+  if (msg === "state_resolution_failed") {
+    return "We could not read the state for this spot. Move the pin or refresh your location before building a plan.";
   }
-  if (msg === 'daily_snapshot_unavailable') {
-    return 'We could not load today\'s conditions for this spot. Please try again in a moment.';
+  if (msg === "daily_snapshot_unavailable") {
+    return "We could not load today's conditions for this spot. Please try again in a moment.";
   }
   return msg;
 }
@@ -218,107 +287,142 @@ function readinessMessage(args: {
   context: EngineContext | null;
   clarity: WaterClarity | null;
 }): string | null {
-  const { hasCoords, resolvingRegion, stateCode, species, context, clarity } = args;
+  const { hasCoords, resolvingRegion, stateCode, species, context, clarity } =
+    args;
   if (!hasCoords) {
-    return 'Add a location first so today\'s local conditions can shape your picks.';
+    return "Add a location first so today's local conditions can shape your picks.";
   }
   if (resolvingRegion) {
-    return 'Checking your spot so we only show species and water types that fit.';
+    return "Checking your spot so we only show species and water types that fit.";
   }
   if (!stateCode) {
-    return 'We need a readable location before we can build your tackle plan.';
+    return "We need a readable location before we can build your tackle plan.";
   }
   if (!species) {
-    return 'Choose the species you are fishing for so we can match the season.';
+    return "Choose the species you are fishing for so we can match the season.";
   }
   if (!context) {
-    return 'Choose the type of water you are fishing so the picks fit the spot.';
+    return "Choose the type of water you are fishing so the picks fit the spot.";
   }
   if (!clarity) {
-    return 'Choose water clarity so color and profile guidance stay accurate.';
+    return "Choose water clarity so color and profile guidance stay accurate.";
   }
-  return 'When you run or refresh this, today\'s conditions keep your picks steady all day.';
+  return "When you run or refresh this, today's conditions keep your picks steady all day.";
 }
 
 function getTodaySnapshotRequest(
   forecastSnapshot: Awaited<ReturnType<typeof getForecastScores>> | null,
+  measuredWaterEnv?: Record<string, unknown> | null,
 ): { envData: Record<string, unknown>; targetDate: string } | null {
-  const targetDate = forecastSnapshot?.forecast.find((day) => day.day_offset === 0)?.date ?? null;
-  const envData =
-    forecastSnapshot?.snapshot_env && typeof forecastSnapshot.snapshot_env === 'object'
-      ? (forecastSnapshot.snapshot_env as unknown as Record<string, unknown>)
-      : null;
+  const targetDate =
+    forecastSnapshot?.forecast.find((day) => day.day_offset === 0)?.date ??
+      null;
+  const envData = forecastSnapshot?.snapshot_env &&
+      typeof forecastSnapshot.snapshot_env === "object"
+    ? (forecastSnapshot.snapshot_env as unknown as Record<string, unknown>)
+    : null;
 
   if (!targetDate || !envData) return null;
-  return { envData, targetDate };
+  return {
+    envData: mergeMeasuredWaterTempFields(envData, measuredWaterEnv),
+    targetDate,
+  };
 }
 
 // ─── Conditions helpers ───────────────────────────────────────────────────────
 
 const STATE_CODE_TO_NAME: Record<string, string> = Object.fromEntries(
-  Object.entries(STATE_NAME_TO_CODE).map(([name, code]) => [code, name])
+  Object.entries(STATE_NAME_TO_CODE).map(([name, code]) => [code, name]),
 );
 
 function getCurrentSeason(): string {
   const m = new Date().getMonth();
-  if (m >= 2 && m <= 4) return 'Spring';
-  if (m >= 5 && m <= 7) return 'Summer';
-  if (m >= 8 && m <= 10) return 'Fall';
-  return 'Winter';
+  if (m >= 2 && m <= 4) return "Spring";
+  if (m >= 5 && m <= 7) return "Summer";
+  if (m >= 8 && m <= 10) return "Fall";
+  return "Winter";
 }
 
 function windCardinal(deg: number): string {
-  const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
-  return dirs[Math.round(deg / 45) % 8] ?? 'N';
+  const dirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
+  return dirs[Math.round(deg / 45) % 8] ?? "N";
 }
 
 function cloudCoverLabel(pct: number): string {
-  if (pct <= 15) return 'Clear';
-  if (pct <= 35) return 'Partly';
-  if (pct <= 65) return 'Cloudy';
-  return 'Overcast';
+  if (pct <= 15) return "Clear";
+  if (pct <= 35) return "Partly";
+  if (pct <= 65) return "Cloudy";
+  return "Overcast";
 }
 
 function windDirectionLabel16(deg: number): string {
-  const cards = ['N','NNE','NE','ENE','E','ESE','SE','SSE','S','SSW','SW','WSW','W','WNW','NW','NNW'];
+  const cards = [
+    "N",
+    "NNE",
+    "NE",
+    "ENE",
+    "E",
+    "ESE",
+    "SE",
+    "SSE",
+    "S",
+    "SSW",
+    "SW",
+    "WSW",
+    "W",
+    "WNW",
+    "NW",
+    "NNW",
+  ];
   const i = Math.round(((deg % 360) + 360) / 22.5) % 16;
-  return cards[i] ?? '—';
+  return cards[i] ?? "—";
 }
 
-function moonPhaseLabel(phase: string | undefined, illumination: number | undefined): string {
-  if (phase && phase !== 'Unknown') return phase;
-  if (illumination == null) return '—';
-  if (illumination <= 0.05) return 'New Moon';
-  if (illumination <= 0.4)  return 'Crescent';
-  if (illumination <= 0.6)  return 'Half';
-  if (illumination <= 0.9)  return 'Gibbous';
-  return 'Full Moon';
+function moonPhaseLabel(
+  phase: string | undefined,
+  illumination: number | undefined,
+): string {
+  if (phase && phase !== "Unknown") return phase;
+  if (illumination == null) return "—";
+  if (illumination <= 0.05) return "New Moon";
+  if (illumination <= 0.4) return "Crescent";
+  if (illumination <= 0.6) return "Half";
+  if (illumination <= 0.9) return "Gibbous";
+  return "Full Moon";
 }
 
-function pressureTrendInfo(trend: string): { label: string; color: string } | null {
+function pressureTrendInfo(
+  trend: string,
+): { label: string; color: string } | null {
   switch (trend) {
-    case 'rapidly_falling': return { label: '↓↓ Rapidly Falling', color: paper.bandPrime };
-    case 'slowly_falling':  return { label: '↓ Falling',          color: paper.bandGood };
-    case 'stable':          return { label: 'Stable',             color: colors.textMuted };
-    case 'slowly_rising':   return { label: '↑ Rising',           color: paper.bandFair };
-    case 'rapidly_rising':  return { label: '↑↑ Rapidly Rising',  color: paper.bandTough };
-    default: return null;
+    case "rapidly_falling":
+      return { label: "↓↓ Rapidly Falling", color: paper.bandPrime };
+    case "slowly_falling":
+      return { label: "↓ Falling", color: paper.bandGood };
+    case "stable":
+      return { label: "Stable", color: colors.textMuted };
+    case "slowly_rising":
+      return { label: "↑ Rising", color: paper.bandFair };
+    case "rapidly_rising":
+      return { label: "↑↑ Rapidly Rising", color: paper.bandTough };
+    default:
+      return null;
   }
 }
 
 // ─── Wizard sub-components (FinFindr tackle language) ────────────────────────
 
 const SPECIES_SUBTITLE: Record<SpeciesGroup, string> = {
-  largemouth_bass: 'Micropterus nigricans',
-  smallmouth_bass: 'Micropterus dolomieu',
-  pike_musky:      'Esox lucius',
-  river_trout:     'Salmonidae spp.',
-  walleye:         'Sander vitreus',
-  redfish:         'Sciaenops ocellatus',
-  snook:           'Centropomus undecimalis',
-  seatrout:        'Cynoscion nebulosus',
-  striped_bass:    'Morone saxatilis',
-  tarpon:          'Megalops atlanticus',
+  largemouth_bass: "Micropterus nigricans",
+  smallmouth_bass: "Micropterus dolomieu",
+  pike_musky: "Esox lucius",
+  river_trout: "Salmonidae spp.",
+  walleye: "Sander vitreus",
+  redfish: "Sciaenops ocellatus",
+  snook: "Centropomus undecimalis",
+  seatrout: "Cynoscion nebulosus",
+  striped_bass: "Morone saxatilis",
+  tarpon: "Megalops atlanticus",
 };
 
 /**
@@ -329,35 +433,35 @@ const SPECIES_SUBTITLE: Record<SpeciesGroup, string> = {
  */
 function contextSubtitle(ctx: EngineContext): string {
   switch (ctx) {
-    case 'freshwater_lake_pond':
-      return 'Still water: lakes, ponds, reservoirs';
-    case 'freshwater_river':
-      return 'Moving water: rivers, creeks, tailwaters';
-    case 'coastal':
-      return 'Inshore saltwater: beaches, piers, jetties';
-    case 'coastal_flats_estuary':
-      return 'Shallow inshore: flats, marshes, estuaries';
+    case "freshwater_lake_pond":
+      return "Still water: lakes, ponds, reservoirs";
+    case "freshwater_river":
+      return "Moving water: rivers, creeks, tailwaters";
+    case "coastal":
+      return "Inshore saltwater: beaches, piers, jetties";
+    case "coastal_flats_estuary":
+      return "Shallow inshore: flats, marshes, estuaries";
     default:
-      return '';
+      return "";
   }
 }
 
 /** Visibility subtitle shown under each clarity card — matches the mock. */
 const CLARITY_SUBTITLE: Record<WaterClarity, string> = {
-  clear:   'Visibility 4+ feet',
-  stained: 'Visibility 1–3 feet',
-  dirty:   'Visibility under 1 foot',
+  clear: "Visibility 4+ feet",
+  stained: "Visibility 1–3 feet",
+  dirty: "Visibility under 1 foot",
 };
 
 const GOAL_LABELS: Record<RecommendationGoal, string> = {
-  all_purpose: 'Catch Fish',
-  big_fish: 'Catch a PB',
+  all_purpose: "Catch Fish",
+  big_fish: "Catch a PB",
 };
 
 /** Short lure metaphors — pairs with regenerated goal chip art. */
 const GOAL_SUBTITLE: Record<RecommendationGoal, string> = {
-  all_purpose: 'Catch more fish with big-fish potential',
-  big_fish: 'Target a trophy or personal-best fish',
+  all_purpose: "Catch more fish with big-fish potential",
+  big_fish: "Target a trophy or personal-best fish",
 };
 
 // ─── Wizard step progress ────────────────────────────────────────────────────
@@ -379,11 +483,15 @@ function WizardStepProgress({
   onJumpToStep: (step: 1 | 2 | 3 | 4) => void;
   allowJumpToStep: (step: 1 | 2 | 3 | 4) => boolean;
 }) {
-  const steps: { num: 1 | 2 | 3 | 4; label: string; icon: keyof typeof Ionicons.glyphMap }[] = [
-    { num: 1, label: 'SPECIES', icon: 'fish-outline' },
-    { num: 2, label: 'WATER', icon: 'water-outline' },
-    { num: 3, label: 'CLARITY', icon: 'eye-outline' },
-    { num: 4, label: 'GOAL', icon: 'trophy-outline' },
+  const steps: {
+    num: 1 | 2 | 3 | 4;
+    label: string;
+    icon: keyof typeof Ionicons.glyphMap;
+  }[] = [
+    { num: 1, label: "SPECIES", icon: "fish-outline" },
+    { num: 2, label: "WATER", icon: "water-outline" },
+    { num: 3, label: "CLARITY", icon: "eye-outline" },
+    { num: 4, label: "GOAL", icon: "trophy-outline" },
   ];
   return (
     <View style={wizardStyles.progressRow}>
@@ -414,15 +522,21 @@ function WizardStepProgress({
                 isActive && wizardStyles.progressBadgeActive,
               ]}
             >
-              {isDone ? (
-                <Ionicons name="checkmark" size={15} color={paper.dashboardInk} />
-              ) : (
-                <Ionicons
-                  name={step.icon}
-                  size={16}
-                  color={isActive ? '#FFFFFF' : paper.dashboardInk}
-                />
-              )}
+              {isDone
+                ? (
+                  <Ionicons
+                    name="checkmark"
+                    size={15}
+                    color={paper.dashboardInk}
+                  />
+                )
+                : (
+                  <Ionicons
+                    name={step.icon}
+                    size={16}
+                    color={isActive ? "#FFFFFF" : paper.dashboardInk}
+                  />
+                )}
             </View>
             <View style={wizardStyles.progressCopy}>
               <Text
@@ -473,7 +587,8 @@ function SpeciesCard({
       style={({ pressed }) => [
         wizardStyles.speciesCard,
         isActive && wizardStyles.speciesCardActive,
-        Platform.OS === 'ios' && pressed && !isDisabled && !isActive && { opacity: 0.9 },
+        Platform.OS === "ios" && pressed && !isDisabled && !isActive &&
+        { opacity: 0.9 },
       ]}
       onPress={() => {
         if (isDisabled) return;
@@ -485,20 +600,26 @@ function SpeciesCard({
     >
       <View style={[wizardStyles.speciesImageArea, { height: cardHeight }]}>
         {img && (
-          <ExpoImage
+          <Image
             source={img}
             style={wizardStyles.speciesImage}
-            contentFit="contain"
-            transition={IMG_IN}
-            cachePolicy="memory-disk"
+            resizeMode="contain"
           />
         )}
       </View>
       <View style={wizardStyles.speciesFooter}>
-        <Text style={wizardStyles.speciesTitle} numberOfLines={1} ellipsizeMode="tail">
+        <Text
+          style={wizardStyles.speciesTitle}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           {SPECIES_DISPLAY[sp]}
         </Text>
-        <Text style={wizardStyles.speciesSubtitle} numberOfLines={1} ellipsizeMode="tail">
+        <Text
+          style={wizardStyles.speciesSubtitle}
+          numberOfLines={1}
+          ellipsizeMode="tail"
+        >
           {SPECIES_SUBTITLE[sp]}
         </Text>
       </View>
@@ -600,7 +721,8 @@ function ContextSelector({
             style={({ pressed }) => [
               wizardStyles.contextCard,
               isActive && wizardStyles.contextCardActive,
-              Platform.OS === 'ios' && pressed && !isDisabled && !isActive && { opacity: 0.9 },
+              Platform.OS === "ios" && pressed && !isDisabled && !isActive &&
+              { opacity: 0.9 },
             ]}
             onPress={() => {
               if (isDisabled) return;
@@ -612,12 +734,10 @@ function ContextSelector({
           >
             <View style={wizardStyles.contextImageArea}>
               {img && (
-                <ExpoImage
+                <Image
                   source={img}
                   style={wizardStyles.contextImage}
-                  contentFit="contain"
-                  transition={IMG_IN}
-                  cachePolicy="memory-disk"
+                  resizeMode="contain"
                 />
               )}
             </View>
@@ -629,16 +749,27 @@ function ContextSelector({
             >
               {contextLabel(opt)}
             </Text>
-            <Text style={wizardStyles.contextSubtitle} numberOfLines={2} ellipsizeMode="tail">
+            <Text
+              style={wizardStyles.contextSubtitle}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
               {contextSubtitle(opt)}
             </Text>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
-                <Ionicons name="checkmark" size={13} color={paper.dashboardWhite} />
+                <Ionicons
+                  name="checkmark"
+                  size={13}
+                  color={paper.dashboardWhite}
+                />
               </View>
             )}
             {isDisabled && (
-              <View style={wizardStyles.cardDisabledOverlay} pointerEvents="none" />
+              <View
+                style={wizardStyles.cardDisabledOverlay}
+                pointerEvents="none"
+              />
             )}
           </Pressable>
         );
@@ -657,9 +788,9 @@ function ClaritySelector({
   onSelect: (c: WaterClarity) => void;
 }) {
   const options: { value: WaterClarity; label: string }[] = [
-    { value: 'clear',   label: 'Clear'   },
-    { value: 'stained', label: 'Stained' },
-    { value: 'dirty',   label: 'Murky'   },
+    { value: "clear", label: "Clear" },
+    { value: "stained", label: "Stained" },
+    { value: "dirty", label: "Murky" },
   ];
 
   return (
@@ -673,7 +804,7 @@ function ClaritySelector({
             style={({ pressed }) => [
               wizardStyles.clarityCard,
               isActive && wizardStyles.clarityCardActive,
-              Platform.OS === 'ios' && pressed && !isActive && { opacity: 0.9 },
+              Platform.OS === "ios" && pressed && !isActive && { opacity: 0.9 },
             ]}
             onPress={() => {
               hapticSelection();
@@ -682,23 +813,29 @@ function ClaritySelector({
             android_ripple={RIPPLE}
           >
             <View style={wizardStyles.clarityImageArea}>
-              <ExpoImage
+              <Image
                 source={img}
                 style={wizardStyles.clarityImage}
-                contentFit="cover"
-                transition={IMG_IN}
-                cachePolicy="memory-disk"
+                resizeMode="cover"
               />
             </View>
             <Text style={wizardStyles.clarityTitle} numberOfLines={1}>
               {label}
             </Text>
-            <Text style={wizardStyles.claritySubtitle} numberOfLines={2} ellipsizeMode="tail">
+            <Text
+              style={wizardStyles.claritySubtitle}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
               {CLARITY_SUBTITLE[value]}
             </Text>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
-                <Ionicons name="checkmark" size={13} color={paper.dashboardWhite} />
+                <Ionicons
+                  name="checkmark"
+                  size={13}
+                  color={paper.dashboardWhite}
+                />
               </View>
             )}
           </Pressable>
@@ -717,7 +854,7 @@ function GoalSelector({
   selected: RecommendationGoal;
   onSelect: (goal: RecommendationGoal) => void;
 }) {
-  const options: RecommendationGoal[] = ['all_purpose', 'big_fish'];
+  const options: RecommendationGoal[] = ["all_purpose", "big_fish"];
 
   return (
     <View style={wizardStyles.goalGrid}>
@@ -730,7 +867,7 @@ function GoalSelector({
             style={({ pressed }) => [
               wizardStyles.goalCard,
               isActive && wizardStyles.goalCardActive,
-              Platform.OS === 'ios' && pressed && !isActive && { opacity: 0.9 },
+              Platform.OS === "ios" && pressed && !isActive && { opacity: 0.9 },
             ]}
             onPress={() => {
               hapticSelection();
@@ -739,23 +876,29 @@ function GoalSelector({
             android_ripple={RIPPLE}
           >
             <View style={wizardStyles.goalImageArea}>
-              <ExpoImage
+              <Image
                 source={img}
                 style={wizardStyles.goalImage}
-                contentFit="contain"
-                transition={IMG_IN}
-                cachePolicy="memory-disk"
+                resizeMode="contain"
               />
             </View>
             <Text style={wizardStyles.goalTitle} numberOfLines={2}>
               {GOAL_LABELS[value]}
             </Text>
-            <Text style={wizardStyles.goalSubtitle} numberOfLines={2} ellipsizeMode="tail">
+            <Text
+              style={wizardStyles.goalSubtitle}
+              numberOfLines={2}
+              ellipsizeMode="tail"
+            >
               {GOAL_SUBTITLE[value]}
             </Text>
             {isActive && (
               <View style={wizardStyles.selectBadge}>
-                <Ionicons name="checkmark" size={13} color={paper.dashboardWhite} />
+                <Ionicons
+                  name="checkmark"
+                  size={13}
+                  color={paper.dashboardWhite}
+                />
               </View>
             )}
           </Pressable>
@@ -767,7 +910,7 @@ function GoalSelector({
 
 // ─── Main screen ──────────────────────────────────────────────────────────────
 
-type ScreenState = 'setup' | 'loading' | 'result' | 'error';
+type ScreenState = "setup" | "loading" | "result" | "error";
 
 export default function RecommenderScreen() {
   const router = useRouter();
@@ -780,16 +923,16 @@ export default function RecommenderScreen() {
 
   const { profile } = useAuthStore();
 
-  const lat = parseFloat(params.latitude ?? '');
-  const lon = parseFloat(params.longitude ?? '');
+  const lat = parseFloat(params.latitude ?? "");
+  const lon = parseFloat(params.longitude ?? "");
   const hasCoords = !isNaN(lat) && !isNaN(lon);
 
   const initialSpecies =
-    typeof params.species === 'string' && isDailyPicksUiSpecies(params.species)
+    typeof params.species === "string" && isDailyPicksUiSpecies(params.species)
       ? params.species
       : null;
   const initialContext =
-    typeof params.context === 'string' && isDailyPicksUiContext(params.context)
+    typeof params.context === "string" && isDailyPicksUiContext(params.context)
       ? params.context
       : null;
 
@@ -800,13 +943,15 @@ export default function RecommenderScreen() {
     initialContext,
   );
   const [clarity, setClarity] = useState<WaterClarity | null>(null);
-  const [recommendationGoal, setRecommendationGoal] = useState<RecommendationGoal>('all_purpose');
+  const [recommendationGoal, setRecommendationGoal] = useState<
+    RecommendationGoal
+  >("all_purpose");
 
   // Resolved state code — drives chip filtering
   const [stateCode, setStateCode] = useState<string | null>(null);
   const [resolvingRegion, setResolvingRegion] = useState(false);
 
-  const [screenState, setScreenState] = useState<ScreenState>('setup');
+  const [screenState, setScreenState] = useState<ScreenState>("setup");
   const [result, setResult] = useState<RecommenderResponse | null>(null);
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
@@ -819,7 +964,7 @@ export default function RecommenderScreen() {
   type WizardStep = 1 | 2 | 3 | 4;
   const [wizardStep, setWizardStep] = useState<WizardStep>(1);
   useEffect(() => {
-    if (screenState === 'setup') {
+    if (screenState === "setup") {
       setWizardStep((prev) => {
         // If we're on step 2 but species got wiped (state-change invalidation),
         // or on later steps but species/context got wiped, bounce back rather than
@@ -851,7 +996,7 @@ export default function RecommenderScreen() {
     if (!hasCoords) return;
     setResolvingRegion(true);
     resolveStateCode(lat, lon).then((code) => {
-      setStateCode(code === 'XX' ? null : code);
+      setStateCode(code === "XX" ? null : code);
       setResolvingRegion(false);
     });
   }, [lat, lon, hasCoords]);
@@ -866,7 +1011,10 @@ export default function RecommenderScreen() {
       return;
     }
     if (species && context) {
-      const validCtxs = getRecommenderContextsForStateSpecies(stateCode, species);
+      const validCtxs = getRecommenderContextsForStateSpecies(
+        stateCode,
+        species,
+      );
       if (!validCtxs.includes(context)) setContext(null);
     }
   }, [stateCode, species, context]);
@@ -874,7 +1022,10 @@ export default function RecommenderScreen() {
   useEffect(() => {
     if (!context || !species) return;
     if (stateCode) {
-      const validCtxs = getRecommenderContextsForStateSpecies(stateCode, species);
+      const validCtxs = getRecommenderContextsForStateSpecies(
+        stateCode,
+        species,
+      );
       if (!validCtxs.includes(context)) setContext(null);
       return;
     }
@@ -898,24 +1049,19 @@ export default function RecommenderScreen() {
 
   // Derived chip options — always state-aware (subset of the above)
   const availableSpecies: SpeciesGroup[] = stateCode
-    ? getRecommenderSpeciesForState(stateCode).filter(
-        (sp) => !context || getRecommenderContextsForStateSpecies(stateCode, sp).includes(context),
-      )
-    : DAILY_PICKS_UI_SPECIES.filter(
-        (sp) => !context || defaultContextsForSpecies(sp).includes(context),
-      );
+    ? getRecommenderSpeciesForState(stateCode)
+    : DAILY_PICKS_UI_SPECIES;
 
   const availableContexts: EngineContext[] = stateCode && species
     ? getRecommenderContextsForStateSpecies(stateCode, species)
     : stateCode
-      ? getRecommenderContextsForState(stateCode)
-      : species
-        ? defaultContextsForSpecies(species)
-        : ENGINE_CONTEXTS;
+    ? getRecommenderContextsForState(stateCode)
+    : species
+    ? defaultContextsForSpecies(species)
+    : ENGINE_CONTEXTS;
 
   // Validation
-  const isReady =
-    species !== null &&
+  const isReady = species !== null &&
     context !== null &&
     clarity !== null &&
     recommendationGoal !== null &&
@@ -938,26 +1084,32 @@ export default function RecommenderScreen() {
       viewVariant?: DailyPicksVariant,
     ) => {
       if (!isReady || !species || !context || !clarity) return;
-      const isInlineRefresh =
-        (forceRefresh || viewVariant != null) &&
-        screenState === 'result' &&
+      const isInlineRefresh = (forceRefresh || viewVariant != null) &&
+        screenState === "result" &&
         result !== null;
 
       if (isInlineRefresh) {
         setIsRefreshing(true);
       } else {
-        setScreenState('loading');
+        setScreenState("loading");
         setErrorMsg(null);
       }
 
       try {
         const state_code = await resolveStateCode(lat, lon);
-        if (state_code === 'XX') {
-          throw new Error('state_resolution_failed');
+        if (state_code === "XX") {
+          throw new Error("state_resolution_failed");
         }
-        const dailySnapshot = getTodaySnapshotRequest(await getForecastScores(lat, lon));
+        const [forecastSnapshot, measuredWaterEnv] = await Promise.all([
+          getForecastScores(lat, lon),
+          getEnvironment({ latitude: lat, longitude: lon }).catch(() => null),
+        ]);
+        const dailySnapshot = getTodaySnapshotRequest(
+          forecastSnapshot,
+          measuredWaterEnv as Record<string, unknown> | null,
+        );
         if (!dailySnapshot) {
-          throw new Error('daily_snapshot_unavailable');
+          throw new Error("daily_snapshot_unavailable");
         }
         const res = await fetchRecommendation(
           {
@@ -982,17 +1134,19 @@ export default function RecommenderScreen() {
         }
 
         setResult(res);
-        setScreenState('result');
+        setScreenState("result");
       } catch (err: unknown) {
         const friendlyMessage = recommenderErrorMessage(err, species, context);
         if (isInlineRefresh) {
           Alert.alert(
-            viewVariant ? 'Could not load saved picks' : 'Could not refresh recommendations',
+            viewVariant
+              ? "Could not load saved picks"
+              : "Could not refresh recommendations",
             friendlyMessage,
           );
         } else {
           setErrorMsg(friendlyMessage);
-          setScreenState('error');
+          setScreenState("error");
         }
       } finally {
         if (isInlineRefresh) {
@@ -1000,26 +1154,43 @@ export default function RecommenderScreen() {
         }
       }
     },
-    [isReady, species, context, clarity, recommendationGoal, lat, lon, result, screenState],
+    [
+      isReady,
+      species,
+      context,
+      clarity,
+      recommendationGoal,
+      lat,
+      lon,
+      result,
+      screenState,
+    ],
   );
 
   const handleReset = useCallback(() => {
-    setScreenState('setup');
+    setScreenState("setup");
     setWizardStep(1);
     setResult(null);
     setErrorMsg(null);
+    setIsRefreshing(false);
+    setSpecies(null);
+    setContext(null);
+    setClarity(null);
+    setRecommendationGoal("all_purpose");
   }, []);
 
   const accentColor = context ? contextAccentColor(context) : colors.primary;
 
   return (
-    <SafeAreaView style={styles.root} edges={['top']}>
-      {/* Off-screen image preloader — 1×1px, invisible.
+    <SafeAreaView style={styles.root} edges={["top"]}>
+      {
+        /* Off-screen image preloader — 1×1px, invisible.
           Renders every setup image immediately so the native pipeline decodes them
-          before the form appears. onLoad/onError count up; page only shows once all settle. */}
+          before the form appears. onLoad/onError count up; page only shows once all settle. */
+      }
       <View pointerEvents="none" style={styles.preloadContainer}>
         {ALL_PRELOAD_IMAGES.map((img, i) => (
-          <ExpoImage
+          <Image
             key={i}
             source={img}
             style={styles.preloadImage}
@@ -1034,10 +1205,10 @@ export default function RecommenderScreen() {
         <Pressable
           style={({ pressed }) => [
             wizardStyles.navIconButton,
-            Platform.OS === 'ios' && pressed && { opacity: 0.7 },
+            Platform.OS === "ios" && pressed && { opacity: 0.7 },
           ]}
           onPress={() => {
-            if (screenState === 'result' || screenState === 'error') {
+            if (screenState === "result" || screenState === "error") {
               handleReset();
             } else {
               router.back();
@@ -1048,37 +1219,47 @@ export default function RecommenderScreen() {
         >
           <Ionicons name="chevron-back" size={16} color="#FFFFFF" />
           <Text style={wizardStyles.navIconButtonText}>
-            {screenState === 'result' || screenState === 'error' ? 'SETUP' : 'BACK'}
+            {screenState === "result" || screenState === "error"
+              ? "SETUP"
+              : "BACK"}
           </Text>
         </Pressable>
 
         <View style={wizardStyles.navTitleWrap} pointerEvents="none">
           <Text style={wizardStyles.navEyebrow}>FINFINDR</Text>
-          <Text style={wizardStyles.navTitle} numberOfLines={1} ellipsizeMode="tail">
+          <Text
+            style={wizardStyles.navTitle}
+            numberOfLines={1}
+            ellipsizeMode="tail"
+          >
             THE TACKLE BOX
           </Text>
         </View>
 
         {/* Right slot — state pill during setup, reset affordance on result. */}
         <View style={wizardStyles.navRight}>
-          {screenState === 'setup' && (resolvingRegion ? (
-            <ActivityIndicator
-              size="small"
-              color="#FFFFFF"
-              style={{ transform: [{ scale: 0.7 }] }}
-            />
-          ) : stateCode ? (
-            <View style={wizardStyles.navStatePill}>
-              <Ionicons name="location" size={10} color={paper.bandPrime} />
-              <Text style={wizardStyles.navStatePillText}>{stateCode}</Text>
-            </View>
-          ) : null)}
+          {screenState === "setup" && (resolvingRegion
+            ? (
+              <ActivityIndicator
+                size="small"
+                color="#FFFFFF"
+                style={{ transform: [{ scale: 0.7 }] }}
+              />
+            )
+            : stateCode
+            ? (
+              <View style={wizardStyles.navStatePill}>
+                <Ionicons name="location" size={10} color={paper.bandPrime} />
+                <Text style={wizardStyles.navStatePillText}>{stateCode}</Text>
+              </View>
+            )
+            : null)}
 
-          {screenState === 'result' && (
+          {screenState === "result" && (
             <Pressable
               style={({ pressed }) => [
                 wizardStyles.navIconButton,
-                Platform.OS === 'ios' && pressed && { opacity: 0.7 },
+                Platform.OS === "ios" && pressed && { opacity: 0.7 },
               ]}
               onPress={() => {
                 hapticSelection();
@@ -1095,7 +1276,7 @@ export default function RecommenderScreen() {
       </View>
 
       {/* ── Setup: waiting for images ── */}
-      {screenState === 'setup' && !setupImagesReady && (
+      {screenState === "setup" && !setupImagesReady && (
         <PaperBackground style={{ flex: 1 }}>
           <View style={styles.centerState}>
             <ActivityIndicator size="large" color={paper.bandPrime} />
@@ -1104,24 +1285,48 @@ export default function RecommenderScreen() {
       )}
 
       {/* ── Setup form (FinFindr tackle wizard) ── */}
-      {screenState === 'setup' && setupImagesReady && (() => {
-        const stepConfig: { num: 1 | 2 | 3 | 4; question: string; caption: string }[] = [
-          { num: 1, question: 'What are you after?',       caption: 'Pick the species you are fishing for.' },
-          { num: 2, question: 'Where are you fishing?',    caption: 'Pick the type of water you are on.' },
-          { num: 3, question: "How's the water today?",    caption: 'Pick the clarity you are seeing.' },
-          { num: 4, question: "What's the goal?",           caption: 'Pick the style of recommendations.' },
+      {screenState === "setup" && setupImagesReady && (() => {
+        const stepConfig: {
+          num: 1 | 2 | 3 | 4;
+          question: string;
+          caption: string;
+        }[] = [
+          {
+            num: 1,
+            question: "What are you after?",
+            caption: "Pick the species you are fishing for.",
+          },
+          {
+            num: 2,
+            question: "Where are you fishing?",
+            caption: "Pick the type of water you are on.",
+          },
+          {
+            num: 3,
+            question: "How's the water today?",
+            caption: "Pick the clarity you are seeing.",
+          },
+          {
+            num: 4,
+            question: "What's the goal?",
+            caption: "Pick the style of recommendations.",
+          },
         ];
         const current = stepConfig[wizardStep - 1];
 
-        const canContinue =
-          wizardStep === 1 ? species !== null && availableSpecies.includes(species)
-          : wizardStep === 2 ? context !== null && availableContexts.includes(context)
-          : wizardStep === 3 ? clarity !== null
+        const canContinue = wizardStep === 1
+          ? species !== null && availableSpecies.includes(species)
+          : wizardStep === 2
+          ? context !== null && availableContexts.includes(context)
+          : wizardStep === 3
+          ? clarity !== null
           : recommendationGoal !== null;
 
         const allowJumpToStep = (step: 1 | 2 | 3 | 4) => {
           if (step === 1) return true;
-          if (step === 2) return species !== null && availableSpecies.includes(species);
+          if (step === 2) {
+            return species !== null && availableSpecies.includes(species);
+          }
           if (step === 3) return species !== null && context !== null;
           return species !== null && context !== null && clarity !== null;
         };
@@ -1157,7 +1362,9 @@ export default function RecommenderScreen() {
 
         const contextInvalidNote =
           wizardStep === 2 && species && availableContexts.length === 0
-            ? `No supported water types for ${SPECIES_DISPLAY[species]} in this region yet.`
+            ? `No supported water types for ${
+              SPECIES_DISPLAY[species]
+            } in this region yet.`
             : null;
 
         // Step 1 mirror: now that we render all 4 species cards everywhere
@@ -1166,7 +1373,7 @@ export default function RecommenderScreen() {
         // as "all disabled" with no explanation of why.
         const speciesInvalidNote =
           wizardStep === 1 && stateCode && availableSpecies.length === 0
-            ? 'No supported species for this region yet — check back as coverage expands.'
+            ? "No supported species for this region yet — check back as coverage expands."
             : null;
 
         return (
@@ -1181,18 +1388,23 @@ export default function RecommenderScreen() {
               <View style={wizardStyles.hero}>
                 <SectionEyebrow>TACKLE BOX SETUP</SectionEyebrow>
                 <Text style={wizardStyles.heroTitle} allowFontScaling={false}>
-                  LET'S DIAL IN{'\n'}
+                  LET'S DIAL IN{"\n"}
                   <Text style={wizardStyles.heroTitleAccent}>YOUR PICKS.</Text>
                 </Text>
                 <Text style={wizardStyles.heroSubtitle}>
-                  Four quick questions and we'll rank the best lures and flies for today.
+                  Four quick questions and we'll rank the best lures and flies
+                  for today.
                 </Text>
               </View>
 
               {/* Location warning — only when no coords */}
               {!hasCoords && (
                 <View style={wizardStyles.warningBanner}>
-                  <Ionicons name="location-outline" size={14} color={paper.dashboardBlue} />
+                  <Ionicons
+                    name="location-outline"
+                    size={14}
+                    color={paper.dashboardBlue}
+                  />
                   <Text style={wizardStyles.warningText}>
                     Add a location on Home so today's conditions can be used.
                   </Text>
@@ -1213,13 +1425,20 @@ export default function RecommenderScreen() {
                   color={paper.dashboardBlue}
                   count={4}
                 />
-                <CornerMarkSet color={paper.dashboardBlue} inset={10} size={12} />
+                <CornerMarkSet
+                  color={paper.dashboardBlue}
+                  inset={10}
+                  size={12}
+                />
 
                 <View style={wizardStyles.stepCardHeader}>
                   <Text style={wizardStyles.stepCardEyebrow}>
                     STEP {wizardStep} OF 4
                   </Text>
-                  <Text style={wizardStyles.stepCardTitle} allowFontScaling={false}>
+                  <Text
+                    style={wizardStyles.stepCardTitle}
+                    allowFontScaling={false}
+                  >
                     {current.question}
                   </Text>
                   <Text style={wizardStyles.stepCardCaption}>
@@ -1234,13 +1453,12 @@ export default function RecommenderScreen() {
                       availableOptions={availableSpecies}
                       selected={species}
                       onSelect={(sp) => {
-                        setSpecies(sp);
-                        if (context) {
-                          const validCtxs = stateCode
-                            ? getRecommenderContextsForStateSpecies(stateCode, sp)
-                            : defaultContextsForSpecies(sp);
-                          if (!validCtxs.includes(context)) setContext(null);
+                        if (sp !== species) {
+                          setContext(null);
+                          setClarity(null);
+                          setRecommendationGoal("all_purpose");
                         }
+                        setSpecies(sp);
                       }}
                     />
                     {speciesInvalidNote && (
@@ -1282,8 +1500,10 @@ export default function RecommenderScreen() {
                 )}
               </View>
 
-              {/* Readiness hint on the last step only — so users understand
-                  what's blocking the final CTA (e.g. location not resolved). */}
+              {
+                /* Readiness hint on the last step only — so users understand
+                  what's blocking the final CTA (e.g. location not resolved). */
+              }
               {wizardStep === 4 && !isReady && setupHint && (
                 <Text style={wizardStyles.readinessHint}>{setupHint}</Text>
               )}
@@ -1293,15 +1513,19 @@ export default function RecommenderScreen() {
                 <Pressable
                   style={({ pressed }) => [
                     wizardStyles.backButton,
-                    Platform.OS === 'ios' && pressed && { opacity: 0.85 },
+                    Platform.OS === "ios" && pressed && { opacity: 0.85 },
                   ]}
                   onPress={handleBack}
-                  android_ripple={{ color: 'rgba(10,22,40,0.08)' }}
+                  android_ripple={{ color: "rgba(10,22,40,0.08)" }}
                   hitSlop={8}
                 >
-                  <Ionicons name="chevron-back" size={14} color={paper.dashboardInk} />
+                  <Ionicons
+                    name="chevron-back"
+                    size={14}
+                    color={paper.dashboardInk}
+                  />
                   <Text style={wizardStyles.backButtonText}>
-                    {wizardStep === 1 ? 'CANCEL' : 'BACK'}
+                    {wizardStep === 1 ? "CANCEL" : "BACK"}
                   </Text>
                 </Pressable>
 
@@ -1309,14 +1533,16 @@ export default function RecommenderScreen() {
                   style={({ pressed }) => [
                     wizardStyles.continueButton,
                     !canContinue && wizardStyles.continueButtonDisabled,
-                    wizardStep === 4 && canContinue && isReady && wizardStyles.continueButtonFinal,
-                    Platform.OS === 'ios' && pressed && canContinue && { opacity: 0.9 },
+                    wizardStep === 4 && canContinue && isReady &&
+                    wizardStyles.continueButtonFinal,
+                    Platform.OS === "ios" && pressed && canContinue &&
+                    { opacity: 0.9 },
                   ]}
                   onPress={handleContinueOrSubmit}
                   disabled={!canContinue || (wizardStep === 4 && !isReady)}
-                  android_ripple={
-                    canContinue ? { color: 'rgba(255,255,255,0.18)' } : undefined
-                  }
+                  android_ripple={canContinue
+                    ? { color: "rgba(255,255,255,0.18)" }
+                    : undefined}
                 >
                   <Text
                     style={[
@@ -1324,18 +1550,21 @@ export default function RecommenderScreen() {
                       !canContinue && wizardStyles.continueButtonTextDisabled,
                     ]}
                   >
-                    {wizardStep === 4 ? 'GENERATE PICKS' : 'CONTINUE'}
+                    {wizardStep === 4 ? "GENERATE PICKS" : "CONTINUE"}
                   </Text>
                   <Ionicons
                     name="arrow-forward"
                     size={16}
-                    color={canContinue ? paper.dashboardWhite : paper.dashboardInk}
+                    color={canContinue
+                      ? paper.dashboardWhite
+                      : paper.dashboardInk}
                   />
                 </Pressable>
               </View>
 
               <Text style={wizardStyles.disclaimer}>
-                Picks use your location, season, today's conditions, and water clarity.
+                Picks use your location, season, today's conditions, and water
+                clarity.
               </Text>
             </ScrollView>
           </PaperBackground>
@@ -1343,7 +1572,7 @@ export default function RecommenderScreen() {
       })()}
 
       {/* ── Loading ── */}
-      {screenState === 'loading' && (
+      {screenState === "loading" && (
         <PaperBackground style={{ flex: 1 }}>
           <View style={styles.loadingWrap}>
             <RecommenderLoadingSkeleton />
@@ -1358,7 +1587,7 @@ export default function RecommenderScreen() {
       )}
 
       {/* ── Error ── */}
-      {screenState === 'error' && (
+      {screenState === "error" && (
         <PaperBackground style={{ flex: 1 }}>
           <View style={wizardStyles.errorState}>
             <View style={wizardStyles.errorBadge}>
@@ -1372,21 +1601,25 @@ export default function RecommenderScreen() {
               <Pressable
                 style={({ pressed }) => [
                   wizardStyles.errorPrimary,
-                  Platform.OS === 'ios' && pressed && { opacity: 0.9 },
+                  Platform.OS === "ios" && pressed && { opacity: 0.9 },
                 ]}
                 onPress={() => {
                   hapticImpact(ImpactFeedbackStyle.Light);
                   handleFetch(true);
                 }}
-                android_ripple={{ color: 'rgba(255,255,255,0.18)' }}
+                android_ripple={{ color: "rgba(255,255,255,0.18)" }}
               >
                 <Text style={wizardStyles.errorPrimaryText}>TRY AGAIN</Text>
-                <Ionicons name="refresh" size={14} color={paper.dashboardWhite} />
+                <Ionicons
+                  name="refresh"
+                  size={14}
+                  color={paper.dashboardWhite}
+                />
               </Pressable>
               <Pressable
                 style={({ pressed }) => [
                   wizardStyles.errorSecondary,
-                  Platform.OS === 'ios' && pressed && { opacity: 0.85 },
+                  Platform.OS === "ios" && pressed && { opacity: 0.85 },
                 ]}
                 onPress={() => {
                   hapticSelection();
@@ -1394,8 +1627,14 @@ export default function RecommenderScreen() {
                 }}
                 android_ripple={RIPPLE}
               >
-                <Ionicons name="chevron-back" size={12} color={paper.dashboardInk} />
-                <Text style={wizardStyles.errorSecondaryText}>BACK TO SETUP</Text>
+                <Ionicons
+                  name="chevron-back"
+                  size={12}
+                  color={paper.dashboardInk}
+                />
+                <Text style={wizardStyles.errorSecondaryText}>
+                  BACK TO SETUP
+                </Text>
               </Pressable>
             </View>
           </View>
@@ -1403,7 +1642,7 @@ export default function RecommenderScreen() {
       )}
 
       {/* ── Result ── */}
-      {screenState === 'result' && result && (
+      {screenState === "result" && result && (
         <RecommenderView
           result={result}
           style={styles.resultView}
@@ -1426,8 +1665,8 @@ const styles = StyleSheet.create({
 
   // Nav
   navHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: spacing.md,
     paddingVertical: spacing.sm,
     borderBottomWidth: 1,
@@ -1450,10 +1689,10 @@ const styles = StyleSheet.create({
     fontSize: 17,
     color: colors.text,
     letterSpacing: 0,
-    textAlign: 'center',
+    textAlign: "center",
   },
   navRight: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
     minWidth: 48,
   },
   resetBtn: {
@@ -1473,8 +1712,8 @@ const styles = StyleSheet.create({
 
   // Region pill (in nav header)
   regionPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
     paddingHorizontal: 10,
     paddingVertical: 4,
@@ -1492,14 +1731,14 @@ const styles = StyleSheet.create({
 
   // Hero headline — Dashboard heroCard language
   heroHeader: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingTop: spacing.sm,
     paddingBottom: spacing.xs,
     gap: spacing.xs + 2,
   },
   heroBadge: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 5,
     backgroundColor: colors.primaryMist,
     paddingHorizontal: spacing.sm + 2,
@@ -1517,7 +1756,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.serifBold,
     fontSize: 26,
     color: colors.text,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 32,
     letterSpacing: 0,
   },
@@ -1525,15 +1764,15 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodyItalic,
     fontSize: 14,
     color: colors.textMuted,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 20,
     letterSpacing: 0.1,
   },
 
   // Warning — soft alert matching the Dashboard tint system
   warningBanner: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: spacing.sm,
     backgroundColor: paper.dashboardWhite,
     borderRadius: radius.md,
@@ -1552,10 +1791,10 @@ const styles = StyleSheet.create({
 
   // Off-screen image preloader
   preloadContainer: {
-    position: 'absolute',
+    position: "absolute",
     width: 1,
     height: 1,
-    overflow: 'hidden',
+    overflow: "hidden",
     opacity: 0,
   },
   preloadImage: {
@@ -1582,8 +1821,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 2,
   },
   sectionEyebrowRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
   },
   sectionEyebrowLine: {
@@ -1601,14 +1840,14 @@ const styles = StyleSheet.create({
     width: 3,
     height: 3,
     borderRadius: 99,
-    backgroundColor: colors.primary + '55',
+    backgroundColor: colors.primary + "55",
   },
   sectionEyebrowLabel: {
     fontFamily: fonts.bodyBold,
     fontSize: 10,
     color: colors.textMuted,
     letterSpacing: 1.4,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
   },
   sectionTitle: {
     fontFamily: fonts.serifBold,
@@ -1616,7 +1855,7 @@ const styles = StyleSheet.create({
     color: colors.text,
     letterSpacing: 0,
     lineHeight: 26,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   // Species grid
@@ -1624,7 +1863,7 @@ const styles = StyleSheet.create({
     gap: spacing.sm + 2,
   },
   speciesRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: spacing.sm + 2,
   },
   // Selection tiles — unified treatment across species, context, clarity
@@ -1632,7 +1871,7 @@ const styles = StyleSheet.create({
     flex: 1,
     borderRadius: radius.md,
     backgroundColor: colors.background,
-    overflow: 'hidden',
+    overflow: "hidden",
     borderWidth: 1,
     borderColor: colors.border,
     ...shadows.sm,
@@ -1644,17 +1883,17 @@ const styles = StyleSheet.create({
     ...shadows.md,
   },
   speciesFishArea: {
-    width: '100%',
+    width: "100%",
   },
   speciesImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   speciesNameFooter: {
     backgroundColor: colors.surface,
     paddingHorizontal: spacing.sm + 4,
     paddingVertical: spacing.sm + 4,
-    alignItems: 'center',
+    alignItems: "center",
     borderTopWidth: 1,
     borderTopColor: colors.borderLight,
   },
@@ -1662,59 +1901,59 @@ const styles = StyleSheet.create({
     fontFamily: fonts.bodySemiBold,
     fontSize: 14,
     color: colors.text,
-    textAlign: 'center',
+    textAlign: "center",
     letterSpacing: 0,
   },
   speciesCheckBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: spacing.sm,
     right: spacing.sm,
     width: 24,
     height: 24,
     borderRadius: 99,
     backgroundColor: colors.primary,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     ...shadows.sm,
   },
   // Shared disabled overlay — soft mint tint over incompatible cards
   cardDisabledOverlay: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(180,195,183,0.52)',
+    backgroundColor: "rgba(180,195,183,0.52)",
     borderRadius: radius.md,
   },
 
   // Body of Water — same treatment as species tiles
   contextRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: spacing.sm + 2,
   },
   contextCard: {
     flex: 1,
     borderRadius: radius.md,
     backgroundColor: colors.background,
-    overflow: 'hidden',
+    overflow: "hidden",
     borderWidth: 1,
     borderColor: colors.border,
     ...shadows.sm,
   },
   contextImageArea: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 1.5,
   },
   contextCardImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   contextNameFooter: {
     backgroundColor: colors.surface,
     paddingHorizontal: spacing.sm + 4,
     paddingVertical: spacing.sm + 2,
-    alignItems: 'center',
+    alignItems: "center",
     borderTopWidth: 1,
     borderTopColor: colors.borderLight,
   },
@@ -1725,44 +1964,44 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
   },
   contextCheckBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: spacing.sm,
     right: spacing.sm,
     width: 22,
     height: 22,
     borderRadius: 99,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     ...shadows.sm,
   },
 
   // Water clarity — 3-col, same treatment as species/context tiles
   clarityRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: spacing.sm + 2,
   },
   clarityCard: {
     flex: 1,
     borderRadius: radius.md,
     backgroundColor: colors.background,
-    overflow: 'hidden',
+    overflow: "hidden",
     borderWidth: 1,
     borderColor: colors.border,
     ...shadows.sm,
   },
   clarityImageArea: {
-    width: '100%',
+    width: "100%",
     aspectRatio: 1.2,
   },
   clarityCardImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   clarityNameFooter: {
     backgroundColor: colors.surface,
     paddingHorizontal: spacing.sm,
     paddingVertical: spacing.sm,
-    alignItems: 'center',
+    alignItems: "center",
     borderTopWidth: 1,
     borderTopColor: colors.borderLight,
     gap: 2,
@@ -1776,18 +2015,18 @@ const styles = StyleSheet.create({
     fontFamily: fonts.body,
     fontSize: 10,
     color: colors.textMuted,
-    textAlign: 'center',
+    textAlign: "center",
     letterSpacing: 0.1,
   },
   clarityCheck: {
-    position: 'absolute',
+    position: "absolute",
     top: 6,
     right: 6,
     width: 20,
     height: 20,
     borderRadius: 99,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     ...shadows.sm,
   },
 
@@ -1805,9 +2044,9 @@ const styles = StyleSheet.create({
     gap: spacing.sm + 2,
   },
   ctaBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: spacing.sm,
     paddingVertical: spacing.md,
     borderRadius: radius.md,
@@ -1823,7 +2062,7 @@ const styles = StyleSheet.create({
     fontFamily: fonts.body,
     fontSize: 12,
     color: colors.textMuted,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 18,
     paddingHorizontal: spacing.sm,
   },
@@ -1831,19 +2070,19 @@ const styles = StyleSheet.create({
   // Loading / error
   centerState: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: spacing.xl,
     gap: spacing.md,
   },
   loadingWrap: {
     flex: 1,
-    position: 'relative',
+    position: "relative",
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    justifyContent: "flex-end",
+    alignItems: "center",
     paddingBottom: spacing.xl * 2,
     gap: spacing.sm,
   },
@@ -1851,19 +2090,19 @@ const styles = StyleSheet.create({
     fontFamily: fonts.body,
     fontSize: 14,
     color: colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
   },
   errorTitle: {
     fontFamily: fonts.serifBold,
     fontSize: 18,
     color: colors.text,
-    textAlign: 'center',
+    textAlign: "center",
   },
   errorMsg: {
     fontFamily: fonts.body,
     fontSize: 14,
     color: colors.textSecondary,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 21,
   },
   retryBtn: {
@@ -1875,7 +2114,7 @@ const styles = StyleSheet.create({
   retryBtnText: {
     fontFamily: fonts.bodySemiBold,
     fontSize: 15,
-    color: '#fff',
+    color: "#fff",
   },
   secondaryBtn: {
     paddingHorizontal: spacing.xl,
@@ -1904,9 +2143,9 @@ const styles = StyleSheet.create({
 const wizardStyles = StyleSheet.create({
   // ─── Shared nav header ──────────────────────────────────────────────────
   navHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: paperSpacing.md,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.md,
@@ -1915,63 +2154,63 @@ const wizardStyles = StyleSheet.create({
     gap: paperSpacing.sm,
   },
   navTitleWrap: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     top: paperSpacing.lg,
     bottom: paperSpacing.md,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   navEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
-    color: 'rgba(255,255,255,0.58)',
+    color: "rgba(255,255,255,0.58)",
     letterSpacing: 3,
   },
   navTitle: {
     fontFamily: paperFonts.display,
     fontSize: 24,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     letterSpacing: 0,
     marginTop: 0,
   },
   navIconButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 5,
     paddingHorizontal: 10,
     paddingVertical: 6,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.2)',
+    borderColor: "rgba(255,255,255,0.2)",
     borderRadius: 999,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: "rgba(255,255,255,0.08)",
   },
   navIconButtonText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     letterSpacing: 2.2,
   },
   navRight: {
     minWidth: 62,
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
   },
   navStatePill: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
     paddingHorizontal: 9,
     paddingVertical: 5,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.2)',
+    borderColor: "rgba(255,255,255,0.2)",
     borderRadius: 999,
-    backgroundColor: 'rgba(255,255,255,0.1)',
+    backgroundColor: "rgba(255,255,255,0.1)",
   },
   navStatePillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     letterSpacing: 1.6,
   },
 
@@ -1984,7 +2223,7 @@ const wizardStyles = StyleSheet.create({
 
   // Hero
   hero: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingTop: paperSpacing.xs,
     paddingBottom: paperSpacing.sm,
     gap: paperSpacing.xs,
@@ -1993,10 +2232,10 @@ const wizardStyles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 34,
     color: paper.dashboardInk,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 36,
     letterSpacing: 0,
-    textTransform: 'uppercase',
+    textTransform: "uppercase",
     marginTop: 6,
   },
   heroTitleAccent: {
@@ -2007,7 +2246,7 @@ const wizardStyles = StyleSheet.create({
     fontSize: 14,
     color: paper.dashboardInk,
     opacity: 0.75,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 20,
     marginTop: 4,
     paddingHorizontal: paperSpacing.sm,
@@ -2015,8 +2254,8 @@ const wizardStyles = StyleSheet.create({
 
   // Warning banner
   warningBanner: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: paperSpacing.sm,
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
@@ -2035,16 +2274,16 @@ const wizardStyles = StyleSheet.create({
 
   // Step progress — three paper tiles in a row
   progressRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 8,
     marginTop: paperSpacing.xs,
     marginBottom: paperSpacing.sm,
   },
   progressTile: {
     flex: 1,
-    flexDirection: 'column',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 6,
     paddingVertical: 11,
     paddingHorizontal: 6,
@@ -2059,8 +2298,8 @@ const wizardStyles = StyleSheet.create({
   // iconBg gradient ['#FBF1D9', '#F4DFA4']). Visually ties the wizard
   // to the feature's brand identity.
   progressTileActive: {
-    backgroundColor: '#FBF1D9',
-    borderColor: '#C99B2D',
+    backgroundColor: "#FBF1D9",
+    borderColor: "#C99B2D",
     ...paperShadows.hard,
   },
   progressTileDone: {
@@ -2073,14 +2312,14 @@ const wizardStyles = StyleSheet.create({
     borderRadius: 15,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "transparent",
+    alignItems: "center",
+    justifyContent: "center",
     flexShrink: 0,
   },
   progressBadgeActive: {
-    backgroundColor: '#C99B2D',
-    borderColor: '#8A6A1A',
+    backgroundColor: "#C99B2D",
+    borderColor: "#8A6A1A",
   },
   progressBadgeDone: {
     backgroundColor: paper.dashboardWhite,
@@ -2093,9 +2332,9 @@ const wizardStyles = StyleSheet.create({
     includeFontPadding: false,
   },
   progressCopy: {
-    alignItems: 'center',
+    alignItems: "center",
     minWidth: 0,
-    width: '100%',
+    width: "100%",
   },
   progressEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
@@ -2121,11 +2360,11 @@ const wizardStyles = StyleSheet.create({
     paddingVertical: paperSpacing.lg,
     paddingHorizontal: paperSpacing.md,
     gap: paperSpacing.md,
-    overflow: 'hidden',
+    overflow: "hidden",
     ...paperShadows.hard,
   },
   stepCardHeader: {
-    alignItems: 'center',
+    alignItems: "center",
     gap: 6,
     paddingBottom: paperSpacing.xs,
   },
@@ -2140,7 +2379,7 @@ const wizardStyles = StyleSheet.create({
     fontSize: 24,
     color: paper.dashboardInk,
     letterSpacing: 0,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 28,
   },
   stepCardCaption: {
@@ -2148,7 +2387,7 @@ const wizardStyles = StyleSheet.create({
     fontSize: 13,
     color: paper.dashboardInk,
     opacity: 0.7,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 18,
   },
 
@@ -2157,7 +2396,7 @@ const wizardStyles = StyleSheet.create({
     gap: 12,
   },
   speciesRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 12,
   },
   speciesCard: {
@@ -2166,8 +2405,8 @@ const wizardStyles = StyleSheet.create({
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
-    overflow: 'hidden',
-    position: 'relative',
+    overflow: "hidden",
+    position: "relative",
     ...paperShadows.hard,
   },
   speciesCardActive: {
@@ -2176,21 +2415,21 @@ const wizardStyles = StyleSheet.create({
     ...paperShadows.lift,
   },
   speciesImageArea: {
-    width: '100%',
+    width: "100%",
     backgroundColor: paper.dashboardWhite,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     borderBottomWidth: 1,
     borderBottomColor: paper.dashboardLine,
   },
   speciesImage: {
-    width: '92%',
-    height: '92%',
+    width: "92%",
+    height: "92%",
   },
   speciesFooter: {
     paddingHorizontal: 12,
     paddingVertical: 10,
-    alignItems: 'center',
+    alignItems: "center",
     gap: 2,
   },
   speciesTitle: {
@@ -2198,25 +2437,25 @@ const wizardStyles = StyleSheet.create({
     fontSize: 14,
     color: paper.dashboardInk,
     letterSpacing: 0,
-    textAlign: 'center',
+    textAlign: "center",
   },
   speciesSubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 10,
     color: paper.dashboardInk,
     opacity: 0.6,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   // Context (water-type) grid
   contextGrid: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 14,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
   },
   contextCard: {
     flex: 1,
-    minWidth: '46%',
+    minWidth: "46%",
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
@@ -2224,8 +2463,8 @@ const wizardStyles = StyleSheet.create({
     paddingHorizontal: 18,
     paddingTop: 22,
     paddingBottom: 18,
-    alignItems: 'center',
-    position: 'relative',
+    alignItems: "center",
+    position: "relative",
     ...paperShadows.hard,
   },
   contextCardActive: {
@@ -2237,37 +2476,37 @@ const wizardStyles = StyleSheet.create({
     width: 92,
     height: 92,
     borderRadius: 46,
-    overflow: 'hidden',
-    backgroundColor: 'transparent',
-    alignItems: 'center',
-    justifyContent: 'center',
+    overflow: "hidden",
+    backgroundColor: "transparent",
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: 12,
   },
   contextImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   contextTitle: {
     fontFamily: paperFonts.display,
     fontSize: 16,
     color: paper.dashboardInk,
     letterSpacing: 0,
-    textAlign: 'center',
-    width: '100%',
+    textAlign: "center",
+    width: "100%",
   },
   contextSubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 11,
     color: paper.dashboardInk,
     opacity: 0.65,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 4,
     lineHeight: 15,
   },
 
   // Clarity grid
   clarityGrid: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 10,
   },
   clarityCard: {
@@ -2279,8 +2518,8 @@ const wizardStyles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingTop: 14,
     paddingBottom: 12,
-    alignItems: 'center',
-    position: 'relative',
+    alignItems: "center",
+    position: "relative",
     ...paperShadows.hard,
   },
   clarityCardActive: {
@@ -2292,34 +2531,34 @@ const wizardStyles = StyleSheet.create({
     width: 78,
     height: 78,
     borderRadius: 39,
-    backgroundColor: 'transparent',
-    overflow: 'hidden',
+    backgroundColor: "transparent",
+    overflow: "hidden",
     marginBottom: 10,
   },
   clarityImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   clarityTitle: {
     fontFamily: paperFonts.display,
     fontSize: 15,
     color: paper.dashboardInk,
     letterSpacing: 0,
-    textAlign: 'center',
+    textAlign: "center",
   },
   claritySubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 10,
     color: paper.dashboardInk,
     opacity: 0.65,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 3,
     lineHeight: 13,
   },
 
   // Goal grid
   goalGrid: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 14,
   },
   goalCard: {
@@ -2332,9 +2571,9 @@ const wizardStyles = StyleSheet.create({
     paddingHorizontal: 8,
     paddingTop: 14,
     paddingBottom: 12,
-    alignItems: 'center',
-    justifyContent: 'flex-start',
-    position: 'relative',
+    alignItems: "center",
+    justifyContent: "flex-start",
+    position: "relative",
     ...paperShadows.hard,
   },
   goalCardActive: {
@@ -2347,34 +2586,34 @@ const wizardStyles = StyleSheet.create({
     height: 72,
     borderRadius: 0,
     borderWidth: 0,
-    overflow: 'visible',
+    overflow: "visible",
     marginBottom: 10,
-    backgroundColor: 'transparent',
+    backgroundColor: "transparent",
   },
   goalImage: {
-    width: '100%',
-    height: '100%',
+    width: "100%",
+    height: "100%",
   },
   goalTitle: {
     fontFamily: paperFonts.display,
     fontSize: 15,
     color: paper.dashboardInk,
     letterSpacing: 0,
-    textAlign: 'center',
+    textAlign: "center",
   },
   goalSubtitle: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 10,
     color: paper.dashboardInk,
     opacity: 0.65,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: 3,
     lineHeight: 13,
   },
 
   // Shared select badge
   selectBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 10,
     right: 10,
     width: 26,
@@ -2383,17 +2622,17 @@ const wizardStyles = StyleSheet.create({
     backgroundColor: paper.dashboardBlue,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     zIndex: 3,
   },
   cardDisabledOverlay: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    backgroundColor: 'rgba(246,247,245,0.72)',
+    backgroundColor: "rgba(246,247,245,0.72)",
   },
 
   // Validation notes / readiness hint
@@ -2401,7 +2640,7 @@ const wizardStyles = StyleSheet.create({
     fontFamily: paperFonts.displayItalic,
     fontSize: 12,
     color: paper.dashboardBlue,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: paperSpacing.sm,
     lineHeight: 17,
   },
@@ -2410,7 +2649,7 @@ const wizardStyles = StyleSheet.create({
     fontSize: 12,
     color: paper.dashboardInk,
     opacity: 0.65,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: paperSpacing.md,
     lineHeight: 17,
     marginTop: -paperSpacing.xs,
@@ -2418,15 +2657,15 @@ const wizardStyles = StyleSheet.create({
 
   // Actions
   actionsRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     gap: 12,
     marginTop: paperSpacing.xs,
   },
   backButton: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     paddingHorizontal: 16,
     paddingVertical: 11,
@@ -2443,9 +2682,9 @@ const wizardStyles = StyleSheet.create({
   },
   continueButton: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 8,
     paddingHorizontal: 20,
     paddingVertical: 12,
@@ -2480,7 +2719,7 @@ const wizardStyles = StyleSheet.create({
     fontSize: 11,
     color: paper.dashboardInk,
     opacity: 0.55,
-    textAlign: 'center',
+    textAlign: "center",
     paddingHorizontal: paperSpacing.sm,
     lineHeight: 16,
     marginTop: paperSpacing.xs,
@@ -2493,14 +2732,14 @@ const wizardStyles = StyleSheet.create({
     color: paper.dashboardInk,
     letterSpacing: 3,
     opacity: 0.7,
-    textAlign: 'center',
+    textAlign: "center",
   },
 
   // ─── Error state (paper) ──────────────────────────────────────────────
   errorState: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     paddingHorizontal: paperSpacing.xl,
     gap: paperSpacing.sm,
   },
@@ -2511,8 +2750,8 @@ const wizardStyles = StyleSheet.create({
     backgroundColor: paper.dashboardBlue,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     ...paperShadows.hard,
   },
   errorTitle: {
@@ -2520,27 +2759,27 @@ const wizardStyles = StyleSheet.create({
     fontSize: 12,
     color: paper.dashboardBlue,
     letterSpacing: 2.8,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: paperSpacing.xs,
   },
   errorBody: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
     color: paper.dashboardInk,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 20,
     paddingHorizontal: paperSpacing.sm,
     opacity: 0.8,
   },
   errorActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: paperSpacing.sm,
     marginTop: paperSpacing.sm,
   },
   errorPrimary: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     paddingHorizontal: 18,
     paddingVertical: 11,
@@ -2557,8 +2796,8 @@ const wizardStyles = StyleSheet.create({
     letterSpacing: 2.4,
   },
   errorSecondary: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
     paddingHorizontal: 14,
     paddingVertical: 10,

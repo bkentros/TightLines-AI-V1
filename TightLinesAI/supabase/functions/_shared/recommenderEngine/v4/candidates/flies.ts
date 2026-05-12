@@ -161,7 +161,6 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
       "smallmouth_bass",
       "largemouth_bass",
       "northern_pike",
-      "trout",
     ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [

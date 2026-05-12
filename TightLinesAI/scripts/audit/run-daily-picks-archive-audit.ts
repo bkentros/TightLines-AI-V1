@@ -2597,12 +2597,30 @@ function snapshotHasTag(
   );
 }
 
-function hasPriorityConditionTags(row: AuditRow): boolean {
-  return row.daily_scenario_summary.condition_tags.some((tag) =>
-    tag === "cold_slow" ||
+function auditPriorityConditionTags(row: AuditRow): ConditionTag[] {
+  return row.daily_scenario_summary.condition_tags.filter((tag) =>
+    tag === "low_light_surface" ||
+    tag === "calm_surface" ||
     tag === "dirty_vibration" ||
+    tag === "wind_reaction" ||
+    tag === "clear_subtle" ||
+    tag === "heat_finesse" ||
+    tag === "cold_slow" ||
     tag === "runoff_streamer" ||
     tag === "current_swing"
+  );
+}
+
+function hasPriorityConditionTags(row: AuditRow): boolean {
+  return auditPriorityConditionTags(row).length > 0;
+}
+
+function snapshotHasPriorityConditionReason(
+  score: Pick<ScoreSnapshot, "score_reasons">,
+  row: AuditRow,
+): boolean {
+  return auditPriorityConditionTags(row).some((tag) =>
+    snapshotHasTag(score, tag)
   );
 }
 
@@ -3366,8 +3384,30 @@ function setBSlotCases(rows: readonly AuditRow[]): SetBSlotCase[] {
           const rawAlternative = bestSnapshot(
             rawStages.afterAvoids.filter(predicate),
           );
+          const selectedHasPriorityFit = snapshotHasPriorityConditionReason(
+            pick,
+            b,
+          );
+          const selectedHasGoalFit = snapshotHasGoalReason(
+            pick,
+            b.recommendation_goal,
+          );
+          const comparableFitAlternative = stages.afterSurface
+            .filter(predicate)
+            .some((candidate) =>
+              (selectedHasPriorityFit &&
+                snapshotHasPriorityConditionReason(candidate, b)) ||
+              (selectedHasGoalFit &&
+                snapshotHasGoalReason(candidate, b.recommendation_goal))
+            );
           let cause: SetBOverlapCause = "truly_avoidable";
-          if (!alternative) {
+          if (
+            alternative &&
+            (selectedHasPriorityFit || selectedHasGoalFit) &&
+            !comparableFitAlternative
+          ) {
+            cause = "unavoidable_due_goal_condition_fit";
+          } else if (!alternative) {
             const ownOtherOnly = rawStages.afterAvoids.some(predicate) &&
               !stages.afterOwnOther.some(predicate);
             const scoreBandMissing = !rawStages.inScoreBand.some((candidate) =>
@@ -5578,6 +5618,10 @@ function closeAlternativeForPick(args: {
     sideCandidates(args.row, args.pick.gear_mode as Side)
       .filter((candidate) =>
         !selectedIds.has(candidate.id) &&
+        !(
+          args.row.daily_scenario_summary.surface_gate === "caution" &&
+          candidate.is_surface
+        ) &&
         (finalistIds == null ||
           finalistIds.size === 0 ||
           finalistIds.has(candidate.id)) &&

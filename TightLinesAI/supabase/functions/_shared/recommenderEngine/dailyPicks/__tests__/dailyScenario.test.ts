@@ -567,6 +567,39 @@ Deno.test("DailyScenario hot summer cooling still behaves heat-limited, not cold
   assert(!scenario.scenario_tags.includes("cold_slow"));
 });
 
+Deno.test("DailyScenario trout warm summer and early fall days are heat-limited", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      species: "river_trout",
+      context: "freshwater_river",
+      location: {
+        ...baseReq().location,
+        local_date: "2026-09-15",
+        month: 9,
+      },
+      env_data: { daily_high_air_temp_f: 88, wind_speed_mph: 6 },
+    }),
+    analysis: analysis({
+      temperatureBand: "optimal",
+      temperatureTrend: "warming",
+      temperatureFinalScore: 1,
+    }),
+    seasonalRow: baseRow({
+      species: "trout",
+      water_type: "freshwater_river",
+      month: 9,
+    }),
+  });
+
+  assertEquals(scenario.thermal_mode, "heat_limited");
+  assert(scenario.scenario_tags.includes("heat_finesse"));
+  assert(!scenario.scenario_tags.includes("warming_search"));
+  assertEquals(scenario.surface_daily_gate, "closed");
+  assert(
+    scenario.surface_daily_reason_codes.includes("trout_heat_surface_closed"),
+  );
+});
+
 Deno.test("DailyScenario summer relief cooldown does not become cold_slow", () => {
   const scenario = buildDailyScenario({
     req: baseReq({

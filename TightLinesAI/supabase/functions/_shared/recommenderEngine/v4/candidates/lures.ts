@@ -45,7 +45,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     clarity_strengths: ["clear", "stained"],
     condition_tags: ["clear_subtle", "cold_slow"],
     goal_tags: ["reliable_action", "versatile_search"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
     water_types_allowed: [L],
     how_to_fish_variants: [
       "Drag the rig slowly across hard bottom and transitions so the leader lets the worm hunt above the weight; pause when you feel it tick structure.",
@@ -122,7 +122,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     clarity_strengths: ["clear", "stained"],
     condition_tags: ["clear_subtle", "heat_finesse"],
     goal_tags: ["reliable_action"],
-    species_allowed: ["largemouth_bass", "smallmouth_bass"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Keep the bait just off bottom with tiny shakes and short glides so the minnow hovers naturally in the strike zone.",
@@ -345,7 +345,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["stained", "dirty"],
     condition_tags: ["wind_reaction", "dirty_vibration", "cover_ambush"],
-    goal_tags: [],
+    goal_tags: ["versatile_search"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -369,7 +369,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     forage_tags: ["baitfish"],
     clarity_strengths: ["stained", "dirty"],
     condition_tags: ["dirty_vibration", "cover_ambush"],
-    goal_tags: [],
+    goal_tags: ["versatile_search"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",
@@ -462,7 +462,6 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
       "largemouth_bass",
       "smallmouth_bass",
       "northern_pike",
-      "trout",
     ],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -563,7 +562,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     forage_tags: ["baitfish", "crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
     condition_tags: ["wind_reaction", "open_water_search", "warming_search"],
-    goal_tags: [],
+    goal_tags: ["versatile_search"],
     species_allowed: ["largemouth_bass", "smallmouth_bass"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
@@ -602,7 +601,7 @@ export const LURE_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     forage_tags: ["baitfish"],
     clarity_strengths: ["stained", "dirty"],
     condition_tags: ["wind_reaction", "open_water_search"],
-    goal_tags: [],
+    goal_tags: ["versatile_search"],
     species_allowed: [
       "largemouth_bass",
       "smallmouth_bass",

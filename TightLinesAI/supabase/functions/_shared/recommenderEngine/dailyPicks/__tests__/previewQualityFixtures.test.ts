@@ -533,7 +533,13 @@ Deno.test("Preview quality: trout cold-clear river stays subtle and removed surf
   assertEquals(response.species, "trout");
   assert(response.scenario_summary.scenario_tags.includes("cold_slow"));
   assert(response.scenario_summary.scenario_tags.includes("clear_subtle"));
-  assertAbsent(response, ["popper_fly", "deer_hair_slider"]);
+  assert(hasReasonPrefix(response, "daily_lane:trout_classic_fly"));
+  assertAbsent(response, [
+    "popper_fly",
+    "deer_hair_slider",
+    "soft_jerkbait",
+    "game_changer",
+  ]);
 });
 
 Deno.test("Preview quality: trout elevated runoff emits streamer/current signals without removed poppers", () => {
@@ -574,7 +580,12 @@ Deno.test("Preview quality: trout elevated runoff emits streamer/current signals
   assert(response.scenario_summary.scenario_tags.includes("runoff_streamer"));
   assert(response.scenario_summary.scenario_tags.includes("current_swing"));
   assert(hasReasonPrefix(response, "condition_tag:current_swing"));
-  assertAbsent(response, ["popper_fly", "deer_hair_slider"]);
+  assertAbsent(response, [
+    "popper_fly",
+    "deer_hair_slider",
+    "soft_jerkbait",
+    "game_changer",
+  ]);
 });
 
 Deno.test("Preview quality: pike cold river suppressive fixture uses pike inventory and excludes removed padding", () => {

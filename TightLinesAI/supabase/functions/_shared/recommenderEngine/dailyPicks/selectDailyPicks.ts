@@ -970,6 +970,42 @@ function protectDirtyWindPriorityFit(args: {
   return reactionFit ?? args.selected;
 }
 
+function protectPriorityConditionFit(args: {
+  selected: CandidateScore;
+  candidates: CandidateScore[];
+  scenario: DailyScenario;
+  top?: CandidateScore;
+}): CandidateScore {
+  if (
+    !hasPriorityConditionSignal(args.scenario) ||
+    hasPriorityConditionReason(args.selected, args.scenario) ||
+    hasActiveGoalReason(args.selected, args.scenario)
+  ) {
+    return args.selected;
+  }
+
+  const candidates = args.top
+    ? preferDifferentFamilyWhenAvailable({
+      candidates: args.candidates,
+      top: args.top,
+    })
+    : args.candidates;
+  const conditionFit = candidates
+    .filter((candidate) =>
+      candidate.profile.id !== args.top?.profile.id &&
+      hasPriorityConditionReason(candidate, args.scenario) &&
+      candidate.score >= args.selected.score - HONORABLE_QUALITY_BAND
+    )
+    .sort((a, b) => {
+      const aGoal = hasActiveGoalReason(a, args.scenario) ? 1 : 0;
+      const bGoal = hasActiveGoalReason(b, args.scenario) ? 1 : 0;
+      return bGoal - aGoal || b.score - a.score ||
+        a.profile.id.localeCompare(b.profile.id);
+    })[0];
+
+  return conditionFit ?? args.selected;
+}
+
 function recoverAvoidedDirtyWindWhenClearlyBetter(args: {
   selected: CandidateScore;
   candidates: CandidateScore[];
@@ -1149,6 +1185,74 @@ function isCredibleOpenSurfaceColumnAlternative(args: {
     strongConditionFit;
 }
 
+function isCredibleCautionNonSurfaceAlternative(args: {
+  candidate: CandidateScore;
+  selected: CandidateScore;
+  scenario: DailyScenario;
+}): boolean {
+  if (args.candidate.profile.is_surface) return false;
+  if (
+    args.candidate.score <
+      args.selected.score - HONORABLE_QUALITY_BAND
+  ) {
+    return false;
+  }
+
+  if (args.scenario.recommendation_goal === "all_purpose") {
+    return isReliableAllPurposeNonSurface(args.candidate, args.scenario) ||
+      (!hasHighRiskOnlyProfile(args.candidate) &&
+        (hasPriorityConditionReason(args.candidate, args.scenario) ||
+          hasConditionReason(args.candidate) ||
+          hasScenarioClarityReason(args.candidate, args.scenario) ||
+          hasDailyLaneReason(args.candidate) ||
+          hasSpecialistDailyLaneReason(args.candidate)));
+  }
+
+  return hasActiveGoalReason(args.candidate, args.scenario) ||
+    hasGuideCredibleBigFishGoalFit(args.candidate, args.scenario) ||
+    hasPriorityConditionReason(args.candidate, args.scenario) ||
+    hasConditionReason(args.candidate) ||
+    hasScenarioClarityReason(args.candidate, args.scenario) ||
+    hasDailyLaneReason(args.candidate) ||
+    hasSpecialistDailyLaneReason(args.candidate);
+}
+
+function applyCautionSurfaceSafety(args: {
+  selected: CandidateScore;
+  broadCandidates: CandidateScore[];
+  scenario: DailyScenario;
+  top?: CandidateScore;
+  avoidedGroups: AvoidedGroupContext;
+}): CandidateScore {
+  if (
+    args.scenario.surface_daily_gate !== "caution" ||
+    !args.selected.profile.is_surface
+  ) {
+    return args.selected;
+  }
+
+  const candidates = args.top
+    ? preferDifferentFamilyWhenAvailable({
+      candidates: args.broadCandidates,
+      top: args.top,
+    })
+    : args.broadCandidates;
+  return bestRawCloseCandidate({
+    candidates,
+    selected: args.selected,
+    predicate: (candidate) =>
+      candidate.profile.id !== args.top?.profile.id &&
+      isCredibleCautionNonSurfaceAlternative({
+        candidate,
+        selected: args.selected,
+        scenario: args.scenario,
+      }),
+    scenario: args.scenario,
+    top: args.top ?? null,
+    avoidedGroups: args.avoidedGroups,
+  }) ?? args.selected;
+}
+
 function applyOpenSurfaceSameSideColumnDiversity(args: {
   top: CandidateScore;
   honorable: CandidateScore;
@@ -1306,8 +1410,13 @@ function selectTop(args: {
     candidates: broadSurfaceEligible,
     scenario: args.scenario,
   });
-  const recovered = recoverAvoidedDirtyWindWhenClearlyBetter({
+  const priorityProtected = protectPriorityConditionFit({
     selected: dirtyWindProtected,
+    candidates: broadSurfaceEligible,
+    scenario: args.scenario,
+  });
+  const recovered = recoverAvoidedDirtyWindWhenClearlyBetter({
+    selected: priorityProtected,
     candidates: broadHardSurfaceEligible,
     avoidIds: args.avoidIds,
     scenario: args.scenario,
@@ -1324,8 +1433,14 @@ function selectTop(args: {
     scenario: args.scenario,
     avoidedGroups: args.avoidedGroups,
   });
-  return applyTopGoalSafety({
+  const goalSafe = applyTopGoalSafety({
     selected: pikeClearControlSafe,
+    broadCandidates: broadSurfaceEligible,
+    scenario: args.scenario,
+    avoidedGroups: args.avoidedGroups,
+  });
+  return applyCautionSurfaceSafety({
+    selected: goalSafe,
     broadCandidates: broadSurfaceEligible,
     scenario: args.scenario,
     avoidedGroups: args.avoidedGroups,
@@ -1508,6 +1623,25 @@ function applyHonorableGoalSafety(args: {
     if (hasConditionReason(args.selected)) {
       return args.selected;
     }
+
+    const avoidedGuideFit = args.avoidedFallbackCandidates
+      ? bestRawCloseCandidate({
+        candidates: preferDifferentFamilyWhenAvailable({
+          candidates: args.avoidedFallbackCandidates,
+          top: args.top,
+        }),
+        selected: args.selected,
+        predicate: (candidate) =>
+          candidate.profile.id !== args.top.profile.id &&
+          (hasGuideCredibleBigFishGoalFit(candidate, args.scenario) ||
+            hasPriorityConditionReason(candidate, args.scenario) ||
+            hasConditionReason(candidate)),
+        scenario: args.scenario,
+        top: args.top,
+        avoidedGroups: args.avoidedGroups,
+      })
+      : null;
+    if (avoidedGuideFit) return avoidedGuideFit;
 
     const legalNonAvoidedFallbacks = preferDifferentFamilyWhenAvailable({
       candidates: args.broadCandidates,
@@ -1914,12 +2048,6 @@ function isGuideCredibleSetBExactReplacement(args: {
   }
 
   if (args.scenario.recommendation_goal === "big_fish") {
-    if (
-      !hasActiveGoalReason(args.other, args.scenario) &&
-      !hasActiveGoalReason(args.candidate, args.scenario)
-    ) {
-      return false;
-    }
     return hasGuideCredibleBigFishGoalFit(args.candidate, args.scenario) ||
       hasPriorityConditionReason(args.candidate, args.scenario) ||
       hasConditionReason(args.candidate) ||
@@ -2214,8 +2342,14 @@ function selectHonorable(args: {
     scenario: args.scenario,
     top: args.top,
   });
-  const recovered = recoverAvoidedDirtyWindWhenClearlyBetter({
+  const priorityProtected = protectPriorityConditionFit({
     selected: dirtyWindProtected,
+    candidates: safetyCandidates,
+    scenario: args.scenario,
+    top: args.top,
+  });
+  const recovered = recoverAvoidedDirtyWindWhenClearlyBetter({
+    selected: priorityProtected,
     candidates: broadHardSurfaceEligible,
     avoidIds: args.avoidIds,
     scenario: args.scenario,
@@ -2256,8 +2390,15 @@ function selectHonorable(args: {
   const heatRecoveryCandidates = heatRecoveryById.size >= 2
     ? [...heatRecoveryById.values()]
     : safetyCandidates;
-  return applyHeatFinesseSafety({
+  const finalHeatSafe = applyHeatFinesseSafety({
     selected: goalSafe,
+    broadCandidates: heatRecoveryCandidates,
+    scenario: args.scenario,
+    top: args.top,
+    avoidedGroups: args.avoidedGroups,
+  });
+  return applyCautionSurfaceSafety({
+    selected: finalHeatSafe,
     broadCandidates: heatRecoveryCandidates,
     scenario: args.scenario,
     top: args.top,

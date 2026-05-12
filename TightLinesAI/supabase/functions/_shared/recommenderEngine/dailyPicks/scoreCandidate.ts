@@ -22,12 +22,16 @@ const SCORE = {
   subtleSlowLane: 10,
   crawBottomLane: 6,
   heatSlowBottomLane: 6,
+  troutFinesseMinnowLane: 14,
   allPurposeReliable: 18,
   allPurposeVersatile: 12,
   bigFishUpside: 20,
   bigFishHighRisk: 12,
   troutBigFishLureUpside: 12,
   troutDirtyCurrentMismatchPenalty: -12,
+  troutClassicFlyLane: 14,
+  troutAllPurposeCrossoverFlyPenalty: -10,
+  troutHeatCrossoverFlyPenalty: -12,
   clarityStrength: 8,
   primaryForage: 12,
   secondaryForage: 6,
@@ -142,6 +146,23 @@ function isHeatSlowBottomAllPurposeLane(args: {
     profile.goal_tags.includes("reliable_action");
 }
 
+function isTroutFinesseMinnowAllPurposeLane(args: {
+  profile: ArchetypeProfileV4;
+  scenario: DailyScenario;
+}): boolean {
+  const { profile, scenario } = args;
+  if (
+    scenario.species !== "trout" ||
+    scenario.recommendation_goal !== "all_purpose" ||
+    profile.id !== "drop_shot_minnow" ||
+    scenario.water_clarity === "dirty"
+  ) {
+    return false;
+  }
+  return scenario.scenario_tags.includes("clear_subtle") ||
+    scenario.scenario_tags.includes("heat_finesse");
+}
+
 function isTroutBigFishLureUpsideLane(args: {
   profile: ArchetypeProfileV4;
   scenario: DailyScenario;
@@ -163,13 +184,10 @@ function isTroutBigFishLureUpsideLane(args: {
   switch (profile.id) {
     case "hair_jig":
       return tags.has("cold_slow") ||
-        tags.has("clear_subtle") ||
-        tags.has("current_swing") ||
-        heatLimited;
+        (tags.has("clear_subtle") && !tags.has("open_water_search"));
     case "blade_bait":
       return tags.has("cold_slow") ||
-        tags.has("current_swing") ||
-        heatLimited;
+        tags.has("current_swing");
     case "casting_spoon":
       return !heatLimited &&
         (tags.has("wind_reaction") ||
@@ -177,16 +195,10 @@ function isTroutBigFishLureUpsideLane(args: {
           tags.has("open_water_search") ||
           tags.has("warming_search") ||
           tags.has("current_swing"));
-    case "soft_jerkbait":
-      return !heatLimited &&
-        (tags.has("clear_subtle") ||
-          tags.has("open_water_search") ||
-          tags.has("warming_search"));
     case "suspending_jerkbait":
       return !heatLimited &&
         (tags.has("cold_slow") ||
-          tags.has("clear_subtle") ||
-          tags.has("wind_reaction"));
+          tags.has("clear_subtle"));
     default:
       return false;
   }
@@ -218,6 +230,76 @@ function isTroutDirtyCurrentMismatch(args: {
       tag === "runoff_streamer" ||
       tag === "current_swing"
     );
+}
+
+function isTroutClassicFlyLane(args: {
+  profile: ArchetypeProfileV4;
+  scenario: DailyScenario;
+}): boolean {
+  const { profile, scenario } = args;
+  if (scenario.species !== "trout" || profile.gear_mode !== "fly") {
+    return false;
+  }
+
+  const tags = new Set(scenario.scenario_tags);
+  const coldOrControlled = tags.has("cold_slow") ||
+    tags.has("clear_subtle") ||
+    tags.has("heat_finesse");
+  const riverFoodLane = tags.has("current_swing") ||
+    tags.has("runoff_streamer") ||
+    tags.has("dirty_vibration");
+
+  switch (profile.id) {
+    case "woolly_bugger":
+    case "jighead_marabou_leech":
+    case "lead_eye_leech":
+    case "feather_jig_leech":
+      return coldOrControlled || riverFoodLane;
+    case "sculpin_streamer":
+    case "muddler_sculpin":
+      return tags.has("current_swing") ||
+        tags.has("runoff_streamer") ||
+        tags.has("cold_slow") ||
+        tags.has("clear_subtle");
+    case "rabbit_strip_leech":
+      return scenario.recommendation_goal === "big_fish" ||
+        coldOrControlled ||
+        tags.has("dirty_vibration");
+    default:
+      return false;
+  }
+}
+
+function troutAllPurposeCrossoverFlyPenalty(
+  profile: ArchetypeProfileV4,
+): number {
+  switch (profile.id) {
+    case "game_changer":
+      return SCORE.troutAllPurposeCrossoverFlyPenalty * 2;
+    case "articulated_baitfish_streamer":
+      return SCORE.troutAllPurposeCrossoverFlyPenalty;
+    case "clouser_minnow":
+      return SCORE.troutAllPurposeCrossoverFlyPenalty * 2;
+    default:
+      return 0;
+  }
+}
+
+function isTroutHeatCrossoverFly(args: {
+  profile: ArchetypeProfileV4;
+  scenario: DailyScenario;
+}): boolean {
+  const { profile, scenario } = args;
+  if (
+    scenario.species !== "trout" ||
+    profile.gear_mode !== "fly" ||
+    !scenario.scenario_tags.includes("heat_finesse")
+  ) {
+    return false;
+  }
+  return profile.id === "game_changer" ||
+    profile.id === "articulated_baitfish_streamer" ||
+    profile.id === "articulated_dungeon_streamer";
 }
 
 export function scoreCandidate(args: {
@@ -303,6 +385,42 @@ export function scoreCandidate(args: {
       reasons,
       "daily_lane:heat_slow_bottom_all_purpose",
       SCORE.heatSlowBottomLane,
+    );
+  }
+  if (isTroutFinesseMinnowAllPurposeLane({ profile, scenario })) {
+    score += addScore(
+      reasons,
+      "daily_lane:trout_finesse_minnow_all_purpose",
+      SCORE.troutFinesseMinnowLane,
+    );
+  }
+  if (isTroutClassicFlyLane({ profile, scenario })) {
+    score += addScore(
+      reasons,
+      "daily_lane:trout_classic_fly",
+      SCORE.troutClassicFlyLane,
+    );
+  }
+
+  if (
+    scenario.species === "trout" &&
+    scenario.recommendation_goal === "all_purpose" &&
+    profile.gear_mode === "fly"
+  ) {
+    const penalty = troutAllPurposeCrossoverFlyPenalty(profile);
+    if (penalty !== 0) {
+      score += addScore(
+        reasons,
+        "trout_all_purpose_crossover_fly",
+        penalty,
+      );
+    }
+  }
+  if (isTroutHeatCrossoverFly({ profile, scenario })) {
+    score += addScore(
+      reasons,
+      "trout_heat_crossover_fly",
+      SCORE.troutHeatCrossoverFlyPenalty,
     );
   }
 
