@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>FinFindr</title>
+</head>
+<!--
+  iOS / Outlook: automatic navigation to finfindr:// often fails. A tap uses a
+  real user gesture and opens the app reliably.
+-->
+<body style="font-family:system-ui,Segoe UI,sans-serif;padding:1.5rem;max-width:28rem;margin:2rem auto;color:#142;line-height:1.45">
+  <p id="msg">Finish in the FinFindr app</p>
+  <p id="sub" style="font-size:14px;opacity:0.8;display:none"></p>
+  <a id="openApp" href="about:blank" style="display:none;margin-top:1rem;padding:14px 22px;background:#0a1628;color:#fff;border-radius:10px;text-decoration:none;font-weight:600">Open FinFindr</a>
+  <script>
+    (function () {
+      var appTarget = 'finfindr://auth/confirm';
+      var tail = (window.location.search || '') + (window.location.hash || '');
+      var openEl = document.getElementById('openApp');
+      var subEl = document.getElementById('sub');
+      if (!tail) {
+        document.getElementById('msg').textContent =
+          'Open the FinFindr app and sign in. If you were verifying email, request a new link from the app.';
+        return;
+      }
+      var deep = appTarget + tail;
+      openEl.href = deep;
+      openEl.style.display = 'inline-block';
+      subEl.style.display = 'block';
+      subEl.textContent = 'If the app did not open automatically, tap the button below.';
+      try {
+        window.location.replace(deep);
+      } catch (e) {}
+      setTimeout(function () {
+        openEl.focus();
+      }, 400);
+    })();
+  </script>
+</body>
+</html>
