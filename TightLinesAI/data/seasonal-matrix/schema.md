@@ -1,10 +1,10 @@
-# Seasonal matrix CSV schema (v4)
+# Seasonal Matrix CSV Schema
 
 **Authoring source of truth:** files in this directory (`*.csv`). They feed `scripts/generate-seasonal-rows-v4.ts` → `supabase/functions/_shared/recommenderEngine/v4/seasonal/generated/*.ts`.
 
-**Runtime note:** Until engine cutover, the **live** recommender edge function still resolves seasonal biology from embedded **v3** tables (`recommenderEngine/v3/seasonal/*.ts`). Aligning live runtime with these CSVs is a later phase; do not assume v3 tables match CSV without checking.
+**Runtime note:** the generated rows are part of the active daily-picks recommender. The `v4` directory name is historical; it still holds the current catalog and generated seasonal rows.
 
-Field-level conventions also appear in `docs/recommender-v4-simplified-design.md` §17.3; phased rebuild rules are in `docs/tightlines_recommender_architecture_clean.md`.
+Maintainer workflow lives in `docs/recommender-daily-picks-maintenance.md`.
 
 ## Files
 
@@ -48,4 +48,4 @@ species,region_key,month,water_type,state_code,column_range,column_baseline,pace
 1. Edit CSVs under `data/seasonal-matrix/`.
 2. `npm run gen:seasonal-rows-v4` — validates §15.1 (G1 fatal, G8 warn) and writes `v4/seasonal/generated/*.ts`.
 3. `npm run check:seasonal-matrix` — CI ensures generated TS matches CSVs.
-4. `npm run audit:eligibility` — refreshes `docs/authoring/eligibility-audits/*.md`.
+4. Run full daily-picks archive audits for every species after seasonal behavior changes.

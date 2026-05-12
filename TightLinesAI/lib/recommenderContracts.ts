@@ -4,7 +4,7 @@
  * Deno/edge-function module system.
  *
  * Backend entry: `supabase/functions/recommender/index.ts` — daily-picks 2x2.
- * Architecture plan: `docs/recommender-2x2-renovation-plan.md`.
+ * Maintenance map: `docs/recommender-daily-picks-maintenance.md`.
  */
 
 import { STATE_SPECIES_CONTEXTS as GENERATED_STATE_SPECIES_CONTEXTS } from './generated/recommenderStateSpecies';

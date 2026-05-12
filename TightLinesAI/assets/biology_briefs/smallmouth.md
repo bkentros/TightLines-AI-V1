@@ -69,4 +69,4 @@ Low, warm, often **clear or flashy** water; **subtle to balanced** midsummer bas
 
 ## Citations
 
-Authoring synthesizes general *Micropterus dolomieu* ecology (current affinity, rocky habitat, thermal sensitivity vs largemouth, seasonal forage shift) with the product blueprint (`assets/tightlines_lure_fly_recommender_blueprint.md`) and engine **surface / tactical lane** rules. Agency river fisheries summaries are the right place for future numeric tuning; this brief stays **qualitative**.
+Authoring synthesizes general *Micropterus dolomieu* ecology (current affinity, rocky habitat, thermal sensitivity vs largemouth, seasonal forage shift) with the active daily-picks maintenance rules in `docs/recommender-daily-picks-maintenance.md` and engine **surface / tactical lane** rules. Agency river fisheries summaries are the right place for future numeric tuning; this brief stays **qualitative**.

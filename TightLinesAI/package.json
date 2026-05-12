@@ -51,7 +51,6 @@
     "build:water-reader:mn-dnr-expansion-candidates-batch2": "MN_DNR_EXPANSION_SEED=mn_dnr_expansion_seed_waterbodies_batch2.json MN_DNR_EXPANSION_OUT=water_reader_mn_dnr_expansion_batch2_candidate.json deno run -A scripts/water-reader-mn-dnr-build-expansion-candidates.ts",
     "check:water-reader:mn-dnr-proposal-geojson": "deno run -A scripts/water-reader-mn-dnr-proposal-geojson-smoke.ts",
     "check:water-reader:mn-dnr-proposal-geojson-batch2": "MN_DNR_PROPOSAL_JSON=docs/water_reader_mn_dnr_expansion_reviewed_insert_proposal_batch2.json deno run -A scripts/water-reader-mn-dnr-proposal-geojson-smoke.ts",
-    "audit:catalog-gaps": "deno run -A scripts/catalog-gap-analysis-v4.ts",
     "gen:recommender-tackle-images": "deno run --env-file=.env -A scripts/generate-recommender-tackle-images.ts",
     "gen:recommender-tackle-images:replace": "deno run --env-file=.env -A scripts/generate-recommender-tackle-images.ts --replace-catalog",
     "postgen:recommender-tackle-alpha": "if test -x .venv-rembg/bin/python; then exec .venv-rembg/bin/python scripts/strip-recommender-rgba.py; else exec python3 scripts/strip-recommender-rgba.py; fi",

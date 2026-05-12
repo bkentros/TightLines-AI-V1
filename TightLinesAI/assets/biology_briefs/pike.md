@@ -72,4 +72,4 @@ Cooler summers than interior south; still use **stratified** rather than **pure 
 
 ## Citations
 
-Authoring synthesizes general esocid ecology (thermal habitat, stratified summer distribution, shallow spring/fall windows) with the engine’s tactical and **surface-flag** rules (`assets/tightlines_lure_fly_recommender_blueprint.md`). Agency stocking and regional distribution maps should inform future **gating** work; this brief stays **qualitative** to avoid false precision.
+Authoring synthesizes general esocid ecology (thermal habitat, stratified summer distribution, shallow spring/fall windows) with the active daily-picks maintenance rules in `docs/recommender-daily-picks-maintenance.md` and the engine’s tactical and **surface-flag** rules. Agency stocking and regional distribution maps should inform future **gating** work; this brief stays **qualitative** to avoid false precision.

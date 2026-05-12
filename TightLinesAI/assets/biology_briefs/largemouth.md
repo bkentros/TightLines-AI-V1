@@ -65,4 +65,4 @@ Keys outside `LARGEMOUTH_V3_SUPPORTED_REGIONS` resolve via **`resolveSeasonalRow
 
 ## Citations
 
-Authoring synthesizes general largemouth ecology (cover association, forage shifts, latitudinal spawn timing) with the product blueprint (`assets/tightlines_lure_fly_recommender_blueprint.md`) and engine **surface / tactical lane** rules. This brief stays **qualitative**.
+Authoring synthesizes general largemouth ecology (cover association, forage shifts, latitudinal spawn timing) with the active daily-picks maintenance rules in `docs/recommender-daily-picks-maintenance.md` and engine **surface / tactical lane** rules. This brief stays **qualitative**.
