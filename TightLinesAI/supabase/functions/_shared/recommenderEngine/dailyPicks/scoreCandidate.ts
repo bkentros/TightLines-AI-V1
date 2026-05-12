@@ -26,6 +26,8 @@ const SCORE = {
   allPurposeVersatile: 12,
   bigFishUpside: 20,
   bigFishHighRisk: 12,
+  troutBigFishLureUpside: 12,
+  troutDirtyCurrentMismatchPenalty: -12,
   clarityStrength: 8,
   primaryForage: 12,
   secondaryForage: 6,
@@ -140,6 +142,84 @@ function isHeatSlowBottomAllPurposeLane(args: {
     profile.goal_tags.includes("reliable_action");
 }
 
+function isTroutBigFishLureUpsideLane(args: {
+  profile: ArchetypeProfileV4;
+  scenario: DailyScenario;
+}): boolean {
+  const { profile, scenario } = args;
+  if (
+    scenario.species !== "trout" ||
+    scenario.recommendation_goal !== "big_fish" ||
+    profile.gear_mode !== "lure" ||
+    profile.is_surface
+  ) {
+    return false;
+  }
+
+  const tags = new Set(scenario.scenario_tags);
+  const heatLimited = scenario.thermal_mode === "heat_limited" ||
+    tags.has("heat_finesse");
+
+  switch (profile.id) {
+    case "hair_jig":
+      return tags.has("cold_slow") ||
+        tags.has("clear_subtle") ||
+        tags.has("current_swing") ||
+        heatLimited;
+    case "blade_bait":
+      return tags.has("cold_slow") ||
+        tags.has("current_swing") ||
+        heatLimited;
+    case "casting_spoon":
+      return !heatLimited &&
+        (tags.has("wind_reaction") ||
+          tags.has("dirty_vibration") ||
+          tags.has("open_water_search") ||
+          tags.has("warming_search") ||
+          tags.has("current_swing"));
+    case "soft_jerkbait":
+      return !heatLimited &&
+        (tags.has("clear_subtle") ||
+          tags.has("open_water_search") ||
+          tags.has("warming_search"));
+    case "suspending_jerkbait":
+      return !heatLimited &&
+        (tags.has("cold_slow") ||
+          tags.has("clear_subtle") ||
+          tags.has("wind_reaction"));
+    default:
+      return false;
+  }
+}
+
+function isTroutDirtyCurrentMismatch(args: {
+  profile: ArchetypeProfileV4;
+  scenario: DailyScenario;
+}): boolean {
+  const { profile, scenario } = args;
+  if (
+    scenario.species !== "trout" ||
+    scenario.water_clarity !== "dirty" ||
+    scenario.water_movement_mode !== "elevated_or_dirty"
+  ) {
+    return false;
+  }
+
+  const tags = new Set(scenario.scenario_tags);
+  const dirtyCurrentWindow = tags.has("dirty_vibration") ||
+    tags.has("runoff_streamer") ||
+    tags.has("current_swing");
+  if (!dirtyCurrentWindow) return false;
+
+  return profile.id === "suspending_jerkbait" &&
+    !profile.clarity_strengths.includes("dirty") &&
+    !profile.condition_tags.some((tag) =>
+      tag === "dirty_vibration" ||
+      tag === "runoff_streamer" ||
+      tag === "current_swing"
+    );
+}
+
 export function scoreCandidate(args: {
   profile: ArchetypeProfileV4;
   side: CandidateSide;
@@ -193,6 +273,13 @@ export function scoreCandidate(args: {
         reasons,
         "goal:big_fish:high_risk_high_reward",
         SCORE.bigFishHighRisk,
+      );
+    }
+    if (isTroutBigFishLureUpsideLane({ profile, scenario })) {
+      score += addScore(
+        reasons,
+        "goal:big_fish:trout_trophy_lure",
+        SCORE.troutBigFishLureUpside,
       );
     }
   }
@@ -270,6 +357,14 @@ export function scoreCandidate(args: {
       reasons,
       "surface_daily_gate:caution",
       SCORE.surfaceCautionPenalty,
+    );
+  }
+
+  if (isTroutDirtyCurrentMismatch({ profile, scenario })) {
+    score += addScore(
+      reasons,
+      "trout_dirty_current_mismatch",
+      SCORE.troutDirtyCurrentMismatchPenalty,
     );
   }
 

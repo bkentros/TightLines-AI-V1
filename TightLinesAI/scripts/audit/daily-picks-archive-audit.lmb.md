@@ -1,5 +1,5 @@
 # FinFindr LMB Daily-Picks Archive Audit
-Generated: 2026-05-12T02:38:06.214Z
+Generated: 2026-05-12T12:57:45.162Z
 
 ## Scope Summary
 
@@ -664,6 +664,15 @@ Not applicable.
 
 ## Guide Verdict Summary
 
+| Exact pick verdict | Pick count |
+| --- | --- |
+| likely_miss | 0 |
+| watch | 672 |
+| acceptable_fit | 1158 |
+| strong_fit | 1722 |
+
+### Bucketed Pick Verdict Counts
+
 | Verdict | Goal | Set | Side | Condition bucket | Pick count |
 | --- | --- | --- | --- | --- | --- |
 | watch | big_fish | A | fly | medium_confidence_archive | 180 |
@@ -1104,10 +1113,22 @@ Spinnerbait/Lipless selected despite 3+ other active candidates:
 
 ## Surface Safety Expansion Check
 
-| Surface gate | Slots checked | Surface finalist IDs |
-| --- | --- | --- |
-| closed | 1440 | 0 |
-| caution | 624 | 6 |
+| Surface gate | Slots checked | Selected surface picks | Surface finalist IDs |
+| --- | --- | --- | --- |
+| closed | 1440 | 0 | 0 |
+| caution | 624 | 10 | 6 |
+
+Caution-gate selected surface examples:
+- fl_okeechobee__2025-08-18__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
+- fl_okeechobee__2025-08-18__freshwater_lake_pond__dirty__big_fish__B: honorable_lure:buzzbait
+- tx_sam_rayburn__2025-05-10__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
+- tx_lake_fork__2025-06-15__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
+- tx_lake_fork__2025-06-15__freshwater_lake_pond__dirty__big_fish__B: honorable_lure:buzzbait
+- al_guntersville__2025-04-11__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
+- il_fox_chain__2025-06-14__freshwater_lake_pond__clear__big_fish__B: honorable_lure:wake_bait
+- co_pueblo__2025-06-22__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
+- co_pueblo__2025-06-22__freshwater_lake_pond__dirty__big_fish__B: honorable_lure:buzzbait
+- nm_elephant_butte__2025-08-23__freshwater_lake_pond__stained__big_fish__B: honorable_lure:buzzbait
 
 Caution-gate surface finalist examples:
 - tx_sam_rayburn__2025-05-10__freshwater_lake_pond__stained__big_fish__B lure/honorable: buzzbait

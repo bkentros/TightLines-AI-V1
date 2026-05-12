@@ -1,5 +1,5 @@
 # FinFindr SMB Daily-Picks Archive Audit
-Generated: 2026-05-12T02:37:37.614Z
+Generated: 2026-05-12T12:57:02.214Z
 
 ## Scope Summary
 
@@ -523,6 +523,15 @@ Not applicable.
 
 ## Guide Verdict Summary
 
+| Exact pick verdict | Pick count |
+| --- | --- |
+| likely_miss | 0 |
+| watch | 472 |
+| acceptable_fit | 860 |
+| strong_fit | 1116 |
+
+### Bucketed Pick Verdict Counts
+
 | Verdict | Goal | Set | Side | Condition bucket | Pick count |
 | --- | --- | --- | --- | --- | --- |
 | watch | big_fish | A | fly | medium_confidence_archive | 137 |
@@ -963,10 +972,15 @@ Spinnerbait/Lipless selected despite 3+ other active candidates:
 
 ## Surface Safety Expansion Check
 
-| Surface gate | Slots checked | Surface finalist IDs |
-| --- | --- | --- |
-| closed | 1536 | 0 |
-| caution | 336 | 2 |
+| Surface gate | Slots checked | Selected surface picks | Surface finalist IDs |
+| --- | --- | --- | --- |
+| closed | 1536 | 0 | 0 |
+| caution | 336 | 3 | 2 |
+
+Caution-gate selected surface examples:
+- co_yampa__2025-07-12__freshwater_river__clear__big_fish__B: honorable_lure:buzzbait
+- co_yampa__2025-07-12__freshwater_river__stained__big_fish__B: honorable_lure:buzzbait
+- co_yampa__2025-07-12__freshwater_river__dirty__big_fish__B: honorable_lure:buzzbait
 
 Caution-gate surface finalist examples:
 - co_yampa__2025-07-12__freshwater_river__stained__big_fish__B lure/honorable: buzzbait

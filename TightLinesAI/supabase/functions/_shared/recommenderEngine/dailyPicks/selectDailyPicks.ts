@@ -1903,6 +1903,93 @@ function ensureBigFishPairGoalCoverage(args: {
   return [args.top, args.honorable];
 }
 
+function isGuideCredibleSetBExactReplacement(args: {
+  candidate: CandidateScore;
+  selected: CandidateScore;
+  other: CandidateScore;
+  scenario: DailyScenario;
+}): boolean {
+  if (args.candidate.score < args.selected.score - HONORABLE_QUALITY_BAND) {
+    return false;
+  }
+
+  if (args.scenario.recommendation_goal === "big_fish") {
+    if (
+      !hasActiveGoalReason(args.other, args.scenario) &&
+      !hasActiveGoalReason(args.candidate, args.scenario)
+    ) {
+      return false;
+    }
+    return hasGuideCredibleBigFishGoalFit(args.candidate, args.scenario) ||
+      hasPriorityConditionReason(args.candidate, args.scenario) ||
+      hasConditionReason(args.candidate) ||
+      hasScenarioClarityReason(args.candidate, args.scenario) ||
+      hasDailyLaneReason(args.candidate) ||
+      hasSpecialistDailyLaneReason(args.candidate);
+  }
+
+  return isReliableAllPurposeNonSurface(args.candidate, args.scenario) ||
+    hasPriorityConditionReason(args.candidate, args.scenario) ||
+    hasConditionReason(args.candidate) ||
+    hasScenarioClarityReason(args.candidate, args.scenario) ||
+    hasDailyLaneReason(args.candidate) ||
+    hasSpecialistDailyLaneReason(args.candidate);
+}
+
+function repairSetBExactAvoidance(args: {
+  top: CandidateScore;
+  honorable: CandidateScore;
+  candidates: CandidateScore[];
+  scenario: DailyScenario;
+  avoidIds: ReadonlySet<string>;
+  avoidedGroups: AvoidedGroupContext;
+}): [CandidateScore, CandidateScore] {
+  if (args.avoidIds.size === 0) return [args.top, args.honorable];
+
+  const surfaceSafe = preferNonSurfaceOnCautionWhenAvailable({
+    candidates: args.candidates,
+    scenario: args.scenario,
+    preserveActiveGoal: args.scenario.recommendation_goal === "big_fish",
+  });
+  const replacementFor = (
+    selected: CandidateScore,
+    other: CandidateScore,
+  ): CandidateScore | null => {
+    if (!args.avoidIds.has(selected.profile.id)) return null;
+    const legal = surfaceSafe.filter((candidate) =>
+      !args.avoidIds.has(candidate.profile.id) &&
+      candidate.profile.id !== selected.profile.id &&
+      candidate.profile.id !== other.profile.id
+    );
+    if (legal.length === 0) return null;
+    return bestRawCloseCandidate({
+      candidates: preferDifferentFamilyWhenAvailable({
+        candidates: legal,
+        top: other,
+      }),
+      selected,
+      predicate: (candidate) =>
+        isGuideCredibleSetBExactReplacement({
+          candidate,
+          selected,
+          other,
+          scenario: args.scenario,
+        }),
+      scenario: args.scenario,
+      top: other,
+      avoidedGroups: args.avoidedGroups,
+    });
+  };
+
+  let top = args.top;
+  let honorable = args.honorable;
+  const honorableReplacement = replacementFor(honorable, top);
+  if (honorableReplacement) honorable = honorableReplacement;
+  const topReplacement = replacementFor(top, honorable);
+  if (topReplacement) top = topReplacement;
+  return [top, honorable];
+}
+
 function applyHeatFinesseSafety(args: {
   selected: CandidateScore;
   broadCandidates: CandidateScore[];
@@ -2321,9 +2408,17 @@ function selectSide(args: {
     variant: args.variant,
     avoidIds,
   });
-  return applyOpenSurfaceSameSideColumnDiversity({
+  const [exactSafeTop, exactSafeHonorable] = repairSetBExactAvoidance({
     top: coveredTop,
     honorable: coveredHonorable,
+    candidates,
+    scenario: args.scenario,
+    avoidIds,
+    avoidedGroups,
+  });
+  return applyOpenSurfaceSameSideColumnDiversity({
+    top: exactSafeTop,
+    honorable: exactSafeHonorable,
     candidates,
     scenario: args.scenario,
     avoidIds,

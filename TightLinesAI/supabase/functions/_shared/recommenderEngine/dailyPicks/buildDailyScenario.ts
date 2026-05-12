@@ -283,6 +283,7 @@ function surfaceGate(args: {
   daylightWindMph: number | null;
   pikeColdSurfaceClosed: boolean;
   pikeHeatSurfaceClosed: boolean;
+  troutHeatSurfaceClosed: boolean;
 }): { gate: DailySurfaceGate; reasonCodes: string[] } {
   const reasons: string[] = [];
   if (!args.seasonalSurfaceAllowed) {
@@ -298,6 +299,11 @@ function surfaceGate(args: {
 
   if (args.pikeHeatSurfaceClosed) {
     reasons.push("pike_heat_surface_closed");
+    return { gate: "closed", reasonCodes: reasons };
+  }
+
+  if (args.troutHeatSurfaceClosed) {
+    reasons.push("trout_heat_surface_closed");
     return { gate: "closed", reasonCodes: reasons };
   }
 
@@ -348,6 +354,21 @@ function pikeHeatSurfaceClosed(args: {
   lightMode: DailyLightMode;
 }): boolean {
   if (args.species !== "northern_pike") return false;
+  if (args.thermalMode !== "heat_limited") return false;
+
+  const exceptionalLowLightSurfaceWindow = args.lightMode === "low_light" &&
+    (args.activityLevel === "active" ||
+      args.activityLevel === "high_opportunity");
+  return !exceptionalLowLightSurfaceWindow;
+}
+
+function troutHeatSurfaceClosed(args: {
+  species: DailyScenario["species"];
+  thermalMode: DailyThermalMode;
+  activityLevel: DailyActivityLevel;
+  lightMode: DailyLightMode;
+}): boolean {
+  if (args.species !== "trout") return false;
   if (args.thermalMode !== "heat_limited") return false;
 
   const exceptionalLowLightSurfaceWindow = args.lightMode === "low_light" &&
@@ -433,6 +454,12 @@ export function buildDailyScenario(args: {
       temperatureBand: temp?.band_label,
     }),
     pikeHeatSurfaceClosed: pikeHeatSurfaceClosed({
+      species,
+      thermalMode,
+      activityLevel,
+      lightMode,
+    }),
+    troutHeatSurfaceClosed: troutHeatSurfaceClosed({
       species,
       thermalMode,
       activityLevel,

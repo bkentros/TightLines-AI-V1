@@ -1,5 +1,5 @@
 # FinFindr Pike Daily-Picks Archive Audit
-Generated: 2026-05-12T02:38:00.038Z
+Generated: 2026-05-12T12:57:31.878Z
 
 ## Scope Summary
 
@@ -398,14 +398,14 @@ Audit priority: top/honorable same-family on the same side is a hard invariant. 
 
 | Kind | Cause | Lure | Fly | Total |
 | --- | --- | --- | --- | --- |
-| exact_id | unavoidable_due_score_band | 28 | 1 | 29 |
-| exact_id | unavoidable_because_only_alternative_already_selected_in_set_b | 2 | 1 | 3 |
+| exact_id | unavoidable_due_score_band | 28 | 0 | 28 |
+| exact_id | unavoidable_because_only_alternative_already_selected_in_set_b | 2 | 0 | 2 |
 | same_family_same_presentation | truly_avoidable | 1 | 1 | 2 |
 | same_family_same_presentation | unavoidable_due_score_band | 0 | 4 | 4 |
 | same_family_same_presentation | unavoidable_because_only_alternative_already_selected_in_set_b | 0 | 4 | 4 |
 | same_family_different_presentation | truly_avoidable | 0 | 67 | 67 |
-| same_family_different_presentation | unavoidable_due_score_band | 0 | 46 | 46 |
-| same_family_different_presentation | unavoidable_because_only_alternative_already_selected_in_set_b | 0 | 18 | 18 |
+| same_family_different_presentation | unavoidable_due_score_band | 0 | 47 | 47 |
+| same_family_different_presentation | unavoidable_because_only_alternative_already_selected_in_set_b | 0 | 19 | 19 |
 | same_family_different_presentation | unavoidable_due_goal_condition_fit | 0 | 17 | 17 |
 
 ### Top True Set B Variety Examples
@@ -552,6 +552,15 @@ None.
 
 ## Guide Verdict Summary
 
+| Exact pick verdict | Pick count |
+| --- | --- |
+| likely_miss | 0 |
+| watch | 226 |
+| acceptable_fit | 847 |
+| strong_fit | 2287 |
+
+### Bucketed Pick Verdict Counts
+
 | Verdict | Goal | Set | Side | Condition bucket | Pick count |
 | --- | --- | --- | --- | --- | --- |
 | watch | big_fish | A | fly | medium_confidence_archive | 61 |
@@ -682,7 +691,7 @@ None.
 | clear_subtle | 304 | 31 | 10% |
 | dirty_vibration | 1536 | 364 | 24% |
 | heat_finesse | 96 | 0 | 0% |
-| cold_slow | 1056 | 414 | 39% |
+| cold_slow | 1056 | 412 | 39% |
 | low_light_surface | 144 | 23 | 16% |
 | calm_surface | 240 | 59 | 25% |
 | Big Fish upside | 1680 | 1674 | 100% |
@@ -692,7 +701,7 @@ None.
 
 | Scope | Most selected |
 | --- | --- |
-| Overall | Large Bucktail Spinner [lure] (268), Large Rabbit Strip Streamer [fly] (268), Game Changer [fly] (231), Articulated Baitfish Streamer [fly] (226), Paddle Tail Pike Jig [lure] (211), Pike Spinnerbait [lure] (206), Pike Flash Fly [fly] (203), Articulated Pike Streamer [fly] (177), Large Jerkbait [lure] (164), Deceiver [fly] (160), Large Paddle-Tail Swimbait [lure] (154), Inline Spinner [lure] (151) |
+| Overall | Large Bucktail Spinner [lure] (268), Large Rabbit Strip Streamer [fly] (266), Game Changer [fly] (231), Articulated Baitfish Streamer [fly] (226), Paddle Tail Pike Jig [lure] (211), Pike Spinnerbait [lure] (206), Pike Flash Fly [fly] (203), Articulated Pike Streamer [fly] (179), Large Jerkbait [lure] (164), Deceiver [fly] (160), Large Paddle-Tail Swimbait [lure] (154), Inline Spinner [lure] (151) |
 | All-purpose | Deceiver [fly] (159), Inline Spinner [lure] (151), Baitfish Slider Fly [fly] (143), Shallow Minnowbait [lure] (128), Paddle Tail Pike Jig [lure] (104), Game Changer [fly] (101), Large Bucktail Spinner [lure] (98), Pike Spinnerbait [lure] (96) |
 | Big-fish | Large Rabbit Strip Streamer [fly] (193), Large Bucktail Spinner [lure] (170), Articulated Pike Streamer [fly] (155), Large Paddle-Tail Swimbait [lure] (152), Articulated Baitfish Streamer [fly] (140), Large Jerkbait [lure] (140), Game Changer [fly] (130), Pike Flash Fly [fly] (114) |
 
@@ -708,13 +717,13 @@ None.
 | Profile | Gear | Selected/Opp | Rate | Goal | Set | Slot | Clarity | Water | Selected tags |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Large Bucktail Spinner<br>large_bucktail_spinner | lure | 268/840 | 31.9% | big_fish:170, all_purpose:98 | A:135, B:133 | honorable:146, top:122 | clear:106, stained:86, dirty:76 | freshwater_lake_pond:229, freshwater_river:39 | wind_reaction:207, open_water_search:170, dirty_vibration:132, cold_slow:79 |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 268/840 | 31.9% | big_fish:193, all_purpose:75 | A:144, B:124 | top:172, honorable:96 | stained:92, dirty:89, clear:87 | freshwater_lake_pond:240, freshwater_river:28 | wind_reaction:189, open_water_search:147, dirty_vibration:131, cold_slow:110 |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 266/840 | 31.7% | big_fish:193, all_purpose:73 | A:144, B:122 | top:171, honorable:95 | stained:92, dirty:88, clear:86 | freshwater_lake_pond:238, freshwater_river:28 | wind_reaction:187, open_water_search:147, dirty_vibration:130, cold_slow:108 |
 | Game Changer<br>game_changer | fly | 231/840 | 27.5% | big_fish:130, all_purpose:101 | A:135, B:96 | honorable:122, top:109 | clear:93, dirty:69, stained:69 | freshwater_lake_pond:208, freshwater_river:23 | wind_reaction:142, open_water_search:135, dirty_vibration:93, cold_slow:61 |
 | Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 226/840 | 26.9% | big_fish:140, all_purpose:86 | A:114, B:112 | honorable:140, top:86 | dirty:89, stained:78, clear:59 | freshwater_lake_pond:212, freshwater_river:14 | wind_reaction:140, open_water_search:130, dirty_vibration:114, cold_slow:63 |
 | Paddle Tail Pike Jig<br>pike_jig_and_plastic | lure | 211/840 | 25.1% | big_fish:107, all_purpose:104 | A:134, B:77 | top:113, honorable:98 | dirty:89, stained:84, clear:38 | freshwater_lake_pond:185, freshwater_river:26 | wind_reaction:148, dirty_vibration:134, cold_slow:133, open_water_search:108 |
 | Pike Spinnerbait<br>pike_spinnerbait | lure | 206/732 | 28.1% | big_fish:110, all_purpose:96 | A:112, B:94 | honorable:119, top:87 | dirty:89, stained:71, clear:46 | freshwater_lake_pond:176, freshwater_river:30 | wind_reaction:122, dirty_vibration:98, open_water_search:96, warming_search:46 |
 | Pike Flash Fly<br>pike_flash_fly | fly | 203/540 | 37.6% | big_fish:114, all_purpose:89 | A:102, B:101 | honorable:110, top:93 | clear:69, stained:68, dirty:66 | freshwater_lake_pond:176, freshwater_river:27 | wind_reaction:149, open_water_search:111, dirty_vibration:97, warming_search:46 |
-| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 177/840 | 21.1% | big_fish:155, all_purpose:22 | B:102, A:75 | top:99, honorable:78 | dirty:68, stained:63, clear:46 | freshwater_lake_pond:153, freshwater_river:24 | wind_reaction:131, dirty_vibration:98, open_water_search:97, cold_slow:47 |
+| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 179/840 | 21.3% | big_fish:155, all_purpose:24 | B:104, A:75 | top:100, honorable:79 | dirty:69, stained:63, clear:47 | freshwater_lake_pond:155, freshwater_river:24 | wind_reaction:133, dirty_vibration:99, open_water_search:97, cold_slow:49 |
 | Large Jerkbait<br>pike_jerkbait | lure | 164/840 | 19.5% | big_fish:140, all_purpose:24 | A:82, B:82 | top:84, honorable:80 | clear:66, stained:53, dirty:45 | freshwater_lake_pond:140, freshwater_river:24 | wind_reaction:135, open_water_search:118, dirty_vibration:83, cold_slow:46 |
 | Deceiver<br>deceiver | fly | 160/840 | 19% | all_purpose:159, big_fish:1 | B:83, A:77 | honorable:81, top:79 | clear:59, dirty:52, stained:49 | freshwater_lake_pond:145, freshwater_river:15 | wind_reaction:118, open_water_search:97, dirty_vibration:78, cold_slow:47 |
 | Large Paddle-Tail Swimbait<br>large_profile_pike_swimbait | lure | 154/840 | 18.3% | big_fish:152, all_purpose:2 | B:84, A:70 | honorable:80, top:74 | dirty:55, clear:54, stained:45 | freshwater_lake_pond:130, freshwater_river:24 | wind_reaction:91, open_water_search:83, dirty_vibration:61, cold_slow:47 |
@@ -742,14 +751,14 @@ None.
 
 | Profile | Gear | Combined all slots | Top slots | Honorable slots | Lure-side slots | Fly-side slots | Flags |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 268/3360 (8%) | 172/1680 (10.2%) | 96/1680 (5.7%) | - | 268/1680 (16%) |  |
 | Large Bucktail Spinner<br>large_bucktail_spinner | lure | 268/3360 (8%) | 122/1680 (7.3%) | 146/1680 (8.7%) | 268/1680 (16%) | - |  |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 266/3360 (7.9%) | 171/1680 (10.2%) | 95/1680 (5.7%) | - | 266/1680 (15.8%) |  |
 | Game Changer<br>game_changer | fly | 231/3360 (6.9%) | 109/1680 (6.5%) | 122/1680 (7.3%) | - | 231/1680 (13.8%) |  |
 | Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 226/3360 (6.7%) | 86/1680 (5.1%) | 140/1680 (8.3%) | - | 226/1680 (13.5%) |  |
 | Paddle Tail Pike Jig<br>pike_jig_and_plastic | lure | 211/3360 (6.3%) | 113/1680 (6.7%) | 98/1680 (5.8%) | 211/1680 (12.6%) | - |  |
 | Pike Spinnerbait<br>pike_spinnerbait | lure | 206/3360 (6.1%) | 87/1680 (5.2%) | 119/1680 (7.1%) | 206/1680 (12.3%) | - |  |
 | Pike Flash Fly<br>pike_flash_fly | fly | 203/3360 (6%) | 93/1680 (5.5%) | 110/1680 (6.5%) | - | 203/1680 (12.1%) |  |
-| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 177/3360 (5.3%) | 99/1680 (5.9%) | 78/1680 (4.6%) | - | 177/1680 (10.5%) |  |
+| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 179/3360 (5.3%) | 100/1680 (6%) | 79/1680 (4.7%) | - | 179/1680 (10.7%) |  |
 | Large Jerkbait<br>pike_jerkbait | lure | 164/3360 (4.9%) | 84/1680 (5%) | 80/1680 (4.8%) | 164/1680 (9.8%) | - |  |
 | Deceiver<br>deceiver | fly | 160/3360 (4.8%) | 79/1680 (4.7%) | 81/1680 (4.8%) | - | 160/1680 (9.5%) |  |
 | Large Paddle-Tail Swimbait<br>large_profile_pike_swimbait | lure | 154/3360 (4.6%) | 74/1680 (4.4%) | 80/1680 (4.8%) | 154/1680 (9.2%) | - |  |
@@ -788,7 +797,7 @@ None.
 | Pike Flash Fly<br>pike_flash_fly | fly | 203/540 | 37.6% | big_fish:114, all_purpose:89 | wind_reaction:149, open_water_search:111, dirty_vibration:97, warming_search:46, cold_slow:40 |
 | Weedless Spoon<br>weedless_spoon | lure | 115/360 | 31.9% | big_fish:65, all_purpose:50 | wind_reaction:61, open_water_search:41, dirty_vibration:39, calm_surface:24, warming_search:22 |
 | Large Bucktail Spinner<br>large_bucktail_spinner | lure | 268/840 | 31.9% | big_fish:170, all_purpose:98 | wind_reaction:207, open_water_search:170, dirty_vibration:132, cold_slow:79, warming_search:47 |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 268/840 | 31.9% | big_fish:193, all_purpose:75 | wind_reaction:189, open_water_search:147, dirty_vibration:131, cold_slow:110, warming_search:37 |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 266/840 | 31.7% | big_fish:193, all_purpose:73 | wind_reaction:187, open_water_search:147, dirty_vibration:130, cold_slow:108, warming_search:37 |
 | Pike Spinnerbait<br>pike_spinnerbait | lure | 206/732 | 28.1% | big_fish:110, all_purpose:96 | wind_reaction:122, dirty_vibration:98, open_water_search:96, warming_search:46, cold_slow:41 |
 | Game Changer<br>game_changer | fly | 231/840 | 27.5% | big_fish:130, all_purpose:101 | wind_reaction:142, open_water_search:135, dirty_vibration:93, cold_slow:61, warming_search:39 |
 | Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 226/840 | 26.9% | big_fish:140, all_purpose:86 | wind_reaction:140, open_water_search:130, dirty_vibration:114, cold_slow:63, warming_search:33 |
@@ -800,7 +809,7 @@ None.
 | --- | --- | --- | --- | --- | --- | --- |
 | Pike Glide Bait<br>pike_glidebait | lure | home-window >30% severe | 41/106 | 38.7% | selector_filtering_variety_jitter:39 | AP/BF 0/0, 41/106<br>clarity clear:50, stained:32, dirty:24<br>bucket cold_slow_or_front:26, stable_pleasant_medium_confidence_archive:26, warming_search:24 |
 | Pike Flash Fly<br>pike_flash_fly | fly | home-window >30% severe | 200/532 | 37.6% | seasonal_baseline:120 | AP/BF 87/266, 113/266<br>clarity dirty:180, clear:176, stained:176<br>bucket breezy_windy_stained_reaction:116, dirty_vibration:116, stable_pleasant_medium_confidence_archive:100 |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | home-window >30% severe | 268/816 | 32.8% | goal_tags:281 | AP/BF 75/396, 193/420<br>clarity dirty:280, clear:268, stained:268<br>bucket cold_slow_or_front:200, dirty_vibration:192, breezy_windy_stained_reaction:184 |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | home-window >30% severe | 266/816 | 32.6% | goal_tags:281 | AP/BF 73/396, 193/420<br>clarity dirty:280, clear:268, stained:268<br>bucket cold_slow_or_front:200, dirty_vibration:192, breezy_windy_stained_reaction:184 |
 | Large Bucktail Spinner<br>large_bucktail_spinner | lure | home-window >30% severe | 258/792 | 32.6% | goal_tags:267 | AP/BF 97/396, 161/396<br>clarity dirty:280, clear:256, stained:256<br>bucket dirty_vibration:192, breezy_windy_stained_reaction:184, cold_slow_or_front:160 |
 | Pike Spinnerbait<br>pike_spinnerbait | lure | home-window >30% severe | 142/440 | 32.3% | daily_condition_tags:132 | AP/BF 71/220, 71/220<br>clarity dirty:244, stained:196<br>bucket dirty_vibration:164, breezy_windy_stained_reaction:156, warming_search:48 |
 | Weedless Spoon<br>weedless_spoon | lure | home-window >30% severe | 115/360 | 31.9% | goal_tags:95 | AP/BF 50/180, 65/180<br>clarity clear:120, dirty:120, stained:120<br>bucket stable_pleasant_medium_confidence_archive:88, dirty_vibration:72, breezy_windy_stained_reaction:68 |
@@ -810,9 +819,9 @@ None.
 | Paddle Tail Pike Jig<br>pike_jig_and_plastic | lure | home-window >25% overdominant | 209/800 | 26.1% | goal_tags:191 | AP/BF 102/400, 107/400<br>clarity dirty:280, clear:260, stained:260<br>bucket cold_slow_or_front:200, dirty_vibration:192, breezy_windy_stained_reaction:184 |
 | Inline Spinner<br>inline_spinner | lure | home-window >20% watch | 131/528 | 24.8% | goal_tags:262 | AP/BF 131/264, 0/264<br>clarity dirty:208, clear:160, stained:160<br>bucket breezy_windy_stained_reaction:128, dirty_vibration:128, warming_search:92 |
 | Baitfish Slider Fly<br>baitfish_slider_fly | fly | home-window >20% watch | 139/592 | 23.5% | goal_tags:312 | AP/BF 139/296, 0/296<br>clarity dirty:208, clear:192, stained:192<br>bucket breezy_windy_stained_reaction:128, dirty_vibration:128, stable_pleasant_medium_confidence_archive:108 |
-| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | home-window >20% watch | 177/816 | 21.7% | goal_tags:355 | AP/BF 22/396, 155/420<br>clarity dirty:280, clear:268, stained:268<br>bucket cold_slow_or_front:200, dirty_vibration:192, breezy_windy_stained_reaction:184 |
+| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | home-window >20% watch | 179/816 | 21.9% | goal_tags:355 | AP/BF 24/396, 155/420<br>clarity dirty:280, clear:268, stained:268<br>bucket cold_slow_or_front:200, dirty_vibration:192, breezy_windy_stained_reaction:184 |
 | Popper Fly<br>popper_fly | fly | home-window >20% watch | 18/84 | 21.4% | goal_tags:42 | AP/BF 18/42, 0/42<br>clarity clear:28, dirty:28, stained:28<br>bucket stable_pleasant_medium_confidence_archive:36, warming_search:20, calm_low_light_surface:12 |
-| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | home-window >20% watch | 23/108 | 21.3% | daily_condition_tags:40 | AP/BF 0/54, 23/54<br>clarity clear:36, dirty:36, stained:36<br>bucket cold_slow_or_front:44, breezy_windy_stained_reaction:28, dirty_vibration:28 |
+| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | home-window >20% watch | 23/108 | 21.3% | daily_condition_tags:38 | AP/BF 0/54, 23/54<br>clarity clear:36, dirty:36, stained:36<br>bucket cold_slow_or_front:44, breezy_windy_stained_reaction:28, dirty_vibration:28 |
 
 ## Slot Utilization Guardrails
 
@@ -820,7 +829,7 @@ None.
 | --- | --- | --- | --- | --- | --- | --- | --- | --- |
 | Pike Glide Bait<br>pike_glidebait | lure | 79/3360 (2.4%) | 36/1680 (2.1%) | 43/1680 (2.6%) | 79/1680 (4.7%) | 41/106 (38.7%) | 20/106 (18.9%) / 21/106 (19.8%) | home>20%<br>home>25%<br>home>30% |
 | Pike Flash Fly<br>pike_flash_fly | fly | 203/3360 (6%) | 93/1680 (5.5%) | 110/1680 (6.5%) | 203/1680 (12.1%) | 200/532 (37.6%) | 92/532 (17.3%) / 108/532 (20.3%) | home>20%<br>home>25%<br>home>30% |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 268/3360 (8%) | 172/1680 (10.2%) | 96/1680 (5.7%) | 268/1680 (16%) | 268/816 (32.8%) | 172/816 (21.1%) / 96/816 (11.8%) | home>20%<br>home>25%<br>home>30% |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 266/3360 (7.9%) | 171/1680 (10.2%) | 95/1680 (5.7%) | 266/1680 (15.8%) | 266/816 (32.6%) | 171/816 (21%) / 95/816 (11.6%) | home>20%<br>home>25%<br>home>30% |
 | Large Bucktail Spinner<br>large_bucktail_spinner | lure | 268/3360 (8%) | 122/1680 (7.3%) | 146/1680 (8.7%) | 268/1680 (16%) | 258/792 (32.6%) | 118/792 (14.9%) / 140/792 (17.7%) | home>20%<br>home>25%<br>home>30% |
 | Pike Spinnerbait<br>pike_spinnerbait | lure | 206/3360 (6.1%) | 87/1680 (5.2%) | 119/1680 (7.1%) | 206/1680 (12.3%) | 142/440 (32.3%) | 69/440 (15.7%) / 73/440 (16.6%) | home>20%<br>home>25%<br>home>30% |
 | Weedless Spoon<br>weedless_spoon | lure | 115/3360 (3.4%) | 51/1680 (3%) | 64/1680 (3.8%) | 115/1680 (6.8%) | 115/360 (31.9%) | 51/360 (14.2%) / 64/360 (17.8%) | home>20%<br>home>25%<br>home>30% |
@@ -830,7 +839,7 @@ None.
 | Paddle Tail Pike Jig<br>pike_jig_and_plastic | lure | 211/3360 (6.3%) | 113/1680 (6.7%) | 98/1680 (5.8%) | 211/1680 (12.6%) | 209/800 (26.1%) | 113/800 (14.1%) / 96/800 (12%) | home>20%<br>home>25% |
 | Inline Spinner<br>inline_spinner | lure | 151/3360 (4.5%) | 109/1680 (6.5%) | 42/1680 (2.5%) | 151/1680 (9%) | 131/528 (24.8%) | 98/528 (18.6%) / 33/528 (6.3%) | home>20% |
 | Baitfish Slider Fly<br>baitfish_slider_fly | fly | 143/3360 (4.3%) | 78/1680 (4.6%) | 65/1680 (3.9%) | 143/1680 (8.5%) | 139/592 (23.5%) | 76/592 (12.8%) / 63/592 (10.6%) | home>20% |
-| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 177/3360 (5.3%) | 99/1680 (5.9%) | 78/1680 (4.6%) | 177/1680 (10.5%) | 177/816 (21.7%) | 99/816 (12.1%) / 78/816 (9.6%) | home>20% |
+| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 179/3360 (5.3%) | 100/1680 (6%) | 79/1680 (4.7%) | 179/1680 (10.7%) | 179/816 (21.9%) | 100/816 (12.3%) / 79/816 (9.7%) | home>20% |
 | Popper Fly<br>popper_fly | fly | 18/3360 (0.5%) | 10/1680 (0.6%) | 8/1680 (0.5%) | 18/1680 (1.1%) | 18/84 (21.4%) | 10/84 (11.9%) / 8/84 (9.5%) | home>20% |
 | Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 23/3360 (0.7%) | 14/1680 (0.8%) | 9/1680 (0.5%) | 23/1680 (1.4%) | 23/108 (21.3%) | 14/108 (13%) / 9/108 (8.3%) | home>20% |
 
@@ -841,12 +850,12 @@ Average expanded finalist pool size: 3.40.
 Minimum pre-expansion selected-tier pool size: 1.
 Minimum expanded finalist pool size: 1.
 Rows/slots with selected-tier pool size 1: 1229.
-Rows/slots with expanded finalist pool size 1: 500.
-Selected-tier singleton slots expanded above 1: 729.
+Rows/slots with expanded finalist pool size 1: 501.
+Selected-tier singleton slots expanded above 1: 728.
 
 | Side/slot | Avg selected-tier | Avg expanded | Min selected-tier | Min expanded | Selected-tier singletons | Expanded singletons |
 | --- | --- | --- | --- | --- | --- | --- |
-| fly/honorable | 2.10 | 3.53 | 1 | 1 | 348 | 97 |
+| fly/honorable | 2.10 | 3.53 | 1 | 1 | 348 | 98 |
 | fly/top | 2.14 | 3.62 | 1 | 1 | 322 | 121 |
 | lure/honorable | 2.52 | 3.24 | 1 | 1 | 274 | 123 |
 | lure/top | 2.53 | 3.21 | 1 | 1 | 285 | 159 |
@@ -859,14 +868,14 @@ Selected-tier singleton slots expanded above 1: 729.
 
 | Expanded finalist tiers included | Slots |
 | --- | --- |
-| goal_or_priority_condition | 2530 |
+| goal_or_priority_condition | 2529 |
 | goal_and_priority_condition | 2299 |
 | credible_fallback | 129 |
 
 | Expanded singleton cause | Slots |
 | --- | --- |
 | hard_gated_scarcity | 275 |
-| family_diversity_scarcity | 215 |
+| family_diversity_scarcity | 216 |
 | surface_safety_scarcity | 10 |
 
 Representative expanded singleton finalist pools:
@@ -949,10 +958,10 @@ None.
 
 ## Surface Safety Expansion Check
 
-| Surface gate | Slots checked | Surface finalist IDs |
-| --- | --- | --- |
-| closed | 2928 | 0 |
-| caution | 96 | 0 |
+| Surface gate | Slots checked | Selected surface picks | Surface finalist IDs |
+| --- | --- | --- | --- |
+| closed | 2928 | 0 | 0 |
+| caution | 96 | 0 | 0 |
 
 ## Tag Load And Stack Risk
 
@@ -997,7 +1006,7 @@ None.
 | --- | --- | --- | --- | --- | --- |
 | Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 7 | 226/840 | 213/792 | goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant |
 | Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 8 | 23/108 | 23/108 | goal_tags>1<br>home-window share>20% |
-| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 6 | 177/840 | 177/816 | home-window share>20% |
+| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 6 | 179/840 | 179/816 | home-window share>20% |
 | Baitfish Slider Fly<br>baitfish_slider_fly | fly | 9 | 143/624 | 139/592 | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20% |
 | Clouser Minnow<br>clouser_minnow | fly | 7 | 24/108 | 7/32 | goal_tags>1 |
 | Deceiver<br>deceiver | fly | 7 | 160/840 | 155/792 | clear+stained+dirty clarity |
@@ -1005,7 +1014,7 @@ None.
 | Foam Gurgler<br>foam_gurgler_fly | fly | 9 | 2/12 | 2/12 | clear+stained+dirty clarity<br>goal_tags>1 |
 | Frog Fly<br>frog_fly | fly | 9 | 12/96 | 12/72 | clear+stained+dirty clarity<br>goal_tags>1<br>surface+calm+low_light+big_fish+high_risk |
 | Game Changer<br>game_changer | fly | 7 | 231/840 | 213/792 | clear+stained+dirty clarity<br>goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 8 | 268/840 | 268/816 | combined all-slot share>25%<br>broad per-slot share>20%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 8 | 266/840 | 266/816 | combined all-slot share>25%<br>broad per-slot share>20%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
 | Pike Flash Fly<br>pike_flash_fly | fly | 8 | 203/540 | 200/532 | clear+stained+dirty clarity<br>goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>broad per-slot share>20%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
 | Popper Fly<br>popper_fly | fly | 8 | 18/108 | 18/84 | goal_tags>1<br>home-window share>20% |
 | Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 7 | 111/840 | 93/792 | goal_tags>1<br>reliable_action+big_fish_upside |
@@ -1027,13 +1036,13 @@ None.
 | Profile | Gear | Signals | Overall selected/rate | Home selected/rate | AP/BF | Top/HM | Common selected buckets |
 | --- | --- | --- | --- | --- | --- | --- | --- |
 | Large Bucktail Spinner<br>large_bucktail_spinner | lure | 9 | 268/840 (31.9%) | 258/792 (32.6%) | big_fish:170, all_purpose:98 | honorable:146, top:122 | wind_reaction:207, open_water_search:170, dirty_vibration:132, cold_slow:79, warming_search:47 |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 8 | 268/840 (31.9%) | 268/816 (32.8%) | big_fish:193, all_purpose:75 | top:172, honorable:96 | wind_reaction:189, open_water_search:147, dirty_vibration:131, cold_slow:110, warming_search:37 |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 8 | 266/840 (31.7%) | 266/816 (32.6%) | big_fish:193, all_purpose:73 | top:171, honorable:95 | wind_reaction:187, open_water_search:147, dirty_vibration:130, cold_slow:108, warming_search:37 |
 | Game Changer<br>game_changer | fly | 7 | 231/840 (27.5%) | 213/792 (26.9%) | big_fish:130, all_purpose:101 | honorable:122, top:109 | wind_reaction:142, open_water_search:135, dirty_vibration:93, cold_slow:61, warming_search:39 |
 | Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 7 | 226/840 (26.9%) | 213/792 (26.9%) | big_fish:140, all_purpose:86 | honorable:140, top:86 | wind_reaction:140, open_water_search:130, dirty_vibration:114, cold_slow:63, warming_search:33 |
 | Paddle Tail Pike Jig<br>pike_jig_and_plastic | lure | 8 | 211/840 (25.1%) | 209/800 (26.1%) | big_fish:107, all_purpose:104 | top:113, honorable:98 | wind_reaction:148, dirty_vibration:134, cold_slow:133, open_water_search:108, warming_search:22 |
 | Pike Spinnerbait<br>pike_spinnerbait | lure | 9 | 206/732 (28.1%) | 142/440 (32.3%) | big_fish:110, all_purpose:96 | honorable:119, top:87 | wind_reaction:122, dirty_vibration:98, open_water_search:96, warming_search:46, cold_slow:41 |
 | Pike Flash Fly<br>pike_flash_fly | fly | 8 | 203/540 (37.6%) | 200/532 (37.6%) | big_fish:114, all_purpose:89 | honorable:110, top:93 | wind_reaction:149, open_water_search:111, dirty_vibration:97, warming_search:46, cold_slow:40 |
-| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 6 | 177/840 (21.1%) | 177/816 (21.7%) | big_fish:155, all_purpose:22 | top:99, honorable:78 | wind_reaction:131, dirty_vibration:98, open_water_search:97, cold_slow:47, warming_search:35 |
+| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 6 | 179/840 (21.3%) | 179/816 (21.9%) | big_fish:155, all_purpose:24 | top:100, honorable:79 | wind_reaction:133, dirty_vibration:99, open_water_search:97, cold_slow:49, warming_search:35 |
 | Large Jerkbait<br>pike_jerkbait | lure | 6 | 164/840 (19.5%) | 164/824 (19.9%) | big_fish:140, all_purpose:24 | top:84, honorable:80 | wind_reaction:135, open_water_search:118, dirty_vibration:83, cold_slow:46, warming_search:28 |
 | Deceiver<br>deceiver | fly | 7 | 160/840 (19%) | 155/792 (19.6%) | all_purpose:159, big_fish:1 | honorable:81, top:79 | wind_reaction:118, open_water_search:97, dirty_vibration:78, cold_slow:47, warming_search:28 |
 | Large Paddle-Tail Swimbait<br>large_profile_pike_swimbait | lure | 8 | 154/840 (18.3%) | 154/816 (18.9%) | big_fish:152, all_purpose:2 | honorable:80, top:74 | wind_reaction:91, open_water_search:83, dirty_vibration:61, cold_slow:47, warming_search:33 |
@@ -1062,13 +1071,13 @@ None.
 | Profile | Gear | Selected/Opp | Home selected/opp | Cause classification | Stack flags |
 | --- | --- | --- | --- | --- | --- |
 | Large Bucktail Spinner<br>large_bucktail_spinner | lure | 268/840 (31.9%) | 258/792 (32.6%) | catalog_tag_stack<br>goal_tag_pressure<br>condition_tag_stack<br>selector_direct_score_bias | goal_tags>1<br>versatile_search+big_fish_upside<br>wind+dirty+big_fish_upside<br>wind+dirty+versatile_search<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 268/840 (31.9%) | 268/816 (32.8%) | catalog_tag_stack<br>goal_tag_pressure<br>condition_tag_stack<br>selector_direct_score_bias | combined all-slot share>25%<br>broad per-slot share>20%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 266/840 (31.7%) | 266/816 (32.6%) | catalog_tag_stack<br>goal_tag_pressure<br>condition_tag_stack<br>selector_direct_score_bias | combined all-slot share>25%<br>broad per-slot share>20%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
 | Game Changer<br>game_changer | fly | 231/840 (27.5%) | 213/792 (26.9%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | clear+stained+dirty clarity<br>goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant |
 | Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 226/840 (26.9%) | 213/792 (26.9%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant |
 | Paddle Tail Pike Jig<br>pike_jig_and_plastic | lure | 211/840 (25.1%) | 209/800 (26.1%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | goal_tags>1<br>reliable_action+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant |
 | Pike Spinnerbait<br>pike_spinnerbait | lure | 206/732 (28.1%) | 142/440 (32.3%) | catalog_tag_stack<br>goal_tag_pressure<br>condition_tag_stack<br>selector_direct_score_bias | goal_tags>1<br>reliable_action+big_fish_upside<br>wind+dirty+big_fish_upside<br>wind+dirty+stained/dirty clarity<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
 | Pike Flash Fly<br>pike_flash_fly | fly | 203/540 (37.6%) | 200/532 (37.6%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | clear+stained+dirty clarity<br>goal_tags>1<br>versatile_search+big_fish_upside<br>combined all-slot share>25%<br>broad per-slot share>20%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
-| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 177/840 (21.1%) | 177/816 (21.7%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | home-window share>20% |
+| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 179/840 (21.3%) | 179/816 (21.9%) | catalog_tag_stack<br>goal_tag_pressure<br>selector_direct_score_bias | home-window share>20% |
 | Inline Spinner<br>inline_spinner | lure | 151/624 (24.2%) | 131/528 (24.8%) | catalog_tag_stack<br>condition_tag_stack<br>selector_direct_score_bias | goal_tags>1<br>home-window share>20% |
 | Baitfish Slider Fly<br>baitfish_slider_fly | fly | 143/624 (22.9%) | 139/592 (23.5%) | catalog_tag_stack<br>condition_tag_stack<br>forage_clarity_stack<br>selector_direct_score_bias | clear+stained+dirty clarity<br>open_water+warming+versatile<br>home-window share>20% |
 | Weedless Spoon<br>weedless_spoon | lure | 115/360 (31.9%) | 115/360 (31.9%) | catalog_tag_stack<br>goal_tag_pressure<br>forage_clarity_stack<br>selector_direct_score_bias | clear+stained+dirty clarity<br>goal_tags>1<br>reliable_action+big_fish_upside<br>combined all-slot share>25%<br>home-window share>20%<br>home-window share>25% overdominant<br>home-window share>30% severe |
@@ -1092,8 +1101,8 @@ None.
 | Paddle Tail Pike Jig<br>pike_jig_and_plastic | lure | forage 2: baitfish, bluegill_perch<br>clarity 2: stained, dirty<br>condition 2: cold_slow, dirty_vibration<br>goal 2: big_fish_upside, reliable_action | 800 | 209/800 (26.1%) | Inline Spinner (top), Pike Spinnerbait (honorable):26, Inline Spinner (top), Shallow Minnowbait (honorable):26, Large Bucktail Spinner (top), Pike Spinnerbait (honorable):22, Large Jerkbait (top), Large Paddle-Tail Swimbait (honorable):21 | healthy / not underused |
 | Large Pike Tube<br>large_pike_tube | lure | forage 2: baitfish, bluegill_perch<br>clarity 3: clear, stained, dirty<br>condition 3: cold_slow, current_swing, cover_ambush<br>goal 2: big_fish_upside, reliable_action | 12 | 6/12 (50%) | Paddle Tail Pike Jig (top), Large Bucktail Spinner (honorable):2, Blade Bait (top), Casting Spoon (honorable):1, Blade Bait (top), Large Bucktail Spinner (honorable):1, Large Jerkbait (top), Paddle Tail Pike Jig (honorable):1 | healthy / not underused |
 | Large Pike Topwater<br>large_pike_topwater | lure | forage 2: surface_prey, baitfish<br>clarity 2: clear, stained<br>condition 2: calm_surface, low_light_surface<br>goal 2: big_fish_upside, high_risk_high_reward | 72 | 16/72 (22.2%) | Shallow Minnowbait (top), Weedless Spoon (honorable):5, Inline Spinner (top), Pike Spinnerbait (honorable):4, Inline Spinner (top), Shallow Minnowbait (honorable):4, Pike Spinnerbait (top), Weedless Spoon (honorable):3 | healthy / not underused |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | forage 2: baitfish, bluegill_perch<br>clarity 2: stained, dirty<br>condition 3: wind_reaction, cover_ambush, cold_slow<br>goal 1: big_fish_upside | 816 | 268/816 (32.8%) | Articulated Pike Streamer (top), Articulated Baitfish Streamer (honorable):28, Articulated Pike Streamer (top), Game Changer (honorable):27, Game Changer (top), Articulated Pike Streamer (honorable):26, Baitfish Slider Fly (top), Pike Flash Fly (honorable):23 | healthy / not underused |
-| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | forage 1: baitfish<br>clarity 2: stained, dirty<br>condition 2: wind_reaction, cover_ambush<br>goal 1: big_fish_upside | 816 | 177/816 (21.7%) | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):47, Large Rabbit Strip Streamer (top), Pike Flash Fly (honorable):35, Articulated Baitfish Streamer (top), Large Rabbit Strip Streamer (honorable):32, Large Rabbit Strip Streamer (top), Game Changer (honorable):28 | healthy / not underused |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | forage 2: baitfish, bluegill_perch<br>clarity 2: stained, dirty<br>condition 3: wind_reaction, cover_ambush, cold_slow<br>goal 1: big_fish_upside | 816 | 266/816 (32.6%) | Articulated Pike Streamer (top), Articulated Baitfish Streamer (honorable):28, Articulated Pike Streamer (top), Game Changer (honorable):27, Game Changer (top), Articulated Pike Streamer (honorable):26, Baitfish Slider Fly (top), Pike Flash Fly (honorable):23 | healthy / not underused |
+| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | forage 1: baitfish<br>clarity 2: stained, dirty<br>condition 2: wind_reaction, cover_ambush<br>goal 1: big_fish_upside | 816 | 179/816 (21.9%) | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):47, Large Rabbit Strip Streamer (top), Pike Flash Fly (honorable):35, Articulated Baitfish Streamer (top), Large Rabbit Strip Streamer (honorable):32, Large Rabbit Strip Streamer (top), Game Changer (honorable):28 | healthy / not underused |
 | Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | forage 1: baitfish<br>clarity 2: stained, dirty<br>condition 2: open_water_search, runoff_streamer<br>goal 2: versatile_search, big_fish_upside | 792 | 213/792 (26.9%) | Large Rabbit Strip Streamer (top), Pike Flash Fly (honorable):35, Articulated Pike Streamer (top), Game Changer (honorable):27, Game Changer (top), Articulated Pike Streamer (honorable):26, Large Rabbit Strip Streamer (top), Game Changer (honorable):23 | healthy / not underused |
 | Bucktail Streamer<br>bucktail_baitfish_streamer | fly | forage 1: baitfish<br>clarity 2: clear, stained<br>condition 3: current_swing, open_water_search, wind_reaction<br>goal 1: versatile_search | 108 | 15/108 (13.9%) | Game Changer (top), Articulated Pike Streamer (honorable):8, Large Rabbit Strip Streamer (top), Game Changer (honorable):6, Large Rabbit Strip Streamer (top), Pike Flash Fly (honorable):6, Baitfish Slider Fly (top), Clouser Minnow (honorable):4 | healthy / not underused |
 | Deceiver<br>deceiver | fly | forage 1: baitfish<br>clarity 3: clear, stained, dirty<br>condition 2: wind_reaction, open_water_search<br>goal 1: versatile_search | 792 | 155/792 (19.6%) | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):45, Large Rabbit Strip Streamer (top), Pike Flash Fly (honorable):35, Articulated Baitfish Streamer (top), Large Rabbit Strip Streamer (honorable):31, Articulated Pike Streamer (top), Game Changer (honorable):27 | healthy / not underused |
@@ -1131,16 +1140,16 @@ Casting Spoon (casting_spoon)
 
 | Profile | Gear | Actual side share | Selected/Opp | Selected/home | Selected overall | Selected home | Home win rate | AP home | Big Fish home | Close home losses | Diagnosis | Home context split | Common home winners |
 | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- | --- |
-| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 10.5% | 177/840 | 177/816 | 177 | 177 | 21.7% | 22/396 | 155/420 | 201 | healthy | activity neutral:564, active:192, suppressed:60<br>clarity dirty:280, clear:268, stained:268<br>water freshwater_lake_pond:712, freshwater_river:104<br>bucket cold_slow_or_front:200, dirty_vibration:192, breezy_windy_stained_reaction:184 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):44, Large Rabbit Strip Streamer (honorable), Articulated Baitfish Streamer (top):26, Large Rabbit Strip Streamer (top), Rabbit-Strip Leech (honorable):26 |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 16% | 268/840 | 268/816 | 268 | 268 | 32.8% | 75/396 | 193/420 | 365 | over-dominant | activity neutral:564, active:192, suppressed:60<br>clarity dirty:280, clear:268, stained:268<br>water freshwater_lake_pond:712, freshwater_river:104<br>bucket cold_slow_or_front:200, dirty_vibration:192, breezy_windy_stained_reaction:184 | Articulated Baitfish Streamer (honorable), Articulated Pike Streamer (top):23, Baitfish Slider Fly (top), Pike Flash Fly (honorable):23, Game Changer (honorable), Articulated Pike Streamer (top):22 |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 13.5% | 226/840 | 213/792 | 226 | 213 | 26.9% | 81/396 | 132/396 | 308 | over-dominant | activity neutral:548, active:192, suppressed:52<br>clarity dirty:280, clear:256, stained:256<br>water freshwater_lake_pond:684, freshwater_river:108<br>bucket dirty_vibration:192, breezy_windy_stained_reaction:184, cold_slow_or_front:160 | Baitfish Slider Fly (top), Pike Flash Fly (honorable):22, Game Changer (honorable), Articulated Pike Streamer (top):22, Large Rabbit Strip Streamer (top), Rabbit-Strip Leech (honorable):22 |
+| Articulated Pike Streamer<br>large_articulated_pike_streamer | fly | 10.7% | 179/840 | 179/816 | 179 | 179 | 21.9% | 24/396 | 155/420 | 201 | healthy | activity neutral:564, active:192, suppressed:60<br>clarity dirty:280, clear:268, stained:268<br>water freshwater_lake_pond:712, freshwater_river:104<br>bucket cold_slow_or_front:200, dirty_vibration:192, breezy_windy_stained_reaction:184 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):44, Large Rabbit Strip Streamer (honorable), Articulated Baitfish Streamer (top):26, Large Rabbit Strip Streamer (top), Rabbit-Strip Leech (honorable):26 |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 15.8% | 266/840 | 266/816 | 266 | 266 | 32.6% | 73/396 | 193/420 | 367 | over-dominant | activity neutral:564, active:192, suppressed:60<br>clarity dirty:280, clear:268, stained:268<br>water freshwater_lake_pond:712, freshwater_river:104<br>bucket cold_slow_or_front:200, dirty_vibration:192, breezy_windy_stained_reaction:184 | Articulated Baitfish Streamer (honorable), Articulated Pike Streamer (top):23, Baitfish Slider Fly (top), Pike Flash Fly (honorable):23, Game Changer (honorable), Articulated Pike Streamer (top):22 |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 13.5% | 226/840 | 213/792 | 226 | 213 | 26.9% | 81/396 | 132/396 | 309 | over-dominant | activity neutral:548, active:192, suppressed:52<br>clarity dirty:280, clear:256, stained:256<br>water freshwater_lake_pond:684, freshwater_river:108<br>bucket dirty_vibration:192, breezy_windy_stained_reaction:184, cold_slow_or_front:160 | Baitfish Slider Fly (top), Pike Flash Fly (honorable):22, Game Changer (honorable), Articulated Pike Streamer (top):22, Large Rabbit Strip Streamer (top), Rabbit-Strip Leech (honorable):22 |
 | Deceiver<br>deceiver | fly | 9.5% | 160/840 | 155/792 | 160 | 155 | 19.6% | 154/396 | 1/396 | 390 | healthy | activity neutral:548, active:192, suppressed:52<br>clarity dirty:280, clear:256, stained:256<br>water freshwater_lake_pond:684, freshwater_river:108<br>bucket dirty_vibration:192, breezy_windy_stained_reaction:184, cold_slow_or_front:160 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):42, Large Rabbit Strip Streamer (honorable), Articulated Baitfish Streamer (top):25, Baitfish Slider Fly (top), Pike Flash Fly (honorable):22 |
 | Game Changer<br>game_changer | fly | 13.8% | 231/840 | 213/792 | 231 | 213 | 26.9% | 92/396 | 121/396 | 362 | over-dominant | activity neutral:548, active:192, suppressed:52<br>clarity dirty:280, clear:256, stained:256<br>water freshwater_lake_pond:684, freshwater_river:108<br>bucket dirty_vibration:192, breezy_windy_stained_reaction:184, cold_slow_or_front:160 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):42, Large Rabbit Strip Streamer (honorable), Articulated Baitfish Streamer (top):25, Baitfish Slider Fly (top), Pike Flash Fly (honorable):22 |
 | Rabbit-Strip Leech<br>rabbit_strip_leech | fly | 6.6% | 111/840 | 93/792 | 111 | 93 | 11.7% | 51/396 | 42/396 | 65 | healthy | activity neutral:548, active:192, suppressed:52<br>clarity dirty:280, clear:256, stained:256<br>water freshwater_lake_pond:684, freshwater_river:108<br>bucket dirty_vibration:192, breezy_windy_stained_reaction:184, cold_slow_or_front:160 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):42, Large Rabbit Strip Streamer (honorable), Articulated Baitfish Streamer (top):25, Baitfish Slider Fly (top), Pike Flash Fly (honorable):22 |
 | Baitfish Slider Fly<br>baitfish_slider_fly | fly | 8.5% | 143/624 | 139/592 | 143 | 139 | 23.5% | 139/296 | 0/296 | 248 | healthy | activity neutral:400, active:192<br>clarity dirty:208, clear:192, stained:192<br>water freshwater_lake_pond:496, freshwater_river:96<br>bucket breezy_windy_stained_reaction:128, dirty_vibration:128, stable_pleasant_medium_confidence_archive:108 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):27, Large Rabbit Strip Streamer (top), Pike Flash Fly (honorable):20, Articulated Baitfish Streamer (honorable), Articulated Pike Streamer (top):18 |
 | Unweighted Baitfish Streamer<br>unweighted_baitfish_streamer | fly | 2.7% | 45/624 | 38/592 | 45 | 38 | 6.4% | 36/296 | 2/296 | 99 | underused_home_window | activity neutral:400, active:192<br>clarity dirty:208, clear:192, stained:192<br>water freshwater_lake_pond:496, freshwater_river:96<br>bucket breezy_windy_stained_reaction:128, dirty_vibration:128, stable_pleasant_medium_confidence_archive:108 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):27, Baitfish Slider Fly (top), Pike Flash Fly (honorable):22, Large Rabbit Strip Streamer (top), Pike Flash Fly (honorable):20 |
 | Pike Flash Fly<br>pike_flash_fly | fly | 12.1% | 203/540 | 200/532 | 203 | 200 | 37.6% | 87/266 | 113/266 | 266 | over-dominant | activity neutral:364, active:168<br>clarity dirty:180, clear:176, stained:176<br>water freshwater_lake_pond:448, freshwater_river:84<br>bucket breezy_windy_stained_reaction:116, dirty_vibration:116, stable_pleasant_medium_confidence_archive:100 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):23, Large Rabbit Strip Streamer (honorable), Articulated Baitfish Streamer (top):16, Articulated Baitfish Streamer (honorable), Articulated Pike Streamer (top):14 |
-| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 1.4% | 23/108 | 23/108 | 23 | 23 | 21.3% | 0/54 | 23/54 | 23 | healthy | activity neutral:72, suppressed:36<br>clarity clear:36, dirty:36, stained:36<br>water freshwater_lake_pond:108<br>bucket cold_slow_or_front:44, breezy_windy_stained_reaction:28, dirty_vibration:28 | Large Rabbit Strip Streamer (top), Rabbit-Strip Leech (honorable):13, Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):9, Large Rabbit Strip Streamer (top), Game Changer (honorable):6 |
+| Articulated Dungeon Streamer<br>articulated_dungeon_streamer | fly | 1.4% | 23/108 | 23/108 | 23 | 23 | 21.3% | 0/54 | 23/54 | 24 | healthy | activity neutral:72, suppressed:36<br>clarity clear:36, dirty:36, stained:36<br>water freshwater_lake_pond:108<br>bucket cold_slow_or_front:44, breezy_windy_stained_reaction:28, dirty_vibration:28 | Large Rabbit Strip Streamer (top), Rabbit-Strip Leech (honorable):13, Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):9, Large Rabbit Strip Streamer (top), Game Changer (honorable):6 |
 | Bucktail Streamer<br>bucktail_baitfish_streamer | fly | 0.9% | 15/108 | 15/108 | 15 | 15 | 13.9% | 15/54 | 0/54 | 73 | healthy | activity neutral:72, active:36<br>clarity clear:36, dirty:36, stained:36<br>water freshwater_river:108<br>bucket breezy_windy_stained_reaction:32, dirty_vibration:32, warming_search:16 | Game Changer (top), Articulated Pike Streamer (honorable):6, Large Rabbit Strip Streamer (top), Game Changer (honorable):6, Pike Flash Fly (honorable), Large Rabbit Strip Streamer (top):5 |
 | Deer Hair Slider<br>deer_hair_slider | fly | 1.3% | 22/108 | 22/84 | 22 | 22 | 26.2% | 3/42 | 19/42 | 27 | healthy | activity active:48, neutral:36<br>clarity clear:28, dirty:28, stained:28<br>water freshwater_lake_pond:72, freshwater_river:12<br>bucket stable_pleasant_medium_confidence_archive:36, warming_search:20, calm_low_light_surface:12 | Frog Fly (top), Articulated Baitfish Streamer (honorable):3, Popper Fly (honorable), Game Changer (top):3, Popper Fly (top), Baitfish Slider Fly (honorable):3 |
 | Popper Fly<br>popper_fly | fly | 1.1% | 18/108 | 18/84 | 18 | 18 | 21.4% | 18/42 | 0/42 | 18 | healthy | activity active:48, neutral:36<br>clarity clear:28, dirty:28, stained:28<br>water freshwater_lake_pond:72, freshwater_river:12<br>bucket stable_pleasant_medium_confidence_archive:36, warming_search:20, calm_low_light_surface:12 | Deer Hair Slider (honorable), Articulated Pike Streamer (top):4, Deer Hair Slider (top), Large Rabbit Strip Streamer (honorable):4, Frog Fly (top), Articulated Baitfish Streamer (honorable):3 |
@@ -1188,11 +1197,11 @@ None.
 
 | Profile | Gear | Home selected/opp | Home rate | Close home losses | Home contexts | Loss causes | Common winners |
 | --- | --- | --- | --- | --- | --- | --- | --- |
-| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 268/816 | 32.8% | 365 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:80, big_fish / dirty / freshwater_lake_pond / dirty_vibration:80, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76 | goal_tags:281, selector_filtering_variety_jitter:207, daily_condition_tags:42, forage_clarity_stack:18 | Articulated Baitfish Streamer (honorable), Articulated Pike Streamer (top):23, Baitfish Slider Fly (top), Pike Flash Fly (honorable):23, Game Changer (honorable), Articulated Pike Streamer (top):22, Game Changer (top), Articulated Pike Streamer (honorable):21 |
+| Large Rabbit Strip Streamer<br>pike_bunny_streamer | fly | 266/816 | 32.6% | 367 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:80, big_fish / dirty / freshwater_lake_pond / dirty_vibration:80, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76 | goal_tags:281, selector_filtering_variety_jitter:209, daily_condition_tags:42, forage_clarity_stack:18 | Articulated Baitfish Streamer (honorable), Articulated Pike Streamer (top):23, Baitfish Slider Fly (top), Pike Flash Fly (honorable):23, Game Changer (honorable), Articulated Pike Streamer (top):22, Game Changer (top), Articulated Pike Streamer (honorable):21 |
 | Paddle Tail Pike Jig<br>pike_jig_and_plastic | lure | 209/800 | 26.1% | 128 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:80, big_fish / dirty / freshwater_lake_pond / dirty_vibration:80, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76 | goal_tags:191, daily_condition_tags:184, seasonal_baseline:99, selector_filtering_variety_jitter:83 | Inline Spinner (top), Pike Spinnerbait (honorable):21, Inline Spinner (top), Shallow Minnowbait (honorable):20, Large Bucktail Spinner (honorable), Large Jerkbait (top):20, Large Bucktail Spinner (top), Large Jerkbait (honorable):19 |
 | Large Bucktail Spinner<br>large_bucktail_spinner | lure | 258/792 | 32.6% | 410 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:80, big_fish / dirty / freshwater_lake_pond / dirty_vibration:80, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76 | goal_tags:267, selector_filtering_variety_jitter:207, forage_clarity_stack:36, daily_condition_tags:12 | Inline Spinner (top), Pike Spinnerbait (honorable):22, Inline Spinner (top), Shallow Minnowbait (honorable):22, Large Jerkbait (top), Large Paddle-Tail Swimbait (honorable):18, Paddle Tail Pike Jig (top), Large Paddle-Tail Swimbait (honorable):17 |
 | Game Changer<br>game_changer | fly | 213/792 | 26.9% | 362 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:80, big_fish / dirty / freshwater_lake_pond / dirty_vibration:80, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76 | daily_condition_tags:327, selector_filtering_variety_jitter:126, goal_tags:71, forage_clarity_stack:37 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):42, Large Rabbit Strip Streamer (honorable), Articulated Baitfish Streamer (top):25, Baitfish Slider Fly (top), Pike Flash Fly (honorable):22, Large Rabbit Strip Streamer (top), Rabbit-Strip Leech (honorable):22 |
-| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 213/792 | 26.9% | 308 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:80, big_fish / dirty / freshwater_lake_pond / dirty_vibration:80, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76 | daily_condition_tags:338, selector_filtering_variety_jitter:84, goal_tags:77, forage_clarity_stack:69 | Baitfish Slider Fly (top), Pike Flash Fly (honorable):22, Game Changer (honorable), Articulated Pike Streamer (top):22, Large Rabbit Strip Streamer (top), Rabbit-Strip Leech (honorable):22, Game Changer (top), Articulated Pike Streamer (honorable):21 |
+| Articulated Baitfish Streamer<br>articulated_baitfish_streamer | fly | 213/792 | 26.9% | 309 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:80, big_fish / dirty / freshwater_lake_pond / dirty_vibration:80, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:76 | daily_condition_tags:338, selector_filtering_variety_jitter:84, goal_tags:77, forage_clarity_stack:69 | Baitfish Slider Fly (top), Pike Flash Fly (honorable):22, Game Changer (honorable), Articulated Pike Streamer (top):22, Large Rabbit Strip Streamer (top), Rabbit-Strip Leech (honorable):22, Game Changer (top), Articulated Pike Streamer (honorable):21 |
 | Pike Flash Fly<br>pike_flash_fly | fly | 200/532 | 37.6% | 266 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:46, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:46, big_fish / dirty / freshwater_lake_pond / dirty_vibration:46, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:46 | seasonal_baseline:120, selector_filtering_variety_jitter:77, daily_condition_tags:49, forage_clarity_stack:48 | Large Rabbit Strip Streamer (top), Articulated Baitfish Streamer (honorable):23, Large Rabbit Strip Streamer (honorable), Articulated Baitfish Streamer (top):16, Articulated Baitfish Streamer (honorable), Articulated Pike Streamer (top):14, Game Changer (honorable), Articulated Pike Streamer (top):13 |
 | Pike Spinnerbait<br>pike_spinnerbait | lure | 142/440 | 32.3% | 198 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:66, big_fish / dirty / freshwater_lake_pond / dirty_vibration:66, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:62, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:62 | daily_condition_tags:132, selector_filtering_variety_jitter:81, goal_tags:74, seasonal_baseline:10 | Large Jerkbait (top), Large Paddle-Tail Swimbait (honorable):15, Large Bucktail Spinner (honorable), Large Jerkbait (top):11, Inline Spinner (top), Casting Spoon (honorable):10, Large Bucktail Spinner (top), Paddle Tail Pike Jig (honorable):10 |
 | Weedless Spoon<br>weedless_spoon | lure | 115/360 | 31.9% | 172 | all_purpose / dirty / freshwater_lake_pond / dirty_vibration:36, big_fish / dirty / freshwater_lake_pond / dirty_vibration:36, all_purpose / stained / freshwater_lake_pond / breezy_windy_stained_reaction:34, big_fish / stained / freshwater_lake_pond / breezy_windy_stained_reaction:34 | goal_tags:95, daily_condition_tags:78, selector_filtering_variety_jitter:72 | Inline Spinner (top), Pike Spinnerbait (honorable):16, Inline Spinner (top), Shallow Minnowbait (honorable):10, Large Bucktail Spinner (honorable), Large Paddle-Tail Swimbait (top):7, Large Bucktail Spinner (honorable), Casting Spoon (top):6 |
@@ -1210,13 +1219,13 @@ None.
 | calm_surface | big_fish | Large Pike Topwater [lure] (7), Articulated Pike Streamer [fly] (6), Deer Hair Slider [fly] (5), Large Paddle-Tail Swimbait [lure] (5), Large Rabbit Strip Streamer [fly] (5) | Deer Hair Slider [fly] (15), Large Pike Topwater [lure] (14), Weedless Spoon [lure] (12), Frog Fly [fly] (11), Large Paddle-Tail Swimbait [lure] (11) |
 | low_light_surface | all_purpose | Inline Spinner [lure] (6), Baitfish Slider Fly [fly] (5), Shallow Minnowbait [lure] (5), Pike Flash Fly [fly] (3), Popper Fly [fly] (3) | Shallow Minnowbait [lure] (9), Baitfish Slider Fly [fly] (8), Inline Spinner [lure] (8), Popper Fly [fly] (6), Pike Flash Fly [fly] (5) |
 | low_light_surface | big_fish | Articulated Pike Streamer [fly] (6), Large Paddle-Tail Swimbait [lure] (4), Pike Flash Fly [fly] (4), Frog Fly [fly] (3), Large Bucktail Spinner [lure] (3) | Deer Hair Slider [fly] (7), Articulated Pike Streamer [fly] (6), Large Bucktail Spinner [lure] (6), Large Paddle-Tail Swimbait [lure] (6), Large Rabbit Strip Streamer [fly] (6) |
-| wind_reaction | all_purpose | Inline Spinner [lure] (76), Deceiver [fly] (59), Baitfish Slider Fly [fly] (50), Large Bucktail Spinner [lure] (36), Large Rabbit Strip Streamer [fly] (36) | Deceiver [fly] (117), Inline Spinner [lure] (96), Baitfish Slider Fly [fly] (92), Large Bucktail Spinner [lure] (85), Casting Spoon [lure] (72) |
+| wind_reaction | all_purpose | Inline Spinner [lure] (76), Deceiver [fly] (59), Baitfish Slider Fly [fly] (50), Large Bucktail Spinner [lure] (36), Paddle Tail Pike Jig [lure] (36) | Deceiver [fly] (117), Inline Spinner [lure] (96), Baitfish Slider Fly [fly] (92), Large Bucktail Spinner [lure] (85), Casting Spoon [lure] (72) |
 | wind_reaction | big_fish | Large Rabbit Strip Streamer [fly] (83), Articulated Pike Streamer [fly] (65), Large Bucktail Spinner [lure] (60), Large Jerkbait [lure] (58), Paddle Tail Pike Jig [lure] (46) | Large Rabbit Strip Streamer [fly] (130), Large Bucktail Spinner [lure] (122), Large Jerkbait [lure] (111), Articulated Pike Streamer [fly] (109), Large Paddle-Tail Swimbait [lure] (91) |
-| dirty_vibration | all_purpose | Inline Spinner [lure] (49), Deceiver [fly] (36), Paddle Tail Pike Jig [lure] (36), Baitfish Slider Fly [fly] (31), Large Rabbit Strip Streamer [fly] (29) | Deceiver [fly] (78), Paddle Tail Pike Jig [lure] (66), Inline Spinner [lure] (63), Baitfish Slider Fly [fly] (61), Large Bucktail Spinner [lure] (53) |
+| dirty_vibration | all_purpose | Inline Spinner [lure] (49), Deceiver [fly] (36), Paddle Tail Pike Jig [lure] (36), Baitfish Slider Fly [fly] (31), Large Rabbit Strip Streamer [fly] (28) | Deceiver [fly] (78), Paddle Tail Pike Jig [lure] (66), Inline Spinner [lure] (63), Baitfish Slider Fly [fly] (61), Large Bucktail Spinner [lure] (53) |
 | dirty_vibration | big_fish | Large Rabbit Strip Streamer [fly] (59), Articulated Pike Streamer [fly] (43), Paddle Tail Pike Jig [lure] (42), Large Jerkbait [lure] (40), Large Bucktail Spinner [lure] (37) | Large Rabbit Strip Streamer [fly] (89), Large Bucktail Spinner [lure] (79), Articulated Pike Streamer [fly] (78), Large Jerkbait [lure] (71), Articulated Baitfish Streamer [fly] (69) |
 | clear_subtle | all_purpose | Inline Spinner [lure] (11), Unweighted Baitfish Streamer [fly] (10), Shallow Minnowbait [lure] (9), Blade Bait [lure] (8), Deceiver [fly] (7) | Blade Bait [lure] (16), Shallow Minnowbait [lure] (16), Unweighted Baitfish Streamer [fly] (16), Inline Spinner [lure] (15), Baitfish Slider Fly [fly] (13) |
 | clear_subtle | big_fish | Large Jerkbait [lure] (9), Large Rabbit Strip Streamer [fly] (9), Articulated Baitfish Streamer [fly] (8), Pike Glide Bait [lure] (8), Articulated Pike Streamer [fly] (7) | Game Changer [fly] (15), Large Bucktail Spinner [lure] (15), Large Paddle-Tail Swimbait [lure] (15), Large Rabbit Strip Streamer [fly] (15), Articulated Baitfish Streamer [fly] (14) |
-| cold_slow | all_purpose | Paddle Tail Pike Jig [lure] (35), Blade Bait [lure] (32), Rabbit-Strip Leech [fly] (32), Large Rabbit Strip Streamer [fly] (30), Inline Spinner [lure] (25) | Paddle Tail Pike Jig [lure] (69), Blade Bait [lure] (59), Deceiver [fly] (47), Large Rabbit Strip Streamer [fly] (44), Rabbit-Strip Leech [fly] (44) |
+| cold_slow | all_purpose | Paddle Tail Pike Jig [lure] (35), Blade Bait [lure] (32), Rabbit-Strip Leech [fly] (32), Large Rabbit Strip Streamer [fly] (29), Inline Spinner [lure] (25) | Paddle Tail Pike Jig [lure] (69), Blade Bait [lure] (59), Deceiver [fly] (47), Rabbit-Strip Leech [fly] (44), Large Rabbit Strip Streamer [fly] (42) |
 | cold_slow | big_fish | Large Rabbit Strip Streamer [fly] (53), Paddle Tail Pike Jig [lure] (47), Large Bucktail Spinner [lure] (22), Large Jerkbait [lure] (21), Large Paddle-Tail Swimbait [lure] (21) | Large Rabbit Strip Streamer [fly] (66), Paddle Tail Pike Jig [lure] (64), Large Bucktail Spinner [lure] (58), Large Paddle-Tail Swimbait [lure] (47), Articulated Pike Streamer [fly] (43) |
 | warming_search | all_purpose | Inline Spinner [lure] (29), Baitfish Slider Fly [fly] (26), Shallow Minnowbait [lure] (22), Deceiver [fly] (13), Pike Spinnerbait [lure] (9) | Inline Spinner [lure] (38), Baitfish Slider Fly [fly] (35), Shallow Minnowbait [lure] (32), Deceiver [fly] (28), Casting Spoon [lure] (22) |
 | warming_search | big_fish | Large Paddle-Tail Swimbait [lure] (19), Articulated Pike Streamer [fly] (18), Large Rabbit Strip Streamer [fly] (16), Pike Flash Fly [fly] (15), Large Bucktail Spinner [lure] (13) | Large Rabbit Strip Streamer [fly] (35), Large Paddle-Tail Swimbait [lure] (33), Articulated Pike Streamer [fly] (32), Large Bucktail Spinner [lure] (30), Pike Flash Fly [fly] (28) |

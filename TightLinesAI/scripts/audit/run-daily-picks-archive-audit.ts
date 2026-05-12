@@ -1867,7 +1867,429 @@ const PIKE_WEATHER_PLAN: readonly WeatherPlan[] = [
   },
 ] as const;
 
-type AuditSpeciesFlag = "largemouth_bass" | "smallmouth_bass" | "northern_pike";
+const TROUT_FISHERIES: readonly Fishery[] = [
+  {
+    key: "ny_upper_delaware_trout",
+    label: "Upper Delaware trout river",
+    state: "NY",
+    region_key: "northeast",
+    latitude: 41.93,
+    longitude: -75.28,
+    timezone: "America/New_York",
+    water_types: ["freshwater_river"],
+  },
+  {
+    key: "wv_elk_river_trout",
+    label: "Elk River Appalachian trout water",
+    state: "WV",
+    region_key: "appalachian",
+    latitude: 38.41,
+    longitude: -80.55,
+    timezone: "America/New_York",
+    water_types: ["freshwater_river"],
+  },
+  {
+    key: "mi_au_sable_trout",
+    label: "Au Sable / Upper Midwest trout river",
+    state: "MI",
+    region_key: "great_lakes_upper_midwest",
+    latitude: 44.66,
+    longitude: -84.71,
+    timezone: "America/Detroit",
+    water_types: ["freshwater_river"],
+  },
+  {
+    key: "mt_madison_trout",
+    label: "Madison River mountain-west trout water",
+    state: "MT",
+    region_key: "mountain_west",
+    latitude: 44.84,
+    longitude: -111.63,
+    timezone: "America/Denver",
+    water_types: ["freshwater_river"],
+  },
+  {
+    key: "wa_skagit_trout",
+    label: "Skagit River Pacific Northwest trout water",
+    state: "WA",
+    region_key: "pacific_northwest",
+    latitude: 48.52,
+    longitude: -121.77,
+    timezone: "America/Los_Angeles",
+    water_types: ["freshwater_river"],
+  },
+  {
+    key: "ca_lower_sac_trout",
+    label: "Lower Sacramento northern California trout tailwater",
+    state: "CA",
+    region_key: "northern_california",
+    latitude: 40.58,
+    longitude: -122.38,
+    timezone: "America/Los_Angeles",
+    water_types: ["freshwater_river"],
+  },
+  {
+    key: "ar_white_river_trout",
+    label: "White River Ozark trout tailwater",
+    state: "AR",
+    region_key: "south_central",
+    latitude: 36.31,
+    longitude: -92.54,
+    timezone: "America/Chicago",
+    water_types: ["freshwater_river"],
+  },
+] as const;
+
+const TROUT_WEATHER_PLAN: readonly WeatherPlan[] = [
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-01-16",
+    water_type: "freshwater_river",
+    intended_buckets: ["winter_sanity", "cold_slow", "current_swing"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-01-18",
+    water_type: "freshwater_river",
+    intended_buckets: ["winter_sanity", "cold_slow", "clear_subtle"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-02-11",
+    water_type: "freshwater_river",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+  {
+    fishery_key: "wv_elk_river_trout",
+    date: "2025-02-20",
+    water_type: "freshwater_river",
+    intended_buckets: ["winter_sanity", "cold_slow", "current_swing"],
+  },
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-03-18",
+    water_type: "freshwater_river",
+    intended_buckets: ["warming_search", "current_swing"],
+  },
+  {
+    fishery_key: "wv_elk_river_trout",
+    date: "2025-03-26",
+    water_type: "freshwater_river",
+    intended_buckets: ["warming_search", "river_elevated_current"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-03-30",
+    water_type: "freshwater_river",
+    intended_buckets: ["clear_subtle", "warming_search"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-03-28",
+    water_type: "freshwater_river",
+    intended_buckets: ["warming_search", "cold_slow"],
+  },
+  {
+    fishery_key: "wv_elk_river_trout",
+    date: "2025-04-04",
+    water_type: "freshwater_river",
+    intended_buckets: ["runoff_streamer", "river_elevated_current"],
+  },
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-04-12",
+    water_type: "freshwater_river",
+    intended_buckets: ["current_swing", "dirty_vibration"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-04-17",
+    water_type: "freshwater_river",
+    intended_buckets: ["clear_subtle", "cold_slow"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-04-24",
+    water_type: "freshwater_river",
+    intended_buckets: ["warming_search", "current_swing"],
+  },
+  {
+    fishery_key: "ca_lower_sac_trout",
+    date: "2025-04-27",
+    water_type: "freshwater_river",
+    intended_buckets: ["clear_subtle", "current_swing"],
+  },
+  {
+    fishery_key: "mt_madison_trout",
+    date: "2025-05-06",
+    water_type: "freshwater_river",
+    intended_buckets: ["runoff_streamer", "current_swing"],
+  },
+  {
+    fishery_key: "wa_skagit_trout",
+    date: "2025-05-08",
+    water_type: "freshwater_river",
+    intended_buckets: ["runoff_streamer", "river_elevated_current"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-05-15",
+    water_type: "freshwater_river",
+    intended_buckets: ["clear_subtle", "stable_pleasant"],
+  },
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-05-18",
+    water_type: "freshwater_river",
+    intended_buckets: ["stable_pleasant", "current_swing"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-05-23",
+    water_type: "freshwater_river",
+    intended_buckets: ["warming_search", "current_swing"],
+  },
+  {
+    fishery_key: "ca_lower_sac_trout",
+    date: "2025-05-23",
+    water_type: "freshwater_river",
+    intended_buckets: ["stable_pleasant", "current_swing"],
+  },
+  {
+    fishery_key: "mt_madison_trout",
+    date: "2025-06-07",
+    water_type: "freshwater_river",
+    intended_buckets: ["runoff_streamer", "current_swing"],
+  },
+  {
+    fishery_key: "wa_skagit_trout",
+    date: "2025-06-14",
+    water_type: "freshwater_river",
+    intended_buckets: ["runoff_streamer", "dirty_vibration"],
+  },
+  {
+    fishery_key: "wv_elk_river_trout",
+    date: "2025-06-17",
+    water_type: "freshwater_river",
+    intended_buckets: ["dirty_vibration", "river_elevated_current"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-06-21",
+    water_type: "freshwater_river",
+    intended_buckets: ["stable_pleasant", "low_light_surface"],
+  },
+  {
+    fishery_key: "ca_lower_sac_trout",
+    date: "2025-06-22",
+    water_type: "freshwater_river",
+    intended_buckets: ["clear_subtle", "current_swing"],
+  },
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-06-28",
+    water_type: "freshwater_river",
+    intended_buckets: ["heat_finesse", "current_swing"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-07-12",
+    water_type: "freshwater_river",
+    intended_buckets: ["low_light_surface", "surface_opportunity"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-07-16",
+    water_type: "freshwater_river",
+    intended_buckets: ["clear_subtle", "calm_surface"],
+  },
+  {
+    fishery_key: "mt_madison_trout",
+    date: "2025-07-19",
+    water_type: "freshwater_river",
+    intended_buckets: ["low_light_surface", "current_swing"],
+  },
+  {
+    fishery_key: "ca_lower_sac_trout",
+    date: "2025-07-24",
+    water_type: "freshwater_river",
+    intended_buckets: ["heat_finesse", "clear_subtle"],
+  },
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-07-28",
+    water_type: "freshwater_river",
+    intended_buckets: ["heat_limited", "heat_finesse"],
+  },
+  {
+    fishery_key: "wa_skagit_trout",
+    date: "2025-08-02",
+    water_type: "freshwater_river",
+    intended_buckets: ["surface_opportunity", "current_swing"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-08-12",
+    water_type: "freshwater_river",
+    intended_buckets: ["heat_finesse", "clear_subtle"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-08-14",
+    water_type: "freshwater_river",
+    intended_buckets: ["clear_subtle", "surface_opportunity"],
+  },
+  {
+    fishery_key: "ca_lower_sac_trout",
+    date: "2025-08-16",
+    water_type: "freshwater_river",
+    intended_buckets: ["heat_finesse", "current_swing"],
+  },
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-08-21",
+    water_type: "freshwater_river",
+    intended_buckets: ["heat_limited", "current_swing"],
+  },
+  {
+    fishery_key: "mt_madison_trout",
+    date: "2025-08-23",
+    water_type: "freshwater_river",
+    intended_buckets: ["low_light_surface", "clear_subtle"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-09-13",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_reaction", "current_swing"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-09-20",
+    water_type: "freshwater_river",
+    intended_buckets: ["low_light_surface", "adjacent_pair_similar"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-09-21",
+    water_type: "freshwater_river",
+    intended_buckets: ["adjacent_pair_similar", "current_swing"],
+  },
+  {
+    fishery_key: "mt_madison_trout",
+    date: "2025-09-27",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_reaction", "current_swing"],
+  },
+  {
+    fishery_key: "wa_skagit_trout",
+    date: "2025-09-29",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_current", "river_current"],
+  },
+  {
+    fishery_key: "ca_lower_sac_trout",
+    date: "2025-09-15",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_reaction", "clear_subtle"],
+  },
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-09-18",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_reaction", "current_swing"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-10-04",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_current", "clear_subtle"],
+  },
+  {
+    fishery_key: "mt_madison_trout",
+    date: "2025-10-05",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_reaction", "cold_slow"],
+  },
+  {
+    fishery_key: "wa_skagit_trout",
+    date: "2025-10-12",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_current", "river_elevated_current"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-10-19",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_reaction", "adjacent_pair_change"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-10-20",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_reaction", "adjacent_pair_change"],
+  },
+  {
+    fishery_key: "ca_lower_sac_trout",
+    date: "2025-10-25",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_reaction", "current_swing"],
+  },
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-10-14",
+    water_type: "freshwater_river",
+    intended_buckets: ["fall_reaction", "clear_subtle"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-11-08",
+    water_type: "freshwater_river",
+    intended_buckets: ["late_fall", "cold_slow"],
+  },
+  {
+    fishery_key: "mt_madison_trout",
+    date: "2025-11-11",
+    water_type: "freshwater_river",
+    intended_buckets: ["late_fall", "current_swing"],
+  },
+  {
+    fishery_key: "wa_skagit_trout",
+    date: "2025-11-15",
+    water_type: "freshwater_river",
+    intended_buckets: ["late_fall", "runoff_streamer"],
+  },
+  {
+    fishery_key: "ca_lower_sac_trout",
+    date: "2025-11-08",
+    water_type: "freshwater_river",
+    intended_buckets: ["late_fall", "clear_subtle"],
+  },
+  {
+    fishery_key: "ar_white_river_trout",
+    date: "2025-12-12",
+    water_type: "freshwater_river",
+    intended_buckets: ["winter_sanity", "cold_slow", "current_swing"],
+  },
+  {
+    fishery_key: "ny_upper_delaware_trout",
+    date: "2025-12-12",
+    water_type: "freshwater_river",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+  {
+    fishery_key: "mi_au_sable_trout",
+    date: "2025-12-12",
+    water_type: "freshwater_river",
+    intended_buckets: ["winter_sanity", "cold_slow"],
+  },
+] as const;
+
+type AuditSpeciesFlag =
+  | "largemouth_bass"
+  | "smallmouth_bass"
+  | "northern_pike"
+  | "trout";
 
 const AUDIT_CONFIGS: Record<
   AuditSpeciesFlag,
@@ -1896,6 +2318,14 @@ const AUDIT_CONFIGS: Record<
     seed_prefix: "pike_archive_audit_v1",
     fisheries: PIKE_FISHERIES,
     weather_plan: PIKE_WEATHER_PLAN,
+  },
+  trout: {
+    species: "river_trout",
+    output_key: "trout",
+    title_label: "Trout",
+    seed_prefix: "trout_archive_audit_v1",
+    fisheries: TROUT_FISHERIES,
+    weather_plan: TROUT_WEATHER_PLAN,
   },
 };
 
@@ -1947,10 +2377,10 @@ function parseSpeciesConfig(args: readonly string[]): SpeciesAuditConfig {
   const raw = argValue(args, "--species") ?? "largemouth_bass";
   if (
     raw !== "largemouth_bass" && raw !== "smallmouth_bass" &&
-    raw !== "northern_pike"
+    raw !== "northern_pike" && raw !== "trout"
   ) {
     throw new Error(
-      "Expected --species to be largemouth_bass, smallmouth_bass, or northern_pike.",
+      "Expected --species to be largemouth_bass, smallmouth_bass, northern_pike, or trout.",
     );
   }
   return AUDIT_CONFIGS[raw];
@@ -5835,6 +6265,18 @@ ${noReasonLines.length === 1 ? "None." : table(noReasonLines)}`;
 }
 
 function guideVerdictSummary(rows: readonly AuditRow[]): string {
+  const exactCounts = new Map<GuideVerdict, number>();
+  for (const row of rows) {
+    for (const pick of row.guide_verdict?.pick_verdicts ?? []) {
+      exactCounts.set(pick.verdict, (exactCounts.get(pick.verdict) ?? 0) + 1);
+    }
+  }
+  const exact = table([
+    ["Exact pick verdict", "Pick count"],
+    ...(["likely_miss", "watch", "acceptable_fit", "strong_fit"] as const)
+      .map((verdict) => [verdict, String(exactCounts.get(verdict) ?? 0)]),
+  ]);
+
   const lines = [[
     "Verdict",
     "Goal",
@@ -5876,7 +6318,11 @@ function guideVerdictSummary(rows: readonly AuditRow[]): string {
       String(count),
     ]);
   }
-  return lines.length === 1 ? "None." : table(lines);
+  return `${exact}
+
+### Bucketed Pick Verdict Counts
+
+${lines.length === 1 ? "None." : table(lines)}`;
 }
 
 function recalibratedAllPurposeRiskSummary(rows: readonly AuditRow[]): string {
@@ -6005,7 +6451,22 @@ function topStrongHits(rows: readonly AuditRow[]): string {
   return table(lines);
 }
 
-function conditionSatisfactionRates(rows: readonly AuditRow[]): string {
+function troutDirtyCurrentSatisfied(pick: PickSnapshot): boolean {
+  return pickHasTag(pick, "dirty_vibration") ||
+    pickHasTag(pick, "wind_reaction") ||
+    pickHasTag(pick, "runoff_streamer") ||
+    pickHasTag(pick, "current_swing") ||
+    pickHasTag(pick, "open_water_search") ||
+    pick.score_reasons.some((reason) =>
+      reason.startsWith("clarity_strength:dirty:") ||
+      reason.startsWith("clarity_strength:stained:")
+    );
+}
+
+function conditionSatisfactionRates(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
   const lines = [["Signal", "Opportunities", "Satisfied", "Rate"]];
   const rate = (satisfied: number, opportunities: number): string =>
     opportunities === 0
@@ -6030,6 +6491,28 @@ function conditionSatisfactionRates(rows: readonly AuditRow[]): string {
       String(picks.length),
       String(satisfied),
       rate(satisfied, picks.length),
+    ]);
+  }
+  if (config.output_key === "trout") {
+    const dirtyCurrentPicks = rows
+      .filter((row) =>
+        row.daily_scenario_summary.condition_tags.includes(
+          "dirty_vibration",
+        ) ||
+        row.daily_scenario_summary.condition_tags.includes(
+          "runoff_streamer",
+        ) ||
+        row.daily_scenario_summary.condition_tags.includes("current_swing")
+      )
+      .flatMap((row) => row.selected_picks);
+    const dirtyCurrentSatisfied = dirtyCurrentPicks.filter(
+      troutDirtyCurrentSatisfied,
+    ).length;
+    lines.push([
+      "Trout dirty/runoff/current fit",
+      String(dirtyCurrentPicks.length),
+      String(dirtyCurrentSatisfied),
+      rate(dirtyCurrentSatisfied, dirtyCurrentPicks.length),
     ]);
   }
   const bigFishPicks = rows
@@ -6850,12 +7333,45 @@ function finalistPoolDiagnostics(rows: readonly AuditRow[]): string {
 
 function surfaceSafetyExpansionCheck(rows: readonly AuditRow[]): string {
   let closedSlots = 0;
+  let closedSelectedPicks = 0;
   let closedSurfaceFinalists = 0;
   let cautionSlots = 0;
+  let cautionSelectedPicks = 0;
   let cautionSurfaceFinalists = 0;
+  const closedSelectedExamples: string[] = [];
+  const cautionSelectedExamples: string[] = [];
   const closedExamples: string[] = [];
   const cautionExamples: string[] = [];
   for (const row of rows) {
+    const selectedSurface = row.selected_picks.filter((pick) =>
+      pick.is_surface
+    );
+    if (row.daily_scenario_summary.surface_gate === "closed") {
+      closedSelectedPicks += selectedSurface.length;
+      if (
+        selectedSurface.length > 0 &&
+        closedSelectedExamples.length < 10
+      ) {
+        closedSelectedExamples.push(
+          `- ${row.scenario_id}: ${
+            selectedSurface.map((pick) => `${pick.slot}:${pick.id}`).join(", ")
+          }`,
+        );
+      }
+    }
+    if (row.daily_scenario_summary.surface_gate === "caution") {
+      cautionSelectedPicks += selectedSurface.length;
+      if (
+        selectedSurface.length > 0 &&
+        cautionSelectedExamples.length < 10
+      ) {
+        cautionSelectedExamples.push(
+          `- ${row.scenario_id}: ${
+            selectedSurface.map((pick) => `${pick.slot}:${pick.id}`).join(", ")
+          }`,
+        );
+      }
+    }
     for (const pool of row.finalist_pool_diagnostics) {
       const candidatesById = new Map(
         sideCandidates(row, pool.side).map((candidate) => [
@@ -6893,16 +7409,45 @@ function surfaceSafetyExpansionCheck(rows: readonly AuditRow[]): string {
 
   const lines = [
     table([
-      ["Surface gate", "Slots checked", "Surface finalist IDs"],
-      ["closed", String(closedSlots), String(closedSurfaceFinalists)],
-      ["caution", String(cautionSlots), String(cautionSurfaceFinalists)],
+      [
+        "Surface gate",
+        "Slots checked",
+        "Selected surface picks",
+        "Surface finalist IDs",
+      ],
+      [
+        "closed",
+        String(closedSlots),
+        String(closedSelectedPicks),
+        String(closedSurfaceFinalists),
+      ],
+      [
+        "caution",
+        String(cautionSlots),
+        String(cautionSelectedPicks),
+        String(cautionSurfaceFinalists),
+      ],
     ]),
   ];
+  if (closedSelectedExamples.length > 0) {
+    lines.push(
+      "",
+      "Closed-gate selected surface examples:",
+      closedSelectedExamples.join("\n"),
+    );
+  }
   if (closedExamples.length > 0) {
     lines.push(
       "",
       "Closed-gate surface finalist examples:",
       closedExamples.join("\n"),
+    );
+  }
+  if (cautionSelectedExamples.length > 0) {
+    lines.push(
+      "",
+      "Caution-gate selected surface examples:",
+      cautionSelectedExamples.join("\n"),
     );
   }
   if (cautionExamples.length > 0) {
@@ -7200,6 +7745,38 @@ const STAPLE_REVIEW_IDS: Partial<Record<SpeciesGroup, readonly string[]>> = {
     "bucktail_baitfish_streamer",
     "deceiver",
     "pike_flash_fly",
+  ],
+  river_trout: [
+    "ned_rig",
+    "hair_jig",
+    "inline_spinner",
+    "casting_spoon",
+    "blade_bait",
+    "suspending_jerkbait",
+    "soft_jerkbait",
+    "small_floating_trout_plug",
+    "woolly_bugger",
+    "rabbit_strip_leech",
+    "jighead_marabou_leech",
+    "lead_eye_leech",
+    "feather_jig_leech",
+    "sculpin_streamer",
+    "sculpzilla",
+    "muddler_sculpin",
+    "crawfish_streamer",
+    "clouser_minnow",
+    "bucktail_baitfish_streamer",
+    "slim_minnow_streamer",
+    "articulated_baitfish_streamer",
+    "articulated_dungeon_streamer",
+    "game_changer",
+    "conehead_streamer",
+    "zonker_streamer",
+    "unweighted_baitfish_streamer",
+    "baitfish_slider_fly",
+    "popper_fly",
+    "deer_hair_slider",
+    "mouse_fly",
   ],
 };
 
@@ -8053,6 +8630,38 @@ const SIGNATURE_PROFILES: Record<
     { id: "frog_fly", side: "fly" },
     { id: "pike_flash_fly", side: "fly" },
   ],
+  river_trout: [
+    { id: "ned_rig", side: "lure" },
+    { id: "hair_jig", side: "lure" },
+    { id: "inline_spinner", side: "lure" },
+    { id: "casting_spoon", side: "lure" },
+    { id: "blade_bait", side: "lure" },
+    { id: "suspending_jerkbait", side: "lure" },
+    { id: "soft_jerkbait", side: "lure" },
+    { id: "small_floating_trout_plug", side: "lure" },
+    { id: "woolly_bugger", side: "fly" },
+    { id: "rabbit_strip_leech", side: "fly" },
+    { id: "jighead_marabou_leech", side: "fly" },
+    { id: "lead_eye_leech", side: "fly" },
+    { id: "feather_jig_leech", side: "fly" },
+    { id: "sculpin_streamer", side: "fly" },
+    { id: "sculpzilla", side: "fly" },
+    { id: "muddler_sculpin", side: "fly", label: "Muddler Minnow" },
+    { id: "crawfish_streamer", side: "fly" },
+    { id: "clouser_minnow", side: "fly" },
+    { id: "bucktail_baitfish_streamer", side: "fly" },
+    { id: "slim_minnow_streamer", side: "fly" },
+    { id: "articulated_baitfish_streamer", side: "fly" },
+    { id: "articulated_dungeon_streamer", side: "fly" },
+    { id: "game_changer", side: "fly" },
+    { id: "conehead_streamer", side: "fly" },
+    { id: "zonker_streamer", side: "fly" },
+    { id: "unweighted_baitfish_streamer", side: "fly" },
+    { id: "baitfish_slider_fly", side: "fly" },
+    { id: "popper_fly", side: "fly" },
+    { id: "deer_hair_slider", side: "fly" },
+    { id: "mouse_fly", side: "fly" },
+  ],
 };
 
 function rowHasTag(row: AuditRow, tag: ConditionTag): boolean {
@@ -8173,6 +8782,50 @@ function isPikeClearControlledHome(row: AuditRow): boolean {
   return isClearOrStained(row) &&
     rowHasAnyTag(row, ["clear_subtle", "cold_slow", "warming_search"]) &&
     !rowHasTag(row, "dirty_vibration");
+}
+
+function isTroutRunoffStreamerHome(row: AuditRow): boolean {
+  return row.water_type === "freshwater_river" &&
+    (rowHasTag(row, "runoff_streamer") ||
+      (row.condition_buckets.includes("river_elevated_runoff_current") &&
+        row.water_clarity !== "clear"));
+}
+
+function isTroutCurrentHome(row: AuditRow): boolean {
+  return row.water_type === "freshwater_river" &&
+    (rowHasTag(row, "current_swing") ||
+      row.condition_buckets.includes("river_elevated_runoff_current"));
+}
+
+function isTroutClearControlHome(row: AuditRow): boolean {
+  return isClearOrStained(row) &&
+    isLowToModerateWind(row) &&
+    !rowHasTag(row, "dirty_vibration") &&
+    (rowHasAnyTag(row, ["clear_subtle", "cold_slow", "heat_finesse"]) ||
+      row.condition_buckets.includes("cold_slow_or_front"));
+}
+
+function isTroutBaitfishSearchHome(row: AuditRow): boolean {
+  return rowHasAnyTag(row, [
+    "warming_search",
+    "open_water_search",
+    "wind_reaction",
+  ]) && !rowHasTag(row, "heat_finesse");
+}
+
+function isTroutSurfaceHome(row: AuditRow): boolean {
+  return row.water_type === "freshwater_river" &&
+    row.daily_scenario_summary.surface_gate === "open" &&
+    row.month >= 6 && row.month <= 9 &&
+    rowHasAnyTag(row, ["low_light_surface", "calm_surface"]) &&
+    !rowHasTag(row, "cold_slow");
+}
+
+function isTroutBigFishStreamerHome(row: AuditRow): boolean {
+  return row.recommendation_goal === "big_fish" &&
+    (isTroutRunoffStreamerHome(row) || isTroutCurrentHome(row) ||
+      rowHasAnyTag(row, ["low_light_surface", "warming_search"]) ||
+      (row.month >= 9 && row.month <= 11));
 }
 
 function classifySignatureWindow(
@@ -8302,6 +8955,95 @@ function classifySignatureWindow(
     ) {
       if (pikeSearch || pikeReaction || pikeRiver) return "home_window";
       if (isClearOrStained(row) || pikeCold) return "secondary_window";
+      return "poor_window";
+    }
+  }
+
+  if (config.species === "river_trout") {
+    const troutSurface = isTroutSurfaceHome(row);
+    const troutRunoff = isTroutRunoffStreamerHome(row);
+    const troutCurrent = isTroutCurrentHome(row);
+    const troutClearControl = isTroutClearControlHome(row);
+    const troutBaitfishSearch = isTroutBaitfishSearchHome(row);
+    const troutBigFishStreamer = isTroutBigFishStreamerHome(row);
+
+    if (
+      id === "small_floating_trout_plug" || id === "popper_fly" ||
+      id === "deer_hair_slider" || id === "mouse_fly"
+    ) {
+      if (troutSurface) return "home_window";
+      if (
+        row.daily_scenario_summary.surface_gate === "open" &&
+        row.month >= 6 && row.month <= 9
+      ) return "secondary_window";
+      return "poor_window";
+    }
+
+    if (
+      id === "ned_rig" || id === "hair_jig" || id === "blade_bait" ||
+      id === "lead_eye_leech" || id === "jighead_marabou_leech" ||
+      id === "muddler_sculpin" || id === "sculpin_streamer" ||
+      id === "crawfish_streamer"
+    ) {
+      if (
+        troutClearControl || troutCurrent ||
+        (rowHasAnyTag(row, ["cold_slow", "heat_finesse"]) &&
+          isBottomSlow(candidate))
+      ) return "home_window";
+      if (isClearOrStained(row) || troutCurrent) return "secondary_window";
+      return "poor_window";
+    }
+
+    if (
+      id === "woolly_bugger" || id === "rabbit_strip_leech" ||
+      id === "feather_jig_leech"
+    ) {
+      if (
+        troutClearControl || troutCurrent ||
+        rowHasAnyTag(row, ["cold_slow", "warming_search"])
+      ) return "home_window";
+      if (isClearOrStained(row) || row.water_clarity === "dirty") {
+        return "secondary_window";
+      }
+      return "poor_window";
+    }
+
+    if (
+      id === "articulated_baitfish_streamer" ||
+      id === "articulated_dungeon_streamer" ||
+      id === "sculpzilla" || id === "game_changer" ||
+      id === "conehead_streamer" || id === "zonker_streamer"
+    ) {
+      if (troutRunoff || troutBigFishStreamer || troutBaitfishSearch) {
+        return "home_window";
+      }
+      if (troutCurrent || isClearOrStained(row)) return "secondary_window";
+      return "poor_window";
+    }
+
+    if (
+      id === "clouser_minnow" || id === "bucktail_baitfish_streamer" ||
+      id === "slim_minnow_streamer" ||
+      id === "unweighted_baitfish_streamer" ||
+      id === "baitfish_slider_fly"
+    ) {
+      if (troutCurrent || troutBaitfishSearch || troutRunoff) {
+        return "home_window";
+      }
+      if (isClearOrStained(row)) return "secondary_window";
+      return "poor_window";
+    }
+
+    if (
+      id === "inline_spinner" || id === "casting_spoon" ||
+      id === "suspending_jerkbait" || id === "soft_jerkbait"
+    ) {
+      if (
+        (troutCurrent || troutBaitfishSearch ||
+          rowHasTag(row, "wind_reaction")) &&
+        !rowHasTag(row, "heat_finesse")
+      ) return "home_window";
+      if (isClearOrStained(row) || troutCurrent) return "secondary_window";
       return "poor_window";
     }
   }
@@ -9581,7 +10323,7 @@ ${topStrongHits(rows)}
 
 ## Condition Satisfaction Rates
 
-${conditionSatisfactionRates(rows)}
+${conditionSatisfactionRates(config, rows)}
 
 ## Most-Selected Lures/Flies
 
