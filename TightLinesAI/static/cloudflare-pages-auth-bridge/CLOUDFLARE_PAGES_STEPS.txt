@@ -1,0 +1,43 @@
+FinFindr auth email bridge — Cloudflare Pages (Option 1)
+========================================================
+
+What’s in this folder
+----------------------
+Only the static site Cloudflare will host. Upload the folder
+`cloudflare-pages-auth-bridge` (this directory), not the whole repo.
+
+The live URL will be:
+  https://<your-pages-host>/auth/confirm/
+or, after you add a custom domain:
+  https://<your-domain>/auth/confirm/
+
+Steps
+-----
+1) Log in to dash.cloudflare.com → Workers & Pages → Create → Pages → “Upload assets”.
+
+2) Name the project (e.g. finfindr-auth).
+
+3) Upload: create a ZIP of THIS folder’s contents (auth/ + optional files), or drag the
+   folder itself if the UI allows. Required structure:
+     auth/confirm/index.html
+
+4) Deploy. Note your *.pages.dev URL; open:
+     https://<name>.pages.dev/auth/confirm/
+   You should see “Opening FinFindr…” (no error page).
+
+5) Custom domain: Pages project → Custom domains → Add → enter your domain
+   (e.g. finfindr.app). Follow Cloudflare DNS prompts (often automatic if DNS is on Cloudflare).
+
+6) Final redirect URL (pick ONE and use it everywhere):
+     https://YOURDOMAIN/auth/confirm/
+   Open it in Safari to confirm it loads.
+
+7) Supabase → Authentication → URL Configuration → Redirect URLs:
+   Add exactly:
+     https://YOURDOMAIN/auth/confirm/
+   (same string as in .env)
+
+8) In TightLinesAI/.env:
+     EXPO_PUBLIC_AUTH_EMAIL_REDIRECT=https://YOURDOMAIN/auth/confirm/
+
+9) Restart Metro / rebuild the app. Resend verification email or sign up again.

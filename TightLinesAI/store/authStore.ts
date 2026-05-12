@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import type { Session, User } from '../lib/supabase';
 import type { UserProfile, OnboardingPrefs } from '../lib/types';
+import { isRefreshTokenRevokedError } from '../lib/authSessionErrors';
 import { supabase } from '../lib/supabase';
 import { useEnvStore } from './envStore';
 
@@ -71,10 +72,24 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         .single();
 
       if (error || !data) {
-        set({ profile: null, isOnboarded: false });
+        const current = get().profile;
+        // Don’t clobber a completed profile on transient failures (slow network,
+        // token-refresh racing the onboarding upsert, RLS blips). Only a successful
+        // select above replaces state; PGRST116 with no local row still clears below.
+        if (current?.id === userId && current.onboarding_complete) {
+          return;
+        }
+        if (
+          error?.code === 'PGRST116' ||
+          (typeof error?.message === 'string' &&
+            /0 rows|single.*not found/i.test(error.message))
+        ) {
+          set({ profile: null, isOnboarded: false });
+        }
         return;
       }
 
+      if (get().user?.id !== userId) return;
       set({
         profile: data as UserProfile,
         isOnboarded: (data as UserProfile).onboarding_complete,
@@ -85,7 +100,14 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   },
 
   signOut: async () => {
-    await supabase.auth.signOut();
+    try {
+      const { error } = await supabase.auth.signOut();
+      if (error) {
+        await supabase.auth.signOut({ scope: 'local' });
+      }
+    } catch {
+      await supabase.auth.signOut({ scope: 'local' });
+    }
     useEnvStore.getState().clear();
     set({
       session: null,
@@ -102,7 +124,15 @@ export const useAuthStore = create<AuthState>((set, get) => ({
     try {
       const {
         data: { session },
+        error: sessionError,
       } = await supabase.auth.getSession();
+
+      if (sessionError && isRefreshTokenRevokedError(sessionError)) {
+        await supabase.auth.signOut({ scope: 'local' });
+        supabase.functions.setAuth('');
+        set({ session: null, user: null, profile: null, isOnboarded: false });
+        return;
+      }
 
       if (session?.user) {
         supabase.functions.setAuth(session.access_token);
@@ -112,8 +142,11 @@ export const useAuthStore = create<AuthState>((set, get) => ({
         supabase.functions.setAuth('');
         set({ session: null, user: null, profile: null, isOnboarded: false });
       }
-    } catch {
+    } catch (e) {
       supabase.functions.setAuth('');
+      if (isRefreshTokenRevokedError(e)) {
+        await supabase.auth.signOut({ scope: 'local' });
+      }
       set({ session: null, user: null, profile: null, isOnboarded: false });
     } finally {
       set({ isLoading: false });

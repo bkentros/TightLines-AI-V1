@@ -7,7 +7,7 @@
  *   - error alerts, session storage, and profile fetch unchanged
  */
 
-import { useState } from 'react';
+import { useState, useRef, useCallback } from 'react';
 import {
   View,
   StyleSheet,
@@ -21,14 +21,17 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
-import * as Crypto from 'expo-crypto';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
   paperSpacing,
 } from '../../lib/theme';
-import { signInWithEmail, signInWithApple } from '../../lib/auth';
+import {
+  signInWithEmail,
+  signInWithApple,
+  reportAppleSignInFailureIfStillSignedOut,
+} from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
 import {
   AuthBackButton,
@@ -48,6 +51,7 @@ export default function SignInScreen() {
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const appleSignInInFlight = useRef(false);
 
   const handleSignIn = async () => {
     const trimmedEmail = email.trim().toLowerCase();
@@ -73,46 +77,51 @@ export default function SignInScreen() {
     }
   };
 
-  const handleAppleSignIn = async () => {
+  const handleAppleSignIn = useCallback(async () => {
+    if (appleSignInInFlight.current) return;
+    appleSignInInFlight.current = true;
     try {
-      const nonce = Crypto.randomUUID();
-      const hashedNonce = await Crypto.digestStringAsync(
-        Crypto.CryptoDigestAlgorithm.SHA256,
-        nonce,
-      );
+      try {
+        // Lazy-load so email-only flows (e.g. magic link) don't require the
+        // ExpoCrypto native module until Apple Sign-In is used.
+        const Crypto = await import('expo-crypto');
+        const nonce = Crypto.randomUUID();
+        const hashedNonce = await Crypto.digestStringAsync(
+          Crypto.CryptoDigestAlgorithm.SHA256,
+          nonce,
+        );
 
-      const credential = await AppleAuthentication.signInAsync({
-        requestedScopes: [
-          AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
-          AppleAuthentication.AppleAuthenticationScope.EMAIL,
-        ],
-        nonce: hashedNonce,
-      });
+        const credential = await AppleAuthentication.signInAsync({
+          requestedScopes: [
+            AppleAuthentication.AppleAuthenticationScope.FULL_NAME,
+            AppleAuthentication.AppleAuthenticationScope.EMAIL,
+          ],
+          nonce: hashedNonce,
+        });
 
-      if (!credential.identityToken) {
-        throw new Error('No identity token');
+        if (!credential.identityToken) {
+          throw new Error('No identity token');
+        }
+
+        const { data, error } = await signInWithApple(
+          credential.identityToken,
+          nonce,
+        );
+
+        if (error) throw error;
+        if (data.session) {
+          setSession(data.session);
+          await fetchProfile(data.session.user.id);
+        }
+      } catch (err: unknown) {
+        await reportAppleSignInFailureIfStillSignedOut(err, () => {
+          Alert.alert('Apple Sign-In Failed', 'Please try again.');
+        });
       }
-
-      const { data, error } = await signInWithApple(
-        credential.identityToken,
-        nonce,
-      );
-
-      if (error) throw error;
-      if (data.session) {
-        setSession(data.session);
-        await fetchProfile(data.session.user.id);
-      }
-    } catch (err: unknown) {
-      if (
-        err instanceof Error &&
-        err.message.includes('ERR_REQUEST_CANCELED')
-      ) {
-        return;
-      }
-      Alert.alert('Apple Sign-In Failed', 'Please try again.');
+    } finally {
+      appleSignInInFlight.current = false;
     }
-  };
+  }, [fetchProfile, setSession]);
 
   return (
     <View style={styles.root}>

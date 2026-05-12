@@ -1,6 +1,7 @@
 import 'react-native-url-polyfill/auto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
+import { isRefreshTokenRevokedError } from './authSessionErrors';
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
@@ -17,6 +18,9 @@ export const supabase = createClient(supabaseUrl, supabaseAnonKey, {
     autoRefreshToken: true,
     persistSession: true,
     detectSessionInUrl: false,
+    // PKCE puts `?code=` on the email redirect URL; hash tokens are often stripped
+    // by browsers/proxies before your https bridge loads (shows fallback with no tail).
+    flowType: 'pkce',
   },
 });
 
@@ -112,7 +116,22 @@ export async function getValidAccessToken(): Promise<string> {
     }
     // Near-expiry — refresh and update the store
     const { data: refreshed, error } = await supabase.auth.refreshSession();
-    if (!error && refreshed.session) {
+    if (error) {
+      if (isRefreshTokenRevokedError(error)) {
+        await supabase.auth.signOut({ scope: 'local' });
+        const { useEnvStore } = require('../store/envStore');
+        useEnvStore.getState().clear();
+        useAuthStore.setState({
+          session: null,
+          user: null,
+          profile: null,
+          isOnboarded: false,
+          isProfileLoading: false,
+          onboardingPrefs: {},
+        });
+        throw new Error('Not signed in. Please sign in to continue.');
+      }
+    } else if (refreshed?.session) {
       useAuthStore.getState().setSession(refreshed.session);
       return refreshed.session.access_token;
     }
@@ -140,6 +159,20 @@ export async function getValidAccessToken(): Promise<string> {
   if (expiresAt - nowSec < 60) {
     const { data: refreshed, error } = await supabase.auth.refreshSession();
     if (error || !refreshed.session) {
+      if (error && isRefreshTokenRevokedError(error)) {
+        await supabase.auth.signOut({ scope: 'local' });
+        const { useEnvStore } = require('../store/envStore');
+        useEnvStore.getState().clear();
+        useAuthStore.setState({
+          session: null,
+          user: null,
+          profile: null,
+          isOnboarded: false,
+          isProfileLoading: false,
+          onboardingPrefs: {},
+        });
+        throw new Error('Not signed in. Please sign in to continue.');
+      }
       throw new Error('Session expired. Please sign out and sign back in.');
     }
     useAuthStore.getState().setSession(refreshed.session);

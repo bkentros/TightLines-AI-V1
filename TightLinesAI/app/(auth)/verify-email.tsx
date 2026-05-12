@@ -3,8 +3,8 @@
  *
  * Behavior preserved exactly:
  *   - 60-second resend cooldown
- *   - deep-link redirect target (`tightlinesai://auth/confirm`) untouched
- *     so existing email templates still open the app correctly
+ *   - email redirect URL from `getAuthEmailRedirectUrl()` (https bridge recommended;
+ *     see `lib/authEmailRedirect.ts` + `static/email-auth-redirect.html`)
  *   - back button still signs the user out before routing to sign-in
  */
 
@@ -18,6 +18,7 @@ import {
   paperFonts,
   paperSpacing,
 } from '../../lib/theme';
+import { getAuthEmailRedirectUrl } from '../../lib/authEmailRedirect';
 import { supabase } from '../../lib/supabase';
 import { useAuthStore } from '../../store/authStore';
 import {
@@ -66,7 +67,7 @@ export default function VerifyEmailScreen() {
       const { error } = await supabase.auth.resend({
         type: 'signup',
         email: emailToShow,
-        options: { emailRedirectTo: 'tightlinesai://auth/confirm' },
+        options: { emailRedirectTo: getAuthEmailRedirectUrl() },
       });
       if (error) {
         Alert.alert('Could not resend', error.message);

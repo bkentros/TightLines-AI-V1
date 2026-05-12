@@ -14,8 +14,10 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.finseekr.tightlinesai",
-      "buildNumber": "1",
+      "buildNumber": "3",
       "infoPlist": {
+        "CFBundleDisplayName": "FinFindr",
+        "CFBundleName": "FinFindr",
         "ITSAppUsesNonExemptEncryption": false,
         "UIDesignRequiresCompatibility": true,
         "NSLocalNetworkUsageDescription": "FinFindr connects to the Metro dev server on your Mac over Wi‑Fi while you develop.",
@@ -69,10 +71,9 @@
       "expo-apple-authentication",
       "expo-local-authentication",
       "expo-asset",
-      "expo-font",
-      "expo-image"
+      "expo-font"
     ],
-    "scheme": "tightlinesai",
+    "scheme": "finfindr",
     "extra": {
       "eas": {
         "projectId": "fbe2fc29-e0ac-49f0-a755-5a7c5f233d31"

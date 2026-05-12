@@ -1,6 +1,6 @@
-import { useEffect, useRef } from 'react';
-import { Animated, Easing, View, Text, StyleSheet } from 'react-native';
-import { Stack, useRouter, useSegments } from 'expo-router';
+import { useEffect, useRef, useState } from 'react';
+import { Animated, Easing, LogBox, View, Text, StyleSheet } from 'react-native';
+import { Stack, usePathname, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as Linking from 'expo-linking';
 import { useFonts } from 'expo-font';
@@ -38,28 +38,104 @@ import {
 } from '@expo-google-fonts/jetbrains-mono';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
+import { useEnvStore } from '../store/envStore';
 import { useBiometricLock } from '../hooks/useBiometricLock';
 import { paper, paperFonts } from '../lib/theme';
+
+if (__DEV__) {
+  LogBox.ignoreLogs([
+    'AuthApiError: Invalid Refresh Token: Refresh Token Not Found',
+    'Invalid Refresh Token: Refresh Token Not Found',
+  ]);
+}
+
+/** expo-linking query values can be string | string[] */
+function linkingParam(v: string | string[] | undefined): string | undefined {
+  if (v == null) return undefined;
+  return Array.isArray(v) ? v[0] : v;
+}
+
+const ONBOARDING_STEP_SEGMENTS = new Set([
+  'step-1-welcome',
+  'step-2-preferences',
+  'step-3-location',
+]);
+
+const AUTH_ROUTE_SEGMENTS = new Set([
+  'welcome',
+  'sign-in',
+  'sign-up',
+  'verify-email',
+  'forgot-password',
+  'reset-password',
+]);
+
+function pathParts(pathname: string): string[] {
+  return pathname.replace(/^\/+/, '').split('/').filter(Boolean);
+}
+
+/**
+ * Expo Router often omits `(onboarding)` / `(auth)` from `useSegments()`.
+ * Also consult the pathname so guards match real screens.
+ */
+function routeContextFlags(pathname: string, segments: string[]) {
+  const parts = new Set([...segments, ...pathParts(pathname)]);
+  const inOnboarding =
+    segments[0] === '(onboarding)' ||
+    [...parts].some((s) => ONBOARDING_STEP_SEGMENTS.has(s));
+  const inAuth =
+    segments[0] === '(auth)' ||
+    [...parts].some((s) => AUTH_ROUTE_SEGMENTS.has(s));
+  const inAuthEmailConfirm =
+    (segments[0] === 'auth' && segments[1] === 'confirm') ||
+    (parts.has('auth') && parts.has('confirm')) ||
+    pathname.includes('auth/confirm');
+  return { inAuth, inOnboarding, inAuthEmailConfirm };
+}
 
 /**
  * Determines where the user should be based on auth + onboarding state.
  * Called after every auth change and on initial hydration.
  */
-function useProtectedRoute() {
+function useProtectedRoute(passwordRecoveryInFlight: boolean) {
   const router = useRouter();
   const segments = useSegments();
+  const pathname = usePathname();
   const { session, isOnboarded, isLoading, isProfileLoading } = useAuthStore();
 
   useEffect(() => {
-    // Wait for both initial hydration AND profile fetch to complete
-    if (isLoading || isProfileLoading) return;
+    if (isLoading) return;
 
-    const inAuth = segments[0] === '(auth)';
-    const inOnboarding = segments[0] === '(onboarding)';
+    const { inAuth, inOnboarding, inAuthEmailConfirm } = routeContextFlags(
+      pathname,
+      segments as string[],
+    );
     const inResetPassword = segments.includes('reset-password');
 
+    // Email PKCE: redirect as soon as `exchangeCodeForSession` sets session.
+    // Do not wait for `fetchProfile` — that query can hang on bad networks and
+    // `isProfileLoading` would block this effect forever (spinner on auth/confirm).
+    if (inAuthEmailConfirm && session && !passwordRecoveryInFlight) {
+      if (!isOnboarded) {
+        router.replace('/(onboarding)/step-1-welcome');
+      } else {
+        router.replace('/(tabs)');
+      }
+      return;
+    }
+
+    // Onboarding just wrote onboarding_complete — leave the stack even if a
+    // background `fetchProfile` from email sign-in is still in flight (same
+    // isProfileLoading deadlock as auth/confirm).
+    if (session && isOnboarded && inOnboarding) {
+      router.replace('/(tabs)');
+      return;
+    }
+
+    if (isProfileLoading) return;
+
     if (!session) {
-      if (!inAuth) router.replace('/(auth)/welcome');
+      if (!inAuth && !inAuthEmailConfirm) router.replace('/(auth)/welcome');
       return;
     }
 
@@ -74,12 +150,22 @@ function useProtectedRoute() {
     if (inAuth || inOnboarding) {
       router.replace('/(tabs)');
     }
-  }, [session, isOnboarded, isLoading, isProfileLoading, segments, router]);
+  }, [
+    session,
+    isOnboarded,
+    isLoading,
+    isProfileLoading,
+    segments,
+    pathname,
+    router,
+    passwordRecoveryInFlight,
+  ]);
 }
 
 export default function RootLayout() {
   const router = useRouter();
   const { hydrate, setSession, setProfile, fetchProfile } = useAuthStore();
+  const [passwordRecoveryInFlight, setPasswordRecoveryInFlight] = useState(false);
 
   const [fontsLoaded] = useFonts({
     ...Ionicons.font,
@@ -138,8 +224,8 @@ export default function RootLayout() {
       }
       const params = { ...queryParams, ...fragmentParams };
 
-      const accessToken = params['access_token'] as string | undefined;
-      const refreshToken = params['refresh_token'] as string | undefined;
+      const accessToken = linkingParam(params['access_token'] as string | string[] | undefined);
+      const refreshToken = linkingParam(params['refresh_token'] as string | string[] | undefined);
       if (accessToken && refreshToken) {
         const { data, error } = await supabase.auth.setSession({
           access_token: accessToken,
@@ -147,13 +233,37 @@ export default function RootLayout() {
         });
         if (!error && data.session) {
           setSession(data.session);
-          await fetchProfile(data.session.user.id);
+          void fetchProfile(data.session.user.id);
         }
         return;
       }
 
-      const tokenHash = (params['token_hash'] ?? params['token']) as string | undefined;
-      const type = params['type'] as string | undefined;
+      const type = linkingParam(params['type'] as string | string[] | undefined);
+      const isRecoveryLink = type === 'recovery';
+
+      if (isRecoveryLink) {
+        setPasswordRecoveryInFlight(true);
+      }
+
+      const authCode = linkingParam(params['code'] as string | string[] | undefined);
+      if (authCode) {
+        const { data, error } = await supabase.auth.exchangeCodeForSession(authCode);
+        if (__DEV__ && error) {
+          console.warn('[deep link] exchangeCodeForSession failed', error.message);
+        }
+        if (!error && data.session) {
+          setSession(data.session);
+          void fetchProfile(data.session.user.id);
+          if (isRecoveryLink) {
+            router.replace('/(auth)/reset-password');
+          }
+        }
+        return;
+      }
+
+      const tokenHash = linkingParam(
+        (params['token_hash'] ?? params['token']) as string | string[] | undefined,
+      );
       if (tokenHash && type) {
         const otpType = type === 'signup' ? 'signup' : type as 'email' | 'recovery' | 'invite';
         const { data, error } = await supabase.auth.verifyOtp({
@@ -162,7 +272,7 @@ export default function RootLayout() {
         });
         if (!error && data.session) {
           setSession(data.session);
-          await fetchProfile(data.session.user.id);
+          void fetchProfile(data.session.user.id);
 
           if (type === 'recovery') {
             router.replace('/(auth)/reset-password');
@@ -183,11 +293,22 @@ export default function RootLayout() {
   // Listen for auth state changes (sign in, sign out, token refresh)
   useEffect(() => {
     const { data: listener } = supabase.auth.onAuthStateChange(
-      async (event, session) => {
+      (event, session) => {
         // Ignore SIGNED_IN events for unconfirmed email signups —
         // Supabase fires SIGNED_IN immediately after signUp even before
         // the user clicks the verification link. We only want to act on
         // a real confirmed sign-in.
+        if (event === 'PASSWORD_RECOVERY' && session?.user) {
+          setPasswordRecoveryInFlight(true);
+          supabase.functions.setAuth(session.access_token);
+          setSession(session);
+          setTimeout(() => {
+            void fetchProfile(session.user.id);
+          }, 0);
+          router.replace('/(auth)/reset-password');
+          return;
+        }
+
         if (
           event === 'SIGNED_IN' &&
           session?.user &&
@@ -206,12 +327,21 @@ export default function RootLayout() {
           supabase.functions.setAuth('');
         }
 
+        if (event === 'SIGNED_OUT') {
+          setPasswordRecoveryInFlight(false);
+        }
+
         setSession(session);
 
         if (session?.user) {
-          await fetchProfile(session.user.id);
+          setTimeout(() => {
+            void fetchProfile(session.user.id);
+          }, 0);
         } else {
           setProfile(null);
+          if (event === 'SIGNED_OUT') {
+            useEnvStore.getState().clear();
+          }
         }
       },
     );
@@ -219,9 +349,9 @@ export default function RootLayout() {
     return () => {
       listener.subscription.unsubscribe();
     };
-  }, [setSession, setProfile, fetchProfile]);
+  }, [router, setSession, setProfile, fetchProfile]);
 
-  useProtectedRoute();
+  useProtectedRoute(passwordRecoveryInFlight);
   useBiometricLock();
 
   if (!fontsLoaded) {
@@ -251,6 +381,7 @@ export default function RootLayout() {
         }}
       >
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+        <Stack.Screen name="auth" options={{ headerShown: false }} />
         <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="water-reader" options={{ headerShown: false }} />

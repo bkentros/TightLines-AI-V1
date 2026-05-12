@@ -1,24 +1,10 @@
 /**
- * Onboarding Step 2 — Preferences.
- *
- * Visual migration into the FinFindr paper system. Behavior is unchanged
- * from the prior implementation:
- *   • Username uniqueness check (debounced, 400ms) against `profiles`.
- *   • Display-name suggestion from Apple/email metadata on mount.
- *   • Fishing-mode toggle, target-species multi-select, units toggle.
- *   • Location auto-fill via `expo-location` + reverse geocode → state +
- *     city, with the same alerts on permission denial / failure.
- *   • Final validation guards (length, charset, taken-username, missing
- *     home state) and final pre-commit username re-check.
- *   • `setOnboardingPrefs(...)` then push to `/(onboarding)/step-3-location`.
- *
- * Visual structure mirrors step 1: paper nav header (BACK + STEP 2/3),
- * editorial eyebrow, big Fraunces title, italic subhead, and a sequence
- * of "section" blocks (eyebrow label + paper inputs/chip pills/picker).
- * The same submit-CTA chrome is used as the Welcome screen.
+ * Onboarding Step 2 — Username + home water only.
+ * Username format validates on-device (instant). Uniqueness is enforced by one
+ * `upsert` on Finish — no Supabase round trip while typing.
  */
 
-import { useState, useCallback, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -35,17 +21,12 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import {
-  paper,
-  paperFonts,
-  paperSpacing,
-} from '../../lib/theme';
-import {
-  PaperNavHeader,} from '../../components/paper';
+import { paper, paperFonts, paperSpacing } from '../../lib/theme';
+import { PaperNavHeader } from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
-import type { FishingMode } from '../../lib/types';
 import { supabase } from '../../lib/supabase';
+import type { UserProfile } from '../../lib/types';
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -55,24 +36,23 @@ const US_STATES = [
   'SD','TN','TX','UT','VT','VA','WA','WV','WI','WY',
 ];
 
-const SPECIES_LIST = [
-  'Bass',
-  'Trout',
-  'Salmon',
-  'Redfish (Red Drum)',
-  'Snook',
-  'Tarpon',
-  'Walleye',
-  'Pike / Muskie',
-  'Tuna',
-  'Mahi-Mahi',
-];
+const PROFILE_SAVE_DEADLINE_MS = 35_000;
+const SESSION_LOOKUP_DEADLINE_MS = 5_000;
 
-const FISHING_MODES: { value: FishingMode; label: string; icon: keyof typeof Ionicons.glyphMap }[] = [
-  { value: 'conventional', label: 'Conventional', icon: 'fish-outline' },
-  { value: 'fly', label: 'Fly Fishing', icon: 'leaf-outline' },
-  { value: 'both', label: 'Both', icon: 'options-outline' },
-];
+function withDeadline<T>(factory: () => PromiseLike<T>, ms: number): Promise<T> {
+  return new Promise((resolve, reject) => {
+    const t = setTimeout(() => reject(new Error('deadline')), ms);
+    Promise.resolve(factory())
+      .then((v) => {
+        clearTimeout(t);
+        resolve(v);
+      })
+      .catch((e) => {
+        clearTimeout(t);
+        reject(e);
+      });
+  });
+}
 
 const STATE_NAME_TO_ABBR: Record<string, string> = {
   Alabama: 'AL', Alaska: 'AK', Arizona: 'AZ', Arkansas: 'AR', California: 'CA',
@@ -91,22 +71,15 @@ const STATE_NAME_TO_ABBR: Record<string, string> = {
 
 export default function OnboardingStep2() {
   const router = useRouter();
-  const { setOnboardingPrefs, user } = useAuthStore();
+  const { session, user, setProfile, clearOnboardingPrefs } = useAuthStore();
 
   const [username, setUsername] = useState('');
-  const [displayName, setDisplayName] = useState('');
-  const [fishingMode, setFishingMode] = useState<FishingMode>('both');
-  const [selectedSpecies, setSelectedSpecies] = useState<string[]>([]);
   const [homeState, setHomeState] = useState('');
   const [homeCity, setHomeCity] = useState('');
   const [showStateList, setShowStateList] = useState(false);
-  const [checkingUsername, setCheckingUsername] = useState(false);
-  const [usernameAvailable, setUsernameAvailable] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(false);
-  const [units, setUnits] = useState<'imperial' | 'metric'>('imperial');
   const [locationLoading, setLocationLoading] = useState(false);
 
-  // Pre-fill a username suggestion from the Apple/email display name.
   useEffect(() => {
     if (!user) return;
     const name = user.user_metadata?.full_name ?? user.user_metadata?.name ?? '';
@@ -119,50 +92,10 @@ export default function OnboardingStep2() {
         .slice(0, 30);
       if (suggested.length >= 3) {
         setUsername(suggested);
-        checkUsernameValue(suggested);
       }
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [user]);
-
-  const debounceTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
-
-  const checkUsernameValue = useCallback(async (value: string) => {
-    const trimmed = value.trim().toLowerCase();
-    if (trimmed.length < 3) {
-      setUsernameAvailable(null);
-      return;
-    }
-    setCheckingUsername(true);
-    try {
-      const { data } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('username', trimmed)
-        .maybeSingle();
-      setUsernameAvailable(data === null);
-    } finally {
-      setCheckingUsername(false);
-    }
-  }, []);
-
-  const handleUsernameChange = (value: string) => {
-    setUsername(value);
-    setUsernameAvailable(null);
-    if (debounceTimer.current) clearTimeout(debounceTimer.current);
-    debounceTimer.current = setTimeout(() => {
-      checkUsernameValue(value);
-    }, 400);
-  };
-
-  const toggleSpecies = (species: string) => {
-    hapticSelection();
-    setSelectedSpecies((prev) =>
-      prev.includes(species)
-        ? prev.filter((s) => s !== species)
-        : [...prev, species],
-    );
-  };
 
   const buildHomeRegion = () => {
     if (homeCity.trim() && homeState) return `${homeCity.trim()}, ${homeState}`;
@@ -177,11 +110,13 @@ export default function OnboardingStep2() {
       if (status !== 'granted') {
         Alert.alert(
           'Location permission needed',
-          'Allow location access to fill in your home water region, or enter it manually below.',
+          'Allow location to fill your state and city, or enter them manually.',
         );
         return;
       }
-      const loc = await Location.getCurrentPositionAsync({ accuracy: Location.Accuracy.Balanced });
+      const loc = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
       const [geo] = await Location.reverseGeocodeAsync({
         latitude: loc.coords.latitude,
         longitude: loc.coords.longitude,
@@ -194,7 +129,10 @@ export default function OnboardingStep2() {
         if (geo.city) setHomeCity(geo.city);
       }
     } catch {
-      Alert.alert('Could not find your location', 'Please enter your home water region manually.');
+      Alert.alert(
+        'Could not find your location',
+        'Please enter your home state and city manually.',
+      );
     } finally {
       setLocationLoading(false);
     }
@@ -207,15 +145,11 @@ export default function OnboardingStep2() {
       return;
     }
     if (!/^[a-z0-9_]+$/.test(trimmedUsername)) {
-      Alert.alert('Invalid username', 'Username may only contain letters, numbers, and underscores.');
-      return;
-    }
-    if (usernameAvailable === false) {
-      Alert.alert('Username taken', 'Please choose a different username.');
+      Alert.alert('Invalid username', 'Use letters, numbers, and underscores only.');
       return;
     }
     if (!homeState) {
-      Alert.alert('Home state required', 'Please select your home state.');
+      Alert.alert('Home state required', 'Select the state where you fish most.');
       return;
     }
 
@@ -223,54 +157,108 @@ export default function OnboardingStep2() {
     setLoading(true);
     try {
       if (!user) throw new Error('No authenticated user');
-      const { data: existing } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('username', trimmedUsername)
-        .maybeSingle();
 
-      if (existing) {
-        Alert.alert('Username taken', 'Please choose a different username.');
+      const activeSession =
+        session ??
+        (await withDeadline(
+          () => supabase.auth.getSession().then(({ data }) => data.session),
+          SESSION_LOOKUP_DEADLINE_MS,
+        ));
+      if (!activeSession) {
+        Alert.alert(
+          'Session expired',
+          'Sign in again from the welcome screen, then finish setup.',
+        );
         return;
       }
+      if (activeSession.user.id !== user.id) {
+        throw new Error('Signed-in user changed. Please sign in again.');
+      }
 
-      setOnboardingPrefs({
+      const profileData = {
+        id: user.id,
         username: trimmedUsername,
-        display_name: displayName.trim(),
-        fishing_mode: fishingMode,
-        target_species: selectedSpecies,
-        home_region: buildHomeRegion(),
-        home_state: homeState,
-        home_city: homeCity.trim(),
-        preferred_units: units,
-      });
+        display_name: null,
+        home_region: buildHomeRegion() || null,
+        home_state: homeState || null,
+        home_city: homeCity.trim() || null,
+        fishing_mode: 'both' as const,
+        target_species: [] as string[],
+        preferred_units: 'imperial' as const,
+        subscription_tier: 'free' as const,
+        onboarding_complete: true,
+      };
 
-      router.push('/(onboarding)/step-3-location');
+      const { data, error } = await withDeadline(
+        () =>
+          supabase
+            .from('profiles')
+            .upsert(profileData, { onConflict: 'id' })
+            .select()
+            .single(),
+        PROFILE_SAVE_DEADLINE_MS,
+      );
+
+      if (error) {
+        if (error.code === '23505') {
+          const hint = `${error.message ?? ''} ${(error as { details?: string }).details ?? ''}`;
+          const usernameUniqueViolation =
+            /username/i.test(hint) || /profiles_username/i.test(hint);
+          Alert.alert(
+            usernameUniqueViolation ? 'Username taken' : 'Could not save profile',
+            usernameUniqueViolation
+              ? 'That username is already in use. Pick another and tap Finish again.'
+              : 'Please try again in a moment.',
+          );
+          return;
+        }
+        throw error;
+      }
+
+      if (!data) {
+        throw new Error('No profile row returned after save');
+      }
+
+      clearOnboardingPrefs();
+      setProfile(data as UserProfile);
+      setLoading(false);
+      router.replace('/(tabs)');
+      return;
     } catch (err) {
-      Alert.alert('Something went wrong', 'Please try again.');
+      if (err instanceof Error && err.message === 'deadline') {
+        Alert.alert(
+          'Could not reach FinFindr',
+          'Saving your profile timed out. Check Wi‑Fi or cell data and tap Finish again.',
+        );
+        console.error('[onboarding] profile save deadline');
+        return;
+      }
+      const msg =
+        err && typeof err === 'object' && 'message' in err && typeof (err as Error).message === 'string'
+          ? (err as Error).message.slice(0, 200)
+          : 'Please try again.';
+      Alert.alert('Could not finish setup', msg);
       console.error(err);
     } finally {
       setLoading(false);
     }
   };
 
-  const usernameStatus = (() => {
-    const trimmed = username.trim();
-    if (trimmed.length < 3) return null;
-    if (checkingUsername) return 'checking';
-    if (usernameAvailable === true) return 'available';
-    if (usernameAvailable === false) return 'taken';
-    return null;
-  })();
+  const trimmedUsernamePreview = username.trim().toLowerCase();
+  const usernameFieldOk =
+    trimmedUsernamePreview.length >= 3 &&
+    /^[a-z0-9_]+$/.test(trimmedUsernamePreview);
+  const usernameFieldInvalidChars =
+    trimmedUsernamePreview.length > 0 && !/^[a-z0-9_]*$/.test(trimmedUsernamePreview);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.flex}>
         <PaperNavHeader
           eyebrow="FINFINDR · ONBOARDING"
-          title="PREFERENCES"
+          title="YOUR PROFILE"
           onBack={() => router.back()}
-          right={<StepPill step={2} total={3} />}
+          right={<StepPill step={2} total={2} />}
         />
         <KeyboardAvoidingView
           style={styles.flex}
@@ -282,25 +270,30 @@ export default function OnboardingStep2() {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View style={styles.eyebrowRow}><Text style={styles.pageEyebrow}>A FEW QUESTIONS</Text></View>
+            <View style={styles.eyebrowRow}>
+              <Text style={styles.pageEyebrow}>USERNAME & HOME WATER</Text>
+            </View>
 
-            <Text style={styles.heroTitle}>Your preferences.</Text>
+            <Text style={styles.heroTitle}>Almost fishing.</Text>
             <Text style={styles.heroLede}>
-              These basics help shape your first fishing read.
+              Pick a public username and where you usually fish — that&apos;s all we need
+              to personalize your read.
             </Text>
 
-            {/* Username */}
-            <Section label="USERNAME" hint="Public on your profile.">
+            <Section
+              label="USERNAME"
+              hint="3–30 characters, letters, numbers, underscores. Uniqueness is checked when you finish."
+            >
               <View style={styles.usernameRow}>
                 <TextInput
                   style={[
                     styles.input,
                     styles.usernameInput,
-                    usernameStatus === 'taken' && styles.inputError,
-                    usernameStatus === 'available' && styles.inputSuccess,
+                    usernameFieldInvalidChars && styles.inputError,
+                    usernameFieldOk && styles.inputSuccess,
                   ]}
                   value={username}
-                  onChangeText={handleUsernameChange}
+                  onChangeText={setUsername}
                   placeholder="e.g. redfish_brandon"
                   placeholderTextColor={paper.dashboardInk + '70'}
                   autoCapitalize="none"
@@ -309,99 +302,22 @@ export default function OnboardingStep2() {
                   maxLength={30}
                 />
                 <View style={styles.usernameStatusSlot}>
-                  {usernameStatus === 'checking' && (
-                    <ActivityIndicator size="small" color={paper.dashboardBlue} />
-                  )}
-                  {usernameStatus === 'available' && (
+                  {usernameFieldOk ? (
                     <Ionicons name="checkmark-circle" size={20} color={paper.dashboardBlue} />
-                  )}
-                  {usernameStatus === 'taken' && (
-                    <Ionicons name="close-circle" size={20} color={paper.dashboardBlue} />
-                  )}
+                  ) : null}
                 </View>
               </View>
-              {usernameStatus === 'taken' && (
-                <Text style={styles.errorText}>Username is already taken.</Text>
+              {usernameFieldInvalidChars && (
+                <Text style={styles.errorText}>Only letters, numbers, and underscores.</Text>
               )}
-              {usernameStatus === 'available' && (
-                <Text style={styles.successText}>Username is available!</Text>
+              {usernameFieldOk && (
+                <Text style={styles.successText}>Good format — tap Finish to claim it.</Text>
               )}
             </Section>
 
-            {/* Display name */}
-            <Section label="DISPLAY NAME" hint="Optional — what people see in feeds.">
-              <TextInput
-                style={styles.input}
-                value={displayName}
-                onChangeText={setDisplayName}
-                placeholder="e.g. Brandon K."
-                placeholderTextColor={paper.dashboardInk + '70'}
-                autoCorrect={false}
-                returnKeyType="next"
-                maxLength={50}
-              />
-            </Section>
-
-            {/* Fishing mode */}
-            <Section label="PREFERRED GEAR">
-              <View style={styles.modeRow}>
-                {FISHING_MODES.map((mode) => {
-                  const active = fishingMode === mode.value;
-                  return (
-                    <Pressable
-                      key={mode.value}
-                      style={[styles.modeBtn, active && styles.modeBtnActive]}
-                      onPress={() => {
-                        hapticSelection();
-                        setFishingMode(mode.value);
-                      }}
-                    >
-                      <Ionicons
-                        name={mode.icon}
-                        size={15}
-                        color={active ? paper.dashboardCream : paper.dashboardInk}
-                      />
-                      <Text
-                        style={[
-                          styles.modeBtnText,
-                          active && styles.modeBtnTextActive,
-                        ]}
-                      >
-                        {mode.label}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-            </Section>
-
-            {/* Target species */}
-            <Section
-              label="FAVORITE SPECIES"
-              hint="Helps tailor your first tackle picks. Skip if you fish everything."
-            >
-              <View style={styles.chipGrid}>
-                {SPECIES_LIST.map((species) => {
-                  const active = selectedSpecies.includes(species);
-                  return (
-                    <Pressable
-                      key={species}
-                      style={[styles.chip, active && styles.chipActive]}
-                      onPress={() => toggleSpecies(species)}
-                    >
-                      <Text style={[styles.chipText, active && styles.chipTextActive]}>
-                        {species}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-            </Section>
-
-            {/* Home region */}
             <View style={styles.section}>
               <View style={styles.sectionHeader}>
-                <Text style={styles.sectionLabel}>HOME WATER REGION</Text>
+                <Text style={styles.sectionLabel}>HOME WATER</Text>
                 <Pressable
                   style={({ pressed }) => [
                     styles.locAutoBtn,
@@ -421,6 +337,9 @@ export default function OnboardingStep2() {
                   </Text>
                 </Pressable>
               </View>
+              <Text style={styles.sectionHint}>
+                State is required. City helps local conditions on Home.
+              </Text>
 
               <Pressable
                 style={styles.statePicker}
@@ -430,10 +349,7 @@ export default function OnboardingStep2() {
                 }}
               >
                 <Text
-                  style={[
-                    styles.statePickerText,
-                    !homeState && styles.statePickerPlaceholder,
-                  ]}
+                  style={[styles.statePickerText, !homeState && styles.statePickerPlaceholder]}
                 >
                   {homeState || 'Select your state'}
                 </Text>
@@ -454,10 +370,7 @@ export default function OnboardingStep2() {
                     {US_STATES.map((state) => (
                       <Pressable
                         key={state}
-                        style={[
-                          styles.stateOption,
-                          homeState === state && styles.stateOptionActive,
-                        ]}
+                        style={[styles.stateOption, homeState === state && styles.stateOptionActive]}
                         onPress={() => {
                           hapticSelection();
                           setHomeState(state);
@@ -474,7 +387,7 @@ export default function OnboardingStep2() {
                         </Text>
                       </Pressable>
                     ))}
-        </ScrollView>
+                  </ScrollView>
                 </View>
               )}
 
@@ -482,7 +395,7 @@ export default function OnboardingStep2() {
                 style={[styles.input, { marginTop: paperSpacing.sm }]}
                 value={homeCity}
                 onChangeText={setHomeCity}
-                placeholder="City (e.g. Tampa)"
+                placeholder="City (optional)"
                 placeholderTextColor={paper.dashboardInk + '70'}
                 autoCorrect={false}
                 returnKeyType="done"
@@ -490,37 +403,6 @@ export default function OnboardingStep2() {
               />
             </View>
 
-            {/* Units */}
-            <Section label="PREFERRED UNITS">
-              <View style={styles.modeRow}>
-                {(['imperial', 'metric'] as const).map((u) => {
-                  const active = units === u;
-                  return (
-                    <Pressable
-                      key={u}
-                      style={[styles.modeBtn, active && styles.modeBtnActive]}
-                      onPress={() => {
-                        hapticSelection();
-                        setUnits(u);
-                      }}
-                    >
-                      <Text
-                        style={[
-                          styles.modeBtnText,
-                          active && styles.modeBtnTextActive,
-                        ]}
-                      >
-                        {u === 'imperial'
-                          ? 'Imperial (lbs, in, °F)'
-                          : 'Metric (kg, cm, °C)'}
-                      </Text>
-                    </Pressable>
-                  );
-                })}
-              </View>
-            </Section>
-
-            {/* CTA */}
             <Pressable
               style={({ pressed }) => [
                 styles.cta,
@@ -534,16 +416,14 @@ export default function OnboardingStep2() {
                 <ActivityIndicator color={paper.dashboardCream} />
               ) : (
                 <>
-                  <Text style={styles.ctaText}>CONTINUE</Text>
+                  <Text style={styles.ctaText}>FINISH & GO FISHING</Text>
                   <Ionicons name="arrow-forward" size={16} color={paper.dashboardCream} />
                 </>
               )}
             </Pressable>
 
-            <Text style={styles.footnote}>
-              — STEP 2 OF 3 ·  ONE MORE TO GO —
-            </Text>
-        </ScrollView>
+            <Text style={styles.footnote}>— STEP 2 OF 2 —</Text>
+          </ScrollView>
         </KeyboardAvoidingView>
       </View>
     </SafeAreaView>
@@ -586,15 +466,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
-  },eyebrowRow: { marginBottom: paperSpacing.md },
-pageEyebrow: {
+  },
+  eyebrowRow: { marginBottom: paperSpacing.md },
+  pageEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
     letterSpacing: 2,
     color: paper.dashboardBlue,
     fontWeight: '700',
   },
-
   heroTitle: {
     fontFamily: paperFonts.display,
     fontSize: 34,
@@ -612,7 +492,6 @@ pageEyebrow: {
     lineHeight: 20,
     marginBottom: paperSpacing.section,
   },
-
   section: { marginBottom: paperSpacing.xl },
   sectionHeader: {
     flexDirection: 'row',
@@ -635,7 +514,6 @@ pageEyebrow: {
     opacity: 0.65,
     marginBottom: paperSpacing.sm,
   },
-
   input: {
     backgroundColor: paper.dashboardWhite,
     borderRadius: 12,
@@ -649,7 +527,6 @@ pageEyebrow: {
   },
   inputError: { borderColor: paper.dashboardBlue },
   inputSuccess: { borderColor: paper.dashboardBlue },
-
   usernameRow: { flexDirection: 'row', alignItems: 'center', gap: paperSpacing.sm },
   usernameInput: { flex: 1 },
   usernameStatusSlot: { width: 26, alignItems: 'center' },
@@ -667,51 +544,6 @@ pageEyebrow: {
     marginTop: paperSpacing.xs,
     letterSpacing: 0.4,
   },
-
-  modeRow: { flexDirection: 'row', gap: paperSpacing.sm },
-  modeBtn: {
-    flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: paperSpacing.xs + 2,
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
-    paddingVertical: paperSpacing.md - 2,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
-  },
-  modeBtnActive: {
-    backgroundColor: paper.dashboardInk,
-  },
-  modeBtnText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 1.4,
-  },
-  modeBtnTextActive: { color: paper.dashboardCream },
-
-  chipGrid: { flexDirection: 'row', flexWrap: 'wrap', gap: paperSpacing.xs + 2 },
-  chip: {
-    paddingHorizontal: paperSpacing.md - 2,
-    paddingVertical: paperSpacing.sm - 1,
-    borderRadius: 999,
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
-  },
-  chipActive: { backgroundColor: paper.dashboardBlue },
-  chipText: {
-    fontFamily: paperFonts.bodyMedium,
-    fontSize: 13,
-    color: paper.dashboardInk,
-  },
-  chipTextActive: {
-    color: paper.dashboardCream,
-    fontFamily: paperFonts.bodyBold,
-  },
-
   locAutoBtn: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -730,7 +562,6 @@ pageEyebrow: {
     color: paper.dashboardBlue,
     letterSpacing: 1.6,
   },
-
   statePicker: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -747,7 +578,7 @@ pageEyebrow: {
     fontSize: 16,
     color: paper.dashboardInk,
   },
-  statePickerPlaceholder: { color: paper.dashboardInk, opacity: 0.55 },
+  statePickerPlaceholder: { opacity: 0.55 },
   stateList: {
     marginTop: paperSpacing.xs,
     borderRadius: 12,
@@ -771,7 +602,6 @@ pageEyebrow: {
     color: paper.dashboardBlue,
     fontFamily: paperFonts.bodyBold,
   },
-
   cta: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -783,7 +613,7 @@ pageEyebrow: {
     borderRadius: 12,
     paddingVertical: paperSpacing.md,
     marginTop: paperSpacing.sm,
-      },
+  },
   ctaPressed: { backgroundColor: paper.dashboardBlue },
   btnDisabled: { opacity: 0.55 },
   ctaText: {
@@ -792,7 +622,6 @@ pageEyebrow: {
     color: paper.dashboardCream,
     letterSpacing: 2.8,
   },
-
   footnote: {
     marginTop: paperSpacing.md,
     fontFamily: paperFonts.bodyBold,
@@ -802,7 +631,6 @@ pageEyebrow: {
     letterSpacing: 2.2,
     textAlign: 'center',
   },
-
   stepPill: {
     paddingHorizontal: 9,
     paddingVertical: 5,

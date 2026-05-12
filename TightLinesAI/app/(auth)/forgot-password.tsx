@@ -2,8 +2,7 @@
  * Forgot-password screen — FinFindr dashboard language.
  *
  * Visual migration only. The reset-email flow (including the
- * `tightlinesai://auth/reset-password` deep link) is unchanged so that
- * existing password-reset emails in the wild continue to route correctly.
+ * `getPasswordResetEmailRedirectUrl()` (https bridge recommended for email clients).
  */
 
 import { useState } from 'react';
@@ -22,6 +21,7 @@ import {
   paperFonts,
   paperSpacing,
 } from '../../lib/theme';
+import { getPasswordResetEmailRedirectUrl } from '../../lib/authEmailRedirect';
 import { supabase } from '../../lib/supabase';
 import {
   AuthBackButton,
@@ -39,6 +39,7 @@ export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [lookupMessage, setLookupMessage] = useState('');
 
   const handleSend = async () => {
     const trimmed = email.trim().toLowerCase();
@@ -48,9 +49,26 @@ export default function ForgotPasswordScreen() {
     }
 
     setLoading(true);
+    setLookupMessage('');
     try {
+      const { data: emailRegistered, error: lookupError } = await supabase.rpc(
+        'email_registered_for_password_reset',
+        { raw_email: trimmed },
+      );
+      if (lookupError) {
+        Alert.alert(
+          'Could not check account',
+          'Please try again in a moment.',
+        );
+        return;
+      }
+      if (!emailRegistered) {
+        setLookupMessage('No FinFindr account is registered with that email.');
+        return;
+      }
+
       const { error } = await supabase.auth.resetPasswordForEmail(trimmed, {
-        redirectTo: 'tightlinesai://auth/reset-password',
+        redirectTo: getPasswordResetEmailRedirectUrl(),
       });
       if (error) {
         Alert.alert('Error', error.message);
@@ -97,6 +115,9 @@ export default function ForgotPasswordScreen() {
                     onSubmitEditing={handleSend}
                     autoFocus
                   />
+                  {lookupMessage ? (
+                    <Text style={styles.lookupMessage}>{lookupMessage}</Text>
+                  ) : null}
                 </View>
 
                 <View style={styles.actions}>
@@ -183,5 +204,11 @@ const styles = StyleSheet.create({
   sentEmail: {
     fontFamily: paperFonts.bodyBold,
     color: paper.dashboardBlue,
+  },
+  lookupMessage: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    color: paper.dashboardBlue,
+    lineHeight: 18,
   },
 });

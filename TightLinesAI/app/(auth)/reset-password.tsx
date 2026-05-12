@@ -25,6 +25,7 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import { supabase } from '../../lib/supabase';
+import { useAuthStore } from '../../store/authStore';
 import {
   AuthField,
   AuthFooterStamp,
@@ -35,6 +36,7 @@ import {
 
 export default function ResetPasswordScreen() {
   const router = useRouter();
+  const { signOut } = useAuthStore();
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -58,6 +60,7 @@ export default function ResetPasswordScreen() {
         Alert.alert('Error', error.message);
         return;
       }
+      await signOut();
       setDone(true);
     } finally {
       setLoading(false);

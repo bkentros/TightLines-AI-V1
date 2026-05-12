@@ -10,6 +10,11 @@ export default function AuthLayout() {
         name="verify-email"
         options={{ animation: 'slide_from_right', gestureEnabled: false }}
       />
+      <Stack.Screen name="forgot-password" options={{ animation: 'slide_from_right' }} />
+      <Stack.Screen
+        name="reset-password"
+        options={{ animation: 'slide_from_right', gestureEnabled: false }}
+      />
     </Stack>
   );
 }

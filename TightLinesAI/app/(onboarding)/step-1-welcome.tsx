@@ -78,7 +78,7 @@ export default function OnboardingStep1() {
           eyebrow="FINFINDR · ONBOARDING"
           title="WELCOME"
           onBack={handleBack}
-          right={<StepPill step={1} total={3} />}
+          right={<StepPill step={1} total={2} />}
         />
         <ScrollView
           style={styles.scroll}
@@ -127,7 +127,7 @@ export default function OnboardingStep1() {
           </Pressable>
 
           <Text style={styles.footnote}>
-            — STEP 1 OF 3 ·  TAKES ABOUT A MINUTE —
+            — STEP 1 OF 2 ·  USERNAME & HOME WATER —
           </Text>
         </ScrollView>
       </View>
@@ -136,9 +136,8 @@ export default function OnboardingStep1() {
 }
 
 /**
- * StepPill — small "STEP 1 / 3" badge that lives in the right slot of
- * the paper nav header. Reused across all three onboarding steps via
- * the same anatomy so the chrome stays consistent screen-to-screen.
+ * StepPill — small "STEP 1 / N" badge that lives in the right slot of
+ * the paper nav header. Reused across onboarding steps.
  */
 function StepPill({ step, total }: { step: number; total: number }) {
   return (

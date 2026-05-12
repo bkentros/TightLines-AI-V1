@@ -1,8 +1,9 @@
 import { useEffect, useRef } from 'react';
 import { AppState, type AppStateStatus } from 'react-native';
-import * as LocalAuthentication from 'expo-local-authentication';
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
+
+type LocalAuthModule = typeof import('expo-local-authentication');
 
 /**
  * Watches app foreground transitions. If a stored Supabase session is present
@@ -12,6 +13,9 @@ import { useAuthStore } from '../store/authStore';
  *
  * If biometrics are unavailable or the user cancels, the session is signed out
  * and the user is redirected to auth (handled by the root layout guard).
+ *
+ * expo-local-authentication is loaded lazily so an older dev client binary
+ * missing native modules does not crash on startup.
  */
 export function useBiometricLock() {
   const { session, signOut } = useAuthStore();
@@ -19,60 +23,88 @@ export function useBiometricLock() {
   const biometricLocked = useRef(false);
 
   useEffect(() => {
-    const subscription = AppState.addEventListener(
-      'change',
-      async (nextState) => {
-        const wasBackground =
-          appState.current === 'background' ||
-          appState.current === 'inactive';
-        const nowActive = nextState === 'active';
+    let la: LocalAuthModule | null = null;
+    let subscription: ReturnType<typeof AppState.addEventListener> | null =
+      null;
+    let cancelled = false;
 
-        appState.current = nextState;
+    void (async () => {
+      try {
+        la = await import('expo-local-authentication');
+      } catch {
+        return;
+      }
+      if (cancelled || !la) return;
 
-        if (!wasBackground || !nowActive) return;
-        if (!session) return; // No session — nothing to protect
-        if (biometricLocked.current) return; // Already handling
+      subscription = AppState.addEventListener(
+        'change',
+        async (nextState) => {
+          const LocalAuthentication = la;
+          if (!LocalAuthentication) return;
 
-        // Check if the access token has expired
-        const expiresAt = session.expires_at; // seconds since epoch
-        const nowSeconds = Math.floor(Date.now() / 1000);
-        const tokenExpired = expiresAt !== undefined && expiresAt < nowSeconds;
+          const wasBackground =
+            appState.current === 'background' ||
+            appState.current === 'inactive';
+          const nowActive = nextState === 'active';
 
-        if (!tokenExpired) return; // Token still valid — no prompt needed
+          appState.current = nextState;
 
-        // Check if biometrics are available on this device
-        const hasHardware = await LocalAuthentication.hasHardwareAsync();
-        const isEnrolled = await LocalAuthentication.isEnrolledAsync();
+          if (!wasBackground || !nowActive) return;
+          if (!session) return;
+          if (biometricLocked.current) return;
 
-        if (!hasHardware || !isEnrolled) {
-          // No biometrics available — refresh token silently without prompt
-          const { error } = await supabase.auth.refreshSession();
-          if (error) await signOut();
-          return;
-        }
+          const expiresAt = session.expires_at;
+          const nowSeconds = Math.floor(Date.now() / 1000);
+          const tokenExpired =
+            expiresAt !== undefined && expiresAt < nowSeconds;
 
-        biometricLocked.current = true;
+          if (!tokenExpired) return;
 
-        const result = await LocalAuthentication.authenticateAsync({
-          promptMessage: 'Unlock FinFindr',
-          fallbackLabel: 'Use Passcode',
-          cancelLabel: 'Sign Out',
-          disableDeviceFallback: false,
-        });
+          try {
+            const hasHardware =
+              await LocalAuthentication.hasHardwareAsync();
+            const isEnrolled =
+              await LocalAuthentication.isEnrolledAsync();
 
-        biometricLocked.current = false;
+            if (!hasHardware || !isEnrolled) {
+              const { error } = await supabase.auth.refreshSession();
+              if (error) await signOut();
+              return;
+            }
 
-        if (result.success) {
-          // Refresh the Supabase session silently
-          const { error } = await supabase.auth.refreshSession();
-          if (error) await signOut();
-        } else {
-          // User cancelled biometric or tapped "Sign Out"
-          await signOut();
-        }
-      },
-    );
+            biometricLocked.current = true;
 
-    return () => subscription.remove();
+            const result = await LocalAuthentication.authenticateAsync({
+              promptMessage: 'Unlock FinFindr',
+              fallbackLabel: 'Use Passcode',
+              cancelLabel: 'Sign Out',
+              disableDeviceFallback: false,
+            });
+
+            biometricLocked.current = false;
+
+            if (result.success) {
+              const { error } = await supabase.auth.refreshSession();
+              if (error) await signOut();
+            } else {
+              await signOut();
+            }
+          } catch {
+            biometricLocked.current = false;
+            try {
+              const { error } = await supabase.auth.refreshSession();
+              if (error) await signOut();
+            } catch {
+              await signOut();
+            }
+          }
+        },
+      );
+    })();
+
+    return () => {
+      cancelled = true;
+      subscription?.remove();
+    };
   }, [session, signOut]);
 }

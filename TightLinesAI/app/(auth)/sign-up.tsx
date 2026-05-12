@@ -28,6 +28,10 @@ import {
 } from '../../lib/theme';
 import { signUpWithEmail } from '../../lib/auth';
 import {
+  EMAIL_REGEX,
+  isSignUpEmailFormatAcceptable,
+} from '../../lib/emailValidation';
+import {
   AuthBackButton,
   AuthField,
   AuthFooterStamp,
@@ -35,8 +39,6 @@ import {
   AuthPrimaryButton,
   AuthTextLink,
 } from '../../components/paper/auth';
-
-const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 const RATE_LIMIT_COOLDOWN_MINUTES = 15;
 const RATE_LIMIT_STORAGE_KEY = 'signup_rate_limit_until';
@@ -85,10 +87,8 @@ export default function SignUpScreen() {
     return () => clearInterval(id);
   }, []);
 
-  // Real-time email FORMAT only. We do NOT check "does email exist" via API —
-  // Supabase returns "invalid credentials" for both unknown email and wrong
-  // password, so we cannot reliably tell. Duplicate accounts are detected only
-  // when the user submits and signUp returns the existing-account response.
+  // Real-time email: shape + known mailbox domains (green only when both pass).
+  // Inbox existence is still verified by Supabase confirmation email.
   const validateEmailFormat = (value: string) => {
     const trimmed = value.trim().toLowerCase();
     if (!trimmed) {
@@ -99,6 +99,13 @@ export default function SignUpScreen() {
     if (!EMAIL_REGEX.test(trimmed)) {
       setEmailStatus('invalid');
       setEmailError('Invalid email address');
+      return;
+    }
+    if (!isSignUpEmailFormatAcceptable(trimmed)) {
+      setEmailStatus('invalid');
+      setEmailError(
+        'Use a major email provider (Gmail, Yahoo, Outlook, iCloud, etc.)',
+      );
       return;
     }
     setEmailStatus('valid');
@@ -144,8 +151,11 @@ export default function SignUpScreen() {
       );
       return;
     }
-    if (!trimmedEmail || !EMAIL_REGEX.test(trimmedEmail)) {
-      Alert.alert('Check your details', 'Please enter a valid email address.');
+    if (!trimmedEmail || !isSignUpEmailFormatAcceptable(trimmedEmail)) {
+      Alert.alert(
+        'Check your details',
+        'Enter a valid email from a supported provider (Gmail, Yahoo, Outlook, iCloud, etc.).',
+      );
       return;
     }
     if (emailStatus === 'invalid') {
