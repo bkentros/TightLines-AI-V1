@@ -147,10 +147,10 @@ export function LocationPickerModal({
   const shortQuery = query.trim().length < MIN_CITY_QUERY_LENGTH;
   const hasQuery = !shortQuery;
   const showRecent = shortQuery && recentLocations.length > 0;
-  const showPinned = shortQuery && savedLocation != null;
-  const showHint = shortQuery && !showRecent && !showPinned;
-  const activeSource = isUsingCustom ? 'Pinned city' : 'GPS location';
-  let sectionLabel = 'SAVED & RECENT';
+  const showSelectedLocation = shortQuery && savedLocation != null;
+  const showHint = shortQuery && !showRecent && !showSelectedLocation;
+  const activeSource = isUsingCustom ? 'Current read' : 'GPS read';
+  let sectionLabel = 'CURRENT & RECENT';
   if (hasQuery) {
     sectionLabel = showResults ? 'TAP A CITY TO USE IT' : 'CITY SUGGESTIONS';
   }
@@ -194,7 +194,7 @@ export function LocationPickerModal({
           <View style={styles.activeLocationCard}>
             <View style={styles.activeLocationIcon}>
               <Ionicons
-                name={isUsingCustom ? 'pin' : 'navigate'}
+                name={isUsingCustom ? 'location' : 'navigate'}
                 size={16}
                 color={paper.dashboardCream}
               />
@@ -319,13 +319,13 @@ export function LocationPickerModal({
                   }
                 >
                   <View style={styles.resultIconWrap}>
-                    <Ionicons name="pin" size={14} color={paper.dashboardInk} />
+                    <Ionicons name="location-outline" size={14} color={paper.dashboardInk} />
                   </View>
                   <View style={styles.resultTextWrap}>
                     <Text style={styles.resultLabel} numberOfLines={1}>
                       {item.label}
                     </Text>
-                    <Text style={styles.resultSub}>Use for weather, reports, and forecasts</Text>
+                    <Text style={styles.resultSub}>Use for today's read, weather, and forecasts</Text>
                   </View>
                   <Ionicons
                     name="chevron-forward"
@@ -337,7 +337,7 @@ export function LocationPickerModal({
             />
           )}
 
-          {/* ── Recents + pinned (when no query) ── */}
+          {/* ── Recents + current read location (when no query) ── */}
           {!showResults && (
             <ScrollView
               style={styles.scrollBody}
@@ -345,8 +345,8 @@ export function LocationPickerModal({
               keyboardShouldPersistTaps="handled"
               showsVerticalScrollIndicator={false}
             >
-              {/* ── Currently pinned custom location ── */}
-              {showPinned && savedLocation && (
+              {/* ── Current custom read location ── */}
+              {showSelectedLocation && savedLocation && (
                 <Pressable
                   style={({ pressed }) => [
                     styles.currentCustomWrap,
@@ -355,10 +355,10 @@ export function LocationPickerModal({
                   onPress={() => onSelect(savedLocation)}
                 >
                   <Text style={styles.currentCustomHead}>
-                    PINNED SPOT
+                    CURRENT READ
                   </Text>
                   <View style={styles.currentCustomRow}>
-                    <Ionicons name="pin" size={16} color={paper.dashboardInk} />
+                    <Ionicons name="location" size={16} color={paper.dashboardInk} />
                     <Text style={styles.currentCustomLabel} numberOfLines={1}>
                       {savedLocation.label}
                     </Text>
@@ -369,7 +369,7 @@ export function LocationPickerModal({
                     />
                   </View>
                   <Text style={styles.currentCustomSub}>
-                    Tap to use this pinned spot. Search above to pin a different city.
+                    Tap to keep reading here, or search above to choose another city.
                   </Text>
                 </Pressable>
               )}
@@ -415,7 +415,7 @@ export function LocationPickerModal({
                 </View>
               )}
 
-              {/* ── Hint when no query and no custom pinned ── */}
+              {/* ── Hint when no query and no selected custom location ── */}
               {showHint && (
                 <View style={styles.hintWrap}>
                   <Ionicons
@@ -677,7 +677,7 @@ const styles = StyleSheet.create({
     opacity: 0.75,
   },
 
-  /* Scroll body for recents / pinned / hints */
+  /* Scroll body for recents / current read / hints */
   scrollBody: { flex: 1 },
   scrollBodyContent: {
     paddingBottom: paperSpacing.xl,
@@ -763,7 +763,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     opacity: 0.65,
   },
-  /* Currently pinned location */
+  /* Current custom read location */
   currentCustomWrap: {
     marginHorizontal: paperSpacing.lg,
     marginTop: paperSpacing.sm,

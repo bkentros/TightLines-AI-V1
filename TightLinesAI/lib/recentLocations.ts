@@ -1,5 +1,5 @@
 /**
- * Last few locations the user opened (search picks or GPS). Separate from the active "pinned" slot.
+ * Last few locations the user opened (search picks or GPS). Separate from the active read location.
  */
 
 import AsyncStorage from '@react-native-async-storage/async-storage';

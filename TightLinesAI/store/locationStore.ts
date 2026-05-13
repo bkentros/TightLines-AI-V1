@@ -1,7 +1,7 @@
 /**
- * locationStore — User-defined custom fishing location
+ * locationStore — User-selected fishing read location
  *
- * Allows users to pin any US city as their active fishing location instead
+ * Allows users to choose any US city as their active fishing location instead
  * of relying on GPS. Used for trip planning ("I'm driving to Steinhatchee
  * tomorrow — show me that report now").
  *
@@ -18,7 +18,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORAGE_KEY = 'tightlines_location_pref_v1';
 
-function isPlausibleUsPinnedLocation(loc: { lat: number; lon: number; label: string } | null | undefined): loc is SavedLocation {
+function isPlausibleUsSavedLocation(loc: { lat: number; lon: number; label: string } | null | undefined): loc is SavedLocation {
   return Boolean(
     loc &&
     Number.isFinite(loc.lat) &&
@@ -63,7 +63,7 @@ export const useLocationStore = create<LocationState>((set, get) => ({
       const raw = await AsyncStorage.getItem(STORAGE_KEY);
       if (!raw) return;
       const p = JSON.parse(raw);
-      if (p && isPlausibleUsPinnedLocation(p.savedLocation)) {
+      if (p && isPlausibleUsSavedLocation(p.savedLocation)) {
         set({
           savedLocation: {
             lat: p.savedLocation.lat,
