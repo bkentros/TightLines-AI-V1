@@ -1,82 +1,96 @@
-import { useState, useEffect, useLayoutEffect, useCallback, useMemo, useRef } from 'react';
 import {
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Pressable,
-  Alert,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
+import {
   ActivityIndicator,
+  Alert,
   Image,
-  RefreshControl,
-  useWindowDimensions,
   type NativeScrollEvent,
   type NativeSyntheticEvent,
-} from 'react-native';
-import { StatusBar } from 'expo-status-bar';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter, useLocalSearchParams } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import * as Location from 'expo-location';
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  useWindowDimensions,
+  View,
+} from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { useLocalSearchParams, useRouter } from "expo-router";
+import { Ionicons } from "@expo/vector-icons";
+import * as Location from "expo-location";
+import { paper, paperFonts, paperSpacing } from "../lib/theme";
+import { getEnvironment } from "../lib/env";
+import { getValidAccessToken, invokeEdgeFunction } from "../lib/supabase";
+import { useAuthStore } from "../store/authStore";
 import {
-  paper,
-  paperFonts,
-  paperSpacing,
-} from '../lib/theme';
-import { getEnvironment } from '../lib/env';
-import { invokeEdgeFunction, getValidAccessToken } from '../lib/supabase';
-import { useAuthStore } from '../store/authStore';
-import {
-  getCachedMultiRebuild,
-  setCachedMultiRebuild,
-  setCurrentMultiRebuild,
+  type EngineContextKey,
   getCachedForecastRebuild,
-  setCachedForecastRebuild,
+  getCachedMultiRebuild,
   howFishingMultiContexts,
   type HowFishingRebuildBundle,
   type HowFishingRebuildMultiBundle,
-  type EngineContextKey,
-} from '../lib/howFishing';
-import { getForecastScores } from '../lib/forecastScores';
-import { useEnvStore } from '../store/envStore';
-import type { EnvironmentData } from '../lib/env/types';
-import { oceanCoastalZoneLabel } from '../lib/coastalProximity';
-import { RebuildReportView } from '../components/fishing/RebuildReportView';
-import { HowFishingLoadingSkeleton } from '../components/fishing/HowFishingLoadingSkeleton';
-import { TopographicLines } from '../components/paper';
-import type { ForecastSnapshotEnv } from '../lib/forecastScores';
+  setCachedForecastRebuild,
+  setCachedMultiRebuild,
+  setCurrentMultiRebuild,
+} from "../lib/howFishing";
+import {
+  getForecastScores,
+  mergeMeasuredWaterTempFields,
+  stripMeasuredWaterTempFields,
+} from "../lib/forecastScores";
+import {
+  materializeForecastEnvForDate,
+  shouldUseMeasuredWaterTempForForecastReport,
+} from "../lib/forecastSnapshot";
+import { useEnvStore } from "../store/envStore";
+import type { EnvironmentData } from "../lib/env/types";
+import { oceanCoastalZoneLabel } from "../lib/coastalProximity";
+import { RebuildReportView } from "../components/fishing/RebuildReportView";
+import { HowFishingLoadingSkeleton } from "../components/fishing/HowFishingLoadingSkeleton";
+import { TopographicLines } from "../components/paper";
 
 /* ─── Date/time helpers ─────────────────────────────────────────────────── */
 
 function currentLocationDateString(timezone?: string) {
   try {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat("en-US", {
       timeZone: timezone,
-      weekday: 'short',
-      month: 'short',
-      day: 'numeric',
+      weekday: "short",
+      month: "short",
+      day: "numeric",
     })
       .format(new Date())
       .toUpperCase();
   } catch {
     return new Date()
-      .toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })
+      .toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
+      })
       .toUpperCase();
   }
 }
 
 function formatGeneratedTime(iso: string, timezone?: string): string {
   try {
-    return new Intl.DateTimeFormat('en-US', {
+    return new Intl.DateTimeFormat("en-US", {
       timeZone: timezone,
-      hour: 'numeric',
-      minute: '2-digit',
+      hour: "numeric",
+      minute: "2-digit",
       hour12: true,
     }).format(new Date(iso));
   } catch {
-    return new Date(iso).toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
+    return new Date(iso).toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
       hour12: true,
     });
   }
@@ -88,36 +102,40 @@ function formatGeneratedTime(iso: string, timezone?: string): string {
 // cities split the bar 25% each). Two-word "LAKE / POND" was the only
 // label that got smooshed against its icon and the active-pill edge —
 // dropped the spaces so it reads as one tight token like the others.
-const TAB_CONFIG: { key: EngineContextKey; label: string; icon: keyof typeof Ionicons.glyphMap }[] = [
-  { key: 'freshwater_lake_pond', label: 'LAKE/POND', icon: 'water' },
-  { key: 'freshwater_river', label: 'RIVER', icon: 'git-merge-outline' },
-  { key: 'coastal', label: 'INSHORE', icon: 'boat-outline' },
-  { key: 'coastal_flats_estuary', label: 'FLATS', icon: 'resize-outline' },
+const TAB_CONFIG: {
+  key: EngineContextKey;
+  label: string;
+  icon: keyof typeof Ionicons.glyphMap;
+}[] = [
+  { key: "freshwater_lake_pond", label: "LAKE/POND", icon: "water" },
+  { key: "freshwater_river", label: "RIVER", icon: "git-merge-outline" },
+  { key: "coastal", label: "INSHORE", icon: "boat-outline" },
+  { key: "coastal_flats_estuary", label: "FLATS", icon: "resize-outline" },
 ];
 
 const TAB_ERROR_LABEL: Record<EngineContextKey, string> = {
-  freshwater_lake_pond: 'lake or pond',
-  freshwater_river: 'river',
-  coastal: 'inshore',
-  coastal_flats_estuary: 'flats or estuary',
+  freshwater_lake_pond: "lake or pond",
+  freshwater_river: "river",
+  coastal: "inshore",
+  coastal_flats_estuary: "flats or estuary",
 };
 
 function friendlyHowFishingError(message: string): string {
   const lower = message.toLowerCase();
   if (
-    lower.includes('engine_context') ||
-    lower.includes('invalid response') ||
-    lower.includes('hows_fishing_rebuild')
+    lower.includes("engine_context") ||
+    lower.includes("invalid response") ||
+    lower.includes("hows_fishing_rebuild")
   ) {
-    return 'We could not build a clean fishing read for this spot. Try again from Home.';
+    return "We could not build a clean fishing read for this spot. Try again from Home.";
   }
-  if (lower.includes('subscribe')) {
-    return 'A subscription is needed to use this feature.';
+  if (lower.includes("subscribe")) {
+    return "A subscription is needed to use this feature.";
   }
-  if (lower.includes('coastal reports')) {
-    return 'Coastal reads are only available where coastal conditions are supported.';
+  if (lower.includes("coastal reports")) {
+    return "Coastal reads are only available where coastal conditions are supported.";
   }
-  if (lower.includes('env_data') || lower.includes('live conditions')) {
+  if (lower.includes("env_data") || lower.includes("live conditions")) {
     return "We could not load today's conditions for this spot.";
   }
   return message;
@@ -125,9 +143,11 @@ function friendlyHowFishingError(message: string): string {
 
 /* ─── Location helpers ──────────────────────────────────────────────────── */
 
-function geocodeToDisplayLabel(g: Location.LocationGeocodedAddress): string | null {
+function geocodeToDisplayLabel(
+  g: Location.LocationGeocodedAddress,
+): string | null {
   const city = g.city ?? g.subregion ?? g.district ?? g.name ?? undefined;
-  const region = g.region ?? '';
+  const region = g.region ?? "";
   if (city && region) return `${city}, ${region}`;
   if (city) return city;
   if (region) return region;
@@ -141,11 +161,14 @@ async function resolveLocationLabelForPolish(
   currentLabel: string,
   allowCoastalFallback: boolean,
 ): Promise<string | null> {
-  if (currentLabel !== 'Current location') {
+  if (currentLabel !== "Current location") {
     return currentLabel;
   }
   try {
-    const geo = await Location.reverseGeocodeAsync({ latitude: lat, longitude: lon });
+    const geo = await Location.reverseGeocodeAsync({
+      latitude: lat,
+      longitude: lon,
+    });
     const fromGeo = geo[0] ? geocodeToDisplayLabel(geo[0]) : null;
     if (fromGeo) return fromGeo;
   } catch {
@@ -162,46 +185,20 @@ function firstContextWithReport(
   return hit ?? null;
 }
 
-function materializeForecastEnvForDate(
-  snapshot: ForecastSnapshotEnv | null,
-  targetDate: string | null,
-): Record<string, unknown> | null {
-  if (!snapshot) return null;
-  const tideForDate =
-    targetDate != null
-      ? snapshot.forecast_tides_by_date?.find((entry) => entry.date === targetDate) ?? null
-      : null;
-
-  return {
-    ...snapshot,
-    coastal: tideForDate != null ? true : Boolean(snapshot.coastal),
-    tides_available: tideForDate != null,
-    nearest_tide_station_id: tideForDate?.station_id ?? snapshot.nearest_tide_station_id ?? null,
-    tides: tideForDate
-      ? {
-          station_id: tideForDate.station_id,
-          station_name: tideForDate.station_name,
-          high_low: tideForDate.high_low,
-          phase: tideForDate.phase,
-          unit: tideForDate.unit,
-        }
-      : null,
-  };
-}
-
 function todayDateFromForecastSnapshot(
   forecastSnapshot: Awaited<ReturnType<typeof getForecastScores>> | null,
 ): string | null {
-  return forecastSnapshot?.forecast.find((day) => day.day_offset === 0)?.date ?? null;
+  return forecastSnapshot?.forecast.find((day) => day.day_offset === 0)?.date ??
+    null;
 }
 
 function dayLabelFromDateStr(dateStr: string): string {
   try {
-    return new Date(dateStr + 'T12:00:00')
-      .toLocaleDateString('en-US', {
-        weekday: 'short',
-        month: 'short',
-        day: 'numeric',
+    return new Date(dateStr + "T12:00:00")
+      .toLocaleDateString("en-US", {
+        weekday: "short",
+        month: "short",
+        day: "numeric",
       })
       .toUpperCase();
   } catch {
@@ -225,22 +222,27 @@ export default function HowFishingScreen() {
   const hasCoords = !Number.isNaN(lat) && !Number.isNaN(lon);
 
   // Forecast day support: day_offset > 0 means this is a future-day report
-  const dayOffset = params.day_offset != null ? parseInt(params.day_offset, 10) : 0;
+  const dayOffset = params.day_offset != null
+    ? parseInt(params.day_offset, 10)
+    : 0;
   const targetDate = params.target_date ?? null;
   const isForecastDay = targetDate != null;
-  const requestedLocationLabel =
-    typeof params.location_label === 'string' && params.location_label.trim().length > 0
-      ? params.location_label.trim()
-      : null;
+  const requestedLocationLabel = typeof params.location_label === "string" &&
+      params.location_label.trim().length > 0
+    ? params.location_label.trim()
+    : null;
 
   const { profile } = useAuthStore();
-  const units = profile?.preferred_units ?? 'imperial';
+  const units = profile?.preferred_units ?? "imperial";
   const setLastReportEnv = useEnvStore((s) => s.setLastReportEnv);
 
   const [env, setEnv] = useState<EnvironmentData | null>(null);
   const [envLoading, setEnvLoading] = useState(true);
-  const [locationLabel, setLocationLabel] = useState<string>('Current location');
-  const [forecastSnapshotCoastalEligible, setForecastSnapshotCoastalEligible] = useState<boolean | null>(null);
+  const [locationLabel, setLocationLabel] = useState<string>(
+    "Current location",
+  );
+  const [forecastSnapshotCoastalEligible, setForecastSnapshotCoastalEligible] =
+    useState<boolean | null>(null);
 
   const coastalEligible = useMemo(
     () => forecastSnapshotCoastalEligible ?? Boolean(env?.coastal),
@@ -257,8 +259,12 @@ export default function HowFishingScreen() {
   );
 
   // Multi-report state
-  const [multiBundles, setMultiBundles] = useState<Record<EngineContextKey, HowFishingRebuildBundle> | null>(null);
-  const [activeTab, setActiveTab] = useState<EngineContextKey>('freshwater_lake_pond');
+  const [multiBundles, setMultiBundles] = useState<
+    Record<EngineContextKey, HowFishingRebuildBundle> | null
+  >(null);
+  const [activeTab, setActiveTab] = useState<EngineContextKey>(
+    "freshwater_lake_pond",
+  );
   const [analysisLoading, setAnalysisLoading] = useState(false);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
@@ -273,7 +279,9 @@ export default function HowFishingScreen() {
   // Keep the active tab valid when availableContexts shrinks (e.g. coastal drop).
   useEffect(() => {
     setActiveTab((prev) =>
-      availableContexts.includes(prev) ? prev : (availableContexts[0] ?? 'freshwater_lake_pond'),
+      availableContexts.includes(prev)
+        ? prev
+        : (availableContexts[0] ?? "freshwater_lake_pond")
     );
   }, [availableContexts]);
 
@@ -325,12 +333,17 @@ export default function HowFishingScreen() {
           getForecastScores(lat, lon).catch(() => null),
           requestedLocationLabel
             ? Promise.resolve([])
-            : Location.reverseGeocodeAsync({ latitude: lat, longitude: lon }).catch(() => []),
+            : Location.reverseGeocodeAsync({ latitude: lat, longitude: lon })
+              .catch(() => []),
         ]);
         if (cancelled) return;
         setEnv(cachedEnv as EnvironmentData);
         setForecastSnapshotCoastalEligible(
-          Boolean((forecastSnapshot as Awaited<ReturnType<typeof getForecastScores>> | null)?.snapshot_env?.coastal),
+          Boolean(
+            (forecastSnapshot as
+              | Awaited<ReturnType<typeof getForecastScores>>
+              | null)?.snapshot_env?.coastal,
+          ),
         );
         if (requestedLocationLabel) {
           setLocationLabel(requestedLocationLabel);
@@ -338,17 +351,23 @@ export default function HowFishingScreen() {
           const fromGeo = geocodeToDisplayLabel(geo[0]);
           setLocationLabel(
             fromGeo ??
-              (((cachedEnv as EnvironmentData).coastal) ? oceanCoastalZoneLabel(lat, lon) : null) ??
-              'Current location',
+              (((cachedEnv as EnvironmentData).coastal)
+                ? oceanCoastalZoneLabel(lat, lon)
+                : null) ??
+              "Current location",
           );
         } else {
           setLocationLabel(
-            (((cachedEnv as EnvironmentData).coastal) ? oceanCoastalZoneLabel(lat, lon) : null) ??
-              'Current location',
+            (((cachedEnv as EnvironmentData).coastal)
+              ? oceanCoastalZoneLabel(lat, lon)
+              : null) ??
+              "Current location",
           );
         }
       } catch {
-        if (!cancelled) setAnalysisError("We could not load today's conditions.");
+        if (!cancelled) {
+          setAnalysisError("We could not load today's conditions.");
+        }
       } finally {
         if (!cancelled) setEnvLoading(false);
       }
@@ -360,14 +379,20 @@ export default function HowFishingScreen() {
 
   // Check cache on mount, show confirm if not cached.
   // Forecast day reports use a separate per-(lat,lon,target_date,ctx) cache that
-  // expires at tonight's midnight — so same-day re-opens are instant cache hits,
-  // but the next calendar day always fetches fresh weather data.
+  // expires at the fishing location's next local midnight — so same-day re-opens
+  // are instant cache hits, but the next local calendar day fetches a fresh
+  // midnight forecast snapshot.
   useEffect(() => {
     if (!hasCoords || envLoading) return;
     let cancelled = false;
     (async () => {
       if (isForecastDay && targetDate) {
-        const cached = await getCachedForecastRebuild(lat, lon, targetDate, availableContexts);
+        const cached = await getCachedForecastRebuild(
+          lat,
+          lon,
+          targetDate,
+          availableContexts,
+        );
         if (cancelled) return;
         if (cached) {
           const tab = firstContextWithReport(cached, availableContexts);
@@ -392,7 +417,15 @@ export default function HowFishingScreen() {
     return () => {
       cancelled = true;
     };
-  }, [hasCoords, envLoading, lat, lon, availableContexts, isForecastDay, targetDate]);
+  }, [
+    hasCoords,
+    envLoading,
+    lat,
+    lon,
+    availableContexts,
+    isForecastDay,
+    targetDate,
+  ]);
 
   const generateReports = useCallback(async () => {
     if (!hasCoords) return;
@@ -403,17 +436,42 @@ export default function HowFishingScreen() {
       const accessToken = await getValidAccessToken();
       const forecastSnapshot = await getForecastScores(lat, lon);
       const sharedForecastEnv = forecastSnapshot?.snapshot_env ?? null;
+      const todaySnapshotDate = todayDateFromForecastSnapshot(forecastSnapshot);
       const snapshotDateForReport = isForecastDay
         ? targetDate
-        : todayDateFromForecastSnapshot(forecastSnapshot);
+        : todaySnapshotDate;
+      const shouldUseMeasuredWaterTemp =
+        shouldUseMeasuredWaterTempForForecastReport({
+          isForecastDay,
+          snapshotDateForReport,
+          todaySnapshotDate,
+        });
       const forecastEnvForReport = materializeForecastEnvForDate(
         sharedForecastEnv,
         snapshotDateForReport,
+        { allowMeasuredWaterTemp: shouldUseMeasuredWaterTemp },
       );
-      const envForReport =
-        forecastEnvForReport ??
-        env ??
-        (await getEnvironment({ latitude: lat, longitude: lon, units }));
+      let envForReport: Record<string, unknown> | EnvironmentData;
+      if (forecastEnvForReport) {
+        if (shouldUseMeasuredWaterTemp) {
+          const envMeasuredWaterSource = env ??
+            (await getEnvironment({ latitude: lat, longitude: lon, units }));
+          envForReport = mergeMeasuredWaterTempFields(
+            forecastEnvForReport,
+            envMeasuredWaterSource,
+          );
+        } else {
+          envForReport = forecastEnvForReport;
+        }
+      } else {
+        const envFallback = env ??
+          (await getEnvironment({ latitude: lat, longitude: lon, units }));
+        envForReport = shouldUseMeasuredWaterTemp
+          ? envFallback
+          : stripMeasuredWaterTempFields(
+            envFallback as unknown as Record<string, unknown>,
+          );
+      }
 
       const polishLocationName = await resolveLocationLabelForPolish(
         lat,
@@ -421,49 +479,58 @@ export default function HowFishingScreen() {
         locationLabel,
         Boolean((forecastEnvForReport ?? env)?.coastal),
       );
-      if (polishLocationName && locationLabel === 'Current location') {
+      if (polishLocationName && locationLabel === "Current location") {
         setLocationLabel(polishLocationName);
       }
 
       const result = await invokeEdgeFunction<
         HowFishingRebuildMultiBundle | { error: string; message?: string }
-      >('how-fishing', {
+      >("how-fishing", {
         accessToken,
         body: {
           latitude: lat,
           longitude: lon,
           units,
-          mode: 'multi',
+          mode: "multi",
           contexts: availableContexts,
           env_data: envForReport,
           use_forecast_snapshot: Boolean(forecastEnvForReport),
           location_name: polishLocationName,
-          ...(isForecastDay && { day_offset: dayOffset, target_date: targetDate }),
+          ...(isForecastDay &&
+            { day_offset: dayOffset, target_date: targetDate }),
         },
       });
 
-      if (result && typeof result === 'object' && 'error' in result) {
+      if (result && typeof result === "object" && "error" in result) {
         throw new Error(
-          (result as { message?: string }).message ?? (result as { error: string }).error,
+          (result as { message?: string }).message ??
+            (result as { error: string }).error,
         );
       }
 
       const multi = result as HowFishingRebuildMultiBundle;
-      if (!multi || multi.feature !== 'hows_fishing_rebuild_v1' || !multi.reports) {
-        throw new Error('We could not build a clean fishing read for this spot. Try again from Home.');
+      if (
+        !multi || multi.feature !== "hows_fishing_rebuild_v1" || !multi.reports
+      ) {
+        throw new Error(
+          "We could not build a clean fishing read for this spot. Try again from Home.",
+        );
       }
 
-      const bundles = multi.reports as Record<EngineContextKey, HowFishingRebuildBundle>;
+      const bundles = multi.reports as Record<
+        EngineContextKey,
+        HowFishingRebuildBundle
+      >;
       const tabWithReport = firstContextWithReport(bundles, availableContexts);
       if (!tabWithReport) {
         const failed = multi.failed_contexts
           ?.map((ctx) => TAB_ERROR_LABEL[ctx as EngineContextKey] ?? null)
           .filter(Boolean)
-          .join(', ') ?? '';
+          .join(", ") ?? "";
         throw new Error(
           failed
             ? `Could not build a read for ${failed}. Try again from Home.`
-            : 'No fishing read came back for this spot. Try again from Home.',
+            : "No fishing read came back for this spot. Try again from Home.",
         );
       }
       if (isForecastDay && targetDate) {
@@ -476,10 +543,12 @@ export default function HowFishingScreen() {
       setActiveTab(tabWithReport);
       setMultiBundles(bundles);
     } catch (err) {
-      const rawMsg = err instanceof Error ? err.message : 'Something went wrong.';
+      const rawMsg = err instanceof Error
+        ? err.message
+        : "Something went wrong.";
       const msg = friendlyHowFishingError(rawMsg);
       setAnalysisError(msg);
-      Alert.alert('Could not build your fishing read', msg);
+      Alert.alert("Could not build your fishing read", msg);
     } finally {
       setAnalysisLoading(false);
     }
@@ -501,9 +570,15 @@ export default function HowFishingScreen() {
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
     try {
-      let cached: Record<EngineContextKey, HowFishingRebuildBundle> | null = null;
+      let cached: Record<EngineContextKey, HowFishingRebuildBundle> | null =
+        null;
       if (isForecastDay && targetDate) {
-        cached = await getCachedForecastRebuild(lat, lon, targetDate, availableContexts);
+        cached = await getCachedForecastRebuild(
+          lat,
+          lon,
+          targetDate,
+          availableContexts,
+        );
       } else {
         cached = await getCachedMultiRebuild(lat, lon, availableContexts);
       }
@@ -516,7 +591,11 @@ export default function HowFishingScreen() {
           setCurrentMultiRebuild(lat, lon, cached);
         }
         try {
-          const refreshed = await getEnvironment({ latitude: lat, longitude: lon, units });
+          const refreshed = await getEnvironment({
+            latitude: lat,
+            longitude: lon,
+            units,
+          });
           setEnv(refreshed);
         } catch {
           /* keep existing env */
@@ -528,7 +607,15 @@ export default function HowFishingScreen() {
     } finally {
       setRefreshing(false);
     }
-  }, [generateReports, availableContexts, lat, lon, units, isForecastDay, targetDate]);
+  }, [
+    generateReports,
+    availableContexts,
+    lat,
+    lon,
+    units,
+    isForecastDay,
+    targetDate,
+  ]);
 
   const activeBundle = multiBundles?.[activeTab] ?? null;
   const activeTz = activeBundle?.report.location.timezone ?? env?.timezone;
@@ -544,7 +631,7 @@ export default function HowFishingScreen() {
     return (
       <View style={styles.root}>
         <StatusBar style="light" />
-        <SafeAreaView style={styles.safeNav} edges={['top']}>
+        <SafeAreaView style={styles.safeNav} edges={["top"]}>
           <TopLevelHeader
             dateLabel={heroDateLabel}
             locationLabel={locationLabel}
@@ -554,14 +641,21 @@ export default function HowFishingScreen() {
         <View style={styles.background}>
           <View style={styles.centered}>
             <View style={styles.noLocationIcon}>
-              <Ionicons name="location-outline" size={28} color={paper.dashboardInk} />
+              <Ionicons
+                name="location-outline"
+                size={28}
+                color={paper.dashboardInk}
+              />
             </View>
             <Text style={styles.messageTitle}>ADD A LOCATION</Text>
             <Text style={styles.messageSub}>
-              Add your spot so we can read today's conditions for the water near you.
+              Add your spot so we can read today's conditions for the water near
+              you.
             </Text>
             <Pressable
-              style={({ pressed }) => [styles.primaryBtn, pressed && styles.primaryBtnPressed]}
+              style={(
+                { pressed },
+              ) => [styles.primaryBtn, pressed && styles.primaryBtnPressed]}
               onPress={() => router.back()}
             >
               <Text style={styles.primaryBtnText}>GO BACK</Text>
@@ -580,7 +674,7 @@ export default function HowFishingScreen() {
       return (
         <View style={styles.root}>
           <StatusBar style="light" />
-          <SafeAreaView style={styles.safeNav} edges={['top']}>
+          <SafeAreaView style={styles.safeNav} edges={["top"]}>
             <TopLevelHeader
               dateLabel={heroDateLabel}
               locationLabel={locationLabel}
@@ -603,7 +697,7 @@ export default function HowFishingScreen() {
                   READING CONDITIONS
                   {availableContexts.length > 1
                     ? ` · ${availableContexts.length} WATER TYPES`
-                    : ''}
+                    : ""}
                 </Text>
               </View>
             </View>
@@ -615,7 +709,7 @@ export default function HowFishingScreen() {
     return (
       <View style={styles.root}>
         <StatusBar style="light" />
-        <SafeAreaView style={styles.safeNav} edges={['top']}>
+        <SafeAreaView style={styles.safeNav} edges={["top"]}>
           <TopLevelHeader
             dateLabel={heroDateLabel}
             locationLabel={locationLabel}
@@ -627,51 +721,80 @@ export default function HowFishingScreen() {
           <View style={styles.confirmOuter}>
             <TopographicLines style={styles.confirmLines} count={5} />
 
-            {showConfirm ? (
-              <View style={styles.confirmCard}>
-                <Text style={styles.confirmEyebrow}>
-                  {isForecastDay ? 'FORECAST READ' : "TODAY'S READ"}
-                </Text>
-
-                <Text style={styles.confirmTitle}>
-                  {isForecastDay ? 'Build forecast bite' : "Build today's bite"}
-                  <Text style={{ color: paper.dashboardBlue }}>.</Text>
-                </Text>
-
-                <View style={styles.confirmMetaRow}>
-                  <Ionicons name="location" size={12} color={paper.dashboardInk} />
-                  <Text style={styles.confirmMetaText} numberOfLines={1}>
-                    {locationLabel}
+            {showConfirm
+              ? (
+                <View style={styles.confirmCard}>
+                  <Text style={styles.confirmEyebrow}>
+                    {isForecastDay ? "FORECAST READ" : "TODAY'S READ"}
                   </Text>
-                </View>
-                <View style={styles.confirmMetaRow}>
-                  <Ionicons name="calendar-outline" size={12} color={paper.dashboardInk} />
-                  <Text style={styles.confirmMetaText}>{reportDateLabel}</Text>
-                </View>
 
-                <View style={styles.confirmContextList}>
-                  {availableTabs.map((t) => (
-                    <View key={t.key} style={styles.confirmContextChip}>
-                      <Ionicons name={t.icon} size={12} color={paper.dashboardInk} />
-                      <Text style={styles.confirmContextLabel}>{t.label}</Text>
-                    </View>
-                  ))}
-                </View>
-
-                <Pressable
-                  style={({ pressed }) => [styles.generateBtn, pressed && styles.generateBtnPressed]}
-                  onPress={generateReports}
-                  disabled={envLoading}
-                >
-                  <Ionicons name="sparkles" size={14} color="#FFFFFF" />
-                  <Text style={styles.generateBtnText}>
-                    {isForecastDay ? 'BUILD FORECAST READ' : "BUILD TODAY'S READ"}
+                  <Text style={styles.confirmTitle}>
+                    {isForecastDay
+                      ? "Build forecast bite"
+                      : "Build today's bite"}
+                    <Text style={{ color: paper.dashboardBlue }}>.</Text>
                   </Text>
-                </Pressable>
 
-                {analysisError ? <Text style={styles.errorInline}>{analysisError}</Text> : null}
-              </View>
-            ) : null}
+                  <View style={styles.confirmMetaRow}>
+                    <Ionicons
+                      name="location"
+                      size={12}
+                      color={paper.dashboardInk}
+                    />
+                    <Text style={styles.confirmMetaText} numberOfLines={1}>
+                      {locationLabel}
+                    </Text>
+                  </View>
+                  <View style={styles.confirmMetaRow}>
+                    <Ionicons
+                      name="calendar-outline"
+                      size={12}
+                      color={paper.dashboardInk}
+                    />
+                    <Text style={styles.confirmMetaText}>
+                      {reportDateLabel}
+                    </Text>
+                  </View>
+
+                  <View style={styles.confirmContextList}>
+                    {availableTabs.map((t) => (
+                      <View key={t.key} style={styles.confirmContextChip}>
+                        <Ionicons
+                          name={t.icon}
+                          size={12}
+                          color={paper.dashboardInk}
+                        />
+                        <Text style={styles.confirmContextLabel}>
+                          {t.label}
+                        </Text>
+                      </View>
+                    ))}
+                  </View>
+
+                  <Pressable
+                    style={(
+                      { pressed },
+                    ) => [
+                      styles.generateBtn,
+                      pressed && styles.generateBtnPressed,
+                    ]}
+                    onPress={generateReports}
+                    disabled={envLoading}
+                  >
+                    <Ionicons name="sparkles" size={14} color="#FFFFFF" />
+                    <Text style={styles.generateBtnText}>
+                      {isForecastDay
+                        ? "BUILD FORECAST READ"
+                        : "BUILD TODAY'S READ"}
+                    </Text>
+                  </Pressable>
+
+                  {analysisError
+                    ? <Text style={styles.errorInline}>{analysisError}</Text>
+                    : null}
+                </View>
+              )
+              : null}
           </View>
         </View>
       </View>
@@ -683,24 +806,24 @@ export default function HowFishingScreen() {
   return (
     <View style={styles.root}>
       <StatusBar style="light" />
-      <SafeAreaView style={styles.safeNav} edges={['top']}>
+      <SafeAreaView style={styles.safeNav} edges={["top"]}>
         <TopLevelHeader
           dateLabel={heroDateLabel}
           locationLabel={locationLabel}
-          generatedAt={
-            activeBundle
-              ? formatGeneratedTime(activeBundle.generated_at, activeTz)
-              : undefined
-          }
+          generatedAt={activeBundle
+            ? formatGeneratedTime(activeBundle.generated_at, activeTz)
+            : undefined}
           onBack={() => router.back()}
         />
       </SafeAreaView>
 
       <View style={styles.background}>
-        {/* Context switcher — paper-styled tabs that span the full width
+        {
+          /* Context switcher — paper-styled tabs that span the full width
             equally so the user can clearly see which context is active. The
             bar is rendered only when there are at least 2 tabs. Preserves
-            multi-context behavior (disabled state for tabs without a report). */}
+            multi-context behavior (disabled state for tabs without a report). */
+        }
         {availableTabs.length > 1 && (
           <View style={styles.contextTabBar}>
             {availableTabs.map((t) => {
@@ -721,10 +844,13 @@ export default function HowFishingScreen() {
                   <Ionicons
                     name={t.icon}
                     size={11}
-                    color={isActive ? '#FFFFFF' : paper.dashboardInk}
+                    color={isActive ? "#FFFFFF" : paper.dashboardInk}
                   />
                   <Text
-                    style={[styles.contextTabLabel, isActive && styles.contextTabLabelActive]}
+                    style={[
+                      styles.contextTabLabel,
+                      isActive && styles.contextTabLabelActive,
+                    ]}
                     numberOfLines={1}
                     adjustsFontSizeToFit
                     minimumFontScale={0.85}
@@ -737,88 +863,96 @@ export default function HowFishingScreen() {
           </View>
         )}
 
-        {availableTabs.length > 1 ? (
-          <ScrollView
-            ref={pagerRef}
-            horizontal
-            pagingEnabled
-            showsHorizontalScrollIndicator={false}
-            onMomentumScrollEnd={handlePagerMomentumEnd}
-            scrollEventThrottle={16}
-            style={styles.pager}
-            // Disable bounce on iOS so the first/last page doesn't rubber-band
-            // past the edge — keeps the page boundaries crisp.
-            bounces={false}
-            // iOS-only: lock the gesture to one axis so vertical scrolls inside
-            // a page don't accidentally drag the pager sideways.
-            directionalLockEnabled
-            // Ensure we start anchored on the active tab's page.
-            contentOffset={{
-              x: Math.max(0, activeTabIndex) * windowWidth,
-              y: 0,
-            }}
-          >
-            {availableTabs.map((t) => {
-              const bundle = multiBundles?.[t.key] ?? null;
-              return (
-                <View key={t.key} style={{ width: windowWidth }}>
-                  <ScrollView
-                    style={styles.scroll}
-                    contentContainerStyle={styles.reportContent}
-                    refreshControl={
-                      <RefreshControl
-                        refreshing={refreshing}
-                        onRefresh={handleRefresh}
-                        tintColor={paper.dashboardInk}
-                      />
-                    }
-                    showsVerticalScrollIndicator={false}
-                    nestedScrollEnabled
-                  >
-                    {bundle ? (
-                      <RebuildReportView
-                        report={bundle.report}
-                        solunarData={env?.solunar}
-                        dateLabel={heroDateLabel}
-                      />
-                    ) : (
-                      <View style={styles.noReportCard}>
-                        <Text style={styles.noReportText}>
-                          No read available for this water type.
-                        </Text>
-                      </View>
-                    )}
-                  </ScrollView>
-                </View>
-              );
-            })}
-          </ScrollView>
-        ) : (
-          <ScrollView
-            style={styles.scroll}
-            contentContainerStyle={styles.reportContent}
-            refreshControl={
-              <RefreshControl
-                refreshing={refreshing}
-                onRefresh={handleRefresh}
-                tintColor={paper.dashboardInk}
-              />
-            }
-            showsVerticalScrollIndicator={false}
-          >
-            {activeBundle ? (
-              <RebuildReportView
-                report={activeBundle.report}
-                solunarData={env?.solunar}
-                dateLabel={heroDateLabel}
-              />
-            ) : (
-              <View style={styles.noReportCard}>
-                <Text style={styles.noReportText}>No read available for this water type.</Text>
-              </View>
-            )}
-          </ScrollView>
-        )}
+        {availableTabs.length > 1
+          ? (
+            <ScrollView
+              ref={pagerRef}
+              horizontal
+              pagingEnabled
+              showsHorizontalScrollIndicator={false}
+              onMomentumScrollEnd={handlePagerMomentumEnd}
+              scrollEventThrottle={16}
+              style={styles.pager}
+              // Disable bounce on iOS so the first/last page doesn't rubber-band
+              // past the edge — keeps the page boundaries crisp.
+              bounces={false}
+              // iOS-only: lock the gesture to one axis so vertical scrolls inside
+              // a page don't accidentally drag the pager sideways.
+              directionalLockEnabled
+              // Ensure we start anchored on the active tab's page.
+              contentOffset={{
+                x: Math.max(0, activeTabIndex) * windowWidth,
+                y: 0,
+              }}
+            >
+              {availableTabs.map((t) => {
+                const bundle = multiBundles?.[t.key] ?? null;
+                return (
+                  <View key={t.key} style={{ width: windowWidth }}>
+                    <ScrollView
+                      style={styles.scroll}
+                      contentContainerStyle={styles.reportContent}
+                      refreshControl={
+                        <RefreshControl
+                          refreshing={refreshing}
+                          onRefresh={handleRefresh}
+                          tintColor={paper.dashboardInk}
+                        />
+                      }
+                      showsVerticalScrollIndicator={false}
+                      nestedScrollEnabled
+                    >
+                      {bundle
+                        ? (
+                          <RebuildReportView
+                            report={bundle.report}
+                            solunarData={env?.solunar}
+                            dateLabel={heroDateLabel}
+                          />
+                        )
+                        : (
+                          <View style={styles.noReportCard}>
+                            <Text style={styles.noReportText}>
+                              No read available for this water type.
+                            </Text>
+                          </View>
+                        )}
+                    </ScrollView>
+                  </View>
+                );
+              })}
+            </ScrollView>
+          )
+          : (
+            <ScrollView
+              style={styles.scroll}
+              contentContainerStyle={styles.reportContent}
+              refreshControl={
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={handleRefresh}
+                  tintColor={paper.dashboardInk}
+                />
+              }
+              showsVerticalScrollIndicator={false}
+            >
+              {activeBundle
+                ? (
+                  <RebuildReportView
+                    report={activeBundle.report}
+                    solunarData={env?.solunar}
+                    dateLabel={heroDateLabel}
+                  />
+                )
+                : (
+                  <View style={styles.noReportCard}>
+                    <Text style={styles.noReportText}>
+                      No read available for this water type.
+                    </Text>
+                  </View>
+                )}
+            </ScrollView>
+          )}
       </View>
     </View>
   );
@@ -843,7 +977,9 @@ function TopLevelHeader({
       <Pressable
         onPress={onBack}
         hitSlop={12}
-        style={({ pressed }) => [headerStyles.backBtn, pressed && headerStyles.backBtnPressed]}
+        style={(
+          { pressed },
+        ) => [headerStyles.backBtn, pressed && headerStyles.backBtnPressed]}
         accessibilityLabel="Back"
       >
         <Ionicons name="chevron-back" size={18} color="#FFFFFF" />
@@ -851,7 +987,7 @@ function TopLevelHeader({
 
       <View style={headerStyles.brand}>
         <Image
-          source={require('../assets/images/finfindr-logo.png')}
+          source={require("../assets/images/finfindr-logo.png")}
           style={headerStyles.logo}
           resizeMode="contain"
         />
@@ -879,9 +1015,9 @@ function TopLevelHeader({
 const headerStyles = StyleSheet.create({
   root: {
     height: 56,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 16,
     backgroundColor: paper.dashboardInk,
   },
@@ -889,19 +1025,19 @@ const headerStyles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: "rgba(255,255,255,0.08)",
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.16)',
-    alignItems: 'center',
-    justifyContent: 'center',
+    borderColor: "rgba(255,255,255,0.16)",
+    alignItems: "center",
+    justifyContent: "center",
   },
   backBtnPressed: { opacity: 0.7 },
   brand: {
-    position: 'absolute',
+    position: "absolute",
     left: 58,
     right: 130,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
   logo: {
@@ -915,22 +1051,22 @@ const headerStyles = StyleSheet.create({
   titleEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 8,
-    color: 'rgba(255,255,255,0.62)',
+    color: "rgba(255,255,255,0.62)",
     letterSpacing: 1.6,
     marginTop: -1,
   },
   titleRow: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
+    flexDirection: "row",
+    alignItems: "baseline",
     minWidth: 0,
   },
   titleText: {
     fontFamily: paperFonts.display,
     fontSize: 24,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     letterSpacing: 0,
     lineHeight: 26,
-    fontWeight: '800',
+    fontWeight: "800",
   },
   titlePeriod: {
     fontFamily: paperFonts.display,
@@ -938,19 +1074,19 @@ const headerStyles = StyleSheet.create({
     color: paper.dashboardBlueLight,
     marginLeft: 1,
     lineHeight: 26,
-    fontWeight: '800',
+    fontWeight: "800",
   },
   metaPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     maxWidth: 124,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 18,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: "rgba(255,255,255,0.08)",
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.16)',
+    borderColor: "rgba(255,255,255,0.16)",
   },
   metaDot: {
     width: 6,
@@ -962,7 +1098,7 @@ const headerStyles = StyleSheet.create({
     flexShrink: 1,
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 9,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     letterSpacing: 1,
   },
 });
@@ -986,7 +1122,7 @@ const styles = StyleSheet.create({
      and inverts its label color; inactive tabs are subdued so the selection
      is visually obvious. */
   contextTabBar: {
-    flexDirection: 'row',
+    flexDirection: "row",
     marginHorizontal: paperSpacing.lg,
     marginTop: paperSpacing.sm,
     marginBottom: paperSpacing.md,
@@ -994,13 +1130,13 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardLine,
     borderRadius: 999,
     backgroundColor: paper.dashboardWhite,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   contextTab: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     // Tightened from 6→4 px gap + 4→3 px horizontal padding so 4-tab
     // mode (coastal cities) gives each label room to breathe inside
     // its 25 % width slice — the prior values left "LAKE/POND"
@@ -1023,19 +1159,19 @@ const styles = StyleSheet.create({
     fontSize: 9.5,
     letterSpacing: 1.1,
     color: paper.dashboardInk,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   contextTabLabelActive: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
   },
 
   /* Confirmation surface */
   confirmOuter: {
     flex: 1,
     padding: paperSpacing.lg,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
   },
   confirmLines: {
     // Absolute; positioned relative to the container around the card.
@@ -1045,7 +1181,7 @@ const styles = StyleSheet.create({
     bottom: 40,
   },
   confirmCard: {
-    width: '100%',
+    width: "100%",
     maxWidth: 440,
     backgroundColor: paper.dashboardWhite,
     borderRadius: 12,
@@ -1054,8 +1190,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg + 6,
     paddingBottom: paperSpacing.lg,
-    alignItems: 'center',
-    overflow: 'hidden',
+    alignItems: "center",
+    overflow: "hidden",
   },
   confirmEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
@@ -1068,25 +1204,25 @@ const styles = StyleSheet.create({
     fontSize: 28,
     lineHeight: 32,
     letterSpacing: 0,
-    fontWeight: '700',
+    fontWeight: "700",
     color: paper.dashboardInk,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: paperSpacing.sm,
     marginBottom: paperSpacing.md,
   },
   confirmSub: {
     fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
+    fontStyle: "italic",
     fontSize: 14,
     color: paper.dashboardInk,
     opacity: 0.75,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 20,
     marginTop: paperSpacing.sm,
   },
   confirmMetaRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     marginTop: 4,
   },
@@ -1097,39 +1233,39 @@ const styles = StyleSheet.create({
     opacity: 0.8,
   },
   confirmContextList: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'center',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "center",
     gap: 6,
     marginTop: paperSpacing.md,
     marginBottom: paperSpacing.md + 2,
   },
   confirmContextChip: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 5,
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 999,
-    backgroundColor: '#F6F7F5',
+    backgroundColor: "#F6F7F5",
   },
   confirmContextLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10,
     letterSpacing: 1.5,
     color: paper.dashboardInk,
-    fontWeight: '700',
+    fontWeight: "700",
   },
   loadingWrap: {
     flex: 1,
-    position: 'relative',
+    position: "relative",
   },
   loadingOverlay: {
     ...StyleSheet.absoluteFillObject,
-    justifyContent: 'flex-end',
-    alignItems: 'center',
+    justifyContent: "flex-end",
+    alignItems: "center",
     paddingBottom: paperSpacing.xl + paperSpacing.md,
     gap: paperSpacing.sm,
   },
@@ -1139,13 +1275,13 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
     color: paper.dashboardInk,
     opacity: 0.75,
-    textAlign: 'center',
-    fontWeight: '700',
+    textAlign: "center",
+    fontWeight: "700",
   },
   generateBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 8,
     backgroundColor: paper.dashboardInk,
     borderRadius: 9,
@@ -1153,7 +1289,7 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardInk,
     minHeight: 48,
     paddingHorizontal: paperSpacing.lg,
-    width: '100%',
+    width: "100%",
   },
   generateBtnPressed: {
     opacity: 0.82,
@@ -1162,15 +1298,15 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
     letterSpacing: 2,
-    color: '#FFFFFF',
-    fontWeight: '700',
+    color: "#FFFFFF",
+    fontWeight: "700",
   },
 
   /* No-coords centered */
   centered: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: paperSpacing.xl,
     gap: paperSpacing.md,
   },
@@ -1181,25 +1317,25 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     backgroundColor: paper.dashboardWhite,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     marginBottom: paperSpacing.sm,
   },
   messageTitle: {
     fontFamily: paperFonts.display,
     fontSize: 22,
     letterSpacing: 0,
-    fontWeight: '700',
+    fontWeight: "700",
     color: paper.dashboardInk,
-    textAlign: 'center',
+    textAlign: "center",
   },
   messageSub: {
     fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
+    fontStyle: "italic",
     fontSize: 14,
     color: paper.dashboardMuted,
     opacity: 0.75,
-    textAlign: 'center',
+    textAlign: "center",
     lineHeight: 20,
     paddingHorizontal: paperSpacing.md,
   },
@@ -1208,25 +1344,25 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     borderWidth: 1,
     borderColor: paper.dashboardInk,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     minHeight: 44,
     paddingHorizontal: paperSpacing.xl,
     marginTop: paperSpacing.sm,
   },
   primaryBtnPressed: { opacity: 0.82 },
   primaryBtnText: {
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
     letterSpacing: 2,
-    fontWeight: '700',
+    fontWeight: "700",
   },
 
   errorInline: {
     fontFamily: paperFonts.body,
     color: paper.bandTough,
-    textAlign: 'center',
+    textAlign: "center",
     marginTop: paperSpacing.sm,
     fontSize: 13,
   },
@@ -1237,14 +1373,14 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     padding: paperSpacing.lg,
-    alignItems: 'center',
+    alignItems: "center",
   },
   noReportText: {
     fontFamily: paperFonts.displayItalic,
-    fontStyle: 'italic',
+    fontStyle: "italic",
     fontSize: 14,
     color: paper.dashboardMuted,
     opacity: 0.75,
-    textAlign: 'center',
+    textAlign: "center",
   },
 });

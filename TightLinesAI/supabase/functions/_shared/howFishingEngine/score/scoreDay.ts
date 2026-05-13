@@ -6,6 +6,7 @@ import { computeActiveWeights } from "./reweight.ts";
 const FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION = 6;
 const POSITIVE_RAW_SCORE_DIVISOR = 3.2;
 const NEGATIVE_RAW_SCORE_DIVISOR = 4;
+const MAJOR_SUPPRESSOR_POLICY_THRESHOLD = -10;
 
 function scoreForKey(
   key: ScoredVariableKey,
@@ -79,8 +80,6 @@ export function scoreDay(norm: SharedNormalizedOutput): {
   // the top band, while the negative side stays unchanged to avoid making poor
   // conditions look too forgiving.
   const clamped = Math.max(10, Math.min(100, score));
-  const band = bandFromScore(clamped);
-
   const pos = contributions
     .filter((c) => c.weightedContribution > 0)
     .sort((a, b) => b.weightedContribution - a.weightedContribution);
@@ -112,11 +111,48 @@ export function scoreDay(norm: SharedNormalizedOutput): {
     c.weightedContribution <= -FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION
   );
 
+  // Phase 9F production-wired rain/wet final-score policy. Rollback is local:
+  // return `clamped`/`bandFromScore(clamped)` directly without changing
+  // normalizers, callers, contributions, drivers, or suppressors.
+  const finalScore = applyRainWetFinalScorePolicy(
+    clamped,
+    norm,
+    surfacedSuppressors,
+  );
+
   return {
-    score: clamped,
-    band,
+    score: finalScore,
+    band: bandFromScore(finalScore),
     contributions,
     drivers: surfacedDrivers.slice(0, 2),
     suppressors: surfacedSuppressors.slice(0, 2),
   };
+}
+
+function applyRainWetFinalScorePolicy(
+  score: number,
+  norm: SharedNormalizedOutput,
+  suppressors: ActiveVariableScore[],
+): number {
+  let capped = score;
+  if (hasActiveRainDisruption(norm)) capped = Math.min(capped, 55);
+  if (hasWetRecentRainDisruption(norm)) capped = Math.min(capped, 65);
+  if (hasMajorSuppressor(suppressors) && capped > 70) capped = 69;
+  return capped;
+}
+
+function hasActiveRainDisruption(norm: SharedNormalizedOutput): boolean {
+  return norm.normalized.precipitation_disruption?.label ===
+    "active_disruption";
+}
+
+function hasWetRecentRainDisruption(norm: SharedNormalizedOutput): boolean {
+  const precip = norm.normalized.precipitation_disruption;
+  return precip?.label === "recent_rain" && precip.score <= -0.45;
+}
+
+function hasMajorSuppressor(suppressors: ActiveVariableScore[]): boolean {
+  return suppressors.some((s) =>
+    s.weightedContribution <= MAJOR_SUPPRESSOR_POLICY_THRESHOLD
+  );
 }

@@ -5,7 +5,10 @@ import type {
   SharedNormalizedOutput,
   VariableDataGap,
 } from "../contracts/mod.ts";
-import { isCoastalFamilyContext, SCORED_VARIABLE_KEYS_BY_CONTEXT } from "../contracts/mod.ts";
+import {
+  isCoastalFamilyContext,
+  SCORED_VARIABLE_KEYS_BY_CONTEXT,
+} from "../contracts/mod.ts";
 import type { ReliabilityTierNormalized } from "../contracts/normalized.ts";
 import { monthIndexFromDate } from "../config/monthModifiers.ts";
 import { normalizeTemperature } from "./normalizeTemperature.ts";
@@ -28,24 +31,26 @@ function buildDataGaps(
   const gaps: VariableDataGap[] = [];
   for (const key of expected) {
     if (missing.includes(key)) {
-      const reason =
-        key === "runoff_flow_disruption" && runoffGapReason === "incomplete_precip_windows"
-          ? "incomplete_precip_windows"
-          : "absent";
+      const reason = key === "runoff_flow_disruption" &&
+          runoffGapReason === "incomplete_precip_windows"
+        ? "incomplete_precip_windows"
+        : "absent";
       gaps.push({ variable_key: key as ScoredVariableKey, reason });
     }
   }
   return gaps;
 }
 
-function downgradeOnce(t: ReliabilityTierNormalized): ReliabilityTierNormalized {
+function downgradeOnce(
+  t: ReliabilityTierNormalized,
+): ReliabilityTierNormalized {
   if (t === "high") return "medium";
   return "low";
 }
 
 function minTier(
   a: ReliabilityTierNormalized,
-  b: ReliabilityTierNormalized
+  b: ReliabilityTierNormalized,
 ): ReliabilityTierNormalized {
   const o = { low: 0, medium: 1, high: 2 };
   return o[a] <= o[b] ? a : b;
@@ -55,7 +60,7 @@ function computeReliability(
   context: EngineContext,
   available: string[],
   missing: string[],
-  pressureQuality: PressureHistoryQuality | null
+  pressureQuality: PressureHistoryQuality | null,
 ): ReliabilityTierNormalized {
   const n = available.length;
   if (n < 3) return "low";
@@ -79,34 +84,38 @@ function computeReliability(
     tier = downgradeOnce(tier);
   }
 
-  if (isCoastalFamilyContext(context) && missing.includes("tide_current_movement")) {
+  if (
+    isCoastalFamilyContext(context) && missing.includes("tide_current_movement")
+  ) {
     tier = minTier(tier, "medium");
   }
 
   return tier;
 }
 
-export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNormalizedOutput {
+export function buildSharedNormalizedOutput(
+  req: SharedEngineRequest,
+): SharedNormalizedOutput {
   const month = monthIndexFromDate(req.local_date);
   const e = req.environment;
 
-  const dailyMean =
-    e.daily_mean_air_temp_f ??
-    e.current_air_temp_f ??
-    null;
+  const hasDailyMean = e.daily_mean_air_temp_f != null;
+  const dailyMean = hasDailyMean
+    ? e.daily_mean_air_temp_f
+    : e.current_air_temp_f ?? null;
 
   const temp = normalizeTemperature(
     req.context,
     req.region_key,
     month,
     dailyMean,
-    e.prior_day_mean_air_temp_f,
-    e.day_minus_2_mean_air_temp_f,
+    hasDailyMean ? e.prior_day_mean_air_temp_f : null,
+    hasDailyMean ? e.day_minus_2_mean_air_temp_f : null,
     {
       measuredWaterTempF: e.measured_water_temp_f,
       measuredWaterTemp24hAgoF: e.measured_water_temp_24h_ago_f,
       measuredWaterTemp72hAgoF: e.measured_water_temp_72h_ago_f,
-    }
+    },
   );
 
   const pressureResult = normalizePressureDetailed(e.pressure_history_mb);
@@ -118,6 +127,7 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
   const wind = normalizeWind(e.wind_speed_mph, req.context);
   const light = normalizeLight(e.cloud_cover_pct, req.context, {
     temperatureBandLabel: temp?.band_label ?? undefined,
+    windMph: e.wind_speed_mph,
   });
 
   const precipRate = e.precip_rate_now_in_per_hr;
@@ -125,8 +135,7 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
   const p72 = e.precip_72h_in;
   const p7dRiver = e.precip_7d_in;
 
-  const precipLakeCoastalContract =
-    (p24 != null && p72 != null) ||
+  const precipLakeCoastalContract = (p24 != null && p72 != null) ||
     precipRate != null ||
     e.active_precip_now === true;
 
@@ -155,21 +164,22 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
     }
   }
 
-  const riverPrecipPartial =
-    req.context === "freshwater_river" &&
+  const riverPrecipPartial = req.context === "freshwater_river" &&
     (p24 != null || p72 != null || p7dRiver != null) &&
     (p24 == null || p72 == null || p7dRiver == null);
 
   let runoff: ReturnType<typeof normalizeRunoff> = null;
   if (req.context === "freshwater_river") {
     if (p24 != null && p72 != null && p7dRiver != null) {
-      runoff = normalizeRunoff(req.region_key, p24, p72, p7dRiver);
+      runoff = normalizeRunoff(req.region_key, p24, p72, p7dRiver, month);
     }
   }
 
   let tide: ReturnType<typeof normalizeTideCurrentMovement> = null;
   if (isCoastalFamilyContext(req.context)) {
-    const tidePolicy = req.context === "coastal_flats_estuary" ? "flats_estuary" : "inshore";
+    const tidePolicy = req.context === "coastal_flats_estuary"
+      ? "flats_estuary"
+      : "inshore";
     tide = normalizeTideCurrentMovement({
       current_speed_knots_max: e.current_speed_knots_max,
       tide_height_hourly_ft: e.tide_height_hourly_ft,
@@ -205,7 +215,10 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
   if (precip) {
     normalized.precipitation_disruption = precip;
     available.push("precipitation_disruption");
-  } else if (req.context === "freshwater_lake_pond" || isCoastalFamilyContext(req.context)) {
+  } else if (
+    req.context === "freshwater_lake_pond" ||
+    isCoastalFamilyContext(req.context)
+  ) {
     missing.push("precipitation_disruption");
   }
 
@@ -227,7 +240,7 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
     req.context,
     available,
     missing,
-    pressureQuality
+    pressureQuality,
   );
 
   if (
@@ -240,8 +253,8 @@ export function buildSharedNormalizedOutput(req: SharedEngineRequest): SharedNor
 
   const runoffGapReason: "absent" | "incomplete_precip_windows" =
     req.context === "freshwater_river" &&
-    missing.includes("runoff_flow_disruption") &&
-    riverPrecipPartial
+      missing.includes("runoff_flow_disruption") &&
+      riverPrecipPartial
       ? "incomplete_precip_windows"
       : "absent";
 

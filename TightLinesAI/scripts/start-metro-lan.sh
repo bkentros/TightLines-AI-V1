@@ -134,11 +134,16 @@ echo ""
 echo "  If Safari times out: guest Wi‑Fi / AP client isolation, or Mac Firewall"
 echo "  blocking port ${PORT}. System Settings → Network → Firewall → allow Node."
 echo ""
-echo "  Preferred: TightLines dev build → Development servers → tap this Mac."
-echo "  iPhone: Settings → TightLines AI → Local Network → On"
+echo "  Preferred: FinFindr dev build → Development servers → tap this Mac."
+echo "  iPhone: Settings → FinFindr → Local Network → On"
 echo ""
-echo "  Fallback — scan QR below, or Enter URL manually:"
+echo "  iPhone Camera often shows \"no usable data\" for dev-client QR (exp+… URL)."
+echo "  Paste the URL below into dev client → Enter URL manually (or Clipboard on Mac → iPhone)."
 echo "    ${DEV_CLIENT_URL}"
+if command -v pbcopy >/dev/null 2>&1; then
+  printf '%s' "${DEV_CLIENT_URL}" | pbcopy
+  echo "  → Copied to this Mac’s clipboard (⌘V on phone if Handoff/Universal Clipboard is on)."
+fi
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 echo ""
 

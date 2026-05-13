@@ -28,11 +28,16 @@ export type LightVariableState = VariableState & { label: LightLabel };
  *
  * opts.temperatureBandLabel: when "very_cold" or "cool", bright/clear sky on freshwater
  * is scored neutral (0) rather than negative — cold-water fish are not harmed by sun.
+ *
+ * Phase 6C Light V2 score-only wiring: heavy overcast is still helpful in calm
+ * conditions, but strong wind caps it so cloud cover cannot create a false
+ * daymaker. Rollback restores only the heavy-overcast score branches below;
+ * labels, details, null behavior, and caller contract remain stable.
  */
 export function normalizeLight(
   cloudPct: number | null | undefined,
   context: EngineContext,
-  opts?: { temperatureBandLabel?: string },
+  opts?: { temperatureBandLabel?: string; windMph?: number | null },
 ): LightVariableState | null {
   if (cloudPct == null || Number.isNaN(cloudPct)) return null;
   const c = Math.max(0, Math.min(100, cloudPct));
@@ -40,9 +45,11 @@ export function normalizeLight(
   const freshwater = !isCoastalFamilyContext(context);
   const isFlats = context === "coastal_flats_estuary";
 
-  const inColdBand =
-    opts?.temperatureBandLabel === "very_cold" ||
+  const inColdBand = opts?.temperatureBandLabel === "very_cold" ||
     opts?.temperatureBandLabel === "cool";
+  const strongWind = opts?.windMph != null &&
+    Number.isFinite(opts.windMph) &&
+    opts.windMph >= 18;
 
   let score: number;
   if (freshwater) {
@@ -58,7 +65,9 @@ export function normalizeLight(
     } else if (c <= 85) {
       score = pieceLinear(c, 69, 85, 0.55, 0.95);
     } else {
-      score = pieceLinear(c, 85, 100, 0.95, 1.15);
+      score = strongWind
+        ? pieceLinear(c, 85, 100, 0.70, 0.35)
+        : pieceLinear(c, 85, 100, 0.70, 0.82);
     }
   } else if (c <= 50) {
     if (isFlats && c <= 20) {
@@ -72,7 +81,9 @@ export function normalizeLight(
   } else if (c <= 90) {
     score = pieceLinear(c, 75, 90, 0.4, 0.9);
   } else {
-    score = pieceLinear(c, 90, 100, 0.9, 1.05);
+    score = strongWind
+      ? pieceLinear(c, 90, 100, 0.60, 0.20)
+      : pieceLinear(c, 90, 100, 0.60, 0.68);
   }
 
   score = clampEngineScore(score);

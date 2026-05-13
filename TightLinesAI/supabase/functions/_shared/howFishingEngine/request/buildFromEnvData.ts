@@ -30,7 +30,9 @@ function mean24(values: number[] | null | undefined): number | null {
   return s / values.length;
 }
 
-function readWeather(env: Record<string, unknown>): Record<string, unknown> | null {
+function readWeather(
+  env: Record<string, unknown>,
+): Record<string, unknown> | null {
   const w = env.weather;
   return w && typeof w === "object" ? (w as Record<string, unknown>) : null;
 }
@@ -45,13 +47,20 @@ function readDailyMean(
   return (highs[idx]! + lows[idx]!) / 2;
 }
 
-function currentDailyIndex(values: unknown[] | undefined, dayOffset = 0): number | null {
+function currentDailyIndex(
+  values: unknown[] | undefined,
+  dayOffset = 0,
+): number | null {
   if (!values || values.length === 0) return null;
   // Base index 14 = today in a past_days=14 array. dayOffset shifts forward for forecast days.
   return Math.min(14 + dayOffset, values.length - 1);
 }
 
-function sumRecent(values: number[] | undefined, endIdx: number | null, days: number): number | null {
+function sumRecent(
+  values: number[] | undefined,
+  endIdx: number | null,
+  days: number,
+): number | null {
   if (!values || values.length === 0 || endIdx == null) return null;
   const start = Math.max(0, endIdx - (days - 1));
   let total = 0;
@@ -92,7 +101,10 @@ export function buildSharedEngineRequestFromEnvData(
   dayOffset = 0,
   opts?: BuildFromEnvDataOptions,
 ): SharedEngineRequest {
-  const { state_code, region_key: baseRegionKey } = resolveRegionForCoordinates(latitude, longitude);
+  const { state_code, region_key: baseRegionKey } = resolveRegionForCoordinates(
+    latitude,
+    longitude,
+  );
 
   // ── Altitude and latitude-based region overrides ──────────────────────────
   // These apply AFTER state-based resolution and can override to a sub-region.
@@ -111,7 +123,9 @@ export function buildSharedEngineRequestFromEnvData(
   // northern_california: CA above 37.5°N — NorCal inland/foothills/coast.
   // Applies AFTER alpine check so high-elevation NorCal (e.g. Lake Tahoe CA side)
   // still routes to mountain_alpine.
-  if (state_code === "CA" && latitude > 37.5 && region_key !== "mountain_alpine") {
+  if (
+    state_code === "CA" && latitude > 37.5 && region_key !== "mountain_alpine"
+  ) {
     region_key = "northern_california";
   }
 
@@ -129,8 +143,8 @@ export function buildSharedEngineRequestFromEnvData(
 
   const w = readWeather(envData);
 
-  const calDayToday =
-    opts?.useCalendarDayProfileForToday === true && dayOffset === 0;
+  const calDayToday = opts?.useCalendarDayProfileForToday === true &&
+    dayOffset === 0;
   /** Pressure series ending at target calendar day's local noon (not “current hour”). */
   const noonAnchoredPressure = dayOffset > 0 || calDayToday;
 
@@ -150,13 +164,18 @@ export function buildSharedEngineRequestFromEnvData(
       if (noonAnchoredPressure) {
         // 48 readings ending at target day local noon (D=0 → today noon; D=1 → tomorrow noon).
         const targetNoonIdx = (14 + dayOffset) * 24 + 12;
-        trimmed = hourly.slice(Math.max(0, targetNoonIdx - 47), targetNoonIdx + 1);
+        trimmed = hourly.slice(
+          Math.max(0, targetNoonIdx - 47),
+          targetNoonIdx + 1,
+        );
       } else {
         trimmed = hourly.slice(Math.max(0, hourly.length - 48));
       }
       pressure_history_mb = trimmed
         .map((h: unknown) => {
-          if (h && typeof h === "object" && "value" in h) return num((h as { value: unknown }).value);
+          if (h && typeof h === "object" && "value" in h) {
+            return num((h as { value: unknown }).value);
+          }
           return null;
         })
         .filter((x): x is number => x != null);
@@ -166,13 +185,19 @@ export function buildSharedEngineRequestFromEnvData(
   const th = w?.temp_7day_high as number[] | undefined;
   const tl = w?.temp_7day_low as number[] | undefined;
   const tempIdx = currentDailyIndex(th && th.length ? th : tl, dayOffset);
-  const daily_mean = readDailyMean(th, tl, tempIdx) ?? num(w?.temperature);
-  const prior_mean = readDailyMean(th, tl, tempIdx != null ? tempIdx - 1 : null);
+  const daily_mean = readDailyMean(th, tl, tempIdx);
+  const prior_mean = readDailyMean(
+    th,
+    tl,
+    tempIdx != null ? tempIdx - 1 : null,
+  );
   const d2_mean = readDailyMean(th, tl, tempIdx != null ? tempIdx - 2 : null);
-  const daily_low_air =
-    tempIdx != null && tl && tl[tempIdx] != null ? num(tl[tempIdx]) : null;
-  const daily_high_air =
-    tempIdx != null && th && th[tempIdx] != null ? num(th[tempIdx]) : null;
+  const daily_low_air = tempIdx != null && tl && tl[tempIdx] != null
+    ? num(tl[tempIdx])
+    : null;
+  const daily_high_air = tempIdx != null && th && th[tempIdx] != null
+    ? num(th[tempIdx])
+    : null;
 
   const pd = w?.precip_7day_daily as number[] | undefined;
   const precipIdx = currentDailyIndex(pd, dayOffset);
@@ -203,39 +228,53 @@ export function buildSharedEngineRequestFromEnvData(
   // daily-total payloads), it is not an hourly rate — omit fake `precip_rate_now` and
   // `active_precip_now` or normalizePrecip treats trace rain as active / high-rate rain.
   const precipInFromMm = precip_mm != null ? precip_mm / 25.4 : null;
-  const precipitationMatches24h =
-    precipInFromMm != null &&
+  const precipitationMatches24h = precipInFromMm != null &&
     precip_24h != null &&
     Math.abs(precipInFromMm - precip_24h) < 0.02;
   const precip_rate_now = precipitationMatches24h ? null : precipInFromMm;
 
   const tides = envData.tides as Record<string, unknown> | null | undefined;
-  const tidePhase = tides && typeof tides.phase === "string" ? tides.phase : null;
-  const highLow = tides?.high_low as Array<{ time: string; type?: string; value: number }> | undefined;
-  const tide_high_low =
-    Array.isArray(highLow) && highLow.length >= 2
-      ? highLow
-          .map((x) => ({
-            time: x.time,
-            value: Number(x.value),
-            ...(typeof x.type === "string" ? { type: x.type } : {}),
-          }))
-          .filter((x) => x.time && Number.isFinite(x.value))
-      : null;
-
-  const currentKts = tides && typeof tides === "object" && "current_speed_knots_max" in tides
-    ? num((tides as { current_speed_knots_max?: unknown }).current_speed_knots_max)
+  const tidePhase = tides && typeof tides.phase === "string"
+    ? tides.phase
     : null;
+  const highLow = tides?.high_low as
+    | Array<{ time: string; type?: string; value: number }>
+    | undefined;
+  const tide_high_low = Array.isArray(highLow) && highLow.length >= 2
+    ? highLow
+      .map((x) => ({
+        time: x.time,
+        value: Number(x.value),
+        ...(typeof x.type === "string" ? { type: x.type } : {}),
+      }))
+      .filter((x) => x.time && Number.isFinite(x.value))
+    : null;
+
+  const currentKts =
+    tides && typeof tides === "object" && "current_speed_knots_max" in tides
+      ? num(
+        (tides as { current_speed_knots_max?: unknown })
+          .current_speed_knots_max,
+      )
+      : null;
 
   const sun = envData.sun as Record<string, unknown> | null | undefined;
 
-  const solunar = envData.solunar as { major_periods?: Array<{ start: string }> } | undefined;
+  const solunar = envData.solunar as {
+    major_periods?: Array<{ start: string }>;
+  } | undefined;
   const solunar_peak_local =
-    solunar?.major_periods?.map((p) => p.start).filter((s) => typeof s === "string" && s.length > 0) ??
-    undefined;
+    solunar?.major_periods?.map((p) => p.start).filter((s) =>
+      typeof s === "string" && s.length > 0
+    ) ??
+      undefined;
 
-  const envTzRaw = typeof envData.timezone === "string" ? envData.timezone.trim() : "";
-  const reqTzRaw = typeof localTimezone === "string" ? localTimezone.trim() : "";
+  const envTzRaw = typeof envData.timezone === "string"
+    ? envData.timezone.trim()
+    : "";
+  const reqTzRaw = typeof localTimezone === "string"
+    ? localTimezone.trim()
+    : "";
   const tzForHourly = envTzRaw.length > 0 ? envTzRaw : reqTzRaw;
 
   const source_notes: string[] = [];
@@ -250,9 +289,10 @@ export function buildSharedEngineRequestFromEnvData(
   const hourlyAirPts = Array.isArray(hourlyAirRaw) && hourlyAirRaw.length > 0
     ? (hourlyAirRaw as Array<{ time_utc: string; value: number }>)
     : null;
-  const hourlyCloudPts = Array.isArray(hourlyCloudRaw) && hourlyCloudRaw.length > 0
-    ? (hourlyCloudRaw as Array<{ time_utc: string; value: number }>)
-    : null;
+  const hourlyCloudPts =
+    Array.isArray(hourlyCloudRaw) && hourlyCloudRaw.length > 0
+      ? (hourlyCloudRaw as Array<{ time_utc: string; value: number }>)
+      : null;
 
   const hourlyAirTemp24 = hourlyAirPts
     ? hourlyPointsTo24ArrayForLocalDate(hourlyAirPts, localDate, tzForHourly)
@@ -268,7 +308,11 @@ export function buildSharedEngineRequestFromEnvData(
     ? hourlyPointsTo24ArrayForLocalDate(hourlyCloudPts, localDate, tzForHourly)
     : null;
   if (hourlyCloudPts && hourlyCloudPct24 == null) {
-    const n = countValidHoursForLocalDate(hourlyCloudPts, localDate, tzForHourly);
+    const n = countValidHoursForLocalDate(
+      hourlyCloudPts,
+      localDate,
+      tzForHourly,
+    );
     source_notes.push(
       `hourly_cloud_cover_pct: ${n} valid local hours for ${localDate} (need ${MIN_LOCAL_DAY_HOURS}); timing uses non-hourly cloud`,
     );
@@ -289,16 +333,16 @@ export function buildSharedEngineRequestFromEnvData(
   let pressure_mb_out = num(w?.pressure);
   let wind_speed_mph_out: number | null = windNowMph;
   let cloud_cover_pct_out = num(w?.cloud_cover);
-  let active_precip_now =
-    !precipitationMatches24h &&
+  let active_precip_now = !precipitationMatches24h &&
     precip_mm != null &&
     precip_mm > 0.5;
   let precip_rate_now_out: number | null = precip_rate_now;
 
   if (dayOffset > 0 || calDayToday) {
     const noonAir =
-      hourlyAirTemp24 != null && Number.isFinite(hourlyAirTemp24[12]) ? hourlyAirTemp24[12]! : null;
-    daily_mean_air_temp_f = noonAir ?? daily_mean;
+      hourlyAirTemp24 != null && Number.isFinite(hourlyAirTemp24[12])
+        ? hourlyAirTemp24[12]!
+        : null;
     current_air_temp_f = noonAir ?? daily_mean;
 
     if (pressure_history_mb && pressure_history_mb.length > 0) {
@@ -311,14 +355,17 @@ export function buildSharedEngineRequestFromEnvData(
       cloud_cover_pct_out = cloudMean;
     } else {
       source_notes.push(
-        `${calDayToday ? "calendar_today" : "forecast_day"}_cloud_scalar_fallback: insufficient hourly cloud for ${localDate} — cloud_cover_pct uses current weather`,
+        `${
+          calDayToday ? "calendar_today" : "forecast_day"
+        }_cloud_scalar_fallback: insufficient hourly cloud for ${localDate} — cloud_cover_pct uses current weather`,
       );
     }
 
     const hourlyWindRaw = envData.hourly_wind_speed;
-    const hourlyWindPts = Array.isArray(hourlyWindRaw) && hourlyWindRaw.length > 0
-      ? (hourlyWindRaw as Array<{ time_utc: string; value: number }>)
-      : null;
+    const hourlyWindPts =
+      Array.isArray(hourlyWindRaw) && hourlyWindRaw.length > 0
+        ? (hourlyWindRaw as Array<{ time_utc: string; value: number }>)
+        : null;
     const hourlyWind24 = hourlyWindPts
       ? hourlyPointsTo24ArrayForLocalDate(hourlyWindPts, localDate, tzForHourly)
       : null;
@@ -342,7 +389,9 @@ export function buildSharedEngineRequestFromEnvData(
       wind_speed_mph_out = windToMph(wmax, windUnitLabel) ?? windNowMph;
       if (windMeanMph == null && hourlyWindPts) {
         source_notes.push(
-          `${calDayToday ? "calendar_today" : "forecast_day"}_wind_scalar_fallback: insufficient hourly wind for ${localDate} — using daily max or current`,
+          `${
+            calDayToday ? "calendar_today" : "forecast_day"
+          }_wind_scalar_fallback: insufficient hourly wind for ${localDate} — using daily max or current`,
         );
       }
     }
@@ -390,13 +439,19 @@ export function buildSharedEngineRequestFromEnvData(
       active_precip_now,
       precip_rate_now_in_per_hr: precip_rate_now_out,
       tide_movement_state: tidePhase,
-      tide_station_id: tides && typeof tides.station_id === "string" ? tides.station_id : null,
+      tide_station_id: tides && typeof tides.station_id === "string"
+        ? tides.station_id
+        : null,
       tide_high_low,
       current_speed_knots_max: currentKts,
       tide_height_hourly_ft: null,
-      sunrise_local: sun && typeof sun.sunrise === "string" ? sun.sunrise : null,
+      sunrise_local: sun && typeof sun.sunrise === "string"
+        ? sun.sunrise
+        : null,
       sunset_local: sun && typeof sun.sunset === "string" ? sun.sunset : null,
-      solunar_peak_local: solunar_peak_local?.length ? solunar_peak_local : undefined,
+      solunar_peak_local: solunar_peak_local?.length
+        ? solunar_peak_local
+        : undefined,
       hourly_air_temp_f: hourlyAirTemp24,
       hourly_cloud_cover_pct: hourlyCloudPct24,
     },

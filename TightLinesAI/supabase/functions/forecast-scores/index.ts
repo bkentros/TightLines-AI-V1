@@ -18,8 +18,8 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 import {
   buildSharedEngineRequestFromEnvData,
-  runHowFishingScoreOnly,
   type EngineContext,
+  runHowFishingScoreOnly,
 } from "../_shared/howFishingEngine/index.ts";
 
 const CONTEXTS: EngineContext[] = [
@@ -60,13 +60,16 @@ interface ForecastTideDay {
   unit: string;
 }
 
-let waterLevelStationsCache: { fetchedAt: number; stations: NOAAStation[] } | null = null;
+let waterLevelStationsCache:
+  | { fetchedAt: number; stations: NOAAStation[] }
+  | null = null;
 
 function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey, x-user-token",
+    "Access-Control-Allow-Headers":
+      "Content-Type, Authorization, apikey, x-user-token",
   };
 }
 
@@ -76,12 +79,16 @@ function num(x: unknown): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-function haversineMiles(lat1: number, lon1: number, lat2: number, lon2: number): number {
+function haversineMiles(
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number,
+): number {
   const toRad = (d: number) => (d * Math.PI) / 180;
   const dLat = toRad(lat2 - lat1);
   const dLon = toRad(lon2 - lon1);
-  const a =
-    Math.sin(dLat / 2) ** 2 +
+  const a = Math.sin(dLat / 2) ** 2 +
     Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
   return EARTH_RADIUS_MILES * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
@@ -101,7 +108,8 @@ async function getWaterLevelStationsCached(): Promise<NOAAStation[] | null> {
     });
     if (!response.ok) return waterLevelStationsCache?.stations ?? null;
     const json = await response.json();
-    const stations: NOAAStation[] = json?.stations ?? json?.data?.stations ?? [];
+    const stations: NOAAStation[] = json?.stations ?? json?.data?.stations ??
+      [];
     if (!Array.isArray(stations) || stations.length === 0) {
       return waterLevelStationsCache?.stations ?? null;
     }
@@ -142,7 +150,9 @@ function formatDateInZone(date: Date, timeZone: string): string {
   }
 }
 
-function tideDateRangeYyyymmdd(timezone: string): { beginDate: string; endDate: string } {
+function tideDateRangeYyyymmdd(
+  timezone: string,
+): { beginDate: string; endDate: string } {
   const now = new Date();
   const beginDate = formatDateInZone(now, timezone).replace(/-/g, "");
   const endCap = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
@@ -194,26 +204,37 @@ function deriveTidePhaseForDate(
   date: string,
 ): string | undefined {
   if (highLow.length < 2) return undefined;
-  const noonLocalMs = new Date(date + "T12:00:00Z").getTime() - tzHours * 3600 * 1000;
-  const pastPreds = highLow.filter((entry) => parseNoaaLocalTimeToUtcMs(entry.time, tzHours) <= noonLocalMs);
-  const futurePreds = highLow.filter((entry) => parseNoaaLocalTimeToUtcMs(entry.time, tzHours) > noonLocalMs);
+  const noonLocalMs = new Date(date + "T12:00:00Z").getTime() -
+    tzHours * 3600 * 1000;
+  const pastPreds = highLow.filter((entry) =>
+    parseNoaaLocalTimeToUtcMs(entry.time, tzHours) <= noonLocalMs
+  );
+  const futurePreds = highLow.filter((entry) =>
+    parseNoaaLocalTimeToUtcMs(entry.time, tzHours) > noonLocalMs
+  );
 
   if (pastPreds.length > 0 && futurePreds.length > 0) {
     const lastPred = pastPreds[pastPreds.length - 1]!;
     const nextPred = futurePreds[0]!;
-    const minsToNext = (parseNoaaLocalTimeToUtcMs(nextPred.time, tzHours) - noonLocalMs) / 60_000;
+    const minsToNext =
+      (parseNoaaLocalTimeToUtcMs(nextPred.time, tzHours) - noonLocalMs) /
+      60_000;
     if (minsToNext <= 30) return "approaching slack";
     return lastPred.type === "L" ? "incoming" : "outgoing";
   }
   if (pastPreds.length === 0 && futurePreds.length > 0) {
     const nextPred = futurePreds[0]!;
-    const minsToNext = (parseNoaaLocalTimeToUtcMs(nextPred.time, tzHours) - noonLocalMs) / 60_000;
+    const minsToNext =
+      (parseNoaaLocalTimeToUtcMs(nextPred.time, tzHours) - noonLocalMs) /
+      60_000;
     if (minsToNext <= 30) return "approaching slack";
     return nextPred.type === "H" ? "incoming" : "outgoing";
   }
   if (futurePreds.length === 0 && pastPreds.length > 0) {
     const lastPred = pastPreds[pastPreds.length - 1]!;
-    const minsSinceLast = (noonLocalMs - parseNoaaLocalTimeToUtcMs(lastPred.time, tzHours)) / 60_000;
+    const minsSinceLast =
+      (noonLocalMs - parseNoaaLocalTimeToUtcMs(lastPred.time, tzHours)) /
+      60_000;
     if (minsSinceLast <= 30) return "approaching slack";
     return lastPred.type === "L" ? "incoming" : "outgoing";
   }
@@ -232,12 +253,20 @@ async function fetchForecastTides(
 }> {
   const stations = await getWaterLevelStationsCached();
   if (!stations || stations.length === 0) {
-    return { coastal: false, nearest_tide_station_id: null, forecast_tides_by_date: [] };
+    return {
+      coastal: false,
+      nearest_tide_station_id: null,
+      forecast_tides_by_date: [],
+    };
   }
 
   const candidates = rankNearbyTideStations(latitude, longitude, stations);
   if (candidates.length === 0) {
-    return { coastal: false, nearest_tide_station_id: null, forecast_tides_by_date: [] };
+    return {
+      coastal: false,
+      nearest_tide_station_id: null,
+      forecast_tides_by_date: [],
+    };
   }
 
   const { beginDate, endDate } = tideDateRangeYyyymmdd(timezone);
@@ -276,7 +305,11 @@ async function fetchForecastTides(
     }
   }
 
-  return { coastal: false, nearest_tide_station_id: null, forecast_tides_by_date: [] };
+  return {
+    coastal: false,
+    nearest_tide_station_id: null,
+    forecast_tides_by_date: [],
+  };
 }
 
 Deno.serve(async (req: Request) => {
@@ -299,7 +332,10 @@ Deno.serve(async (req: Request) => {
   if (latitude == null || longitude == null) {
     return new Response(
       JSON.stringify({ error: "latitude and longitude required" }),
-      { status: 400, headers: { ...corsHeaders(), "Content-Type": "application/json" } },
+      {
+        status: 400,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      },
     );
   }
 
@@ -323,7 +359,10 @@ Deno.serve(async (req: Request) => {
   if (!om?.weather) {
     return new Response(
       JSON.stringify({ error: "Weather data unavailable" }),
-      { status: 503, headers: { ...corsHeaders(), "Content-Type": "application/json" } },
+      {
+        status: 503,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      },
     );
   }
 
@@ -341,6 +380,7 @@ Deno.serve(async (req: Request) => {
     tides_available: tideSnapshot.forecast_tides_by_date.length > 0,
     nearest_tide_station_id: tideSnapshot.nearest_tide_station_id,
     weather: om.weather,
+    forecast_daily: om.forecast_daily ?? [],
     hourly_pressure_mb: om.hourly_pressure_mb ?? [],
     hourly_air_temp_f: om.hourly_air_temp_f ?? [],
     hourly_cloud_cover_pct: om.hourly_cloud_cover_pct ?? [],
@@ -352,7 +392,10 @@ Deno.serve(async (req: Request) => {
   if (days.length === 0) {
     return new Response(
       JSON.stringify({ error: "Incomplete weather response" }),
-      { status: 503, headers: { ...corsHeaders(), "Content-Type": "application/json" } },
+      {
+        status: 503,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      },
     );
   }
 
@@ -371,7 +414,8 @@ Deno.serve(async (req: Request) => {
     "hourly_wind_speed",
   ] as const;
 
-  const fullHourly: Record<string, Array<{ time_utc: string; value: number }>> = {};
+  const fullHourly: Record<string, Array<{ time_utc: string; value: number }>> =
+    {};
   for (const key of INTL_HEAVY_KEYS) {
     const arr = envRecord[key];
     fullHourly[key] = Array.isArray(arr)
@@ -388,8 +432,11 @@ Deno.serve(async (req: Request) => {
     const [yr, mo, dy] = localDate.split("-").map(Number);
     const dateObj = new Date(Date.UTC(yr!, (mo ?? 1) - 1, dy ?? 1));
     const dayOfWeek = dateObj.getUTCDay();
-    const dayLabel =
-      D === 0 ? "Today" : D === 1 ? "Tmrw" : (DAY_NAMES[dayOfWeek] ?? "");
+    const dayLabel = D === 0
+      ? "Today"
+      : D === 1
+      ? "Tmrw"
+      : (DAY_NAMES[dayOfWeek] ?? "");
     const monthDay = `${mo}/${dy}`;
 
     // Slice air/cloud/wind arrays to a ~3-day window around the target day.
@@ -402,17 +449,18 @@ Deno.serve(async (req: Request) => {
     for (const key of INTL_HEAVY_KEYS) {
       slicedEnvRecord[key] = fullHourly[key]!.slice(sliceStart, sliceEnd);
     }
-    const tideForDay =
-      tideSnapshot.forecast_tides_by_date.find((entry) => entry.date === localDate) ?? null;
+    const tideForDay = tideSnapshot.forecast_tides_by_date.find((entry) =>
+      entry.date === localDate
+    ) ?? null;
     slicedEnvRecord.tides_available = tideForDay != null;
     slicedEnvRecord.tides = tideForDay
       ? {
-          station_id: tideForDay.station_id,
-          station_name: tideForDay.station_name,
-          high_low: tideForDay.high_low,
-          phase: tideForDay.phase,
-          unit: tideForDay.unit,
-        }
+        station_id: tideForDay.station_id,
+        station_name: tideForDay.station_name,
+        high_low: tideForDay.high_low,
+        phase: tideForDay.phase,
+        unit: tideForDay.unit,
+      }
       : null;
 
     const baseReq = buildSharedEngineRequestFromEnvData(
@@ -428,10 +476,9 @@ Deno.serve(async (req: Request) => {
 
     const scores: Record<string, number> = {};
     for (const context of CONTEXTS) {
-      const sharedReq =
-        context === "freshwater_lake_pond"
-          ? baseReq
-          : { ...baseReq, context };
+      const sharedReq = context === "freshwater_lake_pond"
+        ? baseReq
+        : { ...baseReq, context };
       try {
         scores[context] = runHowFishingScoreOnly(sharedReq);
       } catch {
@@ -451,8 +498,11 @@ Deno.serve(async (req: Request) => {
     });
   }
 
-  return new Response(JSON.stringify({ forecast, timezone, snapshot_env: envRecord }), {
-    status: 200,
-    headers: { ...corsHeaders(), "Content-Type": "application/json" },
-  });
+  return new Response(
+    JSON.stringify({ forecast, timezone, snapshot_env: envRecord }),
+    {
+      status: 200,
+      headers: { ...corsHeaders(), "Content-Type": "application/json" },
+    },
+  );
 });

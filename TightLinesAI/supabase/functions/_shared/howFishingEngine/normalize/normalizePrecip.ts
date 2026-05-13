@@ -2,122 +2,165 @@ import type { EngineContext, VariableState } from "../contracts/mod.ts";
 import { isCoastalFamilyContext } from "../contracts/context.ts";
 import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
 
+type PrecipContext = Extract<
+  EngineContext,
+  "freshwater_lake_pond" | "coastal" | "coastal_flats_estuary"
+>;
+
+function finiteWindow(value: number | null | undefined): value is number {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0;
+}
+
+function finiteRate(value: number | null | undefined): value is number {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0;
+}
+
+function maxPresent(...values: Array<number | null>): number {
+  return Math.max(0, ...values.filter((v): v is number => v != null));
+}
+
+function wetBaselineScore(
+  context: PrecipContext,
+  p7d: number,
+): number {
+  const coastal = isCoastalFamilyContext(context);
+  const flats = context === "coastal_flats_estuary";
+  const start = flats ? 1.15 : coastal ? 1.5 : 1.35;
+  const saturated = flats ? 4.0 : coastal ? 5.0 : 4.5;
+  return clampEngineScore(pieceLinear(p7d, start, saturated, -0.15, -1.05));
+}
+
 /**
- * Precipitation disruption — same label buckets as V1; scores tapered within buckets.
+ * Precipitation disruption V2 is production-wired.
+ *
+ * Public output shape and exported function signature are unchanged. Rollback is
+ * limited to restoring the previous function body; callers should not change.
  */
 export function normalizePrecipitationDisruption(
-  context: Extract<EngineContext, "freshwater_lake_pond" | "coastal" | "coastal_flats_estuary">,
+  context: PrecipContext,
   rateNow: number | null | undefined,
   p24: number | null | undefined,
   p72: number | null | undefined,
   activeNow: boolean | null | undefined,
   p7d?: number | null,
 ): VariableState | null {
-  const hasSignal =
-    p24 != null || p72 != null || rateNow != null || activeNow === true;
+  const hasRate = finiteRate(rateNow);
+  const has24 = finiteWindow(p24);
+  const has72 = finiteWindow(p72);
+  const has7d = finiteWindow(p7d);
+  const hasActiveSignal = activeNow === true && (hasRate || has24 || has72);
+  const hasSignal = hasRate || has24 || has72 || has7d || hasActiveSignal;
   if (!hasSignal) return null;
 
-  const rate = rateNow ?? 0;
-  const r24 = p24 ?? 0;
-  const r72 = p72 ?? 0;
+  const coastal = isCoastalFamilyContext(context);
+  const flats = context === "coastal_flats_estuary";
+  const rate = hasRate ? rateNow : null;
+  const r24 = has24 ? p24 : null;
+  const r72 = has72 ? p72 : null;
+  const r7d = has7d ? p7d : null;
+  const hasActiveOrRateSignal = activeNow === true || (rate ?? 0) > 0;
+  const wetBaseline = r7d != null &&
+    r7d >= (flats ? 1.15 : coastal ? 1.5 : 1.35);
 
-  if (isCoastalFamilyContext(context)) {
-    if (rate >= 0.12 || r24 >= 1.1 || r72 >= 2.2 || activeNow === true) {
-      const sev = Math.max(
-        rate / 0.12,
-        r24 / 1.1,
-        r72 / 2.2,
-        activeNow === true ? 1 : 0,
-      );
-      const score = clampEngineScore(
-        pieceLinear(Math.min(sev, 3), 1, 2.6, -1.05, -2),
-      );
-      return { label: "active_disruption", score };
-    }
-    if (
-      (rate >= 0.03 && rate < 0.12) ||
-      (r24 >= 0.2 && r24 < 1.1) ||
-      (r72 >= 0.6 && r72 < 2.2)
-    ) {
-      const ur = rate >= 0.03 && rate < 0.12
-        ? pieceLinear(rate, 0.03, 0.12, 0, 1)
-        : 0;
-      const u24 = r24 >= 0.2 && r24 < 1.1
-        ? pieceLinear(r24, 0.2, 1.1, 0, 1)
-        : 0;
-      const u72 = r72 >= 0.6 && r72 < 2.2
-        ? pieceLinear(r72, 0.6, 2.2, 0, 1)
-        : 0;
-      const u = Math.max(ur, u24, u72);
-      const score = clampEngineScore(pieceLinear(u, 0, 1, -0.2, -0.95));
-      return { label: "recent_rain", score };
-    }
-    if (r24 < 0.01 && r72 < 0.01 && rate < 0.01) {
-      return { label: "extended_dry", score: clampEngineScore(0.25) };
-    }
-    // light_mist: trace moisture (not actively raining, p24 in 0.01–0.20 range)
-    if (rate < 0.02 && r24 >= 0.01 && r24 < 0.20) {
-      const p7dVal = p7d ?? 999;
-      if (r72 < 0.30 && p7dVal < 0.75) {
-        return { label: "light_mist", score: clampEngineScore(0.05) };
-      } else if (r72 < 0.60 && p7dVal < 1.50) {
-        return { label: "light_mist", score: clampEngineScore(-0.10) };
-      }
-      // else: fall through to dry_stable (p72/p7d too high for mist to be neutral)
-    }
-    const dryness = Math.max(r24, r72, rate);
-    const score = clampEngineScore(
-      pieceLinear(dryness, 0, 0.35, 0.3, 0.05),
-    );
-    return { label: "dry_stable", score };
+  if (!hasActiveOrRateSignal && (!has24 || !has72)) {
+    return null;
   }
 
-  if (rate >= 0.1 || r24 >= 0.75 || r72 >= 1.5 || activeNow === true) {
-    const sev = Math.max(
-      rate / 0.1,
-      r24 / 0.75,
-      r72 / 1.5,
-      activeNow === true ? 1 : 0,
-    );
-    const score = clampEngineScore(
-      pieceLinear(Math.min(sev, 3), 1, 2.6, -1.05, -2),
-    );
-    return { label: "active_disruption", score };
-  }
+  const heavyRate = coastal ? 0.12 : 0.10;
+  const heavy24 = flats ? 0.85 : coastal ? 1.1 : 0.75;
+  const heavy72 = flats ? 1.7 : coastal ? 2.2 : 1.5;
   if (
-    (rate >= 0.02 && rate < 0.1) ||
-    (r24 >= 0.1 && r24 < 0.75) ||
-    (r72 >= 0.35 && r72 < 1.5)
+    (rate != null && rate >= heavyRate) ||
+    (r24 != null && r24 >= heavy24) ||
+    (r72 != null && r72 >= heavy72)
   ) {
-    const ur = rate >= 0.02 && rate < 0.1
-      ? pieceLinear(rate, 0.02, 0.1, 0, 1)
-      : 0;
-    const u24 = r24 >= 0.1 && r24 < 0.75
-      ? pieceLinear(r24, 0.1, 0.75, 0, 1)
-      : 0;
-    const u72 = r72 >= 0.35 && r72 < 1.5
-      ? pieceLinear(r72, 0.35, 1.5, 0, 1)
-      : 0;
-    const u = Math.max(ur, u24, u72);
-    const score = clampEngineScore(pieceLinear(u, 0, 1, -0.2, -0.95));
-    return { label: "recent_rain", score };
+    const sev = maxPresent(
+      rate != null ? rate / heavyRate : null,
+      r24 != null ? r24 / heavy24 : null,
+      r72 != null ? r72 / heavy72 : null,
+    );
+    return {
+      label: "active_disruption",
+      score: clampEngineScore(
+        pieceLinear(Math.min(sev, 2.5), 1, 2.5, -1.1, -2),
+      ),
+    };
   }
-  if (r24 < 0.01 && r72 < 0.01 && rate < 0.01) {
-    return { label: "extended_dry", score: clampEngineScore(0.2) };
+
+  const moderateRate = coastal ? 0.045 : 0.04;
+  const moderate24 = flats ? 0.24 : coastal ? 0.28 : 0.25;
+  const moderate72 = flats ? 0.55 : coastal ? 0.7 : 0.55;
+  if (
+    (rate != null && rate >= moderateRate) ||
+    (r24 != null && r24 >= moderate24) ||
+    (r72 != null && r72 >= moderate72)
+  ) {
+    const u = maxPresent(
+      rate != null && rate >= moderateRate
+        ? pieceLinear(rate, moderateRate, heavyRate, 0, 1)
+        : null,
+      r24 != null && r24 >= moderate24
+        ? pieceLinear(r24, moderate24, heavy24, 0, 1)
+        : null,
+      r72 != null && r72 >= moderate72
+        ? pieceLinear(r72, moderate72, heavy72, 0, 1)
+        : null,
+      wetBaseline ? 0.25 : null,
+    );
+    return {
+      label: "recent_rain",
+      score: clampEngineScore(pieceLinear(Math.min(u, 1), 0, 1, -0.25, -1.0)),
+    };
   }
-  // light_mist: trace moisture (not actively raining, p24 in 0.01–0.15 range)
-  if (rate < 0.02 && r24 >= 0.01 && r24 < 0.15) {
-    const p7dVal = p7d ?? 999;
-    if (r72 < 0.30 && p7dVal < 0.75) {
-      return { label: "light_mist", score: clampEngineScore(0.05) };
-    } else if (r72 < 0.60 && p7dVal < 1.50) {
-      return { label: "light_mist", score: clampEngineScore(-0.10) };
-    }
-    // else: fall through to dry_stable (p72/p7d too high for mist to be neutral)
+
+  if (wetBaseline) {
+    return {
+      label: "recent_rain",
+      score: wetBaselineScore(context, r7d),
+    };
   }
-  const dryness = Math.max(r24, r72, rate);
-  const score = clampEngineScore(
-    pieceLinear(dryness, 0, 0.3, 0.25, 0.05),
-  );
-  return { label: "dry_stable", score };
+
+  if (activeNow === true || (rate ?? 0) > 0) {
+    const lightScore = flats ? -0.05 : coastal ? 0 : 0.05;
+    return {
+      label: (rate ?? 0) < 0.015 && (r24 ?? 0) < 0.12
+        ? "light_mist"
+        : "recent_rain",
+      score: clampEngineScore(lightScore),
+    };
+  }
+
+  if (
+    r24 != null && r72 != null && r7d != null &&
+    r24 < 0.01 && r72 < 0.01 && r7d < 0.2
+  ) {
+    return {
+      label: "extended_dry",
+      score: clampEngineScore(coastal ? 0.08 : 0.10),
+    };
+  }
+
+  if (
+    r24 != null && r72 != null && r24 >= 0.01 &&
+    r24 < (coastal ? 0.2 : 0.15)
+  ) {
+    const damp = maxPresent(
+      r24 / 0.2,
+      r72 / 0.45,
+      r7d != null ? r7d / 1.0 : null,
+    );
+    return {
+      label: "light_mist",
+      score: clampEngineScore(
+        pieceLinear(Math.min(damp, 1), 0, 1, 0.06, -0.12),
+      ),
+    };
+  }
+
+  if (!has24 || !has72 || !has7d) return null;
+
+  return {
+    label: "dry_stable",
+    score: clampEngineScore(coastal ? 0.06 : 0.08),
+  };
 }

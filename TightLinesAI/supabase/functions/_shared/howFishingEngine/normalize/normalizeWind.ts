@@ -13,6 +13,29 @@ function windLabel(
 }
 
 function scoreAtMph(mph: number, context: EngineContext): number {
+  const base = productionBaselineScoreAtMph(mph, context);
+  // Phase 4C Wind V2 score-only wiring: preserve labels, missing behavior,
+  // and normal useful-breeze scoring; rollback by returning base directly here.
+  if (context === "freshwater_river") {
+    if (mph <= 16) return base;
+    return Math.min(base, pieceLinear(mph, 16, 34, -0.25, -2));
+  }
+  if (context === "coastal_flats_estuary") {
+    if (mph <= 13) return base;
+    return Math.min(base, pieceLinear(mph, 13, 32, -0.15, -2));
+  }
+  if (isCoastalFamilyContext(context)) {
+    if (mph <= 16) return base;
+    return Math.min(base, pieceLinear(mph, 16, 38, -0.05, -2));
+  }
+  if (mph <= 15) return base;
+  return Math.min(base, pieceLinear(mph, 15, 34, -0.1, -2));
+}
+
+function productionBaselineScoreAtMph(
+  mph: number,
+  context: EngineContext,
+): number {
   if (context === "coastal_flats_estuary") {
     if (mph <= 2) return 0;
     if (mph <= 5) return pieceLinear(mph, 2, 5, 0, 0.6);

@@ -1,0 +1,207 @@
+import type { EngineContext, VariableState } from "../contracts/mod.ts";
+import { isCoastalFamilyContext } from "../contracts/context.ts";
+import { clampEngineScore, pieceLinear } from "../score/engineScoreMath.ts";
+
+export type WindV2Profile =
+  | "production_control"
+  | "high_wind_penalty_only"
+  | "mild_positive_compression"
+  | "mild_combined"
+  | "compressed_positive"
+  | "stronger_high_wind_penalty"
+  | "combined_v2"
+  | "previous_combined_v2";
+
+function windLabel(
+  mph: number,
+): "calm" | "light" | "moderate" | "strong" | "extreme" {
+  if (mph <= 3) return "calm";
+  if (mph <= 7) return "light";
+  if (mph <= 15) return "moderate";
+  if (mph <= 24) return "strong";
+  return "extreme";
+}
+
+function productionScoreAtMph(mph: number, context: EngineContext): number {
+  if (context === "coastal_flats_estuary") {
+    if (mph <= 2) return 0;
+    if (mph <= 5) return pieceLinear(mph, 2, 5, 0, 0.6);
+    if (mph <= 10) return pieceLinear(mph, 5, 10, 0.6, 0.9);
+    if (mph <= 14) return pieceLinear(mph, 10, 14, 0.9, 0.35);
+    if (mph <= 18) return pieceLinear(mph, 14, 18, 0.35, -0.45);
+    if (mph <= 24) return pieceLinear(mph, 18, 24, -0.45, -1.2);
+    return pieceLinear(mph, 24, 35, -1.2, -2);
+  }
+
+  const coastal = isCoastalFamilyContext(context);
+  if (coastal) {
+    if (mph <= 2) return 0.1;
+    if (mph <= 5) return pieceLinear(mph, 2, 5, 0.1, 0.8);
+    if (mph <= 10) return pieceLinear(mph, 5, 10, 0.8, 1.2);
+    if (mph <= 15) return pieceLinear(mph, 10, 15, 1.2, 0.8);
+    if (mph <= 20) return pieceLinear(mph, 15, 20, 0.8, 0.1);
+    if (mph <= 25) return pieceLinear(mph, 20, 25, 0.1, -0.6);
+    if (mph <= 32) return pieceLinear(mph, 25, 32, -0.6, -1.3);
+    return pieceLinear(mph, 32, 45, -1.3, -2);
+  }
+
+  if (context === "freshwater_lake_pond") {
+    if (mph <= 2) return 0.1;
+    if (mph <= 5) return pieceLinear(mph, 2, 5, 0.1, 0.6);
+    if (mph <= 10) return pieceLinear(mph, 5, 10, 0.6, 1);
+    if (mph <= 15) return pieceLinear(mph, 10, 15, 1, 0.4);
+    if (mph <= 20) return pieceLinear(mph, 15, 20, 0.4, -0.2);
+    if (mph <= 26) return pieceLinear(mph, 20, 26, -0.2, -0.95);
+    return pieceLinear(mph, 26, 38, -0.95, -2);
+  }
+
+  if (mph <= 4) return 0;
+  if (mph <= 10) return pieceLinear(mph, 4, 10, 0, 0.15);
+  if (mph <= 15) return pieceLinear(mph, 10, 15, 0.15, 0);
+  if (mph <= 22) return pieceLinear(mph, 15, 22, 0, -0.7);
+  return pieceLinear(mph, 22, 35, -0.7, -2);
+}
+
+function compressedPositiveScoreAtMph(
+  mph: number,
+  context: EngineContext,
+): number {
+  if (context === "coastal_flats_estuary") {
+    if (mph <= 2) return 0;
+    if (mph <= 6) return pieceLinear(mph, 2, 6, 0, 0.35);
+    if (mph <= 11) return pieceLinear(mph, 6, 11, 0.35, 0.55);
+    if (mph <= 15) return pieceLinear(mph, 11, 15, 0.55, 0.1);
+    if (mph <= 20) return pieceLinear(mph, 15, 20, 0.1, -0.6);
+    if (mph <= 26) return pieceLinear(mph, 20, 26, -0.6, -1.35);
+    return pieceLinear(mph, 26, 38, -1.35, -2);
+  }
+
+  if (isCoastalFamilyContext(context)) {
+    if (mph <= 2) return 0.05;
+    if (mph <= 6) return pieceLinear(mph, 2, 6, 0.05, 0.45);
+    if (mph <= 11) return pieceLinear(mph, 6, 11, 0.45, 0.75);
+    if (mph <= 16) return pieceLinear(mph, 11, 16, 0.75, 0.35);
+    if (mph <= 22) return pieceLinear(mph, 16, 22, 0.35, -0.45);
+    if (mph <= 30) return pieceLinear(mph, 22, 30, -0.45, -1.35);
+    return pieceLinear(mph, 30, 42, -1.35, -2);
+  }
+
+  if (context === "freshwater_lake_pond") {
+    if (mph <= 2) return 0.05;
+    if (mph <= 6) return pieceLinear(mph, 2, 6, 0.05, 0.35);
+    if (mph <= 11) return pieceLinear(mph, 6, 11, 0.35, 0.6);
+    if (mph <= 16) return pieceLinear(mph, 11, 16, 0.6, 0.15);
+    if (mph <= 21) return pieceLinear(mph, 16, 21, 0.15, -0.45);
+    if (mph <= 28) return pieceLinear(mph, 21, 28, -0.45, -1.35);
+    return pieceLinear(mph, 28, 40, -1.35, -2);
+  }
+
+  if (mph <= 5) return 0;
+  if (mph <= 12) return pieceLinear(mph, 5, 12, 0, 0.1);
+  if (mph <= 17) return pieceLinear(mph, 12, 17, 0.1, 0);
+  if (mph <= 24) return pieceLinear(mph, 17, 24, 0, -0.85);
+  return pieceLinear(mph, 24, 38, -0.85, -2);
+}
+
+function mildPositiveCompressionScoreAtMph(
+  mph: number,
+  context: EngineContext,
+): number {
+  if (context === "coastal_flats_estuary") {
+    if (mph <= 2) return 0;
+    if (mph <= 6) return pieceLinear(mph, 2, 6, 0, 0.5);
+    if (mph <= 11) return pieceLinear(mph, 6, 11, 0.5, 0.75);
+    if (mph <= 15) return pieceLinear(mph, 11, 15, 0.75, 0.2);
+    if (mph <= 19) return pieceLinear(mph, 15, 19, 0.2, -0.45);
+    if (mph <= 25) return pieceLinear(mph, 19, 25, -0.45, -1.2);
+    return pieceLinear(mph, 25, 38, -1.2, -2);
+  }
+
+  if (isCoastalFamilyContext(context)) {
+    if (mph <= 2) return 0.05;
+    if (mph <= 6) return pieceLinear(mph, 2, 6, 0.05, 0.6);
+    if (mph <= 11) return pieceLinear(mph, 6, 11, 0.6, 0.8);
+    if (mph <= 16) return pieceLinear(mph, 11, 16, 0.8, 0.4);
+    if (mph <= 22) return pieceLinear(mph, 16, 22, 0.4, -0.35);
+    if (mph <= 30) return pieceLinear(mph, 22, 30, -0.35, -1.25);
+    return pieceLinear(mph, 30, 42, -1.25, -2);
+  }
+
+  if (context === "freshwater_lake_pond") {
+    if (mph <= 2) return 0.05;
+    if (mph <= 6) return pieceLinear(mph, 2, 6, 0.05, 0.5);
+    if (mph <= 11) return pieceLinear(mph, 6, 11, 0.5, 0.75);
+    if (mph <= 16) return pieceLinear(mph, 11, 16, 0.75, 0.25);
+    if (mph <= 21) return pieceLinear(mph, 16, 21, 0.25, -0.35);
+    if (mph <= 28) return pieceLinear(mph, 21, 28, -0.35, -1.25);
+    return pieceLinear(mph, 28, 40, -1.25, -2);
+  }
+
+  if (mph <= 5) return 0;
+  if (mph <= 12) return pieceLinear(mph, 5, 12, 0, 0.1);
+  if (mph <= 17) return pieceLinear(mph, 12, 17, 0.1, 0);
+  if (mph <= 24) return pieceLinear(mph, 17, 24, 0, -0.8);
+  return pieceLinear(mph, 24, 38, -0.8, -2);
+}
+
+function strongerPenaltyScoreAtMph(
+  mph: number,
+  context: EngineContext,
+): number {
+  const base = productionScoreAtMph(mph, context);
+  if (context === "freshwater_river") {
+    if (mph <= 16) return base;
+    return Math.min(base, pieceLinear(mph, 16, 34, -0.25, -2));
+  }
+  if (context === "coastal_flats_estuary") {
+    if (mph <= 13) return base;
+    return Math.min(base, pieceLinear(mph, 13, 32, -0.15, -2));
+  }
+  if (isCoastalFamilyContext(context)) {
+    if (mph <= 16) return base;
+    return Math.min(base, pieceLinear(mph, 16, 38, -0.05, -2));
+  }
+  if (mph <= 15) return base;
+  return Math.min(base, pieceLinear(mph, 15, 34, -0.1, -2));
+}
+
+function scoreAtMph(
+  mph: number,
+  context: EngineContext,
+  profile: WindV2Profile,
+): number {
+  switch (profile) {
+    case "production_control":
+      return productionScoreAtMph(mph, context);
+    case "high_wind_penalty_only":
+      return strongerPenaltyScoreAtMph(mph, context);
+    case "mild_positive_compression":
+      return mildPositiveCompressionScoreAtMph(mph, context);
+    case "mild_combined":
+      return Math.min(
+        mildPositiveCompressionScoreAtMph(mph, context),
+        strongerPenaltyScoreAtMph(mph, context),
+      );
+    case "compressed_positive":
+      return compressedPositiveScoreAtMph(mph, context);
+    case "stronger_high_wind_penalty":
+      return strongerPenaltyScoreAtMph(mph, context);
+    case "combined_v2":
+    case "previous_combined_v2":
+      return Math.min(
+        compressedPositiveScoreAtMph(mph, context),
+        strongerPenaltyScoreAtMph(mph, context),
+      );
+  }
+}
+
+export function normalizeWindV2(
+  windMph: number | null | undefined,
+  context: EngineContext,
+  profile: WindV2Profile = "combined_v2",
+): VariableState | null {
+  if (windMph == null || Number.isNaN(windMph) || windMph < 0) return null;
+  const label = windLabel(windMph);
+  const score = clampEngineScore(scoreAtMph(windMph, context, profile));
+  return { label, score, detail: `${Math.round(windMph)} mph` };
+}

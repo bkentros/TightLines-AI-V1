@@ -1,17 +1,27 @@
 /**
- * Wraps expo-haptics so missing native module (old dev client, Expo Go mismatch, etc.)
- * never rejects an unhandled promise — haptics simply no-op.
+ * Haptics via dynamic import so a dev client missing the ExpoHaptics native
+ * module never crashes at bundle load — effects simply no-op.
  */
-import * as Haptics from 'expo-haptics';
+export const ImpactFeedbackStyle = {
+  Light: 'light',
+  Medium: 'medium',
+  Heavy: 'heavy',
+  Soft: 'soft',
+  Rigid: 'rigid',
+} as const;
 
-export { ImpactFeedbackStyle } from 'expo-haptics';
-
-const swallow = (): void => {};
+export type ImpactFeedbackStyle =
+  (typeof ImpactFeedbackStyle)[keyof typeof ImpactFeedbackStyle];
 
 export function hapticSelection(): void {
-  void Haptics.selectionAsync().catch(swallow);
+  void import('expo-haptics')
+    .then((H) => H.selectionAsync())
+    .catch(() => {});
 }
 
-export function hapticImpact(style: Haptics.ImpactFeedbackStyle): void {
-  void Haptics.impactAsync(style).catch(swallow);
+export function hapticImpact(style: ImpactFeedbackStyle): void {
+  type HapticsImpact = import('expo-haptics').ImpactFeedbackStyle;
+  void import('expo-haptics')
+    .then((H) => H.impactAsync(style as HapticsImpact))
+    .catch(() => {});
 }

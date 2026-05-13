@@ -23,75 +23,83 @@
  *     `/how-fishing` and `/recommender` keep their existing deep-link contracts.
  */
 
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import {
+  Alert,
   Animated,
   AppState,
   type AppStateStatus,
-  View,
-  Text,
-  StyleSheet,
-  ScrollView,
-  Pressable,
   Dimensions,
-  RefreshControl,
   Easing,
   Image,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import { StatusBar } from 'expo-status-bar';
-import { useRouter } from 'expo-router';
-import { useFocusEffect } from '@react-navigation/native';
-import { Ionicons } from '@expo/vector-icons';
-import * as Location from 'expo-location';
+  Pressable,
+  RefreshControl,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { StatusBar } from "expo-status-bar";
+import { useRouter } from "expo-router";
+import { useFocusEffect } from "@react-navigation/native";
+import { Ionicons } from "@expo/vector-icons";
+import * as Location from "expo-location";
 
 import {
-  paper,
   dashboardBandColor,
+  paper,
   paperBandForScore,
-  scoreAccentColor,
   type PaperScoreBand,
-} from '../../lib/theme';
-import { hapticImpact, ImpactFeedbackStyle } from '../../lib/safeHaptics';
-import { SubscribePrompt } from '../../components/SubscribePrompt';
-import { LocationPickerModal } from '../../components/LocationPickerModal';
-import { useAuthStore } from '../../store/authStore';
-import { useDevTestingStore } from '../../store/devTestingStore';
-import { useEnvStore } from '../../store/envStore';
-import { useLocationStore } from '../../store/locationStore';
-import { getEffectiveTier, canUseAIFeatures } from '../../lib/subscription';
-import { getCurrentMultiRebuild, getCachedMultiRebuild } from '../../lib/howFishing';
-import { howFishingMultiContexts } from '../../lib/howFishingRebuildContracts';
+  scoreAccentColor,
+} from "../../lib/theme";
+import { hapticImpact, ImpactFeedbackStyle } from "../../lib/safeHaptics";
+import { SubscribePrompt } from "../../components/SubscribePrompt";
+import { LocationPickerModal } from "../../components/LocationPickerModal";
+import { useAuthStore } from "../../store/authStore";
+import { useDevTestingStore } from "../../store/devTestingStore";
+import { useEnvStore } from "../../store/envStore";
+import { useLocationStore } from "../../store/locationStore";
+import { canUseAIFeatures, getEffectiveTier } from "../../lib/subscription";
 import {
+  getCachedMultiRebuild,
+  getCurrentMultiRebuild,
+} from "../../lib/howFishing";
+import { howFishingMultiContexts } from "../../lib/howFishingRebuildContracts";
+import {
+  type DayForecastScore,
+  formatScoreDisplay,
   getForecastScores,
   invalidateForecastCache,
-  formatScoreDisplay,
   meanDayScore,
-  type DayForecastScore,
-} from '../../lib/forecastScores';
-import { recordRecentLocation } from '../../lib/recentLocations';
+  nextMidnightInTimeZoneMs,
+} from "../../lib/forecastScores";
+import { recordRecentLocation } from "../../lib/recentLocations";
 
 // ─── Layout constants ────────────────────────────────────────────────────────
-const SCREEN_W = Dimensions.get('window').width;
+const SCREEN_W = Dimensions.get("window").width;
 const HOME_H_PADDING = 20;
 const FORECAST_GAP = 6;
 const FORECAST_COLS = 6;
 const FORECAST_TILE_W = Math.max(
   46,
-  Math.floor((SCREEN_W - HOME_H_PADDING * 2 - FORECAST_GAP * (FORECAST_COLS - 1)) / FORECAST_COLS),
+  Math.floor(
+    (SCREEN_W - HOME_H_PADDING * 2 - FORECAST_GAP * (FORECAST_COLS - 1)) /
+      FORECAST_COLS,
+  ),
 );
 
 // ─── Font tokens (loaded by app/_layout.tsx) ─────────────────────────────────
-const SERIF_BOLD = 'Fraunces_700Bold';
-const SERIF_MEDIUM = 'Fraunces_500Medium';
-const SERIF_ITALIC = 'Fraunces_500Medium_Italic';
-const SERIF_SEMI = 'Fraunces_600SemiBold';
-const MONO = 'JetBrainsMono_500Medium';
-const MONO_BOLD = 'JetBrainsMono_600SemiBold';
-const SANS = 'Inter_400Regular';
-const SANS_MEDIUM = 'Inter_500Medium';
-const SANS_SEMI = 'Inter_600SemiBold';
-const SANS_BOLD = 'Inter_700Bold';
+const SERIF_BOLD = "Fraunces_700Bold";
+const SERIF_MEDIUM = "Fraunces_500Medium";
+const SERIF_ITALIC = "Fraunces_500Medium_Italic";
+const SERIF_SEMI = "Fraunces_600SemiBold";
+const MONO = "JetBrainsMono_500Medium";
+const MONO_BOLD = "JetBrainsMono_600SemiBold";
+const SANS = "Inter_400Regular";
+const SANS_MEDIUM = "Inter_500Medium";
+const SANS_SEMI = "Inter_600SemiBold";
+const SANS_BOLD = "Inter_700Bold";
 
 export default function HomeScreen() {
   const router = useRouter();
@@ -115,7 +123,9 @@ export default function HomeScreen() {
   } = useLocationStore();
   const appStateRef = useRef<AppStateStatus>(AppState.currentState);
   const lastAutoRefreshAtRef = useRef(0);
-  const [gpsCoords, setGpsCoords] = useState<{ lat: number; lon: number } | null>(null);
+  const [gpsCoords, setGpsCoords] = useState<
+    { lat: number; lon: number } | null
+  >(null);
   const [gpsLocationLabel, setGpsLocationLabel] = useState<string | null>(null);
   const [gpsRegionLabel, setGpsRegionLabel] = useState<string | null>(null);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
@@ -124,8 +134,15 @@ export default function HomeScreen() {
   const [cachedScore, setCachedScore] = useState<string | null>(null);
   /** Mean 0–100 across today's multi-tab cached reports — only populated after report generation. */
   const [cachedMeanRaw, setCachedMeanRaw] = useState<number | null>(null);
-  const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(null);
-  const [forecastCoastalEligible, setForecastCoastalEligible] = useState<boolean | null>(null);
+  const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(
+    null,
+  );
+  const [forecastCoastalEligible, setForecastCoastalEligible] = useState<
+    boolean | null
+  >(null);
+  const [forecastExpiresAtMs, setForecastExpiresAtMs] = useState<number | null>(
+    null,
+  );
   const [forecastLoading, setForecastLoading] = useState(false);
   /**
    * 21-entry hi/lo arrays from the forecast snapshot. Index 14 is "today";
@@ -152,14 +169,12 @@ export default function HomeScreen() {
     gpsCoords?.lon,
   ]);
 
-  const locationLabel =
-    useCustom && savedLocation
-      ? savedLocation.label
-      : gpsLocationLabel ?? 'Current location';
+  const locationLabel = useCustom && savedLocation
+    ? savedLocation.label
+    : gpsLocationLabel ?? "Current location";
 
-  const gpsLabel = gpsLocationLabel ?? 'Current location';
-  const envMatchesCoords =
-    coords != null &&
+  const gpsLabel = gpsLocationLabel ?? "Current location";
+  const envMatchesCoords = coords != null &&
     envData != null &&
     envLastCoords != null &&
     Math.abs(envLastCoords.lat - coords.lat) < 0.01 &&
@@ -183,8 +198,10 @@ export default function HomeScreen() {
         });
         if (cancelled || !geo) return;
         const city = geo.city ?? geo.subregion ?? geo.district;
-        const region = geo.region ?? '';
-        const label = city && region ? `${city}, ${region}` : city ?? region ?? null;
+        const region = geo.region ?? "";
+        const label = city && region
+          ? `${city}, ${region}`
+          : city ?? region ?? null;
         if (!cancelled) {
           setGpsLocationLabel(label);
           setGpsRegionLabel(region || null);
@@ -196,30 +213,63 @@ export default function HomeScreen() {
         }
       }
     })();
-    return () => { cancelled = true; };
+    return () => {
+      cancelled = true;
+    };
   }, [gpsCoords?.lat, gpsCoords?.lon]);
 
-  useEffect(() => {
-    let cancelled = false;
-    (async () => {
-      const { status } = await Location.getForegroundPermissionsAsync();
-      if (status !== 'granted' || cancelled) return;
+  /** Load GPS when permission allows; request once when still `undetermined` (fresh install). */
+  const tryAcquireGpsCoords = useCallback(
+    async (opts?: { requestIfUndetermined?: boolean }) => {
+      const requestIfUndetermined = opts?.requestIfUndetermined ?? false;
+      if (__DEV__ && ignoreGps) return;
+      if (useCustom && savedLocation) return;
       try {
+        let { status } = await Location.getForegroundPermissionsAsync();
+        if (status === "undetermined" && requestIfUndetermined) {
+          ({ status } = await Location.requestForegroundPermissionsAsync());
+        }
+        if (status !== "granted") return;
         const loc = await Location.getCurrentPositionAsync({
           accuracy: Location.Accuracy.Balanced,
         });
-        if (!cancelled) {
-          setGpsCoords({
-            lat: loc.coords.latitude,
-            lon: loc.coords.longitude,
-          });
-        }
+        setGpsCoords({
+          lat: loc.coords.latitude,
+          lon: loc.coords.longitude,
+        });
       } catch {
-        // Silently fail — widget will show the "enable location" state.
+        // Silently fail — user can open the location picker or fix permission in Settings.
       }
+    },
+    [ignoreGps, useCustom, savedLocation],
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      if (cancelled) return;
+      await tryAcquireGpsCoords({ requestIfUndetermined: true });
     })();
-    return () => { cancelled = true; };
-  }, []);
+    return () => {
+      cancelled = true;
+    };
+  }, [tryAcquireGpsCoords]);
+
+  // If the user enables Location in Settings (or load was still in flight), pick up coords on focus.
+  useFocusEffect(
+    useCallback(() => {
+      if (gpsCoords != null) return;
+      if (__DEV__ && ignoreGps) return;
+      if (useCustom && savedLocation) return;
+      void tryAcquireGpsCoords({ requestIfUndetermined: false });
+    }, [
+      gpsCoords,
+      ignoreGps,
+      useCustom,
+      savedLocation,
+      tryAcquireGpsCoords,
+    ]),
+  );
 
   useEffect(() => {
     if (__DEV__) loadDevTesting();
@@ -244,8 +294,8 @@ export default function HomeScreen() {
     }
     const contexts = howFishingMultiContexts(locationCoastalEligible);
     const inMemory = getCurrentMultiRebuild(lat, lon);
-    const hasAllInMemory =
-      inMemory != null && contexts.every((ctx) => inMemory[ctx] != null);
+    const hasAllInMemory = inMemory != null &&
+      contexts.every((ctx) => inMemory[ctx] != null);
     const source = hasAllInMemory
       ? inMemory!
       : await getCachedMultiRebuild(lat, lon, contexts);
@@ -280,6 +330,7 @@ export default function HomeScreen() {
     const lon = coords?.lon;
     if (lat == null || lon == null) {
       setForecastDays(null);
+      setForecastExpiresAtMs(null);
       return;
     }
     const mySeq = ++forecastFetchSeq.current;
@@ -290,6 +341,7 @@ export default function HomeScreen() {
       if (result) {
         setForecastDays(result.forecast);
         setForecastCoastalEligible(Boolean(result.snapshot_env?.coastal));
+        setForecastExpiresAtMs(nextMidnightInTimeZoneMs(result.timezone));
         const w = result.snapshot_env?.weather;
         setForecastHighs(w?.temp_7day_high ?? null);
         setForecastLows(w?.temp_7day_low ?? null);
@@ -298,6 +350,7 @@ export default function HomeScreen() {
       if (mySeq === forecastFetchSeq.current) {
         setForecastDays(null);
         setForecastCoastalEligible(null);
+        setForecastExpiresAtMs(null);
         setForecastHighs(null);
         setForecastLows(null);
       }
@@ -313,12 +366,21 @@ export default function HomeScreen() {
     };
   }, [loadForecastScores]);
 
+  useEffect(() => {
+    if (forecastExpiresAtMs == null) return;
+    const delayMs = Math.max(1000, forecastExpiresAtMs - Date.now() + 1000);
+    const timer = setTimeout(() => {
+      void loadForecastScores();
+    }, delayMs);
+    return () => clearTimeout(timer);
+  }, [forecastExpiresAtMs, loadForecastScores]);
+
   // ── Live conditions auto-refresh ──────────────────────────────────────────
   const refreshLiveConditions = useCallback(() => {
     const now = Date.now();
     if (now - lastAutoRefreshAtRef.current < 3000) return;
     lastAutoRefreshAtRef.current = now;
-    const units = profile?.preferred_units ?? 'imperial';
+    const units = profile?.preferred_units ?? "imperial";
     const lat = coords?.lat;
     const lon = coords?.lon;
     if (lat != null && lon != null) {
@@ -334,20 +396,26 @@ export default function HomeScreen() {
         const contexts = howFishingMultiContexts(locationCoastalEligible);
         const inMemory = getCurrentMultiRebuild(coords.lat, coords.lon);
         if (inMemory && contexts.every((ctx) => inMemory[ctx] != null)) {
-          const meanRaw =
-            contexts.reduce((sum, ctx) => sum + inMemory[ctx]!.report.score, 0) / contexts.length;
+          const meanRaw = contexts.reduce((sum, ctx) =>
+            sum + inMemory[ctx]!.report.score, 0) / contexts.length;
           const v = Math.round(meanRaw) / 10;
           setCachedScore(Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1));
         }
       }
-    }, [refreshLiveConditions, loadForecastScores, coords?.lat, coords?.lon, locationCoastalEligible])
+    }, [
+      refreshLiveConditions,
+      loadForecastScores,
+      coords?.lat,
+      coords?.lon,
+      locationCoastalEligible,
+    ]),
   );
 
   useEffect(() => {
-    const subscription = AppState.addEventListener('change', (nextAppState) => {
-      const wasBackgrounded =
-        appStateRef.current === 'background' || appStateRef.current === 'inactive';
-      if (wasBackgrounded && nextAppState === 'active') {
+    const subscription = AppState.addEventListener("change", (nextAppState) => {
+      const wasBackgrounded = appStateRef.current === "background" ||
+        appStateRef.current === "inactive";
+      if (wasBackgrounded && nextAppState === "active") {
         refreshLiveConditions();
         void loadForecastScores();
       }
@@ -357,23 +425,31 @@ export default function HomeScreen() {
   }, [refreshLiveConditions, loadForecastScores]);
 
   // ── Subscription gating ───────────────────────────────────────────────────
-  const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
+  const effectiveTier = getEffectiveTier(
+    profile,
+    overrideSubscriptionTier ?? null,
+  );
   const hasSubscription = canUseAIFeatures(effectiveTier);
 
   // ── Location picker handlers ──────────────────────────────────────────────
   const handleLocationSelect = useCallback(
     async (loc: { lat: number; lon: number; label: string }) => {
       if (coords) invalidateForecastCache(coords.lat, coords.lon);
-      await recordRecentLocation({ lat: loc.lat, lon: loc.lon, label: loc.label });
+      await recordRecentLocation({
+        lat: loc.lat,
+        lon: loc.lon,
+        label: loc.label,
+      });
       await setSavedLocation(loc);
       setShowLocationPicker(false);
       setForecastDays(null);
       setForecastCoastalEligible(null);
+      setForecastExpiresAtMs(null);
       setForecastHighs(null);
       setForecastLows(null);
       setCachedScore(null);
       setCachedMeanRaw(null);
-      const units = profile?.preferred_units ?? 'imperial';
+      const units = profile?.preferred_units ?? "imperial";
       loadEnv(loc.lat, loc.lon, { units });
     },
     [coords, setSavedLocation, profile?.preferred_units, loadEnv],
@@ -385,28 +461,65 @@ export default function HomeScreen() {
       await setIgnoreGps(false);
     }
     await clearSavedLocation();
-    setShowLocationPicker(false);
     setForecastDays(null);
     setForecastCoastalEligible(null);
+    setForecastExpiresAtMs(null);
     setCachedScore(null);
     setCachedMeanRaw(null);
     try {
-      const { status } = await Location.getForegroundPermissionsAsync();
-      if (status === 'granted') {
-        const loc = await Location.getCurrentPositionAsync({
-          accuracy: Location.Accuracy.Balanced,
-        });
-        const label = gpsLocationLabel ?? 'Current location';
-        await recordRecentLocation({
-          lat: loc.coords.latitude,
-          lon: loc.coords.longitude,
-          label,
-        });
+      let { status } = await Location.getForegroundPermissionsAsync();
+      if (status === "undetermined") {
+        ({ status } = await Location.requestForegroundPermissionsAsync());
       }
+      if (status !== "granted") {
+        Alert.alert(
+          "Location access",
+          "To use your current spot, allow location access for FinFindr in Settings, or pick a city below.",
+        );
+        return;
+      }
+      const loc = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
+      const lat = loc.coords.latitude;
+      const lon = loc.coords.longitude;
+      setGpsCoords({ lat, lon });
+      const units = profile?.preferred_units ?? "imperial";
+      await loadEnv(lat, lon, { units });
+
+      let label = "Current location";
+      try {
+        const [geo] = await Location.reverseGeocodeAsync({
+          latitude: lat,
+          longitude: lon,
+        });
+        if (geo) {
+          const city = geo.city ?? geo.subregion ?? geo.district;
+          const region = geo.region ?? "";
+          label = city && region
+            ? `${city}, ${region}`
+            : city ?? region ?? label;
+        }
+      } catch {
+        /* keep default label */
+      }
+      await recordRecentLocation({ lat, lon, label });
     } catch {
-      /* non-fatal */
+      Alert.alert(
+        "Could not get location",
+        "Check that Location Services are on and try again, or pick a city below.",
+      );
+    } finally {
+      setShowLocationPicker(false);
     }
-  }, [coords, useCustom, clearSavedLocation, setIgnoreGps, gpsLocationLabel]);
+  }, [
+    coords,
+    useCustom,
+    clearSavedLocation,
+    setIgnoreGps,
+    profile?.preferred_units,
+    loadEnv,
+  ]);
 
   const handleHowFishingPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Medium);
@@ -415,12 +528,16 @@ export default function HomeScreen() {
       return;
     }
     if (!coords) {
-      router.push({ pathname: '/how-fishing' });
+      router.push({ pathname: "/how-fishing" });
       return;
     }
     router.push({
-      pathname: '/how-fishing',
-      params: { lat: String(coords.lat), lon: String(coords.lon), location_label: locationLabel },
+      pathname: "/how-fishing",
+      params: {
+        lat: String(coords.lat),
+        lon: String(coords.lon),
+        location_label: locationLabel,
+      },
     });
   }, [hasSubscription, coords, locationLabel, router]);
 
@@ -436,17 +553,17 @@ export default function HomeScreen() {
       params.longitude = String(coords.lon);
       params.location_label = locationLabel;
     }
-    router.push({ pathname: '/recommender', params });
+    router.push({ pathname: "/recommender", params });
   }, [hasSubscription, coords, locationLabel, router]);
 
   const handleWaterReadPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Light);
-    router.push('/water-reader');
+    router.push("/water-reader");
   }, [router]);
 
   const handleSettingsPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Light);
-    router.push('/(tabs)/settings');
+    router.push("/(tabs)/settings");
   }, [router]);
 
   const handleForecastDayPress = useCallback(
@@ -458,7 +575,7 @@ export default function HomeScreen() {
       }
       if (!coords) return;
       router.push({
-        pathname: '/how-fishing',
+        pathname: "/how-fishing",
         params: {
           lat: String(coords.lat),
           lon: String(coords.lon),
@@ -473,20 +590,23 @@ export default function HomeScreen() {
 
   // ── Derived presentation values ───────────────────────────────────────────
   const combinedOutlookScore = useCallback(
-    (day: DayForecastScore): number => meanDayScore(day, locationCoastalEligible),
+    (day: DayForecastScore): number =>
+      meanDayScore(day, locationCoastalEligible),
     [locationCoastalEligible],
   );
 
-  const heroScore =
-    cachedMeanRaw != null ? formatScoreDisplay(cachedMeanRaw) : cachedScore;
+  const heroScore = cachedMeanRaw != null
+    ? formatScoreDisplay(cachedMeanRaw)
+    : cachedScore;
   const hasReport = cachedMeanRaw != null;
   const heroBand = hasReport ? paperBandForScore(cachedMeanRaw! / 10) : null;
   const heroBandStyle = heroBand ? dashboardBandColor[heroBand] : null;
 
-  const forecastDisplayDays = (forecastDays?.filter((d) => d.day_offset > 0) ?? []).slice(
-    0,
-    FORECAST_COLS,
-  );
+  const forecastDisplayDays =
+    (forecastDays?.filter((d) => d.day_offset > 0) ?? []).slice(
+      0,
+      FORECAST_COLS,
+    );
 
   // ── Live wall-clock + greeting ────────────────────────────────────────────
   const [now, setNow] = useState(() => new Date());
@@ -503,24 +623,28 @@ export default function HomeScreen() {
     };
   }, []);
   const hhmm = useMemo(() => {
-    const h = String(now.getHours()).padStart(2, '0');
-    const m = String(now.getMinutes()).padStart(2, '0');
+    const h = String(now.getHours()).padStart(2, "0");
+    const m = String(now.getMinutes()).padStart(2, "0");
     return `${h}${m}`;
   }, [now]);
   const greeting = useMemo(() => {
     const h = now.getHours();
-    if (h < 5) return 'UP EARLY, ANGLER';
-    if (h < 12) return 'GOOD MORNING, ANGLER';
-    if (h < 17) return 'GOOD AFTERNOON, ANGLER';
-    if (h < 21) return 'GOOD EVENING, ANGLER';
-    return 'LATE NIGHT, ANGLER';
+    if (h < 5) return "UP EARLY, ANGLER";
+    if (h < 12) return "GOOD MORNING, ANGLER";
+    if (h < 17) return "GOOD AFTERNOON, ANGLER";
+    if (h < 21) return "GOOD EVENING, ANGLER";
+    return "LATE NIGHT, ANGLER";
   }, [now]);
 
   // ── Live conditions derived strings (from envData) ───────────────────────
   const currentTemp = envData?.weather?.temperature;
-  const tempUnit = envData?.weather?.temp_unit ?? '°F';
+  const tempUnit = envData?.weather?.temp_unit ?? "°F";
   const conditionsSubline = useMemo(
-    () => deriveConditionsSubline(envData?.weather?.cloud_cover, envData?.weather?.precipitation),
+    () =>
+      deriveConditionsSubline(
+        envData?.weather?.cloud_cover,
+        envData?.weather?.precipitation,
+      ),
     [envData?.weather?.cloud_cover, envData?.weather?.precipitation],
   );
   const windCardinal = envData?.weather?.wind_direction != null
@@ -531,7 +655,9 @@ export default function HomeScreen() {
   const pressureInches = envData?.weather?.pressure != null
     ? (envData.weather.pressure / 33.8639).toFixed(1)
     : null;
-  const pressureTrendLabel = pressureTrendDisplay(envData?.weather?.pressure_trend);
+  const pressureTrendLabel = pressureTrendDisplay(
+    envData?.weather?.pressure_trend,
+  );
   // 6-hour temp trend computed from the actual hourly_air_temp_f series.
   // We look at each entry's `time_utc` and pick the one closest to "now"
   // (latest) and the one closest to "now − 6h" (past), so the delta is
@@ -625,7 +751,7 @@ export default function HomeScreen() {
       await setIgnoreGps(false);
     }
     const { status } = await Location.requestForegroundPermissionsAsync();
-    if (status !== 'granted') return;
+    if (status !== "granted") return;
     const loc = await Location.getCurrentPositionAsync({
       accuracy: Location.Accuracy.Balanced,
     });
@@ -638,8 +764,18 @@ export default function HomeScreen() {
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(periodPulse, { toValue: 1.18, duration: 1500, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
-        Animated.timing(periodPulse, { toValue: 1, duration: 1500, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
+        Animated.timing(periodPulse, {
+          toValue: 1.18,
+          duration: 1500,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(periodPulse, {
+          toValue: 1,
+          duration: 1500,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
       ]),
     ).start();
   }, [periodPulse]);
@@ -649,8 +785,18 @@ export default function HomeScreen() {
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(livePulse, { toValue: 0.4, duration: 800, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
-        Animated.timing(livePulse, { toValue: 1, duration: 800, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
+        Animated.timing(livePulse, {
+          toValue: 0.4,
+          duration: 800,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(livePulse, {
+          toValue: 1,
+          duration: 800,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
       ]),
     ).start();
   }, [livePulse]);
@@ -681,7 +827,12 @@ export default function HomeScreen() {
     shimmerX.setValue(0);
     const loop = Animated.loop(
       Animated.sequence([
-        Animated.timing(shimmerX, { toValue: 1, duration: 3000, easing: Easing.inOut(Easing.ease), useNativeDriver: true }),
+        Animated.timing(shimmerX, {
+          toValue: 1,
+          duration: 3000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
         Animated.delay(800),
       ]),
     );
@@ -694,30 +845,51 @@ export default function HomeScreen() {
     <View style={styles.root}>
       {/* Light status bar text/icons so they read against the navy header. */}
       <StatusBar style="light" />
-      <SafeAreaView edges={['top']} style={styles.safeNav}>
+      <SafeAreaView edges={["top"]} style={styles.safeNav}>
         <View style={styles.navBar}>
           <View style={styles.navBarLeft}>
             <FinFindrEmblemView />
             <View style={styles.navWordmarkRow}>
               <Text style={styles.navWordmark}>FinFindr</Text>
-              <Animated.Text style={[styles.navWordmarkPeriod, { transform: [{ scale: periodPulse }] }]}>.</Animated.Text>
+              <Animated.Text
+                style={[styles.navWordmarkPeriod, {
+                  transform: [{ scale: periodPulse }],
+                }]}
+              >
+                .
+              </Animated.Text>
             </View>
           </View>
 
           <View style={styles.navBarRight}>
             <Pressable
-              style={({ pressed }) => [styles.livePill, pressed && { opacity: 0.7 }]}
+              style={(
+                { pressed },
+              ) => [styles.livePill, pressed && { opacity: 0.7 }]}
               onPress={() => setShowLocationPicker(true)}
               hitSlop={8}
             >
-              <Animated.View style={[styles.livePillDot, { opacity: livePulse }]} />
-              <Text style={styles.livePillText} numberOfLines={1} ellipsizeMode="tail">
-                {(locationLabel ?? 'LIVE').toUpperCase()}
+              <Animated.View
+                style={[styles.livePillDot, { opacity: livePulse }]}
+              />
+              <Text
+                style={styles.livePillText}
+                numberOfLines={1}
+                ellipsizeMode="tail"
+              >
+                {(locationLabel ?? "LIVE").toUpperCase()}
               </Text>
-              <Ionicons name="chevron-down" size={11} color="#FFFFFF" style={{ opacity: 0.7, marginLeft: 1 }} />
+              <Ionicons
+                name="chevron-down"
+                size={11}
+                color="#FFFFFF"
+                style={{ opacity: 0.7, marginLeft: 1 }}
+              />
             </Pressable>
             <Pressable
-              style={({ pressed }) => [styles.overflowBtn, pressed && { opacity: 0.7 }]}
+              style={(
+                { pressed },
+              ) => [styles.overflowBtn, pressed && { opacity: 0.7 }]}
               onPress={handleSettingsPress}
               hitSlop={8}
             >
@@ -744,25 +916,33 @@ export default function HomeScreen() {
         {/* ─── Headline band ───────────────────────────────────────────── */}
         <View style={styles.headlineBand}>
           <View style={styles.headlineEyebrowRow}>
-            <Text style={styles.headlineEyebrow}>{hhmm}  ·  {greeting}</Text>
+            <Text style={styles.headlineEyebrow}>{hhmm} · {greeting}</Text>
           </View>
 
           <View style={styles.headlineWaitingRow}>
             <View style={styles.headlineWaitingText}>
-              {hasReport && heroBandStyle ? (
-                <>
-                  <Text style={styles.headlineWaiting}>{verdictLeading(heroBand!)}</Text>
-                  <Text style={styles.headlineWaitingItalic}>
-                    <Text style={{ color: heroBandStyle.verdictColor }}>{heroBandStyle.verdict}</Text>
-                    <Text style={styles.headlineWaitingDot}>.</Text>
-                  </Text>
-                </>
-              ) : (
-                <>
-                  <Text style={styles.headlineWaiting}>The water is</Text>
-                  <Text style={styles.headlineWaitingItalic}>waiting<Text style={styles.headlineWaitingDot}>.</Text></Text>
-                </>
-              )}
+              {hasReport && heroBandStyle
+                ? (
+                  <>
+                    <Text style={styles.headlineWaiting}>
+                      {verdictLeading(heroBand!)}
+                    </Text>
+                    <Text style={styles.headlineWaitingItalic}>
+                      <Text style={{ color: heroBandStyle.verdictColor }}>
+                        {heroBandStyle.verdict}
+                      </Text>
+                      <Text style={styles.headlineWaitingDot}>.</Text>
+                    </Text>
+                  </>
+                )
+                : (
+                  <>
+                    <Text style={styles.headlineWaiting}>The water is</Text>
+                    <Text style={styles.headlineWaitingItalic}>
+                      waiting<Text style={styles.headlineWaitingDot}>.</Text>
+                    </Text>
+                  </>
+                )}
             </View>
             <View pointerEvents="none" style={styles.headlinePines}>
               <MistyPinesView />
@@ -803,23 +983,33 @@ export default function HomeScreen() {
 
           {/* Card header bar */}
           <Pressable
-            style={({ pressed }) => [styles.liveCardHeader, pressed && { opacity: 0.85 }]}
+            style={(
+              { pressed },
+            ) => [styles.liveCardHeader, pressed && { opacity: 0.85 }]}
             onPress={() => setShowLocationPicker(true)}
             hitSlop={6}
           >
             <View style={styles.liveCardHeaderLeft}>
-              <Animated.View style={[styles.liveCardHeaderDot, { opacity: livePulse }]} />
+              <Animated.View
+                style={[styles.liveCardHeaderDot, { opacity: livePulse }]}
+              />
               <Text style={styles.liveCardHeaderLabel} numberOfLines={1}>
-                LIVE  ·  {(locationLabel ?? 'Pick a spot').toUpperCase()}
+                LIVE · {(locationLabel ?? "Pick a spot").toUpperCase()}
               </Text>
             </View>
             <View style={styles.liveCardHeaderRight}>
               {coords && (
                 <Text style={styles.liveCardHeaderCoords}>
-                  {coords.lat.toFixed(2)}°N  ·  {Math.abs(coords.lon).toFixed(2)}°W
+                  {coords.lat.toFixed(2)}°N ·{" "}
+                  {Math.abs(coords.lon).toFixed(2)}°W
                 </Text>
               )}
-              <Ionicons name="chevron-forward" size={14} color={paper.dashboardInk} style={{ opacity: 0.6, marginLeft: 4 }} />
+              <Ionicons
+                name="chevron-forward"
+                size={14}
+                color={paper.dashboardInk}
+                style={{ opacity: 0.6, marginLeft: 4 }}
+              />
             </View>
           </Pressable>
 
@@ -831,19 +1021,38 @@ export default function HomeScreen() {
                 <View
                   style={[
                     styles.liveCardScoreChip,
-                    { backgroundColor: heroBandStyle.chipBg, borderColor: heroBandStyle.chipBorder },
+                    {
+                      backgroundColor: heroBandStyle.chipBg,
+                      borderColor: heroBandStyle.chipBorder,
+                    },
                   ]}
                 >
-                  <Text style={[styles.liveCardScoreEyebrow, { color: heroBandStyle.verdictColor }]}>
+                  <Text
+                    style={[styles.liveCardScoreEyebrow, {
+                      color: heroBandStyle.verdictColor,
+                    }]}
+                  >
                     TODAY'S SCORE
                   </Text>
                   <View style={styles.liveCardScoreNumberRow}>
                     <Text style={styles.liveCardScoreNumber}>{heroScore}</Text>
                     <Text style={styles.liveCardScoreUnit}>/10</Text>
                   </View>
-                  <View style={[styles.liveCardScoreBandPill, { backgroundColor: heroBandStyle.bg }]}>
-                    <View style={[styles.liveCardScoreBandDot, { backgroundColor: heroBandStyle.fg }]} />
-                    <Text style={[styles.liveCardScoreBandText, { color: heroBandStyle.fg }]}>
+                  <View
+                    style={[styles.liveCardScoreBandPill, {
+                      backgroundColor: heroBandStyle.bg,
+                    }]}
+                  >
+                    <View
+                      style={[styles.liveCardScoreBandDot, {
+                        backgroundColor: heroBandStyle.fg,
+                      }]}
+                    />
+                    <Text
+                      style={[styles.liveCardScoreBandText, {
+                        color: heroBandStyle.fg,
+                      }]}
+                    >
                       {heroBandStyle.label.toUpperCase()}
                     </Text>
                   </View>
@@ -851,24 +1060,41 @@ export default function HomeScreen() {
               )}
 
               {/* Temp + sparkline */}
-              <View style={[styles.liveCardTempCol, hasReport && { paddingLeft: 14 }]}>
+              <View
+                style={[
+                  styles.liveCardTempCol,
+                  hasReport && { paddingLeft: 14 },
+                ]}
+              >
                 <View style={styles.liveCardTempRow}>
                   <Text style={styles.liveCardTempNumber}>
-                    {currentTemp != null ? Math.round(currentTemp) : '—'}
+                    {currentTemp != null ? Math.round(currentTemp) : "—"}
                   </Text>
-                  <Text style={styles.liveCardTempUnit}>{tempUnit || '°F'}</Text>
+                  <Text style={styles.liveCardTempUnit}>
+                    {tempUnit || "°F"}
+                  </Text>
                 </View>
                 <Text style={styles.liveCardTempSubline}>
-                  {conditionsSubline ?? 'Conditions loading…'}
+                  {conditionsSubline ?? "Conditions loading…"}
                 </Text>
               </View>
 
               {/* Sparkline (right-aligned) */}
               <View style={styles.liveCardSparkCol}>
-                <Text style={styles.liveCardSparkEyebrow}>HOURLY TEMP · 6H</Text>
-                <SparklineBars points={sparklinePoints} width={108} height={36} />
+                <Text style={styles.liveCardSparkEyebrow}>
+                  HOURLY TEMP · 6H
+                </Text>
+                <SparklineBars
+                  points={sparklinePoints}
+                  width={108}
+                  height={36}
+                />
                 {tempTrendDisplay && (
-                  <Text style={[styles.liveCardSparkTrend, { color: tempTrendDisplay.color }]}>
+                  <Text
+                    style={[styles.liveCardSparkTrend, {
+                      color: tempTrendDisplay.color,
+                    }]}
+                  >
                     {tempTrendDisplay.label}
                   </Text>
                 )}
@@ -877,7 +1103,9 @@ export default function HomeScreen() {
 
             {/* Today's bite CTA */}
             <Pressable
-              style={({ pressed }) => [styles.biteCta, pressed && { opacity: 0.92 }]}
+              style={(
+                { pressed },
+              ) => [styles.biteCta, pressed && { opacity: 0.92 }]}
               onPress={handleHowFishingPress}
               onLayout={(e) => setShimmerWidth(e.nativeEvent.layout.width)}
             >
@@ -906,14 +1134,19 @@ export default function HomeScreen() {
                 <View>
                   <Text style={styles.biteCtaEyebrow}>TODAY'S BITE</Text>
                   <Text style={styles.biteCtaTitle}>
-                    {hasReport ? "View today's report" : 'Get your read'}
+                    {hasReport ? "View today's report" : "Get your read"}
                   </Text>
                 </View>
               </View>
               <View style={styles.biteCtaRight}>
                 <BiteCtaWaveView />
                 <View style={styles.biteCtaArrowTile}>
-                  <Ionicons name="arrow-up" size={12} color="#2A6E96" style={{ transform: [{ rotate: '45deg' }] }} />
+                  <Ionicons
+                    name="arrow-up"
+                    size={12}
+                    color="#2A6E96"
+                    style={{ transform: [{ rotate: "45deg" }] }}
+                  />
                 </View>
               </View>
             </Pressable>
@@ -923,14 +1156,16 @@ export default function HomeScreen() {
               <MetricCell
                 icon="leaf-outline"
                 label="WIND"
-                value={windMph != null ? String(Math.round(windMph)) : '—'}
+                value={windMph != null ? String(Math.round(windMph)) : "—"}
                 unit="mph"
-                sub={windCardinal ?? '—'}
+                sub={windCardinal ?? "—"}
               />
               <MetricCell
                 icon="water-outline"
                 label="HUMIDITY"
-                value={humidityPct != null ? String(Math.round(humidityPct)) : '—'}
+                value={humidityPct != null
+                  ? String(Math.round(humidityPct))
+                  : "—"}
                 unit="%"
                 sub={humidityDisplay(envData?.weather?.humidity)}
               />
@@ -939,14 +1174,14 @@ export default function HomeScreen() {
                 label="TODAY"
                 value={todayHi != null && todayLo != null
                   ? `${Math.round(todayHi)}/${Math.round(todayLo)}`
-                  : '—'}
+                  : "—"}
                 unit="°F"
                 sub="HI / LO"
               />
               <MetricCell
                 icon="speedometer-outline"
                 label="PRESSURE"
-                value={pressureInches ?? '—'}
+                value={pressureInches ?? "—"}
                 unit="in"
                 sub={pressureTrendLabel}
                 last
@@ -980,77 +1215,106 @@ export default function HomeScreen() {
         {/* ─── 6-Day Bite Forecast ───────────────────────────────────────── */}
         <View style={styles.forecast}>
           <View style={styles.forecastHeaderRow}>
-            <Text style={styles.forecastEyebrow}>──  6-DAY BITE FORECAST</Text>
+            <Text style={styles.forecastEyebrow}>── 6-DAY BITE FORECAST</Text>
             <Text style={styles.forecastUnit}>
-              <Text style={{ color: paper.bandPrime }}>▲ </Text>SCORE / 10
+              <Text style={{ color: paper.bandPrime }}>▲</Text>SCORE / 10
             </Text>
           </View>
 
           <View style={styles.forecastGrid}>
             {(forecastDisplayDays.length > 0
               ? forecastDisplayDays
-              : Array.from({ length: FORECAST_COLS }).map(() => null)
-            ).map((day, i) => {
-              if (!day) {
-                return (
-                  <View key={`skel-${i}`} style={[styles.forecastTile, styles.forecastTileSkeleton]}>
-                    <View style={styles.forecastTileHeaderSkeleton} />
-                    <View style={styles.forecastTileBodySkeleton} />
-                  </View>
-                );
-              }
-              const raw = combinedOutlookScore(day);
-              const score10 = raw / 10;
-              const tileBg = scoreAccentColor(score10);
-              const isFirst = i === 0;
-              const dateNum = day.month_day?.split(/[ /-]/).pop() ?? '';
-              const dayLabel = isFirst ? 'TOMORROW' : abbreviateDay(day.day_label);
-              // 21-entry hi/lo arrays: index 14 = today, so 14 + day_offset
-              // gives this forecast day's slot. Fallback to em-dashes when
-              // the forecast snapshot didn't carry the temperature arrays.
-              const tIdx = 14 + day.day_offset;
-              const tileHi = forecastHighs?.[tIdx];
-              const tileLo = forecastLows?.[tIdx];
-              return (
-                <Pressable
-                  key={day.date}
-                  onPress={() => handleForecastDayPress(day)}
-                  style={({ pressed }) => [styles.forecastTile, pressed && { opacity: 0.85 }]}
-                >
-                  {isFirst && <Text style={styles.forecastTileTomorrow}>TOMORROW</Text>}
-                  <View style={styles.forecastTileHead}>
-                    <Text style={styles.forecastTileDay} numberOfLines={1}>
-                      {isFirst ? abbreviateDay(day.day_label) : dayLabel}
-                    </Text>
-                    <Text style={styles.forecastTileDate}>{dateNum}</Text>
-                  </View>
-                  <View style={[styles.forecastTileScoreBlock, { backgroundColor: tileBg }]}>
-                    <Text style={[styles.forecastTileScore, { color: paper.dashboardInk }]}>
-                      {formatScoreDisplay(raw)}
-                    </Text>
-                  </View>
-                  <View style={styles.forecastTileHiLo}>
-                    <Text
-                      style={styles.forecastTileHiLoText}
-                      numberOfLines={1}
-                      adjustsFontSizeToFit
-                      minimumFontScale={0.75}
+              : Array.from({ length: FORECAST_COLS }).map(() => null)).map(
+                (day, i) => {
+                  if (!day) {
+                    return (
+                      <View
+                        key={`skel-${i}`}
+                        style={[
+                          styles.forecastTile,
+                          styles.forecastTileSkeleton,
+                        ]}
+                      >
+                        <View style={styles.forecastTileHeaderSkeleton} />
+                        <View style={styles.forecastTileBodySkeleton} />
+                      </View>
+                    );
+                  }
+                  const raw = combinedOutlookScore(day);
+                  const score10 = raw / 10;
+                  const tileBg = scoreAccentColor(score10);
+                  const isFirst = i === 0;
+                  const dateNum = day.month_day?.split(/[ /-]/).pop() ?? "";
+                  const dayLabel = isFirst
+                    ? "TOMORROW"
+                    : abbreviateDay(day.day_label);
+                  // 21-entry hi/lo arrays: index 14 = today, so 14 + day_offset
+                  // gives this forecast day's slot. Fallback to em-dashes when
+                  // the forecast snapshot didn't carry the temperature arrays.
+                  const tIdx = 14 + day.day_offset;
+                  const tileHi = forecastHighs?.[tIdx];
+                  const tileLo = forecastLows?.[tIdx];
+                  return (
+                    <Pressable
+                      key={day.date}
+                      onPress={() => handleForecastDayPress(day)}
+                      style={(
+                        { pressed },
+                      ) => [styles.forecastTile, pressed && { opacity: 0.85 }]}
                     >
-                      {tileHi != null ? `${Math.round(tileHi)}°` : '—'}
-                      <Text style={styles.forecastTileHiLoSep}>/</Text>
-                      {tileLo != null ? `${Math.round(tileLo)}°` : '—'}
-                    </Text>
-                  </View>
-                </Pressable>
-              );
-            })}
+                      {isFirst && (
+                        <Text style={styles.forecastTileTomorrow}>
+                          TOMORROW
+                        </Text>
+                      )}
+                      <View style={styles.forecastTileHead}>
+                        <Text style={styles.forecastTileDay} numberOfLines={1}>
+                          {isFirst ? abbreviateDay(day.day_label) : dayLabel}
+                        </Text>
+                        <Text style={styles.forecastTileDate}>{dateNum}</Text>
+                      </View>
+                      <View
+                        style={[styles.forecastTileScoreBlock, {
+                          backgroundColor: tileBg,
+                        }]}
+                      >
+                        <Text
+                          style={[styles.forecastTileScore, {
+                            color: paper.dashboardInk,
+                          }]}
+                        >
+                          {formatScoreDisplay(raw)}
+                        </Text>
+                      </View>
+                      <View style={styles.forecastTileHiLo}>
+                        <Text
+                          style={styles.forecastTileHiLoText}
+                          numberOfLines={1}
+                          adjustsFontSizeToFit
+                          minimumFontScale={0.75}
+                        >
+                          {tileHi != null ? `${Math.round(tileHi)}°` : "—"}
+                          <Text style={styles.forecastTileHiLoSep}>/</Text>
+                          {tileLo != null ? `${Math.round(tileLo)}°` : "—"}
+                        </Text>
+                      </View>
+                    </Pressable>
+                  );
+                },
+              )}
           </View>
 
           <View style={styles.forecastLegend}>
-            {(['Tough', 'Poor', 'Fair', 'Good', 'Prime'] as const).map((b) => (
+            {(["Tough", "Poor", "Fair", "Good", "Prime"] as const).map((b) => (
               <View key={b} style={styles.forecastLegendItem}>
-                <View style={[styles.forecastLegendSwatch, { backgroundColor: dashboardBandColor[b].bg }]} />
-                <Text style={styles.forecastLegendLabel}>{b.toUpperCase()}</Text>
+                <View
+                  style={[styles.forecastLegendSwatch, {
+                    backgroundColor: dashboardBandColor[b].bg,
+                  }]}
+                />
+                <Text style={styles.forecastLegendLabel}>
+                  {b.toUpperCase()}
+                </Text>
               </View>
             ))}
           </View>
@@ -1059,7 +1323,7 @@ export default function HomeScreen() {
         {/* ─── Intelligence Modules ─────────────────────────────────────── */}
         <View style={styles.modules}>
           <View style={styles.modulesHeader}>
-            <Text style={styles.modulesEyebrow}>──  INTELLIGENCE MODULES</Text>
+            <Text style={styles.modulesEyebrow}>── INTELLIGENCE MODULES</Text>
             <Text style={styles.modulesCount}>3 / 3</Text>
           </View>
 
@@ -1068,7 +1332,7 @@ export default function HomeScreen() {
             title="Water Read"
             tag="POLYGON"
             desc="Most lakes: structure + potential hotspots"
-            iconBg={['#E8F2FA', '#C8DFF2']}
+            iconBg={["#E8F2FA", "#C8DFF2"]}
             iconBorder="#0F63B0"
             iconColor="#0A4A87"
             iconName="layers-outline"
@@ -1079,7 +1343,7 @@ export default function HomeScreen() {
             title="Tackle Box"
             tag="RECOMMENDER"
             desc="Tuned picks for today's conditions & species"
-            iconBg={['#FBF1D9', '#F4DFA4']}
+            iconBg={["#FBF1D9", "#F4DFA4"]}
             iconBorder="#C99B2D"
             iconColor="#8A6A1A"
             iconName="fish-outline"
@@ -1090,7 +1354,7 @@ export default function HomeScreen() {
             title="Today's Bite"
             tag="CONDITIONS"
             desc="Full breakdown · windows · limiting factors"
-            iconBg={['#E5F2DD', '#C5E0B5']}
+            iconBg={["#E5F2DD", "#C5E0B5"]}
             iconBorder="#3DA85F"
             iconColor="#1F6B38"
             iconName="sparkles-outline"
@@ -1101,21 +1365,49 @@ export default function HomeScreen() {
         {/* ─── Footer ────────────────────────────────────────────────────── */}
         <View style={styles.footer}>
           <View style={styles.footerLeft}>
-            <Ionicons name="boat-outline" size={11} color={paper.dashboardMuted} />
+            <Ionicons
+              name="boat-outline"
+              size={11}
+              color={paper.dashboardMuted}
+            />
             <Text style={styles.footerSync}>
-              SYNCED · {agoSeconds == null ? '—' : formatAgo(agoSeconds)}
+              SYNCED · {agoSeconds == null ? "—" : formatAgo(agoSeconds)}
             </Text>
           </View>
           <View style={styles.footerRight}>
             <View style={styles.signalBars}>
-              <View style={[styles.signalBar, { height: 5, backgroundColor: paper.bandPrime }]} />
-              <View style={[styles.signalBar, { height: 7, backgroundColor: paper.bandPrime }]} />
-              <View style={[styles.signalBar, { height: 9, backgroundColor: paper.bandPrime }]} />
-              <View style={[styles.signalBar, { height: 11, backgroundColor: paper.bandPrime }]} />
+              <View
+                style={[styles.signalBar, {
+                  height: 5,
+                  backgroundColor: paper.bandPrime,
+                }]}
+              />
+              <View
+                style={[styles.signalBar, {
+                  height: 7,
+                  backgroundColor: paper.bandPrime,
+                }]}
+              />
+              <View
+                style={[styles.signalBar, {
+                  height: 9,
+                  backgroundColor: paper.bandPrime,
+                }]}
+              />
+              <View
+                style={[styles.signalBar, {
+                  height: 11,
+                  backgroundColor: paper.bandPrime,
+                }]}
+              />
             </View>
             <Text style={styles.footerStamp}>
-              FINFINDR{gpsRegionLabel || (savedLocation && useCustom) ? ' · ' : ''}
-              {savedLocation && useCustom ? regionStamp(savedLocation.label) : (gpsRegionLabel ? regionStamp(gpsRegionLabel) : '')}
+              FINFINDR{gpsRegionLabel || (savedLocation && useCustom)
+                ? " · "
+                : ""}
+              {savedLocation && useCustom
+                ? regionStamp(savedLocation.label)
+                : (gpsRegionLabel ? regionStamp(gpsRegionLabel) : "")}
             </Text>
           </View>
         </View>
@@ -1124,7 +1416,9 @@ export default function HomeScreen() {
       {/* Modals */}
       <LocationPickerModal
         visible={showLocationPicker}
-        currentLabel={useCustom && savedLocation ? savedLocation.label : gpsLabel}
+        currentLabel={useCustom && savedLocation
+          ? savedLocation.label
+          : gpsLabel}
         isUsingCustom={useCustom && savedLocation != null}
         savedLocation={savedLocation}
         onSelect={handleLocationSelect}
@@ -1136,7 +1430,7 @@ export default function HomeScreen() {
         onDismiss={() => setShowSubscribePrompt(false)}
         onViewPlans={() => {
           setShowSubscribePrompt(false);
-          router.push('/subscribe');
+          router.push("/subscribe");
         }}
       />
       {/* GPS-permission gate (silent if granted; prompts if not) */}
@@ -1158,11 +1452,28 @@ export default function HomeScreen() {
  * pure RN primitives and doesn't need the react-native-svg native bridge.
  * Visually still reads as "temperature trend over the last 6 hours".
  */
-function SparklineBars({ points, width, height }: { points: number[] | null; width: number; height: number }) {
+function SparklineBars(
+  { points, width, height }: {
+    points: number[] | null;
+    width: number;
+    height: number;
+  },
+) {
   if (!points || points.length < 2) {
     return (
-      <View style={{ width, height, justifyContent: 'center', alignItems: 'center' }}>
-        <Text style={{ fontFamily: MONO, fontSize: 9, color: paper.dashboardMuted }}>—</Text>
+      <View
+        style={{
+          width,
+          height,
+          justifyContent: "center",
+          alignItems: "center",
+        }}
+      >
+        <Text
+          style={{ fontFamily: MONO, fontSize: 9, color: paper.dashboardMuted }}
+        >
+          —
+        </Text>
       </View>
     );
   }
@@ -1172,7 +1483,9 @@ function SparklineBars({ points, width, height }: { points: number[] | null; wid
   const gap = 2;
   const barW = (width - gap * (points.length - 1)) / points.length;
   return (
-    <View style={{ width, height, flexDirection: 'row', alignItems: 'flex-end' }}>
+    <View
+      style={{ width, height, flexDirection: "row", alignItems: "flex-end" }}
+    >
       {points.map((v, i) => {
         const ratio = (v - min) / range;
         const h = Math.max(3, 6 + ratio * (height - 6));
@@ -1186,7 +1499,7 @@ function SparklineBars({ points, width, height }: { points: number[] | null; wid
               marginRight: i === points.length - 1 ? 0 : gap,
               borderTopLeftRadius: 2,
               borderTopRightRadius: 2,
-              backgroundColor: isLast ? '#4F95C2' : '#7CB8DA',
+              backgroundColor: isLast ? "#4F95C2" : "#7CB8DA",
               opacity: isLast ? 1 : 0.55,
             }}
           />
@@ -1237,9 +1550,19 @@ function BiteCtaWaveView() {
     );
     const ampLoop = Animated.loop(
       Animated.sequence([
-        Animated.timing(amp, { toValue: 1, duration: 1500, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        Animated.timing(amp, {
+          toValue: 1,
+          duration: 1500,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
         Animated.delay(250),
-        Animated.timing(amp, { toValue: 0, duration: 1500, easing: Easing.inOut(Easing.sin), useNativeDriver: true }),
+        Animated.timing(amp, {
+          toValue: 0,
+          duration: 1500,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
         Animated.delay(700),
       ]),
     );
@@ -1255,21 +1578,30 @@ function BiteCtaWaveView() {
     return Array.from({ length: N }, (_, i) => {
       const offset = i / N;
       const inputRange = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
-      const outputRange = inputRange.map((t) => Math.sin((t + offset) * 2 * Math.PI) * 4.5);
+      const outputRange = inputRange.map((t) =>
+        Math.sin((t + offset) * 2 * Math.PI) * 4.5
+      );
       const sineY = phase.interpolate({ inputRange, outputRange });
       return Animated.multiply(sineY, amp);
     });
   }, [phase, amp]);
 
   return (
-    <View style={{ width: TOTAL_W, height: 16, flexDirection: 'row', alignItems: 'center' }}>
+    <View
+      style={{
+        width: TOTAL_W,
+        height: 16,
+        flexDirection: "row",
+        alignItems: "center",
+      }}
+    >
       {segs.map((ty, i) => (
         <Animated.View
           key={i}
           style={{
             width: SEG_W,
             height: 1.5,
-            backgroundColor: 'rgba(42,110,150,0.85)',
+            backgroundColor: "rgba(42,110,150,0.85)",
             transform: [{ translateY: ty }],
           }}
         />
@@ -1286,7 +1618,7 @@ function BiteCtaWaveView() {
 function FinFindrEmblemView() {
   return (
     <Image
-      source={require('../../assets/images/finfindr-logo.png')}
+      source={require("../../assets/images/finfindr-logo.png")}
       style={{ width: 48, height: 52 }}
       resizeMode="contain"
     />
@@ -1303,7 +1635,7 @@ function FinFindrEmblemView() {
 function MistyPinesView() {
   return (
     <Image
-      source={require('../../assets/images/misty-pines.png')}
+      source={require("../../assets/images/misty-pines.png")}
       style={{ width: 280, height: 200 }}
       resizeMode="contain"
     />
@@ -1318,7 +1650,7 @@ function MetricCell({
   sub,
   last,
 }: {
-  icon: React.ComponentProps<typeof Ionicons>['name'];
+  icon: React.ComponentProps<typeof Ionicons>["name"];
   label: string;
   value: string;
   unit: string;
@@ -1365,21 +1697,41 @@ function ModuleRow({
   iconBg: [string, string];
   iconBorder: string;
   iconColor: string;
-  iconName: React.ComponentProps<typeof Ionicons>['name'];
+  iconName: React.ComponentProps<typeof Ionicons>["name"];
   onPress: () => void;
 }) {
   return (
     <Pressable
-      style={({ pressed }) => [styles.moduleRow, pressed && { opacity: 0.92, transform: [{ translateY: -1 }] }]}
+      style={(
+        { pressed },
+      ) => [
+        styles.moduleRow,
+        pressed && { opacity: 0.92, transform: [{ translateY: -1 }] },
+      ]}
       onPress={onPress}
     >
       <View style={styles.moduleDots}>
-        <View style={[styles.moduleDot, { backgroundColor: iconBorder, opacity: 0.5 }]} />
-        <View style={[styles.moduleDot, { backgroundColor: iconBorder, opacity: 0.7 }]} />
+        <View
+          style={[styles.moduleDot, {
+            backgroundColor: iconBorder,
+            opacity: 0.5,
+          }]}
+        />
+        <View
+          style={[styles.moduleDot, {
+            backgroundColor: iconBorder,
+            opacity: 0.7,
+          }]}
+        />
         <View style={[styles.moduleDot, { backgroundColor: iconBorder }]} />
       </View>
       <Text style={styles.moduleCode}>{code}</Text>
-      <View style={[styles.moduleIcon, { backgroundColor: iconBg[1], borderColor: iconBorder + '60' }]}>
+      <View
+        style={[styles.moduleIcon, {
+          backgroundColor: iconBg[1],
+          borderColor: iconBorder + "60",
+        }]}
+      >
         <Ionicons name={iconName} size={20} color={iconColor} />
       </View>
       <View style={styles.moduleTextCol}>
@@ -1387,9 +1739,21 @@ function ModuleRow({
           <Text style={styles.moduleTitle}>{title}</Text>
           <Text style={styles.moduleTag}>{tag}</Text>
         </View>
-        <Text style={styles.moduleDesc} numberOfLines={1} adjustsFontSizeToFit minimumFontScale={0.9}>{desc}</Text>
+        <Text
+          style={styles.moduleDesc}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.9}
+        >
+          {desc}
+        </Text>
       </View>
-      <Ionicons name="arrow-up" size={16} color={paper.dashboardInk} style={{ transform: [{ rotate: '45deg' }] }} />
+      <Ionicons
+        name="arrow-up"
+        size={16}
+        color={paper.dashboardInk}
+        style={{ transform: [{ rotate: "45deg" }] }}
+      />
     </Pressable>
   );
 }
@@ -1409,62 +1773,77 @@ function ModuleRow({
  */
 function verdictLeading(band: PaperScoreBand): string {
   switch (band) {
-    case 'Prime':
-    case 'Good':
-    case 'Fair':
-      return 'Today looks';
-    case 'Poor':
-    case 'Tough':
+    case "Prime":
+    case "Good":
+    case "Fair":
+      return "Today looks";
+    case "Poor":
+    case "Tough":
       return "Today's a";
   }
 }
 
 function abbreviateDay(label: string): string {
   const clean = label.trim().toUpperCase();
-  if (clean === 'TODAY') return 'TODAY';
-  if (clean === 'TMRW' || clean === 'TOMORROW') return 'FRI';
+  if (clean === "TODAY") return "TODAY";
+  if (clean === "TMRW" || clean === "TOMORROW") return "FRI";
   // Backend day_label is "Mon"/"Tue"/…; uppercasing is the abbrev.
   return clean.slice(0, 3);
 }
 
 function cardinal8(deg: number): string {
-  const dirs = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  const dirs = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
   const idx = Math.round((deg % 360) / 45) % 8;
   return dirs[idx];
 }
 
-function deriveConditionsSubline(cloudCover?: number, precip?: number): string | null {
+function deriveConditionsSubline(
+  cloudCover?: number,
+  precip?: number,
+): string | null {
   if (cloudCover == null && precip == null) return null;
   const cloud = cloudCover ?? 0;
-  const sky =
-    cloud >= 80 ? 'Overcast' :
-    cloud >= 50 ? 'Mostly cloudy' :
-    cloud >= 25 ? 'Partly cloudy' : 'Clear skies';
+  const sky = cloud >= 80
+    ? "Overcast"
+    : cloud >= 50
+    ? "Mostly cloudy"
+    : cloud >= 25
+    ? "Partly cloudy"
+    : "Clear skies";
   const precipMm = precip ?? 0;
   if (precipMm <= 0) return sky;
-  const wet =
-    precipMm < 0.5 ? 'Light drizzle' :
-    precipMm < 2 ? 'Light rain' :
-    precipMm < 6 ? 'Steady rain' : 'Heavy rain';
+  const wet = precipMm < 0.5
+    ? "Light drizzle"
+    : precipMm < 2
+    ? "Light rain"
+    : precipMm < 6
+    ? "Steady rain"
+    : "Heavy rain";
   return `${sky} · ${wet}`;
 }
 
 function pressureTrendDisplay(t?: string): string {
   switch (t) {
-    case 'rapidly_falling': return 'FALLING';
-    case 'slowly_falling': return 'FALLING';
-    case 'slowly_rising': return 'RISING';
-    case 'rapidly_rising': return 'RISING';
-    case 'stable': return 'STEADY';
-    default: return '—';
+    case "rapidly_falling":
+      return "FALLING";
+    case "slowly_falling":
+      return "FALLING";
+    case "slowly_rising":
+      return "RISING";
+    case "rapidly_rising":
+      return "RISING";
+    case "stable":
+      return "STEADY";
+    default:
+      return "—";
   }
 }
 
 function humidityDisplay(h?: number): string {
-  if (h == null) return '—';
-  if (h >= 80) return 'HIGH';
-  if (h >= 50) return 'MODERATE';
-  return 'LOW';
+  if (h == null) return "—";
+  if (h >= 80) return "HIGH";
+  if (h >= 50) return "MODERATE";
+  return "LOW";
 }
 
 /**
@@ -1476,13 +1855,13 @@ function humidityDisplay(h?: number): string {
 function sixHourTrendChip(deltaF: number): { label: string; color: string } {
   const rounded = Math.round(deltaF);
   if (Math.abs(deltaF) < 0.5) {
-    return { label: '→ STEADY · 6H', color: paper.dashboardMuted };
+    return { label: "→ STEADY · 6H", color: paper.dashboardMuted };
   }
   const sign = rounded > 0 ? `+${rounded}°F` : `${rounded}°F`;
   if (deltaF > 0) {
     return { label: `↑ ${sign} · 6H`, color: paper.bandPrime };
   }
-  return { label: `↓ ${sign} · 6H`, color: '#4F95C2' };
+  return { label: `↓ ${sign} · 6H`, color: "#4F95C2" };
 }
 
 function formatAgo(seconds: number): string {
@@ -1498,7 +1877,7 @@ function regionStamp(label: string): string {
   const m = label.match(/,\s*([A-Z]{2,})$/);
   if (m) return m[1];
   // Otherwise return the last 2-3 word fragment uppercased for stamp use.
-  const last = label.split(/[,\s]+/).pop() ?? '';
+  const last = label.split(/[,\s]+/).pop() ?? "";
   return last.slice(0, 3).toUpperCase();
 }
 
@@ -1514,48 +1893,53 @@ const styles = StyleSheet.create({
   navBar: {
     height: 56,
     paddingHorizontal: 16,
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     backgroundColor: paper.dashboardInk,
   },
-  navBarLeft: { flexDirection: 'row', alignItems: 'center', gap: 10 },
-  navWordmarkRow: { flexDirection: 'row', alignItems: 'baseline' },
+  navBarLeft: { flexDirection: "row", alignItems: "center", gap: 10 },
+  navWordmarkRow: { flexDirection: "row", alignItems: "baseline" },
   navWordmark: {
     fontFamily: SERIF_BOLD,
     fontSize: 26,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     letterSpacing: -0.5,
     lineHeight: 28,
   },
   navWordmarkPeriod: {
     fontFamily: SERIF_BOLD,
     fontSize: 26,
-    color: '#7CB8DA',
+    color: "#7CB8DA",
     marginLeft: 1,
     lineHeight: 28,
   },
-  navBarRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
+  navBarRight: { flexDirection: "row", alignItems: "center", gap: 8 },
 
   livePill: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderRadius: 18,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: "rgba(255,255,255,0.08)",
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.16)',
+    borderColor: "rgba(255,255,255,0.16)",
     gap: 6,
     maxWidth: 180,
     flexShrink: 1,
   },
-  livePillDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: paper.bandPrime },
+  livePillDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: paper.bandPrime,
+  },
   livePillText: {
     fontFamily: MONO_BOLD,
     fontSize: 10,
     letterSpacing: 1.2,
-    color: '#FFFFFF',
+    color: "#FFFFFF",
     flexShrink: 1,
   },
 
@@ -1563,16 +1947,20 @@ const styles = StyleSheet.create({
     width: 32,
     height: 32,
     borderRadius: 16,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: "rgba(255,255,255,0.08)",
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.16)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderColor: "rgba(255,255,255,0.16)",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   // ─── Scroll content ──────────────────────────────────────────────────────
   scroll: { flex: 1, backgroundColor: paper.dashboardCream },
-  scrollContent: { paddingHorizontal: HOME_H_PADDING, paddingBottom: 32, paddingTop: 22 },
+  scrollContent: {
+    paddingHorizontal: HOME_H_PADDING,
+    paddingBottom: 32,
+    paddingTop: 22,
+  },
 
   // ─── Headline band ───────────────────────────────────────────────────────
   headlineBand: { marginBottom: 22 },
@@ -1581,12 +1969,12 @@ const styles = StyleSheet.create({
     fontFamily: MONO_BOLD,
     fontSize: 10,
     letterSpacing: 2.2,
-    color: '#444',
+    color: "#444",
   },
   headlineWaitingRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "flex-start",
+    justifyContent: "space-between",
     minHeight: 110,
   },
   headlineWaitingText: { flex: 1, paddingTop: 4 },
@@ -1603,35 +1991,67 @@ const styles = StyleSheet.create({
     lineHeight: 42,
     letterSpacing: -0.6,
     color: paper.dashboardInk,
-    fontStyle: 'italic',
+    fontStyle: "italic",
   },
   headlineWaitingDot: {
     fontFamily: SERIF_BOLD,
     color: paper.dashboardBlue,
   },
   headlinePines: {
-    position: 'absolute',
+    position: "absolute",
     right: -36,
     top: -36,
     opacity: 0.95,
   },
 
-  headlineReadRow: { flexDirection: 'row', alignItems: 'center', gap: 14 },
+  headlineReadRow: { flexDirection: "row", alignItems: "center", gap: 14 },
   headlineScoreChip: {
     width: 118,
     height: 78,
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.18)',
-    justifyContent: 'center',
-    alignItems: 'center',
-    position: 'relative',
+    borderColor: "rgba(0,0,0,0.18)",
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
   },
-  headlineScoreChipCornerTL: { position: 'absolute', top: 4, left: 4, width: 3, height: 3, borderRadius: 1, backgroundColor: 'rgba(0,0,0,0.25)' },
-  headlineScoreChipCornerTR: { position: 'absolute', top: 4, right: 4, width: 3, height: 3, borderRadius: 1, backgroundColor: 'rgba(0,0,0,0.25)' },
-  headlineScoreChipCornerBL: { position: 'absolute', bottom: 4, left: 4, width: 3, height: 3, borderRadius: 1, backgroundColor: 'rgba(0,0,0,0.25)' },
-  headlineScoreChipCornerBR: { position: 'absolute', bottom: 4, right: 4, width: 3, height: 3, borderRadius: 1, backgroundColor: 'rgba(0,0,0,0.25)' },
-  headlineScoreChipInner: { flexDirection: 'row', alignItems: 'baseline' },
+  headlineScoreChipCornerTL: {
+    position: "absolute",
+    top: 4,
+    left: 4,
+    width: 3,
+    height: 3,
+    borderRadius: 1,
+    backgroundColor: "rgba(0,0,0,0.25)",
+  },
+  headlineScoreChipCornerTR: {
+    position: "absolute",
+    top: 4,
+    right: 4,
+    width: 3,
+    height: 3,
+    borderRadius: 1,
+    backgroundColor: "rgba(0,0,0,0.25)",
+  },
+  headlineScoreChipCornerBL: {
+    position: "absolute",
+    bottom: 4,
+    left: 4,
+    width: 3,
+    height: 3,
+    borderRadius: 1,
+    backgroundColor: "rgba(0,0,0,0.25)",
+  },
+  headlineScoreChipCornerBR: {
+    position: "absolute",
+    bottom: 4,
+    right: 4,
+    width: 3,
+    height: 3,
+    borderRadius: 1,
+    backgroundColor: "rgba(0,0,0,0.25)",
+  },
+  headlineScoreChipInner: { flexDirection: "row", alignItems: "baseline" },
   headlineScoreNumber: {
     fontFamily: SERIF_BOLD,
     fontSize: 50,
@@ -1648,7 +2068,7 @@ const styles = StyleSheet.create({
     fontFamily: MONO_BOLD,
     fontSize: 9,
     letterSpacing: 2,
-    color: '#666',
+    color: "#666",
     marginBottom: 4,
   },
   headlineVerdictLine: {
@@ -1661,7 +2081,7 @@ const styles = StyleSheet.create({
   headlineVerdictWord: {
     fontFamily: SERIF_ITALIC,
     fontSize: 24,
-    fontStyle: 'italic',
+    fontStyle: "italic",
   },
 
   // ─── Live conditions card ───────────────────────────────────────────────
@@ -1670,37 +2090,47 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    overflow: 'hidden',
-    position: 'relative',
+    overflow: "hidden",
+    position: "relative",
     marginBottom: 22,
   },
-  cornerCross: { position: 'absolute', width: 9, height: 9, zIndex: 2 },
+  cornerCross: { position: "absolute", width: 9, height: 9, zIndex: 2 },
   cornerCrossTL: { top: -5, left: -5 },
   cornerCrossTR: { top: -5, right: -5 },
   cornerCrossBL: { bottom: -5, left: -5 },
   cornerCrossBR: { bottom: -5, right: -5 },
 
   scanLine: {
-    position: 'absolute',
+    position: "absolute",
     left: 0,
     right: 0,
     height: 48,
-    backgroundColor: 'rgba(124,184,218,0.10)',
+    backgroundColor: "rgba(124,184,218,0.10)",
     zIndex: 1,
   },
 
   liveCardHeader: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingHorizontal: 14,
     paddingVertical: 8,
-    backgroundColor: '#FAFAF7',
+    backgroundColor: "#FAFAF7",
     borderBottomWidth: 1,
     borderColor: paper.dashboardHair,
   },
-  liveCardHeaderLeft: { flexDirection: 'row', alignItems: 'center', gap: 7, flex: 1 },
-  liveCardHeaderDot: { width: 6, height: 6, borderRadius: 3, backgroundColor: paper.bandPrime },
+  liveCardHeaderLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+    flex: 1,
+  },
+  liveCardHeaderDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: paper.bandPrime,
+  },
   liveCardHeaderLabel: {
     fontFamily: MONO_BOLD,
     fontSize: 10,
@@ -1708,15 +2138,23 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     flexShrink: 1,
   },
-  liveCardHeaderRight: { flexDirection: 'row', alignItems: 'center' },
-  liveCardHeaderCoords: { fontFamily: MONO, fontSize: 9.5, color: paper.dashboardMuted },
+  liveCardHeaderRight: { flexDirection: "row", alignItems: "center" },
+  liveCardHeaderCoords: {
+    fontFamily: MONO,
+    fontSize: 9.5,
+    color: paper.dashboardMuted,
+  },
 
   liveCardBody: { padding: 16 },
-  liveCardTopRow: { flexDirection: 'row', alignItems: 'flex-end', marginBottom: 14 },
+  liveCardTopRow: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    marginBottom: 14,
+  },
   liveCardScoreChip: {
-    backgroundColor: '#FAF6E5',
+    backgroundColor: "#FAF6E5",
     borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.10)',
+    borderColor: "rgba(0,0,0,0.10)",
     borderRadius: 8,
     paddingHorizontal: 10,
     paddingVertical: 8,
@@ -1726,10 +2164,10 @@ const styles = StyleSheet.create({
     fontFamily: MONO_BOLD,
     fontSize: 8,
     letterSpacing: 1.6,
-    color: '#8A6A1A',
+    color: "#8A6A1A",
     marginBottom: 2,
   },
-  liveCardScoreNumberRow: { flexDirection: 'row', alignItems: 'baseline' },
+  liveCardScoreNumberRow: { flexDirection: "row", alignItems: "baseline" },
   liveCardScoreNumber: {
     fontFamily: SERIF_BOLD,
     fontSize: 32,
@@ -1744,20 +2182,24 @@ const styles = StyleSheet.create({
     marginLeft: 2,
   },
   liveCardScoreBandPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 4,
     paddingHorizontal: 6,
     paddingVertical: 2,
     borderRadius: 4,
-    alignSelf: 'flex-start',
+    alignSelf: "flex-start",
     marginTop: 4,
   },
   liveCardScoreBandDot: { width: 4, height: 4, borderRadius: 2 },
-  liveCardScoreBandText: { fontFamily: MONO_BOLD, fontSize: 8.5, letterSpacing: 1.3 },
+  liveCardScoreBandText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8.5,
+    letterSpacing: 1.3,
+  },
 
   liveCardTempCol: { flex: 1 },
-  liveCardTempRow: { flexDirection: 'row', alignItems: 'baseline', gap: 4 },
+  liveCardTempRow: { flexDirection: "row", alignItems: "baseline", gap: 4 },
   liveCardTempNumber: {
     fontFamily: SERIF_MEDIUM,
     fontSize: 56,
@@ -1765,10 +2207,23 @@ const styles = StyleSheet.create({
     letterSpacing: -2,
     color: paper.dashboardInk,
   },
-  liveCardTempUnit: { fontFamily: MONO_BOLD, fontSize: 14, color: paper.dashboardMuted },
-  liveCardTempSubline: { fontFamily: SANS_MEDIUM, fontSize: 12, color: '#333', marginTop: 4 },
+  liveCardTempUnit: {
+    fontFamily: MONO_BOLD,
+    fontSize: 14,
+    color: paper.dashboardMuted,
+  },
+  liveCardTempSubline: {
+    fontFamily: SANS_MEDIUM,
+    fontSize: 12,
+    color: "#333",
+    marginTop: 4,
+  },
 
-  liveCardSparkCol: { alignItems: 'flex-end', justifyContent: 'flex-end', paddingBottom: 4 },
+  liveCardSparkCol: {
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+    paddingBottom: 4,
+  },
   liveCardSparkEyebrow: {
     fontFamily: MONO_BOLD,
     fontSize: 8,
@@ -1823,120 +2278,197 @@ const styles = StyleSheet.create({
 
   // bite CTA
   biteCta: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     paddingHorizontal: 14,
     paddingVertical: 12,
     backgroundColor: paper.dashboardBlueSky,
     borderWidth: 1,
-    borderColor: 'rgba(79,149,194,0.45)',
+    borderColor: "rgba(79,149,194,0.45)",
     borderRadius: 8,
     marginBottom: 14,
-    overflow: 'hidden',
-    position: 'relative',
+    overflow: "hidden",
+    position: "relative",
   },
   biteCtaShimmer: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     bottom: 0,
     width: 100,
-    backgroundColor: 'rgba(255,255,255,0.45)',
+    backgroundColor: "rgba(255,255,255,0.45)",
   },
-  biteCtaLeft: { flexDirection: 'row', alignItems: 'center', gap: 12 },
+  biteCtaLeft: { flexDirection: "row", alignItems: "center", gap: 12 },
   biteCtaIconTile: {
     width: 36,
     height: 36,
     borderRadius: 6,
-    backgroundColor: 'rgba(255,255,255,0.6)',
+    backgroundColor: "rgba(255,255,255,0.6)",
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.85)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderColor: "rgba(255,255,255,0.85)",
+    justifyContent: "center",
+    alignItems: "center",
   },
   biteCtaEyebrow: {
     fontFamily: MONO_BOLD,
     fontSize: 9,
     letterSpacing: 1.8,
-    color: 'rgba(42,110,150,0.85)',
+    color: "rgba(42,110,150,0.85)",
   },
   biteCtaTitle: {
     fontFamily: SERIF_SEMI,
     fontSize: 17,
-    color: '#1A3A52',
+    color: "#1A3A52",
     marginTop: 2,
   },
-  biteCtaRight: { flexDirection: 'row', alignItems: 'center', gap: 10 },
+  biteCtaRight: { flexDirection: "row", alignItems: "center", gap: 10 },
   biteCtaArrowTile: {
     width: 28,
     height: 28,
     borderRadius: 6,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
-    borderColor: 'rgba(42,110,150,0.3)',
-    justifyContent: 'center',
-    alignItems: 'center',
+    borderColor: "rgba(42,110,150,0.3)",
+    justifyContent: "center",
+    alignItems: "center",
   },
 
   // metric grid
   metricsGrid: {
-    flexDirection: 'row',
+    flexDirection: "row",
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 6,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
-  metricCell: { flex: 1, paddingHorizontal: 8, paddingVertical: 10, borderBottomWidth: 1, borderColor: paper.dashboardLine },
+  metricCell: {
+    flex: 1,
+    paddingHorizontal: 8,
+    paddingVertical: 10,
+    borderBottomWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
   metricCellDivider: { borderRightWidth: 1 },
-  metricCellTopRow: { flexDirection: 'row', alignItems: 'center', gap: 4, marginBottom: 4 },
-  metricCellLabel: { fontFamily: MONO_BOLD, fontSize: 8, letterSpacing: 1.4, color: paper.dashboardMuted },
-  metricCellValueRow: { flexDirection: 'row', alignItems: 'baseline', gap: 2 },
-  metricCellValue: { fontFamily: SERIF_SEMI, fontSize: 18, color: paper.dashboardInk, lineHeight: 20 },
-  metricCellUnit: { fontFamily: MONO_BOLD, fontSize: 9, color: paper.dashboardMuted },
-  metricCellSub: { fontFamily: MONO_BOLD, fontSize: 8, letterSpacing: 1.4, color: '#333', marginTop: 4 },
+  metricCellTopRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    marginBottom: 4,
+  },
+  metricCellLabel: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8,
+    letterSpacing: 1.4,
+    color: paper.dashboardMuted,
+  },
+  metricCellValueRow: { flexDirection: "row", alignItems: "baseline", gap: 2 },
+  metricCellValue: {
+    fontFamily: SERIF_SEMI,
+    fontSize: 18,
+    color: paper.dashboardInk,
+    lineHeight: 20,
+  },
+  metricCellUnit: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    color: paper.dashboardMuted,
+  },
+  metricCellSub: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8,
+    letterSpacing: 1.4,
+    color: "#333",
+    marginTop: 4,
+  },
 
   // ─── Forecast ────────────────────────────────────────────────────────────
   forecast: { marginBottom: 22 },
-  forecastHeaderRow: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 12 },
-  forecastEyebrow: { fontFamily: MONO_BOLD, fontSize: 10, letterSpacing: 2.2, color: '#444' },
-  forecastUnit: { fontFamily: MONO_BOLD, fontSize: 9, color: paper.dashboardMuted, letterSpacing: 0.5 },
-  forecastGrid: { flexDirection: 'row', gap: FORECAST_GAP },
+  forecastHeaderRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 12,
+  },
+  forecastEyebrow: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 2.2,
+    color: "#444",
+  },
+  forecastUnit: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    color: paper.dashboardMuted,
+    letterSpacing: 0.5,
+  },
+  forecastGrid: { flexDirection: "row", gap: FORECAST_GAP },
   forecastTile: {
     width: FORECAST_TILE_W,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 6,
-    overflow: 'hidden',
-    position: 'relative',
+    overflow: "hidden",
+    position: "relative",
     paddingTop: 0,
   },
-  forecastTileSkeleton: { height: 76, backgroundColor: '#EEE9DC' },
-  forecastTileHeaderSkeleton: { height: 22, borderBottomWidth: 1, borderColor: paper.dashboardHair, backgroundColor: '#F4EEDF' },
-  forecastTileBodySkeleton: { flex: 1, backgroundColor: '#EFE7CE' },
+  forecastTileSkeleton: { height: 76, backgroundColor: "#EEE9DC" },
+  forecastTileHeaderSkeleton: {
+    height: 22,
+    borderBottomWidth: 1,
+    borderColor: paper.dashboardHair,
+    backgroundColor: "#F4EEDF",
+  },
+  forecastTileBodySkeleton: { flex: 1, backgroundColor: "#EFE7CE" },
   forecastTileTomorrow: {
-    position: 'absolute',
+    position: "absolute",
     top: -10,
     left: 0,
     right: 0,
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: MONO_BOLD,
     fontSize: 7,
     letterSpacing: 1.2,
     color: paper.dashboardInk,
   },
-  forecastTileHead: { paddingVertical: 5, alignItems: 'center', borderBottomWidth: 1, borderColor: paper.dashboardHair },
-  forecastTileDay: { fontFamily: MONO_BOLD, fontSize: 8.5, letterSpacing: 1.2, color: paper.dashboardMuted, lineHeight: 10 },
-  forecastTileDate: { fontFamily: SERIF_SEMI, fontSize: 13, color: paper.dashboardInk, marginTop: 2, lineHeight: 14 },
-  forecastTileScoreBlock: { height: 36, justifyContent: 'center', alignItems: 'center' },
-  forecastTileScore: { fontFamily: SERIF_BOLD, fontSize: 16, lineHeight: 18, letterSpacing: -0.5 },
+  forecastTileHead: {
+    paddingVertical: 5,
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderColor: paper.dashboardHair,
+  },
+  forecastTileDay: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8.5,
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
+    lineHeight: 10,
+  },
+  forecastTileDate: {
+    fontFamily: SERIF_SEMI,
+    fontSize: 13,
+    color: paper.dashboardInk,
+    marginTop: 2,
+    lineHeight: 14,
+  },
+  forecastTileScoreBlock: {
+    height: 36,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  forecastTileScore: {
+    fontFamily: SERIF_BOLD,
+    fontSize: 16,
+    lineHeight: 18,
+    letterSpacing: -0.5,
+  },
   forecastTileHiLo: {
     paddingVertical: 3,
     paddingHorizontal: 2,
-    alignItems: 'center',
-    backgroundColor: '#FAFAF7',
+    alignItems: "center",
+    backgroundColor: "#FAFAF7",
     borderTopWidth: 1,
     borderColor: paper.dashboardHair,
   },
@@ -1947,75 +2479,151 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
     lineHeight: 10,
   },
-  forecastTileHiLoSep: { fontFamily: MONO, color: paper.dashboardMuted, opacity: 0.5 },
+  forecastTileHiLoSep: {
+    fontFamily: MONO,
+    color: paper.dashboardMuted,
+    opacity: 0.5,
+  },
 
-  forecastLegend: { flexDirection: 'row', flexWrap: 'wrap', gap: 10, marginTop: 12, paddingHorizontal: 2 },
-  forecastLegendItem: { flexDirection: 'row', alignItems: 'center', gap: 5 },
-  forecastLegendSwatch: { width: 8, height: 8, borderRadius: 2, borderWidth: 1, borderColor: 'rgba(0,0,0,0.18)' },
-  forecastLegendLabel: { fontFamily: MONO_BOLD, fontSize: 8.5, letterSpacing: 1.2, color: '#444' },
+  forecastLegend: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 10,
+    marginTop: 12,
+    paddingHorizontal: 2,
+  },
+  forecastLegendItem: { flexDirection: "row", alignItems: "center", gap: 5 },
+  forecastLegendSwatch: {
+    width: 8,
+    height: 8,
+    borderRadius: 2,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.18)",
+  },
+  forecastLegendLabel: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8.5,
+    letterSpacing: 1.2,
+    color: "#444",
+  },
 
   // ─── Modules ─────────────────────────────────────────────────────────────
   modules: { marginBottom: 18 },
-  modulesHeader: { flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 10 },
-  modulesEyebrow: { fontFamily: MONO_BOLD, fontSize: 10, letterSpacing: 2.2, color: '#444' },
-  modulesCount: { fontFamily: MONO_BOLD, fontSize: 8, color: '#888' },
+  modulesHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 10,
+  },
+  modulesEyebrow: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 2.2,
+    color: "#444",
+  },
+  modulesCount: { fontFamily: MONO_BOLD, fontSize: 8, color: "#888" },
 
   moduleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 8,
     padding: 14,
     marginBottom: 8,
     gap: 12,
-    position: 'relative',
+    position: "relative",
   },
-  moduleDots: { position: 'absolute', top: 6, right: 6, flexDirection: 'row', gap: 1.5 },
+  moduleDots: {
+    position: "absolute",
+    top: 6,
+    right: 6,
+    flexDirection: "row",
+    gap: 1.5,
+  },
   moduleDot: { width: 3, height: 3, borderRadius: 1.5 },
-  moduleCode: { fontFamily: MONO_BOLD, fontSize: 9, letterSpacing: 1, color: '#AAA' },
+  moduleCode: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1,
+    color: "#AAA",
+  },
   moduleIcon: {
     width: 42,
     height: 42,
     borderRadius: 6,
     borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
   },
   moduleTextCol: { flex: 1 },
-  moduleTitleRow: { flexDirection: 'row', alignItems: 'center', gap: 8, marginBottom: 2 },
-  moduleTitle: { fontFamily: SERIF_SEMI, fontSize: 16, color: paper.dashboardInk },
-  moduleTag: { fontFamily: MONO_BOLD, fontSize: 8, letterSpacing: 1.3, color: paper.dashboardMuted },
-  moduleDesc: { fontFamily: SANS_MEDIUM, fontSize: 11, lineHeight: 14, color: '#555' },
+  moduleTitleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    marginBottom: 2,
+  },
+  moduleTitle: {
+    fontFamily: SERIF_SEMI,
+    fontSize: 16,
+    color: paper.dashboardInk,
+  },
+  moduleTag: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8,
+    letterSpacing: 1.3,
+    color: paper.dashboardMuted,
+  },
+  moduleDesc: {
+    fontFamily: SANS_MEDIUM,
+    fontSize: 11,
+    lineHeight: 14,
+    color: "#555",
+  },
 
   // ─── Footer ──────────────────────────────────────────────────────────────
   footer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     paddingTop: 12,
     marginTop: 6,
     borderTopWidth: 1,
-    borderColor: 'rgba(0,0,0,0.10)',
+    borderColor: "rgba(0,0,0,0.10)",
   },
-  footerLeft: { flexDirection: 'row', alignItems: 'center', gap: 6 },
-  footerSync: { fontFamily: MONO_BOLD, fontSize: 9, letterSpacing: 1.2, color: paper.dashboardMuted },
-  footerRight: { flexDirection: 'row', alignItems: 'center', gap: 8 },
-  signalBars: { flexDirection: 'row', alignItems: 'flex-end', gap: 1.5 },
+  footerLeft: { flexDirection: "row", alignItems: "center", gap: 6 },
+  footerSync: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
+  },
+  footerRight: { flexDirection: "row", alignItems: "center", gap: 8 },
+  signalBars: { flexDirection: "row", alignItems: "flex-end", gap: 1.5 },
   signalBar: { width: 2, borderRadius: 1 },
-  footerStamp: { fontFamily: MONO_BOLD, fontSize: 9, letterSpacing: 1.5, color: paper.dashboardMuted },
+  footerStamp: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1.5,
+    color: paper.dashboardMuted,
+  },
 
   // ─── GPS gate (rare fallback) ────────────────────────────────────────────
   gpsGate: {
-    position: 'absolute',
+    position: "absolute",
     bottom: 24,
     left: 24,
     right: 24,
     paddingVertical: 12,
     borderRadius: 10,
     backgroundColor: paper.dashboardInk,
-    alignItems: 'center',
+    alignItems: "center",
   },
-  gpsGateText: { fontFamily: SANS_BOLD, fontSize: 13, color: '#FFFFFF', letterSpacing: 0.4 },
+  gpsGateText: {
+    fontFamily: SANS_BOLD,
+    fontSize: 13,
+    color: "#FFFFFF",
+    letterSpacing: 0.4,
+  },
 });

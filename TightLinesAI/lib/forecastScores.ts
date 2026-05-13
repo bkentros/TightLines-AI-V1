@@ -8,6 +8,17 @@
 
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import type { EnvironmentData, WeatherData } from "./env/types";
+import {
+  MEASURED_WATER_TEMP_KEYS,
+  nextMidnightInTimeZoneMs,
+  stripMeasuredWaterTempFields,
+} from "./forecastSnapshot";
+
+export {
+  MEASURED_WATER_TEMP_KEYS,
+  nextMidnightInTimeZoneMs,
+  stripMeasuredWaterTempFields,
+} from "./forecastSnapshot";
 
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
@@ -23,43 +34,6 @@ const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v5",
   "forecast_scores_v6",
 ] as const;
-
-/**
- * Next instant (UTC ms) when the calendar date advances in `timeZone` (IANA).
- * Falls back to device-local next midnight if the zone is invalid.
- */
-export function nextMidnightInTimeZoneMs(
-  timeZone: string,
-  fromMs: number = Date.now(),
-): number {
-  const tz = typeof timeZone === "string" && timeZone.trim().length > 0
-    ? timeZone.trim()
-    : "UTC";
-  try {
-    const dayFmt = new Intl.DateTimeFormat("en-CA", {
-      timeZone: tz,
-      year: "numeric",
-      month: "2-digit",
-      day: "2-digit",
-    });
-    const startKey = dayFmt.format(new Date(fromMs));
-    let lo = fromMs;
-    let hi = fromMs + 25 * 60 * 60 * 1000;
-    if (dayFmt.format(new Date(hi)) === startKey) {
-      hi = fromMs + 96 * 60 * 60 * 1000;
-    }
-    while (lo < hi) {
-      const mid = Math.floor((lo + hi) / 2);
-      if (dayFmt.format(new Date(mid)) === startKey) lo = mid + 1;
-      else hi = mid;
-    }
-    return lo;
-  } catch {
-    const midnight = new Date(fromMs);
-    midnight.setHours(24, 0, 0, 0);
-    return midnight.getTime();
-  }
-}
 
 // ---------------------------------------------------------------------------
 // Types
@@ -103,19 +77,17 @@ export interface ForecastSnapshotEnv {
   measured_water_temp_72h_ago_f?: number | null;
   measured_water_temp_source?: string | null;
   weather: WeatherData;
+  forecast_daily?: Array<{
+    date: string;
+    sunrise_local?: string | null;
+    sunset_local?: string | null;
+  }>;
   hourly_pressure_mb?: Array<{ time_utc: string; value: number }>;
   hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
   forecast_tides_by_date?: ForecastSnapshotTideDay[];
 }
-
-const MEASURED_WATER_TEMP_KEYS = [
-  "measured_water_temp_f",
-  "measured_water_temp_24h_ago_f",
-  "measured_water_temp_72h_ago_f",
-  "measured_water_temp_source",
-] as const;
 
 export function mergeMeasuredWaterTempFields<T extends Record<string, unknown>>(
   forecastEnv: T,
@@ -135,16 +107,6 @@ export function mergeMeasuredWaterTempFields<T extends Record<string, unknown>>(
     }
   }
   return changed ? (out as T) : forecastEnv;
-}
-
-export function stripMeasuredWaterTempFields<T extends Record<string, unknown>>(
-  envData: T,
-): T {
-  const out: Record<string, unknown> = { ...envData };
-  for (const key of MEASURED_WATER_TEMP_KEYS) {
-    delete out[key];
-  }
-  return out as T;
 }
 
 function normalizeForecastRows(
