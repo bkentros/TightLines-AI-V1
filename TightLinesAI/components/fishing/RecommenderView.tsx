@@ -643,14 +643,20 @@ export function RecommenderView({
   onViewVariant,
   isRefreshing = false,
 }: Props) {
+  const scrollRef = useRef<ScrollView>(null);
   const speciesImage = dailySpeciesImage(result.species);
   const canRefresh = result.recommendation_session.can_refresh && onRefresh != null;
   const displayLocation = locationLabel?.trim() || 'Your location';
   const hasChangeup = result.recommendation_session.available_variants.includes('B');
+  const handleBuildChangeup = () => {
+    scrollRef.current?.scrollTo({ y: 0, animated: true });
+    onRefresh?.();
+  };
 
   return (
     <PaperBackground style={style}>
       <ScrollView
+        ref={scrollRef}
         style={styles.scroll}
         contentContainerStyle={styles.content}
         showsVerticalScrollIndicator={false}
@@ -779,7 +785,7 @@ export function RecommenderView({
               result={result}
               canRefresh={canRefresh}
               isRefreshing={isRefreshing}
-              onRefresh={onRefresh}
+              onRefresh={handleBuildChangeup}
               onViewVariant={onViewVariant}
             />
           ) : null}
