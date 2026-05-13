@@ -152,6 +152,8 @@ const WATERLEVEL_STATIONS_TTL_MS = 6 * 60 * 60 * 1000;
 const MAX_TIDE_STATION_CANDIDATES = 8;
 const MAX_HILO_PREDICTIONS_RETURNED = 56;
 const EARTH_RADIUS_MILES = 3958.8;
+const NWS_USER_AGENT = "FinFindr/1.0 (support@finfindr.app)";
+const SERVER_ENV_CACHE_TTL_MS = 15 * 60 * 1000;
 
 // -----------------------------------------------------------------------------
 // Helpers
@@ -225,6 +227,17 @@ function lonBucket(lon: number): number {
   return Math.round(lon * 100) / 100;
 }
 
+function logEnvironmentEvent(
+  event: string,
+  details: Record<string, unknown>,
+): void {
+  try {
+    console.info("[get-environment]", JSON.stringify({ event, ...details }));
+  } catch {
+    console.info("[get-environment]", event);
+  }
+}
+
 async function readEnvironmentSnapshot(
   supabase: any,
   snapshotKey: string,
@@ -238,6 +251,40 @@ async function readEnvironmentSnapshot(
     const row = data as { payload?: EnvironmentData } | null;
     if (error || !row?.payload) return null;
     return row.payload;
+  } catch {
+    return null;
+  }
+}
+
+async function readFreshEnvironmentSnapshot(
+  supabase: any,
+  lat: number,
+  lon: number,
+  units: "imperial" | "metric",
+  maxAgeMs = SERVER_ENV_CACHE_TTL_MS,
+): Promise<EnvironmentData | null> {
+  try {
+    const cutoffIso = new Date(Date.now() - maxAgeMs).toISOString();
+    const { data, error } = await supabase
+      .from("environment_snapshots")
+      .select("payload,captured_at")
+      .eq("latitude_bucket", latBucket(lat))
+      .eq("longitude_bucket", lonBucket(lon))
+      .eq("units", units)
+      .gte("captured_at", cutoffIso)
+      .order("captured_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+    const row = data as { payload?: EnvironmentData; captured_at?: string } | null;
+    if (error || !row?.payload) return null;
+    if (!isEnvironmentSnapshotUsable(row.payload as EnvironmentSnapshotLike)) return null;
+    return {
+      ...row.payload,
+      source_notes: [
+        ...((row.payload as EnvironmentData).source_notes ?? []),
+        "server_cache:fresh_15m",
+      ],
+    };
   } catch {
     return null;
   }
@@ -303,6 +350,175 @@ async function fetchCivilTwilight(
       twilight_begin: isoUtcToLocalHHMM(String(begin), tzHours),
       twilight_end: isoUtcToLocalHHMM(String(end), tzHours),
     };
+  } catch {
+    return null;
+  }
+}
+
+// -----------------------------------------------------------------------------
+// NOAA/NWS — free U.S. weather fallback
+// -----------------------------------------------------------------------------
+
+function numValue(raw: unknown): number | null {
+  const n = Number(raw);
+  return Number.isFinite(n) ? n : null;
+}
+
+function cToF(c: number): number {
+  return c * 9 / 5 + 32;
+}
+
+function kmhToMph(kmh: number): number {
+  return kmh * 0.621371;
+}
+
+function paToHpa(pa: number): number {
+  return pa / 100;
+}
+
+function parseNwsQuantitativeValue(raw: unknown): number | null {
+  if (!raw || typeof raw !== "object") return null;
+  return numValue((raw as { value?: unknown }).value);
+}
+
+function windDirectionDegrees(raw: unknown): number {
+  if (typeof raw === "number" && Number.isFinite(raw)) return raw;
+  const key = String(raw ?? "").trim().toUpperCase();
+  const lookup: Record<string, number> = {
+    N: 0,
+    NNE: 22.5,
+    NE: 45,
+    ENE: 67.5,
+    E: 90,
+    ESE: 112.5,
+    SE: 135,
+    SSE: 157.5,
+    S: 180,
+    SSW: 202.5,
+    SW: 225,
+    WSW: 247.5,
+    W: 270,
+    WNW: 292.5,
+    NW: 315,
+    NNW: 337.5,
+  };
+  return lookup[key] ?? 0;
+}
+
+function parseNwsWindMph(raw: unknown): number {
+  const text = String(raw ?? "");
+  const matches = Array.from(text.matchAll(/\d+(?:\.\d+)?/g)).map((m) => Number(m[0]));
+  const valid = matches.filter(Number.isFinite);
+  if (valid.length === 0) return 0;
+  return valid.reduce((sum, value) => sum + value, 0) / valid.length;
+}
+
+function cloudCoverEstimate(shortForecast: unknown): number {
+  const text = String(shortForecast ?? "").toLowerCase();
+  if (text.includes("clear") || text.includes("sunny")) return 10;
+  if (text.includes("mostly sunny") || text.includes("mostly clear")) return 25;
+  if (text.includes("partly")) return 45;
+  if (text.includes("mostly cloudy")) return 75;
+  if (text.includes("cloudy") || text.includes("overcast")) return 90;
+  if (text.includes("rain") || text.includes("storm") || text.includes("snow")) return 85;
+  return 55;
+}
+
+function maybeFahrenheit(value: number, unit: unknown, requestedUnits: "imperial" | "metric"): number {
+  const unitText = String(unit ?? "").toLowerCase();
+  if (unitText === "f" || unitText.includes("fahrenheit")) return value;
+  if (unitText === "c" || unitText.includes("celsius")) return cToF(value);
+  return requestedUnits === "imperial" ? value : cToF(value);
+}
+
+async function fetchJsonWithNwsHeaders(url: string): Promise<Record<string, unknown> | null> {
+  const res = await fetch(url, {
+    headers: {
+      "Accept": "application/geo+json, application/json",
+      "User-Agent": NWS_USER_AGENT,
+    },
+  });
+  if (!res.ok) return null;
+  const json = await res.json();
+  return json && typeof json === "object" ? json as Record<string, unknown> : null;
+}
+
+async function fetchNwsWeatherFallback(
+  lat: number,
+  lon: number,
+  units: "imperial" | "metric",
+): Promise<{ weather: WeatherData; hourly_wind_speed: Array<{ time_utc: string; value: number }> } | null> {
+  try {
+    const point = await fetchJsonWithNwsHeaders(`https://api.weather.gov/points/${lat},${lon}`);
+    const props = point?.properties as Record<string, unknown> | undefined;
+    const hourlyUrl = typeof props?.forecastHourly === "string" ? props.forecastHourly : null;
+    const stationsUrl = typeof props?.observationStations === "string" ? props.observationStations : null;
+    if (!hourlyUrl && !stationsUrl) return null;
+
+    const [hourlyJson, stationsJson] = await Promise.all([
+      hourlyUrl ? fetchJsonWithNwsHeaders(hourlyUrl) : Promise.resolve(null),
+      stationsUrl ? fetchJsonWithNwsHeaders(stationsUrl) : Promise.resolve(null),
+    ]);
+
+    const periods = Array.isArray((hourlyJson?.properties as { periods?: unknown })?.periods)
+      ? ((hourlyJson?.properties as { periods: Array<Record<string, unknown>> }).periods)
+      : [];
+    const firstPeriod = periods[0] ?? null;
+
+    let latestObservation: Record<string, unknown> | null = null;
+    const stationFeatures = Array.isArray(stationsJson?.features)
+      ? stationsJson.features as Array<Record<string, unknown>>
+      : [];
+    const stationId = String((stationFeatures[0]?.properties as { stationIdentifier?: unknown } | undefined)?.stationIdentifier ?? "");
+    if (stationId) {
+      latestObservation = await fetchJsonWithNwsHeaders(`https://api.weather.gov/stations/${stationId}/observations/latest`);
+    }
+    const observation = latestObservation?.properties as Record<string, unknown> | undefined;
+
+    const obsTempC = parseNwsQuantitativeValue(observation?.temperature);
+    const obsHumidity = parseNwsQuantitativeValue(observation?.relativeHumidity);
+    const obsWindKmh = parseNwsQuantitativeValue(observation?.windSpeed);
+    const obsWindDirection = parseNwsQuantitativeValue(observation?.windDirection);
+    const obsPressurePa = parseNwsQuantitativeValue(observation?.barometricPressure);
+    const obsPrecipMm = parseNwsQuantitativeValue(observation?.precipitationLastHour);
+
+    const periodTemp = firstPeriod ? numValue(firstPeriod.temperature) : null;
+    const periodTempF = periodTemp != null
+      ? maybeFahrenheit(periodTemp, firstPeriod?.temperatureUnit, units)
+      : null;
+    const periodHumidity = firstPeriod
+      ? parseNwsQuantitativeValue(firstPeriod.relativeHumidity)
+      : null;
+    const periodPrecip = firstPeriod
+      ? parseNwsQuantitativeValue(firstPeriod.probabilityOfPrecipitation)
+      : null;
+
+    const temperature = obsTempC != null ? cToF(obsTempC) : periodTempF;
+    if (temperature == null) return null;
+
+    const hourlyWind = periods.slice(0, 24).flatMap((period) => {
+      const startTime = typeof period.startTime === "string" ? period.startTime : null;
+      if (!startTime) return [];
+      return [{
+        time_utc: new Date(startTime).toISOString(),
+        value: parseNwsWindMph(period.windSpeed),
+      }];
+    });
+
+    const weather: WeatherData = {
+      temperature: Math.round(temperature * 10) / 10,
+      humidity: Math.round(obsHumidity ?? periodHumidity ?? 0),
+      cloud_cover: cloudCoverEstimate(firstPeriod?.shortForecast),
+      pressure: obsPressurePa != null ? Math.round(paToHpa(obsPressurePa) * 10) / 10 : 1013.25,
+      wind_speed: Math.round(((obsWindKmh != null ? kmhToMph(obsWindKmh) : parseNwsWindMph(firstPeriod?.windSpeed)) || 0) * 10) / 10,
+      wind_direction: obsWindDirection ?? windDirectionDegrees(firstPeriod?.windDirection),
+      precipitation: Math.round((obsPrecipMm ?? periodPrecip ?? 0) * 10) / 10,
+      gust_speed: null,
+      temp_unit: "°F",
+      wind_speed_unit: "mph",
+    };
+
+    return { weather, hourly_wind_speed: hourlyWind };
   } catch {
     return null;
   }
@@ -917,6 +1133,7 @@ Deno.serve(async (req: Request) => {
   const lat = Number(body.latitude);
   const lon = Number(body.longitude);
   const units = body.units === 'metric' ? 'metric' : 'imperial';
+  const startedAt = Date.now();
 
   if (isNaN(lat) || lat < -90 || lat > 90) {
     return new Response(JSON.stringify({ error: 'Invalid latitude' }), {
@@ -927,6 +1144,23 @@ Deno.serve(async (req: Request) => {
   if (isNaN(lon) || lon < -180 || lon > 180) {
     return new Response(JSON.stringify({ error: 'Invalid longitude' }), {
       status: 400,
+      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+    });
+  }
+
+  const freshSnapshot = await readFreshEnvironmentSnapshot(supabase, lat, lon, units);
+  if (freshSnapshot) {
+    logEnvironmentEvent("cache_hit", {
+      latitude_bucket: latBucket(lat),
+      longitude_bucket: lonBucket(lon),
+      units,
+      weather_available: freshSnapshot.weather_available,
+      tides_available: freshSnapshot.tides_available,
+      source_notes: freshSnapshot.source_notes ?? [],
+      duration_ms: Date.now() - startedAt,
+    });
+    return new Response(JSON.stringify(freshSnapshot), {
+      status: 200,
       headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
     });
   }
@@ -952,6 +1186,16 @@ Deno.serve(async (req: Request) => {
   const noaa = noaaResult.status === 'fulfilled' ? noaaResult.value : null;
   const usno = usnoResult.status === 'fulfilled' ? usnoResult.value : null;
   const altitude_ft = elevationResult.status === 'fulfilled' ? elevationResult.value : null;
+  const cachedHasWeather = Boolean(
+    (cachedSnapshot as EnvironmentSnapshotLike | null)?.weather_available &&
+      (cachedSnapshot as EnvironmentSnapshotLike | null)?.weather,
+  );
+  const nwsFallback = !meteo?.weather && !cachedHasWeather
+    ? await fetchNwsWeatherFallback(lat, lon, units)
+    : null;
+  const sourceNotes = [
+    ...(nwsFallback?.weather ? ["weather_fallback:nws"] : []),
+  ];
 
   // ─── Tides ─────────────────────────────────────────────────────────────────
   let tides_available = false;
@@ -981,11 +1225,14 @@ Deno.serve(async (req: Request) => {
   const solunar = moon ? computeSolunar(moon) : undefined;
 
   const liveResponse: EnvironmentData = {
-    weather_available: Boolean(meteo?.weather && typeof meteo.weather.temperature === 'number'),
+    weather_available: Boolean(
+      (meteo?.weather && typeof meteo.weather.temperature === 'number') ||
+        (nwsFallback?.weather && typeof nwsFallback.weather.temperature === 'number'),
+    ),
     tides_available,
     moon_available: Boolean(moon?.phase),
     sun_available: Boolean(sun?.sunrise && sun?.sunset),
-    weather: meteo?.weather,
+    weather: meteo?.weather ?? nwsFallback?.weather,
     tides,
     moon,
     sun,
@@ -997,7 +1244,7 @@ Deno.serve(async (req: Request) => {
     hourly_pressure_mb: meteo?.hourly_pressure_mb ?? [],
     hourly_air_temp_f: meteo?.hourly_air_temp_f ?? [],
     hourly_cloud_cover_pct: meteo?.hourly_cloud_cover_pct ?? [],
-    hourly_wind_speed: meteo?.hourly_wind_speed ?? [],
+    hourly_wind_speed: meteo?.hourly_wind_speed ?? nwsFallback?.hourly_wind_speed ?? [],
     tide_predictions_30day: noaa?.tide_predictions_30day ?? [],
     measured_water_temp_f: noaa?.measured_water_temp_f ?? null,
     measured_water_temp_source: noaa?.measured_water_temp_source ?? null,
@@ -1007,6 +1254,7 @@ Deno.serve(async (req: Request) => {
     nearest_tide_station_id: noaa?.stationId ?? null,
     altitude_ft: altitude_ft,
     forecast_daily: meteo?.forecast_daily ?? [],
+    source_notes: sourceNotes.length > 0 ? sourceNotes : undefined,
   };
 
   const response = mergeEnvironmentWithSnapshot(
@@ -1023,6 +1271,21 @@ Deno.serve(async (req: Request) => {
     localDate,
     response,
   );
+
+  logEnvironmentEvent("provider_fetch", {
+    latitude_bucket: latBucket(lat),
+    longitude_bucket: lonBucket(lon),
+    units,
+    weather_provider: meteo?.weather ? "open-meteo" : nwsFallback?.weather ? "nws" : "none",
+    used_nws_fallback: Boolean(nwsFallback?.weather),
+    used_snapshot_merge: Boolean(response.source_notes?.some((note) => note.startsWith("snapshot_fallback:"))),
+    weather_available: response.weather_available,
+    tides_available: response.tides_available,
+    moon_available: response.moon_available,
+    sun_available: response.sun_available,
+    source_notes: response.source_notes ?? [],
+    duration_ms: Date.now() - startedAt,
+  });
 
   return new Response(JSON.stringify(response), {
     status: 200,

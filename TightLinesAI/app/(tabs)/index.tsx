@@ -952,6 +952,28 @@ export default function HomeScreen() {
                 last
               />
             </View>
+
+            <View style={styles.liveRefreshHint}>
+              <View style={styles.liveRefreshHintIcon}>
+                <Ionicons
+                  name={refreshing ? "sync" : "arrow-down"}
+                  size={13}
+                  color={paper.dashboardBlue}
+                />
+              </View>
+              <View style={styles.liveRefreshHintCopy}>
+                <Text style={styles.liveRefreshHintText}>
+                  {refreshing
+                    ? "Checking for updated live conditions..."
+                    : agoSeconds == null
+                      ? "Live conditions ready"
+                      : `Checked ${formatAgo(agoSeconds).toLowerCase()}`}
+                </Text>
+                <Text style={styles.liveRefreshHintSubtext}>
+                  Swipe down to check for updates
+                </Text>
+              </View>
+            </View>
           </View>
         </View>
 
@@ -1759,6 +1781,44 @@ const styles = StyleSheet.create({
     fontSize: 8,
     letterSpacing: 1.4,
     marginTop: 2,
+  },
+  liveRefreshHint: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    marginTop: 12,
+    paddingTop: 12,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(31,58,74,0.08)",
+  },
+  liveRefreshHintIcon: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "rgba(79,149,194,0.10)",
+    borderWidth: 1,
+    borderColor: "rgba(79,149,194,0.18)",
+  },
+  liveRefreshHintCopy: {
+    flex: 1,
+  },
+  liveRefreshHintText: {
+    fontFamily: SANS_SEMI,
+    fontSize: 11,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
+    textAlign: "left",
+  },
+  liveRefreshHintSubtext: {
+    marginTop: 2,
+    fontFamily: SANS_MEDIUM,
+    fontSize: 10.5,
+    color: paper.dashboardMuted,
+    letterSpacing: 0,
+    textAlign: "left",
   },
 
   // bite CTA
