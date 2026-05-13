@@ -373,8 +373,8 @@ const capped = resolveWaterReaderFeatureConflicts({
   islands: [],
   metrics: fakeMetrics(),
 });
-assert(capped.length <= 8, 'total retained feature cap should be enforced');
-assert(capped.filter((f) => f.featureClass === 'cove').length <= 4, 'cove class cap should be enforced');
+assert(capped.length <= 12, 'total retained feature cap should be enforced');
+assert(capped.filter((f) => f.featureClass === 'cove').length <= 5, 'cove class cap should be enforced');
 assert(capped.filter((f) => f.featureClass === 'neck').length <= 2, 'neck class cap should be enforced');
 assert(capped.filter((f) => f.featureClass === 'saddle').length <= 1, 'saddle class cap should be enforced');
 

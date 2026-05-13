@@ -48,8 +48,6 @@ import { fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
 import { TopographicLines } from '../components/paper';
 import { WaterReaderMapCard } from '../components/water-reader/WaterReaderMapCard';
 import type { WaterReaderMapCardState } from '../components/water-reader/WaterReaderMapCard';
-import { WaterReaderProductionMap } from '../components/water-reader/WaterReaderProductionMap';
-import { seasonDisplayLabel } from '../lib/waterReaderLegendTemplates';
 import type {
   WaterbodySearchResult,
   WaterReaderEngineSupportStatus,
@@ -894,82 +892,15 @@ export default function WaterReaderScreen() {
 // visitors something to see before they pick a state, so the page no longer
 // feels bland on arrival.
 
-// Sample plate is the REAL Pontiac Lake Water Read, fetched once per app
-// session and rendered through the same WaterReaderMapCard the user sees
-// when they pick a lake themselves. Avoids the "looks distorted because
-// it's a hand-drawn approximation" trap — the preview IS the real output.
-//
-// Module-level cache keeps the fetch to once per app session; subsequent
-// returns to the Water Read screen reuse the cached read instantly.
-const PREVIEW_LAKE_QUERY = 'Pontiac';
-const PREVIEW_LAKE_STATE_CODE = 'MI';
-const PREVIEW_LAKE_NAME_MATCH = 'pontiac lake';
-const PREVIEW_LAKE_COUNTY_HINT = 'oakland';
-
-type PreviewState =
-  | { status: 'loading' }
-  | { status: 'ready'; result: WaterbodySearchResult; read: WaterReaderReadResponse }
-  | { status: 'error' };
-
-let cachedPreviewState:
-  | { result: WaterbodySearchResult; read: WaterReaderReadResponse }
-  | null = null;
+// Sample plate is a bundled snapshot generated from the real Pontiac Lake
+// Water Read renderer. It must never call search/read endpoints: the idle
+// screen is product chrome, not a live generation request.
+const SAMPLE_PREVIEW_ACRES = 633;
+const SAMPLE_PREVIEW_STRUCTURE_COUNT = 11;
+const SAMPLE_PREVIEW_SEASON_LABEL = 'SPRING';
+const SAMPLE_PREVIEW_ASPECT_RATIO = 1;
 
 function WaterReadIdlePreview() {
-  const [previewState, setPreviewState] = useState<PreviewState>(() =>
-    cachedPreviewState
-      ? {
-          status: 'ready',
-          result: cachedPreviewState.result,
-          read: cachedPreviewState.read,
-        }
-      : { status: 'loading' },
-  );
-
-  // Fetch Pontiac Lake's REAL Water Read on first idle-preview mount of
-  // the session. The cached read is reused on subsequent visits. We do
-  // a search-then-read so we never rely on hardcoded lakeIds (which can
-  // shift as the underlying NHD data refreshes).
-  useEffect(() => {
-    if (cachedPreviewState) return;
-    let cancelled = false;
-    void (async () => {
-      try {
-        const search = await searchWaterbodies({
-          query: PREVIEW_LAKE_QUERY,
-          state: PREVIEW_LAKE_STATE_CODE,
-          limit: 12,
-        });
-        if (cancelled) return;
-        const match =
-          search.results.find(
-            (r) =>
-              r.name.toLowerCase() === PREVIEW_LAKE_NAME_MATCH &&
-              r.county?.toLowerCase() === PREVIEW_LAKE_COUNTY_HINT &&
-              canOpenWaterReaderRead(r),
-          ) ??
-          search.results.find(
-            (r) =>
-              r.name.toLowerCase().includes(PREVIEW_LAKE_NAME_MATCH) &&
-              canOpenWaterReaderRead(r),
-          );
-        if (!match) {
-          if (!cancelled) setPreviewState({ status: 'error' });
-          return;
-        }
-        const read = await fetchWaterReaderRead({ lakeId: match.lakeId });
-        if (cancelled) return;
-        cachedPreviewState = { result: match, read };
-        setPreviewState({ status: 'ready', result: match, read });
-      } catch {
-        if (!cancelled) setPreviewState({ status: 'error' });
-      }
-    })();
-    return () => {
-      cancelled = true;
-    };
-  }, []);
-
   const windowDims = useWindowDimensions();
 
   // Plate-only sample preview at ~60% of normal width. Renders just the
@@ -979,50 +910,14 @@ function WaterReadIdlePreview() {
   // Anonymized: the engine generates the actual Pontiac polygon, but we
   // don't surface the lake's identity on the idle screen.
 
-  if (previewState.status === 'error') {
-    return (
-      <View style={styles.idleErrorCard}>
-        <Text style={styles.idleEyebrow}>SAMPLE PLATE · PREVIEW</Text>
-        <Text style={styles.idleHeadline}>See structure before you cast.</Text>
-        <Text style={styles.idleSubline}>
-          Pick a state and a lake above to scan one. The sample preview
-          couldn&apos;t load right now — usually a network blip.
-        </Text>
-        <View style={styles.idleCta}>
-          <Ionicons
-            name="arrow-up-outline"
-            size={13}
-            color={paper.dashboardBlue}
-          />
-          <Text style={styles.idleCtaText}>
-            Pick a state above to scan a real lake.
-          </Text>
-        </View>
-      </View>
-    );
-  }
-
-  const ready =
-    previewState.status === 'ready' ? previewState : null;
-  const summary = ready?.read.productionSvgResult?.summary;
-  const acres = ready?.read.areaAcres ?? null;
-  const structureCount = ready?.read.displayedEntryCount ?? 0;
-  const seasonInfo = ready
-    ? seasonDisplayLabel(ready.read.season)
-    : null;
-
   // Compute preview width: 80% of the available content width. Available
   // content = window width minus the page's horizontal padding (20 each
   // side). At 80% the plate is clearly smaller than a full read but
   // doesn't leave awkward empty gutters on either side.
   const contentWidth = Math.max(240, windowDims.width - 40);
   const previewWidth = Math.round(contentWidth * 0.8);
-  // SVG aspect ratio from engine summary. Falls back to a near-square if
-  // the read hasn't arrived yet so the placeholder doesn't jump on mount.
-  const aspectRatio =
-    summary && summary.width > 0 && summary.height > 0
-      ? summary.width / summary.height
-      : 1;
+  // Snapshot is square, matching the generated static preview asset.
+  const aspectRatio = SAMPLE_PREVIEW_ASPECT_RATIO;
   // Outer card (plate + meta ribbon) is sized by the SVG aspect plus
   // chrome padding; we just need the plate's pixel dimensions for the
   // SvgXml renderer so it picks a sharp size.
@@ -1075,25 +970,18 @@ function WaterReadIdlePreview() {
                 },
               ]}
             >
-              {ready?.read.productionSvgResult ? (
-                <WaterReaderProductionMap
-                  result={ready.read.productionSvgResult}
-                  lakeName={ready.read.name}
-                  width={platePixelWidth}
-                  height={platePixelHeight}
-                  style={{
+              <Image
+                source={require('../assets/images/water-reader-pontiac-sample.png')}
+                style={[
+                  styles.idlePreviewImage as ImageStyle,
+                  {
                     width: platePixelWidth,
                     height: platePixelHeight,
-                  }}
-                />
-              ) : (
-                <View style={styles.idlePlateLoading}>
-                  <ActivityIndicator
-                    size="small"
-                    color={paper.dashboardBlue}
-                  />
-                </View>
-              )}
+                  },
+                ]}
+                resizeMode="contain"
+                accessibilityIgnoresInvertColors
+              />
 
               {/* FinFindr brand chip — smaller version of WaterReadEditionStamp. */}
               <View style={styles.idleBrandChip} pointerEvents="none">
@@ -1130,19 +1018,15 @@ function WaterReadIdlePreview() {
             <View style={styles.idleMetaRule} />
             <View style={styles.idleMetaRow}>
               <Text style={styles.idleMetaText} numberOfLines={1}>
-                {typeof acres === 'number' && acres > 0
-                  ? `${Math.round(acres).toLocaleString()} ACRES`
-                  : '— ACRES'}
+                {`${SAMPLE_PREVIEW_ACRES.toLocaleString()} ACRES`}
               </Text>
               <Text style={styles.idleMetaDivider}>·</Text>
               <Text style={styles.idleMetaText} numberOfLines={1}>
-                {structureCount
-                  ? `${structureCount} STRUCTURES`
-                  : '— STRUCTURES'}
+                {`${SAMPLE_PREVIEW_STRUCTURE_COUNT} STRUCTURES`}
               </Text>
               <Text style={styles.idleMetaDivider}>·</Text>
               <Text style={styles.idleMetaText} numberOfLines={1}>
-                {seasonInfo?.label ?? '— SEASON'}
+                {SAMPLE_PREVIEW_SEASON_LABEL}
               </Text>
             </View>
             <View style={styles.idleMetaRule} />
@@ -1786,6 +1670,10 @@ const styles = StyleSheet.create({
     height: '100%',
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  idlePreviewImage: {
+    width: '100%',
+    height: '100%',
   },
 
   // Compact brand chip — top-left corner of preview plate.

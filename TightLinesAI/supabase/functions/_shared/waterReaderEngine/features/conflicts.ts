@@ -63,7 +63,17 @@ export function resolveWaterReaderFeatureConflicts(params: {
 
   const constrictionEndpoints = [...necks, ...saddles].flatMap((feature) => [feature.endpointA, feature.endpointB]);
   const coveCandidates = applySameTypeSpacing(params.coves, (c) => c.back, spacing)
-    .filter((cove) => !constrictionEndpoints.some((endpoint) => distanceM(endpoint, cove.mouthLeft) < buffer || distanceM(endpoint, cove.mouthRight) < buffer));
+    .flatMap((cove) => {
+      const overlapsConstriction = constrictionEndpoints.some((endpoint) =>
+        distanceM(endpoint, cove.mouthLeft) < buffer || distanceM(endpoint, cove.mouthRight) < buffer
+      );
+      if (!overlapsConstriction) return [cove];
+      if (!strongCoveConstrictionOverlapRescue(cove, params.metrics)) return [];
+      return [annotateCandidate(cove, {
+        constrictionOverlapRescue: true,
+        constrictionOverlapRescueReason: 'strong_cove_near_constriction_endpoint',
+      }, ['constriction_overlap_rescue'])];
+    });
   const coves = coveCandidates.map((cove, index): WaterReaderCoveFeature => ({
     ...cove,
     featureId: `cove-${index + 1}`,
@@ -71,7 +81,17 @@ export function resolveWaterReaderFeatureConflicts(params: {
 
   const pointCandidates = applySameTypeSpacing(params.points, (p) => p.tip, spacing)
     .filter((point) => !dams.some((dam) => damOverlapsFeature(dam, point.tip, buffer)))
-    .filter((point) => !constrictionEndpoints.some((endpoint) => distanceM(endpoint, point.tip) < buffer && point.confidence < 0.9));
+    .flatMap((point) => {
+      const overlapsConstriction = constrictionEndpoints.some((endpoint) => distanceM(endpoint, point.tip) < buffer);
+      if (!overlapsConstriction) return [point];
+      if (strongPointConstrictionOverlapRescue(point, params.metrics)) {
+        return [annotateCandidate(point, {
+          constrictionOverlapRescue: true,
+          constrictionOverlapRescueReason: 'strong_point_near_constriction_endpoint',
+        }, ['constriction_overlap_rescue'])];
+      }
+      return point.confidence >= 0.9 ? [point] : [];
+    });
 
   const points = pointCandidates
     .map((point, index): WaterReaderPointFeature | null => {
@@ -93,7 +113,7 @@ export function resolveWaterReaderFeatureConflicts(params: {
     .filter((point): point is WaterReaderPointFeature => point != null);
 
   const prelim = [...dams, ...necks, ...saddles, ...coves, ...points, ...params.islands].sort(featureSort);
-  const { features, pruning } = pruneRetainedFeatures(prelim, params.metrics.longestDimensionM);
+  const { features, pruning } = pruneRetainedFeatures(prelim, params.metrics);
   lastFeaturePruningSummary = pruning;
   return features;
 }
@@ -113,19 +133,74 @@ function isSmoothLakeEnrichmentCandidate(feature: { qaFlags: string[] }): boolea
   return feature.qaFlags.some((flag) => flag.startsWith('smooth_lake_enrichment_'));
 }
 
+function strongPointConstrictionOverlapRescue(point: WaterReaderPointCandidate, metrics: WaterReaderLakeMetrics): boolean {
+  const meaningfulProtrusionM = Math.max(28, metrics.longestDimensionM * 0.012);
+  return point.confidence >= 0.86 ||
+    (point.confidence >= 0.8 && point.protrusionLengthM >= meaningfulProtrusionM);
+}
+
+function strongCoveConstrictionOverlapRescue(cove: WaterReaderCoveCandidate, metrics: WaterReaderLakeMetrics): boolean {
+  const areaRatio = metrics.areaSqM > 0 ? cove.coveAreaSqM / metrics.areaSqM : 0;
+  const meaningfulDepthM = Math.max(35, metrics.longestDimensionM * 0.008);
+  return areaRatio >= 0.0012 ||
+    (cove.coveDepthM >= meaningfulDepthM && cove.depthRatio >= 0.22);
+}
+
+function strongNonConstrictionClusterRescue(feature: WaterReaderDetectedFeature, metrics: WaterReaderLakeMetrics): boolean {
+  if (feature.metrics.constrictionOverlapRescue === true) return true;
+  switch (feature.featureClass) {
+    case 'main_lake_point':
+    case 'secondary_point':
+      return strongPointConstrictionOverlapRescue(feature, metrics);
+    case 'cove':
+      return strongCoveConstrictionOverlapRescue(feature, metrics);
+    case 'island':
+      return feature.areaSqM >= Math.max(1800, metrics.areaSqM * 0.000035) &&
+        feature.nearestMainlandDistanceM >= Math.max(28, metrics.longestDimensionM * 0.0025);
+    default:
+      return false;
+  }
+}
+
+function annotateCandidate<T extends { qaFlags: string[]; metrics: Record<string, number | string | boolean | null> }>(
+  feature: T,
+  metrics: Record<string, number | string | boolean | null>,
+  qaFlags: string[],
+): T {
+  return {
+    ...feature,
+    qaFlags: uniqueStrings([...feature.qaFlags, ...qaFlags]),
+    metrics: {
+      ...feature.metrics,
+      ...metrics,
+    },
+  };
+}
+
+function annotateFeature<T extends WaterReaderDetectedFeature>(
+  feature: T,
+  metrics: Record<string, number | string | boolean | null>,
+  qaFlags: string[],
+): T {
+  return annotateCandidate(feature, metrics, qaFlags) as T;
+}
+
 function pruneRetainedFeatures(
   features: WaterReaderDetectedFeature[],
-  longestDimensionM: number,
+  metrics: WaterReaderLakeMetrics,
 ): { features: WaterReaderDetectedFeature[]; pruning: FeaturePruningSummary } {
   const pruning = emptyFeaturePruningSummary();
+  const acreage = metrics.areaSqM / 4046.8564224;
+  const displayCap = featureLifecycleDisplayCap(acreage);
+  const nonConstrictionClassCap = acreage < 100 ? 4 : acreage <= 1000 ? 5 : 6;
   const classCaps: Record<string, number> = {
     dam: 2,
     neck: 2,
     saddle: 1,
-    main_lake_point: 4,
-    cove: 4,
-    secondary_point: 2,
-    island: 10,
+    main_lake_point: nonConstrictionClassCap,
+    cove: nonConstrictionClassCap,
+    secondary_point: acreage < 100 ? 2 : 3,
+    island: acreage < 100 ? 8 : 12,
   };
   const classCounts: Record<string, number> = {};
   const classCapped: WaterReaderDetectedFeature[] = [];
@@ -140,8 +215,8 @@ function pruneRetainedFeatures(
     classCapped.push(feature);
   }
 
-  const clusterRadiusM = longestDimensionM * 0.1;
-  const islandClusterRadiusM = longestDimensionM * 0.035;
+  const clusterRadiusM = metrics.longestDimensionM * 0.1;
+  const islandClusterRadiusM = metrics.longestDimensionM * 0.035;
   const clustered: WaterReaderDetectedFeature[] = [];
   for (const feature of classCapped.sort(featureSort)) {
     const anchor = featureAnchor(feature);
@@ -164,6 +239,15 @@ function pruneRetainedFeatures(
     const hasConstriction = nearby.some(isConstriction) || isConstriction(feature);
     const nearbyNonConstrictions = nearby.filter((existing) => !isConstriction(existing)).length;
     if (nearby.length >= 2 || (hasConstriction && !isConstriction(feature) && nearbyNonConstrictions >= 1)) {
+      const constrictionOverlapPressure = !isConstriction(feature) && nearby.some(isConstriction);
+      if (constrictionOverlapPressure && strongNonConstrictionClusterRescue(feature, metrics)) {
+        clustered.push(annotateFeature(feature, {
+          constrictionOverlapRescue: true,
+          constrictionClusterRescue: true,
+          constrictionOverlapRescueReason: 'strong_non_constriction_near_constriction_cluster',
+        }, ['constriction_overlap_rescue', 'rescued_after_constriction_not_displayed']));
+        continue;
+      }
       pruning.cluster++;
       continue;
     }
@@ -171,8 +255,8 @@ function pruneRetainedFeatures(
   }
 
   const sortedClustered = clustered.sort(featureSort);
-  const nonIslandTotalCap = 8;
-  const totalFeatureCap = 12;
+  const nonIslandTotalCap = displayCap;
+  const totalFeatureCap = displayCap + (acreage < 100 ? 3 : 4);
   const nonIslands = sortedClustered.filter((feature) => feature.featureClass !== 'island');
   const islands = sortedClustered.filter((feature) => feature.featureClass === 'island');
   const keptNonIslands = nonIslands.slice(0, nonIslandTotalCap);
@@ -189,6 +273,14 @@ function pruneRetainedFeatures(
   });
 
   return { features: reassignFeatureIds(dependencyFiltered.sort(featureSort)), pruning };
+}
+
+function featureLifecycleDisplayCap(acres: number): number {
+  if (Number.isFinite(acres)) {
+    if (acres < 100) return 8;
+    if (acres <= 1000) return 12;
+  }
+  return 14;
 }
 
 function reassignFeatureIds(features: WaterReaderDetectedFeature[]): WaterReaderDetectedFeature[] {
@@ -295,6 +387,10 @@ function pointToSegmentDistance(p: PointM, a: PointM, b: PointM): number {
 
 function midpoint(a: PointM, b: PointM): PointM {
   return { x: (a.x + b.x) / 2, y: (a.y + b.y) / 2 };
+}
+
+function uniqueStrings(values: string[]): string[] {
+  return [...new Set(values)];
 }
 
 function featureSort(a: WaterReaderDetectedFeature, b: WaterReaderDetectedFeature): number {

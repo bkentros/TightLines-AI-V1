@@ -78,6 +78,7 @@ type PairOverlapClass =
   | 'strong_pair_overlap';
 
 type LakeSizeBand = 'small' | 'medium' | 'large' | 'unknown';
+type IslandSizeTier = 'small' | 'medium' | 'large' | 'giant';
 
 type AxisSizing = {
   naturalMajorAxisM: number;
@@ -105,6 +106,10 @@ type DraftSizingMetadata = AxisSizing & {
   islandSizeCapM?: number | null;
   islandSizeCapApplied?: boolean | null;
   islandSizeCapReason?: string | null;
+  islandSizeTier?: IslandSizeTier | null;
+  largeIslandCompactSizingApplied?: boolean | null;
+  largeIslandSizeReductionFactor?: number | null;
+  islandConfluenceBridgeRisk?: boolean | null;
   islandZoneRepresentsWholeIsland?: boolean | null;
   maxCandidateMajorAxisM?: number | null;
 };
@@ -1234,13 +1239,22 @@ function islandStructureAreaDrafts(
   const ringCenter = ringCentroid(feature.ring);
   const anchor = feature.endpointA ?? nearestPointOnRing(ringCenter, feature.ring);
   const localRadiusM = Math.max(8, islandLocalScale(feature) / 2);
+  const sizeTier = islandSizeTier(feature, params.longestDimensionM, params.lakeAreaSqM);
+  const sizeReductionFactor = islandSizeReductionFactor(sizeTier);
+  const compactSizingApplied = sizeReductionFactor < 0.999;
   const bufferM = clamp(localRadiusM * 0.42, 12, Math.max(14, params.longestDimensionM * 0.008));
   const readableFloorM = readableFloorMajorAxisM('island_structure_area', params.longestDimensionM, params.acreage);
   const floorM = Math.min(readableFloorM, Math.max(90, localRadiusM * 2.6 + bufferM * 2));
-  const naturalIslandEnvelopeM = localRadiusM * 2.4 + bufferM * 2.2;
+  const naturalWholeIslandEnvelopeM = localRadiusM * 2.4 + bufferM * 2.2;
+  const naturalIslandEnvelopeM = naturalWholeIslandEnvelopeM * sizeReductionFactor;
   const lakeCapM = Math.max(naturalIslandEnvelopeM, Math.min(params.longestDimensionM * 0.075, localRadiusM * 3.4 + bufferM * 2.5));
   const majorAxisM = clamp(naturalIslandEnvelopeM, floorM, Math.max(floorM, lakeCapM));
   const minorAxisM = clamp(localRadiusM * 2 + bufferM * 2, majorAxisM * 0.62, majorAxisM * 0.96);
+  const islandZoneRepresentsWholeIsland = !compactSizingApplied && majorAxisM >= localRadiusM * 2.15;
+  const islandConfluenceBridgeRisk = compactSizingApplied && (
+    sizeTier === 'giant' ||
+    majorAxisM / Math.max(1, params.longestDimensionM) > 0.18
+  );
   const islandContactAnchors = uniquePoints([
     anchor,
     ...(feature.endpointB ? [feature.endpointB] : []),
@@ -1286,6 +1300,12 @@ function islandStructureAreaDrafts(
         islandSelectionTinySuppressedIslandCount: typeof feature.metrics.tinySuppressedIslandCount === 'number' ? feature.metrics.tinySuppressedIslandCount : null,
         islandSelectionDetectedIslandCount: typeof feature.metrics.detectedIslandCount === 'number' ? feature.metrics.detectedIslandCount : null,
         islandEnvelopeReadableFloorM: roundDiagnosticNumber(readableFloorM),
+        islandSizeTier: sizeTier,
+        largeIslandCompactSizingApplied: compactSizingApplied,
+        largeIslandSizeReductionFactor: roundDiagnosticNumber(sizeReductionFactor),
+        finalIslandVisualSizeFactor: roundDiagnosticNumber(sizeReductionFactor),
+        islandZoneRepresentsWholeIsland,
+        islandConfluenceBridgeRisk,
         islandStructureAreaCentered: index === 0,
         islandStructureAreaCenterSource: index === 0 ? 'island_ring_centroid' : 'bounded_centroid_recovery',
         islandCentroidX: roundDiagnosticNumber(ringCenter.x),
@@ -1293,6 +1313,8 @@ function islandStructureAreaDrafts(
         islandEnvelopeRingCenterX: roundDiagnosticNumber(ringCenter.x),
         islandEnvelopeRingCenterY: roundDiagnosticNumber(ringCenter.y),
         islandEnvelopeLocalRadiusM: roundDiagnosticNumber(localRadiusM),
+        islandEnvelopeWholeIslandNaturalMajorAxisM: roundDiagnosticNumber(naturalWholeIslandEnvelopeM),
+        islandEnvelopeTierLakeCapM: roundDiagnosticNumber(lakeCapM),
         islandBufferRadiusM: roundDiagnosticNumber(localRadiusM + bufferM),
         islandEnvelopeAdjacentWaterBufferM: roundDiagnosticNumber(bufferM),
         islandLandInteriorClippedByLakeHole: params.polygon.holes.some((hole) => ringsSameByCoordinate(hole, feature.ring)),
@@ -2397,6 +2419,22 @@ function islandLocalScale(feature: WaterReaderIslandFeature): number {
   const bboxDiagonal = Math.hypot(bounds.maxX - bounds.minX, bounds.maxY - bounds.minY);
   const areaScale = Math.sqrt(Math.max(1, feature.areaSqM));
   return Math.max(1, endpointDistance, bboxDiagonal, areaScale);
+}
+
+function islandSizeTier(feature: WaterReaderIslandFeature, longestDimensionM: number, lakeAreaSqM: number): IslandSizeTier {
+  const localScaleM = islandLocalScale(feature);
+  const localRatio = localScaleM / Math.max(1, longestDimensionM);
+  const areaRatio = feature.areaSqM / Math.max(1, lakeAreaSqM);
+  if (localScaleM >= 3500 || feature.areaSqM >= 2_000_000) return 'giant';
+  if (localScaleM >= 800 || feature.areaSqM >= 150_000) return 'large';
+  if (localScaleM >= 140 || feature.areaSqM >= 20_000 || localRatio >= 0.032 || areaRatio >= 0.0012) return 'medium';
+  return 'small';
+}
+
+function islandSizeReductionFactor(sizeTier: IslandSizeTier): number {
+  if (sizeTier === 'giant') return 0.88;
+  if (sizeTier === 'large') return 0.95;
+  return 1;
 }
 
 function sampleRingPoints(ring: RingM, count: number): PointM[] {

@@ -194,14 +194,14 @@ function renderEntry(
   if (standalone.mode === 'point-shoreline-buffer') {
     const strokeWidthPx = standalone.strokeWidthPx ?? 16;
     return {
-      zoneMarkup: `<g class="water-reader-entry water-reader-standalone-zone water-reader-point-shoreline-buffer" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" data-render-mode="point-shoreline-buffer" data-point-apron-stroke-width-px="${format(strokeWidthPx)}">
+      zoneMarkup: `<g class="water-reader-entry water-reader-standalone-zone water-reader-point-shoreline-buffer" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" data-render-mode="point-shoreline-buffer" data-point-apron-stroke-width-px="${format(strokeWidthPx)}"${zone ? islandRenderDataAttributes(zone) : ''}>
         <path d="${d}" fill="none" stroke="${entry.colorHex}" stroke-opacity="${POINT_BUFFER_STROKE_OPACITY}" stroke-width="${format(strokeWidthPx)}" stroke-linecap="round" stroke-linejoin="round"/>
       </g>`,
       labelMarkup: numberLabel(plan),
     };
   }
   return {
-    zoneMarkup: `<path class="water-reader-entry water-reader-standalone-zone" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" data-render-mode="${standalone.mode}" d="${d}" fill="${entry.colorHex}" fill-opacity="${ZONE_FILL_OPACITY}" stroke="${entry.colorHex}" stroke-opacity="${ZONE_STROKE_OPACITY}" stroke-width="${ZONE_STROKE_WIDTH}" stroke-linecap="round" stroke-linejoin="round"/>`,
+    zoneMarkup: `<path class="water-reader-entry water-reader-standalone-zone" data-entry-id="${escapeXml(entry.entryId)}" data-zone-id="${escapeXml(entry.zoneIds[0] ?? '')}" data-display-number="${number}" data-render-mode="${standalone.mode}"${zone ? islandRenderDataAttributes(zone) : ''} d="${d}" fill="${entry.colorHex}" fill-opacity="${ZONE_FILL_OPACITY}" stroke="${entry.colorHex}" stroke-opacity="${ZONE_STROKE_OPACITY}" stroke-width="${ZONE_STROKE_WIDTH}" stroke-linecap="round" stroke-linejoin="round"/>`,
     labelMarkup: numberLabel(plan),
   };
 }
@@ -837,11 +837,25 @@ function groupedEntryMemberShape(
   const number = entry.displayNumber ?? '';
   if (member.mode === 'point-shoreline-buffer') {
     const strokeWidthPx = member.strokeWidthPx ?? 16;
-    return `<g class="water-reader-confluence-member water-reader-point-shoreline-buffer" data-entry-id="${entryId}" data-zone-id="${zoneId}" data-member-index="${index + 1}" data-display-number="${number}" data-render-mode="point-shoreline-buffer" data-point-apron-stroke-width-px="${format(strokeWidthPx)}">
+    return `<g class="water-reader-confluence-member water-reader-point-shoreline-buffer" data-entry-id="${entryId}" data-zone-id="${zoneId}" data-member-index="${index + 1}" data-display-number="${number}" data-render-mode="point-shoreline-buffer" data-point-apron-stroke-width-px="${format(strokeWidthPx)}"${islandRenderDataAttributes(zone)}>
         <path d="${member.path}" fill="none" stroke="${CONFLUENCE}" stroke-opacity="${CONFLUENCE_POINT_BUFFER_STROKE_OPACITY}" stroke-width="${format(strokeWidthPx)}" stroke-linecap="round" stroke-linejoin="round"/>
       </g>`;
   }
-  return `<path class="water-reader-confluence-member" data-entry-id="${entryId}" data-zone-id="${zoneId}" data-member-index="${index + 1}" data-display-number="${number}" data-render-mode="${member.mode}" d="${member.path}" fill="${CONFLUENCE}" fill-opacity="${CONFLUENCE_FILL_OPACITY}" stroke="${CONFLUENCE}" stroke-width="${ZONE_STROKE_WIDTH}" stroke-opacity="${CONFLUENCE_STROKE_OPACITY}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  return `<path class="water-reader-confluence-member" data-entry-id="${entryId}" data-zone-id="${zoneId}" data-member-index="${index + 1}" data-display-number="${number}" data-render-mode="${member.mode}"${islandRenderDataAttributes(zone)} d="${member.path}" fill="${CONFLUENCE}" fill-opacity="${CONFLUENCE_FILL_OPACITY}" stroke="${CONFLUENCE}" stroke-width="${ZONE_STROKE_WIDTH}" stroke-opacity="${CONFLUENCE_STROKE_OPACITY}" stroke-linecap="round" stroke-linejoin="round"/>`;
+}
+
+function islandRenderDataAttributes(zone: WaterReaderDisplayZoneGeometry): string {
+  if (zone.featureClass !== 'island') return '';
+  const factor = typeof zone.diagnostics.finalIslandVisualSizeFactor === 'number'
+    ? zone.diagnostics.finalIslandVisualSizeFactor
+    : null;
+  const majorAxisM = typeof zone.diagnostics.renderedIslandVisualMajorAxisM === 'number'
+    ? zone.diagnostics.renderedIslandVisualMajorAxisM
+    : zone.majorAxisM;
+  const minorAxisM = typeof zone.diagnostics.renderedIslandVisualMinorAxisM === 'number'
+    ? zone.diagnostics.renderedIslandVisualMinorAxisM
+    : zone.minorAxisM;
+  return ` data-rendered-island-visual-factor="${factor !== null ? format(factor) : ''}" data-rendered-island-major-axis-m="${format(majorAxisM)}" data-rendered-island-minor-axis-m="${format(minorAxisM)}"`;
 }
 
 function groupedEntryEnvelope(entry: WaterReaderDisplayEntry, transform: WaterReaderSvgTransform): string {

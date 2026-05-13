@@ -48,6 +48,8 @@ const DIVERSITY_RETENTION_DIAGNOSTICS = new Set([
 const READABILITY_RETENTION_DIAGNOSTIC = 'retained_constriction_line_readability';
 const QUESTIONABLE_CONSTRICTION_RETENTION_DIAGNOSTIC = 'retained_questionable_constriction';
 const TINY_CONSTRICTION_RETENTION_DIAGNOSTIC = 'retained_tiny_constriction_display_readability';
+const STANDALONE_LARGE_ISLAND_FINAL_VISUAL_FACTOR = 0.75;
+const CONFLUENCE_ISLAND_FINAL_VISUAL_FACTOR = 0.85;
 
 export interface WaterReaderDisplayReadabilityDiagnostics {
   estimatedAppFootprintWidthPx: number;
@@ -189,9 +191,27 @@ type ConfluenceNormalizationCandidate = {
   reason: string;
   envelopeMajorAxisM: number;
   envelopeRatio: number;
+  lakeRatio?: number;
+  sourceCount: number;
+  labelCount: number;
   crossFeatureOverlapPair?: string;
   crossFeatureOverlapFraction?: number;
   crossFeatureContainmentFraction?: number;
+};
+
+type ConfluenceSprawlRejection = {
+  targetId: string;
+  sourceId: string;
+  reason: string;
+  envelopeMajorAxisM: number;
+  envelopeRatio: number;
+  lakeRatio?: number;
+  sourceCount: number;
+  labelCount: number;
+  mergeReason: string;
+  largeIslandBridgeRisk?: boolean;
+  largestIslandMajorAxisM?: number;
+  islandMemberDominance?: number;
 };
 
 type ConstrictionDisplayClass =
@@ -261,8 +281,8 @@ export function buildWaterReaderDisplayModel(
       legendByEntryId,
       legendByZoneId,
     });
-  const normalizedSelection = normalizeDisplayedConfluences(initialSelection, zoneResult.season, displayCap);
-  const saddleFilteredSelection = retainQuestionableConfluenceSaddleMembers(normalizedSelection, zoneResult.season);
+  const normalizedSelection = normalizeDisplayedConfluences(initialSelection, zoneResult.season, displayCap, options.longestDimensionM);
+  const saddleFilteredSelection = retainQuestionableConfluenceConstrictionMembers(normalizedSelection, zoneResult.season);
   const readabilitySelection = retainConstrictionLineFallbacksForReadability(saddleFilteredSelection, displayCap, totalDisplayCost > displayCap);
   const constrictionSelection = retainQuestionableConstrictions(readabilitySelection);
   const recoveredSelection = recoverRetainedConstrictions(constrictionSelection, displayCap);
@@ -273,10 +293,12 @@ export function buildWaterReaderDisplayModel(
     legendByEntryId,
     legendByZoneId,
   });
-  const islandBackfilledSelection = backfillReadableIslands(selection, displayCap);
-  const balancedSelection = rebalanceNonPointOverExcessMainPoint(islandBackfilledSelection, displayCap);
-  const displayedUnits = balancedSelection.displayedUnits;
-  const retainedUnits = balancedSelection.retainedUnits;
+  const islandBackfilledSelection = backfillReadableNonConstrictions(selection, displayCap);
+  const readableNonConstrictionSelection = retainLowReadabilityStandaloneNonConstrictions(islandBackfilledSelection);
+  const balancedSelection = rebalanceNonPointOverExcessMainPoint(readableNonConstrictionSelection, displayCap);
+  const finalIslandSizingSelection = applyFinalIslandVisualSizing(balancedSelection);
+  const displayedUnits = finalIslandSizingSelection.displayedUnits;
+  const retainedUnits = finalIslandSizingSelection.retainedUnits;
 
   const displayedEntriesWithoutNumbers = displayedUnits.flatMap((unit) =>
     displayEntriesForUnit(unit, legendByEntryId, legendByZoneId, options.longestDimensionM),
@@ -414,7 +436,7 @@ function retainRepeatedTitleDiversity(params: {
   };
 }
 
-function backfillReadableIslands(
+function backfillReadableNonConstrictions(
   params: { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] },
   displayCap: number,
 ): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
@@ -424,8 +446,9 @@ function backfillReadableIslands(
   if (remainingCap <= 0 || retainedUnits.length === 0) return params;
   const candidates = retainedUnits
     .filter((unit) =>
-      unitPrimaryFeatureClass(unit) === 'island' &&
-      unit.displayReadability.displayReadabilityTier !== 'hard_tiny'
+      backfillableNonConstrictionUnit(unit) &&
+      unit.displayReadability.displayReadabilityTier !== 'hard_tiny' &&
+      retainedDisplayState(unit.rankingDiagnostics) !== 'retained_not_displayed_readability'
     )
     .sort((a, b) =>
       b.sort.displayUsefulnessScore - a.sort.displayUsefulnessScore ||
@@ -435,9 +458,12 @@ function backfillReadableIslands(
   for (const candidate of candidates) {
     if (candidate.entryCost > remainingCap) continue;
     displayedUnits.push(annotateUnitZones(candidate, {
-      islandDisplayBackfillUsed: true,
-      islandDisplayBackfillReason: 'unused_display_cap_after_structure_selection',
-    }, 'displayed_island_backfill_unused_cap'));
+      backfilledUnusedDisplayCapacity: true,
+      backfilledUnusedDisplayCapacityFeatureClass: unitPrimaryFeatureClass(candidate),
+      backfilledUnusedDisplayCapacityReason: 'unused_display_cap_after_structure_selection',
+      islandDisplayBackfillUsed: unitPrimaryFeatureClass(candidate) === 'island' ? true : null,
+      islandDisplayBackfillReason: unitPrimaryFeatureClass(candidate) === 'island' ? 'unused_display_cap_after_structure_selection' : null,
+    }, 'backfilled_unused_display_capacity', ['backfilled_unused_display_capacity']));
     retainedUnits = retainedUnits.filter((unit) => unit.unitId !== candidate.unitId);
     remainingCap -= candidate.entryCost;
     if (remainingCap <= 0) break;
@@ -448,6 +474,14 @@ function backfillReadableIslands(
   };
 }
 
+function backfillableNonConstrictionUnit(unit: DisplayUnit): boolean {
+  const featureClass = unitPrimaryFeatureClass(unit);
+  return featureClass === 'main_lake_point' ||
+    featureClass === 'secondary_point' ||
+    featureClass === 'cove' ||
+    featureClass === 'island';
+}
+
 function rebalanceNonPointOverExcessMainPoint(
   params: { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] },
   displayCap: number,
@@ -456,7 +490,9 @@ function rebalanceNonPointOverExcessMainPoint(
   if (displayedMainPoints.length < 4) return params;
   const promoted = params.retainedUnits
     .filter((unit) =>
+      backfillableNonConstrictionUnit(unit) &&
       unitPrimaryFeatureClass(unit) !== 'main_lake_point' &&
+      unit.displayReadability.displayReadabilityTier !== 'hard_tiny' &&
       retainedDisplayState(unit.rankingDiagnostics) !== 'retained_not_displayed_readability'
     )
     .sort(compareDisplayUnits)[0];
@@ -489,7 +525,7 @@ function rebalanceNonPointOverExcessMainPoint(
   return { displayedUnits, retainedUnits };
 }
 
-function retainQuestionableConfluenceSaddleMembers(
+function retainQuestionableConfluenceConstrictionMembers(
   params: { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] },
   season: WaterReaderZonePlacementResult['season'],
 ): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
@@ -502,16 +538,16 @@ function retainQuestionableConfluenceSaddleMembers(
       continue;
     }
 
-    const retainedSaddles = unit.zones.filter(questionableSaddleConfluenceMember);
-    if (retainedSaddles.length === 0) {
+    const retainedConstrictions = unit.zones.filter(questionableConfluenceConstrictionMember);
+    if (retainedConstrictions.length === 0) {
       displayedUnits.push(unit);
       continue;
     }
 
-    const retainedZoneIds = new Set(retainedSaddles.map((zone) => zone.zoneId));
+    const retainedZoneIds = new Set(retainedConstrictions.map((zone) => zone.zoneId));
     const remainingZones = unit.zones.filter((zone) => !retainedZoneIds.has(zone.zoneId));
-    retainedUnits.push(...retainedSaddles.map((zone) => retainedConfluenceSaddleUnit(zone, unit, season)));
-    displayedUnits.push(...displayUnitsAfterConfluenceSaddleRetention(unit, remainingZones, season));
+    retainedUnits.push(...retainedConstrictions.map((zone) => retainedConfluenceConstrictionUnit(zone, unit, season)));
+    displayedUnits.push(...displayUnitsAfterConfluenceConstrictionRetention(unit, remainingZones, season));
   }
 
   return {
@@ -520,7 +556,7 @@ function retainQuestionableConfluenceSaddleMembers(
   };
 }
 
-function displayUnitsAfterConfluenceSaddleRetention(
+function displayUnitsAfterConfluenceConstrictionRetention(
   unit: DisplayUnit,
   remainingZones: WaterReaderPlacedZone[],
   season: WaterReaderZonePlacementResult['season'],
@@ -546,6 +582,8 @@ function displayUnitsAfterConfluenceSaddleRetention(
     };
     const zones = remainingZones.map((zone) => annotateZoneDiagnostics(zone, {
       confluenceSaddleMemberRetainedForReadability: true,
+      confluenceQuestionableConstrictionSplit: true,
+      readableMembersRecoveredAfterConstrictionRetention: true,
       finalConfluenceMemberSummary: memberSummary,
       finalConfluenceLegendTitle: crossFeatureStructureAreaTitleForZones(remainingZones),
     }));
@@ -558,6 +596,8 @@ function displayUnitsAfterConfluenceSaddleRetention(
       rankingDiagnostics: unique([
         ...unit.rankingDiagnostics,
         'confluence_saddle_member_retained_for_readability',
+        'confluence_questionable_constriction_split',
+        'readable_members_recovered_after_constriction_retention',
       ]),
     }];
   }
@@ -565,7 +605,9 @@ function displayUnitsAfterConfluenceSaddleRetention(
   return remainingZones.map((zone) => {
     const annotatedZone = annotateZoneDiagnostics(zone, {
       confluenceSplitAfterSaddleRetention: true,
-      confluenceSplitReason: 'questionable_saddle_member_retained_for_readability',
+      confluenceQuestionableConstrictionSplit: true,
+      readableMembersRecoveredAfterConstrictionRetention: true,
+      confluenceSplitReason: 'questionable_constriction_member_retained_for_readability',
     });
     return {
       unitId: annotatedZone.zoneId,
@@ -577,22 +619,26 @@ function displayUnitsAfterConfluenceSaddleRetention(
       rankingDiagnostics: unique([
         ...unit.rankingDiagnostics,
         'confluence_split_after_saddle_retention',
+        'confluence_questionable_constriction_split',
+        'readable_members_recovered_after_constriction_retention',
       ]),
     };
   });
 }
 
-function retainedConfluenceSaddleUnit(
+function retainedConfluenceConstrictionUnit(
   zone: WaterReaderPlacedZone,
   unit: DisplayUnit,
   season: WaterReaderZonePlacementResult['season'],
 ): DisplayUnit {
-  const retainReason = questionableSaddleConfluenceRetainReason(zone);
-  const displayClass = zone.diagnostics.constrictionDisplayClass === 'retained_questionable_constriction'
-    ? 'retained_questionable_constriction'
-    : 'broad_saddle';
+  const retainReason = questionableConfluenceConstrictionRetainReason(zone);
+  const displayClass = retainReason === 'broad_saddle_not_visually_substantial' || retainReason === 'broad_or_one_sided_saddle_confluence_member'
+    ? 'broad_saddle'
+    : 'retained_questionable_constriction';
   const annotatedZone = annotateZoneDiagnostics(zone, {
     saddleConfluenceMemberRetainedForReadability: true,
+    confluenceQuestionableConstrictionSplit: true,
+    retainedQuestionableConstrictionMember: true,
     saddleConfluenceRetainedFromUnitId: unit.unitId,
     constrictionDisplayClass: displayClass,
     constrictionDisplayRetainedReason: retainReason,
@@ -608,8 +654,26 @@ function retainedConfluenceSaddleUnit(
       ...unit.rankingDiagnostics,
       QUESTIONABLE_CONSTRICTION_RETENTION_DIAGNOSTIC,
       'retained_confluence_saddle_member_readability',
+      'confluence_questionable_constriction_split',
+      'retained_questionable_constriction_member',
     ]),
   };
+}
+
+function questionableConfluenceConstrictionMember(zone: WaterReaderPlacedZone): boolean {
+  if (zone.featureClass !== 'neck' && zone.featureClass !== 'saddle') return false;
+  if (zone.featureClass === 'saddle' && zone.diagnostics.saddleRecoveredFromBroadReview === true) return false;
+  if (zone.featureClass === 'neck' && zone.diagnostics.constrictionRecoveredFromTinyGate === true) return false;
+  if (tracePinchLowValueZone(zone) || microPinchLowValueZone(zone)) return true;
+  const displayClass = typeof zone.diagnostics.constrictionDisplayClass === 'string'
+    ? zone.diagnostics.constrictionDisplayClass
+    : '';
+  if (displayClass === 'retained_questionable_constriction' || displayClass === 'broad_saddle') return true;
+  const constrictionKind = typeof zone.diagnostics.constrictionKind === 'string' ? zone.diagnostics.constrictionKind : '';
+  if (constrictionKind === 'micro_pinch') return true;
+  const confidence = diagnosticNumber(zone.diagnostics.constrictionConfidence);
+  if (confidence > 0 && confidence < 0.58) return true;
+  return zone.featureClass === 'saddle' && questionableSaddleConfluenceMember(zone);
 }
 
 function questionableSaddleConfluenceMember(zone: WaterReaderPlacedZone): boolean {
@@ -633,7 +697,9 @@ function questionableSaddleConfluenceMember(zone: WaterReaderPlacedZone): boolea
   return widthToAverage >= 0.25 && oneSided;
 }
 
-function questionableSaddleConfluenceRetainReason(zone: WaterReaderPlacedZone): string {
+function questionableConfluenceConstrictionRetainReason(zone: WaterReaderPlacedZone): string {
+  if (tracePinchLowValueZone(zone)) return 'trace_pinch_low_value';
+  if (microPinchLowValueZone(zone)) return 'micro_pinch_low_value';
   const displayClass = typeof zone.diagnostics.constrictionDisplayClass === 'string'
     ? zone.diagnostics.constrictionDisplayClass
     : '';
@@ -768,6 +834,37 @@ function lowReadabilityStandaloneConstriction(unit: DisplayUnit): boolean {
     unit.sort.displayUsefulnessScore < 0;
 }
 
+function retainLowReadabilityStandaloneNonConstrictions(params: {
+  displayedUnits: DisplayUnit[];
+  retainedUnits: DisplayUnit[];
+}): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
+  const displayedUnits: DisplayUnit[] = [];
+  const retainedUnits = [...params.retainedUnits];
+  const displayedCost = params.displayedUnits.reduce((sum, unit) => sum + unit.entryCost, 0);
+
+  for (const unit of params.displayedUnits) {
+    if (lowReadabilityStandaloneNonConstriction(unit) && displayedCost - unit.entryCost >= 5) {
+      retainedUnits.push(annotateUnitZones(unit, {
+        nonConstrictionDisplayRetainedReason: 'hard_tiny_with_readable_alternatives',
+        hardTinyNonConstrictionRetainedForDisplayReadability: true,
+      }, 'retained_hard_tiny_non_constriction'));
+      continue;
+    }
+    displayedUnits.push(unit);
+  }
+
+  return {
+    displayedUnits: displayedUnits.sort(compareDisplayUnits),
+    retainedUnits: retainedUnits.sort(compareDisplayUnits),
+  };
+}
+
+function lowReadabilityStandaloneNonConstriction(unit: DisplayUnit): boolean {
+  if (unit.entryType !== 'standalone_zone' || unit.zones.length !== 1) return false;
+  if (!backfillableNonConstrictionUnit(unit)) return false;
+  return unit.displayReadability.displayReadabilityTier === 'hard_tiny';
+}
+
 function shouldRetainLowReadabilityConstriction(
   unit: DisplayUnit,
   displayedUnits: DisplayUnit[],
@@ -790,6 +887,7 @@ function readableNonConstrictionDisplayAlternative(unit: DisplayUnit): boolean {
 }
 
 function recoveredConstrictionUnit(unit: DisplayUnit): boolean {
+  if (unit.zones.some((zone) => tracePinchLowValueZone(zone) || microPinchLowValueZone(zone))) return false;
   return unit.zones.some((zone) =>
     (zone.featureClass === 'neck' && zone.diagnostics.constrictionRecoveredFromTinyGate === true) ||
     (zone.featureClass === 'saddle' && zone.diagnostics.saddleRecoveredFromBroadReview === true)
@@ -985,14 +1083,20 @@ function normalizeDisplayedConfluences(
   params: { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] },
   season: WaterReaderZonePlacementResult['season'],
   displayCap: number,
+  longestDimensionM?: number | null,
 ): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
   let displayedUnits = [...params.displayedUnits];
   let retainedUnits = [...params.retainedUnits];
+  const sprawlRejections = new Map<string, ConfluenceSprawlRejection>();
   let changed = true;
   let normalizedAnyPointTipOpenWater = false;
   while (changed) {
     changed = false;
-    const candidate = bestConfluenceNormalizationCandidate(displayedUnits);
+    const { candidate, rejections } = bestConfluenceNormalizationCandidate(displayedUnits, longestDimensionM);
+    for (const rejection of rejections) {
+      rememberConfluenceSprawlRejection(sprawlRejections, rejection.targetId, rejection);
+      rememberConfluenceSprawlRejection(sprawlRejections, rejection.sourceId, rejection);
+    }
     if (!candidate) break;
     const target = displayedUnits.find((unit) => unit.unitId === candidate.targetId);
     const source = displayedUnits.find((unit) => unit.unitId === candidate.sourceId);
@@ -1007,12 +1111,158 @@ function normalizeDisplayedConfluences(
       normalizedAnyPointTipOpenWater = true;
     }
   }
+  displayedUnits = splitSprawlingDisplayedConfluences(displayedUnits, season, longestDimensionM);
+  if (sprawlRejections.size > 0) {
+    displayedUnits = annotateConfluenceSprawlRejectedUnits(displayedUnits, sprawlRejections);
+  }
   if (normalizedAnyPointTipOpenWater && retainedUnits.length > 0) {
     const refilled = refillDisplayCap({ displayedUnits, retainedUnits, displayCap });
     displayedUnits = refilled.displayedUnits;
     retainedUnits = refilled.retainedUnits;
   }
   return { displayedUnits, retainedUnits };
+}
+
+function splitSprawlingDisplayedConfluences(
+  units: DisplayUnit[],
+  season: WaterReaderZonePlacementResult['season'],
+  longestDimensionM?: number | null,
+): DisplayUnit[] {
+  const nextUnits: DisplayUnit[] = [];
+  for (const unit of units) {
+    const rejection = finalDisplayedConfluenceSprawlRejection(unit, longestDimensionM);
+    if (!rejection) {
+      nextUnits.push(unit);
+      continue;
+    }
+    for (const zone of unit.zones) {
+      const annotatedZone = annotateZoneDiagnostics(zone, {
+        confluenceSprawlRejected: true,
+        confluenceSprawlRejectedReason: rejection.reason,
+        confluenceSprawlEnvelopeMajorAxisM: roundDiagnosticNumber(rejection.envelopeMajorAxisM),
+        confluenceSprawlEnvelopeRatio: roundDiagnosticNumber(rejection.envelopeRatio),
+        confluenceSprawlLakeRatio: rejection.lakeRatio !== undefined ? roundDiagnosticNumber(rejection.lakeRatio) : null,
+        confluenceSprawlSourceCount: rejection.sourceCount,
+        confluenceSprawlLabelCount: rejection.labelCount,
+        confluenceSprawlMergeReason: rejection.mergeReason,
+        confluenceSprawlLargeIslandBridgeRisk: rejection.largeIslandBridgeRisk === true ? true : null,
+        confluenceSprawlLargestIslandMajorAxisM: rejection.largestIslandMajorAxisM !== undefined ? roundDiagnosticNumber(rejection.largestIslandMajorAxisM) : null,
+        confluenceSprawlIslandMemberDominance: rejection.islandMemberDominance !== undefined ? roundDiagnosticNumber(rejection.islandMemberDominance) : null,
+      });
+      nextUnits.push({
+        unitId: annotatedZone.zoneId,
+        entryType: 'standalone_zone',
+        zones: [annotatedZone],
+        entryCost: 1,
+        displayReadability: displayReadabilityForZones([annotatedZone], unit.displayReadability),
+        ...unitSort([annotatedZone], annotatedZone.zoneId, season),
+        rankingDiagnostics: unique([...unit.rankingDiagnostics, 'confluence_sprawl_rejected']),
+      });
+    }
+  }
+  return nextUnits.sort(compareDisplayUnits);
+}
+
+function finalDisplayedConfluenceSprawlRejection(
+  unit: DisplayUnit,
+  longestDimensionM?: number | null,
+): ConfluenceSprawlRejection | null {
+  if (unit.entryType !== 'structure_confluence' || unit.zones.length < 2) return null;
+  const envelopeMajorAxisM = envelopeMajorAxisMeters(unit.zones);
+  const largestMember = Math.max(...unit.zones.map((zone) => zone.majorAxisM), 1);
+  const envelopeRatio = envelopeMajorAxisM / largestMember;
+  const lakeRatio = typeof longestDimensionM === 'number' && Number.isFinite(longestDimensionM) && longestDimensionM > 0
+    ? envelopeMajorAxisM / longestDimensionM
+    : undefined;
+  const sourceCount = unique(unit.zones.map((zone) => zone.sourceFeatureId)).length;
+  const labelCount = confluenceFeatureClassLabelCount(unit.zones);
+  const largeIslandBridge = largeIslandBridgeProfile(unit.zones, envelopeMajorAxisM);
+  const reason = finalDisplayedConfluenceSprawlReason({
+    envelopeRatio,
+    lakeRatio,
+    sourceCount,
+    labelCount,
+    largeIslandBridge,
+  });
+  if (!reason) return null;
+  return {
+    targetId: unit.unitId,
+    sourceId: unit.unitId,
+    reason,
+    envelopeMajorAxisM,
+    envelopeRatio,
+    lakeRatio,
+    sourceCount,
+    labelCount,
+    mergeReason: unit.confluenceGroup?.mergeReason ?? 'normalized_display_confluence',
+    largeIslandBridgeRisk: largeIslandBridge.risk,
+    largestIslandMajorAxisM: largeIslandBridge.largestIslandMajorAxisM,
+    islandMemberDominance: largeIslandBridge.dominance,
+  };
+}
+
+function finalDisplayedConfluenceSprawlReason(params: {
+  envelopeRatio: number;
+  lakeRatio?: number;
+  sourceCount: number;
+  labelCount: number;
+  largeIslandBridge: {
+    risk: boolean;
+    largestIslandMajorAxisM: number;
+    dominance: number;
+  };
+}): string | null {
+  const lakeRatio = params.lakeRatio ?? 0;
+  if (params.sourceCount >= 8 && params.labelCount >= 4 && (lakeRatio > 0.52 || params.envelopeRatio > 4.2)) {
+    return 'lake_scale_many_source_confluence_sprawl';
+  }
+  if (
+    params.largeIslandBridge.risk &&
+    params.sourceCount >= 7 &&
+    params.labelCount >= 3 &&
+    (lakeRatio > 0.26 || (lakeRatio > 0.22 && params.envelopeRatio > 2.8))
+  ) {
+    return 'dominant_giant_island_many_structure_sprawl';
+  }
+  return null;
+}
+
+function rememberConfluenceSprawlRejection(
+  rejections: Map<string, ConfluenceSprawlRejection>,
+  unitId: string,
+  rejection: ConfluenceSprawlRejection,
+) {
+  const existing = rejections.get(unitId);
+  if (
+    !existing ||
+    rejection.sourceCount > existing.sourceCount ||
+    (rejection.sourceCount === existing.sourceCount && rejection.envelopeMajorAxisM > existing.envelopeMajorAxisM)
+  ) {
+    rejections.set(unitId, rejection);
+  }
+}
+
+function annotateConfluenceSprawlRejectedUnits(
+  units: DisplayUnit[],
+  rejections: Map<string, ConfluenceSprawlRejection>,
+): DisplayUnit[] {
+  return units.map((unit) => {
+    const rejection = rejections.get(unit.unitId);
+    if (!rejection) return unit;
+    return annotateUnitZones(unit, {
+      confluenceSprawlRejected: true,
+      confluenceSprawlRejectedReason: rejection.reason,
+      confluenceSprawlEnvelopeMajorAxisM: roundDiagnosticNumber(rejection.envelopeMajorAxisM),
+      confluenceSprawlEnvelopeRatio: roundDiagnosticNumber(rejection.envelopeRatio),
+      confluenceSprawlLakeRatio: rejection.lakeRatio !== undefined ? roundDiagnosticNumber(rejection.lakeRatio) : null,
+      confluenceSprawlSourceCount: rejection.sourceCount,
+      confluenceSprawlLabelCount: rejection.labelCount,
+      confluenceSprawlMergeReason: rejection.mergeReason,
+      confluenceSprawlLargeIslandBridgeRisk: rejection.largeIslandBridgeRisk === true ? true : null,
+      confluenceSprawlLargestIslandMajorAxisM: rejection.largestIslandMajorAxisM !== undefined ? roundDiagnosticNumber(rejection.largestIslandMajorAxisM) : null,
+      confluenceSprawlIslandMemberDominance: rejection.islandMemberDominance !== undefined ? roundDiagnosticNumber(rejection.islandMemberDominance) : null,
+    }, 'confluence_sprawl_rejected');
+  }).sort(compareDisplayUnits);
 }
 
 function refillDisplayCap(params: {
@@ -1040,32 +1290,48 @@ function refillDisplayCap(params: {
   };
 }
 
-function bestConfluenceNormalizationCandidate(units: DisplayUnit[]): ConfluenceNormalizationCandidate | null {
+function bestConfluenceNormalizationCandidate(
+  units: DisplayUnit[],
+  longestDimensionM?: number | null,
+): { candidate: ConfluenceNormalizationCandidate | null; rejections: ConfluenceSprawlRejection[] } {
   const candidates: ConfluenceNormalizationCandidate[] = [];
+  const rejections: ConfluenceSprawlRejection[] = [];
   for (let i = 0; i < units.length; i++) {
     for (let j = i + 1; j < units.length; j++) {
-      const candidate = confluenceNormalizationCandidate(units[i]!, units[j]!);
-      if (candidate) candidates.push(candidate);
+      const result = confluenceNormalizationCandidate(units[i]!, units[j]!, longestDimensionM);
+      if (result.candidate) candidates.push(result.candidate);
+      if (result.rejection) rejections.push(result.rejection);
     }
   }
-  return candidates.sort((a, b) =>
+  const candidate = candidates.sort((a, b) =>
     a.envelopeRatio - b.envelopeRatio ||
     a.targetId.localeCompare(b.targetId) ||
     a.sourceId.localeCompare(b.sourceId)
   )[0] ?? null;
+  return { candidate, rejections };
 }
 
-function confluenceNormalizationCandidate(a: DisplayUnit, b: DisplayUnit): ConfluenceNormalizationCandidate | null {
-  if (a.zones.some(nonDisplayedLineFallbackZone) || b.zones.some(nonDisplayedLineFallbackZone)) return null;
-  if (a.entryType !== 'structure_confluence' && b.entryType !== 'structure_confluence' && (a.entryCost !== 1 || b.entryCost !== 1)) return null;
+function confluenceNormalizationCandidate(
+  a: DisplayUnit,
+  b: DisplayUnit,
+  longestDimensionM?: number | null,
+): { candidate: ConfluenceNormalizationCandidate | null; rejection?: ConfluenceSprawlRejection } {
+  if (a.zones.some(nonDisplayedLineFallbackZone) || b.zones.some(nonDisplayedLineFallbackZone)) return { candidate: null };
+  if (a.entryType !== 'structure_confluence' && b.entryType !== 'structure_confluence' && (a.entryCost !== 1 || b.entryCost !== 1)) return { candidate: null };
   const zones = [...a.zones, ...b.zones];
   const relationshipAllowed = confluenceNormalizationRelationshipAllowed(a, b, zones);
-  if (!relationshipAllowed.allowed) return null;
+  if (!relationshipAllowed.allowed) return { candidate: null };
   const relationship = confluenceRelationship(a.zones, b.zones);
-  if (!relationship) return null;
+  if (!relationship) return { candidate: null };
   const envelopeMajorAxisM = envelopeMajorAxisMeters(zones);
   const largestMember = Math.max(...zones.map((zone) => zone.majorAxisM), 1);
   const envelopeRatio = envelopeMajorAxisM / largestMember;
+  const lakeRatio = typeof longestDimensionM === 'number' && Number.isFinite(longestDimensionM) && longestDimensionM > 0
+    ? envelopeMajorAxisM / longestDimensionM
+    : undefined;
+  const sourceCount = unique(zones.map((zone) => zone.sourceFeatureId)).length;
+  const labelCount = confluenceFeatureClassLabelCount(zones);
+  const largeIslandBridge = largeIslandBridgeProfile(zones, envelopeMajorAxisM);
   const pointTipOpenWater = relationship.reason === 'same_point_tip_open_water_compact' ||
     relationship.reason === 'near_point_tip_open_water_compact';
   const crossFeaturePair = crossFeatureDisplayPair(zones);
@@ -1075,26 +1341,134 @@ function confluenceNormalizationCandidate(a: DisplayUnit, b: DisplayUnit): Confl
       ? relationship.reason === 'cross_feature_cove+point_same_shoreline_corridor' ? 2.05 : crossFeaturePair === 'cove+point' ? 2.9 : crossFeaturePair === 'island+point' ? 2.2 : 2.45
       : 2.25;
   const directVisibleRingIntersection = relationship.reason.includes('visible_ring_intersection');
-  if (directVisibleRingIntersection && envelopeRatio > Math.max(maxEnvelopeRatio, 4.2)) return null;
-  if (envelopeRatio > maxEnvelopeRatio && relationship.reason !== 'visible_overlap_heavy' && !directVisibleRingIntersection) return null;
-  if (relationshipAllowed.mode === 'same_class_extreme_compact' && (relationship.reason !== 'visible_overlap_heavy' || envelopeRatio > 1.45)) return null;
-  if (relationshipAllowed.mode === 'existing_placement_confluence' && envelopeRatio > 1.8) return null;
+  if (directVisibleRingIntersection && envelopeRatio > Math.max(maxEnvelopeRatio, 4.2)) return { candidate: null };
+  if (envelopeRatio > maxEnvelopeRatio && relationship.reason !== 'visible_overlap_heavy' && !directVisibleRingIntersection) return { candidate: null };
+  if (relationshipAllowed.mode === 'same_class_extreme_compact' && (relationship.reason !== 'visible_overlap_heavy' || envelopeRatio > 1.45)) return { candidate: null };
+  if (relationshipAllowed.mode === 'existing_placement_confluence' && envelopeRatio > 1.8) return { candidate: null };
   const target = a.entryType === 'structure_confluence'
     ? a
     : b.entryType === 'structure_confluence'
       ? b
       : compareDisplayUnits(a, b) <= 0 ? a : b;
   const source = target.unitId === a.unitId ? b : a;
-  return {
+  const sprawlReason = confluenceSprawlRejectionReason({
+    a,
+    b,
+    relationshipReason: relationship.reason,
+    envelopeRatio,
+    lakeRatio,
+    sourceCount,
+    labelCount,
+    largeIslandBridge,
+  });
+  if (sprawlReason) {
+    return {
+      candidate: null,
+      rejection: {
+        targetId: target.unitId,
+        sourceId: source.unitId,
+        reason: sprawlReason,
+        envelopeMajorAxisM,
+        envelopeRatio,
+        lakeRatio,
+        sourceCount,
+        labelCount,
+        mergeReason: relationship.reason,
+        largeIslandBridgeRisk: largeIslandBridge.risk,
+        largestIslandMajorAxisM: largeIslandBridge.largestIslandMajorAxisM,
+        islandMemberDominance: largeIslandBridge.dominance,
+      },
+    };
+  }
+  return { candidate: {
     targetId: target.unitId,
     sourceId: source.unitId,
     reason: relationship.reason,
     envelopeMajorAxisM,
     envelopeRatio,
+    lakeRatio,
+    sourceCount,
+    labelCount,
     crossFeatureOverlapPair: crossFeaturePair ?? undefined,
     crossFeatureOverlapFraction: crossFeaturePair ? relationship.overlapFraction : undefined,
     crossFeatureContainmentFraction: crossFeaturePair ? relationship.containmentFraction : undefined,
+  } };
+}
+
+function confluenceSprawlRejectionReason(params: {
+  a: DisplayUnit;
+  b: DisplayUnit;
+  relationshipReason: string;
+  envelopeRatio: number;
+  lakeRatio?: number;
+  sourceCount: number;
+  labelCount: number;
+  largeIslandBridge: {
+    risk: boolean;
+    largestIslandMajorAxisM: number;
+    dominance: number;
   };
+}): string | null {
+  const lakeRatio = params.lakeRatio ?? 0;
+  const localDistanceMerge = params.relationshipReason.includes('local_distance') ||
+    params.relationshipReason.includes('same_shoreline_corridor');
+  const manyLabelSprawl = params.labelCount >= 4;
+  const manySourceSprawl = params.sourceCount >= 8;
+  const largeIslandBridge = params.largeIslandBridge.risk;
+  const lakeScaleSprawl = lakeRatio > 0.52 ||
+    (lakeRatio > 0.45 && params.envelopeRatio > 2.7) ||
+    params.envelopeRatio > 4.2;
+  if (
+    manySourceSprawl &&
+    manyLabelSprawl &&
+    lakeScaleSprawl
+  ) {
+    return 'lake_scale_many_source_confluence_sprawl';
+  }
+  if (
+    largeIslandBridge &&
+    manySourceSprawl &&
+    manyLabelSprawl &&
+    (lakeRatio > 0.5 || params.envelopeRatio > 3.0) &&
+    params.largeIslandBridge.dominance >= 0.36
+  ) {
+    return 'enormous_island_many_structure_sprawl';
+  }
+  if (
+    largeIslandBridge &&
+    params.sourceCount >= 7 &&
+    params.labelCount >= 3 &&
+    (lakeRatio > 0.5 || (lakeRatio > 0.26 && params.largeIslandBridge.dominance >= 0.72))
+  ) {
+    return 'dominant_giant_island_many_structure_sprawl';
+  }
+  if (
+    localDistanceMerge &&
+    manySourceSprawl &&
+    manyLabelSprawl &&
+    (lakeRatio > 0.45 || params.envelopeRatio > 3.0)
+  ) {
+    return 'local_distance_lake_scale_confluence_sprawl';
+  }
+  return null;
+}
+
+function largeIslandBridgeProfile(
+  zones: WaterReaderPlacedZone[],
+  envelopeMajorAxisM: number,
+): { risk: boolean; largestIslandMajorAxisM: number; dominance: number } {
+  const islandZones = zones.filter((zone) => zone.featureClass === 'island');
+  if (islandZones.length === 0) return { risk: false, largestIslandMajorAxisM: 0, dominance: 0 };
+  const largestIslandMajorAxisM = Math.max(...islandZones.map((zone) => zone.majorAxisM), 0);
+  const dominance = envelopeMajorAxisM > 0 ? largestIslandMajorAxisM / envelopeMajorAxisM : 0;
+  const risk = islandZones.some((zone) => {
+    const tier = typeof zone.diagnostics.islandSizeTier === 'string' ? zone.diagnostics.islandSizeTier : '';
+    return tier === 'large' ||
+      tier === 'giant' ||
+      zone.diagnostics.islandConfluenceBridgeRisk === true ||
+      zone.diagnostics.largeIslandCompactSizingApplied === true;
+  });
+  return { risk, largestIslandMajorAxisM, dominance };
 }
 
 function confluenceNormalizationRelationshipAllowed(
@@ -1229,6 +1603,89 @@ function annotateZoneDiagnostics(
   };
 }
 
+function applyFinalIslandVisualSizing(selection: {
+  displayedUnits: DisplayUnit[];
+  retainedUnits: DisplayUnit[];
+}): { displayedUnits: DisplayUnit[]; retainedUnits: DisplayUnit[] } {
+  return {
+    displayedUnits: selection.displayedUnits.map(applyFinalIslandVisualSizingToUnit),
+    retainedUnits: selection.retainedUnits.map(applyFinalIslandVisualSizingToUnit),
+  };
+}
+
+function applyFinalIslandVisualSizingToUnit(unit: DisplayUnit): DisplayUnit {
+  let changed = false;
+  const zones = unit.zones.map((zone) => {
+    const targetFactor = finalIslandVisualFactorForZone(unit, zone);
+    if (targetFactor === null) return zone;
+    const currentFactor = diagnosticNumber(
+      zone.diagnostics.finalIslandVisualSizeFactor,
+      diagnosticNumber(zone.diagnostics.largeIslandSizeReductionFactor, 1),
+    );
+    const geometryScale = currentFactor > targetFactor
+      ? targetFactor / currentFactor
+      : 1;
+    const diagnostics = {
+      islandConfluenceMemberSizeReductionApplied: unit.entryType === 'structure_confluence',
+      islandConfluenceMemberSizeReductionFactor: unit.entryType === 'structure_confluence' ? targetFactor : null,
+      finalIslandVisualSizeFactor: targetFactor,
+      renderedIslandVisualMajorAxisM: roundDiagnosticNumber(zone.majorAxisM * geometryScale),
+      renderedIslandVisualMinorAxisM: roundDiagnosticNumber(zone.minorAxisM * geometryScale),
+      renderedIslandVisualCenterX: roundDiagnosticNumber(zone.ovalCenter.x),
+      renderedIslandVisualCenterY: roundDiagnosticNumber(zone.ovalCenter.y),
+    };
+    changed = true;
+    const annotated = annotateZoneDiagnostics(zone, diagnostics);
+    return geometryScale < 0.999
+      ? scaleIslandZoneGeometry(annotated, geometryScale)
+      : annotated;
+  });
+  if (!changed) return unit;
+  return {
+    ...unit,
+    zones,
+    sort: {
+      ...unit.sort,
+      majorAxisM: Math.max(...zones.map((zone) => zone.majorAxisM), 0),
+    },
+    displayReadability: displayReadabilityForZones(zones, unit.displayReadability),
+  };
+}
+
+function finalIslandVisualFactorForZone(unit: DisplayUnit, zone: WaterReaderPlacedZone): number | null {
+  if (zone.featureClass !== 'island' || zone.placementKind !== 'island_structure_area') return null;
+  if (unit.entryType === 'structure_confluence') return CONFLUENCE_ISLAND_FINAL_VISUAL_FACTOR;
+  const sizeTier = zone.diagnostics.islandSizeTier;
+  return sizeTier === 'large' || sizeTier === 'giant' ? STANDALONE_LARGE_ISLAND_FINAL_VISUAL_FACTOR : null;
+}
+
+function scaleIslandZoneGeometry(zone: WaterReaderPlacedZone, scale: number): WaterReaderPlacedZone {
+  const scaledMajorAxisM = zone.majorAxisM * scale;
+  const scaledMinorAxisM = zone.minorAxisM * scale;
+  return {
+    ...zone,
+    majorAxisM: scaledMajorAxisM,
+    minorAxisM: scaledMinorAxisM,
+    visibleWaterRing: scaleRingAroundCenter(zone.visibleWaterRing, zone.ovalCenter, scale),
+    unclippedRing: scaleRingAroundCenter(zone.unclippedRing, zone.ovalCenter, scale),
+    diagnostics: {
+      ...zone.diagnostics,
+      islandConfluenceMemberGeometryScale: roundDiagnosticNumber(scale),
+      islandConfluenceMemberMajorAxisBeforeM: roundDiagnosticNumber(zone.majorAxisM),
+      islandConfluenceMemberMinorAxisBeforeM: roundDiagnosticNumber(zone.minorAxisM),
+      islandConfluenceMemberMajorAxisAfterM: roundDiagnosticNumber(scaledMajorAxisM),
+      islandConfluenceMemberMinorAxisAfterM: roundDiagnosticNumber(scaledMinorAxisM),
+    },
+  };
+}
+
+function scaleRingAroundCenter(ring: RingM, center: PointM, scale: number): RingM {
+  return ring.map((point) => ({
+    x: center.x + (point.x - center.x) * scale,
+    y: center.y + (point.y - center.y) * scale,
+  }));
+}
+
 function mixedIslandLineFallbackConfluence(zones: WaterReaderPlacedZone[]): boolean {
   const hasIsland = zones.some((zone) => zone.featureClass === 'island');
   const hasLineFallback = zones.some(nonDisplayedLineFallbackZone);
@@ -1278,8 +1735,8 @@ function confluenceRelationship(
         };
       }
       if (
-        ((sampledTouch || segmentTouch) && (!crossFeatureExactTouchPair(crossFeaturePair) || matchingCrossFeaturePair)) ||
-        (matchingCrossFeaturePair && crossFeatureExactTouchPair(crossFeaturePair) && ringsTouchOrNearExact(aRing, bRing, touchToleranceM))
+        matchingCrossFeaturePair &&
+        ((sampledTouch || segmentTouch) || (crossFeatureExactTouchPair(crossFeaturePair) && ringsTouchOrNearExact(aRing, bRing, touchToleranceM)))
       ) {
         touched = true;
       }
@@ -1348,15 +1805,9 @@ function pointTipOpenWaterConfluenceRelationship(
 }
 
 function crossFeatureDisplayPair(zones: WaterReaderPlacedZone[]): string | null {
-  const classes = new Set(zones.map((zone) => zone.featureClass));
-  const hasPoint = classes.has('main_lake_point') || classes.has('secondary_point');
-  if (classes.has('cove') && hasPoint) return 'cove+point';
-  if (classes.has('cove') && classes.has('neck')) return 'cove+neck';
-  if (classes.has('cove') && classes.has('saddle')) return 'cove+saddle';
-  if (classes.has('island') && hasPoint) return 'island+point';
-  if (classes.has('island') && classes.has('neck')) return 'island+neck';
-  if (classes.has('island') && classes.has('saddle')) return 'island+saddle';
-  return null;
+  const labels = orderedCrossFeaturePairLabels(zones);
+  if (labels.length < 2) return null;
+  return labels.map(confluenceFeatureLabelKey).join('+');
 }
 
 function crossFeatureExactTouchPair(pair: string | null): boolean {
@@ -1365,21 +1816,10 @@ function crossFeatureExactTouchPair(pair: string | null): boolean {
 
 function zonePairMatchesCrossFeaturePair(a: WaterReaderPlacedZone, b: WaterReaderPlacedZone, pair: string | null): boolean {
   if (!pair) return false;
-  if (pair === 'cove+point') return oneZoneIsCoveAndOtherIsPoint(a, b);
-  if (pair === 'cove+neck') return oneZoneIsFeatureClass(a, b, 'cove', 'neck');
-  if (pair === 'island+neck') return oneZoneIsFeatureClass(a, b, 'island', 'neck');
-  if (pair === 'island+saddle') return oneZoneIsFeatureClass(a, b, 'island', 'saddle');
-  return true;
-}
-
-function oneZoneIsCoveAndOtherIsPoint(a: WaterReaderPlacedZone, b: WaterReaderPlacedZone): boolean {
-  const aPoint = a.featureClass === 'main_lake_point' || a.featureClass === 'secondary_point';
-  const bPoint = b.featureClass === 'main_lake_point' || b.featureClass === 'secondary_point';
-  return (a.featureClass === 'cove' && bPoint) || (b.featureClass === 'cove' && aPoint);
-}
-
-function oneZoneIsFeatureClass(a: WaterReaderPlacedZone, b: WaterReaderPlacedZone, left: WaterReaderFeatureClass, right: WaterReaderFeatureClass): boolean {
-  return (a.featureClass === left && b.featureClass === right) || (a.featureClass === right && b.featureClass === left);
+  const pairLabels = new Set(pair.split('+'));
+  const aLabel = confluenceFeatureLabelKey(confluenceFeatureClassLabel(a.featureClass));
+  const bLabel = confluenceFeatureLabelKey(confluenceFeatureClassLabel(b.featureClass));
+  return aLabel !== bLabel && pairLabels.has(aLabel) && pairLabels.has(bLabel);
 }
 
 function nearestZoneDistance(aZones: WaterReaderPlacedZone[], bZones: WaterReaderPlacedZone[]): number {
@@ -1773,6 +2213,7 @@ function prominenceScore(unit: DisplayUnit): number {
 function featureClassMax(displayCap: number): number {
   if (displayCap <= 5) return 3;
   if (displayCap <= 9) return 4;
+  if (displayCap >= 14) return 6;
   return 5;
 }
 
@@ -2023,32 +2464,36 @@ function crossFeatureStructureAreaTitleForZones(zones: WaterReaderPlacedZone[]):
 }
 
 function confluenceFeatureClassTitle(zones: WaterReaderPlacedZone[]): string {
-  const labels: string[] = [];
-  const seen = new Set<string>();
-  for (const featureClass of CONFLUENCE_FEATURE_TITLE_ORDER) {
-    if (!zones.some((zone) => zone.featureClass === featureClass)) continue;
-    const label = confluenceFeatureClassLabel(featureClass);
-    if (seen.has(label)) continue;
-    seen.add(label);
-    labels.push(label);
-  }
-  return labels.join(' + ') || 'Structure';
+  return orderedConfluenceFeatureTitleLabels(zones).join(' + ') || 'Structure';
 }
 
 function confluenceFeatureClassLabelCount(zones: WaterReaderPlacedZone[]): number {
   return new Set(zones.map((zone) => confluenceFeatureClassLabel(zone.featureClass))).size;
 }
 
-const CONFLUENCE_FEATURE_TITLE_ORDER: WaterReaderFeatureClass[] = [
-  'cove',
-  'island',
-  'main_lake_point',
-  'secondary_point',
-  'neck',
-  'saddle',
-  'dam',
-  'universal',
-];
+function orderedCrossFeaturePairLabels(zones: WaterReaderPlacedZone[]): string[] {
+  const present = new Set(zones.map((zone) => confluenceFeatureClassLabel(zone.featureClass)));
+  const order = crossFeaturePairLabelOrder(present);
+  return order.filter((label) => present.has(label));
+}
+
+function orderedConfluenceFeatureTitleLabels(zones: WaterReaderPlacedZone[]): string[] {
+  const present = new Set(zones.map((zone) => confluenceFeatureClassLabel(zone.featureClass)));
+  if (present.size === 2 && present.has('Neck') && present.has('Point')) return ['Neck', 'Point'];
+  return CONFLUENCE_FEATURE_TITLE_LABEL_ORDER.filter((label) => present.has(label));
+}
+
+function crossFeaturePairLabelOrder(present: Set<string>): string[] {
+  if (present.has('Cove')) return ['Cove', 'Point', 'Neck', 'Saddle', 'Island', 'Dam', 'Universal'];
+  if (present.has('Island')) return ['Island', 'Saddle', 'Neck', 'Point', 'Dam', 'Universal'];
+  return ['Neck', 'Saddle', 'Point', 'Dam', 'Universal'];
+}
+
+const CONFLUENCE_FEATURE_TITLE_LABEL_ORDER = ['Cove', 'Island', 'Point', 'Neck', 'Saddle', 'Dam', 'Universal'] as const;
+
+function confluenceFeatureLabelKey(label: string): string {
+  return label.toLowerCase().replace(/\s+/g, '_');
+}
 
 function confluenceFeatureClassLabel(featureClass: WaterReaderFeatureClass): string {
   if (featureClass === 'main_lake_point' || featureClass === 'secondary_point') return 'Point';

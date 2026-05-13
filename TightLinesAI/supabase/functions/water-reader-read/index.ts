@@ -87,7 +87,15 @@ interface HeavyRouteInfo {
   heavy: boolean;
   reason: string | null;
   runtimeGeoJsonBytes: number | null;
+  edgeComplexityScore: number;
 }
+
+const EDGE_INLINE_ORIGINAL_VERTEX_LIMIT = 25000;
+const EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 4500;
+const EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 100000;
+const EDGE_INLINE_INTERIOR_RING_LIMIT = 18;
+const EDGE_INLINE_COMPLEXITY_SCORE_LIMIT = 7500;
+const INTERIOR_RING_COMPLEXITY_WEIGHT = 160;
 
 function mapPreviewBbox(row: PolygonRpcRow): WaterbodyPreviewBbox | null {
   const minLon = row.bbox_min_lon;
@@ -140,18 +148,25 @@ function heavyRouteInfo(polygon: WaterbodyPolygonForWaterReaderRead): HeavyRoute
   const runtimeVertexCount = polygon.runtimeVertexCount ?? 0;
   const interiorRingCount = polygon.runtimeInteriorRingCount ?? polygon.interiorRingCount ?? 0;
   const qaFlags = polygon.polygonQaFlags ?? [];
+  const edgeComplexityScore = runtimeVertexCount + (interiorRingCount * INTERIOR_RING_COMPLEXITY_WEIGHT);
   const reasons = [
-    originalVertexCount >= 25000 ? `original_vertex_count:${originalVertexCount}` : null,
-    runtimeVertexCount >= 8000 ? `runtime_vertex_count:${runtimeVertexCount}` : null,
-    bytes != null && bytes >= 200000 ? `runtime_geojson_bytes:${bytes}` : null,
-    interiorRingCount >= 25 ? `interior_ring_count:${interiorRingCount}` : null,
+    originalVertexCount >= EDGE_INLINE_ORIGINAL_VERTEX_LIMIT ? `original_vertex_count:${originalVertexCount}` : null,
+    runtimeVertexCount >= EDGE_INLINE_RUNTIME_VERTEX_LIMIT ? `runtime_vertex_count:${runtimeVertexCount}` : null,
+    bytes != null && bytes >= EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT ? `runtime_geojson_bytes:${bytes}` : null,
+    interiorRingCount >= EDGE_INLINE_INTERIOR_RING_LIMIT ? `interior_ring_count:${interiorRingCount}` : null,
+    edgeComplexityScore >= EDGE_INLINE_COMPLEXITY_SCORE_LIMIT ? `edge_runtime_complexity_score:${edgeComplexityScore}` : null,
     qaFlags.includes("high_vertex_count") ? "qa_flag:high_vertex_count" : null,
   ].filter(Boolean) as string[];
   return {
     heavy: reasons.length > 0,
     reason: reasons.join(",") || null,
     runtimeGeoJsonBytes: bytes,
+    edgeComplexityScore,
   };
+}
+
+function allowEdgeHeavyLocalFallback(): boolean {
+  return Deno.env.get("WATER_READER_ALLOW_EDGE_HEAVY_FALLBACK") === "true";
 }
 
 function mapPolygonRow(row: PolygonRpcRow): WaterbodyPolygonForWaterReaderRead {
@@ -269,6 +284,7 @@ async function requestHeavyGenerator(params: {
         heavyGenerationStatus: "not_configured",
         heavyGenerationReason: params.heavy.reason,
         runtimeGeoJsonBytes: params.heavy.runtimeGeoJsonBytes,
+        edgeComplexityScore: params.heavy.edgeComplexityScore,
       },
     };
   }
@@ -315,6 +331,7 @@ async function requestHeavyGenerator(params: {
             workerHttpStatus: response.status,
             workerElapsedMs: elapsedMs,
             runtimeGeoJsonBytes: params.heavy.runtimeGeoJsonBytes,
+            edgeComplexityScore: params.heavy.edgeComplexityScore,
             originalVertexCount: json.originalVertexCount ?? null,
             runtimeVertexCount: json.runtimeVertexCount ?? null,
           },
@@ -327,6 +344,7 @@ async function requestHeavyGenerator(params: {
           workerHttpStatus: response.status,
           workerElapsedMs: elapsedMs,
           runtimeGeoJsonBytes: params.heavy.runtimeGeoJsonBytes,
+          edgeComplexityScore: params.heavy.edgeComplexityScore,
           originalVertexCount: json.originalVertexCount ?? null,
           runtimeVertexCount: json.runtimeVertexCount ?? null,
         },
@@ -342,6 +360,7 @@ async function requestHeavyGenerator(params: {
         workerHttpStatus: response.status,
         workerElapsedMs: elapsedMs,
         runtimeGeoJsonBytes: params.heavy.runtimeGeoJsonBytes,
+        edgeComplexityScore: params.heavy.edgeComplexityScore,
       },
     };
   } catch (error) {
@@ -357,6 +376,7 @@ async function requestHeavyGenerator(params: {
         workerHttpStatus: null,
         workerElapsedMs: elapsedMs,
         runtimeGeoJsonBytes: params.heavy.runtimeGeoJsonBytes,
+        edgeComplexityScore: params.heavy.edgeComplexityScore,
       },
     };
   } finally {
@@ -636,44 +656,51 @@ Deno.serve(async (req: Request) => {
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
       );
     }
-    try {
-      const generatedRead = buildServerWaterReaderRead({
-        polygonPayload: polygon,
-        currentDate,
-        fetchMs,
-      });
-      const cacheWrite = await upsertGeneratedRead({
-        supabase,
-        read: generatedRead,
-        seasonContextKey: seasonContext.seasonContextKey,
-      });
-      return new Response(
-        JSON.stringify({
-          ...generatedRead,
-          cacheStatus: "miss",
-          ...cacheWrite,
-          operationalDiagnostics: {
-            ...result.diagnostics,
-            localFallbackStatus: generatedRead.fallbackMessage ? "fallback_no_map" : "generated",
-          },
+    if (allowEdgeHeavyLocalFallback()) {
+      try {
+        const generatedRead = buildServerWaterReaderRead({
+          polygonPayload: polygon,
+          currentDate,
+          fetchMs,
+        });
+        const cacheWrite = await upsertGeneratedRead({
+          supabase,
+          read: generatedRead,
           seasonContextKey: seasonContext.seasonContextKey,
-          mapWidth: WATER_READER_APP_SVG_WIDTH,
-          engineVersion: WATER_READER_ENGINE_VERSION,
-          timings: {
-            ...(generatedRead.timings ?? {}),
-            metadataMs,
-            cacheMs,
-          },
-        }),
-        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
-      );
-    } catch (localError) {
-      console.error("[water-reader-read] local heavy fallback failed", {
-        lakeId: polygon.lakeId,
-        heavyReason: heavy.reason,
-        message: localError instanceof Error ? localError.message : String(localError),
-      });
+        });
+        return new Response(
+          JSON.stringify({
+            ...generatedRead,
+            cacheStatus: "miss",
+            ...cacheWrite,
+            operationalDiagnostics: {
+              ...result.diagnostics,
+              localFallbackStatus: generatedRead.fallbackMessage ? "fallback_no_map" : "generated",
+            },
+            seasonContextKey: seasonContext.seasonContextKey,
+            mapWidth: WATER_READER_APP_SVG_WIDTH,
+            engineVersion: WATER_READER_ENGINE_VERSION,
+            timings: {
+              ...(generatedRead.timings ?? {}),
+              metadataMs,
+              cacheMs,
+            },
+          }),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+        );
+      } catch (localError) {
+        console.error("[water-reader-read] local heavy fallback failed", {
+          lakeId: polygon.lakeId,
+          heavyReason: heavy.reason,
+          message: localError instanceof Error ? localError.message : String(localError),
+        });
+      }
     }
+    console.error("[water-reader-read] heavy generator unavailable for routed read", {
+      lakeId: polygon.lakeId,
+      heavyReason: heavy.reason,
+      diagnostics: result.diagnostics,
+    });
     return new Response(
       JSON.stringify(fallbackReadResponse({
         polygon,

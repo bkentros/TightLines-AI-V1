@@ -274,6 +274,7 @@ export interface WaterReaderReadOperationalDiagnostics {
   workerHttpStatus?: number | null;
   workerElapsedMs?: number | null;
   runtimeGeoJsonBytes?: number | null;
+  edgeComplexityScore?: number | null;
   originalVertexCount?: number | null;
   runtimeVertexCount?: number | null;
 }

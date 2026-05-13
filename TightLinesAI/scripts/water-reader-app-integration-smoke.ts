@@ -70,6 +70,11 @@ assert(serverSource.includes('buildServerWaterReaderRead'), 'server read endpoin
 assert(serverSource.includes('WATER_READER_HEAVY_GENERATOR_URL'), 'server read endpoint should route heavy rows to worker when configured');
 assert(serverSource.includes('x-water-reader-internal-key'), 'server read endpoint should use internal key for diagnostics and worker auth');
 assert(serverSource.includes('heavyRouteInfo'), 'server read endpoint should classify heavy rows structurally');
+assert(serverSource.includes('EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 4500'), 'server read endpoint should route Pontiac-class runtime vertex counts away from the edge worker');
+assert(serverSource.includes('EDGE_INLINE_INTERIOR_RING_LIMIT = 18'), 'server read endpoint should route island-hole-heavy polygons away from the edge worker');
+assert(serverSource.includes('EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 100000'), 'server read endpoint should route large runtime payloads away from the edge worker');
+assert(serverSource.includes('edge_runtime_complexity_score'), 'server read endpoint should diagnose combined edge runtime complexity routing');
+assert(serverSource.includes('WATER_READER_ALLOW_EDGE_HEAVY_FALLBACK'), 'server read endpoint should require explicit opt-in before heavy local fallback');
 assert(serverSource.includes('.upsert({'), 'server read endpoint should write generated cache misses');
 assert(!serverSource.includes('This Water Reader map is still being prepared.'), 'cache miss should no longer return preparing fallback');
 assert(appSource.includes("r.hasPolygonGeometry && r.waterReaderSupportStatus !== 'not_supported'"), 'app should open every polygon-backed non-blocked support status');
@@ -77,6 +82,8 @@ assert(appSource.includes('same-name') && appSource.includes('compare county and
 assert(appSource.includes('const SEARCH_RESULT_LIMIT = 20'), 'app search should request enough candidates for same-name lake discovery');
 assert(appSource.includes('nestedScrollEnabled') && appSource.includes('dropdownListContent'), 'app search dropdown should be independently scrollable');
 assert(appSource.includes('CountyFilterChip') && appSource.includes('countyFilter'), 'app search should expose county chips for dense same-name results');
+assert(appSource.includes("water-reader-pontiac-sample.png"), 'idle preview should use a bundled static Water Read sample image');
+assert(!appSource.includes("const PREVIEW_LAKE_QUERY = 'Pontiac'"), 'idle preview should not fetch Pontiac on mount');
 assert(serverSource.includes('cacheWriteStatus'), 'server read endpoint should report cache write status');
 assert(searchFunctionSource.includes('CURATED_3DHP_ALIASES') && searchFunctionSource.includes('Lake Fork Reservoir'), 'search fallback should preserve curated aliases for unlabeled 3DHP polygons');
 assert(searchFunctionSource.includes('waterbody_shared_states!inner') && searchFunctionSource.includes('search telemetry'), 'search edge should log weak searches and handle database-backed shared-state aliases');

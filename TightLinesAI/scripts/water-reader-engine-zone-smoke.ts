@@ -772,6 +772,142 @@ assert(
   'compact island+point overlap should display as one unified Island + Point structure area',
 );
 
+const neckPointOverlapResult = {
+  ...pointResult,
+  zones: [
+    pointZone,
+    {
+      ...pointZone,
+      zoneId: 'zone-neck-point-overlap',
+      sourceFeatureId: 'neck-point-overlap',
+      featureClass: 'neck' as const,
+      placementKind: 'neck_structure_area' as const,
+      placementSemanticId: 'neck_structure_area' as const,
+      anchorSemanticId: 'neck_structure_area' as const,
+      colorHex: WATER_READER_FEATURE_COLORS.neck,
+      diagnostics: {
+        ...pointZone.diagnostics,
+        featureEnvelopeSourceFeatureId: 'neck-point-overlap',
+        featureEnvelopeGeometryKind: 'neck_structure_envelope',
+      },
+    },
+  ],
+  diagnostics: {
+    ...pointResult.diagnostics,
+    zoneCount: 2,
+    confluenceGroupCount: 0,
+    confluenceGroups: [],
+  },
+} as typeof pointResult;
+const neckPointLegend = buildWaterReaderLegend(neckPointOverlapResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
+const neckPointDisplay = buildWaterReaderDisplayModel(neckPointOverlapResult, neckPointLegend, {
+  acreage: 80,
+  longestDimensionM: fixture.longestDimensionM,
+});
+assert(
+  neckPointDisplay.displayedEntries.some((entry) =>
+    entry.entryType === 'structure_confluence' &&
+    entry.legend?.title === 'Neck + Point - Structure Area' &&
+    entry.zones.some((zone) => zone.diagnostics.crossFeatureOverlapPair === 'neck+point')
+  ),
+  'compact neck+point overlap should display as one unified Neck + Point structure area',
+);
+
+const sameClassPointOverlapResult = {
+  ...pointResult,
+  zones: [
+    pointZone,
+    {
+      ...pointZone,
+      zoneId: 'zone-point-point-overlap',
+      sourceFeatureId: 'point-point-overlap',
+    },
+  ],
+  diagnostics: {
+    ...pointResult.diagnostics,
+    zoneCount: 2,
+    confluenceGroupCount: 0,
+    confluenceGroups: [],
+  },
+} as typeof pointResult;
+const sameClassPointLegend = buildWaterReaderLegend(sameClassPointOverlapResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
+const sameClassPointDisplay = buildWaterReaderDisplayModel(sameClassPointOverlapResult, sameClassPointLegend, {
+  acreage: 80,
+  longestDimensionM: fixture.longestDimensionM,
+});
+assert(
+  !sameClassPointDisplay.displayedEntries.some((entry) => entry.entryType === 'structure_confluence'),
+  'same-class point overlap should not normalize into a confluence display entry',
+);
+
+const mixedQuestionableConstrictionResult = {
+  ...pointResult,
+  zones: [
+    pointZone,
+    {
+      ...pointZone,
+      zoneId: 'zone-cove-point-overlap',
+      sourceFeatureId: 'cove-point-overlap',
+      featureClass: 'cove' as const,
+      placementKind: 'cove_structure_area' as const,
+      placementSemanticId: 'cove_structure_area' as const,
+      anchorSemanticId: 'cove_structure_area' as const,
+      colorHex: WATER_READER_FEATURE_COLORS.cove,
+      diagnostics: {
+        ...pointZone.diagnostics,
+        featureEnvelopeSourceFeatureId: 'cove-point-overlap',
+        featureEnvelopeGeometryKind: 'cove_structure_envelope',
+      },
+    },
+    {
+      ...pointZone,
+      zoneId: 'zone-questionable-neck-overlap',
+      sourceFeatureId: 'questionable-neck-overlap',
+      featureClass: 'neck' as const,
+      placementKind: 'neck_structure_area' as const,
+      placementSemanticId: 'neck_structure_area' as const,
+      anchorSemanticId: 'neck_structure_area' as const,
+      colorHex: WATER_READER_FEATURE_COLORS.neck,
+      qaFlags: [...pointZone.qaFlags, 'micro_pinch_low_value'],
+      diagnostics: {
+        ...pointZone.diagnostics,
+        featureEnvelopeSourceFeatureId: 'questionable-neck-overlap',
+        featureEnvelopeGeometryKind: 'neck_structure_envelope',
+        constrictionDisplayClass: 'retained_questionable_constriction',
+        constrictionKind: 'micro_pinch',
+        constrictionConfidence: 0.42,
+      },
+    },
+  ],
+  diagnostics: {
+    ...pointResult.diagnostics,
+    zoneCount: 3,
+    confluenceGroupCount: 0,
+    confluenceGroups: [],
+  },
+} as typeof pointResult;
+const mixedQuestionableLegend = buildWaterReaderLegend(mixedQuestionableConstrictionResult, { state: 'MI', currentDate: new Date(Date.UTC(2026, 4, 1)) });
+const mixedQuestionableDisplay = buildWaterReaderDisplayModel(mixedQuestionableConstrictionResult, mixedQuestionableLegend, {
+  acreage: 80,
+  longestDimensionM: fixture.longestDimensionM,
+});
+assert(
+  mixedQuestionableDisplay.displayedEntries.some((entry) =>
+    entry.entryType === 'structure_confluence' &&
+    entry.legend?.title === 'Cove + Point - Structure Area' &&
+    entry.zones.every((zone) => zone.featureClass !== 'neck') &&
+    entry.zones.some((zone) => zone.diagnostics.readableMembersRecoveredAfterConstrictionRetention === true)
+  ),
+  'readable cove/point members should recover after questionable constriction is retained from a mixed confluence',
+);
+assert(
+  mixedQuestionableDisplay.retainedEntries.some((entry) =>
+    entry.featureClasses.includes('neck') &&
+    entry.zones.some((zone) => zone.diagnostics.retainedQuestionableConstrictionMember === true)
+  ),
+  'questionable constriction member should remain retained after mixed confluence split',
+);
+
 const duplicateNeckConfluenceLegend = buildWaterReaderLegend({
   ...neckResult,
   diagnostics: {
@@ -929,12 +1065,11 @@ const displayBalanceModel = buildWaterReaderDisplayModel(displayBalanceResult, d
   longestDimensionM: fixture.longestDimensionM,
 });
 assert(
-  displayBalanceModel.displayedEntries.some((entry) => entry.featureClasses.includes('saddle') && entry.rankingDiagnostics.includes('displayed_non_point_over_excess_main_point')) &&
-    displayBalanceModel.retainedEntries.some((entry) => entry.featureClasses.includes('main_lake_point') && entry.rankingDiagnostics.includes('retained_excess_main_point_display_balance')) &&
-    !displayBalanceModel.retainedEntries.some((entry) => entry.featureClasses.includes('saddle')),
-  '4+ displayed main-lake points with a retained saddle should rebalance the saddle into display',
+  displayBalanceModel.retainedEntries.some((entry) => entry.featureClasses.includes('saddle')) &&
+    !displayBalanceModel.displayedEntries.some((entry) => entry.featureClasses.includes('saddle') && entry.rankingDiagnostics.includes('displayed_non_point_over_excess_main_point')),
+  'retained saddle should not be rebalanced into display as non-constriction backfill',
 );
-assert(displayBalanceModel.capExceeded, 'true cap-retained structure should keep capExceeded true');
+assert(!displayBalanceModel.capExceeded, 'readability-retained saddle should not mark the model as cap-exceeded');
 
 const recoveryNeckBase = neckZones.find((zone) => zone.featureClass === 'neck')!;
 const recoverySaddleBase = broadSaddleZones.find((zone) => zone.featureClass === 'saddle')!;
@@ -1091,14 +1226,13 @@ const smallCapDisplay = buildWaterReaderDisplayModel(combinedCapResult, combined
   acreage: 50,
   longestDimensionM: fixture.longestDimensionM,
 });
-assert(smallCapDisplay.displayCap === 6, 'small water display cap should be 6 entries');
-assert(smallCapDisplay.capExceeded, 'display cap should report exceeded when valid entries overflow');
+assert(smallCapDisplay.displayCap === 8, 'small water display cap should be 8 entries');
+assert(smallCapDisplay.displayedEntries.length <= smallCapDisplay.displayCap, 'display cap should limit displayed entries');
 assertDisplayLegendAlignment(smallCapDisplay);
 assertStandaloneEntriesHaveOneZone(smallCapDisplay);
 assert(
-  smallCapDisplay.retainedEntries.length > 0 &&
-    smallCapDisplay.retainedEntries.every((entry) => entry.displayState === 'retained_not_displayed_cap' && entry.displayNumber === null),
-  'overflow valid structure should become retained_not_displayed_cap',
+  smallCapDisplay.retainedEntries.every((entry) => entry.displayNumber === null),
+  'retained display entries should not receive display numbers',
 );
 assert(smallCapDisplay.displayLegendEntries.length === smallCapDisplay.displayedEntries.length, 'display legend should be built from displayed entries only');
 assert(
@@ -1127,14 +1261,14 @@ const mediumCapDisplay = buildWaterReaderDisplayModel(combinedCapResult, combine
   acreage: 500,
   longestDimensionM: fixture.longestDimensionM,
 });
-assert(mediumCapDisplay.displayCap === 10, 'medium water display cap should be 10 entries');
+assert(mediumCapDisplay.displayCap === 12, 'medium water display cap should be 12 entries');
 assertDisplayLegendAlignment(mediumCapDisplay);
 assertStandaloneEntriesHaveOneZone(mediumCapDisplay);
 const largeCapDisplay = buildWaterReaderDisplayModel(combinedCapResult, combinedCapLegend, {
   acreage: 1500,
   longestDimensionM: fixture.longestDimensionM,
 });
-assert(largeCapDisplay.displayCap === 12, 'large/unknown water display cap should be 12 entries');
+assert(largeCapDisplay.displayCap === 14, 'large/unknown water display cap should be 14 entries');
 assertDisplayLegendAlignment(largeCapDisplay);
 assertStandaloneEntriesHaveOneZone(largeCapDisplay);
 assert(
