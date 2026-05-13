@@ -1,5 +1,5 @@
 /**
- * Onboarding Step 2 — Username + home water only.
+ * Onboarding Step 2 — quick profile setup.
  * Username format validates on-device (instant). Uniqueness is enforced by one
  * `upsert` on Finish — no Supabase round trip while typing.
  */
@@ -109,8 +109,8 @@ export default function OnboardingStep2() {
       const { status } = await Location.requestForegroundPermissionsAsync();
       if (status !== 'granted') {
         Alert.alert(
-          'Location permission needed',
-          'Allow location to fill your state and city, or enter them manually.',
+          'Location helps your reads',
+          'Allow location to fill your home water and sync local weather, tides when relevant, and fishing conditions. You can also enter it manually.',
         );
         return;
       }
@@ -270,19 +270,34 @@ export default function OnboardingStep2() {
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
           >
-            <View style={styles.eyebrowRow}>
-              <Text style={styles.pageEyebrow}>USERNAME & HOME WATER</Text>
+            <View style={styles.heroPanel}>
+              <View style={styles.heroTopRow}>
+                <View style={styles.heroBadge}>
+                  <Ionicons name="fish-outline" size={22} color={paper.dashboardCream} />
+                </View>
+                <View style={styles.heroKickerWrap}>
+                  <Text style={styles.pageEyebrow}>QUICK SETUP</Text>
+                  <Text style={styles.heroMeta}>Username + home water</Text>
+                </View>
+              </View>
+
+              <Text style={styles.heroTitle}>Almost fishing.</Text>
+              <Text style={styles.heroLede}>
+                Set your public handle and home area so FinFindr can open on a local,
+                useful read.
+              </Text>
+
+              <View style={styles.benefitRow}>
+                <BenefitPill icon="speedometer-outline" label="Local reports" />
+                <BenefitPill icon="partly-sunny-outline" label="Weather sync" />
+                <BenefitPill icon="water-outline" label="Water reads" />
+              </View>
             </View>
 
-            <Text style={styles.heroTitle}>Almost fishing.</Text>
-            <Text style={styles.heroLede}>
-              Pick a public username and where you usually fish — that&apos;s all we need
-              to personalize your read.
-            </Text>
-
-            <Section
+            <SetupPanel
+              icon="person-circle-outline"
               label="USERNAME"
-              hint="3–30 characters, letters, numbers, underscores. Uniqueness is checked when you finish."
+              hint="This is your public handle. Keep it short and easy to recognize."
             >
               <View style={styles.usernameRow}>
                 <TextInput
@@ -311,13 +326,15 @@ export default function OnboardingStep2() {
                 <Text style={styles.errorText}>Only letters, numbers, and underscores.</Text>
               )}
               {usernameFieldOk && (
-                <Text style={styles.successText}>Good format — tap Finish to claim it.</Text>
+                <Text style={styles.successText}>Looks good. We&apos;ll claim it when you finish.</Text>
               )}
-            </Section>
+            </SetupPanel>
 
-            <View style={styles.section}>
-              <View style={styles.sectionHeader}>
-                <Text style={styles.sectionLabel}>HOME WATER</Text>
+            <SetupPanel
+              icon="location-outline"
+              label="HOME WATER"
+              hint="State is required. City helps FinFindr start with conditions close to where you fish."
+              action={
                 <Pressable
                   style={({ pressed }) => [
                     styles.locAutoBtn,
@@ -333,14 +350,11 @@ export default function OnboardingStep2() {
                     <Ionicons name="location-outline" size={13} color={paper.dashboardBlue} />
                   )}
                   <Text style={styles.locAutoBtnText}>
-                    {locationLoading ? 'FINDING…' : 'USE LOCATION'}
+                    {locationLoading ? 'FINDING...' : 'USE LOCATION'}
                   </Text>
                 </Pressable>
-              </View>
-              <Text style={styles.sectionHint}>
-                State is required. City helps local conditions on Home.
-              </Text>
-
+              }
+            >
               <Pressable
                 style={styles.statePicker}
                 onPress={() => {
@@ -401,7 +415,7 @@ export default function OnboardingStep2() {
                 returnKeyType="done"
                 maxLength={60}
               />
-            </View>
+            </SetupPanel>
 
             <Pressable
               style={({ pressed }) => [
@@ -416,7 +430,7 @@ export default function OnboardingStep2() {
                 <ActivityIndicator color={paper.dashboardCream} />
               ) : (
                 <>
-                  <Text style={styles.ctaText}>FINISH & GO FISHING</Text>
+                  <Text style={styles.ctaText}>FINISH SETUP</Text>
                   <Ionicons name="arrow-forward" size={16} color={paper.dashboardCream} />
                 </>
               )}
@@ -430,18 +444,45 @@ export default function OnboardingStep2() {
   );
 }
 
-function Section({
+function BenefitPill({
+  icon,
+  label,
+}: {
+  icon: keyof typeof Ionicons.glyphMap;
+  label: string;
+}) {
+  return (
+    <View style={styles.benefitPill}>
+      <Ionicons name={icon} size={13} color={paper.dashboardBlue} />
+      <Text style={styles.benefitPillText}>{label}</Text>
+    </View>
+  );
+}
+
+function SetupPanel({
+  icon,
   label,
   hint,
+  action,
   children,
 }: {
+  icon: keyof typeof Ionicons.glyphMap;
   label: string;
   hint?: string;
+  action?: React.ReactNode;
   children: React.ReactNode;
 }) {
   return (
-    <View style={styles.section}>
-      <Text style={styles.sectionLabel}>{label}</Text>
+    <View style={styles.setupPanel}>
+      <View style={styles.sectionHeader}>
+        <View style={styles.sectionTitleRow}>
+          <View style={styles.sectionIcon}>
+            <Ionicons name={icon} size={16} color={paper.dashboardBlue} />
+          </View>
+          <Text style={styles.sectionLabel}>{label}</Text>
+        </View>
+        {action}
+      </View>
       {hint ? <Text style={styles.sectionHint}>{hint}</Text> : null}
       {children}
     </View>
@@ -467,7 +508,31 @@ const styles = StyleSheet.create({
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
   },
-  eyebrowRow: { marginBottom: paperSpacing.md },
+  heroPanel: {
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    padding: paperSpacing.lg,
+    marginBottom: paperSpacing.xl,
+  },
+  heroTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.md,
+    marginBottom: paperSpacing.md,
+  },
+  heroBadge: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    borderWidth: 2,
+    borderColor: paper.dashboardInk,
+    backgroundColor: paper.dashboardBlue,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroKickerWrap: { flex: 1 },
   pageEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
@@ -475,36 +540,89 @@ const styles = StyleSheet.create({
     color: paper.dashboardBlue,
     fontWeight: '700',
   },
+  heroMeta: {
+    marginTop: 3,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    color: paper.dashboardInk,
+    opacity: 0.62,
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
+  },
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 34,
+    fontSize: 36,
     color: paper.dashboardInk,
     fontWeight: '700',
     letterSpacing: 0,
-    lineHeight: 38,
+    lineHeight: 40,
     marginBottom: paperSpacing.xs,
   },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
     color: paper.dashboardInk,
-    opacity: 0.7,
-    lineHeight: 20,
-    marginBottom: paperSpacing.section,
+    opacity: 0.72,
+    lineHeight: 21,
+    marginBottom: paperSpacing.md,
   },
-  section: { marginBottom: paperSpacing.xl },
+  benefitRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    gap: paperSpacing.sm,
+  },
+  benefitPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 999,
+    backgroundColor: '#F8FAFB',
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: 6,
+  },
+  benefitPillText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.dashboardInk,
+    opacity: 0.76,
+  },
+  setupPanel: {
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
+  },
   sectionHeader: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
+    flexWrap: 'wrap',
+    gap: paperSpacing.md,
     marginBottom: paperSpacing.xs,
+  },
+  sectionTitleRow: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+  },
+  sectionIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: paper.dashboardBlueSky,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sectionLabel: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 10.5,
     color: paper.dashboardInk,
     letterSpacing: 2.2,
-    marginBottom: paperSpacing.xs,
     fontWeight: '700',
   },
   sectionHint: {
@@ -512,11 +630,12 @@ const styles = StyleSheet.create({
     fontSize: 12.5,
     color: paper.dashboardInk,
     opacity: 0.65,
-    marginBottom: paperSpacing.sm,
+    lineHeight: 18,
+    marginBottom: paperSpacing.md,
   },
   input: {
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
+    borderRadius: 8,
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.md,
@@ -549,7 +668,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
     paddingHorizontal: paperSpacing.sm,
-    paddingVertical: 4,
+    paddingVertical: 6,
     borderRadius: 999,
     borderWidth: 1.5,
     borderColor: paper.dashboardBlue,
@@ -567,7 +686,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
+    borderRadius: 8,
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.md,
@@ -581,7 +700,7 @@ const styles = StyleSheet.create({
   statePickerPlaceholder: { opacity: 0.55 },
   stateList: {
     marginTop: paperSpacing.xs,
-    borderRadius: 12,
+    borderRadius: 8,
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
     backgroundColor: paper.dashboardWhite,
@@ -610,9 +729,9 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardBlue,
     borderWidth: 2,
     borderColor: paper.dashboardInk,
-    borderRadius: 12,
+    borderRadius: 8,
     paddingVertical: paperSpacing.md,
-    marginTop: paperSpacing.sm,
+    marginTop: paperSpacing.md,
   },
   ctaPressed: { backgroundColor: paper.dashboardBlue },
   btnDisabled: { opacity: 0.55 },
