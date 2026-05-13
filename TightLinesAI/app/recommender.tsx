@@ -917,6 +917,7 @@ export default function RecommenderScreen() {
   const params = useLocalSearchParams<{
     latitude?: string;
     longitude?: string;
+    location_label?: string;
     species?: string;
     context?: string;
   }>();
@@ -926,6 +927,12 @@ export default function RecommenderScreen() {
   const lat = parseFloat(params.latitude ?? "");
   const lon = parseFloat(params.longitude ?? "");
   const hasCoords = !isNaN(lat) && !isNaN(lon);
+  const locationLabel =
+    typeof params.location_label === "string" && params.location_label.trim().length > 0
+      ? params.location_label.trim()
+      : hasCoords
+      ? `${lat.toFixed(3)}, ${lon.toFixed(3)}`
+      : "Current location";
 
   const initialSpecies =
     typeof params.species === "string" && isDailyPicksUiSpecies(params.species)
@@ -953,6 +960,9 @@ export default function RecommenderScreen() {
 
   const [screenState, setScreenState] = useState<ScreenState>("setup");
   const [result, setResult] = useState<RecommenderResponse | null>(null);
+  const [resultTimeZone, setResultTimeZone] = useState<string | undefined>(
+    undefined,
+  );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
 
@@ -1111,6 +1121,9 @@ export default function RecommenderScreen() {
         if (!dailySnapshot) {
           throw new Error("daily_snapshot_unavailable");
         }
+        const timeZone = typeof dailySnapshot.envData.timezone === "string"
+          ? dailySnapshot.envData.timezone
+          : undefined;
         const res = await fetchRecommendation(
           {
             latitude: lat,
@@ -1134,6 +1147,7 @@ export default function RecommenderScreen() {
         }
 
         setResult(res);
+        setResultTimeZone(timeZone);
         setScreenState("result");
       } catch (err: unknown) {
         const friendlyMessage = recommenderErrorMessage(err, species, context);
@@ -1171,6 +1185,7 @@ export default function RecommenderScreen() {
     setScreenState("setup");
     setWizardStep(1);
     setResult(null);
+    setResultTimeZone(undefined);
     setErrorMsg(null);
     setIsRefreshing(false);
     setSpecies(null);
@@ -1646,6 +1661,8 @@ export default function RecommenderScreen() {
         <RecommenderView
           result={result}
           style={styles.resultView}
+          locationLabel={locationLabel}
+          timeZone={resultTimeZone}
           onRefresh={() => handleFetch(true)}
           onViewVariant={(variant) => handleFetch(false, variant)}
           isRefreshing={isRefreshing}
@@ -2178,9 +2195,9 @@ const wizardStyles = StyleSheet.create({
   navIconButton: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 5,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    gap: 4,
+    paddingHorizontal: 7,
+    paddingVertical: 4,
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.2)",
     borderRadius: 999,
@@ -2188,9 +2205,9 @@ const wizardStyles = StyleSheet.create({
   },
   navIconButtonText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
+    fontSize: 9,
     color: "#FFFFFF",
-    letterSpacing: 2.2,
+    letterSpacing: 1.6,
   },
   navRight: {
     minWidth: 62,

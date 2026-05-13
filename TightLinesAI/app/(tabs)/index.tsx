@@ -434,9 +434,10 @@ export default function HomeScreen() {
     if (coords) {
       params.latitude = String(coords.lat);
       params.longitude = String(coords.lon);
+      params.location_label = locationLabel;
     }
     router.push({ pathname: '/recommender', params });
-  }, [hasSubscription, coords, router]);
+  }, [hasSubscription, coords, locationLabel, router]);
 
   const handleWaterReadPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Light);

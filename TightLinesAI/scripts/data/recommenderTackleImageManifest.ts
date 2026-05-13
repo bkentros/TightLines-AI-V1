@@ -335,7 +335,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "texas_rigged_soft_plastic_craw",
     kind: "lure",
-    displayName: "Texas-Rigged Soft-Plastic Craw",
+    displayName: "Texas-Rigged Craw",
     anatomy:
       "Texas rig in horizontal side profile (same left–right layout as other lure cards — not a vertical top-to-bottom stack). Main line through a modest bullet or flipping weight above the hook (weight slightly small, not a huge cone), line tied to eye of offset wide-gap hook. Weedless Texas craw: point buried under plastic; claws and appendages read clearly. Single hook; no swivel. Craw body runs along the frame like other horizontal baits.",
   },
@@ -419,7 +419,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "soft_jerkbait",
     kind: "lure",
-    displayName: "Soft Plastic Jerkbait",
+    displayName: "Soft Jerkbait",
     anatomy:
       "Unrigged soft plastic — **Zoom Salty Super Fluke class** (salt-impregnated shad imitator anglers recognize by silhouette): ~5–5.25 inch proportions in the frame, slender tapering baitfish body, slightly **deep belly**, **molded belly hook slot** along the mid-ventral line (reads as a subtle slit / groove on the lower silhouette in side view). Tail narrows to a **deep fork** with two long, thin soft tail lobes tapering to points — classic erratic-dart fluke tail, **not** a single flat paddle, **not** curly or ribbon. Nose is narrow and softly pointed. Matte soft-plastic. Hardware: none (no hook, nail weight, or jig). The finished shape must be visually indistinguishable from that bait lying **flat on its side** for measurement — identical lateral outline to a Salty Super Fluke, not a hard jerkbait minnow and not a swimbait.",
   },
@@ -489,14 +489,14 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "small_floating_trout_plug",
     kind: "lure",
-    displayName: "Small Floating Trout Plug",
+    displayName: "Floating Trout Plug",
     anatomy:
       "Small slim floating minnow plug for trout: tiny lip or wake lip, single hooks (treble or singles per classic trout plug style) — keep tidy and small-bodied; no offshore trolling plug scale.",
   },
   {
     key: "walking_topwater",
     kind: "lure",
-    displayName: "Walking Topwater",
+    displayName: "Walking Bait",
     anatomy:
       "Zara-style cigar walker: no deep cup, tail-heavy walkers show belly hooks; trebles belly/tail.",
   },
@@ -552,7 +552,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "pike_spinnerbait",
     kind: "lure",
-    displayName: "Pike Spinnerbait",
+    displayName: "Oversized Spinnerbait",
     anatomy:
       "Oversized safety-pin spinnerbait built for pike: heavy V-wire frame, large blades on upper arm, bulky skirt or pike-scale trailer on lower jig head, stout single hook. Larger and heavier than bass spinnerbait, no trebles.",
   },
@@ -566,14 +566,14 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "shallow_minnowbait",
     kind: "lure",
-    displayName: "Shallow Minnowbait",
+    displayName: "Shallow Twitchbait",
     anatomy:
       "Shallow-running hard minnowbait for pike: elongated floating minnow body, tiny shallow lip or twitchbait bill, two or three trebles, durable pike-scale hardware. No deep diving bill, no glide joint, no soft plastic tail.",
   },
   {
     key: "pike_glidebait",
     kind: "lure",
-    displayName: "Pike Glide Bait",
+    displayName: "Large Glide Bait",
     anatomy:
       "Large pike/musky glide bait: big hard two-section baitfish body with one visible hinge, heavy split rings and trebles, realistic perch or baitfish proportions. No diving lip, no spinner blades, no soft paddle tail.",
   },
@@ -594,28 +594,28 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "large_pike_topwater",
     kind: "lure",
-    displayName: "Large Pike Topwater",
+    displayName: "Large Walking Bait",
     anatomy:
       "Large **walk-the-dog** topwater in the **Heddon Zara Spook** lineage (same silhouette anglers associate with ‘the Spook’): elongated **symmetric cigar / torpedo** hard body, gently rounded nose — **no** deep **popper** cup or scooped splash mouth, **no** nose or tail **propeller**, **no** buzz blade, **not** a pencil popper. Line tie at the **nose**. Two **treble hooks** on split rings (belly + tail) typical; hardware can read a bit heavier for pike/musky but the **body style stays Spook**, not chugger/wake/prop bait.",
   },
   {
     key: "pike_jig_and_plastic",
     kind: "lure",
-    displayName: "Paddle Tail Pike Jig",
+    displayName: "Heavy Paddle-Tail Swimbait",
     anatomy:
       "Heavy jig head with large **single** hook and long **paddle-tail** soft-plastic trailer; esox proportions, not bass Ned. **No weed guard** — no fiber/brush/bristle guard above the hook; clean collar from head to exposed hook only.",
   },
   {
     key: "large_pike_tube",
     kind: "lure",
-    displayName: "Large Pike Tube",
+    displayName: "Large Tube Jig",
     anatomy:
       "Large pike tube rigged on a stout jig head: oversized hollow tube body with flared tentacles, heavy single hook, baitfish/perch-scale profile, built for pike/musky rather than bass finesse. It should look larger and heavier than tube_jig.",
   },
   {
     key: "big_smallmouth_tube",
     kind: "lure",
-    displayName: "Big Smallmouth Tube",
+    displayName: "Big Tube Jig",
     anatomy:
       "Larger smallmouth tube jig: oversized hollow tube body on internal jig head, tentacle skirt flared at rear, exposed single jig hook, goby/craw/baitfish profile. Bigger than finesse tube_jig but not a pike tube.",
   },
@@ -651,14 +651,14 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "articulated_baitfish_streamer",
     kind: "fly",
-    displayName: "Articulated Baitfish Streamer",
+    displayName: "Articulated Baitfish",
     anatomy:
       "Modern **articulated streamer fly**: **two (or more) single streamer hooks** in tandem, joined only by **trailer wire, braid loop, or short shank** — show **small wire/ring** hinge between sections. Each section tied with **bucktail, craft fur, flash blend, ostrich, etc.** — **soft fiber, vise and thread**. **FORBIDDEN**: **any** clear or painted **diving lip / bill** (this is not a crankbait); **FORBIDDEN**: **treble hooks**; hard plastic minnow shell, swimbait plate segments, or conventional lure hardware; stick-on 3D fish scales on plastic blanks.",
   },
   {
     key: "articulated_dungeon_streamer",
     kind: "fly",
-    displayName: "Articulated Dungeon Streamer",
+    displayName: "Dungeon Streamer",
     anatomy:
       "Honor the opening **PATTERN LOCK** checklist (Sex Dungeon). Emphasize **bulk forward** from **deer hair** + **dumbbells**, **length aft** from **marabou**; total **5–7 inch** impression in frame. **Articulation** visible as **small metal loop** only — each half **fully dressed** with tying thread at wraps. **FORBIDDEN**: one-hook flat streamer; rabbit strip leech bead/zonker tail (that's rabbit_strip_leech); 3D molded shad body.",
   },
@@ -686,7 +686,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "jighead_marabou_leech",
     kind: "fly",
-    displayName: "Jighead Marabou Leech",
+    displayName: "Jigged Marabou Leech",
     anatomy:
       "Weighted jig hook with stacked marabou and flash; lead or painted head obvious; single hook only.",
   },
@@ -700,7 +700,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "feather_jig_leech",
     kind: "fly",
-    displayName: "Feather Jig Leech",
+    displayName: "Marabou Jig Leech",
     anatomy:
       "Feathered wing over marabou or flash, weighted head, single hook; looks tied, not plastic bait.",
   },
@@ -749,7 +749,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "warmwater_crawfish_fly",
     kind: "fly",
-    displayName: "Warmwater Crawfish Fly",
+    displayName: "Crawfish Fly",
     anatomy:
       "Bass-bug style craw: wide silhouette, dumbbell eyes, silicone or sili legs, maybe deer hair or foam carapace; single hook; reads as bass-craw fly not crankbait.",
   },
@@ -770,28 +770,28 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "pike_bunny_streamer",
     kind: "fly",
-    displayName: "Large Rabbit Strip Streamer",
+    displayName: "Bunny Streamer",
     anatomy:
       "Long zonker strip for esox, big hook, heavy eyes or head; bulky but streamlined for pike/musky.",
   },
   {
     key: "large_articulated_pike_streamer",
     kind: "fly",
-    displayName: "Articulated Pike Streamer",
+    displayName: "Big Articulated Streamer",
     anatomy:
       "Long multi-section pike fly: big head fibers, long trailing tail, two+ hook sections articulated; one fly.",
   },
   {
     key: "unweighted_baitfish_streamer",
     kind: "fly",
-    displayName: "Unweighted Baitfish Streamer",
+    displayName: "Unweighted Baitfish",
     anatomy:
       "Light bucktail/synthetic minnow with no heavy cone; neutral sink look; single hook.",
   },
   {
     key: "baitfish_slider_fly",
     kind: "fly",
-    displayName: "Baitfish Slider Fly",
+    displayName: "Baitfish Slider",
     anatomy:
       "**Baitfish slider (simpler tie):** **brown deer-hair bullet head**, **big white/black doll eyes**, **rust/pink collar**, **long tan bucktail** — lean wake **minnow** profile, single hook. **NOT** the multi-color navy-orange-white-pink banded head (**deer_hair_slider**). **FORBIDDEN**: foam popper; trebles; vise.",
   },
@@ -805,7 +805,7 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "popper_fly",
     kind: "fly",
-    displayName: "Popper Fly",
+    displayName: "Bass Popper",
     anatomy:
       "Foam or spun hair popper head with cup face, short collar, tail fibers; single surface hook.",
   },
@@ -826,21 +826,21 @@ export const TACKLE_PROMPTS: readonly TacklePromptEntry[] = [
   {
     key: "frog_fly",
     kind: "fly",
-    displayName: "Frog Fly",
+    displayName: "Frog Popper",
     anatomy:
       "**Frog popper (reference):** **hard olive mottled head**; **deep red concave popper face** with **central line tie**; **yellow ring + black pupil** eyes on sides; **tan rubber legs** + **yellow/olive hackle-marabou tail**; **mono/wire weed guard**; single hook beneath body, broadside. **FORBIDDEN**: deer-hair striped frog; trebles; walking hollow frog; vise.",
   },
   {
     key: "mouse_fly",
     kind: "fly",
-    displayName: "Mouse Fly",
+    displayName: "Mouse Pattern",
     anatomy:
       "Deer hair or foam mouse with naked tail strip, single big gap hook; reads as night mouse pattern — avoid photoreal fur face; tied fly.",
   },
   {
     key: "pike_flash_fly",
     kind: "fly",
-    displayName: "Pike Flash Fly",
+    displayName: "Flash Fly",
     anatomy:
       "Flash-forward esox baitfish: long flash blend wing, short heavy head, big single or tandem hook esox style; flashy but still a dressed fly.",
   },

@@ -2,7 +2,7 @@
  * RecommenderView — FinFindr "What to Throw Today" experience.
  *
  * Renders the daily-picks 2x2 future response:
- * Lure of the Day, Honorable Mention Lure, Fly of the Day, Honorable Mention Fly.
+ * top lure, honorable lure, top fly, and honorable fly.
  */
 
 import React, { useEffect, useRef } from 'react';
@@ -35,8 +35,6 @@ import { getSpeciesImage } from '../../lib/speciesImages';
 import { getFlyImage } from '../../lib/flyImages';
 import { getLureImage } from '../../lib/lureImages';
 import type {
-  DailyPickSlot,
-  DailyPicksConditionTag,
   DailyPicksResponse,
   DailyPicksResponsePick,
   DailyPicksSpecies,
@@ -62,13 +60,6 @@ const GOLD_ACCENT = '#C99B2D';
 const GOLD_SOFT = '#FBF1D9';
 const GOLD_INK = '#8A6A1A';
 
-const SLOT_LABEL: Record<DailyPickSlot, string> = {
-  lure_of_the_day: 'Lure of the Day',
-  honorable_lure: 'Honorable Mention Lure',
-  fly_of_the_day: 'Fly of the Day',
-  honorable_fly: 'Honorable Mention Fly',
-};
-
 const COLUMN_LABEL: Record<TacticalColumn, string> = {
   bottom: 'Bottom',
   mid: 'Mid',
@@ -92,10 +83,10 @@ const DAILY_SPECIES_TO_UI_SPECIES: Record<DailyPicksSpecies, SpeciesGroup> = {
 };
 
 const SPECIES_SUBTITLE: Record<DailyPicksSpecies, string> = {
-  largemouth_bass: 'M. SALMOIDES',
-  smallmouth_bass: 'M. DOLOMIEU',
-  northern_pike: 'ESOX LUCIUS',
-  trout: 'SALMONIDAE',
+  largemouth_bass: 'Micropterus salmoides',
+  smallmouth_bass: 'Micropterus dolomieu',
+  northern_pike: 'Esox lucius',
+  trout: 'Salmonidae spp.',
 };
 
 const ACTIVITY_LABEL: Record<DailyPicksResponse['scenario_summary']['activity_level'], string> = {
@@ -105,15 +96,14 @@ const ACTIVITY_LABEL: Record<DailyPicksResponse['scenario_summary']['activity_le
   high_opportunity: 'High Opportunity',
 };
 
-const SURFACE_GATE_LABEL: Record<DailyPicksResponse['scenario_summary']['surface_daily_gate'], string> = {
-  closed: 'Closed',
-  caution: 'Caution',
-  open: 'Open',
-};
-
 const GOAL_LABEL: Record<DailyPicksResponse['recommendation_goal'], string> = {
   all_purpose: 'All Purpose',
   big_fish: 'Big Fish',
+};
+
+const VARIANT_LABEL: Record<DailyPicksVariant, string> = {
+  A: 'First Pass',
+  B: 'Changeup',
 };
 
 function contextLabel(ctx: EngineContext): string {
@@ -143,10 +133,6 @@ function toTitleCase(raw: string): string {
     .join(' ');
 }
 
-function tagLabel(tag: DailyPicksConditionTag): string {
-  return toTitleCase(tag);
-}
-
 function dailySpeciesDisplay(species: DailyPicksSpecies): string {
   return SPECIES_DISPLAY[DAILY_SPECIES_TO_UI_SPECIES[species]];
 }
@@ -160,14 +146,55 @@ function paceLabel(pick: DailyPicksResponsePick): string {
   return pick.secondary_pace ? `${primary} / ${PACE_LABEL[pick.secondary_pace]}` : primary;
 }
 
-function summarySentence(result: DailyPicksResponse): string {
-  const { scenario_summary: scenario } = result;
-  const surface = scenario.surface_daily_gate === 'open'
-    ? 'Surface is open inside the seasonal gate.'
-    : scenario.surface_daily_gate === 'caution'
-      ? 'Surface is a caution window today.'
-      : 'Surface is closed for this setup.';
-  return `${ACTIVITY_LABEL[scenario.activity_level]} daily read. ${surface}`;
+function guideRoleLine(pick: DailyPicksResponsePick): string {
+  const presentation = pick.presentation_group;
+  const family = pick.family_group;
+
+  if (pick.gear_mode === 'fly') {
+    if (presentation.includes('surface_fly_popper')) return 'Surface popper profile';
+    if (presentation.includes('surface_fly_slider')) return 'Surface slider profile';
+    if (presentation.includes('surface_fly_gurgler')) return 'Surface wake-and-gurgle profile';
+    if (presentation.includes('surface_fly_frog_mouse')) return 'Surface cover profile';
+    if (presentation.includes('big_articulated_streamer')) return 'Big articulated streamer';
+    if (presentation.includes('baitfish_slider')) return 'High-riding baitfish slider';
+    if (presentation.includes('baitfish_streamer')) return 'Baitfish streamer profile';
+    if (presentation.includes('leech_bugger')) return 'Leech / bugger profile';
+    if (presentation.includes('crawfish_fly')) return 'Bottom-crawling craw profile';
+    if (presentation.includes('worm_fly')) return 'Slow bottom worm profile';
+    return 'Guide-selected fly profile';
+  }
+
+  if (presentation.includes('spinner_vibration')) return 'Vibration search bait';
+  if (presentation.includes('swimbait') || presentation.includes('pike_jig')) return 'Steady baitfish swimmer';
+  if (presentation.includes('glidebait')) return 'Big-fish follower bait';
+  if (presentation.includes('jerkbait')) return 'Pause-and-flash baitfish profile';
+  if (presentation.includes('crankbait')) return 'Contact search bait';
+  if (presentation.includes('blade_spoon')) return 'Flash / flutter profile';
+  if (presentation.includes('topwater_frog')) return 'Cover topwater profile';
+  if (presentation.includes('topwater_open') || presentation.includes('trout_surface_plug')) {
+    return 'Surface commotion profile';
+  }
+  if (presentation.includes('bottom_jig_craw')) return 'Bottom-contact craw profile';
+  if (presentation.includes('ned_tube_finesse')) return 'Finesse bottom-contact profile';
+  if (presentation.includes('worm_finesse')) return 'Finesse bite-getter profile';
+  if (presentation.includes('worm_power')) return 'Big-worm bottom profile';
+  if (family.includes('hair_jig')) return 'Subtle hair-jig drift';
+  return 'Guide-selected lure profile';
+}
+
+function formatGeneratedAt(result: DailyPicksResponse, timeZone?: string): string {
+  const generated = new Date(result.generated_at);
+  if (!Number.isFinite(generated.getTime())) return result.local_date;
+  const options: Intl.DateTimeFormatOptions = {
+    weekday: 'short',
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+    hour: 'numeric',
+    minute: '2-digit',
+  };
+  if (timeZone) options.timeZone = timeZone;
+  return new Intl.DateTimeFormat(undefined, options).format(generated);
 }
 
 function WaterColumnDiagram({ active }: { active: TacticalColumn }) {
@@ -231,7 +258,7 @@ function PicksSectionMasthead({
 /**
  * TOP PICK card — the hero of each gear section. Premium chrome:
  *
- *   - Gold ribbon header ("★ LURE OF THE DAY" / "★ FLY OF THE DAY")
+ *   - Gold ribbon header ("★ LURE" / "★ FLY")
  *     with a pulsing live dot, on a tackle-box gold-soft background.
  *   - Corner crosses pinned to each corner — instrument-panel touch
  *     consistent with the Today's Bite hero card.
@@ -245,7 +272,7 @@ function PicksSectionMasthead({
 function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
   const image = pick.gear_mode === 'lure' ? getLureImage(pick.id) : getFlyImage(pick.id);
   const dayLabel =
-    pick.slot === 'lure_of_the_day' ? 'LURE OF THE DAY' : 'FLY OF THE DAY';
+    pick.slot === 'lure_of_the_day' ? 'LURE' : 'FLY';
 
   const pulse = useRef(new Animated.Value(1)).current;
   const shimmerX = useRef(new Animated.Value(0)).current;
@@ -360,7 +387,7 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
               {pick.display_name}
             </Text>
             <Text style={styles.topPickSubtitle} numberOfLines={1}>
-              {toTitleCase(pick.family_group)} · {toTitleCase(pick.presentation_group)}
+              {guideRoleLine(pick)}
             </Text>
           </View>
           <View style={styles.topPickSeal}>
@@ -371,7 +398,7 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
 
         <View style={styles.metaRow}>
           <View style={styles.metaCell}>
-            <Text style={styles.metaLabel}>WHERE</Text>
+            <Text style={styles.metaLabel}>WATER COLUMN</Text>
             <Text style={styles.metaValue} numberOfLines={1}>
               {COLUMN_LABEL[pick.column]}
             </Text>
@@ -381,13 +408,6 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
             <Text style={styles.metaLabel}>PACE</Text>
             <Text style={styles.metaValue} numberOfLines={1}>
               {paceLabel(pick)}
-            </Text>
-          </View>
-          <View style={styles.metaDivider} />
-          <View style={styles.metaCell}>
-            <Text style={styles.metaLabel}>SURFACE</Text>
-            <Text style={styles.metaValue} numberOfLines={1}>
-              {pick.is_surface ? 'Yes' : 'No'}
             </Text>
           </View>
         </View>
@@ -457,12 +477,12 @@ function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
             {pick.display_name}
           </Text>
           <Text style={styles.honorableSubtitle} numberOfLines={1}>
-            {toTitleCase(pick.family_group)} · {toTitleCase(pick.presentation_group)}
+            {guideRoleLine(pick)}
           </Text>
 
           <View style={styles.honorableMetaRow}>
             <View style={styles.honorableMetaCell}>
-              <Text style={styles.honorableMetaLabel}>WHERE</Text>
+              <Text style={styles.honorableMetaLabel}>WATER COLUMN</Text>
               <Text style={styles.honorableMetaValue} numberOfLines={1}>
                 {COLUMN_LABEL[pick.column]}
               </Text>
@@ -471,12 +491,6 @@ function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
               <Text style={styles.honorableMetaLabel}>PACE</Text>
               <Text style={styles.honorableMetaValue} numberOfLines={1}>
                 {paceLabel(pick)}
-              </Text>
-            </View>
-            <View style={styles.honorableMetaCell}>
-              <Text style={styles.honorableMetaLabel}>SURFACE</Text>
-              <Text style={styles.honorableMetaValue} numberOfLines={1}>
-                {pick.is_surface ? 'Yes' : 'No'}
               </Text>
             </View>
           </View>
@@ -514,40 +528,12 @@ function ScenarioSummary({ result }: { result: DailyPicksResponse }) {
           </Text>
         </View>
         <View style={styles.preferenceChip}>
-          <Text style={styles.preferenceChipLabel}>SURFACE</Text>
-          <Text style={styles.preferenceChipValue} numberOfLines={1}>
-            {SURFACE_GATE_LABEL[scenario.surface_daily_gate]}
-          </Text>
-        </View>
-        <View style={styles.preferenceChip}>
           <Text style={styles.preferenceChipLabel}>CONFIDENCE</Text>
           <Text style={styles.preferenceChipValue} numberOfLines={1}>
             {toTitleCase(scenario.confidence)}
           </Text>
         </View>
-        <View style={styles.preferenceChip}>
-          <Text style={styles.preferenceChipLabel}>GOAL</Text>
-          <Text style={styles.preferenceChipValue} numberOfLines={1}>
-            {GOAL_LABEL[result.recommendation_goal]}
-          </Text>
-        </View>
       </View>
-
-      {scenario.scenario_tags.length > 0 ? (
-        <View style={styles.tagRow}>
-          {scenario.scenario_tags.map((tag) => (
-            <View key={tag} style={styles.tagPill}>
-              <Text style={styles.tagText}>{tagLabel(tag)}</Text>
-            </View>
-          ))}
-        </View>
-      ) : null}
-
-      {scenario.missing_inputs.length > 0 ? (
-        <Text style={styles.missingInputs}>
-          Missing: {scenario.missing_inputs.map(toTitleCase).join(', ')}
-        </Text>
-      ) : null}
     </View>
   );
 }
@@ -555,6 +541,8 @@ function ScenarioSummary({ result }: { result: DailyPicksResponse }) {
 type Props = {
   result: DailyPicksResponse;
   style?: ViewStyle;
+  locationLabel?: string;
+  timeZone?: string;
   onRefresh?: () => void;
   onViewVariant?: (variant: DailyPicksVariant) => void;
   isRefreshing?: boolean;
@@ -584,7 +572,7 @@ function SessionControls({
         <View style={styles.variantToggle}>
           {(['A', 'B'] as DailyPicksVariant[]).map((variant) => {
             const isActive = currentVariant === variant;
-            const label = variant === 'A' ? 'First Picks' : 'Second Opinion';
+            const label = VARIANT_LABEL[variant];
             return (
               <Pressable
                 key={variant}
@@ -612,9 +600,6 @@ function SessionControls({
             );
           })}
         </View>
-        <Text style={styles.variantPanelBody}>
-          Your second opinion is saved for this exact setup until local midnight.
-        </Text>
       </View>
     );
   }
@@ -624,12 +609,12 @@ function SessionControls({
   return (
     <View style={styles.secondOpinionCard}>
       <View style={styles.secondOpinionCopy}>
-        <Text style={styles.secondOpinionEyebrow}>ONE-TIME ALTERNATE SET</Text>
+        <Text style={styles.secondOpinionEyebrow}>GUIDE'S CHANGEUP</Text>
         <Text style={styles.secondOpinionTitle}>
-          Get one more second opinion for today
+          Build one more pattern for today
         </Text>
         <Text style={styles.secondOpinionBody}>
-          Set B is saved separately, and this session locks after it is built.
+          This set will be saved and you can view it again today.
         </Text>
       </View>
       <Pressable
@@ -642,7 +627,7 @@ function SessionControls({
         disabled={isRefreshing || onRefresh == null}
       >
         <Text style={styles.secondOpinionButtonText}>
-          {isRefreshing ? 'BUILDING SET B' : 'BUILD SET B'}
+          {isRefreshing ? 'BUILDING CHANGEUP' : 'BUILD CHANGEUP'}
         </Text>
       </Pressable>
     </View>
@@ -652,12 +637,16 @@ function SessionControls({
 export function RecommenderView({
   result,
   style,
+  locationLabel,
+  timeZone,
   onRefresh,
   onViewVariant,
   isRefreshing = false,
 }: Props) {
   const speciesImage = dailySpeciesImage(result.species);
   const canRefresh = result.recommendation_session.can_refresh && onRefresh != null;
+  const displayLocation = locationLabel?.trim() || 'Your location';
+  const hasChangeup = result.recommendation_session.available_variants.includes('B');
 
   return (
     <PaperBackground style={style}>
@@ -677,34 +666,30 @@ export function RecommenderView({
           </View>
 
           <View style={styles.heroTitleRow}>
-            <View style={styles.heroTitleCol}>
-              <Text style={styles.heroTitleLine}>TODAY'S</Text>
-              <View style={styles.heroTitleSecond}>
-                <Text style={[styles.heroTitleLine, styles.heroTitleAccent]}>PICKS</Text>
-                <Text style={styles.heroTitleLine}>.</Text>
+            <Text
+              style={styles.heroTitleLine}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.82}
+            >
+              TODAY'S <Text style={styles.heroTitleAccent}>PICKS</Text>
+            </Text>
+          </View>
+
+          {speciesImage ? (
+            <View style={styles.heroPortraitWrap}>
+              <View style={styles.heroPortrait}>
+                <Image
+                  source={speciesImage}
+                  style={styles.heroPortraitImage}
+                  resizeMode="contain"
+                />
               </View>
-              <Text style={styles.heroLede}>
-                Lure of the Day, honorable lure, Fly of the Day, and honorable fly.
+              <Text style={styles.heroPortraitPillText} numberOfLines={1}>
+                {SPECIES_SUBTITLE[result.species]}
               </Text>
             </View>
-
-            {speciesImage ? (
-              <View style={styles.heroPortraitWrap}>
-                <View style={styles.heroPortrait}>
-                  <Image
-                    source={speciesImage}
-                    style={styles.heroPortraitImage}
-                    resizeMode="cover"
-                  />
-                </View>
-                <View style={styles.heroPortraitPill}>
-                  <Text style={styles.heroPortraitPillText} numberOfLines={1}>
-                    {SPECIES_SUBTITLE[result.species]}
-                  </Text>
-                </View>
-              </View>
-            ) : null}
-          </View>
+          ) : null}
 
           <View style={styles.heroTileRow}>
             <View style={styles.heroTile}>
@@ -720,7 +705,7 @@ export function RecommenderView({
             <View style={styles.heroTile}>
               <Text style={styles.heroTileLabel}>SESSION</Text>
               <Text style={styles.heroTileValue} numberOfLines={1}>
-                SET {result.recommendation_session.variant}
+                {VARIANT_LABEL[result.recommendation_session.variant]}
               </Text>
               <Text style={styles.heroTileSub} numberOfLines={1}>
                 {GOAL_LABEL[result.recommendation_goal].toUpperCase()}
@@ -729,37 +714,51 @@ export function RecommenderView({
           </View>
         </View>
 
-        <View style={styles.themeNote}>
-          <Text style={styles.themeNoteEyebrow}>TODAY:</Text>
-          <Text style={styles.themeNoteBody}>{summarySentence(result)}</Text>
-        </View>
-
-        <SessionControls
-          result={result}
-          canRefresh={canRefresh}
-          isRefreshing={isRefreshing}
-          onRefresh={onRefresh}
-          onViewVariant={onViewVariant}
-        />
+        {hasChangeup ? (
+          <SessionControls
+            result={result}
+            canRefresh={canRefresh}
+            isRefreshing={isRefreshing}
+            onRefresh={onRefresh}
+            onViewVariant={onViewVariant}
+          />
+        ) : null}
 
         <ScenarioSummary result={result} />
 
         <View style={styles.sectionBlock}>
           <View style={styles.sectionDivider}>
-            <View style={styles.sectionTitleRow}>
-              <Text style={styles.sectionTitle}>DAILY PICKS</Text>
-              <Text style={styles.sectionCount}>FOUR PICKS</Text>
+            <View style={styles.sectionFineRuleRow}>
+              <View style={styles.sectionFineRule} />
+              <Text style={styles.sectionFineMark}>◆</Text>
+              <View style={styles.sectionFineRule} />
             </View>
-            <Text style={styles.sectionMono}>
-              {result.local_date} · {result.region_key.toUpperCase()}
+            <View style={styles.sectionTitleRow}>
+              <Text style={styles.sectionTitle}>TWO LURES & TWO FLIES</Text>
+            </View>
+            <Text
+              style={styles.sectionContext}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.74}
+            >
+              chosen for your location, weather conditions, water clarity and your setup
             </Text>
+            <View style={styles.sectionMetaRow}>
+              <View style={styles.sectionStamp}>
+                <Ionicons name="location-outline" size={11} color={paper.dashboardBlue} />
+                <Text style={styles.sectionMono} numberOfLines={1}>
+                  {displayLocation} · {formatGeneratedAt(result, timeZone)}
+                </Text>
+              </View>
+            </View>
           </View>
 
           {/* LURE SECTION — top pick (hero) + honorable mention (compact). */}
           <View style={styles.gearSection}>
             <PicksSectionMasthead
               title="LURE PICKS"
-              meta="of the day · honorable mention"
+              meta="top pick · honorable mention"
             />
             <TopPickCard pick={result.picks.lure_of_the_day} />
             <HonorableMentionCard pick={result.picks.honorable_lure} />
@@ -769,11 +768,21 @@ export function RecommenderView({
           <View style={styles.gearSection}>
             <PicksSectionMasthead
               title="FLY PICKS"
-              meta="of the day · honorable mention"
+              meta="top pick · honorable mention"
             />
             <TopPickCard pick={result.picks.fly_of_the_day} />
             <HonorableMentionCard pick={result.picks.honorable_fly} />
           </View>
+
+          {!hasChangeup ? (
+            <SessionControls
+              result={result}
+              canRefresh={canRefresh}
+              isRefreshing={isRefreshing}
+              onRefresh={onRefresh}
+              onViewVariant={onViewVariant}
+            />
+          ) : null}
         </View>
       </ScrollView>
     </PaperBackground>
@@ -813,66 +822,29 @@ const styles = StyleSheet.create({
     gap: paperSpacing.sm,
     marginBottom: paperSpacing.md,
   },
-  refreshButton: {
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: paperRadius.chip,
-    backgroundColor: paper.dashboardBlueSky,
-    paddingHorizontal: paperSpacing.sm,
-    paddingVertical: 7,
-    ...paperShadows.hard,
-  },
-  refreshButtonPressed: {
-    transform: [{ translateX: 1 }, { translateY: 1 }],
-    shadowOpacity: 0,
-  },
-  refreshButtonDisabled: {
-    opacity: 0.65,
-  },
-  refreshButtonText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 0,
-  },
   heroTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: paperSpacing.md,
-  },
-  heroTitleCol: {
-    flex: 1,
-    minWidth: 0,
+    width: '100%',
   },
   heroTitleLine: {
+    flex: 1,
     fontFamily: paperFonts.display,
     fontSize: 45,
-    lineHeight: 45,
+    lineHeight: 49,
     color: paper.dashboardInk,
-  },
-  heroTitleSecond: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
   },
   heroTitleAccent: {
     color: paper.dashboardBlue,
   },
-  heroLede: {
-    marginTop: paperSpacing.sm,
-    maxWidth: 300,
-    fontFamily: paperFonts.body,
-    fontSize: 14,
-    lineHeight: 20,
-    color: paper.dashboardMuted,
-  },
   heroPortraitWrap: {
-    width: 112,
+    width: '100%',
     alignItems: 'center',
+    marginTop: paperSpacing.sm,
   },
   heroPortrait: {
-    width: 104,
-    height: 104,
+    width: '100%',
+    height: 176,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
@@ -882,23 +854,17 @@ const styles = StyleSheet.create({
   heroPortraitImage: {
     width: '100%',
     height: '100%',
-  },
-  heroPortraitPill: {
-    marginTop: -10,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 999,
-    backgroundColor: paper.dashboardWhite,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
+    transform: [{ scale: 1.4 }],
   },
   heroPortraitPillText: {
+    marginTop: 7,
     fontFamily: paperFonts.metaMono,
-    fontSize: 9,
+    fontSize: 10,
     color: paper.dashboardMuted,
   },
   heroTileRow: {
-    marginTop: paperSpacing.md,
+    marginTop: paperSpacing.lg,
+    marginHorizontal: paperSpacing.sm,
     flexDirection: 'row',
     gap: paperSpacing.sm,
   },
@@ -927,29 +893,6 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.metaMono,
     fontSize: 9,
     color: paper.dashboardBlue,
-  },
-  themeNote: {
-    flexDirection: 'row',
-    gap: paperSpacing.sm,
-    borderLeftWidth: 4,
-    borderLeftColor: paper.dashboardBlue,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    backgroundColor: paper.dashboardWhite,
-    padding: paperSpacing.md,
-  },
-  themeNoteEyebrow: {
-    fontFamily: paperFonts.metaMono,
-    fontSize: 10,
-    color: paper.dashboardBlue,
-  },
-  themeNoteBody: {
-    flex: 1,
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 14,
-    lineHeight: 20,
-    color: paper.dashboardInk,
   },
   secondOpinionCard: {
     alignItems: 'stretch',
@@ -1053,13 +996,6 @@ const styles = StyleSheet.create({
   variantToggleTextActive: {
     color: paper.dashboardWhite,
   },
-  variantPanelBody: {
-    marginTop: paperSpacing.sm,
-    fontFamily: paperFonts.body,
-    fontSize: 12,
-    lineHeight: 17,
-    color: paper.dashboardMuted,
-  },
   preferenceCard: {
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
@@ -1101,61 +1037,86 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: paper.dashboardInk,
   },
-  tagRow: {
-    marginTop: paperSpacing.sm,
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 7,
-  },
-  tagPill: {
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 999,
-    backgroundColor: paper.dashboardWhite,
-    paddingHorizontal: 9,
-    paddingVertical: 4,
-  },
-  tagText: {
-    fontFamily: paperFonts.metaMono,
-    fontSize: 9,
-    color: paper.dashboardInk,
-  },
-  missingInputs: {
-    marginTop: paperSpacing.sm,
-    fontFamily: paperFonts.body,
-    fontSize: 12,
-    lineHeight: 17,
-    color: paper.dashboardMuted,
-  },
   sectionBlock: {
     gap: paperSpacing.sm,
   },
   sectionDivider: {
-    borderTopWidth: 1,
-    borderBottomWidth: 1,
+    position: 'relative',
+    alignItems: 'center',
+    borderWidth: 1,
     borderColor: paper.dashboardLine,
-    paddingVertical: paperSpacing.sm,
+    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.md,
+    overflow: 'hidden',
+    ...paperShadows.hard,
+  },
+  sectionFineRuleRow: {
+    width: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 5,
+  },
+  sectionFineRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.42,
+  },
+  sectionFineMark: {
+    fontFamily: paperFonts.body,
+    fontSize: 8,
+    lineHeight: 10,
+    color: paper.dashboardBlue,
+    opacity: 0.75,
   },
   sectionTitleRow: {
     flexDirection: 'row',
-    alignItems: 'baseline',
-    justifyContent: 'space-between',
-    gap: paperSpacing.sm,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   sectionTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 25,
+    fontSize: 27,
+    lineHeight: 34,
     color: paper.dashboardInk,
   },
-  sectionCount: {
-    fontFamily: paperFonts.metaMono,
-    fontSize: 10,
-    color: paper.dashboardBlue,
+  sectionContext: {
+    width: '100%',
+    marginTop: 2,
+    fontFamily: paperFonts.body,
+    fontSize: 12,
+    lineHeight: 16,
+    color: paper.dashboardMuted,
+    textAlign: 'center',
+  },
+  sectionMetaRow: {
+    width: '100%',
+    marginTop: paperSpacing.sm,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: paperSpacing.sm,
+  },
+  sectionStamp: {
+    minWidth: 0,
+    maxWidth: '100%',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: paperRadius.chip,
+    backgroundColor: paper.dashboardWhite,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
   },
   sectionMono: {
-    marginTop: 2,
+    flexShrink: 1,
     fontFamily: paperFonts.metaMono,
-    fontSize: 10,
+    fontSize: 9.5,
     color: paper.dashboardMuted,
   },
   // Gear group section — LURE PICKS or FLY PICKS, plus its pair of
@@ -1346,7 +1307,7 @@ const styles = StyleSheet.create({
     fontSize: 28,
     lineHeight: 32,
     fontWeight: '800',
-    letterSpacing: -0.5,
+    letterSpacing: 0,
     color: paper.dashboardInk,
   },
   topPickSubtitle: {
@@ -1614,19 +1575,6 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
   },
   columnLabelActive: {
-    color: paper.dashboardInk,
-  },
-  reasonEyebrow: {
-    marginTop: paperSpacing.md,
-    fontFamily: paperFonts.metaMono,
-    fontSize: 10,
-    color: paper.dashboardBlue,
-  },
-  reasonBody: {
-    marginTop: 5,
-    fontFamily: paperFonts.body,
-    fontSize: 14,
-    lineHeight: 20,
     color: paper.dashboardInk,
   },
 });

@@ -98,7 +98,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "articulated_baitfish_streamer",
-    display_name: "Articulated Baitfish Streamer",
+    display_name: "Articulated Baitfish",
     family_group: "streamer_articulated",
     presentation_group: "baitfish_streamer",
     column: "mid",
@@ -123,7 +123,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "articulated_dungeon_streamer",
-    display_name: "Articulated Dungeon Streamer",
+    display_name: "Dungeon Streamer",
     family_group: "streamer_articulated",
     presentation_group: "big_articulated_streamer",
     column: "mid",
@@ -221,7 +221,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "jighead_marabou_leech",
-    display_name: "Jighead Marabou Leech",
+    display_name: "Jigged Marabou Leech",
     family_group: "leech_family",
     presentation_group: "leech_bugger",
     column: "bottom",
@@ -270,7 +270,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "feather_jig_leech",
-    display_name: "Feather Jig Leech",
+    display_name: "Marabou Jig Leech",
     family_group: "leech_family",
     presentation_group: "leech_bugger",
     column: "bottom",
@@ -411,7 +411,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "warmwater_crawfish_fly",
-    display_name: "Warmwater Crawfish Fly",
+    display_name: "Crawfish Fly",
     family_group: "crawfish_fly",
     presentation_group: "crawfish_fly",
     column: "bottom",
@@ -470,7 +470,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "pike_bunny_streamer",
-    display_name: "Large Rabbit Strip Streamer",
+    display_name: "Bunny Streamer",
     family_group: "streamer_pike_large",
     presentation_group: "pike_bunny_streamer",
     column: "mid",
@@ -490,7 +490,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "large_articulated_pike_streamer",
-    display_name: "Articulated Pike Streamer",
+    display_name: "Big Articulated Streamer",
     family_group: "streamer_pike_large",
     presentation_group: "big_articulated_streamer",
     column: "mid",
@@ -510,7 +510,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "unweighted_baitfish_streamer",
-    display_name: "Unweighted Baitfish Streamer",
+    display_name: "Unweighted Baitfish",
     family_group: "streamer_unweighted",
     presentation_group: "baitfish_streamer",
     column: "upper",
@@ -535,7 +535,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "baitfish_slider_fly",
-    display_name: "Baitfish Slider Fly",
+    display_name: "Baitfish Slider",
     family_group: "streamer_slider",
     presentation_group: "baitfish_slider",
     column: "upper",
@@ -580,7 +580,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "popper_fly",
-    display_name: "Popper Fly",
+    display_name: "Bass Popper",
     family_group: "fly_popper",
     presentation_group: "surface_fly_popper_slider",
     column: "surface",
@@ -650,7 +650,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "frog_fly",
-    display_name: "Frog Fly",
+    display_name: "Frog Popper",
     family_group: "fly_frog",
     presentation_group: "surface_fly_frog_mouse",
     column: "surface",
@@ -671,7 +671,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
   }),
   fly({
     id: "mouse_fly",
-    display_name: "Mouse Fly",
+    display_name: "Mouse Pattern",
     family_group: "fly_mouse",
     presentation_group: "surface_fly_frog_mouse",
     column: "surface",
@@ -685,13 +685,13 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Cast to structure and retrieve with a steady, slow V-wake strip; vary only slightly in speed and resist the urge to twitch — mice move in straight lines.",
-      "Swim it on a constant slow retrieve just fast enough to leave a wake; target near-shore edges and structure where big fish expect food to cross.",
+      "Swim it on a constant slow retrieve that barely leaves a wake; target near-shore edges and structure where big fish expect food to cross.",
       "Work it with a slow, uninterrupted retrieve across open water; the V-wake is the trigger, so keep it moving at a steady pace and stay alert.",
     ],
   }),
   fly({
     id: "pike_flash_fly",
-    display_name: "Pike Flash Fly",
+    display_name: "Flash Fly",
     family_group: "pike_flash_fly",
     presentation_group: "pike_flash_fly",
     column: "upper",

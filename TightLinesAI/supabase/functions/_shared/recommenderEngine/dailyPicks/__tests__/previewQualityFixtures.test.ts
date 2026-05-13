@@ -730,7 +730,9 @@ Deno.test("Preview quality: missing wind closes surface and copy remains uncerta
   assert(response.scenario_summary.missing_inputs.includes("wind"));
   for (const pick of allPicks(response)) {
     assertEquals(pick.is_surface, false);
-    assert(pick.why_chosen.includes("wind is missing"));
+    assert(!pick.why_chosen.includes("wind is missing"));
+    assert(!pick.why_chosen.includes("missing"));
+    assert(!pick.why_chosen.includes("confidence"));
   }
 });
 

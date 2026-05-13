@@ -49,7 +49,7 @@ Deno.test("trout river quality: small_floating_trout_plug is trout-only river su
     lure.id === "small_floating_trout_plug"
   );
   assert(plug, "expected small_floating_trout_plug in lure catalog");
-  assertEquals(plug.display_name, "Small Floating Trout Plug");
+  assertEquals(plug.display_name, "Floating Trout Plug");
   assertEquals(plug.species_allowed, ["trout"]);
   assertEquals(plug.water_types_allowed, ["freshwater_river"]);
   assertEquals(plug.column, "surface");
@@ -213,7 +213,7 @@ Deno.test("Pass 5D.1: large pike tube is pike-first cold/slow bottom inventory",
     lure.id === "large_pike_tube"
   );
   assert(largePikeTube, "expected large_pike_tube in lure catalog");
-  assertEquals(largePikeTube.display_name, "Large Pike Tube");
+  assertEquals(largePikeTube.display_name, "Large Tube Jig");
   assertEquals(largePikeTube.species_allowed, ["northern_pike"]);
   assertEquals(largePikeTube.water_types_allowed, [
     "freshwater_lake_pond",
@@ -270,6 +270,45 @@ Deno.test("G2: fly invariants hold for full fly catalog", () => {
     assert(p.forage_tags.length >= 1);
     assert(p.clarity_strengths.length >= 1);
     assertEquals(p.how_to_fish_variants.length, 3);
+  }
+});
+
+Deno.test("how-to-fish copy is guide-facing and not reused verbatim across archetypes", () => {
+  const seen = new Map<string, string>();
+  const bannedTerms = [
+    "daily signal",
+    "condition_tag",
+    "score",
+    "confidence",
+    "surface gate",
+    "engine",
+  ];
+
+  for (const p of ALL_ARCHETYPES_V4) {
+    assertEquals(p.how_to_fish_variants.length, 3);
+    assertEquals(
+      new Set(p.how_to_fish_variants).size,
+      3,
+      `${p.id} should have three distinct how-to-fish variants`,
+    );
+
+    for (const copy of p.how_to_fish_variants) {
+      assert(copy.length <= 220, `${p.id} how-to copy is too long: ${copy}`);
+      assert(!copy.includes("_"), `${p.id} leaks internal token copy: ${copy}`);
+      for (const term of bannedTerms) {
+        assert(
+          !copy.toLowerCase().includes(term),
+          `${p.id} leaks "${term}" in how-to copy: ${copy}`,
+        );
+      }
+
+      const previousId = seen.get(copy);
+      assert(
+        previousId == null,
+        `${p.id} reuses how-to copy from ${previousId}: ${copy}`,
+      );
+      seen.set(copy, p.id);
+    }
   }
 });
 

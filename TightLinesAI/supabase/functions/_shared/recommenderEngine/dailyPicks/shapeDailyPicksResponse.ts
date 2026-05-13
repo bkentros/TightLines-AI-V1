@@ -6,6 +6,7 @@ import type {
   DailyPicksEngineResult,
 } from "./runDailyPicksEngine.ts";
 import type { DailyPicksVariant } from "./selectDailyPicks.ts";
+import { whyThisCopy } from "./whyThisCopy.ts";
 
 export const DAILY_PICKS_RESPONSE_FEATURE =
   "recommender_daily_picks_2x2_future" as const;
@@ -86,162 +87,6 @@ function howToFishVariant(args: {
   return args.profile.how_to_fish_variants[index]!;
 }
 
-function humanizeToken(value: string): string {
-  return value.replaceAll("_", " ");
-}
-
-function conditionTagLabel(tag: ConditionTag): string {
-  switch (tag) {
-    case "calm_surface":
-      return "calm surface";
-    case "low_light_surface":
-      return "low-light surface";
-    case "wind_reaction":
-      return "wind reaction";
-    case "dirty_vibration":
-      return "stain or vibration";
-    case "clear_subtle":
-      return "clear-water subtle";
-    case "cold_slow":
-      return "cold or slow";
-    case "warming_search":
-      return "warming search";
-    case "heat_finesse":
-      return "heat finesse";
-    case "runoff_streamer":
-      return "runoff streamer";
-    case "current_swing":
-      return "current swing";
-    case "cover_ambush":
-      return "cover ambush";
-    case "open_water_search":
-      return "open-water search";
-  }
-}
-
-function scoreReasonValue(reason: string, prefix: string): string | null {
-  if (!reason.startsWith(prefix)) return null;
-  const rest = reason.slice(prefix.length);
-  const marker = rest.lastIndexOf(":");
-  return marker === -1 ? rest : rest.slice(0, marker);
-}
-
-function firstGoalFit(
-  score: CandidateScore,
-  scenario: DailyScenario,
-): string | null {
-  for (const reason of score.reasons) {
-    if (
-      scenario.recommendation_goal === "all_purpose" &&
-      reason === "goal:all_purpose:reliable_action:+18"
-    ) {
-      return "fits the all-purpose goal with reliable action";
-    }
-    if (
-      scenario.recommendation_goal === "all_purpose" &&
-      reason === "goal:all_purpose:versatile_search:+12"
-    ) {
-      return "fits the all-purpose goal as a versatile search option";
-    }
-    if (
-      scenario.recommendation_goal === "big_fish" &&
-      reason === "goal:big_fish:big_fish_upside:+20"
-    ) {
-      return "fits the big-fish goal with upside";
-    }
-    if (
-      scenario.recommendation_goal === "big_fish" &&
-      reason === "goal:big_fish:high_risk_high_reward:+12"
-    ) {
-      return "fits the big-fish goal as a higher-risk option";
-    }
-  }
-  return null;
-}
-
-function scenarioTagFit(
-  score: CandidateScore,
-  scenario: DailyScenario,
-): string | null {
-  for (const reason of score.reasons) {
-    const rawTag = scoreReasonValue(reason, "condition_tag:");
-    if (rawTag == null) continue;
-    const tag = rawTag as ConditionTag;
-    if (scenario.scenario_tags.includes(tag)) {
-      return `matches the ${conditionTagLabel(tag)} daily signal`;
-    }
-  }
-  return null;
-}
-
-function forageFit(score: CandidateScore): string | null {
-  for (const reason of score.reasons) {
-    const primary = scoreReasonValue(reason, "primary_forage:");
-    if (primary != null) {
-      return `matches the primary ${humanizeToken(primary)} forage`;
-    }
-    const secondary = scoreReasonValue(reason, "secondary_forage:");
-    if (secondary != null) {
-      return `also fits the secondary ${humanizeToken(secondary)} forage`;
-    }
-  }
-  return null;
-}
-
-function clarityFit(score: CandidateScore): string | null {
-  for (const reason of score.reasons) {
-    const clarity = scoreReasonValue(reason, "clarity_strength:");
-    if (clarity != null) return `has a ${clarity}-water clarity fit`;
-  }
-  return null;
-}
-
-function uncertaintyNote(scenario: DailyScenario): string | null {
-  if (scenario.confidence === "high" && scenario.missing_inputs.length === 0) {
-    return null;
-  }
-  const missing = scenario.missing_inputs.length > 0
-    ? ` because ${scenario.missing_inputs.map(humanizeToken).join(", ")} ${
-      scenario.missing_inputs.length === 1 ? "is" : "are"
-    } missing`
-    : "";
-  return `daily read has ${scenario.confidence} confidence${missing}`;
-}
-
-function surfaceNote(
-  profile: ArchetypeProfileV4,
-  scenario: DailyScenario,
-  score: CandidateScore,
-): string | null {
-  if (!profile.is_surface) return null;
-  if (
-    scenario.surface_daily_gate === "caution" ||
-    score.reasons.includes("surface_daily_gate:caution:-8")
-  ) {
-    return "surface is only a caution window today";
-  }
-  if (scenario.surface_daily_gate === "open") return "the surface gate is open";
-  return null;
-}
-
-function compactSentence(parts: readonly string[]): string {
-  const useful = parts.filter((part) => part.length > 0);
-  if (useful.length === 0) return "Selected from the valid daily pool.";
-  const sentence = useful.slice(0, 3).join("; ");
-  return sentence.charAt(0).toUpperCase() + sentence.slice(1) + ".";
-}
-
-function whyChosen(score: CandidateScore, scenario: DailyScenario): string {
-  return compactSentence([
-    uncertaintyNote(scenario) ?? "",
-    firstGoalFit(score, scenario) ?? "",
-    scenarioTagFit(score, scenario) ?? "",
-    forageFit(score) ?? "",
-    clarityFit(score) ?? "",
-    surfaceNote(score.profile, scenario, score) ?? "",
-  ]);
-}
-
 function shapePick(args: {
   slot: DailyPickSlot;
   score: CandidateScore;
@@ -263,7 +108,13 @@ function shapePick(args: {
     is_surface: profile.is_surface,
     score: args.score.score,
     score_reasons: args.score.reasons,
-    why_chosen: whyChosen(args.score, args.scenario),
+    why_chosen: whyThisCopy({
+      score: args.score,
+      scenario: args.scenario,
+      slot: args.slot,
+      seed: args.seed,
+      variant: args.variant,
+    }),
     how_to_fish: howToFishVariant({
       profile,
       scenario: args.scenario,
