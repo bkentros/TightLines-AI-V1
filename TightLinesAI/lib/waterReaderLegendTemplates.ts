@@ -767,6 +767,552 @@ const CONFLUENCE_TEMPLATES: Record<ConfluenceTemplateKey, SeasonTemplates> = {
   },
 };
 
+const EXTRA_STRUCTURE_TEMPLATES: Record<StandaloneFeatureClass, SeasonTemplates> = {
+  main_lake_point: {
+    spring: [
+      'Start on the point side closest to the next shallow pocket. Then work out to the tip if fish are still staging.',
+      'Use the point as a checkpoint between open water and the bank. Make one pass shallow, then one pass along the outside edge.',
+    ],
+    summer: [
+      'Start where the point makes the cleanest turn into open water. Then check shade or wind on the side that feels most alive.',
+      'Fish the point in layers: crown first at low light, outside edge during bright hours. Leave if neither side shows activity.',
+    ],
+    fall: [
+      'Begin with broad casts over the crown. If bait is scattered, the outside corner is the best place to slow down.',
+      'Use the tip as the first contact point. Then work down whichever side bait seems to be traveling.',
+    ],
+    winter: [
+      'Start on the outside edge with the steepest-looking fall-away. Keep the bait slow and close to the break.',
+      'Fish the point from deep to shallow, not the other way around. The first active fish usually shows the holding depth.',
+    ],
+  },
+  secondary_point: {
+    spring: [
+      'Start on the pocket-facing edge and work toward the tip. This smaller point can hold fish before they commit to the back.',
+      'Fish the inside corner first if the bank is warming. Then check the outer point for fish still waiting to move.',
+    ],
+    summer: [
+      'Begin with the side that offers shade or cover. Then make one pass across the tip before moving to stronger water.',
+      'Treat this as a quick ambush stop. The best cast usually crosses the tip and ends near the safer outside edge.',
+    ],
+    fall: [
+      'Start on the side facing the cove mouth. Fall fish often use small points as turnarounds while chasing bait.',
+      'Work the point quickly from bank to tip. Slow down only if bait, wind, or a strike gives you a reason.',
+    ],
+    winter: [
+      'Fish the small point only where it touches safer water. A slow pass on the outside edge is the highest-value check.',
+      'Start on the steepest side and keep casts compact. Winter fish rarely use the flatter half for long.',
+    ],
+  },
+  cove: {
+    spring: [
+      'Start on the warmest protected bank and work outward. If the back is empty, the mouth becomes the staging target.',
+      'Fish the back third only after checking the throat. Spring fish can stop at the entrance before sliding shallow.',
+    ],
+    summer: [
+      'Start with the mouth, shade, or any visible cover. The back should earn your time, not automatically get it.',
+      'Work the cove from safe water inward. If the first bend feels lifeless, leave before the back burns time.',
+    ],
+    fall: [
+      'Begin at the mouth and follow bait signs inward. The best stretch is usually where bait pauses, not the farthest back.',
+      'Fish both banks fast until one shows life. Then repeat that side with a slower presentation.',
+    ],
+    winter: [
+      'Start where the cove gives fish the easiest exit. The protected back is only worth a look if cover is obvious.',
+      'Work the first defined edge inside the mouth. In cold water, the back half is usually a careful second check.',
+    ],
+  },
+  neck: {
+    spring: [
+      'Begin on the shoulder that points toward shallow protected water. Then cast across the throat to intercept moving fish.',
+      'Fish the opening like a gate. Check the entrance, the tightest pinch, and the exit before leaving.',
+    ],
+    summer: [
+      'Start on the edge with shade, wind, or the quickest escape route. Then make a clean pass across the lane.',
+      'Work the neck from both sides. If fish are using it, one entrance usually reveals itself quickly.',
+    ],
+    fall: [
+      'Begin where the lane tightens and bait has less room to scatter. Then check the first widening pocket nearby.',
+      'Fish through the pinch at multiple angles. Fall fish may hit only when the bait crosses their shoulder.',
+    ],
+    winter: [
+      'Start just outside the neck, not in the middle. The safer shoulder usually holds better than the throat itself.',
+      'Work the deepest-looking edge beside the lane. Patient casts beat repeated fast passes in winter.',
+    ],
+  },
+  island: {
+    spring: [
+      'Start on the island side nearest protected shoreline. Then check the first corner that faces open water.',
+      'Fish the calm rim first, especially if it has cover. Then work around to the side with the cleanest escape route.',
+    ],
+    summer: [
+      'Begin on the rim with wind, shade, or the strongest corner. Do not spend equal time around the whole island.',
+      'Work the open-water side first during the day. Then check the shallow rim if low light brings fish up.',
+    ],
+    fall: [
+      'Start on the rim that faces bait movement. Make one fast lap, then repeat the side that shows activity.',
+      'Fish the corners before the straight banks. Fall fish often pin bait where the island changes direction.',
+    ],
+    winter: [
+      'Start on the rim closest to stable water. Work slowly and let the island shape narrow your target.',
+      'Fish the strongest corner, then the steepest side. The broad, flat rim is usually the lowest-value winter water.',
+    ],
+  },
+  saddle: {
+    spring: [
+      'Begin on the saddle side leading toward shallow protected water. Then sweep across to the opposite shoulder.',
+      'Fish the crossing as a route, not a single dot. Start on the cleanest shoulder and work across deliberately.',
+    ],
+    summer: [
+      'Start on the open-water shoulder with the best wind or shade. Then check the opposite rise before leaving.',
+      'Work the saddle from edge to edge. Fish often hold beside the crossing until bait moves over it.',
+    ],
+    fall: [
+      'Begin with wide casts across the crossing. If fish contact one side, repeat that lane before changing angles.',
+      'Fish both rises before leaving. Fall movement can make the active side switch during the same stop.',
+    ],
+    winter: [
+      'Start on the lower, safer edge of the crossing. Keep the bait slow and avoid wasting time on flat middle water.',
+      'Work the saddle like a resting shelf. The best winter cast usually stays near one shoulder.',
+    ],
+  },
+  dam: {
+    spring: [
+      'Start where the hard face meets nearby natural bank. That transition often holds fish before they move shallow.',
+      'Fish parallel to the rock or wall first. Then check the corner that points toward warmer protected water.',
+    ],
+    summer: [
+      'Begin on shade, seams, and corners along the face. Straight featureless stretches get a faster look.',
+      'Fish tight to the hard edge before backing off. Summer fish often use the wall as both shade and security.',
+    ],
+    fall: [
+      'Start where the face can trap bait against a corner. Cover that stretch fast before slowing down.',
+      'Work the longest clean seam with moving casts. Then pick apart the best transition with a slower bait.',
+    ],
+    winter: [
+      'Begin on the most stable section of rock or wall. Slow presentations along the hard edge deserve the first pass.',
+      'Fish the deepest-looking corner first. Then work along the face until the structure gets flatter or softer.',
+    ],
+  },
+  universal: {
+    spring: [
+      'Start on protected cover with the warmest-looking bank. Then work to the nearest edge that gives fish room to back out.',
+      'Fish the best visible target first. If it is quiet, move to the next bank change instead of soaking the whole shoreline.',
+    ],
+    summer: [
+      'Begin with shade, cover, or the deepest-looking pocket. Simple water still rewards choosing the most comfortable edge.',
+      'Fish low-light banks quickly, then switch to shade. The best summer target is usually comfort plus cover.',
+    ],
+    fall: [
+      'Start with moving casts along the most defined bank. Once a fish reacts, slow down on that same stretch.',
+      'Cover the shoreline until bait or a strike gives direction. Then repeat that zone before exploring new water.',
+    ],
+    winter: [
+      'Start on the slowest, most protected edge with nearby cover. Patient casts matter more than covering the whole pond.',
+      'Fish the deepest-looking bank change first. If it lacks cover or life, move to the next stable edge.',
+    ],
+  },
+};
+
+const EXTRA_CONFLUENCE_TEMPLATES: Record<ConfluenceTemplateKey, SeasonTemplates> = {
+  'point+cove': {
+    spring: [
+      'Start on the point side of the mouth, then work into the pocket. Fish often pause there before committing shallow.',
+      'Fish the outside corner first and the calm bank second. That order reads the staging fish before the cruisers.',
+    ],
+    summer: [
+      'Begin on the point edge that exits the cove fastest. Then check the shaded mouth if bait is present.',
+      'Use the point as the safe edge and the cove as the feeding option. The mouth gets the first pass.',
+    ],
+    fall: [
+      'Start where bait entering the cove must pass the point. Cover that lane before chasing fish into the back.',
+      'Fish the mouth from both angles. The active side is usually where bait has the least room to turn.',
+    ],
+    winter: [
+      'Begin on the outside mouth corner closest to stable water. The back of the cove is the last check.',
+      'Fish the point edge slowly before entering the pocket. Cold fish usually hold near the exit route.',
+    ],
+  },
+  'point+neck': {
+    spring: [
+      'Start on the point shoulder that feeds the narrow lane. Then work across the opening toward protected water.',
+      'Fish the point first if it faces shallow water. Then slide into the neck and check both entrances.',
+    ],
+    summer: [
+      'Begin on the safest edge where point and lane meet. Then make one pass through the throat.',
+      'Use the point corner as the hold and the neck as the trigger. Slow down where those two meet.',
+    ],
+    fall: [
+      'Start with moving casts from the point across the pinch. Bait often breaks across that angle.',
+      'Fish the point tip and tight lane as one target. Repeat the side where bait has the least escape room.',
+    ],
+    winter: [
+      'Begin on the deeper point-side shoulder outside the neck. Fish slowly before checking the middle of the lane.',
+      'Work the point corner with patience. The neck only matters if fish are moving through.',
+    ],
+  },
+  'point+saddle': {
+    spring: [
+      'Start on the point edge closest to the saddle route. Fish moving shallow may pause on that shoulder.',
+      'Work from the point into the crossing. The best first pass follows the natural travel direction.',
+    ],
+    summer: [
+      'Begin where the point drops into the saddle. Then check the open-water shoulder for fish holding off the route.',
+      'Fish the point corner first and the saddle second. Summer fish often hold beside the route, not over it.',
+    ],
+    fall: [
+      'Start broad across the point and crossing. If bait is moving, the active edge will usually reveal itself fast.',
+      'Work the point as the ambush spot and the saddle as the travel lane. Keep the first pass moving.',
+    ],
+    winter: [
+      'Begin on the lowest-looking edge where point and saddle meet. Slow down before covering the whole crossing.',
+      'Fish the point-saddle corner like a resting spot. The safest side deserves the longest pause.',
+    ],
+  },
+  'point+island': {
+    spring: [
+      'Start on the protected gap between island and point. Then work the side that leads toward shallow banks.',
+      'Fish the point edge facing the island first. That inside lane often holds moving fish.',
+    ],
+    summer: [
+      'Begin where the gap opens to bigger water. Then check the shaded island or point corner.',
+      'Fish the two closest corners before circling either structure. Summer fish usually choose one efficient edge.',
+    ],
+    fall: [
+      'Start with moving casts through the gap. Bait can get trapped between the island rim and point tip.',
+      'Work the outside corner first, then sweep between the two structures. Slow down only where activity appears.',
+    ],
+    winter: [
+      'Begin on the deeper side of the gap. Fish slowly where either structure gives quick access to stable water.',
+      'Stay near the strongest corner instead of circling both structures. Winter fish usually pick one safe edge.',
+    ],
+  },
+  'point+dam': {
+    spring: [
+      'Start on the rock-to-point transition. Then follow the point toward the nearest protected bank.',
+      'Fish the hard corner first, especially if sun is on it. Then work the softer point edge.',
+    ],
+    summer: [
+      'Begin tight to the hard edge where it meets the point. Shade or water movement should choose your first angle.',
+      'Fish the wall contact first and the point second. The transition is the highest-value cast.',
+    ],
+    fall: [
+      'Start where the hard edge can pin bait against the point. Cover the corner before running the full face.',
+      'Work the dam seam into the point. Fall fish often slide along that change while chasing bait.',
+    ],
+    winter: [
+      'Begin on the deepest-looking hard corner. Fish slowly before moving along the point.',
+      'Stay tight to the wall-point transition. Cold fish usually hold where hard structure meets safer water.',
+    ],
+  },
+  'cove+neck': {
+    spring: [
+      'Start at the throat before entering the cove. The shoulder toward shallow water gets the first slow pass.',
+      'Fish the neck as the doorway and the cove as the destination. Work both sides of the door.',
+    ],
+    summer: [
+      'Begin at the mouth-side shoulder of the neck. Then check shade inside the cove only if the lane shows life.',
+      'Fish the tight water quickly, then the best protected edge. Do not grind the warm back without a reason.',
+    ],
+    fall: [
+      'Start outside the cove and cast through the neck. Bait often gets pushed through before fish follow inside.',
+      'Work the tightest lane first. Then slow down just inside the cove where bait can stall.',
+    ],
+    winter: [
+      'Begin outside the neck on the stable-water side. The protected cove edge is a secondary check.',
+      'Fish the mouth-side shoulder slowly. Cold fish usually hold near the exit, not deep in the back.',
+    ],
+  },
+  'cove+saddle': {
+    spring: [
+      'Start on the saddle shoulder feeding the cove. Then move into the mouth if fish are sliding shallow.',
+      'Fish the crossing first and the protected edge second. That order checks staging fish before roamers.',
+    ],
+    summer: [
+      'Begin on the open-water saddle side. Then check the cove mouth only if shade, bait, or cover justifies it.',
+      'Fish the saddle edge as the safer hold. The cove side is the low-light follow-up.',
+    ],
+    fall: [
+      'Start where the saddle spills into the cove mouth. Bait can swing across this corner repeatedly.',
+      'Work across the mouth and saddle together. Slow down only after bait or fish picks a side.',
+    ],
+    winter: [
+      'Begin on the saddle shoulder outside the pocket. Fish slowly where the route stays closest to stable water.',
+      'Keep the first casts outside the cove. The back only matters if the mouth has life.',
+    ],
+  },
+  'cove+island': {
+    spring: [
+      'Start on the island edge facing the cove mouth. Then follow the protected lane toward the bank.',
+      'Fish the gap before the back of the cove. Moving fish often pause between island and pocket.',
+    ],
+    summer: [
+      'Begin on the island side with better shade or open-water access. Then check the cove mouth briefly.',
+      'Use the island as the hold and the cove as the feeding lane. The mouth-facing rim comes first.',
+    ],
+    fall: [
+      'Start where bait can collect between island and cove mouth. Cover both edges before chasing shallow water.',
+      'Fish the island rim facing the pocket, then sweep the cove entrance. Stay with the side that shows life.',
+    ],
+    winter: [
+      'Begin on the island edge closest to the cove exit. Fish slowly and keep the protected bank as a backup.',
+      'Stay near the gap, not the far back. Winter fish usually want an easy route out.',
+    ],
+  },
+  'cove+dam': {
+    spring: [
+      'Start on the hard edge at the cove entrance. Then work into the warmer protected bank.',
+      'Fish the dam-to-cove transition first. It can stage fish before they slide shallow.',
+    ],
+    summer: [
+      'Begin on shade along the wall near the mouth. The cove side gets a look only if it has life.',
+      'Use the hard edge as the hold and the cove as the feeding lane. The corner is the first cast.',
+    ],
+    fall: [
+      'Start where bait can be trapped between wall and cove mouth. Cover the seam before entering the pocket.',
+      'Run the hard edge into the mouth. If bait shows inside, follow it only as far as it stays active.',
+    ],
+    winter: [
+      'Begin on the wall side closest to stable water. Fish slowly before checking the cove edge.',
+      'Stay near the hard corner at the mouth. Cold fish rarely need the far back first.',
+    ],
+  },
+  'neck+saddle': {
+    spring: [
+      'Start on the tightest part of the route, then widen across the saddle. Work the shoulder facing protected water.',
+      'Fish the neck as the doorway and the saddle as the staging shelf. Both entrances deserve a pass.',
+    ],
+    summer: [
+      'Begin beside the pinch on the deeper-looking shoulder. Then check the saddle edge that faces open water.',
+      'Work from tight water to wider water. Summer fish may hold just outside the compression.',
+    ],
+    fall: [
+      'Start through the pinch and sweep across the saddle. Bait can use either path during the same window.',
+      'Cover the tight lane first. If fish react, widen out across the saddle before changing spots.',
+    ],
+    winter: [
+      'Begin on the stable shoulder outside the neck. Then work the saddle edge slowly.',
+      'Fish beside the travel lane, not just through it. Winter fish usually hold off the main route.',
+    ],
+  },
+  'neck+island': {
+    spring: [
+      'Start on the island-side throat leading toward protected water. Then check the calmer shoulder.',
+      'Fish the gap first and the island corner second. Spring movement often pauses where the two touch.',
+    ],
+    summer: [
+      'Begin on shade along the island-side lane. Then make one pass through the tight water.',
+      'Use the island edge as the hold and the neck as the feeding window. The corner gets the slow pass.',
+    ],
+    fall: [
+      'Start with moving casts through the island gap. Bait can get squeezed hard along this rim.',
+      'Fish both entrances to the island-side neck. The side with bait gets the repeat cast.',
+    ],
+    winter: [
+      'Begin just outside the gap on the stable-water side. Work slowly along the island rim.',
+      'Stay on the safest shoulder near the island. The middle of the neck is a later check.',
+    ],
+  },
+  'neck+dam': {
+    spring: [
+      'Start where the hard edge tightens the lane. Then fish the shoulder leading toward protected water.',
+      'Work the wall-side throat first. Fish often pause on the hard corner before moving through.',
+    ],
+    summer: [
+      'Begin on the shaded hard edge beside the neck. Then sweep the gap with one clean pass.',
+      'Fish the dam as the secure edge and the neck as the route. The meeting point matters most.',
+    ],
+    fall: [
+      'Start where bait gets pinned between hard edge and lane. Cover the pinch before running the wall.',
+      'Fish through the neck, then along the wall seam. Repeat whichever angle creates contact.',
+    ],
+    winter: [
+      'Begin on the stable wall-side shoulder. Work slowly before checking the throat.',
+      'Stay tight to hard structure near the lane. Winter fish usually hold beside the route.',
+    ],
+  },
+  'saddle+island': {
+    spring: [
+      'Start where the saddle touches the island rim. Then work toward the side facing protected water.',
+      'Fish the island-side rise first. Spring fish often pause there before sliding shallower.',
+    ],
+    summer: [
+      'Begin on the island rim that faces the crossing. Then check the saddle shoulder with open-water access.',
+      'Use the island as the hold and the saddle as the route. The meeting edge gets the first slow pass.',
+    ],
+    fall: [
+      'Start with moving casts from the island rim across the saddle. Bait can swing through either direction.',
+      'Fish the wind-facing rise first if present. Then sweep the island-side lane before moving on.',
+    ],
+    winter: [
+      'Begin on the deepest-looking island-side rise. Fish slowly where the crossing drops away.',
+      'Stay near the island corner that meets the saddle. Winter fish often hold just off that edge.',
+    ],
+  },
+  'saddle+dam': {
+    spring: [
+      'Start where the crossing meets the hard edge. Then work the shoulder that points toward shallow water.',
+      'Fish the dam-side rise first. The saddle gives moving fish a route to pause on.',
+    ],
+    summer: [
+      'Begin on shade or water movement along the dam-side shoulder. Then sweep the saddle edge.',
+      'Use the hard edge as the hold and the crossing as the feeding lane. The corner is the first read.',
+    ],
+    fall: [
+      'Start where the wall frames the saddle. Bait can get pinned before crossing the open side.',
+      'Cover the hard edge first, then widen across the saddle. Slow down only after contact.',
+    ],
+    winter: [
+      'Begin on the stable wall-side rise. Fish slowly where the saddle meets hard structure.',
+      'Stay near the strongest corner of the crossing. Winter fish usually choose security over roaming.',
+    ],
+  },
+  'island+dam': {
+    spring: [
+      'Start in the protected gap between island and hard edge. Then work the rim toward shallow water.',
+      'Fish the wall-side island corner first. It can stage fish before they slide to nearby banks.',
+    ],
+    summer: [
+      'Begin on shade between wall and island. Then check the open-water island corner.',
+      'Use the hard edge as security and the island rim as movement. Fish the gap before circling wide.',
+    ],
+    fall: [
+      'Start where bait can be trapped in the island-wall gap. Cover the seam before running the rim.',
+      'Fish the outside corner, then sweep along the hard edge. Repeat any angle that gets chased.',
+    ],
+    winter: [
+      'Begin on the stable side of the island-wall gap. Keep casts slow and close to hard structure.',
+      'Stay near the corner with the quickest deep-water access. The flat rim is a later check.',
+    ],
+  },
+  'point+cove+island': {
+    spring: [
+      'Start outside the mouth where the point and island frame the pocket. Then work the protected lane inward.',
+      'Fish the island-point gap before the back of the cove. It is the cleanest staging intersection.',
+    ],
+    summer: [
+      'Begin on the outside corner with the quickest escape route. Then check shade inside the island-cove gap.',
+      'Use the point and island as the holds. The cove side gets a look when low light or bait pulls fish in.',
+    ],
+    fall: [
+      'Start where bait must choose between point, island, and cove. Cover the mouth before chasing the back.',
+      'Fish the outside intersection fast. Slow down where bait gets pinned between the island and point.',
+    ],
+    winter: [
+      'Begin outside the cove on the point-island corner. Fish slowly and keep the protected side as a follow-up.',
+      'Stay on the stable edge of the complex. The cove back is not the first winter target.',
+    ],
+  },
+  travel_hub: {
+    spring: [
+      'Start on the travel edge that points toward protected water. Then check the nearest shoulder that offers a pause spot.',
+      'Fish the route in sections: entrance, pinch, exit. The best spring bite often comes on one shoulder.',
+    ],
+    summer: [
+      'Begin on the edge where fish can hold safely beside the route. Then make one pass through the lane.',
+      'Use the hub as a timing spot. If bait or shade is absent, check it efficiently and move.',
+    ],
+    fall: [
+      'Start where the most routes compress. Cover it quickly, then repeat the first angle that shows life.',
+      'Fish the hub like a moving-water intersection. Bait direction should decide which shoulder gets the slower pass.',
+    ],
+    winter: [
+      'Begin beside the route on the deepest-looking shoulder. Fish slowly before testing the center lane.',
+      'Stay on the safest edge of the hub. Winter fish use travel corridors, but they rarely chase far.',
+    ],
+  },
+  island_travel_hub: {
+    spring: [
+      'Start on the island-side route leading toward protected banks. Then work the corner that gives fish a pause spot.',
+      'Fish the rim where it touches the travel lane. Spring fish can use the island as a staging stop.',
+    ],
+    summer: [
+      'Begin on the island shoulder with shade or open-water access. Then check the route only if bait is moving.',
+      'Use the island as security and the lane as opportunity. The best edge usually has one clear advantage.',
+    ],
+    fall: [
+      'Start where the lane brushes the island rim. Bait can get pinned before pushing through.',
+      'Fish the travel side fast, then repeat the island corner if fish follow or miss.',
+    ],
+    winter: [
+      'Begin on the stable island shoulder outside the route. Fish slowly and avoid circling the whole complex.',
+      'Stay close to the rim where it drops into the lane. Winter fish usually sit just off traffic.',
+    ],
+  },
+  mouth_complex: {
+    spring: [
+      'Start on the outside mouth corner, then work toward the protected side. The back comes after the entrance is checked.',
+      'Fish the mouth as a staging area. Then follow the best edge into the pocket if fish are moving.',
+    ],
+    summer: [
+      'Begin outside the mouth where fish can leave quickly. Shade or bait decides whether to move inside.',
+      'Use the mouth as the main target. The pocket itself is a short follow-up, not the whole plan.',
+    ],
+    fall: [
+      'Start with moving casts across the mouth. If bait pushes inside, follow only as far as activity stays clear.',
+      'Fish the entrance from both sides. Fall fish often choose the edge that traps bait best.',
+    ],
+    winter: [
+      'Begin outside the pocket on the most stable edge. Move inward only if the mouth has cover or bait.',
+      'Stay near the exit route. Winter fish may use the pocket edge without committing to the back.',
+    ],
+  },
+  island_complex: {
+    spring: [
+      'Start on the protected island rim that faces the connected structure. Then work the nearest corner.',
+      'Fish the island as the center of the stop. The attached edge tells you which side to try first.',
+    ],
+    summer: [
+      'Begin on the island side with the best comfort factor. Shade, wind, or open-water access should choose it.',
+      'Work the island corner before the attached structure. Summer fish usually hold on the safest part first.',
+    ],
+    fall: [
+      'Start where the island tightens the connected edge. Bait can slide around the rim fast.',
+      'Fish the island-facing lane first. Then widen out only if bait keeps moving.',
+    ],
+    winter: [
+      'Begin on the island edge closest to stable water. The connected structure is the second slow pass.',
+      'Stay on one strong island side instead of circling everything. Winter fish usually commit to the safest edge.',
+    ],
+  },
+  shoreline_complex: {
+    spring: [
+      'Start where shoreline shape changes beside protected water. Then work the closest cover with slower casts.',
+      'Fish the transition first, not the whole bank. Spring fish often pause where hard edge meets softer water.',
+    ],
+    summer: [
+      'Begin on the bank change with shade or quick depth access. Then check the connected edge briefly.',
+      'Use the strongest shoreline corner as the target. If it lacks cover or bait, move to the next one.',
+    ],
+    fall: [
+      'Start where bait can be trapped against the bank. Cover it fast before working outward.',
+      'Fish the sharpest shoreline change first. Fall movement rewards the best corner, not the broad zone.',
+    ],
+    winter: [
+      'Begin where the shoreline change meets stable water. Fish slowly and keep the bait close to the edge.',
+      'Stay on the hard or protected side of the complex. Winter fish usually choose the secure corner.',
+    ],
+  },
+  mixed_confluence: {
+    spring: [
+      'Start on the edge that points toward protected water. Then work the next strongest corner before spreading out.',
+      'Fish the overlap in order: outside edge, protected side, then the middle. That keeps the read deliberate.',
+    ],
+    summer: [
+      'Begin where shade, wind, or quick escape comes together. Then check only the connected edge that supports it.',
+      'Pick the most comfortable side first. Summer fish rarely use every piece of a mixed zone at once.',
+    ],
+    fall: [
+      'Start with the edge that traps bait best. Once a side shows life, repeat that lane before exploring.',
+      'Cover the overlap quickly, then let bait direction narrow the target. Do not fish every corner equally.',
+    ],
+    winter: [
+      'Begin on the most stable side of the overlap. Fish slowly and let the safest edge define the stop.',
+      'Stay near the strongest escape route. Winter fish usually sit beside the intersection, not throughout it.',
+    ],
+  },
+};
+
 /**
  * Pick a template deterministically using a hash of `zoneId + season` so the
  * same zone always shows the same body across opens (originality lake-to-
@@ -787,8 +1333,14 @@ export function pickLegendBody(args: {
     ? confluenceTemplateKey(args)
     : featureClass;
   const bucket = featureClass === 'structure_confluence'
-    ? CONFLUENCE_TEMPLATES[templateKey as ConfluenceTemplateKey]
-    : STRUCTURE_TEMPLATES[templateKey as StandaloneFeatureClass];
+    ? mergedSeasonTemplates(
+        CONFLUENCE_TEMPLATES[templateKey as ConfluenceTemplateKey],
+        EXTRA_CONFLUENCE_TEMPLATES[templateKey as ConfluenceTemplateKey],
+      )
+    : mergedSeasonTemplates(
+        STRUCTURE_TEMPLATES[templateKey as StandaloneFeatureClass],
+        EXTRA_STRUCTURE_TEMPLATES[templateKey as StandaloneFeatureClass],
+      );
   if (!bucket) return fallbackBody ?? '';
   const list = bucket[normalizeSeason(season)];
   if (!list || list.length === 0) return fallbackBody ?? '';
@@ -796,6 +1348,16 @@ export function pickLegendBody(args: {
   const seed = `${stableZoneSeed}|${normalizeSeason(season)}|${templateKey}`;
   const idx = hashString(seed) % list.length;
   return list[idx];
+}
+
+function mergedSeasonTemplates(base: SeasonTemplates | undefined, extra: SeasonTemplates | undefined): SeasonTemplates | undefined {
+  if (!base) return undefined;
+  return {
+    spring: [...base.spring, ...(extra?.spring ?? [])],
+    summer: [...base.summer, ...(extra?.summer ?? [])],
+    fall: [...base.fall, ...(extra?.fall ?? [])],
+    winter: [...base.winter, ...(extra?.winter ?? [])],
+  };
 }
 
 function confluenceTemplateKey(args: {
@@ -884,10 +1446,7 @@ export function waterReaderLegendTemplateQualityReport(): {
 } {
   const issues: Array<{ key: string; season: LegendSeason; text: string; reason: string }> = [];
   let checked = 0;
-  const allBuckets: Record<string, SeasonTemplates> = {
-    ...STRUCTURE_TEMPLATES,
-    ...CONFLUENCE_TEMPLATES,
-  };
+  const allBuckets = expandedTemplateBuckets();
 
   for (const [key, seasons] of Object.entries(allBuckets)) {
     for (const season of SEASON_ORDER) {
@@ -909,6 +1468,17 @@ export function waterReaderLegendTemplateQualityReport(): {
   }
 
   return { ok: issues.length === 0, checked, issues };
+}
+
+function expandedTemplateBuckets(): Record<string, SeasonTemplates> {
+  const out: Record<string, SeasonTemplates> = {};
+  for (const key of Object.keys(STRUCTURE_TEMPLATES) as StandaloneFeatureClass[]) {
+    out[key] = mergedSeasonTemplates(STRUCTURE_TEMPLATES[key], EXTRA_STRUCTURE_TEMPLATES[key])!;
+  }
+  for (const key of Object.keys(CONFLUENCE_TEMPLATES) as ConfluenceTemplateKey[]) {
+    out[key] = mergedSeasonTemplates(CONFLUENCE_TEMPLATES[key], EXTRA_CONFLUENCE_TEMPLATES[key])!;
+  }
+  return out;
 }
 
 /**

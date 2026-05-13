@@ -60,7 +60,7 @@ const islandSaddleConfluenceFixture = pickLegendBody({
 assert(requestShape.lakeId.length > 0, 'read request contract should include lakeId');
 assert(responseShape.feature === 'water_reader_read_v1', 'read response feature marker should be stable');
 assert(legendCopyQuality.ok, `legend guide copy should stay compact/public: ${JSON.stringify(legendCopyQuality.issues.slice(0, 5))}`);
-assert(legendCopyQuality.checked > 150, 'legend guide copy should cover standalone and confluence templates');
+assert(legendCopyQuality.checked > 500, 'legend guide copy should cover a deep standalone and confluence template pool');
 assert(pointCoveConfluenceFixture.toLowerCase().includes('mouth') || pointCoveConfluenceFixture.toLowerCase().includes('cove'), 'point+cove confluence should use mouth/cove-specific guidance');
 assert(islandSaddleConfluenceFixture.toLowerCase().includes('island') || islandSaddleConfluenceFixture.toLowerCase().includes('saddle'), 'island+saddle confluence should use member-specific guidance');
 assert(!paperifiedLeaderFixture.includes('round"/ stroke-dasharray'), 'paperifier should not insert leader dash attributes after a self-closing slash');
