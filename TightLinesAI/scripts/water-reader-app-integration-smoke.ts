@@ -70,6 +70,7 @@ assert(serverSource.includes('buildServerWaterReaderRead'), 'server read endpoin
 assert(serverSource.includes('WATER_READER_HEAVY_GENERATOR_URL'), 'server read endpoint should route heavy rows to worker when configured');
 assert(serverSource.includes('x-water-reader-internal-key'), 'server read endpoint should use internal key for diagnostics and worker auth');
 assert(serverSource.includes('heavyRouteInfo'), 'server read endpoint should classify heavy rows structurally');
+assert(serverSource.includes('routeAllCacheMissesThroughHeavyWorker'), 'server read endpoint should route configured cache misses through the worker');
 assert(serverSource.includes('EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 4500'), 'server read endpoint should route Pontiac-class runtime vertex counts away from the edge worker');
 assert(serverSource.includes('EDGE_INLINE_INTERIOR_RING_LIMIT = 18'), 'server read endpoint should route island-hole-heavy polygons away from the edge worker');
 assert(serverSource.includes('EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 100000'), 'server read endpoint should route large runtime payloads away from the edge worker');
@@ -106,7 +107,7 @@ console.log(JSON.stringify({
   feature: WATER_READER_READ_FEATURE,
   fetchWaterReaderRead: 'exported',
   appUsesServerRead: true,
-  edgeGeneratesOnCacheMiss: true,
+  serverHandlesCacheMiss: true,
   cacheMissFallback: false,
   serverSvgWidth: 420,
 }));

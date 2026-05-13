@@ -169,6 +169,20 @@ function allowEdgeHeavyLocalFallback(): boolean {
   return Deno.env.get("WATER_READER_ALLOW_EDGE_HEAVY_FALLBACK") === "true";
 }
 
+function routeAllCacheMissesThroughHeavyWorker(): boolean {
+  return Boolean(Deno.env.get("WATER_READER_HEAVY_GENERATOR_URL") && Deno.env.get("WATER_READER_INTERNAL_KEY")) &&
+    Deno.env.get("WATER_READER_EDGE_INLINE_CACHE_MISSES") !== "true";
+}
+
+function workerRouteInfo(heavy: HeavyRouteInfo): HeavyRouteInfo {
+  if (heavy.heavy) return heavy;
+  return {
+    ...heavy,
+    heavy: true,
+    reason: "worker_routed_cache_miss",
+  };
+}
+
 function mapPolygonRow(row: PolygonRpcRow): WaterbodyPolygonForWaterReaderRead {
   return {
     lakeId: row.lake_id,
@@ -643,12 +657,14 @@ Deno.serve(async (req: Request) => {
   }
 
   const heavy = heavyRouteInfo(polygon);
-  if (heavy.heavy) {
+  const routeViaHeavyWorker = heavy.heavy || routeAllCacheMissesThroughHeavyWorker();
+  if (routeViaHeavyWorker) {
+    const routedHeavy = workerRouteInfo(heavy);
     const result = await requestHeavyGenerator({
       lakeId: polygon.lakeId,
       currentDate,
       seasonContextKey: seasonContext.seasonContextKey,
-      heavy,
+      heavy: routedHeavy,
     });
     if (result.read) {
       return new Response(
@@ -691,14 +707,14 @@ Deno.serve(async (req: Request) => {
       } catch (localError) {
         console.error("[water-reader-read] local heavy fallback failed", {
           lakeId: polygon.lakeId,
-          heavyReason: heavy.reason,
+          heavyReason: routedHeavy.reason,
           message: localError instanceof Error ? localError.message : String(localError),
         });
       }
     }
     console.error("[water-reader-read] heavy generator unavailable for routed read", {
       lakeId: polygon.lakeId,
-      heavyReason: heavy.reason,
+      heavyReason: routedHeavy.reason,
       diagnostics: result.diagnostics,
     });
     return new Response(
