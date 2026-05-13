@@ -232,7 +232,7 @@ Deno.test("DailyPicks why_chosen uses real reasons and does not invent unavailab
     seed: "shape-test",
   }).picks.lure_of_the_day;
 
-  assert(/\b(Wind|breeze|Chop)\b/.test(pick.why_chosen));
+  assert(/\b(wind|breeze|chop)\b/i.test(pick.why_chosen));
   assert(!pick.why_chosen.includes("daily signal"));
   assert(!pick.why_chosen.includes("cover ambush"));
   assert(!pick.why_chosen.includes("calm surface"));
@@ -256,7 +256,7 @@ Deno.test("DailyPicks all-purpose why_chosen ignores stale big-fish score reason
   assert(!pick.why_chosen.includes("big-fish goal"));
   assert(!pick.why_chosen.includes("all-purpose goal"));
   assert(!pick.why_chosen.includes("daily signal"));
-  assert(/\b(Wind|breeze|Chop)\b/.test(pick.why_chosen));
+  assert(/\b(wind|breeze|chop)\b/i.test(pick.why_chosen));
 });
 
 Deno.test("DailyPicks big-fish why_chosen ignores stale all-purpose score reasons", () => {
@@ -276,7 +276,7 @@ Deno.test("DailyPicks big-fish why_chosen ignores stale all-purpose score reason
   assert(!pick.why_chosen.includes("all-purpose goal"));
   assert(!pick.why_chosen.includes("big-fish goal"));
   assert(!pick.why_chosen.includes("daily signal"));
-  assert(/\b(Wind|breeze|Chop)\b/.test(pick.why_chosen));
+  assert(/\b(wind|breeze|chop)\b/i.test(pick.why_chosen));
 });
 
 Deno.test("DailyPicks how_to_fish comes from selected profile variants", () => {

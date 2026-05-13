@@ -1,8 +1,4 @@
-import type {
-  ArchetypeIdV4,
-  ConditionTag,
-  ForageBucket,
-} from "../v4/contracts.ts";
+import type { ArchetypeIdV4, ConditionTag } from "../v4/contracts.ts";
 import type { DailyScenario } from "./buildDailyScenario.ts";
 import type { CandidateScore } from "./scoreCandidate.ts";
 import type { DailyPicksVariant } from "./selectDailyPicks.ts";
@@ -11,117 +7,84 @@ type WhyLineSet = readonly [string, string, string];
 
 const CONTEXT_LINES_BY_TAG = {
   calm_surface: [
-    "Calm water lets fish study the surface",
-    "A slick surface makes a clean wake easier to track",
-    "When the surface is quiet, precise commotion matters",
+    "Today's calm water lets fish study the surface",
+    "Today's slick surface makes a clean wake easier to track",
+    "With the surface quiet today, precise commotion matters",
   ],
   low_light_surface: [
-    "Low light lets fish feed upward more comfortably",
-    "Shade and low light make overhead prey feel safer to attack",
-    "When light is soft, fish can commit shallower and higher",
+    "Today's low light lets fish feed upward more comfortably",
+    "Today's shade and low light make overhead prey feel safer to attack",
+    "With softer light today, fish can commit shallower and higher",
   ],
   wind_reaction: [
-    "Wind breaks up the surface and helps fish commit",
-    "A breeze can push bait and turn followers into biters",
-    "Chop gives moving baits more cover and lets fish react",
+    "Today's wind breaks up the surface and helps fish commit",
+    "Today's breeze can push bait and turn followers into biters",
+    "Today's chop gives moving baits more cover and lets fish react",
   ],
   dirty_vibration: [
-    "Stained water makes feel and silhouette matter",
-    "Reduced visibility favors a bait fish can track without studying it",
-    "In dirty water, presence and vibration help fish find the meal",
+    "Today's stained water makes feel and silhouette matter",
+    "Today's reduced visibility favors a bait fish can track without studying it",
+    "In today's dirty water, presence and vibration help fish find the meal",
   ],
   clear_subtle: [
-    "Clear water rewards a natural profile",
-    "Good visibility calls for something convincing, not pushy",
-    "When fish can inspect the bait, a cleaner look matters",
+    "Today's clear water rewards a natural profile",
+    "Today's good visibility calls for something convincing, not pushy",
+    "When fish can inspect the bait today, a cleaner look matters",
   ],
   cold_slow: [
-    "Cooler water favors an easy target",
-    "A slower bite rewards a presentation fish do not have to chase far",
-    "When fish are less willing to run, control and hang time matter",
+    "Today's cooler water favors an easy target",
+    "Today's slower bite rewards a presentation fish do not have to chase far",
+    "When fish are less willing to run today, control and hang time matter",
   ],
   warming_search: [
-    "Warming water can spread fish out and open the chase window",
-    "A warming trend helps fish slide into feeding lanes",
-    "When the bite is opening up, covering likely water matters",
+    "Today's warming water can spread fish out and open the chase window",
+    "Today's warming trend helps fish slide into feeding lanes",
+    "When today's bite is opening up, covering likely water matters",
   ],
   heat_finesse: [
-    "Hot, tough bites reward controlled presentations",
-    "When heat slows the bite, a cleaner target can get extra looks",
-    "Warm water often calls for something fish can eat without much effort",
+    "Today's hot, tough bite rewards controlled presentations",
+    "When today's heat slows the bite, a cleaner target can get extra looks",
+    "Today's warm water calls for something fish can eat without much effort",
   ],
   runoff_streamer: [
-    "Runoff points fish toward bigger silhouettes and easy meals",
-    "Extra color in moving water rewards a profile fish can pick up quickly",
-    "When flow carries food, a visible meal gets noticed",
+    "Today's runoff points fish toward bigger silhouettes and easy meals",
+    "Today's extra color in moving water rewards a profile fish can pick up quickly",
+    "When today's flow carries food, a visible meal gets noticed",
   ],
   current_swing: [
-    "Current gives fish a predictable ambush lane",
-    "Moving water makes a controlled swing or drift feel natural",
-    "Current helps deliver the bait to fish already facing upstream",
+    "Today's current gives fish a predictable ambush lane",
+    "Today's moving water makes a controlled swing or drift feel natural",
+    "Today's current helps deliver the bait to fish already facing upstream",
   ],
   cover_ambush: [
-    "Cover points fish toward short, committed strikes",
-    "Around cover, fish often want a target that enters their space cleanly",
-    "Tight cover rewards a bait that can show up and get out",
+    "Today's cover pattern points fish toward short, committed strikes",
+    "Around today's cover, fish often want a target that enters their space cleanly",
+    "Today's tight cover rewards a bait that can show up and get out",
   ],
   open_water_search: [
-    "Open water calls for a bait that can show itself",
-    "When fish are spread out, a searchable profile earns more chances",
-    "Away from obvious targets, covering water with the right look matters",
+    "Today's open-water setup calls for a bait that can show itself",
+    "When fish are spread out today, a searchable profile earns more chances",
+    "Away from obvious targets today, covering water with the right look matters",
   ],
 } as const satisfies Record<ConditionTag, readonly string[]>;
 
 const CONTEXT_LINES_BY_CLARITY = {
   clear: [
-    "Clear water rewards a natural profile",
-    "Good visibility makes realism and clean movement matter",
-    "When fish can see well, the right shape matters more than noise",
+    "Today's clear water rewards a natural profile",
+    "Today's good visibility makes realism and clean movement matter",
+    "When fish can see well today, the right shape matters more than noise",
   ],
   stained: [
-    "Stained water makes silhouette and feel important",
-    "A little color in the water helps fish commit to a stronger profile",
-    "Reduced visibility rewards a bait that gives fish something to track",
+    "Today's stained water makes silhouette and feel important",
+    "Today's color in the water helps fish commit to a stronger profile",
+    "Today's reduced visibility rewards a bait that gives fish something to track",
   ],
   dirty: [
-    "Dirty water puts a premium on presence",
-    "Low visibility favors a bait fish can locate quickly",
-    "When the water has color, vibration and outline do real work",
+    "Today's dirty water puts a premium on presence",
+    "Today's low visibility favors a bait fish can locate quickly",
+    "When today's water has color, vibration and outline do real work",
   ],
 } as const satisfies Record<DailyScenario["water_clarity"], readonly string[]>;
-
-const CONTEXT_LINES_BY_FORAGE = {
-  baitfish: [
-    "With baitfish in play, matching shape and movement matters",
-    "When fish are keyed on bait, a minnow-shaped meal fits the moment",
-    "Baitfish pressure rewards a profile that looks worth chasing",
-  ],
-  crawfish: [
-    "When crawfish are part of the menu, bottom contact matters",
-    "Crawfish forage points fish toward short hops and defensive movement",
-    "A craw-heavy bite rewards something that looks vulnerable near bottom",
-  ],
-  bluegill_perch: [
-    "Bluegill and perch forage rewards a fuller profile",
-    "When panfish are on the menu, a broad, readable target makes sense",
-    "Panfish forage favors a bait with shape, flash, and presence",
-  ],
-  leech_worm: [
-    "Leech and worm forage rewards a slower, easy meal",
-    "When fish are willing to eat soft prey, subtle movement can shine",
-    "A leech-or-worm bite favors something fish can pin down cleanly",
-  ],
-  insect_misc: [
-    "Bug activity rewards a smaller, believable meal",
-    "When fish are eating small prey, restraint can beat flash",
-    "Insect forage points toward a compact profile fish can sip or nip",
-  ],
-  surface_prey: [
-    "Surface prey gives fish a reason to look up",
-    "When frogs, bugs, or small prey are riding high, topwater has a lane",
-    "Surface food makes a high-riding target feel natural",
-  ],
-} as const satisfies Record<ForageBucket, readonly string[]>;
 
 const WHY_LINES_BY_ID = {
   weightless_stick_worm: [
@@ -556,15 +519,8 @@ function firstMatchedConditionTag(
     const tag = rawTag as ConditionTag;
     if (scenario.scenario_tags.includes(tag)) return tag;
   }
-  return null;
-}
-
-function firstMatchedForage(score: CandidateScore): ForageBucket | null {
-  for (const reason of score.reasons) {
-    const primary = scoreReasonValue(reason, "primary_forage:");
-    if (primary != null) return primary as ForageBucket;
-    const secondary = scoreReasonValue(reason, "secondary_forage:");
-    if (secondary != null) return secondary as ForageBucket;
+  for (const tag of score.profile.condition_tags) {
+    if (scenario.scenario_tags.includes(tag)) return tag;
   }
   return null;
 }
@@ -580,19 +536,16 @@ function contextLine(args: {
     return lines[pickIndex(lines.length, `${args.key}|tag|${tag}`)]!;
   }
 
-  const forage = firstMatchedForage(args.score);
-  if (forage != null) {
-    const lines = CONTEXT_LINES_BY_FORAGE[forage];
-    return lines[pickIndex(lines.length, `${args.key}|forage|${forage}`)]!;
-  }
-
   const lines = CONTEXT_LINES_BY_CLARITY[args.scenario.water_clarity];
-  return lines[
+  const clarityLine = lines[
     pickIndex(
       lines.length,
       `${args.key}|clarity|${args.scenario.water_clarity}`,
     )
   ]!;
+  if (clarityLine != null) return clarityLine;
+
+  return "Today's setup favors a dependable profile";
 }
 
 export function whyThisCopy(args: {

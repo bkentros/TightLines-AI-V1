@@ -91,6 +91,10 @@ Deno.test("why-this copy stays guide-facing, concise, and varied for every arche
           `${profile.id} leaks "${term}" in why-this copy: ${copy}`,
         );
       }
+      assert(
+        copy.toLowerCase().includes("today"),
+        `${profile.id} should mention today's daily setup or conditions: ${copy}`,
+      );
     }
 
     assert(
