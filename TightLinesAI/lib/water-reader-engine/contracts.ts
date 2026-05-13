@@ -124,6 +124,7 @@ export interface WaterReaderLegendEntry {
   zoneId: string;
   zoneIds?: string[];
   featureClass?: WaterReaderFeatureClass | 'structure_confluence';
+  featureClasses?: WaterReaderFeatureClass[];
   placementKind?: string;
   placementKinds?: string[];
   colorHex?: string;

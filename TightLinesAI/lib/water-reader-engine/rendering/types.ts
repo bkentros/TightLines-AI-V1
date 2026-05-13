@@ -54,6 +54,7 @@ export interface WaterReaderProductionSvgLegendEntry {
   body: string;
   colorHex: string;
   featureClass: WaterReaderFeatureClass | 'structure_confluence';
+  featureClasses: WaterReaderFeatureClass[];
   placementKind?: WaterReaderZonePlacementKind;
   placementKinds: WaterReaderZonePlacementKind[];
   zoneId: string;

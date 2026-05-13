@@ -2712,6 +2712,7 @@ function displayLegendForEntry(
     zoneId: entry.zoneIds[0] ?? legendEntry.zoneId,
     zoneIds: entry.zoneIds,
     featureClass: entry.entryType === 'structure_confluence' ? 'structure_confluence' : entry.featureClasses[0],
+    featureClasses: entry.featureClasses,
     placementKind: entry.placementKinds[0],
     placementKinds: entry.placementKinds,
     colorHex: entry.colorHex,

@@ -4,6 +4,10 @@ import {
   type WaterReaderReadRequest,
   type WaterReaderReadResponse,
 } from '../lib/waterReaderContracts';
+import {
+  pickLegendBody,
+  waterReaderLegendTemplateQualityReport,
+} from '../lib/waterReaderLegendTemplates';
 import { paperifyWaterReaderSvg } from '../lib/water-reader-paperify-svg';
 
 function assert(condition: unknown, message: string): asserts condition {
@@ -33,15 +37,39 @@ const responseShape: Pick<WaterReaderReadResponse, 'feature' | 'productionSvgRes
 };
 const leaderPaperifyFixture = `<svg viewBox="0 0 200 200"><defs></defs><path class="water-reader-label-leader" d="M 106.72 188.74 L 106.72 220.68" fill="none" stroke="#0F172A" stroke-width="1" stroke-opacity="0.5" stroke-linecap="round"/></svg>`;
 const paperifiedLeaderFixture = paperifyWaterReaderSvg(leaderPaperifyFixture).svg;
+const legendCopyQuality = waterReaderLegendTemplateQualityReport();
+const pointCoveConfluenceFixture = pickLegendBody({
+  featureClass: 'structure_confluence',
+  featureClasses: ['main_lake_point', 'cove'],
+  season: 'fall',
+  zoneId: 'confluence-fixture',
+  zoneIds: ['point-1', 'cove-1'],
+  title: 'Point + Cove - Structure Area',
+  placementKinds: ['main_point_structure_area', 'cove_structure_area'],
+});
+const islandSaddleConfluenceFixture = pickLegendBody({
+  featureClass: 'structure_confluence',
+  featureClasses: ['island', 'saddle'],
+  season: 'summer',
+  zoneId: 'island-saddle-fixture',
+  zoneIds: ['island-1', 'saddle-1'],
+  title: 'Island + Saddle - Structure Area',
+  placementKinds: ['island_structure_area', 'saddle_structure_area'],
+});
 
 assert(requestShape.lakeId.length > 0, 'read request contract should include lakeId');
 assert(responseShape.feature === 'water_reader_read_v1', 'read response feature marker should be stable');
+assert(legendCopyQuality.ok, `legend guide copy should stay compact/public: ${JSON.stringify(legendCopyQuality.issues.slice(0, 5))}`);
+assert(legendCopyQuality.checked > 150, 'legend guide copy should cover standalone and confluence templates');
+assert(pointCoveConfluenceFixture.toLowerCase().includes('mouth') || pointCoveConfluenceFixture.toLowerCase().includes('cove'), 'point+cove confluence should use mouth/cove-specific guidance');
+assert(islandSaddleConfluenceFixture.toLowerCase().includes('island') || islandSaddleConfluenceFixture.toLowerCase().includes('saddle'), 'island+saddle confluence should use member-specific guidance');
 assert(!paperifiedLeaderFixture.includes('round"/ stroke-dasharray'), 'paperifier should not insert leader dash attributes after a self-closing slash');
 assert(paperifiedLeaderFixture.includes('stroke-linecap="round" stroke-dasharray="4 3"/>'), 'paperifier should insert leader dash attributes before the self-closing slash');
 assert(clientSource.includes('export async function fetchWaterReaderRead'), 'fetchWaterReaderRead should be exported');
 assert(clientSource.includes('invokeEdgeFunction<WaterReaderReadResponse>("water-reader-read"'), 'client should call water-reader-read edge function');
 assert(contractSource.includes('export interface WaterReaderReadResponse'), 'app read response contract should exist');
 assert(contractSource.includes('legendEntries: WaterReaderProductionSvgLegendEntry[]'), 'app SVG contract should expose native legend entries');
+assert(contractSource.includes('featureClasses?: Exclude<WaterReaderProductionSvgFeatureClass'), 'app legend entries should expose confluence member feature classes');
 // v5 marks the dashboard-native renderer (off-white land, blue water,
 // high-signal zones, and outside-perimeter callout labels). Bumping the
 // constant intentionally invalidates the v4 paper/beige cache. If the

@@ -234,6 +234,7 @@ export interface WaterReaderProductionSvgLegendEntry {
   body: string;
   colorHex: string;
   featureClass: WaterReaderProductionSvgFeatureClass;
+  featureClasses?: Exclude<WaterReaderProductionSvgFeatureClass, "structure_confluence">[];
   placementKind?: string;
   placementKinds: string[];
   zoneId: string;

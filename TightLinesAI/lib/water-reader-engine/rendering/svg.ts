@@ -781,6 +781,7 @@ function productionLegendEntries(displayModel: WaterReaderDisplayModel): WaterRe
       body: entry.body,
       colorHex: entry.colorHex ?? DEFAULT_LEGEND_COLOR,
       featureClass: normalizeLegendFeatureClass(entry.featureClass, entry.isConfluence),
+      featureClasses: normalizeLegendFeatureClasses(entry.featureClasses, entry.featureClass, entry.isConfluence),
       placementKind: normalizeLegendPlacementKind(entry.placementKind) ?? placementKinds[0],
       placementKinds,
       zoneId: entry.zoneId,
@@ -797,6 +798,16 @@ function normalizeLegendFeatureClass(
 ): WaterReaderFeatureClass | 'structure_confluence' {
   if (featureClass) return featureClass;
   return isConfluence ? 'structure_confluence' : 'universal';
+}
+
+function normalizeLegendFeatureClasses(
+  featureClasses: WaterReaderFeatureClass[] | undefined,
+  featureClass: WaterReaderFeatureClass | 'structure_confluence' | undefined,
+  isConfluence: boolean | undefined,
+): WaterReaderFeatureClass[] {
+  if (featureClasses?.length) return [...new Set(featureClasses)];
+  if (featureClass && featureClass !== 'structure_confluence') return [featureClass];
+  return isConfluence ? [] : ['universal'];
 }
 
 function normalizeLegendPlacementKind(placementKind: string | undefined): WaterReaderZonePlacementKind | undefined {

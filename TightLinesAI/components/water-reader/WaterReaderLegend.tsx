@@ -198,11 +198,15 @@ const LegendRow = memo(function LegendRow({
         featureClass: (entry.isConfluence
           ? 'structure_confluence'
           : entry.featureClass) as WaterReaderProductionSvgFeatureClass,
+        featureClasses: entry.featureClasses,
         season,
         zoneId: entry.zoneId,
+        zoneIds: entry.zoneIds,
+        title: entry.title,
+        placementKinds: entry.placementKinds,
         fallbackBody: entry.body,
       }),
-    [entry.body, entry.featureClass, entry.isConfluence, entry.zoneId, season],
+    [entry.body, entry.featureClass, entry.featureClasses, entry.isConfluence, entry.placementKinds, entry.title, entry.zoneId, entry.zoneIds, season],
   );
 
   const handlePress = useCallback(() => {
