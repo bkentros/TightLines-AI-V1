@@ -29,7 +29,7 @@ function stripPlaceSuffix(name) {
   return name
     .replace(/^(city|town|village|borough|municipality|charter township|township)\s+of\s+/i, '')
     .replace(/\s+\(balance\)$/i, '')
-    .replace(/\s+(city|town|village|borough|municipio|municipality|CDP)$/i, '')
+    .replace(/\s+(town|village|borough|municipio|municipality|CDP)$/i, '')
     .trim();
 }
 

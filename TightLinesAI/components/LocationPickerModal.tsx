@@ -46,6 +46,8 @@ import { searchUsCities, type PlaceResult } from '../lib/locationSearch';
 // Types
 // ---------------------------------------------------------------------------
 
+const MIN_CITY_QUERY_LENGTH = 1;
+
 interface Props {
   visible: boolean;
   currentLabel: string;
@@ -103,7 +105,7 @@ export function LocationPickerModal({
     if (debounceRef.current) clearTimeout(debounceRef.current);
     abortRef.current?.abort();
 
-    if (!text.trim() || text.trim().length < 2) {
+    if (!text.trim() || text.trim().length < MIN_CITY_QUERY_LENGTH) {
       setResults([]);
       setLoading(false);
       return;
@@ -130,7 +132,7 @@ export function LocationPickerModal({
           setLoading(false);
         }
       }
-    }, 200);
+    }, 140);
   }, []);
 
   const handleClear = useCallback(() => {
@@ -141,11 +143,17 @@ export function LocationPickerModal({
   }, []);
 
   const showResults = results.length > 0;
-  const showEmpty = query.trim().length >= 2 && !loading && !showResults && !error;
-  const shortQuery = query.trim().length < 2;
+  const showEmpty = query.trim().length >= MIN_CITY_QUERY_LENGTH && !loading && !showResults && !error;
+  const shortQuery = query.trim().length < MIN_CITY_QUERY_LENGTH;
+  const hasQuery = !shortQuery;
   const showRecent = shortQuery && recentLocations.length > 0;
   const showPinned = shortQuery && savedLocation != null;
   const showHint = shortQuery && !showRecent && !showPinned;
+  const activeSource = isUsingCustom ? 'Pinned city' : 'GPS location';
+  let sectionLabel = 'SAVED & RECENT';
+  if (hasQuery) {
+    sectionLabel = showResults ? 'TAP A CITY TO USE IT' : 'CITY SUGGESTIONS';
+  }
 
   return (
     <Modal
@@ -162,23 +170,43 @@ export function LocationPickerModal({
 
           {/* ── Header ── */}
           <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
-            <View style={styles.headerSide} />
-            <View style={styles.headerTitleWrap} pointerEvents="none">
-              <Text style={styles.title}>Choose Your Location</Text>
+            <View style={styles.headerTitleWrap}>
+              <Text style={styles.title}>Choose Location</Text>
+              <Text style={styles.subtitle}>
+                Search any U.S. city to refresh local weather and fishing reads.
+              </Text>
             </View>
-            <View style={styles.headerSide}>
-              <Pressable
-                onPress={onClose}
-                hitSlop={12}
-                style={({ pressed }) => [
-                  styles.closeBtn,
-                  pressed && styles.closeBtnPressed,
-                ]}
-                accessibilityRole="button"
-                accessibilityLabel="Close"
-              >
-                <Ionicons name="close" size={18} color="#FFFFFF" />
-              </Pressable>
+            <Pressable
+              onPress={onClose}
+              hitSlop={12}
+              style={({ pressed }) => [
+                styles.closeBtn,
+                pressed && styles.closeBtnPressed,
+              ]}
+              accessibilityRole="button"
+              accessibilityLabel="Close"
+            >
+              <Ionicons name="close" size={18} color="#FFFFFF" />
+            </Pressable>
+          </View>
+
+          {/* ── Active Location ── */}
+          <View style={styles.activeLocationCard}>
+            <View style={styles.activeLocationIcon}>
+              <Ionicons
+                name={isUsingCustom ? 'pin' : 'navigate'}
+                size={16}
+                color={paper.dashboardCream}
+              />
+            </View>
+            <View style={styles.activeLocationText}>
+              <Text style={styles.activeLocationKicker}>{activeSource.toUpperCase()}</Text>
+              <Text style={styles.activeLocationLabel} numberOfLines={1}>
+                {currentLabel}
+              </Text>
+            </View>
+            <View style={styles.activeLocationPill}>
+              <Text style={styles.activeLocationPillText}>ACTIVE</Text>
             </View>
           </View>
 
@@ -193,7 +221,7 @@ export function LocationPickerModal({
             <TextInput
               ref={inputRef}
               style={styles.searchInput}
-              placeholder="Search a city or town..."
+              placeholder="Type a city, town, or state..."
               placeholderTextColor={paper.dashboardMuted}
               value={query}
               onChangeText={handleQueryChange}
@@ -215,6 +243,11 @@ export function LocationPickerModal({
               </Pressable>
             ) : null}
           </View>
+          <Text style={styles.searchHelper}>
+            {showResults
+              ? `${results.length} matching ${results.length === 1 ? 'city' : 'cities'}`
+              : 'Examples: Tampa, Duluth MN, Lake Placid, San Diego'}
+          </Text>
 
           {/* ── GPS Option ── */}
           <Pressable
@@ -244,7 +277,7 @@ export function LocationPickerModal({
                   !isUsingCustom && styles.gpsLabelActive,
                 ]}
               >
-                Use my current location
+                {isUsingCustom ? 'Sync my current location' : 'Current location is synced'}
               </Text>
               <Text
                 style={[
@@ -253,21 +286,16 @@ export function LocationPickerModal({
                 ]}
               >
                 {isUsingCustom
-                  ? 'Use where you are right now'
+                  ? 'Switch back to live GPS weather and reports'
                   : `Fishing near ${currentLabel}`}
               </Text>
             </View>
-            {!isUsingCustom && (
-              <View style={styles.activePill}>
-                <Text style={styles.activePillText}>ACTIVE</Text>
-              </View>
-            )}
           </Pressable>
 
-          {/* ── Divider ── */}
-          <View style={styles.dividerWrap}>
+          {/* ── Section label ── */}
+          <View style={styles.sectionDividerWrap}>
             <View style={styles.dividerRule} />
-            <Text style={styles.dividerLabel}>OR PICK A CITY</Text>
+            <Text style={styles.dividerLabel}>{sectionLabel}</Text>
             <View style={styles.dividerRule} />
           </View>
 
@@ -297,23 +325,13 @@ export function LocationPickerModal({
                     <Text style={styles.resultLabel} numberOfLines={1}>
                       {item.label}
                     </Text>
-                    <Text style={styles.resultSub}>PIN THIS SPOT</Text>
+                    <Text style={styles.resultSub}>Use for weather, reports, and forecasts</Text>
                   </View>
-                  <Pressable
-                    hitSlop={8}
-                    style={({ pressed }) => [
-                      styles.pinBtn,
-                      pressed && styles.pinBtnPressed,
-                    ]}
-                    onPress={() =>
-                      onSelect({ lat: item.lat, lon: item.lon, label: item.label })
-                    }
-                    accessibilityRole="button"
-                    accessibilityLabel={`Pin ${item.label}`}
-                  >
-                    <Ionicons name="pin" size={12} color="#FFFFFF" />
-                    <Text style={styles.pinBtnText}>PIN</Text>
-                  </Pressable>
+                  <Ionicons
+                    name="chevron-forward"
+                    size={16}
+                    color={paper.dashboardInk}
+                  />
                 </Pressable>
               )}
             />
@@ -383,7 +401,7 @@ export function LocationPickerModal({
                             <Text style={styles.resultLabel} numberOfLines={1}>
                               {r.label}
                             </Text>
-                            <Text style={styles.resultSub}>PIN THIS SPOT</Text>
+                            <Text style={styles.resultSub}>Use for local conditions</Text>
                           </View>
                           <Ionicons
                             name="chevron-forward"
@@ -408,8 +426,8 @@ export function LocationPickerModal({
                   />
                   <Text style={styles.hintTitle}>Planning a fishing trip?</Text>
                   <Text style={styles.hintSub}>
-                    Search a U.S. city to check conditions and the 7-day
-                    fishing outlook there.
+                    Start typing a U.S. city, town, or state. Results narrow as
+                    you type, so most places only take a few letters.
                   </Text>
                 </View>
               )}
@@ -419,7 +437,8 @@ export function LocationPickerModal({
                 <View style={styles.hintWrap}>
                   <Text style={styles.hintTitle}>No matching spots for “{query}”</Text>
                   <Text style={styles.hintSub}>
-                    Try a nearby city or check the spelling.
+                    Try adding a state abbreviation, like “Madison WI,” or check
+                    the spelling.
                   </Text>
                 </View>
               )}
@@ -455,39 +474,91 @@ const styles = StyleSheet.create({
   header: {
     flexDirection: 'row',
     alignItems: 'center',
-    paddingHorizontal: 16,
-    paddingBottom: 14,
+    gap: paperSpacing.md,
+    paddingHorizontal: paperSpacing.lg,
+    paddingBottom: paperSpacing.md,
     backgroundColor: paper.dashboardInk,
-  },
-  headerSide: {
-    width: 44,
-    alignItems: 'flex-end',
-    justifyContent: 'center',
   },
   headerTitleWrap: {
     flex: 1,
-    alignItems: 'center',
     justifyContent: 'center',
   },
   title: {
     fontFamily: paperFonts.display,
-    fontSize: 22,
+    fontSize: 28,
     color: '#FFFFFF',
-    textAlign: 'center',
     letterSpacing: 0,
   },
+  subtitle: {
+    marginTop: 3,
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    color: 'rgba(255,255,255,0.74)',
+    lineHeight: 17,
+  },
   closeBtn: {
-    width: 32,
-    height: 32,
+    width: 36,
+    height: 36,
     alignItems: 'center',
     justifyContent: 'center',
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.16)',
-    borderRadius: 16,
+    borderRadius: 18,
     backgroundColor: 'rgba(255,255,255,0.08)',
   },
   closeBtnPressed: {
     opacity: 0.7,
+  },
+
+  /* Active location */
+  activeLocationCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    marginHorizontal: paperSpacing.lg,
+    marginTop: paperSpacing.md,
+    paddingVertical: 12,
+    paddingHorizontal: 14,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    borderRadius: 8,
+  },
+  activeLocationIcon: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: paper.dashboardBlue,
+  },
+  activeLocationText: { flex: 1 },
+  activeLocationKicker: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    color: paper.dashboardBlue,
+    letterSpacing: 1.8,
+    marginBottom: 2,
+  },
+  activeLocationLabel: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 17,
+    color: paper.dashboardInk,
+    letterSpacing: 0,
+  },
+  activeLocationPill: {
+    borderRadius: 999,
+    backgroundColor: paper.dashboardBlueSky,
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.28)',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+  },
+  activeLocationPillText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 9,
+    color: paper.dashboardInk,
+    letterSpacing: 1.3,
   },
 
   /* Search */
@@ -495,9 +566,9 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
     marginHorizontal: paperSpacing.lg,
     marginTop: paperSpacing.md,
     paddingLeft: 12,
@@ -518,6 +589,15 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  searchHelper: {
+    marginHorizontal: paperSpacing.lg,
+    marginTop: 7,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: paper.dashboardMuted,
+    opacity: 0.78,
+    letterSpacing: 0.2,
+  },
 
   /* GPS Row */
   gpsRow: {
@@ -525,11 +605,11 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     marginHorizontal: paperSpacing.lg,
-    marginTop: paperSpacing.md,
-    paddingVertical: 12,
+    marginTop: paperSpacing.sm,
+    paddingVertical: 10,
     paddingHorizontal: 14,
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
   },
@@ -575,27 +655,12 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,0.75)',
     opacity: 0.85,
   },
-  activePill: {
-    backgroundColor: paper.bandPrime,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.18)',
-    borderRadius: 999,
-    paddingHorizontal: 7,
-    paddingVertical: 3,
-  },
-  activePillText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    color: paper.dashboardInk,
-    letterSpacing: 1.4,
-  },
-
   /* Divider with label */
-  dividerWrap: {
+  sectionDividerWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     marginHorizontal: paperSpacing.lg,
-    marginTop: paperSpacing.lg,
+    marginTop: paperSpacing.md,
     marginBottom: paperSpacing.sm,
     gap: 10,
   },
@@ -635,7 +700,7 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: 12,
+    borderRadius: 8,
     overflow: 'hidden',
   },
   recentRow: {
@@ -655,7 +720,7 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: 12,
+    borderRadius: 8,
     overflow: 'hidden',
     paddingBottom: 0,
   },
@@ -664,7 +729,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 12,
     paddingHorizontal: 14,
-    paddingVertical: 12,
+    paddingVertical: 14,
   },
   resultRowPressed: {
     backgroundColor: '#F6F9FB',
@@ -698,25 +763,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     opacity: 0.65,
   },
-  pinBtn: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 4,
-    backgroundColor: paper.dashboardInk,
-    borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 7,
-  },
-  pinBtnPressed: {
-    backgroundColor: paper.dashboardBlue,
-  },
-  pinBtnText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    color: '#FFFFFF',
-    letterSpacing: 1.5,
-  },
-
   /* Currently pinned location */
   currentCustomWrap: {
     marginHorizontal: paperSpacing.lg,
@@ -724,7 +770,7 @@ const styles = StyleSheet.create({
     marginBottom: paperSpacing.md,
     padding: 14,
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
+    borderRadius: 8,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
   },
