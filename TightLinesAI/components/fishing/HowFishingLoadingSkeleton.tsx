@@ -6,7 +6,7 @@
  * matching bone in this skeleton — hero (with corner crosses, gauge
  * panel, verdict ornaments, meta strip), BITE FACTORS section
  * (masthead + helping/watch-out cards with ribbon-tinted ordinals),
- * WHEN TO GO timing tiles, MOON & TIDE almanac, GUIDE NOTE with seal
+ * WHEN TO GO timing tiles, MOON & TIDE almanac, FIELD STRATEGY with seal
  * badge, and the footer with pulsing live dot + edition stamp.
  *
  * Visual-only: no data, no engine fetch. One pulse value (native
@@ -14,17 +14,21 @@
  * RecommenderLoadingSkeleton.
  */
 
-import React, { createContext, useContext } from 'react';
-import { Animated, StyleSheet, View } from 'react-native';
-import { paper, paperSpacing } from '../../lib/theme';
-import { TopographicLines } from '../paper';
-import { usePaperBonePulse } from '../../lib/usePaperBonePulse';
+import React, { createContext, useContext } from "react";
+import { Animated, StyleSheet, View } from "react-native";
+import { paper, paperSpacing } from "../../lib/theme";
+import { TopographicLines } from "../paper";
+import { usePaperBonePulse } from "../../lib/usePaperBonePulse";
 
 const PulseCtx = createContext<Animated.Value | null>(null);
 
 function Bone({ style }: { style?: object }) {
   const pulse = useContext(PulseCtx);
-  return <Animated.View style={[styles.bone, style, pulse ? { opacity: pulse } : null]} />;
+  return (
+    <Animated.View
+      style={[styles.bone, style, pulse ? { opacity: pulse } : null]}
+    />
+  );
 }
 
 // ─── Section masthead (cap dot + rule + diamond ornament) ──────────────
@@ -59,17 +63,29 @@ function FactorRowSkel({
     <View style={[styles.factorRow, !isLast && styles.factorRowDivider]}>
       <View style={styles.factorOrdinalCol}>
         <View style={[styles.factorOrdinalDot, { backgroundColor: tint }]} />
-        <Bone style={[styles.factorOrdinalBone, { backgroundColor: tint, opacity: 0.45 }]} />
+        <Bone
+          style={[styles.factorOrdinalBone, {
+            backgroundColor: tint,
+            opacity: 0.45,
+          }]}
+        />
       </View>
       <View style={[styles.factorRibbon, { backgroundColor: tint }]} />
       <View style={styles.factorTextStack}>
-        <Bone style={[styles.factorEyebrowBone, { backgroundColor: tint, opacity: 0.45 }]} />
+        <Bone
+          style={[styles.factorEyebrowBone, {
+            backgroundColor: tint,
+            opacity: 0.45,
+          }]}
+        />
         <Bone style={styles.factorLabelBone} />
-        <Bone style={[styles.factorLabelBone, { width: '72%' }]} />
+        <Bone style={[styles.factorLabelBone, { width: "72%" }]} />
       </View>
       <View style={styles.factorTailWrap}>
         <View style={[styles.factorTailGlyph, { backgroundColor: tint }]} />
-        <View style={[styles.factorTailGlyphSmall, { backgroundColor: tint }]} />
+        <View
+          style={[styles.factorTailGlyphSmall, { backgroundColor: tint }]}
+        />
       </View>
     </View>
   );
@@ -83,12 +99,14 @@ function TimeWindowSkel({ highlighted }: { highlighted?: boolean }) {
       style={[
         styles.timeTile,
         highlighted && {
-          backgroundColor: '#E7F5E1',
-          borderColor: 'rgba(47, 174, 99, 0.45)',
+          backgroundColor: "#E7F5E1",
+          borderColor: "rgba(47, 174, 99, 0.45)",
         },
       ]}
     >
-      {highlighted && <View style={styles.timeTileGlowRing} pointerEvents="none" />}
+      {highlighted && (
+        <View style={styles.timeTileGlowRing} pointerEvents="none" />
+      )}
       {highlighted && (
         <View style={styles.bestBadge}>
           <View style={styles.bestBadgeBone} />
@@ -98,7 +116,7 @@ function TimeWindowSkel({ highlighted }: { highlighted?: boolean }) {
         <View
           style={[
             styles.timeTileIconWrap,
-            highlighted && { borderColor: 'rgba(47, 174, 99, 0.45)' },
+            highlighted && { borderColor: "rgba(47, 174, 99, 0.45)" },
           ]}
         >
           <View style={styles.timeTileIconBone} />
@@ -107,7 +125,7 @@ function TimeWindowSkel({ highlighted }: { highlighted?: boolean }) {
       <View
         style={[
           styles.timeTileBody,
-          highlighted && { borderTopColor: 'rgba(47, 174, 99, 0.35)' },
+          highlighted && { borderTopColor: "rgba(47, 174, 99, 0.35)" },
         ]}
       >
         <Bone style={styles.timeTileLabelBone} />
@@ -148,30 +166,42 @@ export function HowFishingLoadingSkeleton() {
             <Bone style={styles.heroEyebrowBone} />
           </View>
 
-          {/* Headline — reserves 2-line height so the gauge below lands
-              at the same Y as on the live page. */}
+          {
+            /* Headline — reserves 2-line height so the gauge below lands
+              at the same Y as on the live page. */
+          }
           <View style={styles.heroHeadlineWrap}>
             <Bone style={styles.heroHeadlineBone} />
-            <Bone style={[styles.heroHeadlineBone, styles.heroHeadlineBoneAccent]} />
+            <Bone
+              style={[styles.heroHeadlineBone, styles.heroHeadlineBoneAccent]}
+            />
           </View>
 
           {/* Score gauge — premium instrument panel anatomy. */}
           <View style={styles.gaugeWrap}>
             <View style={styles.gaugePanel}>
               {/* Corner crosses inside the gauge panel. */}
-              <View style={[styles.gaugeCornerCross, styles.gaugeCornerCrossTL]}>
+              <View
+                style={[styles.gaugeCornerCross, styles.gaugeCornerCrossTL]}
+              >
                 <View style={styles.gaugeCornerCrossH} />
                 <View style={styles.gaugeCornerCrossV} />
               </View>
-              <View style={[styles.gaugeCornerCross, styles.gaugeCornerCrossTR]}>
+              <View
+                style={[styles.gaugeCornerCross, styles.gaugeCornerCrossTR]}
+              >
                 <View style={styles.gaugeCornerCrossH} />
                 <View style={styles.gaugeCornerCrossV} />
               </View>
-              <View style={[styles.gaugeCornerCross, styles.gaugeCornerCrossBL]}>
+              <View
+                style={[styles.gaugeCornerCross, styles.gaugeCornerCrossBL]}
+              >
                 <View style={styles.gaugeCornerCrossH} />
                 <View style={styles.gaugeCornerCrossV} />
               </View>
-              <View style={[styles.gaugeCornerCross, styles.gaugeCornerCrossBR]}>
+              <View
+                style={[styles.gaugeCornerCross, styles.gaugeCornerCrossBR]}
+              >
                 <View style={styles.gaugeCornerCrossH} />
                 <View style={styles.gaugeCornerCrossV} />
               </View>
@@ -220,8 +250,8 @@ export function HowFishingLoadingSkeleton() {
               {/* Tick gauge — 21 ticks across (alternating heights). */}
               <View style={styles.gaugeTickRow}>
                 {Array.from({ length: 21 }).map((_, i) => {
-                  const isMajor =
-                    i === 0 || i === 10 || i === 20 || i === 7 || i === 13 || i === 16;
+                  const isMajor = i === 0 || i === 10 || i === 20 || i === 7 ||
+                    i === 13 || i === 16;
                   const isWhole = i % 2 === 0;
                   return (
                     <View
@@ -276,7 +306,7 @@ export function HowFishingLoadingSkeleton() {
             <View style={styles.heroSummaryRule} />
             <View style={styles.heroSummaryCol}>
               <Bone style={styles.heroSummaryBone} />
-              <Bone style={[styles.heroSummaryBone, { width: '82%' }]} />
+              <Bone style={[styles.heroSummaryBone, { width: "82%" }]} />
             </View>
           </View>
 
@@ -299,7 +329,9 @@ export function HowFishingLoadingSkeleton() {
 
         {/* What's helping (green header) */}
         <View style={styles.factorCard}>
-          <View style={[styles.factorHeader, { backgroundColor: paper.bandPrime }]}>
+          <View
+            style={[styles.factorHeader, { backgroundColor: paper.bandPrime }]}
+          >
             <View style={styles.factorHeaderIcon} />
             <Bone style={styles.factorHeaderLabelBone} />
             <Bone style={styles.factorHeaderCountBone} />
@@ -313,7 +345,7 @@ export function HowFishingLoadingSkeleton() {
 
         {/* Watch out for (red header) */}
         <View style={styles.factorCard}>
-          <View style={[styles.factorHeader, { backgroundColor: '#F8E7E2' }]}>
+          <View style={[styles.factorHeader, { backgroundColor: "#F8E7E2" }]}>
             <View style={styles.factorHeaderIcon} />
             <Bone style={styles.factorHeaderLabelBone} />
             <Bone style={styles.factorHeaderCountBone} />
@@ -333,7 +365,7 @@ export function HowFishingLoadingSkeleton() {
           <TimeWindowSkel />
         </View>
         <Bone style={styles.daypartBone} />
-        <Bone style={[styles.daypartBone, { width: '76%' }]} />
+        <Bone style={[styles.daypartBone, { width: "76%" }]} />
 
         {/* ── MOON & TIDE almanac ──────────────────────────────────── */}
         <View style={styles.almanacCard}>
@@ -379,7 +411,7 @@ export function HowFishingLoadingSkeleton() {
           </View>
         </View>
 
-        {/* ── GUIDE NOTE with editor's seal badge ──────────────────── */}
+        {/* ── FIELD STRATEGY with editor's seal badge ──────────────── */}
         <View style={styles.guideCard}>
           <TopographicLines
             style={styles.guideLines}
@@ -393,15 +425,23 @@ export function HowFishingLoadingSkeleton() {
             <View style={styles.guideBadgeWrap}>
               <View style={styles.guideBadgeOuterRing} />
               <View style={styles.guideBadge} />
-              <View style={[styles.guideBadgeAccentDot, styles.guideBadgeDotTop]} />
-              <View style={[styles.guideBadgeAccentDot, styles.guideBadgeDotRight]} />
-              <View style={[styles.guideBadgeAccentDot, styles.guideBadgeDotBottom]} />
-              <View style={[styles.guideBadgeAccentDot, styles.guideBadgeDotLeft]} />
+              <View
+                style={[styles.guideBadgeAccentDot, styles.guideBadgeDotTop]}
+              />
+              <View
+                style={[styles.guideBadgeAccentDot, styles.guideBadgeDotRight]}
+              />
+              <View
+                style={[styles.guideBadgeAccentDot, styles.guideBadgeDotBottom]}
+              />
+              <View
+                style={[styles.guideBadgeAccentDot, styles.guideBadgeDotLeft]}
+              />
             </View>
             <View style={styles.guideBody}>
               <Bone style={styles.guideTextBone} />
-              <Bone style={[styles.guideTextBone, { width: '94%' }]} />
-              <Bone style={[styles.guideTextBone, { width: '68%' }]} />
+              <Bone style={[styles.guideTextBone, { width: "94%" }]} />
+              <Bone style={[styles.guideTextBone, { width: "68%" }]} />
               <View style={styles.guideSignoffRow}>
                 <View style={styles.guideSignoffRule} />
                 <View style={styles.guideSignoffOrnament} />
@@ -452,12 +492,12 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.md,
     paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.md - 2,
-    overflow: 'hidden',
-    alignItems: 'center',
-    position: 'relative',
+    overflow: "hidden",
+    alignItems: "center",
+    position: "relative",
   },
   heroCornerCross: {
-    position: 'absolute',
+    position: "absolute",
     width: 11,
     height: 11,
     zIndex: 2,
@@ -467,24 +507,24 @@ const styles = StyleSheet.create({
   heroCornerCrossBL: { bottom: 7, left: 7 },
   heroCornerCrossBR: { bottom: 7, right: 7 },
   heroCornerCrossH: {
-    position: 'absolute',
+    position: "absolute",
     top: 5,
     left: 0,
     width: 11,
     height: 1,
-    backgroundColor: 'rgba(28, 36, 25, 0.32)',
+    backgroundColor: "rgba(28, 36, 25, 0.32)",
   },
   heroCornerCrossV: {
-    position: 'absolute',
+    position: "absolute",
     left: 5,
     top: 0,
     width: 1,
     height: 11,
-    backgroundColor: 'rgba(28, 36, 25, 0.32)',
+    backgroundColor: "rgba(28, 36, 25, 0.32)",
   },
   heroEyebrow: {
     marginBottom: 4,
-    alignItems: 'center',
+    alignItems: "center",
   },
   heroEyebrowBone: {
     width: 128,
@@ -493,46 +533,46 @@ const styles = StyleSheet.create({
     opacity: 0.32,
   },
   heroHeadlineWrap: {
-    alignSelf: 'stretch',
-    alignItems: 'center',
+    alignSelf: "stretch",
+    alignItems: "center",
     gap: 6,
     marginVertical: 4,
     minHeight: 56,
-    justifyContent: 'center',
+    justifyContent: "center",
   },
   heroHeadlineBone: {
     height: 22,
-    width: '60%',
+    width: "60%",
     borderRadius: 4,
   },
   heroHeadlineBoneAccent: {
-    width: '45%',
+    width: "45%",
     backgroundColor: paper.dashboardBlue,
     opacity: 0.22,
   },
 
   // ── Gauge panel ─────────────────────────────────────────────────────
   gaugeWrap: {
-    alignSelf: 'stretch',
-    alignItems: 'center',
+    alignSelf: "stretch",
+    alignItems: "center",
     marginTop: paperSpacing.sm,
     marginBottom: paperSpacing.xs,
-    width: '100%',
+    width: "100%",
   },
   gaugePanel: {
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 14,
-    backgroundColor: '#F7FAFB',
+    backgroundColor: "#F7FAFB",
     paddingHorizontal: 18,
     paddingTop: 14,
     paddingBottom: 16,
-    overflow: 'hidden',
-    position: 'relative',
+    overflow: "hidden",
+    position: "relative",
   },
   gaugeCornerCross: {
-    position: 'absolute',
+    position: "absolute",
     width: 10,
     height: 10,
     zIndex: 2,
@@ -542,40 +582,40 @@ const styles = StyleSheet.create({
   gaugeCornerCrossBL: { bottom: 5, left: 5 },
   gaugeCornerCrossBR: { bottom: 5, right: 5 },
   gaugeCornerCrossH: {
-    position: 'absolute',
+    position: "absolute",
     top: 4.5,
     left: 0,
     width: 10,
     height: 1,
-    backgroundColor: 'rgba(28, 36, 25, 0.35)',
+    backgroundColor: "rgba(28, 36, 25, 0.35)",
   },
   gaugeCornerCrossV: {
-    position: 'absolute',
+    position: "absolute",
     left: 4.5,
     top: 0,
     width: 1,
     height: 10,
-    backgroundColor: 'rgba(28, 36, 25, 0.35)',
+    backgroundColor: "rgba(28, 36, 25, 0.35)",
   },
   gaugePanelSheen: {
-    position: 'absolute',
+    position: "absolute",
     top: -10,
     bottom: -10,
-    left: '22%',
+    left: "22%",
     width: 90,
-    backgroundColor: 'rgba(255,255,255,0.4)',
+    backgroundColor: "rgba(255,255,255,0.4)",
   },
   gaugeHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     gap: 8,
     marginBottom: 6,
     zIndex: 3,
   },
   gaugeHeaderLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 7,
     flex: 1,
     minWidth: 0,
@@ -583,11 +623,11 @@ const styles = StyleSheet.create({
   gaugeLiveDotWrap: {
     width: 14,
     height: 14,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   gaugeLiveDotRing: {
-    position: 'absolute',
+    position: "absolute",
     width: 14,
     height: 14,
     borderRadius: 7,
@@ -642,43 +682,43 @@ const styles = StyleSheet.create({
   },
 
   gaugeScoreRow: {
-    alignSelf: 'stretch',
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignSelf: "stretch",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 14,
     marginTop: 4,
     marginBottom: 10,
     paddingHorizontal: 4,
     paddingTop: 4,
     paddingBottom: 6,
-    position: 'relative',
+    position: "relative",
     zIndex: 3,
   },
   gaugeScoreHalo: {
-    position: 'absolute',
+    position: "absolute",
     top: 4,
     bottom: 14,
-    left: '20%',
-    right: '20%',
+    left: "20%",
+    right: "20%",
     borderRadius: 48,
     backgroundColor: paper.dashboardBlue,
     opacity: 0.12,
   },
   gaugeScoreOrnamentLeft: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     flex: 1,
-    justifyContent: 'flex-end',
+    justifyContent: "flex-end",
     maxWidth: 80,
   },
   gaugeScoreOrnamentRight: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     flex: 1,
-    justifyContent: 'flex-start',
+    justifyContent: "flex-start",
     maxWidth: 80,
   },
   gaugeOrnamentRule: {
@@ -692,18 +732,18 @@ const styles = StyleSheet.create({
   gaugeOrnamentGlyph: {
     width: 7,
     height: 7,
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: "45deg" }],
     backgroundColor: paper.dashboardBlue,
     opacity: 0.55,
   },
   gaugeScoreStack: {
-    alignItems: 'center',
+    alignItems: "center",
     minWidth: 168,
     gap: 4,
   },
   gaugeScoreNumberRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-end',
+    flexDirection: "row",
+    alignItems: "flex-end",
     gap: 4,
   },
   gaugeScoreNumberBone: {
@@ -722,18 +762,18 @@ const styles = StyleSheet.create({
   gaugeScoreUnderline: {
     height: 2.5,
     borderRadius: 2,
-    width: '55%',
+    width: "55%",
     backgroundColor: paper.dashboardBlue,
     opacity: 0.4,
   },
 
   // Tick gauge — 21 thin tick marks.
   gaugeTickRow: {
-    width: '100%',
+    width: "100%",
     height: 26,
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     marginTop: 4,
     zIndex: 3,
   },
@@ -744,9 +784,9 @@ const styles = StyleSheet.create({
     opacity: 0.35,
   },
   gaugeScaleRow: {
-    width: '100%',
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    width: "100%",
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginTop: 6,
     zIndex: 3,
   },
@@ -756,8 +796,8 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   gaugeTierDotsRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 5,
     marginTop: 10,
     paddingTop: 8,
@@ -781,7 +821,7 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   gaugeTierDotsLabelWrap: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
   },
   gaugeTierDotsLabelBone: {
     height: 9,
@@ -791,14 +831,14 @@ const styles = StyleSheet.create({
 
   // ── Hero outlook row (verdict line) ──────────────────────────────────
   heroOutlookRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 8,
     marginTop: 10,
     marginBottom: 8,
     paddingHorizontal: paperSpacing.xs,
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
   },
   heroOutlookFlank: {
     height: 1,
@@ -811,7 +851,7 @@ const styles = StyleSheet.create({
   heroOutlookDiamond: {
     width: 7,
     height: 7,
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: "45deg" }],
     backgroundColor: paper.dashboardBlue,
     opacity: 0.5,
   },
@@ -824,9 +864,9 @@ const styles = StyleSheet.create({
 
   // ── Hero summary block ──────────────────────────────────────────────
   heroSummaryWrap: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
-    alignSelf: 'center',
+    flexDirection: "row",
+    alignItems: "stretch",
+    alignSelf: "center",
     maxWidth: 340,
     paddingHorizontal: paperSpacing.xs,
     marginTop: 0,
@@ -846,13 +886,13 @@ const styles = StyleSheet.create({
   },
   heroSummaryBone: {
     height: 12,
-    width: '92%',
+    width: "92%",
     opacity: 0.5,
   },
 
   // ── Meta strip ───────────────────────────────────────────────────────
   metaStripWrap: {
-    width: '100%',
+    width: "100%",
     marginTop: paperSpacing.sm + 4,
   },
   metaRule: {
@@ -861,10 +901,10 @@ const styles = StyleSheet.create({
     opacity: 0.45,
   },
   metaRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    flexWrap: "wrap",
     gap: 8,
     paddingVertical: 6,
   },
@@ -882,15 +922,15 @@ const styles = StyleSheet.create({
 
   // ── Section masthead ─────────────────────────────────────────────────
   sectionMasthead: {
-    width: '100%',
-    alignItems: 'stretch',
+    width: "100%",
+    alignItems: "stretch",
     gap: 4,
   },
   sectionMastheadRuleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 5,
-    width: '100%',
+    width: "100%",
   },
   sectionMastheadCap: {
     width: 5,
@@ -902,7 +942,7 @@ const styles = StyleSheet.create({
   sectionMastheadOrnament: {
     width: 6,
     height: 6,
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: "45deg" }],
     backgroundColor: paper.dashboardInk,
     opacity: 0.4,
   },
@@ -913,12 +953,12 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
   sectionMastheadInner: {
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "baseline",
+    justifyContent: "space-between",
     paddingVertical: 4,
     gap: 8,
-    flexWrap: 'wrap',
+    flexWrap: "wrap",
   },
   sectionMastheadTitleBone: {
     height: 14,
@@ -936,11 +976,11 @@ const styles = StyleSheet.create({
     borderRadius: 14,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   factorHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: paperSpacing.sm,
     paddingHorizontal: paperSpacing.md + 2,
     paddingVertical: 10,
@@ -971,19 +1011,19 @@ const styles = StyleSheet.create({
     paddingBottom: paperSpacing.sm,
   },
   factorRow: {
-    flexDirection: 'row',
-    alignItems: 'stretch',
+    flexDirection: "row",
+    alignItems: "stretch",
     gap: paperSpacing.sm + 2,
     paddingVertical: paperSpacing.sm + 2,
   },
   factorRowDivider: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: paper.dashboardHair,
-    borderStyle: 'solid',
+    borderStyle: "solid",
   },
   factorOrdinalCol: {
     width: 28,
-    alignItems: 'flex-start',
+    alignItems: "flex-start",
     paddingTop: 1,
     gap: 4,
   },
@@ -1001,7 +1041,7 @@ const styles = StyleSheet.create({
   },
   factorRibbon: {
     width: 4,
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     borderRadius: 2,
     minHeight: 38,
   },
@@ -1018,12 +1058,12 @@ const styles = StyleSheet.create({
   },
   factorLabelBone: {
     height: 14,
-    width: '100%',
+    width: "100%",
     opacity: 0.55,
   },
   factorTailWrap: {
-    alignSelf: 'center',
-    alignItems: 'center',
+    alignSelf: "center",
+    alignItems: "center",
     gap: 3,
     width: 6,
     marginLeft: 4,
@@ -1043,7 +1083,7 @@ const styles = StyleSheet.create({
 
   // ── Timing tiles ─────────────────────────────────────────────────────
   timingRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 8,
   },
   timeTile: {
@@ -1052,26 +1092,26 @@ const styles = StyleSheet.create({
     borderRadius: 12,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    overflow: 'hidden',
+    overflow: "hidden",
     minHeight: 110,
-    position: 'relative',
+    position: "relative",
   },
   timeTileGlowRing: {
-    position: 'absolute',
+    position: "absolute",
     top: -2,
     bottom: -2,
     left: -2,
     right: -2,
     borderRadius: 14,
     borderWidth: 1,
-    borderColor: 'rgba(47, 174, 99, 0.18)',
+    borderColor: "rgba(47, 174, 99, 0.18)",
     zIndex: 1,
   },
   timeTileTop: {
     paddingHorizontal: 10,
     paddingTop: 14,
     paddingBottom: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
   timeTileIconWrap: {
     width: 38,
@@ -1079,9 +1119,9 @@ const styles = StyleSheet.create({
     borderRadius: 19,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: paper.dashboardHair,
-    backgroundColor: '#FAFAF7',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#FAFAF7",
+    alignItems: "center",
+    justifyContent: "center",
   },
   timeTileIconBone: {
     width: 20,
@@ -1096,28 +1136,28 @@ const styles = StyleSheet.create({
     paddingBottom: 10,
     borderTopWidth: StyleSheet.hairlineWidth,
     borderTopColor: paper.dashboardHair,
-    alignItems: 'center',
+    alignItems: "center",
     gap: 4,
   },
   timeTileLabelBone: {
     height: 13,
-    width: '70%',
+    width: "70%",
   },
   timeTileRangeBone: {
     height: 9,
-    width: '60%',
+    width: "60%",
     opacity: 0.45,
   },
   bestBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 8,
     right: 8,
     width: 22,
     height: 22,
     borderRadius: 11,
     backgroundColor: paper.dashboardInk,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     zIndex: 4,
   },
   bestBadgeBone: {
@@ -1129,7 +1169,7 @@ const styles = StyleSheet.create({
   },
   daypartBone: {
     height: 12,
-    width: '100%',
+    width: "100%",
     marginTop: paperSpacing.sm + 2,
     opacity: 0.5,
   },
@@ -1144,16 +1184,16 @@ const styles = StyleSheet.create({
     paddingVertical: paperSpacing.md,
   },
   almanacHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
   },
   almanacCrescentWrap: {
     width: 16,
     height: 16,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
   },
   almanacCrescentOuter: {
     width: 14,
@@ -1164,7 +1204,7 @@ const styles = StyleSheet.create({
     opacity: 0.7,
   },
   almanacCrescentInner: {
-    position: 'absolute',
+    position: "absolute",
     width: 12,
     height: 12,
     borderRadius: 6,
@@ -1180,13 +1220,13 @@ const styles = StyleSheet.create({
     flexShrink: 1,
   },
   almanacHeaderTag: {
-    marginLeft: 'auto',
+    marginLeft: "auto",
     paddingHorizontal: 7,
     paddingVertical: 2,
     borderRadius: 3,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: paper.dashboardLine,
-    backgroundColor: '#F6F9FB',
+    backgroundColor: "#F6F9FB",
   },
   almanacHeaderTagBone: {
     height: 9,
@@ -1201,7 +1241,7 @@ const styles = StyleSheet.create({
     marginBottom: paperSpacing.sm + 2,
   },
   almanacRow: {
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: paperSpacing.md,
   },
   almanacCol: {
@@ -1213,8 +1253,8 @@ const styles = StyleSheet.create({
     paddingLeft: paperSpacing.md,
   },
   almanacSubheadRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     marginBottom: paperSpacing.xs,
   },
@@ -1232,19 +1272,19 @@ const styles = StyleSheet.create({
     opacity: 0.45,
   },
   almanacPeriod: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     marginBottom: 4,
   },
   almanacPulseWrap: {
     width: 12,
     height: 12,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   almanacPulseRing: {
-    position: 'absolute',
+    position: "absolute",
     width: 12,
     height: 12,
     borderRadius: 6,
@@ -1274,9 +1314,9 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
 
-  // ── GUIDE NOTE ───────────────────────────────────────────────────────
+  // ── FIELD STRATEGY ──────────────────────────────────────────────────
   guideCard: {
-    position: 'relative',
+    position: "relative",
     backgroundColor: paper.dashboardWhite,
     borderRadius: 14,
     borderWidth: 1,
@@ -1284,7 +1324,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.lg,
-    overflow: 'hidden',
+    overflow: "hidden",
   },
   guideLines: {
     left: undefined,
@@ -1304,21 +1344,21 @@ const styles = StyleSheet.create({
     opacity: 0.4,
   },
   guideRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+    flexDirection: "row",
+    alignItems: "flex-start",
     gap: paperSpacing.md + 4,
   },
   guideBadgeWrap: {
     width: 80,
     height: 80,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'relative',
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
     flexShrink: 0,
     marginTop: 2,
   },
   guideBadgeOuterRing: {
-    position: 'absolute',
+    position: "absolute",
     width: 80,
     height: 80,
     borderRadius: 40,
@@ -1336,27 +1376,27 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   guideBadgeAccentDot: {
-    position: 'absolute',
+    position: "absolute",
     width: 4,
     height: 4,
     borderRadius: 2,
     backgroundColor: paper.dashboardBlue,
     opacity: 0.55,
   },
-  guideBadgeDotTop: { top: 0, alignSelf: 'center' },
-  guideBadgeDotBottom: { bottom: 0, alignSelf: 'center' },
-  guideBadgeDotLeft: { left: 0, top: '50%', marginTop: -2 },
-  guideBadgeDotRight: { right: 0, top: '50%', marginTop: -2 },
+  guideBadgeDotTop: { top: 0, alignSelf: "center" },
+  guideBadgeDotBottom: { bottom: 0, alignSelf: "center" },
+  guideBadgeDotLeft: { left: 0, top: "50%", marginTop: -2 },
+  guideBadgeDotRight: { right: 0, top: "50%", marginTop: -2 },
   guideBody: { flex: 1, gap: 5 },
   guideTextBone: {
     height: 13,
-    width: '100%',
+    width: "100%",
     opacity: 0.5,
     marginVertical: 2,
   },
   guideSignoffRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     marginTop: paperSpacing.sm + 2,
   },
@@ -1369,7 +1409,7 @@ const styles = StyleSheet.create({
   guideSignoffOrnament: {
     width: 5,
     height: 5,
-    transform: [{ rotate: '45deg' }],
+    transform: [{ rotate: "45deg" }],
     backgroundColor: paper.dashboardBlue,
     opacity: 0.5,
   },
@@ -1381,9 +1421,9 @@ const styles = StyleSheet.create({
 
   // ── Footer + edition stamp ──────────────────────────────────────────
   footerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 6,
     paddingTop: 10,
     borderTopWidth: 1,
@@ -1392,11 +1432,11 @@ const styles = StyleSheet.create({
   footerPulseWrap: {
     width: 10,
     height: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   footerPulseRing: {
-    position: 'absolute',
+    position: "absolute",
     width: 10,
     height: 10,
     borderRadius: 5,
@@ -1425,9 +1465,9 @@ const styles = StyleSheet.create({
     marginHorizontal: 1,
   },
   editionStampRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
     gap: 8,
     paddingTop: 8,
   },

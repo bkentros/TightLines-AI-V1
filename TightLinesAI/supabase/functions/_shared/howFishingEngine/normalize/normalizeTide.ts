@@ -23,13 +23,13 @@ function fromCurrentSpeedKnots(
     if (c < 0.5) {
       score = pieceLinear(c, 0, 0.5, -0.25, 0.05);
     } else if (c < 1.0) {
-      score = pieceLinear(c, 0.5, 1.0, 0.20, 0.85);
+      score = pieceLinear(c, 0.5, 1.0, 0.05, 0.85);
     } else if (c <= 1.6) {
       score = pieceLinear(c, 1.0, 1.6, 0.85, 1.25);
     } else if (c <= 2.0) {
       // Phase 8D Tide/Current V2 score-only wiring. Rollback is limited to
       // restoring the previous score curve; labels/source priority/callers stay unchanged.
-      score = pieceLinear(c, 1.6, 2.0, 0.90, -0.35);
+      score = pieceLinear(c, 1.6, 2.0, 1.25, -0.35);
     } else {
       score = pieceLinear(c, 2.0, 3.2, -0.35, -1.6);
     }
@@ -37,15 +37,13 @@ function fromCurrentSpeedKnots(
     if (c < 0.5) {
       score = pieceLinear(c, 0, 0.5, -1.0, -0.7);
     } else if (c < 1.2) {
-      score = c < 0.65
-        ? pieceLinear(c, 0.5, 0.65, -0.20, 0.2071)
-        : pieceLinear(c, 0.65, 1.2, 0.2071, 0.60);
+      score = pieceLinear(c, 0.5, 1.2, -0.7, 0.60);
     } else if (c <= 2.0) {
-      score = pieceLinear(c, 1.2, 2.0, 0.9, 1.6);
+      score = pieceLinear(c, 1.2, 2.0, 0.60, 1.6);
     } else if (c <= 2.6) {
-      score = pieceLinear(c, 2.0, 2.6, 1.35, 0.45);
+      score = pieceLinear(c, 2.0, 2.6, 1.6, 0.45);
     } else {
-      score = pieceLinear(c, 2.6, 4.0, 0.10, -1.45);
+      score = pieceLinear(c, 2.6, 4.0, 0.45, -1.45);
     }
   }
   return { label, score: clampEngineScore(score) };
@@ -78,13 +76,13 @@ function fromMax3hDeltaFt(
     if (max3h < 0.3) {
       score = pieceLinear(max3h, 0, 0.3, -0.25, 0.05);
     } else if (max3h < 0.8) {
-      score = pieceLinear(max3h, 0.3, 0.8, 0.20, 0.85);
+      score = pieceLinear(max3h, 0.3, 0.8, 0.05, 0.85);
     } else if (max3h <= 1.2) {
       score = pieceLinear(max3h, 0.8, 1.2, 0.85, 1.25);
     } else if (max3h <= 1.6) {
       // Phase 8D Tide/Current V2 score-only wiring. Rollback is limited to
       // restoring the previous score curve; labels/source priority/callers stay unchanged.
-      score = pieceLinear(max3h, 1.2, 1.6, 0.90, -0.35);
+      score = pieceLinear(max3h, 1.2, 1.6, 1.25, -0.35);
     } else {
       score = pieceLinear(max3h, 1.6, 2.4, -0.35, -1.6);
     }
@@ -92,15 +90,13 @@ function fromMax3hDeltaFt(
     if (max3h < 0.3) {
       score = pieceLinear(max3h, 0, 0.3, -1.0, -0.7);
     } else if (max3h < 0.9) {
-      score = max3h < 0.45
-        ? pieceLinear(max3h, 0.3, 0.45, -0.20, 0.2071)
-        : pieceLinear(max3h, 0.45, 0.9, 0.2071, 0.60);
+      score = pieceLinear(max3h, 0.3, 0.9, -0.7, 0.60);
     } else if (max3h <= 1.5) {
-      score = pieceLinear(max3h, 0.9, 1.5, 0.9, 1.6);
+      score = pieceLinear(max3h, 0.9, 1.5, 0.60, 1.6);
     } else if (max3h <= 1.9) {
-      score = pieceLinear(max3h, 1.5, 1.9, 1.35, 0.45);
+      score = pieceLinear(max3h, 1.5, 1.9, 1.6, 0.45);
     } else {
-      score = pieceLinear(max3h, 1.9, 3.0, 0.10, -1.45);
+      score = pieceLinear(max3h, 1.9, 3.0, 0.45, -1.45);
     }
   }
   return { label, score: clampEngineScore(score) };

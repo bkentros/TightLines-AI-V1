@@ -22,7 +22,9 @@ export type TemperatureBandLabel =
   | "very_warm";
 
 export type TemperatureContextGroup = "freshwater" | "coastal";
-export type TemperatureMeasurementSource = "air_daily_mean" | "coastal_water_temp";
+export type TemperatureMeasurementSource =
+  | "air_daily_mean"
+  | "coastal_water_temp";
 
 export type TrendLabel = "warming" | "stable" | "cooling";
 
@@ -42,5 +44,8 @@ export type TemperatureNormalized = {
   final_score: VariableScore;
 };
 
-/** LLM / narration: how air-temp scoring constrains metabolic story (orthogonal to band_label wording) */
-export type TemperatureMetabolicContext = "heat_limited" | "cold_limited" | "neutral";
+/** How air-temp scoring constrains deterministic thermal copy (orthogonal to band_label wording). */
+export type TemperatureMetabolicContext =
+  | "heat_limited"
+  | "cold_limited"
+  | "neutral";

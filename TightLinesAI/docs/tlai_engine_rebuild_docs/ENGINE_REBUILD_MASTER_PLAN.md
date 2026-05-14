@@ -447,7 +447,9 @@ supabase/functions/_shared/howFishingEngine/
 - `score/reweight.ts`
 - `score/scoreDay.ts`
 - `tips/buildTips.ts`
-- `narration/buildNarrationPayload.ts`
+- `summary/summaryLine.ts`
+- `summary/factorSurfaceLabels.ts`
+- `narration/buildConditionContextExtensions.ts`
 
 ### Important rule
 Do not create a new giant universal engine tree. Build only what the How's Fishing rebuild actually needs.

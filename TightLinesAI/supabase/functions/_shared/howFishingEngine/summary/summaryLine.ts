@@ -47,29 +47,29 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
     "This looks like a solid fishing day.",
     "Overall, the setup is working for you.",
     "More is helping than hurting today.",
-    "The day looks solid overall.",
+    "The setup gives you a workable starting point.",
     "This is a dependable setup overall.",
     "Today's conditions give you a good shot.",
     "The overall picture leans your way today.",
     "This is a day to fish with confidence.",
-    "The setup is mostly helpful today.",
+    "The main conditions lean helpful today.",
     "This looks like a fishable day with upside.",
-    "Conditions are giving you something to work with.",
+    "The main conditions give you a clear starting window.",
     "There is enough going right to feel confident today.",
   ],
   Fair: [
-    "This is a workable day, but not an easy one.",
+    "This is a fishable day with a narrower best window.",
     "The setup is fishable, but mixed.",
-    "There is a path today, but it is not obvious.",
+    "The best window is narrower than a clean day.",
     "Some things are helping, and some are getting in the way.",
     "This is a mixed day overall.",
-    "The day is workable, but it will take some adjustment.",
-    "You can fish this day, but you will need to stay sharp.",
-    "The read is balanced enough to fish, but not easy enough to coast through.",
-    "This is a fair day, not an easy one.",
-    "The setup gives you a chance, but not much room for mistakes.",
-    "This is a day for patience and good decisions.",
-    "There is enough here to stay interested, but not enough to get careless.",
+    "Mixed conditions make timing and water choice more important.",
+    "You can fish this day, but timing and water choice matter.",
+    "The read is mixed enough that timing matters.",
+    "This is a fair day with a tighter margin.",
+    "A defined window matters more than the full-day average.",
+    "This is a day to respect the strongest window.",
+    "There is enough help to fish, but the main limiter still matters.",
   ],
   Poor: [
     "This is a tougher day than usual.",
@@ -83,7 +83,7 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
     "This setup is making you earn it today.",
     "There are more problems than help here.",
     "This is a tougher read from top to bottom.",
-    "The day does not offer many free advantages.",
+    "The day offers few easy condition advantages.",
   ],
   Tough: [
     "This is a very difficult fishing day.",
@@ -153,36 +153,36 @@ const NEUTRAL_CLOSERS = [
   "No one factor is dominating the day.",
   "Nothing is taking over the read by itself.",
   "This is a balanced day more than a dramatic one.",
-  "The details matter more than one big factor today.",
+  "Wind, light, and water movement need to be read together today.",
   "The day is not being carried or sunk by one obvious thing.",
-  "This is more about execution than one major condition edge.",
+  "The day depends more on timing than on one obvious condition edge.",
   "No single factor stands above the rest.",
-  "It is a broad, balanced setup rather than a sharp one.",
+  "It is a broad setup rather than a sharp one.",
 ] as const;
 
 const CONTEXT_TOUCHES: Record<EngineContext, readonly string[]> = {
   freshwater_lake_pond: [
     "On a lake or pond day, steady adjustments usually beat constant change.",
-    "For still water, clean decisions usually matter more than doing too much.",
+    "For still water, timing and water choice matter more than doing too much.",
     "Lake days like this usually reward a patient, organized plan.",
-    "On still water, simple execution usually beats forcing things.",
+    "On still water, a simple plan usually beats forcing things.",
   ],
   freshwater_river: [
     "On a river day, staying disciplined usually matters more than covering too much water.",
     "River setups like this usually reward precision over extra motion.",
-    "In moving water, clean decisions usually beat rushed ones.",
+    "In moving water, precise choices usually beat rushed ones.",
     "For rivers, the better move is usually to stay precise and controlled.",
   ],
   coastal: [
-    "On an inshore day, timing and clean execution usually matter more than extra effort.",
+    "On an inshore day, timing usually matters more than extra effort.",
     "Coastal setups like this usually reward staying disciplined once the window shows up.",
     "For inshore water, a simple plan usually holds up better than forcing it.",
-    "On coastal days, clean decisions usually matter more than extra effort.",
+    "On coastal days, timing and water movement usually matter more than extra effort.",
   ],
   coastal_flats_estuary: [
     "On the flats, small advantages usually matter more than big guesses.",
     "Flats days like this usually reward a calm, precise approach.",
-    "In a flats setup, clean execution usually matters more than forcing the pace.",
+    "In a flats setup, subtle water and light changes matter more than forcing the pace.",
     "For flats and estuary water, subtle adjustments usually decide more than big ones.",
   ],
 };
@@ -196,6 +196,8 @@ const RELIABILITY_CLOSERS: Record<"medium" | "low", readonly string[]> = {
     "The main setup is still useful here, even if the read should stay a little broad.",
   ],
   low: [
+    "Some inputs are limited, so treat this as a broader read.",
+    "Data is thinner than usual, so leave room for local adjustment.",
     "Key inputs were limited, so treat this as a broad read rather than a precise one.",
     "The read still points you in the right direction, but the precision is looser than normal.",
     "Important inputs were thinner than usual, so this is more directional than exact today.",
@@ -408,7 +410,7 @@ function buildFactorPhrase(
 }
 
 export function buildReportSummaryLine(input: ReportSummaryInput): string {
-  const { band, reliability, drivers, suppressors, seed, context } = input;
+  const { band, drivers, suppressors, seed, context, reliability } = input;
   const opener = pickDeterministic(OPENERS[band], seed, "summary:opener");
   const driver = drivers[0]
     ? buildFactorPhrase(drivers[0], context, "driver")
@@ -461,27 +463,34 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
     );
   }
 
+  if (reliability === "low") {
+    const reliabilityCloser = normalizeSurfaceSentence(
+      pickDeterministic(RELIABILITY_CLOSERS.low, seed, "summary:reliability"),
+    );
+    const withReliability = appendIfFits(
+      parts,
+      reliabilityCloser,
+      SUMMARY_MAX_LEN,
+    );
+    parts.splice(
+      0,
+      parts.length,
+      ...(withReliability.length > parts.length
+        ? withReliability
+        : appendIfFits([parts[0]], reliabilityCloser, SUMMARY_MAX_LEN)),
+    );
+  }
+
   let built = parts.join(" ");
 
-  if (chanceDeterministic(seed, "summary:context:include", 0.38)) {
+  if (
+    reliability !== "low" &&
+    chanceDeterministic(seed, "summary:context:include", 0.38)
+  ) {
     const contextTouch = normalizeSurfaceSentence(
       pickDeterministic(CONTEXT_TOUCHES[context], seed, "summary:context"),
     );
     built = appendIfFits([built], contextTouch, SUMMARY_MAX_LEN).join(" ");
-  }
-
-  if (
-    reliability !== "high" &&
-    chanceDeterministic(seed, "summary:reliability:include", 0.5)
-  ) {
-    const reliabilityNote = normalizeSurfaceSentence(
-      pickDeterministic(
-        RELIABILITY_CLOSERS[reliability],
-        seed,
-        `summary:reliability:${reliability}`,
-      ),
-    );
-    built = appendIfFits([built], reliabilityNote, SUMMARY_MAX_LEN).join(" ");
   }
 
   return trimAtWordBoundary(built, SUMMARY_MAX_LEN);

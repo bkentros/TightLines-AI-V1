@@ -47,7 +47,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
         "Air temps are running warm for the calendar, which can keep fish and forage more active.",
         "Above-average warmth today; expect fish to spread out more than they would after a cold snap.",
         "Warmth is on the high side of normal — good for aggressive feeders if oxygen stays solid.",
-        "Warm temperatures point toward faster retrieves than you would use on a cool snap.",
+        "Warm temperatures point toward a more active feeding window than a cool snap would.",
         "Warmth favors an active bite as long as you avoid the hottest flat-water lull.",
       ]);
     }
@@ -128,7 +128,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
     }
     if (band === "cool") {
       return pick([
-        "Below-average cool can slow fish down; slower presentations are usually safer.",
+        "Below-average cool can slow fish down; expect tighter, more deliberate windows.",
         "Chilly for the date: fish can feel tentative until a warm spell or sun hits the water.",
         "Cool-side temps work against you a little, so expect shorter feeding windows.",
         "Air is running cold; look for the warmest water you can find (sun pockets, inflows, depth).",
@@ -142,7 +142,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
       ]);
     }
     return pick([
-      "Temperature is a small negative — enough to factor into depth and retrieve speed.",
+      "Temperature is a small negative — enough to factor into depth and timing.",
       "Temperature leans against you mildly; compensate with timing and high-percentage water.",
     ]);
   }
@@ -150,7 +150,7 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
   if (band === "very_cold") {
     return pick([
       "Well below seasonal norms — tough cold conditions; pick the warmest stable water available.",
-      "Deep cold: fish move slow and tight — finesse or live-bait patience is the call.",
+      "Deep cold: fish move slow and tight, so patience is the call.",
       "Frigid temperatures dominate; safety and realistic expectations matter as much as tactics.",
     ]);
   }
@@ -201,7 +201,7 @@ function pressureDriverLabel(p: NonNullable<Norm["pressure_regime"]>): string {
         "Pressure snapped upward — fish can get selective while things settle.",
         "Fast rise often means a pause in the bite until the new pressure plateaus.",
         "Sharp pressure recovery: expect selective, finicky bites until things settle.",
-        "Quick jump in pressure — presentation subtlety and repeat casts beat power fishing.",
+        "Quick jump in pressure — subtle, repeated decisions beat forcing the day.",
       ]);
     case "volatile":
       return pick([
@@ -247,10 +247,10 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       const wt = engineScoreTier(w.score);
       if (wt === 2) {
         return pick([
-          "Glass-calm surface — stealth presentations and spooky fish become the main puzzle.",
-          "Dead flat wind: long casts and light line beat heavy hardware.",
+          "Glass-calm surface — stealth and easily-spooked fish become the main puzzle.",
+          "Dead flat wind: extra distance and cleaner angles matter more.",
           "Mirror water — every ripple is yours; finesse and patience rule.",
-          "Calm air — great for sight-fishing and precise drifts, but it will not hide sloppy casts.",
+          "Calm air — great for sight-fishing and precise drifts, but it will not hide sloppy positioning.",
         ]);
       }
       if (wt === 1) {
@@ -263,17 +263,17 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       }
       if (wt === 0) {
         return pick([
-          "Moderate wind — factor it into cast angles, anchor plans, and drift speed.",
-          "Mid-range breeze: workable, but presentations need a wind-aware tweak.",
+          "Moderate wind — factor it into angles, boat position, and drift speed.",
+          "Mid-range breeze: workable, but the plan needs a wind-aware adjustment.",
           "Average air movement — neither a crutch nor a crisis.",
           "Wind sits in the middle; boat handling and line belly become part of the pattern.",
         ]);
       }
       if (wt === -1) {
         return pick([
-          "Breeze is picking up — positioning and cast timing matter more than lure choice.",
+          "Breeze is picking up — positioning and timing matter more than extra searching.",
           "Windy enough to skew drifts; use banks, points, and lee pockets strategically.",
-          "Building wind — heavier tackle and shorter casts often beat forcing long casts.",
+          "Building wind — protected water and shorter, cleaner windows beat forcing distance.",
           "Air is getting pushy; expect harder boat control and more bow in the line.",
         ]);
       }
@@ -290,7 +290,7 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
         return pick([
           "Heavy cloud deck — low light often pulls predators shallow and extends morning behavior.",
           "Dark sky filter: light drops, silhouettes matter, and fish roam more freely.",
-          "Solid overcast — think aggressive retrieves and visible profiles in the upper water.",
+          "Solid overcast — expect fish to use upper water more comfortably.",
           "Low-light ceiling — prime time can stretch well past normal sunny-hour rules.",
         ]);
       }
@@ -312,14 +312,14 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       if (lt === -1) {
         return pick([
           "Bright sun — fish may hug shade, depth, or cover harder than on a gray day.",
-          "High glare potential — polarized optics and natural-color baits earn their keep.",
+          "High glare potential — shade, depth, and cleaner sight lines matter more.",
           "Clear-sky punch — mid-day can feel stingy unless you find light breaks.",
         ]);
       }
       return pick([
         "Harsh light — harsh shadows; expect fish to hold deeper, tighter, or in stained water.",
         "Extreme brightness — short strike windows and picky fish are common.",
-        "Blinding surface glare — finesse under cover beats forcing open-water shots.",
+        "Blinding surface glare — cover and depth beat forcing open-water shots.",
       ]);
     }
     case "precipitation_disruption": {
@@ -371,8 +371,8 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       }
       if (rt === 1) {
         return pick([
-          "Flows are fishable and mostly clear — normal seasonal river tactics should translate.",
-          "Healthy flow band — not blown out, not skinny; standard tactics should translate.",
+          "Flows are fishable and mostly clear — normal seasonal river positioning should translate.",
+          "Healthy flow band — not blown out, not skinny; standard water choices should translate.",
           "Flow is cooperative — wading and crossing stay reasonable with care.",
         ]);
       }
@@ -380,7 +380,7 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
         return pick([
           "Elevated but workable flows — heavier water, tighter holding spots, more current breaks.",
           "Mid-high stage — fish hug slower water; expect closer quarters than at low water.",
-          "Flows have some push — adjust weight and drift depth to stay in the bite.",
+          "Flows have some push — slower edges and depth control matter more.",
         ]);
       }
       return pick([
@@ -394,8 +394,8 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
       if (ti.score >= 1.2) {
         return pick([
           "Strong tidal exchange — current is moving nutrients and disorienting prey; lean into it.",
-          "Big water movement day — set up where speed changes and bait gets pushed.",
-          "Healthy tide movement — timing the push or drain matters more than lure color.",
+          "Big water movement day — set up where speed changes and forage gets pushed.",
+          "Healthy tide movement — timing the push or drain matters more than extra searching.",
         ]);
       }
       if (ti.score >= 0.2) {
@@ -406,7 +406,7 @@ export function labelForDriver(key: ScoredVariableKey, norm: Norm): string {
         ]);
       }
       return pick([
-        "Weak tide slack — less current to concentrate fish; structure and bait become critical.",
+        "Weak tide slack — less current to concentrate fish; structure and forage edges become critical.",
         "Flat tidal picture — precision matters more because current is not doing much for you.",
         "Minimal exchange — look for small current, wind-driven chop, or inlet flow instead.",
       ]);

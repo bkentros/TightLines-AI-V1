@@ -3,7 +3,7 @@
  *
  * Runs the deterministic fishing engine for 7 days × 4 contexts (inland scores
  * for all four still returned; clients use lake+river only when not coastal-eligible).
- * No LLM, no auth required — returns raw scores only.
+ * No generative calls, no auth required — returns raw scores only.
  * Used to populate the 7-day forecast calendar on the home screen.
  *
  * Uses the same Open-Meteo bundle as get-environment (past_days=14, forecast_days=7)
@@ -79,14 +79,21 @@ function num(x: unknown): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
-function intInRange(x: unknown, fallback: number, min: number, max: number): number {
+function intInRange(
+  x: unknown,
+  fallback: number,
+  min: number,
+  max: number,
+): number {
   const n = Number(x);
   if (!Number.isFinite(n)) return fallback;
   return Math.max(min, Math.min(max, Math.floor(n)));
 }
 
 function trimArray<T>(value: unknown, endExclusive: number): T[] | undefined {
-  return Array.isArray(value) ? (value as T[]).slice(0, endExclusive) : undefined;
+  return Array.isArray(value)
+    ? (value as T[]).slice(0, endExclusive)
+    : undefined;
 }
 
 function trimSnapshotForMaxDayOffset(
@@ -108,11 +115,16 @@ function trimSnapshotForMaxDayOffset(
     ...envRecord,
     ...(weather ? { weather } : {}),
     forecast_daily: trimArray(envRecord.forecast_daily, maxDayOffset + 1) ?? [],
-    hourly_pressure_mb: trimArray(envRecord.hourly_pressure_mb, maxHourlyLength) ?? [],
-    hourly_air_temp_f: trimArray(envRecord.hourly_air_temp_f, maxHourlyLength) ?? [],
-    hourly_cloud_cover_pct: trimArray(envRecord.hourly_cloud_cover_pct, maxHourlyLength) ?? [],
-    hourly_wind_speed: trimArray(envRecord.hourly_wind_speed, maxHourlyLength) ?? [],
-    forecast_tides_by_date: trimArray(envRecord.forecast_tides_by_date, maxDayOffset + 1) ?? [],
+    hourly_pressure_mb:
+      trimArray(envRecord.hourly_pressure_mb, maxHourlyLength) ?? [],
+    hourly_air_temp_f:
+      trimArray(envRecord.hourly_air_temp_f, maxHourlyLength) ?? [],
+    hourly_cloud_cover_pct:
+      trimArray(envRecord.hourly_cloud_cover_pct, maxHourlyLength) ?? [],
+    hourly_wind_speed:
+      trimArray(envRecord.hourly_wind_speed, maxHourlyLength) ?? [],
+    forecast_tides_by_date:
+      trimArray(envRecord.forecast_tides_by_date, maxDayOffset + 1) ?? [],
   };
 }
 

@@ -1,5 +1,10 @@
 # IMPLEMENTATION_TASK_PLAN
 
+> Superseded implementation scaffold. The active production architecture is the
+> deterministic Today’s Bite engine described in
+> `supabase/functions/_shared/howFishingEngine/README.md` and
+> `docs/todays-bite-production-tuning-handoff.md`.
+
 ## Goal
 
 Execute the engine reset cleanly and in the correct order so the codebase does not end up with another half-old / half-new architecture.
@@ -52,7 +57,9 @@ Recommended initial files:
 - `score/reweight.ts`
 - `score/scoreDay.ts`
 - `tips/buildTips.ts`
-- `narration/buildNarrationPayload.ts`
+- `summary/summaryLine.ts`
+- `summary/factorSurfaceLabels.ts`
+- `narration/buildConditionContextExtensions.ts`
 
 **Exit criteria**
 - the new engine scaffold exists

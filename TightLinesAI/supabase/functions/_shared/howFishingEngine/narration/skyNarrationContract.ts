@@ -1,10 +1,10 @@
-import type { EngineContext, LlmSkyNarrationContract } from "../contracts/mod.ts";
+import type { EngineContext, SkyNarrationContract } from "../contracts/mod.ts";
 import { isCoastalFamilyContext } from "../contracts/context.ts";
 
 export function buildSkyNarrationContract(
   cloudPct: number | null | undefined,
   context: EngineContext,
-): LlmSkyNarrationContract | null {
+): SkyNarrationContract | null {
   if (cloudPct == null || Number.isNaN(cloudPct)) return null;
   const c = Math.max(0, Math.min(100, cloudPct));
   const cloud_cover_pct_rounded = Math.round(c);

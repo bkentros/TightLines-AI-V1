@@ -9,7 +9,7 @@ import { analyzeSharedConditions } from "./analyzeSharedConditions.ts";
 
 /**
  * Same numeric score as `runHowFishingReport(req).score`.
- * Skips timing engine, tips, summary, and LLM condition payloads — use for bulk / edge limits.
+ * Skips timing, tips, summary, and rich condition context — use for bulk / edge limits.
  */
 export function runHowFishingScoreOnly(req: SharedEngineRequest): number {
   const norm = buildSharedNormalizedOutput(req);
@@ -21,7 +21,7 @@ import {
   buildDeterministicSolunarNote,
   buildDeterministicTimingInsight,
 } from "./narration/polishSafeSurfaceCopy.ts";
-import { buildVariableDisplayLabel } from "./summary/summaryLine.ts";
+import { buildFactorSurfaceLabel } from "./summary/factorSurfaceLabels.ts";
 
 function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
   if (tier === "high") return null;
@@ -60,12 +60,22 @@ export function runHowFishingReport(
   // ── Timing engine (parallel lane to scoring) ──────────────────────────
   const drivers = scored.drivers.map((c) => ({
     variable: c.key,
-    label: buildVariableDisplayLabel(c.key, req.context),
+    label: buildFactorSurfaceLabel(
+      c.key,
+      req.context,
+      norm.normalized,
+      "positive",
+    ),
     effect: "positive" as const,
   }));
   const suppressors = scored.suppressors.map((c) => ({
     variable: c.key,
-    label: buildVariableDisplayLabel(c.key, req.context),
+    label: buildFactorSurfaceLabel(
+      c.key,
+      req.context,
+      norm.normalized,
+      "negative",
+    ),
     effect: "negative" as const,
   }));
 

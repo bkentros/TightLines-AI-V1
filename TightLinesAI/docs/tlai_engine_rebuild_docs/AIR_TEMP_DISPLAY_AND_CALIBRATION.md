@@ -7,8 +7,8 @@ This document is the **single source of truth** for how air temperature is compu
 | Phase | Goal | Status |
 |-------|------|--------|
 | **A** | Document the **scoring statistic** (representative daily air temp) vs **UI statistic** (forecast low/high for the calendar day). | This doc |
-| **B** | Plumb **daily high/low** from `temp_7day_high` / `temp_7day_low` into the engine **LLM environment snapshot** (no change to band math). | Done in codebase |
-| **C** | **Narration brief**: use range in temperature copy when high/low exist; add guardrails so the LLM does not treat a single number as “the high”; flag **large diurnal swings** (≥18°F) for time-of-day awareness. | Done in codebase |
+| **B** | Plumb **daily high/low** from `temp_7day_high` / `temp_7day_low` into the deterministic condition environment snapshot (no change to band math). | Done in codebase |
+| **C** | **Report copy context**: use range in temperature copy when high/low exist; add guardrails so deterministic copy does not treat a single number as “the high”; flag **large diurnal swings** (≥18°F) for time-of-day awareness. | Done in codebase |
 | **D** | **UI**: How’s Fishing report shows forecast **low–high**; home **Live Conditions** shows **today’s range** when arrays exist; optional loading tile supports range. | Done in codebase |
 | **E** | **Calibration audit**: sample (region × month) against a reference climatology using the **same** statistic as `normalizeTemperature` (see below). Adjust `tempBands*.ts` or the scalar recipe only after documented evidence. | Ongoing / manual |
 
@@ -30,12 +30,12 @@ This document is the **single source of truth** for how air temperature is compu
 
 ## Wire fields (snapshot)
 
-`LlmEnvironmentSnapshot` includes:
+`ConditionEnvironmentSnapshot` includes:
 
 - `daily_high_air_temp_f` / `daily_low_air_temp_f` — from the same day index as scoring arrays.
 - `air_temp_diurnal_range_f` — `high − low` when both present; otherwise `null`.
 
-Scoring logic **does not** consume these fields; they are for **UX, narration, and audits**.
+Scoring logic **does not** consume these fields; they are for **UX, deterministic report copy, and audits**.
 
 ## Follow-up (Phase E) — calibration checklist
 
@@ -51,7 +51,7 @@ Do not retune on UI complaints alone without reconciling the statistic.
 
 - `howFishingEngine/request/buildFromEnvData.ts` — builds means, high/low, hourly.
 - `howFishingEngine/normalize/normalizeTemperature.ts` — bands, shock, trend.
-- `howFishingEngine/narration/buildLlmConditionExtensions.ts` — snapshot.
-- `howFishingEngine/narration/buildNarrationBrief.ts` — LLM brief including temperature guardrails.
+- `howFishingEngine/narration/buildConditionContextExtensions.ts` — snapshot.
+- `howFishingEngine/narration/deriveNarrationHints.ts` — deterministic temperature/timing guardrails.
 - `components/fishing/RebuildReportView.tsx` — report air strip.
 - `components/LiveConditionsWidget.tsx` — home conditions grid.

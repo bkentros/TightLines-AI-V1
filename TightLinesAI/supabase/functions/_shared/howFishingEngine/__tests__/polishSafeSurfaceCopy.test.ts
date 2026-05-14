@@ -17,6 +17,7 @@ import {
 } from "../summary/summaryLine.ts";
 import { buildActionableTip, listTipCopyForAudit } from "../tips/buildTips.ts";
 import { listTimingCopyForAudit } from "../timing/timingNotes.ts";
+import { runHowFishingReport } from "../runHowFishingReport.ts";
 
 function minimalReport(
   overrides: Partial<HowsFishingReport>,
@@ -38,7 +39,7 @@ function minimalReport(
     drivers: [],
     suppressors: [],
     actionable_tip: "Tip",
-    actionable_tip_tag: "presentation_general",
+    actionable_tip_tag: "strategy_field_plan",
     daypart_preset: null,
     reliability: "high",
   };
@@ -252,6 +253,94 @@ Deno.test("light temperature suppressor picks thermal edge tip instead of harsh 
     out.actionable_tip.toLowerCase().includes("easy meal"),
     false,
     out.actionable_tip,
+  );
+});
+
+Deno.test("report factor rows use condition-specific copy, not generic category labels", () => {
+  const report = runHowFishingReport({
+    latitude: 42.3,
+    longitude: -71.1,
+    state_code: "MA",
+    region_key: "northeast",
+    local_date: "2026-04-12",
+    local_timezone: "America/New_York",
+    context: "freshwater_river",
+    environment: {
+      daily_mean_air_temp_f: 58,
+      prior_day_mean_air_temp_f: 52,
+      day_minus_2_mean_air_temp_f: 49,
+      pressure_history_mb: [1018, 1016, 1014, 1012.5],
+      wind_speed_mph: 8,
+      cloud_cover_pct: 65,
+      precip_24h_in: 0,
+      precip_72h_in: 0.04,
+      precip_7d_in: 0.12,
+      hourly_air_temp_f: Array.from({ length: 24 }, (_, h) => 48 + h * 0.55),
+      hourly_cloud_cover_pct: Array(24).fill(65),
+    },
+    data_coverage: {},
+  });
+  const generic = new Set([
+    "Temperature",
+    "Pressure",
+    "Wind",
+    "Cloud Cover",
+    "Rain",
+    "Rain / Runoff",
+    "Tide / Current",
+    "Current",
+  ]);
+  for (const entry of [...report.drivers, ...report.suppressors]) {
+    assertEquals(
+      generic.has(entry.label),
+      false,
+      `generic factor label surfaced: ${entry.label}`,
+    );
+    assert(
+      entry.label.length > entry.variable.length,
+      `factor label lacks condition detail: ${entry.label}`,
+    );
+  }
+});
+
+Deno.test("field strategy note avoids tackle and presentation ownership", () => {
+  const report = runHowFishingReport({
+    latitude: 42.3,
+    longitude: -71.1,
+    state_code: "MA",
+    region_key: "northeast",
+    local_date: "2026-07-12",
+    local_timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 91,
+      prior_day_mean_air_temp_f: 90,
+      day_minus_2_mean_air_temp_f: 89,
+      pressure_history_mb: [1016, 1016, 1016, 1016],
+      wind_speed_mph: 4,
+      cloud_cover_pct: 8,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0.04,
+      hourly_air_temp_f: Array.from(
+        { length: 24 },
+        (_, h) => h < 8 ? 80 : h < 18 ? 96 : 84,
+      ),
+      hourly_cloud_cover_pct: Array(24).fill(8),
+    },
+    data_coverage: {},
+  });
+  assertEquals(
+    /\b(bait|lure|fly|retrieve|cast|rod|line|profile|hardware|cadence|pause|presentation)\b/i
+      .test(report.actionable_tip),
+    false,
+    report.actionable_tip,
+  );
+  assert(
+    /\b(window|plan|read|timing|water|condition|heat)\b/i.test(
+      report.actionable_tip,
+    ),
+    report.actionable_tip,
   );
 });
 

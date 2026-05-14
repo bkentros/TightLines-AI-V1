@@ -1,7 +1,7 @@
 import type { TemperatureNormalized } from "../contracts/mod.ts";
 import { ENGINE_SCORE_EPSILON } from "../score/engineScoreMath.ts";
 
-/** Deterministic thermal line for LLM — same semantics as narration brief temperature branch. */
+/** Deterministic thermal line for report context and QA. */
 export function buildThermalAirPlain(
   t: TemperatureNormalized,
   tempF: number | null,
@@ -15,8 +15,8 @@ export function buildThermalAirPlain(
       ? `${Math.round(measuredWaterTempF)}°F water — `
       : "Measured coastal water temp — "
     : tempF != null
-      ? `${Math.round(tempF)}°F air — `
-      : "";
+    ? `${Math.round(tempF)}°F air — `
+    : "";
 
   if (label === "optimal") {
     if (score >= 1) return `${prefix}well inside the seasonal sweet spot`;
@@ -29,7 +29,9 @@ export function buildThermalAirPlain(
     return `${prefix}inside the seasonal range without a strong thermal push`;
   }
   if (label === "near_optimal") {
-    if (score >= 1) return `${prefix}close to the seasonal sweet spot and helping`;
+    if (score >= 1) {
+      return `${prefix}close to the seasonal sweet spot and helping`;
+    }
     if (score >= ENGINE_SCORE_EPSILON) {
       return `${prefix}close to the seasonal range and quietly helping`;
     }
@@ -45,7 +47,9 @@ export function buildThermalAirPlain(
     }
     return `${prefix}warm for the calendar but thermally tempered — not a big heat penalty`;
   }
-  if (label === "cool") return `${prefix}a bit below average, slightly slower bite`;
+  if (label === "cool") {
+    return `${prefix}a bit below average, slightly slower bite`;
+  }
   if (label === "very_warm") {
     if (score <= -ENGINE_SCORE_EPSILON) {
       return `${prefix}quite hot — activity windows are narrow`;

@@ -179,6 +179,50 @@ Deno.test("temperature: measured coastal water temp uses water table, not coasta
   assertEquals(t!.final_score, 1.85);
 });
 
+Deno.test("temperature: Gulf measured-water Oct/Nov 74F continuity", () => {
+  const gulfMappedRegions = [
+    "gulf_coast",
+    "south_central",
+    "mountain_west",
+    "southwest_desert",
+    "southwest_high_desert",
+  ] as const;
+
+  for (const region of gulfMappedRegions) {
+    const oct = normalizeTemperature(
+      "coastal",
+      region,
+      10,
+      74,
+      74,
+      74,
+      {
+        measuredWaterTempF: 74,
+        measuredWaterTemp24hAgoF: 74,
+        measuredWaterTemp72hAgoF: 74,
+      },
+    );
+    const nov = normalizeTemperature(
+      "coastal",
+      region,
+      11,
+      74,
+      74,
+      74,
+      {
+        measuredWaterTempF: 74,
+        measuredWaterTemp24hAgoF: 74,
+        measuredWaterTemp72hAgoF: 74,
+      },
+    );
+    assert(oct != null && nov != null);
+    assertEquals(oct.measurement_source, "coastal_water_temp");
+    assertEquals(nov.measurement_source, "coastal_water_temp");
+    assertAlmostEquals(oct.band_score, nov.band_score, 1e-6);
+    assertAlmostEquals(oct.final_score, nov.final_score, 1e-6);
+  }
+});
+
 Deno.test("temperature: coastal without measured water keeps coastal air table fallback", () => {
   const t = normalizeTemperature(
     "coastal",
@@ -428,33 +472,51 @@ Deno.test("wind: V2 preserves light and useful-breeze scoring while penalizing h
   assertAlmostEquals(normalizeWind(12, "coastal")!.score, 1.04, 1e-3);
   assertAlmostEquals(
     normalizeWind(16, "freshwater_lake_pond")!.score,
-    -0.2,
+    0.2737,
     1e-3,
   );
   assertAlmostEquals(
     normalizeWind(18, "freshwater_lake_pond")!.score,
-    -0.4,
+    0.0211,
     1e-3,
   );
   assertAlmostEquals(
     normalizeWind(18, "freshwater_river")!.score,
-    -0.4444,
+    -0.3111,
     1e-3,
   );
   assertAlmostEquals(
     normalizeWind(18, "coastal_flats_estuary")!.score,
-    -0.6368,
+    -0.45,
     1e-3,
   );
-  assertAlmostEquals(normalizeWind(18, "coastal")!.score, -0.2273, 1e-3);
+  assertAlmostEquals(normalizeWind(18, "coastal")!.score, 0.38, 1e-3);
   assertAlmostEquals(
     normalizeWind(25, "freshwater_river")!.score,
-    -1.125,
+    -1.05,
     1e-3,
   );
-  assertAlmostEquals(normalizeWind(25, "coastal")!.score, -0.8477, 1e-3);
-  assertAlmostEquals(normalizeWind(32, "coastal")!.score, -1.4682, 1e-3);
+  assertAlmostEquals(normalizeWind(25, "coastal")!.score, -0.6, 1e-3);
+  assertAlmostEquals(normalizeWind(32, "coastal")!.score, -1.3, 1e-3);
   assertAlmostEquals(normalizeWind(40, "coastal")!.score, -2, 1e-3);
+});
+
+Deno.test("wind: high-wind overlay thresholds are continuous", () => {
+  const cases = [
+    ["freshwater_lake_pond", 15],
+    ["freshwater_river", 16],
+    ["coastal", 16],
+    ["coastal_flats_estuary", 13],
+  ] as const;
+
+  for (const [context, threshold] of cases) {
+    const before = normalizeWind(threshold - 0.01, context)!.score;
+    const after = normalizeWind(threshold + 0.01, context)!.score;
+    assert(
+      Math.abs(after - before) < 0.01,
+      `${context} wind threshold jump ${before} -> ${after}`,
+    );
+  }
 });
 
 Deno.test("light: coastal glare/bright neutral; mixed neutral; low cloud positive", () => {
@@ -565,19 +627,19 @@ Deno.test("tide V2: inshore slack/soft/too-hard current score-only curve", () =>
     `expected inshore slack negative, got ${slack.score}`,
   );
   assert(
-    barelyMoving.score >= -0.25 && barelyMoving.score <= 0.1,
-    `expected barely moving inshore current near neutral/slightly negative, got ${barelyMoving.score}`,
+    barelyMoving.score >= -0.65 && barelyMoving.score <= -0.55,
+    `expected barely moving inshore current to taper continuously from slack, got ${barelyMoving.score}`,
   );
   assert(
-    soft.score >= 0.2,
-    `expected soft inshore current helpful, got ${soft.score}`,
+    soft.score >= -0.45 && soft.score <= -0.35,
+    `expected soft inshore current to stay on the continuous moving ramp, got ${soft.score}`,
   );
   assert(
     strong.score >= 1.2,
     `expected strong inshore current positive, got ${strong.score}`,
   );
   assert(
-    tooHard.score <= -0.5,
+    tooHard.score <= -0.25,
     `expected too-hard inshore current negative, got ${tooHard.score}`,
   );
 });
@@ -673,7 +735,7 @@ Deno.test("tide V2: flats current curve is helpful at soft flow and cautionary a
     `expected flats slack mild, got ${slack.score}`,
   );
   assert(
-    soft.score >= 0.2,
+    soft.score >= 0.1,
     `expected soft flats current helpful, got ${soft.score}`,
   );
   assert(
@@ -717,7 +779,31 @@ Deno.test("tide V2: measured current wins over conflicting stage and hourly data
 
   assert(t != null);
   assertEquals(t.label, "moving");
-  assertAlmostEquals(t.score, 0.2071, 1e-4);
+  assertAlmostEquals(t.score, -0.4214, 1e-4);
+});
+
+Deno.test("tide V2: current-speed segment endpoints are continuous", () => {
+  const cases = [
+    ["inshore", [0.5, 1.2, 2.0, 2.6]],
+    ["flats_estuary", [0.5, 1.0, 1.6, 2.0]],
+  ] as const;
+
+  for (const [policy, thresholds] of cases) {
+    for (const threshold of thresholds) {
+      const before = normalizeTideCurrentMovement(
+        { current_speed_knots_max: threshold - 0.001 },
+        policy,
+      )!.score;
+      const after = normalizeTideCurrentMovement(
+        { current_speed_knots_max: threshold + 0.001 },
+        policy,
+      )!.score;
+      assert(
+        Math.abs(after - before) < 0.01,
+        `${policy} current threshold ${threshold} jump ${before} -> ${after}`,
+      );
+    }
+  }
 });
 
 Deno.test("tide V2: missing tide remains missing and lowers coastal reliability", () => {
@@ -1040,6 +1126,51 @@ function rainPolicyNorm(
   };
 }
 
+function highFreshwaterEliteNorm(
+  overrides: Partial<SharedNormalizedOutput> = {},
+): SharedNormalizedOutput {
+  return {
+    location: {
+      latitude: 45,
+      longitude: -93,
+      state_code: "MN",
+      region_key: "great_lakes_upper_midwest",
+      local_date: "2026-06-15",
+      local_timezone: "America/Chicago",
+    },
+    context: "freshwater_lake_pond",
+    normalized: {
+      temperature: {
+        context_group: "freshwater",
+        measurement_source: "air_daily_mean",
+        measurement_value_f: 70,
+        band_label: "optimal",
+        band_score: 2,
+        trend_label: "stable",
+        trend_adjustment: 0,
+        shock_label: "none",
+        shock_adjustment: 0,
+        final_score: 2,
+      },
+      pressure_regime: { label: "falling_slow", score: 2 },
+      wind_condition: { label: "moderate", score: 2 },
+      light_cloud_condition: { label: "heavy_overcast", score: 2 },
+      precipitation_disruption: { label: "dry_stable", score: 1.35 },
+    },
+    available_variables: [
+      "temperature_condition",
+      "pressure_regime",
+      "wind_condition",
+      "light_cloud_condition",
+      "precipitation_disruption",
+    ],
+    missing_variables: [],
+    data_gaps: [],
+    reliability: "high",
+    ...overrides,
+  };
+}
+
 Deno.test("scoreDay: drivers from positive contributions only", () => {
   const s = scoreDay(minimalNorm());
   assert(s.drivers.length >= 1);
@@ -1174,6 +1305,22 @@ Deno.test("scoreDay policy: wet recent rain caps final score at 65", () => {
   assertEquals(s.band, "Good");
 });
 
+Deno.test("scoreDay policy: precip cap tapers numerically between active and recent rain", () => {
+  const active = scoreDay(rainPolicyNorm({
+    precipitation_disruption: { label: "active_disruption", score: -1.1 },
+  }));
+  const middle = scoreDay(rainPolicyNorm({
+    precipitation_disruption: { label: "active_disruption", score: -0.775 },
+  }));
+  const recent = scoreDay(rainPolicyNorm({
+    precipitation_disruption: { label: "recent_rain", score: -0.45 },
+  }));
+
+  assertEquals(active.score, 55);
+  assertEquals(middle.score, 60);
+  assertEquals(recent.score, 65);
+});
+
 Deno.test("scoreDay policy: recent rain above wet threshold is not capped", () => {
   const s = scoreDay(rainPolicyNorm({
     precipitation_disruption: { label: "recent_rain", score: -0.44 },
@@ -1205,9 +1352,11 @@ Deno.test("scoreDay policy: final score cap preserves contribution surfaces", ()
     precipitation_disruption: { label: "active_disruption", score: -2 },
   }));
   assertEquals(s.score, 55);
-  assert(s.contributions.some((x) =>
-    x.key === "precipitation_disruption" && x.score === -2
-  ));
+  assert(
+    s.contributions.some((x) =>
+      x.key === "precipitation_disruption" && x.score === -2
+    ),
+  );
   assertEquals(s.drivers.map((x) => x.key), [
     "tide_current_movement",
     "temperature_condition",
@@ -1251,6 +1400,50 @@ Deno.test("scoreDay policy: score-only and report paths stay consistent", () => 
   const report = runHowFishingReport(req);
   assertEquals(runHowFishingScoreOnly(req), report.score);
   assert(report.score <= 55);
+});
+
+Deno.test("scoreDay policy: data-quality caps apply after freshwater elite gate", () => {
+  const complete = scoreDay(highFreshwaterEliteNorm());
+  const missing = scoreDay(highFreshwaterEliteNorm({
+    missing_variables: ["precipitation_disruption"],
+  }));
+  const lowReliability = scoreDay(highFreshwaterEliteNorm({
+    reliability: "medium",
+  }));
+
+  assert(complete.score >= 95);
+  assertEquals(missing.score, 64);
+  assertEquals(lowReliability.score, 72);
+});
+
+Deno.test("scoreDay policy: freshwater elite gate is not applied to non-freshwater rows", () => {
+  const base = highFreshwaterEliteNorm();
+  const coastal = scoreDay({
+    ...base,
+    context: "coastal",
+    location: {
+      latitude: 29.76,
+      longitude: -95.37,
+      state_code: "TX",
+      region_key: "gulf_coast",
+      local_date: "2026-06-15",
+      local_timezone: "America/Chicago",
+    },
+    normalized: {
+      ...base.normalized,
+      tide_current_movement: { label: "strong_moving", score: 2 },
+    },
+    available_variables: [
+      "temperature_condition",
+      "pressure_regime",
+      "wind_condition",
+      "light_cloud_condition",
+      "tide_current_movement",
+      "precipitation_disruption",
+    ],
+  });
+
+  assertEquals(coastal.score, 100);
 });
 
 Deno.test("compositeScoreActivityTier: describes score band only", () => {
@@ -1508,7 +1701,7 @@ Deno.test("buildActionableTip: positive temp driver → active tip", () => {
     "seed:positive-temp",
   );
   // With a positive temp driver, the tip should be from TEMP_ACTIVE_TIPS
-  assert(b.actionable_tip_tag === "presentation_active_cadence");
+  assert(b.actionable_tip_tag === "strategy_push_windows");
 });
 
 Deno.test("buildActionableTip: heat suppressor (very_warm) never uses cold-water pool", () => {
@@ -1648,8 +1841,163 @@ Deno.test("timing: hot south_central March — avoid_heat rescues when winter-fa
     },
     data_coverage: {},
   });
+  assertEquals(r.timing_debug?.anchor_driver, "avoid_heat");
   assertEquals(r.daypart_preset, "early_late_low_light");
-  assertEquals(r.highlighted_periods, [true, false, false, true]);
+  assertEquals(r.highlighted_periods?.[2], false);
+});
+
+Deno.test("timing: cold/warming freshwater priority anchors on seek_warmth", () => {
+  const r = runHowFishingReport({
+    latitude: 42.3,
+    longitude: -71.1,
+    state_code: "MA",
+    region_key: "northeast",
+    local_date: "2026-01-12",
+    local_timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 25,
+      prior_day_mean_air_temp_f: 18,
+      day_minus_2_mean_air_temp_f: 14,
+      pressure_history_mb: [1018, 1016, 1014, 1012],
+      wind_speed_mph: 5,
+      cloud_cover_pct: 35,
+      precip_24h_in: 0,
+      precip_72h_in: 0.02,
+      precip_7d_in: 0.08,
+      hourly_air_temp_f: Array.from({ length: 24 }, (_, h) => 16 + h * 0.7),
+      hourly_cloud_cover_pct: Array(24).fill(35),
+    },
+    data_coverage: {},
+  });
+  assertEquals(r.timing_debug?.anchor_driver, "seek_warmth");
+  assertEquals(r.timing_debug?.fallback_used, false);
+  assert(!r.highlighted_periods?.[0]);
+});
+
+Deno.test("timing: mountain_alpine winter low-edge near-optimal warming anchors on seek_warmth", () => {
+  const r = runHowFishingReport({
+    latitude: 39.7,
+    longitude: -105,
+    state_code: "CO",
+    region_key: "mountain_alpine",
+    local_date: "2026-02-11",
+    local_timezone: "America/Denver",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 18.15,
+      prior_day_mean_air_temp_f: 12.15,
+      day_minus_2_mean_air_temp_f: 8.15,
+      pressure_history_mb: [1018, 1016, 1014, 1012.5, 1011.5, 1010.5],
+      wind_speed_mph: 5,
+      cloud_cover_pct: 35,
+      precip_24h_in: 0,
+      precip_72h_in: 0.02,
+      precip_7d_in: 0.08,
+      hourly_air_temp_f: Array.from(
+        { length: 24 },
+        (_, h) => 10.15 + h * 0.65,
+      ),
+      hourly_cloud_cover_pct: Array(24).fill(35),
+    },
+    data_coverage: {},
+  });
+  assertEquals(r.timing_debug?.anchor_driver, "seek_warmth");
+  assertEquals(r.timing_debug?.fallback_used, false);
+  assertEquals(r.highlighted_periods?.[0], false);
+  assertEquals(r.highlighted_periods?.[2] || r.highlighted_periods?.[3], true);
+});
+
+Deno.test("timing: alaska winter low-edge near-optimal warming river anchors on seek_warmth", () => {
+  const r = runHowFishingReport({
+    latitude: 61.2,
+    longitude: -149.9,
+    state_code: "AK",
+    region_key: "alaska",
+    local_date: "2026-01-11",
+    local_timezone: "America/Anchorage",
+    context: "freshwater_river",
+    environment: {
+      daily_mean_air_temp_f: 18.15,
+      prior_day_mean_air_temp_f: 12.15,
+      day_minus_2_mean_air_temp_f: 8.15,
+      pressure_history_mb: [1018, 1016, 1014, 1012.5, 1011.5, 1010.5],
+      wind_speed_mph: 5,
+      cloud_cover_pct: 35,
+      precip_24h_in: 0,
+      precip_72h_in: 0.02,
+      precip_7d_in: 0.08,
+      hourly_air_temp_f: Array.from(
+        { length: 24 },
+        (_, h) => 10.15 + h * 0.65,
+      ),
+      hourly_cloud_cover_pct: Array(24).fill(35),
+    },
+    data_coverage: {},
+  });
+  assertEquals(r.timing_debug?.anchor_driver, "seek_warmth");
+  assertEquals(r.timing_debug?.fallback_used, false);
+  assertEquals(r.highlighted_periods?.[0], false);
+  assertEquals(r.highlighted_periods?.[2] || r.highlighted_periods?.[3], true);
+});
+
+Deno.test("timing: low-edge near-optimal stable winter cold does not fake seek_warmth", () => {
+  const r = runHowFishingReport({
+    latitude: 39.7,
+    longitude: -105,
+    state_code: "CO",
+    region_key: "mountain_alpine",
+    local_date: "2026-02-11",
+    local_timezone: "America/Denver",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 18.15,
+      prior_day_mean_air_temp_f: 18.15,
+      day_minus_2_mean_air_temp_f: 18.15,
+      pressure_history_mb: [1018, 1018, 1018, 1018],
+      wind_speed_mph: 5,
+      cloud_cover_pct: 35,
+      precip_24h_in: 0,
+      precip_72h_in: 0.02,
+      precip_7d_in: 0.08,
+      hourly_air_temp_f: Array.from(
+        { length: 24 },
+        (_, h) => 10.15 + h * 0.2,
+      ),
+      hourly_cloud_cover_pct: Array(24).fill(35),
+    },
+    data_coverage: {},
+  });
+  assert(r.timing_debug?.anchor_driver !== "seek_warmth");
+});
+
+Deno.test("timing: broad cloud_all_day light does not become production priority anchor", () => {
+  const r = runHowFishingReport({
+    latitude: 42.3,
+    longitude: -71.1,
+    state_code: "MA",
+    region_key: "northeast",
+    local_date: "2026-01-12",
+    local_timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 44,
+      prior_day_mean_air_temp_f: 44,
+      day_minus_2_mean_air_temp_f: 44,
+      pressure_history_mb: [1015, 1015.1, 1015, 1015.1],
+      wind_speed_mph: 8,
+      cloud_cover_pct: 95,
+      precip_24h_in: 0,
+      precip_72h_in: 0.02,
+      precip_7d_in: 0.08,
+      hourly_air_temp_f: Array(24).fill(44),
+      hourly_cloud_cover_pct: Array(24).fill(95),
+    },
+    data_coverage: {},
+  });
+  assertEquals(r.timing_debug?.anchor_driver, "neutral_fallback");
+  assertEquals(r.timing_debug?.fallback_used, true);
+  assertEquals(r.highlighted_periods, [false, false, true, false]);
 });
 
 Deno.test("timing: low overall reliability no longer suppresses coastal timing when tide exchanges are present", () => {
@@ -1720,6 +2068,117 @@ Deno.test("timing: tide-without-clock falls back to the combo bias window", () =
     r.daypart_note != null &&
       /Early and late|Dawn and evening|Low-light edges/i.test(r.daypart_note),
   );
+});
+
+Deno.test("timing: coastal real tide stays anchor even when heat qualifies", () => {
+  const r = runHowFishingReport({
+    latitude: 29.26,
+    longitude: -94.98,
+    state_code: "TX",
+    region_key: "gulf_coast",
+    local_date: "2026-07-20",
+    local_timezone: "America/Chicago",
+    context: "coastal",
+    environment: {
+      daily_mean_air_temp_f: 92,
+      prior_day_mean_air_temp_f: 91,
+      day_minus_2_mean_air_temp_f: 90,
+      measured_water_temp_f: 92,
+      measured_water_temp_24h_ago_f: 91,
+      measured_water_temp_72h_ago_f: 90,
+      pressure_history_mb: [1014, 1013, 1012, 1011],
+      wind_speed_mph: 10,
+      cloud_cover_pct: 5,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0.1,
+      tide_high_low: [
+        { time: "2026-07-20T12:10:00", value: 0.2, type: "L" },
+        { time: "2026-07-20T14:30:00", value: 2.8, type: "H" },
+      ],
+      current_speed_knots_max: 1.2,
+      hourly_air_temp_f: Array.from(
+        { length: 24 },
+        (_, h) => h < 8 ? 82 : h < 18 ? 95 : 85,
+      ),
+      hourly_cloud_cover_pct: Array(24).fill(5),
+    },
+    data_coverage: {},
+  });
+  assertEquals(r.timing_debug?.anchor_driver, "tide_exchange_window");
+  assertEquals(r.timing_debug?.fallback_used, false);
+  assert(
+    /heat caution/i.test(r.timing_debug?.selection_reason ?? ""),
+    r.timing_debug?.selection_reason,
+  );
+});
+
+Deno.test("timing: winter flats moving tide chooses tide instead of warmth fallback", () => {
+  const r = runHowFishingReport({
+    latitude: 42.3,
+    longitude: -71.1,
+    state_code: "MA",
+    region_key: "northeast",
+    local_date: "2026-01-12",
+    local_timezone: "America/New_York",
+    context: "coastal_flats_estuary",
+    environment: {
+      daily_mean_air_temp_f: 42,
+      prior_day_mean_air_temp_f: 42,
+      day_minus_2_mean_air_temp_f: 42,
+      measured_water_temp_f: 42,
+      measured_water_temp_24h_ago_f: 42,
+      measured_water_temp_72h_ago_f: 42,
+      pressure_history_mb: [1015, 1014.5, 1014, 1013.5],
+      wind_speed_mph: 8,
+      cloud_cover_pct: 45,
+      precip_24h_in: 0,
+      precip_72h_in: 0.02,
+      precip_7d_in: 0.08,
+      tide_high_low: [
+        { time: "2026-01-12T06:10:00", value: 0.2, type: "L" },
+        { time: "2026-01-12T12:40:00", value: 3.1, type: "H" },
+      ],
+      current_speed_knots_max: 1.1,
+    },
+    data_coverage: {},
+  });
+  assertEquals(r.timing_debug?.anchor_driver, "tide_exchange_window");
+  assertEquals(r.timing_debug?.primary_driver, "seek_warmth");
+  assertEquals(r.timing_debug?.secondary_driver, "tide_exchange_window");
+  assertEquals(r.timing_debug?.secondary_qualified, true);
+  assertEquals(r.timing_debug?.secondary_role, "anchor");
+  assertEquals(r.timing_debug?.fallback_used, false);
+});
+
+Deno.test("timing: missing tide events never invent tide timing", () => {
+  const r = runHowFishingReport({
+    latitude: 29.26,
+    longitude: -94.98,
+    state_code: "TX",
+    region_key: "gulf_coast",
+    local_date: "2026-07-20",
+    local_timezone: "America/Chicago",
+    context: "coastal",
+    environment: {
+      daily_mean_air_temp_f: 82,
+      prior_day_mean_air_temp_f: 80,
+      day_minus_2_mean_air_temp_f: 79,
+      pressure_history_mb: [1013, 1014, 1014.5, 1015],
+      wind_speed_mph: 12,
+      cloud_cover_pct: 8,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0.1,
+      current_speed_knots_max: 1.5,
+      tide_movement_state: "incoming",
+      sunrise_local: "06:35",
+      sunset_local: "20:01",
+    },
+    data_coverage: {},
+  });
+  assertEquals(r.timing_debug?.primary_driver, "tide_exchange_window");
+  assert(r.timing_debug?.anchor_driver !== "tide_exchange_window");
 });
 
 Deno.test("timing: solunar does not influence timing selection", () => {

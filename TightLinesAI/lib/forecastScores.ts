@@ -1,7 +1,7 @@
 /**
  * forecastScores — 7-day deterministic fishing score forecast
  *
- * Calls the forecast-scores edge function (no LLM, no auth required).
+ * Calls the forecast-scores edge function (no generative calls, no auth required).
  * Results are cached until the next midnight in the fishing location timezone so the
  * 7-day outlook stays stable all day and future-day reports can reuse the same snapshot.
  */
@@ -150,7 +150,11 @@ function normalizedForecastOptions(options?: ForecastScoresOptions): {
   };
 }
 
-function cacheKey(lat: number, lon: number, options?: ForecastScoresOptions): string {
+function cacheKey(
+  lat: number,
+  lon: number,
+  options?: ForecastScoresOptions,
+): string {
   // Round to ~1km to tolerate minor GPS drift
   const latR = Math.round(lat * 100) / 100;
   const lonR = Math.round(lon * 100) / 100;
@@ -330,7 +334,9 @@ export function invalidateForecastCache(lat: number, lon: number): void {
   AsyncStorage.getAllKeys()
     .then((keys) =>
       AsyncStorage.multiRemove(
-        keys.filter((k) => k.startsWith(`${CACHE_KEY_PREFIX}_${latR}_${lonR}_`)),
+        keys.filter((k) =>
+          k.startsWith(`${CACHE_KEY_PREFIX}_${latR}_${lonR}_`)
+        ),
       )
     )
     .catch(() => {});

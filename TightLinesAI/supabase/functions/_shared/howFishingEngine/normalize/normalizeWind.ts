@@ -18,18 +18,48 @@ function scoreAtMph(mph: number, context: EngineContext): number {
   // and normal useful-breeze scoring; rollback by returning base directly here.
   if (context === "freshwater_river") {
     if (mph <= 16) return base;
-    return Math.min(base, pieceLinear(mph, 16, 34, -0.25, -2));
+    return Math.min(
+      base,
+      pieceLinear(
+        mph,
+        16,
+        34,
+        productionBaselineScoreAtMph(16, context),
+        -2,
+      ),
+    );
   }
   if (context === "coastal_flats_estuary") {
     if (mph <= 13) return base;
-    return Math.min(base, pieceLinear(mph, 13, 32, -0.15, -2));
+    return Math.min(
+      base,
+      pieceLinear(
+        mph,
+        13,
+        32,
+        productionBaselineScoreAtMph(13, context),
+        -2,
+      ),
+    );
   }
   if (isCoastalFamilyContext(context)) {
     if (mph <= 16) return base;
-    return Math.min(base, pieceLinear(mph, 16, 38, -0.05, -2));
+    return Math.min(
+      base,
+      pieceLinear(
+        mph,
+        16,
+        38,
+        productionBaselineScoreAtMph(16, context),
+        -2,
+      ),
+    );
   }
   if (mph <= 15) return base;
-  return Math.min(base, pieceLinear(mph, 15, 34, -0.1, -2));
+  return Math.min(
+    base,
+    pieceLinear(mph, 15, 34, productionBaselineScoreAtMph(15, context), -2),
+  );
 }
 
 function productionBaselineScoreAtMph(

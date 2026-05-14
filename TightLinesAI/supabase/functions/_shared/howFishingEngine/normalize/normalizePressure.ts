@@ -15,10 +15,9 @@ export type PressureNormalizeResult = {
 function maxRolling3hSwingMb(series: number[]): number {
   const n = series.length;
   if (n < 2) return 0;
-  const lag =
-    n >= 8 && n <= 49
-      ? 3
-      : Math.max(1, Math.min(n - 1, Math.round((3 * (n - 1)) / 24)));
+  const lag = n >= 8 && n <= 49
+    ? 3
+    : Math.max(1, Math.min(n - 1, Math.round((3 * (n - 1)) / 24)));
   let max = 0;
   for (let i = 0; i + lag < n; i++) {
     max = Math.max(max, Math.abs(series[i + lag]! - series[i]!));
@@ -26,14 +25,45 @@ function maxRolling3hSwingMb(series: number[]): number {
   return max;
 }
 
+function trendScoreForDelta(delta24: number): number {
+  const absDelta = Math.abs(delta24);
+  if (delta24 < -0.5) {
+    if (absDelta > 6.0) {
+      return clampEngineScore(pieceLinear(absDelta, 6, 11, -0.25, -1.25));
+    }
+    if (absDelta > 3.0) {
+      return clampEngineScore(pieceLinear(absDelta, 3, 6, 1.15, -0.25));
+    }
+    return clampEngineScore(pieceLinear(absDelta, 0.5, 3, 0.35, 1.15));
+  }
+  if (delta24 > 0.5) {
+    if (delta24 <= 3.0) {
+      return clampEngineScore(pieceLinear(delta24, 0.5, 3, 0.25, -0.15));
+    }
+    return clampEngineScore(pieceLinear(delta24, 3, 7.5, -0.15, -0.85));
+  }
+  return 0;
+}
+
+function smoothstep(edge0: number, edge1: number, value: number): number {
+  if (edge0 === edge1) return value >= edge1 ? 1 : 0;
+  const x = Math.max(0, Math.min(1, (value - edge0) / (edge1 - edge0)));
+  return x * x * (3 - 2 * x);
+}
+
 export function normalizePressureDetailed(
-  pressureHistoryMb: number[] | null | undefined
+  pressureHistoryMb: number[] | null | undefined,
 ): PressureNormalizeResult | null {
-  const series = (pressureHistoryMb ?? []).filter((x) => typeof x === "number" && !Number.isNaN(x));
+  const series = (pressureHistoryMb ?? []).filter((x) =>
+    typeof x === "number" && !Number.isNaN(x)
+  );
   if (series.length < 2) return null;
 
-  const quality: PressureHistoryQuality =
-    series.length === 2 ? "two_point" : series.length < 12 ? "sparse" : "adequate";
+  const quality: PressureHistoryQuality = series.length === 2
+    ? "two_point"
+    : series.length < 12
+    ? "sparse"
+    : "adequate";
 
   const latest = series[series.length - 1]!;
   const oldest = series[0]!;
@@ -69,12 +99,22 @@ export function normalizePressureDetailed(
         const recentSlice = series.slice(-4);
         const recentRange = Math.max(...recentSlice) - Math.min(...recentSlice);
         if (recentRange < 1.5) {
+          const taper = Math.max(
+            smoothstep(7.5, 8.5, range24),
+            smoothstep(3.5, 4.5, max3hSwing),
+            directionChanges >= 4 ? smoothstep(4.5, 5.5, range24) : 0,
+          );
+          const score = clampEngineScore(
+            trendScoreForDelta(delta24) * (1 - taper) + 0.25 * taper,
+          );
           return {
             quality,
             state: {
               label: "recently_stabilizing",
-              score: 0.25,
-              detail: `prior range ${range24.toFixed(1)} mb, now settling (recent range ${recentRange.toFixed(1)} mb)`,
+              score,
+              detail: `prior range ${
+                range24.toFixed(1)
+              } mb, now settling (recent range ${recentRange.toFixed(1)} mb)`,
             },
           };
         }
@@ -87,7 +127,9 @@ export function normalizePressureDetailed(
         state: {
           label: "volatile",
           score: volScore,
-          detail: `range ${range24.toFixed(1)} mb, 3h swing ${max3hSwing.toFixed(1)}`,
+          detail: `range ${range24.toFixed(1)} mb, 3h swing ${
+            max3hSwing.toFixed(1)
+          }`,
         },
       };
     }
@@ -103,7 +145,11 @@ export function normalizePressureDetailed(
       );
       return {
         quality,
-        state: { label: "falling_hard", score, detail: `${delta24.toFixed(1)} mb/24h` },
+        state: {
+          label: "falling_hard",
+          score,
+          detail: `${delta24.toFixed(1)} mb/24h`,
+        },
       };
     }
     if (absDelta > 3.0) {
@@ -112,7 +158,11 @@ export function normalizePressureDetailed(
       );
       return {
         quality,
-        state: { label: "falling_moderate", score, detail: `${delta24.toFixed(1)} mb/24h` },
+        state: {
+          label: "falling_moderate",
+          score,
+          detail: `${delta24.toFixed(1)} mb/24h`,
+        },
       };
     }
     const score = clampEngineScore(
@@ -120,7 +170,11 @@ export function normalizePressureDetailed(
     );
     return {
       quality,
-      state: { label: "falling_slow", score, detail: `${delta24.toFixed(1)} mb/24h` },
+      state: {
+        label: "falling_slow",
+        score,
+        detail: `${delta24.toFixed(1)} mb/24h`,
+      },
     };
   }
 
@@ -131,7 +185,11 @@ export function normalizePressureDetailed(
       );
       return {
         quality,
-        state: { label: "rising_slow", score, detail: `+${delta24.toFixed(1)} mb/24h` },
+        state: {
+          label: "rising_slow",
+          score,
+          detail: `+${delta24.toFixed(1)} mb/24h`,
+        },
       };
     }
     const score = clampEngineScore(
@@ -139,19 +197,27 @@ export function normalizePressureDetailed(
     );
     return {
       quality,
-      state: { label: "rising_fast", score, detail: `+${delta24.toFixed(1)} mb/24h` },
+      state: {
+        label: "rising_fast",
+        score,
+        detail: `+${delta24.toFixed(1)} mb/24h`,
+      },
     };
   }
 
   return {
     quality,
-    state: { label: "stable_neutral", score: 0, detail: `${delta24.toFixed(1)} mb/24h` },
+    state: {
+      label: "stable_neutral",
+      score: 0,
+      detail: `${delta24.toFixed(1)} mb/24h`,
+    },
   };
 }
 
 /** @deprecated use normalizePressureDetailed for quality-aware reliability */
 export function normalizePressure(
-  pressureHistoryMb: number[] | null | undefined
+  pressureHistoryMb: number[] | null | undefined,
 ): VariableState | null {
   const r = normalizePressureDetailed(pressureHistoryMb);
   return r?.state ?? null;

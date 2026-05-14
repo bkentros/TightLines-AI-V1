@@ -11,9 +11,9 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
   buildEngineLedSummaryLine,
   buildSharedEngineRequestFromEnvData,
-  runHowFishingReport,
   type EngineContext,
   type HowsFishingReport,
+  runHowFishingReport,
 } from "../_shared/howFishingEngine/index.ts";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 
@@ -28,7 +28,8 @@ function corsHeaders() {
   return {
     "Access-Control-Allow-Origin": "*",
     "Access-Control-Allow-Methods": "POST, OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey, x-user-token",
+    "Access-Control-Allow-Headers":
+      "Content-Type, Authorization, apikey, x-user-token",
   };
 }
 
@@ -43,7 +44,9 @@ function locationLocalMidnightIso(timezone: string, now = new Date()): string {
     second: "2-digit",
     hour12: false,
   });
-  const parts = Object.fromEntries(formatter.formatToParts(now).map((p) => [p.type, p.value]));
+  const parts = Object.fromEntries(
+    formatter.formatToParts(now).map((p) => [p.type, p.value]),
+  );
   const y = Number(parts.year);
   const m = Number(parts.month);
   const d = Number(parts.day);
@@ -52,7 +55,8 @@ function locationLocalMidnightIso(timezone: string, now = new Date()): string {
   const ss = Number(parts.second);
   const localNowUtcMillis = Date.UTC(y, m - 1, d, hh, mm, ss);
   const offsetMillis = localNowUtcMillis - now.getTime();
-  const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) - offsetMillis;
+  const nextLocalMidnightUtcMillis = Date.UTC(y, m - 1, d + 1, 0, 0, 0) -
+    offsetMillis;
   return new Date(nextLocalMidnightUtcMillis).toISOString();
 }
 
@@ -86,8 +90,9 @@ function limitReportForFree(report: HowsFishingReport): HowsFishingReport {
     ...report,
     drivers: [],
     suppressors: [],
-    actionable_tip: "Upgrade to Angler for the full guide note, bite factors, timing windows, and forecast reads.",
-    actionable_tip_tag: "presentation_general",
+    actionable_tip:
+      "Upgrade to Angler for bite factors, timing windows, field strategy, and forecast reads.",
+    actionable_tip_tag: "strategy_field_plan",
     daypart_note: null,
     daypart_preset: null,
     highlighted_periods: undefined,
@@ -102,10 +107,16 @@ function limitReportForFree(report: HowsFishingReport): HowsFishingReport {
 
 function isCoastalEnv(envData: Record<string, unknown>): boolean {
   if (envData.coastal === true) return true;
-  if (typeof envData.nearest_tide_station_id === "string" && envData.nearest_tide_station_id.length > 0) {
+  if (
+    typeof envData.nearest_tide_station_id === "string" &&
+    envData.nearest_tide_station_id.length > 0
+  ) {
     return true;
   }
-  if (envData.tides_available === true && envData.tides && typeof envData.tides === "object") {
+  if (
+    envData.tides_available === true && envData.tides &&
+    typeof envData.tides === "object"
+  ) {
     return true;
   }
   return false;
@@ -114,7 +125,6 @@ function isCoastalEnv(envData: Record<string, unknown>): boolean {
 function isCoastalContext(context: EngineContext): boolean {
   return context === "coastal" || context === "coastal_flats_estuary";
 }
-
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
@@ -133,14 +143,20 @@ Deno.serve(async (req: Request) => {
 
   const userToken = req.headers.get("x-user-token");
   const authHeader = req.headers.get("Authorization");
-  const token = userToken || (authHeader ? authHeader.replace("Bearer ", "") : null);
+  const token = userToken ||
+    (authHeader ? authHeader.replace("Bearer ", "") : null);
   if (!token) {
-    return new Response(JSON.stringify({ error: "Missing authentication token" }), {
-      status: 401,
-      headers: { "Content-Type": "application/json", ...corsHeaders() },
-    });
+    return new Response(
+      JSON.stringify({ error: "Missing authentication token" }),
+      {
+        status: 401,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      },
+    );
   }
-  const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+  const { data: { user }, error: authError } = await supabase.auth.getUser(
+    token,
+  );
   if (authError || !user) {
     return new Response(JSON.stringify({ error: "Unauthorized" }), {
       status: 401,
@@ -178,9 +194,13 @@ Deno.serve(async (req: Request) => {
     return new Response(
       JSON.stringify({
         error: "weekly_overview_removed",
-        message: "7-day forecast reports are not available in this app version.",
+        message:
+          "7-day forecast reports are not available in this app version.",
       }),
-      { status: 410, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      {
+        status: 410,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      },
     );
   }
 
@@ -199,12 +219,20 @@ Deno.serve(async (req: Request) => {
     .eq("user_id", userId)
     .eq("billing_period", billingPeriod)
     .maybeSingle();
-  const currentCost = Number((usageRow as { total_cost_usd?: number } | null)?.total_cost_usd ?? 0);
+  const currentCost = Number(
+    (usageRow as { total_cost_usd?: number } | null)?.total_cost_usd ?? 0,
+  );
 
   if (!body.env_data || typeof body.env_data !== "object") {
     return new Response(
-      JSON.stringify({ error: "missing_env_data", message: "env_data is required" }),
-      { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      JSON.stringify({
+        error: "missing_env_data",
+        message: "env_data is required",
+      }),
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      },
     );
   }
   let envData = body.env_data as Record<string, unknown>;
@@ -214,16 +242,24 @@ Deno.serve(async (req: Request) => {
   const dayOffset = typeof body.day_offset === "number" && body.day_offset > 0
     ? Math.min(Math.floor(body.day_offset), 6)
     : 0;
-  const targetDateStr = typeof body.target_date === "string" && body.target_date.length === 10
-    ? body.target_date
-    : null;
+  const targetDateStr =
+    typeof body.target_date === "string" && body.target_date.length === 10
+      ? body.target_date
+      : null;
   const useForecastSnapshot = body.use_forecast_snapshot === true;
   const todayAtLocation = localDateInTz(extractTimezone(envData));
-  const isTodayRead = dayOffset === 0 && (targetDateStr == null || targetDateStr === todayAtLocation);
+  const isTodayRead = dayOffset === 0 &&
+    (targetDateStr == null || targetDateStr === todayAtLocation);
   if (tier === "free" && !isTodayRead) {
     return new Response(
-      JSON.stringify({ error: "subscription_required", message: "Subscribe to use forecast reads" }),
-      { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      JSON.stringify({
+        error: "subscription_required",
+        message: "Subscribe to use forecast reads",
+      }),
+      {
+        status: 403,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      },
     );
   }
   const limitedAccess = tier === "free";
@@ -254,9 +290,10 @@ Deno.serve(async (req: Request) => {
   const timezone = extractTimezone(envData);
   const localDate = targetDateStr ?? localDateInTz(timezone);
 
-  const locationName = typeof body.location_name === "string" && body.location_name.length > 0
-    ? body.location_name
-    : typeof body.city === "string" && body.city.length > 0
+  const locationName =
+    typeof body.location_name === "string" && body.location_name.length > 0
+      ? body.location_name
+      : typeof body.city === "string" && body.city.length > 0
       ? body.city
       : null;
   const timestampUtc = new Date().toISOString();
@@ -284,8 +321,11 @@ Deno.serve(async (req: Request) => {
     const report = runHowFishingReport(sharedReq);
     const surfaced: HowsFishingReport = {
       ...report,
-      summary_line: normalizeSurfaceText(buildEngineLedSummaryLine(report, locationName)) ?? report.summary_line,
-      actionable_tip: normalizeSurfaceText(report.actionable_tip) ?? report.actionable_tip,
+      summary_line:
+        normalizeSurfaceText(buildEngineLedSummaryLine(report, locationName)) ??
+          report.summary_line,
+      actionable_tip: normalizeSurfaceText(report.actionable_tip) ??
+        report.actionable_tip,
       timing_insight: normalizeSurfaceText(report.timing_insight) ?? null,
       solunar_note: normalizeSurfaceText(report.solunar_note) ?? null,
       drivers: report.drivers.map((d) => ({
@@ -301,7 +341,10 @@ Deno.serve(async (req: Request) => {
   }
 
   // ─── Helper: track usage (insert or update) ───
-  async function trackUsage(actualCostUsd: number, payload: Record<string, unknown>) {
+  async function trackUsage(
+    actualCostUsd: number,
+    payload: Record<string, unknown>,
+  ) {
     await supabase.from("ai_sessions").insert({
       user_id: userId,
       session_type: "fishing_now",
@@ -310,7 +353,9 @@ Deno.serve(async (req: Request) => {
       token_cost_usd: actualCostUsd,
     });
     if ((usageRow as { id?: string } | null)?.id) {
-      const prevCallCount = Number((usageRow as { call_count?: number } | null)?.call_count ?? 0);
+      const prevCallCount = Number(
+        (usageRow as { call_count?: number } | null)?.call_count ?? 0,
+      );
       await supabase
         .from("usage_tracking")
         .update({
@@ -336,8 +381,14 @@ Deno.serve(async (req: Request) => {
     const rawContexts = body.contexts;
     if (!Array.isArray(rawContexts) || rawContexts.length === 0) {
       return new Response(
-        JSON.stringify({ error: "invalid_contexts", message: "contexts must be a non-empty array" }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+        JSON.stringify({
+          error: "invalid_contexts",
+          message: "contexts must be a non-empty array",
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders() },
+        },
       );
     }
     const requestedContexts = rawContexts.filter((c: unknown) =>
@@ -345,19 +396,33 @@ Deno.serve(async (req: Request) => {
     ) as EngineContext[];
     if (requestedContexts.length === 0) {
       return new Response(
-        JSON.stringify({ error: "invalid_contexts", message: `Each context must be one of: ${VALID_CONTEXTS.join(", ")}` }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+        JSON.stringify({
+          error: "invalid_contexts",
+          message: `Each context must be one of: ${VALID_CONTEXTS.join(", ")}`,
+        }),
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders() },
+        },
       );
     }
-    const disallowedContexts = requestedContexts.filter((ctx) => isCoastalContext(ctx) && !coastalAllowed);
-    const contexts = requestedContexts.filter((ctx) => !disallowedContexts.includes(ctx));
+    const disallowedContexts = requestedContexts.filter((ctx) =>
+      isCoastalContext(ctx) && !coastalAllowed
+    );
+    const contexts = requestedContexts.filter((ctx) =>
+      !disallowedContexts.includes(ctx)
+    );
     if (contexts.length === 0) {
       return new Response(
         JSON.stringify({
           error: "inland_location",
-          message: "Coastal reports are only available for locations the environment service classifies as coastal.",
+          message:
+            "Coastal reports are only available for locations the environment service classifies as coastal.",
         }),
-        { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+        {
+          status: 400,
+          headers: { "Content-Type": "application/json", ...corsHeaders() },
+        },
       );
     }
 
@@ -369,7 +434,11 @@ Deno.serve(async (req: Request) => {
       access_tier: "free_limited" | "angler";
       engine_context: EngineContext;
       report: HowsFishingReport;
-      usage: { input_tokens: number; output_tokens: number; token_cost_usd: number };
+      usage: {
+        input_tokens: number;
+        output_tokens: number;
+        token_cost_usd: number;
+      };
     }> = {};
     const failedContexts: string[] = [];
     let totalInT = 0;
@@ -407,10 +476,19 @@ Deno.serve(async (req: Request) => {
       ...(failedContexts.length > 0 || disallowedContexts.length > 0
         ? { failed_contexts: [...failedContexts, ...disallowedContexts] }
         : {}),
-      usage: { input_tokens: totalInT, output_tokens: totalOutT, token_cost_usd: totalCost },
+      usage: {
+        input_tokens: totalInT,
+        output_tokens: totalOutT,
+        token_cost_usd: totalCost,
+      },
     };
 
-    await trackUsage(totalCost, { latitude: lat, longitude: lon, mode: "multi", contexts });
+    await trackUsage(totalCost, {
+      latitude: lat,
+      longitude: lon,
+      mode: "multi",
+      contexts,
+    });
 
     return new Response(JSON.stringify(multiBundle), {
       status: 200,
@@ -428,7 +506,9 @@ Deno.serve(async (req: Request) => {
     context = "freshwater_lake_pond";
   } else if (ctxStr === "freshwater_river") {
     context = "freshwater_river";
-  } else if (ctxStr === "coastal" || ctxStr === "saltwater" || ctxStr === "brackish") {
+  } else if (
+    ctxStr === "coastal" || ctxStr === "saltwater" || ctxStr === "brackish"
+  ) {
     context = "coastal";
   } else if (VALID_CONTEXTS.includes(ctxStr as EngineContext)) {
     context = ctxStr as EngineContext;
@@ -436,9 +516,14 @@ Deno.serve(async (req: Request) => {
     return new Response(
       JSON.stringify({
         error: "invalid_engine_context",
-        message: `engine_context must be one of: ${VALID_CONTEXTS.join(", ")} (legacy saltwater/brackish map to coastal inshore)`,
+        message: `engine_context must be one of: ${
+          VALID_CONTEXTS.join(", ")
+        } (legacy saltwater/brackish map to coastal inshore)`,
       }),
-      { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      },
     );
   }
 
@@ -446,13 +531,18 @@ Deno.serve(async (req: Request) => {
     return new Response(
       JSON.stringify({
         error: "inland_location",
-        message: "Coastal reports are only available for locations the environment service classifies as coastal.",
+        message:
+          "Coastal reports are only available for locations the environment service classifies as coastal.",
       }),
-      { status: 400, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+      {
+        status: 400,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      },
     );
   }
 
-  const { report: singleReport, inT: singleInT, outT: singleOutT } = await generateSingleReport(context);
+  const { report: singleReport, inT: singleInT, outT: singleOutT } =
+    await generateSingleReport(context);
   const singleCost = 0;
 
   const responseBundle = {
@@ -462,10 +552,18 @@ Deno.serve(async (req: Request) => {
     access_tier: limitedAccess ? "free_limited" as const : "angler" as const,
     engine_context: context,
     report: limitedAccess ? limitReportForFree(singleReport) : singleReport,
-    usage: { input_tokens: singleInT, output_tokens: singleOutT, token_cost_usd: singleCost },
+    usage: {
+      input_tokens: singleInT,
+      output_tokens: singleOutT,
+      token_cost_usd: singleCost,
+    },
   };
 
-  await trackUsage(singleCost, { latitude: lat, longitude: lon, engine_context: context });
+  await trackUsage(singleCost, {
+    latitude: lat,
+    longitude: lon,
+    engine_context: context,
+  });
 
   return new Response(JSON.stringify(responseBundle), {
     status: 200,

@@ -1,12 +1,18 @@
 /**
- * Explicit LLM guardrails derived from normalized state — not redundant with
- * driver prose; tells the model how to interpret temperature vs tactics/timing.
+ * Explicit report-copy guardrails derived from normalized state.
+ * These keep temperature, heat, and timing language aligned with the engine.
  */
 
-import type { SharedNormalizedOutput, TemperatureMetabolicContext } from "../contracts/mod.ts";
+import type {
+  SharedNormalizedOutput,
+  TemperatureMetabolicContext,
+} from "../contracts/mod.ts";
 import { evaluateTemperatureWindow } from "../timing/evaluators/evaluateTemperatureWindow.ts";
 import type { TimingEvalOptions } from "../timing/timingTypes.ts";
-import { engineScoreTier, ENGINE_SCORE_EPSILON } from "../score/engineScoreMath.ts";
+import {
+  ENGINE_SCORE_EPSILON,
+  engineScoreTier,
+} from "../score/engineScoreMath.ts";
 
 const DAYPART_LABELS = ["dawn", "morning", "afternoon", "evening"] as const;
 

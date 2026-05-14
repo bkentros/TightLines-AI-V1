@@ -65,8 +65,8 @@ const COASTAL_WATER_ROWS: Partial<Record<RegionKey, TempBandRow[]>> = {
     [82, 84, 87, 90, [-2, -1, 1, 0, -2]],
     [84, 86, 88, 90, [-2, -1, 1, 0, -2]],
     [80, 83, 86, 89, [-2, -1, 1, 0, -2]],
-    [72, 78, 82, 86, [-2, -1, 2, 0, -2]],
-    [62, 68, 74, 80, [-2, -1, 2, 1, -1]],
+    [66, 72, 78, 84, [-2, -1, 2, 0, -2]],
+    [66, 72, 78, 84, [-2, -1, 2, 0, -2]],
     [54, 60, 66, 72, [-2, -1, 1, 2, 0]],
   ],
   pacific_northwest: [
@@ -141,7 +141,10 @@ const COASTAL_WATER_ROWS: Partial<Record<RegionKey, TempBandRow[]>> = {
   ],
 };
 
-export function coastalWaterTempRow(homeRegion: RegionKey, month1to12: number): number[] | null {
+export function coastalWaterTempRow(
+  homeRegion: RegionKey,
+  month1to12: number,
+): number[] | null {
   const r = coastalTempRegion(homeRegion);
   const rows = COASTAL_WATER_ROWS[r];
   const i = month1to12 - 1;

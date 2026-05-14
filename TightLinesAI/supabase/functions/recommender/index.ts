@@ -2,7 +2,7 @@
  * recommender — Supabase Edge Function
  *
  * Deterministic, species-first lure/fly recommender.
- * No LLM. No external AI calls. Pure engine compute.
+ * No generative calls. No external AI calls. Pure engine compute.
  *
  * **Live runtime:** auth + subscription gate + validation here; recommendation math is
  * `resolveDailyPicksSession` → daily-picks 2x2 (`recommenderEngine/dailyPicks/**`)

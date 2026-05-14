@@ -2,17 +2,19 @@ import type { SharedEngineRequest } from "../contracts/input.ts";
 import type { EngineContext } from "../contracts/mod.ts";
 import type { SharedNormalizedOutput } from "../contracts/normalized.ts";
 import type {
-  LlmCompositeContribution,
-  LlmEnvironmentSnapshot,
-  LlmNormalizedVariableScore,
-  LlmPressureHistorySummary,
+  ConditionCompositeContribution,
+  ConditionEnvironmentSnapshot,
+  ConditionNormalizedVariableScore,
+  PressureHistorySummary,
 } from "../contracts/report.ts";
 import { buildSkyNarrationContract } from "./skyNarrationContract.ts";
 import type { ScoredVariableKey } from "../contracts/variables.ts";
 import { isScoredVariableKey } from "../contracts/variables.ts";
 import type { ActiveVariableScore } from "../score/types.ts";
 
-function summarizePressureHistory(mb: number[] | null | undefined): LlmPressureHistorySummary | null {
+function summarizePressureHistory(
+  mb: number[] | null | undefined,
+): PressureHistorySummary | null {
   if (!mb || mb.length === 0) return null;
   const first = mb[0]!;
   const last = mb[mb.length - 1]!;
@@ -34,7 +36,7 @@ function summarizePressureHistory(mb: number[] | null | undefined): LlmPressureH
 function normalizedEntryForKey(
   key: ScoredVariableKey,
   n: SharedNormalizedOutput["normalized"],
-): LlmNormalizedVariableScore | null {
+): ConditionNormalizedVariableScore | null {
   switch (key) {
     case "temperature_condition": {
       const t = n.temperature;
@@ -114,8 +116,8 @@ function normalizedEntryForKey(
 
 function buildNormalizedVariableScores(
   norm: SharedNormalizedOutput,
-): LlmNormalizedVariableScore[] {
-  const out: LlmNormalizedVariableScore[] = [];
+): ConditionNormalizedVariableScore[] {
+  const out: ConditionNormalizedVariableScore[] = [];
   for (const key of norm.available_variables) {
     if (!isScoredVariableKey(key)) continue;
     const e = normalizedEntryForKey(key, norm.normalized);
@@ -124,7 +126,9 @@ function buildNormalizedVariableScores(
   return out;
 }
 
-function buildCompositeContributions(contributions: ActiveVariableScore[]): LlmCompositeContribution[] {
+function buildCompositeContributions(
+  contributions: ActiveVariableScore[],
+): ConditionCompositeContribution[] {
   return contributions.map((c) => ({
     variable_key: c.key,
     normalized_score: c.score,
@@ -137,7 +141,7 @@ function buildCompositeContributions(contributions: ActiveVariableScore[]): LlmC
 function buildEnvironmentSnapshot(
   env: SharedEngineRequest["environment"],
   context: EngineContext,
-): LlmEnvironmentSnapshot {
+): ConditionEnvironmentSnapshot {
   const lo = env.daily_low_air_temp_f ?? null;
   const hi = env.daily_high_air_temp_f ?? null;
   const range =
@@ -169,27 +173,38 @@ function buildEnvironmentSnapshot(
     current_speed_knots_max: env.current_speed_knots_max ?? null,
     sunrise_local: env.sunrise_local ?? null,
     sunset_local: env.sunset_local ?? null,
-    solunar_peak_count: env.solunar_peak_local != null ? env.solunar_peak_local.length : null,
-    hourly_air_temp_sample_count: env.hourly_air_temp_f != null ? env.hourly_air_temp_f.length : null,
+    solunar_peak_count: env.solunar_peak_local != null
+      ? env.solunar_peak_local.length
+      : null,
+    hourly_air_temp_sample_count: env.hourly_air_temp_f != null
+      ? env.hourly_air_temp_f.length
+      : null,
     hourly_cloud_cover_sample_count: env.hourly_cloud_cover_pct != null
       ? env.hourly_cloud_cover_pct.length
       : null,
-    pressure_history_summary: summarizePressureHistory(env.pressure_history_mb ?? undefined),
-    tide_high_low_event_count: env.tide_high_low != null ? env.tide_high_low.length : null,
-    sky_narration_contract: buildSkyNarrationContract(env.cloud_cover_pct, context),
+    pressure_history_summary: summarizePressureHistory(
+      env.pressure_history_mb ?? undefined,
+    ),
+    tide_high_low_event_count: env.tide_high_low != null
+      ? env.tide_high_low.length
+      : null,
+    sky_narration_contract: buildSkyNarrationContract(
+      env.cloud_cover_pct,
+      context,
+    ),
   };
 }
 
-/** Deterministic structured facts for narration — never use stochastic driver lines here. */
-export function buildLlmConditionExtensions(
+/** Deterministic structured facts for report copy, audits, and QA tooling. */
+export function buildConditionContextExtensions(
   norm: SharedNormalizedOutput,
   contributions: ActiveVariableScore[],
   environment: SharedEngineRequest["environment"],
   context: EngineContext,
 ): {
-  normalized_variable_scores: LlmNormalizedVariableScore[];
-  composite_contributions: LlmCompositeContribution[];
-  environment_snapshot: LlmEnvironmentSnapshot;
+  normalized_variable_scores: ConditionNormalizedVariableScore[];
+  composite_contributions: ConditionCompositeContribution[];
+  environment_snapshot: ConditionEnvironmentSnapshot;
 } {
   return {
     normalized_variable_scores: buildNormalizedVariableScores(norm),

@@ -6,67 +6,84 @@
  */
 
 export type RegionKey =
-  | 'northeast'
-  | 'southeast_atlantic'
-  | 'florida'
-  | 'gulf_coast'
-  | 'great_lakes_upper_midwest'
-  | 'midwest_interior'
-  | 'south_central'
-  | 'mountain_west'
-  | 'southwest_desert'
-  | 'southwest_high_desert'
-  | 'pacific_northwest'
-  | 'southern_california'
-  | 'mountain_alpine'
-  | 'northern_california'
-  | 'appalachian'
-  | 'inland_northwest'
-  | 'alaska'
-  | 'hawaii'
+  | "northeast"
+  | "southeast_atlantic"
+  | "florida"
+  | "gulf_coast"
+  | "great_lakes_upper_midwest"
+  | "midwest_interior"
+  | "south_central"
+  | "mountain_west"
+  | "southwest_desert"
+  | "southwest_high_desert"
+  | "pacific_northwest"
+  | "southern_california"
+  | "mountain_alpine"
+  | "northern_california"
+  | "appalachian"
+  | "inland_northwest"
+  | "alaska"
+  | "hawaii"
   // Legacy aliases (backwards compat with old cached bundles)
-  | 'southwest'
-  | 'pacific_coast';
+  | "southwest"
+  | "pacific_coast";
 
 export type EngineContextKey =
-  | 'freshwater_lake_pond'
-  | 'freshwater_river'
-  | 'coastal'
-  | 'coastal_flats_estuary';
+  | "freshwater_lake_pond"
+  | "freshwater_river"
+  | "coastal"
+  | "coastal_flats_estuary";
 
-export type RebuildScoreBand = 'Tough' | 'Poor' | 'Fair' | 'Good' | 'Prime';
-export type RebuildReliability = 'high' | 'medium' | 'low';
+export type RebuildScoreBand = "Tough" | "Poor" | "Fair" | "Good" | "Prime";
+export type RebuildReliability = "high" | "medium" | "low";
 
-export type ActionableTipTag =
-  | 'presentation_current_sweep'
-  | 'presentation_contact_control'
-  | 'presentation_visibility_profile'
-  | 'presentation_slow_subtle'
-  | 'presentation_active_cadence'
-  | 'presentation_general';
+export type FieldStrategyTag =
+  | "strategy_water_movement"
+  | "strategy_control"
+  | "strategy_visibility"
+  | "strategy_patient_plan"
+  | "strategy_push_windows"
+  | "strategy_field_plan"
+  | "strategy_data_limited";
+
+// Legacy aliases accepted for old cached bundles. New reports emit strategy_*.
+export type LegacyActionableTipTag =
+  | "presentation_current_sweep"
+  | "presentation_contact_control"
+  | "presentation_visibility_profile"
+  | "presentation_slow_subtle"
+  | "presentation_active_cadence"
+  | "presentation_general";
+
+export type ActionableTipTag = FieldStrategyTag | LegacyActionableTipTag;
 
 export type DaypartNotePreset =
-  | 'moving_water_periods'
-  | 'early_late_low_light'
-  | 'warmest_part_may_help'
-  | 'cooler_low_light_better'
-  | 'no_timing_edge';
+  | "moving_water_periods"
+  | "early_late_low_light"
+  | "warmest_part_may_help"
+  | "cooler_low_light_better"
+  | "no_timing_edge";
 
 /** Timing recommendation confidence — independent of daily score band */
-export type TimingStrength = 'very_strong' | 'strong' | 'good' | 'fair_default';
+export type TimingStrength = "very_strong" | "strong" | "good" | "fair_default";
 
-export type TemperatureMetabolicContext = 'heat_limited' | 'cold_limited' | 'neutral';
+export type TemperatureMetabolicContext =
+  | "heat_limited"
+  | "cold_limited"
+  | "neutral";
 
-export const HOWS_FISHING_REBUILD_FEATURE = 'hows_fishing_rebuild_v1' as const;
+export const HOWS_FISHING_REBUILD_FEATURE = "hows_fishing_rebuild_v1" as const;
 
 /**
  * Contexts for How's Fishing multi-mode + home cached score mean.
  * Order matches tab order: lake → river → inshore → flats/estuary (when coastal).
  */
-export function howFishingMultiContexts(coastalEligible: boolean): EngineContextKey[] {
-  const ctxs: EngineContextKey[] = ['freshwater_lake_pond', 'freshwater_river'];
+export function howFishingMultiContexts(
+  coastalEligible: boolean,
+): EngineContextKey[] {
+  const ctxs: EngineContextKey[] = ["freshwater_lake_pond", "freshwater_river"];
   if (coastalEligible) {
-    ctxs.push('coastal', 'coastal_flats_estuary');
+    ctxs.push("coastal", "coastal_flats_estuary");
   }
   return ctxs;
 }
@@ -74,10 +91,10 @@ export function howFishingMultiContexts(coastalEligible: boolean): EngineContext
 export interface HowsFishingReportV1 {
   context: EngineContextKey;
   display_context_label:
-    | 'Freshwater Lake/Pond'
-    | 'Freshwater River'
-    | 'Coastal Inshore'
-    | 'Flats & Estuary';
+    | "Freshwater Lake/Pond"
+    | "Freshwater River"
+    | "Coastal Inshore"
+    | "Flats & Estuary";
   location: {
     latitude: number;
     longitude: number;
@@ -90,8 +107,8 @@ export interface HowsFishingReportV1 {
   score: number;
   band: RebuildScoreBand;
   summary_line: string;
-  drivers: Array<{ variable: string; label: string; effect: 'positive' }>;
-  suppressors: Array<{ variable: string; label: string; effect: 'negative' }>;
+  drivers: Array<{ variable: string; label: string; effect: "positive" }>;
+  suppressors: Array<{ variable: string; label: string; effect: "negative" }>;
   actionable_tip: string;
   actionable_tip_tag: ActionableTipTag;
   daypart_note?: string | null;
@@ -169,24 +186,34 @@ export interface HowFishingRebuildBundle {
   feature: typeof HOWS_FISHING_REBUILD_FEATURE;
   generated_at: string;
   cache_expires_at: string;
-  access_tier?: 'free_limited' | 'angler';
+  access_tier?: "free_limited" | "angler";
   engine_context: EngineContextKey;
   report: HowsFishingReportV1;
-  usage?: { input_tokens: number; output_tokens: number; token_cost_usd: number };
+  usage?: {
+    input_tokens: number;
+    output_tokens: number;
+    token_cost_usd: number;
+  };
 }
 
 /** Multi-context response — multiple reports in one API call */
 export interface HowFishingRebuildMultiBundle {
   feature: typeof HOWS_FISHING_REBUILD_FEATURE;
-  mode: 'multi';
+  mode: "multi";
   generated_at: string;
   cache_expires_at: string;
-  access_tier?: 'free_limited' | 'angler';
+  access_tier?: "free_limited" | "angler";
   contexts: EngineContextKey[];
   reports: Partial<Record<EngineContextKey, HowFishingRebuildBundle>>;
   failed_contexts?: EngineContextKey[];
-  usage?: { input_tokens: number; output_tokens: number; token_cost_usd: number };
+  usage?: {
+    input_tokens: number;
+    output_tokens: number;
+    token_cost_usd: number;
+  };
 }
 
 /** Discriminated union — check for `'mode' in r && r.mode === 'multi'` */
-export type HowFishingRebuildResponse = HowFishingRebuildBundle | HowFishingRebuildMultiBundle;
+export type HowFishingRebuildResponse =
+  | HowFishingRebuildBundle
+  | HowFishingRebuildMultiBundle;

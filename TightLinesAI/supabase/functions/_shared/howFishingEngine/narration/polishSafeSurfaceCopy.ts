@@ -1,7 +1,6 @@
 /**
  * User-facing lines that must stay aligned with engine timing + metabolic truth.
- * When temperature_metabolic_context is neutral, LLM polish must NOT own these fields —
- * it will map “warmer afternoon” / diurnal swing to false heat-stress story beats.
+ * These fields are deterministic; they are not handed to a generative polish path.
  */
 
 import type { HowsFishingReport } from "../contracts/report.ts";
@@ -33,9 +32,7 @@ function trimSurfaceLine(text: string, maxLen: number): string {
   return /[.!?]$/.test(output) ? output : `${output}.`;
 }
 
-/**
- * Same logic as buildNarrationBrief `formatTimingSection`, condensed for UI (single line).
- */
+/** Deterministic one-line timing surface for the report UI. */
 export function buildDeterministicTimingInsight(
   report: HowsFishingReport,
 ): string {

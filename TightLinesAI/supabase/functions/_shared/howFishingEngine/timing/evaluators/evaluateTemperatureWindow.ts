@@ -21,9 +21,7 @@ import type {
   TimingSignal,
   TimingStrength,
 } from "../timingTypes.ts";
-import {
-  daypartMeansForSeries,
-} from "../daypartHourly.ts";
+import { daypartMeansForSeries } from "../daypartHourly.ts";
 import { ENGINE_SCORE_EPSILON } from "../../score/engineScoreMath.ts";
 import { notePoolKeyForDaypartFlags } from "../timingNotes.ts";
 
@@ -35,6 +33,8 @@ const MODERATE_DAY_OVER_DAY_WARM_F = 5;
 const BROAD_WARMTH_WINDOW_DAY_DELTA_F = 8;
 /** Adjacent bucket can join when thermal means stay close enough to act like one broad window. */
 const TEMP_BUCKET_PLATEAU_DELTA_F = 3;
+const LOW_EDGE_OPTIMAL_WARMTH_MAX_F = 32;
+const LOW_EDGE_OPTIMAL_WARMTH_MAX_SCORE = 0;
 
 export function evaluateTemperatureWindow(
   mode: TemperatureMode,
@@ -54,7 +54,9 @@ function formatBucketMeans(means: (number | null)[]): string {
   return means.map((m) => (m == null ? "x" : m.toFixed(1))).join("/");
 }
 
-function periodsFromHourlyWarmth(hourly: number[]): { periods: DaypartFlags; debug: string } | null {
+function periodsFromHourlyWarmth(
+  hourly: number[],
+): { periods: DaypartFlags; debug: string } | null {
   const means = daypartMeansForSeries(hourly);
   if (!means) return null;
 
@@ -86,11 +88,15 @@ function periodsFromHourlyWarmth(hourly: number[]): { periods: DaypartFlags; deb
 
   return {
     periods,
-    debug: `bucketMeans=${formatBucketMeans(means)} best=${bestIdx} bestMean=${bestMean.toFixed(1)}`,
+    debug: `bucketMeans=${formatBucketMeans(means)} best=${bestIdx} bestMean=${
+      bestMean.toFixed(1)
+    }`,
   };
 }
 
-function periodsFromHourlyCool(hourly: number[]): { periods: DaypartFlags; debug: string } | null {
+function periodsFromHourlyCool(
+  hourly: number[],
+): { periods: DaypartFlags; debug: string } | null {
   const means = daypartMeansForSeries(hourly);
   if (!means) return null;
 
@@ -123,7 +129,9 @@ function periodsFromHourlyCool(hourly: number[]): { periods: DaypartFlags; debug
 
   return {
     periods,
-    debug: `bucketMeans=${formatBucketMeans(means)} coolest=${coolestMean.toFixed(1)} qualified=${[...qualified].join(",")}`,
+    debug: `bucketMeans=${formatBucketMeans(means)} coolest=${
+      coolestMean.toFixed(1)
+    } qualified=${[...qualified].join(",")}`,
   };
 }
 
@@ -131,11 +139,15 @@ function defaultPeriodsWithoutHourly(
   sharpWarmup: boolean,
   dayDelta: number | null,
 ): DaypartFlags {
-  const wide =
-    sharpWarmup ||
+  const wide = sharpWarmup ||
     (dayDelta != null && dayDelta >= BROAD_WARMTH_WINDOW_DAY_DELTA_F);
   if (wide) return [false, false, true, true];
   return [false, false, true, false];
+}
+
+function winterMonthFromLocalDate(localDate: string): boolean {
+  const month = Number(localDate.slice(5, 7));
+  return month === 12 || month === 1 || month === 2;
 }
 
 function evaluateSeekWarmth(
@@ -144,28 +156,40 @@ function evaluateSeekWarmth(
 ): TimingSignal | null {
   const { band_label, trend_label, shock_label } = temp;
 
-  if (band_label !== "very_cold" && band_label !== "cool") return null;
-
   if (shock_label === "sharp_cooldown" || trend_label === "cooling") {
     return null;
   }
 
   const daily = opts.daily_mean_air_temp_f;
   const prior = opts.prior_day_mean_air_temp_f;
-  const dayDelta =
-    daily != null &&
-    prior != null &&
-    !Number.isNaN(daily) &&
-    !Number.isNaN(prior)
-      ? daily - prior
-      : null;
+  const dayDelta = daily != null &&
+      prior != null &&
+      !Number.isNaN(daily) &&
+      !Number.isNaN(prior)
+    ? daily - prior
+    : null;
 
   const sharpWarmup = shock_label === "sharp_warmup";
   const warming72 = trend_label === "warming";
-  const moderateDayRise =
-    dayDelta !== null && dayDelta >= MODERATE_DAY_OVER_DAY_WARM_F;
+  const moderateDayRise = dayDelta !== null &&
+    dayDelta >= MODERATE_DAY_OVER_DAY_WARM_F;
+  const warmingSignal = sharpWarmup || warming72 || moderateDayRise;
+  const lowEdgeWinterOptimalWarmth =
+    (band_label === "near_optimal" || band_label === "optimal") &&
+    temp.context_group === "freshwater" &&
+    temp.measurement_source === "air_daily_mean" &&
+    temp.measurement_value_f <= LOW_EDGE_OPTIMAL_WARMTH_MAX_F &&
+    temp.band_score <= LOW_EDGE_OPTIMAL_WARMTH_MAX_SCORE &&
+    winterMonthFromLocalDate(opts.local_date) &&
+    warmingSignal;
 
-  if (!sharpWarmup && !warming72 && !moderateDayRise) {
+  if (
+    band_label !== "very_cold" &&
+    band_label !== "cool" &&
+    !lowEdgeWinterOptimalWarmth
+  ) return null;
+
+  if (!warmingSignal) {
     // On a stable very-cold day with no warming signal, fish still gravitate to the
     // warmest water at midday even without a temperature rise. Guide anglers there at
     // lower confidence rather than cascading to light/fallback.
@@ -220,8 +244,14 @@ function evaluateSeekWarmth(
 
   const debugReason =
     `seek_warmth: band=${band_label}, shock=${shock_label}, trend=${trend_label}, ` +
-    `dayDelta=${dayDelta ?? "n/a"}; hourly=${hourly && hourly.length >= 12 ? "yes" : "no"} → ` +
-    `periods=${periods.map((v, i) => v ? ["dawn", "morning", "afternoon", "evening"][i] : "").filter(Boolean).join("+")}` +
+    `dayDelta=${dayDelta ?? "n/a"}; hourly=${
+      hourly && hourly.length >= 12 ? "yes" : "no"
+    } → ` +
+    `periods=${
+      periods.map((v, i) =>
+        v ? ["dawn", "morning", "afternoon", "evening"][i] : ""
+      ).filter(Boolean).join("+")
+    }` +
     (hourly && hourly.length >= 12 && periodsFromHourlyWarmth(hourly)
       ? `; ${periodsFromHourlyWarmth(hourly)!.debug}`
       : "");
@@ -282,8 +312,14 @@ function evaluateAvoidHeat(
     periods,
     note_pool_key: notePoolKey,
     debug_reason:
-      `avoid_heat: band=${band_label}, final_score=${final_score}, cloud=${cloudPct ?? "unknown"}%; ` +
-      `periods=${periods.map((v, i) => v ? ["dawn", "morning", "afternoon", "evening"][i] : "").filter(Boolean).join("+")}` +
+      `avoid_heat: band=${band_label}, final_score=${final_score}, cloud=${
+        cloudPct ?? "unknown"
+      }%; ` +
+      `periods=${
+        periods.map((v, i) =>
+          v ? ["dawn", "morning", "afternoon", "evening"][i] : ""
+        ).filter(Boolean).join("+")
+      }` +
       (hourly && hourly.length >= 12 && periodsFromHourlyCool(hourly)
         ? `; ${periodsFromHourlyCool(hourly)!.debug}`
         : ""),

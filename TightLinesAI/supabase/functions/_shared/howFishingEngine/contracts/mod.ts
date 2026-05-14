@@ -11,4 +11,3 @@ export * from "./input.ts";
 export * from "./normalized.ts";
 export * from "./tipsDaypart.ts";
 export * from "./report.ts";
-export * from "./narration.ts";

@@ -1,20 +1,22 @@
-/**
- * How's Fishing report + edge bundle — HOWS_FISHING_REPORT_AND_NARRATION_SPEC
- */
+/** How's Fishing report + edge bundle. */
 
-import type { ActionableTipTag, DaypartNotePreset, TimingStrength } from "./tipsDaypart.ts";
+import type {
+  ActionableTipTag,
+  DaypartNotePreset,
+  TimingStrength,
+} from "./tipsDaypart.ts";
 import type { DisplayContextLabel, EngineContext } from "./context.ts";
 import type {
+  ShockLabel,
   TemperatureBandLabel,
   TemperatureMetabolicContext,
-  TrendLabel,
-  ShockLabel,
   TemperatureNormalized,
+  TrendLabel,
 } from "./variableState.ts";
 import type { ScoredVariableKey } from "./variables.ts";
 
 /** One scored variable’s deterministic normalizer output for report surface copy and QA. */
-export type LlmNormalizedVariableScore = {
+export type ConditionNormalizedVariableScore = {
   variable_key: ScoredVariableKey;
   /** Tapered deterministic score in [-2, 2]. */
   engine_score: number;
@@ -25,7 +27,7 @@ export type LlmNormalizedVariableScore = {
   temperature_breakdown?: TemperatureNormalized;
 };
 
-export type LlmCompositeContribution = {
+export type ConditionCompositeContribution = {
   variable_key: ScoredVariableKey;
   normalized_score: number;
   /** Active weight in the composite (0–1), same as scoreDay weighting. */
@@ -34,7 +36,7 @@ export type LlmCompositeContribution = {
   weighted_contribution: number;
 };
 
-export type LlmPressureHistorySummary = {
+export type PressureHistorySummary = {
   sample_count: number;
   first_mb: number | null;
   last_mb: number | null;
@@ -43,7 +45,7 @@ export type LlmPressureHistorySummary = {
 };
 
 /** Engine-owned sky claims used by deterministic surface copy and QA. */
-export type LlmSkyNarrationContract = {
+export type SkyNarrationContract = {
   sky_character:
     | "mostly_clear"
     | "mixed_sky"
@@ -55,14 +57,14 @@ export type LlmSkyNarrationContract = {
 };
 
 /** Scalar and summarized environment fields the engine actually consumed. */
-export type LlmEnvironmentSnapshot = {
+export type ConditionEnvironmentSnapshot = {
   current_air_temp_f: number | null;
   daily_mean_air_temp_f: number | null;
   measured_water_temp_f: number | null;
   measured_water_temp_24h_ago_f: number | null;
   measured_water_temp_72h_ago_f: number | null;
   measured_water_temp_source: string | null;
-  /** Forecast low/high for local_date when 7-day arrays supply them — UI + LLM context only. */
+  /** Forecast low/high for local_date when 7-day arrays supply them — UI + QA context only. */
   daily_low_air_temp_f: number | null;
   daily_high_air_temp_f: number | null;
   /** high − low when both defined; else null. */
@@ -85,9 +87,9 @@ export type LlmEnvironmentSnapshot = {
   solunar_peak_count: number | null;
   hourly_air_temp_sample_count: number | null;
   hourly_cloud_cover_sample_count: number | null;
-  pressure_history_summary: LlmPressureHistorySummary | null;
+  pressure_history_summary: PressureHistorySummary | null;
   tide_high_low_event_count: number | null;
-  sky_narration_contract: LlmSkyNarrationContract | null;
+  sky_narration_contract: SkyNarrationContract | null;
 };
 
 export type ScoreBand = "Tough" | "Poor" | "Fair" | "Good" | "Prime";
@@ -170,7 +172,7 @@ export type HowsFishingReport = {
     pressure_detail?: string | null;
     wind_detail?: string | null;
     tide_detail?: string | null;
-    /** Light / cloud tier + numeric detail for narration (all contexts) */
+    /** Light / cloud tier + numeric detail for report copy (all contexts) */
     light_cloud_label?: string | null;
     light_cloud_detail?: string | null;
     /** Precip / clarity signal when scored (lake + coastal) */
@@ -187,14 +189,14 @@ export type HowsFishingReport = {
     avoid_midday_for_heat: boolean;
     /** e.g. ["dawn","evening"] — matches highlighted_periods on the report */
     highlighted_dayparts_for_narration: string[];
-    /** Engine-only air-temp line; LLM must not contradict this thermal story. */
+    /** Engine-only air-temp line used by deterministic copy and QA tooling. */
     thermal_air_narration_plain?: string | null;
     /** Deterministic per-variable scores/labels from normalizers (parallel to available_variables). */
-    normalized_variable_scores: LlmNormalizedVariableScore[];
+    normalized_variable_scores: ConditionNormalizedVariableScore[];
     /** Same weighting math as the rounded 0–100 score (see scoreDay). */
-    composite_contributions: LlmCompositeContribution[];
+    composite_contributions: ConditionCompositeContribution[];
     /** Environment scalars + compact summaries of large arrays. */
-    environment_snapshot: LlmEnvironmentSnapshot;
+    environment_snapshot: ConditionEnvironmentSnapshot;
   };
 };
 
