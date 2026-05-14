@@ -57,6 +57,7 @@ import { RebuildReportView } from "../components/fishing/RebuildReportView";
 import { HowFishingLoadingSkeleton } from "../components/fishing/HowFishingLoadingSkeleton";
 import { TopographicLines } from "../components/paper";
 import { getEffectiveTier } from "../lib/subscription";
+import { FeedbackCard } from "../components/FeedbackCard";
 
 /* ─── Date/time helpers ─────────────────────────────────────────────────── */
 
@@ -234,7 +235,7 @@ export default function HowFishingScreen() {
     ? params.location_label.trim()
     : null;
 
-  const { profile } = useAuthStore();
+  const { profile, user } = useAuthStore();
   const overrideSubscriptionTier = useDevTestingStore((s) => s.overrideSubscriptionTier);
   const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
   const isFreeTier = effectiveTier === "free";
@@ -927,15 +928,30 @@ export default function HowFishingScreen() {
                     >
                       {bundle
                         ? (
-                          <RebuildReportView
-                            report={bundle.report}
-                            solunarData={env?.solunar}
-                            dateLabel={heroDateLabel}
-                            isLimited={bundle.access_tier === 'free_limited'}
-                            onAnglerUnlocked={() => {
-                              void generateReports();
-                            }}
-                          />
+                          <>
+                            <RebuildReportView
+                              report={bundle.report}
+                              solunarData={env?.solunar}
+                              dateLabel={heroDateLabel}
+                              isLimited={bundle.access_tier === 'free_limited'}
+                              onAnglerUnlocked={() => {
+                                void generateReports();
+                              }}
+                            />
+                            <FeedbackCard
+                              featureName="Today's Bite"
+                              topic="todays_bite"
+                              compact
+                              profile={profile}
+                              user={user}
+                              contextLines={[
+                                `Location: ${locationLabel}`,
+                                `Date: ${heroDateLabel}`,
+                                `Water type: ${t.label}`,
+                                `Access: ${bundle.access_tier ?? 'angler'}`,
+                              ]}
+                            />
+                          </>
                         )
                         : (
                           <View style={styles.noReportCard}>
@@ -965,15 +981,30 @@ export default function HowFishingScreen() {
             >
               {activeBundle
                 ? (
-                  <RebuildReportView
-                    report={activeBundle.report}
-                    solunarData={env?.solunar}
-                    dateLabel={heroDateLabel}
-                    isLimited={activeBundle.access_tier === 'free_limited'}
-                    onAnglerUnlocked={() => {
-                      void generateReports();
-                    }}
-                  />
+                  <>
+                    <RebuildReportView
+                      report={activeBundle.report}
+                      solunarData={env?.solunar}
+                      dateLabel={heroDateLabel}
+                      isLimited={activeBundle.access_tier === 'free_limited'}
+                      onAnglerUnlocked={() => {
+                        void generateReports();
+                      }}
+                    />
+                    <FeedbackCard
+                      featureName="Today's Bite"
+                      topic="todays_bite"
+                      compact
+                      profile={profile}
+                      user={user}
+                      contextLines={[
+                        `Location: ${locationLabel}`,
+                        `Date: ${heroDateLabel}`,
+                        `Water type: ${availableTabs[0]?.label ?? 'single context'}`,
+                        `Access: ${activeBundle.access_tier ?? 'angler'}`,
+                      ]}
+                    />
+                  </>
                 )
                 : (
                   <View style={styles.noReportCard}>

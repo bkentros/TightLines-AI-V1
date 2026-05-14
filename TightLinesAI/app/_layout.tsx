@@ -452,6 +452,7 @@ export default function RootLayout() {
         <Stack.Screen name="log-detail" options={{ headerShown: false }} />
         <Stack.Screen name="personal-bests" options={{ headerShown: false }} />
         <Stack.Screen name="subscribe" options={{ headerShown: false }} />
+        <Stack.Screen name="support" options={{ headerShown: false }} />
         <Stack.Screen
           name="recommender"
           options={{ headerShown: false }}

@@ -12,6 +12,7 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { paper, paperFonts, paperSpacing } from '../../lib/theme';
@@ -21,6 +22,8 @@ import { supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import type { UserProfile } from '../../lib/types';
+import { isAdminEmail } from '../../lib/adminAccess';
+import type { FeedbackTopic } from '../../lib/feedback';
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -48,6 +51,7 @@ const STATE_NAME_TO_ABBR: Record<string, string> = {
 type NoticeTone = 'info' | 'success' | 'error';
 
 export default function SettingsScreen() {
+  const router = useRouter();
   const { profile, user, setProfile, signOut } = useAuthStore();
   const {
     ignoreGps,
@@ -70,6 +74,7 @@ export default function SettingsScreen() {
     message?: string;
     tone?: NoticeTone;
   } | null>(null);
+  const canSeeTestingTools = __DEV__ && isAdminEmail(user?.email);
 
   useEffect(() => {
     if (!profile) return;
@@ -78,8 +83,8 @@ export default function SettingsScreen() {
   }, [profile?.id]);
 
   useEffect(() => {
-    if (__DEV__) loadDevTesting();
-  }, [loadDevTesting]);
+    if (canSeeTestingTools) loadDevTesting();
+  }, [canSeeTestingTools, loadDevTesting]);
 
   const buildHomeRegion = () => {
     if (homeCity.trim() && homeState) return `${homeCity.trim()}, ${homeState}`;
@@ -182,6 +187,19 @@ export default function SettingsScreen() {
     }
   };
 
+  const openSupportForm = (topic: FeedbackTopic) => {
+    router.push({
+      pathname: '/support',
+      params: {
+        topic,
+        contextLines: JSON.stringify([
+          `Tier: ${profile?.subscription_tier ?? 'unknown'}`,
+          `Home: ${buildHomeRegion() || 'not set'}`,
+        ]),
+      },
+    });
+  };
+
   const handleDeleteAccount = async () => {
     if (!confirmDelete) {
       setConfirmDelete(true);
@@ -238,7 +256,7 @@ export default function SettingsScreen() {
           >
             <Text style={styles.pageEyebrow}>FINFINDR SETTINGS</Text>
             <Text style={styles.title}>Settings.</Text>
-            <Text style={styles.subtitle}>Account basics, location, and local app data.</Text>
+            <Text style={styles.subtitle}>Account basics, membership, support, and device data.</Text>
 
             {notice ? (
               <NoticeCard
@@ -350,10 +368,43 @@ export default function SettingsScreen() {
               ) : (
                 <Text style={styles.sectionHint}>Current account tier.</Text>
               )}
+              <PrimaryAction
+                label="Manage membership"
+                icon="card-outline"
+                onPress={() => router.push('/subscribe')}
+                variant="secondary"
+              />
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>LOCAL CACHE</Text>
+              <Text style={styles.sectionLabel}>CONTACT & FEEDBACK</Text>
+              <Text style={styles.sectionHint}>
+                Send support requests, bug reports, or feature ideas with account context attached.
+              </Text>
+              <View style={styles.contactList}>
+                <ContactRow
+                  icon="chatbubble-ellipses-outline"
+                  title="Contact support"
+                  subtitle="Account, app, or launch questions."
+                  onPress={() => openSupportForm('general')}
+                />
+                <ContactRow
+                  icon="bug-outline"
+                  title="Report a bug"
+                  subtitle="Broken screens, wrong reads, or weird behavior."
+                  onPress={() => openSupportForm('bug')}
+                />
+                <ContactRow
+                  icon="bulb-outline"
+                  title="Suggest a feature"
+                  subtitle="Coverage, workflow, or fishing-read ideas."
+                  onPress={() => openSupportForm('feature')}
+                />
+              </View>
+            </View>
+
+            <View style={styles.section}>
+              <Text style={styles.sectionLabel}>DEVICE STORAGE</Text>
               <Text style={styles.sectionHint}>
                 Clears saved Daily Read, forecast, live conditions, and Tackle Box data on this device.
               </Text>
@@ -366,7 +417,7 @@ export default function SettingsScreen() {
               />
             </View>
 
-            {__DEV__ && (
+            {canSeeTestingTools && (
               <View style={styles.section}>
                 <Text style={styles.sectionLabel}>TESTING</Text>
                 <Text style={styles.sectionHint}>Dev-only subscription and GPS controls.</Text>
@@ -440,6 +491,34 @@ export default function SettingsScreen() {
         </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
+  );
+}
+
+function ContactRow({
+  icon,
+  title,
+  subtitle,
+  onPress,
+}: {
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  subtitle: string;
+  onPress: () => void;
+}) {
+  return (
+    <Pressable
+      style={({ pressed }) => [styles.contactRow, pressed && styles.contactRowPressed]}
+      onPress={onPress}
+    >
+      <View style={styles.contactIcon}>
+        <Ionicons name={icon} size={16} color={paper.dashboardBlue} />
+      </View>
+      <View style={styles.contactCopy}>
+        <Text style={styles.contactTitle}>{title}</Text>
+        <Text style={styles.contactSubtitle}>{subtitle}</Text>
+      </View>
+      <Ionicons name="chevron-forward" size={15} color={paper.dashboardMuted} />
+    </Pressable>
   );
 }
 
@@ -745,6 +824,47 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: paper.dashboardInk,
     opacity: 0.82,
+  },
+  contactList: {
+    gap: paperSpacing.xs,
+  },
+  contactRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardWhite,
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: paperSpacing.sm + 2,
+  },
+  contactRowPressed: { backgroundColor: '#F6F9FB' },
+  contactIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F6F9FB',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  contactCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  contactTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13.5,
+    color: paper.dashboardInk,
+  },
+  contactSubtitle: {
+    marginTop: 2,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12,
+    color: paper.dashboardInk,
+    opacity: 0.66,
   },
   notice: {
     backgroundColor: paper.dashboardWhite,

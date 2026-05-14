@@ -45,6 +45,7 @@ import {
   paperSpacing,
 } from '../lib/theme';
 import { SubscribePrompt } from '../components/SubscribePrompt';
+import { FeedbackCard } from '../components/FeedbackCard';
 import { fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
 import { TopographicLines } from '../components/paper';
 import { useAuthStore } from '../store/authStore';
@@ -240,7 +241,7 @@ type WaterReaderReadState =
 
 export default function WaterReaderScreen() {
   const router = useRouter();
-  const { profile } = useAuthStore();
+  const { profile, user } = useAuthStore();
   const overrideSubscriptionTier = useDevTestingStore((s) => s.overrideSubscriptionTier);
   const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
   const hasSubscription = canUseAIFeatures(effectiveTier);
@@ -783,29 +784,44 @@ export default function WaterReaderScreen() {
             {!selected ? (
               <WaterReadIdlePreview />
             ) : (
-              <WaterReaderMapCard
-                lakeId={selected.lakeId}
-                lakeName={selected.name}
-                lakeContextLine={selectionContextLine(selected)}
-                state={mapCardState}
-                bottomSlot={
-                  (polygonLimitedNote || engineLimitedNote) && engineRead ? (
-                    <View style={styles.limitedNotesStack}>
-                      {polygonLimitedNote && (
-                        <Text style={styles.limitedNote}>
-                          {polygonLimitedNote}
-                        </Text>
-                      )}
-                      {engineLimitedNote &&
-                        engineLimitedNote !== polygonLimitedNote && (
+              <>
+                <WaterReaderMapCard
+                  lakeId={selected.lakeId}
+                  lakeName={selected.name}
+                  lakeContextLine={selectionContextLine(selected)}
+                  state={mapCardState}
+                  bottomSlot={
+                    (polygonLimitedNote || engineLimitedNote) && engineRead ? (
+                      <View style={styles.limitedNotesStack}>
+                        {polygonLimitedNote && (
                           <Text style={styles.limitedNote}>
-                            {engineLimitedNote}
+                            {polygonLimitedNote}
                           </Text>
                         )}
-                    </View>
-                  ) : null
-                }
-              />
+                        {engineLimitedNote &&
+                          engineLimitedNote !== polygonLimitedNote && (
+                            <Text style={styles.limitedNote}>
+                              {engineLimitedNote}
+                            </Text>
+                          )}
+                      </View>
+                    ) : null
+                  }
+                />
+                <FeedbackCard
+                  featureName="Water Read"
+                  topic="water_read"
+                  profile={profile}
+                  user={user}
+                  contextLines={[
+                    `Lake: ${selected.name}`,
+                    `Context: ${selectionContextLine(selected)}`,
+                    `State: ${stateCode ?? 'unknown'}`,
+                    `Lake ID: ${selected.lakeId}`,
+                    `Read state: ${mapCardState.status}`,
+                  ]}
+                />
+              </>
             )}
 
             {/* ── Guardrails ── */}

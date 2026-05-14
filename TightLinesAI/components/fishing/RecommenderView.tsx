@@ -34,6 +34,8 @@ import {
 import { getSpeciesImage } from '../../lib/speciesImages';
 import { getFlyImage } from '../../lib/flyImages';
 import { getLureImage } from '../../lib/lureImages';
+import { useAuthStore } from '../../store/authStore';
+import { FeedbackCard } from '../FeedbackCard';
 import type {
   DailyPicksResponse,
   DailyPicksResponsePick,
@@ -644,6 +646,7 @@ export function RecommenderView({
   isRefreshing = false,
 }: Props) {
   const scrollRef = useRef<ScrollView>(null);
+  const { profile, user } = useAuthStore();
   const speciesImage = dailySpeciesImage(result.species);
   const canRefresh = result.recommendation_session.can_refresh && onRefresh != null;
   const displayLocation = locationLabel?.trim() || 'Your location';
@@ -789,6 +792,21 @@ export function RecommenderView({
               onViewVariant={onViewVariant}
             />
           ) : null}
+
+          <FeedbackCard
+            featureName="Tackle Box"
+            topic="tackle_box"
+            profile={profile}
+            user={user}
+            contextLines={[
+              `Location: ${displayLocation}`,
+              `Species: ${dailySpeciesDisplay(result.species)}`,
+              `Context: ${contextLabel(result.context)}`,
+              `Clarity: ${clarityLabelUpper(result.water_clarity)}`,
+              `Goal: ${GOAL_LABEL[result.recommendation_goal]}`,
+              `Variant: ${VARIANT_LABEL[result.recommendation_session.variant]}`,
+            ]}
+          />
         </View>
       </ScrollView>
     </PaperBackground>
