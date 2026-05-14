@@ -319,57 +319,27 @@ function contributionStrength(
 }
 
 function temperaturePhrase(
-  factor: SummaryFactor,
+  _factor: SummaryFactor,
   role: SummaryFactorRole,
   strength: SummaryStrength,
 ): string {
-  const breakdown = factor.temperatureBreakdown ?? null;
-  const shock = breakdown?.shock_label ?? "none";
-  const band = breakdown?.band_label ?? null;
-
-  const reason = shock === "sharp_warmup"
-    ? "after a fast warmup"
-    : shock === "sharp_cooldown"
-    ? "after a fast cooldown"
-    : band === "near_optimal"
-    ? "with the day sitting close to the better range"
-    : band === "very_warm"
-    ? "with the day running warmer than the seasonal range"
-    : band === "very_cold" || band === "cool"
-    ? "with the day running colder than the seasonal range"
-    : band === "warm"
-    ? "with the day a little warmer than the seasonal sweet spot"
-    : "";
-
   if (role === "driver") {
     if (strength === "strong") {
-      return reason
-        ? `temperature is lining up especially well ${reason}`
-        : "temperature is one of the clearest positives";
+      return "temperature is one of the clearest positives";
     }
     if (strength === "moderate") {
-      return reason
-        ? `temperature is helping in a noticeable way ${reason}`
-        : "temperature is helping in a noticeable way";
+      return "temperature is helping in a noticeable way";
     }
-    return reason
-      ? `temperature is helping a bit ${reason}`
-      : "temperature is helping a bit";
+    return "temperature is helping a bit";
   }
 
   if (strength === "strong") {
-    return reason
-      ? `temperature is a real problem ${reason}`
-      : "temperature is the clearest problem";
+    return "temperature is the clearest limiting factor";
   }
   if (strength === "moderate") {
-    return reason
-      ? `temperature is working against you ${reason}`
-      : "temperature is working against you";
+    return "temperature is limiting the bite";
   }
-  return reason
-    ? `temperature is only working against you a little ${reason}`
-    : "temperature is only working against you a little";
+  return "temperature is only limiting the bite a little";
 }
 
 function genericFactorPhrase(

@@ -1,7 +1,7 @@
 /**
  * forecastScores — 7-day deterministic fishing score forecast
  *
- * Calls the forecast-scores edge function (no generative calls, no auth required).
+ * Calls the forecast-scores edge function (no generative calls; signed-in users only).
  * Results are cached until the next midnight in the fishing location timezone so the
  * 7-day outlook stays stable all day and future-day reports can reuse the same snapshot.
  */
@@ -13,6 +13,7 @@ import {
   nextMidnightInTimeZoneMs,
   stripMeasuredWaterTempFields,
 } from "./forecastSnapshot";
+import { getValidAccessToken } from "./supabase";
 
 export {
   MEASURED_WATER_TEMP_KEYS,
@@ -258,12 +259,14 @@ export async function getForecastScores(
 
   // Fetch from edge function
   try {
+    const accessToken = await getValidAccessToken();
     const res = await fetch(`${SUPABASE_URL}/functions/v1/forecast-scores`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
         apikey: SUPABASE_ANON_KEY,
         Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+        "x-user-token": accessToken,
       },
       body: JSON.stringify({
         latitude: lat,

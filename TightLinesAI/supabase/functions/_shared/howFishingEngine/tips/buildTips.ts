@@ -68,20 +68,6 @@ const ACTIVE_STRATEGY = [
   "Conditions give you room to be proactive. Use the best window first, then adjust with purpose.",
 ] as const;
 
-const HEAT_STRATEGY = [
-  "Be strict with timing today. Low-light and cooler windows matter more than grinding through the warmest stretch.",
-  "Heat makes the middle of the day less forgiving. Use the cooler windows and avoid forcing the slow stretch.",
-  "The safest plan is to front-load the day and return when the heat loosens its grip.",
-  "Treat heat as the main constraint: fish the comfortable windows and keep expectations lower outside them.",
-] as const;
-
-const COLD_STRATEGY = [
-  "Let the day warm before judging it. Cold starts can look worse than the better window later on.",
-  "The warmest part of the day deserves the most attention; early cold may not tell the full story.",
-  "Stay patient through the cold start and make the better warmth window count.",
-  "Cold is setting the pace today, so use the warmest window instead of forcing the earliest one.",
-] as const;
-
 const DATA_STRATEGY = [
   "Treat this as a directional read. Key inputs are thinner than usual, so leave room to adjust on the water.",
   "Use the main signal, but do not over-trust fine detail today. The read is broader than normal.",
@@ -103,8 +89,6 @@ export function listTipCopyForAudit(): string[] {
     ...VISIBILITY_STRATEGY,
     ...PATIENT_STRATEGY,
     ...ACTIVE_STRATEGY,
-    ...HEAT_STRATEGY,
-    ...COLD_STRATEGY,
     ...DATA_STRATEGY,
     ...GENERAL_STRATEGY,
   ];
@@ -120,7 +104,6 @@ export function buildActionableTip(
   let actionable_tip: string = pick(GENERAL_STRATEGY, seed, "general");
   let actionable_tip_tag: ActionableTipTag = "strategy_field_plan";
 
-  const tempBand = norm.temperature?.band_label ?? null;
   const tempScore = norm.temperature?.final_score ?? null;
   const pressureLabel = norm.pressure_regime?.label ?? null;
 
@@ -140,13 +123,7 @@ export function buildActionableTip(
     actionable_tip = pick(PATIENT_STRATEGY, seed, "pressure_patient");
     actionable_tip_tag = "strategy_patient_plan";
   } else if (topSuppressor?.key === "temperature_condition") {
-    if (tempBand === "very_warm" || tempBand === "warm") {
-      actionable_tip = pick(HEAT_STRATEGY, seed, "heat");
-    } else if (tempBand === "near_optimal") {
-      actionable_tip = pick(PATIENT_STRATEGY, seed, "temperature_edge");
-    } else {
-      actionable_tip = pick(COLD_STRATEGY, seed, "cold");
-    }
+    actionable_tip = pick(PATIENT_STRATEGY, seed, "temperature_patient");
     actionable_tip_tag = "strategy_patient_plan";
   } else if (
     isCoastalFamilyContext(context) &&

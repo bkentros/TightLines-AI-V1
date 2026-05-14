@@ -33,46 +33,10 @@ function temperatureLabel(norm: Norm, effect: FactorEffect): string {
   const temp = norm.temperature;
   if (!temp) return "Temperature is shaping the bite today.";
 
-  const score = temp.final_score;
-  const warming = temp.trend_label === "warming" ||
-    temp.shock_label === "sharp_warmup";
-  const cooling = temp.trend_label === "cooling" ||
-    temp.shock_label === "sharp_cooldown";
-  const coldSide = temp.measurement_value_f <= 50 ||
-    temp.band_label === "cool" ||
-    temp.band_label === "very_cold";
-  const hotSide = temp.measurement_value_f >= 78 ||
-    temp.band_label === "warm" ||
-    temp.band_label === "very_warm";
-
   if (effect === "positive") {
-    if (coldSide && warming) {
-      return "Cold water is improving as the day warms.";
-    }
-    if (hotSide && score > 0) {
-      return "Warmth is helping activity without becoming stressful.";
-    }
-    if (cooling && score > 0) {
-      return "The recent temperature shift is settling into a better range.";
-    }
-    return "Temperature is in a strong seasonal range.";
+    return "Temperature is helping the bite.";
   }
-
-  if (hotSide) {
-    return "Heat is narrowing the most comfortable fishing windows.";
-  }
-  if (coldSide) {
-    return warming
-      ? "Cold water is still limiting the early part of the day."
-      : "Cold water is keeping fish more selective.";
-  }
-  if (cooling) {
-    return "A quick cooldown is tightening the bite window.";
-  }
-  if (warming) {
-    return "A fast warmup is making the bite less settled.";
-  }
-  return "Temperature is just off the better seasonal range.";
+  return "Temperature is limiting the bite.";
 }
 
 function pressureLabel(norm: Norm, effect: FactorEffect): string {

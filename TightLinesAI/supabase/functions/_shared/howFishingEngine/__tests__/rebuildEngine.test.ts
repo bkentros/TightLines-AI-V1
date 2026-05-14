@@ -1198,6 +1198,25 @@ Deno.test("scoreDay: tiny negatives do not surface as limiting factors", () => {
   assertEquals(s.suppressors.length, 0);
 });
 
+Deno.test("scoreDay: tiny positives do not surface as helping factors", () => {
+  const s = scoreDay(minimalNorm({
+    temperature: {
+      context_group: "freshwater",
+      measurement_source: "air_daily_mean",
+      measurement_value_f: 62,
+      band_label: "optimal",
+      band_score: 0.3,
+      trend_label: "stable",
+      trend_adjustment: 0,
+      shock_label: "none",
+      shock_adjustment: 0,
+      final_score: 0.3,
+    },
+    runoff_flow_disruption: { label: "stable", score: 0.2 },
+  }));
+  assertEquals(s.drivers.length, 0);
+});
+
 Deno.test("scoreDay: mild coastal rain does not surface as a limiting factor", () => {
   const s = scoreDay({
     location: {
@@ -1704,7 +1723,7 @@ Deno.test("buildActionableTip: positive temp driver → active tip", () => {
   assert(b.actionable_tip_tag === "strategy_push_windows");
 });
 
-Deno.test("buildActionableTip: heat suppressor (very_warm) never uses cold-water pool", () => {
+Deno.test("buildActionableTip: temperature suppressor avoids heat/cold wording", () => {
   const n = minimalNorm({
     temperature: {
       context_group: "freshwater",
@@ -1734,11 +1753,14 @@ Deno.test("buildActionableTip: heat suppressor (very_warm) never uses cold-water
       n.normalized,
       `seed:${i}`,
     );
-    assert(!/\bcold water\b/i.test(b.actionable_tip), b.actionable_tip);
+    assert(
+      !/\b(heat|hot|cold|warm|cool)\b/i.test(b.actionable_tip),
+      b.actionable_tip,
+    );
   }
 });
 
-Deno.test("buildActionableTip: near-optimal temperature suppressor avoids false heat wording", () => {
+Deno.test("buildActionableTip: near-optimal temperature suppressor stays generic", () => {
   const n = minimalNorm({
     temperature: {
       context_group: "freshwater",
@@ -1767,8 +1789,11 @@ Deno.test("buildActionableTip: near-optimal temperature suppressor avoids false 
     n.normalized,
     "seed:optimal-edge",
   );
-  assertEquals(/\bheat\b/i.test(tip.actionable_tip), false, tip.actionable_tip);
-  assertEquals(/\bcold\b/i.test(tip.actionable_tip), false, tip.actionable_tip);
+  assertEquals(
+    /\b(heat|hot|cold|warm|cool)\b/i.test(tip.actionable_tip),
+    false,
+    tip.actionable_tip,
+  );
 });
 
 Deno.test("thermalAirPlain: near-optimal negative temp stays honest about edge-of-window conditions", () => {

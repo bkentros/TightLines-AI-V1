@@ -236,8 +236,13 @@ export default function HowFishingScreen() {
     : null;
 
   const { profile, user } = useAuthStore();
-  const overrideSubscriptionTier = useDevTestingStore((s) => s.overrideSubscriptionTier);
-  const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
+  const overrideSubscriptionTier = useDevTestingStore((s) =>
+    s.overrideSubscriptionTier
+  );
+  const effectiveTier = getEffectiveTier(
+    profile,
+    overrideSubscriptionTier ?? null,
+  );
   const isFreeTier = effectiveTier === "free";
   const isLimitedFreeRead = isFreeTier && !isForecastDay;
   const units = profile?.preferred_units ?? "imperial";
@@ -325,6 +330,20 @@ export default function HowFishingScreen() {
     [availableTabs, windowWidth, activeTab],
   );
 
+  const shouldLimitReportSurface = useCallback(
+    (bundle: HowFishingRebuildBundle | null | undefined): boolean =>
+      isLimitedFreeRead || bundle?.access_tier === "free_limited",
+    [isLimitedFreeRead],
+  );
+
+  const accessLabelForBundle = useCallback(
+    (bundle: HowFishingRebuildBundle | null | undefined): string =>
+      shouldLimitReportSurface(bundle)
+        ? "free_limited"
+        : bundle?.access_tier ?? "angler",
+    [shouldLimitReportSurface],
+  );
+
   // Load env + geocode on mount
   useEffect(() => {
     if (!hasCoords) return;
@@ -337,9 +356,13 @@ export default function HowFishingScreen() {
         }
         const [cachedEnv, forecastSnapshot, geo] = await Promise.all([
           getEnvironment({ latitude: lat, longitude: lon, units }),
-          getForecastScores(lat, lon, isFreeTier
-            ? { maxDayOffset: 1, includeSnapshotEnv: false }
-            : undefined).catch(() => null),
+          getForecastScores(
+            lat,
+            lon,
+            isFreeTier
+              ? { maxDayOffset: 0, includeSnapshotEnv: false }
+              : undefined,
+          ).catch(() => null),
           requestedLocationLabel
             ? Promise.resolve([])
             : Location.reverseGeocodeAsync({ latitude: lat, longitude: lon })
@@ -451,7 +474,9 @@ export default function HowFishingScreen() {
       const forecastSnapshot = await getForecastScores(
         lat,
         lon,
-        isLimitedFreeRead ? { maxDayOffset: 0, includeSnapshotEnv: true } : undefined,
+        isLimitedFreeRead
+          ? { maxDayOffset: 0, includeSnapshotEnv: true }
+          : undefined,
       );
       const sharedForecastEnv = forecastSnapshot?.snapshot_env ?? null;
       const todaySnapshotDate = todayDateFromForecastSnapshot(forecastSnapshot);
@@ -933,7 +958,7 @@ export default function HowFishingScreen() {
                               report={bundle.report}
                               solunarData={env?.solunar}
                               dateLabel={heroDateLabel}
-                              isLimited={bundle.access_tier === 'free_limited'}
+                              isLimited={shouldLimitReportSurface(bundle)}
                               onAnglerUnlocked={() => {
                                 void generateReports();
                               }}
@@ -948,7 +973,7 @@ export default function HowFishingScreen() {
                                 `Location: ${locationLabel}`,
                                 `Date: ${heroDateLabel}`,
                                 `Water type: ${t.label}`,
-                                `Access: ${bundle.access_tier ?? 'angler'}`,
+                                `Access: ${accessLabelForBundle(bundle)}`,
                               ]}
                             />
                           </>
@@ -986,7 +1011,7 @@ export default function HowFishingScreen() {
                       report={activeBundle.report}
                       solunarData={env?.solunar}
                       dateLabel={heroDateLabel}
-                      isLimited={activeBundle.access_tier === 'free_limited'}
+                      isLimited={shouldLimitReportSurface(activeBundle)}
                       onAnglerUnlocked={() => {
                         void generateReports();
                       }}
@@ -1000,8 +1025,10 @@ export default function HowFishingScreen() {
                       contextLines={[
                         `Location: ${locationLabel}`,
                         `Date: ${heroDateLabel}`,
-                        `Water type: ${availableTabs[0]?.label ?? 'single context'}`,
-                        `Access: ${activeBundle.access_tier ?? 'angler'}`,
+                        `Water type: ${
+                          availableTabs[0]?.label ?? "single context"
+                        }`,
+                        `Access: ${accessLabelForBundle(activeBundle)}`,
                       ]}
                     />
                   </>

@@ -15,6 +15,7 @@ import {
   buildVariableDisplayLabel,
   listSummaryCopyForAudit,
 } from "../summary/summaryLine.ts";
+import { buildFactorSurfaceLabel } from "../summary/factorSurfaceLabels.ts";
 import { buildActionableTip, listTipCopyForAudit } from "../tips/buildTips.ts";
 import { listTimingCopyForAudit } from "../timing/timingNotes.ts";
 import { runHowFishingReport } from "../runHowFishingReport.ts";
@@ -191,7 +192,7 @@ Deno.test("river positive runoff summary says stable flow", () => {
   assertStringIncludes(out.toLowerCase(), "stable flow");
 });
 
-Deno.test("slight temperature suppressor uses proportional warmup wording", () => {
+Deno.test("slight temperature suppressor uses basic temperature wording", () => {
   const out = buildReportSummaryLine({
     band: "Fair",
     score: 47,
@@ -217,12 +218,15 @@ Deno.test("slight temperature suppressor uses proportional warmup wording", () =
     }],
     seed: "clarkston-temp-soft-wording",
   });
-  assertStringIncludes(out.toLowerCase(), "working against you a little");
-  assertStringIncludes(out.toLowerCase(), "fast warmup");
+  assertStringIncludes(
+    out.toLowerCase(),
+    "temperature is only limiting the bite a little",
+  );
+  assertEquals(/\b(heat|hot|cold|warm|cool)\b/i.test(out), false, out);
   assertEquals(out.toLowerCase().includes("making things harder"), false, out);
 });
 
-Deno.test("light temperature suppressor picks thermal edge tip instead of harsh heat copy", () => {
+Deno.test("light temperature suppressor picks patient strategy without heat/cold copy", () => {
   const out = buildActionableTip(
     "freshwater_lake_pond",
     undefined,
@@ -251,6 +255,11 @@ Deno.test("light temperature suppressor picks thermal edge tip instead of harsh 
   );
   assertEquals(
     out.actionable_tip.toLowerCase().includes("easy meal"),
+    false,
+    out.actionable_tip,
+  );
+  assertEquals(
+    /\b(heat|hot|cold|warm|cool)\b/i.test(out.actionable_tip),
     false,
     out.actionable_tip,
   );
@@ -303,6 +312,232 @@ Deno.test("report factor rows use condition-specific copy, not generic category 
   }
 });
 
+Deno.test("temperature factor labels stay generic and avoid heat/cold wording", () => {
+  const negativeLabel = buildFactorSurfaceLabel(
+    "temperature_condition",
+    "freshwater_lake_pond",
+    {
+      temperature: {
+        context_group: "freshwater",
+        measurement_source: "air_daily_mean",
+        measurement_value_f: 80.5,
+        band_label: "optimal",
+        band_score: -0.375,
+        trend_label: "stable",
+        trend_adjustment: 0,
+        shock_label: "none",
+        shock_adjustment: 0,
+        final_score: -0.3375,
+      },
+    },
+    "negative",
+  );
+  assertEquals(negativeLabel, "Temperature is limiting the bite.");
+  assertEquals(
+    /\b(heat|hot|cold|warm|cool)\b/i.test(negativeLabel),
+    false,
+    negativeLabel,
+  );
+
+  const positiveLabel = buildFactorSurfaceLabel(
+    "temperature_condition",
+    "freshwater_lake_pond",
+    {
+      temperature: {
+        context_group: "freshwater",
+        measurement_source: "air_daily_mean",
+        measurement_value_f: 68,
+        band_label: "optimal",
+        band_score: 1.4,
+        trend_label: "stable",
+        trend_adjustment: 0,
+        shock_label: "none",
+        shock_adjustment: 0,
+        final_score: 1.4,
+      },
+    },
+    "positive",
+  );
+  assertEquals(positiveLabel, "Temperature is helping the bite.");
+  assertEquals(
+    /\b(heat|hot|cold|warm|cool)\b/i.test(positiveLabel),
+    false,
+    positiveLabel,
+  );
+});
+
+Deno.test("report does not surface low-edge warm-season temperature as a limiting factor", () => {
+  const report = runHowFishingReport({
+    latitude: 28.06,
+    longitude: -82.3,
+    state_code: "FL",
+    region_key: "florida",
+    local_date: "2026-05-14",
+    local_timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 80.5,
+      prior_day_mean_air_temp_f: 80.5,
+      day_minus_2_mean_air_temp_f: 80.5,
+      pressure_history_mb: [1014, 1014, 1014, 1014],
+      wind_speed_mph: 7,
+      cloud_cover_pct: 55,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0,
+      active_precip_now: false,
+      precip_rate_now_in_per_hr: 0,
+      hourly_air_temp_f: Array(24).fill(80.5),
+      hourly_cloud_cover_pct: Array(24).fill(55),
+    },
+    data_coverage: {},
+  });
+  assertEquals(
+    report.suppressors.some((s) => s.variable === "temperature_condition"),
+    false,
+    JSON.stringify(report.suppressors),
+  );
+  assertEquals(
+    /\b(heat|hot|cold|warm|cool)\b/i.test(report.summary_line),
+    false,
+    report.summary_line,
+  );
+});
+
+Deno.test("report does not create a separate daytime heat factor from high temp", () => {
+  const report = runHowFishingReport({
+    latitude: 28.06,
+    longitude: -82.3,
+    state_code: "FL",
+    region_key: "florida",
+    local_date: "2026-05-14",
+    local_timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 80.5,
+      prior_day_mean_air_temp_f: 80.5,
+      day_minus_2_mean_air_temp_f: 80.5,
+      daily_high_air_temp_f: 90,
+      daily_low_air_temp_f: 71,
+      pressure_history_mb: [1014, 1014, 1014, 1014],
+      wind_speed_mph: 7,
+      cloud_cover_pct: 55,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0,
+      active_precip_now: false,
+      precip_rate_now_in_per_hr: 0,
+      hourly_air_temp_f: Array.from(
+        { length: 24 },
+        (_, h) => h < 6 ? 71 : h < 17 ? 88 : 80.5,
+      ),
+      hourly_cloud_cover_pct: Array(24).fill(55),
+    },
+    data_coverage: {},
+  });
+
+  assertEquals(
+    report.suppressors.some((s) => s.variable === "temperature_condition"),
+    false,
+    JSON.stringify(report.suppressors),
+  );
+  assertEquals(
+    report.suppressors.some((s) => s.variable === "daytime_heat_window"),
+    false,
+    JSON.stringify(report.suppressors),
+  );
+  assertEquals(
+    /\b(heat|hot|cold|warm|cool)\b/i.test(report.summary_line),
+    false,
+    report.summary_line,
+  );
+});
+
+Deno.test("report does not invent daytime heat near warm-season edge", () => {
+  const report = runHowFishingReport({
+    latitude: 28.06,
+    longitude: -82.3,
+    state_code: "FL",
+    region_key: "florida",
+    local_date: "2026-05-14",
+    local_timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 82.5,
+      prior_day_mean_air_temp_f: 82.5,
+      day_minus_2_mean_air_temp_f: 82.5,
+      daily_high_air_temp_f: 87,
+      daily_low_air_temp_f: 78,
+      pressure_history_mb: [1014, 1014, 1014, 1014],
+      wind_speed_mph: 7,
+      cloud_cover_pct: 55,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0,
+      active_precip_now: false,
+      precip_rate_now_in_per_hr: 0,
+      hourly_air_temp_f: Array(24).fill(82.5),
+      hourly_cloud_cover_pct: Array(24).fill(55),
+    },
+    data_coverage: {},
+  });
+
+  assertEquals(
+    report.suppressors.some((s) => s.variable === "daytime_heat_window"),
+    false,
+    JSON.stringify(report.suppressors),
+  );
+  assertEquals(
+    /\b(heat|hot|cold|warm|cool)\b/i.test(report.summary_line),
+    false,
+    report.summary_line,
+  );
+});
+
+Deno.test("meaningfully suppressive temperature surfaces as temperature only", () => {
+  const report = runHowFishingReport({
+    latitude: 28.06,
+    longitude: -82.3,
+    state_code: "FL",
+    region_key: "florida",
+    local_date: "2026-05-14",
+    local_timezone: "America/New_York",
+    context: "freshwater_lake_pond",
+    environment: {
+      daily_mean_air_temp_f: 96,
+      prior_day_mean_air_temp_f: 96,
+      day_minus_2_mean_air_temp_f: 96,
+      pressure_history_mb: [1014, 1014, 1014, 1014],
+      wind_speed_mph: 7,
+      cloud_cover_pct: 55,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0,
+      active_precip_now: false,
+      precip_rate_now_in_per_hr: 0,
+    },
+    data_coverage: {},
+  });
+
+  const tempSuppressor = report.suppressors.find((s) =>
+    s.variable === "temperature_condition"
+  );
+  assert(tempSuppressor, JSON.stringify(report.suppressors));
+  assertEquals(tempSuppressor.label, "Temperature is limiting the bite.");
+  assertEquals(
+    report.suppressors.some((s) => s.variable === "daytime_heat_window"),
+    false,
+    JSON.stringify(report.suppressors),
+  );
+  assertEquals(
+    /\b(heat|hot|cold|warm|cool)\b/i.test(
+      `${tempSuppressor.label} ${report.summary_line} ${report.actionable_tip}`,
+    ),
+    false,
+    `${tempSuppressor.label} ${report.summary_line} ${report.actionable_tip}`,
+  );
+});
+
 Deno.test("field strategy note avoids tackle and presentation ownership", () => {
   const report = runHowFishingReport({
     latitude: 42.3,
@@ -337,9 +572,14 @@ Deno.test("field strategy note avoids tackle and presentation ownership", () => 
     report.actionable_tip,
   );
   assert(
-    /\b(window|plan|read|timing|water|condition|heat)\b/i.test(
+    /\b(window|plan|read|timing|water|condition)\b/i.test(
       report.actionable_tip,
     ),
+    report.actionable_tip,
+  );
+  assertEquals(
+    /\b(heat|hot|cold|warm|cool)\b/i.test(report.actionable_tip),
+    false,
     report.actionable_tip,
   );
 });

@@ -8,8 +8,10 @@ import type { ActiveVariableScore } from "./types.ts";
 import { labelForDriver } from "./driverLabels.ts";
 import { computeActiveWeights } from "./reweight.ts";
 import { freshwaterEliteEnvelopeRaw } from "../config/freshwaterEliteEnvelopes.ts";
+import { ENGINE_SCORE_EPSILON } from "./engineScoreMath.ts";
 
 const FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION = 6;
+const FACTOR_SURFACE_MIN_ENGINE_SCORE = ENGINE_SCORE_EPSILON;
 const POSITIVE_RAW_SCORE_DIVISOR = 3.2;
 const NEGATIVE_RAW_SCORE_DIVISOR = 4;
 const MAJOR_SUPPRESSOR_POLICY_THRESHOLD = -10;
@@ -110,11 +112,17 @@ export function scoreDay(norm: SharedNormalizedOutput): {
       : tieBreak(a, b)
   );
 
+  // Report factor rows should explain conditions that are meaningfully helping
+  // or limiting, not every tiny weighted edge. The score keeps all nuance, but
+  // the user-facing factor list requires both local variable strength and
+  // enough weighted impact to avoid contradictory-looking copy near neutral.
   const surfacedDrivers = pos.filter((c) =>
-    c.weightedContribution >= FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION
+    c.weightedContribution >= FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION &&
+    c.score >= FACTOR_SURFACE_MIN_ENGINE_SCORE
   );
   const surfacedSuppressors = neg.filter((c) =>
-    c.weightedContribution <= -FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION
+    c.weightedContribution <= -FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION &&
+    c.score <= -FACTOR_SURFACE_MIN_ENGINE_SCORE
   );
 
   // Phase 9F production-wired rain/wet final-score policy. Rollback is local:
@@ -131,7 +139,7 @@ export function scoreDay(norm: SharedNormalizedOutput): {
     curveAdjusted,
     norm,
     contributions,
-    surfacedSuppressors,
+    neg,
   );
 
   return {

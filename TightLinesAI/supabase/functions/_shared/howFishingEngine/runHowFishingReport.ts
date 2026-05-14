@@ -15,13 +15,17 @@ export function runHowFishingScoreOnly(req: SharedEngineRequest): number {
   const norm = buildSharedNormalizedOutput(req);
   return scoreDay(norm).score;
 }
-import { buildReportSummaryLine } from "./summary/summaryLine.ts";
+import {
+  buildReportSummaryLine,
+  type ReportSummaryInput,
+} from "./summary/summaryLine.ts";
 import { buildActionableTip } from "./tips/buildTips.ts";
 import {
   buildDeterministicSolunarNote,
   buildDeterministicTimingInsight,
 } from "./narration/polishSafeSurfaceCopy.ts";
 import { buildFactorSurfaceLabel } from "./summary/factorSurfaceLabels.ts";
+import type { ActiveVariableScore } from "./score/types.ts";
 
 function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
   if (tier === "high") return null;
@@ -29,6 +33,22 @@ function reliabilityNote(tier: "high" | "medium" | "low"): string | null {
     return "Today's outlook is still usable, but the read is a little broader than the cleanest cases.";
   }
   return "Today's read is broader than usual because some key inputs were limited.";
+}
+
+function toSummaryFactor(
+  c: ActiveVariableScore,
+  conditionContext: NonNullable<HowsFishingReport["condition_context"]>,
+): ReportSummaryInput["drivers"][number] {
+  const normVar = conditionContext.normalized_variable_scores.find((v) =>
+    v.variable_key === c.key
+  );
+  return {
+    variable: c.key,
+    weightedContribution: c.weightedContribution,
+    normalizedScore: c.score,
+    engineLabel: normVar?.engine_label,
+    temperatureBreakdown: normVar?.temperature_breakdown ?? null,
+  };
 }
 
 export function runHowFishingReport(
@@ -47,7 +67,6 @@ export function runHowFishingReport(
     scored.drivers[0]?.key ?? "none",
     scored.suppressors[0]?.key ?? "none",
   ].join("|");
-
   // ── Tactical tip (no timing language) ──────────────────────────────────
   const tip = buildActionableTip(
     req.context,
@@ -58,7 +77,7 @@ export function runHowFishingReport(
   );
 
   // ── Timing engine (parallel lane to scoring) ──────────────────────────
-  const drivers = scored.drivers.map((c) => ({
+  const drivers: HowsFishingReport["drivers"] = scored.drivers.map((c) => ({
     variable: c.key,
     label: buildFactorSurfaceLabel(
       c.key,
@@ -68,16 +87,23 @@ export function runHowFishingReport(
     ),
     effect: "positive" as const,
   }));
-  const suppressors = scored.suppressors.map((c) => ({
-    variable: c.key,
-    label: buildFactorSurfaceLabel(
-      c.key,
-      req.context,
-      norm.normalized,
-      "negative",
-    ),
-    effect: "negative" as const,
-  }));
+  const suppressors: HowsFishingReport["suppressors"] = scored.suppressors
+    .map((c) => ({
+      variable: c.key,
+      label: buildFactorSurfaceLabel(
+        c.key,
+        req.context,
+        norm.normalized,
+        "negative",
+      ),
+      effect: "negative" as const,
+    }));
+
+  const summaryDrivers: ReportSummaryInput["drivers"] = scored.drivers.map((
+    c,
+  ) => toSummaryFactor(c, condition_context));
+  const summarySuppressors: ReportSummaryInput["suppressors"] = scored
+    .suppressors.map((c) => toSummaryFactor(c, condition_context));
 
   const baseReport: HowsFishingReport = {
     context: req.context,
@@ -97,30 +123,8 @@ export function runHowFishingReport(
       score: scored.score,
       context: req.context,
       reliability,
-      drivers: scored.drivers.map((c) => {
-        const normVar = condition_context.normalized_variable_scores.find((v) =>
-          v.variable_key === c.key
-        );
-        return {
-          variable: c.key,
-          weightedContribution: c.weightedContribution,
-          normalizedScore: c.score,
-          engineLabel: normVar?.engine_label,
-          temperatureBreakdown: normVar?.temperature_breakdown ?? null,
-        };
-      }),
-      suppressors: scored.suppressors.map((c) => {
-        const normVar = condition_context.normalized_variable_scores.find((v) =>
-          v.variable_key === c.key
-        );
-        return {
-          variable: c.key,
-          weightedContribution: c.weightedContribution,
-          normalizedScore: c.score,
-          engineLabel: normVar?.engine_label,
-          temperatureBreakdown: normVar?.temperature_breakdown ?? null,
-        };
-      }),
+      drivers: summaryDrivers,
+      suppressors: summarySuppressors,
       seed: copySeed,
     }),
     drivers,

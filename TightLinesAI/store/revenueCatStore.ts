@@ -1,56 +1,65 @@
-import { Platform } from 'react-native';
-import { create } from 'zustand';
+import { NativeModules, Platform } from "react-native";
+import { create } from "zustand";
 import Purchases, {
-  LOG_LEVEL,
   type CustomerInfo,
   type CustomerInfoUpdateListener,
+  LOG_LEVEL,
   type PurchasesOffering,
   type PurchasesPackage,
-} from 'react-native-purchases';
-import { supabase } from '../lib/supabase';
-import { useAuthStore } from './authStore';
-import type { SubscriptionTier } from '../lib/types';
+} from "react-native-purchases";
+import { supabase } from "../lib/supabase";
+import { useAuthStore } from "./authStore";
+import type { SubscriptionTier } from "../lib/types";
 
-const ANGLER_ENTITLEMENT_ID = 'angler';
+const ANGLER_ENTITLEMENT_ID = "angler";
+const NATIVE_UNAVAILABLE_MESSAGE =
+  "Purchases need an iOS or Android development build. Expo Go cannot show the App Store payment sheet.";
+
+function revenueCatNativeAvailable(): boolean {
+  if (Platform.OS === "web") return false;
+  return Boolean((NativeModules as Record<string, unknown>).RNPurchases);
+}
 
 function revenueCatApiKey(): string | null {
-  const platformKey =
-    Platform.OS === 'ios'
-      ? process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY
-      : Platform.OS === 'android'
-        ? process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY
-        : process.env.EXPO_PUBLIC_REVENUECAT_WEB_API_KEY;
-  return platformKey?.trim() || process.env.EXPO_PUBLIC_REVENUECAT_API_KEY?.trim() || null;
+  const platformKey = Platform.OS === "ios"
+    ? process.env.EXPO_PUBLIC_REVENUECAT_IOS_API_KEY
+    : Platform.OS === "android"
+    ? process.env.EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY
+    : process.env.EXPO_PUBLIC_REVENUECAT_WEB_API_KEY;
+  return platformKey?.trim() ||
+    process.env.EXPO_PUBLIC_REVENUECAT_API_KEY?.trim() || null;
 }
 
 function tierFromCustomerInfo(info: CustomerInfo | null): SubscriptionTier {
-  if (!info) return 'free';
+  if (!info) return "free";
   return info.entitlements.active[ANGLER_ENTITLEMENT_ID]?.isActive
-    ? 'angler'
-    : 'free';
+    ? "angler"
+    : "free";
 }
 
 function errorMessage(err: unknown): string {
-  if (err && typeof err === 'object') {
+  if (err && typeof err === "object") {
     const maybe = err as { message?: string; userCancelled?: boolean | null };
-    if (maybe.userCancelled) return '';
-    if (typeof maybe.message === 'string') {
+    if (maybe.userCancelled) return "";
+    if (typeof maybe.message === "string") {
       const message = maybe.message;
       if (
-        message.includes('RNPurchases') ||
-        message.includes('Native module') ||
-        message.includes('native modules are unavailable') ||
-        message.includes('not properly linked')
+        message.includes("RNPurchases") ||
+        message.includes("Native module") ||
+        message.includes("native modules are unavailable") ||
+        message.includes("not properly linked")
       ) {
-        return 'Purchases need an iOS development build. Expo Go cannot show the App Store payment sheet.';
+        return NATIVE_UNAVAILABLE_MESSAGE;
       }
       return message;
     }
   }
-  return 'RevenueCat could not complete that request.';
+  return "RevenueCat could not complete that request.";
 }
 
-async function syncProfileTier(customerInfo: CustomerInfo | null): Promise<void> {
+async function syncProfileTier(
+  customerInfo: CustomerInfo | null,
+): Promise<void> {
   const user = useAuthStore.getState().user;
   const profile = useAuthStore.getState().profile;
   if (!user || !profile) return;
@@ -58,12 +67,12 @@ async function syncProfileTier(customerInfo: CustomerInfo | null): Promise<void>
   if (profile.subscription_tier === nextTier) return;
 
   const { data, error } = await supabase
-    .from('profiles')
+    .from("profiles")
     .update({
       subscription_tier: nextTier,
       updated_at: new Date().toISOString(),
     })
-    .eq('id', user.id)
+    .eq("id", user.id)
     .select()
     .single();
 
@@ -101,19 +110,34 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
   hasAngler: false,
 
   initialize: async (userId) => {
+    if (!revenueCatNativeAvailable()) {
+      set({
+        configured: false,
+        loading: false,
+        error: NATIVE_UNAVAILABLE_MESSAGE,
+        customerInfo: null,
+        offering: null,
+        hasAngler: false,
+      });
+      return;
+    }
+
     const apiKey = revenueCatApiKey();
     if (!apiKey) {
       set({
         configured: false,
         loading: false,
-        error: 'Add EXPO_PUBLIC_REVENUECAT_IOS_API_KEY and/or EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY.',
+        error:
+          "Add EXPO_PUBLIC_REVENUECAT_IOS_API_KEY and/or EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY.",
       });
       return;
     }
 
     set({ loading: true, error: null });
     try {
-      const alreadyConfigured = await Purchases.isConfigured().catch(() => false);
+      const alreadyConfigured = await Purchases.isConfigured().catch(() =>
+        false
+      );
       if (!alreadyConfigured) {
         Purchases.configure({ apiKey, appUserID: userId });
         await Purchases.setLogLevel(__DEV__ ? LOG_LEVEL.DEBUG : LOG_LEVEL.INFO);
@@ -124,7 +148,10 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
 
       if (!customerInfoListener) {
         customerInfoListener = (info) => {
-          set({ customerInfo: info, hasAngler: tierFromCustomerInfo(info) === 'angler' });
+          set({
+            customerInfo: info,
+            hasAngler: tierFromCustomerInfo(info) === "angler",
+          });
           void syncProfileTier(info);
         };
         Purchases.addCustomerInfoUpdateListener(customerInfoListener);
@@ -140,6 +167,18 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
   },
 
   refresh: async () => {
+    if (!revenueCatNativeAvailable()) {
+      set({
+        configured: false,
+        loading: false,
+        error: NATIVE_UNAVAILABLE_MESSAGE,
+        customerInfo: null,
+        offering: null,
+        hasAngler: false,
+      });
+      return;
+    }
+
     set({ loading: true, error: null });
     try {
       const [customerInfo, offerings] = await Promise.all([
@@ -150,7 +189,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       set({
         customerInfo,
         offering,
-        hasAngler: tierFromCustomerInfo(customerInfo) === 'angler',
+        hasAngler: tierFromCustomerInfo(customerInfo) === "angler",
       });
       await syncProfileTier(customerInfo);
     } catch (err) {
@@ -161,10 +200,15 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
   },
 
   purchase: async (pkg) => {
+    if (!revenueCatNativeAvailable()) {
+      set({ purchasing: null, error: NATIVE_UNAVAILABLE_MESSAGE });
+      return false;
+    }
+
     set({ purchasing: pkg.identifier, error: null });
     try {
       const result = await Purchases.purchasePackage(pkg);
-      const hasAngler = tierFromCustomerInfo(result.customerInfo) === 'angler';
+      const hasAngler = tierFromCustomerInfo(result.customerInfo) === "angler";
       set({ customerInfo: result.customerInfo, hasAngler });
       await syncProfileTier(result.customerInfo);
       return hasAngler;
@@ -178,10 +222,15 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
   },
 
   restore: async () => {
+    if (!revenueCatNativeAvailable()) {
+      set({ restoring: false, error: NATIVE_UNAVAILABLE_MESSAGE });
+      return false;
+    }
+
     set({ restoring: true, error: null });
     try {
       const customerInfo = await Purchases.restorePurchases();
-      const hasAngler = tierFromCustomerInfo(customerInfo) === 'angler';
+      const hasAngler = tierFromCustomerInfo(customerInfo) === "angler";
       set({ customerInfo, hasAngler });
       await syncProfileTier(customerInfo);
       return hasAngler;

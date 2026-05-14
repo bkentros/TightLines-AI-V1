@@ -1,6 +1,6 @@
 # Today's Bite Temperature V2.1-lite Production Parity
 
-Generated: 2026-05-13T15:50:35.237Z
+Generated: 2026-05-14T16:35:17.219Z
 
 Phase 5C production parity audit. Production `normalizeTemperature(...)` is wired to the no-interpolation `behavior_complete_lite` profile. Recommender production logic is unchanged.
 
@@ -22,10 +22,10 @@ Experiment defaults: `band=0.9,stable=0.05,bad=0,shockFloor=-0.9,shockImprove=1.
 | Candidate | Eligible | Constants | Temp Mismatches | Score Delta Rows | Avg Delta | Max | Min | abs>=8 | abs>=12 | Tier Changes | Reliability Changes | Sign Changes | Rec Valid | Pick Changes | Thermal Changes | Surface Changes | Tag Changes |
 | --- | --- | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | production_control | no | production | 0 | 0 | 0.00 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 16200 | 0 | 0 | 0 | 0 |
-| conservative_shock_only | yes | band=0.9,stable=0.05,bad=0,shockFloor=-0.9,shockImprove=1.5,trendMax=0.7,interp=none,edge=0,stabilityMode=production,shockMode=direction_aware | 24490 | 6880 | 0.12 | 1 | 0 | 0 | 0 | 1240 | 0 | 2900 | 16200 | 0 | 0 | 0 | 0 |
+| conservative_shock_only | yes | band=0.9,stable=0.05,bad=0,shockFloor=-0.9,shockImprove=1.5,trendMax=0.7,interp=none,edge=0,stabilityMode=production,shockMode=direction_aware | 24540 | 6760 | 0.12 | 1 | 0 | 0 | 0 | 345 | 0 | 3000 | 16200 | 0 | 0 | 0 | 0 |
 | behavior_complete_lite | yes | band=0.9,stable=0.05,bad=0,shockFloor=-0.9,shockImprove=1.5,trendMax=0.7,interp=none,edge=0,stabilityMode=favorability_aware,shockMode=direction_aware | 0 | 0 | 0.00 | 0 | 0 | 0 | 0 | 0 | 0 | 0 | 16200 | 0 | 0 | 0 | 0 |
-| broad_interpolation_diagnostic | no | band=0.9,stable=0.05,bad=0,shockFloor=-0.5,shockImprove=0.75,trendMax=0.7,interp=broad_month,edge=0,stabilityMode=favorability_aware,shockMode=direction_aware | 28454 | 23740 | 0.31 | 26 | -22 | 1671 | 472 | 4796 | 0 | 5180 | 16200 | 1216 | 1202 | 69 | 1202 |
-| boundary_interpolation_diagnostic | no | band=0.9,stable=0.05,bad=0,shockFloor=-1.05,shockImprove=99,trendMax=0.7,interp=boundary_only,edge=3,stabilityMode=production,shockMode=production | 37536 | 20096 | -0.02 | 19 | -23 | 860 | 222 | 3890 | 0 | 4778 | 16200 | 737 | 732 | 23 | 732 |
+| broad_interpolation_diagnostic | no | band=0.9,stable=0.05,bad=0,shockFloor=-0.5,shockImprove=0.75,trendMax=0.7,interp=broad_month,edge=0,stabilityMode=favorability_aware,shockMode=direction_aware | 28370 | 23511 | 0.32 | 26 | -22 | 1645 | 497 | 4628 | 0 | 5152 | 16200 | 1216 | 1202 | 69 | 1202 |
+| boundary_interpolation_diagnostic | no | band=0.9,stable=0.05,bad=0,shockFloor=-1.05,shockImprove=99,trendMax=0.7,interp=boundary_only,edge=3,stabilityMode=production,shockMode=production | 37574 | 19647 | -0.01 | 19 | -23 | 872 | 226 | 2968 | 0 | 4866 | 16200 | 737 | 732 | 23 | 732 |
 
 ## Historical Pre-Wiring Finalist Impact
 
@@ -42,10 +42,10 @@ Retained from the Phase 5B shadow finalist lock:
 | Candidate | Shock Rows | Softened Shock Rows | Softened Toward Better Rows | Stable Favorable Bonus Rows | Stable Neutral No Bonus Rows | Stable Bad No Bonus Rows | Missing History No Bonus Rows |
 | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: |
 | production_control | 0 | 0 | 0 | 0 | 0 | 0 | 0 |
-| conservative_shock_only | 21150 | 6200 | 6200 | 3470 | 0 | 0 | 6480 |
-| behavior_complete_lite | 21150 | 6200 | 6200 | 3470 | 6630 | 17860 | 6480 |
-| broad_interpolation_diagnostic | 21150 | 8348 | 8348 | 3206 | 6942 | 17812 | 6480 |
-| boundary_interpolation_diagnostic | 21150 | 0 | 0 | 3302 | 0 | 0 | 6480 |
+| conservative_shock_only | 21150 | 6220 | 6220 | 3420 | 0 | 0 | 6480 |
+| behavior_complete_lite | 21150 | 6220 | 6220 | 3420 | 6680 | 17860 | 6480 |
+| broad_interpolation_diagnostic | 21150 | 8344 | 8344 | 3176 | 6972 | 17812 | 6480 |
+| boundary_interpolation_diagnostic | 21150 | 0 | 0 | 3272 | 0 | 0 | 6480 |
 
 ## Readiness Fixtures (behavior_complete_lite)
 

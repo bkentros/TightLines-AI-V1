@@ -1194,7 +1194,7 @@ function buildMarkdown(rows: AuditRow[]): string {
     }. Paid factor rows now use condition-specific copy instead of only category names such as Temperature, Wind, Rain, and Tide / Current.`,
   );
   lines.push(
-    "- Current target: compact row headers with condition-specific copy from existing detail: temp trend/shock, pressure pattern, rain window, runoff state, wind severity, tide/current movement, and light/cloud character.",
+    "- Current target: compact row headers with clear user-facing copy: temperature should stay basic, while pressure, rain, runoff, wind, tide/current, and light/cloud can use their condition detail.",
   );
   lines.push("\n## Timing Sentence Findings\n");
   lines.push(

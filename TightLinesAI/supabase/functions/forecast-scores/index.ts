@@ -3,7 +3,7 @@
  *
  * Runs the deterministic fishing engine for 7 days × 4 contexts (inland scores
  * for all four still returned; clients use lake+river only when not coastal-eligible).
- * No generative calls, no auth required — returns raw scores only.
+ * No generative calls; requires a signed-in Supabase user token.
  * Used to populate the 7-day forecast calendar on the home screen.
  *
  * Uses the same Open-Meteo bundle as get-environment (past_days=14, forecast_days=7)
@@ -15,6 +15,7 @@
  */
 
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
+import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 import {
   buildSharedEngineRequestFromEnvData,
@@ -71,6 +72,37 @@ function corsHeaders() {
     "Access-Control-Allow-Headers":
       "Content-Type, Authorization, apikey, x-user-token",
   };
+}
+
+function jsonError(message: string, status: number): Response {
+  return new Response(JSON.stringify({ error: message }), {
+    status,
+    headers: { ...corsHeaders(), "Content-Type": "application/json" },
+  });
+}
+
+async function requireAuthenticatedUser(req: Request): Promise<Response | null> {
+  const supabaseUrl = Deno.env.get("SUPABASE_URL");
+  const supabaseServiceKey = Deno.env.get("SUPABASE_SERVICE_ROLE_KEY");
+  if (!supabaseUrl || !supabaseServiceKey) {
+    return jsonError("Auth service is not configured", 500);
+  }
+
+  const userToken = req.headers.get("x-user-token");
+  const authHeader = req.headers.get("Authorization");
+  const bearerToken = authHeader ? authHeader.replace("Bearer ", "") : null;
+  const token = userToken ?? bearerToken;
+  if (!token) {
+    return jsonError("Missing authentication token", 401);
+  }
+
+  const supabase = createClient(supabaseUrl, supabaseServiceKey);
+  const { data: { user }, error } = await supabase.auth.getUser(token);
+  if (error || !user) {
+    return jsonError("Unauthorized", 401);
+  }
+
+  return null;
 }
 
 function num(x: unknown): number | null {
@@ -363,29 +395,32 @@ async function fetchForecastTides(
 
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
-    return new Response(null, { headers: corsHeaders() });
+    return new Response(null, { status: 204, headers: corsHeaders() });
+  }
+
+  if (req.method !== "POST") {
+    return jsonError("Method not allowed", 405);
+  }
+
+  const authFailure = await requireAuthenticatedUser(req);
+  if (authFailure) {
+    return authFailure;
   }
 
   let body: Record<string, unknown>;
   try {
     body = await req.json();
   } catch {
-    return new Response(JSON.stringify({ error: "Invalid JSON" }), {
-      status: 400,
-      headers: { ...corsHeaders(), "Content-Type": "application/json" },
-    });
+    return jsonError("Invalid JSON", 400);
   }
 
   const latitude = num(body.latitude);
   const longitude = num(body.longitude);
-  if (latitude == null || longitude == null) {
-    return new Response(
-      JSON.stringify({ error: "latitude and longitude required" }),
-      {
-        status: 400,
-        headers: { ...corsHeaders(), "Content-Type": "application/json" },
-      },
-    );
+  if (latitude == null || latitude < -90 || latitude > 90) {
+    return jsonError("Invalid latitude", 400);
+  }
+  if (longitude == null || longitude < -180 || longitude > 180) {
+    return jsonError("Invalid longitude", 400);
   }
   const maxDayOffset = intInRange(body.max_day_offset, 6, 0, 6);
   const includeSnapshotEnv = body.include_snapshot_env !== false;

@@ -67,6 +67,13 @@ function formatFactorLabel(text: string): string {
  *  uppercase eyebrow (`BAROMETRIC TREND`) for the factor row. */
 function formatVariableEyebrow(v: string): string {
   if (!v) return "CONDITION";
+  if (v === "temperature_condition") return "TEMPERATURE";
+  if (v === "pressure_regime") return "PRESSURE";
+  if (v === "wind_condition") return "WIND";
+  if (v === "light_cloud_condition") return "CLOUD COVER";
+  if (v === "precipitation_disruption") return "RAIN";
+  if (v === "runoff_flow_disruption") return "RAIN / RUNOFF";
+  if (v === "tide_current_movement") return "TIDE / CURRENT";
   return v.replace(/_/g, " ").toUpperCase();
 }
 
@@ -129,6 +136,22 @@ function buildHeadline(
     primary: context.toUpperCase(),
     secondary: isFuture ? "FORECAST READ" : "TODAY'S READ",
   };
+}
+
+function dateTextForEyebrow(dateLabel: string, isFuture: boolean): string {
+  const upper = dateLabel.toUpperCase().trim();
+  if (!upper) return isFuture ? "FORECAST" : "TODAY";
+  if (!isFuture && upper.startsWith("TODAY · ")) {
+    return upper.replace(/^TODAY ·\s*/, "");
+  }
+  return upper;
+}
+
+function parseLocalReportDate(localDate: string | null | undefined): Date {
+  if (localDate && /^\d{4}-\d{2}-\d{2}$/.test(localDate)) {
+    return new Date(`${localDate}T12:00:00`);
+  }
+  return new Date();
 }
 
 /** ActionableTipTag -> human label for the Field Strategy chip. */
@@ -401,6 +424,10 @@ export function RebuildReportView({
   const isFuture = dateLabel.toUpperCase() !== "TODAY" &&
     !dateLabel.toUpperCase().startsWith("TODAY");
   const headline = buildHeadline(report, isFuture);
+  const reportDateText = dateTextForEyebrow(dateLabel, isFuture);
+  const heroMetaText = `${
+    headline.secondary ?? (isFuture ? "FORECAST READ" : "TODAY'S READ")
+  } · ${reportDateText}`;
 
   // Phrase keys off the score-derived band so the verdict word always
   // matches the number and the displayed band label.
@@ -452,7 +479,7 @@ export function RebuildReportView({
 
         <View style={styles.heroEyebrow}>
           <SectionEyebrow color={paper.dashboardBlue} size={9} tracking={2}>
-            {headline.secondary ?? dateLabel.toUpperCase()}
+            {heroMetaText}
           </SectionEyebrow>
         </View>
 
@@ -849,7 +876,9 @@ export function RebuildReportView({
           <View style={styles.editionStampRow}>
             <View style={styles.editionStampRule} />
             <Text style={styles.editionStampText}>
-              EDITION · {formatEditionDate(new Date())}
+              REPORT DATE · {formatEditionDate(
+                parseLocalReportDate(report.location.local_date),
+              )}
             </Text>
             <View style={styles.editionStampRule} />
           </View>
@@ -2248,6 +2277,10 @@ function TimeWindowTile({
       >
         <Text
           style={[styles.timeTileLabel, isBest && { color: bestFg }]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.72}
+          allowFontScaling={false}
         >
           {label}
         </Text>
@@ -3115,6 +3148,8 @@ const styles = StyleSheet.create({
     fontWeight: "700",
     color: paper.dashboardInk,
     letterSpacing: 0,
+    textAlign: "center",
+    width: "100%",
   },
   timeTileRange: {
     fontFamily: paperFonts.metaMono,
@@ -3511,14 +3546,14 @@ const styles = StyleSheet.create({
   editionStampRule: {
     height: StyleSheet.hairlineWidth,
     flex: 1,
-    maxWidth: 32,
+    maxWidth: 28,
     backgroundColor: paper.dashboardLine,
     opacity: 0.65,
   },
   editionStampText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 2,
+    fontSize: 8,
+    letterSpacing: 1.4,
     color: paper.dashboardMuted,
     opacity: 0.7,
   },
