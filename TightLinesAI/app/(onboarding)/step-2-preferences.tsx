@@ -273,18 +273,18 @@ export default function OnboardingStep2() {
             <View style={styles.heroPanel}>
               <View style={styles.heroTopRow}>
                 <View style={styles.heroBadge}>
-                  <Ionicons name="fish-outline" size={22} color={paper.dashboardCream} />
+                  <Ionicons name="locate-outline" size={22} color={paper.dashboardCream} />
                 </View>
                 <View style={styles.heroKickerWrap}>
-                  <Text style={styles.pageEyebrow}>QUICK SETUP</Text>
-                  <Text style={styles.heroMeta}>Username + home water</Text>
+                  <Text style={styles.pageEyebrow}>PROFILE CALIBRATION</Text>
+                  <Text style={styles.heroMeta}>Handle + home water</Text>
                 </View>
               </View>
 
-              <Text style={styles.heroTitle}>Almost fishing.</Text>
+              <Text style={styles.heroTitle}>Tune your first read.</Text>
               <Text style={styles.heroLede}>
-                Set your public handle and home area so FinFindr can open on a local,
-                useful read.
+                Set your public handle and home area so FinFindr opens with the
+                right water, weather, and regional context from the first tap.
               </Text>
 
               <View style={styles.benefitRow}>
@@ -453,7 +453,7 @@ function BenefitPill({
 }) {
   return (
     <View style={styles.benefitPill}>
-      <Ionicons name={icon} size={13} color={paper.dashboardBlue} />
+      <Ionicons name={icon} size={13} color={paper.dashboardBlueLight} />
       <Text style={styles.benefitPillText}>{label}</Text>
     </View>
   );
@@ -500,19 +500,19 @@ function StepPill({ step, total }: { step: number; total: number }) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.dashboardCream },
-  flex: { flex: 1 },
-  scroll: { flex: 1 },
+  safe: { flex: 1, backgroundColor: paper.dashboardInk },
+  flex: { flex: 1, backgroundColor: paper.dashboardCream },
+  scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
   },
   heroPanel: {
-    backgroundColor: paper.dashboardWhite,
+    backgroundColor: paper.dashboardInk,
     borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
     padding: paperSpacing.lg,
     marginBottom: paperSpacing.xl,
   },
@@ -526,9 +526,9 @@ const styles = StyleSheet.create({
     width: 46,
     height: 46,
     borderRadius: 23,
-    borderWidth: 2,
-    borderColor: paper.dashboardInk,
-    backgroundColor: paper.dashboardBlue,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.22)',
+    backgroundColor: 'rgba(255,255,255,0.08)',
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -537,32 +537,30 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
     letterSpacing: 2,
-    color: paper.dashboardBlue,
+    color: paper.dashboardBlueLight,
     fontWeight: '700',
   },
   heroMeta: {
     marginTop: 3,
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,
-    color: paper.dashboardInk,
-    opacity: 0.62,
+    color: 'rgba(255,255,255,0.68)',
     letterSpacing: 0.8,
     textTransform: 'uppercase',
   },
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 36,
-    color: paper.dashboardInk,
+    fontSize: 38,
+    color: paper.dashboardCream,
     fontWeight: '700',
     letterSpacing: 0,
-    lineHeight: 40,
+    lineHeight: 41,
     marginBottom: paperSpacing.xs,
   },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: paper.dashboardInk,
-    opacity: 0.72,
+    color: 'rgba(255,255,255,0.78)',
     lineHeight: 21,
     marginBottom: paperSpacing.md,
   },
@@ -576,17 +574,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
     borderWidth: 1,
-    borderColor: paper.dashboardLine,
+    borderColor: 'rgba(255,255,255,0.14)',
     borderRadius: 999,
-    backgroundColor: '#F8FAFB',
+    backgroundColor: 'rgba(255,255,255,0.08)',
     paddingHorizontal: paperSpacing.sm,
     paddingVertical: 6,
   },
   benefitPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
-    color: paper.dashboardInk,
-    opacity: 0.76,
+    color: paper.dashboardCream,
+    opacity: 0.9,
   },
   setupPanel: {
     backgroundColor: paper.dashboardWhite,
@@ -595,6 +593,10 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardInk,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.lg,
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.08,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 5 },
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -753,15 +755,15 @@ const styles = StyleSheet.create({
   stepPill: {
     paddingHorizontal: 9,
     paddingVertical: 5,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.18)',
     borderRadius: 999,
-    backgroundColor: paper.dashboardWhite,
+    backgroundColor: 'rgba(255,255,255,0.08)',
   },
   stepPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.dashboardInk,
+    color: paper.dashboardCream,
     letterSpacing: 1.6,
     fontWeight: '700',
   },

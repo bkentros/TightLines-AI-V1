@@ -2,7 +2,8 @@
  * Subscription tier and usage cap utilities
  *
  * Used for feature gating and usage cap checks.
- * Dev override (overrideSubscriptionTier) takes precedence in __DEV__.
+ * Tier preview override takes precedence in dev, or when a trusted caller
+ * explicitly allows it for an admin/testing account.
  */
 
 import type { SubscriptionTier } from './types';
@@ -15,13 +16,15 @@ export const USAGE_CAP_MASTER_ANGLER_USD = 3;
 
 /**
  * Resolve effective subscription tier for feature gating.
- * In __DEV__, override takes precedence when set.
+ * In __DEV__, override takes precedence when set. Production callers must pass
+ * allowOverride=true only after checking admin access.
  */
 export function getEffectiveTier(
   profile: UserProfile | null,
-  devOverride: DevSubscriptionTier | null
+  devOverride: DevSubscriptionTier | null,
+  allowOverride = __DEV__
 ): SubscriptionTier {
-  if (__DEV__ && devOverride != null) {
+  if (allowOverride && devOverride != null) {
     return devOverride;
   }
   return profile?.subscription_tier ?? 'free';

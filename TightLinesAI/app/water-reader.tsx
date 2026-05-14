@@ -51,6 +51,7 @@ import { TopographicLines } from '../components/paper';
 import { useAuthStore } from '../store/authStore';
 import { useDevTestingStore } from '../store/devTestingStore';
 import { canUseAIFeatures, getEffectiveTier } from '../lib/subscription';
+import { isAdminEmail } from '../lib/adminAccess';
 import { WaterReaderMapCard } from '../components/water-reader/WaterReaderMapCard';
 import type { WaterReaderMapCardState } from '../components/water-reader/WaterReaderMapCard';
 import type {
@@ -243,9 +244,18 @@ export default function WaterReaderScreen() {
   const router = useRouter();
   const { profile, user } = useAuthStore();
   const overrideSubscriptionTier = useDevTestingStore((s) => s.overrideSubscriptionTier);
-  const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
+  const loadDevTesting = useDevTestingStore((s) => s.load);
+  const effectiveTier = getEffectiveTier(
+    profile,
+    overrideSubscriptionTier ?? null,
+    __DEV__ || isAdminEmail(user?.email),
+  );
   const hasSubscription = canUseAIFeatures(effectiveTier);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
+
+  useEffect(() => {
+    if (__DEV__ || isAdminEmail(user?.email)) loadDevTesting();
+  }, [loadDevTesting, user?.email]);
 
   const [stateCode, setStateCode] = useState<string | null>(null);
   const [stateModalOpen, setStateModalOpen] = useState(false);

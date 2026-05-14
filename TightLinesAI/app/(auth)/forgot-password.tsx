@@ -41,7 +41,6 @@ export default function ForgotPasswordScreen() {
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
-  const [lookupMessage, setLookupMessage] = useState('');
   const [notice, setNotice] = useState<Notice | null>(null);
 
   const handleSend = async () => {
@@ -57,32 +56,12 @@ export default function ForgotPasswordScreen() {
     }
 
     setLoading(true);
-    setLookupMessage('');
     try {
-      const { data: emailRegistered, error: lookupError } = await supabase.rpc(
-        'email_registered_for_password_reset',
-        { raw_email: trimmed },
-      );
-      if (lookupError) {
-        setNotice({
-          title: 'Could not check account',
-          message: 'Please try again in a moment.',
-          tone: 'error',
-        });
-        return;
-      }
-      if (!emailRegistered) {
-        setLookupMessage('No FinFindr account is registered with that email.');
-        return;
-      }
-
-      const { error } = await supabase.auth.resetPasswordForEmail(trimmed, {
+      await supabase.auth.resetPasswordForEmail(trimmed, {
         redirectTo: getPasswordResetEmailRedirectUrl(),
       });
-      if (error) {
-        setNotice({ title: 'Could not send reset link', message: error.message, tone: 'error' });
-        return;
-      }
+      // Always show the same success state so this flow cannot reveal whether
+      // an email address is registered.
       setSent(true);
     } finally {
       setLoading(false);
@@ -132,9 +111,6 @@ export default function ForgotPasswordScreen() {
                     onSubmitEditing={handleSend}
                     autoFocus
                   />
-                  {lookupMessage ? (
-                    <Text style={styles.lookupMessage}>{lookupMessage}</Text>
-                  ) : null}
                 </View>
 
                 <View style={styles.actions}>
@@ -150,8 +126,8 @@ export default function ForgotPasswordScreen() {
               <View style={styles.sentState}>
                 <AuthStatusCard iconName="mail-outline" title="Check your inbox">
                   <Text style={styles.sentBody}>
-                    We sent a password reset link to{' '}
-                    <Text style={styles.sentEmail}>{email}</Text>.
+                    If a FinFindr account exists for{' '}
+                    <Text style={styles.sentEmail}>{email}</Text>, we sent a password reset link.
                   </Text>
                   <Text style={styles.sentBodyMuted}>
                     Tap the link in the email — it will open the app and let
@@ -221,11 +197,5 @@ const styles = StyleSheet.create({
   sentEmail: {
     fontFamily: paperFonts.bodyBold,
     color: paper.dashboardBlue,
-  },
-  lookupMessage: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 12,
-    color: paper.dashboardBlue,
-    lineHeight: 18,
   },
 });

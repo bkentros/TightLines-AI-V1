@@ -26,8 +26,7 @@ import {
   paperFonts,
   paperSpacing,
 } from '../../lib/theme';
-import {
-  PaperNavHeader,} from '../../components/paper';
+import { PaperNavHeader } from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 
@@ -85,16 +84,41 @@ export default function OnboardingStep1() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.eyebrowRow}><Text style={styles.pageEyebrow}>YOUR FISHING COMPANION</Text></View>
+          <View style={styles.heroPanel}>
+            <View style={styles.heroTopRow}>
+              <View style={styles.heroBadge}>
+                <Ionicons name="sparkles-outline" size={21} color={paper.dashboardCream} />
+              </View>
+              <View style={styles.heroKickerWrap}>
+                <Text style={styles.pageEyebrow}>FISHING INTELLIGENCE</Text>
+                <Text style={styles.heroMeta}>Built for the water you fish</Text>
+              </View>
+            </View>
 
-          <Text style={styles.heroTitle}>
-            Welcome to{'\n'}<Text style={styles.heroTitleBrand}>FINFINDR</Text>
-            <Text style={styles.heroDot}>.</Text>
-          </Text>
-          <Text style={styles.heroLede}>
-            Let&apos;s get your first read and tackle picks set up around the
-            water you fish.
-          </Text>
+            <Text style={styles.heroTitle}>
+              Welcome to{'\n'}<Text style={styles.heroTitleBrand}>FINFINDR</Text>
+              <Text style={styles.heroDot}>.</Text>
+            </Text>
+            <Text style={styles.heroLede}>
+              Live conditions, forecast confidence, and tackle logic pulled
+              into one clean read before you ever leave the house.
+            </Text>
+
+            <View style={styles.insightRail}>
+              <View style={styles.insightCell}>
+                <Text style={styles.insightValue}>01</Text>
+                <Text style={styles.insightLabel}>Local read</Text>
+              </View>
+              <View style={styles.insightCell}>
+                <Text style={styles.insightValue}>02</Text>
+                <Text style={styles.insightLabel}>Bite score</Text>
+              </View>
+              <View style={styles.insightCell}>
+                <Text style={styles.insightValue}>03</Text>
+                <Text style={styles.insightLabel}>Tackle plan</Text>
+              </View>
+            </View>
+          </View>
 
           {/* Feature cards */}
           <View style={styles.features}>
@@ -150,42 +174,104 @@ function StepPill({ step, total }: { step: number; total: number }) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.dashboardCream },
-  flex: { flex: 1 },
-  scroll: { flex: 1 },
+  safe: { flex: 1, backgroundColor: paper.dashboardInk },
+  flex: { flex: 1, backgroundColor: paper.dashboardCream },
+  scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
-  },eyebrowRow: { marginBottom: paperSpacing.md },
-pageEyebrow: {
+  },
+  heroPanel: {
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
+    padding: paperSpacing.lg,
+    marginBottom: paperSpacing.xl,
+  },
+  heroTopRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
+  },
+  heroBadge: {
+    width: 46,
+    height: 46,
+    borderRadius: 23,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.22)',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroKickerWrap: { flex: 1 },
+  pageEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
     letterSpacing: 2,
-    color: paper.dashboardBlue,
+    color: paper.dashboardBlueLight,
     fontWeight: '700',
+  },
+  heroMeta: {
+    marginTop: 4,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    color: 'rgba(255,255,255,0.68)',
+    letterSpacing: 0.8,
+    textTransform: 'uppercase',
   },
 
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 38,
-    color: paper.dashboardInk,
+    fontSize: 40,
+    color: paper.dashboardCream,
     fontWeight: '700',
     letterSpacing: 0,
-    lineHeight: 42,
-    marginBottom: paperSpacing.xs,
+    lineHeight: 43,
+    marginBottom: paperSpacing.sm,
   },
   heroTitleBrand: {
-    color: paper.dashboardInk,
+    color: paper.dashboardCream,
   },
-  heroDot: { color: paper.dashboardBlue },
+  heroDot: { color: paper.dashboardBlueLight },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 15,
-    color: paper.dashboardInk,
-    opacity: 0.75,
+    color: 'rgba(255,255,255,0.78)',
     lineHeight: 22,
-    marginBottom: paperSpacing.section,
+    marginBottom: paperSpacing.lg,
+  },
+  insightRail: {
+    flexDirection: 'row',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.14)',
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  insightCell: {
+    flex: 1,
+    paddingVertical: paperSpacing.sm,
+    paddingHorizontal: 8,
+    borderRightWidth: 1,
+    borderRightColor: 'rgba(255,255,255,0.12)',
+  },
+  insightValue: {
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    color: paper.dashboardCream,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  insightLabel: {
+    marginTop: 2,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    color: 'rgba(255,255,255,0.58)',
+    letterSpacing: 0.9,
+    textAlign: 'center',
+    textTransform: 'uppercase',
   },
 
   features: {
@@ -195,7 +281,7 @@ pageEyebrow: {
   featureCard: {
     flexDirection: 'row',
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
+    borderRadius: 8,
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
     padding: paperSpacing.md,
@@ -238,7 +324,7 @@ pageEyebrow: {
     backgroundColor: paper.dashboardBlue,
     borderWidth: 2,
     borderColor: paper.dashboardInk,
-    borderRadius: 12,
+    borderRadius: 8,
     paddingVertical: paperSpacing.md,
       },
   ctaPressed: { backgroundColor: paper.dashboardBlue },
@@ -262,15 +348,15 @@ pageEyebrow: {
   stepPill: {
     paddingHorizontal: 9,
     paddingVertical: 5,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.18)',
     borderRadius: 999,
-    backgroundColor: paper.dashboardWhite,
+    backgroundColor: 'rgba(255,255,255,0.08)',
   },
   stepPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.dashboardInk,
+    color: paper.dashboardCream,
     letterSpacing: 1.6,
     fontWeight: '700',
   },

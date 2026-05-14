@@ -61,6 +61,7 @@ import { useDevTestingStore } from "../../store/devTestingStore";
 import { useEnvStore } from "../../store/envStore";
 import { useLocationStore } from "../../store/locationStore";
 import { canUseAIFeatures, getEffectiveTier } from "../../lib/subscription";
+import { isAdminEmail } from "../../lib/adminAccess";
 import {
   getCachedMultiRebuild,
   getCurrentMultiRebuild,
@@ -88,14 +89,6 @@ const FORECAST_TILE_W = Math.max(
       FORECAST_COLS,
   ),
 );
-const LOCKED_FORECAST_BANDS: PaperScoreBand[] = [
-  "Tough",
-  "Poor",
-  "Fair",
-  "Good",
-  "Prime",
-];
-
 type LockedForecastPlaceholder = {
   kind: "locked";
   key: string;
@@ -103,6 +96,14 @@ type LockedForecastPlaceholder = {
   dateNum: string;
   color: string;
 };
+
+const LOCKED_FORECAST_BANDS: PaperScoreBand[] = [
+  "Tough",
+  "Poor",
+  "Fair",
+  "Good",
+  "Prime",
+];
 
 function hashForecastSeed(seed: string): number {
   let h = 2166136261;
@@ -163,7 +164,7 @@ const SANS_BOLD = "Inter_700Bold";
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { profile } = useAuthStore();
+  const { profile, user } = useAuthStore();
   const {
     ignoreGps,
     overrideSubscriptionTier,
@@ -247,6 +248,7 @@ export default function HomeScreen() {
   const effectiveTier = getEffectiveTier(
     profile,
     overrideSubscriptionTier ?? null,
+    __DEV__ || isAdminEmail(user?.email),
   );
   const hasSubscription = canUseAIFeatures(effectiveTier);
 
@@ -339,8 +341,8 @@ export default function HomeScreen() {
   );
 
   useEffect(() => {
-    if (__DEV__) loadDevTesting();
-  }, [loadDevTesting]);
+    if (__DEV__ || isAdminEmail(user?.email)) loadDevTesting();
+  }, [loadDevTesting, user?.email]);
 
   useEffect(() => {
     loadLocationStore();

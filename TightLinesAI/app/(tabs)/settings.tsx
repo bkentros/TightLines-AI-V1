@@ -18,7 +18,7 @@ import * as Location from 'expo-location';
 import { paper, paperFonts, paperSpacing } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
 import { useDevTestingStore } from '../../store/devTestingStore';
-import { supabase } from '../../lib/supabase';
+import { getValidAccessToken, invokeEdgeFunction, supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import type { UserProfile } from '../../lib/types';
@@ -74,7 +74,7 @@ export default function SettingsScreen() {
     message?: string;
     tone?: NoticeTone;
   } | null>(null);
-  const canSeeTestingTools = __DEV__ && isAdminEmail(user?.email);
+  const canSeeTestingTools = __DEV__ || isAdminEmail(user?.email);
 
   useEffect(() => {
     if (!profile) return;
@@ -213,8 +213,11 @@ export default function SettingsScreen() {
 
     setDeleting(true);
     try {
-      const { error } = await supabase.rpc('delete_current_user_account');
-      if (error) throw error;
+      const accessToken = await getValidAccessToken();
+      await invokeEdgeFunction<{ ok: true }>('delete-account', {
+        accessToken,
+        body: {},
+      });
       await signOut();
     } catch {
       setNotice({
@@ -240,7 +243,10 @@ export default function SettingsScreen() {
     );
   }
 
-  const effectiveTier = overrideSubscriptionTier ?? profile.subscription_tier ?? 'free';
+  const effectiveTier =
+    canSeeTestingTools && overrideSubscriptionTier
+      ? overrideSubscriptionTier
+      : profile.subscription_tier ?? 'free';
 
   return (
     <View style={styles.root}>
@@ -419,17 +425,16 @@ export default function SettingsScreen() {
 
             {canSeeTestingTools && (
               <View style={styles.section}>
-                <Text style={styles.sectionLabel}>TESTING</Text>
-                <Text style={styles.sectionHint}>Dev-only subscription and GPS controls.</Text>
+                <Text style={styles.sectionLabel}>TIER MODE</Text>
+                <Text style={styles.sectionHint}>
+                  Switch the app display between Free and Angler for testing tier gating.
+                </Text>
 
-                <Text style={styles.testingLabel}>Override subscription tier</Text>
+                <Text style={styles.testingLabel}>Display as</Text>
                 <View style={styles.presetRow}>
-                  {(['free', 'angler', 'master_angler', null] as const).map((tier) => {
-                    const label =
-                      tier === null ? 'Use real'
-                      : tier === 'master_angler' ? 'Master'
-                      : tier;
-                    const active = overrideSubscriptionTier === tier;
+                  {(['free', 'angler'] as const).map((tier) => {
+                    const label = tier === 'free' ? 'Free' : 'Angler';
+                    const active = effectiveTier === tier;
                     return (
                       <Pressable
                         key={String(label)}
@@ -444,15 +449,17 @@ export default function SettingsScreen() {
                   })}
                 </View>
 
-                <View style={styles.testingRow}>
-                  <Text style={styles.testingLabel}>Ignore GPS</Text>
-                  <Switch
-                    value={ignoreGps}
-                    onValueChange={(v) => setIgnoreGps(v)}
-                    trackColor={{ false: paper.dashboardHair, true: paper.dashboardBlue }}
-                    thumbColor={paper.dashboardWhite}
-                  />
-                </View>
+                {__DEV__ ? (
+                  <View style={styles.testingRow}>
+                    <Text style={styles.testingLabel}>Ignore GPS</Text>
+                    <Switch
+                      value={ignoreGps}
+                      onValueChange={(v) => setIgnoreGps(v)}
+                      trackColor={{ false: paper.dashboardHair, true: paper.dashboardBlue }}
+                      thumbColor={paper.dashboardWhite}
+                    />
+                  </View>
+                ) : null}
               </View>
             )}
 

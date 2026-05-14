@@ -4,7 +4,7 @@
  * Uses RevenueCat offerings for live subscription purchase + restore.
  */
 
-import { ActivityIndicator, Alert, ScrollView, View, Text, StyleSheet, Pressable } from 'react-native';
+import { ActivityIndicator, Alert, Image, ScrollView, View, Text, StyleSheet, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
@@ -17,6 +17,7 @@ import {
 import {
   PaperBestValueStamp,
   PaperNavHeader,
+  TopographicLines,
 } from '../components/paper';
 import { AuthFooterStamp } from '../components/paper/auth';
 import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
@@ -38,6 +39,28 @@ function packageHint(pkg: PurchasesPackage): string {
   }
   return 'Full access to every FinFindr feature while your subscription is active.';
 }
+
+const ANGLER_FEATURES: Array<{
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  copy: string;
+}> = [
+  {
+    icon: 'analytics-outline',
+    title: 'Bite reports',
+    copy: 'Full reports for today plus the next 6 days, including score, drivers, windows, and guide-level context.',
+  },
+  {
+    icon: 'fish-outline',
+    title: 'Tackle Box',
+    copy: 'Condition-matched lure and presentation picks tuned to your water type, species, season, and daily conditions.',
+  },
+  {
+    icon: 'scan-outline',
+    title: 'Water Read',
+    copy: 'Structure intelligence for supported waters, built to identify higher-percentage zones before you cast.',
+  },
+];
 
 export default function SubscribeScreen() {
   const router = useRouter();
@@ -95,17 +118,62 @@ export default function SubscribeScreen() {
           contentContainerStyle={styles.content}
           showsVerticalScrollIndicator={false}
         >
-          <View style={styles.eyebrowRow}><Text style={styles.pageEyebrow}>MEMBERSHIP OPTIONS</Text></View>
+          <View style={styles.heroPanel}>
+            <TopographicLines
+              style={styles.heroTopo}
+              color={paper.dashboardBlueLight}
+              count={6}
+            />
+            <View style={styles.brandLockup}>
+              <View style={styles.logoBadge}>
+                <Image
+                  source={require('../assets/images/finfindr-logo.png')}
+                  style={styles.logo}
+                  resizeMode="contain"
+                />
+              </View>
+              <Text style={styles.brandText}>
+                FinFindr<Text style={styles.brandDot}>.</Text>
+              </Text>
+            </View>
 
-          <Text style={styles.title}>Subscribe.</Text>
-          <Text style={styles.lede}>
-            Free anglers get a limited Today's Bite for today. Angler unlocks
-            every read, forecast day, Tackle Box, and Water Read.
-          </Text>
+            <Text style={styles.pageEyebrow}>FINFINDR · ANGLER</Text>
+            <Text style={styles.title}>
+              UNLOCK FISHING{'\n'}
+              <Text style={styles.titleAccent}>INTELLIGENCE.</Text>
+            </Text>
+            <Text style={styles.lede}>
+              Angler opens full bite reports, tactical tackle direction, and
+              structure intelligence for supported waters.
+            </Text>
+          </View>
+
+          <View style={styles.featureList}>
+            {ANGLER_FEATURES.map((feature) => (
+              <View key={feature.title} style={styles.featureItem}>
+                <View style={styles.featureIcon}>
+                  <Ionicons name={feature.icon} size={14} color={paper.dashboardBlue} />
+                </View>
+                <View style={styles.featureBody}>
+                  <Text style={styles.featureTitle}>{feature.title}</Text>
+                  <Text style={styles.featureCopy}>{feature.copy}</Text>
+                </View>
+                <View style={styles.featureCheck}>
+                  <Ionicons name="checkmark" size={11} color="#FFFFFF" />
+                </View>
+              </View>
+            ))}
+          </View>
 
           <View style={styles.freeBox}>
-            <Text style={styles.freeLabel}>FREE</Text>
-            <Text style={styles.freeCopy}>Limited Today's Bite for the current date only.</Text>
+            <View style={styles.freeHeader}>
+              <Text style={styles.freeLabel}>FREE TIER</Text>
+              <Ionicons name="lock-open-outline" size={14} color={paper.dashboardBlue} />
+            </View>
+            <Text style={styles.freeCopy}>
+              Includes a limited Today's Bite, today's dashboard score after
+              generation, and one tomorrow preview. Future reports stay locked.
+            </Text>
           </View>
 
           {hasAngler ? (
@@ -212,45 +280,163 @@ export default function SubscribeScreen() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.dashboardCream },
-  flex: { flex: 1 },
-  scroll: { flex: 1 },
+  safe: { flex: 1, backgroundColor: paper.dashboardInk },
+  flex: { flex: 1, backgroundColor: paper.dashboardCream },
+  scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   content: {
     paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.md,
+    paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xl,
-  },eyebrowRow: { marginBottom: paperSpacing.md },
-pageEyebrow: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    letterSpacing: 2,
-    color: paper.dashboardBlue,
+  },
+  heroPanel: {
+    position: 'relative',
+    overflow: 'hidden',
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.lg,
+    paddingBottom: paperSpacing.xl,
+    marginBottom: paperSpacing.lg,
+  },
+  heroTopo: {
+    top: -28,
+    left: -18,
+    right: -18,
+    height: 122,
+    opacity: 0.13,
+  },
+  brandLockup: {
+    alignSelf: 'center',
+    alignItems: 'center',
+    marginBottom: paperSpacing.sm,
+  },
+  logoBadge: {
+    width: 58,
+    height: 58,
+    borderRadius: 29,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.18)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 5,
+  },
+  logo: {
+    width: 40,
+    height: 40,
+    tintColor: '#FFFFFF',
+  },
+  brandText: {
+    fontFamily: paperFonts.display,
+    fontSize: 20,
+    lineHeight: 22,
+    color: paper.dashboardCream,
     fontWeight: '700',
+  },
+  brandDot: {
+    color: paper.dashboardBlueLight,
+  },
+  pageEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 1.9,
+    color: paper.dashboardBlueLight,
+    fontWeight: '700',
+    textAlign: 'center',
+    marginBottom: 5,
   },
   title: {
     fontFamily: paperFonts.display,
-    fontSize: 38,
-    color: paper.dashboardInk,
+    fontSize: 34,
+    lineHeight: 36,
+    color: paper.dashboardCream,
     fontWeight: '700',
+    textAlign: 'center',
     letterSpacing: 0,
-    marginBottom: paperSpacing.xs,
+    textTransform: 'uppercase',
+  },
+  titleAccent: {
+    color: paper.dashboardBlueLight,
   },
   lede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 15,
-    color: paper.dashboardInk,
-    opacity: 0.75,
+    color: 'rgba(255,255,255,0.78)',
+    textAlign: 'center',
     lineHeight: 22,
-    marginBottom: paperSpacing.xl,
+    marginTop: paperSpacing.sm,
+  },
+  featureList: {
+    gap: 8,
+    marginBottom: paperSpacing.lg,
+  },
+  featureItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 10,
+    position: 'relative',
+    paddingVertical: 10,
+    paddingHorizontal: paperSpacing.md,
+    borderRadius: 8,
+    borderWidth: 1.25,
+    borderColor: 'rgba(61,168,95,0.30)',
+    backgroundColor: paper.dashboardWhite,
+  },
+  featureIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    borderWidth: 1,
+    borderColor: 'rgba(61,168,95,0.34)',
+    backgroundColor: 'rgba(61,168,95,0.14)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  featureBody: {
+    flex: 1,
+  },
+  featureTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.6,
+    color: paper.dashboardInk,
+    textTransform: 'uppercase',
+    marginBottom: 4,
+  },
+  featureCopy: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 17,
+    color: paper.dashboardInk,
+    opacity: 0.78,
+  },
+  featureCheck: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    backgroundColor: paper.bandPrime,
+    borderWidth: 1,
+    borderColor: 'rgba(10,27,46,0.12)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 1,
   },
 
   freeBox: {
     backgroundColor: paper.dashboardWhite,
-    borderWidth: 1,
-    borderColor: paper.dashboardHair,
-    borderRadius: 10,
+    borderWidth: 1.25,
+    borderColor: paper.dashboardLine,
+    borderRadius: 8,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.lg,
+  },
+  freeHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 5,
   },
   freeLabel: {
     fontFamily: paperFonts.metaMonoBold,
@@ -261,7 +447,7 @@ pageEyebrow: {
   },
   freeCopy: {
     fontFamily: paperFonts.body,
-    fontSize: 13,
+    fontSize: 12.5,
     color: paper.dashboardInk,
     lineHeight: 19,
     opacity: 0.72,
@@ -302,12 +488,10 @@ pageEyebrow: {
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
-    borderRadius: 12,
+    borderRadius: 8,
     padding: paperSpacing.lg,
-    // Bumped from `md` to `lg` so the two plan cards (Angler / Master Angler)
-    // read as visually independent options rather than two stacked rows.
     marginBottom: paperSpacing.lg,
-      },
+  },
   planCardPressed: {
     backgroundColor: '#F6F9FB',
   },

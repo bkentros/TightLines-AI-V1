@@ -72,6 +72,7 @@ import { ALL_FLY_IMAGES } from "../lib/flyImages";
 import { Asset } from "expo-asset";
 import { useAuthStore } from "../store/authStore";
 import { useDevTestingStore } from "../store/devTestingStore";
+import { isAdminEmail } from "../lib/adminAccess";
 import { fetchRecommendation } from "../lib/recommender";
 import {
   getForecastScores,
@@ -925,11 +926,20 @@ export default function RecommenderScreen() {
     context?: string;
   }>();
 
-  const { profile } = useAuthStore();
+  const { profile, user } = useAuthStore();
   const overrideSubscriptionTier = useDevTestingStore((s) => s.overrideSubscriptionTier);
-  const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
+  const loadDevTesting = useDevTestingStore((s) => s.load);
+  const effectiveTier = getEffectiveTier(
+    profile,
+    overrideSubscriptionTier ?? null,
+    __DEV__ || isAdminEmail(user?.email),
+  );
   const hasSubscription = canUseAIFeatures(effectiveTier);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
+
+  useEffect(() => {
+    if (__DEV__ || isAdminEmail(user?.email)) loadDevTesting();
+  }, [loadDevTesting, user?.email]);
 
   const lat = parseFloat(params.latitude ?? "");
   const lon = parseFloat(params.longitude ?? "");

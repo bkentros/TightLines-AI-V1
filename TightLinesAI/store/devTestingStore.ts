@@ -1,5 +1,5 @@
 /**
- * Dev Testing Store — QA toggles (dev builds only in UI)
+ * Dev Testing Store — QA/admin preview toggles
  *
  * Persisted via AsyncStorage. Location overrides were removed — use the home
  * screen location picker instead.
@@ -15,7 +15,7 @@ export type DevSubscriptionTier = 'free' | 'angler' | 'master_angler';
 export interface DevTestingState {
   /** When true, Home uses null coords → "Sync location" state */
   ignoreGps: boolean;
-  /** When set (__DEV__ only in Settings UI), overrides profile subscription_tier for feature gating */
+  /** When set, trusted callers can override profile subscription_tier for feature gating previews. */
   overrideSubscriptionTier: DevSubscriptionTier | null;
   load: () => Promise<void>;
   setIgnoreGps: (value: boolean) => Promise<void>;

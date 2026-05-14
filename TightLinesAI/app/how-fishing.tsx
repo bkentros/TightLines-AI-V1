@@ -58,6 +58,7 @@ import { HowFishingLoadingSkeleton } from "../components/fishing/HowFishingLoadi
 import { TopographicLines } from "../components/paper";
 import { getEffectiveTier } from "../lib/subscription";
 import { FeedbackCard } from "../components/FeedbackCard";
+import { isAdminEmail } from "../lib/adminAccess";
 
 /* ─── Date/time helpers ─────────────────────────────────────────────────── */
 
@@ -239,9 +240,11 @@ export default function HowFishingScreen() {
   const overrideSubscriptionTier = useDevTestingStore((s) =>
     s.overrideSubscriptionTier
   );
+  const loadDevTesting = useDevTestingStore((s) => s.load);
   const effectiveTier = getEffectiveTier(
     profile,
     overrideSubscriptionTier ?? null,
+    __DEV__ || isAdminEmail(user?.email),
   );
   const isFreeTier = effectiveTier === "free";
   const isLimitedFreeRead = isFreeTier && !isForecastDay;
@@ -250,6 +253,10 @@ export default function HowFishingScreen() {
 
   const [env, setEnv] = useState<EnvironmentData | null>(null);
   const [envLoading, setEnvLoading] = useState(true);
+
+  useEffect(() => {
+    if (__DEV__ || isAdminEmail(user?.email)) loadDevTesting();
+  }, [loadDevTesting, user?.email]);
   const [locationLabel, setLocationLabel] = useState<string>(
     "Current location",
   );
