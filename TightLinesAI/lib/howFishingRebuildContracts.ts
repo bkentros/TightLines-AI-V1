@@ -169,6 +169,7 @@ export interface HowFishingRebuildBundle {
   feature: typeof HOWS_FISHING_REBUILD_FEATURE;
   generated_at: string;
   cache_expires_at: string;
+  access_tier?: 'free_limited' | 'angler';
   engine_context: EngineContextKey;
   report: HowsFishingReportV1;
   usage?: { input_tokens: number; output_tokens: number; token_cost_usd: number };
@@ -180,6 +181,7 @@ export interface HowFishingRebuildMultiBundle {
   mode: 'multi';
   generated_at: string;
   cache_expires_at: string;
+  access_tier?: 'free_limited' | 'angler';
   contexts: EngineContextKey[];
   reports: Partial<Record<EngineContextKey, HowFishingRebuildBundle>>;
   failed_contexts?: EngineContextKey[];

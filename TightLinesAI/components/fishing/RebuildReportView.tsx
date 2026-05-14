@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import { View, Text, StyleSheet, Animated, Easing } from 'react-native';
+import { Modal, Pressable, View, Text, StyleSheet, Animated, Easing } from 'react-native';
+import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -129,6 +130,39 @@ const TIP_TAG_LABELS: Record<ActionableTipTag, string> = {
   presentation_general: 'PRESENTATION',
 };
 
+const ANGLER_UNLOCKS: Array<{
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  copy: string;
+}> = [
+  {
+    icon: 'analytics-outline',
+    title: 'Bite reports',
+    copy: 'Full condition reports for today plus the next 6 days, including score, drivers, best windows, and guide-level context.',
+  },
+  {
+    icon: 'fish-outline',
+    title: 'Tackle Box',
+    copy: 'Condition-matched lure and presentation picks tuned to your water type, species, season, and daily conditions.',
+  },
+  {
+    icon: 'scan-outline',
+    title: 'Water Read',
+    copy: 'Advanced intelligence that reads geometrical structure to identify high percentage fishing zones.',
+  },
+];
+
+const LIMITED_FEATURE_PILLS: Array<{
+  icon: keyof typeof Ionicons.glyphMap;
+  label: string;
+  color: string;
+}> = [
+  { icon: 'analytics-outline', label: 'BITE FACTORS', color: paper.bandPrime },
+  { icon: 'time-outline', label: 'BEST WINDOWS', color: paper.bandFair },
+  { icon: 'sparkles-outline', label: 'GUIDE NOTE', color: paper.dashboardBlue },
+  { icon: 'calendar-outline', label: '7-DAY REPORTS', color: paper.bandPoor },
+];
+
 // ─── Air-temp / meta strip ───────────────────────────────────────────────────
 
 /**
@@ -248,12 +282,17 @@ export function RebuildReportView({
   report,
   solunarData,
   dateLabel = 'TODAY',
+  isLimited = false,
 }: {
   report: HowsFishingReportV1;
   solunarData?: SolunarData | null;
   /** Uppercase date label shown in the hero outlook eyebrow. */
   dateLabel?: string;
+  /** Free-tier preview: show the headline read and hide the deeper guide detail. */
+  isLimited?: boolean;
 }) {
+  const router = useRouter();
+  const [showAnglerModal, setShowAnglerModal] = useState(false);
   const tier = tierForScore(report.score);
   const accent = accentForScore100(report.score);
   // Derive the band label locally from the numeric score using the same
@@ -371,6 +410,65 @@ export function RebuildReportView({
 
         <HeroMetaStrip report={report} />
       </View>
+
+      {isLimited ? (
+        <View style={styles.limitedCard}>
+          <TopographicLines
+            style={styles.limitedTopoLines}
+            color={paper.dashboardBlue}
+            count={3}
+          />
+          <View style={styles.limitedIcon}>
+            <Ionicons name="lock-closed" size={18} color={paper.dashboardBlue} />
+          </View>
+          <Text style={styles.limitedTitle}>ANGLER UNLOCKS THE FULL READ</Text>
+          <Text style={styles.limitedCopy}>
+            This preview gives you today&apos;s score and day summary. The full
+            report opens the why, when, and what-to-throw behind the number.
+          </Text>
+          <View style={styles.limitedFeatureGrid}>
+            {LIMITED_FEATURE_PILLS.map((item) => (
+              <View
+                key={item.label}
+                style={[
+                  styles.limitedFeaturePill,
+                  {
+                    borderColor: `${item.color}88`,
+                    backgroundColor: `${item.color}18`,
+                  },
+                ]}
+              >
+                <View style={[styles.limitedFeatureIcon, { backgroundColor: item.color }]}>
+                  <Ionicons
+                    name={item.icon}
+                    size={10}
+                    color={item.color === paper.dashboardBlue ? '#FFFFFF' : paper.dashboardInk}
+                  />
+                </View>
+                <Text style={styles.limitedFeatureText}>{item.label}</Text>
+              </View>
+            ))}
+          </View>
+          <Pressable
+            style={({ pressed }) => [styles.limitedCta, pressed && styles.limitedCtaPressed]}
+            onPress={() => setShowAnglerModal(true)}
+          >
+            <Text style={styles.limitedCtaText}>UPGRADE TO ANGLER</Text>
+            <Ionicons name="arrow-forward" size={14} color="#FFFFFF" />
+          </Pressable>
+          <AnglerUpgradeModal
+            visible={showAnglerModal}
+            onClose={() => setShowAnglerModal(false)}
+            onViewPlans={() => {
+              setShowAnglerModal(false);
+              router.push('/subscribe');
+            }}
+          />
+        </View>
+      ) : null}
+
+      {isLimited ? null : (
+        <>
 
       {/* ── ANALYTICAL SECTION (drivers + watchouts) ────────────────────── */}
       <SectionMasthead title="BITE FACTORS" meta={isFuture ? 'forecast' : 'today'} />
@@ -593,7 +691,99 @@ export function RebuildReportView({
         </Text>
         <View style={styles.editionStampRule} />
       </View>
+        </>
+      )}
     </View>
+  );
+}
+
+function AnglerUpgradeModal({
+  visible,
+  onClose,
+  onViewPlans,
+}: {
+  visible: boolean;
+  onClose: () => void;
+  onViewPlans: () => void;
+}) {
+  return (
+    <Modal
+      visible={visible}
+      transparent
+      animationType="fade"
+      onRequestClose={onClose}
+    >
+      <View style={styles.upgradeOverlay}>
+        <View style={styles.upgradeSheet}>
+          <TopographicLines
+            style={styles.upgradeTopoLines}
+            color={paper.dashboardBlue}
+            count={5}
+          />
+          <Pressable
+            style={({ pressed }) => [
+              styles.upgradeClose,
+              pressed && styles.upgradeClosePressed,
+            ]}
+            onPress={onClose}
+            hitSlop={12}
+            accessibilityLabel="Close Angler upgrade"
+          >
+            <Ionicons name="close" size={17} color={paper.dashboardInk} />
+          </Pressable>
+
+          <View style={styles.upgradeBadge}>
+            <Ionicons name="trophy" size={18} color={paper.dashboardInk} />
+          </View>
+          <Text style={styles.upgradeEyebrow}>FINFINDR · ANGLER</Text>
+          <Text style={styles.upgradeTitle}>
+            Unlock the full daily read<Text style={styles.upgradeTitleDot}>.</Text>
+          </Text>
+          <Text style={styles.upgradeSubtitle}>Plus intelligent tools built for the way you fish.</Text>
+          <Text style={styles.upgradeCopy}>
+            Angler turns the preview into a full planning system: deeper bite
+            reports, precision tackle direction, and water-structure reads.
+          </Text>
+
+          <View style={styles.upgradeList}>
+            {ANGLER_UNLOCKS.map((item) => (
+              <View key={item.title} style={styles.upgradeItem}>
+                <View style={styles.upgradeItemIcon}>
+                  <Ionicons name={item.icon} size={14} color={paper.dashboardBlue} />
+                </View>
+                <View style={styles.upgradeItemBody}>
+                  <Text style={styles.upgradeItemTitle}>{item.title}</Text>
+                  <Text style={styles.upgradeItemCopy}>{item.copy}</Text>
+                </View>
+                <View style={styles.upgradeItemCheck}>
+                  <Ionicons name="checkmark" size={11} color="#FFFFFF" />
+                </View>
+              </View>
+            ))}
+          </View>
+
+          <Pressable
+            style={({ pressed }) => [
+              styles.upgradePrimary,
+              pressed && styles.upgradePrimaryPressed,
+            ]}
+            onPress={onViewPlans}
+          >
+            <Text style={styles.upgradePrimaryText}>UPGRADE TO ANGLER</Text>
+            <Ionicons name="arrow-forward" size={14} color="#FFFFFF" />
+          </Pressable>
+          <Pressable
+            style={({ pressed }) => [
+              styles.upgradeSecondary,
+              pressed && styles.upgradeSecondaryPressed,
+            ]}
+            onPress={onClose}
+          >
+            <Text style={styles.upgradeSecondaryText}>KEEP PREVIEW</Text>
+          </Pressable>
+        </View>
+      </View>
+    </Modal>
   );
 }
 
@@ -1936,6 +2126,292 @@ const styles = StyleSheet.create({
     opacity: 0.86,
     textAlign: 'left',
     letterSpacing: 0,
+  },
+  limitedCard: {
+    position: 'relative',
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
+    borderRadius: 10,
+    padding: paperSpacing.lg,
+    alignItems: 'center',
+    overflow: 'hidden',
+  },
+  limitedTopoLines: {
+    top: -18,
+    left: -16,
+    right: -16,
+    height: 88,
+    opacity: 0.12,
+  },
+  limitedIcon: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    borderWidth: 1,
+    borderColor: paper.dashboardHair,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: paperSpacing.sm,
+  },
+  limitedTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    color: paper.dashboardInk,
+    letterSpacing: 2,
+    textAlign: 'center',
+    marginBottom: paperSpacing.sm,
+  },
+  limitedCopy: {
+    fontFamily: paperFonts.body,
+    fontSize: 13,
+    lineHeight: 19,
+    color: paper.dashboardInk,
+    opacity: 0.72,
+    textAlign: 'center',
+    marginBottom: paperSpacing.md,
+  },
+  limitedFeatureGrid: {
+    width: '100%',
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 8,
+    marginBottom: paperSpacing.lg,
+  },
+  limitedFeaturePill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlueSky,
+    borderRadius: 999,
+    paddingLeft: 5,
+    paddingRight: 10,
+    paddingVertical: 5,
+  },
+  limitedFeatureIcon: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(10,27,46,0.14)',
+  },
+  limitedFeatureText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.8,
+    letterSpacing: 1.2,
+    color: paper.dashboardInk,
+  },
+  limitedCta: {
+    minHeight: 42,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    backgroundColor: paper.dashboardBlue,
+    borderRadius: 8,
+    paddingHorizontal: paperSpacing.lg,
+  },
+  limitedCtaPressed: {
+    opacity: 0.82,
+  },
+  limitedCtaText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    color: '#FFFFFF',
+    letterSpacing: 2,
+  },
+  upgradeOverlay: {
+    flex: 1,
+    backgroundColor: 'rgba(10,27,46,0.68)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: paperSpacing.lg,
+  },
+  upgradeSheet: {
+    width: '100%',
+    maxWidth: 430,
+    maxHeight: '92%',
+    position: 'relative',
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    borderRadius: 12,
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.xl,
+    paddingBottom: paperSpacing.lg,
+    overflow: 'hidden',
+  },
+  upgradeTopoLines: {
+    top: -34,
+    left: -20,
+    right: -20,
+    height: 124,
+    opacity: 0.1,
+  },
+  upgradeClose: {
+    position: 'absolute',
+    top: 12,
+    right: 12,
+    zIndex: 2,
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    borderWidth: 1,
+    borderColor: paper.dashboardHair,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.82)',
+  },
+  upgradeClosePressed: {
+    opacity: 0.72,
+  },
+  upgradeBadge: {
+    width: 48,
+    height: 48,
+    borderRadius: 24,
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    backgroundColor: paper.bandFair,
+    borderWidth: 1,
+    borderColor: 'rgba(10,27,46,0.18)',
+    marginBottom: paperSpacing.sm,
+  },
+  upgradeEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    textAlign: 'center',
+    marginBottom: paperSpacing.xs,
+  },
+  upgradeTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 28,
+    lineHeight: 32,
+    letterSpacing: 0,
+    color: paper.dashboardInk,
+    fontWeight: '700',
+    textAlign: 'center',
+  },
+  upgradeTitleDot: {
+    color: paper.dashboardBlue,
+  },
+  upgradeSubtitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    lineHeight: 15,
+    letterSpacing: 1.5,
+    color: paper.dashboardBlue,
+    textAlign: 'center',
+    textTransform: 'uppercase',
+    marginTop: paperSpacing.xs,
+  },
+  upgradeCopy: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 13,
+    lineHeight: 19,
+    color: paper.dashboardInk,
+    opacity: 0.76,
+    textAlign: 'center',
+    marginTop: paperSpacing.sm,
+    marginBottom: paperSpacing.md,
+  },
+  upgradeList: {
+    gap: 11,
+    marginBottom: paperSpacing.lg,
+  },
+  upgradeItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 12,
+    position: 'relative',
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    borderWidth: 1.25,
+    borderColor: 'rgba(61,168,95,0.42)',
+    backgroundColor: '#F4FAF1',
+    borderRadius: 8,
+  },
+  upgradeItemIcon: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    borderWidth: 1,
+    borderColor: 'rgba(61,168,95,0.34)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(61,168,95,0.14)',
+  },
+  upgradeItemBody: {
+    flex: 1,
+  },
+  upgradeItemTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10.5,
+    letterSpacing: 1.6,
+    color: paper.dashboardInk,
+    marginBottom: 4,
+    textTransform: 'uppercase',
+  },
+  upgradeItemCopy: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 17,
+    color: paper.dashboardInk,
+    opacity: 0.78,
+  },
+  upgradeItemCheck: {
+    width: 19,
+    height: 19,
+    borderRadius: 9.5,
+    backgroundColor: paper.bandPrime,
+    borderWidth: 1,
+    borderColor: 'rgba(10,27,46,0.12)',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 1,
+  },
+  upgradePrimary: {
+    minHeight: 46,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
+  },
+  upgradePrimaryPressed: {
+    opacity: 0.84,
+  },
+  upgradePrimaryText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 2,
+    color: '#FFFFFF',
+  },
+  upgradeSecondary: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: paperSpacing.sm,
+    marginTop: paperSpacing.xs,
+  },
+  upgradeSecondaryPressed: {
+    opacity: 0.68,
+  },
+  upgradeSecondaryText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.7,
+    color: paper.dashboardMuted,
   },
 
   // ── Hero meta strip (air · ctx · tz) ─────────────────────────────────

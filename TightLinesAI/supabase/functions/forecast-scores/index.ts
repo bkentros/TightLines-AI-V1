@@ -79,6 +79,43 @@ function num(x: unknown): number | null {
   return Number.isFinite(n) ? n : null;
 }
 
+function intInRange(x: unknown, fallback: number, min: number, max: number): number {
+  const n = Number(x);
+  if (!Number.isFinite(n)) return fallback;
+  return Math.max(min, Math.min(max, Math.floor(n)));
+}
+
+function trimArray<T>(value: unknown, endExclusive: number): T[] | undefined {
+  return Array.isArray(value) ? (value as T[]).slice(0, endExclusive) : undefined;
+}
+
+function trimSnapshotForMaxDayOffset(
+  envRecord: Record<string, unknown>,
+  maxDayOffset: number,
+): Record<string, unknown> {
+  const maxDailyLength = 14 + maxDayOffset + 1;
+  const maxHourlyLength = maxDailyLength * 24;
+  const weather = envRecord.weather && typeof envRecord.weather === "object"
+    ? { ...(envRecord.weather as Record<string, unknown>) }
+    : null;
+  if (weather) {
+    const highs = trimArray<number>(weather.temp_7day_high, maxDailyLength);
+    const lows = trimArray<number>(weather.temp_7day_low, maxDailyLength);
+    if (highs) weather.temp_7day_high = highs;
+    if (lows) weather.temp_7day_low = lows;
+  }
+  return {
+    ...envRecord,
+    ...(weather ? { weather } : {}),
+    forecast_daily: trimArray(envRecord.forecast_daily, maxDayOffset + 1) ?? [],
+    hourly_pressure_mb: trimArray(envRecord.hourly_pressure_mb, maxHourlyLength) ?? [],
+    hourly_air_temp_f: trimArray(envRecord.hourly_air_temp_f, maxHourlyLength) ?? [],
+    hourly_cloud_cover_pct: trimArray(envRecord.hourly_cloud_cover_pct, maxHourlyLength) ?? [],
+    hourly_wind_speed: trimArray(envRecord.hourly_wind_speed, maxHourlyLength) ?? [],
+    forecast_tides_by_date: trimArray(envRecord.forecast_tides_by_date, maxDayOffset + 1) ?? [],
+  };
+}
+
 function haversineMiles(
   lat1: number,
   lon1: number,
@@ -338,6 +375,8 @@ Deno.serve(async (req: Request) => {
       },
     );
   }
+  const maxDayOffset = intInRange(body.max_day_offset, 6, 0, 6);
+  const includeSnapshotEnv = body.include_snapshot_env !== false;
 
   const MAX_RETRIES = 3;
   const RETRY_DELAY_MS = 600;
@@ -425,7 +464,7 @@ Deno.serve(async (req: Request) => {
 
   const forecast = [];
 
-  for (let D = 0; D < 7 && D < days.length; D++) {
+  for (let D = 0; D <= maxDayOffset && D < days.length; D++) {
     const localDate = days[D]!.date;
     if (!localDate || localDate.length !== 10) break;
 
@@ -498,8 +537,16 @@ Deno.serve(async (req: Request) => {
     });
   }
 
+  const responseBody = includeSnapshotEnv
+    ? {
+      forecast,
+      timezone,
+      snapshot_env: trimSnapshotForMaxDayOffset(envRecord, maxDayOffset),
+    }
+    : { forecast, timezone };
+
   return new Response(
-    JSON.stringify({ forecast, timezone, snapshot_env: envRecord }),
+    JSON.stringify(responseBody),
     {
       status: 200,
       headers: { ...corsHeaders(), "Content-Type": "application/json" },

@@ -23,8 +23,8 @@ export {
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
-/** v6 invalidates stale coastal-eligibility snapshots after the 15-mile gating change. */
-const CACHE_KEY_PREFIX = "forecast_scores_v6";
+/** v7 keys include the requested forecast scope so free previews never hydrate from a full paid cache. */
+const CACHE_KEY_PREFIX = "forecast_scores_v7";
 
 const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v1",
@@ -33,6 +33,7 @@ const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v4",
   "forecast_scores_v5",
   "forecast_scores_v6",
+  "forecast_scores_v7",
 ] as const;
 
 // ---------------------------------------------------------------------------
@@ -55,6 +56,13 @@ export interface ForecastScoresResult {
   timezone: string;
   fetched_at: string; // ISO string
   snapshot_env?: ForecastSnapshotEnv;
+}
+
+export interface ForecastScoresOptions {
+  /** Highest day_offset to request from the edge function. Defaults to the full 6-day outlook. */
+  maxDayOffset?: number;
+  /** Include the forecast snapshot used for report generation and per-day hi/lo display. */
+  includeSnapshotEnv?: boolean;
 }
 
 export interface ForecastSnapshotTideDay {
@@ -128,11 +136,28 @@ function normalizeForecastRows(
 // Cache helpers
 // ---------------------------------------------------------------------------
 
-function cacheKey(lat: number, lon: number): string {
+function normalizedForecastOptions(options?: ForecastScoresOptions): {
+  maxDayOffset: number;
+  includeSnapshotEnv: boolean;
+} {
+  const rawMax = options?.maxDayOffset;
+  const maxDayOffset = Number.isFinite(rawMax)
+    ? Math.max(0, Math.min(6, Math.floor(rawMax as number)))
+    : 6;
+  return {
+    maxDayOffset,
+    includeSnapshotEnv: options?.includeSnapshotEnv ?? true,
+  };
+}
+
+function cacheKey(lat: number, lon: number, options?: ForecastScoresOptions): string {
   // Round to ~1km to tolerate minor GPS drift
   const latR = Math.round(lat * 100) / 100;
   const lonR = Math.round(lon * 100) / 100;
-  return `${CACHE_KEY_PREFIX}_${latR}_${lonR}`;
+  const normalized = normalizedForecastOptions(options);
+  return `${CACHE_KEY_PREFIX}_${latR}_${lonR}_d${normalized.maxDayOffset}_s${
+    normalized.includeSnapshotEnv ? 1 : 0
+  }`;
 }
 
 // ---------------------------------------------------------------------------
@@ -202,8 +227,10 @@ export function scoreColor(raw: number): string {
 export async function getForecastScores(
   lat: number,
   lon: number,
+  options?: ForecastScoresOptions,
 ): Promise<ForecastScoresResult | null> {
-  const key = cacheKey(lat, lon);
+  const normalizedOptions = normalizedForecastOptions(options);
+  const key = cacheKey(lat, lon, normalizedOptions);
 
   // Check cache first
   try {
@@ -234,7 +261,12 @@ export async function getForecastScores(
         apikey: SUPABASE_ANON_KEY,
         Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
       },
-      body: JSON.stringify({ latitude: lat, longitude: lon }),
+      body: JSON.stringify({
+        latitude: lat,
+        longitude: lon,
+        max_day_offset: normalizedOptions.maxDayOffset,
+        include_snapshot_env: normalizedOptions.includeSnapshotEnv,
+      }),
     });
 
     if (!res.ok) {
@@ -293,8 +325,15 @@ export async function getForecastScores(
  * so the next fetch is for the new coordinates).
  */
 export function invalidateForecastCache(lat: number, lon: number): void {
-  const key = cacheKey(lat, lon);
-  AsyncStorage.removeItem(key).catch(() => {});
+  const latR = Math.round(lat * 100) / 100;
+  const lonR = Math.round(lon * 100) / 100;
+  AsyncStorage.getAllKeys()
+    .then((keys) =>
+      AsyncStorage.multiRemove(
+        keys.filter((k) => k.startsWith(`${CACHE_KEY_PREFIX}_${latR}_${lonR}_`)),
+      )
+    )
+    .catch(() => {});
 }
 
 /** Remove all stored 7-day forecast chip caches (any location). */

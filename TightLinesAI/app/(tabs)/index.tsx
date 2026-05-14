@@ -88,6 +88,63 @@ const FORECAST_TILE_W = Math.max(
       FORECAST_COLS,
   ),
 );
+const LOCKED_FORECAST_BANDS: PaperScoreBand[] = [
+  "Tough",
+  "Poor",
+  "Fair",
+  "Good",
+  "Prime",
+];
+
+type LockedForecastPlaceholder = {
+  kind: "locked";
+  key: string;
+  dayLabel: string;
+  dateNum: string;
+  color: string;
+};
+
+function hashForecastSeed(seed: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < seed.length; i++) {
+    h ^= seed.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+
+function seededUnit(seed: number): number {
+  const next = Math.imul(seed ^ (seed >>> 15), 2246822507);
+  return ((next ^ (next >>> 13)) >>> 0) / 4294967295;
+}
+
+function buildLockedForecastPlaceholders(seedInput: string): LockedForecastPlaceholder[] {
+  const seed = hashForecastSeed(seedInput);
+  const bands = [...LOCKED_FORECAST_BANDS];
+  for (let i = bands.length - 1; i > 0; i--) {
+    const j = Math.floor(seededUnit(seed + i * 101) * (i + 1));
+    [bands[i], bands[j]] = [bands[j]!, bands[i]!];
+  }
+
+  const [seedDate] = seedInput.split("|");
+  const [year, month, day] = (seedDate ?? "").split("-").map(Number);
+  const start = Number.isFinite(year) && Number.isFinite(month) && Number.isFinite(day)
+    ? new Date(year!, month! - 1, day! + 1, 12)
+    : new Date(Date.now() + 2 * 24 * 60 * 60 * 1000);
+
+  return bands.map((band, i) => {
+    const date = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
+    return {
+      kind: "locked",
+      key: `locked-${i}-${band}`,
+      dayLabel: abbreviateDay(
+        date.toLocaleDateString("en-US", { weekday: "short" }),
+      ),
+      dateNum: String(date.getDate()),
+      color: dashboardBandColor[band].bg,
+    };
+  });
+}
 
 // ─── Font tokens (loaded by app/_layout.tsx) ─────────────────────────────────
 const SERIF_BOLD = "Fraunces_700Bold";
@@ -182,6 +239,13 @@ export default function HomeScreen() {
   const locationCoastalEligible = envMatchesCoords
     ? Boolean(envData?.coastal)
     : (forecastCoastalEligible ?? false);
+
+  // ── Subscription gating ───────────────────────────────────────────────────
+  const effectiveTier = getEffectiveTier(
+    profile,
+    overrideSubscriptionTier ?? null,
+  );
+  const hasSubscription = canUseAIFeatures(effectiveTier);
 
   useEffect(() => {
     if (!gpsCoords) {
@@ -336,7 +400,11 @@ export default function HomeScreen() {
     const mySeq = ++forecastFetchSeq.current;
     setForecastLoading(true);
     try {
-      const result = await getForecastScores(lat, lon);
+      const result = await getForecastScores(
+        lat,
+        lon,
+        hasSubscription ? undefined : { maxDayOffset: 1, includeSnapshotEnv: true },
+      );
       if (mySeq !== forecastFetchSeq.current) return;
       if (result) {
         setForecastDays(result.forecast);
@@ -357,7 +425,7 @@ export default function HomeScreen() {
     } finally {
       if (mySeq === forecastFetchSeq.current) setForecastLoading(false);
     }
-  }, [coords?.lat, coords?.lon]);
+  }, [coords?.lat, coords?.lon, hasSubscription]);
 
   useEffect(() => {
     void loadForecastScores();
@@ -423,13 +491,6 @@ export default function HomeScreen() {
     });
     return () => subscription.remove();
   }, [refreshLiveConditions, loadForecastScores]);
-
-  // ── Subscription gating ───────────────────────────────────────────────────
-  const effectiveTier = getEffectiveTier(
-    profile,
-    overrideSubscriptionTier ?? null,
-  );
-  const hasSubscription = canUseAIFeatures(effectiveTier);
 
   // ── Location picker handlers ──────────────────────────────────────────────
   const handleLocationSelect = useCallback(
@@ -523,10 +584,6 @@ export default function HomeScreen() {
 
   const handleHowFishingPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Medium);
-    if (!hasSubscription) {
-      setShowSubscribePrompt(true);
-      return;
-    }
     if (!coords) {
       router.push({ pathname: "/how-fishing" });
       return;
@@ -539,14 +596,10 @@ export default function HomeScreen() {
         location_label: locationLabel,
       },
     });
-  }, [hasSubscription, coords, locationLabel, router]);
+  }, [coords, locationLabel, router]);
 
   const handleRecommenderPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Medium);
-    if (!hasSubscription) {
-      setShowSubscribePrompt(true);
-      return;
-    }
     const params: Record<string, string> = {};
     if (coords) {
       params.latitude = String(coords.lat);
@@ -554,7 +607,7 @@ export default function HomeScreen() {
       params.location_label = locationLabel;
     }
     router.push({ pathname: "/recommender", params });
-  }, [hasSubscription, coords, locationLabel, router]);
+  }, [coords, locationLabel, router]);
 
   const handleWaterReadPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Light);
@@ -607,6 +660,20 @@ export default function HomeScreen() {
       0,
       FORECAST_COLS,
     );
+  const lockedForecastPlaceholders = useMemo(
+    () =>
+      buildLockedForecastPlaceholders(
+        `${forecastDisplayDays[0]?.date ?? ""}|${coords?.lat ?? ""}|${coords?.lon ?? ""}`,
+      ),
+    [forecastDisplayDays[0]?.date, coords?.lat, coords?.lon],
+  );
+  const forecastTileSlots:
+    Array<DayForecastScore | LockedForecastPlaceholder | null> =
+      forecastDisplayDays.length > 0
+        ? hasSubscription
+          ? forecastDisplayDays
+          : [forecastDisplayDays[0]!, ...lockedForecastPlaceholders]
+        : Array.from({ length: FORECAST_COLS }).map(() => null);
 
   // ── Live wall-clock + greeting ────────────────────────────────────────────
   const [now, setNow] = useState(() => new Date());
@@ -1192,22 +1259,22 @@ export default function HomeScreen() {
               <View style={styles.liveRefreshHintIcon}>
                 <Ionicons
                   name={refreshing ? "sync" : "arrow-down"}
-                  size={13}
+                  size={10}
                   color={paper.dashboardBlue}
                 />
               </View>
-              <View style={styles.liveRefreshHintCopy}>
-                <Text style={styles.liveRefreshHintText}>
-                  {refreshing
-                    ? "Checking for updated live conditions..."
-                    : agoSeconds == null
-                      ? "Live conditions ready"
-                      : `Checked ${formatAgo(agoSeconds).toLowerCase()}`}
-                </Text>
-                <Text style={styles.liveRefreshHintSubtext}>
-                  Swipe down to check for updates
-                </Text>
-              </View>
+              <Text
+                style={styles.liveRefreshHintText}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.8}
+              >
+                {refreshing
+                  ? "Checking live conditions..."
+                  : agoSeconds == null
+                    ? "Live conditions ready · swipe down to update"
+                    : `Checked ${formatAgo(agoSeconds).toLowerCase()} · swipe down to update`}
+              </Text>
             </View>
           </View>
         </View>
@@ -1222,11 +1289,9 @@ export default function HomeScreen() {
           </View>
 
           <View style={styles.forecastGrid}>
-            {(forecastDisplayDays.length > 0
-              ? forecastDisplayDays
-              : Array.from({ length: FORECAST_COLS }).map(() => null)).map(
-                (day, i) => {
-                  if (!day) {
+            {forecastTileSlots.map(
+              (day, i) => {
+                if (!day) {
                     return (
                       <View
                         key={`skel-${i}`}
@@ -1240,24 +1305,64 @@ export default function HomeScreen() {
                       </View>
                     );
                   }
-                  const raw = combinedOutlookScore(day);
+                  if ("kind" in day && day.kind === "locked") {
+                    return (
+                      <Pressable
+                        key={day.key}
+                        onPress={() => setShowSubscribePrompt(true)}
+                        accessibilityLabel="Locked Angler forecast day"
+                        style={({ pressed }) => [
+                          styles.forecastTile,
+                          styles.forecastTileLocked,
+                          pressed && { opacity: 0.85 },
+                        ]}
+                      >
+                        <View style={styles.forecastTileHead}>
+                          <Text style={styles.forecastTileDay} numberOfLines={1}>
+                            {day.dayLabel}
+                          </Text>
+                          <Text style={styles.forecastTileDate}>{day.dateNum}</Text>
+                        </View>
+                        <View
+                          style={[
+                            styles.forecastTileScoreBlock,
+                            styles.forecastTileLockedScoreBlock,
+                            { backgroundColor: day.color },
+                          ]}
+                        >
+                          <View pointerEvents="none" style={styles.forecastTileLockVeil} />
+                          <Ionicons
+                            name="lock-closed"
+                            size={15}
+                            color="rgba(10,27,46,0.58)"
+                            style={styles.forecastTileLockIcon}
+                          />
+                        </View>
+                        <View style={styles.forecastTileHiLo}>
+                          <Text style={styles.forecastTileLockedHint}>ANGLER</Text>
+                        </View>
+                      </Pressable>
+                    );
+                  }
+                  const realDay = day as DayForecastScore;
+                  const raw = combinedOutlookScore(realDay);
                   const score10 = raw / 10;
                   const tileBg = scoreAccentColor(score10);
                   const isFirst = i === 0;
-                  const dateNum = day.month_day?.split(/[ /-]/).pop() ?? "";
+                  const dateNum = realDay.month_day?.split(/[ /-]/).pop() ?? "";
                   const dayLabel = isFirst
                     ? "TOMORROW"
-                    : abbreviateDay(day.day_label);
+                    : abbreviateDay(realDay.day_label);
                   // 21-entry hi/lo arrays: index 14 = today, so 14 + day_offset
                   // gives this forecast day's slot. Fallback to em-dashes when
                   // the forecast snapshot didn't carry the temperature arrays.
-                  const tIdx = 14 + day.day_offset;
+                  const tIdx = 14 + realDay.day_offset;
                   const tileHi = forecastHighs?.[tIdx];
                   const tileLo = forecastLows?.[tIdx];
                   return (
                     <Pressable
-                      key={day.date}
-                      onPress={() => handleForecastDayPress(day)}
+                      key={realDay.date}
+                      onPress={() => handleForecastDayPress(realDay)}
                       style={(
                         { pressed },
                       ) => [styles.forecastTile, pressed && { opacity: 0.85 }]}
@@ -1269,7 +1374,7 @@ export default function HomeScreen() {
                       )}
                       <View style={styles.forecastTileHead}>
                         <Text style={styles.forecastTileDay} numberOfLines={1}>
-                          {isFirst ? abbreviateDay(day.day_label) : dayLabel}
+                          {isFirst ? abbreviateDay(realDay.day_label) : dayLabel}
                         </Text>
                         <Text style={styles.forecastTileDate}>{dateNum}</Text>
                       </View>
@@ -1300,8 +1405,8 @@ export default function HomeScreen() {
                       </View>
                     </Pressable>
                   );
-                },
-              )}
+              },
+            )}
           </View>
 
           <View style={styles.forecastLegend}>
@@ -2240,40 +2345,31 @@ const styles = StyleSheet.create({
   liveRefreshHint: {
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
-    marginTop: 12,
-    paddingTop: 12,
+    justifyContent: "flex-start",
+    gap: 6,
+    marginTop: 9,
+    paddingTop: 8,
     borderTopWidth: 1,
     borderTopColor: "rgba(31,58,74,0.08)",
   },
   liveRefreshHintIcon: {
-    width: 22,
-    height: 22,
-    borderRadius: 11,
+    width: 17,
+    height: 17,
+    borderRadius: 8.5,
     alignItems: "center",
     justifyContent: "center",
     backgroundColor: "rgba(79,149,194,0.10)",
     borderWidth: 1,
     borderColor: "rgba(79,149,194,0.18)",
   },
-  liveRefreshHintCopy: {
-    flex: 1,
-  },
   liveRefreshHintText: {
-    fontFamily: SANS_SEMI,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 0,
-    textAlign: "left",
-  },
-  liveRefreshHintSubtext: {
-    marginTop: 2,
-    fontFamily: SANS_MEDIUM,
-    fontSize: 10.5,
+    flex: 1,
+    fontFamily: MONO,
+    fontSize: 8.5,
     color: paper.dashboardMuted,
     letterSpacing: 0,
     textAlign: "left",
+    opacity: 0.78,
   },
 
   // bite CTA
@@ -2414,6 +2510,9 @@ const styles = StyleSheet.create({
     position: "relative",
     paddingTop: 0,
   },
+  forecastTileLocked: {
+    borderColor: "rgba(10,27,46,0.16)",
+  },
   forecastTileSkeleton: { height: 76, backgroundColor: "#EEE9DC" },
   forecastTileHeaderSkeleton: {
     height: 22,
@@ -2458,11 +2557,22 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
+  forecastTileLockedScoreBlock: {
+    position: "relative",
+    overflow: "hidden",
+  },
   forecastTileScore: {
     fontFamily: SERIF_BOLD,
     fontSize: 16,
     lineHeight: 18,
     letterSpacing: -0.5,
+  },
+  forecastTileLockVeil: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(255,255,255,0.28)",
+  },
+  forecastTileLockIcon: {
+    opacity: 0.72,
   },
   forecastTileHiLo: {
     paddingVertical: 3,
@@ -2483,6 +2593,14 @@ const styles = StyleSheet.create({
     fontFamily: MONO,
     color: paper.dashboardMuted,
     opacity: 0.5,
+  },
+  forecastTileLockedHint: {
+    fontFamily: MONO_BOLD,
+    fontSize: 7.5,
+    letterSpacing: 0.6,
+    color: paper.dashboardMuted,
+    opacity: 0.72,
+    lineHeight: 10,
   },
 
   forecastLegend: {

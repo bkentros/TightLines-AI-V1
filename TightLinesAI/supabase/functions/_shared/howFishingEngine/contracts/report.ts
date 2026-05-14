@@ -204,6 +204,7 @@ export type HowFishingRebuildBundle = {
   feature: typeof HOWS_FISHING_FEATURE_KEY;
   generated_at: string;
   cache_expires_at: string;
+  access_tier?: "free_limited" | "angler";
   engine_context: EngineContext;
   report: HowsFishingReport;
   usage?: {

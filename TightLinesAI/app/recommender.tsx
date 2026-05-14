@@ -71,6 +71,7 @@ import { ALL_LURE_IMAGES } from "../lib/lureImages";
 import { ALL_FLY_IMAGES } from "../lib/flyImages";
 import { Asset } from "expo-asset";
 import { useAuthStore } from "../store/authStore";
+import { useDevTestingStore } from "../store/devTestingStore";
 import { fetchRecommendation } from "../lib/recommender";
 import {
   getForecastScores,
@@ -79,6 +80,7 @@ import {
 import { getEnvironment } from "../lib/env";
 import { RecommenderView } from "../components/fishing/RecommenderView";
 import { RecommenderLoadingSkeleton } from "../components/fishing/RecommenderLoadingSkeleton";
+import { SubscribePrompt } from "../components/SubscribePrompt";
 import type {
   DailyPicksSpecies,
   DailyPicksVariant,
@@ -88,6 +90,7 @@ import type {
   SpeciesGroup,
   WaterClarity,
 } from "../lib/recommenderContracts";
+import { canUseAIFeatures, getEffectiveTier } from "../lib/subscription";
 import {
   DAILY_PICKS_UI_CONTEXTS,
   DAILY_PICKS_UI_SPECIES,
@@ -923,6 +926,10 @@ export default function RecommenderScreen() {
   }>();
 
   const { profile } = useAuthStore();
+  const overrideSubscriptionTier = useDevTestingStore((s) => s.overrideSubscriptionTier);
+  const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
+  const hasSubscription = canUseAIFeatures(effectiveTier);
+  const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   const lat = parseFloat(params.latitude ?? "");
   const lon = parseFloat(params.longitude ?? "");
@@ -1094,6 +1101,10 @@ export default function RecommenderScreen() {
       viewVariant?: DailyPicksVariant,
     ) => {
       if (!isReady || !species || !context || !clarity) return;
+      if (!hasSubscription) {
+        setShowSubscribePrompt(true);
+        return;
+      }
       const isInlineRefresh = (forceRefresh || viewVariant != null) &&
         screenState === "result" &&
         result !== null;
@@ -1178,6 +1189,7 @@ export default function RecommenderScreen() {
       lon,
       result,
       screenState,
+      hasSubscription,
     ],
   );
 
@@ -1372,6 +1384,10 @@ export default function RecommenderScreen() {
           }
           if (!isReady) return;
           hapticImpact(ImpactFeedbackStyle.Medium);
+          if (!hasSubscription) {
+            setShowSubscribePrompt(true);
+            return;
+          }
           handleFetch(false);
         };
 
@@ -1668,6 +1684,15 @@ export default function RecommenderScreen() {
           isRefreshing={isRefreshing}
         />
       )}
+
+      <SubscribePrompt
+        visible={showSubscribePrompt}
+        onDismiss={() => setShowSubscribePrompt(false)}
+        onViewPlans={() => {
+          setShowSubscribePrompt(false);
+          router.push('/subscribe');
+        }}
+      />
     </SafeAreaView>
   );
 }

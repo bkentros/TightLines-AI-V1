@@ -76,6 +76,7 @@ async function getCachedHowFishingRebuild(
     if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
     const expires = new Date(entry.cache_expires_at).getTime();
     if (Number.isFinite(expires) && Date.now() >= expires) return null;
+    if (entry.bundle.access_tier === 'free_limited') return null;
     return entry.bundle;
   } catch {
     return null;

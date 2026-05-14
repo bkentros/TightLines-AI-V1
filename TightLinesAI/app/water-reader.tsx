@@ -44,8 +44,12 @@ import {
   paperFonts,
   paperSpacing,
 } from '../lib/theme';
+import { SubscribePrompt } from '../components/SubscribePrompt';
 import { fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
 import { TopographicLines } from '../components/paper';
+import { useAuthStore } from '../store/authStore';
+import { useDevTestingStore } from '../store/devTestingStore';
+import { canUseAIFeatures, getEffectiveTier } from '../lib/subscription';
 import { WaterReaderMapCard } from '../components/water-reader/WaterReaderMapCard';
 import type { WaterReaderMapCardState } from '../components/water-reader/WaterReaderMapCard';
 import type {
@@ -236,6 +240,11 @@ type WaterReaderReadState =
 
 export default function WaterReaderScreen() {
   const router = useRouter();
+  const { profile } = useAuthStore();
+  const overrideSubscriptionTier = useDevTestingStore((s) => s.overrideSubscriptionTier);
+  const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
+  const hasSubscription = canUseAIFeatures(effectiveTier);
+  const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   const [stateCode, setStateCode] = useState<string | null>(null);
   const [stateModalOpen, setStateModalOpen] = useState(false);
@@ -345,7 +354,19 @@ export default function WaterReaderScreen() {
     return () => clearTimeout(t);
   }, [query, stateCode, runSearch]);
 
+  const openStatePicker = useCallback(() => {
+    if (!hasSubscription) {
+      setShowSubscribePrompt(true);
+      return;
+    }
+    setStateModalOpen(true);
+  }, [hasSubscription]);
+
   const onChangeState = useCallback(() => {
+    if (!hasSubscription) {
+      setShowSubscribePrompt(true);
+      return;
+    }
     setStateCode(null);
     setQuery('');
     setResults([]);
@@ -354,7 +375,7 @@ export default function WaterReaderScreen() {
     setSearchEmpty(false);
     setSearchExpanded(false);
     setStateModalOpen(true);
-  }, []);
+  }, [hasSubscription]);
 
   const onChangeLake = useCallback(() => {
     setSelected(null);
@@ -460,7 +481,7 @@ export default function WaterReaderScreen() {
                   styles.navStatePill,
                   pressed && styles.navStatePillPressed,
                 ]}
-                onPress={() => setStateModalOpen(true)}
+                onPress={openStatePicker}
                 hitSlop={8}
                 accessibilityLabel="Select state"
               >
@@ -517,7 +538,7 @@ export default function WaterReaderScreen() {
                   styles.stateButton,
                   pressed && styles.stateButtonPressed,
                 ]}
-                onPress={() => setStateModalOpen(true)}
+                onPress={openStatePicker}
                 accessibilityLabel="Select U.S. state"
               >
                 <Ionicons name="location-outline" size={14} color={paper.dashboardInk} />
@@ -879,6 +900,14 @@ export default function WaterReaderScreen() {
           </ScrollView>
         </View>
       </Modal>
+      <SubscribePrompt
+        visible={showSubscribePrompt}
+        onDismiss={() => setShowSubscribePrompt(false)}
+        onViewPlans={() => {
+          setShowSubscribePrompt(false);
+          router.push('/subscribe');
+        }}
+      />
     </View>
   );
 }

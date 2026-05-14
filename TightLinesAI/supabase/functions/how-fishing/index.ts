@@ -81,6 +81,25 @@ function normalizeSurfaceText(text: string | null | undefined): string | null {
   return text.replace(/\s+/g, " ").trim();
 }
 
+function limitReportForFree(report: HowsFishingReport): HowsFishingReport {
+  return {
+    ...report,
+    drivers: [],
+    suppressors: [],
+    actionable_tip: "Upgrade to Angler for the full guide note, bite factors, timing windows, and forecast reads.",
+    actionable_tip_tag: "presentation_general",
+    daypart_note: null,
+    daypart_preset: null,
+    highlighted_periods: undefined,
+    timing_debug: undefined,
+    timing_insight: null,
+    solunar_note: null,
+    data_coverage_notes: undefined,
+    normalized_debug: undefined,
+    condition_context: undefined,
+  };
+}
+
 function isCoastalEnv(envData: Record<string, unknown>): boolean {
   if (envData.coastal === true) return true;
   if (typeof envData.nearest_tide_station_id === "string" && envData.nearest_tide_station_id.length > 0) {
@@ -172,12 +191,6 @@ Deno.serve(async (req: Request) => {
     .eq("id", userId)
     .single();
   const tier = (profile?.subscription_tier as string) ?? "free";
-  if (tier === "free") {
-    return new Response(
-      JSON.stringify({ error: "subscription_required", message: "Subscribe to use this feature" }),
-      { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders() } }
-    );
-  }
 
   const billingPeriod = new Date().toISOString().slice(0, 7);
   const { data: usageRow } = await supabase
@@ -205,6 +218,15 @@ Deno.serve(async (req: Request) => {
     ? body.target_date
     : null;
   const useForecastSnapshot = body.use_forecast_snapshot === true;
+  const todayAtLocation = localDateInTz(extractTimezone(envData));
+  const isTodayRead = dayOffset === 0 && (targetDateStr == null || targetDateStr === todayAtLocation);
+  if (tier === "free" && !isTodayRead) {
+    return new Response(
+      JSON.stringify({ error: "subscription_required", message: "Subscribe to use forecast reads" }),
+      { status: 403, headers: { "Content-Type": "application/json", ...corsHeaders() } }
+    );
+  }
+  const limitedAccess = tier === "free";
 
   // Forecast-day reports: replace Open-Meteo-derived fields with a fresh server fetch so
   // scores match forecast-scores and client env_data cannot drift or omit hourly wind.
@@ -344,6 +366,7 @@ Deno.serve(async (req: Request) => {
       feature: "hows_fishing_rebuild_v1";
       generated_at: string;
       cache_expires_at: string;
+      access_tier: "free_limited" | "angler";
       engine_context: EngineContext;
       report: HowsFishingReport;
       usage: { input_tokens: number; output_tokens: number; token_cost_usd: number };
@@ -361,8 +384,9 @@ Deno.serve(async (req: Request) => {
           feature: "hows_fishing_rebuild_v1",
           generated_at: timestampUtc,
           cache_expires_at: cacheExpiresAt,
+          access_tier: limitedAccess ? "free_limited" : "angler",
           engine_context: ctx,
-          report,
+          report: limitedAccess ? limitReportForFree(report) : report,
           usage: { input_tokens: inT, output_tokens: outT, token_cost_usd: 0 },
         };
       } catch (e) {
@@ -377,6 +401,7 @@ Deno.serve(async (req: Request) => {
       mode: "multi" as const,
       generated_at: timestampUtc,
       cache_expires_at: cacheExpiresAt,
+      access_tier: limitedAccess ? "free_limited" as const : "angler" as const,
       contexts,
       reports,
       ...(failedContexts.length > 0 || disallowedContexts.length > 0
@@ -434,8 +459,9 @@ Deno.serve(async (req: Request) => {
     feature: "hows_fishing_rebuild_v1" as const,
     generated_at: timestampUtc,
     cache_expires_at: cacheExpiresAt,
+    access_tier: limitedAccess ? "free_limited" as const : "angler" as const,
     engine_context: context,
-    report: singleReport,
+    report: limitedAccess ? limitReportForFree(singleReport) : singleReport,
     usage: { input_tokens: singleInT, output_tokens: singleOutT, token_cost_usd: singleCost },
   };
 

@@ -29,6 +29,7 @@ import { paper, paperFonts, paperSpacing } from "../lib/theme";
 import { getEnvironment } from "../lib/env";
 import { getValidAccessToken, invokeEdgeFunction } from "../lib/supabase";
 import { useAuthStore } from "../store/authStore";
+import { useDevTestingStore } from "../store/devTestingStore";
 import {
   type EngineContextKey,
   getCachedForecastRebuild,
@@ -55,6 +56,7 @@ import { oceanCoastalZoneLabel } from "../lib/coastalProximity";
 import { RebuildReportView } from "../components/fishing/RebuildReportView";
 import { HowFishingLoadingSkeleton } from "../components/fishing/HowFishingLoadingSkeleton";
 import { TopographicLines } from "../components/paper";
+import { getEffectiveTier } from "../lib/subscription";
 
 /* ─── Date/time helpers ─────────────────────────────────────────────────── */
 
@@ -233,6 +235,10 @@ export default function HowFishingScreen() {
     : null;
 
   const { profile } = useAuthStore();
+  const overrideSubscriptionTier = useDevTestingStore((s) => s.overrideSubscriptionTier);
+  const effectiveTier = getEffectiveTier(profile, overrideSubscriptionTier ?? null);
+  const isFreeTier = effectiveTier === "free";
+  const isLimitedFreeRead = isFreeTier && !isForecastDay;
   const units = profile?.preferred_units ?? "imperial";
   const setLastReportEnv = useEnvStore((s) => s.setLastReportEnv);
 
@@ -330,7 +336,9 @@ export default function HowFishingScreen() {
         }
         const [cachedEnv, forecastSnapshot, geo] = await Promise.all([
           getEnvironment({ latitude: lat, longitude: lon, units }),
-          getForecastScores(lat, lon).catch(() => null),
+          getForecastScores(lat, lon, isFreeTier
+            ? { maxDayOffset: 1, includeSnapshotEnv: false }
+            : undefined).catch(() => null),
           requestedLocationLabel
             ? Promise.resolve([])
             : Location.reverseGeocodeAsync({ latitude: lat, longitude: lon })
@@ -375,7 +383,7 @@ export default function HowFishingScreen() {
     return () => {
       cancelled = true;
     };
-  }, [hasCoords, lat, lon, units, requestedLocationLabel]);
+  }, [hasCoords, lat, lon, units, requestedLocationLabel, isFreeTier]);
 
   // Check cache on mount, show confirm if not cached.
   // Forecast day reports use a separate per-(lat,lon,target_date,ctx) cache that
@@ -386,6 +394,10 @@ export default function HowFishingScreen() {
     if (!hasCoords || envLoading) return;
     let cancelled = false;
     (async () => {
+      if (isLimitedFreeRead) {
+        setShowConfirm(true);
+        return;
+      }
       if (isForecastDay && targetDate) {
         const cached = await getCachedForecastRebuild(
           lat,
@@ -425,6 +437,7 @@ export default function HowFishingScreen() {
     availableContexts,
     isForecastDay,
     targetDate,
+    isLimitedFreeRead,
   ]);
 
   const generateReports = useCallback(async () => {
@@ -434,7 +447,11 @@ export default function HowFishingScreen() {
     setShowConfirm(false);
     try {
       const accessToken = await getValidAccessToken();
-      const forecastSnapshot = await getForecastScores(lat, lon);
+      const forecastSnapshot = await getForecastScores(
+        lat,
+        lon,
+        isLimitedFreeRead ? { maxDayOffset: 0, includeSnapshotEnv: true } : undefined,
+      );
       const sharedForecastEnv = forecastSnapshot?.snapshot_env ?? null;
       const todaySnapshotDate = todayDateFromForecastSnapshot(forecastSnapshot);
       const snapshotDateForReport = isForecastDay
@@ -535,8 +552,10 @@ export default function HowFishingScreen() {
       }
       if (isForecastDay && targetDate) {
         await setCachedForecastRebuild(lat, lon, targetDate, multi);
-      } else {
+      } else if (!isLimitedFreeRead) {
         await setCachedMultiRebuild(lat, lon, multi);
+      }
+      if (!isForecastDay) {
         setCurrentMultiRebuild(lat, lon, bundles);
       }
       setLastReportEnv((envForReport as EnvironmentData) ?? env);
@@ -561,6 +580,7 @@ export default function HowFishingScreen() {
     locationLabel,
     setLastReportEnv,
     isForecastDay,
+    isLimitedFreeRead,
     dayOffset,
     targetDate,
     env,
@@ -572,7 +592,9 @@ export default function HowFishingScreen() {
     try {
       let cached: Record<EngineContextKey, HowFishingRebuildBundle> | null =
         null;
-      if (isForecastDay && targetDate) {
+      if (isLimitedFreeRead) {
+        cached = null;
+      } else if (isForecastDay && targetDate) {
         cached = await getCachedForecastRebuild(
           lat,
           lon,
@@ -614,6 +636,7 @@ export default function HowFishingScreen() {
     lon,
     units,
     isForecastDay,
+    isLimitedFreeRead,
     targetDate,
   ]);
 
@@ -908,6 +931,7 @@ export default function HowFishingScreen() {
                             report={bundle.report}
                             solunarData={env?.solunar}
                             dateLabel={heroDateLabel}
+                            isLimited={isLimitedFreeRead}
                           />
                         )
                         : (
@@ -942,6 +966,7 @@ export default function HowFishingScreen() {
                     report={activeBundle.report}
                     solunarData={env?.solunar}
                     dateLabel={heroDateLabel}
+                    isLimited={isLimitedFreeRead}
                   />
                 )
                 : (
