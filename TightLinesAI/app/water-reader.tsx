@@ -903,9 +903,8 @@ export default function WaterReaderScreen() {
       <SubscribePrompt
         visible={showSubscribePrompt}
         onDismiss={() => setShowSubscribePrompt(false)}
-        onViewPlans={() => {
+        onUnlocked={() => {
           setShowSubscribePrompt(false);
-          router.push('/subscribe');
         }}
       />
     </View>

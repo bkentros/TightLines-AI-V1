@@ -1688,9 +1688,8 @@ export default function RecommenderScreen() {
       <SubscribePrompt
         visible={showSubscribePrompt}
         onDismiss={() => setShowSubscribePrompt(false)}
-        onViewPlans={() => {
+        onUnlocked={() => {
           setShowSubscribePrompt(false);
-          router.push('/subscribe');
         }}
       />
     </SafeAreaView>

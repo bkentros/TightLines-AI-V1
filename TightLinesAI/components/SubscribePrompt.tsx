@@ -1,26 +1,78 @@
 /**
  * Subscribe Prompt — shown when unsubscribed user taps a gated feature
  *
- * Generic locked-feature message with View plans CTA.
+ * Generic locked-feature paywall with direct RevenueCat purchase CTAs.
  * Reusable for How's Fishing, Recommender, Water Reader, etc.
  */
 
-import { Image, Modal, View, Text, StyleSheet, Pressable } from 'react-native';
+import { useEffect } from 'react';
+import { ActivityIndicator, Alert, Image, Modal, View, Text, StyleSheet, Pressable } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import type { PurchasesPackage } from 'react-native-purchases';
 import { paper, paperFonts, paperSpacing } from '../lib/theme';
 import { TopographicLines } from './paper';
+import { useRevenueCatStore } from '../store/revenueCatStore';
 
 export interface SubscribePromptProps {
   visible: boolean;
   onDismiss: () => void;
   onViewPlans?: () => void;
+  onUnlocked?: () => void;
+}
+
+function isAnnualPackage(pkg: PurchasesPackage): boolean {
+  const id = `${pkg.identifier} ${pkg.product.identifier}`.toLowerCase();
+  return id.includes('annual') || id.includes('year');
+}
+
+function isMonthlyPackage(pkg: PurchasesPackage): boolean {
+  const id = `${pkg.identifier} ${pkg.product.identifier}`.toLowerCase();
+  return id.includes('month');
+}
+
+function sortedPackages(packages: PurchasesPackage[]): PurchasesPackage[] {
+  const annual = packages.find(isAnnualPackage);
+  const monthly = packages.find(isMonthlyPackage);
+  return [annual, monthly, ...packages.filter((pkg) => pkg !== annual && pkg !== monthly)]
+    .filter(Boolean) as PurchasesPackage[];
+}
+
+function monthlyEquivalentLabel(pkg: PurchasesPackage): string | null {
+  const price = typeof pkg.product.price === 'number' ? pkg.product.price : null;
+  if (price == null || !Number.isFinite(price)) return null;
+  return `$${(price / 12).toFixed(2)} monthly`;
 }
 
 export function SubscribePrompt({
   visible,
   onDismiss,
   onViewPlans,
+  onUnlocked,
 }: SubscribePromptProps) {
+  const { loading, purchasing, error, offering, purchase, refresh } = useRevenueCatStore();
+  const packages = sortedPackages(offering?.availablePackages ?? []);
+  const annualPackage = packages.find(isAnnualPackage) ?? packages[0] ?? null;
+  const monthlyPackage = packages.find(isMonthlyPackage) ?? packages.find((pkg) => pkg !== annualPackage) ?? null;
+  const primarySubtitle = annualPackage && isAnnualPackage(annualPackage)
+    ? monthlyEquivalentLabel(annualPackage)
+    : null;
+
+  const handlePurchase = async (pkg: PurchasesPackage | null) => {
+    if (!pkg || purchasing) return;
+    const unlocked = await purchase(pkg);
+    if (unlocked) {
+      Alert.alert('Angler unlocked', 'You now have full access to FinFindr.');
+      onDismiss();
+      onUnlocked?.();
+    }
+  };
+
+  useEffect(() => {
+    if (!visible) return;
+    if (packages.length > 0 || loading) return;
+    void refresh();
+  }, [loading, packages.length, refresh, visible]);
+
   return (
     <Modal
       visible={visible}
@@ -113,15 +165,76 @@ export function SubscribePrompt({
             </View>
           </View>
 
-          {onViewPlans && (
+          <View style={styles.planList}>
+            {annualPackage ? (
+              <Pressable
+                style={({ pressed }) => [
+                  styles.cta,
+                  pressed && styles.ctaPressed,
+                  purchasing === annualPackage.identifier && styles.planDisabled,
+                ]}
+                onPress={() => handlePurchase(annualPackage)}
+                disabled={purchasing != null}
+              >
+                <View style={styles.planCopy}>
+                  <Text style={styles.ctaText}>ANGLER ANNUAL</Text>
+                  {primarySubtitle ? (
+                    <Text style={styles.ctaSubtext}>({primarySubtitle})</Text>
+                  ) : null}
+                </View>
+                <View style={styles.priceRow}>
+                  {purchasing === annualPackage.identifier ? (
+                    <ActivityIndicator size="small" color="#FFFFFF" />
+                  ) : (
+                    <>
+                      <Text style={styles.ctaPrice}>{annualPackage.product.priceString}</Text>
+                      <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
+                    </>
+                  )}
+                </View>
+              </Pressable>
+            ) : loading ? (
+              <View style={styles.loadingBox}>
+                <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                <Text style={styles.loadingText}>LOADING PLANS...</Text>
+              </View>
+            ) : (
+              <View style={styles.loadingBox}>
+                <Text style={styles.loadingText}>PLANS NEED AN IOS DEV BUILD</Text>
+              </View>
+            )}
+
+            {monthlyPackage ? (
+              <Pressable
+                style={({ pressed }) => [
+                  styles.monthlyCta,
+                  pressed && styles.monthlyCtaPressed,
+                  purchasing === monthlyPackage.identifier && styles.planDisabled,
+                ]}
+                onPress={() => handlePurchase(monthlyPackage)}
+                disabled={purchasing != null}
+              >
+                <View style={styles.planCopy}>
+                  <Text style={styles.monthlyText}>ANGLER MONTHLY</Text>
+                  <Text style={styles.monthlySubtext}>Flexible monthly access</Text>
+                </View>
+                {purchasing === monthlyPackage.identifier ? (
+                  <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                ) : (
+                  <Text style={styles.monthlyPrice}>{monthlyPackage.product.priceString}</Text>
+                )}
+              </Pressable>
+            ) : null}
+          </View>
+          {error ? <Text style={styles.errorText}>{error}</Text> : null}
+          {onViewPlans ? (
             <Pressable
-              style={({ pressed }) => [styles.cta, pressed && styles.ctaPressed]}
+              style={({ pressed }) => [styles.secondaryLink, pressed && styles.secondaryLinkPressed]}
               onPress={onViewPlans}
             >
-              <Text style={styles.ctaText}>UPGRADE TO ANGLER</Text>
-              <Ionicons name="arrow-forward" size={16} color="#FFFFFF" />
+              <Text style={styles.secondaryLinkText}>VIEW MEMBERSHIP PAGE</Text>
             </Pressable>
-          )}
+          ) : null}
         </View>
       </View>
     </Modal>
@@ -147,7 +260,7 @@ const styles = StyleSheet.create({
     paddingBottom: paperSpacing.lg,
     width: '100%',
     maxWidth: 382,
-    maxHeight: '75%',
+    maxHeight: '88%',
     overflow: 'hidden',
   },
   topoLines: {
@@ -294,22 +407,132 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 1,
   },
-  cta: {
+  planList: {
+    gap: paperSpacing.sm,
+  },
+  planCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  priceRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
+    gap: 8,
+    marginLeft: paperSpacing.sm,
+  },
+  planDisabled: {
+    opacity: 0.72,
+  },
+  cta: {
+    minHeight: 56,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
     backgroundColor: paper.dashboardInk,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: paper.dashboardInk,
-    minHeight: 54,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm,
   },
   ctaPressed: { opacity: 0.84 },
   ctaText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 12,
-    letterSpacing: 2.2,
+    fontSize: 11,
+    letterSpacing: 2,
     color: '#FFFFFF',
+  },
+  ctaSubtext: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 12,
+    lineHeight: 17,
+    color: 'rgba(255,255,255,0.78)',
+    marginTop: 3,
+  },
+  ctaPrice: {
+    fontFamily: paperFonts.display,
+    fontSize: 21,
+    lineHeight: 24,
+    fontWeight: '700',
+    letterSpacing: 0,
+    color: '#FFFFFF',
+  },
+  monthlyCta: {
+    minHeight: 52,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+    borderWidth: 1.25,
+    borderColor: paper.dashboardInk,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm,
+  },
+  monthlyCtaPressed: { opacity: 0.78 },
+  monthlyText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10.5,
+    letterSpacing: 1.8,
+    color: paper.dashboardInk,
+  },
+  monthlySubtext: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 11.5,
+    lineHeight: 16,
+    color: paper.dashboardMuted,
+    marginTop: 3,
+  },
+  monthlyPrice: {
+    fontFamily: paperFonts.display,
+    fontSize: 19,
+    lineHeight: 23,
+    fontWeight: '700',
+    letterSpacing: 0,
+    color: paper.dashboardInk,
+  },
+  loadingBox: {
+    minHeight: 54,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardHair,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+  },
+  loadingText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.7,
+    color: paper.dashboardBlue,
+  },
+  errorText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    lineHeight: 17,
+    color: paper.bandTough,
+    textAlign: 'center',
+    marginTop: paperSpacing.sm,
+  },
+  secondaryLink: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: paperSpacing.sm,
+    marginTop: paperSpacing.xs,
+  },
+  secondaryLinkPressed: {
+    opacity: 0.68,
+  },
+  secondaryLinkText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.7,
+    color: paper.dashboardMuted,
   },
 });

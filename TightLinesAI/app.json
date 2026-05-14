@@ -13,7 +13,7 @@
     },
     "ios": {
       "supportsTablet": false,
-      "bundleIdentifier": "com.finseekr.tightlinesai",
+      "bundleIdentifier": "com.finseekr.finfindr",
       "buildNumber": "3",
       "infoPlist": {
         "CFBundleDisplayName": "FinFindr",
@@ -35,7 +35,7 @@
         "foregroundImage": "./assets/android-icon-foreground.png",
         "backgroundColor": "#0a1628"
       },
-      "package": "com.finseekr.tightlinesai"
+      "package": "com.finseekr.finfindr"
     },
     "web": {
       "favicon": "./assets/favicon.png"

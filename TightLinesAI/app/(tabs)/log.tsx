@@ -31,12 +31,13 @@ import {
   paperSpacing,
 } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
-import { isAdminEmail } from '../../lib/adminAccess';
 import {
   hapticImpact,
   hapticSelection,
   ImpactFeedbackStyle,
 } from '../../lib/safeHaptics';
+
+const SMART_LOG_ENABLED = false;
 
 /* ─── Mock Data (unchanged from pre-migration version) ─── */
 const LOG_ENTRIES = [
@@ -171,8 +172,7 @@ function CountUpNumber({
 
 export default function LogScreen() {
   const router = useRouter();
-  const { signOut, user } = useAuthStore();
-  const canOpenSmartLog = isAdminEmail(user?.email);
+  const { signOut } = useAuthStore();
   const [activeTab, setActiveTab] = useState<'log' | 'history'>('log');
   const [historyFilter, setHistoryFilter] = useState<HistoryType>('all');
   const [expandedDate, setExpandedDate] = useState<string | null>('Today');
@@ -231,7 +231,7 @@ export default function LogScreen() {
           ),
   })).filter((g) => g.items.length > 0);
 
-  if (!canOpenSmartLog) {
+  if (!SMART_LOG_ENABLED) {
     return (
       <View style={styles.root}>
         <SafeAreaView style={styles.safe} edges={['top']}>

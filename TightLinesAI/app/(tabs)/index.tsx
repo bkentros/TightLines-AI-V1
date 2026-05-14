@@ -1533,9 +1533,8 @@ export default function HomeScreen() {
       <SubscribePrompt
         visible={showSubscribePrompt}
         onDismiss={() => setShowSubscribePrompt(false)}
-        onViewPlans={() => {
+        onUnlocked={() => {
           setShowSubscribePrompt(false);
-          router.push("/subscribe");
         }}
       />
       {/* GPS-permission gate (silent if granted; prompts if not) */}

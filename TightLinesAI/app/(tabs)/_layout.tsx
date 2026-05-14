@@ -14,10 +14,9 @@ import { Ionicons } from '@expo/vector-icons';
 import { Alert, StyleSheet, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { paper } from '../../lib/theme';
-import { isAdminEmail } from '../../lib/adminAccess';
-import { useAuthStore } from '../../store/authStore';
 
 const MONO_BOLD = 'JetBrainsMono_600SemiBold';
+const SMART_LOG_ENABLED = false;
 
 function TabIcon({
   iconName,
@@ -72,8 +71,6 @@ function TabLabel({
 export default function TabLayout() {
   const insets = useSafeAreaInsets();
   const tabBarHeight = 60 + insets.bottom;
-  const userEmail = useAuthStore((state) => state.user?.email);
-  const canOpenSmartLog = isAdminEmail(userEmail);
 
   return (
     <Tabs
@@ -110,7 +107,7 @@ export default function TabLayout() {
         name="log"
         listeners={{
           tabPress: (event) => {
-            if (canOpenSmartLog) return;
+            if (SMART_LOG_ENABLED) return;
             event.preventDefault();
             Alert.alert(
               'Smart Log coming soon',
@@ -131,7 +128,7 @@ export default function TabLayout() {
           tabBarLabel: ({ color, focused }) => (
             <TabLabel
               label="SMART LOG"
-              subtitle={canOpenSmartLog ? undefined : '(COMING SOON)'}
+              subtitle={SMART_LOG_ENABLED ? undefined : '(COMING SOON)'}
               color={color}
               focused={focused}
             />

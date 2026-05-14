@@ -39,6 +39,7 @@ import {
 import { supabase } from '../lib/supabase';
 import { useAuthStore } from '../store/authStore';
 import { useEnvStore } from '../store/envStore';
+import { useRevenueCatStore } from '../store/revenueCatStore';
 import { useBiometricLock } from '../hooks/useBiometricLock';
 import { paper, paperFonts } from '../lib/theme';
 
@@ -187,7 +188,8 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
 
 export default function RootLayout() {
   const router = useRouter();
-  const { hydrate, setSession, setProfile, fetchProfile } = useAuthStore();
+  const { hydrate, setSession, setProfile, fetchProfile, user } = useAuthStore();
+  const initializeRevenueCat = useRevenueCatStore((s) => s.initialize);
   const [passwordRecoveryInFlight, setPasswordRecoveryInFlight] = useState(false);
 
   const [fontsLoaded] = useFonts({
@@ -229,6 +231,11 @@ export default function RootLayout() {
       });
     });
   }, [hydrate]);
+
+  useEffect(() => {
+    if (!user?.id) return;
+    void initializeRevenueCat(user.id);
+  }, [initializeRevenueCat, user?.id]);
 
   // Handle deep links — email verification & password reset tokens
   useEffect(() => {

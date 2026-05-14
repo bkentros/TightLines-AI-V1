@@ -931,7 +931,10 @@ export default function HowFishingScreen() {
                             report={bundle.report}
                             solunarData={env?.solunar}
                             dateLabel={heroDateLabel}
-                            isLimited={isLimitedFreeRead}
+                            isLimited={bundle.access_tier === 'free_limited'}
+                            onAnglerUnlocked={() => {
+                              void generateReports();
+                            }}
                           />
                         )
                         : (
@@ -966,7 +969,10 @@ export default function HowFishingScreen() {
                     report={activeBundle.report}
                     solunarData={env?.solunar}
                     dateLabel={heroDateLabel}
-                    isLimited={isLimitedFreeRead}
+                    isLimited={activeBundle.access_tier === 'free_limited'}
+                    onAnglerUnlocked={() => {
+                      void generateReports();
+                    }}
                   />
                 )
                 : (

@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from 'react';
-import { Modal, Pressable, View, Text, StyleSheet, Animated, Easing } from 'react-native';
-import { useRouter } from 'expo-router';
+import { ActivityIndicator, Alert, Modal, Pressable, View, Text, StyleSheet, Animated, Easing } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+import type { PurchasesPackage } from 'react-native-purchases';
 import {
   paper,
   paperFonts,
@@ -22,6 +22,7 @@ import {
 import type { HowsFishingReportV1 } from '../../lib/howFishing';
 import type { ActionableTipTag } from '../../lib/howFishingRebuildContracts';
 import type { SolunarData } from '../../lib/env/types';
+import { useRevenueCatStore } from '../../store/revenueCatStore';
 
 // ─── Display helpers ─────────────────────────────────────────────────────────
 
@@ -163,6 +164,29 @@ const LIMITED_FEATURE_PILLS: Array<{
   { icon: 'calendar-outline', label: '7-DAY REPORTS', color: paper.bandPoor },
 ];
 
+function isAnnualPackage(pkg: PurchasesPackage): boolean {
+  const id = `${pkg.identifier} ${pkg.product.identifier}`.toLowerCase();
+  return id.includes('annual') || id.includes('year');
+}
+
+function isMonthlyPackage(pkg: PurchasesPackage): boolean {
+  const id = `${pkg.identifier} ${pkg.product.identifier}`.toLowerCase();
+  return id.includes('month');
+}
+
+function sortedAnglerPackages(packages: PurchasesPackage[]): PurchasesPackage[] {
+  const annual = packages.find(isAnnualPackage);
+  const monthly = packages.find(isMonthlyPackage);
+  return [annual, monthly, ...packages.filter((pkg) => pkg !== annual && pkg !== monthly)]
+    .filter(Boolean) as PurchasesPackage[];
+}
+
+function monthlyEquivalentLabel(pkg: PurchasesPackage): string | null {
+  const price = typeof pkg.product.price === 'number' ? pkg.product.price : null;
+  if (price == null || !Number.isFinite(price)) return null;
+  return `$${(price / 12).toFixed(2)} monthly`;
+}
+
 // ─── Air-temp / meta strip ───────────────────────────────────────────────────
 
 /**
@@ -283,6 +307,7 @@ export function RebuildReportView({
   solunarData,
   dateLabel = 'TODAY',
   isLimited = false,
+  onAnglerUnlocked,
 }: {
   report: HowsFishingReportV1;
   solunarData?: SolunarData | null;
@@ -290,8 +315,9 @@ export function RebuildReportView({
   dateLabel?: string;
   /** Free-tier preview: show the headline read and hide the deeper guide detail. */
   isLimited?: boolean;
+  /** Called after an inline RevenueCat purchase succeeds so the parent can rebuild the full read. */
+  onAnglerUnlocked?: () => void;
 }) {
-  const router = useRouter();
   const [showAnglerModal, setShowAnglerModal] = useState(false);
   const tier = tierForScore(report.score);
   const accent = accentForScore100(report.score);
@@ -459,9 +485,9 @@ export function RebuildReportView({
           <AnglerUpgradeModal
             visible={showAnglerModal}
             onClose={() => setShowAnglerModal(false)}
-            onViewPlans={() => {
+            onUnlocked={() => {
               setShowAnglerModal(false);
-              router.push('/subscribe');
+              onAnglerUnlocked?.();
             }}
           />
         </View>
@@ -700,12 +726,35 @@ export function RebuildReportView({
 function AnglerUpgradeModal({
   visible,
   onClose,
-  onViewPlans,
+  onUnlocked,
 }: {
   visible: boolean;
   onClose: () => void;
-  onViewPlans: () => void;
+  onUnlocked: () => void;
 }) {
+  const { loading, purchasing, error, offering, purchase, refresh } = useRevenueCatStore();
+  const packages = sortedAnglerPackages(offering?.availablePackages ?? []);
+  const annualPackage = packages.find(isAnnualPackage) ?? packages[0] ?? null;
+  const monthlyPackage = packages.find(isMonthlyPackage) ?? packages.find((pkg) => pkg !== annualPackage) ?? null;
+  const primarySubtitle = annualPackage && isAnnualPackage(annualPackage)
+    ? monthlyEquivalentLabel(annualPackage)
+    : null;
+
+  useEffect(() => {
+    if (!visible) return;
+    if (packages.length > 0 || loading) return;
+    void refresh();
+  }, [loading, packages.length, refresh, visible]);
+
+  const handlePurchase = async (pkg: PurchasesPackage | null) => {
+    if (!pkg || purchasing) return;
+    const unlocked = await purchase(pkg);
+    if (unlocked) {
+      Alert.alert('Angler unlocked', 'Building your full read now.');
+      onUnlocked();
+    }
+  };
+
   return (
     <Modal
       visible={visible}
@@ -762,16 +811,68 @@ function AnglerUpgradeModal({
             ))}
           </View>
 
-          <Pressable
-            style={({ pressed }) => [
-              styles.upgradePrimary,
-              pressed && styles.upgradePrimaryPressed,
-            ]}
-            onPress={onViewPlans}
-          >
-            <Text style={styles.upgradePrimaryText}>UPGRADE TO ANGLER</Text>
-            <Ionicons name="arrow-forward" size={14} color="#FFFFFF" />
-          </Pressable>
+          <View style={styles.upgradePlans}>
+            {annualPackage ? (
+              <Pressable
+                style={({ pressed }) => [
+                  styles.upgradePrimary,
+                  pressed && styles.upgradePrimaryPressed,
+                  purchasing === annualPackage.identifier && styles.upgradePlanDisabled,
+                ]}
+                onPress={() => handlePurchase(annualPackage)}
+                disabled={purchasing != null}
+              >
+                <View style={styles.upgradePlanCopy}>
+                  <Text style={styles.upgradePrimaryText}>ANGLER ANNUAL</Text>
+                  {primarySubtitle ? (
+                    <Text style={styles.upgradePrimarySubtext}>({primarySubtitle})</Text>
+                  ) : null}
+                </View>
+                <View style={styles.upgradePriceRow}>
+                  {purchasing === annualPackage.identifier ? (
+                    <ActivityIndicator size="small" color="#FFFFFF" />
+                  ) : (
+                    <>
+                      <Text style={styles.upgradePrimaryPrice}>{annualPackage.product.priceString}</Text>
+                      <Ionicons name="arrow-forward" size={14} color="#FFFFFF" />
+                    </>
+                  )}
+                </View>
+              </Pressable>
+            ) : loading ? (
+              <View style={styles.upgradeLoading}>
+                <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                <Text style={styles.upgradeLoadingText}>LOADING PLANS...</Text>
+              </View>
+            ) : (
+              <View style={styles.upgradeLoading}>
+                <Text style={styles.upgradeLoadingText}>PLANS AREN'T AVAILABLE YET</Text>
+              </View>
+            )}
+
+            {monthlyPackage ? (
+              <Pressable
+                style={({ pressed }) => [
+                  styles.upgradeMonthly,
+                  pressed && styles.upgradeSecondaryPressed,
+                  purchasing === monthlyPackage.identifier && styles.upgradePlanDisabled,
+                ]}
+                onPress={() => handlePurchase(monthlyPackage)}
+                disabled={purchasing != null}
+              >
+                <View style={styles.upgradePlanCopy}>
+                  <Text style={styles.upgradeMonthlyText}>ANGLER MONTHLY</Text>
+                  <Text style={styles.upgradeMonthlySubtext}>Flexible monthly access</Text>
+                </View>
+                {purchasing === monthlyPackage.identifier ? (
+                  <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                ) : (
+                  <Text style={styles.upgradeMonthlyPrice}>{monthlyPackage.product.priceString}</Text>
+                )}
+              </Pressable>
+            ) : null}
+          </View>
+          {error ? <Text style={styles.upgradeError}>{error}</Text> : null}
           <Pressable
             style={({ pressed }) => [
               styles.upgradeSecondary,
@@ -2325,7 +2426,7 @@ const styles = StyleSheet.create({
   },
   upgradeList: {
     gap: 11,
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.md,
   },
   upgradeItem: {
     flexDirection: 'row',
@@ -2378,16 +2479,34 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 1,
   },
-  upgradePrimary: {
-    minHeight: 46,
+  upgradePlans: {
+    gap: paperSpacing.sm,
+  },
+  upgradePlanCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  upgradePriceRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'center',
     gap: 8,
+    marginLeft: paperSpacing.sm,
+  },
+  upgradePlanDisabled: {
+    opacity: 0.72,
+  },
+  upgradePrimary: {
+    minHeight: 56,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
     backgroundColor: paper.dashboardInk,
     borderRadius: 8,
     borderWidth: 1,
     borderColor: paper.dashboardInk,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm,
   },
   upgradePrimaryPressed: {
     opacity: 0.84,
@@ -2397,6 +2516,82 @@ const styles = StyleSheet.create({
     fontSize: 11,
     letterSpacing: 2,
     color: '#FFFFFF',
+  },
+  upgradePrimarySubtext: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 12,
+    lineHeight: 17,
+    color: 'rgba(255,255,255,0.78)',
+    marginTop: 3,
+  },
+  upgradePrimaryPrice: {
+    fontFamily: paperFonts.display,
+    fontSize: 21,
+    lineHeight: 24,
+    fontWeight: '700',
+    letterSpacing: 0,
+    color: '#FFFFFF',
+  },
+  upgradeMonthly: {
+    minHeight: 52,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: 12,
+    borderWidth: 1.25,
+    borderColor: paper.dashboardInk,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm,
+  },
+  upgradeMonthlyText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10.5,
+    letterSpacing: 1.8,
+    color: paper.dashboardInk,
+  },
+  upgradeMonthlySubtext: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: 'italic',
+    fontSize: 11.5,
+    lineHeight: 16,
+    color: paper.dashboardMuted,
+    marginTop: 3,
+  },
+  upgradeMonthlyPrice: {
+    fontFamily: paperFonts.display,
+    fontSize: 19,
+    lineHeight: 23,
+    fontWeight: '700',
+    letterSpacing: 0,
+    color: paper.dashboardInk,
+  },
+  upgradeLoading: {
+    minHeight: 54,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardHair,
+    borderRadius: 8,
+    backgroundColor: '#FFFFFF',
+  },
+  upgradeLoadingText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1.7,
+    color: paper.dashboardBlue,
+  },
+  upgradeError: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12,
+    lineHeight: 17,
+    color: paper.bandTough,
+    textAlign: 'center',
+    marginTop: paperSpacing.sm,
   },
   upgradeSecondary: {
     alignItems: 'center',
