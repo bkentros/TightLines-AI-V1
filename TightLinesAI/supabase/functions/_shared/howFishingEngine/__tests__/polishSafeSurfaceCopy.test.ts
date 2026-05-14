@@ -220,7 +220,7 @@ Deno.test("slight temperature suppressor uses basic temperature wording", () => 
   });
   assertStringIncludes(
     out.toLowerCase(),
-    "temperature is only limiting the bite a little",
+    "temperature is not helping the day",
   );
   assertEquals(/\b(heat|hot|cold|warm|cool)\b/i.test(out), false, out);
   assertEquals(out.toLowerCase().includes("making things harder"), false, out);
@@ -364,6 +364,65 @@ Deno.test("temperature factor labels stay generic and avoid heat/cold wording", 
     false,
     positiveLabel,
   );
+});
+
+Deno.test("factor labels stay conservative across all surfaced variables", () => {
+  const norm = {
+    temperature: {
+      context_group: "freshwater",
+      measurement_source: "air_daily_mean",
+      measurement_value_f: 68,
+      band_label: "optimal",
+      band_score: 1.4,
+      trend_label: "stable",
+      trend_adjustment: 0,
+      shock_label: "none",
+      shock_adjustment: 0,
+      final_score: 1.4,
+    },
+    pressure_regime: { label: "falling_moderate", score: 1.1 },
+    wind_condition: { label: "strong", score: -1.2 },
+    light_cloud_condition: { label: "bright_clear", score: -0.8 },
+    precipitation_disruption: { label: "active_disruption", score: -1.3 },
+    runoff_flow_disruption: { label: "blown_out", score: -1.4 },
+    tide_current_movement: { label: "slack", score: -0.9 },
+  } as const;
+  const cases = [
+    ["temperature_condition", "positive", "Temperature is helping the bite."],
+    ["pressure_regime", "positive", "Pressure is helping the bite."],
+    ["wind_condition", "negative", "Wind is limiting control."],
+    [
+      "light_cloud_condition",
+      "negative",
+      "Light and cloud cover are limiting the bite.",
+    ],
+    ["precipitation_disruption", "negative", "Rain is limiting the bite."],
+    [
+      "runoff_flow_disruption",
+      "negative",
+      "Rain and runoff are limiting the river read.",
+    ],
+    [
+      "tide_current_movement",
+      "negative",
+      "Current is limiting the bite.",
+    ],
+  ] as const;
+  for (const [key, effect, expected] of cases) {
+    const label = buildFactorSurfaceLabel(
+      key,
+      "freshwater_river",
+      norm,
+      effect,
+    );
+    assertEquals(label, expected);
+    assertEquals(
+      /\b(sharp|hard|fast|bright|clear|slack|volatile|heavy|overly|too much|hot|cold|warm|cool)\b/i
+        .test(label),
+      false,
+      label,
+    );
+  }
 });
 
 Deno.test("report does not surface low-edge warm-season temperature as a limiting factor", () => {
@@ -639,6 +698,17 @@ Deno.test("summary copy banks stay concise and grammatically normalized", () => 
   }
 });
 
+Deno.test("summary copy avoids side-implying opener language", () => {
+  for (const line of listSummaryCopyForAudit()) {
+    assertEquals(
+      /\b(hurting|getting in the way|main limiter|sunk by|working against you|stacked against)\b/i
+        .test(line),
+      false,
+      line,
+    );
+  }
+});
+
 Deno.test("tip copy banks stay concise and grammatically normalized", () => {
   for (const line of listTipCopyForAudit()) {
     assertCleanCopy(line);
@@ -654,6 +724,16 @@ Deno.test("timing copy banks stay concise and grammatically normalized", () => {
 Deno.test("surface copy banks stay concise and grammatically normalized", () => {
   for (const line of listSurfaceCopyForAudit()) {
     assertCleanCopy(line);
+  }
+});
+
+Deno.test("timing copy avoids fragile thermal prose", () => {
+  for (const line of listTimingCopyForAudit()) {
+    assertEquals(
+      /\b(heat|hot|cold|warm|cool|warmer|warmest|warming|temps)\b/i.test(line),
+      false,
+      line,
+    );
   }
 });
 

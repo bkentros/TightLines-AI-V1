@@ -39,109 +39,55 @@ function temperatureLabel(norm: Norm, effect: FactorEffect): string {
   return "Temperature is limiting the bite.";
 }
 
-function pressureLabel(norm: Norm, effect: FactorEffect): string {
-  const label = norm.pressure_regime?.label ?? "";
+function pressureLabel(_norm: Norm, effect: FactorEffect): string {
   if (effect === "positive") {
-    if (label === "falling_slow") {
-      return "Soft falling pressure is giving the bite a push.";
-    }
-    if (label === "falling_moderate") {
-      return "A clean pressure drop is adding feeding momentum.";
-    }
-    if (label === "rising_slow" || label === "recently_stabilizing") {
-      return "Settling pressure is helping fish get back into rhythm.";
-    }
-    return "Pressure is steady enough to let other factors work.";
+    return "Pressure is helping the bite.";
   }
-  if (label === "volatile") {
-    return "Swinging pressure is shortening the reliable windows.";
-  }
-  if (label === "rising_fast") {
-    return "Fast-rising pressure is making fish more selective.";
-  }
-  if (label === "falling_hard") {
-    return "A sharp pressure drop is making the window less stable.";
-  }
-  return "Pressure is working against a clean read.";
+  return "Pressure is limiting the bite.";
 }
 
-function windLabel(norm: Norm, effect: FactorEffect): string {
-  const speed = norm.wind_condition?.score ?? 0;
+function windLabel(_norm: Norm, effect: FactorEffect): string {
   if (effect === "positive") {
-    if (speed > 1.1) {
-      return "Useful breeze adds ripple without hurting control.";
-    }
-    return "Manageable wind is helping the water read cleanly.";
+    return "Wind is helping the bite.";
   }
-  if (speed <= -1.4) {
-    return "Hard wind is making control and clean reads difficult.";
-  }
-  return "Strong wind is making control and clean reads harder.";
+  return "Wind is limiting control.";
 }
 
-function lightLabel(norm: Norm, effect: FactorEffect): string {
-  const label = norm.light_cloud_condition?.label ?? "";
+function lightLabel(_norm: Norm, effect: FactorEffect): string {
   if (effect === "positive") {
-    if (/overcast|cloud/i.test(label)) {
-      return "Cloud cover is extending comfortable light.";
-    }
-    return "The light level is giving fish a more comfortable window.";
+    return "Light and cloud cover are helping the bite.";
   }
-  if (/clear|bright|glare/i.test(label)) {
-    return "Bright, clear conditions are limiting low-light comfort.";
-  }
-  return "The light pattern is making the best window narrower.";
+  return "Light and cloud cover are limiting the bite.";
 }
 
-function precipLabel(norm: Norm, effect: FactorEffect): string {
-  const label = norm.precipitation_disruption?.label ?? "";
+function precipLabel(_norm: Norm, effect: FactorEffect): string {
   if (effect === "positive") {
-    if (/dry/i.test(label)) {
-      return "Dry weather keeps visibility and comfort steady.";
-    }
-    return "Rain is light enough to avoid disrupting the read.";
+    return "Rain is not disrupting the bite.";
   }
-  if (/active|heavy/i.test(label)) {
-    return "Active rain is disrupting the most reliable window.";
-  }
-  if (/recent|wet/i.test(label)) {
-    return "Recent rain is still making the read less clean.";
-  }
-  return "Rain is adding uncertainty to the day.";
+  return "Rain is limiting the bite.";
 }
 
-function runoffLabel(norm: Norm, effect: FactorEffect): string {
-  const label = norm.runoff_flow_disruption?.label ?? "";
+function runoffLabel(_norm: Norm, effect: FactorEffect): string {
   if (effect === "positive") {
-    return "Stable flow keeps river holding water predictable.";
+    return "Rain and runoff are helping the river read.";
   }
-  if (/blown|high|saturated/i.test(label)) {
-    return "Runoff is making river holding water less predictable.";
-  }
-  return "Flow changes are making the river read less clean.";
+  return "Rain and runoff are limiting the river read.";
 }
 
 function tideLabel(
   context: EngineContext,
-  norm: Norm,
+  _norm: Norm,
   effect: FactorEffect,
 ): string {
-  const label = norm.tide_current_movement?.label ?? "";
   if (effect === "positive") {
     if (isCoastalFamilyContext(context)) {
-      return "Tide movement gives fish a real feeding clock.";
+      return "Tide and current are helping the bite.";
     }
-    return "Current is helping define better holding water.";
-  }
-  if (/slack/i.test(label)) {
-    return "Slack water is taking away the strongest feeding clock.";
-  }
-  if (/hard|strong/i.test(label)) {
-    return "Too much current is making the window harder to use.";
+    return "Current is helping the bite.";
   }
   return isCoastalFamilyContext(context)
-    ? "Tide and current are not setting up cleanly."
-    : "Current is making the water harder to read.";
+    ? "Tide and current are limiting the bite."
+    : "Current is limiting the bite.";
 }
 
 export function buildFactorSurfaceLabel(

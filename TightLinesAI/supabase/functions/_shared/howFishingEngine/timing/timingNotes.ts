@@ -41,48 +41,48 @@ const POOLS: Record<string, string[]> = {
 
   // ── Temperature-driven ─────────────────────────────────────────────────
   warmth_intraday_peak: [
-    "This is the warmest fishable part of the day. Put your best effort into this window.",
-    "Temperatures peak here, and that is the clearest warmth signal on the clock.",
-    "This part of the day has the best warmth. Lean into it.",
+    "The temperature timing signal points to this window. Put your best effort here.",
+    "This is the clearest temperature-aligned window on the clock.",
+    "Temperature is giving this part of the day the best timing support.",
   ],
 
   warmth_plateau_window: [
-    "Temperatures stay elevated across these highlighted windows, not just one brief peak. Treat the whole stretch as your best window.",
-    "Warmth holds across more than one part of the day, so you have a broader temperature-driven window than one peak hour.",
-    "The warming signal lasts across these periods instead of spiking and fading. Fish the full warm stretch.",
+    "The temperature timing signal holds across these highlighted windows. Treat the whole stretch as useful.",
+    "Temperature support spans more than one part of the day, so the window is broader than one brief peak.",
+    "The temperature signal lasts across these periods instead of spiking and fading. Fish the full highlighted stretch.",
   ],
 
   warmth_spike_aggregate: [
-    "Air temperatures are running much warmer than yesterday. Focus on the warmer second half of the day.",
-    "A strong warmup versus yesterday makes the latter half of the day more attractive.",
-    "Today has a sharp warm rebound, so afternoon into evening is the better stretch to lean on.",
+    "The day-over-day temperature change favors the later windows.",
+    "A stronger temperature shift versus yesterday makes the latter half of the day more attractive.",
+    "Today has a sharper temperature rebound, so afternoon into evening is the better stretch to lean on.",
   ],
 
   warmest_window: [
-    "The warmest stretch of the day is your best window.",
-    "Afternoon warmth is the trigger today. Be on the water when temperatures peak.",
-    "Time your best effort around peak warmth.",
-    "The warmest part of the day is your best stretch.",
-    "Warmth builds as the day goes. Focus on the highest temperatures of the day.",
-    "Afternoon warmth is the key trigger today.",
-    "Lean on the warmest part of the day. That is when cold-water fish are most likely to move.",
-    "A cold morning gives way to better warmth later. Save your best water for the afternoon.",
-    "The day builds as it goes. Your best window is the warmest part of the afternoon.",
-    "Hold something back for the afternoon warmth. That's when this water comes alive.",
+    "The temperature signal favors this stretch of the day.",
+    "Afternoon has the better temperature timing signal today.",
+    "Time your best effort around the strongest temperature window.",
+    "This part of the day has the best temperature support.",
+    "The day builds as it goes. Focus on the stronger afternoon window.",
+    "Afternoon is the key temperature window today.",
+    "Lean on the part of the day with the best temperature support.",
+    "The morning starts slower, and the better temperature window comes later.",
+    "The day builds as it goes. Your best window is in the afternoon.",
+    "Hold something back for the afternoon window. That is when the setup lines up best.",
   ],
 
   cooler_low_light: [
-    "Beat the heat. Early morning and evening are the best windows today.",
-    "Warm temps push fish to cooler, low-light periods. Dawn and dusk are your best shots.",
-    "Fish are less likely to feed in the heat. Focus on the early and late windows.",
+    "Temperature timing favors early and late today.",
+    "Low-light periods are the better temperature windows. Dawn and dusk are your best shots.",
+    "The middle of the day is less supported. Focus on the early and late windows.",
     "Early and late are your best windows. The middle of the day is the toughest stretch.",
     "Low-light periods are the better play today. Focus on morning and evening.",
   ],
 
   coolest_window: [
-    "This cooler stretch is where the heat backs off the most. Put your best effort into these windows.",
-    "Heat is less intense during these parts of the day, so they are the better windows.",
-    "If you are fishing around the heat, these are the cooler windows to lean on.",
+    "Temperature timing favors these highlighted windows. Put your best effort there.",
+    "These parts of the day have the better temperature support.",
+    "If temperature is shaping the clock, these are the windows to lean on.",
   ],
 
   // ── Light-driven ───────────────────────────────────────────────────────
@@ -132,7 +132,7 @@ const POOLS: Record<string, string[]> = {
   // ── Fallback pools (combo-specific defaults) ───────────────────────────
   fallback_afternoon: [
     "Afternoon is your best bet today. That is when conditions are most supportive.",
-    "The afternoon stretch is your best window. Lean into the warmest part of the day.",
+    "The afternoon stretch is your best window. Lean into the part of the day with the most support.",
     "Plan your push around the afternoon. That's where the day is most productive.",
   ],
 
@@ -178,15 +178,15 @@ const POOLS: Record<string, string[]> = {
 
   // ── Cold all day (seek_warmth failed because flat cold) ────────────────
   cold_all_day: [
-    "Cold temps all day — no single window stands out. Fish when you can.",
-    "It is cold from start to finish today. No clear timing advantage stands out.",
-    "No warming trend to exploit. Fish your best spots and stay with it all day.",
-    "Cold and steady. No clear best window stands out, so fish slow all day.",
+    "Temperature is steady all day, so no single window stands out. Fish when you can.",
+    "Temperature does not create a clear timing advantage today.",
+    "No clear temperature trend stands out. Fish your best spots and stay with it all day.",
+    "Temperature is steady. No clear best window stands out, so fish with patience.",
   ],
 
   /** Dawn + afternoon + evening (no morning bucket) — widener / rare OR shapes */
   timing_dawn_afternoon_evening: [
-    "Dawn, the warmer middle of the day, and evening all rate today — put real time in those highlighted bands instead of the gaps between them.",
+    "Dawn, the middle of the day, and evening all rate today — put real time in those highlighted bands instead of the gaps between them.",
     "Early, mid-day, and late windows all show promise — work those highlighted stretches rather than splitting effort evenly across the clock.",
   ],
 };

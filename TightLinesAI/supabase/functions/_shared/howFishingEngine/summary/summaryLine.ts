@@ -46,7 +46,7 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
   Good: [
     "This looks like a solid fishing day.",
     "Overall, the setup is working for you.",
-    "More is helping than hurting today.",
+    "The main signals lean helpful today.",
     "The setup gives you a workable starting point.",
     "This is a dependable setup overall.",
     "Today's conditions give you a good shot.",
@@ -61,7 +61,7 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
     "This is a fishable day with a narrower best window.",
     "The setup is fishable, but mixed.",
     "The best window is narrower than a clean day.",
-    "Some things are helping, and some are getting in the way.",
+    "The overall read is mixed enough to stay selective.",
     "This is a mixed day overall.",
     "Mixed conditions make timing and water choice more important.",
     "You can fish this day, but timing and water choice matter.",
@@ -69,11 +69,11 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
     "This is a fair day with a tighter margin.",
     "A defined window matters more than the full-day average.",
     "This is a day to respect the strongest window.",
-    "There is enough help to fish, but the main limiter still matters.",
+    "There is enough help to fish, but the margin still matters.",
   ],
   Poor: [
     "This is a tougher day than usual.",
-    "The setup is mostly working against you today.",
+    "The setup is mostly limiting today.",
     "The day looks narrow and demanding.",
     "This is more of a grind than a clean day.",
     "There is not much help in the conditions today.",
@@ -87,12 +87,12 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
   ],
   Tough: [
     "This is a very difficult fishing day.",
-    "The setup is heavily stacked against you today.",
+    "The setup is heavily limiting today.",
     "Conditions look tough from the start.",
     "This is a grind-it-out day.",
     "The day offers very little easy help.",
     "This is one of the harder reads on the calendar.",
-    "Most of the important signals are working against you today.",
+    "Most of the important signals are not helping today.",
     "This is a day for low expectations and careful choices.",
     "The setup is narrow, demanding, and unforgiving.",
     "There is not much natural edge in the conditions today.",
@@ -153,8 +153,8 @@ const NEUTRAL_CLOSERS = [
   "No one factor is dominating the day.",
   "Nothing is taking over the read by itself.",
   "This is a balanced day more than a dramatic one.",
-  "Wind, light, and water movement need to be read together today.",
-  "The day is not being carried or sunk by one obvious thing.",
+  "Wind, light, and water conditions need to be read together today.",
+  "The day is not being carried by one obvious thing.",
   "The day depends more on timing than on one obvious condition edge.",
   "No single factor stands above the rest.",
   "It is a broad setup rather than a sharp one.",
@@ -321,50 +321,33 @@ function contributionStrength(
 function temperaturePhrase(
   _factor: SummaryFactor,
   role: SummaryFactorRole,
-  strength: SummaryStrength,
+  _strength: SummaryStrength,
 ): string {
   if (role === "driver") {
-    if (strength === "strong") {
-      return "temperature is one of the clearest positives";
-    }
-    if (strength === "moderate") {
-      return "temperature is helping in a noticeable way";
-    }
-    return "temperature is helping a bit";
+    return "temperature is helping the day";
   }
-
-  if (strength === "strong") {
-    return "temperature is the clearest limiting factor";
-  }
-  if (strength === "moderate") {
-    return "temperature is limiting the bite";
-  }
-  return "temperature is only limiting the bite a little";
+  return "temperature is not helping the day";
 }
 
 function genericFactorPhrase(
   factor: SummaryFactor,
   context: EngineContext,
   role: SummaryFactorRole,
-  strength: SummaryStrength,
+  _strength: SummaryStrength,
 ): string {
   const noun = buildVariableSummaryLabel(factor.variable, context, role);
 
   if (role === "driver") {
-    if (strength === "strong") {
-      return `${noun} is doing more than anything else to help`;
+    if (factor.variable === "precipitation_disruption") {
+      return "rain is not getting in the way";
     }
-    if (strength === "moderate") {
-      return `${noun} is one of the clearer positives`;
-    }
-    return `${noun} is helping a bit`;
+    return `${noun} is helping the day`;
   }
 
-  if (strength === "strong") {
-    return `${noun} is the main thing holding the day back`;
+  if (factor.variable === "runoff_flow_disruption") {
+    return "rain and runoff are not helping the river read";
   }
-  if (strength === "moderate") return `${noun} is clearly working against you`;
-  return `${noun} is only working against you a little`;
+  return `${noun} is not helping the day`;
 }
 
 function buildFactorPhrase(
