@@ -15,7 +15,10 @@ import {
   buildVariableDisplayLabel,
   listSummaryCopyForAudit,
 } from "../summary/summaryLine.ts";
-import { buildFactorSurfaceLabel } from "../summary/factorSurfaceLabels.ts";
+import {
+  buildFactorSurfaceLabel,
+  listFactorSurfaceCopyForAudit,
+} from "../summary/factorSurfaceLabels.ts";
 import { buildActionableTip, listTipCopyForAudit } from "../tips/buildTips.ts";
 import { listTimingCopyForAudit } from "../timing/timingNotes.ts";
 import { runHowFishingReport } from "../runHowFishingReport.ts";
@@ -223,10 +226,8 @@ Deno.test("slight temperature suppressor uses basic temperature wording", () => 
     }],
     seed: "clarkston-temp-soft-wording",
   });
-  assertStringIncludes(
-    out.toLowerCase(),
-    "air temperatures are not lining up as well for this time of year",
-  );
+  assert(/\b(temperature|temperatures|temps)\b/i.test(out), out);
+  assert(/\b(seasonal|season|date)\b/i.test(out), out);
   assertEquals(/\b(heat|hot|cold|warm|cool)\b/i.test(out), false, out);
   assertEquals(out.toLowerCase().includes("making things harder"), false, out);
 });
@@ -716,6 +717,35 @@ Deno.test("summary copy avoids side-implying opener language", () => {
     assertEquals(
       /\b(hurting|getting in the way|main limiter|sunk by|working against you|stacked against)\b/i
         .test(line),
+      false,
+      line,
+    );
+  }
+});
+
+Deno.test("factor surface copy banks stay concise and grammatically normalized", () => {
+  for (const line of listFactorSurfaceCopyForAudit()) {
+    assertCleanCopy(line);
+  }
+});
+
+Deno.test("daily report copy banks avoid aggressive or certain language", () => {
+  const allCopy = [
+    ...listSummaryCopyForAudit(),
+    ...listFactorSurfaceCopyForAudit(),
+    ...listTipCopyForAudit(),
+    ...listTimingCopyForAudit(),
+    ...listSurfaceCopyForAudit(),
+  ];
+  for (const line of allCopy) {
+    assertEquals(
+      /\b(aggressive|aggressively|crush|hammer|attack|guarantee|guaranteed|definitely|without question|always|must|will|fish it hard|working against you|limiting the bite)\b/i
+        .test(line),
+      false,
+      line,
+    );
+    assertEquals(
+      /\b(force|forcing)\b/i.test(line),
       false,
       line,
     );

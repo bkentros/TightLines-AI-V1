@@ -74,7 +74,7 @@ const SOLUNAR_PRESENT = [
 
 const SOLUNAR_QUIET = [
   "Solunar activity looks quiet today, so lean on the main timing recommendation first.",
-  "There is no standout solunar push today, so trust the main timing window first.",
+  "There is no standout solunar signal today, so lean on the main timing window first.",
 ] as const;
 
 export function listSurfaceCopyForAudit(): string[] {

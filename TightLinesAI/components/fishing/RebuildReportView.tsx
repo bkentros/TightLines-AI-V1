@@ -167,7 +167,7 @@ const TIP_TAG_LABELS: Record<ActionableTipTag, string> = {
   strategy_control: "CONTROL",
   strategy_visibility: "VISIBILITY",
   strategy_patient_plan: "PATIENT PLAN",
-  strategy_push_windows: "PUSH WINDOWS",
+  strategy_push_windows: "WINDOW PLAN",
   strategy_field_plan: "FIELD PLAN",
   strategy_data_limited: "DATA LIMITED",
   // Legacy aliases accepted for old cached bundles.
@@ -175,7 +175,7 @@ const TIP_TAG_LABELS: Record<ActionableTipTag, string> = {
   presentation_contact_control: "CONTROL",
   presentation_visibility_profile: "VISIBILITY",
   presentation_slow_subtle: "PATIENT PLAN",
-  presentation_active_cadence: "PUSH WINDOWS",
+  presentation_active_cadence: "WINDOW PLAN",
   presentation_general: "FIELD PLAN",
 };
 
@@ -299,7 +299,7 @@ const ANGLER_MODULE_SPECS: AnglerModuleSpec[] = [
     iconName: "sparkles-outline",
     title: "Today's Bite",
     tag: "CONDITIONS",
-    desc: "Full breakdown · windows · limiting factors",
+    desc: "Full breakdown · windows · watch-outs",
     iconBg: "#C5E0B5",
     iconBorder: "#3DA85F",
     iconColor: "#1F6B38",

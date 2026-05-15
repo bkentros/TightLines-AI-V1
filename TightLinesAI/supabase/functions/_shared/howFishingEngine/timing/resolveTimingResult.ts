@@ -328,10 +328,10 @@ function buildTideExchangeNoteFromSignal(
         } — work the 90 minutes before and after that turn, that's your window.`,
         `The tide turns ${
           exchangeTimes[0]
-        }. Get positioned ahead of it and fish the moving water hard on both sides.`,
+        }. Get positioned ahead of it and prioritize the moving water on both sides.`,
         `Best bite centers on ${
           exchangeTimes[0]
-        } when the tide shifts. Don't miss that moving-water window.`,
+        } when the tide shifts. Give that moving-water window a careful look.`,
       ],
       seedBase,
       "tide_exchange_single",
@@ -345,7 +345,7 @@ function buildTideExchangeNoteFromSignal(
         }. Fish the movement on each side and ease off during the slack between them.`,
         `Tide turns ${exchangeTimes[0]} and ${
           exchangeTimes[1]
-        }. Those are your two best windows — get in position before each one and fish the moving water hard.`,
+        }. Those are your two best windows — get in position before each one and prioritize the moving water.`,
         `Best opportunities near ${exchangeTimes[0]} and ${
           exchangeTimes[1]
         } around the tide changes. Fish the moving water there; slack in between is slower.`,
@@ -358,7 +358,7 @@ function buildTideExchangeNoteFromSignal(
     const [a, b, c] = exchangeTimes;
     return pickDeterministic(
       [
-        `Three key tide turns — ${a}, ${b}, and ${c}. Fish the highlighted windows hard on each side of those exchanges.`,
+        `Three key tide turns — ${a}, ${b}, and ${c}. Prioritize the highlighted windows on each side of those exchanges.`,
         `Moving-water windows ${a}, ${b}, and ${c}. Fish those turns first; each exchange can open a bite window.`,
       ],
       seedBase,
