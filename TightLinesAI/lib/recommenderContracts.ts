@@ -237,6 +237,8 @@ export type DailyPicksResponsePick = {
   how_to_fish: string;
 };
 
+export type DailyPicksColorPaletteTheme = "natural" | "bright" | "dark";
+
 export type DailyPicksScenarioSummary = {
   activity_level: DailyPicksActivityLevel;
   surface_daily_gate: DailyPicksSurfaceGate;
@@ -244,6 +246,7 @@ export type DailyPicksScenarioSummary = {
   scenario_tags: DailyPicksConditionTag[];
   missing_inputs: string[];
   confidence: DailyPicksConfidence;
+  color_palette_theme: DailyPicksColorPaletteTheme;
 };
 
 export type DailyPicksFamilyDiversitySideDiagnostics = {

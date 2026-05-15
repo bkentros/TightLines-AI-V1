@@ -19,7 +19,7 @@ export interface WaterReadCartoucheProps {
   county?: string | null;
   acres?: number | null;
   season?: string | null;
-  status: 'idle' | 'reading' | 'ready';
+  status: 'idle' | 'reading' | 'queued' | 'ready';
   /** True after ~850ms of reading — flips the status pill from OPENING to BUILDING MAP. */
   readingSlow?: boolean;
 }
@@ -50,6 +50,14 @@ export function WaterReadCartouche({
             <ActivityIndicator size="small" color={paper.dashboardBlue} />
             <Text style={styles.statusPillText} numberOfLines={1}>
               {readingSlow ? 'BUILDING MAP' : 'OPENING'}
+            </Text>
+          </View>
+        )}
+        {status === 'queued' && (
+          <View style={styles.statusPill}>
+            <Ionicons name="time-outline" size={11} color={paper.dashboardBlue} />
+            <Text style={styles.statusPillText} numberOfLines={1}>
+              BUILDING
             </Text>
           </View>
         )}

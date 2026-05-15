@@ -152,6 +152,13 @@ function isCachedResultValid(result: RecommenderResponse): boolean {
   if (typeof result.scenario_summary?.activity_level !== 'string') return false;
   if (typeof result.scenario_summary?.surface_daily_gate !== 'string') return false;
   if (typeof result.scenario_summary?.confidence !== 'string') return false;
+  if (typeof result.scenario_summary?.color_palette_theme !== "string") {
+    return false;
+  }
+  const palette = result.scenario_summary.color_palette_theme;
+  if (palette !== "natural" && palette !== "bright" && palette !== "dark") {
+    return false;
+  }
   const session = result.recommendation_session;
   if (!session) return false;
   if (session.variant !== 'A' && session.variant !== 'B') return false;

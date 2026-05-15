@@ -46,7 +46,7 @@ import {
 } from '../lib/theme';
 import { SubscribePrompt } from '../components/SubscribePrompt';
 import { FeedbackCard } from '../components/FeedbackCard';
-import { fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
+import { fetchWaterReaderHistory, fetchWaterReaderRead, searchWaterbodies } from '../lib/waterReader';
 import { TopographicLines } from '../components/paper';
 import { useAuthStore } from '../store/authStore';
 import { useDevTestingStore } from '../store/devTestingStore';
@@ -57,6 +57,8 @@ import type { WaterReaderMapCardState } from '../components/water-reader/WaterRe
 import type {
   WaterbodySearchResult,
   WaterReaderEngineSupportStatus,
+  WaterReaderHistoryItem,
+  WaterReaderHistoryStatus,
   WaterReaderPolygonSupportStatus,
   WaterReaderReadResponse,
 } from '../lib/waterReaderContracts';
@@ -65,7 +67,7 @@ const SEARCH_DEBOUNCE_MS = 650;
 const SEARCH_MIN_CHARS = 3;
 const SEARCH_RESULT_LIMIT = 20;
 const WATER_READER_PENDING_DEFAULT_RETRY_MS = 4000;
-const WATER_READER_PENDING_MAX_MS = 120000;
+const WATER_READER_PENDING_MAX_MS = 30000;
 
 const SERIF_BOLD = 'Fraunces_700Bold';
 const SERIF_ITALIC = 'Fraunces_500Medium_Italic';
@@ -214,6 +216,38 @@ function selectionContextLine(r: WaterbodySearchResult): string {
   return `${r.state}${county}${tail}`;
 }
 
+function historyContextLine(item: WaterReaderHistoryItem): string {
+  const parts: string[] = [];
+  if (item.state) parts.push(item.state);
+  if (item.county) parts.push(`${item.county} County`);
+  if (typeof item.areaAcres === 'number') {
+    parts.push(`~${Math.round(item.areaAcres).toLocaleString()} acres`);
+  }
+  return parts.join(' · ');
+}
+
+function historyItemToSearchResult(item: WaterReaderHistoryItem): WaterbodySearchResult {
+  return {
+    lakeId: item.lakeId,
+    name: item.lakeName,
+    state: item.state ?? '',
+    county: item.county,
+    waterbodyType: 'lake',
+    surfaceAreaAcres: item.areaAcres,
+    centroid: { lat: 0, lon: 0 },
+    previewBbox: null,
+    dataTier: 'polygon_only',
+    availability: 'polygon_available',
+    sourceStatus: 'ready',
+    confidence: 'medium',
+    waterReaderSupportStatus: 'supported',
+    waterReaderSupportReason: 'Opened from Recent Water Reads.',
+    hasPolygonGeometry: true,
+    polygonAreaAcres: item.areaAcres,
+    polygonQaFlags: [],
+  };
+}
+
 function ambiguityLine(r: WaterbodySearchResult): string | null {
   if (!r.isAmbiguousNameInState || !r.sameNameStateCandidateCount || r.sameNameStateCandidateCount <= 1) return null;
   return `Multiple same-name ${r.state} results; compare county and acres.`;
@@ -240,6 +274,8 @@ type WaterReaderReadState =
   | { status: 'idle'; read: null; errorMessage: null }
   | { status: 'reading'; read: null; errorMessage: null }
   | { status: 'preparing'; read: WaterReaderReadResponse; errorMessage: null }
+  | { status: 'queued'; read: WaterReaderReadResponse; errorMessage: null }
+  | { status: 'recent_building'; read: WaterReaderReadResponse; errorMessage: null }
   | { status: 'ready'; read: WaterReaderReadResponse; errorMessage: null }
   | { status: 'error'; read: null; errorMessage: string };
 
@@ -249,7 +285,11 @@ function delay(ms: number): Promise<void> {
 
 function pendingRetryDelayMs(read: WaterReaderReadResponse): number {
   const retryAfterMs = typeof read.retryAfterMs === 'number' ? read.retryAfterMs : WATER_READER_PENDING_DEFAULT_RETRY_MS;
-  return Math.max(1500, Math.min(8000, retryAfterMs));
+  return Math.max(3000, Math.min(6000, retryAfterMs));
+}
+
+function isRecentWaterReadBuildingDiagnostic(read: WaterReaderReadResponse): boolean {
+  return read.operationalDiagnostics?.code === 'recent_water_read_building';
 }
 
 export default function WaterReaderScreen() {
@@ -281,14 +321,25 @@ export default function WaterReaderScreen() {
   const [selected, setSelected] = useState<WaterbodySearchResult | null>(null);
   const searchRequestId = useRef(0);
   const readRequestId = useRef(0);
+  const historyRequestId = useRef(0);
+  const lastHistoryReadSignal = useRef<string | null>(null);
+  const preserveSelectionForHistoryStateChange = useRef(false);
   const [readState, setReadState] = useState<WaterReaderReadState>({
     status: 'idle',
     read: null,
     errorMessage: null,
   });
   const [readRetryNonce, setReadRetryNonce] = useState(0);
+  const [historyItems, setHistoryItems] = useState<WaterReaderHistoryItem[]>([]);
+  const [historyLoading, setHistoryLoading] = useState(false);
+  const [historyError, setHistoryError] = useState<string | null>(null);
+  const [historyRefreshNonce, setHistoryRefreshNonce] = useState(0);
 
   useEffect(() => {
+    if (preserveSelectionForHistoryStateChange.current) {
+      preserveSelectionForHistoryStateChange.current = false;
+      return;
+    }
     setSelected(null);
   }, [stateCode]);
 
@@ -311,9 +362,9 @@ export default function WaterReaderScreen() {
             setReadState({ status: 'preparing', read: res, errorMessage: null });
             if (Date.now() - startedAt >= WATER_READER_PENDING_MAX_MS) {
               setReadState({
-                status: 'error',
-                read: null,
-                errorMessage: 'Water Read is still preparing. Try again in a minute.',
+                status: 'queued',
+                read: res,
+                errorMessage: null,
               });
               return;
             }
@@ -328,6 +379,10 @@ export default function WaterReaderScreen() {
             });
             return;
           }
+          if (isRecentWaterReadBuildingDiagnostic(res)) {
+            setReadState({ status: 'recent_building', read: res, errorMessage: null });
+            return;
+          }
           setReadState({ status: 'ready', read: res, errorMessage: null });
           return;
         }
@@ -340,6 +395,52 @@ export default function WaterReaderScreen() {
       readRequestId.current += 1;
     };
   }, [selected, readRetryNonce]);
+
+  useEffect(() => {
+    if (!hasSubscription) {
+      historyRequestId.current += 1;
+      setHistoryItems([]);
+      setHistoryLoading(false);
+      setHistoryError(null);
+      return;
+    }
+    const reqId = ++historyRequestId.current;
+    setHistoryLoading(true);
+    setHistoryError(null);
+    void (async () => {
+      try {
+        const res = await fetchWaterReaderHistory({ limit: 10 });
+        if (historyRequestId.current !== reqId) return;
+        setHistoryItems(res.items);
+      } catch (e) {
+        if (historyRequestId.current !== reqId) return;
+        setHistoryError(userFacingReadError(e));
+      } finally {
+        if (historyRequestId.current === reqId) setHistoryLoading(false);
+      }
+    })();
+  }, [hasSubscription, historyRefreshNonce]);
+
+  useEffect(() => {
+    if (
+      readState.status !== 'preparing' &&
+      readState.status !== 'queued' &&
+      readState.status !== 'recent_building' &&
+      readState.status !== 'ready'
+    ) {
+      return;
+    }
+    const signal = [
+      readState.status,
+      readState.read.lakeId,
+      readState.read.generationStatus ?? '',
+      readState.read.generationJobId ?? '',
+      readState.read.cacheStatus ?? '',
+    ].join(':');
+    if (lastHistoryReadSignal.current === signal) return;
+    lastHistoryReadSignal.current = signal;
+    setHistoryRefreshNonce((value) => value + 1);
+  }, [readState]);
 
   const runSearch = useCallback(
     async (requestId: number) => {
@@ -431,6 +532,24 @@ export default function WaterReaderScreen() {
     setQuery('');
   }, []);
 
+  const onSelectHistoryItem = useCallback((item: WaterReaderHistoryItem) => {
+    if (!hasSubscription) {
+      setShowSubscribePrompt(true);
+      return;
+    }
+    if (item.state && item.state !== stateCode) {
+      preserveSelectionForHistoryStateChange.current = true;
+      setStateCode(item.state);
+    }
+    setQuery('');
+    setResults([]);
+    setCountyFilter(null);
+    setSearchError(null);
+    setSearchEmpty(false);
+    setSearchExpanded(false);
+    setSelected(historyItemToSearchResult(item));
+  }, [hasSubscription, stateCode]);
+
   const showResultsPanel =
     !selected && stateCode && (query.trim().length >= SEARCH_MIN_CHARS || searching || (searchError != null && query.trim().length >= SEARCH_MIN_CHARS));
 
@@ -470,6 +589,7 @@ export default function WaterReaderScreen() {
     if (!selected) return { status: 'idle' };
     if (readState.status === 'reading') return { status: 'reading' };
     if (readState.status === 'preparing') return { status: 'preparing', read: readState.read };
+    if (readState.status === 'queued') return { status: 'queued', read: readState.read };
     if (readState.status === 'ready') return { status: 'ready', read: readState.read };
     if (readState.status === 'error')
       return { status: 'error', errorMessage: readState.errorMessage };
@@ -492,6 +612,26 @@ export default function WaterReaderScreen() {
           )}
       </View>
     ) : null;
+    if (readState.status === 'queued') {
+      return (
+        <View style={styles.readRetryRow}>
+          <Pressable
+            style={({ pressed }) => [
+              styles.readRetryButton,
+              pressed && styles.readRetryButtonPressed,
+            ]}
+            onPress={() => {
+              setReadRetryNonce((value) => value + 1);
+              setHistoryRefreshNonce((value) => value + 1);
+            }}
+            accessibilityLabel="Check Water Read"
+          >
+            <Ionicons name="refresh" size={14} color="#FFFFFF" />
+            <Text style={styles.readRetryButtonText}>CHECK READ</Text>
+          </Pressable>
+        </View>
+      );
+    }
     if (readState.status !== 'error') return notes;
     return (
       <View style={styles.readRetryRow}>
@@ -500,7 +640,10 @@ export default function WaterReaderScreen() {
             styles.readRetryButton,
             pressed && styles.readRetryButtonPressed,
           ]}
-          onPress={() => setReadRetryNonce((value) => value + 1)}
+          onPress={() => {
+            setReadRetryNonce((value) => value + 1);
+            setHistoryRefreshNonce((value) => value + 1);
+          }}
           accessibilityLabel="Retry Water Read"
         >
           <Ionicons name="refresh" size={14} color="#FFFFFF" />
@@ -863,9 +1006,23 @@ export default function WaterReaderScreen() {
               )}
             </View>
 
+            <RecentWaterReads
+              items={historyItems}
+              loading={historyLoading}
+              error={historyError}
+              onRefresh={() => setHistoryRefreshNonce((value) => value + 1)}
+              onSelectItem={onSelectHistoryItem}
+            />
+
             {/* ── Map + legend ── */}
             {!selected ? (
               <WaterReadIdlePreview />
+            ) : readState.status === 'recent_building' ? (
+              <RecentReadBuildingNotice
+                lakeName={selected.name}
+                contextLine={selectionContextLine(selected)}
+                onCheckReads={() => setHistoryRefreshNonce((value) => value + 1)}
+              />
             ) : (
               <>
                 <WaterReaderMapCard
@@ -1226,6 +1383,167 @@ function CountyFilterChip({
         {label}
       </Text>
     </Pressable>
+  );
+}
+
+function recentStatusLabel(status: WaterReaderHistoryStatus): string {
+  switch (status) {
+    case 'ready': return 'Ready';
+    case 'building': return 'Building';
+    case 'failed': return 'Failed';
+    default: return 'Building';
+  }
+}
+
+function RecentWaterReads({
+  items,
+  loading,
+  error,
+  onRefresh,
+  onSelectItem,
+}: {
+  items: WaterReaderHistoryItem[];
+  loading: boolean;
+  error: string | null;
+  onRefresh: () => void;
+  onSelectItem: (item: WaterReaderHistoryItem) => void;
+}) {
+  const showEmpty = !loading && !error && items.length === 0;
+  return (
+    <View style={styles.recentSection}>
+      <View style={styles.recentHeaderRow}>
+        <Text style={styles.recentTitle}>RECENT WATER READS</Text>
+        <Pressable
+          style={({ pressed }) => [
+            styles.recentRefreshBtn,
+            pressed && styles.recentRefreshBtnPressed,
+          ]}
+          onPress={onRefresh}
+          accessibilityRole="button"
+          accessibilityLabel="Check Read"
+        >
+          {loading ? (
+            <ActivityIndicator size="small" color={paper.dashboardBlue} />
+          ) : (
+            <Ionicons name="refresh" size={14} color={paper.dashboardBlue} />
+          )}
+        </Pressable>
+      </View>
+
+      {error ? (
+        <View style={styles.recentInlineState}>
+          <Ionicons name="alert-circle" size={14} color={paper.dashboardBlue} />
+          <Text style={styles.recentInlineText}>{error}</Text>
+        </View>
+      ) : null}
+
+      {showEmpty ? (
+        <View style={styles.recentInlineState}>
+          <Ionicons name="water-outline" size={14} color={paper.dashboardMuted} />
+          <Text style={styles.recentInlineText}>
+            Reads you open will appear here.
+          </Text>
+        </View>
+      ) : null}
+
+      {items.length > 0 ? (
+        <ScrollView
+          horizontal
+          showsHorizontalScrollIndicator={false}
+          contentContainerStyle={styles.recentScrollContent}
+        >
+          {items.map((item) => (
+            <Pressable
+              key={item.historyId}
+              style={({ pressed }) => [
+                styles.recentReadCard,
+                pressed && styles.recentReadCardPressed,
+              ]}
+              onPress={() => onSelectItem(item)}
+              accessibilityRole="button"
+              accessibilityLabel={`${recentStatusLabel(item.status)} Water Read for ${item.lakeName}`}
+            >
+              <View style={styles.recentReadTopRow}>
+                <Text style={styles.recentLakeName} numberOfLines={2}>
+                  {item.lakeName}
+                </Text>
+                <View
+                  style={[
+                    styles.recentStatusPill,
+                    item.status === 'ready' && styles.recentStatusPillReady,
+                    item.status === 'building' && styles.recentStatusPillBuilding,
+                    item.status === 'failed' && styles.recentStatusPillFailed,
+                  ]}
+                >
+                  <Text style={styles.recentStatusText}>
+                    {recentStatusLabel(item.status)}
+                  </Text>
+                </View>
+              </View>
+              <Text style={styles.recentContext} numberOfLines={2}>
+                {historyContextLine(item) || 'Waterbody details'}
+              </Text>
+              <View style={styles.recentActionRow}>
+                <Text style={styles.recentActionText}>
+                  {item.status === 'ready'
+                    ? 'Check Read'
+                    : item.status === 'building'
+                      ? 'Building'
+                      : 'Retry'}
+                </Text>
+                <Ionicons
+                  name={item.status === 'ready' ? 'open-outline' : 'refresh'}
+                  size={12}
+                  color={paper.dashboardBlue}
+                />
+              </View>
+            </Pressable>
+          ))}
+        </ScrollView>
+      ) : null}
+    </View>
+  );
+}
+
+function RecentReadBuildingNotice({
+  lakeName,
+  contextLine,
+  onCheckReads,
+}: {
+  lakeName: string;
+  contextLine: string;
+  onCheckReads: () => void;
+}) {
+  return (
+    <View style={styles.readInfoPanel}>
+      <View style={styles.readInfoIcon}>
+        <Ionicons name="time-outline" size={18} color={paper.dashboardBlue} />
+      </View>
+      <View style={styles.readInfoCopy}>
+        <Text style={styles.readInfoEyebrow} numberOfLines={1}>
+          {lakeName}
+        </Text>
+        <Text style={styles.readInfoContext} numberOfLines={2}>
+          {contextLine}
+        </Text>
+        <Text style={styles.readInfoTitle}>ANOTHER READ IS BUILDING</Text>
+        <Text style={styles.readInfoBody}>
+          Check Recent Water Reads, or try this lake again in a moment.
+        </Text>
+        <Pressable
+          style={({ pressed }) => [
+            styles.readInfoButton,
+            pressed && styles.readInfoButtonPressed,
+          ]}
+          onPress={onCheckReads}
+          accessibilityRole="button"
+          accessibilityLabel="Check Reads"
+        >
+          <Ionicons name="refresh" size={14} color="#FFFFFF" />
+          <Text style={styles.readInfoButtonText}>CHECK READS</Text>
+        </Pressable>
+      </View>
+    </View>
   );
 }
 
@@ -1664,6 +1982,211 @@ const styles = StyleSheet.create({
   supportPillTextCompact: {
     fontSize: 8.5,
     letterSpacing: 1.4,
+  },
+
+  // Recent Water Reads
+  recentSection: {
+    width: '100%',
+    gap: 9,
+  },
+  recentHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+    paddingHorizontal: 2,
+  },
+  recentTitle: {
+    flex: 1,
+    minWidth: 0,
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 2,
+    color: paper.dashboardInk,
+  },
+  recentRefreshBtn: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+  },
+  recentRefreshBtnPressed: {
+    opacity: 0.72,
+    transform: [{ translateY: 1 }],
+  },
+  recentInlineState: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    paddingHorizontal: 2,
+  },
+  recentInlineText: {
+    flex: 1,
+    minWidth: 0,
+    fontFamily: SANS_MEDIUM,
+    fontSize: 12,
+    lineHeight: 17,
+    color: '#555555',
+  },
+  recentScrollContent: {
+    gap: paperSpacing.sm,
+    paddingRight: paperSpacing.md,
+    paddingBottom: 2,
+  },
+  recentReadCard: {
+    width: 214,
+    minHeight: 116,
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+    gap: 8,
+  },
+  recentReadCardPressed: {
+    backgroundColor: '#FAFAF7',
+    transform: [{ translateY: 1 }],
+  },
+  recentReadTopRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+  },
+  recentLakeName: {
+    flex: 1,
+    minWidth: 0,
+    fontFamily: SERIF_SEMI,
+    fontSize: 15,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+  },
+  recentContext: {
+    fontFamily: SANS_MEDIUM,
+    fontSize: 11.5,
+    lineHeight: 16,
+    color: '#555555',
+  },
+  recentStatusPill: {
+    flexShrink: 0,
+    paddingHorizontal: 7,
+    paddingVertical: 4,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#FAFAF7',
+  },
+  recentStatusPillReady: {
+    backgroundColor: paper.bandPrime,
+    borderColor: 'rgba(0,0,0,0.16)',
+  },
+  recentStatusPillBuilding: {
+    backgroundColor: paper.bandFair,
+    borderColor: 'rgba(0,0,0,0.16)',
+  },
+  recentStatusPillFailed: {
+    backgroundColor: paper.bandPoor,
+    borderColor: 'rgba(0,0,0,0.16)',
+  },
+  recentStatusText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8.5,
+    letterSpacing: 1.1,
+    color: paper.dashboardInk,
+    lineHeight: 11,
+  },
+  recentActionRow: {
+    marginTop: 'auto',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+  },
+  recentActionText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1.3,
+    color: paper.dashboardBlue,
+    lineHeight: 12,
+  },
+
+  // Calm operational state
+  readInfoPanel: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: paperSpacing.md,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    padding: 16,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  readInfoIcon: {
+    width: 38,
+    height: 38,
+    borderRadius: 19,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: paper.dashboardBlueSky,
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.22)',
+  },
+  readInfoCopy: {
+    flex: 1,
+    minWidth: 0,
+    gap: 6,
+  },
+  readInfoEyebrow: {
+    fontFamily: SERIF_SEMI,
+    fontSize: 16,
+    lineHeight: 19,
+    color: paper.dashboardInk,
+  },
+  readInfoContext: {
+    fontFamily: SANS_MEDIUM,
+    fontSize: 12,
+    lineHeight: 16,
+    color: '#555555',
+  },
+  readInfoTitle: {
+    marginTop: 4,
+    fontFamily: MONO_BOLD,
+    fontSize: 11,
+    letterSpacing: 1.5,
+    lineHeight: 15,
+    color: paper.dashboardBlue,
+  },
+  readInfoBody: {
+    fontFamily: SANS_MEDIUM,
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: '#555555',
+  },
+  readInfoButton: {
+    alignSelf: 'flex-start',
+    minHeight: 36,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    marginTop: 4,
+    paddingHorizontal: 13,
+    borderRadius: 8,
+    backgroundColor: paper.dashboardBlue,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.18)',
+  },
+  readInfoButtonPressed: {
+    opacity: 0.86,
+    transform: [{ translateY: 1 }],
+  },
+  readInfoButtonText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 1.3,
+    color: '#FFFFFF',
   },
 
   // Idle state — sample plate preview that mirrors WaterReaderMapCard

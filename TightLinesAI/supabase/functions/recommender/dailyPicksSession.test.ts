@@ -90,6 +90,7 @@ function futureResponse(args: {
       scenario_tags: ["wind_reaction"],
       missing_inputs: [],
       confidence: "high",
+      color_palette_theme: "natural",
     },
     diagnostics: {
       row_authored_lure_count: 4,

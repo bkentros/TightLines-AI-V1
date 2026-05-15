@@ -296,6 +296,19 @@ export function RecommenderLoadingSkeleton() {
           </View>
         </View>
 
+        {/* ── Color palette strip ─────────────────────────────────── */}
+        <View style={styles.paletteSkelCard}>
+          <View style={styles.paletteSkelRow}>
+            <Bone style={styles.paletteSkelPlate} />
+            <View style={styles.paletteSkelText}>
+              <Bone style={styles.paletteSkelEyebrow} />
+              <Bone style={styles.paletteSkelTitle} />
+              <Bone style={[styles.paletteSkelLine, { width: '100%' }]} />
+              <Bone style={[styles.paletteSkelLine, { width: '82%' }]} />
+            </View>
+          </View>
+        </View>
+
         {/* ── DAILY PICKS section divider ─────────────────────────── */}
         <View style={styles.sectionDivider}>
           <View style={styles.sectionTitleRow}>
@@ -518,6 +531,43 @@ const styles = StyleSheet.create({
     height: 14,
     width: '75%',
   },
+
+  // ── Color palette strip skeleton ─────────────────────────────────
+  paletteSkelCard: {
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
+    padding: paperSpacing.md,
+    ...paperShadows.lift,
+  },
+  paletteSkelRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.md,
+  },
+  paletteSkelPlate: {
+    width: 84,
+    height: 84,
+    borderRadius: paperRadius.chip,
+  },
+  paletteSkelText: {
+    flex: 1,
+    gap: 8,
+  },
+  paletteSkelEyebrow: {
+    height: 9,
+    width: '55%',
+    opacity: 0.45,
+  },
+  paletteSkelTitle: {
+    height: 22,
+    width: '72%',
+  },
+  paletteSkelLine: {
+    height: 11,
+  },
+
   tagRow: {
     marginTop: paperSpacing.sm,
     flexDirection: 'row',

@@ -6,7 +6,7 @@
  * (rather than a generic UI card around an SVG):
  *
  *   1. Parent passes `lakeId` + `lakeName` + the read state (idle / reading
- *      / ready / error) returned by `app/water-reader.tsx`.
+ *      / preparing / queued / ready / error) returned by `app/water-reader.tsx`.
  *   2. The masthead cartouche on top stays anchored across the read
  *      transition — eyebrow with edition stamp, lake name in display
  *      Fraunces, masthead subline, status pill on the right.
@@ -71,6 +71,7 @@ export type WaterReaderMapCardState =
   | { status: 'idle' }
   | { status: 'reading' }
   | { status: 'preparing'; read: WaterReaderReadResponse }
+  | { status: 'queued'; read: WaterReaderReadResponse }
   | { status: 'ready'; read: WaterReaderReadResponse }
   | { status: 'error'; errorMessage: string };
 
@@ -202,9 +203,11 @@ export function WaterReaderMapCard({
 
   // Cartouche needs to know what the engine returned (when it has).
   const ready = state.status === 'ready' ? state : null;
-  const cartoucheStatus: 'idle' | 'reading' | 'ready' =
-    state.status === 'reading' || state.status === 'preparing'
+  const cartoucheStatus: 'idle' | 'reading' | 'queued' | 'ready' =
+    state.status === 'reading'
       ? 'reading'
+      : state.status === 'preparing' || state.status === 'queued'
+        ? 'queued'
       : state.status === 'ready'
         ? 'ready'
         : 'idle';
@@ -222,19 +225,27 @@ export function WaterReaderMapCard({
         readingSlow={readingSlow}
       />
 
-      {(state.status === 'reading' || state.status === 'preparing') && (
+      {state.status === 'reading' && (
         <WaterReaderLakeSkeleton geojson={polygonGeoJson} />
       )}
 
-      {state.status === 'preparing' && (
+      {(state.status === 'preparing' || state.status === 'queued') && (
         <View style={styles.preparingCard}>
           <View style={styles.preparingBadge}>
-            <ActivityIndicator size="small" color={paper.dashboardBlue} />
+            {state.status === 'preparing' ? (
+              <ActivityIndicator size="small" color={paper.dashboardBlue} />
+            ) : (
+              <Ionicons name="time-outline" size={15} color={paper.dashboardBlue} />
+            )}
           </View>
           <View style={styles.preparingCopy}>
-            <Text style={styles.preparingTitle}>PREPARING WATER READ</Text>
+            <Text style={styles.preparingTitle}>
+              {state.status === 'queued' ? 'STILL WORKING' : 'BUILDING WATER READ'}
+            </Text>
             <Text style={styles.preparingBody}>
-              The structure map is queued for generation. This page will refresh automatically when the cached read is ready.
+              {state.status === 'queued'
+                ? 'This lake needs more processing time. Leave this screen and choose the same lake again later, or tap Check Read.'
+                : 'This lake needs the heavy map builder. This page will check for the finished read automatically.'}
             </Text>
           </View>
         </View>

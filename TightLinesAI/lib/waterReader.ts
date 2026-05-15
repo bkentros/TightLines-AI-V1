@@ -2,6 +2,7 @@ import { getValidAccessToken, invokeEdgeFunction } from "./supabase";
 import type {
   WaterbodyPolygonResponse,
   WaterbodySearchResponse,
+  WaterReaderHistoryResponse,
   WaterReaderReadRequest,
   WaterReaderReadResponse,
 } from "./waterReaderContracts";
@@ -33,5 +34,13 @@ export async function fetchWaterReaderRead(params: WaterReaderReadRequest): Prom
   return invokeEdgeFunction<WaterReaderReadResponse>("water-reader-read", {
     accessToken: token,
     body: params,
+  });
+}
+
+export async function fetchWaterReaderHistory(params?: { limit?: number }): Promise<WaterReaderHistoryResponse> {
+  const token = await getValidAccessToken();
+  return invokeEdgeFunction<WaterReaderHistoryResponse>("water-reader-history", {
+    accessToken: token,
+    body: params ?? {},
   });
 }

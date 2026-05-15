@@ -34,9 +34,11 @@ import {
 import { getSpeciesImage } from '../../lib/speciesImages';
 import { getFlyImage } from '../../lib/flyImages';
 import { getLureImage } from '../../lib/lureImages';
+import { getPaletteThemeImage, paletteThemeCopy } from '../../lib/colorPaletteImages';
 import { useAuthStore } from '../../store/authStore';
 import { FeedbackCard } from '../FeedbackCard';
 import type {
+  DailyPicksColorPaletteTheme,
   DailyPicksResponse,
   DailyPicksResponsePick,
   DailyPicksSpecies,
@@ -199,25 +201,47 @@ function formatGeneratedAt(result: DailyPicksResponse, timeZone?: string): strin
   return new Intl.DateTimeFormat(undefined, options).format(generated);
 }
 
+/** Depth tints: surface is palest, bottom is darkest — mimics water depth. */
+const COLUMN_DEPTH_BG: Record<TacticalColumn, string> = {
+  surface: 'rgba(28,36,25,0.03)',
+  upper:   'rgba(28,36,25,0.06)',
+  mid:     'rgba(28,36,25,0.09)',
+  bottom:  'rgba(28,36,25,0.14)',
+};
+
 function WaterColumnDiagram({ active }: { active: TacticalColumn }) {
   return (
     <View style={styles.columnDiagram}>
-      {COLUMN_ORDER.map((col) => {
-        const isActive = col === active;
-        return (
-          <View key={col} style={styles.columnCell}>
-            <View style={[styles.columnBar, isActive && styles.columnBarActive]}>
-              {isActive ? <View style={styles.columnDot} /> : null}
+      {/* Water-surface hairline with tiny "~~~" ornament */}
+      <View style={styles.columnSurfaceRow}>
+        <View style={styles.columnSurfaceRule} />
+        <Text style={styles.columnSurfaceOrn}>∿∿∿</Text>
+        <View style={styles.columnSurfaceRule} />
+      </View>
+      <View style={styles.columnBars}>
+        {COLUMN_ORDER.map((col) => {
+          const isActive = col === active;
+          return (
+            <View key={col} style={styles.columnCell}>
+              <View
+                style={[
+                  styles.columnBar,
+                  { backgroundColor: isActive ? paper.bandPrime : COLUMN_DEPTH_BG[col] },
+                  isActive && styles.columnBarActive,
+                ]}
+              >
+                {isActive ? <View style={styles.columnDot} /> : null}
+              </View>
+              <Text
+                style={[styles.columnLabel, isActive && styles.columnLabelActive]}
+                numberOfLines={1}
+              >
+                {COLUMN_LABEL[col].toUpperCase()}
+              </Text>
             </View>
-            <Text
-              style={[styles.columnLabel, isActive && styles.columnLabelActive]}
-              numberOfLines={1}
-            >
-              {COLUMN_LABEL[col].toUpperCase()}
-            </Text>
-          </View>
-        );
-      })}
+          );
+        })}
+      </View>
     </View>
   );
 }
@@ -350,6 +374,10 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
       </View>
 
       <View style={styles.topPickImageBand}>
+        {/* Topographic watermark — field-guide atmosphere behind the specimen. */}
+        <View style={styles.topPickImageTopo} pointerEvents="none">
+          <TopographicLines color={GOLD_ACCENT} count={6} />
+        </View>
         {/* Slow shimmer sweep across the image area — same anatomy as
             the score gauge polish. Native driver. */}
         <Animated.View
@@ -416,7 +444,7 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
 
         <WaterColumnDiagram active={pick.column} />
 
-        <View style={styles.topPickReasonBlock}>
+        <View style={[styles.topPickReasonBlock, styles.topPickReasonBlockBordered]}>
           <View style={styles.topPickReasonHead}>
             <View style={styles.topPickReasonCap} />
             <Text style={styles.topPickReasonEyebrow}>WHY THIS</Text>
@@ -424,7 +452,7 @@ function TopPickCard({ pick }: { pick: DailyPicksResponsePick }) {
           <Text style={styles.topPickReasonBody}>{pick.why_chosen}</Text>
         </View>
 
-        <View style={styles.topPickReasonBlock}>
+        <View style={[styles.topPickReasonBlock, styles.topPickReasonBlockBordered]}>
           <View style={styles.topPickReasonHead}>
             <View style={styles.topPickReasonCap} />
             <Text style={styles.topPickReasonEyebrow}>HOW TO FISH IT</Text>
@@ -455,6 +483,12 @@ function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
 
   return (
     <View style={styles.honorableCard}>
+      {/* Left-edge accent bar — field-guide "tab" marker */}
+      <View style={styles.honorableAccentBar} />
+      {/* Subtle topo backdrop */}
+      <View style={styles.honorableTopo} pointerEvents="none">
+        <TopographicLines color={paper.dashboardBlue} count={3} />
+      </View>
       <View style={styles.honorableEyebrowRow}>
         <View style={styles.honorableEyebrowDot} />
         <Text style={styles.honorableEyebrow}>ALSO CONSIDER · {slotLabel}</Text>
@@ -462,6 +496,11 @@ function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
 
       <View style={styles.honorableBody}>
         <View style={styles.honorableImageWrap}>
+          {/* Tiny corner ticks — specimen plate framing */}
+          <View style={[styles.honorableCornerTick, styles.honorableCornerTL]} />
+          <View style={[styles.honorableCornerTick, styles.honorableCornerTR]} />
+          <View style={[styles.honorableCornerTick, styles.honorableCornerBL]} />
+          <View style={[styles.honorableCornerTick, styles.honorableCornerBR]} />
           {image ? (
             <Image
               source={image}
@@ -517,23 +556,78 @@ function HonorableMentionCard({ pick }: { pick: DailyPicksResponsePick }) {
   );
 }
 
+const ACTIVITY_BAND: Record<DailyPicksResponse['scenario_summary']['activity_level'], string> = {
+  suppressed: paper.bandTough,
+  neutral: paper.dashboardMuted,
+  active: paper.bandFair,
+  high_opportunity: paper.bandPrime,
+};
+
+const CONFIDENCE_BAND: Record<string, string> = {
+  low: paper.bandTough,
+  medium: paper.bandFair,
+  high: paper.bandPrime,
+};
+
 function ScenarioSummary({ result }: { result: DailyPicksResponse }) {
   const scenario = result.scenario_summary;
+  const activityColor = ACTIVITY_BAND[scenario.activity_level] ?? paper.dashboardMuted;
+  const confidenceColor = CONFIDENCE_BAND[scenario.confidence.toLowerCase()] ?? paper.dashboardMuted;
   return (
     <View style={styles.preferenceCard}>
-      <Text style={styles.preferenceHeader}>TODAY'S READ</Text>
+      <View style={styles.preferenceTopo} pointerEvents="none">
+        <TopographicLines color={paper.dashboardBlue} count={4} />
+      </View>
+      <View style={styles.preferenceHeaderRow}>
+        <View style={[styles.preferenceHeaderPip, { backgroundColor: activityColor }]} />
+        <Text style={styles.preferenceHeader}>TODAY'S READ</Text>
+      </View>
       <View style={styles.preferenceChipRow}>
-        <View style={styles.preferenceChip}>
+        <View style={[styles.preferenceChip, styles.preferenceChipAccent, { borderLeftColor: activityColor }]}>
           <Text style={styles.preferenceChipLabel}>ACTIVITY</Text>
-          <Text style={styles.preferenceChipValue} numberOfLines={1}>
+          <Text style={[styles.preferenceChipValue, { color: activityColor }]} numberOfLines={1}>
             {ACTIVITY_LABEL[scenario.activity_level]}
           </Text>
         </View>
-        <View style={styles.preferenceChip}>
+        <View style={[styles.preferenceChip, styles.preferenceChipAccent, { borderLeftColor: confidenceColor }]}>
           <Text style={styles.preferenceChipLabel}>CONFIDENCE</Text>
-          <Text style={styles.preferenceChipValue} numberOfLines={1}>
+          <Text style={[styles.preferenceChipValue, { color: confidenceColor }]} numberOfLines={1}>
             {toTitleCase(scenario.confidence)}
           </Text>
+        </View>
+      </View>
+    </View>
+  );
+}
+
+/** One editorial strip for the day's lure/fly color family (server-resolved). */
+function ColorPaletteBanner({ theme }: { theme: DailyPicksColorPaletteTheme }) {
+  const copy = paletteThemeCopy(theme);
+  const plate = getPaletteThemeImage(theme);
+
+  return (
+    <View style={styles.paletteCard}>
+      <View style={styles.paletteTopo} pointerEvents="none">
+        <TopographicLines color={paper.dashboardBlue} count={4} />
+      </View>
+      <CornerMarkSet color={paper.dashboardBlue} size={10} thickness={1.5} inset={8} />
+      <View style={styles.paletteRow}>
+        <View style={styles.palettePlateFrame}>
+          <Image source={plate} style={styles.palettePlate} resizeMode="cover" />
+        </View>
+        <View style={styles.paletteTextCol}>
+          <SectionEyebrow
+            color={paper.dashboardBlue}
+            dashes={false}
+            size={9}
+            align="left"
+            style={{ marginBottom: 2 }}
+            tracking={2}
+          >
+            COLOR OF THE DAY
+          </SectionEyebrow>
+          <Text style={styles.paletteTitle}>{copy.title}</Text>
+          <Text style={styles.paletteBody}>{copy.subtitle}</Text>
         </View>
       </View>
     </View>
@@ -686,18 +780,22 @@ export function RecommenderView({
           </View>
 
           {speciesImage ? (
-            <View style={styles.heroPortraitWrap}>
-              <View style={styles.heroPortrait}>
-                <Image
-                  source={speciesImage}
-                  style={styles.heroPortraitImage}
-                  resizeMode="contain"
-                />
+          <View style={styles.heroPortraitWrap}>
+            <View style={styles.heroPortrait}>
+              {/* Topo lines inside the portrait give a "habitat map" depth */}
+              <View style={styles.heroPortraitTopo} pointerEvents="none">
+                <TopographicLines color={paper.dashboardBlue} count={5} />
               </View>
-              <Text style={styles.heroPortraitPillText} numberOfLines={1}>
-                {SPECIES_SUBTITLE[result.species]}
-              </Text>
+              <Image
+                source={speciesImage}
+                style={styles.heroPortraitImage}
+                resizeMode="contain"
+              />
             </View>
+            <Text style={styles.heroPortraitPillText} numberOfLines={1}>
+              {SPECIES_SUBTITLE[result.species]}
+            </Text>
+          </View>
           ) : null}
 
           <View style={styles.heroTileRow}>
@@ -735,8 +833,14 @@ export function RecommenderView({
 
         <ScenarioSummary result={result} />
 
+        <ColorPaletteBanner theme={result.scenario_summary.color_palette_theme} />
+
         <View style={styles.sectionBlock}>
           <View style={styles.sectionDivider}>
+            <View style={styles.sectionDividerTopo} pointerEvents="none">
+              <TopographicLines color={paper.dashboardBlue} count={5} />
+            </View>
+            <CornerMarkSet color={paper.dashboardBlue} size={12} thickness={1.5} inset={8} />
             <View style={styles.sectionFineRuleRow}>
               <View style={styles.sectionFineRule} />
               <Text style={styles.sectionFineMark}>◆</Text>
@@ -875,10 +979,16 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardWhite,
     overflow: 'hidden',
   },
+  heroPortraitTopo: {
+    position: 'absolute',
+    top: -12,
+    right: -20,
+    opacity: 0.12,
+  },
   heroPortraitImage: {
     width: '100%',
     height: '100%',
-    transform: [{ scale: 1.4 }],
+    transform: [{ scale: 1.54 }],
   },
   heroPortraitPillText: {
     marginTop: 7,
@@ -1026,13 +1136,31 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
     padding: paperSpacing.md,
+    overflow: 'hidden',
+    position: 'relative',
     ...paperShadows.hard,
+  },
+  preferenceTopo: {
+    position: 'absolute',
+    top: -14,
+    right: -20,
+    opacity: 0.12,
+  },
+  preferenceHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: paperSpacing.sm,
+  },
+  preferenceHeaderPip: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
   },
   preferenceHeader: {
     fontFamily: paperFonts.metaMono,
     fontSize: 10,
     color: paper.dashboardBlue,
-    marginBottom: paperSpacing.sm,
   },
   preferenceChipRow: {
     flexDirection: 'row',
@@ -1050,6 +1178,9 @@ const styles = StyleSheet.create({
     paddingHorizontal: paperSpacing.sm,
     paddingVertical: paperSpacing.sm,
   },
+  preferenceChipAccent: {
+    borderLeftWidth: 3,
+  },
   preferenceChipLabel: {
     fontFamily: paperFonts.metaMono,
     fontSize: 9,
@@ -1061,6 +1192,62 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: paper.dashboardInk,
   },
+
+  // ── Color palette of the day (one strip for all four picks) ───────
+  paletteCard: {
+    position: 'relative',
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: paperRadius.card,
+    overflow: 'hidden',
+    ...paperShadows.lift,
+  },
+  paletteTopo: {
+    position: 'absolute',
+    top: -10,
+    right: -16,
+    opacity: 0.1,
+  },
+  paletteRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.md,
+    padding: paperSpacing.md,
+  },
+  palettePlateFrame: {
+    width: 84,
+    height: 84,
+    borderRadius: paperRadius.chip,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    overflow: 'hidden',
+    backgroundColor: paper.dashboardWhite,
+    flexShrink: 0,
+  },
+  palettePlate: {
+    width: '100%',
+    height: '100%',
+  },
+  paletteTextCol: {
+    flex: 1,
+    minWidth: 0,
+    gap: 5,
+  },
+  paletteTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 19,
+    lineHeight: 23,
+    fontWeight: '700',
+    color: paper.dashboardInk,
+  },
+  paletteBody: {
+    fontFamily: paperFonts.body,
+    fontSize: 12,
+    lineHeight: 16.5,
+    color: paper.dashboardMuted,
+  },
+
   sectionBlock: {
     gap: paperSpacing.sm,
   },
@@ -1075,6 +1262,12 @@ const styles = StyleSheet.create({
     paddingVertical: paperSpacing.md,
     overflow: 'hidden',
     ...paperShadows.hard,
+  },
+  sectionDividerTopo: {
+    position: 'absolute',
+    top: -14,
+    left: -20,
+    opacity: 0.1,
   },
   sectionFineRuleRow: {
     width: '100%',
@@ -1288,6 +1481,12 @@ const styles = StyleSheet.create({
     overflow: 'hidden',
     position: 'relative',
   },
+  topPickImageTopo: {
+    position: 'absolute',
+    top: -10,
+    right: -18,
+    opacity: 0.07,
+  },
   topPickImageShimmer: {
     position: 'absolute',
     top: -10,
@@ -1362,6 +1561,12 @@ const styles = StyleSheet.create({
   topPickReasonBlock: {
     gap: 4,
   },
+  topPickReasonBlockBordered: {
+    borderLeftWidth: 3,
+    borderLeftColor: GOLD_ACCENT,
+    paddingLeft: 9,
+    marginLeft: 2,
+  },
   topPickReasonHead: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -1426,10 +1631,29 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
-    paddingHorizontal: paperSpacing.md,
+    paddingLeft: paperSpacing.md + 4,
+    paddingRight: paperSpacing.md,
     paddingTop: paperSpacing.sm + 2,
     paddingBottom: paperSpacing.md,
     overflow: 'hidden',
+    position: 'relative',
+  },
+  honorableAccentBar: {
+    position: 'absolute',
+    left: 0,
+    top: 0,
+    bottom: 0,
+    width: 4,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.55,
+    borderTopLeftRadius: paperRadius.card,
+    borderBottomLeftRadius: paperRadius.card,
+  },
+  honorableTopo: {
+    position: 'absolute',
+    top: -10,
+    right: -18,
+    opacity: 0.07,
   },
   honorableEyebrowRow: {
     flexDirection: 'row',
@@ -1441,15 +1665,16 @@ const styles = StyleSheet.create({
     width: 5,
     height: 5,
     borderRadius: 2.5,
-    backgroundColor: paper.dashboardMuted,
-    opacity: 0.55,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.7,
   },
   honorableEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 9.5,
     letterSpacing: 1.7,
-    color: paper.dashboardMuted,
+    color: paper.dashboardBlue,
     fontWeight: '700',
+    opacity: 0.75,
   },
   honorableBody: {
     flexDirection: 'row',
@@ -1468,6 +1693,39 @@ const styles = StyleSheet.create({
     padding: 6,
     overflow: 'hidden',
     flexShrink: 0,
+    position: 'relative',
+  },
+  // Specimen-plate corner ticks inside the honorable image frame
+  honorableCornerTick: {
+    position: 'absolute',
+    width: 8,
+    height: 8,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.45,
+  },
+  honorableCornerTL: {
+    top: 3,
+    left: 3,
+    borderTopWidth: 1.5,
+    borderLeftWidth: 1.5,
+  },
+  honorableCornerTR: {
+    top: 3,
+    right: 3,
+    borderTopWidth: 1.5,
+    borderRightWidth: 1.5,
+  },
+  honorableCornerBL: {
+    bottom: 3,
+    left: 3,
+    borderBottomWidth: 1.5,
+    borderLeftWidth: 1.5,
+  },
+  honorableCornerBR: {
+    bottom: 3,
+    right: 3,
+    borderBottomWidth: 1.5,
+    borderRightWidth: 1.5,
   },
   honorableImage: {
     width: '100%',
@@ -1567,6 +1825,28 @@ const styles = StyleSheet.create({
   },
   columnDiagram: {
     marginTop: paperSpacing.md,
+    gap: 4,
+  },
+  columnSurfaceRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginBottom: 2,
+  },
+  columnSurfaceRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.35,
+  },
+  columnSurfaceOrn: {
+    fontFamily: paperFonts.body,
+    fontSize: 9,
+    color: paper.dashboardBlue,
+    opacity: 0.5,
+    lineHeight: 10,
+  },
+  columnBars: {
     flexDirection: 'row',
     gap: 6,
   },

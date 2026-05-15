@@ -60,7 +60,7 @@ The compatibility endpoint is `POST /water-reader/generate` and requires header 
 
 ## Queue Runner
 
-Production Edge reads should queue cache misses and return `generationStatus: "queued"` or `"processing"` while the app polls. Do not set `WATER_READER_EDGE_INLINE_CACHE_MISSES=true` in production; that flag is only for local/dev fallback because it makes user requests wait on generation work.
+Production Edge reads should generate normal cache misses inline and queue reads that exceed the Edge complexity limits. The heavy route currently includes high runtime vertex count, large runtime GeoJSON payloads, interior-ring polygons, multi-component polygons, and combined complexity score. Those heavy reads return `generationStatus: "queued"` or `"processing"` while the app polls. Do not set `WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=true` in production unless you intentionally want every uncached lake to use the background worker.
 
 Create a Cloud Scheduler job that calls the worker drain endpoint every minute:
 
@@ -100,7 +100,8 @@ supabase secrets set \
   WATER_READER_HEAVY_GENERATOR_URL="<cloud-run-service-url>" \
   WATER_READER_INTERNAL_KEY="<same-secret-as-worker>" \
   WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="25000" \
-  WATER_READER_EDGE_INLINE_CACHE_MISSES="false"
+  WATER_READER_EDGE_INLINE_CACHE_MISSES="false" \
+  WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="false"
 ```
 
 If production smoke shows legitimate worker timeouts, raise the Edge timeout cautiously:

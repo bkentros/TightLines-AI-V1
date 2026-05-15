@@ -407,6 +407,7 @@ Deno.test("DailyPicks response includes diagnostics and scenario summary", () =>
     "wind_reaction",
     "dirty_vibration",
   ]);
+  assertEquals(response.scenario_summary.color_palette_theme, "bright");
 });
 
 Deno.test("DailyPicks response diagnostics preserve family-diversity fields", () => {

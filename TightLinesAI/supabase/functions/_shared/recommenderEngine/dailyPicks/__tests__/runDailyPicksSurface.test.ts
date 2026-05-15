@@ -200,6 +200,7 @@ Deno.test("DailyPicks surface-closed request does not return surface picks", () 
   );
 
   assertEquals(response.scenario_summary.surface_daily_gate, "closed");
+  assertEquals(response.scenario_summary.color_palette_theme, "dark");
   for (const pick of Object.values(response.picks)) {
     assertEquals(pick.is_surface, false);
   }

@@ -6,6 +6,7 @@ import type {
   DailyPicksEngineResult,
 } from "./runDailyPicksEngine.ts";
 import type { DailyPicksVariant } from "./selectDailyPicks.ts";
+import { resolveColorPaletteTheme, type DailyColorPaletteTheme } from "./resolveColorPaletteTheme.ts";
 import { whyThisCopy } from "./whyThisCopy.ts";
 
 export const DAILY_PICKS_RESPONSE_FEATURE =
@@ -43,6 +44,7 @@ export type DailyPicksScenarioSummary = {
   scenario_tags: readonly ConditionTag[];
   missing_inputs: readonly string[];
   confidence: DailyScenario["confidence"];
+  color_palette_theme: DailyColorPaletteTheme;
 };
 
 export type DailyPicksFutureResponse = {
@@ -150,6 +152,7 @@ export function shapeDailyPicksResponse(args: {
       scenario_tags: scenario.scenario_tags,
       missing_inputs: scenario.missing_inputs,
       confidence: scenario.confidence,
+      color_palette_theme: resolveColorPaletteTheme(scenario),
     },
     diagnostics: args.result.diagnostics,
     picks: {

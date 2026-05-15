@@ -23,10 +23,14 @@ async function main() {
   assert(edgeSource.includes('generationStatus: jobStatus'), 'edge pending response should include generation status');
   assert(edgeSource.includes('generationJobId: params.job.id'), 'edge pending response should include job id');
   assert(edgeSource.includes('retryAfterMs'), 'edge pending response should include retry hint');
+  assert(edgeSource.includes('kickGenerationWorker'), 'edge pending response path should kick the worker after queueing a job');
+  assert(edgeSource.includes('/water-reader/jobs/drain'), 'edge worker kick should use the queue drain endpoint');
+  assert(edgeSource.includes('findRecentUserBuildingJob'), 'edge pending response path should guard rapid heavy read starts');
+  assert(edgeSource.includes('Another Water Read is Building. Check Recent Water Reads'), 'edge rapid-start guard should return friendly user-safe copy');
   assert(migrationSource.includes('check (status in (') && migrationSource.includes("'processing'"), 'migration should constrain job statuses');
   assert(docsSource.includes('Cloud Scheduler'), 'queue runner docs should mention Cloud Scheduler');
   assert(docsSource.includes('/water-reader/jobs/drain'), 'queue runner docs should mention the drain endpoint');
-  assert(docsSource.includes('WATER_READER_EDGE_INLINE_CACHE_MISSES=true') && docsSource.includes('Do not set'), 'queue runner docs should warn against inline cache misses in production');
+  assert(docsSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=true') && docsSource.includes('Do not set'), 'queue runner docs should warn against routing every cache miss through the worker in production');
   assert(docsSource.includes('Cloud Tasks') && docsSource.includes('multiple Cloud Scheduler jobs'), 'queue runner docs should mention high-volume runner options');
 
   const server = startHeavyGeneratorServer(0);

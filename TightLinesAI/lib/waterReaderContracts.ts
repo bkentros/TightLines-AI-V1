@@ -6,6 +6,7 @@
 export const WATERBODY_SEARCH_FEATURE = "waterbody_search_v1" as const;
 export const WATERBODY_POLYGON_FEATURE = "waterbody_polygon_v1" as const;
 export const WATER_READER_READ_FEATURE = "water_reader_read_v1" as const;
+export const WATER_READER_HISTORY_FEATURE = "water_reader_history_v1" as const;
 
 export type WaterbodyType = "lake" | "pond" | "reservoir";
 export type WaterReaderDataTier = "polygon_only";
@@ -281,6 +282,29 @@ export interface WaterReaderReadOperationalDiagnostics {
 }
 
 export type WaterReaderGenerationStatus = "ready" | "queued" | "processing" | "failed";
+export type WaterReaderHistoryStatus = "ready" | "building" | "failed";
+
+export interface WaterReaderHistoryItem {
+  historyId: string;
+  lakeId: string;
+  lakeName: string;
+  state: string | null;
+  county: string | null;
+  areaAcres: number | null;
+  seasonContextKey: string;
+  mapWidth: number;
+  engineVersion: string;
+  status: WaterReaderHistoryStatus;
+  generationJobId: string | null;
+  lastViewedAt: string;
+  generatedAt: string | null;
+  message?: string | null;
+}
+
+export interface WaterReaderHistoryResponse {
+  feature: typeof WATER_READER_HISTORY_FEATURE;
+  items: WaterReaderHistoryItem[];
+}
 
 export interface WaterReaderReadResponse {
   feature: typeof WATER_READER_READ_FEATURE;

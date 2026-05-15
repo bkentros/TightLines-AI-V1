@@ -92,6 +92,8 @@ interface GenerationJobRow {
   max_attempts: number;
   next_attempt_at: string;
   last_error: string | null;
+  created_at?: string | null;
+  updated_at?: string | null;
 }
 
 type CacheWriteResult = Pick<WaterReaderReadResponse, "cacheWriteStatus" | "cacheWriteError">;
@@ -104,11 +106,12 @@ interface HeavyRouteInfo {
 }
 
 const EDGE_INLINE_ORIGINAL_VERTEX_LIMIT = 25000;
-const EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 4500;
-const EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 100000;
-const EDGE_INLINE_INTERIOR_RING_LIMIT = 18;
-const EDGE_INLINE_COMPLEXITY_SCORE_LIMIT = 7500;
-const INTERIOR_RING_COMPLEXITY_WEIGHT = 160;
+const EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 3200;
+const EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 70000;
+const EDGE_INLINE_INTERIOR_RING_LIMIT = 1;
+const EDGE_INLINE_RUNTIME_COMPONENT_LIMIT = 2;
+const EDGE_INLINE_COMPLEXITY_SCORE_LIMIT = 3600;
+const INTERIOR_RING_COMPLEXITY_WEIGHT = 900;
 
 function mapPreviewBbox(row: PolygonRpcRow): WaterbodyPreviewBbox | null {
   const minLon = row.bbox_min_lon;
@@ -159,6 +162,7 @@ function heavyRouteInfo(polygon: WaterbodyPolygonForWaterReaderRead): HeavyRoute
   const bytes = runtimeGeoJsonBytes(polygon);
   const originalVertexCount = polygon.originalVertexCount ?? 0;
   const runtimeVertexCount = polygon.runtimeVertexCount ?? 0;
+  const runtimeComponentCount = polygon.runtimeComponentCount ?? polygon.componentCount ?? 0;
   const interiorRingCount = polygon.runtimeInteriorRingCount ?? polygon.interiorRingCount ?? 0;
   const qaFlags = polygon.polygonQaFlags ?? [];
   const edgeComplexityScore = runtimeVertexCount + (interiorRingCount * INTERIOR_RING_COMPLEXITY_WEIGHT);
@@ -167,8 +171,11 @@ function heavyRouteInfo(polygon: WaterbodyPolygonForWaterReaderRead): HeavyRoute
     runtimeVertexCount >= EDGE_INLINE_RUNTIME_VERTEX_LIMIT ? `runtime_vertex_count:${runtimeVertexCount}` : null,
     bytes != null && bytes >= EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT ? `runtime_geojson_bytes:${bytes}` : null,
     interiorRingCount >= EDGE_INLINE_INTERIOR_RING_LIMIT ? `interior_ring_count:${interiorRingCount}` : null,
+    runtimeComponentCount >= EDGE_INLINE_RUNTIME_COMPONENT_LIMIT ? `runtime_component_count:${runtimeComponentCount}` : null,
     edgeComplexityScore >= EDGE_INLINE_COMPLEXITY_SCORE_LIMIT ? `edge_runtime_complexity_score:${edgeComplexityScore}` : null,
     qaFlags.includes("high_vertex_count") ? "qa_flag:high_vertex_count" : null,
+    qaFlags.includes("multi_component") ? "qa_flag:multi_component" : null,
+    qaFlags.includes("interior_rings") ? "qa_flag:interior_rings" : null,
   ].filter(Boolean) as string[];
   return {
     heavy: reasons.length > 0,
@@ -184,7 +191,7 @@ function allowEdgeHeavyLocalFallback(): boolean {
 
 function routeAllCacheMissesThroughHeavyWorker(): boolean {
   return Boolean(Deno.env.get("WATER_READER_HEAVY_GENERATOR_URL") && Deno.env.get("WATER_READER_INTERNAL_KEY")) &&
-    Deno.env.get("WATER_READER_EDGE_INLINE_CACHE_MISSES") !== "true";
+    Deno.env.get("WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER") === "true";
 }
 
 function allowInlineCacheMissGeneration(): boolean {
@@ -410,6 +417,115 @@ async function ensureGenerationJob(params: {
   return job;
 }
 
+interface RecentPreparingHistoryRow {
+  lake_id: string;
+  season_context_key: string;
+  map_width: number;
+  engine_version: string;
+  generation_job_id: string | null;
+  status: "preparing" | "ready" | "failed";
+  last_viewed_at: string;
+}
+
+async function findRecentUserBuildingJob(params: {
+  supabase: any;
+  userId: string;
+}): Promise<GenerationJobRow | null> {
+  const { data: historyRows, error: historyError } = await params.supabase
+    .from("water_reader_user_history")
+    .select("lake_id,season_context_key,map_width,engine_version,generation_job_id,status,last_viewed_at")
+    .eq("user_id", params.userId)
+    .eq("status", "preparing")
+    .not("generation_job_id", "is", null)
+    .order("last_viewed_at", { ascending: false })
+    .limit(20);
+  if (historyError) {
+    console.error("[water-reader-read] recent building history lookup failed", {
+      userId: params.userId,
+      message: historyError.message,
+    });
+    return null;
+  }
+
+  const histories = (historyRows ?? []) as RecentPreparingHistoryRow[];
+  const jobIds = histories
+    .map((row) => row.generation_job_id)
+    .filter((id): id is string => Boolean(id));
+  if (jobIds.length === 0) return null;
+
+  const { data: jobRows, error: jobError } = await params.supabase
+    .from("water_reader_generation_jobs")
+    .select("id,lake_id,season_context_key,map_width,engine_version,status,attempts,max_attempts,next_attempt_at,last_error,created_at,updated_at")
+    .in("id", jobIds)
+    .in("status", ["queued", "processing"])
+    .order("updated_at", { ascending: false })
+    .limit(1);
+  if (jobError) {
+    console.error("[water-reader-read] recent building job lookup failed", {
+      userId: params.userId,
+      message: jobError.message,
+    });
+    return null;
+  }
+
+  const job = Array.isArray(jobRows) ? jobRows[0] as GenerationJobRow | undefined : null;
+  return job ?? null;
+}
+
+function runInBackground(promise: Promise<unknown>) {
+  const edgeRuntime = (globalThis as unknown as {
+    EdgeRuntime?: { waitUntil?: (promise: Promise<unknown>) => void };
+  }).EdgeRuntime;
+  if (typeof edgeRuntime?.waitUntil === "function") {
+    edgeRuntime.waitUntil(promise);
+    return;
+  }
+  promise.catch((error) => {
+    console.error("[water-reader-read] background task failed", {
+      message: error instanceof Error ? error.message : String(error),
+    });
+  });
+}
+
+async function kickGenerationWorker(params: {
+  jobId: string;
+  lakeId: string;
+  seasonContextKey: string;
+}) {
+  const url = Deno.env.get("WATER_READER_HEAVY_GENERATOR_URL");
+  const internalKey = Deno.env.get("WATER_READER_INTERNAL_KEY");
+  if (!url || !internalKey) return;
+
+  const endpoint = `${url.replace(/\/$/, "")}/water-reader/jobs/drain`;
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-water-reader-internal-key": internalKey,
+      },
+      body: JSON.stringify({ maxJobs: 1 }),
+    });
+    if (!response.ok) {
+      const message = (await response.text()).slice(0, 500);
+      console.error("[water-reader-read] worker kick failed", {
+        jobId: params.jobId,
+        lakeId: params.lakeId,
+        seasonContextKey: params.seasonContextKey,
+        status: response.status,
+        message,
+      });
+    }
+  } catch (error) {
+    console.error("[water-reader-read] worker kick request failed", {
+      jobId: params.jobId,
+      lakeId: params.lakeId,
+      seasonContextKey: params.seasonContextKey,
+      message: error instanceof Error ? error.message : String(error),
+    });
+  }
+}
+
 async function upsertUserHistory(params: {
   supabase: any;
   userId: string;
@@ -440,6 +556,110 @@ async function upsertUserHistory(params: {
       message: error.message,
     });
   }
+}
+
+async function queueGenerationReadResponse(params: {
+  supabase: any;
+  userId: string;
+  polygon: WaterbodyPolygonForWaterReaderRead;
+  currentDate: Date;
+  seasonContextKey: string;
+  fetchMs: number;
+  metadataMs: number;
+  cacheMs: number;
+}): Promise<Response> {
+  const recentBuildingJob = await findRecentUserBuildingJob({
+    supabase: params.supabase,
+    userId: params.userId,
+  });
+  if (recentBuildingJob) {
+    const sameRequestedRead =
+      recentBuildingJob.lake_id === params.polygon.lakeId &&
+      recentBuildingJob.season_context_key === params.seasonContextKey &&
+      recentBuildingJob.map_width === WATER_READER_APP_SVG_WIDTH &&
+      recentBuildingJob.engine_version === WATER_READER_ENGINE_VERSION;
+
+    if (sameRequestedRead) {
+      await upsertUserHistory({
+        supabase: params.supabase,
+        userId: params.userId,
+        lakeId: params.polygon.lakeId,
+        seasonContextKey: params.seasonContextKey,
+        status: "preparing",
+        generationJobId: recentBuildingJob.id,
+      });
+      return new Response(
+        JSON.stringify(pendingReadResponse({
+          polygon: params.polygon,
+          currentDate: params.currentDate,
+          job: recentBuildingJob,
+          fetchMs: params.fetchMs,
+          metadataMs: params.metadataMs,
+          cacheMs: params.cacheMs,
+        })),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+      );
+    }
+
+    return new Response(
+      JSON.stringify(fallbackReadResponse({
+        polygon: params.polygon,
+        currentDate: params.currentDate,
+        fallbackMessage: "Another Water Read is Building. Check Recent Water Reads, then try this lake again shortly.",
+        fetchMs: params.fetchMs,
+        metadataMs: params.metadataMs,
+        cacheMs: params.cacheMs,
+        operationalDiagnostics: {
+          code: "recent_water_read_building",
+          message: "A recent heavy Water Reader generation is already in progress for this user.",
+          heavyGenerationStatus: "routed",
+        },
+      })),
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+    );
+  }
+
+  let job: GenerationJobRow;
+  try {
+    job = await ensureGenerationJob({
+      supabase: params.supabase,
+      lakeId: params.polygon.lakeId,
+      seasonContextKey: params.seasonContextKey,
+      userId: params.userId,
+    });
+  } catch (jobError) {
+    console.error("[water-reader-read] generation job ensure failed", {
+      lakeId: params.polygon.lakeId,
+      message: jobError instanceof Error ? jobError.message : String(jobError),
+    });
+    return jsonError("Failed to start Water Reader map generation", "water_reader_generation_queue_failed", 500);
+  }
+  await upsertUserHistory({
+    supabase: params.supabase,
+    userId: params.userId,
+    lakeId: params.polygon.lakeId,
+    seasonContextKey: params.seasonContextKey,
+    status: job.status === "failed" ? "failed" : "preparing",
+    generationJobId: job.id,
+  });
+  if (job.status === "queued") {
+    runInBackground(kickGenerationWorker({
+      jobId: job.id,
+      lakeId: params.polygon.lakeId,
+      seasonContextKey: params.seasonContextKey,
+    }));
+  }
+  return new Response(
+    JSON.stringify(pendingReadResponse({
+      polygon: params.polygon,
+      currentDate: params.currentDate,
+      job,
+      fetchMs: params.fetchMs,
+      metadataMs: params.metadataMs,
+      cacheMs: params.cacheMs,
+    })),
+    { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+  );
 }
 
 async function requestHeavyGenerator(params: {
@@ -949,48 +1169,47 @@ Deno.serve(async (req: Request) => {
     );
   }
 
-  if (!allowInlineCacheMissGeneration()) {
-    let job: GenerationJobRow;
-    try {
-      job = await ensureGenerationJob({
-        supabase,
-        lakeId: polygon.lakeId,
-        seasonContextKey: seasonContext.seasonContextKey,
-        userId: user.id,
-      });
-    } catch (jobError) {
-      console.error("[water-reader-read] generation job ensure failed", {
-        lakeId: polygon.lakeId,
-        message: jobError instanceof Error ? jobError.message : String(jobError),
-      });
-      return jsonError("Failed to queue Water Reader map generation", "water_reader_generation_queue_failed", 500);
-    }
-    await upsertUserHistory({
+  if (routeViaHeavyWorker && !allowInlineCacheMissGeneration()) {
+    return await queueGenerationReadResponse({
       supabase,
       userId: user.id,
-      lakeId: polygon.lakeId,
+      polygon,
+      currentDate,
       seasonContextKey: seasonContext.seasonContextKey,
-      status: job.status === "failed" ? "failed" : "preparing",
-      generationJobId: job.id,
+      fetchMs,
+      metadataMs,
+      cacheMs,
     });
-    return new Response(
-      JSON.stringify(pendingReadResponse({
-        polygon,
-        currentDate,
-        job,
-        fetchMs,
-        metadataMs,
-        cacheMs,
-      })),
-      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
-    );
   }
 
-  const generatedRead = buildServerWaterReaderRead({
-    polygonPayload: polygon,
-    currentDate,
-    fetchMs,
-  });
+  let generatedRead: WaterReaderReadResponse;
+  try {
+    generatedRead = buildServerWaterReaderRead({
+      polygonPayload: polygon,
+      currentDate,
+      fetchMs,
+    });
+  } catch (error) {
+    console.error("[water-reader-read] inline generation failed; queueing worker job", {
+      lakeId: polygon.lakeId,
+      seasonContextKey: seasonContext.seasonContextKey,
+      message: error instanceof Error ? error.message : String(error),
+      originalVertexCount: polygon.originalVertexCount ?? null,
+      runtimeVertexCount: polygon.runtimeVertexCount ?? null,
+      runtimeComponentCount: polygon.runtimeComponentCount ?? null,
+      runtimeInteriorRingCount: polygon.runtimeInteriorRingCount ?? null,
+    });
+    return await queueGenerationReadResponse({
+      supabase,
+      userId: user.id,
+      polygon,
+      currentDate,
+      seasonContextKey: seasonContext.seasonContextKey,
+      fetchMs,
+      metadataMs,
+      cacheMs,
+    });
+  }
   const cacheWrite = await upsertGeneratedRead({
     supabase,
     read: generatedRead,

@@ -1,6 +1,8 @@
 import { readFileSync } from 'fs';
 import {
+  WATER_READER_HISTORY_FEATURE,
   WATER_READER_READ_FEATURE,
+  type WaterReaderHistoryResponse,
   type WaterReaderReadRequest,
   type WaterReaderReadResponse,
 } from '../lib/waterReaderContracts';
@@ -18,6 +20,9 @@ const appSource = readFileSync('app/water-reader.tsx', 'utf8');
 const clientSource = readFileSync('lib/waterReader.ts', 'utf8');
 const contractSource = readFileSync('lib/waterReaderContracts.ts', 'utf8');
 const serverSource = readFileSync('supabase/functions/water-reader-read/index.ts', 'utf8');
+const historyFunctionSource = readFileSync('supabase/functions/water-reader-history/index.ts', 'utf8');
+const cartoucheSource = readFileSync('components/water-reader/WaterReadCartouche.tsx', 'utf8');
+const mapCardSource = readFileSync('components/water-reader/WaterReaderMapCard.tsx', 'utf8');
 const serverHelperSource = readFileSync('supabase/functions/_shared/waterReaderRead/buildRead.ts', 'utf8');
 const serverContractsSource = readFileSync('supabase/functions/_shared/waterReaderRead/contracts.ts', 'utf8');
 const cacheBuilderSource = readFileSync('scripts/water-reader-build-read-cache.ts', 'utf8');
@@ -44,6 +49,10 @@ const pendingResponseShape: Pick<WaterReaderReadResponse, 'feature' | 'productio
   generationJobId: '00000000-0000-4000-8000-000000000002',
   retryAfterMs: 4000,
 };
+const historyResponseShape: WaterReaderHistoryResponse = {
+  feature: WATER_READER_HISTORY_FEATURE,
+  items: [],
+};
 const leaderPaperifyFixture = `<svg viewBox="0 0 200 200"><defs></defs><path class="water-reader-label-leader" d="M 106.72 188.74 L 106.72 220.68" fill="none" stroke="#0F172A" stroke-width="1" stroke-opacity="0.5" stroke-linecap="round"/></svg>`;
 const paperifiedLeaderFixture = paperifyWaterReaderSvg(leaderPaperifyFixture).svg;
 const legendCopyQuality = waterReaderLegendTemplateQualityReport();
@@ -68,6 +77,7 @@ const islandSaddleConfluenceFixture = pickLegendBody({
 
 assert(requestShape.lakeId.length > 0, 'read request contract should include lakeId');
 assert(responseShape.feature === 'water_reader_read_v1', 'read response feature marker should be stable');
+assert(historyResponseShape.feature === 'water_reader_history_v1', 'history response feature marker should be stable');
 assert(pendingResponseShape.generationStatus === 'queued' && pendingResponseShape.productionSvgResult === null, 'pending read response contract should be representable');
 assert(legendCopyQuality.ok, `legend guide copy should stay compact/public: ${JSON.stringify(legendCopyQuality.issues.slice(0, 5))}`);
 assert(legendCopyQuality.checked > 500, 'legend guide copy should cover a deep standalone and confluence template pool');
@@ -77,7 +87,11 @@ assert(!paperifiedLeaderFixture.includes('round"/ stroke-dasharray'), 'paperifie
 assert(paperifiedLeaderFixture.includes('stroke-linecap="round" stroke-dasharray="4 3"/>'), 'paperifier should insert leader dash attributes before the self-closing slash');
 assert(clientSource.includes('export async function fetchWaterReaderRead'), 'fetchWaterReaderRead should be exported');
 assert(clientSource.includes('invokeEdgeFunction<WaterReaderReadResponse>("water-reader-read"'), 'client should call water-reader-read edge function');
+assert(clientSource.includes('export async function fetchWaterReaderHistory'), 'fetchWaterReaderHistory should be exported');
+assert(clientSource.includes('invokeEdgeFunction<WaterReaderHistoryResponse>("water-reader-history"'), 'client should call water-reader-history edge function');
 assert(contractSource.includes('export interface WaterReaderReadResponse'), 'app read response contract should exist');
+assert(contractSource.includes('export interface WaterReaderHistoryResponse'), 'app history response contract should exist');
+assert(contractSource.includes('export type WaterReaderHistoryStatus = "ready" | "building" | "failed"'), 'app history status contract should use user-facing states');
 assert(contractSource.includes('generationStatus?: WaterReaderGenerationStatus'), 'app read response should expose generation status');
 assert(contractSource.includes('generationJobId?: string | null'), 'app read response should expose generation job id');
 assert(contractSource.includes('retryAfterMs?: number | null'), 'app read response should expose retry-after polling hint');
@@ -114,15 +128,19 @@ assert(serverSource.includes('buildServerWaterReaderRead'), 'server read endpoin
 assert(serverSource.includes('WATER_READER_HEAVY_GENERATOR_URL'), 'server read endpoint should route heavy rows to worker when configured');
 assert(serverSource.includes('x-water-reader-internal-key'), 'server read endpoint should use internal key for diagnostics and worker auth');
 assert(serverSource.includes('heavyRouteInfo'), 'server read endpoint should classify heavy rows structurally');
-assert(serverSource.includes('routeAllCacheMissesThroughHeavyWorker'), 'server read endpoint should route configured cache misses through the worker');
-assert(serverSource.includes('EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 4500'), 'server read endpoint should route Pontiac-class runtime vertex counts away from the edge worker');
-assert(serverSource.includes('EDGE_INLINE_INTERIOR_RING_LIMIT = 18'), 'server read endpoint should route island-hole-heavy polygons away from the edge worker');
-assert(serverSource.includes('EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 100000'), 'server read endpoint should route large runtime payloads away from the edge worker');
+assert(serverSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER'), 'server read endpoint should require an explicit flag before routing every cache miss through the worker');
+assert(serverSource.includes('if (routeViaHeavyWorker && !allowInlineCacheMissGeneration())'), 'server read endpoint should only queue reads that are routed to the heavy worker');
+assert(serverSource.includes('EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 3200'), 'server read endpoint should route risky runtime vertex counts away from the edge worker');
+assert(serverSource.includes('EDGE_INLINE_INTERIOR_RING_LIMIT = 1'), 'server read endpoint should route interior-ring polygons away from the edge worker');
+assert(serverSource.includes('EDGE_INLINE_RUNTIME_COMPONENT_LIMIT = 2'), 'server read endpoint should route multi-component polygons away from the edge worker');
+assert(serverSource.includes('EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 70000'), 'server read endpoint should route large runtime payloads away from the edge worker');
 assert(serverSource.includes('edge_runtime_complexity_score'), 'server read endpoint should diagnose combined edge runtime complexity routing');
 assert(serverSource.includes('WATER_READER_ALLOW_EDGE_HEAVY_FALLBACK'), 'server read endpoint should require explicit opt-in before heavy local fallback');
+assert(serverSource.includes('inline generation failed; queueing worker job'), 'server read endpoint should queue the worker if inline generation throws');
 assert(serverSource.includes('.upsert({'), 'server read endpoint should write generated cache misses');
 assert(!serverSource.includes('This Water Reader map is still being prepared.'), 'cache miss should no longer return preparing fallback');
 assert(appSource.includes("status: 'preparing'"), 'app read state should recognize pending generation');
+assert(appSource.includes("status: 'queued'"), 'app read state should stop foreground polling cleanly when generation is still queued');
 assert(appSource.includes('WATER_READER_PENDING_MAX_MS'), 'app polling should have a max duration guard');
 assert(appSource.includes('pendingRetryDelayMs'), 'app polling should respect retryAfterMs with bounds');
 assert(appSource.includes('generationStatus') && appSource.includes("'queued'") && appSource.includes("'processing'"), 'app should poll queued/processing reads');
@@ -134,6 +152,20 @@ assert(appSource.includes('CountyFilterChip') && appSource.includes('countyFilte
 assert(appSource.includes("water-reader-pontiac-sample.png"), 'idle preview should use a bundled static Water Read sample image');
 assert(!appSource.includes("const PREVIEW_LAKE_QUERY = 'Pontiac'"), 'idle preview should not fetch Pontiac on mount');
 assert(serverSource.includes('cacheWriteStatus'), 'server read endpoint should report cache write status');
+assert(historyFunctionSource.includes('water_reader_user_history'), 'water-reader-history function should query user history');
+assert(historyFunctionSource.includes('water_reader_generation_jobs'), 'water-reader-history function should inspect generation jobs');
+assert(historyFunctionSource.includes('water_reader_engine_read_cache'), 'water-reader-history function should inspect cached reads');
+assert(historyFunctionSource.includes('waterbody_index'), 'water-reader-history function should include lake metadata');
+assert(historyFunctionSource.includes('last_viewed_at') && historyFunctionSource.includes('is_pinned'), 'water-reader-history function should filter recent rows and pinned rows when available');
+assert(appSource.includes('RecentWaterReads') && appSource.includes('RECENT WATER READS'), 'app should render Recent Water Reads');
+assert(appSource.includes('fetchWaterReaderHistory'), 'app should fetch Recent Water Reads');
+assert(appSource.includes("status: 'recent_building'"), 'app should expose a distinct recent-read-building client state');
+assert(appSource.includes('ANOTHER READ IS BUILDING') && appSource.includes('CHECK READS'), 'app should render recent-read-building as calm informational copy');
+assert(appSource.includes("operationalDiagnostics?.code === 'recent_water_read_building'"), 'app should detect recent-read-building diagnostics');
+assert(historyFunctionSource.includes('normalizeAreaAcres'), 'water-reader-history should normalize numeric string acreage values');
+assert(!appSource.includes('SAVED TO QUEUE'), 'Water Reader screen should not show saved-to-queue copy');
+assert(!cartoucheSource.includes('QUEUED'), 'Water Read cartouche should not show QUEUED copy');
+assert(!mapCardSource.includes('QUEUED'), 'Water Reader map card should not show QUEUED copy');
 assert(searchFunctionSource.includes('CURATED_3DHP_ALIASES') && searchFunctionSource.includes('Lake Fork Reservoir'), 'search fallback should preserve curated aliases for unlabeled 3DHP polygons');
 assert(searchFunctionSource.includes('waterbody_shared_states!inner') && searchFunctionSource.includes('search telemetry'), 'search edge should log weak searches and handle database-backed shared-state aliases');
 assert(searchFunctionSource.includes('shown for ${displayState}') && searchFunctionSource.includes('indexed_state:'), 'shared-state aliases should preserve the user-selected state while tracking stored polygon state');
