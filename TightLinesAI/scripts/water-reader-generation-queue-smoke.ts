@@ -1,0 +1,57 @@
+import { readFileSync } from 'node:fs';
+import type { AddressInfo } from 'node:net';
+import { startHeavyGeneratorServer } from './water-reader-heavy-generator-server.ts';
+
+function assert(condition: unknown, message: string): asserts condition {
+  if (!condition) throw new Error(message);
+}
+
+async function main() {
+  process.env.WATER_READER_INTERNAL_KEY = process.env.WATER_READER_INTERNAL_KEY || 'queue-smoke-key';
+
+  const serverSource = readFileSync('scripts/water-reader-heavy-generator-server.ts', 'utf8');
+  const edgeSource = readFileSync('supabase/functions/water-reader-read/index.ts', 'utf8');
+  const migrationSource = readFileSync('supabase/migrations/20260515120000_water_reader_generation_queue_history.sql', 'utf8');
+  const docsSource = readFileSync('docs/water_reader_heavy_worker_cloud_run.md', 'utf8');
+
+  assert(serverSource.includes('/water-reader/jobs/process-one'), 'worker should expose process-one endpoint');
+  assert(serverSource.includes('/water-reader/jobs/drain'), 'worker should expose drain endpoint');
+  assert(serverSource.includes('claim_water_reader_generation_job'), 'worker should claim jobs through RPC');
+  assert(serverSource.includes('generateWaterReaderHeavyRead'), 'worker should reuse heavy read generator');
+  assert(serverSource.includes('mark_water_reader_generation_job_complete'), 'worker should mark jobs complete');
+  assert(serverSource.includes('mark_water_reader_generation_job_failed'), 'worker should mark jobs failed/retryable');
+  assert(edgeSource.includes('generationStatus: jobStatus'), 'edge pending response should include generation status');
+  assert(edgeSource.includes('generationJobId: params.job.id'), 'edge pending response should include job id');
+  assert(edgeSource.includes('retryAfterMs'), 'edge pending response should include retry hint');
+  assert(migrationSource.includes('check (status in (') && migrationSource.includes("'processing'"), 'migration should constrain job statuses');
+  assert(docsSource.includes('Cloud Scheduler'), 'queue runner docs should mention Cloud Scheduler');
+  assert(docsSource.includes('/water-reader/jobs/drain'), 'queue runner docs should mention the drain endpoint');
+  assert(docsSource.includes('WATER_READER_EDGE_INLINE_CACHE_MISSES=true') && docsSource.includes('Do not set'), 'queue runner docs should warn against inline cache misses in production');
+  assert(docsSource.includes('Cloud Tasks') && docsSource.includes('multiple Cloud Scheduler jobs'), 'queue runner docs should mention high-volume runner options');
+
+  const server = startHeavyGeneratorServer(0);
+  try {
+    await new Promise<void>((resolve) => server.once('listening', resolve));
+    const address = server.address() as AddressInfo;
+    const response = await fetch(`http://127.0.0.1:${address.port}/water-reader/jobs/process-one`, {
+      method: 'POST',
+      headers: { 'x-water-reader-internal-key': 'wrong-key' },
+    });
+    assert(response.status === 403, `worker drain endpoint should reject a bad internal key, got ${response.status}`);
+  } finally {
+    await new Promise<void>((resolve, reject) => {
+      server.close((error) => error ? reject(error) : resolve());
+    });
+  }
+
+  console.log(JSON.stringify({
+    ok: true,
+    queueMigration: '20260515120000_water_reader_generation_queue_history.sql',
+    workerRejectsBadInternalKey: true,
+  }));
+}
+
+void main().catch((error) => {
+  console.error(error instanceof Error ? error.message : String(error));
+  process.exit(1);
+});

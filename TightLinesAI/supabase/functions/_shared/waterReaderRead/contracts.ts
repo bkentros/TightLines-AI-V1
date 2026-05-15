@@ -13,16 +13,16 @@ import type {
 
 export const WATER_READER_READ_FEATURE = "water_reader_read_v1" as const;
 export const WATER_READER_APP_SVG_WIDTH = 420;
-// v5 marks the dashboard-native map renderer (off-white land, blue water,
-// high-signal zones, and outside-perimeter callout labels). The bump is
-// required so any cache rows produced by the paper/beige renderer are
-// invalidated and regenerated under the new palette/label rules.
+// v6 keeps the dashboard-native renderer and refreshes Water Read legend
+// copy so cached read rows regenerate with conservative structure/confluence
+// guidance.
 // If you change the renderer or palette again, bump this string and update
 // the constant copy in `scripts/water-reader-build-read-cache.ts`.
-export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v5-dashboard-map" as const;
+export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v6-conservative-copy" as const;
 
 export type WaterReaderReadCacheStatus = "hit" | "miss";
 export type WaterReaderReadCacheWriteStatus = "stored" | "failed" | "skipped";
+export type WaterReaderGenerationStatus = "ready" | "queued" | "processing" | "failed";
 
 export interface WaterReaderReadOperationalDiagnostics {
   code: string;
@@ -92,6 +92,9 @@ export interface WaterReaderReadResponse {
   seasonGroup?: WaterReaderSeasonGroup | null;
   productionSvgResult: WaterReaderProductionSvgResult | null;
   fallbackMessage: string | null;
+  generationStatus?: WaterReaderGenerationStatus;
+  generationJobId?: string | null;
+  retryAfterMs?: number | null;
   cacheStatus?: WaterReaderReadCacheStatus;
   cacheWriteStatus?: WaterReaderReadCacheWriteStatus;
   cacheWriteError?: string | null;

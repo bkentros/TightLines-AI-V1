@@ -37,6 +37,11 @@ export const WATER_READER_FEATURE_COLORS: Record<WaterReaderFeatureClass | 'stru
 export const WATER_READER_LEGEND_FORBIDDEN_PHRASES = [
   'best',
   'guaranteed',
+  'in spring',
+  'in summer',
+  'in fall',
+  'in winter',
+  'start at the mouth',
   'fish are here',
   'fish hold here',
   'highest confidence',
@@ -142,10 +147,10 @@ const STABLE_PLACEMENT_KINDS = new Set<WaterReaderZonePlacementKind>([
 ]);
 
 const TRANSITION_WARNINGS: Record<WaterReaderSeason, string> = {
-  spring: 'Seasonal patterns may still resemble winter in some conditions; compare this with main-lake structure areas.',
-  summer: 'Seasonal patterns may still resemble spring in some conditions; protected shoreline structure can remain relevant.',
-  fall: 'Summer patterns may persist on warmer days; open-water-side structure can remain relevant.',
-  winter: 'Fall transitional patterns may persist along cove and shoreline structure.',
+  spring: 'Transitional conditions can lag behind the season badge; compare this with main-lake structure areas.',
+  summer: 'Transitional conditions can keep protected shoreline structure relevant in some areas.',
+  fall: 'Warm-day patterns can keep broad-water-side structure relevant.',
+  winter: 'Late-transition patterns can persist along cove and shoreline structure.',
 };
 
 const FEATURE_LABELS: Record<WaterReaderFeatureClass, string> = {
@@ -167,6 +172,7 @@ type WaterReaderLegendTemplate = {
 type WaterReaderResolvedLegendTemplate = {
   title: string;
   body: string;
+  bodyVariants?: string[];
 };
 
 const LEGEND_TEMPLATES: Record<WaterReaderZonePlacementKind, WaterReaderLegendTemplate> = {
@@ -200,59 +206,59 @@ const LEGEND_TEMPLATES: Record<WaterReaderZonePlacementKind, WaterReaderLegendTe
   },
   neck_shoulder: {
     title: 'Neck Shoulder',
-    body: (season) => `In ${season}, this neck shoulder is a seasonally relevant structure area. This shoulder marks one side of a narrow pass; compare both shoreline shoulders rather than the middle of the opening.`,
+    body: (season) => `Use this neck shoulder as one side of a constricted travel area. Compare it with the opposite shoulder before treating the middle of the opening as the target.`,
   },
   saddle_shoulder: {
     title: 'Saddle Shoulder',
-    body: (season) => `In ${season}, this saddle shoulder is a seasonally relevant structure area. This shoulder marks one side of a broader constriction; compare both shorelines that frame the opening.`,
+    body: (season) => `Use this saddle shoulder as one edge of a broader crossing. Compare both sides that frame the opening and let the stronger edge narrow the read.`,
   },
   main_point_side: {
     title: 'Main Lake Point - Point Side',
-    body: (season) => `In ${season}, this main-lake point side is a seasonally relevant structure area. Work from the bank edge outward along the point side and compare both nearby shoreline slopes.`,
+    body: (season) => `Use this point side to compare the shoreline edge with the water just off the point. Keep the read focused on the highlighted side before expanding around the point.`,
   },
   main_point_tip: {
     title: 'Main Lake Point - Point Tip',
-    body: (season) => `In ${season}, this main-lake point tip is a seasonally relevant structure area. Start around the point tip, then compare the adjoining sides to understand how the point connects with the surrounding water.`,
+    body: (season) => `Use the point tip as the outside reference for this structure. Compare the tip with both adjoining sides to see which edge connects better with the surrounding water.`,
   },
   main_point_open_water: {
     title: 'Main Lake Point - Open-Water Side',
-    body: (season) => `In ${season}, this main-lake point side is a seasonally relevant structure area. Focus on the side facing broader open water and compare it with the protected side of the same point.`,
+    body: (season) => `Compare the broad-water side of this point with the more protected side. The highlighted side is the first reference, not a claim that the whole point fishes the same.`,
   },
   cove_back: {
     title: 'Cove - Back Shoreline',
-    body: (season) => `In ${season}, this cove back shoreline is a seasonally relevant structure area. The back shoreline gives a clear protected-water reference for a careful seasonal pass.`,
+    body: (season) => `Use this protected inner shoreline as the cove reference. Some coves are pockets rather than narrow bays, so compare the highlighted interior edge with the opening-facing edge.`,
   },
   cove_mouth: {
     title: 'Cove - Mouth Shoulder',
-    body: (season) => `In ${season}, this cove mouth is a seasonally relevant structure area. The mouth shoulder connects protected water with the main lake and can be worth checking as conditions shift.`,
+    body: (season) => `Use this opening-facing shoulder as the transition reference for the cove. On wide pockets, read it as the outer edge where protected water meets broader water.`,
   },
   cove_irregular_side: {
     title: 'Cove - Irregular Side',
-    body: (season) => `In ${season}, this cove side is a seasonally relevant structure area. The selected side has stronger shoreline shape variation, so compare the bends and edges along that side.`,
+    body: (season) => `Use this shaped cove side as the comparison edge. Work the bends and shoreline changes inside the highlighted area before assuming the entire cove is active.`,
   },
   secondary_point_back: {
     title: 'Secondary Point - Back-Facing Side',
-    body: (season) => `In ${season}, this secondary point side is a seasonally relevant structure area. This back-facing side connects a smaller point with protected cove shoreline, making it a logical area to check.`,
+    body: (season) => `Use this protected-facing side to compare the smaller point with nearby cove shoreline. It is a conservative reference for fish moving between point and pocket water.`,
   },
   secondary_point_mouth: {
     title: 'Secondary Point - Mouth-Facing Side',
-    body: (season) => `In ${season}, this secondary point side is a seasonally relevant structure area. This mouth-facing side connects the smaller point with the cove opening and nearby main-lake water.`,
+    body: (season) => `Use this opening-facing side to compare the smaller point with nearby broader water. It is a transition reference, especially when the pocket is wide or loosely defined.`,
   },
   island_mainland: {
     title: 'Island Edge - Mainland-Facing Edge',
-    body: (season) => `In ${season}, this island edge is a seasonally relevant structure area. This edge faces the nearest mainland shoreline, giving a simple island-to-shore reference line.`,
+    body: (season) => `Use this mainland-facing island edge as a shoreline-to-island reference. Compare the rim with the nearby shore-facing water before circling the whole island.`,
   },
   island_open_water: {
     title: 'Island Edge - Open-Water Edge',
-    body: (season) => `In ${season}, this island edge is a seasonally relevant structure area. This edge faces broader open water, making it a clear island-side structure reference.`,
+    body: (season) => `Use this broad-water island edge as the outside reference. Compare it with any protected rim nearby rather than assuming the full island perimeter is equal.`,
   },
   island_endpoint: {
     title: 'Island Edge - Island End',
-    body: (season) => `In ${season}, this island edge is a seasonally relevant structure area. This island end gives a defined corner-like reference along the island edge.`,
+    body: (season) => `Use this island end as a corner reference along the rim. Compare the end with the two adjoining sides and stay inside the highlighted structure area.`,
   },
   dam_corner: {
     title: 'Dam Corner',
-    body: (season) => `In ${season}, this dam corner is a seasonally relevant structure area. Work the corner where the straight bank transitions into natural shoreline.`,
+    body: (season) => `Use this dam corner as the hard-edge transition reference. Compare the straight face with the adjoining natural shoreline before expanding down the bank.`,
   },
   universal_longest_shoreline: {
     title: 'Universal Shoreline - Longest Uniform Shoreline',
@@ -302,6 +308,7 @@ export function waterReaderLegendForbiddenPhraseHits(text: string): string[] {
 export function waterReaderLegendTemplateCoverage() {
   const missingTemplateKeys: string[] = [];
   const forbiddenTemplateHits: Array<{ key: string; hits: string[] }> = [];
+  const confluenceVariantGaps: string[] = [];
   const missingColorKeys = WATER_READER_LEGEND_FEATURE_CLASSES.filter((featureClass) => !WATER_READER_FEATURE_COLORS[featureClass]);
 
   for (const placementKind of WATER_READER_ZONE_PLACEMENT_KINDS) {
@@ -323,16 +330,29 @@ export function waterReaderLegendTemplateCoverage() {
     if (hits.length > 0) forbiddenTemplateHits.push({ key: `transition_warning:${warningSeason}`, hits });
   }
 
-  const confluenceHits = waterReaderLegendForbiddenPhraseHits(confluenceBody('spring'));
-  if (confluenceHits.length > 0) {
-    forbiddenTemplateHits.push({ key: 'structure_confluence:spring', hits: confluenceHits });
+  let checkedConfluenceVariantCount = 0;
+  for (const [confluenceKey, seasonBodies] of Object.entries(CONFLUENCE_BODIES) as Array<[ConfluenceTemplateKey, Record<WaterReaderSeason, string>]>) {
+    for (const season of WATER_READER_LEGEND_SEASONS) {
+      const variants = confluenceBodyVariants(confluenceKey, season, seasonBodies[season]).map(sentenceCase);
+      checkedConfluenceVariantCount += variants.length;
+      if (variants.length < 3) confluenceVariantGaps.push(`structure_confluence:${season}:${confluenceKey}`);
+      for (const [variantIndex, text] of variants.entries()) {
+        const hits = waterReaderLegendForbiddenPhraseHits(text);
+        if (hits.length > 0) {
+          forbiddenTemplateHits.push({ key: `structure_confluence:${season}:${confluenceKey}:v${variantIndex + 1}`, hits });
+        }
+      }
+    }
   }
 
   return {
-    checkedTemplateCount: WATER_READER_ZONE_PLACEMENT_KINDS.length * WATER_READER_LEGEND_SEASONS.length,
+    checkedTemplateCount: WATER_READER_ZONE_PLACEMENT_KINDS.length * WATER_READER_LEGEND_SEASONS.length + checkedConfluenceVariantCount,
     placementKindCount: WATER_READER_ZONE_PLACEMENT_KINDS.length,
     seasonCount: WATER_READER_LEGEND_SEASONS.length,
+    confluenceKeyCount: Object.keys(CONFLUENCE_BODIES).length,
+    checkedConfluenceVariantCount,
     missingTemplateKeys,
+    confluenceVariantGaps,
     missingColorKeys,
     forbiddenTemplateHits,
   };
@@ -346,6 +366,10 @@ function buildZoneEntry(
 ): WaterReaderLegendEntry {
   const templateId = templateIdFor(zone.featureClass, season, zone.placementKind);
   const resolvedTemplate = resolvedZoneTemplate(zone, season);
+  const body = pickBodyVariant(
+    `${zone.zoneId}|${season}|${zone.placementKind}|${zone.anchorSemanticId ?? ''}`,
+    bodyVariantsForZone(zone, season, resolvedTemplate),
+  );
   return {
     number,
     entryId: zone.zoneId,
@@ -357,7 +381,7 @@ function buildZoneEntry(
     colorHex: WATER_READER_FEATURE_COLORS[zone.featureClass],
     templateId,
     title: resolvedTemplate.title,
-    body: resolvedTemplate.body,
+    body,
     transitionWarning,
     isConfluence: false,
   };
@@ -386,7 +410,7 @@ function buildConfluenceEntry(
     colorHex: WATER_READER_FEATURE_COLORS.structure_confluence,
     templateId: `structure_confluence:${season}:${unique(group.memberPlacementKinds).join('+')}`,
     title: group.crossFeatureOverlapPair ? `${titleDetail} - Structure Area` : `Structure Confluence - ${titleDetail}`,
-    body: confluenceBody(season),
+    body: confluenceBody(season, memberZones, group.groupId),
     transitionWarning,
     isConfluence: true,
   };
@@ -544,52 +568,52 @@ function featureEnvelopeSeasonBody(placementKind: WaterReaderZonePlacementKind, 
   switch (placementKind) {
     case 'main_point_structure_area':
       switch (season) {
-        case 'spring': return 'In spring, start by comparing the inner shoulder and tip-adjacent water within this full point structure area; then use both outside shoulders as references.';
-        case 'summer': return 'In summer, start by comparing the outer shoulder and tip-adjacent water within this full point structure area; then check how the inside shoulder differs.';
-        case 'fall': return 'In fall, compare the tip and both shoulders within this full point structure area as one transition from shoreline into broader water.';
-        case 'winter': return 'In winter, use the whole point structure area as a compact shoreline reference, starting with the tip and nearest shoulder.';
+        case 'spring': return 'Compare the protected-side shoulder, tip, and outside shoulder within this point area. Keep the read broad until one edge shows a clearer seasonal signal.';
+        case 'summer': return 'Compare the broad-water shoulder and tip with the protected side. Use the full point area to decide which edge has better comfort or activity.';
+        case 'fall': return 'Read the point as a transition from shoreline into broader water. Compare the tip and both shoulders before narrowing to one casting angle.';
+        case 'winter': return 'Keep this point read compact. Compare the tip with the nearest defined shoulder and favor the side with the most stable-looking water.';
       }
     case 'secondary_point_structure_area':
       switch (season) {
-        case 'spring': return 'In spring, start by comparing the protected side and smaller point tip within this full secondary point area; then use the mouth-facing side as the transition reference.';
-        case 'summer': return 'In summer, start by comparing the mouth-facing side and tip within this full secondary point area; then contrast it with the protected side.';
-        case 'fall': return 'In fall, compare both sides of this full secondary point area as a small transition between cove shoreline and the opening.';
-        case 'winter': return 'In winter, keep the read compact by comparing the tip and nearest cove-side shoulder within this full secondary point area.';
+        case 'spring': return 'Compare the protected side, smaller tip, and opening-facing side within this secondary point area. Use it as a staging reference, not a whole-cove call.';
+        case 'summer': return 'Compare the opening-facing side and tip with nearby shade or cover. Leave room for wide pockets where the outer edge matters more than the back.';
+        case 'fall': return 'Use this secondary point as a small transition between cove shoreline and broader water. Compare both sides for bait movement or wind influence.';
+        case 'winter': return 'Keep the read tight around the tip and nearest defined shoulder. The highlighted area is a checkpoint beside safer water.';
       }
     case 'cove_structure_area':
       switch (season) {
-        case 'spring': return 'In spring, start by comparing the protected back wall and inside edge within this full cove structure area; then use the mouth shoulders as transition references.';
-        case 'summer': return 'In summer, start by comparing the mouth shoulders within this full cove structure area; then contrast them with the inner wall.';
-        case 'fall': return 'In fall, compare the mouth shoulders and inner wall within this full cove structure area as one shoreline transition.';
-        case 'winter': return 'In winter, use the protected back wall and shortest inside edge within this full cove structure area as the first comparison.';
+        case 'spring': return 'Compare the protected interior edge with the opening-facing shoulders inside this cove area. This covers both narrow coves and broad shoreline pockets.';
+        case 'summer': return 'Compare the opening-facing edge, shade, and any defined inner shoreline. The back of a cove should earn attention through cover, bait, or comfort.';
+        case 'fall': return 'Read the cove as a shoreline transition. Compare the outer edge, shaped interior bank, and any bait-holding turn within the highlighted area.';
+        case 'winter': return 'Use the cove area conservatively. Compare the outer edge with the most protected defined shoreline and stay close to stable-looking water.';
       }
     case 'neck_structure_area':
       switch (season) {
-        case 'spring': return 'In spring, start with the more protected shoulder within this full neck structure area; then compare the opposite shoulder.';
-        case 'summer': return 'In summer, start with the shoulder facing broader water within this full neck structure area; then compare the protected side.';
-        case 'fall': return 'In fall, compare both shoulders within this full neck structure area as a paired transition around the constriction.';
-        case 'winter': return 'In winter, keep the comparison tight across the two shoulders within this full neck structure area.';
+        case 'spring': return 'Compare the protected-side shoulder with the opposite shoulder inside this neck area. Treat the constriction as a route with edges, not a center target.';
+        case 'summer': return 'Compare the broader-water shoulder with shade, wind, or cover on the opposite side. The strongest edge should narrow the pass.';
+        case 'fall': return 'Read both shoulders as a paired transition around the constriction. Watch which side gives bait or fish less room to scatter.';
+        case 'winter': return 'Keep the comparison tight across the two shoulders. Work beside the constriction before spending time in the middle.';
       }
     case 'saddle_structure_area':
       switch (season) {
-        case 'spring': return 'In spring, start with the inside shoulder within this full saddle structure area; then compare the opposing shoulder across the opening.';
-        case 'summer': return 'In summer, start with the outer-facing shoulder within this full saddle structure area; then compare the inside shoulder.';
-        case 'fall': return 'In fall, compare both shoulders within this full saddle structure area as a broader shoreline opening.';
-        case 'winter': return 'In winter, use the nearest shoulder pair within this full saddle structure area as the first comparison.';
+        case 'spring': return 'Compare the inside shoulder with the opposing shoulder across this saddle. Use the crossing as a route between shoreline options.';
+        case 'summer': return 'Compare the outer-facing shoulder with the more protected side. Shade, wind, or nearby cover should decide the tighter focus.';
+        case 'fall': return 'Read both saddle shoulders as a broad opening. Cover the crossing only enough to learn which edge is carrying activity.';
+        case 'winter': return 'Use the nearest shoulder pair as the conservative read. Stay near the edge that gives the quickest route to stable water.';
       }
     case 'island_structure_area':
       switch (season) {
-        case 'spring': return 'In spring, start by comparing the mainland-facing side and nearest island corner within this full island structure area; then check the outer side.';
-        case 'summer': return 'In summer, start by comparing the outer side and island corners within this full island structure area; then contrast the mainland-facing side.';
-        case 'fall': return 'In fall, compare the island corners and both sides within this full island structure area as one perimeter transition.';
-        case 'winter': return 'In winter, use the nearest island side and corner within this full island structure area as the first comparison.';
+        case 'spring': return 'Compare the mainland-facing rim, nearest corner, and protected side within this island area. Let the highlighted edge guide the first lap.';
+        case 'summer': return 'Compare the broad-water rim, shade, and island corners. Avoid treating the full perimeter as equal unless bait or wind says so.';
+        case 'fall': return 'Read the island as a perimeter transition. Compare corners and both sides for bait movement before slowing down on one rim.';
+        case 'winter': return 'Use the nearest defined island side and corner as a compact reference. Favor the rim closest to stable-looking water.';
       }
     case 'dam_structure_area':
       switch (season) {
-        case 'spring': return 'In spring, start by comparing the quieter transition corner within this full dam structure area; then follow the straight segment.';
-        case 'summer': return 'In summer, start by comparing the straight segment and outer transition corner within this full dam structure area.';
-        case 'fall': return 'In fall, compare both transition corners and the straight segment within this full dam structure area.';
-        case 'winter': return 'In winter, use the straight segment and nearest transition corner within this full dam structure area as the first comparison.';
+        case 'spring': return 'Compare the transition corner, straight face, and nearby softer bank inside this dam area. Hard edge plus warmth or cover matters most.';
+        case 'summer': return 'Compare shade, wall contact, and the outer transition corner. Use the straight segment as a reference, not the whole plan.';
+        case 'fall': return 'Compare both transition corners with the straight segment. Bait movement should decide whether the corner or face gets more time.';
+        case 'winter': return 'Use the straight segment and nearest transition corner as a compact hard-edge read. Keep the focus near stable-looking water.';
       }
     default:
       return templateBody(season, placementKind);
@@ -623,7 +647,7 @@ function islandMainlandSemanticTemplate(
     case 'island_mainland_recovery':
       return {
         title: 'Island Edge - Mainland Recovery',
-        body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a conservative island-edge recovery near the mainland-facing side when the exact mainland-facing anchor cannot render cleanly.`,
+        body: `Use this island edge as a conservative mainland-facing reference. The exact shore-facing line was softened, so compare nearby rim sections before expanding wider.`,
       };
     case 'island_shoreline_recovery':
     case 'island_alternate_endpoint_recovery':
@@ -631,7 +655,7 @@ function islandMainlandSemanticTemplate(
     case 'shoreline_frame_recovery':
       return {
         title: 'Island Edge - Shoreline Recovery',
-        body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a conservative shoreline recovery and should not be read as the exact mainland-facing edge.`,
+        body: `Use this local island shoreline as a conservative recovery reference. It should not be read as the exact mainland-facing edge.`,
       };
     default:
       return null;
@@ -649,7 +673,7 @@ function islandEndpointSemanticTemplate(
     case 'shoreline_frame_recovery':
       return {
         title: 'Island Edge - Endpoint Recovery',
-        body: `In ${season}, this island edge is a seasonally relevant structure area. It uses an endpoint-local shoreline recovery near the detected island end.`,
+        body: `Use this endpoint-local island edge as a conservative corner reference. Compare the adjoining rim sections before widening around the island.`,
       };
     default:
       return null;
@@ -661,7 +685,7 @@ function openWaterSemanticTemplate(zone: WaterReaderPlacedZone, season: WaterRea
     if (zone.anchorSemanticId === 'main_point_open_water_area') return null;
     return {
       title: 'Main Lake Point - Broad-Water Side Recovery',
-      body: `In ${season}, this main-lake point side is a seasonally relevant structure area. It uses a conservative broad-water-side recovery where the polygon area comparison could not fully resolve the side.`,
+      body: `Use this point side as a conservative broad-water reference. Compare it with the protected side before treating the whole point as one target.`,
     };
   }
   if (zone.featureClass === 'island' && zone.placementKind === 'island_open_water') {
@@ -669,18 +693,18 @@ function openWaterSemanticTemplate(zone: WaterReaderPlacedZone, season: WaterRea
     if (zone.anchorSemanticId === 'island_open_water_same_side_recovery' || zone.anchorSemanticId === 'island_open_water_recovery') {
       return {
         title: 'Island Edge - Open-Water Recovery',
-        body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a conservative recovery near the island side facing broader open water when the exact open-water edge cannot render cleanly.`,
+        body: `Use this island edge as a conservative broad-water reference. The exact outside rim was softened, so compare nearby rim sections carefully.`,
       };
     }
     if (zone.anchorSemanticId === 'island_shoreline_recovery' || zone.anchorSemanticId === 'island_alternate_endpoint_recovery' || zone.anchorSemanticId === 'shoreline_frame_recovery') {
       return {
         title: 'Island Edge - Shoreline Recovery',
-        body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a local island-shoreline recovery and should not be read as the exact open-water edge.`,
+        body: `Use this local island shoreline as a conservative recovery reference. It should not be read as the exact broad-water edge.`,
       };
     }
     return {
       title: 'Island Edge - Broad-Water Recovery',
-      body: `In ${season}, this island edge is a seasonally relevant structure area. It uses a conservative island-edge recovery where the polygon area comparison could not fully resolve the broad-water side.`,
+      body: `Use this island edge as a broad-water-side recovery. Compare it with the nearest protected rim before committing to the whole island perimeter.`,
     };
   }
   return null;
@@ -694,12 +718,12 @@ function secondaryPointSemanticTemplate(
     case 'secondary_point_back_true':
       return {
         title: 'Secondary Point - Back-Facing Side',
-        body: `In ${season}, this secondary point side is a seasonally relevant structure area. This side faces the parent cove back by polygon geometry, giving a protected-cove shoreline reference.`,
+        body: `Use this secondary point side as the protected-cove reference. Compare it with the tip and opening-facing side before widening around the point.`,
       };
     case 'secondary_point_mouth_true':
       return {
         title: 'Secondary Point - Mouth-Facing Side',
-        body: `In ${season}, this secondary point side is a seasonally relevant structure area. This side faces the parent cove mouth by polygon geometry, giving a cove-opening shoreline reference.`,
+        body: `Use this secondary point side as the opening-facing reference. On broad pockets, read it as the outer point edge nearest broader water.`,
       };
     case 'secondary_point_parent_cove_missing':
     case 'secondary_point_parent_cove_axis_recovery':
@@ -709,7 +733,7 @@ function secondaryPointSemanticTemplate(
     case 'secondary_point_tip_transition':
       return {
         title: 'Secondary Point - Cove-Side Recovery',
-        body: `In ${season}, this secondary point area is a seasonally relevant structure area. It uses a conservative point-adjacent shoreline reference where parent-cove side orientation is not fully available.`,
+        body: `Use this secondary point area as a conservative cove-side reference. The exact side orientation is softened, so compare nearby point edges.`,
       };
     default:
       return null;
@@ -724,14 +748,14 @@ function coveSemanticTemplate(
     case 'cove_back_primary':
       return {
         title: 'Cove - Back Shoreline',
-        body: `In ${season}, this cove back shoreline is a seasonally relevant structure area. The back shoreline gives a clear protected-water reference for a careful seasonal pass.`,
+        body: `Use this protected inner shoreline as the cove reference. Compare it with the opening-facing edge, especially on broad pocket-shaped coves.`,
       };
     case 'cove_back_pocket_recovery':
     case 'cove_back_pocket_recovery_left':
     case 'cove_back_pocket_recovery_right':
       return {
         title: 'Cove - Back Pocket',
-        body: `In ${season}, this cove back pocket is a seasonally relevant structure area. It marks protected inner cove shoreline near the back of the pocket.`,
+        body: `Use this inner pocket as a protected-water reference. It marks a conservative interior edge, not a claim that every cove has a narrow back.`,
       };
     case 'cove_inner_shoreline_left':
     case 'cove_inner_shoreline_right':
@@ -739,7 +763,7 @@ function coveSemanticTemplate(
     case 'cove_inner_wall_midpoint_right':
       return {
         title: 'Cove - Inner Shoreline',
-        body: `In ${season}, this inner cove shoreline is a seasonally relevant structure area. Compare the protected shoreline shape along the inside wall of the cove.`,
+        body: `Use this inner cove shoreline as a shape-change reference. Compare the protected edge with the outer opening-facing side before expanding.`,
       };
     case 'cove_mouth_shoulder_recovery':
     case 'cove_mouth_primary':
@@ -748,15 +772,372 @@ function coveSemanticTemplate(
     case 'cove_near_mouth_inner_wall_opposite':
       return {
         title: 'Cove - Mouth Shoulder',
-        body: `In ${season}, this cove mouth shoulder is a seasonally relevant structure area. It connects protected cove water with the broader lake-side opening.`,
+        body: `Use this opening-facing shoulder as the cove transition reference. On wide pockets, treat it as the outer edge where protected water meets broader water.`,
       };
     default:
       return null;
   }
 }
 
-function confluenceBody(season: WaterReaderSeason): string {
-  return `In ${season}, multiple mapped structure cues overlap in this general area. Use it as a logical area to check while comparing the nearby shoreline shapes that created the overlap.`;
+function bodyVariantsForZone(
+  zone: WaterReaderPlacedZone,
+  season: WaterReaderSeason,
+  template: WaterReaderResolvedLegendTemplate,
+): string[] {
+  return uniqueStrings([
+    template.body,
+    ...(template.bodyVariants ?? []),
+    ...standaloneStructureBodyVariants(zone.featureClass, season),
+  ]);
+}
+
+function standaloneStructureBodyVariants(
+  featureClass: WaterReaderFeatureClass,
+  season: WaterReaderSeason,
+): string[] {
+  const focus = seasonalFocus(season);
+  switch (featureClass) {
+    case 'main_lake_point':
+      return [
+        `Compare the point tip, inside shoulder, and outside shoulder as separate references. ${focus}`,
+        `Use the highlighted point as a shoreline-to-broader-water transition. Let the side with cover, bait, wind, or comfort narrow the read.`,
+      ];
+    case 'secondary_point':
+      return [
+        `Compare the smaller point tip with its protected-facing and opening-facing sides. Treat it as a checkpoint between pocket water and broader water.`,
+        `Use this secondary point to read how fish may move along the pocket edge. Keep the focus on the highlighted side that has the clearest seasonal clue.`,
+      ];
+    case 'cove':
+      return [
+        `Compare the protected interior edge with the opening-facing side. This keeps the read useful whether the cove is narrow or more like a broad pocket.`,
+        `Use the highlighted cove water as a shape comparison. The interior, outer edge, shade, cover, or bait should decide where the pass tightens.`,
+      ];
+    case 'neck':
+      return [
+        `Compare both shoulders of the constriction before reading the center lane. The stronger edge should decide the first focused pass.`,
+        `Use this neck as a travel-route reference with two edges. Work beside the route before assuming the middle is the target.`,
+      ];
+    case 'saddle':
+      return [
+        `Compare the two saddle shoulders as a broad crossing. Let shade, wind, bait, or stable-looking water choose the tighter side.`,
+        `Use this saddle as a route between shoreline options. Read the edges first and keep the middle as a secondary check.`,
+      ];
+    case 'island':
+      return [
+        `Compare the island rim, nearest corner, and protected or broad-water side. Avoid treating the whole perimeter as equal.`,
+        `Use the highlighted island edge as the first rim reference. Widen around the island only after one side gives a clearer clue.`,
+      ];
+    case 'dam':
+      return [
+        `Compare the hard edge, transition corner, and adjoining natural shoreline. The corner is a reference, not the whole bank plan.`,
+        `Use this dam area as a hard-edge comparison. Shade, warmth, bait, or stable-looking water should decide whether the face or corner gets more time.`,
+      ];
+    case 'universal':
+      return [
+        `Compare the highlighted shoreline with nearby cover, shade, or bank shape. Keep the read simple and let visible edges narrow the pass.`,
+        `Use this fallback shoreline as a conservative starting reference. Move only when another edge gives a clearer reason.`,
+      ];
+  }
+}
+
+function seasonalFocus(season: WaterReaderSeason): string {
+  switch (season) {
+    case 'spring':
+      return 'Protected edges, warmth, and the route toward shallow water should carry the comparison.';
+    case 'summer':
+      return 'Comfort clues like shade, wind, cover, and broader-water access should carry the comparison.';
+    case 'fall':
+      return 'Bait movement and wind influence should carry the comparison before slowing down.';
+    case 'winter':
+      return 'Stable-looking water and compact edges should carry the comparison.';
+  }
+}
+
+type PublicConfluenceFeature = 'point' | 'cove' | 'neck' | 'saddle' | 'island' | 'dam' | 'universal';
+type ConfluenceTemplateKey =
+  | 'point+cove'
+  | 'point+neck'
+  | 'point+saddle'
+  | 'point+island'
+  | 'point+dam'
+  | 'cove+neck'
+  | 'cove+saddle'
+  | 'cove+island'
+  | 'cove+dam'
+  | 'neck+saddle'
+  | 'neck+island'
+  | 'neck+dam'
+  | 'saddle+island'
+  | 'saddle+dam'
+  | 'island+dam'
+  | 'point+cove+island'
+  | 'travel_hub'
+  | 'island_travel_hub'
+  | 'mouth_complex'
+  | 'island_complex'
+  | 'shoreline_complex'
+  | 'mixed_confluence';
+
+const CONFLUENCE_ORDER: PublicConfluenceFeature[] = ['point', 'cove', 'neck', 'saddle', 'island', 'dam', 'universal'];
+const PAIR_CONFLUENCE_KEYS = new Set<ConfluenceTemplateKey>([
+  'point+cove',
+  'point+neck',
+  'point+saddle',
+  'point+island',
+  'point+dam',
+  'cove+neck',
+  'cove+saddle',
+  'cove+island',
+  'cove+dam',
+  'neck+saddle',
+  'neck+island',
+  'neck+dam',
+  'saddle+island',
+  'saddle+dam',
+  'island+dam',
+]);
+
+const CONFLUENCE_BODIES: Record<ConfluenceTemplateKey, Record<WaterReaderSeason, string>> = {
+  'point+cove': {
+    spring: 'compare the point edge that frames the cove with the protected interior edge. This keeps the read useful for both narrow coves and open pockets.',
+    summer: 'compare the broad-water point side with shade, cover, or the opening-facing cove edge. Let comfort signs narrow the overlap.',
+    fall: 'compare the point edge and cove transition as a bait route. Follow activity, but do not assume the far interior is automatically involved.',
+    winter: 'keep the read near the point and opening-facing cove edge. Use the protected interior only when cover or stable-looking water supports it.',
+  },
+  'point+neck': {
+    spring: 'compare the point shoulder with the neck side leading toward protected water. Treat the overlap as a travel edge, not just the center lane.',
+    summer: 'compare the point corner with the shaded or broader-water neck shoulder. The better comfort edge should narrow the first pass.',
+    fall: 'read the point and neck together as a compressed route. Compare the tip-side edge with both shoulders before widening out.',
+    winter: 'stay beside the point-neck edge closest to stable-looking water. Check the middle of the constriction only after the shoulders are read.',
+  },
+  'point+saddle': {
+    spring: 'compare the point edge with the saddle shoulder that leads toward protected water. Use the crossing as a route between shoreline options.',
+    summer: 'compare the broad-water point edge with the saddle side that offers shade, wind, or quicker escape. Let one edge earn more time.',
+    fall: 'read the point and saddle as one transition. Cover the crown and shoulder enough to learn which side carries bait or activity.',
+    winter: 'keep the read on the safest point-saddle edge. Work the corner slowly before treating the whole crossing as relevant.',
+  },
+  'point+island': {
+    spring: 'compare the point side facing the island with the protected island rim. The gap is a reference area, not the whole island plan.',
+    summer: 'compare the broad-water corner between point and island with shade or wind on either rim. Use the stronger comfort edge.',
+    fall: 'read the gap as a bait compression area. Compare the point tip, island rim, and outside corner before slowing down.',
+    winter: 'favor the point-island edge closest to stable-looking water. Keep casts around the strongest corner instead of circling both structures.',
+  },
+  'point+dam': {
+    spring: 'compare the point-to-hard-edge transition with the nearby softer bank. Warmth, cover, or activity should decide the tighter side.',
+    summer: 'compare wall contact, shade, and the point edge. The corner is the reference, but the full dam face should still earn attention.',
+    fall: 'read the hard edge and point as a bait-pinning transition. Compare the wall-side seam with the point crown.',
+    winter: 'keep the read tight to the stable hard-edge corner where the point meets the dam. Expand only after that edge is checked.',
+  },
+  'cove+neck': {
+    spring: 'compare the neck shoulder with the protected cove interior. This treats the opening as a doorway without assuming a narrow mouth exists.',
+    summer: 'compare the neck side nearest broader water with shade or cover inside the cove. Avoid reading warm interior water as automatic.',
+    fall: 'read the neck and cove edge as a bait route. Compare the constriction with the first defined shoreline inside the cove.',
+    winter: 'favor the neck side that keeps the easiest route to stable-looking water. The protected interior is a secondary reference.',
+  },
+  'cove+saddle': {
+    spring: 'compare the saddle shoulder with the protected cove edge. Use the highlighted area as a route into pocket water, not a fixed mouth target.',
+    summer: 'compare the saddle side facing broader water with shade, cover, or the outer cove edge. The interior should earn time.',
+    fall: 'read the saddle and cove edge as a moving-water transition. Let bait or wind decide whether the crossing or pocket edge matters more.',
+    winter: 'keep the read near the saddle side and outer cove edge. Move inward only when cover or stable-looking water supports it.',
+  },
+  'cove+island': {
+    spring: 'compare the island rim facing the cove with the protected shoreline edge. The gap is a staging reference for varied cove shapes.',
+    summer: 'compare the island side with better comfort against the opening-facing cove edge. Shade, wind, or cover should pick the focus.',
+    fall: 'read the island-cove gap as a bait collection area. Compare both edges before chasing activity deeper into the pocket.',
+    winter: 'favor the island edge nearest the cove exit or broader water. Keep the protected bank as a careful second reference.',
+  },
+  'cove+dam': {
+    spring: 'compare the hard-edge transition with the protected cove side. This covers both narrow entrances and broad pockets beside the dam.',
+    summer: 'compare shade or wall contact near the cove edge with any visible cover inside. The pocket should earn extra time.',
+    fall: 'read the dam and cove edge as a bait-pinning corner. Compare the hard seam with the outer pocket edge first.',
+    winter: 'favor the hard edge closest to stable-looking water beside the cove. The interior is secondary unless cover or bait supports it.',
+  },
+  'neck+saddle': {
+    spring: 'compare the tighter neck shoulder with the broader saddle shoulder leading toward protected water. Read it as one travel route.',
+    summer: 'compare the deeper-looking or shaded shoulder beside the pinch with the saddle edge. The safest edge should narrow the route.',
+    fall: 'read the neck and saddle as connected bait routes. Compare compression first, then the wider shoulder that gives bait room to turn.',
+    winter: 'stay beside the route on the most stable shoulder. The middle of the crossing is a later check after both edges.',
+  },
+  'neck+island': {
+    spring: 'compare the island-side shoulder with the route toward protected water. Use the island rim as the pause reference.',
+    summer: 'compare shade, wind, or broader-water access along the island-side neck. The corner should decide whether the lane deserves more time.',
+    fall: 'read the island gap as bait compression. Compare both entrances and the island rim before widening around the structure.',
+    winter: 'favor the stable side just outside the island gap. Work along the rim before spending time in the center lane.',
+  },
+  'neck+dam': {
+    spring: 'compare the wall-side neck shoulder with the side leading toward protected water. Hard edge and route should be read together.',
+    summer: 'compare shaded wall contact with the neck shoulder beside it. The constriction matters most where comfort or movement is present.',
+    fall: 'read the hard edge and neck as a bait-pinning lane. Compare the wall seam with both shoulders.',
+    winter: 'stay near the stable wall-side shoulder. Check beside the route before moving through the throat.',
+  },
+  'saddle+island': {
+    spring: 'compare the island rim touching the saddle with the protected-side shoulder. Use the crossing as a route, not a single dot.',
+    summer: 'compare the island rim facing the saddle with the open-water shoulder. Shade, wind, or quicker escape should decide the focus.',
+    fall: 'read the saddle and island rim as connected bait edges. Compare the crossing with the strongest island corner.',
+    winter: 'favor the island-side shoulder closest to stable-looking water. Work the connection slowly before circling wider.',
+  },
+  'saddle+dam': {
+    spring: 'compare the dam-side saddle shoulder with the side leading toward protected water. Hard edge and crossing both matter.',
+    summer: 'compare shade or movement along the wall with the saddle shoulder facing broader water. Let comfort narrow the read.',
+    fall: 'read the wall and saddle as a framed crossing. Compare the hard-edge corner with the opposite shoulder.',
+    winter: 'favor the stable wall-side edge of the saddle. Keep the read close to hard structure before widening across the crossing.',
+  },
+  'island+dam': {
+    spring: 'compare the island rim beside the hard edge with the protected side nearby. Treat the gap as a transition reference.',
+    summer: 'compare shade, wall contact, and the island corner with broader-water access. The strongest comfort edge should lead.',
+    fall: 'read the island-wall gap as a bait-pinning edge. Compare the seam and outside corner before circling the island.',
+    winter: 'stay near the stable island-wall corner. Use the hard edge as the reference before checking the open rim.',
+  },
+  'point+cove+island': {
+    spring: 'compare the point edge, island rim, and protected cove side as one staging intersection. Keep the read outside-in and shape aware.',
+    summer: 'compare the point and island edges with the opening-facing cove side. Shade, wind, or cover should decide whether the pocket matters.',
+    fall: 'read the point, island, and cove as a bait intersection with several exits. Follow activity without assuming the whole pocket is active.',
+    winter: 'favor the outside point-island edge closest to stable-looking water. The protected cove side is a careful follow-up.',
+  },
+  travel_hub: {
+    spring: 'compare the route leading toward protected water with each nearby shoulder. The overlap is a travel hub, not a single cast target.',
+    summer: 'compare the safest edge beside the route with shade, wind, or cover nearby. Fish the hub efficiently unless activity builds.',
+    fall: 'read the route compression as a bait hub. Compare entrances and shoulders, then repeat the side that shows activity.',
+    winter: 'stay just beside the route on the most stable shoulder. Work slowly before testing the center of the hub.',
+  },
+  island_travel_hub: {
+    spring: 'compare the island-side route with the protected rim or shoulder nearby. Use the island edge as the pause reference.',
+    summer: 'compare the island shoulder with shade, wind, or broad-water access against the travel lane. Let one clear advantage guide the pass.',
+    fall: 'read the island-side route as bait compression along the rim. Compare the lane and corner before circling wider.',
+    winter: 'favor the stable island shoulder outside the route. Work just off the rim before treating the whole complex as active.',
+  },
+  mouth_complex: {
+    spring: 'compare the outer opening edge with the protected side inside. This keeps the read useful for both narrow coves and broad pockets.',
+    summer: 'compare the outside opening edge with shade, cover, or comfort inside. The pocket itself should earn more time.',
+    fall: 'read the opening as a bait gate. Compare both sides and follow activity only as far as it stays clear.',
+    winter: 'favor the outside edge closest to stable-looking water. Move inward only when cover, bait, or protection supports it.',
+  },
+  island_complex: {
+    spring: 'compare the protected island rim with the connected shoreline edge. Let the strongest corner choose the first focused pass.',
+    summer: 'compare shade, wind, or broad-water access around the island with the connected structure. Avoid equal time around every rim.',
+    fall: 'read the island-facing edges as moving bait lanes. Compare corners and attached structure before slowing down.',
+    winter: 'favor the island side closest to stable-looking water. The connected edge is a second compact reference.',
+  },
+  shoreline_complex: {
+    spring: 'compare the shaped or hard bank with the protected side nearby. Use the transition to narrow the shoreline read.',
+    summer: 'compare shade, hard edge, or quick escape along the shoreline change. The connected bank should earn extra time.',
+    fall: 'read the shoreline change as a bait-pinning edge. Compare the corner with nearby cover or wind influence.',
+    winter: 'favor the most stable hard or protected edge. Keep the read close to the strongest shoreline change.',
+  },
+  mixed_confluence: {
+    spring: 'compare the side leading toward protected water with the nearest strong edge. Use the overlap to organize the read, not widen it.',
+    summer: 'compare shade, wind, cover, or quicker escape across the overlap. Choose the clearest comfort edge before expanding.',
+    fall: 'read the overlap as a moving bait intersection. Compare routes quickly, then repeat the side that shows activity.',
+    winter: 'favor the most stable side of the overlap. Work slowly beside the intersection instead of covering every piece equally.',
+  },
+};
+
+function confluenceBody(season: WaterReaderSeason, zones: WaterReaderPlacedZone[] = [], seed = ''): string {
+  const key = confluenceTemplateKey(zones);
+  const body = CONFLUENCE_BODIES[key]?.[season] ?? CONFLUENCE_BODIES.mixed_confluence[season];
+  return sentenceCase(pickBodyVariant(
+    `${seed}|${season}|${key}|${zones.map((zone) => zone.zoneId).sort().join('|')}`,
+    confluenceBodyVariants(key, season, body),
+  ));
+}
+
+function confluenceBodyVariants(
+  key: ConfluenceTemplateKey,
+  season: WaterReaderSeason,
+  baseBody: string,
+): string[] {
+  const featureSet = new Set(key.split('+').flatMap((part) => part.split('_')) as PublicConfluenceFeature[]);
+  if (key === 'mouth_complex' || featureSet.has('cove')) {
+    return uniqueStrings([
+      baseBody,
+      'compare the opening-facing cove edge with the connected structure. Treat broad pockets as outer transitions, not fixed narrow mouths.',
+      `use the overlap to compare protected water, broader-water access, and the connected structure. ${seasonalConfluenceFocus(season)}`,
+    ]);
+  }
+  if (key === 'island_complex' || key === 'island_travel_hub' || featureSet.has('island')) {
+    return uniqueStrings([
+      baseBody,
+      'compare the island rim with the connected edge or shoulder. Let one rim section narrow the pass before circling wider.',
+      `use the overlap as an island-edge reference beside connected structure. ${seasonalConfluenceFocus(season)}`,
+    ]);
+  }
+  if (key === 'travel_hub' || featureSet.has('neck') || featureSet.has('saddle')) {
+    return uniqueStrings([
+      baseBody,
+      'compare the travel route with both nearby shoulders. Work the edges before treating the center lane as the target.',
+      `use the overlap as a route-and-shoulder comparison. ${seasonalConfluenceFocus(season)}`,
+    ]);
+  }
+  if (key === 'shoreline_complex' || featureSet.has('dam')) {
+    return uniqueStrings([
+      baseBody,
+      'compare the hard edge or shoreline change with the connected structure. The corner is a reference, not the whole plan.',
+      `use the overlap to compare hard edge, softer shoreline, and nearby structure. ${seasonalConfluenceFocus(season)}`,
+    ]);
+  }
+  return uniqueStrings([
+    baseBody,
+    'compare the strongest nearby edges inside the overlap. Keep the read conservative until one side shows more activity.',
+    `use the overlap to organize the first pass across nearby structure. ${seasonalConfluenceFocus(season)}`,
+  ]);
+}
+
+function seasonalConfluenceFocus(season: WaterReaderSeason): string {
+  switch (season) {
+    case 'spring':
+      return 'Give extra weight to the side that points toward protected water.';
+    case 'summer':
+      return 'Give extra weight to comfort clues like shade, wind, cover, or quicker escape.';
+    case 'fall':
+      return 'Give extra weight to the side that gathers bait or narrows bait movement.';
+    case 'winter':
+      return 'Give extra weight to the side closest to stable-looking water.';
+  }
+}
+
+function confluenceTemplateKey(zones: WaterReaderPlacedZone[]): ConfluenceTemplateKey {
+  const features = confluenceFeatureSet(zones);
+  if (features.length < 2) return 'mixed_confluence';
+  const exactKey = features.join('+') as ConfluenceTemplateKey;
+  if (exactKey === 'point+cove+island') return exactKey;
+  if (features.length === 2 && PAIR_CONFLUENCE_KEYS.has(exactKey)) return exactKey;
+
+  const hasPoint = features.includes('point');
+  const hasCove = features.includes('cove');
+  const hasNeck = features.includes('neck');
+  const hasSaddle = features.includes('saddle');
+  const hasIsland = features.includes('island');
+  const hasDam = features.includes('dam');
+  const hasTravel = hasNeck || hasSaddle;
+
+  if (hasIsland && hasTravel) return 'island_travel_hub';
+  if (hasPoint && hasCove && hasIsland) return 'point+cove+island';
+  if (hasTravel) return 'travel_hub';
+  if (hasPoint && hasCove) return 'mouth_complex';
+  if (hasIsland) return 'island_complex';
+  if (hasDam) return 'shoreline_complex';
+  return 'mixed_confluence';
+}
+
+function confluenceFeatureSet(zones: WaterReaderPlacedZone[]): PublicConfluenceFeature[] {
+  const labels = new Set<PublicConfluenceFeature>();
+  for (const zone of zones) labels.add(publicConfluenceFeature(zone.featureClass));
+  return CONFLUENCE_ORDER.filter((feature) => labels.has(feature) && feature !== 'universal');
+}
+
+function publicConfluenceFeature(feature: WaterReaderFeatureClass): PublicConfluenceFeature {
+  switch (feature) {
+    case 'main_lake_point':
+    case 'secondary_point':
+      return 'point';
+    case 'cove':
+    case 'neck':
+    case 'saddle':
+    case 'island':
+    case 'dam':
+    case 'universal':
+      return feature;
+  }
 }
 
 function transitionWarningForZone(zone: WaterReaderPlacedZone, seasonLookup: ReturnType<typeof lookupWaterReaderSeason>): string | undefined {
@@ -974,4 +1355,35 @@ function coveConfluenceMemberLabel(anchorSemanticId: WaterReaderZonePlacementSem
 
 function unique<T>(items: T[]): T[] {
   return [...new Set(items)];
+}
+
+function uniqueStrings(items: string[]): string[] {
+  const seen = new Set<string>();
+  const out: string[] = [];
+  for (const item of items) {
+    const trimmed = item.trim();
+    if (!trimmed || seen.has(trimmed)) continue;
+    seen.add(trimmed);
+    out.push(trimmed);
+  }
+  return out;
+}
+
+function pickBodyVariant(seed: string, variants: string[]): string {
+  const options = uniqueStrings(variants);
+  if (options.length <= 1) return options[0] ?? '';
+  return options[hashString(seed) % options.length]!;
+}
+
+function sentenceCase(text: string): string {
+  const trimmed = text.trim();
+  return trimmed.replace(/^./, (char) => char.toUpperCase());
+}
+
+function hashString(s: string): number {
+  let h = 2166136261;
+  for (let i = 0; i < s.length; i += 1) {
+    h = Math.imul(h ^ s.charCodeAt(i), 16777619);
+  }
+  return h >>> 0;
 }

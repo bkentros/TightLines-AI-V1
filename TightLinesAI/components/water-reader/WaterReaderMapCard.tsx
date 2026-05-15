@@ -70,6 +70,7 @@ import type {
 export type WaterReaderMapCardState =
   | { status: 'idle' }
   | { status: 'reading' }
+  | { status: 'preparing'; read: WaterReaderReadResponse }
   | { status: 'ready'; read: WaterReaderReadResponse }
   | { status: 'error'; errorMessage: string };
 
@@ -149,7 +150,7 @@ export function WaterReaderMapCard({
   }, [lakeId]);
 
   useEffect(() => {
-    if (state.status !== 'reading') {
+    if (state.status !== 'reading' && state.status !== 'preparing') {
       setReadingSlow(false);
       return;
     }
@@ -202,7 +203,7 @@ export function WaterReaderMapCard({
   // Cartouche needs to know what the engine returned (when it has).
   const ready = state.status === 'ready' ? state : null;
   const cartoucheStatus: 'idle' | 'reading' | 'ready' =
-    state.status === 'reading'
+    state.status === 'reading' || state.status === 'preparing'
       ? 'reading'
       : state.status === 'ready'
         ? 'ready'
@@ -221,8 +222,22 @@ export function WaterReaderMapCard({
         readingSlow={readingSlow}
       />
 
-      {state.status === 'reading' && (
+      {(state.status === 'reading' || state.status === 'preparing') && (
         <WaterReaderLakeSkeleton geojson={polygonGeoJson} />
+      )}
+
+      {state.status === 'preparing' && (
+        <View style={styles.preparingCard}>
+          <View style={styles.preparingBadge}>
+            <ActivityIndicator size="small" color={paper.dashboardBlue} />
+          </View>
+          <View style={styles.preparingCopy}>
+            <Text style={styles.preparingTitle}>PREPARING WATER READ</Text>
+            <Text style={styles.preparingBody}>
+              The structure map is queued for generation. This page will refresh automatically when the cached read is ready.
+            </Text>
+          </View>
+        </View>
       )}
 
       {state.status === 'ready' && state.read.productionSvgResult && (
@@ -734,6 +749,44 @@ const styles = StyleSheet.create({
     marginTop: 4,
   },
   fallbackBody: {
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 13,
+    lineHeight: 18,
+    color: '#555555',
+  },
+
+  preparingCard: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: paperSpacing.sm,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 8,
+    padding: paperSpacing.lg,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  preparingBadge: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: '#E8F2FA',
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.22)',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  preparingCopy: {
+    flex: 1,
+    minWidth: 0,
+    gap: 4,
+  },
+  preparingTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    letterSpacing: 1.4,
+    color: paper.dashboardBlue,
+  },
+  preparingBody: {
     fontFamily: paperFonts.bodyMedium,
     fontSize: 13,
     lineHeight: 18,

@@ -5,7 +5,7 @@
 Build from the repo root with the dedicated Dockerfile:
 
 ```bash
-export TAG="water-reader-engine-v4-paper-redesign"
+export TAG="water-reader-engine-v6-conservative-copy"
 
 cp Dockerfile.water-reader-heavy-generator Dockerfile
 
@@ -18,7 +18,7 @@ The container starts the existing heavy-generator server entrypoint. On Cloud Ru
 Important: the image tag must match the current `WATER_READER_ENGINE_VERSION`. The current launch tag is:
 
 ```text
-water-reader-engine-v4-paper-redesign
+water-reader-engine-v6-conservative-copy
 ```
 
 ## Required Worker Secrets
@@ -35,26 +35,61 @@ WATER_READER_INTERNAL_KEY
 
 ## Recommended Cloud Run Settings
 
-Start conservative:
+Use queue mode for production cache misses. Keep worker request concurrency at 1 so each container drains one heavy read at a time, then let Cloud Run scale out by instance count.
 
 ```bash
-export TAG="water-reader-engine-v4-paper-redesign"
+export TAG="water-reader-engine-v6-conservative-copy"
 
 gcloud run deploy water-reader-heavy-generator \
   --image us-central1-docker.pkg.dev/<gcp-project>/<artifact-repo>/water-reader-heavy-generator:$TAG \
   --region us-central1 \
   --allow-unauthenticated \
   --cpu 2 \
-  --memory 2Gi \
+  --memory 4Gi \
   --concurrency 1 \
-  --min-instances 0 \
-  --max-instances 5 \
-  --timeout 60s \
+  --min-instances 1 \
+  --max-instances 10 \
+  --timeout 1800s \
   --set-env-vars SUPABASE_URL="<supabase-url>" \
   --set-secrets SUPABASE_SERVICE_ROLE_KEY="<secret-name>:latest",WATER_READER_INTERNAL_KEY="<secret-name>:latest"
 ```
 
-The endpoint is `POST /water-reader/generate` and requires header `x-water-reader-internal-key`.
+For larger launch windows, `--max-instances 20` is reasonable after watching Supabase load. Memory should be 2-4Gi; start at 4Gi for large polygons and reduce only after worker memory metrics look calm.
+
+The compatibility endpoint is `POST /water-reader/generate` and requires header `x-water-reader-internal-key`. Production queue draining should use `POST /water-reader/jobs/drain`.
+
+## Queue Runner
+
+Production Edge reads should queue cache misses and return `generationStatus: "queued"` or `"processing"` while the app polls. Do not set `WATER_READER_EDGE_INLINE_CACHE_MISSES=true` in production; that flag is only for local/dev fallback because it makes user requests wait on generation work.
+
+Create a Cloud Scheduler job that calls the worker drain endpoint every minute:
+
+```bash
+export WORKER_URL="<cloud-run-service-url>"
+export WATER_READER_INTERNAL_KEY="<same-secret-as-worker>"
+
+gcloud scheduler jobs create http water-reader-drain-1 \
+  --location us-central1 \
+  --schedule "* * * * *" \
+  --uri "$WORKER_URL/water-reader/jobs/drain" \
+  --http-method POST \
+  --headers "content-type=application/json,x-water-reader-internal-key=$WATER_READER_INTERNAL_KEY" \
+  --message-body '{"maxJobs":3}'
+```
+
+The Scheduler request is:
+
+```http
+POST $WORKER_URL/water-reader/jobs/drain
+content-type: application/json
+x-water-reader-internal-key: <secret>
+
+{"maxJobs":3}
+```
+
+`maxJobs: 3` keeps each scheduled invocation bounded while still making progress through bursts. The database claim RPC uses `for update skip locked`, so multiple runner calls can safely overlap.
+
+For higher-volume spikes, add multiple Cloud Scheduler jobs with staggered schedules or move the runner trigger to Cloud Tasks. Cloud Tasks gives better backpressure and retry control if cache misses arrive faster than once-per-minute scheduler drains can clear them.
 
 ## Supabase Edge Secrets
 
@@ -64,7 +99,8 @@ After the Cloud Run URL is known:
 supabase secrets set \
   WATER_READER_HEAVY_GENERATOR_URL="<cloud-run-service-url>" \
   WATER_READER_INTERNAL_KEY="<same-secret-as-worker>" \
-  WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="25000"
+  WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="25000" \
+  WATER_READER_EDGE_INLINE_CACHE_MISSES="false"
 ```
 
 If production smoke shows legitimate worker timeouts, raise the Edge timeout cautiously:
