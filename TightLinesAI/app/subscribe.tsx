@@ -324,9 +324,8 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   logo: {
-    width: 40,
-    height: 40,
-    tintColor: '#FFFFFF',
+    width: 42,
+    height: 42,
   },
   brandText: {
     fontFamily: paperFonts.display,

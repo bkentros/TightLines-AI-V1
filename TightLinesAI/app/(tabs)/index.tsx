@@ -1760,7 +1760,7 @@ function FinFindrEmblemView() {
   return (
     <Image
       source={require("../../assets/images/finfindr-logo.png")}
-      style={{ width: 48, height: 52 }}
+      style={{ width: 45, height: 59 }}
       resizeMode="contain"
     />
   );
@@ -2032,54 +2032,55 @@ const styles = StyleSheet.create({
   // ─── Nav bar (dark navy strip) ───────────────────────────────────────────
   safeNav: { backgroundColor: paper.dashboardInk },
   navBar: {
-    height: 56,
+    height: 66,
     paddingHorizontal: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     backgroundColor: paper.dashboardInk,
   },
-  navBarLeft: { flexDirection: "row", alignItems: "center", gap: 10 },
+  navBarLeft: { flexDirection: "row", alignItems: "center", gap: 8 },
   navWordmarkRow: { flexDirection: "row", alignItems: "baseline" },
   navWordmark: {
     fontFamily: SERIF_BOLD,
-    fontSize: 26,
+    fontSize: 30,
     color: "#FFFFFF",
-    letterSpacing: -0.5,
-    lineHeight: 28,
+    letterSpacing: -0.6,
+    lineHeight: 32,
   },
   navWordmarkPeriod: {
     fontFamily: SERIF_BOLD,
-    fontSize: 26,
+    fontSize: 30,
     color: "#7CB8DA",
     marginLeft: 1,
-    lineHeight: 28,
+    lineHeight: 32,
   },
   navBarRight: { flexDirection: "row", alignItems: "center", gap: 8 },
 
   livePill: {
     flexDirection: "row",
     alignItems: "center",
-    paddingHorizontal: 10,
-    paddingVertical: 5,
-    borderRadius: 18,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 14,
     backgroundColor: "rgba(255,255,255,0.08)",
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.16)",
-    gap: 6,
-    maxWidth: 180,
+    gap: 5,
+    maxWidth: 130,
     flexShrink: 1,
   },
   livePillDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
     backgroundColor: paper.bandPrime,
+    flexShrink: 0,
   },
   livePillText: {
     fontFamily: MONO_BOLD,
-    fontSize: 10,
-    letterSpacing: 1.2,
+    fontSize: 9,
+    letterSpacing: 1.0,
     color: "#FFFFFF",
     flexShrink: 1,
   },

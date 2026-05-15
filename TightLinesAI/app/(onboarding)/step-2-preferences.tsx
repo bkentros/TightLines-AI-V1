@@ -4,7 +4,7 @@
  * `upsert` on Finish — no Supabase round trip while typing.
  */
 
-import { useState, useEffect } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
@@ -22,7 +22,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { paper, paperFonts, paperSpacing } from '../../lib/theme';
-import { PaperNavHeader } from '../../components/paper';
+import { BrandEmblem, PaperNavHeader, TopographicLines } from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
@@ -79,6 +79,53 @@ export default function OnboardingStep2() {
   const [showStateList, setShowStateList] = useState(false);
   const [loading, setLoading] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
+
+  // Real-time username availability — debounced supabase check that
+  // tells the user immediately if the handle they typed is already
+  // taken (the original on-device validator only checked format and
+  // surfaced uniqueness AFTER the upsert at "Finish setup").
+  type AvailabilityState = 'idle' | 'checking' | 'available' | 'taken';
+  const [usernameAvailability, setUsernameAvailability] =
+    useState<AvailabilityState>('idle');
+  const usernameDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  useEffect(() => {
+    if (usernameDebounce.current) clearTimeout(usernameDebounce.current);
+
+    const trimmed = username.trim().toLowerCase();
+    if (trimmed.length < 3 || !/^[a-z0-9_]+$/.test(trimmed)) {
+      setUsernameAvailability('idle');
+      return;
+    }
+
+    setUsernameAvailability('checking');
+    usernameDebounce.current = setTimeout(async () => {
+      try {
+        let query = supabase
+          .from('profiles')
+          .select('id')
+          .eq('username', trimmed)
+          .limit(1);
+        if (user?.id) query = query.neq('id', user.id);
+
+        const { data, error } = await query;
+        if (error) {
+          // Network/RLS hiccup — fall back to idle so the upsert can
+          // still validate at submit time. We don't want to block the
+          // user just because the live check failed.
+          setUsernameAvailability('idle');
+          return;
+        }
+        setUsernameAvailability(data && data.length > 0 ? 'taken' : 'available');
+      } catch {
+        setUsernameAvailability('idle');
+      }
+    }, 450);
+
+    return () => {
+      if (usernameDebounce.current) clearTimeout(usernameDebounce.current);
+    };
+  }, [username, user?.id]);
 
   useEffect(() => {
     if (!user) return;
@@ -245,11 +292,23 @@ export default function OnboardingStep2() {
   };
 
   const trimmedUsernamePreview = username.trim().toLowerCase();
-  const usernameFieldOk =
+  const usernameFormatOk =
     trimmedUsernamePreview.length >= 3 &&
     /^[a-z0-9_]+$/.test(trimmedUsernamePreview);
   const usernameFieldInvalidChars =
     trimmedUsernamePreview.length > 0 && !/^[a-z0-9_]*$/.test(trimmedUsernamePreview);
+
+  // Combined "good to go" — format-valid AND availability-cleared.
+  const usernameFieldGood =
+    usernameFormatOk && usernameAvailability === 'available';
+  const usernameFieldBad =
+    usernameFieldInvalidChars || usernameAvailability === 'taken';
+
+  // Completion meter — fills cream-to-green as the two required fields
+  // are satisfied. Provides a subtle premium "you're getting there" tell.
+  const completed =
+    (usernameFieldGood ? 1 : 0) + (homeState ? 1 : 0);
+  const completionFraction = completed / 2;
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
@@ -271,9 +330,28 @@ export default function OnboardingStep2() {
             keyboardShouldPersistTaps="handled"
           >
             <View style={styles.heroPanel}>
+              <TopographicLines
+                style={styles.heroTopo}
+                color={paper.dashboardCream}
+                count={5}
+              />
+
+              <View style={styles.heroRubricRow}>
+                <View style={styles.heroRubricRule} />
+                <Text style={styles.heroRubricText}>
+                  CHAPTER 02 · YOUR PROFILE
+                </Text>
+                <View style={styles.heroRubricRule} />
+              </View>
+
               <View style={styles.heroTopRow}>
-                <View style={styles.heroBadge}>
-                  <Ionicons name="locate-outline" size={22} color={paper.dashboardCream} />
+                <View style={styles.heroEmblem}>
+                  <BrandEmblem
+                    size={34}
+                    halo
+                    haloColor={paper.dashboardCream}
+                    haloOpacity={0.18}
+                  />
                 </View>
                 <View style={styles.heroKickerWrap}>
                   <Text style={styles.pageEyebrow}>PROFILE CALIBRATION</Text>
@@ -281,7 +359,11 @@ export default function OnboardingStep2() {
                 </View>
               </View>
 
-              <Text style={styles.heroTitle}>Tune your first read.</Text>
+              <Text style={styles.heroTitle}>
+                Tune your{' '}
+                <Text style={styles.heroTitleItalic}>first read</Text>
+                <Text style={styles.heroTitleDot}>.</Text>
+              </Text>
               <Text style={styles.heroLede}>
                 Set your public handle and home area so FinFindr opens with the
                 right water, weather, and regional context from the first tap.
@@ -304,8 +386,8 @@ export default function OnboardingStep2() {
                   style={[
                     styles.input,
                     styles.usernameInput,
-                    usernameFieldInvalidChars && styles.inputError,
-                    usernameFieldOk && styles.inputSuccess,
+                    usernameFieldBad && styles.inputError,
+                    usernameFieldGood && styles.inputSuccess,
                   ]}
                   value={username}
                   onChangeText={setUsername}
@@ -317,16 +399,37 @@ export default function OnboardingStep2() {
                   maxLength={30}
                 />
                 <View style={styles.usernameStatusSlot}>
-                  {usernameFieldOk ? (
-                    <Ionicons name="checkmark-circle" size={20} color={paper.dashboardBlue} />
+                  {usernameAvailability === 'checking' && usernameFormatOk ? (
+                    <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                  ) : usernameAvailability === 'available' ? (
+                    <Ionicons name="checkmark-circle" size={20} color={paper.bandPrime} />
+                  ) : usernameAvailability === 'taken' || usernameFieldInvalidChars ? (
+                    <Ionicons name="close-circle" size={20} color={paper.bandTough} />
                   ) : null}
                 </View>
               </View>
               {usernameFieldInvalidChars && (
-                <Text style={styles.errorText}>Only letters, numbers, and underscores.</Text>
+                <Text style={styles.errorText}>
+                  Only letters, numbers, and underscores.
+                </Text>
               )}
-              {usernameFieldOk && (
-                <Text style={styles.successText}>Looks good. We&apos;ll claim it when you finish.</Text>
+              {!usernameFieldInvalidChars &&
+                usernameAvailability === 'taken' && (
+                  <Text style={styles.errorText}>
+                    Already taken — try another handle.
+                  </Text>
+                )}
+              {!usernameFieldInvalidChars &&
+                usernameAvailability === 'checking' &&
+                usernameFormatOk && (
+                  <Text style={styles.checkingText}>
+                    Checking availability…
+                  </Text>
+                )}
+              {usernameFieldGood && (
+                <Text style={styles.successText}>
+                  Available — we&apos;ll claim it when you finish.
+                </Text>
               )}
             </SetupPanel>
 
@@ -417,21 +520,68 @@ export default function OnboardingStep2() {
               />
             </SetupPanel>
 
+            {/* Completion meter — fills from cream → green as the
+                two required fields go from 0 → 1 → 2. Subtle premium
+                "you're getting there" cue. */}
+            <View style={styles.meter}>
+              <View style={styles.meterRow}>
+                <Text style={styles.meterLabel}>READY TO LAUNCH</Text>
+                <Text
+                  style={[
+                    styles.meterCount,
+                    completionFraction === 1 && styles.meterCountReady,
+                  ]}
+                >
+                  {completed} / 2
+                </Text>
+              </View>
+              <View style={styles.meterTrack}>
+                <View
+                  style={[
+                    styles.meterFill,
+                    {
+                      width: `${Math.round(completionFraction * 100)}%`,
+                      backgroundColor:
+                        completionFraction === 1
+                          ? paper.bandPrime
+                          : paper.dashboardBlue,
+                    },
+                  ]}
+                />
+              </View>
+            </View>
+
             <Pressable
               style={({ pressed }) => [
                 styles.cta,
+                completionFraction === 1 && styles.ctaReady,
                 pressed && styles.ctaPressed,
-                loading && styles.btnDisabled,
+                (loading ||
+                  usernameAvailability === 'checking' ||
+                  usernameAvailability === 'taken' ||
+                  usernameFieldInvalidChars ||
+                  !homeState) &&
+                  styles.btnDisabled,
               ]}
               onPress={handleContinue}
-              disabled={loading}
+              disabled={
+                loading ||
+                usernameAvailability === 'checking' ||
+                usernameAvailability === 'taken' ||
+                usernameFieldInvalidChars ||
+                !homeState
+              }
             >
               {loading ? (
                 <ActivityIndicator color={paper.dashboardCream} />
               ) : (
                 <>
                   <Text style={styles.ctaText}>FINISH SETUP</Text>
-                  <Ionicons name="arrow-forward" size={16} color={paper.dashboardCream} />
+                  <Ionicons
+                    name="arrow-forward"
+                    size={16}
+                    color={paper.dashboardCream}
+                  />
                 </>
               )}
             </Pressable>
@@ -509,26 +659,51 @@ const styles = StyleSheet.create({
     paddingBottom: paperSpacing.xxl,
   },
   heroPanel: {
+    position: 'relative',
     backgroundColor: paper.dashboardInk,
-    borderRadius: 8,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.16)',
     padding: paperSpacing.lg,
     marginBottom: paperSpacing.xl,
+    overflow: 'hidden',
+  },
+  heroTopo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0.18,
+  },
+  heroRubricRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: paperSpacing.md,
+    zIndex: 1,
+  },
+  heroRubricRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardCream,
+    opacity: 0.35,
+  },
+  heroRubricText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardCream,
+    letterSpacing: 2.4,
+    opacity: 0.75,
   },
   heroTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.md,
     marginBottom: paperSpacing.md,
+    zIndex: 1,
   },
-  heroBadge: {
-    width: 46,
-    height: 46,
-    borderRadius: 23,
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.22)',
-    backgroundColor: 'rgba(255,255,255,0.08)',
+  heroEmblem: {
     alignItems: 'center',
     justifyContent: 'center',
   },
@@ -550,12 +725,20 @@ const styles = StyleSheet.create({
   },
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 38,
+    fontSize: 36,
     color: paper.dashboardCream,
     fontWeight: '700',
-    letterSpacing: 0,
-    lineHeight: 41,
+    letterSpacing: -0.3,
+    lineHeight: 40,
     marginBottom: paperSpacing.xs,
+    zIndex: 1,
+  },
+  heroTitleItalic: {
+    fontFamily: paperFonts.displayItalic,
+    color: paper.dashboardCream,
+  },
+  heroTitleDot: {
+    color: paper.dashboardBlueLight,
   },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
@@ -563,11 +746,13 @@ const styles = StyleSheet.create({
     color: 'rgba(255,255,255,0.78)',
     lineHeight: 21,
     marginBottom: paperSpacing.md,
+    zIndex: 1,
   },
   benefitRow: {
     flexDirection: 'row',
     flexWrap: 'wrap',
     gap: paperSpacing.sm,
+    zIndex: 1,
   },
   benefitPill: {
     flexDirection: 'row',
@@ -646,24 +831,32 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: paper.dashboardInk,
   },
-  inputError: { borderColor: paper.dashboardBlue },
-  inputSuccess: { borderColor: paper.dashboardBlue },
+  inputError: { borderColor: paper.bandTough, borderWidth: 1.5 },
+  inputSuccess: { borderColor: paper.bandPrime, borderWidth: 1.5 },
   usernameRow: { flexDirection: 'row', alignItems: 'center', gap: paperSpacing.sm },
   usernameInput: { flex: 1 },
   usernameStatusSlot: { width: 26, alignItems: 'center' },
   errorText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11.5,
-    color: paper.dashboardBlue,
+    color: paper.bandTough,
     marginTop: paperSpacing.xs,
     letterSpacing: 0.4,
   },
   successText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11.5,
-    color: paper.dashboardBlue,
+    color: paper.bandPrime,
     marginTop: paperSpacing.xs,
     letterSpacing: 0.4,
+  },
+  checkingText: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 11.5,
+    color: paper.dashboardInk,
+    opacity: 0.55,
+    marginTop: paperSpacing.xs,
+    letterSpacing: 0.2,
   },
   locAutoBtn: {
     flexDirection: 'row',
@@ -733,10 +926,61 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardInk,
     borderRadius: 8,
     paddingVertical: paperSpacing.md,
-    marginTop: paperSpacing.md,
+    marginTop: paperSpacing.sm,
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.18,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 4 },
+  },
+  ctaReady: {
+    backgroundColor: paper.bandPrime,
+    borderColor: paper.bandPrime,
+    shadowColor: paper.bandPrime,
+    shadowOpacity: 0.3,
+    shadowRadius: 10,
   },
   ctaPressed: { backgroundColor: paper.dashboardBlue },
   btnDisabled: { opacity: 0.55 },
+
+  // Completion meter ──────────────────────────────────────────────────────
+  meter: {
+    marginTop: paperSpacing.md,
+    paddingHorizontal: 2,
+    gap: 6,
+  },
+  meterRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  meterLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardInk,
+    letterSpacing: 2.4,
+    opacity: 0.6,
+  },
+  meterCount: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    color: paper.dashboardInk,
+    letterSpacing: 1.2,
+    opacity: 0.7,
+  },
+  meterCountReady: {
+    color: paper.bandPrime,
+    opacity: 1,
+  },
+  meterTrack: {
+    height: 3,
+    borderRadius: 2,
+    backgroundColor: paper.dashboardLine,
+    overflow: 'hidden',
+  },
+  meterFill: {
+    height: 3,
+    borderRadius: 2,
+  },
   ctaText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 12,

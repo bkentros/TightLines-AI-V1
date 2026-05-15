@@ -5278,7 +5278,10 @@
         "npm:tsx@^4.21.0",
         "npm:typescript@~5.9.2",
         "npm:zustand@^5.0.11"
-      ]
+      ],
+      "overrides": {
+        "postcss": "^8.5.10"
+      }
     }
   }
 }

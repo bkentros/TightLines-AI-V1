@@ -774,79 +774,178 @@ export default function HowFishingScreen() {
         </SafeAreaView>
 
         <View style={styles.background}>
-          <View style={styles.confirmOuter}>
-            <TopographicLines style={styles.confirmLines} count={5} />
+          {/* Topographic backdrop behind the card */}
+          <TopographicLines
+            style={styles.confirmBgLines}
+            color={paper.dashboardInk}
+            count={6}
+          />
 
+          <View style={styles.confirmOuter}>
             {showConfirm
               ? (
                 <View style={styles.confirmCard}>
-                  <Text style={styles.confirmEyebrow}>
-                    {isForecastDay ? "FORECAST READ" : "TODAY'S READ"}
-                  </Text>
+                  {/* Corner crosshairs inside the card */}
+                  <ConfirmCorner position="topLeft" />
+                  <ConfirmCorner position="topRight" />
+                  <ConfirmCorner position="bottomLeft" />
+                  <ConfirmCorner position="bottomRight" />
 
+                  {/* Rubric strip */}
+                  <View style={styles.confirmRubricRow}>
+                    <View style={styles.confirmRubricRule} />
+                    <Text style={styles.confirmRubric}>
+                      {isForecastDay
+                        ? "FORECAST BRIEFING"
+                        : "FIELD BRIEFING"}
+                    </Text>
+                    <View style={styles.confirmRubricRule} />
+                  </View>
+
+                  {/* Mission icon — sonar beacon */}
+                  <View style={styles.confirmIconStage}>
+                    <View style={styles.confirmIconRingOuter} />
+                    <View style={styles.confirmIconRingInner} />
+                    <View style={styles.confirmIconDisk}>
+                      <Ionicons
+                        name={isForecastDay
+                          ? "calendar-outline"
+                          : "pulse"}
+                        size={20}
+                        color="#FFFFFF"
+                      />
+                    </View>
+                  </View>
+
+                  {/* Title */}
                   <Text style={styles.confirmTitle}>
                     {isForecastDay
-                      ? "Build forecast bite"
-                      : "Build today's bite"}
-                    <Text style={{ color: paper.dashboardBlue }}>.</Text>
+                      ? (
+                        <>
+                          Build{" "}
+                          <Text style={styles.confirmTitleItalic}>
+                            forecast
+                          </Text>
+                          <Text style={styles.confirmTitleDot}>.</Text>
+                        </>
+                      )
+                      : (
+                        <>
+                          Build{" "}
+                          <Text style={styles.confirmTitleItalic}>
+                            today's bite
+                          </Text>
+                          <Text style={styles.confirmTitleDot}>.</Text>
+                        </>
+                      )}
                   </Text>
 
-                  <View style={styles.confirmMetaRow}>
-                    <Ionicons
-                      name="location"
-                      size={12}
-                      color={paper.dashboardInk}
-                    />
-                    <Text style={styles.confirmMetaText} numberOfLines={1}>
-                      {locationLabel}
-                    </Text>
-                  </View>
-                  <View style={styles.confirmMetaRow}>
-                    <Ionicons
-                      name="calendar-outline"
-                      size={12}
-                      color={paper.dashboardInk}
-                    />
-                    <Text style={styles.confirmMetaText}>
-                      {reportDateLabel}
-                    </Text>
-                  </View>
+                  {/* Divider hairline */}
+                  <View style={styles.confirmHairline} />
 
-                  <View style={styles.confirmContextList}>
-                    {availableTabs.map((t) => (
-                      <View key={t.key} style={styles.confirmContextChip}>
+                  {/* Mission brief — location + date */}
+                  <View style={styles.confirmBriefPanel}>
+                    <View style={styles.confirmBriefRow}>
+                      <View style={styles.confirmBriefIconTile}>
                         <Ionicons
-                          name={t.icon}
-                          size={12}
-                          color={paper.dashboardInk}
+                          name="location"
+                          size={11}
+                          color={paper.dashboardBlue}
                         />
-                        <Text style={styles.confirmContextLabel}>
-                          {t.label}
-                        </Text>
                       </View>
-                    ))}
+                      <Text
+                        style={styles.confirmBriefText}
+                        numberOfLines={1}
+                        ellipsizeMode="tail"
+                      >
+                        {locationLabel}
+                      </Text>
+                    </View>
+                    <View style={styles.confirmBriefRow}>
+                      <View style={styles.confirmBriefIconTile}>
+                        <Ionicons
+                          name="calendar-outline"
+                          size={11}
+                          color={paper.dashboardBlue}
+                        />
+                      </View>
+                      <Text style={styles.confirmBriefText}>
+                        {reportDateLabel}
+                      </Text>
+                    </View>
                   </View>
 
+                  {/* Water types being built */}
+                  <View style={styles.confirmContextBlock}>
+                    <Text style={styles.confirmContextHeading}>
+                      WATER TYPES INCLUDED
+                    </Text>
+                    <View style={styles.confirmContextList}>
+                      {availableTabs.map((t) => (
+                        <View key={t.key} style={styles.confirmContextChip}>
+                          <Ionicons
+                            name={t.icon}
+                            size={11}
+                            color={paper.dashboardBlue}
+                          />
+                          <Text style={styles.confirmContextLabel}>
+                            {t.label}
+                          </Text>
+                        </View>
+                      ))}
+                    </View>
+                  </View>
+
+                  {/* Generate CTA */}
                   <Pressable
-                    style={(
-                      { pressed },
-                    ) => [
+                    style={({ pressed }) => [
                       styles.generateBtn,
                       pressed && styles.generateBtnPressed,
+                      envLoading && { opacity: 0.6 },
                     ]}
                     onPress={generateReports}
                     disabled={envLoading}
                   >
-                    <Ionicons name="sparkles" size={14} color="#FFFFFF" />
-                    <Text style={styles.generateBtnText}>
-                      {isForecastDay
-                        ? "BUILD FORECAST READ"
-                        : "BUILD TODAY'S READ"}
-                    </Text>
+                    <View style={styles.generateBtnInner}>
+                      {envLoading
+                        ? (
+                          <ActivityIndicator
+                            size="small"
+                            color="#FFFFFF"
+                          />
+                        )
+                        : (
+                          <Ionicons
+                            name="sparkles"
+                            size={15}
+                            color="#FFFFFF"
+                          />
+                        )}
+                      <Text style={styles.generateBtnText}>
+                        {envLoading
+                          ? "LOADING CONDITIONS…"
+                          : isForecastDay
+                          ? "BUILD FORECAST READ"
+                          : "BUILD TODAY'S READ"}
+                      </Text>
+                      {!envLoading && (
+                        <View style={styles.generateBtnArrow}>
+                          <Ionicons
+                            name="arrow-forward"
+                            size={12}
+                            color={paper.dashboardCream}
+                          />
+                        </View>
+                      )}
+                    </View>
                   </Pressable>
 
                   {analysisError
-                    ? <Text style={styles.errorInline}>{analysisError}</Text>
+                    ? (
+                      <Text style={styles.errorInline}>
+                        {analysisError}
+                      </Text>
+                    )
                     : null}
                 </View>
               )
@@ -1053,6 +1152,64 @@ export default function HowFishingScreen() {
     </View>
   );
 }
+
+/* ─── Confirm card corner brackets ─────────────────────────────────────── */
+
+function ConfirmCorner({
+  position,
+}: {
+  position: "topLeft" | "topRight" | "bottomLeft" | "bottomRight";
+}) {
+  const isTop = position === "topLeft" || position === "topRight";
+  const isLeft = position === "topLeft" || position === "bottomLeft";
+  return (
+    <View
+      pointerEvents="none"
+      style={[
+        confirmCornerStyles.wrap,
+        isTop ? { top: 8 } : { bottom: 8 },
+        isLeft ? { left: 8 } : { right: 8 },
+      ]}
+    >
+      <View
+        style={[
+          confirmCornerStyles.armH,
+          isTop ? { top: 0 } : { bottom: 0 },
+          isLeft ? { left: 0 } : { right: 0 },
+        ]}
+      />
+      <View
+        style={[
+          confirmCornerStyles.armV,
+          isTop ? { top: 0 } : { bottom: 0 },
+          isLeft ? { left: 0 } : { right: 0 },
+        ]}
+      />
+    </View>
+  );
+}
+
+const confirmCornerStyles = StyleSheet.create({
+  wrap: {
+    position: "absolute",
+    width: 14,
+    height: 14,
+  },
+  armH: {
+    position: "absolute",
+    width: 14,
+    height: 1,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.4,
+  },
+  armV: {
+    position: "absolute",
+    width: 1,
+    height: 14,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.4,
+  },
+});
 
 /* ─── Top header component ──────────────────────────────────────────────── */
 
@@ -1262,6 +1419,10 @@ const styles = StyleSheet.create({
   },
 
   /* Confirmation surface */
+  confirmBgLines: {
+    ...StyleSheet.absoluteFillObject,
+    opacity: 0.18,
+  },
   confirmOuter: {
     flex: 1,
     padding: paperSpacing.lg,
@@ -1269,72 +1430,176 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     position: "relative",
   },
-  confirmLines: {
-    // Absolute; positioned relative to the container around the card.
-    top: 40,
-    left: 0,
-    right: 0,
-    bottom: 40,
-  },
   confirmCard: {
     width: "100%",
-    maxWidth: 440,
+    maxWidth: 420,
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
+    borderRadius: 16,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.lg + 6,
+    paddingTop: paperSpacing.md + 4,
     paddingBottom: paperSpacing.lg,
     alignItems: "center",
     overflow: "hidden",
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.14,
+    shadowRadius: 20,
+    shadowOffset: { width: 0, height: 8 },
+    position: "relative",
   },
-  confirmEyebrow: {
+
+  // Rubric strip
+  confirmRubricRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    alignSelf: "stretch",
+    marginBottom: paperSpacing.sm,
+    zIndex: 1,
+  },
+  confirmRubricRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.3,
+  },
+  confirmRubric: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    letterSpacing: 1.8,
-    color: paper.dashboardBlue,
+    fontSize: 8.5,
+    color: paper.dashboardInk,
+    letterSpacing: 2.4,
+    opacity: 0.65,
   },
+
+  // Mission icon stage — beacon sonar rings + center disk
+  confirmIconStage: {
+    width: 72,
+    height: 72,
+    alignItems: "center",
+    justifyContent: "center",
+    position: "relative",
+    marginBottom: paperSpacing.sm,
+    zIndex: 1,
+  },
+  confirmIconRingOuter: {
+    position: "absolute",
+    width: 72,
+    height: 72,
+    borderRadius: 36,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.2,
+  },
+  confirmIconRingInner: {
+    position: "absolute",
+    width: 52,
+    height: 52,
+    borderRadius: 26,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.35,
+  },
+  confirmIconDisk: {
+    width: 44,
+    height: 44,
+    borderRadius: 22,
+    backgroundColor: paper.dashboardInk,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 2,
+    borderColor: paper.dashboardWhite,
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.2,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+  },
+
+  // Title
   confirmTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 28,
-    lineHeight: 32,
-    letterSpacing: 0,
+    fontSize: 26,
+    lineHeight: 30,
+    letterSpacing: -0.3,
     fontWeight: "700",
     color: paper.dashboardInk,
     textAlign: "center",
-    marginTop: paperSpacing.sm,
     marginBottom: paperSpacing.md,
+    zIndex: 1,
   },
-  confirmSub: {
+  confirmTitleItalic: {
     fontFamily: paperFonts.displayItalic,
-    fontStyle: "italic",
-    fontSize: 14,
     color: paper.dashboardInk,
-    opacity: 0.75,
-    textAlign: "center",
-    lineHeight: 20,
-    marginTop: paperSpacing.sm,
   },
-  confirmMetaRow: {
+  confirmTitleDot: {
+    color: paper.dashboardBlue,
+  },
+
+  // Hairline divider
+  confirmHairline: {
+    alignSelf: "stretch",
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.15,
+    marginBottom: paperSpacing.sm,
+    zIndex: 1,
+  },
+
+  // Mission brief panel
+  confirmBriefPanel: {
+    alignSelf: "stretch",
+    backgroundColor: paper.dashboardCream,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    gap: 6,
+    marginBottom: paperSpacing.md,
+    zIndex: 1,
+  },
+  confirmBriefRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 6,
-    marginTop: 4,
+    gap: 8,
   },
-  confirmMetaText: {
+  confirmBriefIconTile: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: paper.dashboardBlueSky,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "rgba(42,110,150,0.2)",
+  },
+  confirmBriefText: {
     fontFamily: paperFonts.metaMono,
-    fontSize: 11,
-    color: paper.dashboardMuted,
-    opacity: 0.8,
+    fontSize: 12,
+    color: paper.dashboardInk,
+    flex: 1,
+  },
+
+  // Water type chips
+  confirmContextBlock: {
+    alignSelf: "stretch",
+    marginBottom: paperSpacing.md,
+    zIndex: 1,
+  },
+  confirmContextHeading: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardInk,
+    letterSpacing: 2.4,
+    opacity: 0.55,
+    marginBottom: 8,
+    textAlign: "center",
   },
   confirmContextList: {
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
     gap: 6,
-    marginTop: paperSpacing.md,
-    marginBottom: paperSpacing.md + 2,
   },
   confirmContextChip: {
     flexDirection: "row",
@@ -1343,15 +1608,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 5,
     borderWidth: 1,
-    borderColor: paper.dashboardLine,
+    borderColor: paper.dashboardBlueSky,
     borderRadius: 999,
-    backgroundColor: "#F6F7F5",
+    backgroundColor: "#EDF5FA",
   },
   confirmContextLabel: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 1.5,
-    color: paper.dashboardInk,
+    fontSize: 9.5,
+    letterSpacing: 1.4,
+    color: paper.dashboardBlue,
     fontWeight: "700",
   },
   loadingWrap: {
@@ -1375,17 +1640,36 @@ const styles = StyleSheet.create({
     fontWeight: "700",
   },
   generateBtn: {
+    overflow: "hidden",
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    minHeight: 50,
+    paddingHorizontal: paperSpacing.lg,
+    width: "100%",
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.22,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    zIndex: 1,
+  },
+  generateBtnInner: {
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
     gap: 8,
-    backgroundColor: paper.dashboardInk,
-    borderRadius: 9,
+    minHeight: 50,
+  },
+  generateBtnArrow: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    backgroundColor: "rgba(255,255,255,0.14)",
     borderWidth: 1,
-    borderColor: paper.dashboardInk,
-    minHeight: 48,
-    paddingHorizontal: paperSpacing.lg,
-    width: "100%",
+    borderColor: "rgba(255,255,255,0.2)",
+    alignItems: "center",
+    justifyContent: "center",
   },
   generateBtnPressed: {
     opacity: 0.82,

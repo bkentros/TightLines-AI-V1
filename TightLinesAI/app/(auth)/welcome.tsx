@@ -1,9 +1,22 @@
 /**
- * Welcome / landing screen — FinFindr dashboard language.
+ * Welcome / landing screen — FinFindr paper edition.
  *
- * Behavior is unchanged from the previous TightLines-era version: email
- * sign-up, email sign-in, and Apple Sign-In routes all still trigger the
- * same handlers against the same auth store. Only visuals changed.
+ * Behavior is unchanged from the previous version: email sign-up, email
+ * sign-in, and Apple Sign-In routes all still trigger the same handlers
+ * against the same auth store. Only the visual layer was rebuilt.
+ *
+ * Visual intent
+ *  - The pin emblem sits inside a custom "scope target" stage — 4 corner
+ *    crosshairs (no circular/square frame) with a horizontal scan beam
+ *    that travels vertically across it, like a sonar sweep. Pulls the
+ *    same scan-line vocabulary used throughout the dashboard (intelligence
+ *    modules, today's-bite CTA) so the brand mark feels alive without a
+ *    framing ring.
+ *  - The hero card is short — everything (hero + value props + CTAs +
+ *    footer) fits on a single iPhone screen without scrolling.
+ *  - The three value props are presented as numbered field-guide entries
+ *    (I · II · III) on a cream ground with subtle navy icon chips, with
+ *    enough vertical breathing room to read at a glance.
  */
 
 import { useEffect, useRef, useCallback, useState } from 'react';
@@ -30,7 +43,7 @@ import {
 } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
 import {
-  CornerMarkSet,
+  BrandScopeStage,
   TopographicLines,
 } from '../../components/paper';
 import {
@@ -43,13 +56,39 @@ import {
 
 type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
+const FEATURES: {
+  numeral: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  blurb: string;
+}[] = [
+  {
+    numeral: 'I',
+    icon: 'pulse-outline',
+    title: 'The Daily Read',
+    blurb: "Today's score, best windows, and a clear answer on whether to go.",
+  },
+  {
+    numeral: 'II',
+    icon: 'fish-outline',
+    title: 'The Tackle Box',
+    blurb: 'Two lures and two flies ranked for your weather, water, and season.',
+  },
+  {
+    numeral: 'III',
+    icon: 'scan-outline',
+    title: 'Water Read',
+    blurb: 'Hydrography for any supported lake — structure zones before you cast.',
+  },
+];
+
 export default function WelcomeScreen() {
   const router = useRouter();
   const { fetchProfile, setSession } = useAuthStore();
   const [notice, setNotice] = useState<Notice | null>(null);
 
-  // Live pulse on the eyebrow dot — matches the home dashboard and
-  // every renovated feature header. Native driver, native opacity loop.
+  // Live pulse on the eyebrow dot — same anatomy used everywhere in the
+  // paper system. Native opacity loop.
   const pulse = useRef(new Animated.Value(1)).current;
   useEffect(() => {
     const loop = Animated.loop(
@@ -123,40 +162,61 @@ export default function WelcomeScreen() {
     }
   }, [fetchProfile, setSession]);
 
+  // Edition meta — populated at render time so every fresh launch reads
+  // as a freshly pressed "issue."
+  const today = new Date();
+  const editionMonth = today
+    .toLocaleString('en-US', { month: 'short' })
+    .toUpperCase();
+  const editionYear = today.getFullYear();
+
   return (
     <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
         <View style={styles.container}>
-          {/* Brand hero — ink-framed paper panel with topo lines and gold corners. */}
+          {/* ─── Hero — issue cover ─────────────────────────────────────── */}
           <View style={styles.hero}>
             <TopographicLines
               style={styles.heroTopo}
-              color={paper.walnut}
-              count={7}
+              color={paper.dashboardInk}
+              count={5}
             />
-            <CornerMarkSet color={paper.bandFair} size={16} thickness={2} inset={10} />
 
-            {/* Eyebrow row — pulse dot + label + ruled flank + diamond
-                ornament. Same anatomy as the renovated section
-                mastheads + AuthHeader so welcome reads as part of the
-                same editorial family. */}
-            <View style={styles.eyebrowRow}>
-              <View style={styles.eyebrowPulseWrap}>
-                <View style={styles.eyebrowPulseRing} />
+            {/* Issue rubric — small mono line at the top of the cover */}
+            <View style={styles.issueRubricRow}>
+              <View style={styles.issueRubricRule} />
+              <Text style={styles.issueRubricText}>
+                FIELD GUIDE · NO. 001 · {editionMonth} {editionYear}
+              </Text>
+              <View style={styles.issueRubricRule} />
+            </View>
+
+            {/* Scope-target stage — 4 corner crosshairs, scan beam,
+                sonar pings, breathing emblem. Shared with onboarding
+                step-1 via the BrandScopeStage primitive. */}
+            <BrandScopeStage size={132} emblemSize={86} style={styles.stageWrap} />
+
+            {/* Live label + wordmark */}
+            <View style={styles.liveRow}>
+              <View style={styles.livePulseWrap}>
+                <View style={styles.livePulseRing} />
                 <Animated.View
-                  style={[styles.eyebrowPulseDot, { opacity: pulse }]}
+                  style={[styles.livePulseDot, { opacity: pulse }]}
                 />
               </View>
-              <Text style={styles.eyebrow}>FIELD GUIDE</Text>
-              <View style={styles.eyebrowFlankRule} />
-              <Text style={styles.eyebrowDiamond}>◆</Text>
+              <Text style={styles.liveLabel}>FIELD-EDITION ACTIVE</Text>
             </View>
-            <Text style={styles.brandMark}>FINFINDR.</Text>
+
+            <Text style={styles.brandMark}>
+              FinFindr<Text style={styles.brandMarkDot}>.</Text>
+            </Text>
             <View style={styles.brandRule} />
             <Text style={styles.tagline}>
-              Find the bite before you head out.
+              <Text style={styles.taglineItalic}>Find the bite</Text>
+              {' '}before you head out.
             </Text>
           </View>
+
           {notice ? (
             <AuthNotice
               title={notice.title}
@@ -165,23 +225,33 @@ export default function WelcomeScreen() {
             />
           ) : null}
 
-          {/* Value props — editorial bullet list */}
-          <View style={styles.valueProps}>
-            {[
-              { icon: 'fish-outline', text: "Tackle Box picks for today's conditions" },
-              { icon: 'calendar-outline', text: '7-day Daily Read outlooks for planning trips' },
-              { icon: 'camera-outline', text: 'Water Read for structure, cover, and holding water' },
-            ].map((item) => (
-              <View key={item.icon} style={styles.valueProp}>
-                <View style={styles.valueIconWrap}>
-                  <Ionicons name={item.icon as any} size={16} color={paper.dashboardBlue} />
+          {/* ─── Field-guide entries — I · II · III ────────────────────── */}
+          <View style={styles.valuePropsBlock}>
+            <View style={styles.valuePropsHeader}>
+              <Text style={styles.valuePropsEyebrow}>WHAT&apos;S INSIDE</Text>
+              <View style={styles.valuePropsRule} />
+              <Text style={styles.valuePropsOrnament}>◆</Text>
+            </View>
+            <View style={styles.valueProps}>
+              {FEATURES.map((item) => (
+                <View key={item.numeral} style={styles.valueProp}>
+                  <View style={styles.valueNumeralCol}>
+                    <Text style={styles.valueNumeral}>{item.numeral}</Text>
+                    <View style={styles.valueNumeralRule} />
+                  </View>
+                  <View style={styles.valueIconWrap}>
+                    <Ionicons name={item.icon} size={15} color={paper.dashboardBlue} />
+                  </View>
+                  <View style={styles.valueText}>
+                    <Text style={styles.valueTitle}>{item.title}</Text>
+                    <Text style={styles.valueBlurb}>{item.blurb}</Text>
+                  </View>
                 </View>
-                <Text style={styles.valuePropText}>{item.text}</Text>
-              </View>
-            ))}
+              ))}
+            </View>
           </View>
 
-          {/* CTAs */}
+          {/* ─── CTAs ───────────────────────────────────────────────────── */}
           <View style={styles.actions}>
             <AuthPrimaryButton
               label="Create account"
@@ -212,14 +282,12 @@ export default function WelcomeScreen() {
             )}
           </View>
 
-          {/* Footer mark */}
+          {/* ─── Footer ─────────────────────────────────────────────────── */}
           <View style={styles.footerCol}>
             <View style={styles.footerRow}>
               <Text style={styles.footerText}>FINFINDR</Text>
               <Text style={styles.footerMono}>MADE FOR THE WATER</Text>
             </View>
-            {/* Pressed-edition stamp — same finishing signature used on
-                the Today's Bite report and every other auth screen. */}
             <AuthFooterStamp />
           </View>
         </View>
@@ -234,144 +302,234 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     paddingHorizontal: paperSpacing.lg,
-    paddingBottom: paperSpacing.lg,
+    paddingBottom: paperSpacing.md,
+    paddingTop: paperSpacing.xs,
     justifyContent: 'space-between',
   },
 
+  // ── Hero / issue cover ────────────────────────────────────────────────
   hero: {
     position: 'relative',
-    marginTop: paperSpacing.xl,
-    paddingVertical: paperSpacing.xl,
-    paddingHorizontal: paperSpacing.lg,
+    paddingVertical: paperSpacing.md - 2,
+    paddingHorizontal: paperSpacing.md,
     alignItems: 'center',
     backgroundColor: paper.dashboardWhite,
-    borderWidth: 2,
+    borderWidth: 1.5,
     borderColor: paper.dashboardInk,
     borderRadius: 12,
     overflow: 'hidden',
-      },
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 5 },
+  },
   heroTopo: {
     position: 'absolute',
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.4,
+    opacity: 0.32,
   },
-  eyebrowRow: {
+
+  issueRubricRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 7,
+    gap: 8,
+    alignSelf: 'stretch',
+    paddingHorizontal: 4,
+    marginBottom: 4,
     zIndex: 1,
-    paddingHorizontal: 8,
   },
-  eyebrowPulseWrap: {
-    width: 9,
-    height: 9,
+  issueRubricRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.35,
+  },
+  issueRubricText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardInk,
+    letterSpacing: 2.4,
+    opacity: 0.7,
+  },
+
+  stageWrap: {
+    marginTop: 2,
+    marginBottom: 2,
+    zIndex: 1,
+  },
+
+  liveRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginTop: 2,
+    zIndex: 1,
+  },
+  livePulseWrap: {
+    width: 10,
+    height: 10,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  eyebrowPulseRing: {
+  livePulseRing: {
     position: 'absolute',
-    width: 9,
-    height: 9,
-    borderRadius: 4.5,
+    width: 10,
+    height: 10,
+    borderRadius: 5,
     borderWidth: 1,
     borderColor: paper.dashboardBlue,
     opacity: 0.45,
   },
-  eyebrowPulseDot: {
-    width: 4.5,
-    height: 4.5,
-    borderRadius: 2.25,
+  livePulseDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
     backgroundColor: paper.dashboardBlue,
   },
-  eyebrowFlankRule: {
-    width: 26,
-    height: 1,
-    backgroundColor: paper.dashboardBlue,
-    opacity: 0.4,
-  },
-  eyebrowDiamond: {
-    fontFamily: paperFonts.body,
-    fontSize: 9,
-    color: paper.dashboardBlue,
-    opacity: 0.6,
-    lineHeight: 11,
-  },
-  eyebrow: {
+  liveLabel: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10.5,
+    fontSize: 9.5,
     color: paper.dashboardBlue,
-    letterSpacing: 3,
-    zIndex: 1,
+    letterSpacing: 2.6,
   },
+
   brandMark: {
     fontFamily: paperFonts.display,
-    fontSize: 54,
+    fontSize: 38,
     color: paper.dashboardInk,
-    letterSpacing: 0,
+    letterSpacing: -0.5,
     fontWeight: '700',
-    marginTop: 6,
+    lineHeight: 42,
+    marginTop: 4,
     zIndex: 1,
   },
+  brandMarkDot: {
+    color: paper.dashboardBlue,
+  },
   brandRule: {
-    width: 56,
-    height: 3,
+    width: 44,
+    height: 2.5,
     backgroundColor: paper.dashboardBlue,
-    marginTop: 10,
+    marginTop: 4,
     borderRadius: 1,
     zIndex: 1,
   },
   tagline: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 15,
+    fontFamily: paperFonts.body,
+    fontSize: 13.5,
     color: paper.dashboardInk,
-    opacity: 0.75,
-    marginTop: 10,
+    opacity: 0.78,
+    marginTop: 6,
     textAlign: 'center',
     zIndex: 1,
   },
+  taglineItalic: {
+    fontFamily: paperFonts.displayItalic,
+    color: paper.dashboardInk,
+  },
+
+  // ── Field-guide entries ───────────────────────────────────────────────
+  valuePropsBlock: {
+    gap: paperSpacing.sm,
+  },
+  valuePropsHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 2,
+  },
+  valuePropsEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    color: paper.dashboardInk,
+    letterSpacing: 2.8,
+    opacity: 0.7,
+  },
+  valuePropsRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.3,
+  },
+  valuePropsOrnament: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    color: paper.dashboardBlue,
+    opacity: 0.6,
+  },
 
   valueProps: {
-    // Bumped from `sm + 2` (10) to `md` (16) so the three value-prop
-    // cards read as discrete, equally-weighted features rather than a
-    // tightly stacked list.
-    gap: paperSpacing.md,
+    gap: paperSpacing.sm + 2,
   },
   valueProp: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: paperSpacing.md,
-    backgroundColor: paper.dashboardCream,
-    borderRadius: 12,
-    padding: paperSpacing.md,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    gap: paperSpacing.sm + 2,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 10,
+    paddingVertical: paperSpacing.sm + 2,
+    paddingHorizontal: paperSpacing.sm + 4,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  valueNumeralCol: {
+    alignItems: 'center',
+    width: 20,
+  },
+  valueNumeral: {
+    fontFamily: paperFonts.display,
+    fontSize: 15,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
+    letterSpacing: 0,
+    lineHeight: 17,
+  },
+  valueNumeralRule: {
+    width: 12,
+    height: 1,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.5,
+    marginTop: 3,
   },
   valueIconWrap: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: paper.dashboardCream,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  valuePropText: {
+  valueText: {
     flex: 1,
-    fontFamily: paperFonts.bodyMedium,
-    fontSize: 14,
+    gap: 1,
+  },
+  valueTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13,
     color: paper.dashboardInk,
+    letterSpacing: 0.1,
+    lineHeight: 15,
+  },
+  valueBlurb: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12,
+    color: paper.dashboardInk,
+    opacity: 0.7,
+    lineHeight: 16,
   },
 
-  actions: { gap: paperSpacing.sm },
-  appleBtn: { height: 52, width: '100%' },
+  // ── Actions ───────────────────────────────────────────────────────────
+  actions: { gap: paperSpacing.xs + 2 },
+  appleBtn: { height: 48, width: '100%' },
 
+  // ── Footer ────────────────────────────────────────────────────────────
   footerCol: {
-    gap: 4,
-    marginTop: paperSpacing.sm,
+    gap: 2,
   },
   footerRow: {
     flexDirection: 'row',
@@ -379,20 +537,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     borderTopWidth: 1.5,
     borderTopColor: paper.dashboardInk,
-    paddingTop: paperSpacing.sm + 2,
+    paddingTop: paperSpacing.xs + 2,
   },
   footerText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
+    fontSize: 9.5,
     color: paper.dashboardInk,
     opacity: 0.55,
-    letterSpacing: 2.8,
+    letterSpacing: 2.6,
   },
   footerMono: {
     fontFamily: paperFonts.mono,
-    fontSize: 10,
+    fontSize: 9.5,
     color: paper.dashboardInk,
     opacity: 0.55,
-    letterSpacing: 2.4,
+    letterSpacing: 2.2,
   },
 });

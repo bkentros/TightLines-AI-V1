@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 # Fast path: phone + Mac on same Wi‑Fi, no tunnel.
-# Requires a dev build that includes NSLocalNetworkUsageDescription (see app.json).
+# Requires a dev build that includes NSLocalNetworkUsageDescription.
 #
 # Green dot in the dev client = the phone successfully reached Metro on :8081.
 # If QR times out: Mac firewall, guest/AP isolation, wrong IP, or Local Network off.

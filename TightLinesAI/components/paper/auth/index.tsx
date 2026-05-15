@@ -14,6 +14,7 @@ import { useEffect, useRef, type ReactNode } from 'react';
 import {
   Animated,
   Easing,
+  Image,
   Pressable,
   StyleSheet,
   Text,
@@ -51,6 +52,47 @@ export function AuthBackButton({ onPress, label = 'BACK' }: AuthBackButtonProps)
       <Ionicons name="chevron-back" size={14} color={paper.dashboardInk} />
       <Text style={styles.backBtnText}>{label}</Text>
     </Pressable>
+  );
+}
+
+// ─── Brand ribbon ────────────────────────────────────────────────────────
+//
+// A subtle, premium "FinFindr · field-edition" ribbon that runs at the
+// top of every interior auth screen. Anatomy:
+//
+//   ┌──────────────────────────────────────────────────────────────┐
+//   │ ◉  FinFindr.                            FIELD-EDITION · 2026 │
+//   │    ───────────                                                │
+//   └──────────────────────────────────────────────────────────────┘
+//
+// Left:  the new brand emblem (no halo, full color) + Fraunces wordmark
+//        with a short navy underscore rule
+// Right: a small mono rubric showing the current year stamped on each
+//        launch — gives every screen a freshly-pressed "issue" voice.
+//
+// Used by sign-in, sign-up, forgot-password, reset-password. Verify-email
+// has its own bigger signet treatment so it does not need this ribbon.
+
+export function AuthBrandRibbon() {
+  const year = new Date().getFullYear();
+  return (
+    <View style={styles.ribbon}>
+      <View style={styles.ribbonLeft}>
+        <Image
+          source={require('../../../assets/images/finfindr-logo.png')}
+          style={styles.ribbonEmblem}
+          resizeMode="contain"
+        />
+        <View style={styles.ribbonLockup}>
+          <View style={styles.ribbonWordmarkRow}>
+            <Text style={styles.ribbonWordmark}>FinFindr</Text>
+            <Text style={styles.ribbonWordmarkDot}>.</Text>
+          </View>
+          <View style={styles.ribbonUnderRule} />
+        </View>
+      </View>
+      <Text style={styles.ribbonRubric}>FIELD-EDITION · {year}</Text>
+    </View>
   );
 }
 
@@ -416,6 +458,63 @@ const styles = StyleSheet.create({
     fontSize: 10,
     color: paper.dashboardInk,
     letterSpacing: 2.2,
+  },
+
+  // Brand ribbon
+  ribbon: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingTop: paperSpacing.xs,
+    paddingBottom: paperSpacing.sm,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: paper.dashboardLine,
+  },
+  ribbonLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  ribbonEmblem: {
+    width: 28,
+    height: 36,
+  },
+  ribbonLockup: {
+    alignItems: 'flex-start',
+  },
+  ribbonWordmarkRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
+  ribbonWordmark: {
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    color: paper.dashboardInk,
+    fontWeight: '700',
+    letterSpacing: -0.3,
+    lineHeight: 20,
+  },
+  ribbonWordmarkDot: {
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
+    lineHeight: 20,
+  },
+  ribbonUnderRule: {
+    width: 22,
+    height: 1.5,
+    backgroundColor: paper.dashboardBlue,
+    borderRadius: 1,
+    marginTop: 2,
+    opacity: 0.85,
+  },
+  ribbonRubric: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardInk,
+    letterSpacing: 2.2,
+    opacity: 0.65,
   },
 
   // Header

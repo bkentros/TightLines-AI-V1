@@ -1,52 +1,56 @@
 /**
- * LocationPickerModal
+ * LocationPickerModal — FinFindr "field navigation" edition.
  *
- * Full-screen city search modal. Uses a U.S.-focused geocoding flow with
- * exact city/state handling, request cancellation, and cached results so the
- * picker feels fast and reliable for U.S. city lookup.
+ * Props, data flow, search logic, GPS handling, recent-location cache,
+ * and abort/debounce mechanics are preserved exactly. Only the
+ * presentation layer was rebuilt to match the premium paper/ink language
+ * of the auth, onboarding, and confirm-card screens.
  *
- * Visual system: FinFindr paper/ink (matches Home, How's Fishing, Recommender,
- * My Log, Settings, Auth). Behavior, props, and data flow are unchanged from
- * the previous version — this is a pure visual migration.
+ * Visual concept — "FIELD NAVIGATION · CITY SEARCH":
+ *   - Navy header panel with topographic contour lines, corner crosshairs,
+ *     a live-pulse beacon dot, and a Fraunces "Choose location." title with
+ *     italic accent + blue period.
+ *   - Active-location card: a cream-on-ink "dispatch card" with source pill
+ *     (CUSTOM / GPS) and the current label in serif type — reads like a
+ *     mission-briefing entry.
+ *   - Search field: clean ink-bordered input with live result count and
+ *     italic italic help copy.
+ *   - GPS row: a field-style "USE GPS" selector with animated-state tinting.
+ *   - Results / recents presented as numbered "sounding" rows with compass
+ *     icon accents.
+ *   - "SAVED SPOT" (renamed from duplicate "CURRENT READ") for the saved
+ *     custom location when no query is active.
  *
- * Props:
- *   visible       — controls modal visibility
- *   currentLabel  — currently active location label
- *   onSelect      — called with { lat, lon, label } when user picks a city
- *   onUseGPS      — called when user taps "Use my current location"
- *   onClose       — called when user dismisses without selecting
+ * No business logic changed.
  */
 
-import React, { useState, useCallback, useEffect, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import {
-  Modal,
-  View,
-  Text,
-  StyleSheet,
-  TextInput,
-  FlatList,
-  Pressable,
   ActivityIndicator,
+  FlatList,
   KeyboardAvoidingView,
+  Modal,
   Platform,
+  Pressable,
   ScrollView,
+  StyleSheet,
+  Text,
+  TextInput,
+  View,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
-import {
-  paper,
-  paperFonts,
-  paperSpacing,
-} from '../lib/theme';
+import { paper, paperFonts, paperSpacing } from '../lib/theme';
 import type { SavedLocation } from '../store/locationStore';
 import { getRecentLocations, type RecentLocation } from '../lib/recentLocations';
 import { searchUsCities, type PlaceResult } from '../lib/locationSearch';
+import { TopographicLines } from './paper';
 
-// ---------------------------------------------------------------------------
-// Types
-// ---------------------------------------------------------------------------
+// ─── Constants ───────────────────────────────────────────────────────────────
 
 const MIN_CITY_QUERY_LENGTH = 1;
+
+// ─── Props ───────────────────────────────────────────────────────────────────
 
 interface Props {
   visible: boolean;
@@ -58,9 +62,7 @@ interface Props {
   onClose: () => void;
 }
 
-// ---------------------------------------------------------------------------
-// Component
-// ---------------------------------------------------------------------------
+// ─── Component ───────────────────────────────────────────────────────────────
 
 export function LocationPickerModal({
   visible,
@@ -122,8 +124,8 @@ export function LocationPickerModal({
         if (requestId !== requestIdRef.current) return;
         setResults(r);
         setError(false);
-      } catch (error) {
-        if ((error as Error)?.name === 'AbortError') return;
+      } catch (err) {
+        if ((err as Error)?.name === 'AbortError') return;
         if (requestId !== requestIdRef.current) return;
         setResults([]);
         setError(true);
@@ -143,14 +145,19 @@ export function LocationPickerModal({
   }, []);
 
   const showResults = results.length > 0;
-  const showEmpty = query.trim().length >= MIN_CITY_QUERY_LENGTH && !loading && !showResults && !error;
+  const showEmpty =
+    query.trim().length >= MIN_CITY_QUERY_LENGTH &&
+    !loading &&
+    !showResults &&
+    !error;
   const shortQuery = query.trim().length < MIN_CITY_QUERY_LENGTH;
   const hasQuery = !shortQuery;
   const showRecent = shortQuery && recentLocations.length > 0;
   const showSelectedLocation = shortQuery && savedLocation != null;
   const showHint = shortQuery && !showRecent && !showSelectedLocation;
-  const activeSource = isUsingCustom ? 'Current read' : 'GPS read';
-  let sectionLabel = 'CURRENT & RECENT';
+
+  const sourceLabel = isUsingCustom ? 'CUSTOM' : 'GPS';
+  let sectionLabel = 'SAVED SPOT & RECENT';
   if (hasQuery) {
     sectionLabel = showResults ? 'TAP A CITY TO USE IT' : 'CITY SUGGESTIONS';
   }
@@ -163,419 +170,706 @@ export function LocationPickerModal({
       onRequestClose={onClose}
     >
       <KeyboardAvoidingView
-        style={{ flex: 1, backgroundColor: paper.dashboardCream }}
+        style={styles.kav}
         behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
       >
         <View style={styles.container}>
 
-          {/* ── Header ── */}
-          <View style={[styles.header, { paddingTop: insets.top + 12 }]}>
-            <View style={styles.headerTitleWrap}>
-              <Text style={styles.title}>Choose Location</Text>
-              <Text style={styles.subtitle}>
-                Search any U.S. city to refresh local weather and fishing reads.
-              </Text>
-            </View>
-            <Pressable
-              onPress={onClose}
-              hitSlop={12}
-              style={({ pressed }) => [
-                styles.closeBtn,
-                pressed && styles.closeBtnPressed,
-              ]}
-              accessibilityRole="button"
-              accessibilityLabel="Close"
-            >
-              <Ionicons name="close" size={18} color="#FFFFFF" />
-            </Pressable>
-          </View>
-
-          {/* ── Active Location ── */}
-          <View style={styles.activeLocationCard}>
-            <View style={styles.activeLocationIcon}>
-              <Ionicons
-                name={isUsingCustom ? 'location' : 'navigate'}
-                size={16}
-                color={paper.dashboardCream}
-              />
-            </View>
-            <View style={styles.activeLocationText}>
-              <Text style={styles.activeLocationKicker}>{activeSource.toUpperCase()}</Text>
-              <Text style={styles.activeLocationLabel} numberOfLines={1}>
-                {currentLabel}
-              </Text>
-            </View>
-            <View style={styles.activeLocationPill}>
-              <Text style={styles.activeLocationPillText}>ACTIVE</Text>
-            </View>
-          </View>
-
-          {/* ── Search Input ── */}
-          <View style={styles.searchWrap}>
-            <Ionicons
-              name="search-outline"
-              size={16}
-              color={paper.dashboardInk}
-              style={styles.searchIcon}
+          {/* ── Premium nav header ─────────────────────────────────────── */}
+          <View style={[styles.header, { paddingTop: insets.top + 10 }]}>
+            {/* Topographic backdrop */}
+            <TopographicLines
+              style={styles.headerTopo}
+              color="#FFFFFF"
+              count={5}
             />
-            <TextInput
-              ref={inputRef}
-              style={styles.searchInput}
-              placeholder="Type a city, town, or state..."
-              placeholderTextColor={paper.dashboardMuted}
-              value={query}
-              onChangeText={handleQueryChange}
-              autoFocus
-              autoCorrect={false}
-              autoCapitalize="words"
-              returnKeyType="search"
-              selectionColor={paper.dashboardBlue}
-            />
-            {loading ? (
-              <ActivityIndicator
-                size="small"
-                color={paper.dashboardInk}
-                style={{ marginRight: 12 }}
-              />
-            ) : query.length > 0 ? (
-              <Pressable onPress={handleClear} hitSlop={10} style={styles.clearBtn}>
-                <Ionicons name="close" size={16} color={paper.dashboardInk} />
+
+            {/* Corner crosshairs — 4 corners of the header */}
+            <CornerMark position="topLeft" />
+            <CornerMark position="topRight" />
+            <CornerMark position="bottomLeft" />
+            <CornerMark position="bottomRight" />
+
+            {/* Rubric strip */}
+            <View style={styles.headerRubricRow}>
+              <View style={styles.headerRubricRule} />
+              <Text style={styles.headerRubricText}>
+                FIELD NAVIGATION · CITY SEARCH
+              </Text>
+              <View style={styles.headerRubricRule} />
+            </View>
+
+            {/* Title row */}
+            <View style={styles.headerTitleRow}>
+              {/* Live beacon */}
+              <View style={styles.headerBeacon}>
+                <View style={styles.headerBeaconRing} />
+                <View style={styles.headerBeaconDot} />
+              </View>
+
+              <View style={styles.headerTitleWrap}>
+                <Text style={styles.headerTitle}>
+                  Choose{' '}
+                  <Text style={styles.headerTitleItalic}>location</Text>
+                  <Text style={styles.headerTitleDot}>.</Text>
+                </Text>
+                <Text style={styles.headerSubtitle}>
+                  Search any U.S. city for local weather and fishing reads.
+                </Text>
+              </View>
+
+              {/* Close button */}
+              <Pressable
+                onPress={onClose}
+                hitSlop={12}
+                style={({ pressed }) => [
+                  styles.closeBtn,
+                  pressed && styles.closeBtnPressed,
+                ]}
+                accessibilityRole="button"
+                accessibilityLabel="Close"
+              >
+                <Ionicons name="close" size={16} color="#FFFFFF" />
               </Pressable>
-            ) : null}
-          </View>
-          <Text style={styles.searchHelper}>
-            {showResults
-              ? `${results.length} matching ${results.length === 1 ? 'city' : 'cities'}`
-              : 'Examples: Tampa, Duluth MN, Lake Placid, San Diego'}
-          </Text>
-
-          {/* ── GPS Option ── */}
-          <Pressable
-            style={({ pressed }) => [
-              styles.gpsRow,
-              !isUsingCustom && styles.gpsRowActive,
-              pressed && styles.gpsRowPressed,
-            ]}
-            onPress={onUseGPS}
-          >
-            <View
-              style={[
-                styles.gpsIconWrap,
-                !isUsingCustom && styles.gpsIconWrapActive,
-              ]}
-            >
-              <Ionicons
-                name="locate"
-                size={16}
-                color={!isUsingCustom ? '#FFFFFF' : paper.dashboardInk}
-              />
             </View>
-            <View style={styles.gpsTextWrap}>
-              <Text
-                style={[
-                  styles.gpsLabel,
-                  !isUsingCustom && styles.gpsLabelActive,
-                ]}
-              >
-                {isUsingCustom ? 'Sync my current location' : 'Current location is synced'}
-              </Text>
-              <Text
-                style={[
-                  styles.gpsSub,
-                  !isUsingCustom && styles.gpsSubActive,
-                ]}
-              >
-                {isUsingCustom
-                  ? 'Switch back to live GPS weather and reports'
-                  : `Fishing near ${currentLabel}`}
-              </Text>
-            </View>
-          </Pressable>
 
-          {/* ── Section label ── */}
-          <View style={styles.sectionDividerWrap}>
-            <View style={styles.dividerRule} />
-            <Text style={styles.dividerLabel}>{sectionLabel}</Text>
-            <View style={styles.dividerRule} />
-          </View>
-
-          {/* ── Results ── */}
-          {showResults && (
-            <FlatList
-              data={results}
-              keyExtractor={(item) => `${item.lat}_${item.lon}`}
-              keyboardShouldPersistTaps="handled"
-              style={styles.resultsList}
-              contentContainerStyle={styles.resultsListContent}
-              ItemSeparatorComponent={() => <View style={styles.resultSep} />}
-              renderItem={({ item }) => (
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.resultRow,
-                    pressed && styles.resultRowPressed,
-                  ]}
-                  onPress={() =>
-                    onSelect({ lat: item.lat, lon: item.lon, label: item.label })
-                  }
+            {/* Active location dispatch card — inside the header */}
+            <View style={styles.dispatchCard}>
+              <View style={styles.dispatchLeft}>
+                <View style={styles.dispatchSourcePill}>
+                  <View
+                    style={[
+                      styles.dispatchDot,
+                      isUsingCustom
+                        ? styles.dispatchDotCustom
+                        : styles.dispatchDotGps,
+                    ]}
+                  />
+                  <Text style={styles.dispatchSourceText}>{sourceLabel}</Text>
+                </View>
+                <Text
+                  style={styles.dispatchLabel}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
                 >
-                  <View style={styles.resultIconWrap}>
-                    <Ionicons name="location-outline" size={14} color={paper.dashboardInk} />
-                  </View>
-                  <View style={styles.resultTextWrap}>
-                    <Text style={styles.resultLabel} numberOfLines={1}>
-                      {item.label}
-                    </Text>
-                    <Text style={styles.resultSub}>Use for today's read, weather, and forecasts</Text>
-                  </View>
+                  {currentLabel}
+                </Text>
+              </View>
+              <View style={styles.dispatchActiveBadge}>
+                <Ionicons
+                  name={isUsingCustom ? 'location' : 'navigate'}
+                  size={11}
+                  color={paper.dashboardBlue}
+                />
+                <Text style={styles.dispatchActiveBadgeText}>ACTIVE</Text>
+              </View>
+            </View>
+          </View>
+
+          {/* ── Body ───────────────────────────────────────────────────── */}
+          <View style={styles.body}>
+
+            {/* ── Search field ─────────────────────────────────────────── */}
+            <View style={styles.searchBlock}>
+              <View style={styles.searchWrap}>
+                <View style={styles.searchIconTile}>
                   <Ionicons
-                    name="chevron-forward"
-                    size={16}
+                    name="search-outline"
+                    size={15}
                     color={paper.dashboardInk}
                   />
-                </Pressable>
-              )}
-            />
-          )}
-
-          {/* ── Recents + current read location (when no query) ── */}
-          {!showResults && (
-            <ScrollView
-              style={styles.scrollBody}
-              contentContainerStyle={styles.scrollBodyContent}
-              keyboardShouldPersistTaps="handled"
-              showsVerticalScrollIndicator={false}
-            >
-              {/* ── Current custom read location ── */}
-              {showSelectedLocation && savedLocation && (
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.currentCustomWrap,
-                    pressed && styles.currentCustomWrapPressed,
-                  ]}
-                  onPress={() => onSelect(savedLocation)}
-                >
-                  <Text style={styles.currentCustomHead}>
-                    CURRENT READ
-                  </Text>
-                  <View style={styles.currentCustomRow}>
-                    <Ionicons name="location" size={16} color={paper.dashboardInk} />
-                    <Text style={styles.currentCustomLabel} numberOfLines={1}>
-                      {savedLocation.label}
-                    </Text>
+                </View>
+                <TextInput
+                  ref={inputRef}
+                  style={styles.searchInput}
+                  placeholder="City, town, or state…"
+                  placeholderTextColor={paper.dashboardMuted}
+                  value={query}
+                  onChangeText={handleQueryChange}
+                  autoFocus
+                  autoCorrect={false}
+                  autoCapitalize="words"
+                  returnKeyType="search"
+                  selectionColor={paper.dashboardBlue}
+                />
+                {loading ? (
+                  <ActivityIndicator
+                    size="small"
+                    color={paper.dashboardInk}
+                    style={{ marginRight: 12 }}
+                  />
+                ) : query.length > 0 ? (
+                  <Pressable
+                    onPress={handleClear}
+                    hitSlop={10}
+                    style={styles.clearBtn}
+                  >
                     <Ionicons
-                      name="chevron-forward"
-                      size={14}
+                      name="close-circle"
+                      size={17}
                       color={paper.dashboardInk}
+                      style={{ opacity: 0.55 }}
                     />
-                  </View>
-                  <Text style={styles.currentCustomSub}>
-                    Tap to keep reading here, or search above to choose another city.
-                  </Text>
-                </Pressable>
-              )}
+                  </Pressable>
+                ) : null}
+              </View>
+              <Text style={styles.searchHelper}>
+                {showResults
+                  ? `${results.length} matching ${results.length === 1 ? 'city' : 'cities'} — tap to use`
+                  : 'Try: Tampa, Duluth MN, Lake Placid, San Diego'}
+              </Text>
+            </View>
 
-              {showRecent && (
-                <View style={styles.recentSection}>
-                  <Text style={styles.recentSectionHead}>RECENT SPOTS</Text>
-                  <View style={styles.recentList}>
-                    {recentLocations.map((r, i) => (
-                      <React.Fragment key={`${r.lat}_${r.lon}_${r.label}`}>
-                        {i > 0 && <View style={styles.resultSep} />}
-                        <Pressable
-                          style={({ pressed }) => [
-                            styles.recentRow,
-                            pressed && styles.resultRowPressed,
-                          ]}
-                          onPress={() =>
-                            onSelect({ lat: r.lat, lon: r.lon, label: r.label })
-                          }
+            {/* ── GPS / auto-detect row ─────────────────────────────────── */}
+            <Pressable
+              style={({ pressed }) => [
+                styles.gpsRow,
+                !isUsingCustom && styles.gpsRowActive,
+                pressed && styles.gpsRowPressed,
+              ]}
+              onPress={onUseGPS}
+            >
+              <View
+                style={[
+                  styles.gpsIconTile,
+                  !isUsingCustom && styles.gpsIconTileActive,
+                ]}
+              >
+                <Ionicons
+                  name="navigate"
+                  size={14}
+                  color={!isUsingCustom ? '#FFFFFF' : paper.dashboardInk}
+                />
+              </View>
+              <View style={styles.gpsTextWrap}>
+                <Text
+                  style={[
+                    styles.gpsLabel,
+                    !isUsingCustom && styles.gpsLabelActive,
+                  ]}
+                >
+                  {isUsingCustom
+                    ? 'Use my current location'
+                    : 'Current location active'}
+                </Text>
+                <Text
+                  style={[
+                    styles.gpsSub,
+                    !isUsingCustom && styles.gpsSubActive,
+                  ]}
+                >
+                  {isUsingCustom
+                    ? 'Switch to live GPS weather and fishing conditions'
+                    : `Fishing near ${currentLabel}`}
+                </Text>
+              </View>
+              {!isUsingCustom ? (
+                <Ionicons
+                  name="checkmark-circle"
+                  size={18}
+                  color={paper.bandPrime}
+                />
+              ) : (
+                <Ionicons
+                  name="chevron-forward"
+                  size={16}
+                  color={paper.dashboardInk}
+                  style={{ opacity: 0.4 }}
+                />
+              )}
+            </Pressable>
+
+            {/* ── Section divider ───────────────────────────────────────── */}
+            <View style={styles.sectionDivider}>
+              <View style={styles.dividerRule} />
+              <Text style={styles.dividerLabel}>{sectionLabel}</Text>
+              <View style={styles.dividerRule} />
+            </View>
+
+            {/* ── Search results ────────────────────────────────────────── */}
+            {showResults && (
+              <FlatList
+                data={results}
+                keyExtractor={(item) => `${item.lat}_${item.lon}`}
+                keyboardShouldPersistTaps="handled"
+                style={styles.resultsList}
+                contentContainerStyle={styles.resultsListContent}
+                ItemSeparatorComponent={() => (
+                  <View style={styles.resultSep} />
+                )}
+                renderItem={({ item, index }) => (
+                  <Pressable
+                    style={({ pressed }) => [
+                      styles.resultRow,
+                      pressed && styles.resultRowPressed,
+                    ]}
+                    onPress={() =>
+                      onSelect({ lat: item.lat, lon: item.lon, label: item.label })
+                    }
+                  >
+                    <View style={styles.resultOrdinalWrap}>
+                      <Text style={styles.resultOrdinal}>
+                        {String(index + 1).padStart(2, '0')}
+                      </Text>
+                    </View>
+                    <View style={styles.resultTextWrap}>
+                      <Text style={styles.resultLabel} numberOfLines={1}>
+                        {item.label}
+                      </Text>
+                      <Text style={styles.resultSub}>
+                        U.S. freshwater · inshore reads available
+                      </Text>
+                    </View>
+                    <Ionicons
+                      name="arrow-forward"
+                      size={14}
+                      color={paper.dashboardBlue}
+                      style={{ opacity: 0.7 }}
+                    />
+                  </Pressable>
+                )}
+              />
+            )}
+
+            {/* ── Recents + saved spot (when no query) ─────────────────── */}
+            {!showResults && (
+              <ScrollView
+                style={styles.scrollBody}
+                contentContainerStyle={styles.scrollBodyContent}
+                keyboardShouldPersistTaps="handled"
+                showsVerticalScrollIndicator={false}
+              >
+                {/* ── Saved spot — renamed from "CURRENT READ" to avoid dupe ── */}
+                {showSelectedLocation && savedLocation && (
+                  <Pressable
+                    style={({ pressed }) => [
+                      styles.savedSpotCard,
+                      pressed && styles.savedSpotCardPressed,
+                    ]}
+                    onPress={() => onSelect(savedLocation)}
+                  >
+                    <View style={styles.savedSpotLeft}>
+                      <View style={styles.savedSpotIconTile}>
+                        <Ionicons
+                          name="bookmark"
+                          size={13}
+                          color={paper.dashboardBlue}
+                        />
+                      </View>
+                      <View style={styles.savedSpotTextWrap}>
+                        <Text style={styles.savedSpotHead}>SAVED SPOT</Text>
+                        <Text
+                          style={styles.savedSpotLabel}
+                          numberOfLines={1}
+                          ellipsizeMode="tail"
                         >
-                          <View style={styles.resultIconWrap}>
+                          {savedLocation.label}
+                        </Text>
+                        <Text style={styles.savedSpotSub}>
+                          Tap to keep this spot, or search above for a new one.
+                        </Text>
+                      </View>
+                    </View>
+                    <Ionicons
+                      name="arrow-forward"
+                      size={14}
+                      color={paper.dashboardBlue}
+                    />
+                  </Pressable>
+                )}
+
+                {/* ── Recent locations ─────────────────────────────────── */}
+                {showRecent && (
+                  <View style={styles.recentSection}>
+                    <View style={styles.recentSectionHeaderRow}>
+                      <Text style={styles.recentSectionHead}>RECENT SPOTS</Text>
+                      <View style={styles.recentSectionRule} />
+                    </View>
+                    <View style={styles.recentList}>
+                      {recentLocations.map((r, i) => (
+                        <React.Fragment key={`${r.lat}_${r.lon}_${r.label}`}>
+                          {i > 0 && <View style={styles.resultSep} />}
+                          <Pressable
+                            style={({ pressed }) => [
+                              styles.recentRow,
+                              pressed && styles.resultRowPressed,
+                            ]}
+                            onPress={() =>
+                              onSelect({
+                                lat: r.lat,
+                                lon: r.lon,
+                                label: r.label,
+                              })
+                            }
+                          >
+                            <View style={styles.resultOrdinalWrap}>
+                              <Ionicons
+                                name="time-outline"
+                                size={13}
+                                color={paper.dashboardInk}
+                                style={{ opacity: 0.55 }}
+                              />
+                            </View>
+                            <View style={styles.resultTextWrap}>
+                              <Text
+                                style={styles.resultLabel}
+                                numberOfLines={1}
+                              >
+                                {r.label}
+                              </Text>
+                              <Text style={styles.resultSub}>
+                                Recent — tap to load local conditions
+                              </Text>
+                            </View>
                             <Ionicons
-                              name="time-outline"
+                              name="arrow-forward"
                               size={14}
                               color={paper.dashboardInk}
+                              style={{ opacity: 0.35 }}
                             />
-                          </View>
-                          <View style={styles.resultTextWrap}>
-                            <Text style={styles.resultLabel} numberOfLines={1}>
-                              {r.label}
-                            </Text>
-                            <Text style={styles.resultSub}>Use for local conditions</Text>
-                          </View>
-                          <Ionicons
-                            name="chevron-forward"
-                            size={14}
-                            color={paper.dashboardInk}
-                          />
-                        </Pressable>
-                      </React.Fragment>
-                    ))}
+                          </Pressable>
+                        </React.Fragment>
+                      ))}
+                    </View>
                   </View>
-                </View>
-              )}
+                )}
 
-              {/* ── Hint when no query and no selected custom location ── */}
-              {showHint && (
-                <View style={styles.hintWrap}>
-                  <Ionicons
-                    name="map-outline"
-                    size={28}
-                    color={paper.dashboardBlue}
-                    style={{ marginBottom: 10, opacity: 0.5 }}
-                  />
-                  <Text style={styles.hintTitle}>Planning a fishing trip?</Text>
-                  <Text style={styles.hintSub}>
-                    Start typing a U.S. city, town, or state. Results narrow as
-                    you type, so most places only take a few letters.
-                  </Text>
-                </View>
-              )}
+                {/* ── Hint when no query + no saved location ─────────── */}
+                {showHint && (
+                  <View style={styles.hintCard}>
+                    <View style={styles.hintIconTile}>
+                      <Ionicons
+                        name="compass-outline"
+                        size={22}
+                        color={paper.dashboardBlue}
+                      />
+                    </View>
+                    <Text style={styles.hintTitle}>
+                      Planning a trip?
+                    </Text>
+                    <Text style={styles.hintSub}>
+                      Start typing a U.S. city, town, or state above. Results
+                      narrow as you type — most spots need only a few letters.
+                    </Text>
+                    <View style={styles.hintExampleRow}>
+                      {['Tampa', 'Duluth MN', 'Lake Placid'].map((ex) => (
+                        <Pressable
+                          key={ex}
+                          style={({ pressed }) => [
+                            styles.hintExamplePill,
+                            pressed && { opacity: 0.7 },
+                          ]}
+                          onPress={() => handleQueryChange(ex)}
+                        >
+                          <Text style={styles.hintExampleText}>{ex}</Text>
+                        </Pressable>
+                      ))}
+                    </View>
+                  </View>
+                )}
 
-              {/* ── Empty results ── */}
-              {showEmpty && (
-                <View style={styles.hintWrap}>
-                  <Text style={styles.hintTitle}>No matching spots for “{query}”</Text>
-                  <Text style={styles.hintSub}>
-                    Try adding a state abbreviation, like “Madison WI,” or check
-                    the spelling.
-                  </Text>
-                </View>
-              )}
+                {/* ── Empty results ────────────────────────────────────── */}
+                {showEmpty && (
+                  <View style={styles.hintCard}>
+                    <View style={styles.hintIconTile}>
+                      <Ionicons
+                        name="search-outline"
+                        size={22}
+                        color={paper.dashboardInk}
+                        style={{ opacity: 0.4 }}
+                      />
+                    </View>
+                    <Text style={styles.hintTitle}>
+                      No spots matching &quot;{query}&quot;
+                    </Text>
+                    <Text style={styles.hintSub}>
+                      Try adding a state abbreviation — "Madison WI" — or
+                      double-check the spelling.
+                    </Text>
+                  </View>
+                )}
 
-              {/* ── Network error ── */}
-              {error && (
-                <View style={styles.hintWrap}>
-                  <Text style={styles.hintTitle}>Could not search right now</Text>
-                  <Text style={styles.hintSub}>
-                    Check your connection and try again.
-                  </Text>
-                </View>
-              )}
-            </ScrollView>
-          )}
+                {/* ── Network error ────────────────────────────────────── */}
+                {error && (
+                  <View style={styles.hintCard}>
+                    <View style={styles.hintIconTile}>
+                      <Ionicons
+                        name="wifi-outline"
+                        size={22}
+                        color={paper.bandTough}
+                        style={{ opacity: 0.7 }}
+                      />
+                    </View>
+                    <Text style={styles.hintTitle}>
+                      Could not search right now
+                    </Text>
+                    <Text style={styles.hintSub}>
+                      Check your connection and try again.
+                    </Text>
+                  </View>
+                )}
+              </ScrollView>
+            )}
+          </View>
         </View>
       </KeyboardAvoidingView>
     </Modal>
   );
 }
 
-// ---------------------------------------------------------------------------
-// Styles — FinFindr paper/ink language
-// ---------------------------------------------------------------------------
+// ─── CornerMark — L-shaped bracket for the header corners ────────────────────
+
+function CornerMark({
+  position,
+}: {
+  position: 'topLeft' | 'topRight' | 'bottomLeft' | 'bottomRight';
+}) {
+  const isTop = position === 'topLeft' || position === 'topRight';
+  const isLeft = position === 'topLeft' || position === 'bottomLeft';
+  return (
+    <View
+      pointerEvents="none"
+      style={[
+        cornerStyles.wrap,
+        isTop ? { top: 8 } : { bottom: 8 },
+        isLeft ? { left: 8 } : { right: 8 },
+      ]}
+    >
+      <View
+        style={[
+          cornerStyles.armH,
+          isTop ? { top: 0 } : { bottom: 0 },
+          isLeft ? { left: 0 } : { right: 0 },
+        ]}
+      />
+      <View
+        style={[
+          cornerStyles.armV,
+          isTop ? { top: 0 } : { bottom: 0 },
+          isLeft ? { left: 0 } : { right: 0 },
+        ]}
+      />
+    </View>
+  );
+}
+
+const cornerStyles = StyleSheet.create({
+  wrap: {
+    position: 'absolute',
+    width: 14,
+    height: 14,
+  },
+  armH: {
+    position: 'absolute',
+    width: 14,
+    height: 1,
+    backgroundColor: 'rgba(255,255,255,0.4)',
+  },
+  armV: {
+    position: 'absolute',
+    width: 1,
+    height: 14,
+    backgroundColor: 'rgba(255,255,255,0.4)',
+  },
+});
+
+// ─── Styles ───────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
+  kav: { flex: 1, backgroundColor: paper.dashboardInk },
   container: {
     flex: 1,
     backgroundColor: paper.dashboardCream,
   },
 
-  /* Header */
+  // ── Header ─────────────────────────────────────────────────────────────────
   header: {
+    position: 'relative',
+    backgroundColor: paper.dashboardInk,
+    paddingHorizontal: paperSpacing.lg,
+    paddingBottom: 0,
+    overflow: 'hidden',
+  },
+  headerTopo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0.18,
+  },
+  headerRubricRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: paperSpacing.md,
-    paddingHorizontal: paperSpacing.lg,
-    paddingBottom: paperSpacing.md,
-    backgroundColor: paper.dashboardInk,
+    gap: 8,
+    marginBottom: 8,
+    zIndex: 1,
   },
-  headerTitleWrap: {
+  headerRubricRule: {
     flex: 1,
-    justifyContent: 'center',
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: 'rgba(255,255,255,0.3)',
   },
-  title: {
-    fontFamily: paperFonts.display,
-    fontSize: 28,
-    color: '#FFFFFF',
-    letterSpacing: 0,
+  headerRubricText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: 'rgba(255,255,255,0.65)',
+    letterSpacing: 2.2,
   },
-  subtitle: {
-    marginTop: 3,
-    fontFamily: paperFonts.body,
-    fontSize: 12.5,
-    color: 'rgba(255,255,255,0.74)',
-    lineHeight: 17,
-  },
-  closeBtn: {
-    width: 36,
-    height: 36,
-    alignItems: 'center',
-    justifyContent: 'center',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.16)',
-    borderRadius: 18,
-    backgroundColor: 'rgba(255,255,255,0.08)',
-  },
-  closeBtnPressed: {
-    opacity: 0.7,
-  },
-
-  /* Active location */
-  activeLocationCard: {
+  headerTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.sm,
-    marginHorizontal: paperSpacing.lg,
-    marginTop: paperSpacing.md,
-    paddingVertical: 12,
-    paddingHorizontal: 14,
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
-    borderRadius: 8,
+    zIndex: 1,
+    marginBottom: paperSpacing.md,
   },
-  activeLocationIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
+  headerBeacon: {
+    width: 12,
+    height: 12,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: paper.dashboardBlue,
+    flexShrink: 0,
   },
-  activeLocationText: { flex: 1 },
-  activeLocationKicker: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    color: paper.dashboardBlue,
-    letterSpacing: 1.8,
-    marginBottom: 2,
+  headerBeaconRing: {
+    position: 'absolute',
+    width: 12,
+    height: 12,
+    borderRadius: 6,
+    borderWidth: 1,
+    borderColor: paper.bandPrime,
+    opacity: 0.45,
   },
-  activeLocationLabel: {
-    fontFamily: paperFonts.displaySemiBold,
+  headerBeaconDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: paper.bandPrime,
+  },
+  headerTitleWrap: { flex: 1 },
+  headerTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 26,
+    color: '#FFFFFF',
+    fontWeight: '700',
+    letterSpacing: -0.3,
+    lineHeight: 28,
+  },
+  headerTitleItalic: {
+    fontFamily: paperFonts.displayItalic,
+    color: '#FFFFFF',
+  },
+  headerTitleDot: {
+    color: paper.dashboardBlueLight,
+  },
+  headerSubtitle: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 12,
+    color: 'rgba(255,255,255,0.65)',
+    lineHeight: 16,
+    marginTop: 4,
+  },
+  closeBtn: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.18)',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    flexShrink: 0,
+  },
+  closeBtnPressed: { opacity: 0.7 },
+
+  // ── Dispatch card (active location) ────────────────────────────────────────
+  dispatchCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.16)',
+    borderRadius: 10,
+    paddingVertical: 10,
+    paddingHorizontal: 12,
+    marginBottom: paperSpacing.md,
+    zIndex: 1,
+  },
+  dispatchLeft: { flex: 1, gap: 3 },
+  dispatchSourcePill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    alignSelf: 'flex-start',
+  },
+  dispatchDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+  },
+  dispatchDotCustom: { backgroundColor: paper.dashboardBlueLight },
+  dispatchDotGps: { backgroundColor: paper.bandPrime },
+  dispatchSourceText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: 'rgba(255,255,255,0.65)',
+    letterSpacing: 2,
+  },
+  dispatchLabel: {
+    fontFamily: paperFonts.display,
     fontSize: 17,
-    color: paper.dashboardInk,
-    letterSpacing: 0,
+    color: '#FFFFFF',
+    fontWeight: '700',
+    letterSpacing: -0.2,
   },
-  activeLocationPill: {
+  dispatchActiveBadge: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
     borderRadius: 999,
     backgroundColor: paper.dashboardBlueSky,
     borderWidth: 1,
-    borderColor: 'rgba(42,110,150,0.28)',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    borderColor: 'rgba(42,110,150,0.3)',
   },
-  activeLocationPillText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
+  dispatchActiveBadgeText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
     color: paper.dashboardInk,
-    letterSpacing: 1.3,
+    letterSpacing: 1.4,
   },
 
-  /* Search */
+  // ── Body ───────────────────────────────────────────────────────────────────
+  body: {
+    flex: 1,
+    backgroundColor: paper.dashboardCream,
+  },
+
+  // ── Search ─────────────────────────────────────────────────────────────────
+  searchBlock: {
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.md,
+    paddingBottom: paperSpacing.sm,
+    backgroundColor: paper.dashboardCream,
+  },
   searchWrap: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 8,
+    borderRadius: 10,
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
-    marginHorizontal: paperSpacing.lg,
-    marginTop: paperSpacing.md,
-    paddingLeft: 12,
+    height: 48,
+    paddingLeft: 4,
     paddingRight: 6,
-    height: 46,
   },
-  searchIcon: { marginRight: 8 },
+  searchIconTile: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
   searchInput: {
     flex: 1,
     fontFamily: paperFonts.body,
@@ -584,250 +878,296 @@ const styles = StyleSheet.create({
     paddingVertical: 0,
   },
   clearBtn: {
-    width: 28,
-    height: 28,
+    width: 30,
+    height: 30,
     alignItems: 'center',
     justifyContent: 'center',
   },
   searchHelper: {
-    marginHorizontal: paperSpacing.lg,
-    marginTop: 7,
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    color: paper.dashboardMuted,
-    opacity: 0.78,
-    letterSpacing: 0.2,
+    marginTop: 6,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 11.5,
+    color: paper.dashboardInk,
+    opacity: 0.55,
+    letterSpacing: 0.1,
   },
 
-  /* GPS Row */
+  // ── GPS row ────────────────────────────────────────────────────────────────
   gpsRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: paperSpacing.sm,
     marginHorizontal: paperSpacing.lg,
-    marginTop: paperSpacing.sm,
-    paddingVertical: 10,
-    paddingHorizontal: 14,
+    marginBottom: paperSpacing.sm,
+    paddingVertical: 11,
+    paddingHorizontal: 12,
+    borderRadius: 10,
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 8,
-    borderWidth: 1,
+    borderWidth: 1.25,
     borderColor: paper.dashboardLine,
   },
   gpsRowActive: {
-    backgroundColor: paper.dashboardInk,
-    borderColor: paper.dashboardInk,
+    borderColor: paper.bandPrime,
+    backgroundColor: '#F0FAF3',
   },
-  gpsRowPressed: {
-    opacity: 0.85,
-  },
-  gpsIconWrap: {
-    width: 34,
-    height: 34,
-    borderRadius: 10,
-    backgroundColor: '#F6F9FB',
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
+  gpsRowPressed: { opacity: 0.8 },
+  gpsIconTile: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
     alignItems: 'center',
     justifyContent: 'center',
+    backgroundColor: paper.dashboardLine,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
   },
-  gpsIconWrapActive: {
-    backgroundColor: 'rgba(255,255,255,0.14)',
-    borderColor: 'rgba(255,255,255,0.24)',
+  gpsIconTileActive: {
+    backgroundColor: paper.bandPrime,
+    borderColor: paper.bandPrime,
   },
   gpsTextWrap: { flex: 1 },
   gpsLabel: {
-    fontFamily: paperFonts.displaySemiBold,
-    fontSize: 15,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13,
     color: paper.dashboardInk,
-    marginBottom: 2,
+    letterSpacing: 0.1,
   },
-  gpsLabelActive: {
-    color: '#FFFFFF',
-  },
+  gpsLabelActive: { color: paper.bandPrime },
   gpsSub: {
-    fontFamily: paperFonts.body,
+    fontFamily: paperFonts.displayItalic,
     fontSize: 11.5,
-    color: paper.dashboardMuted,
-    opacity: 0.72,
+    color: paper.dashboardInk,
+    opacity: 0.65,
     lineHeight: 15,
+    marginTop: 1,
   },
-  gpsSubActive: {
-    color: 'rgba(255,255,255,0.75)',
-    opacity: 0.85,
-  },
-  /* Divider with label */
-  sectionDividerWrap: {
+  gpsSubActive: { color: paper.bandPrime, opacity: 0.8 },
+
+  // ── Section divider ────────────────────────────────────────────────────────
+  sectionDivider: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginHorizontal: paperSpacing.lg,
-    marginTop: paperSpacing.md,
+    gap: 8,
+    paddingHorizontal: paperSpacing.lg,
+    marginTop: 2,
     marginBottom: paperSpacing.sm,
-    gap: 10,
   },
   dividerRule: {
     flex: 1,
-    height: 1,
-    backgroundColor: paper.dashboardLine,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.22,
   },
   dividerLabel: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
-    color: paper.dashboardMuted,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardInk,
     letterSpacing: 2.2,
-    opacity: 0.75,
+    opacity: 0.65,
   },
 
-  /* Scroll body for recents / current read / hints */
-  scrollBody: { flex: 1 },
-  scrollBodyContent: {
-    paddingBottom: paperSpacing.xl,
-  },
-
-  /* Recent */
-  recentSection: {
-    marginHorizontal: paperSpacing.lg,
-    marginTop: paperSpacing.sm,
-  },
-  recentSectionHead: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
-    color: paper.dashboardBlue,
-    letterSpacing: 2.2,
-    marginBottom: paperSpacing.sm,
-    opacity: 0.75,
-  },
-  recentList: {
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 8,
-    overflow: 'hidden',
-  },
-  recentRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 12,
-    paddingHorizontal: 14,
-    paddingVertical: 12,
-  },
-
-  /* Results list */
-  resultsList: {
-    flex: 1,
-    marginHorizontal: paperSpacing.lg,
-  },
+  // ── Results list ───────────────────────────────────────────────────────────
+  resultsList: { flex: 1 },
   resultsListContent: {
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 8,
-    overflow: 'hidden',
-    paddingBottom: 0,
+    paddingHorizontal: paperSpacing.lg,
+    paddingBottom: 32,
   },
   resultRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
-    paddingHorizontal: 14,
-    paddingVertical: 14,
-  },
-  resultRowPressed: {
-    backgroundColor: '#F6F9FB',
-  },
-  resultSep: {
-    height: 1,
-    backgroundColor: paper.dashboardHair,
-    marginHorizontal: 14,
-  },
-  resultIconWrap: {
-    width: 30,
-    height: 30,
-    borderRadius: 10,
-    backgroundColor: paper.dashboardBlueSky,
+    gap: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 8,
     borderWidth: 1,
-    borderColor: 'rgba(42,110,150,0.28)',
+    borderColor: paper.dashboardLine,
+  },
+  resultRowPressed: { opacity: 0.75 },
+  resultSep: {
+    height: 6,
+    backgroundColor: 'transparent',
+  },
+  resultOrdinalWrap: {
+    width: 28,
     alignItems: 'center',
     justifyContent: 'center',
+  },
+  resultOrdinal: {
+    fontFamily: paperFonts.display,
+    fontSize: 12,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
+    letterSpacing: -0.2,
+    lineHeight: 14,
   },
   resultTextWrap: { flex: 1 },
   resultLabel: {
     fontFamily: paperFonts.displaySemiBold,
     fontSize: 15,
     color: paper.dashboardInk,
-    marginBottom: 2,
+    letterSpacing: 0,
   },
   resultSub: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    color: paper.dashboardMuted,
-    letterSpacing: 1.4,
-    opacity: 0.65,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 11.5,
+    color: paper.dashboardInk,
+    opacity: 0.55,
+    lineHeight: 14,
+    marginTop: 2,
   },
-  /* Current custom read location */
-  currentCustomWrap: {
-    marginHorizontal: paperSpacing.lg,
-    marginTop: paperSpacing.sm,
-    marginBottom: paperSpacing.md,
-    padding: 14,
+
+  // ── Scroll body (when no results) ─────────────────────────────────────────
+  scrollBody: { flex: 1 },
+  scrollBodyContent: {
+    paddingHorizontal: paperSpacing.lg,
+    paddingBottom: 32,
+    gap: paperSpacing.sm,
+  },
+
+  // ── Saved spot card (was: current custom read) ─────────────────────────────
+  savedSpotCard: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 8,
+    borderRadius: 10,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardBlue,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
+    shadowColor: paper.dashboardBlue,
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+  },
+  savedSpotCardPressed: { opacity: 0.78 },
+  savedSpotLeft: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  savedSpotIconTile: {
+    width: 32,
+    height: 32,
+    borderRadius: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: paper.dashboardBlueSky,
     borderWidth: 1,
-    borderColor: paper.dashboardLine,
+    borderColor: 'rgba(42,110,150,0.25)',
   },
-  currentCustomWrapPressed: {
-    backgroundColor: '#F6F9FB',
-  },
-  currentCustomHead: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
+  savedSpotTextWrap: { flex: 1 },
+  savedSpotHead: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
     color: paper.dashboardBlue,
-    letterSpacing: 2.2,
-    marginBottom: 8,
-    opacity: 0.75,
+    letterSpacing: 2,
+    marginBottom: 2,
   },
-  currentCustomRow: {
+  savedSpotLabel: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 15,
+    color: paper.dashboardInk,
+  },
+  savedSpotSub: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 11.5,
+    color: paper.dashboardInk,
+    opacity: 0.6,
+    lineHeight: 14,
+    marginTop: 2,
+  },
+
+  // ── Recent section ─────────────────────────────────────────────────────────
+  recentSection: { gap: paperSpacing.xs },
+  recentSectionHeaderRow: {
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginBottom: 8,
   },
-  currentCustomLabel: {
-    fontFamily: paperFonts.display,
-    fontSize: 18,
+  recentSectionHead: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
     color: paper.dashboardInk,
-    flex: 1,
-    letterSpacing: 0,
+    letterSpacing: 2.4,
+    opacity: 0.7,
   },
-  currentCustomSub: {
-    fontFamily: paperFonts.body,
-    fontSize: 12.5,
-    color: paper.dashboardMuted,
-    opacity: 0.72,
-    lineHeight: 17,
+  recentSectionRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.2,
+  },
+  recentList: {
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    overflow: 'hidden',
+  },
+  recentRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingVertical: 12,
+    paddingHorizontal: 12,
   },
 
-  /* Hint / empty states */
-  hintWrap: {
+  // ── Hint / empty / error cards ─────────────────────────────────────────────
+  hintCard: {
+    alignItems: 'center',
+    paddingVertical: paperSpacing.xl,
+    paddingHorizontal: paperSpacing.lg,
+    gap: paperSpacing.sm,
+  },
+  hintIconTile: {
+    width: 52,
+    height: 52,
+    borderRadius: 26,
     alignItems: 'center',
     justifyContent: 'center',
-    paddingHorizontal: paperSpacing.xl,
-    paddingTop: paperSpacing.xxl,
-    paddingBottom: paperSpacing.xl,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1.25,
+    borderColor: paper.dashboardLine,
+    marginBottom: 4,
   },
   hintTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 18,
+    fontSize: 17,
     color: paper.dashboardInk,
+    fontWeight: '700',
+    letterSpacing: -0.2,
     textAlign: 'center',
-    marginBottom: 8,
-    letterSpacing: 0,
   },
   hintSub: {
-    fontFamily: paperFonts.body,
-    fontSize: 13.5,
-    color: paper.dashboardMuted,
-    opacity: 0.72,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 13,
+    color: paper.dashboardInk,
+    opacity: 0.65,
+    lineHeight: 18,
     textAlign: 'center',
-    lineHeight: 19,
+  },
+  hintExampleRow: {
+    flexDirection: 'row',
+    flexWrap: 'wrap',
+    justifyContent: 'center',
+    gap: 8,
+    marginTop: 4,
+  },
+  hintExamplePill: {
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1.25,
+    borderColor: paper.dashboardBlue,
+  },
+  hintExampleText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11.5,
+    color: paper.dashboardBlue,
+    letterSpacing: 0.5,
   },
 });

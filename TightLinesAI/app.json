@@ -19,14 +19,7 @@
         "CFBundleDisplayName": "FinFindr",
         "CFBundleName": "FinFindr",
         "ITSAppUsesNonExemptEncryption": false,
-        "UIDesignRequiresCompatibility": true,
-        "NSLocalNetworkUsageDescription": "FinFindr connects to the Metro dev server on your Mac over Wi‑Fi while you develop.",
-        "NSBonjourServices": [
-          "_expo._tcp"
-        ],
-        "NSAppTransportSecurity": {
-          "NSAllowsLocalNetworking": true
-        }
+        "UIDesignRequiresCompatibility": true
       },
       "usesAppleSignIn": true
     },

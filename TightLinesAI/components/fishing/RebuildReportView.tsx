@@ -1,11 +1,13 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import {
   ActivityIndicator,
   Alert,
   Animated,
   Easing,
+  Image,
   Modal,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -22,7 +24,12 @@ import {
   scoreAccentColor,
   scoreTextOnColor,
 } from "../../lib/theme";
-import { SectionEyebrow, TopographicLines } from "../paper";
+import {
+  CornerMarkSet,
+  PaperBestValueStamp,
+  SectionEyebrow,
+  TopographicLines,
+} from "../paper";
 import {
   PERIOD_DEFS,
   type PeriodSlot,
@@ -172,31 +179,6 @@ const TIP_TAG_LABELS: Record<ActionableTipTag, string> = {
   presentation_general: "FIELD PLAN",
 };
 
-const ANGLER_UNLOCKS: Array<{
-  icon: keyof typeof Ionicons.glyphMap;
-  title: string;
-  copy: string;
-}> = [
-  {
-    icon: "analytics-outline",
-    title: "Bite reports",
-    copy:
-      "Full condition reports for today plus the next 6 days, including score, drivers, best windows, and guide-level context.",
-  },
-  {
-    icon: "fish-outline",
-    title: "Tackle Box",
-    copy:
-      "Condition-matched lure and presentation picks tuned to your water type, species, season, and daily conditions.",
-  },
-  {
-    icon: "scan-outline",
-    title: "Water Read",
-    copy:
-      "Advanced intelligence that reads geometrical structure to identify high percentage fishing zones.",
-  },
-];
-
 const LIMITED_FEATURE_PILLS: Array<{
   icon: keyof typeof Ionicons.glyphMap;
   label: string;
@@ -242,6 +224,107 @@ function monthlyEquivalentLabel(pkg: PurchasesPackage): string | null {
   if (price == null || !Number.isFinite(price)) return null;
   return `$${(price / 12).toFixed(2)} monthly`;
 }
+
+/**
+ * Approximate "save vs monthly" percent — used as the BEST VALUE stamp's
+ * second line when both an annual and monthly package are present and
+ * priced. We fall back to the static "BEST VALUE" label when the math
+ * isn't trustworthy.
+ */
+function annualSavingsPercent(
+  annual: PurchasesPackage | null,
+  monthly: PurchasesPackage | null,
+): number | null {
+  const a = typeof annual?.product.price === "number"
+    ? annual.product.price
+    : null;
+  const m = typeof monthly?.product.price === "number"
+    ? monthly.product.price
+    : null;
+  if (a == null || m == null || a <= 0 || m <= 0) return null;
+  const monthlyTotal = m * 12;
+  if (monthlyTotal <= a) return null;
+  return Math.round(((monthlyTotal - a) / monthlyTotal) * 100);
+}
+
+function bandColor(
+  b: "Tough" | "Poor" | "Fair" | "Good" | "Prime",
+): string {
+  switch (b) {
+    case "Tough":
+      return paper.bandTough;
+    case "Poor":
+      return paper.bandPoor;
+    case "Fair":
+      return paper.bandFair;
+    case "Good":
+      return paper.bandGood;
+    case "Prime":
+      return paper.bandPrime;
+  }
+}
+
+const ANGLER_FORECAST_TEASER: Array<{
+  day: string;
+  date: string;
+  color: string;
+}> = [
+  { day: "MON", date: "17", color: paper.bandFair },
+  { day: "TUE", date: "18", color: paper.bandGood },
+  { day: "WED", date: "19", color: paper.bandPrime },
+  { day: "THU", date: "20", color: paper.bandGood },
+  { day: "FRI", date: "21", color: paper.bandPoor },
+  { day: "SAT", date: "22", color: paper.bandFair },
+];
+
+interface AnglerModuleSpec {
+  code: string;
+  iconName: keyof typeof Ionicons.glyphMap;
+  title: string;
+  tag: string;
+  desc: string;
+  iconBg: string;
+  iconBorder: string;
+  iconColor: string;
+}
+
+/**
+ * Three intelligence modules — same accent palette / icon language / mono
+ * TAG voice as the home dashboard's "INTELLIGENCE MODULES" section, so the
+ * upgrade modal reads as a natural teaser of the unlocked dashboard.
+ */
+const ANGLER_MODULE_SPECS: AnglerModuleSpec[] = [
+  {
+    code: "01",
+    iconName: "sparkles-outline",
+    title: "Today's Bite",
+    tag: "CONDITIONS",
+    desc: "Full breakdown · windows · limiting factors",
+    iconBg: "#C5E0B5",
+    iconBorder: "#3DA85F",
+    iconColor: "#1F6B38",
+  },
+  {
+    code: "02",
+    iconName: "fish-outline",
+    title: "Tackle Box",
+    tag: "RECOMMENDER",
+    desc: "Tuned picks for today's conditions & species",
+    iconBg: "#F4DFA4",
+    iconBorder: "#C99B2D",
+    iconColor: "#8A6A1A",
+  },
+  {
+    code: "03",
+    iconName: "layers-outline",
+    title: "Water Read",
+    tag: "POLYGON",
+    desc: "Most lakes: structure + potential hotspots",
+    iconBg: "#C8DFF2",
+    iconBorder: "#0F63B0",
+    iconColor: "#0A4A87",
+  },
+];
 
 // ─── Air-temp / meta strip ───────────────────────────────────────────────────
 
@@ -535,23 +618,36 @@ export function RebuildReportView({
             <TopographicLines
               style={styles.limitedTopoLines}
               color={paper.dashboardBlue}
-              count={3}
+              count={4}
             />
-            <View style={styles.limitedIcon}>
-              <Ionicons
-                name="lock-closed"
-                size={18}
-                color={paper.dashboardBlue}
-              />
+            <CornerMarkSet
+              color={paper.dashboardBlue}
+              size={13}
+              thickness={1.5}
+              inset={10}
+            />
+
+            {/* Eyebrow row with pulse dot */}
+            <View style={styles.limitedEyebrowRow}>
+              <LimitedEyebrowPulse />
+              <Text style={styles.limitedEyebrow}>FINFINDR · ANGLER</Text>
             </View>
+
+            {/* Sonar lock badge */}
+            <LimitedLockBadge />
+
+            {/* Headline */}
             <Text style={styles.limitedTitle}>
-              ANGLER UNLOCKS THE FULL READ
+              Unlock the{"\n"}
+              <Text style={styles.limitedTitleAccent}>full read</Text>
+              <Text style={styles.limitedTitleDot}>.</Text>
             </Text>
+
             <Text style={styles.limitedCopy}>
-              This preview gives you today&apos;s score and day summary. The
-              full report opens the why, when, and how to use the condition
-              read.
+              You&apos;ve got today&apos;s score and day summary. Open the
+              why, when, and how — plus the next 6 days.
             </Text>
+
             <View style={styles.limitedFeatureGrid}>
               {LIMITED_FEATURE_PILLS.map((item) => (
                 <View
@@ -581,15 +677,48 @@ export function RebuildReportView({
                 </View>
               ))}
             </View>
+
+            {/* Beefed-up CTA — shimmer sweep + sine-wave + arrow tile */}
             <Pressable
-              style={(
-                { pressed },
-              ) => [styles.limitedCta, pressed && styles.limitedCtaPressed]}
+              style={({ pressed }) => [
+                styles.limitedCta,
+                pressed && styles.limitedCtaPressed,
+              ]}
               onPress={() => setShowAnglerModal(true)}
             >
-              <Text style={styles.limitedCtaText}>UPGRADE TO ANGLER</Text>
-              <Ionicons name="arrow-forward" size={14} color="#FFFFFF" />
+              <UpgradeCtaShimmer />
+              <View style={styles.limitedCtaLeft}>
+                <View style={styles.limitedCtaIconTile}>
+                  <Ionicons
+                    name="key"
+                    size={13}
+                    color={paper.dashboardBlue}
+                  />
+                </View>
+                <View style={styles.limitedCtaCopy}>
+                  <Text style={styles.limitedCtaEyebrow}>UPGRADE TO</Text>
+                  <View style={styles.limitedCtaTitleRow}>
+                    <Text style={styles.limitedCtaTitle}>Angler</Text>
+                    <Text style={styles.limitedCtaTitleDot}>.</Text>
+                  </View>
+                </View>
+              </View>
+              <View style={styles.limitedCtaRight}>
+                <UpgradeCtaWave />
+                <View style={styles.limitedCtaArrowTile}>
+                  <Ionicons
+                    name="arrow-forward"
+                    size={13}
+                    color={paper.dashboardBlue}
+                  />
+                </View>
+              </View>
             </Pressable>
+
+            <Text style={styles.limitedTrust}>
+              SEE PLANS · CANCEL ANYTIME
+            </Text>
+
             <AnglerUpgradeModal
               visible={showAnglerModal}
               onClose={() => setShowAnglerModal(false)}
@@ -906,6 +1035,7 @@ function AnglerUpgradeModal({
   const primarySubtitle = annualPackage && isAnnualPackage(annualPackage)
     ? monthlyEquivalentLabel(annualPackage)
     : null;
+  const savings = annualSavingsPercent(annualPackage, monthlyPackage);
 
   useEffect(() => {
     if (!visible) return;
@@ -922,6 +1052,49 @@ function AnglerUpgradeModal({
     }
   };
 
+  // Header pulse — mirrors the home `livePill` dot.
+  const headerPulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    if (!visible) return;
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(headerPulse, {
+          toValue: 0.35,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(headerPulse, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [headerPulse, visible]);
+
+  // Scan-line sweep across the modules block — same language as the home
+  // live-conditions card and the SubscribePrompt modal.
+  const [scanHeight, setScanHeight] = useState(0);
+  const scanY = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    if (!visible || scanHeight <= 0) return;
+    scanY.setValue(0);
+    const loop = Animated.loop(
+      Animated.timing(scanY, {
+        toValue: 1,
+        duration: 5200,
+        easing: Easing.inOut(Easing.cubic),
+        useNativeDriver: true,
+      }),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [scanHeight, scanY, visible]);
+
   return (
     <Modal
       visible={visible}
@@ -931,168 +1104,696 @@ function AnglerUpgradeModal({
     >
       <View style={styles.upgradeOverlay}>
         <View style={styles.upgradeSheet}>
-          <TopographicLines
-            style={styles.upgradeTopoLines}
-            color={paper.dashboardBlue}
-            count={5}
-          />
-          <Pressable
-            style={({ pressed }) => [
-              styles.upgradeClose,
-              pressed && styles.upgradeClosePressed,
-            ]}
-            onPress={onClose}
-            hitSlop={12}
-            accessibilityLabel="Close Angler upgrade"
-          >
-            <Ionicons name="close" size={17} color={paper.dashboardInk} />
-          </Pressable>
-
-          <View style={styles.upgradeBadge}>
-            <Ionicons name="trophy" size={18} color={paper.dashboardInk} />
-          </View>
-          <Text style={styles.upgradeEyebrow}>FINFINDR · ANGLER</Text>
-          <Text style={styles.upgradeTitle}>
-            Unlock the full daily read<Text style={styles.upgradeTitleDot}>
-              .
-            </Text>
-          </Text>
-          <Text style={styles.upgradeSubtitle}>
-            Plus intelligent tools built for the way you fish.
-          </Text>
-          <Text style={styles.upgradeCopy}>
-            Angler turns the preview into a full planning system: deeper bite
-            reports, precision tackle direction, and water-structure reads.
-          </Text>
-
-          <View style={styles.upgradeList}>
-            {ANGLER_UNLOCKS.map((item) => (
-              <View key={item.title} style={styles.upgradeItem}>
-                <View style={styles.upgradeItemIcon}>
-                  <Ionicons
-                    name={item.icon}
-                    size={14}
-                    color={paper.dashboardBlue}
+          {/* ─── Header strip (navy) ──────────────────────────────────── */}
+          <View style={styles.upgradeHeader}>
+            <View style={styles.upgradeHeaderLeft}>
+              <View style={styles.upgradeHeaderLogoBadge}>
+                <Image
+                  source={require("../../assets/images/finfindr-logo.png")}
+                  style={styles.upgradeHeaderLogo}
+                  resizeMode="contain"
+                />
+              </View>
+              <View style={styles.upgradeHeaderLockup}>
+                <View style={styles.upgradeHeaderEyebrowRow}>
+                  <Animated.View
+                    style={[
+                      styles.upgradeHeaderLiveDot,
+                      { opacity: headerPulse },
+                    ]}
                   />
+                  <Text style={styles.upgradeHeaderEyebrow}>
+                    FINFINDR · ANGLER
+                  </Text>
                 </View>
-                <View style={styles.upgradeItemBody}>
-                  <Text style={styles.upgradeItemTitle}>{item.title}</Text>
-                  <Text style={styles.upgradeItemCopy}>{item.copy}</Text>
-                </View>
-                <View style={styles.upgradeItemCheck}>
-                  <Ionicons name="checkmark" size={11} color="#FFFFFF" />
+                <View style={styles.upgradeHeaderWordmarkRow}>
+                  <Text style={styles.upgradeHeaderWordmark}>
+                    Field-Edition Access
+                  </Text>
+                  <Text style={styles.upgradeHeaderWordmarkDot}>.</Text>
                 </View>
               </View>
-            ))}
+            </View>
+            <Pressable
+              style={({ pressed }) => [
+                styles.upgradeHeaderClose,
+                pressed && { opacity: 0.7 },
+              ]}
+              onPress={onClose}
+              hitSlop={12}
+              accessibilityLabel="Close Angler upgrade"
+            >
+              <Ionicons name="close" size={16} color="#FFFFFF" />
+            </Pressable>
           </View>
 
-          <View style={styles.upgradePlans}>
-            {annualPackage
-              ? (
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.upgradePrimary,
-                    pressed && styles.upgradePrimaryPressed,
-                    purchasing === annualPackage.identifier &&
-                    styles.upgradePlanDisabled,
-                  ]}
-                  onPress={() => handlePurchase(annualPackage)}
-                  disabled={purchasing != null}
-                >
-                  <View style={styles.upgradePlanCopy}>
-                    <Text style={styles.upgradePrimaryText}>ANGLER ANNUAL</Text>
-                    {primarySubtitle
-                      ? (
-                        <Text style={styles.upgradePrimarySubtext}>
-                          ({primarySubtitle})
-                        </Text>
-                      )
-                      : null}
-                  </View>
-                  <View style={styles.upgradePriceRow}>
-                    {purchasing === annualPackage.identifier
-                      ? <ActivityIndicator size="small" color="#FFFFFF" />
-                      : (
-                        <>
-                          <Text style={styles.upgradePrimaryPrice}>
-                            {annualPackage.product.priceString}
-                          </Text>
-                          <Ionicons
-                            name="arrow-forward"
-                            size={14}
-                            color="#FFFFFF"
-                          />
-                        </>
-                      )}
-                  </View>
-                </Pressable>
-              )
-              : loading
-              ? (
-                <View style={styles.upgradeLoading}>
-                  <ActivityIndicator size="small" color={paper.dashboardBlue} />
-                  <Text style={styles.upgradeLoadingText}>
-                    LOADING PLANS...
-                  </Text>
-                </View>
-              )
-              : (
-                <View style={styles.upgradeLoading}>
-                  <Text style={styles.upgradeLoadingText}>
-                    PLANS AREN'T AVAILABLE YET
-                  </Text>
-                </View>
-              )}
+          {/* ─── Body ─────────────────────────────────────────────────── */}
+          <ScrollView
+            style={styles.upgradeBody}
+            contentContainerStyle={styles.upgradeBodyContent}
+            showsVerticalScrollIndicator={false}
+            bounces={false}
+          >
+            <View style={styles.upgradeBodyInner}>
+              <TopographicLines
+                style={styles.upgradeTopoLines}
+                color={paper.dashboardBlue}
+                count={5}
+              />
+              <CornerMarkSet
+                color={paper.dashboardBlue}
+                size={14}
+                thickness={1.5}
+                inset={10}
+              />
 
-            {monthlyPackage
-              ? (
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.upgradeMonthly,
-                    pressed && styles.upgradeSecondaryPressed,
-                    purchasing === monthlyPackage.identifier &&
-                    styles.upgradePlanDisabled,
-                  ]}
-                  onPress={() => handlePurchase(monthlyPackage)}
-                  disabled={purchasing != null}
-                >
-                  <View style={styles.upgradePlanCopy}>
-                    <Text style={styles.upgradeMonthlyText}>
-                      ANGLER MONTHLY
-                    </Text>
-                    <Text style={styles.upgradeMonthlySubtext}>
-                      Flexible monthly access
+              <View style={styles.upgradeHeadlineBand}>
+                <Text style={styles.upgradeHeadlineEyebrow}>
+                  ── ALL-ACCESS · UNLOCK
+                </Text>
+                <Text style={styles.upgradeHeadline}>
+                  Unlock the full{"\n"}
+                  <Text style={styles.upgradeHeadlineAccent}>daily read</Text>
+                  <Text style={styles.upgradeHeadlineDot}>.</Text>
+                </Text>
+                <Text style={styles.upgradeHeadlineKicker}>
+                  Angler turns the preview into a full planning system —
+                  deeper bite reports, precision tackle direction, and
+                  water-structure reads.
+                </Text>
+              </View>
+
+              {/* Forecast teaser strip */}
+              <View style={styles.upgradeTeaserSection}>
+                <View style={styles.upgradeTeaserHeader}>
+                  <Text style={styles.upgradeTeaserEyebrow}>
+                    ── 6-DAY BITE FORECAST
+                  </Text>
+                  <View style={styles.upgradeTeaserChip}>
+                    <Ionicons
+                      name="lock-closed"
+                      size={9}
+                      color={paper.dashboardBlue}
+                    />
+                    <Text style={styles.upgradeTeaserChipText}>ANGLER</Text>
+                  </View>
+                </View>
+                <View style={styles.upgradeTeaserGrid}>
+                  {ANGLER_FORECAST_TEASER.map((t, i) => (
+                    <View key={i} style={styles.upgradeTeaserTile}>
+                      <View style={styles.upgradeTeaserTileHead}>
+                        <Text style={styles.upgradeTeaserTileDay}>{t.day}</Text>
+                        <Text style={styles.upgradeTeaserTileDate}>
+                          {t.date}
+                        </Text>
+                      </View>
+                      <View
+                        style={[
+                          styles.upgradeTeaserTileScore,
+                          { backgroundColor: t.color },
+                        ]}
+                      >
+                        <View style={styles.upgradeTeaserTileVeil} />
+                        <Ionicons
+                          name="lock-closed"
+                          size={11}
+                          color="rgba(10,27,46,0.62)"
+                        />
+                      </View>
+                    </View>
+                  ))}
+                </View>
+                <View style={styles.upgradeTeaserLegend}>
+                  {(["Tough", "Poor", "Fair", "Good", "Prime"] as const).map(
+                    (band) => (
+                      <View key={band} style={styles.upgradeTeaserLegendItem}>
+                        <View
+                          style={[
+                            styles.upgradeTeaserLegendSwatch,
+                            { backgroundColor: bandColor(band) },
+                          ]}
+                        />
+                        <Text style={styles.upgradeTeaserLegendLabel}>
+                          {band.toUpperCase()}
+                        </Text>
+                      </View>
+                    ),
+                  )}
+                </View>
+              </View>
+
+              {/* Intelligence modules — sage-tinted "unlock" frame */}
+              <View
+                style={styles.upgradeModulesSection}
+                onLayout={(e) => setScanHeight(e.nativeEvent.layout.height)}
+              >
+                <View style={styles.upgradeModulesHeaderRow}>
+                  <View style={styles.upgradeModulesHeaderLeft}>
+                    <View style={styles.upgradeModulesUnlockBadge}>
+                      <Ionicons
+                        name="lock-open"
+                        size={10}
+                        color="#1F6B38"
+                      />
+                    </View>
+                    <Text style={styles.upgradeModulesEyebrow}>
+                      WHAT YOU UNLOCK
                     </Text>
                   </View>
-                  {purchasing === monthlyPackage.identifier
-                    ? (
+                  <View style={styles.upgradeModulesCountChip}>
+                    <Text style={styles.upgradeModulesCount}>3 / 3</Text>
+                  </View>
+                </View>
+
+                {scanHeight > 0 && (
+                  <Animated.View
+                    pointerEvents="none"
+                    style={[
+                      styles.upgradeScanLine,
+                      {
+                        transform: [
+                          {
+                            translateY: scanY.interpolate({
+                              inputRange: [0, 1],
+                              outputRange: [-40, scanHeight + 40],
+                            }),
+                          },
+                        ],
+                      },
+                    ]}
+                  />
+                )}
+
+                {ANGLER_MODULE_SPECS.map((m) => (
+                  <View key={m.code} style={styles.upgradeModuleRow}>
+                    <View style={styles.upgradeModuleDots}>
+                      <View
+                        style={[
+                          styles.upgradeModuleDot,
+                          { backgroundColor: m.iconBorder, opacity: 0.5 },
+                        ]}
+                      />
+                      <View
+                        style={[
+                          styles.upgradeModuleDot,
+                          { backgroundColor: m.iconBorder, opacity: 0.7 },
+                        ]}
+                      />
+                      <View
+                        style={[
+                          styles.upgradeModuleDot,
+                          { backgroundColor: m.iconBorder },
+                        ]}
+                      />
+                    </View>
+                    <Text style={styles.upgradeModuleCode}>{m.code}</Text>
+                    <View
+                      style={[
+                        styles.upgradeModuleIcon,
+                        {
+                          backgroundColor: m.iconBg,
+                          borderColor: m.iconBorder + "60",
+                        },
+                      ]}
+                    >
+                      <Ionicons
+                        name={m.iconName}
+                        size={18}
+                        color={m.iconColor}
+                      />
+                    </View>
+                    <View style={styles.upgradeModuleTextCol}>
+                      <View style={styles.upgradeModuleTitleRow}>
+                        <Text style={styles.upgradeModuleTitle}>{m.title}</Text>
+                        <Text style={styles.upgradeModuleTag}>{m.tag}</Text>
+                      </View>
+                      <Text
+                        style={styles.upgradeModuleDesc}
+                        numberOfLines={2}
+                      >
+                        {m.desc}
+                      </Text>
+                    </View>
+                    <View style={styles.upgradeModuleCheck}>
+                      <Ionicons name="checkmark" size={11} color="#FFFFFF" />
+                    </View>
+                  </View>
+                ))}
+              </View>
+
+              {/* Plans */}
+              <View style={styles.upgradePlansSection}>
+                <Text style={styles.upgradePlansEyebrow}>
+                  ── CHOOSE YOUR PLAN
+                </Text>
+
+                {annualPackage
+                  ? (
+                    <View style={styles.upgradeAnnualWrap}>
+                      <PaperBestValueStamp
+                        topLine={savings != null ? `SAVE ${savings}%` : "BEST"}
+                        bottomLine="VALUE"
+                        style={styles.upgradeBestStamp}
+                      />
+                      <Pressable
+                        style={({ pressed }) => [
+                          styles.upgradeAnnualCta,
+                          pressed && styles.upgradeAnnualCtaPressed,
+                          purchasing === annualPackage.identifier &&
+                          styles.upgradePlanDisabled,
+                        ]}
+                        onPress={() => handlePurchase(annualPackage)}
+                        disabled={purchasing != null}
+                      >
+                        <UpgradeCtaShimmer />
+                        <View style={styles.upgradeAnnualLeft}>
+                          <View style={styles.upgradeAnnualEyebrowRow}>
+                            <View style={styles.upgradeAnnualIconTile}>
+                              <Ionicons
+                                name="trophy"
+                                size={12}
+                                color={paper.dashboardInk}
+                              />
+                            </View>
+                            <Text style={styles.upgradeAnnualEyebrow}>
+                              ANGLER · ANNUAL
+                            </Text>
+                          </View>
+                          {primarySubtitle
+                            ? (
+                              <Text style={styles.upgradeAnnualSubtext}>
+                                {primarySubtitle}
+                              </Text>
+                            )
+                            : null}
+                        </View>
+                        <View style={styles.upgradeAnnualRight}>
+                          {purchasing === annualPackage.identifier
+                            ? (
+                              <ActivityIndicator
+                                size="small"
+                                color="#FFFFFF"
+                              />
+                            )
+                            : (
+                              <>
+                                <UpgradeCtaWave />
+                                <View style={styles.upgradeAnnualPriceCol}>
+                                  <Text style={styles.upgradeAnnualPrice}>
+                                    {annualPackage.product.priceString}
+                                  </Text>
+                                  <Text style={styles.upgradeAnnualPriceUnit}>
+                                    /YR
+                                  </Text>
+                                </View>
+                                <View style={styles.upgradeAnnualArrowTile}>
+                                  <Ionicons
+                                    name="arrow-forward"
+                                    size={14}
+                                    color={paper.dashboardInk}
+                                  />
+                                </View>
+                              </>
+                            )}
+                        </View>
+                      </Pressable>
+                    </View>
+                  )
+                  : loading
+                  ? (
+                    <View style={styles.upgradeLoading}>
                       <ActivityIndicator
                         size="small"
                         color={paper.dashboardBlue}
                       />
-                    )
-                    : (
-                      <Text style={styles.upgradeMonthlyPrice}>
-                        {monthlyPackage.product.priceString}
+                      <Text style={styles.upgradeLoadingText}>
+                        LOADING PLANS...
                       </Text>
-                    )}
+                    </View>
+                  )
+                  : (
+                    <View style={styles.upgradeLoading}>
+                      <Text style={styles.upgradeLoadingText}>
+                        PLANS AREN'T AVAILABLE YET
+                      </Text>
+                    </View>
+                  )}
+
+                {monthlyPackage
+                  ? (
+                    <Pressable
+                      style={({ pressed }) => [
+                        styles.upgradeMonthly,
+                        pressed && styles.upgradeMonthlyPressed,
+                        purchasing === monthlyPackage.identifier &&
+                        styles.upgradePlanDisabled,
+                      ]}
+                      onPress={() => handlePurchase(monthlyPackage)}
+                      disabled={purchasing != null}
+                    >
+                      <View style={styles.upgradeMonthlyLeft}>
+                        <View style={styles.upgradeMonthlyEyebrowRow}>
+                          <Ionicons
+                            name="calendar-outline"
+                            size={11}
+                            color={paper.dashboardMuted}
+                          />
+                          <Text style={styles.upgradeMonthlyEyebrow}>
+                            ANGLER · MONTHLY
+                          </Text>
+                        </View>
+                        <Text style={styles.upgradeMonthlySubtext}>
+                          Flexible · cancel any time
+                        </Text>
+                      </View>
+                      {purchasing === monthlyPackage.identifier
+                        ? (
+                          <ActivityIndicator
+                            size="small"
+                            color={paper.dashboardBlue}
+                          />
+                        )
+                        : (
+                          <View style={styles.upgradeMonthlyPriceCol}>
+                            <Text style={styles.upgradeMonthlyPrice}>
+                              {monthlyPackage.product.priceString}
+                            </Text>
+                            <Text style={styles.upgradeMonthlyPriceUnit}>
+                              /MO
+                            </Text>
+                          </View>
+                        )}
+                    </Pressable>
+                  )
+                  : null}
+
+                {error
+                  ? <Text style={styles.upgradeError}>{error}</Text>
+                  : null}
+
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.upgradeKeepPreview,
+                    pressed && styles.upgradeKeepPreviewPressed,
+                  ]}
+                  onPress={onClose}
+                >
+                  <Text style={styles.upgradeKeepPreviewText}>
+                    KEEP PREVIEW
+                  </Text>
                 </Pressable>
-              )
-              : null}
-          </View>
-          {error ? <Text style={styles.upgradeError}>{error}</Text> : null}
-          <Pressable
-            style={({ pressed }) => [
-              styles.upgradeSecondary,
-              pressed && styles.upgradeSecondaryPressed,
-            ]}
-            onPress={onClose}
-          >
-            <Text style={styles.upgradeSecondaryText}>KEEP PREVIEW</Text>
-          </Pressable>
+              </View>
+
+              {/* Footer stamp */}
+              <View style={styles.upgradeFooter}>
+                <View style={styles.upgradeFooterLeft}>
+                  <Ionicons
+                    name="boat-outline"
+                    size={11}
+                    color={paper.dashboardMuted}
+                  />
+                  <Text style={styles.upgradeFooterStamp}>
+                    FINFINDR · ANGLER
+                  </Text>
+                </View>
+                <View style={styles.upgradeFooterRight}>
+                  <UpgradeFooterPulse />
+                  <View style={styles.upgradeSignalBars}>
+                    <View
+                      style={[
+                        styles.upgradeSignalBar,
+                        { height: 5, backgroundColor: paper.bandPrime },
+                      ]}
+                    />
+                    <View
+                      style={[
+                        styles.upgradeSignalBar,
+                        { height: 7, backgroundColor: paper.bandPrime },
+                      ]}
+                    />
+                    <View
+                      style={[
+                        styles.upgradeSignalBar,
+                        { height: 9, backgroundColor: paper.bandPrime },
+                      ]}
+                    />
+                    <View
+                      style={[
+                        styles.upgradeSignalBar,
+                        { height: 11, backgroundColor: paper.bandPrime },
+                      ]}
+                    />
+                  </View>
+                  <Text style={styles.upgradeFooterSecure}>
+                    SECURE · APP STORE
+                  </Text>
+                </View>
+              </View>
+            </View>
+          </ScrollView>
         </View>
       </View>
     </Modal>
+  );
+}
+
+// ─── Animated helpers (scoped to the Angler upgrade modal) ──────────────────
+
+/** Translates a soft vertical highlight across the Annual CTA. */
+function UpgradeCtaShimmer() {
+  const [width, setWidth] = useState(0);
+  const shimmerX = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    if (width <= 0) return;
+    shimmerX.setValue(0);
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(shimmerX, {
+          toValue: 1,
+          duration: 2200,
+          easing: Easing.inOut(Easing.cubic),
+          useNativeDriver: true,
+        }),
+        Animated.delay(900),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [shimmerX, width]);
+
+  return (
+    <View
+      pointerEvents="none"
+      style={StyleSheet.absoluteFill}
+      onLayout={(e) => setWidth(e.nativeEvent.layout.width)}
+    >
+      {width > 0 && (
+        <Animated.View
+          style={[
+            styles.upgradeCtaShimmer,
+            {
+              transform: [
+                {
+                  translateX: shimmerX.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [-110, width + 110],
+                  }),
+                },
+              ],
+            },
+          ]}
+        />
+      )}
+    </View>
+  );
+}
+
+/** Compact sine-wave decoration on the Annual CTA. */
+function UpgradeCtaWave() {
+  const N = 14;
+  const SEG_W = 2.2;
+  const TOTAL_W = N * SEG_W;
+  const phase = useRef(new Animated.Value(0)).current;
+  const amp = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const phaseLoop = Animated.loop(
+      Animated.timing(phase, {
+        toValue: 1,
+        duration: 2400,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    );
+    const ampLoop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(amp, {
+          toValue: 1,
+          duration: 1300,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.delay(150),
+        Animated.timing(amp, {
+          toValue: 0,
+          duration: 1300,
+          easing: Easing.inOut(Easing.sin),
+          useNativeDriver: true,
+        }),
+        Animated.delay(500),
+      ]),
+    );
+    phaseLoop.start();
+    ampLoop.start();
+    return () => {
+      phaseLoop.stop();
+      ampLoop.stop();
+    };
+  }, [phase, amp]);
+
+  const segs = useMemo(() => {
+    return Array.from({ length: N }, (_, i) => {
+      const offset = i / N;
+      const inputRange = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
+      const outputRange = inputRange.map(
+        (t) => Math.sin((t + offset) * 2 * Math.PI) * 3.5,
+      );
+      const sineY = phase.interpolate({ inputRange, outputRange });
+      return Animated.multiply(sineY, amp);
+    });
+  }, [phase, amp]);
+
+  return (
+    <View
+      style={{
+        width: TOTAL_W,
+        height: 14,
+        flexDirection: "row",
+        alignItems: "center",
+        opacity: 0.85,
+      }}
+    >
+      {segs.map((ty, i) => (
+        <Animated.View
+          key={i}
+          style={{
+            width: SEG_W,
+            height: 1.3,
+            backgroundColor: "rgba(255,255,255,0.78)",
+            transform: [{ translateY: ty }],
+          }}
+        />
+      ))}
+    </View>
+  );
+}
+
+/** Pulsing dot used in the upgrade modal footer. */
+function UpgradeFooterPulse() {
+  const pulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 0.3,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+  return (
+    <Animated.View
+      style={[styles.upgradeFooterLiveDot, { opacity: pulse }]}
+    />
+  );
+}
+
+/**
+ * Live-pulse dot for the limited card's "FINFINDR · ANGLER" eyebrow —
+ * mirrors the home dashboard's live pill so the upgrade card reads as a
+ * live, breathing surface rather than a static banner.
+ */
+function LimitedEyebrowPulse() {
+  const pulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(pulse, {
+          toValue: 0.35,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(pulse, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [pulse]);
+  return (
+    <Animated.View style={[styles.limitedEyebrowDot, { opacity: pulse }]} />
+  );
+}
+
+/**
+ * Sonar-ping lock badge — a solid navy-blue disc holding the lock icon,
+ * orbited by an expanding ring that fades out, signaling "intelligence is
+ * just behind this lock". Pure RN Animated, native driver.
+ */
+function LimitedLockBadge() {
+  const ping = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(ping, {
+          toValue: 1,
+          duration: 1800,
+          easing: Easing.out(Easing.cubic),
+          useNativeDriver: true,
+        }),
+        Animated.delay(450),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [ping]);
+  const pingOpacity = ping.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.55, 0],
+  });
+  const pingScale = ping.interpolate({
+    inputRange: [0, 1],
+    outputRange: [0.92, 1.55],
+  });
+  return (
+    <View style={styles.limitedBadgeWrap}>
+      <Animated.View
+        pointerEvents="none"
+        style={[
+          styles.limitedBadgePing,
+          { opacity: pingOpacity, transform: [{ scale: pingScale }] },
+        ]}
+      />
+      <View style={styles.limitedBadgeInner}>
+        <Ionicons name="lock-closed" size={22} color="#FFFFFF" />
+      </View>
+    </View>
   );
 }
 
@@ -2496,57 +3197,125 @@ const styles = StyleSheet.create({
     textAlign: "left",
     letterSpacing: 0,
   },
+  // ─── Limited "Angler unlocks the full read" card (renovated) ─────────
   limitedCard: {
     position: "relative",
     backgroundColor: paper.dashboardWhite,
-    borderWidth: 1,
+    borderWidth: 1.5,
     borderColor: paper.dashboardInk,
-    borderRadius: 10,
-    padding: paperSpacing.lg,
+    borderRadius: 14,
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: 16,
+    paddingBottom: 18,
     alignItems: "center",
     overflow: "hidden",
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.10,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 8 },
+    elevation: 5,
   },
   limitedTopoLines: {
-    top: -18,
-    left: -16,
-    right: -16,
-    height: 88,
-    opacity: 0.12,
+    top: -28,
+    left: -24,
+    right: -24,
+    height: 160,
+    opacity: 0.11,
   },
-  limitedIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
+  limitedEyebrowRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    borderRadius: 999,
+    backgroundColor: "rgba(42,110,150,0.08)",
     borderWidth: 1,
-    borderColor: paper.dashboardHair,
+    borderColor: "rgba(42,110,150,0.22)",
+    marginBottom: 12,
+  },
+  limitedEyebrowDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: paper.bandPrime,
+  },
+  limitedEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 1.7,
+    color: paper.dashboardBlue,
+  },
+  // Sonar lock badge
+  limitedBadgeWrap: {
+    width: 84,
+    height: 84,
     alignItems: "center",
     justifyContent: "center",
-    marginBottom: paperSpacing.sm,
+    marginBottom: 10,
+    position: "relative",
+  },
+  limitedBadgePing: {
+    position: "absolute",
+    width: 84,
+    height: 84,
+    borderRadius: 42,
+    borderWidth: 2,
+    borderColor: paper.dashboardBlue,
+  },
+  limitedBadgeInner: {
+    width: 54,
+    height: 54,
+    borderRadius: 27,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: paper.dashboardBlue,
+    borderWidth: 1,
+    borderColor: "rgba(10,27,46,0.22)",
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.20,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+    elevation: 3,
   },
   limitedTitle: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
+    fontFamily: paperFonts.display,
+    fontSize: 26,
+    lineHeight: 28,
+    letterSpacing: -0.5,
     color: paper.dashboardInk,
-    letterSpacing: 2,
     textAlign: "center",
-    marginBottom: paperSpacing.sm,
+    marginBottom: 6,
+  },
+  limitedTitleAccent: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: "italic",
+    color: paper.dashboardBlue,
+    fontSize: 26,
+    lineHeight: 29,
+  },
+  limitedTitleDot: {
+    fontFamily: paperFonts.display,
+    color: paper.dashboardBlue,
   },
   limitedCopy: {
-    fontFamily: paperFonts.body,
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: "italic",
     fontSize: 13,
-    lineHeight: 19,
+    lineHeight: 18,
     color: paper.dashboardInk,
     opacity: 0.72,
     textAlign: "center",
-    marginBottom: paperSpacing.md,
+    marginBottom: 14,
+    paddingHorizontal: 4,
   },
   limitedFeatureGrid: {
     width: "100%",
     flexDirection: "row",
     flexWrap: "wrap",
     justifyContent: "center",
-    gap: 8,
-    marginBottom: paperSpacing.lg,
+    gap: 7,
+    marginBottom: 14,
   },
   limitedFeaturePill: {
     flexDirection: "row",
@@ -2575,246 +3344,597 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
     color: paper.dashboardInk,
   },
+  // Beefed-up CTA
   limitedCta: {
-    minHeight: 42,
+    width: "100%",
+    minHeight: 58,
     flexDirection: "row",
     alignItems: "center",
-    justifyContent: "center",
-    gap: 8,
+    justifyContent: "space-between",
+    gap: 12,
     backgroundColor: paper.dashboardBlue,
-    borderRadius: 8,
-    paddingHorizontal: paperSpacing.lg,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: "rgba(10,27,46,0.25)",
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    overflow: "hidden",
+    position: "relative",
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.18,
+    shadowRadius: 10,
+    shadowOffset: { width: 0, height: 4 },
+    elevation: 4,
   },
   limitedCtaPressed: {
-    opacity: 0.82,
+    opacity: 0.88,
   },
-  limitedCtaText: {
+  limitedCtaLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 9,
+    flex: 1,
+    minWidth: 0,
+  },
+  limitedCtaIconTile: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+    backgroundColor: "rgba(255,255,255,0.95)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  limitedCtaCopy: {
+    flexShrink: 1,
+  },
+  limitedCtaEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    color: "#FFFFFF",
-    letterSpacing: 2,
+    fontSize: 9,
+    letterSpacing: 1.6,
+    color: "rgba(255,255,255,0.78)",
+    marginBottom: 1,
   },
+  limitedCtaTitleRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+  limitedCtaTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 19,
+    lineHeight: 21,
+    color: "#FFFFFF",
+    letterSpacing: -0.3,
+  },
+  limitedCtaTitleDot: {
+    fontFamily: paperFonts.display,
+    fontSize: 19,
+    color: paper.dashboardBlueLight,
+    marginLeft: 1,
+  },
+  limitedCtaRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  limitedCtaArrowTile: {
+    width: 26,
+    height: 26,
+    borderRadius: 6,
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  limitedTrust: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.6,
+    color: paper.dashboardMuted,
+    marginTop: 10,
+    textAlign: "center",
+  },
+  // ─── Angler upgrade modal (field-edition voice, May 2026) ─────────────
   upgradeOverlay: {
     flex: 1,
     backgroundColor: "rgba(10,27,46,0.68)",
     alignItems: "center",
     justifyContent: "center",
-    padding: paperSpacing.lg,
+    padding: paperSpacing.md,
   },
   upgradeSheet: {
     width: "100%",
-    maxWidth: 430,
-    maxHeight: "92%",
-    position: "relative",
+    maxWidth: 360,
+    maxHeight: "88%",
     backgroundColor: paper.dashboardWhite,
+    borderRadius: 16,
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
-    borderRadius: 12,
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.xl,
-    paddingBottom: paperSpacing.lg,
     overflow: "hidden",
+    shadowColor: "#000",
+    shadowOpacity: 0.32,
+    shadowRadius: 28,
+    shadowOffset: { width: 0, height: 16 },
+    elevation: 14,
   },
-  upgradeTopoLines: {
-    top: -34,
-    left: -20,
-    right: -20,
-    height: 124,
-    opacity: 0.1,
-  },
-  upgradeClose: {
-    position: "absolute",
-    top: 12,
-    right: 12,
-    zIndex: 2,
-    width: 32,
-    height: 32,
-    borderRadius: 16,
-    borderWidth: 1,
-    borderColor: paper.dashboardHair,
-    alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(255,255,255,0.82)",
-  },
-  upgradeClosePressed: {
-    opacity: 0.72,
-  },
-  upgradeBadge: {
-    width: 48,
-    height: 48,
-    borderRadius: 24,
-    alignItems: "center",
-    justifyContent: "center",
-    alignSelf: "center",
-    backgroundColor: paper.bandFair,
-    borderWidth: 1,
-    borderColor: "rgba(10,27,46,0.18)",
-    marginBottom: paperSpacing.sm,
-  },
-  upgradeEyebrow: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    letterSpacing: 2,
-    color: paper.dashboardBlue,
-    textAlign: "center",
-    marginBottom: paperSpacing.xs,
-  },
-  upgradeTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 28,
-    lineHeight: 32,
-    letterSpacing: 0,
-    color: paper.dashboardInk,
-    fontWeight: "700",
-    textAlign: "center",
-  },
-  upgradeTitleDot: {
-    color: paper.dashboardBlue,
-  },
-  upgradeSubtitle: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    lineHeight: 15,
-    letterSpacing: 1.5,
-    color: paper.dashboardBlue,
-    textAlign: "center",
-    textTransform: "uppercase",
-    marginTop: paperSpacing.xs,
-  },
-  upgradeCopy: {
-    fontFamily: paperFonts.displayItalic,
-    fontStyle: "italic",
-    fontSize: 13,
-    lineHeight: 19,
-    color: paper.dashboardInk,
-    opacity: 0.76,
-    textAlign: "center",
-    marginTop: paperSpacing.sm,
-    marginBottom: paperSpacing.md,
-  },
-  upgradeList: {
-    gap: 11,
-    marginBottom: paperSpacing.md,
-  },
-  upgradeItem: {
+  // Navy header strip
+  upgradeHeader: {
     flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 12,
-    position: "relative",
-    paddingVertical: 12,
-    paddingHorizontal: 12,
-    borderWidth: 1.25,
-    borderColor: "rgba(61,168,95,0.42)",
-    backgroundColor: "#F4FAF1",
-    borderRadius: 8,
-  },
-  upgradeItemIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    borderWidth: 1,
-    borderColor: "rgba(61,168,95,0.34)",
     alignItems: "center",
-    justifyContent: "center",
-    backgroundColor: "rgba(61,168,95,0.14)",
+    justifyContent: "space-between",
+    paddingHorizontal: 14,
+    paddingVertical: 10,
+    backgroundColor: paper.dashboardInk,
+    borderBottomWidth: 1,
+    borderBottomColor: "rgba(255,255,255,0.08)",
   },
-  upgradeItemBody: {
+  upgradeHeaderLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
     flex: 1,
   },
-  upgradeItemTitle: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10.5,
-    letterSpacing: 1.6,
-    color: paper.dashboardInk,
-    marginBottom: 4,
-    textTransform: "uppercase",
+  upgradeHeaderLogoBadge: {
+    width: 36,
+    height: 36,
+    borderRadius: 9,
+    backgroundColor: "rgba(255,255,255,0.06)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.12)",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  upgradeItemCopy: {
-    fontFamily: paperFonts.body,
+  upgradeHeaderLogo: {
+    width: 28,
+    height: 28,
+  },
+  upgradeHeaderLockup: { flex: 1 },
+  upgradeHeaderEyebrowRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 2,
+  },
+  upgradeHeaderLiveDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: paper.bandPrime,
+  },
+  upgradeHeaderEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.6,
+    color: "rgba(255,255,255,0.78)",
+  },
+  upgradeHeaderWordmarkRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+  upgradeHeaderWordmark: {
+    fontFamily: paperFonts.display,
+    fontSize: 17,
+    color: "#FFFFFF",
+    letterSpacing: -0.3,
+    lineHeight: 19,
+  },
+  upgradeHeaderWordmarkDot: {
+    fontFamily: paperFonts.display,
+    fontSize: 17,
+    color: paper.dashboardBlueLight,
+    lineHeight: 19,
+    marginLeft: 1,
+  },
+  upgradeHeaderClose: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    backgroundColor: "rgba(255,255,255,0.08)",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.16)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  // Body / scrollable content
+  upgradeBody: { flexGrow: 0 },
+  upgradeBodyContent: { paddingBottom: 0 },
+  upgradeBodyInner: {
+    paddingHorizontal: 18,
+    paddingTop: 16,
+    paddingBottom: 14,
+    position: "relative",
+  },
+  upgradeTopoLines: {
+    top: -20,
+    left: -40,
+    right: -40,
+    height: 180,
+    opacity: 0.09,
+  },
+
+  // Headline
+  upgradeHeadlineBand: { marginBottom: 14 },
+  upgradeHeadlineEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 2,
+    color: "#444",
+    marginBottom: 6,
+  },
+  upgradeHeadline: {
+    fontFamily: paperFonts.display,
+    fontSize: 26,
+    lineHeight: 28,
+    letterSpacing: -0.5,
+    color: paper.dashboardInk,
+  },
+  upgradeHeadlineAccent: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: "italic",
+    color: paper.dashboardBlue,
+    fontSize: 26,
+    lineHeight: 29,
+  },
+  upgradeHeadlineDot: {
+    fontFamily: paperFonts.display,
+    color: paper.dashboardBlue,
+  },
+  upgradeHeadlineKicker: {
+    fontFamily: paperFonts.displayItalic,
+    fontStyle: "italic",
     fontSize: 12.5,
     lineHeight: 17,
     color: paper.dashboardInk,
-    opacity: 0.78,
+    opacity: 0.7,
+    marginTop: 7,
   },
-  upgradeItemCheck: {
-    width: 19,
-    height: 19,
-    borderRadius: 9.5,
+
+  // Forecast teaser (slim)
+  upgradeTeaserSection: { marginBottom: 14 },
+  upgradeTeaserHeader: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+  },
+  upgradeTeaserEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.8,
+    color: "#444",
+  },
+  upgradeTeaserChip: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    borderWidth: 1,
+    borderColor: "rgba(42,110,150,0.30)",
+    backgroundColor: "rgba(42,110,150,0.08)",
+  },
+  upgradeTeaserChipText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.3,
+    color: paper.dashboardBlue,
+  },
+  upgradeTeaserGrid: { flexDirection: "row", gap: 4 },
+  upgradeTeaserTile: {
+    flex: 1,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "rgba(10,27,46,0.14)",
+    borderRadius: 5,
+    overflow: "hidden",
+  },
+  upgradeTeaserTileHead: {
+    paddingVertical: 3,
+    alignItems: "center",
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardHair,
+  },
+  upgradeTeaserTileDay: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: 0.9,
+    color: paper.dashboardMuted,
+    lineHeight: 8,
+  },
+  upgradeTeaserTileDate: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 10,
+    color: paper.dashboardInk,
+    marginTop: 1,
+    lineHeight: 11,
+  },
+  upgradeTeaserTileScore: {
+    height: 22,
+    justifyContent: "center",
+    alignItems: "center",
+    position: "relative",
+  },
+  upgradeTeaserTileVeil: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(255,255,255,0.32)",
+  },
+  upgradeTeaserLegend: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: 7,
+    marginTop: 6,
+    paddingHorizontal: 2,
+  },
+  upgradeTeaserLegendItem: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 3,
+  },
+  upgradeTeaserLegendSwatch: {
+    width: 6,
+    height: 6,
+    borderRadius: 1.5,
+    borderWidth: 1,
+    borderColor: "rgba(0,0,0,0.18)",
+  },
+  upgradeTeaserLegendLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: 1,
+    color: "#444",
+  },
+
+  // Modules (sage-tinted "unlock" frame)
+  upgradeModulesSection: {
+    marginBottom: 16,
+    position: "relative",
+    backgroundColor: "#F2FAF4",
+    borderWidth: 1.25,
+    borderColor: "rgba(61,168,95,0.38)",
+    borderRadius: 12,
+    padding: 10,
+    paddingTop: 8,
+    overflow: "hidden",
+  },
+  upgradeModulesHeaderRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: 8,
+    paddingHorizontal: 2,
+  },
+  upgradeModulesHeaderLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  upgradeModulesUnlockBadge: {
+    width: 18,
+    height: 18,
+    borderRadius: 4,
+    backgroundColor: "#CFEFD7",
+    borderWidth: 1,
+    borderColor: "rgba(31,107,56,0.32)",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  upgradeModulesEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 1.8,
+    color: "#1F6B38",
+  },
+  upgradeModulesCountChip: {
+    paddingHorizontal: 6,
+    paddingVertical: 2,
+    borderRadius: 4,
+    backgroundColor: "#FFFFFF",
+    borderWidth: 1,
+    borderColor: "rgba(61,168,95,0.30)",
+  },
+  upgradeModulesCount: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 0.8,
+    color: "#1F6B38",
+  },
+  upgradeScanLine: {
+    position: "absolute",
+    left: -8,
+    right: -8,
+    height: 40,
+    backgroundColor: "rgba(61,168,95,0.10)",
+    borderRadius: 4,
+    zIndex: 1,
+  },
+  upgradeModuleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FBFEFB",
+    borderWidth: 1,
+    borderColor: "rgba(61,168,95,0.32)",
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 5,
+    gap: 9,
+    position: "relative",
+    zIndex: 2,
+  },
+  upgradeModuleDots: {
+    position: "absolute",
+    top: 5,
+    right: 5,
+    flexDirection: "row",
+    gap: 1.5,
+  },
+  upgradeModuleDot: { width: 3, height: 3, borderRadius: 1.5 },
+  upgradeModuleCode: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1,
+    color: "rgba(31,107,56,0.55)",
+  },
+  upgradeModuleIcon: {
+    width: 34,
+    height: 34,
+    borderRadius: 6,
+    borderWidth: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  upgradeModuleTextCol: { flex: 1 },
+  upgradeModuleTitleRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+    marginBottom: 1,
+  },
+  upgradeModuleTitle: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 14,
+    color: paper.dashboardInk,
+  },
+  upgradeModuleTag: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
+  },
+  upgradeModuleDesc: {
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 10.5,
+    lineHeight: 13,
+    color: "#555",
+  },
+  upgradeModuleCheck: {
+    width: 18,
+    height: 18,
+    borderRadius: 9,
     backgroundColor: paper.bandPrime,
     borderWidth: 1,
     borderColor: "rgba(10,27,46,0.12)",
     alignItems: "center",
     justifyContent: "center",
-    marginTop: 1,
   },
-  upgradePlans: {
-    gap: paperSpacing.sm,
+
+  // Plans
+  upgradePlansSection: { gap: paperSpacing.sm, marginBottom: paperSpacing.md },
+  upgradePlansEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 2,
+    color: "#444",
+    marginBottom: 4,
   },
-  upgradePlanCopy: {
-    flex: 1,
-    minWidth: 0,
+  upgradeAnnualWrap: { position: "relative" },
+  upgradeBestStamp: {
+    position: "absolute",
+    top: -10,
+    right: 8,
+    zIndex: 4,
+    transform: [{ rotate: "4deg" }],
   },
-  upgradePriceRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-    marginLeft: paperSpacing.sm,
-  },
-  upgradePlanDisabled: {
-    opacity: 0.72,
-  },
-  upgradePrimary: {
-    minHeight: 56,
+  upgradeAnnualCta: {
+    minHeight: 64,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 12,
     backgroundColor: paper.dashboardInk,
-    borderRadius: 8,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: paper.dashboardInk,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm,
+    paddingHorizontal: 14,
+    paddingVertical: 12,
+    overflow: "hidden",
+    position: "relative",
   },
-  upgradePrimaryPressed: {
-    opacity: 0.84,
+  upgradeAnnualCtaPressed: { opacity: 0.86 },
+  upgradeCtaShimmer: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    width: 110,
+    backgroundColor: "rgba(255,255,255,0.10)",
   },
-  upgradePrimaryText: {
+  upgradeAnnualLeft: { flex: 1, minWidth: 0 },
+  upgradeAnnualEyebrowRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+  },
+  upgradeAnnualIconTile: {
+    width: 22,
+    height: 22,
+    borderRadius: 5,
+    backgroundColor: paper.bandFair,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  upgradeAnnualEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
-    letterSpacing: 2,
+    letterSpacing: 1.8,
     color: "#FFFFFF",
   },
-  upgradePrimarySubtext: {
+  upgradeAnnualSubtext: {
     fontFamily: paperFonts.displayItalic,
     fontStyle: "italic",
-    fontSize: 12,
+    fontSize: 12.5,
     lineHeight: 17,
-    color: "rgba(255,255,255,0.78)",
-    marginTop: 3,
+    color: "rgba(255,255,255,0.74)",
+    marginTop: 4,
   },
-  upgradePrimaryPrice: {
+  upgradeAnnualRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  upgradeAnnualPriceCol: { alignItems: "flex-end" },
+  upgradeAnnualPrice: {
     fontFamily: paperFonts.display,
-    fontSize: 21,
+    fontSize: 22,
     lineHeight: 24,
-    fontWeight: "700",
-    letterSpacing: 0,
     color: "#FFFFFF",
+    letterSpacing: -0.5,
   },
+  upgradeAnnualPriceUnit: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1.2,
+    color: "rgba(255,255,255,0.62)",
+    marginTop: 1,
+  },
+  upgradeAnnualArrowTile: {
+    width: 28,
+    height: 28,
+    borderRadius: 6,
+    backgroundColor: "#FFFFFF",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
   upgradeMonthly: {
-    minHeight: 52,
+    minHeight: 56,
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
     gap: 12,
     borderWidth: 1.25,
     borderColor: paper.dashboardInk,
-    borderRadius: 8,
+    borderRadius: 10,
     backgroundColor: "#FFFFFF",
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm,
+    paddingHorizontal: 14,
+    paddingVertical: 10,
   },
-  upgradeMonthlyText: {
+  upgradeMonthlyPressed: { opacity: 0.82 },
+  upgradeMonthlyLeft: { flex: 1, minWidth: 0 },
+  upgradeMonthlyEyebrowRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  upgradeMonthlyEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10.5,
     letterSpacing: 1.8,
@@ -2828,14 +3948,23 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
     marginTop: 3,
   },
+  upgradeMonthlyPriceCol: { alignItems: "flex-end" },
   upgradeMonthlyPrice: {
     fontFamily: paperFonts.display,
     fontSize: 19,
-    lineHeight: 23,
-    fontWeight: "700",
-    letterSpacing: 0,
+    lineHeight: 21,
     color: paper.dashboardInk,
+    letterSpacing: -0.4,
   },
+  upgradeMonthlyPriceUnit: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
+    marginTop: 1,
+  },
+
+  upgradePlanDisabled: { opacity: 0.72 },
   upgradeLoading: {
     minHeight: 54,
     flexDirection: "row",
@@ -2861,19 +3990,61 @@ const styles = StyleSheet.create({
     textAlign: "center",
     marginTop: paperSpacing.sm,
   },
-  upgradeSecondary: {
+  upgradeKeepPreview: {
     alignItems: "center",
     justifyContent: "center",
     paddingVertical: paperSpacing.sm,
     marginTop: paperSpacing.xs,
   },
-  upgradeSecondaryPressed: {
-    opacity: 0.68,
-  },
-  upgradeSecondaryText: {
+  upgradeKeepPreviewPressed: { opacity: 0.6 },
+  upgradeKeepPreviewText: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
     letterSpacing: 1.7,
+    color: paper.dashboardMuted,
+  },
+
+  // Footer
+  upgradeFooter: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+    paddingTop: 10,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(0,0,0,0.10)",
+  },
+  upgradeFooterLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 6,
+  },
+  upgradeFooterStamp: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.4,
+    color: paper.dashboardMuted,
+  },
+  upgradeFooterRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+  },
+  upgradeFooterLiveDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: paper.bandPrime,
+  },
+  upgradeSignalBars: {
+    flexDirection: "row",
+    alignItems: "flex-end",
+    gap: 1.5,
+  },
+  upgradeSignalBar: { width: 2, borderRadius: 1 },
+  upgradeFooterSecure: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    letterSpacing: 1.4,
     color: paper.dashboardMuted,
   },
 

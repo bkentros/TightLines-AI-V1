@@ -114,5 +114,8 @@
     "tsx": "^4.21.0",
     "typescript": "~5.9.2"
   },
+  "overrides": {
+    "postcss": "^8.5.10"
+  },
   "private": true
 }

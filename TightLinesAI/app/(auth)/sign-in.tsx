@@ -34,6 +34,7 @@ import {
 import { useAuthStore } from '../../store/authStore';
 import {
   AuthBackButton,
+  AuthBrandRibbon,
   AuthDivider,
   AuthField,
   AuthFooterStamp,
@@ -148,6 +149,7 @@ export default function SignInScreen() {
             showsVerticalScrollIndicator={false}
           >
             <View style={styles.topSection}>
+              <AuthBrandRibbon />
               <AuthBackButton onPress={() => router.back()} />
 
               <AuthHeader

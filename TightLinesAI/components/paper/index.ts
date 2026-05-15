@@ -27,3 +27,5 @@ export {
 export { PaperNavHeader } from './PaperNavHeader';
 export { PaperColophon } from './PaperColophon';
 export { PaperBestValueStamp } from './PaperBestValueStamp';
+export { BrandEmblem } from './BrandEmblem';
+export { BrandScopeStage } from './BrandScopeStage';

@@ -1,13 +1,29 @@
 /**
- * Sign-up screen — FinFindr dashboard language.
+ * Sign-up screen — FinFindr paper edition (premium intake form).
  *
- * All validation, rate-limit, duplicate-account handling, and navigation
- * behavior are preserved exactly from the previous version. Only the
- * presentation layer was migrated.
+ * Validation, rate-limit, duplicate-account handling, and navigation
+ * behavior are preserved EXACTLY from the previous version. Only the
+ * presentation layer was rebuilt to match the renovated welcome screen.
+ *
+ * Visual intent
+ *  - "FIELD INTAKE / NEW ANGLER" rubric strip + 3-step progress beacon
+ *    so the user sees they're at step 1 of "INTAKE → VERIFY → SETUP."
+ *  - Editorial hero matching the welcome screen: small brand emblem on
+ *    the left of a Fraunces serif title with italic accent, rule, and
+ *    italic dek.
+ *  - Each form field is presented as a numbered "intake line"
+ *    (01 / 02 / 03) with hairline-tinted ordinal markers — the form
+ *    reads like a field requisition rather than a generic input list.
+ *  - Topographic backdrop on the hero card.
+ *  - Edition stamp + trust line at the bottom (preserved).
+ *
+ * No business logic touched.
  */
 
 import { useState, useEffect, useRef } from 'react';
 import {
+  Animated,
+  Easing,
   View,
   Text,
   StyleSheet,
@@ -15,6 +31,9 @@ import {
   KeyboardAvoidingView,
   Platform,
   ScrollView,
+  Image,
+  TextInput,
+  type TextInputProps,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { SafeAreaView } from 'react-native-safe-area-context';
@@ -35,11 +54,10 @@ import {
   isPasswordValid,
   PASSWORD_POLICY_LABEL,
 } from '../../lib/passwordValidation';
+import { TopographicLines } from '../../components/paper';
 import {
   AuthBackButton,
-  AuthField,
   AuthFooterStamp,
-  AuthHeader,
   AuthNotice,
   AuthPrimaryButton,
   AuthTextLink,
@@ -56,6 +74,12 @@ type Notice = {
   actionLabel?: string;
   onAction?: () => void;
 };
+
+const STEPS: { numeral: string; label: string }[] = [
+  { numeral: '01', label: 'INTAKE' },
+  { numeral: '02', label: 'VERIFY' },
+  { numeral: '03', label: 'SETUP' },
+];
 
 export default function SignUpScreen() {
   const router = useRouter();
@@ -75,7 +99,30 @@ export default function SignUpScreen() {
 
   const emailDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Restore cooldown from storage on mount, then count down every second (no async in interval so UI updates reliably)
+  // Live pulse on the eyebrow dot
+  const livePulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(livePulse, {
+          toValue: 0.4,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(livePulse, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [livePulse]);
+
+  // Restore cooldown from storage on mount, then count down every second
   useEffect(() => {
     (async () => {
       const raw = await AsyncStorage.getItem(RATE_LIMIT_STORAGE_KEY);
@@ -100,8 +147,6 @@ export default function SignUpScreen() {
     return () => clearInterval(id);
   }, []);
 
-  // Real-time email: shape + known mailbox domains (green only when both pass).
-  // Inbox existence is still verified by Supabase confirmation email.
   const validateEmailFormat = (value: string) => {
     const trimmed = value.trim().toLowerCase();
     if (!trimmed) {
@@ -257,9 +302,6 @@ export default function SignUpScreen() {
             onAction: () => router.replace('/(auth)/sign-in'),
           });
         } else {
-          // New unverified account — go to verify screen.
-          // Pass the email as a param so the verify screen can show it and resend.
-          // Do NOT set session here — route guard must not fire until email verified.
           router.push({ pathname: '/(auth)/verify-email', params: { email: trimmedEmail } });
         }
       }
@@ -280,6 +322,13 @@ export default function SignUpScreen() {
       ? `TRY AGAIN IN ${Math.floor(cooldownSeconds / 60)}:${(cooldownSeconds % 60).toString().padStart(2, '0')}`
       : null;
 
+  // Edition rubric
+  const today = new Date();
+  const editionMonth = today
+    .toLocaleString('en-US', { month: 'short' })
+    .toUpperCase();
+  const editionYear = today.getFullYear();
+
   return (
     <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
@@ -292,16 +341,106 @@ export default function SignUpScreen() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            <View style={styles.topSection}>
+            {/* ─── Top rail: back chip + edition rubric ──────────────── */}
+            <View style={styles.topRail}>
               <AuthBackButton onPress={() => router.back()} />
-
-              <AuthHeader
-                eyebrow="— FINFINDR · NEW ACCOUNT —"
-                title={'Create\naccount.'}
-                subtitle="Set up your reports and tackle picks before your next trip."
-              />
+              <Text style={styles.editionRubric}>
+                {editionMonth} {editionYear}
+              </Text>
             </View>
 
+            {/* ─── Hero — premium intake masthead ──────────────────────── */}
+            <View style={styles.hero}>
+              <TopographicLines
+                style={styles.heroTopo}
+                color={paper.dashboardInk}
+                count={5}
+              />
+
+              <View style={styles.heroRubricRow}>
+                <View style={styles.heroRubricRule} />
+                <Text style={styles.heroRubricText}>
+                  FIELD INTAKE · NEW ANGLER
+                </Text>
+                <View style={styles.heroRubricRule} />
+              </View>
+
+              <View style={styles.heroLockup}>
+                <Image
+                  source={require('../../assets/images/finfindr-logo.png')}
+                  style={styles.heroEmblem}
+                  resizeMode="contain"
+                />
+                <View style={styles.heroLockupText}>
+                  <View style={styles.eyebrowRow}>
+                    <View style={styles.eyebrowPulseWrap}>
+                      <View style={styles.eyebrowPulseRing} />
+                      <Animated.View
+                        style={[styles.eyebrowPulseDot, { opacity: livePulse }]}
+                      />
+                    </View>
+                    <Text style={styles.eyebrowText}>FINFINDR · NEW ACCOUNT</Text>
+                  </View>
+                  <Text style={styles.heroTitle}>
+                    Create{'\n'}
+                    <Text style={styles.heroTitleItalic}>account</Text>
+                    <Text style={styles.heroTitleDot}>.</Text>
+                  </Text>
+                  <View style={styles.heroRule} />
+                </View>
+              </View>
+
+              <Text style={styles.heroDek}>
+                Set up your reports and tackle picks before your next trip —
+                takes about a minute.
+              </Text>
+            </View>
+
+            {/* ─── Step beacons — 01 INTAKE · 02 VERIFY · 03 SETUP ────── */}
+            <View style={styles.beacons}>
+              {STEPS.map((step, idx) => {
+                const isActive = idx === 0;
+                const isPast = idx < 0;
+                return (
+                  <View key={step.numeral} style={styles.beaconCol}>
+                    <View
+                      style={[
+                        styles.beaconDot,
+                        isActive && styles.beaconDotActive,
+                        isPast && styles.beaconDotPast,
+                      ]}
+                    >
+                      <Text
+                        style={[
+                          styles.beaconNumeral,
+                          (isActive || isPast) && styles.beaconNumeralActive,
+                        ]}
+                      >
+                        {step.numeral}
+                      </Text>
+                    </View>
+                    <Text
+                      style={[
+                        styles.beaconLabel,
+                        isActive && styles.beaconLabelActive,
+                      ]}
+                    >
+                      {step.label}
+                    </Text>
+                    {idx < STEPS.length - 1 ? (
+                      <View
+                        style={[
+                          styles.beaconConnector,
+                          isActive && styles.beaconConnectorActive,
+                        ]}
+                      />
+                    ) : null}
+                  </View>
+                );
+              })}
+            </View>
+
+            {/* ─── Form — numbered intake lines ────────────────────────── */}
             <View style={styles.form}>
               {notice ? (
                 <AuthNotice
@@ -313,82 +452,97 @@ export default function SignUpScreen() {
                 />
               ) : null}
 
-              <AuthField
-                label="Email"
-                value={email}
-                onChangeText={handleEmailChange}
-                placeholder="you@example.com"
-                keyboardType="email-address"
-                autoCapitalize="none"
-                autoCorrect={false}
-                autoComplete="email"
-                textContentType="emailAddress"
-                returnKeyType="next"
-                status={emailStatus === 'idle' ? undefined : emailStatus}
-                errorText={emailStatus === 'invalid' ? emailError : undefined}
-              />
+              <IntakeLine
+                ordinal="01"
+                label="EMAIL"
+                hint="Where we'll send your verification link"
+                status={emailStatus}
+                error={emailStatus === 'invalid' ? emailError : undefined}
+              >
+                <FieldInput
+                  value={email}
+                  onChangeText={handleEmailChange}
+                  placeholder="you@example.com"
+                  keyboardType="email-address"
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  autoComplete="email"
+                  textContentType="emailAddress"
+                  returnKeyType="next"
+                  status={emailStatus}
+                />
+              </IntakeLine>
 
-              <AuthField
-                label="Password"
-                value={password}
-                onChangeText={handlePasswordChange}
-                placeholder={PASSWORD_POLICY_LABEL}
-                secureTextEntry={!showPassword}
-                autoCapitalize="none"
-                autoCorrect={false}
-                autoComplete="new-password"
-                textContentType="newPassword"
-                returnKeyType="next"
-                reserveTrailingSpace
-                trailing={
-                  <Pressable
-                    onPress={() => setShowPassword((v) => !v)}
-                    hitSlop={8}
-                  >
-                    <Ionicons
-                      name={showPassword ? 'eye-off-outline' : 'eye-outline'}
-                      size={18}
-                      color={paper.dashboardInk}
-                    />
-                  </Pressable>
-                }
-              />
-
-              <AuthField
-                label="Confirm password"
-                value={confirmPassword}
-                onChangeText={handleConfirmChange}
-                placeholder="Re-enter your password"
-                secureTextEntry={!showConfirm}
-                autoCapitalize="none"
-                autoCorrect={false}
-                autoComplete="new-password"
-                textContentType="newPassword"
-                returnKeyType="done"
-                onSubmitEditing={handleSignUp}
-                status={confirmStatus === 'idle' ? undefined : confirmStatus}
-                errorText={confirmStatus === 'invalid' ? 'Passwords do not match' : undefined}
-                successText={confirmStatus === 'valid' ? 'Passwords match' : undefined}
-                reserveTrailingSpace
-                trailing={
-                  <Pressable
-                    onPress={() => setShowConfirm((v) => !v)}
-                    hitSlop={8}
-                  >
-                    {confirmStatus === 'valid' ? (
-                      <Ionicons name="checkmark-circle" size={18} color={paper.dashboardBlue} />
-                    ) : confirmStatus === 'invalid' ? (
-                      <Ionicons name="close-circle" size={18} color={paper.dashboardBlue} />
-                    ) : (
+              <IntakeLine
+                ordinal="02"
+                label="PASSWORD"
+                hint={PASSWORD_POLICY_LABEL}
+              >
+                <FieldInput
+                  value={password}
+                  onChangeText={handlePasswordChange}
+                  placeholder="Set a strong password"
+                  secureTextEntry={!showPassword}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  autoComplete="new-password"
+                  textContentType="newPassword"
+                  returnKeyType="next"
+                  trailing={
+                    <Pressable
+                      onPress={() => setShowPassword((v) => !v)}
+                      hitSlop={8}
+                    >
                       <Ionicons
-                        name={showConfirm ? 'eye-off-outline' : 'eye-outline'}
+                        name={showPassword ? 'eye-off-outline' : 'eye-outline'}
                         size={18}
                         color={paper.dashboardInk}
                       />
-                    )}
-                  </Pressable>
-                }
-              />
+                    </Pressable>
+                  }
+                />
+              </IntakeLine>
+
+              <IntakeLine
+                ordinal="03"
+                label="CONFIRM"
+                hint="Re-enter your password"
+                status={confirmStatus}
+                error={confirmStatus === 'invalid' ? 'Passwords do not match' : undefined}
+                success={confirmStatus === 'valid' ? 'Passwords match' : undefined}
+              >
+                <FieldInput
+                  value={confirmPassword}
+                  onChangeText={handleConfirmChange}
+                  placeholder="Re-enter your password"
+                  secureTextEntry={!showConfirm}
+                  autoCapitalize="none"
+                  autoCorrect={false}
+                  autoComplete="new-password"
+                  textContentType="newPassword"
+                  returnKeyType="done"
+                  onSubmitEditing={handleSignUp}
+                  status={confirmStatus}
+                  trailing={
+                    <Pressable
+                      onPress={() => setShowConfirm((v) => !v)}
+                      hitSlop={8}
+                    >
+                      {confirmStatus === 'valid' ? (
+                        <Ionicons name="checkmark-circle" size={18} color={paper.bandPrime} />
+                      ) : confirmStatus === 'invalid' ? (
+                        <Ionicons name="close-circle" size={18} color={paper.bandTough} />
+                      ) : (
+                        <Ionicons
+                          name={showConfirm ? 'eye-off-outline' : 'eye-outline'}
+                          size={18}
+                          color={paper.dashboardInk}
+                        />
+                      )}
+                    </Pressable>
+                  }
+                />
+              </IntakeLine>
 
               <Text style={styles.tosText}>
                 By creating an account you agree to our{' '}
@@ -397,6 +551,7 @@ export default function SignUpScreen() {
               </Text>
             </View>
 
+            {/* ─── Actions ───────────────────────────────────────────────── */}
             <View style={styles.actions}>
               <AuthPrimaryButton
                 label={cooldownLabel ?? 'Create account'}
@@ -405,6 +560,24 @@ export default function SignUpScreen() {
                 disabled={!canSubmit}
                 onPress={handleSignUp}
               />
+
+              {/* Trust strip */}
+              <View style={styles.trustStrip}>
+                <View style={styles.trustItem}>
+                  <Ionicons name="lock-closed-outline" size={11} color={paper.dashboardInk} />
+                  <Text style={styles.trustText}>ENCRYPTED</Text>
+                </View>
+                <View style={styles.trustDivider} />
+                <View style={styles.trustItem}>
+                  <Ionicons name="shield-checkmark-outline" size={11} color={paper.dashboardInk} />
+                  <Text style={styles.trustText}>NO RESALE</Text>
+                </View>
+                <View style={styles.trustDivider} />
+                <View style={styles.trustItem}>
+                  <Ionicons name="boat-outline" size={11} color={paper.dashboardInk} />
+                  <Text style={styles.trustText}>ANGLER-OWNED</Text>
+                </View>
+              </View>
 
               <AuthTextLink
                 leadText="Already have an account?"
@@ -421,6 +594,99 @@ export default function SignUpScreen() {
   );
 }
 
+// ─── Inline primitives ───────────────────────────────────────────────────
+
+/**
+ * IntakeLine — a labeled "field requisition" row. Hairline numbered
+ * ordinal on the left ("01" / "02" / "03") with a faint blue rule
+ * underneath, then a label + italic hint, the input itself, and a
+ * tonal status message on the bottom.
+ */
+function IntakeLine({
+  ordinal,
+  label,
+  hint,
+  status,
+  error,
+  success,
+  children,
+}: {
+  ordinal: string;
+  label: string;
+  hint?: string;
+  status?: FieldStatus;
+  error?: string;
+  success?: string;
+  children: React.ReactNode;
+}) {
+  return (
+    <View style={styles.line}>
+      <View style={styles.lineHeader}>
+        <View style={styles.lineOrdinalCol}>
+          <Text style={styles.lineOrdinal}>{ordinal}</Text>
+          <View style={styles.lineOrdinalRule} />
+        </View>
+        <View style={styles.lineLabelWrap}>
+          <Text style={styles.lineLabel}>{label}</Text>
+          {hint ? <Text style={styles.lineHint}>{hint}</Text> : null}
+        </View>
+        <View style={styles.lineStatusCap}>
+          {status === 'valid' ? (
+            <Ionicons name="checkmark" size={11} color={paper.bandPrime} />
+          ) : status === 'invalid' ? (
+            <Ionicons name="close" size={11} color={paper.bandTough} />
+          ) : (
+            <Text style={styles.lineStatusEllipsis}>···</Text>
+          )}
+        </View>
+      </View>
+      <View style={styles.lineInputWrap}>{children}</View>
+      {error ? (
+        <Text style={styles.lineError}>{error}</Text>
+      ) : success ? (
+        <Text style={styles.lineSuccess}>{success}</Text>
+      ) : null}
+    </View>
+  );
+}
+
+/**
+ * FieldInput — a small wrapper around the AuthField visuals so
+ * IntakeLine can supply its own label + hint chrome above the input.
+ * Borrows the border-tint pattern and trailing slot.
+ */
+function FieldInput({
+  status,
+  trailing,
+  ...inputProps
+}: TextInputProps & {
+  status?: FieldStatus;
+  trailing?: React.ReactNode;
+}) {
+  const borderColor =
+    status === 'valid' ? paper.bandPrime
+    : status === 'invalid' ? paper.bandTough
+    : paper.dashboardLine;
+  const showTrailing = trailing !== undefined;
+  return (
+    <View style={[styles.input, { borderColor }]}>
+      <TextInput
+        placeholderTextColor={paper.dashboardMuted}
+        {...inputProps}
+        style={[
+          styles.inputText,
+          showTrailing && styles.inputTextWithTrailing,
+        ]}
+      />
+      {showTrailing ? (
+        <View style={styles.trailingSlot} pointerEvents="box-none">
+          {trailing}
+        </View>
+      ) : null}
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
@@ -429,15 +695,324 @@ const styles = StyleSheet.create({
     flexGrow: 1,
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xl + paperSpacing.lg,
-    paddingTop: paperSpacing.md,
-    gap: paperSpacing.xl,
-  },
-  topSection: {
-    gap: paperSpacing.xl,
-  },
-  form: {
+    paddingTop: paperSpacing.sm,
     gap: paperSpacing.md,
   },
+
+  // ── Top rail ──────────────────────────────────────────────────────────
+  topRail: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  editionRubric: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardInk,
+    letterSpacing: 2.4,
+    opacity: 0.5,
+  },
+
+  // ── Hero ──────────────────────────────────────────────────────────────
+  hero: {
+    position: 'relative',
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    paddingHorizontal: paperSpacing.md + 2,
+    paddingTop: paperSpacing.md,
+    paddingBottom: paperSpacing.md,
+    overflow: 'hidden',
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 5 },
+  },
+  heroTopo: {
+    position: 'absolute',
+    top: 0,
+    left: 0,
+    right: 0,
+    bottom: 0,
+    opacity: 0.32,
+  },
+  heroRubricRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 2,
+    marginBottom: paperSpacing.sm,
+    zIndex: 1,
+  },
+  heroRubricRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.35,
+  },
+  heroRubricText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardInk,
+    letterSpacing: 2.4,
+    opacity: 0.7,
+  },
+  heroLockup: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.md,
+    zIndex: 1,
+  },
+  heroEmblem: {
+    width: 50,
+    height: 64,
+  },
+  heroLockupText: {
+    flex: 1,
+  },
+  eyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    marginBottom: 4,
+  },
+  eyebrowPulseWrap: {
+    width: 9,
+    height: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eyebrowPulseRing: {
+    position: 'absolute',
+    width: 9,
+    height: 9,
+    borderRadius: 4.5,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.45,
+  },
+  eyebrowPulseDot: {
+    width: 4.5,
+    height: 4.5,
+    borderRadius: 2.25,
+    backgroundColor: paper.dashboardBlue,
+  },
+  eyebrowText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    color: paper.dashboardBlue,
+    letterSpacing: 2.6,
+  },
+  heroTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 30,
+    color: paper.dashboardInk,
+    fontWeight: '700',
+    letterSpacing: -0.4,
+    lineHeight: 33,
+  },
+  heroTitleItalic: {
+    fontFamily: paperFonts.displayItalic,
+    color: paper.dashboardInk,
+  },
+  heroTitleDot: {
+    color: paper.dashboardBlue,
+  },
+  heroRule: {
+    width: 36,
+    height: 2,
+    backgroundColor: paper.dashboardBlue,
+    borderRadius: 1,
+    marginTop: 6,
+  },
+  heroDek: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 13,
+    color: paper.dashboardInk,
+    opacity: 0.75,
+    lineHeight: 18,
+    marginTop: paperSpacing.sm,
+    zIndex: 1,
+  },
+
+  // ── Step beacons ──────────────────────────────────────────────────────
+  beacons: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    paddingHorizontal: 2,
+    marginTop: paperSpacing.xs,
+  },
+  beaconCol: {
+    flex: 1,
+    alignItems: 'center',
+    position: 'relative',
+  },
+  beaconDot: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  beaconDotActive: {
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlue,
+  },
+  beaconDotPast: {
+    borderColor: paper.bandPrime,
+    backgroundColor: paper.bandPrime,
+  },
+  beaconNumeral: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardInk,
+    letterSpacing: 0.5,
+    opacity: 0.5,
+  },
+  beaconNumeralActive: {
+    color: '#FFFFFF',
+    opacity: 1,
+  },
+  beaconLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardInk,
+    letterSpacing: 1.6,
+    opacity: 0.55,
+    marginTop: 4,
+  },
+  beaconLabelActive: {
+    color: paper.dashboardBlue,
+    opacity: 1,
+  },
+  beaconConnector: {
+    position: 'absolute',
+    top: 13,
+    left: '60%',
+    right: '-40%',
+    height: 1,
+    backgroundColor: paper.dashboardLine,
+  },
+  beaconConnectorActive: {
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.5,
+  },
+
+  // ── Form — intake lines ───────────────────────────────────────────────
+  form: {
+    gap: paperSpacing.md,
+    marginTop: paperSpacing.xs,
+  },
+  line: {
+    gap: 6,
+  },
+  lineHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+  },
+  lineOrdinalCol: {
+    width: 26,
+    alignItems: 'center',
+  },
+  lineOrdinal: {
+    fontFamily: paperFonts.display,
+    fontSize: 14,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
+    letterSpacing: 0,
+    lineHeight: 16,
+  },
+  lineOrdinalRule: {
+    width: 14,
+    height: 1,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.5,
+    marginTop: 2,
+  },
+  lineLabelWrap: {
+    flex: 1,
+    gap: 1,
+  },
+  lineLabel: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10.5,
+    color: paper.dashboardInk,
+    letterSpacing: 2.4,
+  },
+  lineHint: {
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 11.5,
+    color: paper.dashboardInk,
+    opacity: 0.55,
+    lineHeight: 14,
+  },
+  lineStatusCap: {
+    width: 22,
+    height: 22,
+    borderRadius: 11,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  lineStatusEllipsis: {
+    fontFamily: paperFonts.body,
+    fontSize: 10,
+    color: paper.dashboardInk,
+    opacity: 0.4,
+    lineHeight: 11,
+  },
+  lineInputWrap: {
+    paddingLeft: 0,
+  },
+  lineError: {
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 11.5,
+    color: paper.bandTough,
+    letterSpacing: 0.1,
+    paddingLeft: 34,
+  },
+  lineSuccess: {
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 11.5,
+    color: paper.bandPrime,
+    letterSpacing: 0.1,
+    paddingLeft: 34,
+  },
+
+  // ── Inputs ────────────────────────────────────────────────────────────
+  input: {
+    position: 'relative',
+    borderWidth: 1,
+    borderRadius: 12,
+    backgroundColor: paper.dashboardWhite,
+  },
+  inputText: {
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: 14,
+    fontFamily: paperFonts.body,
+    fontSize: 16,
+    color: paper.dashboardInk,
+  },
+  inputTextWithTrailing: {
+    paddingRight: 44,
+  },
+  trailingSlot: {
+    position: 'absolute',
+    right: 10,
+    top: 0,
+    bottom: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  // ── TOS ───────────────────────────────────────────────────────────────
   tosText: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 12.5,
@@ -452,7 +1027,34 @@ const styles = StyleSheet.create({
     opacity: 1,
     letterSpacing: 0.3,
   },
+
+  // ── Actions ───────────────────────────────────────────────────────────
   actions: {
     gap: paperSpacing.sm,
+  },
+  trustStrip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: paperSpacing.sm,
+    paddingTop: paperSpacing.xs,
+  },
+  trustItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  trustText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardInk,
+    letterSpacing: 1.6,
+    opacity: 0.55,
+  },
+  trustDivider: {
+    width: 1,
+    height: 9,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.25,
   },
 });
