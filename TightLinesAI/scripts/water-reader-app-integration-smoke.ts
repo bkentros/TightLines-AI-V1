@@ -22,6 +22,7 @@ const serverHelperSource = readFileSync('supabase/functions/_shared/waterReaderR
 const serverContractsSource = readFileSync('supabase/functions/_shared/waterReaderRead/contracts.ts', 'utf8');
 const cacheBuilderSource = readFileSync('scripts/water-reader-build-read-cache.ts', 'utf8');
 const migrationSource = readFileSync('supabase/migrations/202605030001_water_reader_engine_read_cache.sql', 'utf8');
+const queueMigrationSource = readFileSync('supabase/migrations/20260515120000_water_reader_generation_queue_history.sql', 'utf8');
 const searchFunctionSource = readFileSync('supabase/functions/waterbody-search/index.ts', 'utf8');
 const aliasSeedMigrationSource = readFileSync('supabase/migrations/20260507211500_seed_waterbody_search_aliases.sql', 'utf8');
 const sharedStatesMigrationSource = readFileSync('supabase/migrations/20260507214500_waterbody_shared_states.sql', 'utf8');
@@ -34,6 +35,14 @@ const responseShape: Pick<WaterReaderReadResponse, 'feature' | 'productionSvgRes
   feature: WATER_READER_READ_FEATURE,
   productionSvgResult: null,
   fallbackMessage: 'controlled fallback',
+};
+const pendingResponseShape: Pick<WaterReaderReadResponse, 'feature' | 'productionSvgResult' | 'fallbackMessage' | 'generationStatus' | 'generationJobId' | 'retryAfterMs'> = {
+  feature: WATER_READER_READ_FEATURE,
+  productionSvgResult: null,
+  fallbackMessage: null,
+  generationStatus: 'queued',
+  generationJobId: '00000000-0000-4000-8000-000000000002',
+  retryAfterMs: 4000,
 };
 const leaderPaperifyFixture = `<svg viewBox="0 0 200 200"><defs></defs><path class="water-reader-label-leader" d="M 106.72 188.74 L 106.72 220.68" fill="none" stroke="#0F172A" stroke-width="1" stroke-opacity="0.5" stroke-linecap="round"/></svg>`;
 const paperifiedLeaderFixture = paperifyWaterReaderSvg(leaderPaperifyFixture).svg;
@@ -59,6 +68,7 @@ const islandSaddleConfluenceFixture = pickLegendBody({
 
 assert(requestShape.lakeId.length > 0, 'read request contract should include lakeId');
 assert(responseShape.feature === 'water_reader_read_v1', 'read response feature marker should be stable');
+assert(pendingResponseShape.generationStatus === 'queued' && pendingResponseShape.productionSvgResult === null, 'pending read response contract should be representable');
 assert(legendCopyQuality.ok, `legend guide copy should stay compact/public: ${JSON.stringify(legendCopyQuality.issues.slice(0, 5))}`);
 assert(legendCopyQuality.checked > 500, 'legend guide copy should cover a deep standalone and confluence template pool');
 assert(pointCoveConfluenceFixture.toLowerCase().includes('mouth') || pointCoveConfluenceFixture.toLowerCase().includes('cove'), 'point+cove confluence should use mouth/cove-specific guidance');
@@ -68,15 +78,18 @@ assert(paperifiedLeaderFixture.includes('stroke-linecap="round" stroke-dasharray
 assert(clientSource.includes('export async function fetchWaterReaderRead'), 'fetchWaterReaderRead should be exported');
 assert(clientSource.includes('invokeEdgeFunction<WaterReaderReadResponse>("water-reader-read"'), 'client should call water-reader-read edge function');
 assert(contractSource.includes('export interface WaterReaderReadResponse'), 'app read response contract should exist');
+assert(contractSource.includes('generationStatus?: WaterReaderGenerationStatus'), 'app read response should expose generation status');
+assert(contractSource.includes('generationJobId?: string | null'), 'app read response should expose generation job id');
+assert(contractSource.includes('retryAfterMs?: number | null'), 'app read response should expose retry-after polling hint');
 assert(contractSource.includes('legendEntries: WaterReaderProductionSvgLegendEntry[]'), 'app SVG contract should expose native legend entries');
 assert(contractSource.includes('featureClasses?: Exclude<WaterReaderProductionSvgFeatureClass'), 'app legend entries should expose confluence member feature classes');
-// v5 marks the dashboard-native renderer (off-white land, blue water,
-// high-signal zones, and outside-perimeter callout labels). Bumping the
-// constant intentionally invalidates the v4 paper/beige cache. If the
-// renderer or palette changes again, bump this string and the constants in
-// the engine contracts + cache builder in the same change.
-assert(serverContractsSource.includes('water-reader-engine-v5-dashboard-map'), 'server read contract should use the v5 dashboard-map cache version');
-assert(cacheBuilderSource.includes('water-reader-engine-v5-dashboard-map'), 'cache builder should use the v5 dashboard-map cache version');
+// v6 keeps the dashboard-native renderer and refreshes the server-supplied
+// legend copy. Bumping the constant intentionally invalidates older cached
+// read rows. If renderer output, palette, or server read copy changes again,
+// bump this string and the constants in the engine contracts + cache builder
+// in the same change.
+assert(serverContractsSource.includes('water-reader-engine-v6-conservative-copy'), 'server read contract should use the v6 conservative-copy cache version');
+assert(cacheBuilderSource.includes('water-reader-engine-v6-conservative-copy'), 'cache builder should use the v6 conservative-copy cache version');
 const oldEngineVersionNeedle = ['water-reader-engine', 'v1'].join('-');
 assert(!serverContractsSource.includes(oldEngineVersionNeedle), 'server read contract should not use v1 cache version');
 assert(!cacheBuilderSource.includes(oldEngineVersionNeedle), 'cache builder should not use v1 cache version');
@@ -92,6 +105,9 @@ assert(!appSource.includes('fetchWaterbodyPolygon'), 'app screen should not fetc
 assert(appSource.includes('fetchWaterReaderRead({ lakeId })'), 'app screen should call server read after selection');
 assert(serverSource.includes('get_waterbody_polygon_runtime_for_reader'), 'server read endpoint should use runtime-safe polygon RPC');
 assert(serverSource.includes('water_reader_engine_read_cache'), 'server read endpoint should query cached reads');
+assert(serverSource.includes('ensure_water_reader_generation_job'), 'server read endpoint should ensure a queue job on cache miss');
+assert(serverSource.includes('water_reader_user_history'), 'server read endpoint should record user history rows');
+assert(serverSource.includes('pendingReadResponse'), 'server read endpoint should return a pending contract on queued cache miss');
 assert(serverSource.includes('waterbody_index'), 'server read endpoint should use lightweight metadata before runtime polygon fetch');
 assert(serverSource.indexOf('maybeSingle<CacheRow>()') < serverSource.indexOf('rpc("get_waterbody_polygon_runtime_for_reader"'), 'server read endpoint should check cache before runtime polygon fetch');
 assert(serverSource.includes('buildServerWaterReaderRead'), 'server read endpoint should generate on cache miss');
@@ -106,6 +122,10 @@ assert(serverSource.includes('edge_runtime_complexity_score'), 'server read endp
 assert(serverSource.includes('WATER_READER_ALLOW_EDGE_HEAVY_FALLBACK'), 'server read endpoint should require explicit opt-in before heavy local fallback');
 assert(serverSource.includes('.upsert({'), 'server read endpoint should write generated cache misses');
 assert(!serverSource.includes('This Water Reader map is still being prepared.'), 'cache miss should no longer return preparing fallback');
+assert(appSource.includes("status: 'preparing'"), 'app read state should recognize pending generation');
+assert(appSource.includes('WATER_READER_PENDING_MAX_MS'), 'app polling should have a max duration guard');
+assert(appSource.includes('pendingRetryDelayMs'), 'app polling should respect retryAfterMs with bounds');
+assert(appSource.includes('generationStatus') && appSource.includes("'queued'") && appSource.includes("'processing'"), 'app should poll queued/processing reads');
 assert(appSource.includes("r.hasPolygonGeometry && r.waterReaderSupportStatus !== 'not_supported'"), 'app should open every polygon-backed non-blocked support status');
 assert(appSource.includes('same-name') && appSource.includes('compare county and acres'), 'app should surface duplicate-name disambiguation copy');
 assert(appSource.includes('const SEARCH_RESULT_LIMIT = 20'), 'app search should request enough candidates for same-name lake discovery');
@@ -129,6 +149,13 @@ assert(serverHelperSource.includes('mapWidth: WATER_READER_APP_SVG_WIDTH'), 'sha
 assert(serverContractsSource.includes('WATER_READER_APP_SVG_WIDTH = 420'), 'server app SVG width should be 420');
 assert(migrationSource.includes('water_reader_engine_read_cache'), 'cache table migration should exist');
 assert(migrationSource.includes('primary key (lake_id, season_context_key, map_width, engine_version)'), 'cache table should prevent duplicate cache keys');
+assert(queueMigrationSource.includes('water_reader_generation_jobs'), 'queue migration should create generation jobs table');
+assert(queueMigrationSource.includes('water_reader_user_history'), 'queue migration should create user history table');
+assert(queueMigrationSource.includes('unique (lake_id, season_context_key, map_width, engine_version)'), 'queue jobs should be unique by cache key');
+assert(queueMigrationSource.includes('unique (user_id, lake_id, season_context_key, map_width, engine_version)'), 'history should be unique per user/cache key');
+assert(queueMigrationSource.includes('for update skip locked'), 'claim RPC should atomically claim one job');
+assert(queueMigrationSource.includes('mark_water_reader_generation_job_complete'), 'queue migration should include complete RPC');
+assert(queueMigrationSource.includes('mark_water_reader_generation_job_failed'), 'queue migration should include failed/retry RPC');
 
 console.log(JSON.stringify({
   ok: true,

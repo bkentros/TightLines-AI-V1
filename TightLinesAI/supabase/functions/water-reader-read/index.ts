@@ -81,6 +81,19 @@ interface WaterbodyMetadataRow {
   state_code: string | null;
 }
 
+interface GenerationJobRow {
+  id: string;
+  lake_id: string;
+  season_context_key: string;
+  map_width: number;
+  engine_version: string;
+  status: "queued" | "processing" | "complete" | "failed";
+  attempts: number;
+  max_attempts: number;
+  next_attempt_at: string;
+  last_error: string | null;
+}
+
 type CacheWriteResult = Pick<WaterReaderReadResponse, "cacheWriteStatus" | "cacheWriteError">;
 
 interface HeavyRouteInfo {
@@ -174,6 +187,10 @@ function routeAllCacheMissesThroughHeavyWorker(): boolean {
     Deno.env.get("WATER_READER_EDGE_INLINE_CACHE_MISSES") !== "true";
 }
 
+function allowInlineCacheMissGeneration(): boolean {
+  return Deno.env.get("WATER_READER_EDGE_INLINE_CACHE_MISSES") === "true";
+}
+
 function workerRouteInfo(heavy: HeavyRouteInfo): HeavyRouteInfo {
   if (heavy.heavy) return heavy;
   return {
@@ -262,6 +279,9 @@ function fallbackReadResponse(params: {
     seasonGroup: seasonContext.seasonGroup === "unknown" ? null : seasonContext.seasonGroup,
     productionSvgResult: null,
     fallbackMessage: params.fallbackMessage,
+    generationStatus: params.operationalDiagnostics?.code === "controlled_fallback_failed" ? "failed" : "ready",
+    generationJobId: null,
+    retryAfterMs: null,
     cacheStatus: "miss",
     seasonContextKey: seasonContext.seasonContextKey,
     mapWidth: WATER_READER_APP_SVG_WIDTH,
@@ -279,6 +299,147 @@ function fallbackReadResponse(params: {
       totalMs: (params.metadataMs ?? 0) + params.fetchMs + params.cacheMs,
     },
   };
+}
+
+function pendingReadResponse(params: {
+  polygon: WaterbodyPolygonForWaterReaderRead;
+  currentDate: Date;
+  job: GenerationJobRow;
+  fetchMs: number;
+  metadataMs?: number;
+  cacheMs: number;
+}): WaterReaderReadResponse {
+  const seasonContext = buildWaterReaderSeasonContext(params.polygon.state, params.currentDate);
+  const jobStatus = params.job.status === "processing"
+    ? "processing"
+    : params.job.status === "failed"
+      ? "failed"
+      : "queued";
+  const retryAfterMs = jobStatus === "failed" ? null : 4000;
+  return {
+    feature: WATER_READER_READ_FEATURE,
+    lakeId: params.polygon.lakeId,
+    name: params.polygon.name,
+    state: params.polygon.state,
+    county: params.polygon.county,
+    waterbodyType: params.polygon.waterbodyType,
+    centroid: params.polygon.centroid,
+    bbox: params.polygon.bbox,
+    areaSqM: params.polygon.areaSqM,
+    areaAcres: params.polygon.areaAcres,
+    perimeterM: params.polygon.perimeterM,
+    geometryIsValid: params.polygon.geometryIsValid,
+    geometryValidityDetail: params.polygon.geometryValidityDetail,
+    componentCount: params.polygon.componentCount,
+    interiorRingCount: params.polygon.interiorRingCount,
+    waterReaderSupportStatus: params.polygon.waterReaderSupportStatus,
+    waterReaderSupportReason: params.polygon.waterReaderSupportReason,
+    polygonQaFlags: params.polygon.polygonQaFlags,
+    originalVertexCount: params.polygon.originalVertexCount,
+    runtimeVertexCount: params.polygon.runtimeVertexCount,
+    runtimeComponentCount: params.polygon.runtimeComponentCount,
+    runtimeInteriorRingCount: params.polygon.runtimeInteriorRingCount,
+    runtimeSimplified: params.polygon.runtimeSimplified,
+    runtimeSimplificationTolerance: params.polygon.runtimeSimplificationTolerance,
+    engineSupportStatus: params.polygon.waterReaderSupportStatus,
+    engineSupportReason: params.polygon.waterReaderSupportReason,
+    displayedEntryCount: 0,
+    retainedEntryCount: 0,
+    rendererWarningCount: 0,
+    season: seasonContext.season,
+    seasonGroup: seasonContext.seasonGroup === "unknown" ? null : seasonContext.seasonGroup,
+    productionSvgResult: null,
+    fallbackMessage: jobStatus === "failed"
+      ? "We couldn't prepare this Water Read yet. Please try again in a bit."
+      : null,
+    generationStatus: jobStatus,
+    generationJobId: params.job.id,
+    retryAfterMs,
+    cacheStatus: "miss",
+    cacheWriteStatus: "skipped",
+    cacheWriteError: null,
+    seasonContextKey: params.job.season_context_key,
+    mapWidth: WATER_READER_APP_SVG_WIDTH,
+    engineVersion: WATER_READER_ENGINE_VERSION,
+    operationalDiagnostics: {
+      code: jobStatus === "failed" ? "generation_failed" : `generation_${jobStatus}`,
+      message: jobStatus === "failed"
+        ? "Water Reader generation failed before a cached read was available."
+        : "Water Reader generation is queued and will be cached by the worker.",
+      originalVertexCount: params.polygon.originalVertexCount ?? null,
+      runtimeVertexCount: params.polygon.runtimeVertexCount ?? null,
+    },
+    timings: {
+      fetchMs: params.fetchMs,
+      metadataMs: params.metadataMs,
+      cacheMs: params.cacheMs,
+      preprocessMs: 0,
+      featuresMs: 0,
+      zonesMs: 0,
+      legendMs: 0,
+      displayMs: 0,
+      renderMs: 0,
+      totalMs: (params.metadataMs ?? 0) + params.fetchMs + params.cacheMs,
+    },
+  };
+}
+
+function normalizeJobRow(data: unknown): GenerationJobRow | null {
+  if (!data) return null;
+  if (Array.isArray(data)) return data[0] as GenerationJobRow | undefined ?? null;
+  return data as GenerationJobRow;
+}
+
+async function ensureGenerationJob(params: {
+  supabase: any;
+  lakeId: string;
+  seasonContextKey: string;
+  userId: string;
+}): Promise<GenerationJobRow> {
+  const { data, error } = await params.supabase.rpc("ensure_water_reader_generation_job", {
+    in_lake_id: params.lakeId,
+    in_season_context_key: params.seasonContextKey,
+    in_map_width: WATER_READER_APP_SVG_WIDTH,
+    in_engine_version: WATER_READER_ENGINE_VERSION,
+    in_requested_by: params.userId,
+    in_priority: 0,
+  });
+  if (error) throw new Error(error.message);
+  const job = normalizeJobRow(data);
+  if (!job?.id) throw new Error("generation job RPC returned no job");
+  return job;
+}
+
+async function upsertUserHistory(params: {
+  supabase: any;
+  userId: string;
+  lakeId: string;
+  seasonContextKey: string;
+  status: "preparing" | "ready" | "failed";
+  generationJobId?: string | null;
+}) {
+  const { error } = await params.supabase
+    .from("water_reader_user_history")
+    .upsert({
+      user_id: params.userId,
+      lake_id: params.lakeId,
+      season_context_key: params.seasonContextKey,
+      map_width: WATER_READER_APP_SVG_WIDTH,
+      engine_version: WATER_READER_ENGINE_VERSION,
+      generation_job_id: params.generationJobId ?? null,
+      status: params.status,
+      last_viewed_at: new Date().toISOString(),
+    }, {
+      onConflict: "user_id,lake_id,season_context_key,map_width,engine_version",
+    });
+  if (error) {
+    console.error("[water-reader-read] history upsert failed", {
+      lakeId: params.lakeId,
+      userId: params.userId,
+      status: params.status,
+      message: error.message,
+    });
+  }
 }
 
 async function requestHeavyGenerator(params: {
@@ -337,6 +498,9 @@ async function requestHeavyGenerator(params: {
       return {
         read: {
           ...json,
+          generationStatus: "ready",
+          generationJobId: null,
+          retryAfterMs: null,
           operationalDiagnostics: {
             code: "heavy_generator_routed",
             message: "Heavy Water Reader generation completed by worker.",
@@ -542,9 +706,20 @@ Deno.serve(async (req: Request) => {
     }
 
     if (cacheRow?.read_response) {
+      await upsertUserHistory({
+        supabase,
+        userId: user.id,
+        lakeId: lakeIdRaw,
+        seasonContextKey: seasonContext.seasonContextKey,
+        status: "ready",
+        generationJobId: null,
+      });
       return new Response(
         JSON.stringify({
           ...cacheRow.read_response,
+          generationStatus: "ready",
+          generationJobId: null,
+          retryAfterMs: null,
           cacheStatus: "hit",
           seasonContextKey: seasonContext.seasonContextKey,
           mapWidth: WATER_READER_APP_SVG_WIDTH,
@@ -615,6 +790,14 @@ Deno.serve(async (req: Request) => {
   }
 
   if (!polygon.geojson) {
+    await upsertUserHistory({
+      supabase,
+      userId: user.id,
+      lakeId: polygon.lakeId,
+      seasonContextKey: seasonContext.seasonContextKey,
+      status: "failed",
+      generationJobId: null,
+    });
     return new Response(
       JSON.stringify(fallbackReadResponse({
         polygon,
@@ -629,6 +812,14 @@ Deno.serve(async (req: Request) => {
   }
 
   if (!polygon.geometryIsValid) {
+    await upsertUserHistory({
+      supabase,
+      userId: user.id,
+      lakeId: polygon.lakeId,
+      seasonContextKey: seasonContext.seasonContextKey,
+      status: "failed",
+      generationJobId: null,
+    });
     return new Response(
       JSON.stringify(fallbackReadResponse({
         polygon,
@@ -643,6 +834,14 @@ Deno.serve(async (req: Request) => {
   }
 
   if (polygon.waterReaderSupportStatus === "not_supported") {
+    await upsertUserHistory({
+      supabase,
+      userId: user.id,
+      lakeId: polygon.lakeId,
+      seasonContextKey: seasonContext.seasonContextKey,
+      status: "failed",
+      generationJobId: null,
+    });
     return new Response(
       JSON.stringify(fallbackReadResponse({
         polygon,
@@ -658,7 +857,7 @@ Deno.serve(async (req: Request) => {
 
   const heavy = heavyRouteInfo(polygon);
   const routeViaHeavyWorker = heavy.heavy || routeAllCacheMissesThroughHeavyWorker();
-  if (routeViaHeavyWorker) {
+  if (routeViaHeavyWorker && allowInlineCacheMissGeneration()) {
     const routedHeavy = workerRouteInfo(heavy);
     const result = await requestHeavyGenerator({
       lakeId: polygon.lakeId,
@@ -667,6 +866,14 @@ Deno.serve(async (req: Request) => {
       heavy: routedHeavy,
     });
     if (result.read) {
+      await upsertUserHistory({
+        supabase,
+        userId: user.id,
+        lakeId: polygon.lakeId,
+        seasonContextKey: seasonContext.seasonContextKey,
+        status: "ready",
+        generationJobId: null,
+      });
       return new Response(
         JSON.stringify(result.read),
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
@@ -684,9 +891,20 @@ Deno.serve(async (req: Request) => {
           read: generatedRead,
           seasonContextKey: seasonContext.seasonContextKey,
         });
+        await upsertUserHistory({
+          supabase,
+          userId: user.id,
+          lakeId: polygon.lakeId,
+          seasonContextKey: seasonContext.seasonContextKey,
+          status: "ready",
+          generationJobId: null,
+        });
         return new Response(
           JSON.stringify({
             ...generatedRead,
+            generationStatus: "ready",
+            generationJobId: null,
+            retryAfterMs: null,
             cacheStatus: "miss",
             ...cacheWrite,
             operationalDiagnostics: {
@@ -731,6 +949,43 @@ Deno.serve(async (req: Request) => {
     );
   }
 
+  if (!allowInlineCacheMissGeneration()) {
+    let job: GenerationJobRow;
+    try {
+      job = await ensureGenerationJob({
+        supabase,
+        lakeId: polygon.lakeId,
+        seasonContextKey: seasonContext.seasonContextKey,
+        userId: user.id,
+      });
+    } catch (jobError) {
+      console.error("[water-reader-read] generation job ensure failed", {
+        lakeId: polygon.lakeId,
+        message: jobError instanceof Error ? jobError.message : String(jobError),
+      });
+      return jsonError("Failed to queue Water Reader map generation", "water_reader_generation_queue_failed", 500);
+    }
+    await upsertUserHistory({
+      supabase,
+      userId: user.id,
+      lakeId: polygon.lakeId,
+      seasonContextKey: seasonContext.seasonContextKey,
+      status: job.status === "failed" ? "failed" : "preparing",
+      generationJobId: job.id,
+    });
+    return new Response(
+      JSON.stringify(pendingReadResponse({
+        polygon,
+        currentDate,
+        job,
+        fetchMs,
+        metadataMs,
+        cacheMs,
+      })),
+      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+    );
+  }
+
   const generatedRead = buildServerWaterReaderRead({
     polygonPayload: polygon,
     currentDate,
@@ -742,9 +997,21 @@ Deno.serve(async (req: Request) => {
     seasonContextKey: seasonContext.seasonContextKey,
   });
 
+  await upsertUserHistory({
+    supabase,
+    userId: user.id,
+    lakeId: polygon.lakeId,
+    seasonContextKey: seasonContext.seasonContextKey,
+    status: "ready",
+    generationJobId: null,
+  });
+
   return new Response(
     JSON.stringify({
       ...generatedRead,
+      generationStatus: "ready",
+      generationJobId: null,
+      retryAfterMs: null,
       cacheStatus: "miss",
       ...cacheWrite,
       seasonContextKey: seasonContext.seasonContextKey,

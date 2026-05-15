@@ -64,6 +64,8 @@ import type {
 const SEARCH_DEBOUNCE_MS = 650;
 const SEARCH_MIN_CHARS = 3;
 const SEARCH_RESULT_LIMIT = 20;
+const WATER_READER_PENDING_DEFAULT_RETRY_MS = 4000;
+const WATER_READER_PENDING_MAX_MS = 120000;
 
 const SERIF_BOLD = 'Fraunces_700Bold';
 const SERIF_ITALIC = 'Fraunces_500Medium_Italic';
@@ -237,8 +239,18 @@ function limitedReadNote(
 type WaterReaderReadState =
   | { status: 'idle'; read: null; errorMessage: null }
   | { status: 'reading'; read: null; errorMessage: null }
+  | { status: 'preparing'; read: WaterReaderReadResponse; errorMessage: null }
   | { status: 'ready'; read: WaterReaderReadResponse; errorMessage: null }
   | { status: 'error'; read: null; errorMessage: string };
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+function pendingRetryDelayMs(read: WaterReaderReadResponse): number {
+  const retryAfterMs = typeof read.retryAfterMs === 'number' ? read.retryAfterMs : WATER_READER_PENDING_DEFAULT_RETRY_MS;
+  return Math.max(1500, Math.min(8000, retryAfterMs));
+}
 
 export default function WaterReaderScreen() {
   const router = useRouter();
@@ -274,6 +286,7 @@ export default function WaterReaderScreen() {
     read: null,
     errorMessage: null,
   });
+  const [readRetryNonce, setReadRetryNonce] = useState(0);
 
   useEffect(() => {
     setSelected(null);
@@ -289,10 +302,35 @@ export default function WaterReaderScreen() {
     setReadState({ status: 'reading', read: null, errorMessage: null });
     const lakeId = selected.lakeId;
     void (async () => {
+      const startedAt = Date.now();
       try {
-        const res = await fetchWaterReaderRead({ lakeId });
-        if (readRequestId.current !== reqId) return;
-        setReadState({ status: 'ready', read: res, errorMessage: null });
+        while (readRequestId.current === reqId) {
+          const res = await fetchWaterReaderRead({ lakeId });
+          if (readRequestId.current !== reqId) return;
+          if (res.generationStatus === 'queued' || res.generationStatus === 'processing') {
+            setReadState({ status: 'preparing', read: res, errorMessage: null });
+            if (Date.now() - startedAt >= WATER_READER_PENDING_MAX_MS) {
+              setReadState({
+                status: 'error',
+                read: null,
+                errorMessage: 'Water Read is still preparing. Try again in a minute.',
+              });
+              return;
+            }
+            await delay(pendingRetryDelayMs(res));
+            continue;
+          }
+          if (res.generationStatus === 'failed' && !res.fallbackMessage) {
+            setReadState({
+              status: 'error',
+              read: null,
+              errorMessage: 'Water Read could not finish preparing. Try again shortly.',
+            });
+            return;
+          }
+          setReadState({ status: 'ready', read: res, errorMessage: null });
+          return;
+        }
       } catch (e) {
         if (readRequestId.current !== reqId) return;
         setReadState({ status: 'error', read: null, errorMessage: userFacingReadError(e) });
@@ -301,7 +339,7 @@ export default function WaterReaderScreen() {
     return () => {
       readRequestId.current += 1;
     };
-  }, [selected]);
+  }, [selected, readRetryNonce]);
 
   const runSearch = useCallback(
     async (requestId: number) => {
@@ -431,10 +469,45 @@ export default function WaterReaderScreen() {
   const mapCardState: WaterReaderMapCardState = (() => {
     if (!selected) return { status: 'idle' };
     if (readState.status === 'reading') return { status: 'reading' };
+    if (readState.status === 'preparing') return { status: 'preparing', read: readState.read };
     if (readState.status === 'ready') return { status: 'ready', read: readState.read };
     if (readState.status === 'error')
       return { status: 'error', errorMessage: readState.errorMessage };
     return { status: 'idle' };
+  })();
+
+  const waterReaderBottomSlot = (() => {
+    const notes = (polygonLimitedNote || engineLimitedNote) && engineRead ? (
+      <View style={styles.limitedNotesStack}>
+        {polygonLimitedNote && (
+          <Text style={styles.limitedNote}>
+            {polygonLimitedNote}
+          </Text>
+        )}
+        {engineLimitedNote &&
+          engineLimitedNote !== polygonLimitedNote && (
+            <Text style={styles.limitedNote}>
+              {engineLimitedNote}
+            </Text>
+          )}
+      </View>
+    ) : null;
+    if (readState.status !== 'error') return notes;
+    return (
+      <View style={styles.readRetryRow}>
+        <Pressable
+          style={({ pressed }) => [
+            styles.readRetryButton,
+            pressed && styles.readRetryButtonPressed,
+          ]}
+          onPress={() => setReadRetryNonce((value) => value + 1)}
+          accessibilityLabel="Retry Water Read"
+        >
+          <Ionicons name="refresh" size={14} color="#FFFFFF" />
+          <Text style={styles.readRetryButtonText}>RETRY</Text>
+        </Pressable>
+      </View>
+    );
   })();
 
   return (
@@ -800,23 +873,7 @@ export default function WaterReaderScreen() {
                   lakeName={selected.name}
                   lakeContextLine={selectionContextLine(selected)}
                   state={mapCardState}
-                  bottomSlot={
-                    (polygonLimitedNote || engineLimitedNote) && engineRead ? (
-                      <View style={styles.limitedNotesStack}>
-                        {polygonLimitedNote && (
-                          <Text style={styles.limitedNote}>
-                            {polygonLimitedNote}
-                          </Text>
-                        )}
-                        {engineLimitedNote &&
-                          engineLimitedNote !== polygonLimitedNote && (
-                            <Text style={styles.limitedNote}>
-                              {engineLimitedNote}
-                            </Text>
-                          )}
-                      </View>
-                    ) : null
-                  }
+                  bottomSlot={waterReaderBottomSlot}
                 />
                 <FeedbackCard
                   featureName="Water Read"
@@ -1864,6 +1921,30 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 17,
     color: '#555555',
+  },
+  readRetryRow: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start',
+  },
+  readRetryButton: {
+    minHeight: 38,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    paddingHorizontal: 14,
+    borderRadius: 8,
+    backgroundColor: paper.dashboardBlue,
+    borderWidth: 1,
+    borderColor: 'rgba(0,0,0,0.18)',
+  },
+  readRetryButtonPressed: {
+    opacity: 0.86,
+  },
+  readRetryButtonText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 1.4,
+    color: '#FFFFFF',
   },
 
   // Guardrails card

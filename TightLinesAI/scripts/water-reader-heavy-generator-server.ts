@@ -52,6 +52,19 @@ interface GenerateRequest {
   engineVersion?: string;
 }
 
+interface GenerationJobRow {
+  id: string;
+  lake_id: string;
+  season_context_key: string;
+  map_width: number;
+  engine_version: string;
+  status: 'queued' | 'processing' | 'complete' | 'failed';
+  attempts: number;
+  max_attempts: number;
+  next_attempt_at: string;
+  last_error: string | null;
+}
+
 function requireEnv(names: string[]): Record<string, string> {
   const missing = names.filter((name) => !process.env[name]);
   if (missing.length > 0) throw new Error(`Missing required env: ${missing.join(', ')}`);
@@ -137,6 +150,17 @@ function cacheKey(state: string, currentDate: Date) {
   return buildWaterReaderSeasonContext(state, currentDate).seasonContextKey;
 }
 
+function representativeDateForSeasonContextKey(state: string, seasonContextKey: string): Date | null {
+  for (let month = 0; month < 12; month += 1) {
+    for (let day = 1; day <= 31; day += 1) {
+      const date = new Date(Date.UTC(2026, month, day, 12, 0, 0));
+      if (date.getUTCMonth() !== month) continue;
+      if (buildWaterReaderSeasonContext(state, date).seasonContextKey === seasonContextKey) return date;
+    }
+  }
+  return null;
+}
+
 async function fetchRuntimePolygon(supabase: any, lakeId: string) {
   const started = Date.now();
   const { data, error } = await supabase.rpc('get_waterbody_polygon_runtime_for_reader', { in_lake_id: lakeId });
@@ -164,6 +188,9 @@ async function readCache(supabase: any, polygon: WaterbodyPolygonForWaterReaderR
   return {
     read: {
       ...data.read_response,
+      generationStatus: 'ready',
+      generationJobId: null,
+      retryAfterMs: null,
       cacheStatus: 'hit',
       seasonContextKey,
       mapWidth: WATER_READER_APP_SVG_WIDTH,
@@ -207,8 +234,11 @@ export async function generateWaterReaderHeavyRead(request: GenerateRequest): Pr
   if (request.engineVersion != null && request.engineVersion !== WATER_READER_ENGINE_VERSION) throw new Error('invalid_engine_version');
   const env = requireEnv(['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY']);
   const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } });
-  const currentDate = parseDate(request.currentDate);
+  let currentDate = parseDate(request.currentDate);
   const { polygon, fetchMs } = await fetchRuntimePolygon(supabase, request.lakeId);
+  if (request.seasonContextKey) {
+    currentDate = representativeDateForSeasonContextKey(polygon.state, request.seasonContextKey) ?? currentDate;
+  }
   const cached = await readCache(supabase, polygon, currentDate, fetchMs);
   if (request.seasonContextKey && cached.seasonContextKey !== request.seasonContextKey) {
     throw new Error(`season_context_mismatch:${cached.seasonContextKey}`);
@@ -219,6 +249,9 @@ export async function generateWaterReaderHeavyRead(request: GenerateRequest): Pr
   const cacheWrite = await upsertCache(supabase, generated, cached.seasonContextKey);
   return {
     ...generated,
+    generationStatus: 'ready',
+    generationJobId: null,
+    retryAfterMs: null,
     cacheStatus: 'miss',
     ...cacheWrite,
     seasonContextKey: cached.seasonContextKey,
@@ -228,6 +261,93 @@ export async function generateWaterReaderHeavyRead(request: GenerateRequest): Pr
       ...(generated.timings ?? {}),
       cacheMs: cached.cacheMs,
     },
+  };
+}
+
+function normalizeJobRow(data: unknown): GenerationJobRow | null {
+  if (!data) return null;
+  if (Array.isArray(data)) return data[0] as GenerationJobRow | undefined ?? null;
+  return data as GenerationJobRow;
+}
+
+function jobBackoffSeconds(job: GenerationJobRow): number {
+  return Math.min(900, 30 * Math.max(1, 2 ** job.attempts));
+}
+
+async function processOneGenerationJob(workerId: string) {
+  const env = requireEnv(['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY']);
+  const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } });
+  const { data, error } = await supabase.rpc('claim_water_reader_generation_job', {
+    in_worker_id: workerId,
+  });
+  if (error) throw new Error(`claim_job_failed: ${error.message}`);
+  const job = normalizeJobRow(data);
+  if (!job?.id) {
+    return { status: 'no_job' as const, claimed: false };
+  }
+
+  try {
+    const read = await generateWaterReaderHeavyRead({
+      lakeId: job.lake_id,
+      seasonContextKey: job.season_context_key,
+      mapWidth: job.map_width,
+      engineVersion: job.engine_version,
+    });
+    if (read.cacheWriteStatus === 'failed') {
+      throw new Error(read.cacheWriteError ?? 'cache_write_failed');
+    }
+    const { error: completeError } = await supabase.rpc('mark_water_reader_generation_job_complete', {
+      in_job_id: job.id,
+    });
+    if (completeError) throw new Error(`mark_complete_failed: ${completeError.message}`);
+    return {
+      status: 'completed' as const,
+      claimed: true,
+      jobId: job.id,
+      lakeId: job.lake_id,
+      cacheStatus: read.cacheStatus ?? null,
+      cacheWriteStatus: read.cacheWriteStatus ?? null,
+      displayedEntryCount: read.displayedEntryCount,
+      hasSvg: Boolean(read.productionSvgResult?.svg),
+    };
+  } catch (error) {
+    const message = error instanceof Error ? error.message : String(error);
+    const { error: failedError } = await supabase.rpc('mark_water_reader_generation_job_failed', {
+      in_job_id: job.id,
+      in_error: message,
+      in_retry_after_seconds: jobBackoffSeconds(job),
+    });
+    if (failedError) throw new Error(`mark_failed_failed: ${failedError.message}; original=${message}`);
+    return {
+      status: 'failed' as const,
+      claimed: true,
+      jobId: job.id,
+      lakeId: job.lake_id,
+      error: message,
+      retryAfterSeconds: jobBackoffSeconds(job),
+    };
+  }
+}
+
+async function drainGenerationJobs(workerId: string, maxJobs: number) {
+  const limit = Math.max(1, Math.min(25, Math.floor(maxJobs)));
+  const results = [];
+  for (let i = 0; i < limit; i += 1) {
+    const result = await processOneGenerationJob(workerId);
+    results.push(result);
+    if (result.status === 'no_job') break;
+  }
+  return {
+    status: results.some((row) => row.status === 'completed')
+      ? 'completed'
+      : results.some((row) => row.status === 'failed')
+        ? 'failed'
+        : 'no_job',
+    claimed: results.filter((row) => row.claimed).length,
+    completed: results.filter((row) => row.status === 'completed').length,
+    failed: results.filter((row) => row.status === 'failed').length,
+    noJob: results.some((row) => row.status === 'no_job'),
+    results,
   };
 }
 
@@ -248,7 +368,7 @@ export function startHeavyGeneratorServer(port: number) {
   if (!internalKey) throw new Error('Missing WATER_READER_INTERNAL_KEY');
   const server = createServer(async (req, res) => {
     try {
-      if (req.method !== 'POST' || req.url !== '/water-reader/generate') {
+      if (req.method !== 'POST') {
         sendJson(res, 404, { error: 'not_found', message: 'Not found' });
         return;
       }
@@ -256,9 +376,26 @@ export function startHeavyGeneratorServer(port: number) {
         sendJson(res, 403, { error: 'forbidden', message: 'Forbidden' });
         return;
       }
-      const body = await readJsonBody(req);
-      const read = await generateWaterReaderHeavyRead(body);
-      sendJson(res, 200, read);
+      const url = req.url ?? '';
+      if (url === '/water-reader/generate') {
+        const body = await readJsonBody(req);
+        const read = await generateWaterReaderHeavyRead(body);
+        sendJson(res, 200, read);
+        return;
+      }
+      if (url === '/water-reader/jobs/process-one') {
+        const workerId = String(req.headers['x-water-reader-worker-id'] ?? process.env.WATER_READER_WORKER_ID ?? `worker-${process.pid}`);
+        sendJson(res, 200, await processOneGenerationJob(workerId));
+        return;
+      }
+      if (url === '/water-reader/jobs/drain') {
+        const body = await readJsonBody(req);
+        const workerId = String(req.headers['x-water-reader-worker-id'] ?? process.env.WATER_READER_WORKER_ID ?? `worker-${process.pid}`);
+        const maxJobs = typeof body.maxJobs === 'number' ? body.maxJobs : 1;
+        sendJson(res, 200, await drainGenerationJobs(workerId, maxJobs));
+        return;
+      }
+      sendJson(res, 404, { error: 'not_found', message: 'Not found' });
     } catch (error) {
       sendJson(res, 500, {
         feature: WATER_READER_READ_FEATURE,

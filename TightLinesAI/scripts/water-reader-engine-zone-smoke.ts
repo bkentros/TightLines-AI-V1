@@ -491,8 +491,8 @@ assertZoneSemanticIds(summerCoveResult.zones, 'summer cove');
 const summerCoveLegendWithoutDate = buildWaterReaderLegend(summerCoveResult, { state: 'MI' });
 assertHonestCoveLegend(summerCoveResult.zones, summerCoveLegendWithoutDate, 'summer cove legend');
 assert(
-  summerCoveLegendWithoutDate.every((entry) => entry.templateId?.includes(':summer:') && entry.body.includes('In summer,')),
-  'legend without currentDate should use zoneResult.season for template identity and copy',
+  summerCoveLegendWithoutDate.every((entry) => entry.templateId?.includes(':summer:') && !/\bin summer,/i.test(entry.body)),
+  'legend without currentDate should use zoneResult.season for template identity without repeating the season in copy',
 );
 assert(
   summerCoveLegendWithoutDate.every((entry) => !entry.transitionWarning),

@@ -280,6 +280,8 @@ export interface WaterReaderReadOperationalDiagnostics {
   runtimeVertexCount?: number | null;
 }
 
+export type WaterReaderGenerationStatus = "ready" | "queued" | "processing" | "failed";
+
 export interface WaterReaderReadResponse {
   feature: typeof WATER_READER_READ_FEATURE;
   lakeId: string;
@@ -317,6 +319,9 @@ export interface WaterReaderReadResponse {
   seasonGroup?: string | null;
   productionSvgResult: WaterReaderProductionSvgResult | null;
   fallbackMessage: string | null;
+  generationStatus?: WaterReaderGenerationStatus;
+  generationJobId?: string | null;
+  retryAfterMs?: number | null;
   cacheStatus?: "hit" | "miss";
   cacheWriteStatus?: "stored" | "failed" | "skipped";
   cacheWriteError?: string | null;

@@ -12,10 +12,9 @@
  *   • Mini-SVG pattern swatches — every row's color block carries the same
  *     pattern stamp as its zone in the map (dots / waves / hatch / rings /
  *     …), making swatch ↔ zone identification unmistakable.
- *   • Body copy — sourced from `waterReaderLegendTemplates`, picking
- *     deterministically by `zoneId + season + featureClass` so each lake
- *     reads original. The engine `entry.body` is used as a fallback if
- *     a feature class isn't in the template table.
+ *   • Body copy — prefers the server-supplied `entry.body` so copy updates
+ *     stay tied to the edge/heavy-worker read contract. Local templates are
+ *     retained only as a fallback for partial/older payloads.
  *   • Colophon footer — pressed-date + FinFindr signature mirroring the
  *     map-card colophon for visual continuity.
  *

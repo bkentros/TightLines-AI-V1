@@ -1,12 +1,9 @@
 /**
  * Seasonal legend body templates for the Water Read map key.
  *
- * Replaces the server-supplied `entry.body` text with short, season-aware,
- * biologically-grounded copy that tells the angler exactly where in the
- * zone to target for the current season. Three templates per
- * (featureClass × season) so legends feel original lake-to-lake rather
- * than copy-paste — the choice is deterministic per zone (`zoneId` seed)
- * so the same lake's same zone reads the same way across opens.
+ * Server-supplied `entry.body` text is the source of truth. The local
+ * templates below remain as defensive fallback copy for older or partial
+ * payloads, and deterministic selection keeps repeated opens stable.
  *
  * The season is shown once in the legend masthead/season badge (and again
  * on the page meta ribbon), so template copy intentionally never names the
@@ -1329,6 +1326,14 @@ export function pickLegendBody(args: {
   fallbackBody?: string;
 }): string {
   const { featureClass, season, zoneId, zoneIds, fallbackBody } = args;
+  // Server-side legend bodies are the source of truth for Water Read copy.
+  // Keep the local template pool below as a legacy fallback for older or
+  // partial read payloads, but prefer edge/heavy-worker copy when present so
+  // copy-only changes can ride with server deployments after the app supports
+  // this contract.
+  if (fallbackBody?.trim()) return stripLeadingSeasonIntro(fallbackBody, season);
+  const conservativeFallback = conservativeLocalFallbackBody(args);
+  if (conservativeFallback) return conservativeFallback;
   const templateKey = featureClass === 'structure_confluence'
     ? confluenceTemplateKey(args)
     : featureClass;
@@ -1349,6 +1354,98 @@ export function pickLegendBody(args: {
   const idx = hashString(seed) % list.length;
   return list[idx];
 }
+
+function stripLeadingSeasonIntro(text: string, season: string | undefined | null): string {
+  const normalized = normalizeSeason(season);
+  return text
+    .trim()
+    .replace(new RegExp(`^in\\s+(?:${normalized}|spring|summer|fall|autumn|winter)\\s*,\\s*`, 'i'), (match) => {
+      void match;
+      return '';
+    })
+    .replace(/^./, (char) => char.toUpperCase());
+}
+
+function conservativeLocalFallbackBody(args: {
+  featureClass: WaterReaderProductionSvgFeatureClass;
+  featureClasses?: Exclude<WaterReaderProductionSvgFeatureClass, 'structure_confluence'>[];
+  season: string | undefined | null;
+  title?: string;
+  placementKinds?: string[];
+}): string | null {
+  const season = normalizeSeason(args.season);
+  if (args.featureClass === 'structure_confluence') {
+    const key = confluenceTemplateKey(args);
+    const label = key.replace(/\+/g, ' + ').replace(/_/g, ' ');
+    if (key.includes('cove') || key === 'mouth_complex') {
+      return 'Use this overlap to compare the cove transition with the connected structure. Treat wide pockets as opening-facing edges, not fixed narrow mouths.';
+    }
+    if (key.includes('island')) {
+      return 'Use this overlap to compare the island rim with the connected structure. Let the strongest rim or shoulder narrow the pass.';
+    }
+    if (key.includes('neck') || key.includes('saddle') || key.includes('travel')) {
+      return 'Use this overlap to compare the travel route with both nearby shoulders. Work the edges before treating the middle as the target.';
+    }
+    if (key.includes('dam') || key === 'shoreline_complex') {
+      return 'Use this overlap to compare the hard edge with the connected shoreline change. The corner is a reference, not the whole plan.';
+    }
+    return `Use this ${label} overlap to compare the strongest nearby edges. Keep the read conservative until one side shows more activity.`;
+  }
+
+  const body = CONSERVATIVE_STRUCTURE_FALLBACKS[args.featureClass]?.[season];
+  return body ?? null;
+}
+
+const CONSERVATIVE_STRUCTURE_FALLBACKS: Record<StandaloneFeatureClass, Record<LegendSeason, string>> = {
+  main_lake_point: {
+    spring: 'Compare the protected shoulder, tip, and outside edge. Keep the read broad until one side gives a clearer reason to slow down.',
+    summer: 'Compare the broad-water side with shade, wind, or the protected edge. Do not assume the whole point fishes the same.',
+    fall: 'Read the point as a shoreline-to-broader-water transition. Compare the tip and both sides before choosing one angle.',
+    winter: 'Keep the point read compact around the tip and nearest defined shoulder. Favor the side closest to stable water.',
+  },
+  secondary_point: {
+    spring: 'Compare the protected side, tip, and opening-facing edge. Use this as a small transition reference, not a whole-cove call.',
+    summer: 'Compare the opening-facing side with nearby shade or cover. Wide pockets may make the outer edge more important than the back.',
+    fall: 'Use this smaller point to compare pocket shoreline with broader water. Bait or wind should choose the tighter side.',
+    winter: 'Keep the read tight around the tip and nearest defined shoulder. Treat it as a checkpoint beside safer water.',
+  },
+  cove: {
+    spring: 'Compare the protected interior edge with the opening-facing side. This works for both narrow coves and broad shoreline pockets.',
+    summer: 'Compare the opening-facing edge, shade, and any defined inner shoreline. The back should earn time through cover, bait, or comfort.',
+    fall: 'Read the cove as a shoreline transition. Compare the outer edge, shaped interior bank, and any bait-holding turn.',
+    winter: 'Use the cove conservatively. Compare the outer edge with the most protected defined shoreline near stable-looking water.',
+  },
+  neck: {
+    spring: 'Compare the protected-side shoulder with the opposite shoulder. Treat the constriction as a route with edges.',
+    summer: 'Compare the broader-water shoulder with shade, wind, or cover on the opposite side. Let the stronger edge narrow the pass.',
+    fall: 'Read both shoulders as a paired transition around the constriction. Watch which side gives bait less room.',
+    winter: 'Keep the comparison tight across the two shoulders. Work beside the constriction before spending time in the middle.',
+  },
+  island: {
+    spring: 'Compare the shore-facing rim, nearest corner, and protected side. Let the highlighted edge guide the first lap.',
+    summer: 'Compare the broad-water rim, shade, and island corners. Avoid treating the full perimeter as equal.',
+    fall: 'Read the island as a perimeter transition. Compare corners and both sides for bait movement before slowing down.',
+    winter: 'Use the nearest defined island side and corner as a compact reference. Favor the rim closest to stable water.',
+  },
+  saddle: {
+    spring: 'Compare the inside shoulder with the opposing shoulder across the saddle. Use the crossing as a route between shoreline options.',
+    summer: 'Compare the outer-facing shoulder with the more protected side. Shade, wind, or cover should decide the tighter focus.',
+    fall: 'Read both saddle shoulders as a broad opening. Cover only enough to learn which edge is active.',
+    winter: 'Use the nearest shoulder pair as the conservative read. Stay near the edge with the quickest route to stable water.',
+  },
+  dam: {
+    spring: 'Compare the transition corner, straight face, and nearby softer bank. Hard edge plus warmth or cover matters most.',
+    summer: 'Compare shade, wall contact, and the outer transition corner. Use the straight segment as a reference, not the whole plan.',
+    fall: 'Compare both transition corners with the straight segment. Bait movement should decide whether corner or face gets more time.',
+    winter: 'Use the straight segment and nearest transition corner as a compact hard-edge read near stable-looking water.',
+  },
+  universal: {
+    spring: 'Compare protected cover with the nearest shoreline change. Keep the read simple and let visible structure narrow the pass.',
+    summer: 'Compare shade, cover, and the deepest-looking available edge. Comfort should matter more than covering every bank.',
+    fall: 'Cover the shoreline until bait, wind, or a strike gives direction. Then repeat the strongest edge.',
+    winter: 'Work the most stable edge with patience. Cover, rock, or nearby safer water should decide where to spend time.',
+  },
+};
 
 function mergedSeasonTemplates(base: SeasonTemplates | undefined, extra: SeasonTemplates | undefined): SeasonTemplates | undefined {
   if (!base) return undefined;
