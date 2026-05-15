@@ -84,6 +84,7 @@ export function runHowFishingReport(
       req.context,
       norm.normalized,
       "positive",
+      `${copySeed}|driver|${c.key}`,
     ),
     effect: "positive" as const,
   }));
@@ -95,6 +96,7 @@ export function runHowFishingReport(
         req.context,
         norm.normalized,
         "negative",
+        `${copySeed}|suppressor|${c.key}`,
       ),
       effect: "negative" as const,
     }));

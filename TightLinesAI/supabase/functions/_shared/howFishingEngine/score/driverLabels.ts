@@ -44,50 +44,50 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
   if (tier === 2) {
     if (band === "warm") {
       return pick([
-        "Air temps are running warm for the calendar, which can keep fish and forage more active.",
-        "Above-average warmth today; expect fish to spread out more than they would after a cold snap.",
-        "Warmth is on the high side of normal — good for aggressive feeders if oxygen stays solid.",
-        "Warm temperatures point toward a more active feeding window than a cool snap would.",
-        "Warmth favors an active bite as long as you avoid the hottest flat-water lull.",
+        "Air temperatures are above the seasonal midpoint and still favorable for this date.",
+        "Today's air-temperature read lines up on the helpful side of the seasonal range.",
+        "Temperatures are a bit elevated for the calendar, but still supportive in this read.",
+        "The temperature setup points toward a more usable window than a sharp change would.",
+        "Air temperatures are giving the day a helpful seasonal signal.",
       ]);
     }
     if (band === "optimal") {
       return pick([
         "Air temps sit in a strong seasonal range for fishing today.",
-        "You’re inside a comfortable temperature range for most species today.",
-        "Temperature is in a clean range: not too hot and not too cold for this time of year.",
+        "Air temperatures are well aligned for this time of year.",
+        "Temperature is in a clean seasonal range for this date.",
         "Temps line up well for this month.",
-        "Stable, season-appropriate warmth should keep fish from getting sluggish.",
+        "Stable, season-appropriate air temperatures are a clear positive today.",
       ]);
     }
     return pick([
       "Temperature is clearly helping today.",
       "Temperature is one of the better parts of the day, so plan around normal seasonal patterns.",
-      "Warm/cool balance lands on the helpful side — use it to pick depth and pace confidently.",
+      "The seasonal temperature balance lands on the helpful side today.",
     ]);
   }
   if (tier === 1) {
     if (band === "warm" || band === "optimal") {
       return pick([
-        "Temps are cooperative — not flashy, but they’re tilting the odds toward an active bite.",
+        "Temps are cooperative — not flashy, but they are tilting the read in a better direction.",
         "Temperature is friendly; you’ll still want to match depth to the sun and wind.",
-        "Air-side warmth is in your corner without being extreme.",
+        "Air temperatures are in your corner without being extreme.",
         "Seasonal temperatures are behaving; treat it as a quiet helper behind flashier factors.",
       ]);
     }
     if (band === "near_optimal") {
       return pick([
-        "Temperature is close to the seasonal comfort band — modestly helpful, but not fully open yet.",
+        "Temperature is close to the better seasonal range — modestly helpful, but not fully open yet.",
         "Temperature is near the better window and offering a small lift without becoming the whole story.",
         "Temperature is trending toward a better range — useful, but still a secondary helper.",
       ]);
     }
     if (band === "cool" && trend === "warming") {
       return pick([
-        "It’s cool now but warming through the day — fish often respond as the water creeps up.",
-        "A warming trend off a cool morning can unlock mid-day movement; watch shallow transitions.",
-        "A cool start with rising temps can improve the bite after the chill bleeds off.",
-        "Temps are climbing from a cool start — patience early, opportunity as warmth builds.",
+        "Temps start below the seasonal midpoint but improve through the day.",
+        "A rising air-temperature trend can make the later windows more useful.",
+        "A lower-temperature start with rising temps can improve the read after the early window.",
+        "Temps are climbing from a lower start — patience early, better alignment later.",
       ]);
     }
     return pick([
@@ -106,10 +106,10 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
     }
     if (band === "very_warm") {
       return pick([
-        "It’s genuinely hot — dissolved oxygen and shade lines start to matter more than usual.",
-        "Extreme warmth: expect mid-day slowdowns unless you find current, depth, or stained water.",
-        "Heat is high today; focus on low-light windows and moving water when possible.",
-        "Very warm air mass — fish may tuck into cooler water until conditions ease.",
+        "Air temperatures are well above the seasonal range, so timing matters more than usual.",
+        "The temperature read is elevated for the date; the middle of the day may be less reliable.",
+        "Air temperatures are high for the calendar; low-light and moving-water windows deserve more attention.",
+        "The air-temperature setup is above the better seasonal range today.",
       ]);
     }
     return pick([
@@ -122,23 +122,23 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
     if (band === "near_optimal") {
       return pick([
         "Temperature is close to the seasonal window, but still a shade off the better bite.",
-        "Temperature is close to the right range without fully landing in it, so the bite can stay a little tight.",
+        "Temperature is close to the right range without fully landing in it, so the read stays a little narrower.",
         "Temperature is almost where you want it, but still limiting just enough to matter.",
       ]);
     }
     if (band === "cool") {
       return pick([
-        "Below-average cool can slow fish down; expect tighter, more deliberate windows.",
-        "Chilly for the date: fish can feel tentative until a warm spell or sun hits the water.",
-        "Cool-side temps work against you a little, so expect shorter feeding windows.",
-        "Air is running cold; look for the warmest water you can find (sun pockets, inflows, depth).",
+        "Air temperatures are below the seasonal midpoint, so expect tighter windows.",
+        "Temperatures are lower than ideal for the date, which narrows the read a bit.",
+        "Lower-side temps work against you a little, so timing matters more.",
+        "Air temperatures are below the better seasonal range; look for the best local window.",
       ]);
     }
     if (band === "very_warm") {
       return pick([
-        "Heat is past the productive band — stress and lethargy can outweigh forage opportunity.",
-        "Too-warm temperatures: the bite often hinges on dawn, dusk, and shaded or aerated water.",
-        "Heat stress risk is elevated; prioritize cooler, better-oxygenated water over aggression.",
+        "Air temperatures are past the better seasonal band, so the day depends more on timing.",
+        "Above-range temperatures make dawn, dusk, and moving-water windows more important.",
+        "The temperature setup is elevated enough to narrow the most reliable window.",
       ]);
     }
     return pick([
@@ -149,15 +149,15 @@ function temperatureDriverLabel(t: NonNullable<Norm["temperature"]>): string {
   // tier === -2
   if (band === "very_cold") {
     return pick([
-      "Well below seasonal norms — tough cold conditions; pick the warmest stable water available.",
-      "Deep cold: fish move slow and tight, so patience is the call.",
-      "Frigid temperatures dominate; safety and realistic expectations matter as much as tactics.",
+      "Air temperatures are well below seasonal norms, so keep expectations realistic.",
+      "The temperature read is far below the better seasonal range; patience is the call.",
+      "Very low air temperatures dominate the read; safety and realistic expectations matter.",
     ]);
   }
   if (band === "very_warm") {
     return pick([
-      "Extreme heat is working hard against you — survival mode beats feeding mode for many fish.",
-      "Blistering heat; narrow your windows to low light and high-oxygen zones.",
+      "Air temperatures are well above the better seasonal range and working against the day.",
+      "The temperature read is extremely elevated; narrow your best windows to the most forgiving parts of the day.",
     ]);
   }
   return pick([

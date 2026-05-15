@@ -1442,6 +1442,10 @@ export default function HomeScreen() {
             )}
           </View>
 
+          <Text style={styles.forecastDisclaimer}>
+            Forecast days may change as weather conditions update.
+          </Text>
+
           <View style={styles.forecastLegend}>
             {(["Tough", "Poor", "Fair", "Good", "Prime"] as const).map((b) => (
               <View key={b} style={styles.forecastLegendItem}>
@@ -2532,6 +2536,15 @@ const styles = StyleSheet.create({
     letterSpacing: 0.5,
   },
   forecastGrid: { flexDirection: "row", gap: FORECAST_GAP },
+  forecastDisclaimer: {
+    marginTop: 7,
+    paddingHorizontal: 2,
+    fontFamily: MONO,
+    fontSize: 8,
+    lineHeight: 10,
+    color: paper.dashboardMuted,
+    opacity: 0.72,
+  },
   forecastTile: {
     width: FORECAST_TILE_W,
     backgroundColor: "#FFFFFF",

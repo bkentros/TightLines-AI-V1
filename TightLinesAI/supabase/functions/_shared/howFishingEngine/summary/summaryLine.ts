@@ -30,18 +30,18 @@ export type ReportSummaryInput = {
 
 const OPENERS: Record<ScoreBand, readonly string[]> = {
   Prime: [
-    "This is a very strong fishing day.",
-    "Conditions look excellent today.",
+    "This looks like a strong fishing day.",
+    "Conditions look very favorable today.",
     "The overall setup is lining up very well.",
-    "This is one of the better days on the calendar.",
+    "This looks like one of the better days on the calendar.",
     "A lot is lining up in your favor today.",
-    "This looks like a high-end setup.",
+    "This looks like a high-upside setup.",
     "Most of the important pieces are working together today.",
-    "This is the kind of day anglers hope to see.",
+    "This is the kind of setup anglers like to see.",
     "The day sets up well from top to bottom.",
     "The overall picture is very favorable today.",
-    "This is a standout setup.",
-    "The conditions are giving you a real edge today.",
+    "This is a strong setup.",
+    "The conditions are giving you a useful edge today.",
   ],
   Good: [
     "This looks like a solid fishing day.",
@@ -51,7 +51,7 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
     "This is a dependable setup overall.",
     "Today's conditions give you a good shot.",
     "The overall picture leans your way today.",
-    "This is a day to fish with confidence.",
+    "This is a day to fish with a clear plan.",
     "The main conditions lean helpful today.",
     "This looks like a fishable day with upside.",
     "The main conditions give you a clear starting window.",
@@ -80,24 +80,24 @@ const OPENERS: Record<ScoreBand, readonly string[]> = {
     "The overall picture is fairly limiting.",
     "This is the kind of day that asks for patience.",
     "The day does not offer much easy upside.",
-    "This setup is making you earn it today.",
-    "There are more problems than help here.",
+    "This setup asks you to be more selective today.",
+    "There are more limitations than help here.",
     "This is a tougher read from top to bottom.",
     "The day offers few easy condition advantages.",
   ],
   Tough: [
-    "This is a very difficult fishing day.",
-    "The setup is heavily limiting today.",
+    "This looks like a difficult fishing day.",
+    "The setup is limiting today.",
     "Conditions look tough from the start.",
     "This is a grind-it-out day.",
-    "The day offers very little easy help.",
-    "This is one of the harder reads on the calendar.",
+    "The day offers limited easy help.",
+    "This is a harder read on the calendar.",
     "Most of the important signals are not helping today.",
     "This is a day for low expectations and careful choices.",
-    "The setup is narrow, demanding, and unforgiving.",
+    "The setup is narrow and demanding.",
     "There is not much natural edge in the conditions today.",
     "This is a tough setup from top to bottom.",
-    "The day asks you to earn every bite.",
+    "The day asks for patience and careful choices.",
   ],
 };
 
@@ -206,6 +206,142 @@ const RELIABILITY_CLOSERS: Record<"medium" | "low", readonly string[]> = {
   ],
 };
 
+type SummaryPhraseBank = Record<SummaryFactorRole, readonly string[]>;
+
+const TEMPERATURE_SUMMARY_PHRASES: SummaryPhraseBank = {
+  driver: [
+    "air temperatures line up well for this time of year",
+    "air temperatures are in a favorable seasonal range",
+    "the temperature read is on the helpful side for this date",
+    "temps are matching the season well enough to help",
+  ],
+  suppressor: [
+    "air temperatures are not lining up as well for this time of year",
+    "air temperatures sit outside the better seasonal range",
+    "the temperature read is working against the setup a bit",
+    "temps are less aligned with the season than you would like",
+  ],
+};
+
+const SUMMARY_PHRASES: Partial<Record<string, SummaryPhraseBank>> = {
+  pressure_regime: {
+    driver: [
+      "pressure is helping the day",
+      "pressure is giving the setup some support",
+      "the pressure trend is in your favor",
+      "pressure is adding a useful nudge",
+    ],
+    suppressor: [
+      "pressure is not helping the day",
+      "pressure is making the setup tougher",
+      "the pressure pattern is working against the read",
+      "pressure is one of the day’s limitations",
+    ],
+  },
+  wind_condition: {
+    driver: [
+      "wind is helping the day",
+      "wind is giving the setup some useful cover",
+      "the wind read is in your favor",
+      "wind is adding support to the plan",
+    ],
+    suppressor: [
+      "wind is not helping the day",
+      "wind is making control more important",
+      "the wind setup is narrowing the margin",
+      "wind is adding friction to the plan",
+    ],
+  },
+  light_cloud_condition: {
+    driver: [
+      "light and cloud cover are helping the day",
+      "the sky setup is in your favor",
+      "cloud cover and light are adding support",
+      "light conditions are on your side",
+    ],
+    suppressor: [
+      "light and cloud cover are not helping the day",
+      "the sky setup is making the window narrower",
+      "light conditions are working against the read",
+      "cloud cover and light are asking for better timing",
+    ],
+  },
+  precipitation_disruption: {
+    driver: [
+      "rain is staying quiet today",
+      "rain is staying out of the day’s way",
+      "the rain signal is quiet enough to help",
+      "recent rain is not adding much disruption",
+    ],
+    suppressor: [
+      "rain is not helping the day",
+      "rain is adding disruption to the setup",
+      "the rain signal is making the read less clean",
+      "recent rain is one of the day’s complications",
+    ],
+  },
+  tide_current_movement: {
+    driver: [
+      "tidal movement is helping the day",
+      "tide and current are in your favor",
+      "water movement is adding a useful edge",
+      "the tide/current setup is giving the read support",
+    ],
+    suppressor: [
+      "tidal movement is not helping the day",
+      "tide and current are narrowing the setup",
+      "water movement is not giving much help",
+      "the tide/current setup is working against the window",
+    ],
+  },
+};
+
+const CURRENT_SUMMARY_PHRASES: SummaryPhraseBank = {
+  driver: [
+    "current is helping the day",
+    "moving water is in your favor",
+    "current is adding a useful edge",
+    "the current setup is giving the read support",
+  ],
+  suppressor: [
+    "current is not helping the day",
+    "moving water is not lining up as well",
+    "the current setup is narrowing the read",
+    "current is giving the day less support than you would like",
+  ],
+};
+
+const RUNOFF_SUMMARY_PHRASES: Record<"river" | "default", SummaryPhraseBank> = {
+  river: {
+    driver: [
+      "stable flow is helping the river read",
+      "stable flow is giving the river a cleaner read",
+      "stable flow has rain and runoff staying manageable",
+      "stable flow has the river’s rain/runoff signal in a workable place",
+    ],
+    suppressor: [
+      "rain and runoff are not helping the river read",
+      "rain and runoff are making the river setup tougher",
+      "runoff is adding uncertainty to the river read",
+      "the river’s rain/runoff signal is working against the read",
+    ],
+  },
+  default: {
+    driver: [
+      "runoff is staying quiet today",
+      "runoff is staying manageable today",
+      "the runoff signal is quiet enough to help",
+      "rain and runoff are giving the setup a cleaner read",
+    ],
+    suppressor: [
+      "runoff is not helping the day",
+      "runoff is adding uncertainty to the setup",
+      "rain and runoff are making the read less clean",
+      "the runoff signal is working against the day",
+    ],
+  },
+};
+
 export function buildVariableDisplayLabel(
   variable: string,
   context?: EngineContext,
@@ -306,6 +442,18 @@ export function listSummaryCopyForAudit(): string[] {
     ...NEUTRAL_CLOSERS,
     ...Object.values(CONTEXT_TOUCHES).flat(),
     ...Object.values(RELIABILITY_CLOSERS).flat(),
+    ...Object.values(TEMPERATURE_SUMMARY_PHRASES).flat().map(
+      normalizeSurfaceSentence,
+    ),
+    ...Object.values(SUMMARY_PHRASES).flatMap((bank) =>
+      bank ? Object.values(bank).flat().map(normalizeSurfaceSentence) : []
+    ),
+    ...Object.values(CURRENT_SUMMARY_PHRASES).flat().map(
+      normalizeSurfaceSentence,
+    ),
+    ...Object.values(RUNOFF_SUMMARY_PHRASES).flatMap((bank) =>
+      Object.values(bank).flat().map(normalizeSurfaceSentence)
+    ),
   ];
 }
 
@@ -322,11 +470,13 @@ function temperaturePhrase(
   _factor: SummaryFactor,
   role: SummaryFactorRole,
   _strength: SummaryStrength,
+  seed: string,
 ): string {
-  if (role === "driver") {
-    return "temperature is helping the day";
-  }
-  return "temperature is not helping the day";
+  return pickDeterministic(
+    TEMPERATURE_SUMMARY_PHRASES[role],
+    seed,
+    `summary:phrase:temperature:${role}`,
+  );
 }
 
 function genericFactorPhrase(
@@ -334,42 +484,67 @@ function genericFactorPhrase(
   context: EngineContext,
   role: SummaryFactorRole,
   _strength: SummaryStrength,
+  seed: string,
 ): string {
-  const noun = buildVariableSummaryLabel(factor.variable, context, role);
-
-  if (role === "driver") {
-    if (factor.variable === "precipitation_disruption") {
-      return "rain is not getting in the way";
-    }
-    return `${noun} is helping the day`;
-  }
-
   if (factor.variable === "runoff_flow_disruption") {
-    return "rain and runoff are not helping the river read";
+    const bank = context === "freshwater_river"
+      ? RUNOFF_SUMMARY_PHRASES.river
+      : RUNOFF_SUMMARY_PHRASES.default;
+    return pickDeterministic(
+      bank[role],
+      seed,
+      `summary:phrase:runoff:${context}:${role}`,
+    );
   }
-  return `${noun} is not helping the day`;
+
+  if (
+    factor.variable === "tide_current_movement" &&
+    context !== "coastal" &&
+    context !== "coastal_flats_estuary"
+  ) {
+    return pickDeterministic(
+      CURRENT_SUMMARY_PHRASES[role],
+      seed,
+      `summary:phrase:current:${role}`,
+    );
+  }
+
+  const bank = SUMMARY_PHRASES[factor.variable];
+  if (bank) {
+    return pickDeterministic(
+      bank[role],
+      seed,
+      `summary:phrase:${factor.variable}:${role}`,
+    );
+  }
+
+  const noun = buildVariableSummaryLabel(factor.variable, context, role);
+  return role === "driver"
+    ? `${noun} is helping the day`
+    : `${noun} is not helping the day`;
 }
 
 function buildFactorPhrase(
   factor: SummaryFactor,
   context: EngineContext,
   role: SummaryFactorRole,
+  seed: string,
 ): string {
   const strength = contributionStrength(factor);
   if (factor.variable === "temperature_condition") {
-    return temperaturePhrase(factor, role, strength);
+    return temperaturePhrase(factor, role, strength, seed);
   }
-  return genericFactorPhrase(factor, context, role, strength);
+  return genericFactorPhrase(factor, context, role, strength, seed);
 }
 
 export function buildReportSummaryLine(input: ReportSummaryInput): string {
   const { band, drivers, suppressors, seed, context, reliability } = input;
   const opener = pickDeterministic(OPENERS[band], seed, "summary:opener");
   const driver = drivers[0]
-    ? buildFactorPhrase(drivers[0], context, "driver")
+    ? buildFactorPhrase(drivers[0], context, "driver", seed)
     : null;
   const suppressor = suppressors[0]
-    ? buildFactorPhrase(suppressors[0], context, "suppressor")
+    ? buildFactorPhrase(suppressors[0], context, "suppressor", seed)
     : null;
   const driverStrength = contributionStrength(drivers[0]);
   const suppressorStrength = contributionStrength(suppressors[0]);

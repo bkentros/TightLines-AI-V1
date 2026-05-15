@@ -73,7 +73,12 @@ Deno.test("buildReportSummaryLine is deterministic and references factor names",
     suppressors: [{ variable: "wind_condition" }],
     seed: "coastal|florida|2026-03-30|68",
   });
-  assertStringIncludes(out.toLowerCase(), "tidal movement");
+  assert(
+    /\b(tidal movement|tide and current|water movement|tide\/current)\b/i.test(
+      out,
+    ),
+    out,
+  );
   assertStringIncludes(out.toLowerCase(), "wind");
   assertEquals(/\bbut Wind\b/.test(out), false, out);
   assertEquals(
@@ -220,7 +225,7 @@ Deno.test("slight temperature suppressor uses basic temperature wording", () => 
   });
   assertStringIncludes(
     out.toLowerCase(),
-    "temperature is not helping the day",
+    "air temperatures are not lining up as well for this time of year",
   );
   assertEquals(/\b(heat|hot|cold|warm|cool)\b/i.test(out), false, out);
   assertEquals(out.toLowerCase().includes("making things harder"), false, out);
@@ -312,7 +317,7 @@ Deno.test("report factor rows use condition-specific copy, not generic category 
   }
 });
 
-Deno.test("temperature factor labels stay generic and avoid heat/cold wording", () => {
+Deno.test("temperature factor labels use seasonal air-temperature wording", () => {
   const negativeLabel = buildFactorSurfaceLabel(
     "temperature_condition",
     "freshwater_lake_pond",
@@ -332,9 +337,11 @@ Deno.test("temperature factor labels stay generic and avoid heat/cold wording", 
     },
     "negative",
   );
-  assertEquals(negativeLabel, "Temperature is limiting the bite.");
+  assertStringIncludes(negativeLabel.toLowerCase(), "temperature");
   assertEquals(
-    /\b(heat|hot|cold|warm|cool)\b/i.test(negativeLabel),
+    /\b(water|heat|hot|cold|warm|cool|sluggish|metabolism|selective)\b/i.test(
+      negativeLabel,
+    ),
     false,
     negativeLabel,
   );
@@ -358,9 +365,11 @@ Deno.test("temperature factor labels stay generic and avoid heat/cold wording", 
     },
     "positive",
   );
-  assertEquals(positiveLabel, "Temperature is helping the bite.");
+  assertStringIncludes(positiveLabel.toLowerCase(), "temperature");
   assertEquals(
-    /\b(heat|hot|cold|warm|cool)\b/i.test(positiveLabel),
+    /\b(water|heat|hot|cold|warm|cool|sluggish|metabolism|selective)\b/i.test(
+      positiveLabel,
+    ),
     false,
     positiveLabel,
   );
@@ -388,34 +397,38 @@ Deno.test("factor labels stay conservative across all surfaced variables", () =>
     tide_current_movement: { label: "slack", score: -0.9 },
   } as const;
   const cases = [
-    ["temperature_condition", "positive", "Temperature is helping the bite."],
-    ["pressure_regime", "positive", "Pressure is helping the bite."],
-    ["wind_condition", "negative", "Wind is limiting control."],
+    [
+      "temperature_condition",
+      "positive",
+      /\btemperature/i,
+    ],
+    ["pressure_regime", "positive", /\bpressure/i],
+    ["wind_condition", "negative", /\bwind/i],
     [
       "light_cloud_condition",
       "negative",
-      "Light and cloud cover are limiting the bite.",
+      /\b(light|cloud|sky)\b/i,
     ],
-    ["precipitation_disruption", "negative", "Rain is limiting the bite."],
+    ["precipitation_disruption", "negative", /\brain/i],
     [
       "runoff_flow_disruption",
       "negative",
-      "Rain and runoff are limiting the river read.",
+      /\b(rain|runoff|river)\b/i,
     ],
     [
       "tide_current_movement",
       "negative",
-      "Current is limiting the bite.",
+      /\b(current|moving water)\b/i,
     ],
   ] as const;
-  for (const [key, effect, expected] of cases) {
+  for (const [key, effect, expectedPattern] of cases) {
     const label = buildFactorSurfaceLabel(
       key,
       "freshwater_river",
       norm,
       effect,
     );
-    assertEquals(label, expected);
+    assert(expectedPattern.test(label), label);
     assertEquals(
       /\b(sharp|hard|fast|bright|clear|slack|volatile|heavy|overly|too much|hot|cold|warm|cool)\b/i
         .test(label),
@@ -582,7 +595,7 @@ Deno.test("meaningfully suppressive temperature surfaces as temperature only", (
     s.variable === "temperature_condition"
   );
   assert(tempSuppressor, JSON.stringify(report.suppressors));
-  assertEquals(tempSuppressor.label, "Temperature is limiting the bite.");
+  assertStringIncludes(tempSuppressor.label.toLowerCase(), "temperature");
   assertEquals(
     report.suppressors.some((s) => s.variable === "daytime_heat_window"),
     false,

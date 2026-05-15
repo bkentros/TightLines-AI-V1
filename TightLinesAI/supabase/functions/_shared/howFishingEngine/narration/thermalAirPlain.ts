@@ -12,52 +12,52 @@ export function buildThermalAirPlain(
   const usingWater = t.measurement_source === "coastal_water_temp";
   const prefix = usingWater
     ? measuredWaterTempF != null
-      ? `${Math.round(measuredWaterTempF)}°F water — `
-      : "Measured coastal water temp — "
+      ? `${Math.round(measuredWaterTempF)}°F measured coastal temp — `
+      : "Measured coastal temp — "
     : tempF != null
     ? `${Math.round(tempF)}°F air — `
     : "";
 
   if (label === "optimal") {
-    if (score >= 1) return `${prefix}well inside the seasonal sweet spot`;
+    if (score >= 1) return `${prefix}well aligned for this time of year`;
     if (score >= ENGINE_SCORE_EPSILON) {
-      return `${prefix}inside the seasonal range and helping`;
+      return `${prefix}within the seasonal range and modestly supportive`;
     }
     if (score <= -ENGINE_SCORE_EPSILON) {
-      return `${prefix}inside the seasonal range, but still near the edge of the better window`;
+      return `${prefix}within the seasonal range, but near the edge of the better window`;
     }
-    return `${prefix}inside the seasonal range without a strong thermal push`;
+    return `${prefix}within the seasonal range without a strong temperature signal`;
   }
   if (label === "near_optimal") {
     if (score >= 1) {
-      return `${prefix}close to the seasonal sweet spot and helping`;
+      return `${prefix}close to the better seasonal range`;
     }
     if (score >= ENGINE_SCORE_EPSILON) {
-      return `${prefix}close to the seasonal range and quietly helping`;
+      return `${prefix}close to the seasonal range and modestly supportive`;
     }
     if (score <= -ENGINE_SCORE_EPSILON) {
       return `${prefix}close to the seasonal range, but still on the edge of the better window`;
     }
-    return `${prefix}close to the seasonal range without a strong thermal push`;
+    return `${prefix}close to the seasonal range without a strong temperature signal`;
   }
   if (label === "warm") {
-    if (score >= 1) return `${prefix}running warm, metabolism is up`;
+    if (score >= 1) return `${prefix}above the seasonal midpoint and still favorable`;
     if (score >= ENGINE_SCORE_EPSILON) {
-      return `${prefix}warming side of normal — still a fishable thermal band`;
+      return `${prefix}above the seasonal midpoint, but still in a usable range`;
     }
-    return `${prefix}warm for the calendar but thermally tempered — not a big heat penalty`;
+    return `${prefix}above the seasonal midpoint without a major penalty`;
   }
   if (label === "cool") {
-    return `${prefix}a bit below average, slightly slower bite`;
+    return `${prefix}below the seasonal midpoint, so the read is a little less favorable`;
   }
   if (label === "very_warm") {
     if (score <= -ENGINE_SCORE_EPSILON) {
-      return `${prefix}quite hot — activity windows are narrow`;
+      return `${prefix}well above the seasonal range, so the best window is narrower`;
     }
     if (score <= ENGINE_SCORE_EPSILON) {
-      return `${prefix}hot for the date — warmth is a headwind but not extreme on the model`;
+      return `${prefix}above the seasonal range, but not an extreme penalty in this read`;
     }
-    return `${prefix}upper warm range — monitor low-light and comfort water`;
+    return `${prefix}upper end of the seasonal range; low-light windows matter more`;
   }
-  return `${prefix}well below seasonal range — fish are sluggish`;
+  return `${prefix}well below the seasonal range, so the read is less favorable`;
 }

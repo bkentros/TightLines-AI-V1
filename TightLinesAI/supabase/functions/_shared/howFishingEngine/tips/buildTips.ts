@@ -34,52 +34,52 @@ function normalizeTipText(text: string): string {
 }
 
 const MOVEMENT_STRATEGY = [
-  "Let water movement set the plan today; be ready during the moving-water windows and stay selective outside them.",
-  "Use the moving-water windows as the main clock today, then tighten up when the water slows.",
-  "The best plan is to work around the water movement first and treat everything else as secondary.",
-  "When the water starts moving, be ready. The quieter stretches deserve a more selective approach.",
+  "Build the plan around moving water. Be on your best spot before the water starts moving, then use slack periods to reset.",
+  "Make tide or current the clock today. Fish the strongest moving-water window first, then simplify when movement fades.",
+  "Start where moving water creates an edge, seam, point, or drain. If the water goes slack, save energy for the next push.",
+  "Let water movement choose your timing. Pick one high-confidence area for the moving window instead of spreading effort evenly.",
 ] as const;
 
 const CONTROL_STRATEGY = [
-  "Keep the plan compact today. Wind makes scattered searching less efficient than controlled, repeatable choices.",
-  "Wind is the condition to respect. Pick water you can read cleanly and avoid forcing low-percentage areas.",
-  "Make fewer, cleaner decisions today; wind will punish a loose plan faster than usual.",
-  "Use protected water or cleaner angles when you can. The day rewards control more than wandering.",
+  "Keep the plan compact. Choose water you can control cleanly, then make deliberate moves instead of chasing every option.",
+  "Let wind narrow the map for you. Start with protected water, readable banks, or cleaner angles before forcing exposed areas.",
+  "Control matters today. Pick fewer spots, fish them well, and leave the hardest wind angles as backup water.",
+  "Use wind as a filter. If boat position, line angle, or visibility feels messy, move to water you can read more clearly.",
 ] as const;
 
 const VISIBILITY_STRATEGY = [
-  "Visibility is the thing to manage today, so favor water where fish can find and commit without extra guesswork.",
-  "Treat visibility as the main filter. Cleaner lanes and obvious ambush spots should get priority.",
-  "Do not spread out too much when visibility is limited. Stay with water that gives fish a clear reason to feed.",
-  "The read says to simplify your water choices around visibility first, then adjust only if the window opens.",
+  "Use visibility as the first filter. Start where fish can locate food easily: edges, lanes, inflows, or cleaner pockets.",
+  "Keep the plan simple when visibility is changing. Pick obvious travel lanes and high-percentage edges before subtle water.",
+  "Prioritize water with a clear reason for fish to be there. If one area looks confused or dirty, move to the cleaner option.",
+  "Do not scatter your effort. In a visibility-driven read, choose easy-to-read water and make each stop intentional.",
 ] as const;
 
 const PATIENT_STRATEGY = [
-  "This is a patience-first read. Give the best areas time before assuming the day has no bite.",
-  "Expect shorter windows and fewer easy clues. Stay precise and avoid chasing every small change.",
-  "The cleaner move is to slow the decision-making down and make the best window count.",
-  "This setup rewards discipline. Pick the best window, stay organized, and do not overreact early.",
+  "Use a patient plan. Pick your best window, start with the most reliable water, and avoid changing areas too quickly.",
+  "Expect fewer obvious clues. Give high-confidence water enough time before deciding the read is wrong.",
+  "Make the day smaller. Choose one best window and one backup area, then stay organized instead of reacting to every slow stretch.",
+  "Patience is the advantage today. Trust the best part of the read first, then adjust only when the water gives you a clear reason.",
 ] as const;
 
 const ACTIVE_STRATEGY = [
-  "The read supports a more assertive plan during the best window, especially if the first signs confirm it.",
-  "You can be more proactive today, but keep the plan tied to the strongest condition window.",
-  "Start with the highest-percentage water and move when the read gives you a reason, not just from impatience.",
-  "Conditions give you room to be proactive. Use the best window first, then adjust with purpose.",
+  "You can fish with more intent today. Start on your best water during the strongest window and move if the first signs confirm it.",
+  "Use the best window aggressively, but stay organized. Begin with high-percentage water, then rotate to similar areas if it works.",
+  "The read supports a proactive plan. Put your best effort into the strongest window instead of saving it for later.",
+  "Start with your highest-confidence water. If the first area gives you signs, expand the pattern; if not, tighten back up.",
 ] as const;
 
 const DATA_STRATEGY = [
-  "Treat this as a directional read. Key inputs are thinner than usual, so leave room to adjust on the water.",
-  "Use the main signal, but do not over-trust fine detail today. The read is broader than normal.",
-  "The day still has a useful direction, but local signs should have more influence because data is limited.",
-  "Keep the plan flexible today. The condition read is helpful, just not as precise as a full-data day.",
+  "Treat this as a directional read. Start with the strongest available signal, then let local water conditions confirm or reject it.",
+  "Use the report as a starting map, not a script. Make one clear first choice and be ready to adjust from what you see.",
+  "Keep the first plan simple because the data is thinner. Pick dependable water first, then refine from local signs.",
+  "The read still gives direction, but stay flexible. If the water tells a different story, trust the local evidence quickly.",
 ] as const;
 
 const GENERAL_STRATEGY = [
-  "Use the strongest window first and keep the rest of the day flexible.",
-  "Pick the best condition window, commit to it, and adjust only when the water gives a clear reason.",
-  "The best plan is simple: respect the main limiter and do not let weaker signals distract you.",
-  "Let the condition read set priorities today; timing and water choice matter more than extra guessing.",
+  "Start with the strongest window and your most reliable water. Keep one backup plan ready, but do not overcomplicate the day.",
+  "Use the report to set priorities: best window first, best water first, then adjust only from clear local evidence.",
+  "Make one clean plan before you start. Choose the main window, choose the first area, and give it a fair chance.",
+  "Let the strongest condition set the order of operations. Timing and water choice matter more than adding extra guesses.",
 ] as const;
 
 export function listTipCopyForAudit(): string[] {
