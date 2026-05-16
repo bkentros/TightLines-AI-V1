@@ -28,6 +28,8 @@ async function main() {
   assert(edgeSource.includes('EDGE_INLINE_METADATA_AREA_ACRES_LIMIT = 10000'), 'edge should route truly large lakes before runtime polygon fetch');
   assert(edgeSource.includes('surface_area_acres, centroid'), 'edge metadata lookup should include lightweight area and centroid for pre-polygon routing');
   assert(edgeSource.includes('metadataPendingPolygon(metadata)'), 'edge should build a pending response from metadata for large-lake queueing');
+  assert(edgeSource.includes('allowDirectHeavyGeneration'), 'edge should try direct heavy generation before queueing risky reads');
+  assert(edgeSource.includes('metadataHeavyRouteInfo'), 'edge should direct very large metadata reads to the heavy worker before queue fallback');
   assert(edgeSource.includes('!diagnosticMode && routeAllCacheMissesThroughHeavyWorker()'), 'edge safest mode should route every uncached read before runtime polygon fetch');
   assert(edgeSource.includes('polygon rpc failed') && edgeSource.includes('queueGenerationReadResponse'), 'edge polygon RPC failures should fall back to queued generation');
   assert(edgeSource.includes('kickGenerationWorker'), 'edge pending response path should kick the worker after queueing a job');
@@ -37,7 +39,7 @@ async function main() {
   assert(migrationSource.includes('check (status in (') && migrationSource.includes("'processing'"), 'migration should constrain job statuses');
   assert(docsSource.includes('Cloud Scheduler'), 'queue runner docs should mention Cloud Scheduler');
   assert(docsSource.includes('/water-reader/jobs/drain'), 'queue runner docs should mention the drain endpoint');
-  assert(docsSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=false') && docsSource.includes('hybrid launch path'), 'queue runner docs should recommend hybrid production routing');
+  assert(docsSource.includes('WATER_READER_DIRECT_HEAVY_GENERATION="true"') && docsSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=false') && docsSource.includes('hybrid launch path'), 'queue runner docs should recommend hybrid production routing');
   assert(docsSource.includes('Cloud Tasks') && docsSource.includes('multiple Cloud Scheduler jobs'), 'queue runner docs should mention high-volume runner options');
 
   const server = startHeavyGeneratorServer(0);

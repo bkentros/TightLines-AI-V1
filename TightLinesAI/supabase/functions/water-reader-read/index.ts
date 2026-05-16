@@ -163,7 +163,7 @@ function metadataPendingPolygon(row: WaterbodyMetadataRow): WaterbodyPolygonForW
     componentCount: 0,
     interiorRingCount: 0,
     waterReaderSupportStatus: "supported",
-    waterReaderSupportReason: "Large waterbody routed for background Water Reader generation before Edge polygon processing.",
+    waterReaderSupportReason: "This larger waterbody is being prepared in the background.",
     polygonQaFlags: ["metadata_area_heavy_route"],
     originalVertexCount: null,
     runtimeVertexCount: null,
@@ -251,12 +251,17 @@ function allowEdgeHeavyLocalFallback(): boolean {
 }
 
 function routeAllCacheMissesThroughHeavyWorker(): boolean {
-  return Boolean(Deno.env.get("WATER_READER_HEAVY_GENERATOR_URL") && Deno.env.get("WATER_READER_INTERNAL_KEY")) &&
+  return heavyGeneratorConfigured() &&
     Deno.env.get("WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER") === "true";
 }
 
-function allowInlineCacheMissGeneration(): boolean {
-  return Deno.env.get("WATER_READER_EDGE_INLINE_CACHE_MISSES") === "true";
+function heavyGeneratorConfigured(): boolean {
+  return Boolean(Deno.env.get("WATER_READER_HEAVY_GENERATOR_URL") && Deno.env.get("WATER_READER_INTERNAL_KEY"));
+}
+
+function allowDirectHeavyGeneration(): boolean {
+  return heavyGeneratorConfigured() &&
+    Deno.env.get("WATER_READER_DIRECT_HEAVY_GENERATION") !== "false";
 }
 
 function workerRouteInfo(heavy: HeavyRouteInfo): HeavyRouteInfo {
@@ -265,6 +270,15 @@ function workerRouteInfo(heavy: HeavyRouteInfo): HeavyRouteInfo {
     ...heavy,
     heavy: true,
     reason: "worker_routed_cache_miss",
+  };
+}
+
+function metadataHeavyRouteInfo(areaAcres: number): HeavyRouteInfo {
+  return {
+    heavy: true,
+    reason: `metadata_area_acres:${Math.round(areaAcres)}`,
+    runtimeGeoJsonBytes: null,
+    edgeComplexityScore: Math.round(areaAcres),
   };
 }
 
@@ -1079,6 +1093,45 @@ Deno.serve(async (req: Request) => {
     metadataAreaAcres != null &&
     metadataAreaAcres >= EDGE_INLINE_METADATA_AREA_ACRES_LIMIT
   ) {
+    if (allowDirectHeavyGeneration()) {
+      const pendingPolygon = metadataPendingPolygon(metadata);
+      const routedHeavy = metadataHeavyRouteInfo(metadataAreaAcres);
+      const result = await requestHeavyGenerator({
+        lakeId: lakeIdRaw,
+        currentDate,
+        seasonContextKey: seasonContext.seasonContextKey,
+        heavy: routedHeavy,
+      });
+      if (result.read) {
+        await upsertUserHistory({
+          supabase,
+          userId: user.id,
+          lakeId: lakeIdRaw,
+          seasonContextKey: seasonContext.seasonContextKey,
+          status: "ready",
+          generationJobId: null,
+        });
+        return new Response(
+          JSON.stringify(result.read),
+          { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+        );
+      }
+      console.error("[water-reader-read] direct heavy generation did not finish before metadata route queue fallback", {
+        lakeId: lakeIdRaw,
+        heavyReason: routedHeavy.reason,
+        diagnostics: result.diagnostics,
+      });
+      return await queueGenerationReadResponse({
+        supabase,
+        userId: user.id,
+        polygon: pendingPolygon,
+        currentDate,
+        seasonContextKey: seasonContext.seasonContextKey,
+        fetchMs: 0,
+        metadataMs,
+        cacheMs,
+      });
+    }
     return await queueGenerationReadResponse({
       supabase,
       userId: user.id,
@@ -1220,7 +1273,7 @@ Deno.serve(async (req: Request) => {
 
   const heavy = heavyRouteInfo(polygon);
   const routeViaHeavyWorker = heavy.heavy || routeAllCacheMissesThroughHeavyWorker();
-  if (routeViaHeavyWorker && allowInlineCacheMissGeneration()) {
+  if (routeViaHeavyWorker && allowDirectHeavyGeneration()) {
     const routedHeavy = workerRouteInfo(heavy);
     const result = await requestHeavyGenerator({
       lakeId: polygon.lakeId,
@@ -1298,21 +1351,19 @@ Deno.serve(async (req: Request) => {
       heavyReason: routedHeavy.reason,
       diagnostics: result.diagnostics,
     });
-    return new Response(
-      JSON.stringify(fallbackReadResponse({
-        polygon,
-        currentDate,
-        fallbackMessage: "This Water Reader map needs the heavy generation worker. Try again shortly.",
-        fetchMs,
-        metadataMs,
-        cacheMs,
-        operationalDiagnostics: result.diagnostics,
-      })),
-      { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
-    );
+    return await queueGenerationReadResponse({
+      supabase,
+      userId: user.id,
+      polygon,
+      currentDate,
+      seasonContextKey: seasonContext.seasonContextKey,
+      fetchMs,
+      metadataMs,
+      cacheMs,
+    });
   }
 
-  if (routeViaHeavyWorker && !allowInlineCacheMissGeneration()) {
+  if (routeViaHeavyWorker) {
     return await queueGenerationReadResponse({
       supabase,
       userId: user.id,

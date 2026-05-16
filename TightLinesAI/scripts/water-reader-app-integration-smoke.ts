@@ -129,7 +129,9 @@ assert(serverSource.includes('WATER_READER_HEAVY_GENERATOR_URL'), 'server read e
 assert(serverSource.includes('x-water-reader-internal-key'), 'server read endpoint should use internal key for diagnostics and worker auth');
 assert(serverSource.includes('heavyRouteInfo'), 'server read endpoint should classify heavy rows structurally');
 assert(serverSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER'), 'server read endpoint should require an explicit flag before routing every cache miss through the worker');
-assert(serverSource.includes('if (routeViaHeavyWorker && !allowInlineCacheMissGeneration())'), 'server read endpoint should only queue reads that are routed to the heavy worker');
+assert(serverSource.includes('WATER_READER_DIRECT_HEAVY_GENERATION'), 'server read endpoint should support direct heavy generation before queue fallback');
+assert(serverSource.includes('if (routeViaHeavyWorker && allowDirectHeavyGeneration())'), 'server read endpoint should try direct heavy worker generation for risky reads');
+assert(serverSource.includes('if (routeViaHeavyWorker)') && serverSource.includes('direct heavy generation did not finish'), 'server read endpoint should queue risky reads only after direct heavy cannot finish quickly');
 assert(serverSource.includes('EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 3200'), 'server read endpoint should route risky runtime vertex counts away from the edge worker');
 assert(serverSource.includes('EDGE_INLINE_INTERIOR_RING_LIMIT = 1'), 'server read endpoint should route interior-ring polygons away from the edge worker');
 assert(serverSource.includes('EDGE_INLINE_RUNTIME_COMPONENT_LIMIT = 2'), 'server read endpoint should route multi-component polygons away from the edge worker');

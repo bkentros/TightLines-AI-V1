@@ -60,7 +60,7 @@ The compatibility endpoint is `POST /water-reader/generate` and requires header 
 
 ## Queue Runner
 
-Production Edge reads should return cached reads immediately, generate normal lakes inline, and queue only reads that exceed Edge complexity limits. The heavy route queues high runtime vertex count, large runtime GeoJSON payloads, very large metadata acreage, interior-ring polygons, multi-component polygons, and combined complexity score. Set `WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=false` for the hybrid launch path; use `true` only as an emergency safety switch if inline Edge generation begins failing broadly.
+Production Edge reads should return cached reads immediately, generate normal lakes inline, and send risky or very large reads to the heavy worker directly before queueing. The heavy route is used for high runtime vertex count, large runtime GeoJSON payloads, very large metadata acreage, interior-ring polygons, multi-component polygons, and combined complexity score. Set `WATER_READER_DIRECT_HEAVY_GENERATION=true` and `WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=false` for the hybrid launch path. The emergency route-all switch should be `true` only if inline Edge generation begins failing broadly.
 
 Create a Cloud Scheduler job that calls the worker drain endpoint every minute:
 
@@ -99,12 +99,12 @@ After the Cloud Run URL is known:
 supabase secrets set \
   WATER_READER_HEAVY_GENERATOR_URL="<cloud-run-service-url>" \
   WATER_READER_INTERNAL_KEY="<same-secret-as-worker>" \
-  WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="25000" \
-  WATER_READER_EDGE_INLINE_CACHE_MISSES="false" \
+  WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="18000" \
+  WATER_READER_DIRECT_HEAVY_GENERATION="true" \
   WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="false"
 ```
 
-If production smoke shows legitimate worker timeouts, raise the Edge timeout cautiously:
+If production smoke shows legitimate worker timeouts, raise the direct heavy timeout cautiously. Reads that do not finish inside the timeout fall back to the Recent Water Reads queue instead of returning a user-facing failure:
 
 ```bash
 supabase secrets set WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="45000"
