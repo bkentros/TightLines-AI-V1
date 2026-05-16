@@ -116,6 +116,7 @@ const EDGE_INLINE_INTERIOR_RING_LIMIT = 1;
 const EDGE_INLINE_RUNTIME_COMPONENT_LIMIT = 2;
 const EDGE_INLINE_COMPLEXITY_SCORE_LIMIT = 3600;
 const EDGE_INLINE_METADATA_AREA_ACRES_LIMIT = 3000;
+const GENERATION_JOB_MAX_ATTEMPTS = 10;
 const INTERIOR_RING_COMPLEXITY_WEIGHT = 900;
 
 function centroidPoint(value: unknown): { lon: number; lat: number } | null {
@@ -477,6 +478,44 @@ async function ensureGenerationJob(params: {
   return job;
 }
 
+async function keepGenerationJobRetryable(params: {
+  supabase: any;
+  job: GenerationJobRow;
+}): Promise<GenerationJobRow> {
+  if (params.job.status !== "failed" && params.job.max_attempts >= GENERATION_JOB_MAX_ATTEMPTS) {
+    return params.job;
+  }
+
+  const patch: Record<string, unknown> = {
+    max_attempts: GENERATION_JOB_MAX_ATTEMPTS,
+  };
+  if (params.job.status === "failed") {
+    patch.status = "queued";
+    patch.attempts = 0;
+    patch.failed_at = null;
+    patch.locked_by = null;
+    patch.locked_at = null;
+    patch.next_attempt_at = new Date().toISOString();
+  }
+
+  const { data, error } = await params.supabase
+    .from("water_reader_generation_jobs")
+    .update(patch)
+    .eq("id", params.job.id)
+    .select("id,lake_id,season_context_key,map_width,engine_version,status,attempts,max_attempts,next_attempt_at,last_error,created_at,updated_at")
+    .single();
+
+  if (error) {
+    console.error("[water-reader-read] generation job retryability update failed", {
+      jobId: params.job.id,
+      status: params.job.status,
+      message: error.message,
+    });
+    return params.job;
+  }
+  return data as GenerationJobRow;
+}
+
 interface RecentPreparingHistoryRow {
   lake_id: string;
   season_context_key: string;
@@ -686,6 +725,10 @@ async function queueGenerationReadResponse(params: {
       lakeId: params.polygon.lakeId,
       seasonContextKey: params.seasonContextKey,
       userId: params.userId,
+    });
+    job = await keepGenerationJobRetryable({
+      supabase: params.supabase,
+      job,
     });
   } catch (jobError) {
     console.error("[water-reader-read] generation job ensure failed", {

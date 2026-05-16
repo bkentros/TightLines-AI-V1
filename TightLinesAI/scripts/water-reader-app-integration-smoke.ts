@@ -164,6 +164,7 @@ assert(appSource.includes('WATER_READER_HISTORY_BUILDING_POLL_MAX_MS = 10 * 60 *
 assert(appSource.includes("historyItems.some((item) => item.status === 'building')"), 'app should detect building recent reads for status polling');
 assert(appSource.includes('setHistoryRefreshNonce((value) => value + 1)'), 'app should refresh history through the existing nonce path');
 assert(appSource.includes('View Read'), 'ready recent reads should use View Read CTA copy');
+assert(appSource.includes("case 'failed': return 'Building'"), 'recent reads should not show terminal failed copy for generation jobs');
 assert(appSource.includes('onSearchQueryChange'), 'selected lake search input should stay editable and clear selection when the user types a new lake');
 assert(!appSource.includes('CHANGE LAKE'), 'selected lake summary should not show CHANGE LAKE copy');
 assert(!appSource.includes('CHANGE STATE'), 'selected lake summary should not show CHANGE STATE copy');

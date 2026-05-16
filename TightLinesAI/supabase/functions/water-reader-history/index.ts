@@ -2,6 +2,7 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const WATER_READER_HISTORY_FEATURE = "water_reader_history_v1" as const;
+const GENERATION_JOB_MAX_ATTEMPTS = 10;
 
 type HistoryStatus = "preparing" | "ready" | "failed";
 type JobStatus = "queued" | "processing" | "complete" | "failed";
@@ -41,6 +42,8 @@ interface GenerationJobRow {
   status: JobStatus;
   completed_at: string | null;
   updated_at: string | null;
+  attempts?: number | null;
+  max_attempts?: number | null;
 }
 
 function corsHeaders() {
@@ -233,7 +236,7 @@ Deno.serve(async (req: Request) => {
   if (jobIds.length > 0) {
     const { data: jobRows, error: jobError } = await supabase
       .from("water_reader_generation_jobs")
-      .select("id,status,completed_at,updated_at")
+      .select("id,status,completed_at,updated_at,attempts,max_attempts")
       .in("id", jobIds);
     if (jobError) {
       console.error("[water-reader-history] job lookup failed", {
@@ -247,11 +250,18 @@ Deno.serve(async (req: Request) => {
   }
 
   const readyHistoryIds: string[] = [];
+  const retryHistoryIds: string[] = [];
+  const retryJobIds: string[] = [];
   const items = historyRows.map((history) => {
     const metadata = metadataByLake.get(history.lake_id);
     const cache = cacheByKey.get(cacheKey(history)) ?? null;
     const job = history.generation_job_id ? jobById.get(history.generation_job_id) ?? null : null;
-    const status = deriveStatus({ history, cache, job });
+    let status = deriveStatus({ history, cache, job });
+    if (!cache && job?.status === "failed") {
+      status = "building";
+      retryHistoryIds.push(history.id);
+      retryJobIds.push(job.id);
+    }
     if (cache && history.status === "preparing") readyHistoryIds.push(history.id);
 
     return {
@@ -268,9 +278,6 @@ Deno.serve(async (req: Request) => {
       generationJobId: history.generation_job_id,
       lastViewedAt: history.last_viewed_at,
       generatedAt: cache?.generated_at ?? job?.completed_at ?? null,
-      ...(status === "failed"
-        ? { message: "We couldn't finish this Water Read yet. Please try again." }
-        : {}),
     };
   });
 
@@ -282,6 +289,42 @@ Deno.serve(async (req: Request) => {
     if (error) {
       console.error("[water-reader-history] best-effort history ready update failed", {
         count: readyHistoryIds.length,
+        message: error.message,
+      });
+    }
+  }
+
+  if (retryJobIds.length > 0) {
+    const ids = Array.from(new Set(retryJobIds));
+    const { error } = await supabase
+      .from("water_reader_generation_jobs")
+      .update({
+        status: "queued",
+        attempts: 0,
+        max_attempts: GENERATION_JOB_MAX_ATTEMPTS,
+        failed_at: null,
+        locked_by: null,
+        locked_at: null,
+        next_attempt_at: new Date().toISOString(),
+      })
+      .in("id", ids);
+    if (error) {
+      console.error("[water-reader-history] best-effort failed job retry update failed", {
+        count: ids.length,
+        message: error.message,
+      });
+    }
+  }
+
+  if (retryHistoryIds.length > 0) {
+    const ids = Array.from(new Set(retryHistoryIds));
+    const { error } = await supabase
+      .from("water_reader_user_history")
+      .update({ status: "preparing" })
+      .in("id", ids);
+    if (error) {
+      console.error("[water-reader-history] best-effort failed history retry update failed", {
+        count: ids.length,
         message: error.message,
       });
     }

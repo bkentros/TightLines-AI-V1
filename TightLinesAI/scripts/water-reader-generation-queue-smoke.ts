@@ -23,6 +23,8 @@ async function main() {
   assert(edgeSource.includes('generationStatus: jobStatus'), 'edge pending response should include generation status');
   assert(edgeSource.includes('generationJobId: params.job.id'), 'edge pending response should include job id');
   assert(edgeSource.includes('retryAfterMs'), 'edge pending response should include retry hint');
+  assert(edgeSource.includes('GENERATION_JOB_MAX_ATTEMPTS = 10'), 'edge should keep generation jobs retryable for launch traffic');
+  assert(edgeSource.includes('keepGenerationJobRetryable'), 'edge should reopen failed generation jobs instead of leaving a dead end');
   assert(edgeSource.includes('EDGE_INLINE_METADATA_AREA_ACRES_LIMIT = 3000'), 'edge should route obviously large lakes before runtime polygon fetch');
   assert(edgeSource.includes('surface_area_acres, centroid'), 'edge metadata lookup should include lightweight area and centroid for pre-polygon routing');
   assert(edgeSource.includes('metadataPendingPolygon(metadata)'), 'edge should build a pending response from metadata for large-lake queueing');

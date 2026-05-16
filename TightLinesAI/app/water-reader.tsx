@@ -1375,7 +1375,7 @@ function recentStatusLabel(status: WaterReaderHistoryStatus): string {
   switch (status) {
     case 'ready': return 'Ready';
     case 'building': return 'Building';
-    case 'failed': return 'Failed';
+    case 'failed': return 'Building';
     default: return 'Building';
   }
 }
@@ -1457,7 +1457,7 @@ function RecentWaterReads({
                     styles.recentStatusPill,
                     item.status === 'ready' && styles.recentStatusPillReady,
                     item.status === 'building' && styles.recentStatusPillBuilding,
-                    item.status === 'failed' && styles.recentStatusPillFailed,
+                    item.status === 'failed' && styles.recentStatusPillBuilding,
                   ]}
                 >
                   <Text style={styles.recentStatusText}>
@@ -1474,7 +1474,7 @@ function RecentWaterReads({
                     ? 'View Read'
                     : item.status === 'building'
                       ? 'Building'
-                      : 'Retry'}
+                      : 'Building'}
                 </Text>
                 <Ionicons
                   name={item.status === 'ready' ? 'open-outline' : 'refresh'}
