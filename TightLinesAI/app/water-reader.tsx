@@ -67,7 +67,6 @@ const SEARCH_DEBOUNCE_MS = 650;
 const SEARCH_MIN_CHARS = 3;
 const SEARCH_RESULT_LIMIT = 20;
 const WATER_READER_PENDING_DEFAULT_RETRY_MS = 4000;
-const WATER_READER_PENDING_MAX_MS = 30000;
 const WATER_READER_HISTORY_BUILDING_POLL_MS = 6000;
 const WATER_READER_HISTORY_BUILDING_POLL_MAX_MS = 10 * 60 * 1000;
 
@@ -362,21 +361,12 @@ export default function WaterReaderScreen() {
     setReadState({ status: 'reading', read: null, errorMessage: null });
     const lakeId = selected.lakeId;
     void (async () => {
-      const startedAt = Date.now();
       try {
         while (readRequestId.current === reqId) {
           const res = await fetchWaterReaderRead({ lakeId });
           if (readRequestId.current !== reqId) return;
           if (res.generationStatus === 'queued' || res.generationStatus === 'processing') {
             setReadState({ status: 'preparing', read: res, errorMessage: null });
-            if (Date.now() - startedAt >= WATER_READER_PENDING_MAX_MS) {
-              setReadState({
-                status: 'queued',
-                read: res,
-                errorMessage: null,
-              });
-              return;
-            }
             await delay(pendingRetryDelayMs(res));
             continue;
           }
@@ -530,24 +520,33 @@ export default function WaterReaderScreen() {
     return () => clearTimeout(t);
   }, [query, stateCode, runSearch]);
 
+  const hasBuildingRead = readState.status === 'reading' ||
+    readState.status === 'preparing' ||
+    readState.status === 'queued' ||
+    readState.status === 'recent_building' ||
+    historyItems.some((item) => item.status === 'building');
+
   const openStatePicker = useCallback(() => {
     if (!hasSubscription) {
       setShowSubscribePrompt(true);
       return;
     }
+    if (hasBuildingRead) return;
     setStateModalOpen(true);
-  }, [hasSubscription]);
+  }, [hasBuildingRead, hasSubscription]);
 
   const onSearchQueryChange = useCallback((value: string) => {
+    if (hasBuildingRead) return;
     if (selected) setSelected(null);
     setQuery(value);
-  }, [selected]);
+  }, [hasBuildingRead, selected]);
 
   const onSelectHistoryItem = useCallback((item: WaterReaderHistoryItem) => {
     if (!hasSubscription) {
       setShowSubscribePrompt(true);
       return;
     }
+    if (hasBuildingRead) return;
     if (item.state && item.state !== stateCode) {
       preserveSelectionForHistoryStateChange.current = true;
       setStateCode(item.state);
@@ -559,10 +558,10 @@ export default function WaterReaderScreen() {
     setSearchEmpty(false);
     setSearchExpanded(false);
     setSelected(historyItemToSearchResult(item));
-  }, [hasSubscription, stateCode]);
+  }, [hasBuildingRead, hasSubscription, stateCode]);
 
   const showResultsPanel =
-    !selected && stateCode && (query.trim().length >= SEARCH_MIN_CHARS || searching || (searchError != null && query.trim().length >= SEARCH_MIN_CHARS));
+    !hasBuildingRead && !selected && stateCode && (query.trim().length >= SEARCH_MIN_CHARS || searching || (searchError != null && query.trim().length >= SEARCH_MIN_CHARS));
 
   const stateNameForEmpty =
     (stateCode && US_STATE_OPTIONS.find((o) => o.code === stateCode)?.name) || 'this state';
@@ -623,26 +622,6 @@ export default function WaterReaderScreen() {
           )}
       </View>
     ) : null;
-    if (readState.status === 'queued') {
-      return (
-        <View style={styles.readRetryRow}>
-          <Pressable
-            style={({ pressed }) => [
-              styles.readRetryButton,
-              pressed && styles.readRetryButtonPressed,
-            ]}
-            onPress={() => {
-              setReadRetryNonce((value) => value + 1);
-              setHistoryRefreshNonce((value) => value + 1);
-            }}
-            accessibilityLabel="Check Water Read"
-          >
-            <Ionicons name="refresh" size={14} color="#FFFFFF" />
-            <Text style={styles.readRetryButtonText}>CHECK READ</Text>
-          </Pressable>
-        </View>
-      );
-    }
     if (readState.status !== 'error') return notes;
     return (
       <View style={styles.readRetryRow}>
@@ -774,9 +753,11 @@ export default function WaterReaderScreen() {
               <Pressable
                 style={({ pressed }) => [
                   styles.stateButton,
+                  hasBuildingRead && styles.controlDisabled,
                   pressed && styles.stateButtonPressed,
                 ]}
                 onPress={openStatePicker}
+                disabled={hasBuildingRead}
                 accessibilityLabel="Select U.S. state"
               >
                 <Ionicons name="location-outline" size={14} color={paper.dashboardInk} />
@@ -819,8 +800,9 @@ export default function WaterReaderScreen() {
                       autoCorrect={false}
                       autoCapitalize="words"
                       accessibilityLabel="Waterbody name search"
+                      editable={!hasBuildingRead}
                     />
-                    {query.length > 0 && (
+                    {query.length > 0 && !hasBuildingRead && (
                       <Pressable
                         onPress={() => {
                           setSelected(null);
@@ -841,7 +823,11 @@ export default function WaterReaderScreen() {
                       </Pressable>
                     )}
                   </View>
-                  {!selected && query.trim().length < SEARCH_MIN_CHARS && !searching && (
+                  {hasBuildingRead ? (
+                    <Text style={styles.searchHint}>
+                      Finish the building Water Read before starting another lake.
+                    </Text>
+                  ) : !selected && query.trim().length < SEARCH_MIN_CHARS && !searching && (
                     <Text style={styles.searchHint}>
                       Type at least 3 letters of the lake name.
                     </Text>
@@ -1006,7 +992,6 @@ export default function WaterReaderScreen() {
               <RecentReadBuildingNotice
                 lakeName={selected.name}
                 contextLine={selectionContextLine(selected)}
-                onCheckReads={() => setHistoryRefreshNonce((value) => value + 1)}
               />
             ) : (
               <>
@@ -1493,11 +1478,9 @@ function RecentWaterReads({
 function RecentReadBuildingNotice({
   lakeName,
   contextLine,
-  onCheckReads,
 }: {
   lakeName: string;
   contextLine: string;
-  onCheckReads: () => void;
 }) {
   return (
     <View style={styles.readInfoPanel}>
@@ -1511,22 +1494,10 @@ function RecentReadBuildingNotice({
         <Text style={styles.readInfoContext} numberOfLines={2}>
           {contextLine}
         </Text>
-        <Text style={styles.readInfoTitle}>ANOTHER READ IS BUILDING</Text>
+        <Text style={styles.readInfoTitle}>WATER READ BUILDING</Text>
         <Text style={styles.readInfoBody}>
-          Check Recent Water Reads, or try this lake again in a moment.
+          Finish the current map before starting another lake. It will show as Ready in Recent Water Reads.
         </Text>
-        <Pressable
-          style={({ pressed }) => [
-            styles.readInfoButton,
-            pressed && styles.readInfoButtonPressed,
-          ]}
-          onPress={onCheckReads}
-          accessibilityRole="button"
-          accessibilityLabel="Check Reads"
-        >
-          <Ionicons name="refresh" size={14} color="#FFFFFF" />
-          <Text style={styles.readInfoButtonText}>CHECK READS</Text>
-        </Pressable>
       </View>
     </View>
   );
@@ -1719,6 +1690,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#FAFAF7',
   },
   stateButtonPressed: { transform: [{ translateY: 1 }] },
+  controlDisabled: { opacity: 0.55 },
   stateButtonText: {
     flex: 1,
     minWidth: 0,
@@ -2127,30 +2099,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: '#555555',
   },
-  readInfoButton: {
-    alignSelf: 'flex-start',
-    minHeight: 36,
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    marginTop: 4,
-    paddingHorizontal: 13,
-    borderRadius: 8,
-    backgroundColor: paper.dashboardBlue,
-    borderWidth: 1,
-    borderColor: 'rgba(0,0,0,0.18)',
-  },
-  readInfoButtonPressed: {
-    opacity: 0.86,
-    transform: [{ translateY: 1 }],
-  },
-  readInfoButtonText: {
-    fontFamily: MONO_BOLD,
-    fontSize: 10,
-    letterSpacing: 1.3,
-    color: '#FFFFFF',
-  },
-
   // Idle state — sample plate preview that mirrors WaterReaderMapCard
   // chrome exactly (FULL/DETAIL toolbar, plate frame with tan beige,
   // brand chip top-left, scale bar bottom-left, bottom colophon, meta

@@ -115,7 +115,7 @@ const EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 70000;
 const EDGE_INLINE_INTERIOR_RING_LIMIT = 1;
 const EDGE_INLINE_RUNTIME_COMPONENT_LIMIT = 2;
 const EDGE_INLINE_COMPLEXITY_SCORE_LIMIT = 3600;
-const EDGE_INLINE_METADATA_AREA_ACRES_LIMIT = 3000;
+const EDGE_INLINE_METADATA_AREA_ACRES_LIMIT = 10000;
 const GENERATION_JOB_MAX_ATTEMPTS = 10;
 const INTERIOR_RING_COMPLEXITY_WEIGHT = 900;
 
@@ -163,7 +163,7 @@ function metadataPendingPolygon(row: WaterbodyMetadataRow): WaterbodyPolygonForW
     componentCount: 0,
     interiorRingCount: 0,
     waterReaderSupportStatus: "supported",
-    waterReaderSupportReason: "Large waterbody routed to the heavy Water Reader worker before Edge polygon processing.",
+    waterReaderSupportReason: "Large waterbody routed for background Water Reader generation before Edge polygon processing.",
     polygonQaFlags: ["metadata_area_heavy_route"],
     originalVertexCount: null,
     runtimeVertexCount: null,

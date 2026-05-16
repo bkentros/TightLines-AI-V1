@@ -60,7 +60,7 @@ The compatibility endpoint is `POST /water-reader/generate` and requires header 
 
 ## Queue Runner
 
-Production Edge reads should return cached reads immediately and queue uncached reads when launch safety is more important than inline generation speed. In safest production mode, set `WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=true`; the Edge Function checks auth, metadata, and cache, then returns `generationStatus: "queued"` or `"processing"` without fetching the runtime polygon in Edge. If this flag is off, the heavy route still queues reads that exceed Edge complexity limits, including high runtime vertex count, large runtime GeoJSON payloads, large metadata acreage, interior-ring polygons, multi-component polygons, and combined complexity score.
+Production Edge reads should return cached reads immediately, generate normal lakes inline, and queue only reads that exceed Edge complexity limits. The heavy route queues high runtime vertex count, large runtime GeoJSON payloads, very large metadata acreage, interior-ring polygons, multi-component polygons, and combined complexity score. Set `WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=false` for the hybrid launch path; use `true` only as an emergency safety switch if inline Edge generation begins failing broadly.
 
 Create a Cloud Scheduler job that calls the worker drain endpoint every minute:
 
@@ -101,7 +101,7 @@ supabase secrets set \
   WATER_READER_INTERNAL_KEY="<same-secret-as-worker>" \
   WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="25000" \
   WATER_READER_EDGE_INLINE_CACHE_MISSES="false" \
-  WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="true"
+  WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="false"
 ```
 
 If production smoke shows legitimate worker timeouts, raise the Edge timeout cautiously:

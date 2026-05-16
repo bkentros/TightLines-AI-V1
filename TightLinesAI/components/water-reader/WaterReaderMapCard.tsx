@@ -239,13 +239,9 @@ export function WaterReaderMapCard({
             )}
           </View>
           <View style={styles.preparingCopy}>
-            <Text style={styles.preparingTitle}>
-              {state.status === 'queued' ? 'STILL WORKING' : 'BUILDING WATER READ'}
-            </Text>
+            <Text style={styles.preparingTitle}>BUILDING WATER READ</Text>
             <Text style={styles.preparingBody}>
-              {state.status === 'queued'
-                ? 'This lake needs more processing time. Leave this screen and choose the same lake again later, or tap Check Read.'
-                : 'This lake needs the heavy map builder. This page will check for the finished read automatically.'}
+              {`We are building ${lakeName}'s map. You can leave this screen; it will appear in Recent Water Reads when ready.`}
             </Text>
           </View>
         </View>
