@@ -60,7 +60,9 @@ The compatibility endpoint is `POST /water-reader/generate` and requires header 
 
 ## Queue Runner
 
-Production Edge reads should return cached reads immediately, generate normal lakes inline, and send risky or very large reads to the heavy worker directly before queueing. The heavy route is used for high runtime vertex count, large runtime GeoJSON payloads, very large metadata acreage, interior-ring polygons, multi-component polygons, and combined complexity score. Set `WATER_READER_DIRECT_HEAVY_GENERATION=true` and `WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=false` for the hybrid launch path. The emergency route-all switch should be `true` only if inline Edge generation begins failing broadly.
+Production Edge reads should return cached reads immediately, fetch the runtime polygon, generate normal lakes inline, and send only measured high-complexity reads to the heavy worker before queueing. The heavy route is used for high runtime vertex count, large runtime GeoJSON payloads, high interior-ring/component counts, and combined complexity score; acreage alone should not route a lake away from the fast inline path. Set `WATER_READER_DIRECT_HEAVY_GENERATION=true` only when direct worker calls are intentionally enabled, and keep `WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=false` for the hybrid launch path. The emergency route-all switch should be `true` only if inline Edge generation begins failing broadly.
+
+The production safety contract depends on the queue/history migrations and the active-generation guard migration being applied before deploying the Edge functions. `water_reader_user_active_generation_requests` enforces one active uncached generation per user at the database boundary, and `begin_water_reader_generation_request` serializes same-user starts with an advisory transaction lock. Cached reads are still allowed to return immediately; uncached second reads get the friendly Recent Water Reads building response until the active request is ready.
 
 Create a Cloud Scheduler job that calls the worker drain endpoint every minute:
 
@@ -74,7 +76,7 @@ gcloud scheduler jobs create http water-reader-drain-1 \
   --uri "$WORKER_URL/water-reader/jobs/drain" \
   --http-method POST \
   --headers "content-type=application/json,x-water-reader-internal-key=$WATER_READER_INTERNAL_KEY" \
-  --message-body '{"maxJobs":3}'
+  --message-body '{"maxJobs":10}'
 ```
 
 The Scheduler request is:
@@ -84,10 +86,10 @@ POST $WORKER_URL/water-reader/jobs/drain
 content-type: application/json
 x-water-reader-internal-key: <secret>
 
-{"maxJobs":3}
+{"maxJobs":10}
 ```
 
-`maxJobs: 3` keeps each scheduled invocation bounded while still making progress through bursts. The database claim RPC uses `for update skip locked`, so multiple runner calls can safely overlap.
+`maxJobs: 10` matches the current Cloud Run launch shape: request concurrency stays at 1, but one scheduler tick can drain a small burst while Cloud Run scales instances. The database claim RPC uses `for update skip locked`, so multiple runner calls can safely overlap.
 
 For higher-volume spikes, add multiple Cloud Scheduler jobs with staggered schedules or move the runner trigger to Cloud Tasks. Cloud Tasks gives better backpressure and retry control if cache misses arrive faster than once-per-minute scheduler drains can clear them.
 
@@ -99,7 +101,7 @@ After the Cloud Run URL is known:
 supabase secrets set \
   WATER_READER_HEAVY_GENERATOR_URL="<cloud-run-service-url>" \
   WATER_READER_INTERNAL_KEY="<same-secret-as-worker>" \
-  WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="18000" \
+  WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="20000" \
   WATER_READER_DIRECT_HEAVY_GENERATION="true" \
   WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="false"
 ```
@@ -114,6 +116,7 @@ Then deploy the read function:
 
 ```bash
 supabase functions deploy water-reader-read
+supabase functions deploy water-reader-history
 ```
 
 Run the live launch smoke after both deploys. It signs in with the Water Reader test user, searches real indexed lakes, opens several reads through deployed Supabase, and fails if deployed reads are not serving the current engine version:
@@ -121,6 +124,28 @@ Run the live launch smoke after both deploys. It signs in with the Water Reader 
 ```bash
 npm run smoke:water-reader-live-launch
 ```
+
+## Launch Pre-Warm
+
+Pre-warm the high-confidence launch list before a release or launch push:
+
+```bash
+npm run prewarm:water-reader-launch -- --launch-core --date YYYY-MM-DD
+```
+
+The script uses the production heavy-generator code path, stores reads in `water_reader_engine_read_cache`, retries transient Supabase/Cloudflare failures, and writes the latest report to:
+
+```text
+tmp/water-reader-launch-prewarm/latest.json
+```
+
+Use exact IDs for known large or alias-sensitive waterbodies, and keep optional extreme stress cases separate from the launch list:
+
+```bash
+npm run prewarm:water-reader-launch -- --stress --date YYYY-MM-DD
+```
+
+`--stress` currently includes Toledo Bend Reservoir. Treat that as a post-launch/CPU-bump stress target, not a launch blocker.
 
 ## Production Cache Wipe SQL
 

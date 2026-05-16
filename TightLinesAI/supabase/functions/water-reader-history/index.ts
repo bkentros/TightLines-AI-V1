@@ -2,7 +2,6 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 
 const WATER_READER_HISTORY_FEATURE = "water_reader_history_v1" as const;
-const GENERATION_JOB_MAX_ATTEMPTS = 10;
 
 type HistoryStatus = "preparing" | "ready" | "failed";
 type JobStatus = "queued" | "processing" | "complete" | "failed";
@@ -44,6 +43,7 @@ interface GenerationJobRow {
   updated_at: string | null;
   attempts?: number | null;
   max_attempts?: number | null;
+  last_error?: string | null;
 }
 
 function corsHeaders() {
@@ -99,6 +99,85 @@ function normalizeAreaAcres(value: number | string | null | undefined): number |
     return Number.isFinite(parsed) ? parsed : null;
   }
   return null;
+}
+
+function runInBackground(promise: Promise<unknown>) {
+  const edgeRuntime = (globalThis as unknown as {
+    EdgeRuntime?: { waitUntil?: (promise: Promise<unknown>) => void };
+  }).EdgeRuntime;
+  if (typeof edgeRuntime?.waitUntil === "function") {
+    edgeRuntime.waitUntil(promise);
+    return;
+  }
+  promise.catch((error) => {
+    console.error("[water-reader-history] background task failed", {
+      message: error instanceof Error ? error.message : String(error),
+    });
+  });
+}
+
+async function kickGenerationWorker(params: {
+  jobId: string;
+  lakeId: string;
+  seasonContextKey: string;
+}) {
+  const url = Deno.env.get("WATER_READER_HEAVY_GENERATOR_URL");
+  const internalKey = Deno.env.get("WATER_READER_INTERNAL_KEY");
+  if (!url || !internalKey) return;
+
+  const endpoint = `${url.replace(/\/$/, "")}/water-reader/jobs/drain`;
+  try {
+    const response = await fetch(endpoint, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        "x-water-reader-internal-key": internalKey,
+      },
+      body: JSON.stringify({ maxJobs: 1 }),
+    });
+    if (!response.ok) {
+      const message = (await response.text()).slice(0, 500);
+      console.error("[water-reader-history] worker kick failed", {
+        jobId: params.jobId,
+        lakeId: params.lakeId,
+        seasonContextKey: params.seasonContextKey,
+        status: response.status,
+        message,
+      });
+    }
+  } catch (error) {
+    console.error("[water-reader-history] worker kick request failed", {
+      jobId: params.jobId,
+      lakeId: params.lakeId,
+      seasonContextKey: params.seasonContextKey,
+      message: error instanceof Error ? error.message : String(error),
+    });
+  }
+}
+
+async function clearActiveGenerationRequest(params: {
+  supabase: any;
+  userId: string;
+  lakeId: string;
+  seasonContextKey: string;
+  mapWidth: number;
+  engineVersion: string;
+}) {
+  const { error } = await params.supabase.rpc("clear_water_reader_user_active_generation_request", {
+    in_user_id: params.userId,
+    in_generation_job_id: null,
+    in_lake_id: params.lakeId,
+    in_season_context_key: params.seasonContextKey,
+    in_map_width: params.mapWidth,
+    in_engine_version: params.engineVersion,
+  });
+  if (error) {
+    console.error("[water-reader-history] active generation request clear failed", {
+      lakeId: params.lakeId,
+      userId: params.userId,
+      message: error.message,
+    });
+  }
 }
 
 async function fetchHistoryRows(params: {
@@ -234,9 +313,16 @@ Deno.serve(async (req: Request) => {
   }
 
   if (jobIds.length > 0) {
+    const { error: staleError } = await supabase.rpc("requeue_stale_water_reader_generation_jobs");
+    if (staleError) {
+      console.error("[water-reader-history] stale job watchdog failed", {
+        message: staleError.message,
+      });
+    }
+
     const { data: jobRows, error: jobError } = await supabase
       .from("water_reader_generation_jobs")
-      .select("id,status,completed_at,updated_at,attempts,max_attempts")
+      .select("id,status,completed_at,updated_at,attempts,max_attempts,last_error")
       .in("id", jobIds);
     if (jobError) {
       console.error("[water-reader-history] job lookup failed", {
@@ -247,22 +333,57 @@ Deno.serve(async (req: Request) => {
     for (const row of (jobRows ?? []) as GenerationJobRow[]) {
       jobById.set(row.id, row);
     }
+
+    for (const row of (jobRows ?? []) as GenerationJobRow[]) {
+      if (row.status !== "failed") continue;
+      const { data: requeuedJob, error: requeueError } = await supabase.rpc(
+        "requeue_water_reader_generation_job",
+        {
+          in_job_id: row.id,
+          in_reason: row.last_error ?? "Retrying Water Reader generation from Recent Water Reads.",
+        },
+      );
+      if (requeueError) {
+        console.error("[water-reader-history] retryable failed job requeue failed", {
+          jobId: row.id,
+          message: requeueError.message,
+        });
+        continue;
+      }
+      const normalized = Array.isArray(requeuedJob) ? requeuedJob[0] : requeuedJob;
+      if (normalized?.id) jobById.set(normalized.id, normalized as GenerationJobRow);
+    }
   }
 
   const readyHistoryIds: string[] = [];
-  const retryHistoryIds: string[] = [];
-  const retryJobIds: string[] = [];
+  const activeRequestsToClear: Array<{
+    lakeId: string;
+    seasonContextKey: string;
+    mapWidth: number;
+    engineVersion: string;
+  }> = [];
+  const queuedJobsToKick: Array<{ jobId: string; lakeId: string; seasonContextKey: string }> = [];
   const items = historyRows.map((history) => {
     const metadata = metadataByLake.get(history.lake_id);
     const cache = cacheByKey.get(cacheKey(history)) ?? null;
     const job = history.generation_job_id ? jobById.get(history.generation_job_id) ?? null : null;
-    let status = deriveStatus({ history, cache, job });
-    if (!cache && job?.status === "failed") {
-      status = "building";
-      retryHistoryIds.push(history.id);
-      retryJobIds.push(job.id);
+    const status = deriveStatus({ history, cache, job });
+    if (cache) {
+      activeRequestsToClear.push({
+        lakeId: history.lake_id,
+        seasonContextKey: history.season_context_key,
+        mapWidth: history.map_width,
+        engineVersion: history.engine_version,
+      });
+      if (history.status === "preparing") readyHistoryIds.push(history.id);
     }
-    if (cache && history.status === "preparing") readyHistoryIds.push(history.id);
+    if (!cache && status === "building" && job?.status === "queued") {
+      queuedJobsToKick.push({
+        jobId: job.id,
+        lakeId: history.lake_id,
+        seasonContextKey: history.season_context_key,
+      });
+    }
 
     return {
       historyId: history.id,
@@ -294,40 +415,23 @@ Deno.serve(async (req: Request) => {
     }
   }
 
-  if (retryJobIds.length > 0) {
-    const ids = Array.from(new Set(retryJobIds));
-    const { error } = await supabase
-      .from("water_reader_generation_jobs")
-      .update({
-        status: "queued",
-        attempts: 0,
-        max_attempts: GENERATION_JOB_MAX_ATTEMPTS,
-        failed_at: null,
-        locked_by: null,
-        locked_at: null,
-        next_attempt_at: new Date().toISOString(),
-      })
-      .in("id", ids);
-    if (error) {
-      console.error("[water-reader-history] best-effort failed job retry update failed", {
-        count: ids.length,
-        message: error.message,
-      });
-    }
+  const seenClearKeys = new Set<string>();
+  for (const active of activeRequestsToClear) {
+    const key = `${active.lakeId}:${active.seasonContextKey}:${active.mapWidth}:${active.engineVersion}`;
+    if (seenClearKeys.has(key)) continue;
+    seenClearKeys.add(key);
+    runInBackground(clearActiveGenerationRequest({
+      supabase,
+      userId: user.id,
+      ...active,
+    }));
   }
 
-  if (retryHistoryIds.length > 0) {
-    const ids = Array.from(new Set(retryHistoryIds));
-    const { error } = await supabase
-      .from("water_reader_user_history")
-      .update({ status: "preparing" })
-      .in("id", ids);
-    if (error) {
-      console.error("[water-reader-history] best-effort failed history retry update failed", {
-        count: ids.length,
-        message: error.message,
-      });
-    }
+  const seenKickKeys = new Set<string>();
+  for (const job of queuedJobsToKick) {
+    if (seenKickKeys.has(job.jobId)) continue;
+    seenKickKeys.add(job.jobId);
+    runInBackground(kickGenerationWorker(job));
   }
 
   return new Response(

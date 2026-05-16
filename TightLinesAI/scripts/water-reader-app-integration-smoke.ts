@@ -28,6 +28,7 @@ const serverContractsSource = readFileSync('supabase/functions/_shared/waterRead
 const cacheBuilderSource = readFileSync('scripts/water-reader-build-read-cache.ts', 'utf8');
 const migrationSource = readFileSync('supabase/migrations/202605030001_water_reader_engine_read_cache.sql', 'utf8');
 const queueMigrationSource = readFileSync('supabase/migrations/20260515120000_water_reader_generation_queue_history.sql', 'utf8');
+const activeGuardMigrationSource = readFileSync('supabase/migrations/20260516120000_water_reader_user_active_generation_guard.sql', 'utf8');
 const searchFunctionSource = readFileSync('supabase/functions/waterbody-search/index.ts', 'utf8');
 const aliasSeedMigrationSource = readFileSync('supabase/migrations/20260507211500_seed_waterbody_search_aliases.sql', 'utf8');
 const sharedStatesMigrationSource = readFileSync('supabase/migrations/20260507214500_waterbody_shared_states.sql', 'utf8');
@@ -120,6 +121,9 @@ assert(appSource.includes('fetchWaterReaderRead({ lakeId })'), 'app screen shoul
 assert(serverSource.includes('get_waterbody_polygon_runtime_for_reader'), 'server read endpoint should use runtime-safe polygon RPC');
 assert(serverSource.includes('water_reader_engine_read_cache'), 'server read endpoint should query cached reads');
 assert(serverSource.includes('ensure_water_reader_generation_job'), 'server read endpoint should ensure a queue job on cache miss');
+assert(serverSource.includes('begin_water_reader_generation_request'), 'server read endpoint should atomically begin guarded user generation requests');
+assert(serverSource.includes('clear_water_reader_user_active_generation_request'), 'server read endpoint should clear stale active requests after cache hits');
+assert(serverSource.includes('cancel_water_reader_generation_job'), 'server read endpoint should cancel durable jobs for unsupported polygons');
 assert(serverSource.includes('water_reader_user_history'), 'server read endpoint should record user history rows');
 assert(serverSource.includes('pendingReadResponse'), 'server read endpoint should return a pending contract on queued cache miss');
 assert(serverSource.includes('waterbody_index'), 'server read endpoint should use lightweight metadata before runtime polygon fetch');
@@ -131,11 +135,12 @@ assert(serverSource.includes('heavyRouteInfo'), 'server read endpoint should cla
 assert(serverSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER'), 'server read endpoint should require an explicit flag before routing every cache miss through the worker');
 assert(serverSource.includes('WATER_READER_DIRECT_HEAVY_GENERATION'), 'server read endpoint should support direct heavy generation before queue fallback');
 assert(serverSource.includes('if (routeViaHeavyWorker && allowDirectHeavyGeneration())'), 'server read endpoint should try direct heavy worker generation for risky reads');
-assert(serverSource.includes('if (routeViaHeavyWorker)') && serverSource.includes('direct heavy generation did not finish'), 'server read endpoint should queue risky reads only after direct heavy cannot finish quickly');
-assert(serverSource.includes('EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 3200'), 'server read endpoint should route risky runtime vertex counts away from the edge worker');
-assert(serverSource.includes('EDGE_INLINE_INTERIOR_RING_LIMIT = 1'), 'server read endpoint should route interior-ring polygons away from the edge worker');
+assert(serverSource.includes('if (routeViaHeavyWorker)') && serverSource.includes('heavyGeneratorConfigured()'), 'server read endpoint should queue measured heavy reads only when the worker is configured');
+assert(serverSource.includes('heavy generator unavailable for routed read'), 'server read endpoint should queue after direct heavy cannot finish quickly when direct mode is enabled');
+assert(serverSource.includes('EDGE_INLINE_RUNTIME_VERTEX_LIMIT = 9000'), 'server read endpoint should keep normal runtime vertex counts on the inline path');
+assert(serverSource.includes('EDGE_INLINE_INTERIOR_RING_LIMIT = 32'), 'server read endpoint should not route modest interior-ring polygons away from the inline path');
 assert(serverSource.includes('EDGE_INLINE_RUNTIME_COMPONENT_LIMIT = 2'), 'server read endpoint should route multi-component polygons away from the edge worker');
-assert(serverSource.includes('EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 70000'), 'server read endpoint should route large runtime payloads away from the edge worker');
+assert(serverSource.includes('EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 220000'), 'server read endpoint should keep normal runtime payloads on the inline path');
 assert(serverSource.includes('edge_runtime_complexity_score'), 'server read endpoint should diagnose combined edge runtime complexity routing');
 assert(serverSource.includes('WATER_READER_ALLOW_EDGE_HEAVY_FALLBACK'), 'server read endpoint should require explicit opt-in before heavy local fallback');
 assert(serverSource.includes('inline generation failed; queueing worker job'), 'server read endpoint should queue the worker if inline generation throws');
@@ -155,16 +160,19 @@ assert(serverSource.includes('cacheWriteStatus'), 'server read endpoint should r
 assert(historyFunctionSource.includes('water_reader_user_history'), 'water-reader-history function should query user history');
 assert(historyFunctionSource.includes('water_reader_generation_jobs'), 'water-reader-history function should inspect generation jobs');
 assert(historyFunctionSource.includes('water_reader_engine_read_cache'), 'water-reader-history function should inspect cached reads');
+assert(historyFunctionSource.includes('clear_water_reader_user_active_generation_request'), 'water-reader-history should clear active guards when cached reads are ready');
 assert(historyFunctionSource.includes('waterbody_index'), 'water-reader-history function should include lake metadata');
 assert(historyFunctionSource.includes('last_viewed_at') && historyFunctionSource.includes('is_pinned'), 'water-reader-history function should filter recent rows and pinned rows when available');
 assert(appSource.includes('RecentWaterReads') && appSource.includes('RECENT WATER READS'), 'app should render Recent Water Reads');
 assert(appSource.includes('fetchWaterReaderHistory'), 'app should fetch Recent Water Reads');
-assert(appSource.includes('WATER_READER_HISTORY_BUILDING_POLL_MS = 6000'), 'app should poll Recent Water Reads every 6 seconds while reads are building');
-assert(appSource.includes('WATER_READER_HISTORY_BUILDING_POLL_MAX_MS = 10 * 60 * 1000'), 'app should cap Recent Water Reads building polling');
+assert(appSource.includes('WATER_READER_HISTORY_BUILDING_POLL_MS = 3000'), 'app should poll Recent Water Reads every 3 seconds while reads are building');
+assert(appSource.includes('WATER_READER_HISTORY_BUILDING_POLL_SLOW_AFTER_MS = 10 * 60 * 1000'), 'app should keep polling Recent Water Reads without a hard timeout');
+assert(appSource.includes('WATER_READER_HISTORY_BUILDING_POLL_SLOW_MS = 15000'), 'app should slow polling instead of stopping during long builds');
 assert(appSource.includes("historyItems.some((item) => item.status === 'building')"), 'app should detect building recent reads for status polling');
 assert(appSource.includes('setHistoryRefreshNonce((value) => value + 1)'), 'app should refresh history through the existing nonce path');
 assert(appSource.includes('View Read'), 'ready recent reads should use View Read CTA copy');
-assert(appSource.includes("case 'failed': return 'Building'"), 'recent reads should not show terminal failed copy for generation jobs');
+assert(appSource.includes("if (hasBuildingRead && item.status === 'failed') return"), 'app should still allow opening ready cached recent reads while another read builds');
+assert(appSource.includes("case 'failed': return 'Failed'"), 'recent reads should show truthful failed copy for terminal failures');
 assert(appSource.includes('onSearchQueryChange'), 'selected lake search input should stay editable and clear selection when the user types a new lake');
 assert(appSource.includes('Finish the building Water Read before starting another lake.'), 'app should prevent starting another lake while one is building');
 assert(!appSource.includes('CHECK READ'), 'Water Reader screen should not show Check Read while a read is still building');
@@ -201,6 +209,12 @@ assert(queueMigrationSource.includes('unique (user_id, lake_id, season_context_k
 assert(queueMigrationSource.includes('for update skip locked'), 'claim RPC should atomically claim one job');
 assert(queueMigrationSource.includes('mark_water_reader_generation_job_complete'), 'queue migration should include complete RPC');
 assert(queueMigrationSource.includes('mark_water_reader_generation_job_failed'), 'queue migration should include failed/retry RPC');
+assert(activeGuardMigrationSource.includes('water_reader_user_active_generation_requests'), 'active guard migration should create the per-user active request table');
+assert(activeGuardMigrationSource.includes('primary key') && activeGuardMigrationSource.includes('user_id'), 'active guard table should enforce one active request row per user');
+assert(activeGuardMigrationSource.includes('pg_advisory_xact_lock'), 'active guard begin RPC should serialize concurrent starts for one user');
+assert(activeGuardMigrationSource.includes('begin_water_reader_generation_request'), 'active guard migration should expose begin RPC');
+assert(activeGuardMigrationSource.includes('clear_water_reader_user_active_generation_request'), 'active guard migration should expose clear RPC');
+assert(activeGuardMigrationSource.includes('cancel_water_reader_generation_job'), 'active guard migration should expose cancel RPC for non-retryable requests');
 
 console.log(JSON.stringify({
   ok: true,

@@ -67,8 +67,9 @@ const SEARCH_DEBOUNCE_MS = 650;
 const SEARCH_MIN_CHARS = 3;
 const SEARCH_RESULT_LIMIT = 20;
 const WATER_READER_PENDING_DEFAULT_RETRY_MS = 4000;
-const WATER_READER_HISTORY_BUILDING_POLL_MS = 6000;
-const WATER_READER_HISTORY_BUILDING_POLL_MAX_MS = 10 * 60 * 1000;
+const WATER_READER_HISTORY_BUILDING_POLL_MS = 3000;
+const WATER_READER_HISTORY_BUILDING_POLL_SLOW_AFTER_MS = 10 * 60 * 1000;
+const WATER_READER_HISTORY_BUILDING_POLL_SLOW_MS = 15000;
 
 const SERIF_BOLD = 'Fraunces_700Bold';
 const SERIF_ITALIC = 'Fraunces_500Medium_Italic';
@@ -249,6 +250,38 @@ function historyItemToSearchResult(item: WaterReaderHistoryItem): WaterbodySearc
   };
 }
 
+function selectedReadToHistoryItem(
+  selected: WaterbodySearchResult,
+  readState: WaterReaderReadState,
+): WaterReaderHistoryItem | null {
+  const isBuilding =
+    readState.status === 'reading' ||
+    readState.status === 'preparing' ||
+    readState.status === 'queued' ||
+    readState.status === 'recent_building';
+  const isReady = readState.status === 'ready';
+  if (!isBuilding && !isReady) return null;
+
+  const read = isReady || readState.status === 'preparing' || readState.status === 'queued' || readState.status === 'recent_building'
+    ? readState.read
+    : null;
+  return {
+    historyId: `active:${selected.lakeId}`,
+    lakeId: selected.lakeId,
+    lakeName: read?.name ?? selected.name,
+    state: read?.state ?? selected.state ?? null,
+    county: read?.county ?? selected.county ?? null,
+    areaAcres: read?.areaAcres ?? selected.polygonAreaAcres ?? selected.surfaceAreaAcres ?? null,
+    seasonContextKey: read?.seasonContextKey ?? '',
+    mapWidth: read?.mapWidth ?? 420,
+    engineVersion: read?.engineVersion ?? '',
+    status: isReady ? 'ready' : 'building',
+    generationJobId: read?.generationJobId ?? null,
+    lastViewedAt: new Date().toISOString(),
+    generatedAt: isReady ? new Date().toISOString() : null,
+  };
+}
+
 function ambiguityLine(r: WaterbodySearchResult): string | null {
   if (!r.isAmbiguousNameInState || !r.sameNameStateCandidateCount || r.sameNameStateCandidateCount <= 1) return null;
   return `Multiple same-name ${r.state} results; compare county and acres.`;
@@ -365,7 +398,12 @@ export default function WaterReaderScreen() {
         while (readRequestId.current === reqId) {
           const res = await fetchWaterReaderRead({ lakeId });
           if (readRequestId.current !== reqId) return;
-          if (res.generationStatus === 'queued' || res.generationStatus === 'processing') {
+          if (res.generationStatus === 'queued') {
+            setReadState({ status: 'queued', read: res, errorMessage: null });
+            await delay(pendingRetryDelayMs(res));
+            continue;
+          }
+          if (res.generationStatus === 'processing') {
             setReadState({ status: 'preparing', read: res, errorMessage: null });
             await delay(pendingRetryDelayMs(res));
             continue;
@@ -429,11 +467,14 @@ export default function WaterReaderScreen() {
     if (historyLoading) return;
     const startedAt = historyBuildingPollStartedAt.current ?? Date.now();
     historyBuildingPollStartedAt.current = startedAt;
-    if (Date.now() - startedAt >= WATER_READER_HISTORY_BUILDING_POLL_MAX_MS) return;
+    const elapsedMs = Date.now() - startedAt;
+    const pollMs = elapsedMs >= WATER_READER_HISTORY_BUILDING_POLL_SLOW_AFTER_MS
+      ? WATER_READER_HISTORY_BUILDING_POLL_SLOW_MS
+      : WATER_READER_HISTORY_BUILDING_POLL_MS;
 
     const timer = setTimeout(() => {
       setHistoryRefreshNonce((value) => value + 1);
-    }, WATER_READER_HISTORY_BUILDING_POLL_MS);
+    }, pollMs);
     return () => clearTimeout(timer);
   }, [hasSubscription, historyItems, historyLoading, historyRefreshNonce]);
 
@@ -520,11 +561,22 @@ export default function WaterReaderScreen() {
     return () => clearTimeout(t);
   }, [query, stateCode, runSearch]);
 
+  const activeHistoryItem = useMemo(
+    () => selected ? selectedReadToHistoryItem(selected, readState) : null,
+    [readState, selected],
+  );
+  const visibleHistoryItems = useMemo(() => {
+    if (!activeHistoryItem) return historyItems;
+    const withoutActive = historyItems.filter((item) => item.lakeId !== activeHistoryItem.lakeId);
+    return [activeHistoryItem, ...withoutActive].slice(0, 10);
+  }, [activeHistoryItem, historyItems]);
+  const selectedReadyLakeId = readState.status === 'ready' ? readState.read.lakeId : null;
+
   const hasBuildingRead = readState.status === 'reading' ||
     readState.status === 'preparing' ||
     readState.status === 'queued' ||
     readState.status === 'recent_building' ||
-    historyItems.some((item) => item.status === 'building');
+    historyItems.some((item) => item.status === 'building' && item.lakeId !== selectedReadyLakeId);
 
   const openStatePicker = useCallback(() => {
     if (!hasSubscription) {
@@ -546,7 +598,7 @@ export default function WaterReaderScreen() {
       setShowSubscribePrompt(true);
       return;
     }
-    if (hasBuildingRead && item.status !== 'building') return;
+    if (hasBuildingRead && item.status === 'failed') return;
     if (item.state && item.state !== stateCode) {
       preserveSelectionForHistoryStateChange.current = true;
       setStateCode(item.state);
@@ -978,7 +1030,7 @@ export default function WaterReaderScreen() {
             </View>
 
             <RecentWaterReads
-              items={historyItems}
+              items={visibleHistoryItems}
               loading={historyLoading}
               error={historyError}
               onRefresh={() => setHistoryRefreshNonce((value) => value + 1)}
@@ -1360,7 +1412,7 @@ function recentStatusLabel(status: WaterReaderHistoryStatus): string {
   switch (status) {
     case 'ready': return 'Ready';
     case 'building': return 'Building';
-    case 'failed': return 'Building';
+    case 'failed': return 'Failed';
     default: return 'Building';
   }
 }
@@ -1442,7 +1494,7 @@ function RecentWaterReads({
                     styles.recentStatusPill,
                     item.status === 'ready' && styles.recentStatusPillReady,
                     item.status === 'building' && styles.recentStatusPillBuilding,
-                    item.status === 'failed' && styles.recentStatusPillBuilding,
+                    item.status === 'failed' && styles.recentStatusPillFailed,
                   ]}
                 >
                   <Text style={styles.recentStatusText}>
@@ -1459,7 +1511,7 @@ function RecentWaterReads({
                     ? 'View Read'
                     : item.status === 'building'
                       ? 'Building'
-                      : 'Building'}
+                      : 'Retry'}
                 </Text>
                 <Ionicons
                   name={item.status === 'ready' ? 'open-outline' : 'refresh'}

@@ -85,6 +85,7 @@ export interface WaterReaderMapCardProps {
 }
 
 type MapViewerMode = 'fit' | 'inspect';
+const TAKING_LONGER_NOTICE_MS = 20000;
 
 export function WaterReaderMapCard({
   lakeId,
@@ -101,6 +102,7 @@ export function WaterReaderMapCard({
   const [mapContentWidth, setMapContentWidth] = useState(0);
   const [selectedNumber, setSelectedNumber] = useState<number | string | null>(null);
   const [readingSlow, setReadingSlow] = useState(false);
+  const [takingLonger, setTakingLonger] = useState(false);
   const polygonRequestSeq = useRef(0);
 
   // User units pref — drives the scale-bar marginalia.
@@ -151,12 +153,22 @@ export function WaterReaderMapCard({
   }, [lakeId]);
 
   useEffect(() => {
-    if (state.status !== 'reading' && state.status !== 'preparing') {
+    if (state.status !== 'reading' && state.status !== 'preparing' && state.status !== 'queued') {
       setReadingSlow(false);
       return;
     }
     setReadingSlow(false);
     const timer = setTimeout(() => setReadingSlow(true), 850);
+    return () => clearTimeout(timer);
+  }, [state.status, lakeId]);
+
+  useEffect(() => {
+    if (state.status !== 'reading') {
+      setTakingLonger(false);
+      return;
+    }
+    setTakingLonger(false);
+    const timer = setTimeout(() => setTakingLonger(true), TAKING_LONGER_NOTICE_MS);
     return () => clearTimeout(timer);
   }, [state.status, lakeId]);
 
@@ -211,6 +223,15 @@ export function WaterReaderMapCard({
       : state.status === 'ready'
         ? 'ready'
         : 'idle';
+  const showLakeSkeleton =
+    state.status === 'reading' ||
+    state.status === 'preparing' ||
+    state.status === 'queued';
+  const showTakingLongerNotice =
+    takingLonger ||
+    state.status === 'preparing' ||
+    state.status === 'queued';
+  const takingLongerTitle = 'TAKING A LITTLE LONGER';
 
   return (
     <View style={styles.outer}>
@@ -225,23 +246,23 @@ export function WaterReaderMapCard({
         readingSlow={readingSlow}
       />
 
-      {state.status === 'reading' && (
+      {showLakeSkeleton && (
         <WaterReaderLakeSkeleton geojson={polygonGeoJson} />
       )}
 
-      {(state.status === 'preparing' || state.status === 'queued') && (
+      {showTakingLongerNotice && (
         <View style={styles.preparingCard}>
           <View style={styles.preparingBadge}>
-            {state.status === 'preparing' ? (
+            {state.status === 'reading' || state.status === 'preparing' ? (
               <ActivityIndicator size="small" color={paper.dashboardBlue} />
             ) : (
               <Ionicons name="time-outline" size={15} color={paper.dashboardBlue} />
             )}
           </View>
           <View style={styles.preparingCopy}>
-            <Text style={styles.preparingTitle}>BUILDING WATER READ</Text>
+            <Text style={styles.preparingTitle}>{takingLongerTitle}</Text>
             <Text style={styles.preparingBody}>
-              {`We are building ${lakeName}'s map. You can leave this screen; it will appear in Recent Water Reads when ready.`}
+              {`${lakeName}'s map is still building. Keep this screen open and it will appear here when ready, or come back through Recent Water Reads once it changes to Ready.`}
             </Text>
           </View>
         </View>
