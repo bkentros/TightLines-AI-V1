@@ -546,7 +546,7 @@ export default function WaterReaderScreen() {
       setShowSubscribePrompt(true);
       return;
     }
-    if (hasBuildingRead) return;
+    if (hasBuildingRead && item.status !== 'building') return;
     if (item.state && item.state !== stateCode) {
       preserveSelectionForHistoryStateChange.current = true;
       setStateCode(item.state);
