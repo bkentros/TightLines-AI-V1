@@ -159,11 +159,17 @@ assert(historyFunctionSource.includes('waterbody_index'), 'water-reader-history 
 assert(historyFunctionSource.includes('last_viewed_at') && historyFunctionSource.includes('is_pinned'), 'water-reader-history function should filter recent rows and pinned rows when available');
 assert(appSource.includes('RecentWaterReads') && appSource.includes('RECENT WATER READS'), 'app should render Recent Water Reads');
 assert(appSource.includes('fetchWaterReaderHistory'), 'app should fetch Recent Water Reads');
+assert(appSource.includes('WATER_READER_HISTORY_BUILDING_POLL_MS = 6000'), 'app should poll Recent Water Reads every 6 seconds while reads are building');
+assert(appSource.includes('WATER_READER_HISTORY_BUILDING_POLL_MAX_MS = 10 * 60 * 1000'), 'app should cap Recent Water Reads building polling');
+assert(appSource.includes("historyItems.some((item) => item.status === 'building')"), 'app should detect building recent reads for status polling');
+assert(appSource.includes('setHistoryRefreshNonce((value) => value + 1)'), 'app should refresh history through the existing nonce path');
+assert(appSource.includes('View Read'), 'ready recent reads should use View Read CTA copy');
 assert(appSource.includes("status: 'recent_building'"), 'app should expose a distinct recent-read-building client state');
 assert(appSource.includes('ANOTHER READ IS BUILDING') && appSource.includes('CHECK READS'), 'app should render recent-read-building as calm informational copy');
 assert(appSource.includes("operationalDiagnostics?.code === 'recent_water_read_building'"), 'app should detect recent-read-building diagnostics');
 assert(historyFunctionSource.includes('normalizeAreaAcres'), 'water-reader-history should normalize numeric string acreage values');
 assert(!appSource.includes('SAVED TO QUEUE'), 'Water Reader screen should not show saved-to-queue copy');
+assert(!appSource.includes('Queued'), 'Water Reader screen should not show visible queued copy');
 assert(!cartoucheSource.includes('QUEUED'), 'Water Read cartouche should not show QUEUED copy');
 assert(!mapCardSource.includes('QUEUED'), 'Water Reader map card should not show QUEUED copy');
 assert(searchFunctionSource.includes('CURATED_3DHP_ALIASES') && searchFunctionSource.includes('Lake Fork Reservoir'), 'search fallback should preserve curated aliases for unlabeled 3DHP polygons');

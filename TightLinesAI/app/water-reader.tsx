@@ -68,6 +68,8 @@ const SEARCH_MIN_CHARS = 3;
 const SEARCH_RESULT_LIMIT = 20;
 const WATER_READER_PENDING_DEFAULT_RETRY_MS = 4000;
 const WATER_READER_PENDING_MAX_MS = 30000;
+const WATER_READER_HISTORY_BUILDING_POLL_MS = 6000;
+const WATER_READER_HISTORY_BUILDING_POLL_MAX_MS = 10 * 60 * 1000;
 
 const SERIF_BOLD = 'Fraunces_700Bold';
 const SERIF_ITALIC = 'Fraunces_500Medium_Italic';
@@ -324,6 +326,7 @@ export default function WaterReaderScreen() {
   const historyRequestId = useRef(0);
   const lastHistoryReadSignal = useRef<string | null>(null);
   const preserveSelectionForHistoryStateChange = useRef(false);
+  const historyBuildingPollStartedAt = useRef<number | null>(null);
   const [readState, setReadState] = useState<WaterReaderReadState>({
     status: 'idle',
     read: null,
@@ -420,6 +423,23 @@ export default function WaterReaderScreen() {
       }
     })();
   }, [hasSubscription, historyRefreshNonce]);
+
+  useEffect(() => {
+    const hasBuildingRead = historyItems.some((item) => item.status === 'building');
+    if (!hasSubscription || !hasBuildingRead) {
+      historyBuildingPollStartedAt.current = null;
+      return;
+    }
+    if (historyLoading) return;
+    const startedAt = historyBuildingPollStartedAt.current ?? Date.now();
+    historyBuildingPollStartedAt.current = startedAt;
+    if (Date.now() - startedAt >= WATER_READER_HISTORY_BUILDING_POLL_MAX_MS) return;
+
+    const timer = setTimeout(() => {
+      setHistoryRefreshNonce((value) => value + 1);
+    }, WATER_READER_HISTORY_BUILDING_POLL_MS);
+    return () => clearTimeout(timer);
+  }, [hasSubscription, historyItems, historyLoading, historyRefreshNonce]);
 
   useEffect(() => {
     if (
@@ -1486,7 +1506,7 @@ function RecentWaterReads({
               <View style={styles.recentActionRow}>
                 <Text style={styles.recentActionText}>
                   {item.status === 'ready'
-                    ? 'Check Read'
+                    ? 'View Read'
                     : item.status === 'building'
                       ? 'Building'
                       : 'Retry'}
