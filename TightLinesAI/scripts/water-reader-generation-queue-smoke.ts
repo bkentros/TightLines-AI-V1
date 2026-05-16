@@ -23,6 +23,9 @@ async function main() {
   assert(edgeSource.includes('generationStatus: jobStatus'), 'edge pending response should include generation status');
   assert(edgeSource.includes('generationJobId: params.job.id'), 'edge pending response should include job id');
   assert(edgeSource.includes('retryAfterMs'), 'edge pending response should include retry hint');
+  assert(edgeSource.includes('EDGE_INLINE_METADATA_AREA_ACRES_LIMIT = 3000'), 'edge should route obviously large lakes before runtime polygon fetch');
+  assert(edgeSource.includes('surface_area_acres, centroid'), 'edge metadata lookup should include lightweight area and centroid for pre-polygon routing');
+  assert(edgeSource.includes('metadataPendingPolygon(metadata)'), 'edge should build a pending response from metadata for large-lake queueing');
   assert(edgeSource.includes('kickGenerationWorker'), 'edge pending response path should kick the worker after queueing a job');
   assert(edgeSource.includes('/water-reader/jobs/drain'), 'edge worker kick should use the queue drain endpoint');
   assert(edgeSource.includes('findRecentUserBuildingJob'), 'edge pending response path should guard rapid heavy read starts');

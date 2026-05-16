@@ -344,6 +344,12 @@ export default function WaterReaderScreen() {
       return;
     }
     setSelected(null);
+    setQuery('');
+    setResults([]);
+    setCountyFilter(null);
+    setSearchError(null);
+    setSearchEmpty(false);
+    setSearchExpanded(false);
   }, [stateCode]);
 
   useEffect(() => {
@@ -532,25 +538,10 @@ export default function WaterReaderScreen() {
     setStateModalOpen(true);
   }, [hasSubscription]);
 
-  const onChangeState = useCallback(() => {
-    if (!hasSubscription) {
-      setShowSubscribePrompt(true);
-      return;
-    }
-    setStateCode(null);
-    setQuery('');
-    setResults([]);
-    setCountyFilter(null);
-    setSearchError(null);
-    setSearchEmpty(false);
-    setSearchExpanded(false);
-    setStateModalOpen(true);
-  }, [hasSubscription]);
-
-  const onChangeLake = useCallback(() => {
-    setSelected(null);
-    setQuery('');
-  }, []);
+  const onSearchQueryChange = useCallback((value: string) => {
+    if (selected) setSelected(null);
+    setQuery(value);
+  }, [selected]);
 
   const onSelectHistoryItem = useCallback((item: WaterReaderHistoryItem) => {
     if (!hasSubscription) {
@@ -714,7 +705,7 @@ export default function WaterReaderScreen() {
                   styles.navStatePill,
                   pressed && styles.navStatePillPressed,
                 ]}
-                onPress={onChangeState}
+                onPress={openStatePicker}
                 hitSlop={8}
                 accessibilityLabel="Change state"
               >
@@ -824,16 +815,17 @@ export default function WaterReaderScreen() {
                       placeholder={`Lakes in ${stateNameForCode(stateCode) ?? stateCode}…`}
                       placeholderTextColor="rgba(28,36,25,0.42)"
                       value={query}
-                      onChangeText={setQuery}
+                      onChangeText={onSearchQueryChange}
                       autoCorrect={false}
                       autoCapitalize="words"
                       accessibilityLabel="Waterbody name search"
-                      editable={!selected}
-                      pointerEvents={selected ? 'none' : 'auto'}
                     />
-                    {query.length > 0 && !selected && (
+                    {query.length > 0 && (
                       <Pressable
-                        onPress={() => setQuery('')}
+                        onPress={() => {
+                          setSelected(null);
+                          setQuery('');
+                        }}
                         hitSlop={8}
                         style={({ pressed }) => [
                           styles.clearBtn,
@@ -867,33 +859,6 @@ export default function WaterReaderScreen() {
                     <Text style={styles.selectedContext} numberOfLines={2}>
                       {selectionContextLine(selected)}
                     </Text>
-                    <View style={styles.selectedActions}>
-                      <Pressable
-                        onPress={onChangeLake}
-                        style={({ pressed }) => [
-                          styles.linkBtn,
-                          pressed && styles.linkBtnPressed,
-                        ]}
-                        hitSlop={6}
-                      >
-                        <Text style={styles.linkBtnText} numberOfLines={1}>
-                          CHANGE LAKE
-                        </Text>
-                      </Pressable>
-                      <Text style={styles.linkSep}>·</Text>
-                      <Pressable
-                        onPress={onChangeState}
-                        style={({ pressed }) => [
-                          styles.linkBtn,
-                          pressed && styles.linkBtnPressed,
-                        ]}
-                        hitSlop={6}
-                      >
-                        <Text style={styles.linkBtnText} numberOfLines={1}>
-                          CHANGE STATE
-                        </Text>
-                      </Pressable>
-                    </View>
                   </View>
                   <SupportPill
                     status={selected.waterReaderSupportStatus}
@@ -1723,9 +1688,6 @@ const styles = StyleSheet.create({
 
   // Search card. Slimmed in Pass-3 so the map plate below it dominates
   // the page; the search console is utility, the map is the hero.
-  // Pass-5: bumped paddingBottom slightly so the CHANGE LAKE / CHANGE
-  // STATE action row in the selected-lake summary clears the bottom-
-  // left corner mark (red ▾) — those two were visually colliding.
   searchCard: {
     overflow: 'hidden',
     backgroundColor: paper.dashboardWhite,
@@ -1819,26 +1781,6 @@ const styles = StyleSheet.create({
     lineHeight: 16,
     textAlign: 'center',
   },
-  selectedActions: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 6,
-    width: '100%',
-    marginTop: 10,
-    flexWrap: 'wrap',
-  },
-  linkBtn: { paddingVertical: 2 },
-  linkBtnPressed: { opacity: 0.6 },
-  linkBtnText: {
-    fontFamily: MONO_BOLD,
-    fontSize: 10,
-    letterSpacing: 1.4,
-    color: paper.dashboardBlue,
-    lineHeight: 13,
-  },
-  linkSep: { color: paper.dashboardMuted, fontSize: 11 },
-
   // Dropdown
   dropdown: {
     marginTop: paperSpacing.sm + 2,

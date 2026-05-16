@@ -79,6 +79,10 @@ interface WaterbodyMetadataRow {
   id: string;
   canonical_name: string | null;
   state_code: string | null;
+  county_name?: string | null;
+  waterbody_type?: WaterbodyType | string | null;
+  surface_area_acres?: number | string | null;
+  centroid?: unknown;
 }
 
 interface GenerationJobRow {
@@ -111,7 +115,63 @@ const EDGE_INLINE_RUNTIME_GEOJSON_BYTE_LIMIT = 70000;
 const EDGE_INLINE_INTERIOR_RING_LIMIT = 1;
 const EDGE_INLINE_RUNTIME_COMPONENT_LIMIT = 2;
 const EDGE_INLINE_COMPLEXITY_SCORE_LIMIT = 3600;
+const EDGE_INLINE_METADATA_AREA_ACRES_LIMIT = 3000;
 const INTERIOR_RING_COMPLEXITY_WEIGHT = 900;
+
+function centroidPoint(value: unknown): { lon: number; lat: number } | null {
+  const maybe = value as { coordinates?: unknown } | null;
+  const coordinates = maybe?.coordinates;
+  if (
+    !Array.isArray(coordinates) ||
+    typeof coordinates[0] !== "number" ||
+    typeof coordinates[1] !== "number" ||
+    !Number.isFinite(coordinates[0]) ||
+    !Number.isFinite(coordinates[1])
+  ) {
+    return null;
+  }
+  return { lon: coordinates[0], lat: coordinates[1] };
+}
+
+function normalizeAcres(value: number | string | null | undefined): number | null {
+  if (typeof value === "number") return Number.isFinite(value) ? value : null;
+  if (typeof value === "string" && value.trim().length > 0) {
+    const parsed = Number(value);
+    return Number.isFinite(parsed) ? parsed : null;
+  }
+  return null;
+}
+
+function metadataPendingPolygon(row: WaterbodyMetadataRow): WaterbodyPolygonForWaterReaderRead {
+  const point = centroidPoint(row.centroid) ?? { lat: 0, lon: 0 };
+  const areaAcres = normalizeAcres(row.surface_area_acres);
+  return {
+    lakeId: row.id,
+    name: row.canonical_name ?? "Selected Waterbody",
+    state: row.state_code ?? "",
+    county: row.county_name ?? null,
+    waterbodyType: row.waterbody_type ?? "lake",
+    centroid: { lat: point.lat, lon: point.lon },
+    bbox: null,
+    areaSqM: areaAcres == null ? null : areaAcres * 4046.8564224,
+    areaAcres,
+    perimeterM: null,
+    geojson: null,
+    geometryIsValid: true,
+    geometryValidityDetail: null,
+    componentCount: 0,
+    interiorRingCount: 0,
+    waterReaderSupportStatus: "supported",
+    waterReaderSupportReason: "Large waterbody routed to the heavy Water Reader worker before Edge polygon processing.",
+    polygonQaFlags: ["metadata_area_heavy_route"],
+    originalVertexCount: null,
+    runtimeVertexCount: null,
+    runtimeComponentCount: null,
+    runtimeInteriorRingCount: null,
+    runtimeSimplified: null,
+    runtimeSimplificationTolerance: null,
+  };
+}
 
 function mapPreviewBbox(row: PolygonRpcRow): WaterbodyPreviewBbox | null {
   const minLon = row.bbox_min_lon;
@@ -878,7 +938,7 @@ Deno.serve(async (req: Request) => {
   const metadataStarted = Date.now();
   const { data: metadata, error: metadataError } = await supabase
     .from("waterbody_index")
-    .select("id, canonical_name, state_code")
+    .select("id, canonical_name, state_code, county_name, waterbody_type, surface_area_acres, centroid")
     .eq("id", lakeIdRaw)
     .maybeSingle<WaterbodyMetadataRow>();
   const metadataMs = Date.now() - metadataStarted;
@@ -955,6 +1015,24 @@ Deno.serve(async (req: Request) => {
         { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
       );
     }
+  }
+
+  const metadataAreaAcres = normalizeAcres(metadata.surface_area_acres);
+  if (
+    !diagnosticMode &&
+    metadataAreaAcres != null &&
+    metadataAreaAcres >= EDGE_INLINE_METADATA_AREA_ACRES_LIMIT
+  ) {
+    return await queueGenerationReadResponse({
+      supabase,
+      userId: user.id,
+      polygon: metadataPendingPolygon(metadata),
+      currentDate,
+      seasonContextKey: seasonContext.seasonContextKey,
+      fetchMs: 0,
+      metadataMs,
+      cacheMs,
+    });
   }
 
   const fetchStarted = Date.now();
