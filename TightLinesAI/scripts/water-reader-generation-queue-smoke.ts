@@ -26,6 +26,8 @@ async function main() {
   assert(edgeSource.includes('EDGE_INLINE_METADATA_AREA_ACRES_LIMIT = 3000'), 'edge should route obviously large lakes before runtime polygon fetch');
   assert(edgeSource.includes('surface_area_acres, centroid'), 'edge metadata lookup should include lightweight area and centroid for pre-polygon routing');
   assert(edgeSource.includes('metadataPendingPolygon(metadata)'), 'edge should build a pending response from metadata for large-lake queueing');
+  assert(edgeSource.includes('!diagnosticMode && routeAllCacheMissesThroughHeavyWorker()'), 'edge safest mode should route every uncached read before runtime polygon fetch');
+  assert(edgeSource.includes('polygon rpc failed') && edgeSource.includes('queueGenerationReadResponse'), 'edge polygon RPC failures should fall back to queued generation');
   assert(edgeSource.includes('kickGenerationWorker'), 'edge pending response path should kick the worker after queueing a job');
   assert(edgeSource.includes('/water-reader/jobs/drain'), 'edge worker kick should use the queue drain endpoint');
   assert(edgeSource.includes('findRecentUserBuildingJob'), 'edge pending response path should guard rapid heavy read starts');
@@ -33,7 +35,7 @@ async function main() {
   assert(migrationSource.includes('check (status in (') && migrationSource.includes("'processing'"), 'migration should constrain job statuses');
   assert(docsSource.includes('Cloud Scheduler'), 'queue runner docs should mention Cloud Scheduler');
   assert(docsSource.includes('/water-reader/jobs/drain'), 'queue runner docs should mention the drain endpoint');
-  assert(docsSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=true') && docsSource.includes('Do not set'), 'queue runner docs should warn against routing every cache miss through the worker in production');
+  assert(docsSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=true') && docsSource.includes('safest production mode'), 'queue runner docs should recommend safest production routing');
   assert(docsSource.includes('Cloud Tasks') && docsSource.includes('multiple Cloud Scheduler jobs'), 'queue runner docs should mention high-volume runner options');
 
   const server = startHeavyGeneratorServer(0);

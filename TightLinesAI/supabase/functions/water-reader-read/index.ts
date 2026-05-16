@@ -1018,6 +1018,19 @@ Deno.serve(async (req: Request) => {
   }
 
   const metadataAreaAcres = normalizeAcres(metadata.surface_area_acres);
+  if (!diagnosticMode && routeAllCacheMissesThroughHeavyWorker()) {
+    return await queueGenerationReadResponse({
+      supabase,
+      userId: user.id,
+      polygon: metadataPendingPolygon(metadata),
+      currentDate,
+      seasonContextKey: seasonContext.seasonContextKey,
+      fetchMs: 0,
+      metadataMs,
+      cacheMs,
+    });
+  }
+
   if (
     !diagnosticMode &&
     metadataAreaAcres != null &&
@@ -1043,7 +1056,16 @@ Deno.serve(async (req: Request) => {
 
   if (error) {
     console.error("[water-reader-read] polygon rpc failed", error);
-    return jsonError("Failed to load waterbody polygon", "polygon_fetch_failed", 500);
+    return await queueGenerationReadResponse({
+      supabase,
+      userId: user.id,
+      polygon: metadataPendingPolygon(metadata),
+      currentDate,
+      seasonContextKey: seasonContext.seasonContextKey,
+      fetchMs,
+      metadataMs,
+      cacheMs,
+    });
   }
 
   const rows = Array.isArray(data) ? data as PolygonRpcRow[] : [];
