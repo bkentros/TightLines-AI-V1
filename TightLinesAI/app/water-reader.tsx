@@ -65,7 +65,7 @@ import type {
 
 const SEARCH_DEBOUNCE_MS = 650;
 const SEARCH_MIN_CHARS = 3;
-const SEARCH_RESULT_LIMIT = 20;
+const SEARCH_RESULT_LIMIT = 25;
 const WATER_READER_PENDING_DEFAULT_RETRY_MS = 4000;
 const WATER_READER_HISTORY_BUILDING_POLL_MS = 3000;
 const WATER_READER_HISTORY_BUILDING_POLL_SLOW_AFTER_MS = 10 * 60 * 1000;
@@ -941,7 +941,7 @@ export default function WaterReaderScreen() {
                       />
                       <Text style={styles.dropdownEmptyText}>
                         No matching lakes in {stateNameForEmpty}. Try another
-                        spelling.
+                        spelling or county.
                       </Text>
                     </View>
                   )}
