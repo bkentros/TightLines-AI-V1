@@ -1052,6 +1052,134 @@ async function queueGenerationReadResponse(params: {
   );
 }
 
+async function routedCacheMissReadResponse(params: {
+  supabase: any;
+  userId: string;
+  polygon: WaterbodyPolygonForWaterReaderRead;
+  currentDate: Date;
+  seasonContextKey: string;
+  metadataMs: number;
+  cacheMs: number;
+}): Promise<Response> {
+  let job: GenerationJobRow;
+  try {
+    const beginRow = await beginGenerationRequest({
+      supabase: params.supabase,
+      userId: params.userId,
+      lakeId: params.polygon.lakeId,
+      seasonContextKey: params.seasonContextKey,
+    });
+    job = generationJobFromBeginRow(beginRow);
+
+    if (!beginRow.allowed) {
+      if (beginRow.same_request) {
+        return await returnPendingGenerationJob({
+          supabase: params.supabase,
+          userId: params.userId,
+          polygon: params.polygon,
+          currentDate: params.currentDate,
+          seasonContextKey: params.seasonContextKey,
+          job,
+          fetchMs: 0,
+          metadataMs: params.metadataMs,
+          cacheMs: params.cacheMs,
+        });
+      }
+
+      return new Response(
+        JSON.stringify(fallbackReadResponse({
+          polygon: params.polygon,
+          currentDate: params.currentDate,
+          fallbackMessage: "Another Water Read is Building. Check Recent Water Reads, then try this lake again shortly.",
+          fetchMs: 0,
+          metadataMs: params.metadataMs,
+          cacheMs: params.cacheMs,
+          operationalDiagnostics: {
+            code: "recent_water_read_building",
+            message: "A recent Water Reader generation is already in progress for this user.",
+            heavyGenerationStatus: "routed",
+          },
+        })),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+      );
+    }
+  } catch (jobError) {
+    console.error("[water-reader-read] routed cache miss job begin failed; using queue fallback", {
+      lakeId: params.polygon.lakeId,
+      seasonContextKey: params.seasonContextKey,
+      message: jobError instanceof Error ? jobError.message : String(jobError),
+    });
+    return await queueGenerationReadResponse({
+      supabase: params.supabase,
+      userId: params.userId,
+      polygon: params.polygon,
+      currentDate: params.currentDate,
+      seasonContextKey: params.seasonContextKey,
+      fetchMs: 0,
+      metadataMs: params.metadataMs,
+      cacheMs: params.cacheMs,
+    });
+  }
+
+  if (job.status === "processing" || (job.requested_by && job.requested_by !== params.userId)) {
+    return await returnPendingGenerationJob({
+      supabase: params.supabase,
+      userId: params.userId,
+      polygon: params.polygon,
+      currentDate: params.currentDate,
+      seasonContextKey: params.seasonContextKey,
+      job,
+      fetchMs: 0,
+      metadataMs: params.metadataMs,
+      cacheMs: params.cacheMs,
+    });
+  }
+
+  if (allowDirectHeavyGeneration()) {
+    const result = await requestHeavyGenerator({
+      lakeId: params.polygon.lakeId,
+      currentDate: params.currentDate,
+      seasonContextKey: params.seasonContextKey,
+      heavy: {
+        heavy: true,
+        reason: "worker_routed_cache_miss",
+        runtimeGeoJsonBytes: null,
+        edgeComplexityScore: 0,
+      },
+    });
+
+    if (result.read) {
+      if (result.read.cacheWriteStatus !== "failed") {
+        await markGenerationJobComplete({ supabase: params.supabase, jobId: job.id });
+        await upsertUserHistory({
+          supabase: params.supabase,
+          userId: params.userId,
+          lakeId: params.polygon.lakeId,
+          seasonContextKey: params.seasonContextKey,
+          status: "ready",
+          generationJobId: null,
+        });
+      }
+      return new Response(
+        JSON.stringify(result.read),
+        { status: 200, headers: { "Content-Type": "application/json", ...corsHeaders() } },
+      );
+    }
+  }
+
+  return await returnPendingGenerationJob({
+    supabase: params.supabase,
+    userId: params.userId,
+    polygon: params.polygon,
+    currentDate: params.currentDate,
+    seasonContextKey: params.seasonContextKey,
+    job,
+    fetchMs: 0,
+    metadataMs: params.metadataMs,
+    cacheMs: params.cacheMs,
+  });
+}
+
 async function requestHeavyGenerator(params: {
   lakeId: string;
   currentDate: Date;
@@ -1356,13 +1484,12 @@ Deno.serve(async (req: Request) => {
   }
 
   if (!diagnosticMode && routeAllCacheMissesThroughHeavyWorker()) {
-    return await queueGenerationReadResponse({
+    return await routedCacheMissReadResponse({
       supabase,
       userId: user.id,
       polygon: metadataPendingPolygon(metadata),
       currentDate,
       seasonContextKey: seasonContext.seasonContextKey,
-      fetchMs: 0,
       metadataMs,
       cacheMs,
     });
