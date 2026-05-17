@@ -50,6 +50,7 @@ interface GenerateRequest {
   seasonContextKey?: string;
   mapWidth?: number;
   engineVersion?: string;
+  skipInitialCacheLookup?: boolean;
 }
 
 interface GenerationJobRow {
@@ -256,14 +257,16 @@ export async function generateWaterReaderHeavyRead(request: GenerateRequest): Pr
   const env = requireEnv(['SUPABASE_URL', 'SUPABASE_SERVICE_ROLE_KEY']);
   const supabase = createClient(env.SUPABASE_URL, env.SUPABASE_SERVICE_ROLE_KEY, { auth: { persistSession: false } });
   let currentDate = parseDate(request.currentDate);
-  try {
-    const cachedBeforePolygon = await readCacheBeforePolygon(supabase, request, currentDate);
-    if (cachedBeforePolygon?.read) return cachedBeforePolygon.read;
-  } catch (error) {
-    console.warn('[water-reader-heavy-generator] cache precheck failed; continuing to polygon fetch', error);
+  if (!request.skipInitialCacheLookup) {
+    try {
+      const cachedBeforePolygon = await readCacheBeforePolygon(supabase, request, currentDate);
+      if (cachedBeforePolygon?.read) return cachedBeforePolygon.read;
+    } catch (error) {
+      console.warn('[water-reader-heavy-generator] cache precheck failed; continuing to polygon fetch', error);
+    }
   }
   const { polygon, fetchMs } = await fetchRuntimePolygon(supabase, request.lakeId);
-  if (request.seasonContextKey) {
+  if (request.seasonContextKey && cacheKey(polygon.state, currentDate) !== request.seasonContextKey) {
     currentDate = representativeDateForSeasonContextKey(polygon.state, request.seasonContextKey) ?? currentDate;
   }
   const seasonContextKey = request.seasonContextKey ?? cacheKey(polygon.state, currentDate);

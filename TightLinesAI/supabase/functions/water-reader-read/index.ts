@@ -1221,6 +1221,7 @@ async function requestHeavyGenerator(params: {
         seasonContextKey: params.seasonContextKey,
         mapWidth: WATER_READER_APP_SVG_WIDTH,
         engineVersion: WATER_READER_ENGINE_VERSION,
+        skipInitialCacheLookup: params.heavy.reason === "worker_routed_cache_miss",
       }),
       signal: controller.signal,
     });
