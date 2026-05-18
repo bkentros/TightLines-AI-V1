@@ -1,7 +1,15 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {
+  checkUserRateLimit,
+  rateLimitExceededResponse,
+} from "../_shared/rateLimit.ts";
 
 const WATER_READER_HISTORY_FEATURE = "water_reader_history_v1" as const;
+const WATER_READER_HISTORY_RATE_LIMITS = [
+  { windowSeconds: 60, maxRequests: 120 },
+  { windowSeconds: 86400, maxRequests: 1500 },
+];
 
 type HistoryStatus = "preparing" | "ready" | "failed";
 type JobStatus = "queued" | "processing" | "complete" | "failed";
@@ -231,6 +239,15 @@ Deno.serve(async (req: Request) => {
   const { data: { user }, error: authError } = await supabase.auth.getUser(token);
   if (authError || !user) {
     return jsonError("Unauthorized", "unauthorized", 401);
+  }
+
+  const rateLimit = await checkUserRateLimit(supabase, {
+    userId: user.id,
+    feature: "water_reader_history",
+    rules: WATER_READER_HISTORY_RATE_LIMITS,
+  });
+  if (!rateLimit.allowed) {
+    return rateLimitExceededResponse(rateLimit, corsHeaders());
   }
 
   const { data: profile } = await supabase

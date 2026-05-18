@@ -54,6 +54,10 @@ import {
 import {
   DailyPicksSeasonalRowMissingError,
 } from "../_shared/recommenderEngine/dailyPicks/resolveDailyPicksSeasonalRow.ts";
+import {
+  checkUserRateLimit,
+  rateLimitExceededResponse,
+} from "../_shared/rateLimit.ts";
 
 const VALID_WATER_CLARITY: WaterClarity[] = ["clear", "stained", "dirty"];
 const VALID_RECOMMENDATION_GOALS: RecommendationGoal[] = [
@@ -63,6 +67,10 @@ const VALID_RECOMMENDATION_GOALS: RecommendationGoal[] = [
 const DEFAULT_RECOMMENDATION_GOAL: RecommendationGoal = "all_purpose";
 const DAILY_PICKS_PREVIEW_HEADER = "x-recommender-preview";
 const VALID_DAILY_PICKS_VIEW_VARIANTS = ["A", "B"] as const;
+const RECOMMENDER_RATE_LIMITS = [
+  { windowSeconds: 60, maxRequests: 60 },
+  { windowSeconds: 86400, maxRequests: 500 },
+];
 
 function corsHeaders() {
   return {
@@ -227,6 +235,15 @@ export async function handleRecommenderRequest(
     token,
   );
   if (authError || !user) return jsonError("Unauthorized", "unauthorized", 401);
+
+  const rateLimit = await checkUserRateLimit(supabase, {
+    userId: user.id,
+    feature: "recommender",
+    rules: RECOMMENDER_RATE_LIMITS,
+  });
+  if (!rateLimit.allowed) {
+    return rateLimitExceededResponse(rateLimit, corsHeaders());
+  }
 
   // ── Subscription gate ─────────────────────────────────────────────────────
   const { data: profile } = await supabase

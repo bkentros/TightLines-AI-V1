@@ -4,6 +4,15 @@ import {
   WATERBODY_SEARCH_FEATURE,
   type WaterbodySearchResult,
 } from "../_shared/waterReader/index.ts";
+import {
+  checkUserRateLimit,
+  rateLimitExceededResponse,
+} from "../_shared/rateLimit.ts";
+
+const WATERBODY_SEARCH_RATE_LIMITS = [
+  { windowSeconds: 60, maxRequests: 60 },
+  { windowSeconds: 86400, maxRequests: 1000 },
+];
 
 function corsHeaders() {
   return {
@@ -1141,6 +1150,15 @@ Deno.serve(async (req: Request) => {
   );
   if (authError || !user) {
     return jsonError("Unauthorized", "unauthorized", 401);
+  }
+
+  const rateLimit = await checkUserRateLimit(supabase, {
+    userId: user.id,
+    feature: "waterbody_search",
+    rules: WATERBODY_SEARCH_RATE_LIMITS,
+  });
+  if (!rateLimit.allowed) {
+    return rateLimitExceededResponse(rateLimit, corsHeaders());
   }
 
   const { data: profile } = await supabase

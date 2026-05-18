@@ -16,12 +16,20 @@ import {
   runHowFishingReport,
 } from "../_shared/howFishingEngine/index.ts";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
+import {
+  checkUserRateLimit,
+  rateLimitExceededResponse,
+} from "../_shared/rateLimit.ts";
 
 const VALID_CONTEXTS: EngineContext[] = [
   "freshwater_lake_pond",
   "freshwater_river",
   "coastal",
   "coastal_flats_estuary",
+];
+const HOW_FISHING_RATE_LIMITS = [
+  { windowSeconds: 60, maxRequests: 30 },
+  { windowSeconds: 86400, maxRequests: 300 },
 ];
 
 function corsHeaders() {
@@ -164,6 +172,15 @@ Deno.serve(async (req: Request) => {
     });
   }
   const userId = user.id;
+
+  const rateLimit = await checkUserRateLimit(supabase, {
+    userId,
+    feature: "how_fishing",
+    rules: HOW_FISHING_RATE_LIMITS,
+  });
+  if (!rateLimit.allowed) {
+    return rateLimitExceededResponse(rateLimit, corsHeaders());
+  }
 
   let body: Record<string, unknown> = {};
   try {

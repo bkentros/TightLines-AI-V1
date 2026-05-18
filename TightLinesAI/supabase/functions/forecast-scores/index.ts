@@ -22,12 +22,20 @@ import {
   type EngineContext,
   runHowFishingScoreOnly,
 } from "../_shared/howFishingEngine/index.ts";
+import {
+  checkUserRateLimit,
+  rateLimitExceededResponse,
+} from "../_shared/rateLimit.ts";
 
 const CONTEXTS: EngineContext[] = [
   "freshwater_lake_pond",
   "freshwater_river",
   "coastal",
   "coastal_flats_estuary",
+];
+const FORECAST_SCORES_RATE_LIMITS = [
+  { windowSeconds: 60, maxRequests: 45 },
+  { windowSeconds: 86400, maxRequests: 500 },
 ];
 const DAY_NAMES = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 const TIDE_STATION_MAX_MILES = 10;
@@ -100,6 +108,15 @@ async function requireAuthenticatedUser(req: Request): Promise<Response | null> 
   const { data: { user }, error } = await supabase.auth.getUser(token);
   if (error || !user) {
     return jsonError("Unauthorized", 401);
+  }
+
+  const rateLimit = await checkUserRateLimit(supabase, {
+    userId: user.id,
+    feature: "forecast_scores",
+    rules: FORECAST_SCORES_RATE_LIMITS,
+  });
+  if (!rateLimit.allowed) {
+    return rateLimitExceededResponse(rateLimit, corsHeaders());
   }
 
   return null;

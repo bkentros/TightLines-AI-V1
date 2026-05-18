@@ -10,6 +10,10 @@ import {
 } from "../_shared/waterReaderRead/contracts.ts";
 import { buildServerWaterReaderRead } from "../_shared/waterReaderRead/buildRead.ts";
 import { buildWaterReaderSeasonContext } from "../_shared/waterReaderRead/seasonContext.ts";
+import {
+  checkUserRateLimit,
+  rateLimitExceededResponse,
+} from "../_shared/rateLimit.ts";
 import type {
   WaterbodyPreviewBbox,
   WaterbodyType,
@@ -137,6 +141,10 @@ const EDGE_INLINE_COMPLEXITY_SCORE_LIMIT = 12000;
 const GENERATION_JOB_MAX_ATTEMPTS = 10;
 const INTERIOR_RING_COMPLEXITY_WEIGHT = 120;
 const DEFAULT_EDGE_POLYGON_FETCH_TIMEOUT_MS = 6000;
+const WATER_READER_READ_RATE_LIMITS = [
+  { windowSeconds: 60, maxRequests: 120 },
+  { windowSeconds: 86400, maxRequests: 1500 },
+];
 
 function centroidPoint(value: unknown): { lon: number; lat: number } | null {
   const maybe = value as { coordinates?: unknown } | null;
@@ -1363,6 +1371,15 @@ Deno.serve(async (req: Request) => {
   const { data: { user }, error: authError } = await supabase.auth.getUser(token);
   if (authError || !user) {
     return jsonError("Unauthorized", "unauthorized", 401);
+  }
+
+  const rateLimit = await checkUserRateLimit(supabase, {
+    userId: user.id,
+    feature: "water_reader_read",
+    rules: WATER_READER_READ_RATE_LIMITS,
+  });
+  if (!rateLimit.allowed) {
+    return rateLimitExceededResponse(rateLimit, corsHeaders());
   }
 
   const { data: profile } = await supabase

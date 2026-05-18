@@ -14,6 +14,10 @@ import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 import {
+  checkUserRateLimit,
+  rateLimitExceededResponse,
+} from "../_shared/rateLimit.ts";
+import {
   buildEnvironmentSnapshotKey,
   hasSufficientHourlyWeather,
   isEnvironmentSnapshotUsable,
@@ -21,6 +25,16 @@ import {
   mergeEnvironmentWithSnapshot,
   type EnvironmentSnapshotLike,
 } from "./cache.ts";
+
+const CORS_HEADERS = {
+  "Access-Control-Allow-Origin": "*",
+  "Access-Control-Allow-Methods": "POST, OPTIONS",
+  "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey, x-user-token",
+};
+const GET_ENVIRONMENT_RATE_LIMITS = [
+  { windowSeconds: 60, maxRequests: 60 },
+  { windowSeconds: 86400, maxRequests: 1000 },
+];
 
 // -----------------------------------------------------------------------------
 // Types (mirror lib/env/types.ts — Edge Functions are isolated)
@@ -1073,14 +1087,7 @@ function computeSolunar(moon: MoonData): SolunarData {
 
 Deno.serve(async (req: Request) => {
   if (req.method === 'OPTIONS') {
-    return new Response(null, {
-      status: 204,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS',
-        'Access-Control-Allow-Headers': 'Content-Type, Authorization, apikey, x-user-token',
-      },
-    });
+    return new Response(null, { status: 204, headers: CORS_HEADERS });
   }
 
   if (req.method !== 'POST') {
@@ -1116,6 +1123,15 @@ Deno.serve(async (req: Request) => {
         status: 401,
         headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
       });
+    }
+
+    const rateLimit = await checkUserRateLimit(supabase, {
+      userId: user.id,
+      feature: "get_environment",
+      rules: GET_ENVIRONMENT_RATE_LIMITS,
+    });
+    if (!rateLimit.allowed) {
+      return rateLimitExceededResponse(rateLimit, CORS_HEADERS);
     }
   }
   // Service role calls (from how-fishing) skip user auth — caller already validated the user

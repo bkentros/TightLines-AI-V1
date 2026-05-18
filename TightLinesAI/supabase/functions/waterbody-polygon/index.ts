@@ -1,6 +1,15 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { WATERBODY_POLYGON_FEATURE } from "../_shared/waterReader/index.ts";
+import {
+  checkUserRateLimit,
+  rateLimitExceededResponse,
+} from "../_shared/rateLimit.ts";
+
+const WATERBODY_POLYGON_RATE_LIMITS = [
+  { windowSeconds: 60, maxRequests: 90 },
+  { windowSeconds: 86400, maxRequests: 750 },
+];
 
 function corsHeaders() {
   return {
@@ -70,6 +79,15 @@ Deno.serve(async (req: Request) => {
   const { data: { user }, error: authError } = await supabase.auth.getUser(token);
   if (authError || !user) {
     return jsonError("Unauthorized", "unauthorized", 401);
+  }
+
+  const rateLimit = await checkUserRateLimit(supabase, {
+    userId: user.id,
+    feature: "waterbody_polygon",
+    rules: WATERBODY_POLYGON_RATE_LIMITS,
+  });
+  if (!rateLimit.allowed) {
+    return rateLimitExceededResponse(rateLimit, corsHeaders());
   }
 
   const { data: profile } = await supabase
