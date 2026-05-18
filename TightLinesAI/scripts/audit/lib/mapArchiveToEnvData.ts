@@ -16,9 +16,21 @@ export function mapArchiveToEnvData(
   moon: USNOMoonResult | null,
   tides: TidesResult | null,
 ): Record<string, unknown> {
-  const noonHourIndex = findNoonHourIndex(archive.hourly_times_unix, targetDate, ianaTimezone);
-  const midnightHourIndex = findMidnightHourIndex(archive.hourly_times_unix, targetDate, ianaTimezone);
-  const targetDailyIndex = findDailyIndex(archive.daily_times_unix, targetDate, ianaTimezone);
+  const noonHourIndex = findNoonHourIndex(
+    archive.hourly_times_unix,
+    targetDate,
+    ianaTimezone,
+  );
+  const midnightHourIndex = findMidnightHourIndex(
+    archive.hourly_times_unix,
+    targetDate,
+    ianaTimezone,
+  );
+  const targetDailyIndex = findDailyIndex(
+    archive.daily_times_unix,
+    targetDate,
+    ianaTimezone,
+  );
 
   let dailyTimesUnix = archive.daily_times_unix;
   let dailyTempMax = archive.daily_temp_max_f;
@@ -27,7 +39,10 @@ export function mapArchiveToEnvData(
   let dailyPrecipIn = archive.daily_precip_in;
   let dailyWindMax = archive.daily_wind_max_mph;
 
-  if (targetDailyIndex >= 14 && archive.daily_temp_max_f.length >= targetDailyIndex + 7) {
+  if (
+    targetDailyIndex >= 14 &&
+    archive.daily_temp_max_f.length >= targetDailyIndex + 7
+  ) {
     const start = targetDailyIndex - 14;
     const end = start + 21;
     dailyTimesUnix = dailyTimesUnix.slice(start, end);
@@ -40,13 +55,18 @@ export function mapArchiveToEnvData(
     console.warn(
       `mapArchiveToEnvData: targetDate ${targetDate} at daily index ${targetDailyIndex} (<14); using untrimmed arrays.`,
     );
-  } else if (targetDailyIndex >= 0 && archive.daily_temp_max_f.length < targetDailyIndex + 7) {
+  } else if (
+    targetDailyIndex >= 0 &&
+    archive.daily_temp_max_f.length < targetDailyIndex + 7
+  ) {
     console.warn(
       `mapArchiveToEnvData: daily series too short (targetIdx=${targetDailyIndex} len=${archive.daily_temp_max_f.length}); using untrimmed arrays.`,
     );
   }
 
-  const noonIndex = noonHourIndex >= 0 ? noonHourIndex : Math.max(0, midnightHourIndex + 12);
+  const noonIndex = noonHourIndex >= 0
+    ? noonHourIndex
+    : Math.max(0, midnightHourIndex + 12);
   const rebasedDailyIndex = Math.min(14, dailyWindMax.length - 1);
 
   const temperature = archive.hourly_temp_f[noonIndex] ?? 0;
@@ -56,20 +76,37 @@ export function mapArchiveToEnvData(
   const precipitation = dailyPrecipMm[rebasedDailyIndex] ?? 0;
 
   const pressure48HourStart = Math.max(0, noonIndex - 47);
-  const pressure48hr = archive.hourly_pressure_msl.slice(pressure48HourStart, noonIndex + 1);
+  const pressure48hr = archive.hourly_pressure_msl.slice(
+    pressure48HourStart,
+    noonIndex + 1,
+  );
 
   const hourlyAirTempF: Array<{ time_utc: string; value: number }> = [];
   const hourlyCloudCoverPct: Array<{ time_utc: string; value: number }> = [];
   const hourlyWindSpeed: Array<{ time_utc: string; value: number }> = [];
+  const hourlyPressureMb = archive.hourly_times_unix.map((unix, index) => ({
+    time_utc: new Date(unix * 1000).toISOString(),
+    value: archive.hourly_pressure_msl[index] ?? 0,
+  }));
 
   if (midnightHourIndex >= 0) {
     for (let hour = 0; hour < 24; hour++) {
       const index = midnightHourIndex + hour;
       if (index >= archive.hourly_times_unix.length) break;
-      const timeUtc = new Date(archive.hourly_times_unix[index]! * 1000).toISOString();
-      hourlyAirTempF.push({ time_utc: timeUtc, value: archive.hourly_temp_f[index] ?? 0 });
-      hourlyCloudCoverPct.push({ time_utc: timeUtc, value: archive.hourly_cloud_cover[index] ?? 0 });
-      hourlyWindSpeed.push({ time_utc: timeUtc, value: archive.hourly_wind_mph[index] ?? 0 });
+      const timeUtc = new Date(archive.hourly_times_unix[index]! * 1000)
+        .toISOString();
+      hourlyAirTempF.push({
+        time_utc: timeUtc,
+        value: archive.hourly_temp_f[index] ?? 0,
+      });
+      hourlyCloudCoverPct.push({
+        time_utc: timeUtc,
+        value: archive.hourly_cloud_cover[index] ?? 0,
+      });
+      hourlyWindSpeed.push({
+        time_utc: timeUtc,
+        value: archive.hourly_wind_mph[index] ?? 0,
+      });
     }
   }
 
@@ -81,7 +118,10 @@ export function mapArchiveToEnvData(
       : undefined;
 
   const solunarObject = moon?.solunar && moon.solunar.major_periods.length > 0
-    ? { major_periods: moon.solunar.major_periods, minor_periods: moon.solunar.minor_periods }
+    ? {
+      major_periods: moon.solunar.major_periods,
+      minor_periods: moon.solunar.minor_periods,
+    }
     : undefined;
 
   const tidesObject = tides
@@ -113,5 +153,6 @@ export function mapArchiveToEnvData(
     hourly_air_temp_f: hourlyAirTempF,
     hourly_cloud_cover_pct: hourlyCloudCoverPct,
     hourly_wind_speed: hourlyWindSpeed,
+    hourly_pressure_mb: hourlyPressureMb,
   };
 }

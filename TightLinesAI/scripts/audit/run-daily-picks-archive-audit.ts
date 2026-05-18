@@ -26,7 +26,11 @@ import type {
 } from "../../supabase/functions/_shared/recommenderEngine/v4/contracts.ts";
 import { LURE_ARCHETYPES_V4 } from "../../supabase/functions/_shared/recommenderEngine/v4/candidates/lures.ts";
 import { FLY_ARCHETYPES_V4 } from "../../supabase/functions/_shared/recommenderEngine/v4/candidates/flies.ts";
-import { fetchArchiveWeather } from "./lib/fetchArchiveWeather.ts";
+import {
+  fetchArchiveWeather,
+  getArchiveWeatherCacheStats,
+  setArchiveWeatherCacheDir,
+} from "./lib/fetchArchiveWeather.ts";
 import type { ArchiveWeatherResult } from "./lib/fetchArchiveWeather.ts";
 import { fetchSunriseSunset } from "./lib/fetchSunriseSunset.ts";
 import { fetchUSNOMoon } from "./lib/fetchUSNOMoon.ts";
@@ -61,6 +65,8 @@ type WeatherPlan = {
   intended_buckets: readonly string[];
 };
 
+type WeatherSource = "archive" | "fixtures";
+
 type SpeciesAuditConfig = {
   species: SpeciesGroup;
   output_key: string;
@@ -83,6 +89,35 @@ type ArchiveWeatherSummary = {
   pressure_trend_mb_48h: number | null;
   pressure_trend_label: string | null;
 };
+
+type FixtureWeatherSpec = {
+  label: string;
+  wind_mph: number;
+  cloud_pct: number;
+  target_high_f: number;
+  target_low_f: number;
+  prior_mean_delta_f: number;
+  pressure_trend_mb_48h: number;
+  precip_24h_in: number;
+  precip_72h_in: number;
+  precip_7d_in: number;
+};
+
+function activeSeasonalTemps(month: number, waterType: EngineContext): {
+  high: number;
+  low: number;
+} {
+  if (waterType === "freshwater_river") {
+    if (month <= 2 || month >= 11) return { high: 54, low: 42 };
+    if (month === 3) return { high: 58, low: 44 };
+    if (month >= 6 && month <= 8) return { high: 68, low: 52 };
+    return { high: 62, low: 47 };
+  }
+  if (month <= 2 || month >= 11) return { high: 66, low: 52 };
+  if (month >= 3 && month <= 5) return { high: 80, low: 64 };
+  if (month >= 6 && month <= 8) return { high: 84, low: 70 };
+  return { high: 76, low: 60 };
+}
 
 type PickSnapshot = {
   slot: string;
@@ -2348,6 +2383,10 @@ function parsePositiveInt(
   return n;
 }
 
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 function argValue(args: readonly string[], name: string): string | undefined {
   const prefix = `${name}=`;
   const withEquals = args.find((arg) => arg.startsWith(prefix))?.slice(
@@ -2358,6 +2397,39 @@ function argValue(args: readonly string[], name: string): string | undefined {
   if (index < 0) return undefined;
   const next = args[index + 1];
   return next && !next.startsWith("--") ? next : undefined;
+}
+
+function parseWeatherSource(args: readonly string[]): WeatherSource {
+  if (args.includes("--fixture-weather")) return "fixtures";
+  const raw = argValue(args, "--weather-source") ?? "archive";
+  if (raw === "archive" || raw === "fixtures") return raw;
+  throw new Error(
+    `Expected --weather-source to be 'archive' or 'fixtures', got '${raw}'.`,
+  );
+}
+
+function shouldPromoteAuditOutput(args: {
+  rows: number;
+  expectedRows: number;
+  allowIncomplete: boolean;
+  allowEmpty: boolean;
+}): boolean {
+  if (args.rows === args.expectedRows) return true;
+  if (args.rows === 0) return args.allowEmpty;
+  return args.allowIncomplete;
+}
+
+function archiveCacheStatsLine(): string {
+  const stats = getArchiveWeatherCacheStats();
+  return `Archive weather cache: dir=${stats.cache_dir} hits=${stats.hits} misses=${stats.misses} live_fetches=${stats.live_fetches} writes=${stats.writes} failures=${stats.failures} corrupt=${stats.corrupt_entries}`;
+}
+
+async function removeIfExists(path: string): Promise<void> {
+  try {
+    await Deno.remove(path);
+  } catch (error) {
+    if (!(error instanceof Deno.errors.NotFound)) throw error;
+  }
 }
 
 function parseMonths(args: readonly string[]): Set<number> | null {
@@ -2919,6 +2991,284 @@ function archiveSummary(
       : null,
     pressure_trend_mb_48h: round1(pressureTrend),
     pressure_trend_label: pressureTrendLabel,
+  };
+}
+
+function pressureTrendLabel(value: number): string {
+  if (value <= -3) return "falling";
+  if (value >= 3) return "rising";
+  return "stable";
+}
+
+function localUnixSeconds(args: {
+  date: string;
+  hour: number;
+  timezone: string;
+}): number {
+  const [year, month, day] = args.date.split("-").map(Number);
+  const guess = Date.UTC(year!, month! - 1, day!, args.hour);
+  for (let offset = -36; offset <= 36; offset++) {
+    const unix = Math.floor((guess + offset * 60 * 60 * 1000) / 1000);
+    if (
+      localDateFromUnix(unix, args.timezone) === args.date &&
+      localHourFromUnix(unix, args.timezone) === args.hour
+    ) {
+      return unix;
+    }
+  }
+  return Math.floor(guess / 1000);
+}
+
+function fixtureSpecForPlan(entry: WeatherPlan): FixtureWeatherSpec {
+  const buckets = new Set(entry.intended_buckets);
+  const month = Number.parseInt(entry.date.slice(5, 7), 10);
+  const activeTemps = activeSeasonalTemps(month, entry.water_type);
+  if (buckets.has("calm_low_light_surface")) {
+    return {
+      label: "fixture_calm_low_light_surface",
+      wind_mph: 4,
+      cloud_pct: 94,
+      target_high_f: activeTemps.high,
+      target_low_f: activeTemps.low,
+      prior_mean_delta_f: 8,
+      pressure_trend_mb_48h: -8,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0.1,
+    };
+  }
+  if (buckets.has("river_elevated_current") || buckets.has("runoff_streamer")) {
+    return {
+      label: "fixture_runoff_current",
+      wind_mph: 11,
+      cloud_pct: 82,
+      target_high_f: 58,
+      target_low_f: 44,
+      prior_mean_delta_f: 2,
+      pressure_trend_mb_48h: -2.5,
+      precip_24h_in: 0.7,
+      precip_72h_in: 1.7,
+      precip_7d_in: 2.4,
+    };
+  }
+  if (buckets.has("dirty_vibration")) {
+    return {
+      label: "fixture_dirty_vibration",
+      wind_mph: 12,
+      cloud_pct: 90,
+      target_high_f: activeTemps.high,
+      target_low_f: activeTemps.low,
+      prior_mean_delta_f: 3,
+      pressure_trend_mb_48h: -5,
+      precip_24h_in: 0.35,
+      precip_72h_in: 0.8,
+      precip_7d_in: 1.2,
+    };
+  }
+  if (buckets.has("wind_reaction")) {
+    return {
+      label: "fixture_breezy_stained_reaction",
+      wind_mph: 12,
+      cloud_pct: 82,
+      target_high_f: activeTemps.high,
+      target_low_f: activeTemps.low,
+      prior_mean_delta_f: 3,
+      pressure_trend_mb_48h: -5,
+      precip_24h_in: 0.05,
+      precip_72h_in: 0.1,
+      precip_7d_in: 0.25,
+    };
+  }
+  if (buckets.has("heat_finesse")) {
+    return {
+      label: "fixture_heat_limited_finesse",
+      wind_mph: 7,
+      cloud_pct: 18,
+      target_high_f: 94,
+      target_low_f: 76,
+      prior_mean_delta_f: 2,
+      pressure_trend_mb_48h: 3.4,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0,
+    };
+  }
+  if (buckets.has("winter_sanity") || buckets.has("cold_slow")) {
+    return {
+      label: "fixture_cold_slow_front",
+      wind_mph: 8,
+      cloud_pct: 24,
+      target_high_f: 42,
+      target_low_f: 29,
+      prior_mean_delta_f: -8,
+      pressure_trend_mb_48h: 4.2,
+      precip_24h_in: 0,
+      precip_72h_in: 0.05,
+      precip_7d_in: 0.2,
+    };
+  }
+  if (buckets.has("warming_search")) {
+    return {
+      label: "fixture_slight_warming_search",
+      wind_mph: 7,
+      cloud_pct: 70,
+      target_high_f: activeTemps.high,
+      target_low_f: activeTemps.low,
+      prior_mean_delta_f: 8,
+      pressure_trend_mb_48h: -4,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0.1,
+    };
+  }
+  if (
+    buckets.has("stable_pleasant") ||
+    buckets.has("surface_opportunity") ||
+    buckets.has("grass_surface") ||
+    buckets.has("low_light_surface")
+  ) {
+    return {
+      label: "fixture_warm_stable_surface",
+      wind_mph: buckets.has("low_light_surface") ? 4 : 5,
+      cloud_pct: buckets.has("low_light_surface") ? 90 : 74,
+      target_high_f: activeTemps.high,
+      target_low_f: activeTemps.low,
+      prior_mean_delta_f: 4,
+      pressure_trend_mb_48h: -6,
+      precip_24h_in: 0,
+      precip_72h_in: 0,
+      precip_7d_in: 0.05,
+    };
+  }
+  return {
+    label: "fixture_calm_bright_clear_subtle",
+    wind_mph: 4,
+    cloud_pct: 8,
+    target_high_f: 66,
+    target_low_f: 50,
+    prior_mean_delta_f: 0,
+    pressure_trend_mb_48h: 0.4,
+    precip_24h_in: 0,
+    precip_72h_in: 0,
+    precip_7d_in: 0,
+  };
+}
+
+function buildFixtureArchive(args: {
+  entry: WeatherPlan;
+  fishery: Fishery;
+}): { archive: ArchiveWeatherResult; summary: ArchiveWeatherSummary } {
+  const spec = fixtureSpecForPlan(args.entry);
+  const startDate = addDays(args.entry.date, -15);
+  const dates = Array.from(
+    { length: 23 },
+    (_, index) => addDays(startDate, index),
+  );
+  const targetIndex = 15;
+  const targetMean = (spec.target_high_f + spec.target_low_f) / 2;
+  const dailyHigh: number[] = [];
+  const dailyLow: number[] = [];
+  const dailyPrecipIn: number[] = [];
+  for (let i = 0; i < dates.length; i++) {
+    const distance = i - targetIndex;
+    const trendOffset = distance < 0
+      ? spec.prior_mean_delta_f * ((targetIndex - i) / targetIndex)
+      : 0;
+    const mean = targetMean - trendOffset;
+    dailyHigh.push(
+      Math.round((mean + (spec.target_high_f - targetMean)) * 10) / 10,
+    );
+    dailyLow.push(
+      Math.round((mean - (targetMean - spec.target_low_f)) * 10) / 10,
+    );
+    if (i === targetIndex) dailyPrecipIn.push(spec.precip_24h_in);
+    else if (i >= targetIndex - 2 && i < targetIndex) {
+      dailyPrecipIn.push(
+        Math.max(0, (spec.precip_72h_in - spec.precip_24h_in) / 2),
+      );
+    } else if (i >= targetIndex - 6 && i < targetIndex - 2) {
+      dailyPrecipIn.push(
+        Math.max(0, (spec.precip_7d_in - spec.precip_72h_in) / 4),
+      );
+    } else dailyPrecipIn.push(0);
+  }
+
+  const hourlyTimes: number[] = [];
+  const hourlyPressure: number[] = [];
+  const hourlyTemp: number[] = [];
+  const hourlyCloud: number[] = [];
+  const hourlyWind: number[] = [];
+  const hourlyPrecipMm: number[] = [];
+  const totalHours = dates.length * 24;
+  const pressureEnd = 1015;
+  const pressureStart = pressureEnd - spec.pressure_trend_mb_48h;
+  for (let day = 0; day < dates.length; day++) {
+    const mean = (dailyHigh[day]! + dailyLow[day]!) / 2;
+    const swing = (dailyHigh[day]! - dailyLow[day]!) / 2;
+    for (let hour = 0; hour < 24; hour++) {
+      const globalHour = day * 24 + hour;
+      hourlyTimes.push(
+        localUnixSeconds({
+          date: dates[day]!,
+          hour,
+          timezone: args.fishery.timezone,
+        }),
+      );
+      const diurnal = Math.sin(((hour - 6) / 24) * Math.PI * 2);
+      hourlyTemp.push(Math.round((mean + swing * diurnal) * 10) / 10);
+      hourlyCloud.push(spec.cloud_pct);
+      hourlyWind.push(spec.wind_mph);
+      hourlyPrecipMm.push(hour === 12 ? dailyPrecipIn[day]! * 25.4 : 0);
+      const pressureProgress = Math.min(
+        1,
+        Math.max(0, (globalHour - (targetIndex * 24 - 35)) / 47),
+      );
+      hourlyPressure.push(
+        Math.round(
+          (pressureStart + (pressureEnd - pressureStart) * pressureProgress) *
+            10,
+        ) / 10,
+      );
+    }
+  }
+
+  const dailyTimes = dates.map((date) =>
+    localUnixSeconds({ date, hour: 12, timezone: args.fishery.timezone })
+  );
+  const dailyPrecipMm = dailyPrecipIn.map((value) => value * 25.4);
+  const dailyWindMax = dailyHigh.map(() => spec.wind_mph);
+  const archive: ArchiveWeatherResult = {
+    raw: { fixture: spec.label },
+    timezone: args.fishery.timezone,
+    tz_offset_seconds: 0,
+    hourly_times_unix: hourlyTimes,
+    hourly_pressure_msl: hourlyPressure,
+    hourly_temp_f: hourlyTemp,
+    hourly_cloud_cover: hourlyCloud,
+    hourly_wind_mph: hourlyWind,
+    hourly_precip_mm: hourlyPrecipMm,
+    daily_times_unix: dailyTimes,
+    daily_temp_max_f: dailyHigh,
+    daily_temp_min_f: dailyLow,
+    daily_precip_mm: dailyPrecipMm,
+    daily_precip_in: dailyPrecipIn,
+    daily_wind_max_mph: dailyWindMax,
+  };
+  return {
+    archive,
+    summary: {
+      wind_daylight_avg_mph: spec.wind_mph,
+      wind_daily_max_mph: spec.wind_mph,
+      cloud_noon_pct: spec.cloud_pct,
+      cloud_daylight_avg_pct: spec.cloud_pct,
+      temp_noon_f: (spec.target_high_f + spec.target_low_f) / 2,
+      temp_high_f: spec.target_high_f,
+      temp_low_f: spec.target_low_f,
+      precip_in: spec.precip_24h_in,
+      pressure_noon_mb: pressureEnd,
+      pressure_trend_mb_48h: spec.pressure_trend_mb_48h,
+      pressure_trend_label: pressureTrendLabel(spec.pressure_trend_mb_48h),
+    },
   };
 }
 
@@ -6606,6 +6956,7 @@ type ProfileUtilization = {
   presentation_group: string;
   opportunities: number;
   selected: number;
+  finalist_opportunities: number;
   close_opportunities: number;
   far_behind_opportunities: number;
   availability_contexts: Map<string, number>;
@@ -6617,6 +6968,12 @@ type ProfileUtilization = {
   selected_clarity_counts: Map<string, number>;
   selected_water_type_counts: Map<string, number>;
   selected_condition_tags: Map<string, number>;
+  selected_surface_gate_counts: Map<string, number>;
+  selected_activity_counts: Map<string, number>;
+  selected_wind_mode_counts: Map<string, number>;
+  selected_bucket_counts: Map<string, number>;
+  selected_month_counts: Map<string, number>;
+  selected_season_counts: Map<string, number>;
 };
 
 function incrementMap(map: Map<string, number>, key: string, amount = 1): void {
@@ -6674,6 +7031,7 @@ function ensureUtilization(
     presentation_group: profile.presentation_group,
     opportunities: 0,
     selected: 0,
+    finalist_opportunities: 0,
     close_opportunities: 0,
     far_behind_opportunities: 0,
     availability_contexts: new Map(),
@@ -6685,9 +7043,22 @@ function ensureUtilization(
     selected_clarity_counts: new Map(),
     selected_water_type_counts: new Map(),
     selected_condition_tags: new Map(),
+    selected_surface_gate_counts: new Map(),
+    selected_activity_counts: new Map(),
+    selected_wind_mode_counts: new Map(),
+    selected_bucket_counts: new Map(),
+    selected_month_counts: new Map(),
+    selected_season_counts: new Map(),
   };
   profiles.set(key, created);
   return created;
+}
+
+function seasonName(month: number): string {
+  if (month >= 3 && month <= 5) return "spring";
+  if (month >= 6 && month <= 8) return "summer";
+  if (month >= 9 && month <= 11) return "fall";
+  return "winter";
 }
 
 function profileUtilization(rows: readonly AuditRow[]): ProfileUtilization[] {
@@ -6728,6 +7099,16 @@ function profileUtilization(rows: readonly AuditRow[]): ProfileUtilization[] {
         incrementMap(entry.competing_winners, winnerLabel);
       }
     }
+    for (const pool of row.finalist_pool_diagnostics) {
+      for (const id of pool.finalist_ids) {
+        const candidate = sideCandidates(row, pool.side).find((entry) =>
+          entry.id === id
+        );
+        if (!candidate) continue;
+        const entry = ensureUtilization(profiles, pool.side, candidate);
+        entry.finalist_opportunities += 1;
+      }
+    }
     for (const pick of row.selected_picks) {
       const side = pick.gear_mode === "fly" ? "fly" : "lure";
       const entry = ensureUtilization(profiles, side, pick);
@@ -6737,10 +7118,32 @@ function profileUtilization(rows: readonly AuditRow[]): ProfileUtilization[] {
       incrementMap(entry.selected_slot_counts, selectedSlotKind(pick.slot));
       incrementMap(entry.selected_clarity_counts, row.water_clarity);
       incrementMap(entry.selected_water_type_counts, row.water_type);
+      incrementMap(
+        entry.selected_surface_gate_counts,
+        row.daily_scenario_summary.surface_gate,
+      );
+      incrementMap(
+        entry.selected_activity_counts,
+        row.daily_scenario_summary.activity,
+      );
+      incrementMap(
+        entry.selected_wind_mode_counts,
+        row.daily_scenario_summary.wind_mode,
+      );
+      incrementMap(
+        entry.selected_bucket_counts,
+        row.condition_buckets[0] ?? "uncategorized",
+      );
+      incrementMap(entry.selected_month_counts, MONTH_NAMES[row.month - 1]);
+      incrementMap(entry.selected_season_counts, seasonName(row.month));
       incrementTags(
         entry.selected_condition_tags,
         row.daily_scenario_summary.condition_tags,
       );
+      const alreadyCountedInFinalists = row.finalist_pool_diagnostics.some((
+        pool,
+      ) => pool.side === side && pool.finalist_ids.includes(pick.id));
+      if (!alreadyCountedInFinalists) entry.finalist_opportunities += 1;
     }
   }
   return [...profiles.values()].sort((a, b) =>
@@ -6852,6 +7255,959 @@ function actualSlotShareSummary(rows: readonly AuditRow[]): string {
       flags.length ? flags.join("<br>") : "",
     ]),
   ]);
+}
+
+function goalSideShare(
+  profile: ProfileUtilization,
+  rows: readonly AuditRow[],
+  goal: Goal,
+): string {
+  const goalRows = rows.filter((row) => row.recommendation_goal === goal);
+  const sideSlots = goalRows.length * 2;
+  const selected = profile.selected_goal_counts.get(goal) ?? 0;
+  return `${selected}/${sideSlots} (${
+    percent(sideSlots === 0 ? 0 : selected / sideSlots)
+  })`;
+}
+
+function profileUsageAuditSection(rows: readonly AuditRow[]): string {
+  const profiles = profileUtilization(rows)
+    .filter((profile) => profile.opportunities > 0 || profile.selected > 0)
+    .sort((a, b) =>
+      a.gear_mode.localeCompare(b.gear_mode) ||
+      b.selected - a.selected ||
+      b.finalist_opportunities - a.finalist_opportunities ||
+      b.opportunities - a.opportunities ||
+      a.display_name.localeCompare(b.display_name)
+    );
+
+  return table([
+    [
+      "Profile",
+      "Gear",
+      "Selected",
+      "All-slot share",
+      "Side-slot share",
+      "All-purpose side share",
+      "Big-fish side share",
+      "Top/HM",
+      "Available rows",
+      "Finalist/repair opp",
+      "Selected/opportunity",
+      "Goal",
+      "Surface gate",
+      "Activity",
+      "Wind",
+      "Bucket",
+      "Clarity",
+      "Month/season",
+      "Condition tags",
+    ],
+    ...profiles.map((profile) => {
+      const metrics = actualSlotShareMetrics(profile, rows);
+      const top = profile.selected_slot_counts.get("top") ?? 0;
+      const honorable = profile.selected_slot_counts.get("honorable") ?? 0;
+      const selectedWhenFinalist = profile.finalist_opportunities === 0
+        ? 0
+        : profile.selected / profile.finalist_opportunities;
+      return [
+        `${profile.display_name}<br>${profile.id}`,
+        profile.gear_mode,
+        String(profile.selected),
+        `${profile.selected}/${metrics.totalSlots} (${
+          percent(metrics.combinedShare)
+        })`,
+        `${profile.selected}/${metrics.totalSideSlots} (${
+          percent(metrics.sideShare)
+        })`,
+        goalSideShare(profile, rows, "all_purpose"),
+        goalSideShare(profile, rows, "big_fish"),
+        `${top}/${honorable}`,
+        `${profile.opportunities}/${rows.length} (${
+          percent(profile.opportunities / rows.length)
+        })`,
+        String(profile.finalist_opportunities),
+        profile.finalist_opportunities > 0
+          ? percent(selectedWhenFinalist)
+          : "0/0",
+        compactCounts(profile.selected_goal_counts, 3),
+        compactCounts(profile.selected_surface_gate_counts, 3),
+        compactCounts(profile.selected_activity_counts, 3),
+        compactCounts(profile.selected_wind_mode_counts, 5),
+        compactCounts(profile.selected_bucket_counts, 5),
+        compactCounts(profile.selected_clarity_counts, 3),
+        [
+          compactCounts(profile.selected_month_counts, 4),
+          compactCounts(profile.selected_season_counts, 4),
+        ].filter(Boolean).join("<br>"),
+        compactCounts(profile.selected_condition_tags, 6),
+      ];
+    }),
+  ]);
+}
+
+const BASS_STAPLE_WATCH_IDS = [
+  "hollow_body_frog",
+  "bladed_jig",
+  "spinnerbait",
+  "swim_jig",
+  "paddle_tail_swimbait",
+  "lipless_crankbait",
+  "walking_topwater",
+  "buzzbait",
+  "popping_topwater",
+  "wake_bait",
+  "popper_fly",
+  "deer_hair_slider",
+  "baitfish_slider_fly",
+  "foam_gurgler_fly",
+  "frog_fly",
+] as const;
+
+function bassStapleWatchListSection(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
+  if (
+    config.species !== "largemouth_bass" &&
+    config.species !== "smallmouth_bass"
+  ) {
+    return "Not applicable.";
+  }
+  const utilization = new Map(
+    profileUtilization(rows).map((profile) => [
+      utilizationKey(profile.gear_mode, profile.id),
+      profile,
+    ]),
+  );
+  const home = new Map(
+    summarizeSignatureProfiles(config, rows).map((summary) => [
+      utilizationKey(summary.definition.side, summary.definition.id),
+      summary,
+    ]),
+  );
+  const rowsOut = [
+    [
+      "Profile",
+      "Gear",
+      "Side share",
+      "All-purpose side share",
+      "Big-fish side share",
+      "Selected",
+      "Top/HM",
+      "Available",
+      "Finalist/repair opp",
+      "Selected/opportunity",
+      "Home selected/opp",
+      "Selected contexts",
+    ],
+  ];
+  for (const id of BASS_STAPLE_WATCH_IDS) {
+    const profile = catalogProfileForSide("lure", id) ??
+      catalogProfileForSide("fly", id);
+    if (!profile) continue;
+    const side = profile.gear_mode as Side;
+    const key = utilizationKey(side, id);
+    const util = utilization.get(key);
+    const metrics = util ? actualSlotShareMetrics(util, rows) : null;
+    const summary = home.get(key);
+    const top = util?.selected_slot_counts.get("top") ?? 0;
+    const honorable = util?.selected_slot_counts.get("honorable") ?? 0;
+    const selectedWhenFinalist = util && util.finalist_opportunities > 0
+      ? util.selected / util.finalist_opportunities
+      : 0;
+    rowsOut.push([
+      `${profile.display_name}<br>${id}`,
+      side,
+      metrics ? percent(metrics.sideShare) : "0%",
+      util ? goalSideShare(util, rows, "all_purpose") : "0/0",
+      util ? goalSideShare(util, rows, "big_fish") : "0/0",
+      String(util?.selected ?? 0),
+      `${top}/${honorable}`,
+      util ? String(util.opportunities) : "0",
+      util ? String(util.finalist_opportunities) : "0",
+      util && util.finalist_opportunities > 0
+        ? percent(selectedWhenFinalist)
+        : "0/0",
+      summary
+        ? `${summary.selected_home}/${summary.home_opportunities} (${
+          percent(signatureHomeRate(summary))
+        })`
+        : "0/0",
+      util
+        ? [
+          compactCounts(util.selected_goal_counts, 2),
+          compactCounts(util.selected_surface_gate_counts, 3),
+          compactCounts(util.selected_bucket_counts, 3),
+          compactCounts(util.selected_condition_tags, 4),
+        ].filter(Boolean).join("<br>")
+        : "",
+    ]);
+  }
+  return table(rowsOut);
+}
+
+const BASS_LURE_MACRO_FAMILIES = [
+  {
+    name: "hard_jerk_crank_core",
+    ids: [
+      "suspending_jerkbait",
+      "soft_jerkbait",
+      "magnum_jerkbait",
+      "squarebill_crankbait",
+      "medium_diving_crankbait",
+    ],
+  },
+  {
+    name: "hard_jerk_crank_broad",
+    ids: [
+      "suspending_jerkbait",
+      "soft_jerkbait",
+      "magnum_jerkbait",
+      "squarebill_crankbait",
+      "medium_diving_crankbait",
+      "lipless_crankbait",
+      "flat_sided_crankbait",
+      "deep_diving_crankbait",
+    ],
+  },
+  {
+    name: "skirted_jig_family",
+    ids: [
+      "compact_flipping_jig",
+      "football_jig",
+      "finesse_jig",
+      "swim_jig",
+      "bladed_jig",
+    ],
+  },
+  {
+    name: "worm_plastic_family",
+    ids: [
+      "carolina_rigged_stick_worm",
+      "texas_rigged_soft_plastic_craw",
+      "weightless_stick_worm",
+      "shaky_head_worm",
+      "ned_rig",
+      "drop_shot_minnow",
+      "magnum_worm",
+    ],
+  },
+  {
+    name: "moving_single_hook_family",
+    ids: ["spinnerbait", "bladed_jig", "swim_jig", "paddle_tail_swimbait"],
+  },
+  {
+    name: "topwater_lure_family",
+    ids: [
+      "walking_topwater",
+      "buzzbait",
+      "popping_topwater",
+      "wake_bait",
+      "hollow_body_frog",
+    ],
+  },
+] as const;
+
+const BASS_FLY_MACRO_FAMILIES = [
+  {
+    name: "baitfish_streamers",
+    ids: [
+      "clouser_minnow",
+      "deceiver",
+      "game_changer",
+      "articulated_baitfish_streamer",
+      "unweighted_baitfish_streamer",
+      "baitfish_slider_fly",
+      "bluegill_streamer",
+    ],
+  },
+  {
+    name: "bugger_leech",
+    ids: [
+      "woolly_bugger",
+      "rabbit_strip_leech",
+      "jighead_marabou_leech",
+      "lead_eye_leech",
+      "feather_jig_leech",
+    ],
+  },
+  {
+    name: "topwater_flies",
+    ids: [
+      "popper_fly",
+      "deer_hair_slider",
+      "foam_gurgler_fly",
+      "frog_fly",
+      "mouse_fly",
+    ],
+  },
+  {
+    name: "crawfish_bluegill_specialty",
+    ids: [
+      "warmwater_crawfish_fly",
+      "crawfish_streamer",
+      "bluegill_streamer",
+      "warmwater_worm_fly",
+      "sculpin_streamer",
+      "muddler_sculpin",
+      "sculpzilla",
+    ],
+  },
+] as const;
+
+function bassMacroFamilyUtilizationSection(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
+  if (
+    config.species !== "largemouth_bass" &&
+    config.species !== "smallmouth_bass"
+  ) {
+    return "Not applicable.";
+  }
+
+  const output = [
+    [
+      "Macro family",
+      "Gear",
+      "Goal",
+      "Selected",
+      "All-slot share",
+      "Side-slot share",
+      "Top/HM",
+      "Profiles",
+    ],
+  ];
+  const families = [
+    ...BASS_LURE_MACRO_FAMILIES.map((family) => ({
+      ...family,
+      side: "lure" as const,
+    })),
+    ...BASS_FLY_MACRO_FAMILIES.map((family) => ({
+      ...family,
+      side: "fly" as const,
+    })),
+  ];
+
+  for (const family of families) {
+    const idSet = new Set<string>(family.ids);
+    for (const goal of ["all", "all_purpose", "big_fish"] as const) {
+      const goalRows = goal === "all"
+        ? rows
+        : rows.filter((row) => row.recommendation_goal === goal);
+      const selected = goalRows.flatMap((row) =>
+        row.selected_picks.filter((pick) =>
+          pick.gear_mode === family.side && idSet.has(pick.id)
+        )
+      );
+      const top = selected.filter((pick) =>
+        selectedSlotKind(pick.slot) === "top"
+      ).length;
+      const honorable = selected.length - top;
+      const allSlots = goalRows.length * 4;
+      const sideSlots = goalRows.length * 2;
+      output.push([
+        family.name,
+        family.side,
+        goal,
+        String(selected.length),
+        `${selected.length}/${allSlots} (${
+          percent(allSlots === 0 ? 0 : selected.length / allSlots)
+        })`,
+        `${selected.length}/${sideSlots} (${
+          percent(sideSlots === 0 ? 0 : selected.length / sideSlots)
+        })`,
+        `${top}/${honorable}`,
+        family.ids.join(", "),
+      ]);
+    }
+  }
+  return table(output);
+}
+
+function windBucketDiagnosticsSection(rows: readonly AuditRow[]): string {
+  const output = [
+    [
+      "Wind bucket",
+      "Goal",
+      "Rows",
+      "Share",
+      "Surface picks",
+      "Wind-reaction rows",
+    ],
+  ];
+  for (
+    const wind of ["calm", "slight", "breezy", "windy", "unknown"] as const
+  ) {
+    for (const goal of ["all", "all_purpose", "big_fish"] as const) {
+      const matchingRows = rows.filter((row) =>
+        row.daily_scenario_summary.wind_mode === wind &&
+        (goal === "all" || row.recommendation_goal === goal)
+      );
+      const surfacePicks = matchingRows.flatMap((row) =>
+        row.selected_picks.filter((pick) =>
+          pick.is_surface
+        )
+      ).length;
+      const windReactionRows = matchingRows.filter((row) =>
+        row.daily_scenario_summary.condition_tags.includes("wind_reaction")
+      ).length;
+      output.push([
+        wind,
+        goal,
+        String(matchingRows.length),
+        percent(rows.length === 0 ? 0 : matchingRows.length / rows.length),
+        String(surfacePicks),
+        String(windReactionRows),
+      ]);
+    }
+  }
+  return table(output);
+}
+
+function surfaceGateByGoalAndWindSection(rows: readonly AuditRow[]): string {
+  const output = [
+    [
+      "Goal",
+      "Wind bucket",
+      "Surface gate",
+      "Rows",
+      "Selected surface picks",
+    ],
+  ];
+  for (const goal of GOALS) {
+    for (
+      const wind of ["calm", "slight", "breezy", "windy", "unknown"] as const
+    ) {
+      for (const gate of ["closed", "caution", "open"] as const) {
+        const matchingRows = rows.filter((row) =>
+          row.recommendation_goal === goal &&
+          row.daily_scenario_summary.wind_mode === wind &&
+          row.daily_scenario_summary.surface_gate === gate
+        );
+        if (matchingRows.length === 0) continue;
+        const surfacePicks = matchingRows.flatMap((row) =>
+          row.selected_picks.filter((pick) =>
+            pick.is_surface
+          )
+        ).length;
+        output.push([
+          goal,
+          wind,
+          gate,
+          String(matchingRows.length),
+          String(surfacePicks),
+        ]);
+      }
+    }
+  }
+  return table(output);
+}
+
+function sideShareText(
+  selected: number,
+  rows: readonly AuditRow[],
+  goal?: Goal,
+): string {
+  const denominatorRows = goal == null
+    ? rows.length
+    : rows.filter((row) => row.recommendation_goal === goal).length;
+  const sideSlots = denominatorRows * 2;
+  return `${selected}/${sideSlots} (${
+    percent(sideSlots === 0 ? 0 : selected / sideSlots)
+  })`;
+}
+
+function pbSkewText(apSelected: number, bfSelected: number): string {
+  if (apSelected === 0 && bfSelected === 0) return "0";
+  if (apSelected === 0) return "PB-only";
+  return `${Math.round((bfSelected / apSelected) * 10) / 10}x`;
+}
+
+function pbSensibilityAuditSection(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
+  if (
+    config.species !== "largemouth_bass" &&
+    config.species !== "smallmouth_bass"
+  ) {
+    return "Not applicable.";
+  }
+
+  const utilization = new Map(
+    profileUtilization(rows).map((profile) => [
+      utilizationKey(profile.gear_mode, profile.id),
+      profile,
+    ]),
+  );
+
+  const output = [
+    [
+      "Profile",
+      "Gear",
+      "All side share",
+      "AP side share",
+      "BF side share",
+      "AP selected",
+      "BF selected",
+      "PB skew",
+      "Top/HM",
+      "Goal tags",
+      "Condition tags",
+      "Forage tags",
+      "Wind selected",
+      "Surface gate selected",
+      "Primary selected contexts",
+    ],
+  ];
+
+  for (const { side, profile } of eligibleCatalogProfiles(rows)) {
+    const util = utilization.get(utilizationKey(side, profile.id));
+    const selected = util?.selected ?? 0;
+    const apSelected = util?.selected_goal_counts.get("all_purpose") ?? 0;
+    const bfSelected = util?.selected_goal_counts.get("big_fish") ?? 0;
+    const top = util?.selected_slot_counts.get("top") ?? 0;
+    const honorable = util?.selected_slot_counts.get("honorable") ?? 0;
+    output.push([
+      `${profile.display_name}<br>${profile.id}`,
+      side,
+      sideShareText(selected, rows),
+      sideShareText(apSelected, rows, "all_purpose"),
+      sideShareText(bfSelected, rows, "big_fish"),
+      String(apSelected),
+      String(bfSelected),
+      pbSkewText(apSelected, bfSelected),
+      `${top}/${honorable}`,
+      profile.goal_tags.join(", "),
+      profile.condition_tags.join(", "),
+      profile.forage_tags.join(", "),
+      util ? compactCounts(util.selected_wind_mode_counts, 5) : "",
+      util ? compactCounts(util.selected_surface_gate_counts, 3) : "",
+      util
+        ? [
+          compactCounts(util.selected_bucket_counts, 4),
+          compactCounts(util.selected_clarity_counts, 3),
+          compactCounts(util.selected_condition_tags, 5),
+        ].filter(Boolean).join("<br>")
+        : "",
+    ]);
+  }
+
+  return table(output);
+}
+
+function pbTopwaterCompositionSection(rows: readonly AuditRow[]): string {
+  const groups = [
+    {
+      label: "Topwater lures",
+      side: "lure" as const,
+      ids: [
+        "walking_topwater",
+        "buzzbait",
+        "hollow_body_frog",
+        "wake_bait",
+        "popping_topwater",
+      ],
+    },
+    {
+      label: "Topwater flies",
+      side: "fly" as const,
+      ids: [
+        "popper_fly",
+        "deer_hair_slider",
+        "foam_gurgler_fly",
+        "frog_fly",
+        "mouse_fly",
+      ],
+    },
+  ];
+
+  const output = [[
+    "Group",
+    "Profile",
+    "BF selections",
+    "Share of BF topwater",
+  ]];
+  for (const group of groups) {
+    const selected = rows.flatMap((row) =>
+      row.recommendation_goal === "big_fish"
+        ? row.selected_picks.filter((pick) =>
+          pick.gear_mode === group.side && group.ids.includes(pick.id)
+        )
+        : []
+    );
+    const total = selected.length;
+    for (const id of group.ids) {
+      const profile = catalogProfileForSide(group.side, id);
+      const count = selected.filter((pick) => pick.id === id).length;
+      output.push([
+        group.label,
+        profile ? `${profile.display_name}<br>${id}` : id,
+        String(count),
+        `${count}/${total} (${percent(total === 0 ? 0 : count / total)})`,
+      ]);
+    }
+  }
+  return table(output);
+}
+
+const TOPWATER_CONTEXT_TAGS = [
+  "calm_surface",
+  "low_light_surface",
+  "wind_reaction",
+  "dirty_vibration",
+  "clear_subtle",
+  "heat_finesse",
+  "cold_slow",
+] as const;
+const TOPWATER_CONTEXT_TAG_SET = new Set<string>(TOPWATER_CONTEXT_TAGS);
+
+function topwaterContextAuditSection(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
+  const output = [
+    [
+      "Species",
+      "Goal",
+      "Gear",
+      "Activity",
+      "Surface gate",
+      "Wind bucket",
+      "Rows",
+      "Topwater selections",
+      "Side-share in context",
+      "Scenario tags",
+      "Profiles",
+    ],
+  ];
+
+  for (const goal of GOALS) {
+    for (const side of ["lure", "fly"] as const) {
+      for (
+        const activity of ["active", "neutral", "suppressed"] as const
+      ) {
+        for (const gate of ["closed", "caution", "open"] as const) {
+          for (
+            const wind of [
+              "calm",
+              "slight",
+              "breezy",
+              "windy",
+              "unknown",
+            ] as const
+          ) {
+            const matchingRows = rows.filter((row) =>
+              row.recommendation_goal === goal &&
+              row.daily_scenario_summary.activity === activity &&
+              row.daily_scenario_summary.surface_gate === gate &&
+              row.daily_scenario_summary.wind_mode === wind
+            );
+            if (matchingRows.length === 0) continue;
+
+            const selected = matchingRows.flatMap((row) =>
+              row.selected_picks.filter((pick) =>
+                pick.gear_mode === side && pick.is_surface
+              )
+            );
+            if (selected.length === 0 && gate !== "closed") continue;
+
+            const tagCounts = new Map<string, number>();
+            for (const row of matchingRows) {
+              for (const tag of row.daily_scenario_summary.condition_tags) {
+                if (TOPWATER_CONTEXT_TAG_SET.has(tag)) {
+                  tagCounts.set(tag, (tagCounts.get(tag) ?? 0) + 1);
+                }
+              }
+            }
+            const profileCounts = new Map<string, number>();
+            for (const pick of selected) {
+              profileCounts.set(pick.id, (profileCounts.get(pick.id) ?? 0) + 1);
+            }
+            const sideSlots = matchingRows.length * 2;
+            output.push([
+              config.species,
+              goal,
+              side,
+              activity,
+              gate,
+              wind,
+              String(matchingRows.length),
+              String(selected.length),
+              `${selected.length}/${sideSlots} (${
+                percent(sideSlots === 0 ? 0 : selected.length / sideSlots)
+              })`,
+              compactCounts(tagCounts, 7),
+              compactCounts(profileCounts, 8),
+            ]);
+          }
+        }
+      }
+    }
+  }
+
+  return table(output);
+}
+
+function isSurfaceEligibleAuditRow(row: AuditRow): boolean {
+  if (
+    row.daily_scenario_summary.surface_gate !== "open" &&
+    row.daily_scenario_summary.surface_gate !== "caution"
+  ) {
+    return false;
+  }
+  if (row.daily_scenario_summary.activity === "suppressed") return false;
+  if (
+    row.daily_scenario_summary.thermal_mode === "heat_limited" &&
+    row.daily_scenario_summary.light_mode !== "low_light"
+  ) {
+    return false;
+  }
+  return true;
+}
+
+function surfaceSafetyCounts(rows: readonly AuditRow[]): {
+  closed: number;
+  suppressed: number;
+  highWind: number;
+  heatNoLight: number;
+  slightWindReactionScore: number;
+} {
+  let closed = 0;
+  let suppressed = 0;
+  let highWind = 0;
+  let heatNoLight = 0;
+  let slightWindReactionScore = 0;
+  for (const row of rows) {
+    for (const pick of row.selected_picks) {
+      if (
+        pick.is_surface && row.daily_scenario_summary.surface_gate === "closed"
+      ) {
+        closed++;
+      }
+      if (
+        pick.is_surface && row.daily_scenario_summary.activity === "suppressed"
+      ) {
+        suppressed++;
+      }
+      if (pick.is_surface && row.daily_scenario_summary.wind_mode === "windy") {
+        highWind++;
+      }
+      if (
+        pick.is_surface &&
+        row.daily_scenario_summary.thermal_mode === "heat_limited" &&
+        row.daily_scenario_summary.light_mode !== "low_light"
+      ) {
+        heatNoLight++;
+      }
+      if (
+        row.daily_scenario_summary.wind_mode === "slight" &&
+        pick.score_reasons.some((reason) =>
+          reason.startsWith("condition_tag:wind_reaction:")
+        )
+      ) {
+        slightWindReactionScore++;
+      }
+    }
+  }
+  return { closed, suppressed, highWind, heatNoLight, slightWindReactionScore };
+}
+
+function topwaterEligibilityRateAuditSection(
+  config: SpeciesAuditConfig,
+  rows: readonly AuditRow[],
+): string {
+  const output = [
+    [
+      "Species",
+      "Goal",
+      "Slice",
+      "Rows",
+      "Eligible rows",
+      "Global topwater all-slot share",
+      "Eligible topwater all-slot share",
+      "Eligible lure-side topwater share",
+      "Eligible fly-side topwater share",
+      "Closed surface",
+      "Suppressed surface",
+      "High-wind surface",
+      "Heat/no-light surface",
+      "Slight wind-reaction score",
+    ],
+  ];
+
+  const slices: Array<{
+    label: string;
+    predicate: (row: AuditRow) => boolean;
+  }> = [
+    { label: "all", predicate: () => true },
+    ...["active", "neutral", "suppressed"].map((activity) => ({
+      label: `activity:${activity}`,
+      predicate: (row: AuditRow) =>
+        row.daily_scenario_summary.activity === activity,
+    })),
+    ...["open", "caution", "closed"].map((gate) => ({
+      label: `surface_gate:${gate}`,
+      predicate: (row: AuditRow) =>
+        row.daily_scenario_summary.surface_gate === gate,
+    })),
+    ...["calm", "slight", "breezy", "windy", "unknown"].map((wind) => ({
+      label: `wind:${wind}`,
+      predicate: (row: AuditRow) =>
+        row.daily_scenario_summary.wind_mode === wind,
+    })),
+  ];
+
+  for (const goal of GOALS) {
+    const goalRows = rows.filter((row) => row.recommendation_goal === goal);
+    const goalSafety = surfaceSafetyCounts(goalRows);
+    for (const slice of slices) {
+      const sliceRows = goalRows.filter(slice.predicate);
+      if (sliceRows.length === 0 && slice.label !== "all") continue;
+      const eligibleRows = sliceRows.filter(isSurfaceEligibleAuditRow);
+      const topwaterPicks = sliceRows.flatMap((row) =>
+        row.selected_picks.filter((pick) => pick.is_surface)
+      );
+      const eligibleTopwaterPicks = eligibleRows.flatMap((row) =>
+        row.selected_picks.filter((pick) => pick.is_surface)
+      );
+      const eligibleLureSurface = eligibleRows.flatMap((row) =>
+        row.selected_picks.filter((pick) =>
+          pick.gear_mode === "lure" && pick.is_surface
+        )
+      );
+      const eligibleFlySurface = eligibleRows.flatMap((row) =>
+        row.selected_picks.filter((pick) =>
+          pick.gear_mode === "fly" && pick.is_surface
+        )
+      );
+      output.push([
+        config.species,
+        goal,
+        slice.label,
+        String(sliceRows.length),
+        String(eligibleRows.length),
+        `${topwaterPicks.length}/${sliceRows.length * 4} (${
+          percent(
+            sliceRows.length === 0
+              ? 0
+              : topwaterPicks.length / (sliceRows.length * 4),
+          )
+        })`,
+        `${eligibleTopwaterPicks.length}/${eligibleRows.length * 4} (${
+          percent(
+            eligibleRows.length === 0
+              ? 0
+              : eligibleTopwaterPicks.length / (eligibleRows.length * 4),
+          )
+        })`,
+        `${eligibleLureSurface.length}/${eligibleRows.length * 2} (${
+          percent(
+            eligibleRows.length === 0
+              ? 0
+              : eligibleLureSurface.length / (eligibleRows.length * 2),
+          )
+        })`,
+        `${eligibleFlySurface.length}/${eligibleRows.length * 2} (${
+          percent(
+            eligibleRows.length === 0
+              ? 0
+              : eligibleFlySurface.length / (eligibleRows.length * 2),
+          )
+        })`,
+        String(goalSafety.closed),
+        String(goalSafety.suppressed),
+        String(goalSafety.highWind),
+        String(goalSafety.heatNoLight),
+        String(goalSafety.slightWindReactionScore),
+      ]);
+    }
+  }
+
+  return table(output);
+}
+
+function windReactionQuestion(profile: ArchetypeProfileV4): string {
+  switch (profile.id) {
+    case "bucktail_baitfish_streamer":
+    case "conehead_streamer":
+    case "zonker_streamer":
+      return "watch: context-sensitive fly wind tag";
+    default:
+      return "";
+  }
+}
+
+function windReactionTagAuditSection(rows: readonly AuditRow[]): string {
+  const profiles = [
+    ...LURE_ARCHETYPES_V4.map((profile) => ({
+      side: "lure" as const,
+      profile,
+    })),
+    ...FLY_ARCHETYPES_V4.map((profile) => ({ side: "fly" as const, profile })),
+  ].filter(({ profile }) => profile.condition_tags.includes("wind_reaction"))
+    .sort((a, b) =>
+      a.side.localeCompare(b.side) ||
+      a.profile.display_name.localeCompare(b.profile.display_name)
+    );
+
+  let scoredWindInSlight = 0;
+  const output = [[
+    "Profile",
+    "Gear",
+    "Selected",
+    "Calm",
+    "Slight",
+    "Breezy",
+    "Windy",
+    "Selected with wind score",
+    "Slight wind-score rows",
+    "Questionable?",
+  ]];
+
+  for (const { side, profile } of profiles) {
+    const selected = rows.flatMap((row) =>
+      row.selected_picks.filter((pick) =>
+        pick.gear_mode === side && pick.id === profile.id
+      ).map((pick) => ({ row, pick }))
+    );
+    const byWind = new Map<string, number>();
+    let scoredWind = 0;
+    let slightScored = 0;
+    for (const entry of selected) {
+      incrementMap(byWind, entry.row.daily_scenario_summary.wind_mode);
+      const hasWindScore = entry.pick.score_reasons.some((reason) =>
+        reason.startsWith("condition_tag:wind_reaction:")
+      );
+      if (hasWindScore) scoredWind++;
+      if (
+        hasWindScore &&
+        entry.row.daily_scenario_summary.wind_mode === "slight"
+      ) {
+        slightScored++;
+      }
+    }
+    scoredWindInSlight += slightScored;
+    output.push([
+      `${profile.display_name}<br>${profile.id}`,
+      side,
+      String(selected.length),
+      String(byWind.get("calm") ?? 0),
+      String(byWind.get("slight") ?? 0),
+      String(byWind.get("breezy") ?? 0),
+      String(byWind.get("windy") ?? 0),
+      String(scoredWind),
+      String(slightScored),
+      windReactionQuestion(profile),
+    ]);
+  }
+
+  return [
+    `Selected rows with condition_tag:wind_reaction scoring in slight wind: ${scoredWindInSlight}.`,
+    table(output),
+  ].join("\n\n");
 }
 
 function isLowUseProfile(profile: ProfileUtilization): boolean {
@@ -10381,6 +11737,46 @@ ${utilizationSummary(rows)}
 
 ${actualSlotShareSummary(rows)}
 
+## Per-Profile Usage Audit
+
+${profileUsageAuditSection(rows)}
+
+## PB Sensibility Audit
+
+${pbSensibilityAuditSection(config, rows)}
+
+## PB Topwater Composition
+
+${pbTopwaterCompositionSection(rows)}
+
+## Topwater Context Audit
+
+${topwaterContextAuditSection(config, rows)}
+
+## Topwater Eligibility Rate Audit
+
+${topwaterEligibilityRateAuditSection(config, rows)}
+
+## Wind-Reaction Tag Audit
+
+${windReactionTagAuditSection(rows)}
+
+## Bass Staple Watch List
+
+${bassStapleWatchListSection(config, rows)}
+
+## Bass Macro-Family Utilization Diagnostics
+
+${bassMacroFamilyUtilizationSection(config, rows)}
+
+## Wind Bucket Diagnostics
+
+${windBucketDiagnosticsSection(rows)}
+
+## Surface Gate by Goal and Wind Bucket
+
+${surfaceGateByGoalAndWindSection(rows)}
+
 ## Zero-Selected Eligible Profiles
 
 ${zeroSelectedEligibleProfiles(rows)}
@@ -10473,6 +11869,8 @@ ${skippedSection}
 
 async function main() {
   const smoke = Deno.args.includes("--smoke");
+  const weatherSource = parseWeatherSource(Deno.args);
+  const fixtureMode = weatherSource === "fixtures";
   const config = parseSpeciesConfig(Deno.args);
   const fisheryByKey = new Map(
     config.fisheries.map((fishery) => [fishery.key, fishery]),
@@ -10480,10 +11878,22 @@ async function main() {
   const months = parseMonths(Deno.args);
   const fisheries = parseFisheryKeys(Deno.args, fisheryByKey);
   const limit = parsePositiveInt(argValue(Deno.args, "--limit"), "--limit");
-  const outputSuffix =
+  const parsedOutputSuffix =
     argValue(Deno.args, "--output-suffix")?.replace(/[^a-zA-Z0-9_-]+/g, "_") ??
       null;
-  const includeAux = !Deno.args.includes("--no-aux");
+  const outputSuffix = fixtureMode && parsedOutputSuffix == null
+    ? "fixture"
+    : parsedOutputSuffix;
+  const includeAux = !fixtureMode && !Deno.args.includes("--no-aux");
+  const allowIncomplete = Deno.args.includes("--allow-incomplete") ||
+    Deno.args.includes("--force");
+  const allowEmpty = Deno.args.includes("--allow-empty") ||
+    Deno.args.includes("--force");
+  const throttleMs =
+    parsePositiveInt(argValue(Deno.args, "--throttle-ms"), "--throttle-ms") ??
+      750;
+  const archiveCacheDir = argValue(Deno.args, "--archive-cache-dir");
+  if (archiveCacheDir) setArchiveWeatherCacheDir(archiveCacheDir);
 
   let plan = config.weather_plan.slice();
   if (months) {
@@ -10510,49 +11920,69 @@ async function main() {
 
   const rows: AuditRow[] = [];
   const skipped: SkippedWeatherScenario[] = [];
-  await Deno.writeTextFile(tmpJsonlPath, "");
+  const expectedRows = plan.length * WATER_CLARITIES.length * GOALS.length * 2;
+  await removeIfExists(tmpJsonlPath);
+  await removeIfExists(tmpMdPath);
 
   for (const entry of plan) {
     const fishery = fisheryByKey.get(entry.fishery_key);
     if (!fishery) throw new Error(`No fishery found for ${entry.fishery_key}`);
     try {
       console.log(
-        `weather ${
+        `${fixtureMode ? "fixture" : "weather"} ${
           entry.fishery_key.padEnd(22)
         } ${entry.date} ${entry.water_type}`,
       );
-      const archive = await fetchArchiveWeather(
-        fishery.latitude,
-        fishery.longitude,
-        entry.date,
-      );
-      if (!archive) {
-        skipped.push({
-          id: `${entry.fishery_key}__${entry.date}__${entry.water_type}`,
-          fishery_label: fishery.label,
-          date: entry.date,
-          water_type: entry.water_type,
-          reason: "archive_weather_fetch_failed",
-        });
-        continue;
+      let archive: ArchiveWeatherResult | null = null;
+      let summary: ArchiveWeatherSummary | null = null;
+      if (fixtureMode) {
+        const fixture = buildFixtureArchive({ entry, fishery });
+        archive = fixture.archive;
+        summary = fixture.summary;
+      } else {
+        archive = await fetchArchiveWeather(
+          fishery.latitude,
+          fishery.longitude,
+          entry.date,
+        );
+        if (!archive) {
+          skipped.push({
+            id: `${entry.fishery_key}__${entry.date}__${entry.water_type}`,
+            fishery_label: fishery.label,
+            date: entry.date,
+            water_type: entry.water_type,
+            reason: "archive_weather_fetch_failed",
+          });
+          if (!allowIncomplete && !allowEmpty) {
+            console.error(
+              `stop    ${entry.fishery_key} ${entry.date}: archive weather fetch failed; preserving existing reports.`,
+            );
+            break;
+          }
+          continue;
+        }
+        summary = archiveSummary(archive, entry.date, archive.timezone);
       }
+      if (!fixtureMode) await sleep(throttleMs);
       const tzOffsetHours = archive.tz_offset_seconds / 3600;
-      const [sun, moon] = includeAux
-        ? await Promise.all([
-          fetchSunriseSunset(
-            fishery.latitude,
-            fishery.longitude,
-            entry.date,
-            archive.timezone,
-          ),
-          fetchUSNOMoon(
-            fishery.latitude,
-            fishery.longitude,
-            entry.date,
-            tzOffsetHours,
-          ),
-        ])
-        : [null, null] as const;
+      let sun = null;
+      let moon = null;
+      if (includeAux) {
+        sun = await fetchSunriseSunset(
+          fishery.latitude,
+          fishery.longitude,
+          entry.date,
+          archive.timezone,
+        );
+        await sleep(throttleMs);
+        moon = await fetchUSNOMoon(
+          fishery.latitude,
+          fishery.longitude,
+          entry.date,
+          tzOffsetHours,
+        );
+        await sleep(throttleMs);
+      }
       const envData = mapArchiveToEnvData(
         archive,
         entry.date,
@@ -10561,7 +11991,6 @@ async function main() {
         moon,
         null,
       );
-      const summary = archiveSummary(archive, entry.date, archive.timezone);
 
       for (const clarity of WATER_CLARITIES) {
         for (const goal of GOALS) {
@@ -10576,9 +12005,6 @@ async function main() {
             variant: "A",
           });
           rows.push(rowA);
-          await Deno.writeTextFile(tmpJsonlPath, JSON.stringify(rowA) + "\n", {
-            append: true,
-          });
 
           const rowB = runOne({
             config,
@@ -10597,9 +12023,6 @@ async function main() {
             ).map((pick) => pick.id),
           });
           rows.push(rowB);
-          await Deno.writeTextFile(tmpJsonlPath, JSON.stringify(rowB) + "\n", {
-            append: true,
-          });
         }
       }
       console.log(
@@ -10629,6 +12052,26 @@ async function main() {
   addAdjacentDayVarietyFlags(rows);
   addGuideVerdicts(rows);
 
+  if (
+    !shouldPromoteAuditOutput({
+      rows: rows.length,
+      expectedRows,
+      allowIncomplete,
+      allowEmpty,
+    })
+  ) {
+    await removeIfExists(tmpJsonlPath);
+    await removeIfExists(tmpMdPath);
+    console.error(
+      `\nAudit output for ${config.output_key} was not promoted: produced ${rows.length}/${expectedRows} expanded runs with ${skipped.length} skipped weather scenarios.`,
+    );
+    console.error(
+      `Preserved existing reports: ${mdPath} and ${jsonlPath}. Re-run after rate limits clear, or pass --allow-incomplete/--allow-empty/--force intentionally.`,
+    );
+    console.error(archiveCacheStatsLine());
+    Deno.exit(2);
+  }
+
   await Deno.writeTextFile(
     tmpJsonlPath,
     rows.map((row) => JSON.stringify(row)).join("\n") +
@@ -10639,16 +12082,6 @@ async function main() {
     buildMarkdown(config, rows, skipped, jsonlPath),
   );
 
-  try {
-    await Deno.remove(jsonlPath);
-  } catch {
-    // Missing prior output is fine.
-  }
-  try {
-    await Deno.remove(mdPath);
-  } catch {
-    // Missing prior output is fine.
-  }
   await Deno.rename(tmpJsonlPath, jsonlPath);
   await Deno.rename(tmpMdPath, mdPath);
 
@@ -10673,6 +12106,7 @@ async function main() {
     } runs=${rows.length} skipped=${skipped.length}`,
   );
   console.log(`Flags hard=${hard} credibility=${cred} variety=${variety}`);
+  console.log(archiveCacheStatsLine());
   console.log(`Markdown report: ${mdPath}`);
   console.log(`JSONL results: ${jsonlPath}`);
 }

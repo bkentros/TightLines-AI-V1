@@ -12,7 +12,7 @@ type SupabaseLike = {
 };
 
 export const DAILY_PICKS_SESSION_ENGINE_VERSION =
-  "recommender_daily_picks_2x2_sessionv1_goalv2" as const;
+  "recommender_daily_picks_2x2_sessionv1_goalv3" as const;
 
 export type DailyPicksRecommendationSession = {
   local_date: string;

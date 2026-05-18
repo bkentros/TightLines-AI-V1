@@ -121,7 +121,8 @@ Deno.test("G7: surface-fly species allowances on authored catalog", () => {
     } else if (f.id === "mouse_fly") {
       for (const s of f.species_allowed) {
         assert(
-          s === "largemouth_bass" || s === "trout",
+          s === "largemouth_bass" || s === "smallmouth_bass" ||
+            s === "trout",
           `mouse_fly species ${s}`,
         );
       }
@@ -206,6 +207,96 @@ Deno.test("Pass 4A: buzzbait catalog identity stays fast surface reaction, not s
   assert(!buzzbait.condition_tags.includes("heat_finesse"));
   assert(buzzbait.goal_tags.includes("big_fish_upside"));
   assert(buzzbait.goal_tags.includes("high_risk_high_reward"));
+});
+
+Deno.test("Audit tuning: Bladed Jig remains a stained/dirty wind-reaction staple", () => {
+  const bladed = LURE_ARCHETYPES_V4.find((lure) => lure.id === "bladed_jig");
+  assert(bladed, "expected bladed_jig in lure catalog");
+  assertEquals(bladed.column, "mid");
+  assert(bladed.condition_tags.includes("wind_reaction"));
+  assert(bladed.condition_tags.includes("dirty_vibration"));
+  assert(bladed.condition_tags.includes("cover_ambush"));
+  assert(bladed.condition_tags.includes("warming_search"));
+  assert(bladed.forage_tags.includes("bluegill_perch"));
+  assert(bladed.clarity_strengths.includes("stained"));
+  assert(bladed.clarity_strengths.includes("dirty"));
+  assert(bladed.goal_tags.includes("reliable_action"));
+  assert(bladed.goal_tags.includes("versatile_search"));
+  assert(!bladed.is_surface);
+});
+
+Deno.test("Pass 4 organic tuning: bass staple tags stay condition truthful", () => {
+  const byLure = new Map<string, (typeof LURE_ARCHETYPES_V4)[number]>(
+    LURE_ARCHETYPES_V4.map((profile) => [
+      profile.id,
+      profile,
+    ]),
+  );
+  const byFly = new Map<string, (typeof FLY_ARCHETYPES_V4)[number]>(
+    FLY_ARCHETYPES_V4.map((profile) => [
+      profile.id,
+      profile,
+    ]),
+  );
+
+  for (
+    const id of [
+      "spinnerbait",
+      "swim_jig",
+      "paddle_tail_swimbait",
+    ]
+  ) {
+    const profile = byLure.get(id);
+    assert(profile, `expected ${id} in lure catalog`);
+    assert(profile.goal_tags.includes("reliable_action"), `${id} reliable`);
+  }
+
+  const stickWorm = byLure.get("weightless_stick_worm");
+  assert(stickWorm, "expected weightless_stick_worm in lure catalog");
+  assert(stickWorm.goal_tags.includes("reliable_action"));
+  assert(stickWorm.goal_tags.includes("versatile_search"));
+  assert(!stickWorm.goal_tags.includes("big_fish_upside"));
+
+  const texasCraw = byLure.get("texas_rigged_soft_plastic_craw");
+  assert(texasCraw, "expected texas_rigged_soft_plastic_craw in lure catalog");
+  assert(texasCraw.condition_tags.includes("cover_ambush"));
+  assert(texasCraw.condition_tags.includes("cold_slow"));
+  assert(texasCraw.condition_tags.includes("heat_finesse"));
+  assert(texasCraw.goal_tags.includes("reliable_action"));
+  assert(!texasCraw.goal_tags.includes("versatile_search"));
+  assert(!texasCraw.goal_tags.includes("big_fish_upside"));
+
+  const paddleTail = byLure.get("paddle_tail_swimbait");
+  assert(paddleTail, "expected paddle_tail_swimbait in lure catalog");
+  assert(paddleTail.condition_tags.includes("open_water_search"));
+  assert(paddleTail.condition_tags.includes("warming_search"));
+  assert(!paddleTail.condition_tags.includes("low_light_surface"));
+  assert(!paddleTail.condition_tags.includes("wind_reaction"));
+  assert(!paddleTail.goal_tags.includes("big_fish_upside"));
+
+  const magnumWorm = byLure.get("magnum_worm");
+  assert(magnumWorm, "expected magnum_worm in lure catalog");
+  assert(magnumWorm.goal_tags.includes("big_fish_upside"));
+  assert(magnumWorm.goal_tags.includes("high_risk_high_reward"));
+  assert(!magnumWorm.goal_tags.includes("reliable_action"));
+
+  const frog = byLure.get("hollow_body_frog");
+  assert(frog, "expected hollow_body_frog in lure catalog");
+  assert(frog.forage_tags.includes("bluegill_perch"));
+  assert(frog.condition_tags.includes("cover_ambush"));
+  assert(!frog.condition_tags.includes("wind_reaction"));
+
+  const frogFly = byFly.get("frog_fly");
+  assert(frogFly, "expected frog_fly in fly catalog");
+  assert(frogFly.forage_tags.includes("bluegill_perch"));
+  assert(frogFly.condition_tags.includes("cover_ambush"));
+  assert(!frogFly.condition_tags.includes("wind_reaction"));
+
+  const slider = byFly.get("baitfish_slider_fly");
+  assert(slider, "expected baitfish_slider_fly in fly catalog");
+  assert(!slider.condition_tags.includes("wind_reaction"));
+  assert(slider.condition_tags.includes("open_water_search"));
+  assert(slider.condition_tags.includes("warming_search"));
 });
 
 Deno.test("Pass 5D.1: large pike tube is pike-first cold/slow bottom inventory", () => {

@@ -64,6 +64,12 @@ type AuditFlag = {
   detail: string;
 };
 
+type CompositeContribution = NonNullable<
+  ArchiveAuditRow["report"]["condition_context"]
+>[
+  "composite_contributions"
+][number];
+
 const FACTOR_SURFACE_MIN_WEIGHTED_CONTRIBUTION = 6;
 
 function average(numerator: number, denominator: number): string {
@@ -88,6 +94,29 @@ function parseInputPaths(args: string[], scriptDir: string): string[] {
     .map((value) => value.startsWith("/") ? value : `${scriptDir}/${value}`);
 }
 
+function assertInputFilesExist(paths: string[]) {
+  const missing = paths.filter((path) => {
+    try {
+      return !Deno.statSync(path).isFile;
+    } catch (error) {
+      if (error instanceof Deno.errors.NotFound) return true;
+      throw error;
+    }
+  });
+
+  if (missing.length === 0) return;
+
+  throw new Error(
+    [
+      "Missing archive audit JSONL input for factor audit.",
+      `Missing: ${missing.join(", ")}`,
+      "Generate a local archive audit first with scripts/audit/run-archive-audit.ts,",
+      "or pass one or more local JSONL files with --inputs=file.jsonl,other.jsonl.",
+      "Archive audit JSONL outputs are generated artifacts and are not checked in.",
+    ].join("\n"),
+  );
+}
+
 function parseOutputSuffix(args: string[]): string | null {
   const arg = args.find((value) => value.startsWith("--output-suffix="));
   if (!arg) return null;
@@ -97,8 +126,7 @@ function parseOutputSuffix(args: string[]): string | null {
 }
 
 function topContributionBySign(
-  contributions:
-    ArchiveAuditRow["report"]["condition_context"]["composite_contributions"],
+  contributions: CompositeContribution[],
   sign: "positive" | "negative",
 ) {
   const filtered = contributions.filter((entry) =>
@@ -426,6 +454,7 @@ function buildFlagSection(flags: AuditFlag[]): string {
 const scriptDir = decodeURIComponent(new URL(".", import.meta.url).pathname)
   .replace(/\/$/, "");
 const inputPaths = parseInputPaths(Deno.args, scriptDir);
+assertInputFilesExist(inputPaths);
 const outputSuffix = parseOutputSuffix(Deno.args);
 const sourceLabel = inputPaths.join(", ");
 const mdPath = outputSuffix

@@ -44,6 +44,9 @@ function profile(args: {
   column?: ArchetypeProfileV4["column"];
   primary_pace?: ArchetypeProfileV4["primary_pace"];
   secondary_pace?: ArchetypeProfileV4["secondary_pace"];
+  forage_tags?: ArchetypeProfileV4["forage_tags"];
+  clarity_strengths?: ArchetypeProfileV4["clarity_strengths"];
+  condition_tags?: ArchetypeProfileV4["condition_tags"];
   goal_tags?: ArchetypeProfileV4["goal_tags"];
 }): ArchetypeProfileV4 {
   return {
@@ -58,9 +61,9 @@ function profile(args: {
     column: args.column ?? "mid",
     primary_pace: args.primary_pace ?? "medium",
     secondary_pace: args.secondary_pace,
-    forage_tags: ["baitfish"],
-    clarity_strengths: ["stained"],
-    condition_tags: ["wind_reaction"],
+    forage_tags: args.forage_tags ?? ["baitfish"],
+    clarity_strengths: args.clarity_strengths ?? ["stained"],
+    condition_tags: args.condition_tags ?? ["wind_reaction"],
     goal_tags: args.goal_tags ?? ["reliable_action"],
     is_surface: args.column === "surface",
     how_to_fish_variants: ["one", "two", "three"],
@@ -77,6 +80,9 @@ function candidate(args: {
   column?: ArchetypeProfileV4["column"];
   primary_pace?: ArchetypeProfileV4["primary_pace"];
   secondary_pace?: ArchetypeProfileV4["secondary_pace"];
+  forage_tags?: ArchetypeProfileV4["forage_tags"];
+  clarity_strengths?: ArchetypeProfileV4["clarity_strengths"];
+  condition_tags?: ArchetypeProfileV4["condition_tags"];
   goal_tags?: ArchetypeProfileV4["goal_tags"];
 }): CandidateScore {
   return {
@@ -88,6 +94,9 @@ function candidate(args: {
       column: args.column,
       primary_pace: args.primary_pace,
       secondary_pace: args.secondary_pace,
+      forage_tags: args.forage_tags,
+      clarity_strengths: args.clarity_strengths,
+      condition_tags: args.condition_tags,
       goal_tags: args.goal_tags,
     }),
     side: args.side,
@@ -1986,7 +1995,7 @@ Deno.test("DailyPick all-purpose non-surface backup prefers reliable diversity w
   );
 });
 
-Deno.test("DailyPick selector avoids surface candidates under caution when in-band subsurface alternatives exist", () => {
+Deno.test("DailyPick selector allows credible big-fish surface under caution without doubling surface", () => {
   const selection = selectDailyPicks({
     lureScores: [
       candidate({
@@ -2025,8 +2034,268 @@ Deno.test("DailyPick selector avoids surface candidates under caution when in-ba
     variant: "A",
   });
 
-  assertNotEquals(selection.lure_of_the_day.profile.id, "walking_topwater");
-  assertNotEquals(selection.honorable_lure.profile.id, "walking_topwater");
+  const selected = [
+    selection.lure_of_the_day.profile,
+    selection.honorable_lure.profile,
+  ];
+  assert(selected.some((profile) => profile.id === "walking_topwater"));
+  assert(selected.some((profile) => !profile.is_surface));
+});
+
+Deno.test("DailyPick same-column repair replaces two surface lures with credible mid alternative", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "walking_topwater",
+        side: "lure",
+        score: 180,
+        column: "surface",
+        family_group: "surface_walking",
+        goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:low_light_surface:+16",
+        ],
+      }),
+      candidate({
+        id: "buzzbait",
+        side: "lure",
+        score: 176,
+        column: "surface",
+        family_group: "surface_buzz",
+        goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:wind_reaction:+16",
+        ],
+      }),
+      candidate({
+        id: "magnum_jerkbait",
+        side: "lure",
+        score: 160,
+        column: "mid",
+        family_group: "jerkbait",
+        goal_tags: ["big_fish_upside"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "primary_forage:baitfish:+12",
+        ],
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "big_fish",
+      surface_daily_gate: "open",
+      light_mode: "low_light",
+      scenario_tags: ["low_light_surface", "wind_reaction"],
+      local_date: "2026-06-21",
+    }),
+    seed: "surface-surface-column-repair",
+    variant: "A",
+  });
+
+  assert(
+    [
+      selection.lure_of_the_day.profile.id,
+      selection.honorable_lure.profile.id,
+    ].includes("magnum_jerkbait"),
+  );
+  assert(
+    !(
+      selection.lure_of_the_day.profile.column === "surface" &&
+      selection.honorable_lure.profile.column === "surface"
+    ),
+  );
+});
+
+Deno.test("DailyPick same-column repair keeps strong surface pair when alternative lacks credibility", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "walking_topwater",
+        side: "lure",
+        score: 180,
+        column: "surface",
+        family_group: "surface_walking",
+        goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:low_light_surface:+16",
+        ],
+      }),
+      candidate({
+        id: "buzzbait",
+        side: "lure",
+        score: 176,
+        column: "surface",
+        family_group: "surface_buzz",
+        goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:wind_reaction:+16",
+        ],
+      }),
+      candidate({
+        id: "drop_shot_minnow",
+        side: "lure",
+        score: 170,
+        column: "mid",
+        family_group: "drop_shot",
+        reasons: ["base:+100"],
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "big_fish",
+      surface_daily_gate: "open",
+      light_mode: "low_light",
+      scenario_tags: ["low_light_surface", "wind_reaction"],
+      local_date: "2026-06-22",
+    }),
+    seed: "surface-surface-no-weak-repair",
+    variant: "A",
+  });
+
+  assertEquals(selection.lure_of_the_day.profile.column, "surface");
+  assertEquals(selection.honorable_lure.profile.column, "surface");
+});
+
+Deno.test("DailyPick big-fish still supports one surface plus one bottom or mid when credible", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "walking_topwater",
+        side: "lure",
+        score: 178,
+        column: "surface",
+        family_group: "surface_walking",
+        goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:low_light_surface:+16",
+        ],
+      }),
+      candidate({
+        id: "football_jig",
+        side: "lure",
+        score: 176,
+        column: "bottom",
+        family_group: "skirted_jig_bottom",
+        goal_tags: ["big_fish_upside"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:cover_ambush:+16",
+        ],
+      }),
+      candidate({
+        id: "buzzbait",
+        side: "lure",
+        score: 150,
+        column: "surface",
+        family_group: "surface_buzz",
+        goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+        reasons: ["base:+100", "goal:big_fish:big_fish_upside:+20"],
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "big_fish",
+      surface_daily_gate: "open",
+      light_mode: "low_light",
+      scenario_tags: ["low_light_surface", "cover_ambush"],
+      local_date: "2026-06-23",
+    }),
+    seed: "surface-bottom-pb-credible",
+    variant: "A",
+  });
+
+  const columns = new Set([
+    selection.lure_of_the_day.profile.column,
+    selection.honorable_lure.profile.column,
+  ]);
+  assert(columns.has("surface"));
+  assert(columns.has("bottom") || columns.has("mid"));
+});
+
+Deno.test("DailyPick bass heat-limited no-light caution rejects surface when non-surface is available", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "walking_topwater",
+        side: "lure",
+        score: 180,
+        column: "surface",
+        family_group: "surface_walking",
+        goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:low_light_surface:+16",
+        ],
+      }),
+      candidate({
+        id: "hollow_body_frog",
+        side: "lure",
+        score: 178,
+        column: "surface",
+        family_group: "surface_frog",
+        presentation_group: "topwater_frog",
+        goal_tags: ["big_fish_upside", "high_risk_high_reward"],
+        reasons: [
+          "base:+100",
+          "goal:big_fish:big_fish_upside:+20",
+          "condition_tag:cover_ambush:+16",
+        ],
+      }),
+      candidate({
+        id: "drop_shot_minnow",
+        side: "lure",
+        score: 164,
+        column: "mid",
+        family_group: "drop_shot",
+        reasons: [
+          "base:+100",
+          "goal:all_purpose:reliable_action:+18",
+          "condition_tag:heat_finesse:+16",
+        ],
+      }),
+      candidate({
+        id: "texas_rigged_soft_plastic_craw",
+        side: "lure",
+        score: 160,
+        column: "bottom",
+        family_group: "soft_plastic_craw",
+        reasons: [
+          "base:+100",
+          "goal:all_purpose:reliable_action:+18",
+          "condition_tag:heat_finesse:+16",
+        ],
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "all_purpose",
+      surface_daily_gate: "caution",
+      light_mode: "bright",
+      thermal_mode: "heat_limited",
+      scenario_tags: ["heat_finesse"],
+      local_date: "2026-08-01",
+    }),
+    seed: "heat-no-light-surface-caution",
+    variant: "A",
+  });
+
+  assert(!selection.lure_of_the_day.profile.is_surface);
+  assert(!selection.honorable_lure.profile.is_surface);
+  assertNotEquals(selection.lure_of_the_day.profile.id, "hollow_body_frog");
+  assertNotEquals(selection.honorable_lure.profile.id, "hollow_body_frog");
 });
 
 Deno.test("DailyPick selector variant B avoids variant A IDs when alternatives exist", () => {
@@ -2757,6 +3026,132 @@ Deno.test("DailyPick selector preserves intrinsic profile column and pace", () =
   assertEquals(
     selection.lure_of_the_day.profile.secondary_pace,
     expectedProfile.secondary_pace,
+  );
+});
+
+Deno.test("DailyPick selector lets hard jerk/crank pairs yield to credible close bass staples", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "suspending_jerkbait",
+        side: "lure",
+        score: 180,
+        family_group: "jerkbait",
+        presentation_group: "jerkbait",
+        column: "mid",
+        reasons: [
+          "base:+100",
+          "condition_tag:wind_reaction:+16",
+          "goal:all_purpose:reliable_action:+18",
+        ],
+      }),
+      candidate({
+        id: "soft_jerkbait",
+        side: "lure",
+        score: 176,
+        family_group: "jerkbait_soft",
+        presentation_group: "jerkbait",
+        column: "upper",
+        reasons: [
+          "base:+100",
+          "condition_tag:wind_reaction:+16",
+          "goal:all_purpose:reliable_action:+18",
+        ],
+      }),
+      candidate({
+        id: "texas_rigged_soft_plastic_craw",
+        side: "lure",
+        score: 160,
+        family_group: "soft_plastic_craw",
+        presentation_group: "bottom_jig_craw",
+        column: "bottom",
+        reasons: [
+          "base:+100",
+          "condition_tag:cover_ambush:+16",
+          "goal:all_purpose:reliable_action:+18",
+          "clarity_strength:stained:+8",
+        ],
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "all_purpose",
+      water_clarity: "stained",
+      scenario_tags: ["wind_reaction", "dirty_vibration", "cover_ambush"],
+      local_date: "2026-04-20",
+    }),
+    seed: "hard-jerk-crank-yields",
+    variant: "A",
+  });
+
+  const lureIds = [
+    selection.lure_of_the_day.profile.id,
+    selection.honorable_lure.profile.id,
+  ];
+  assert(lureIds.includes("texas_rigged_soft_plastic_craw"));
+  assert(
+    !lureIds.every((id) =>
+      id === "suspending_jerkbait" || id === "soft_jerkbait"
+    ),
+  );
+});
+
+Deno.test("DailyPick selector keeps hard jerk/crank pair when alternatives are weak", () => {
+  const selection = selectDailyPicks({
+    lureScores: [
+      candidate({
+        id: "suspending_jerkbait",
+        side: "lure",
+        score: 180,
+        family_group: "jerkbait",
+        presentation_group: "jerkbait",
+        column: "mid",
+        reasons: [
+          "base:+100",
+          "condition_tag:wind_reaction:+16",
+          "goal:all_purpose:reliable_action:+18",
+        ],
+      }),
+      candidate({
+        id: "soft_jerkbait",
+        side: "lure",
+        score: 176,
+        family_group: "jerkbait_soft",
+        presentation_group: "jerkbait",
+        column: "upper",
+        reasons: [
+          "base:+100",
+          "condition_tag:wind_reaction:+16",
+          "goal:all_purpose:reliable_action:+18",
+        ],
+      }),
+      candidate({
+        id: "swim_jig",
+        side: "lure",
+        score: 145,
+        family_group: "skirted_jig_swimming",
+        presentation_group: "swim_jig",
+        column: "mid",
+        reasons: ["base:+100"],
+      }),
+    ],
+    flyScores: baseFlies(),
+    scenario: baseScenario({
+      recommendation_goal: "all_purpose",
+      water_clarity: "stained",
+      scenario_tags: ["wind_reaction"],
+      local_date: "2026-04-21",
+    }),
+    seed: "hard-jerk-crank-stays",
+    variant: "A",
+  });
+
+  assertEquals(
+    new Set([
+      selection.lure_of_the_day.profile.id,
+      selection.honorable_lure.profile.id,
+    ]),
+    new Set(["suspending_jerkbait", "soft_jerkbait"]),
   );
 });
 

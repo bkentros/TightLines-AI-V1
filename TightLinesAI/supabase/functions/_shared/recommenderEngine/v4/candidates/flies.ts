@@ -399,7 +399,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     primary_pace: "slow",
     forage_tags: ["crawfish"],
     clarity_strengths: ["clear", "stained", "dirty"],
-    condition_tags: ["current_swing", "clear_subtle"],
+    condition_tags: ["current_swing", "clear_subtle", "cold_slow"],
     goal_tags: ["reliable_action"],
     species_allowed: ["smallmouth_bass", "trout"],
     water_types_allowed: [R],
@@ -543,7 +543,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     secondary_pace: "fast",
     forage_tags: ["baitfish", "bluegill_perch"],
     clarity_strengths: ["clear", "stained", "dirty"],
-    condition_tags: ["wind_reaction", "open_water_search", "warming_search"],
+    condition_tags: ["open_water_search", "warming_search"],
     goal_tags: ["versatile_search"],
     species_allowed: [
       "largemouth_bass",
@@ -656,7 +656,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     column: "surface",
     primary_pace: "slow",
     secondary_pace: "medium",
-    forage_tags: ["surface_prey"],
+    forage_tags: ["surface_prey", "bluegill_perch"],
     /** Stained/dirty are peak realism over cover; clear stays eligible — pads/vegetation break sightlines like stain does open water. */
     clarity_strengths: ["clear", "stained", "dirty"],
     condition_tags: ["calm_surface", "low_light_surface", "cover_ambush"],
@@ -681,7 +681,7 @@ export const FLY_ARCHETYPES_V4: readonly ArchetypeProfileV4[] = [
     clarity_strengths: ["clear", "stained"],
     condition_tags: ["calm_surface", "low_light_surface"],
     goal_tags: ["big_fish_upside", "high_risk_high_reward"],
-    species_allowed: ["largemouth_bass", "trout"],
+    species_allowed: ["largemouth_bass", "smallmouth_bass", "trout"],
     water_types_allowed: [L, R],
     how_to_fish_variants: [
       "Cast to structure and retrieve with a steady, slow V-wake strip; vary only slightly in speed and resist the urge to twitch — mice move in straight lines.",

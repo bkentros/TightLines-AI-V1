@@ -76,7 +76,46 @@ const AVOIDED_DIRTY_WIND_REUSE_LEAD = 30;
 const BIG_FISH_PAIR_GOAL_COVERAGE_BAND = 30;
 const PIKE_SET_B_ALL_PURPOSE_FLY_RISK_RELIABILITY_BAND = 12;
 const PIKE_CLEAR_CALM_CONTROL_BAND = 24;
-const OPEN_SURFACE_SAME_SIDE_DIVERSITY_BAND = 24;
+const SURFACE_CAUTION_ALL_PURPOSE_SCORE_BAND = 32;
+const SURFACE_CAUTION_BIG_FISH_SCORE_BAND = 34;
+const SURFACE_CAUTION_BIG_FISH_UPSIDE_SCORE_BAND = 40;
+const SAME_COLUMN_DIVERSITY_SCORE_BAND = 40;
+const PIKE_SAME_COLUMN_DIVERSITY_SCORE_BAND = 72;
+const TROUT_SAME_COLUMN_DIVERSITY_SCORE_BAND = 48;
+const HARD_JERK_CRANK_DIVERSITY_SCORE_BAND = 28;
+
+const HARD_JERK_CRANK_BROAD_IDS = new Set<string>([
+  "suspending_jerkbait",
+  "soft_jerkbait",
+  "magnum_jerkbait",
+  "squarebill_crankbait",
+  "medium_diving_crankbait",
+  "lipless_crankbait",
+  "flat_sided_crankbait",
+  "deep_diving_crankbait",
+]);
+
+const BASS_LURE_MACRO_DIVERSITY_IDS = new Set<string>([
+  "compact_flipping_jig",
+  "football_jig",
+  "finesse_jig",
+  "swim_jig",
+  "bladed_jig",
+  "carolina_rigged_stick_worm",
+  "texas_rigged_soft_plastic_craw",
+  "weightless_stick_worm",
+  "shaky_head_worm",
+  "ned_rig",
+  "drop_shot_minnow",
+  "magnum_worm",
+  "spinnerbait",
+  "paddle_tail_swimbait",
+  "walking_topwater",
+  "buzzbait",
+  "popping_topwater",
+  "wake_bait",
+  "hollow_body_frog",
+]);
 
 function hashString(input: string): number {
   let hash = 2166136261;
@@ -415,6 +454,31 @@ function hasScenarioClarityReason(
     candidate,
     `clarity_strength:${scenario.water_clarity}:`,
   );
+}
+
+function hasForageReason(candidate: CandidateScore): boolean {
+  return hasScoreReasonPrefix(candidate, "primary_forage:") ||
+    hasScoreReasonPrefix(candidate, "secondary_forage:");
+}
+
+function isOffWindowPikeBladeBait(
+  candidate: CandidateScore,
+  scenario: DailyScenario,
+): boolean {
+  return scenario.species === "northern_pike" &&
+    candidate.profile.id === "blade_bait" &&
+    hasScoreReasonPrefix(candidate, "pike_blade_bait_off_window_specialist:");
+}
+
+function hasGuideCredibleDailyFit(
+  candidate: CandidateScore,
+  scenario: DailyScenario,
+): boolean {
+  return hasPriorityConditionReason(candidate, scenario) ||
+    hasConditionReason(candidate) ||
+    hasScenarioClarityReason(candidate, scenario) ||
+    hasDailyLaneReason(candidate) ||
+    hasSpecialistDailyLaneReason(candidate);
 }
 
 function hasSpecialistDailyLaneReason(candidate: CandidateScore): boolean {
@@ -842,6 +906,50 @@ function isPikeClearCalmControlledAlternative(
       hasSpecialistDailyLaneReason(candidate));
 }
 
+function isPoorFitHighRiskBigFishSelection(
+  candidate: CandidateScore,
+  scenario: DailyScenario,
+): boolean {
+  return scenario.recommendation_goal === "big_fish" &&
+    hasHighRiskOnlyProfile(candidate) &&
+    (scenario.water_clarity === "dirty" ||
+      isDirtyStainedWindReactionScenario(scenario)) &&
+    !hasGuideCredibleBigFishGoalFit(candidate, scenario);
+}
+
+function applyBigFishHighRiskFitSafety(args: {
+  selected: CandidateScore;
+  broadCandidates: CandidateScore[];
+  scenario: DailyScenario;
+  top?: CandidateScore;
+  avoidedGroups: AvoidedGroupContext;
+}): CandidateScore {
+  if (!isPoorFitHighRiskBigFishSelection(args.selected, args.scenario)) {
+    return args.selected;
+  }
+
+  const candidates = args.top
+    ? preferDifferentFamilyWhenAvailable({
+      candidates: args.broadCandidates,
+      top: args.top,
+    })
+    : args.broadCandidates;
+  return bestRawCloseCandidate({
+    candidates,
+    selected: args.selected,
+    predicate: (candidate) =>
+      candidate.profile.id !== args.top?.profile.id &&
+      (hasGuideCredibleBigFishGoalFit(candidate, args.scenario) ||
+        hasDirtyWindPriorityReason(candidate, args.scenario) ||
+        (!hasHighRiskOnlyProfile(candidate) &&
+          hasActiveGoalReason(candidate, args.scenario) &&
+          hasGuideCredibleDailyFit(candidate, args.scenario))),
+    scenario: args.scenario,
+    top: args.top ?? null,
+    avoidedGroups: args.avoidedGroups,
+  }) ?? args.selected;
+}
+
 function dirtyWindCoverageCandidates(args: {
   candidates: CandidateScore[];
   side: "lure" | "fly";
@@ -1113,16 +1221,85 @@ function preferNonSurfaceOnCautionWhenAvailable(args: {
   const nonSurface = candidates.filter((candidate) =>
     !candidate.profile.is_surface
   );
-  if (args.preserveActiveGoal) {
-    const activeGoalAvailable = candidates.some((candidate) =>
-      hasActiveGoalReason(candidate, scenario)
-    );
-    const activeGoalStillAvailable = nonSurface.some((candidate) =>
-      hasActiveGoalReason(candidate, scenario)
-    );
-    if (activeGoalAvailable && !activeGoalStillAvailable) return candidates;
+  if (nonSurface.length === 0) return candidates;
+
+  const bestNonSurfaceScore = Math.max(
+    ...nonSurface.map((candidate) => candidate.score),
+  );
+  const surface = candidates.filter((candidate) =>
+    isSurfaceCautionEligible({
+      candidate,
+      scenario,
+      bestNonSurfaceScore,
+      preserveActiveGoal: args.preserveActiveGoal === true,
+    })
+  );
+  return [...nonSurface, ...surface];
+}
+
+function isSurfaceCautionEligible(args: {
+  candidate: CandidateScore;
+  scenario: DailyScenario;
+  bestNonSurfaceScore: number;
+  preserveActiveGoal?: boolean;
+}): boolean {
+  const { candidate, scenario } = args;
+  if (
+    scenario.surface_daily_gate !== "caution" ||
+    !candidate.profile.is_surface ||
+    scenario.activity_level === "suppressed"
+  ) {
+    return false;
   }
-  return nonSurface.length > 0 ? nonSurface : candidates;
+
+  if (
+    (scenario.species === "largemouth_bass" ||
+      scenario.species === "smallmouth_bass") &&
+    scenario.thermal_mode === "heat_limited" &&
+    scenario.light_mode !== "low_light"
+  ) {
+    return false;
+  }
+
+  const hasBigFishUpside = candidate.profile.goal_tags.includes(
+    "big_fish_upside",
+  );
+  const hasWindOrDirtyFit = hasDirtyWindPriorityReason(candidate, scenario);
+  const hasSurfaceLightFit = scenario.light_mode === "low_light" &&
+    candidate.profile.condition_tags.includes("low_light_surface");
+  const hasStrongClarityForageFit =
+    hasScenarioClarityReason(candidate, scenario) && hasForageReason(candidate);
+  const hasDailyFit = hasGuideCredibleDailyFit(candidate, scenario) ||
+    hasSurfaceLightFit || hasStrongClarityForageFit;
+
+  if (
+    scenario.daylight_wind_mph != null &&
+    scenario.daylight_wind_mph > 14 &&
+    !hasWindOrDirtyFit
+  ) {
+    return false;
+  }
+
+  if (scenario.recommendation_goal === "all_purpose") {
+    if (hasHighRiskOnlyProfile(candidate)) return false;
+    if (!hasActiveGoalReason(candidate, scenario)) return false;
+    return candidate.score >=
+        args.bestNonSurfaceScore - SURFACE_CAUTION_ALL_PURPOSE_SCORE_BAND &&
+      (hasDailyFit || hasStrongClarityForageFit);
+  }
+
+  const band = hasBigFishUpside
+    ? SURFACE_CAUTION_BIG_FISH_UPSIDE_SCORE_BAND
+    : SURFACE_CAUTION_BIG_FISH_SCORE_BAND;
+  const goalCredible = hasActiveGoalReason(candidate, scenario) ||
+    (args.preserveActiveGoal === true && hasBigFishUpside);
+  if (!goalCredible && !hasDailyFit) return false;
+
+  return candidate.score >= args.bestNonSurfaceScore - band &&
+    (hasWindOrDirtyFit ||
+      hasSurfaceLightFit ||
+      hasStrongClarityForageFit ||
+      hasGuideCredibleBigFishGoalFit(candidate, scenario));
 }
 
 function differentPresentationCandidates(args: {
@@ -1151,27 +1328,38 @@ function preferDifferentFamilyWhenAvailable(args: {
   return differentFamily.length > 0 ? differentFamily : args.candidates;
 }
 
-function isCredibleOpenSurfaceColumnAlternative(args: {
+function isCredibleSameColumnAlternative(args: {
   candidate: CandidateScore;
   selected: CandidateScore;
+  top: CandidateScore;
   scenario: DailyScenario;
+  bestNonSurfaceScore?: number;
+  scoreBand: number;
 }): boolean {
-  if (args.candidate.profile.is_surface) return false;
+  if (args.candidate.profile.column === args.top.profile.column) return false;
   if (
     args.candidate.score <
-      args.selected.score - OPEN_SURFACE_SAME_SIDE_DIVERSITY_BAND
+      args.selected.score - args.scoreBand
+  ) {
+    return false;
+  }
+  if (
+    args.candidate.profile.is_surface &&
+    args.scenario.surface_daily_gate === "caution" &&
+    !isSurfaceCautionEligible({
+      candidate: args.candidate,
+      scenario: args.scenario,
+      bestNonSurfaceScore: args.bestNonSurfaceScore ?? args.candidate.score,
+    })
   ) {
     return false;
   }
 
   if (args.scenario.recommendation_goal === "all_purpose") {
     return isReliableAllPurposeNonSurface(args.candidate, args.scenario) ||
+      hasActiveGoalReason(args.candidate, args.scenario) ||
       (!hasHighRiskOnlyProfile(args.candidate) &&
-        (hasPriorityConditionReason(args.candidate, args.scenario) ||
-          hasConditionReason(args.candidate) ||
-          hasScenarioClarityReason(args.candidate, args.scenario) ||
-          hasDailyLaneReason(args.candidate) ||
-          hasSpecialistDailyLaneReason(args.candidate)));
+        hasGuideCredibleDailyFit(args.candidate, args.scenario));
   }
 
   const strongConditionFit = hasConditionReason(args.candidate) &&
@@ -1179,10 +1367,19 @@ function isCredibleOpenSurfaceColumnAlternative(args: {
       hasScenarioClarityReason(args.candidate, args.scenario) ||
       hasDailyLaneReason(args.candidate) ||
       hasSpecialistDailyLaneReason(args.candidate));
+  const closeBigFishNonSurfaceSupport = !args.candidate.profile.is_surface &&
+    hasActiveGoalReason(args.candidate, args.scenario) &&
+    (hasForageReason(args.candidate) ||
+      hasScenarioClarityReason(args.candidate, args.scenario));
 
-  return hasActiveGoalReason(args.candidate, args.scenario) ||
-    hasGuideCredibleBigFishGoalFit(args.candidate, args.scenario) ||
-    strongConditionFit;
+  if (hasHighRiskOnlyProfile(args.candidate)) {
+    return hasGuideCredibleBigFishGoalFit(args.candidate, args.scenario) ||
+      strongConditionFit;
+  }
+
+  return hasGuideCredibleBigFishGoalFit(args.candidate, args.scenario) ||
+    strongConditionFit ||
+    closeBigFishNonSurfaceSupport;
 }
 
 function isCredibleCautionNonSurfaceAlternative(args: {
@@ -1210,11 +1407,7 @@ function isCredibleCautionNonSurfaceAlternative(args: {
 
   return hasActiveGoalReason(args.candidate, args.scenario) ||
     hasGuideCredibleBigFishGoalFit(args.candidate, args.scenario) ||
-    hasPriorityConditionReason(args.candidate, args.scenario) ||
-    hasConditionReason(args.candidate) ||
-    hasScenarioClarityReason(args.candidate, args.scenario) ||
-    hasDailyLaneReason(args.candidate) ||
-    hasSpecialistDailyLaneReason(args.candidate);
+    hasGuideCredibleDailyFit(args.candidate, args.scenario);
 }
 
 function applyCautionSurfaceSafety(args: {
@@ -1229,6 +1422,24 @@ function applyCautionSurfaceSafety(args: {
     !args.selected.profile.is_surface
   ) {
     return args.selected;
+  }
+
+  const nonSurface = args.broadCandidates.filter((candidate) =>
+    !candidate.profile.is_surface
+  );
+  if (nonSurface.length > 0) {
+    const bestNonSurfaceScore = Math.max(
+      ...nonSurface.map((candidate) => candidate.score),
+    );
+    if (
+      isSurfaceCautionEligible({
+        candidate: args.selected,
+        scenario: args.scenario,
+        bestNonSurfaceScore,
+      })
+    ) {
+      return args.selected;
+    }
   }
 
   const candidates = args.top
@@ -1253,7 +1464,7 @@ function applyCautionSurfaceSafety(args: {
   }) ?? args.selected;
 }
 
-function applyOpenSurfaceSameSideColumnDiversity(args: {
+function applySameSideColumnDiversity(args: {
   top: CandidateScore;
   honorable: CandidateScore;
   candidates: CandidateScore[];
@@ -1261,38 +1472,186 @@ function applyOpenSurfaceSameSideColumnDiversity(args: {
   avoidIds: ReadonlySet<string>;
   avoidedGroups: AvoidedGroupContext;
 }): [CandidateScore, CandidateScore] {
-  if (
-    args.scenario.surface_daily_gate !== "open" ||
-    !args.top.profile.is_surface ||
-    !args.honorable.profile.is_surface
-  ) {
+  if (args.top.profile.column !== args.honorable.profile.column) {
     return [args.top, args.honorable];
   }
 
+  const nonSurface = args.candidates.filter((candidate) =>
+    !candidate.profile.is_surface
+  );
+  const bestNonSurfaceScore = nonSurface.length > 0
+    ? Math.max(...nonSurface.map((candidate) => candidate.score))
+    : undefined;
   const nonAvoided = candidatesRespectingAvoids({
     candidates: args.candidates,
     avoidIds: args.avoidIds,
   });
-  const replacement = bestRawCloseCandidate({
-    candidates: preferDifferentFamilyWhenAvailable({
-      candidates: nonAvoided,
-      top: args.top,
-    }),
-    selected: args.honorable,
-    predicate: (candidate) =>
-      candidate.profile.id !== args.top.profile.id &&
-      !args.avoidIds.has(candidate.profile.id) &&
-      candidate.profile.family_group !== args.top.profile.family_group &&
-      isCredibleOpenSurfaceColumnAlternative({
-        candidate,
-        selected: args.honorable,
-        scenario: args.scenario,
+  const scoreBand = args.scenario.species === "northern_pike"
+    ? PIKE_SAME_COLUMN_DIVERSITY_SCORE_BAND
+    : args.scenario.species === "trout"
+    ? TROUT_SAME_COLUMN_DIVERSITY_SCORE_BAND
+    : SAME_COLUMN_DIVERSITY_SCORE_BAND;
+  const replacementFrom = (
+    candidates: CandidateScore[],
+    requireNonAvoided: boolean,
+  ): CandidateScore | null =>
+    bestRawCloseCandidate({
+      candidates: preferDifferentFamilyWhenAvailable({
+        candidates,
+        top: args.top,
       }),
-    scenario: args.scenario,
-    top: args.top,
-    avoidedGroups: args.avoidedGroups,
-  });
+      selected: args.honorable,
+      predicate: (candidate) =>
+        candidate.profile.id !== args.top.profile.id &&
+        (!requireNonAvoided || !args.avoidIds.has(candidate.profile.id)) &&
+        isCredibleSameColumnAlternative({
+          candidate,
+          selected: args.honorable,
+          top: args.top,
+          scenario: args.scenario,
+          bestNonSurfaceScore,
+          scoreBand,
+        }),
+      scenario: args.scenario,
+      top: args.top,
+      avoidedGroups: args.avoidedGroups,
+      qualityBand: scoreBand,
+    });
+  const replacement = replacementFrom(nonAvoided, true) ??
+    replacementFrom(args.candidates, false);
 
+  return replacement ? [args.top, replacement] : [args.top, args.honorable];
+}
+
+function isBassSpecies(scenario: DailyScenario): boolean {
+  return scenario.species === "largemouth_bass" ||
+    scenario.species === "smallmouth_bass";
+}
+
+function isHardJerkCrankBroad(candidate: CandidateScore): boolean {
+  return HARD_JERK_CRANK_BROAD_IDS.has(candidate.profile.id);
+}
+
+function isBassLureMacroDiversityAlternative(
+  candidate: CandidateScore,
+): boolean {
+  return BASS_LURE_MACRO_DIVERSITY_IDS.has(candidate.profile.id);
+}
+
+function isCredibleHardJerkCrankAlternative(args: {
+  candidate: CandidateScore;
+  selected: CandidateScore;
+  top: CandidateScore;
+  scenario: DailyScenario;
+  bestNonSurfaceScore?: number;
+}): boolean {
+  if (args.candidate.side !== "lure") return false;
+  if (args.candidate.profile.id === args.top.profile.id) return false;
+  if (isHardJerkCrankBroad(args.candidate)) return false;
+  if (!isBassLureMacroDiversityAlternative(args.candidate)) return false;
+  if (
+    args.candidate.score <
+      args.selected.score - HARD_JERK_CRANK_DIVERSITY_SCORE_BAND
+  ) {
+    return false;
+  }
+  if (
+    args.candidate.profile.is_surface &&
+    args.scenario.surface_daily_gate === "caution" &&
+    !isSurfaceCautionEligible({
+      candidate: args.candidate,
+      scenario: args.scenario,
+      bestNonSurfaceScore: args.bestNonSurfaceScore ?? args.candidate.score,
+    })
+  ) {
+    return false;
+  }
+
+  const strongConditionFit = hasConditionReason(args.candidate) &&
+    (hasPriorityConditionReason(args.candidate, args.scenario) ||
+      hasScenarioClarityReason(args.candidate, args.scenario) ||
+      hasDailyLaneReason(args.candidate) ||
+      hasSpecialistDailyLaneReason(args.candidate));
+
+  if (args.scenario.recommendation_goal === "all_purpose") {
+    return isReliableAllPurposeNonSurface(args.candidate, args.scenario) ||
+      (!hasHighRiskOnlyProfile(args.candidate) &&
+        (strongConditionFit ||
+          hasActiveGoalReason(args.candidate, args.scenario) ||
+          (hasForageReason(args.candidate) &&
+            hasScenarioClarityReason(args.candidate, args.scenario))));
+  }
+
+  const closeBigFishNonSurfaceSupport = !args.candidate.profile.is_surface &&
+    hasActiveGoalReason(args.candidate, args.scenario) &&
+    (hasForageReason(args.candidate) ||
+      hasScenarioClarityReason(args.candidate, args.scenario));
+
+  return hasGuideCredibleBigFishGoalFit(args.candidate, args.scenario) ||
+    strongConditionFit ||
+    closeBigFishNonSurfaceSupport;
+}
+
+function applyHardJerkCrankMacroDiversity(args: {
+  top: CandidateScore;
+  honorable: CandidateScore;
+  candidates: CandidateScore[];
+  side: "lure" | "fly";
+  scenario: DailyScenario;
+  avoidIds: ReadonlySet<string>;
+  avoidedGroups: AvoidedGroupContext;
+}): [CandidateScore, CandidateScore] {
+  if (
+    args.side !== "lure" ||
+    !isBassSpecies(args.scenario) ||
+    !isHardJerkCrankBroad(args.top) ||
+    !isHardJerkCrankBroad(args.honorable)
+  ) {
+    return [args.top, args.honorable];
+  }
+
+  const nonSurface = args.candidates.filter((candidate) =>
+    !candidate.profile.is_surface
+  );
+  const bestNonSurfaceScore = nonSurface.length > 0
+    ? Math.max(...nonSurface.map((candidate) => candidate.score))
+    : undefined;
+  const nonAvoided = candidatesRespectingAvoids({
+    candidates: args.candidates,
+    avoidIds: args.avoidIds,
+  });
+  const shouldPreserveCurrentColumnDiversity =
+    args.top.profile.column !== args.honorable.profile.column;
+  const replacementFrom = (
+    candidates: CandidateScore[],
+    requireNonAvoided: boolean,
+  ): CandidateScore | null =>
+    bestRawCloseCandidate({
+      candidates: preferDifferentFamilyWhenAvailable({
+        candidates,
+        top: args.top,
+      }),
+      selected: args.honorable,
+      predicate: (candidate) =>
+        candidate.profile.id !== args.honorable.profile.id &&
+        (!requireNonAvoided || !args.avoidIds.has(candidate.profile.id)) &&
+        (!shouldPreserveCurrentColumnDiversity ||
+          candidate.profile.column !== args.top.profile.column) &&
+        isCredibleHardJerkCrankAlternative({
+          candidate,
+          selected: args.honorable,
+          top: args.top,
+          scenario: args.scenario,
+          bestNonSurfaceScore,
+        }),
+      scenario: args.scenario,
+      top: args.top,
+      avoidedGroups: args.avoidedGroups,
+      qualityBand: HARD_JERK_CRANK_DIVERSITY_SCORE_BAND,
+    });
+
+  const replacement = replacementFrom(nonAvoided, true) ??
+    replacementFrom(args.candidates, false);
   return replacement ? [args.top, replacement] : [args.top, args.honorable];
 }
 
@@ -1433,8 +1792,14 @@ function selectTop(args: {
     scenario: args.scenario,
     avoidedGroups: args.avoidedGroups,
   });
-  const goalSafe = applyTopGoalSafety({
+  const highRiskFitSafe = applyBigFishHighRiskFitSafety({
     selected: pikeClearControlSafe,
+    broadCandidates: broadSurfaceEligible,
+    scenario: args.scenario,
+    avoidedGroups: args.avoidedGroups,
+  });
+  const goalSafe = applyTopGoalSafety({
+    selected: highRiskFitSafe,
     broadCandidates: broadSurfaceEligible,
     scenario: args.scenario,
     avoidedGroups: args.avoidedGroups,
@@ -1454,6 +1819,7 @@ function bestRawCloseCandidate(args: {
   scenario?: DailyScenario;
   top?: CandidateScore | null;
   avoidedGroups?: AvoidedGroupContext;
+  qualityBand?: number;
 }): CandidateScore | null {
   const conditionFitRank = (candidate: CandidateScore): number => {
     if (!args.scenario) return 0;
@@ -1510,7 +1876,8 @@ function bestRawCloseCandidate(args: {
   return args.candidates
     .filter((candidate) =>
       candidate.profile.id !== args.selected.profile.id &&
-      candidate.score >= args.selected.score - HONORABLE_QUALITY_BAND &&
+      candidate.score >=
+        args.selected.score - (args.qualityBand ?? HONORABLE_QUALITY_BAND) &&
       args.predicate(candidate)
     )
     .sort((a, b) =>
@@ -2188,6 +2555,53 @@ function applyPikeClearCalmControlSafety(args: {
   }) ?? args.selected;
 }
 
+function isCrediblePikeBladeBaitOffWindowAlternative(
+  candidate: CandidateScore,
+  scenario: DailyScenario,
+): boolean {
+  if (isOffWindowPikeBladeBait(candidate, scenario)) return false;
+  return isReliableAllPurposeNonSurface(candidate, scenario) ||
+    hasPriorityConditionReason(candidate, scenario) ||
+    hasDailyLaneReason(candidate) ||
+    hasSpecialistDailyLaneReason(candidate) ||
+    (hasConditionReason(candidate) &&
+      (hasScenarioClarityReason(candidate, scenario) ||
+        hasForageReason(candidate)));
+}
+
+function applyPikeBladeBaitOffWindowSafety(args: {
+  selected: CandidateScore;
+  broadCandidates: CandidateScore[];
+  scenario: DailyScenario;
+  top?: CandidateScore;
+  avoidedGroups: AvoidedGroupContext;
+}): CandidateScore {
+  if (
+    args.scenario.recommendation_goal !== "all_purpose" ||
+    !isOffWindowPikeBladeBait(args.selected, args.scenario)
+  ) {
+    return args.selected;
+  }
+
+  const candidates = args.top
+    ? preferDifferentFamilyWhenAvailable({
+      candidates: args.broadCandidates,
+      top: args.top,
+    })
+    : args.broadCandidates;
+  return bestRawCloseCandidate({
+    candidates,
+    selected: args.selected,
+    predicate: (candidate) =>
+      candidate.profile.id !== args.top?.profile.id &&
+      isCrediblePikeBladeBaitOffWindowAlternative(candidate, args.scenario),
+    scenario: args.scenario,
+    top: args.top ?? null,
+    avoidedGroups: args.avoidedGroups,
+    qualityBand: PIKE_SAME_COLUMN_DIVERSITY_SCORE_BAND,
+  }) ?? args.selected;
+}
+
 function selectHonorable(args: {
   candidates: CandidateScore[];
   top: CandidateScore;
@@ -2369,8 +2783,22 @@ function selectHonorable(args: {
     top: args.top,
     avoidedGroups: args.avoidedGroups,
   });
-  const goalSafe = applyHonorableGoalSafety({
+  const pikeBladeWindowSafe = applyPikeBladeBaitOffWindowSafety({
     selected: pikeClearControlSafe,
+    broadCandidates: safetyCandidates,
+    scenario: args.scenario,
+    top: args.top,
+    avoidedGroups: args.avoidedGroups,
+  });
+  const highRiskFitSafe = applyBigFishHighRiskFitSafety({
+    selected: pikeBladeWindowSafe,
+    broadCandidates: safetyCandidates,
+    scenario: args.scenario,
+    top: args.top,
+    avoidedGroups: args.avoidedGroups,
+  });
+  const goalSafe = applyHonorableGoalSafety({
+    selected: highRiskFitSafe,
     broadCandidates: safetyCandidates,
     avoidedFallbackCandidates,
     top: args.top,
@@ -2581,10 +3009,19 @@ function selectSide(args: {
     avoidIds,
     avoidedGroups,
   });
-  return applyOpenSurfaceSameSideColumnDiversity({
+  const [columnSafeTop, columnSafeHonorable] = applySameSideColumnDiversity({
     top: exactSafeTop,
     honorable: exactSafeHonorable,
     candidates,
+    scenario: args.scenario,
+    avoidIds,
+    avoidedGroups,
+  });
+  return applyHardJerkCrankMacroDiversity({
+    top: columnSafeTop,
+    honorable: columnSafeHonorable,
+    candidates,
+    side: args.side,
     scenario: args.scenario,
     avoidIds,
     avoidedGroups,

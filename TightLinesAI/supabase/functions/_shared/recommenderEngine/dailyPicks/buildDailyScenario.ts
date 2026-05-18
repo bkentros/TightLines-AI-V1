@@ -31,7 +31,12 @@ export type DailyLightMode =
   | "glare"
   | "unknown";
 
-export type DailyWindMode = "calm" | "breezy" | "windy" | "unknown";
+export type DailyWindMode =
+  | "calm"
+  | "slight"
+  | "breezy"
+  | "windy"
+  | "unknown";
 
 export type DailyThermalMode =
   | "cold_slow"
@@ -160,6 +165,7 @@ function computeDaylightWindMph(args: {
 function windModeFromMph(daylightWindMph: number | null): DailyWindMode {
   if (daylightWindMph == null) return "unknown";
   if (daylightWindMph < 6) return "calm";
+  if (daylightWindMph < 9) return "slight";
   if (daylightWindMph <= 14) return "breezy";
   return "windy";
 }
@@ -176,7 +182,7 @@ function hasDailyWindReaction(args: {
   if (args.activityLevel === "suppressed") return false;
   if (args.daylightWindMph == null) return false;
   if (args.windMode === "windy") return true;
-  return args.daylightWindMph >= 7.5;
+  return args.daylightWindMph >= 9;
 }
 
 function activityLevelFromScore(score: number): DailyActivityLevel {
@@ -310,10 +316,13 @@ function seasonalSurfaceAllowed(row: SeasonalRowV4): boolean {
 }
 
 function surfaceGate(args: {
+  species: RecommenderV4Species;
   seasonalSurfaceAllowed: boolean;
   windMode: DailyWindMode;
   activityLevel: DailyActivityLevel;
+  recommendationGoal: RecommendationGoal;
   lightMode: DailyLightMode;
+  thermalMode: DailyThermalMode;
   daylightWindMph: number | null;
   pikeColdSurfaceClosed: boolean;
   pikeHeatSurfaceClosed: boolean;
@@ -341,19 +350,36 @@ function surfaceGate(args: {
     return { gate: "closed", reasonCodes: reasons };
   }
 
+  if (args.activityLevel === "suppressed") {
+    reasons.push("suppressed_activity_surface_closed");
+    return { gate: "closed", reasonCodes: reasons };
+  }
+
   if (args.daylightWindMph == null || args.windMode === "unknown") {
     reasons.push("missing_wind_surface_closed");
     return { gate: "closed", reasonCodes: reasons };
   }
 
   if (args.daylightWindMph > 14) {
+    if (
+      args.recommendationGoal === "big_fish" &&
+      args.daylightWindMph <= 17
+    ) {
+      reasons.push("big_fish_moderate_wind_surface_caution");
+      return { gate: "caution", reasonCodes: reasons };
+    }
     reasons.push("wind_over_14_surface_closed");
     return { gate: "closed", reasonCodes: reasons };
   }
 
-  if (args.activityLevel === "suppressed") {
-    reasons.push("suppressed_activity_surface_closed");
-    return { gate: "closed", reasonCodes: reasons };
+  if (
+    (args.species === "largemouth_bass" ||
+      args.species === "smallmouth_bass") &&
+    args.thermalMode === "heat_limited" &&
+    args.lightMode !== "low_light"
+  ) {
+    reasons.push("bass_heat_no_light_surface_caution");
+    return { gate: "caution", reasonCodes: reasons };
   }
 
   if (args.windMode === "calm") {
@@ -479,10 +505,13 @@ export function buildDailyScenario(args: {
 
   const seasonalAllowsSurface = seasonalSurfaceAllowed(seasonalRow);
   const surface = surfaceGate({
+    species,
     seasonalSurfaceAllowed: seasonalAllowsSurface,
     windMode,
     activityLevel,
+    recommendationGoal: req.recommendation_goal,
     lightMode,
+    thermalMode,
     daylightWindMph,
     pikeColdSurfaceClosed: pikeColdSurfaceClosed({
       species,
@@ -512,7 +541,7 @@ export function buildDailyScenario(args: {
   if (surface.gate === "open" && windMode === "calm") {
     addTag(tags, "calm_surface");
   }
-  if (surface.gate === "open" && lightMode === "low_light") {
+  if (surface.gate !== "closed" && lightMode === "low_light") {
     addTag(tags, "low_light_surface");
   }
   if (dailyWindReaction) {

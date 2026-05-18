@@ -268,9 +268,11 @@ function validateSurfaceFlySpeciesGate(
 
   if (surfaceId === "mouse_fly") {
     for (const s of species_allowed) {
-      if (s !== "largemouth_bass" && s !== "trout") {
+      if (
+        s !== "largemouth_bass" && s !== "smallmouth_bass" && s !== "trout"
+      ) {
         throw new Error(
-          `[recommender v4] mouse_fly species_allowed must be largemouth_bass and/or trout only (G7/P23); got: ${
+          `[recommender v4] mouse_fly species_allowed must be largemouth_bass, smallmouth_bass, and/or trout only (G7/P23); got: ${
             species_allowed.join(", ")
           }.`,
         );

@@ -11,7 +11,7 @@ import { STATE_SPECIES_CONTEXTS as GENERATED_STATE_SPECIES_CONTEXTS } from './ge
 
 export const DAILY_PICKS_RESPONSE_FEATURE = "recommender_daily_picks_2x2_future" as const;
 export const DAILY_PICKS_RESPONSE_VERSION = "daily_picks_2x2_response_v1" as const;
-export const DAILY_PICKS_SESSION_ENGINE_VERSION = "recommender_daily_picks_2x2_sessionv1_goalv1" as const;
+export const DAILY_PICKS_SESSION_ENGINE_VERSION = "recommender_daily_picks_2x2_sessionv1_goalv3" as const;
 
 export type SpeciesGroup =
   | "largemouth_bass"

@@ -249,7 +249,7 @@ Deno.test("DailyScenario daylight wind uses local 5am-9pm mean, not a single spi
   assert(!scenario.scenario_tags.includes("wind_reaction"));
 });
 
-Deno.test("DailyScenario wind thresholds are calm below 6, breezy through 14, windy above 14", () => {
+Deno.test("DailyScenario wind thresholds are calm, slight, breezy, windy", () => {
   assertEquals(
     buildDailyScenario({
       req: baseReq({ env_data: { wind_speed_mph: 5.99 } }),
@@ -261,6 +261,22 @@ Deno.test("DailyScenario wind thresholds are calm below 6, breezy through 14, wi
   assertEquals(
     buildDailyScenario({
       req: baseReq({ env_data: { wind_speed_mph: 6 } }),
+      analysis: analysis(),
+      seasonalRow: baseRow(),
+    }).wind_mode,
+    "slight",
+  );
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq({ env_data: { wind_speed_mph: 8.99 } }),
+      analysis: analysis(),
+      seasonalRow: baseRow(),
+    }).wind_mode,
+    "slight",
+  );
+  assertEquals(
+    buildDailyScenario({
+      req: baseReq({ env_data: { wind_speed_mph: 9 } }),
       analysis: analysis(),
       seasonalRow: baseRow(),
     }).wind_mode,
@@ -284,31 +300,49 @@ Deno.test("DailyScenario wind thresholds are calm below 6, breezy through 14, wi
   );
 });
 
-Deno.test("DailyScenario does not let a light breeze drive wind-reaction tags", () => {
-  const lightBreeze = buildDailyScenario({
+Deno.test("DailyScenario slight wind does not drive wind-reaction tags", () => {
+  const slightWind = buildDailyScenario({
     req: baseReq({
       water_clarity: "dirty",
-      env_data: { wind_speed_mph: 7.4 },
+      env_data: { wind_speed_mph: 8.99 },
     }),
     analysis: analysis({ score: 70 }),
     seasonalRow: baseRow(),
   });
-  const meaningfulBreeze = buildDailyScenario({
+  const breezyWind = buildDailyScenario({
     req: baseReq({
       water_clarity: "dirty",
-      env_data: { wind_speed_mph: 7.5 },
+      env_data: { wind_speed_mph: 9 },
     }),
     analysis: analysis({ score: 70 }),
     seasonalRow: baseRow(),
   });
 
-  assertEquals(lightBreeze.wind_mode, "breezy");
-  assert(!lightBreeze.scenario_tags.includes("wind_reaction"));
-  assert(!lightBreeze.scenario_tags.includes("dirty_vibration"));
-  assert(!lightBreeze.scenario_tags.includes("open_water_search"));
-  assert(meaningfulBreeze.scenario_tags.includes("wind_reaction"));
-  assert(meaningfulBreeze.scenario_tags.includes("dirty_vibration"));
-  assert(meaningfulBreeze.scenario_tags.includes("open_water_search"));
+  assertEquals(slightWind.wind_mode, "slight");
+  assert(!slightWind.scenario_tags.includes("wind_reaction"));
+  assert(!slightWind.scenario_tags.includes("dirty_vibration"));
+  assert(!slightWind.scenario_tags.includes("open_water_search"));
+  assertEquals(breezyWind.wind_mode, "breezy");
+  assert(breezyWind.scenario_tags.includes("wind_reaction"));
+  assert(breezyWind.scenario_tags.includes("dirty_vibration"));
+  assert(breezyWind.scenario_tags.includes("open_water_search"));
+});
+
+Deno.test("DailyScenario suppressed activity blocks wind-reaction even when windy", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      water_clarity: "dirty",
+      env_data: { wind_speed_mph: 16 },
+    }),
+    analysis: analysis({ score: 35 }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.activity_level, "suppressed");
+  assertEquals(scenario.wind_mode, "windy");
+  assert(!scenario.scenario_tags.includes("wind_reaction"));
+  assert(!scenario.scenario_tags.includes("dirty_vibration"));
+  assertEquals(scenario.surface_daily_gate, "closed");
 });
 
 Deno.test("DailyScenario seasonal surface false keeps surface closed on calm low-light active days", () => {
@@ -340,6 +374,130 @@ Deno.test("DailyScenario seasonally valid calm low-light active day opens surfac
   assert(scenario.surface_daily_reason_codes.includes("calm_surface_open"));
   assert(scenario.scenario_tags.includes("calm_surface"));
   assert(scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario all-purpose high wind closes seasonally open surface", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      recommendation_goal: "all_purpose",
+      env_data: { wind_speed_mph: 15 },
+    }),
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.surface_daily_gate, "closed");
+  assert(
+    scenario.surface_daily_reason_codes.includes("wind_over_14_surface_closed"),
+  );
+  assert(!scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario big-fish moderate wind keeps seasonally open surface caution", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      recommendation_goal: "big_fish",
+      env_data: { wind_speed_mph: 16 },
+    }),
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.surface_daily_gate, "caution");
+  assert(
+    scenario.surface_daily_reason_codes.includes(
+      "big_fish_moderate_wind_surface_caution",
+    ),
+  );
+  assert(scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario big-fish truly high wind closes seasonally open surface", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      recommendation_goal: "big_fish",
+      env_data: { wind_speed_mph: 18 },
+    }),
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.surface_daily_gate, "closed");
+  assert(
+    scenario.surface_daily_reason_codes.includes("wind_over_14_surface_closed"),
+  );
+  assert(!scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario suppressed activity closes surface before big-fish moderate wind caution", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      recommendation_goal: "big_fish",
+      env_data: { wind_speed_mph: 16 },
+    }),
+    analysis: analysis({ score: 35, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.activity_level, "suppressed");
+  assertEquals(scenario.surface_daily_gate, "closed");
+  assert(
+    scenario.surface_daily_reason_codes.includes(
+      "suppressed_activity_surface_closed",
+    ),
+  );
+  assert(
+    !scenario.surface_daily_reason_codes.includes(
+      "big_fish_moderate_wind_surface_caution",
+    ),
+  );
+  assert(!scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario emits low-light surface tag for caution only when not closed", () => {
+  const caution = buildDailyScenario({
+    req: baseReq({
+      recommendation_goal: "big_fish",
+      env_data: { wind_speed_mph: 16 },
+    }),
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  });
+  const closed = buildDailyScenario({
+    req: baseReq({
+      recommendation_goal: "big_fish",
+      env_data: { wind_speed_mph: 18 },
+    }),
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(caution.surface_daily_gate, "caution");
+  assert(caution.scenario_tags.includes("low_light_surface"));
+  assertEquals(closed.surface_daily_gate, "closed");
+  assert(!closed.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario bass heat-limited no-light surface downgrades to caution", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({ env_data: { wind_speed_mph: 3 } }),
+    analysis: analysis({
+      score: 80,
+      lightLabel: "bright",
+      temperatureBand: "very_warm",
+    }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.thermal_mode, "heat_limited");
+  assertEquals(scenario.surface_daily_gate, "caution");
+  assert(
+    scenario.surface_daily_reason_codes.includes(
+      "bass_heat_no_light_surface_caution",
+    ),
+  );
+  assert(!scenario.scenario_tags.includes("calm_surface"));
+  assert(!scenario.scenario_tags.includes("low_light_surface"));
 });
 
 Deno.test("DailyScenario closes northern pike surface during cold thermal windows", () => {
@@ -688,7 +846,7 @@ Deno.test("DailyScenario breezy river with stable runoff does not emit current_s
     req: baseReq({
       species: "smallmouth_bass",
       context: "freshwater_river",
-      env_data: { wind_speed_mph: 8 },
+      env_data: { wind_speed_mph: 9 },
     }),
     analysis: analysis({ runoffLabel: "stable" }),
     seasonalRow: baseRow({
@@ -707,7 +865,7 @@ Deno.test("DailyScenario breezy river with unknown runoff does not emit current_
     req: baseReq({
       species: "smallmouth_bass",
       context: "freshwater_river",
-      env_data: { wind_speed_mph: 8 },
+      env_data: { wind_speed_mph: 9 },
     }),
     analysis: analysis({ runoffLabel: null }),
     seasonalRow: baseRow({

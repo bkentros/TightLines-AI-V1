@@ -64,3 +64,5 @@ TightLinesAI/tmp/
 # summaries instead, then regenerate JSONL locally when needed.
 TightLinesAI/scripts/audit/todays-bite*.jsonl
 TightLinesAI/scripts/audit/daily-picks-archive-audit.*.jsonl
+TightLinesAI/scripts/audit/archive-audit-results*.jsonl
+TightLinesAI/scripts/audit/audit-results.json
