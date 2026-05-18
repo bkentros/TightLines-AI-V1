@@ -17,14 +17,14 @@ const CONTEXT_LINES_BY_TAG = {
     "With softer light today, fish can commit shallower and higher",
   ],
   wind_reaction: [
-    "Today's wind breaks up the surface and helps fish commit",
-    "Today's breeze can push bait and turn followers into biters",
-    "Today's chop gives moving baits more cover and lets fish react",
+    "A light breeze today gives moving baits enough cover to look natural",
+    "Today's breeze can move bait and help fish commit to a moving target",
+    "Today's ripple helps fish track flash and movement without studying it too long",
   ],
   dirty_vibration: [
     "Today's stained water makes feel and silhouette matter",
     "Today's reduced visibility favors a bait fish can track without studying it",
-    "In today's dirty water, presence and vibration help fish find the meal",
+    "In today's dirty water, presence and outline help fish find the meal",
   ],
   clear_subtle: [
     "Today's clear water rewards a natural profile",
@@ -509,20 +509,48 @@ function scoreReasonValue(reason: string, prefix: string): string | null {
   return marker === -1 ? rest : rest.slice(0, marker);
 }
 
+function scoredConditionTags(score: CandidateScore): ConditionTag[] {
+  const tags: ConditionTag[] = [];
+  for (const reason of score.reasons) {
+    const rawTag = scoreReasonValue(reason, "condition_tag:");
+    if (rawTag == null) continue;
+    tags.push(rawTag as ConditionTag);
+  }
+  return tags;
+}
+
 function firstMatchedConditionTag(
   score: CandidateScore,
   scenario: DailyScenario,
 ): ConditionTag | null {
-  for (const reason of score.reasons) {
-    const rawTag = scoreReasonValue(reason, "condition_tag:");
-    if (rawTag == null) continue;
-    const tag = rawTag as ConditionTag;
-    if (scenario.scenario_tags.includes(tag)) return tag;
-  }
-  for (const tag of score.profile.condition_tags) {
+  for (const tag of scoredConditionTags(score)) {
     if (scenario.scenario_tags.includes(tag)) return tag;
   }
   return null;
+}
+
+function windReactionLine(args: {
+  scenario: DailyScenario;
+  key: string;
+}): string {
+  const strongWindLines = [
+    "Today's stronger wind gives moving baits enough cover to look natural",
+    "Today's chop can push bait and help fish commit to a moving target",
+    "With more wind today, flash and movement are easier for fish to track",
+  ] as const;
+  const breezeLines = CONTEXT_LINES_BY_TAG.wind_reaction;
+  const fallbackLines = [
+    "Today's moving-bait window favors something fish can track cleanly",
+    "Today's setup gives reaction presentations a little extra room to work",
+    "Today favors a presentation that can show itself without asking fish to study it",
+  ] as const;
+
+  const lines = args.scenario.wind_mode === "windy"
+    ? strongWindLines
+    : args.scenario.wind_mode === "breezy"
+    ? breezeLines
+    : fallbackLines;
+  return lines[pickIndex(lines.length, `${args.key}|wind_reaction`)]!;
 }
 
 function contextLine(args: {
@@ -532,6 +560,12 @@ function contextLine(args: {
 }): string {
   const tag = firstMatchedConditionTag(args.score, args.scenario);
   if (tag != null) {
+    if (tag === "wind_reaction") {
+      return windReactionLine({
+        scenario: args.scenario,
+        key: args.key,
+      });
+    }
     const lines = CONTEXT_LINES_BY_TAG[tag];
     return lines[pickIndex(lines.length, `${args.key}|tag|${tag}`)]!;
   }
@@ -546,6 +580,30 @@ function contextLine(args: {
   if (clarityLine != null) return clarityLine;
 
   return "Today's setup favors a dependable profile";
+}
+
+function shouldAllowStrongWindLanguage(args: {
+  score: CandidateScore;
+  scenario: DailyScenario;
+}): boolean {
+  return args.scenario.wind_mode === "windy" &&
+    args.scenario.scenario_tags.includes("wind_reaction") &&
+    scoredConditionTags(args.score).includes("wind_reaction");
+}
+
+function containsWindLanguage(line: string): boolean {
+  return /\b(wind|windy|breeze|breezy|chop|choppy|ripple)\b/i.test(line);
+}
+
+function filteredWhyLines(args: {
+  score: CandidateScore;
+  scenario: DailyScenario;
+}): WhyLineSet | readonly string[] {
+  const lines = WHY_LINES_BY_ID[args.score.profile.id];
+  if (shouldAllowStrongWindLanguage(args)) return lines;
+
+  const conservativeLines = lines.filter((line) => !containsWindLanguage(line));
+  return conservativeLines.length > 0 ? conservativeLines : lines;
 }
 
 export function whyThisCopy(args: {
@@ -568,7 +626,10 @@ export function whyThisCopy(args: {
     scenario: args.scenario,
     key,
   });
-  const whyLines = WHY_LINES_BY_ID[profileId];
+  const whyLines = filteredWhyLines({
+    score: args.score,
+    scenario: args.scenario,
+  });
   const whyLine = whyLines[pickIndex(whyLines.length, `${key}|why`)]!;
 
   return `${context}, and ${whyLine}.`;

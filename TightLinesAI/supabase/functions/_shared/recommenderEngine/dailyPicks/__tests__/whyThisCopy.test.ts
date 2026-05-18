@@ -50,6 +50,38 @@ function score(profile: ArchetypeProfileV4): CandidateScore {
   };
 }
 
+function scoreWithReasons(
+  profile: ArchetypeProfileV4,
+  reasons: string[],
+): CandidateScore {
+  return {
+    profile,
+    side: profile.gear_mode,
+    score: 150,
+    reasons,
+  };
+}
+
+function scenarioWith(
+  profile: ArchetypeProfileV4,
+  overrides: Partial<DailyScenario>,
+): DailyScenario {
+  return {
+    ...scenario(profile, "2026-06-15"),
+    ...overrides,
+  };
+}
+
+function archetype(id: string): ArchetypeProfileV4 {
+  const profile = ALL_ARCHETYPES.find((candidate) => candidate.id === id);
+  assert(profile, `Missing archetype fixture: ${id}`);
+  return profile;
+}
+
+function hasWindLanguage(copy: string): boolean {
+  return /\b(wind|windy|breeze|breezy|chop|choppy|ripple)\b/i.test(copy);
+}
+
 Deno.test("why-this copy stays guide-facing, concise, and varied for every archetype", () => {
   const bannedTerms = [
     "daily signal",
@@ -100,6 +132,100 @@ Deno.test("why-this copy stays guide-facing, concise, and varied for every arche
     assert(
       sampled.size >= 2,
       `${profile.id} should produce varied why-this copy across seeds`,
+    );
+  }
+});
+
+Deno.test("why-this avoids wind copy when wind is present in the scenario but not scored for the pick", () => {
+  const profile = archetype("spinnerbait");
+  const day = scenarioWith(profile, {
+    water_clarity: "stained",
+    wind_mode: "breezy",
+    daylight_wind_mph: 9.5,
+    scenario_tags: ["wind_reaction"],
+  });
+  const pickScore = scoreWithReasons(profile, [
+    "base:+100",
+    "goal:all_purpose:reliable_action:+18",
+    "clarity_strength:stained:+8",
+  ]);
+
+  for (let index = 0; index < 16; index++) {
+    const copy = whyThisCopy({
+      score: pickScore,
+      scenario: day,
+      slot: "lure_of_the_day",
+      seed: `wind-not-scored-${index}`,
+      variant: "A",
+    });
+
+    assert(
+      !hasWindLanguage(copy),
+      `copy should not mention wind when wind was not scored: ${copy}`,
+    );
+  }
+});
+
+Deno.test("why-this keeps breezy wind-reaction copy conservative", () => {
+  const profile = archetype("spinnerbait");
+  const day = scenarioWith(profile, {
+    water_clarity: "stained",
+    wind_mode: "breezy",
+    daylight_wind_mph: 9.5,
+    scenario_tags: ["wind_reaction"],
+  });
+  const pickScore = scoreWithReasons(profile, [
+    "base:+100",
+    "condition_tag:wind_reaction:+16",
+    "goal:all_purpose:reliable_action:+18",
+  ]);
+
+  for (let index = 0; index < 16; index++) {
+    const copy = whyThisCopy({
+      score: pickScore,
+      scenario: day,
+      slot: "lure_of_the_day",
+      seed: `breezy-wind-scored-${index}`,
+      variant: "A",
+    });
+
+    assert(
+      !/\b(chop|choppy|stronger wind|breaks up the surface)\b/i.test(copy),
+      `breezy copy should not overstate wind: ${copy}`,
+    );
+    assert(
+      /\b(breeze|ripple)\b/i.test(copy),
+      `breezy copy should describe the condition modestly: ${copy}`,
+    );
+  }
+});
+
+Deno.test("why-this avoids wind terms on slight-wind spinnerbait fits", () => {
+  const profile = archetype("spinnerbait");
+  const day = scenarioWith(profile, {
+    water_clarity: "dirty",
+    wind_mode: "slight",
+    daylight_wind_mph: 8,
+    scenario_tags: ["dirty_vibration"],
+  });
+  const pickScore = scoreWithReasons(profile, [
+    "base:+100",
+    "condition_tag:dirty_vibration:+16",
+    "goal:all_purpose:reliable_action:+18",
+  ]);
+
+  for (let index = 0; index < 16; index++) {
+    const copy = whyThisCopy({
+      score: pickScore,
+      scenario: day,
+      slot: "lure_of_the_day",
+      seed: `slight-spinnerbait-${index}`,
+      variant: "A",
+    });
+
+    assert(
+      !hasWindLanguage(copy),
+      `slight-wind copy should not mention wind: ${copy}`,
     );
   }
 });
