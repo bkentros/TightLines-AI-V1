@@ -15,7 +15,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] **Make subscription/paywall metadata review-ready in RevenueCat.** RevenueCat template paywall is published and attached to the `default` offering with Terms/Privacy URLs.
 - [ ] **BLOCKER: Complete real iOS dev build RevenueCat sandbox test.** Expo Go cannot test `react-native-purchases` or `react-native-purchases-ui`; use a fresh EAS development build on a physical iPhone after native dependency changes.
 - [x] **Remove `ios.infoPlist.UIDesignRequiresCompatibility`.** Removed from `app.json` on 2026-05-20 so the app uses the default current iOS UI behavior; iPhone-only support is still controlled separately by `supportsTablet: false`.
-- [ ] **HIGH: Resolve or document the Supabase `public.spatial_ref_sys` RLS alert.** This may be a PostGIS/system-table false positive, but keep Supabase ticket details in review/ops notes and do not leave avoidable database warnings unexamined.
+- [x] **Resolve Supabase `public.spatial_ref_sys` RLS/security alert.** Warning no longer appears in Supabase dashboard; `supabase db lint --linked --schema public` returned no schema errors on 2026-05-20.
 - [ ] **HIGH: Confirm reviewer can access every gated feature.** Reviewer credentials are entered in App Store Connect, but gated subscription behavior still needs a fresh dev/TestFlight build and sandbox/RevenueCat validation.
 
 ## Proper Order
@@ -126,7 +126,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 
 ### 7. Backend And Supabase Launch Readiness
 
-- [ ] Resolve Supabase RLS alert or attach Supabase support/ticket outcome to launch notes.
+- [x] Resolve Supabase RLS/security alert or attach Supabase support/ticket outcome to launch notes.
 - [ ] Confirm all required Edge Functions are deployed in the production Supabase project.
 - [ ] Confirm required function secrets are set: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, feedback email vars, and any water-reader internal keys.
 - [ ] Run production smoke tests for auth, profile creation, environment fetch, forecast scores, how-fishing, recommender, waterbody search, water-reader polygon/read, feedback, and delete-account.
