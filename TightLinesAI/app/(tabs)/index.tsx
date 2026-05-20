@@ -1760,7 +1760,7 @@ function FinFindrEmblemView() {
   return (
     <Image
       source={require("../../assets/images/finfindr-logo.png")}
-      style={{ width: 45, height: 59 }}
+      style={{ width: 36, height: 47 }}
       resizeMode="contain"
     />
   );

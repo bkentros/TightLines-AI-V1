@@ -79,7 +79,7 @@ export default function SettingsScreen() {
     message?: string;
     tone?: NoticeTone;
   } | null>(null);
-  const canSeeTestingTools = __DEV__ || isAdminEmail(user?.email);
+  const canSeeTestingTools = isAdminEmail(user?.email);
 
   useEffect(() => {
     if (!profile) return;
@@ -335,9 +335,30 @@ export default function SettingsScreen() {
             ) : null}
 
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>USERNAME</Text>
-              <Text style={styles.readOnlyValue}>@{profile.username}</Text>
-              <Text style={styles.sectionHint}>Public username for your FinFindr account.</Text>
+              <Text style={styles.sectionLabel}>ACCOUNT</Text>
+              <View style={styles.summaryList}>
+                <SettingsSummaryRow
+                  icon="person-circle-outline"
+                  title="Username"
+                  value={`@${profile.username}`}
+                />
+                <SettingsSummaryRow
+                  icon="card-outline"
+                  title="Membership"
+                  value={effectiveTier.replace('_', ' ')}
+                  detail={
+                    canSeeTestingTools && overrideSubscriptionTier
+                      ? `Dev override. Real tier: ${profile.subscription_tier}`
+                      : 'Current account tier'
+                  }
+                />
+              </View>
+              <PrimaryAction
+                label="Manage membership"
+                icon="card-outline"
+                onPress={() => router.push('/subscribe')}
+                variant="secondary"
+              />
             </View>
 
             <View style={styles.section}>
@@ -362,25 +383,38 @@ export default function SettingsScreen() {
                   </Text>
                 </Pressable>
               </View>
+              <Text style={styles.sectionHint}>Used to personalize fishing context.</Text>
 
-              <Pressable
-                style={styles.statePicker}
-                onPress={() => {
-                  hapticSelection();
-                  setShowStateList((v) => !v);
-                }}
-              >
-                <Text
-                  style={[styles.statePickerText, !homeState && styles.statePickerPlaceholder]}
+              <View style={styles.locationFields}>
+                <Pressable
+                  style={styles.statePicker}
+                  onPress={() => {
+                    hapticSelection();
+                    setShowStateList((v) => !v);
+                  }}
                 >
-                  {homeState || 'Select your state'}
-                </Text>
-                <Ionicons
-                  name={showStateList ? 'chevron-up' : 'chevron-down'}
-                  size={16}
-                  color={paper.dashboardInk}
+                  <Text
+                    style={[styles.statePickerText, !homeState && styles.statePickerPlaceholder]}
+                  >
+                    {homeState || 'State'}
+                  </Text>
+                  <Ionicons
+                    name={showStateList ? 'chevron-up' : 'chevron-down'}
+                    size={16}
+                    color={paper.dashboardInk}
+                  />
+                </Pressable>
+
+                <TextInput
+                  style={styles.input}
+                  value={homeCity}
+                  onChangeText={setHomeCity}
+                  placeholder="City (optional)"
+                  placeholderTextColor={paper.dashboardInk + '70'}
+                  autoCorrect={false}
+                  maxLength={60}
                 />
-              </Pressable>
+              </View>
 
               {showStateList && (
                 <View style={styles.stateList}>
@@ -409,43 +443,11 @@ export default function SettingsScreen() {
                 </View>
               )}
 
-              <TextInput
-                style={[styles.input, { marginTop: paperSpacing.sm }]}
-                value={homeCity}
-                onChangeText={setHomeCity}
-                placeholder="City (optional)"
-                placeholderTextColor={paper.dashboardInk + '70'}
-                autoCorrect={false}
-                maxLength={60}
-              />
-
               <PrimaryAction
                 label="Save location"
                 icon="checkmark"
                 loading={saving}
                 onPress={handleSaveLocation}
-              />
-            </View>
-
-            <View style={styles.section}>
-              <Text style={styles.sectionLabel}>SUBSCRIPTION</Text>
-              <Text style={styles.readOnlyValue}>{effectiveTier.replace('_', ' ')}</Text>
-              {overrideSubscriptionTier ? (
-                <Text style={styles.sectionHint}>Using dev override. Real tier: {profile.subscription_tier}</Text>
-              ) : (
-                <Text style={styles.sectionHint}>Current account tier.</Text>
-              )}
-              <PrimaryAction
-                label="Manage membership"
-                icon="card-outline"
-                onPress={() => router.push('/subscribe')}
-                variant="secondary"
-              />
-              <PrimaryAction
-                label={storeSubscriptionManagementLabel()}
-                icon="open-outline"
-                onPress={handleOpenStoreSubscriptions}
-                variant="secondary"
               />
             </View>
 
@@ -509,19 +511,21 @@ export default function SettingsScreen() {
               </View>
             </View>
 
-            <View style={styles.section}>
-              <Text style={styles.sectionLabel}>DEVICE STORAGE</Text>
-              <Text style={styles.sectionHint}>
-                Clears saved Daily Read, forecast, live conditions, and Tackle Box data on this device.
-              </Text>
-              <PrimaryAction
-                label="Clear cache"
-                icon="trash-outline"
-                loading={clearingCaches}
-                onPress={handleClearCaches}
-                variant="secondary"
-              />
-            </View>
+            {canSeeTestingTools ? (
+              <View style={styles.section}>
+                <Text style={styles.sectionLabel}>DEVICE STORAGE</Text>
+                <Text style={styles.sectionHint}>
+                  Clears saved Daily Read, forecast, live conditions, and Tackle Box data on this device.
+                </Text>
+                <PrimaryAction
+                  label="Clear cache"
+                  icon="trash-outline"
+                  loading={clearingCaches}
+                  onPress={handleClearCaches}
+                  variant="secondary"
+                />
+              </View>
+            ) : null}
 
             {canSeeTestingTools && (
               <View style={styles.section}>
@@ -554,17 +558,15 @@ export default function SettingsScreen() {
                   })}
                 </View>
 
-                {__DEV__ ? (
-                  <View style={styles.testingRow}>
-                    <Text style={styles.testingLabel}>Ignore GPS</Text>
-                    <Switch
-                      value={ignoreGps}
-                      onValueChange={(v) => setIgnoreGps(v)}
-                      trackColor={{ false: paper.dashboardHair, true: paper.dashboardBlue }}
-                      thumbColor={paper.dashboardWhite}
-                    />
-                  </View>
-                ) : null}
+                <View style={styles.testingRow}>
+                  <Text style={styles.testingLabel}>Ignore GPS</Text>
+                  <Switch
+                    value={ignoreGps}
+                    onValueChange={(v) => setIgnoreGps(v)}
+                    trackColor={{ false: paper.dashboardHair, true: paper.dashboardBlue }}
+                    thumbColor={paper.dashboardWhite}
+                  />
+                </View>
               </View>
             )}
 
@@ -578,8 +580,9 @@ export default function SettingsScreen() {
             <View style={styles.dangerSection}>
               <Text style={styles.dangerTitle}>DELETE ACCOUNT</Text>
               <Text style={styles.dangerCopy}>
-                Permanently removes your FinFindr account. This cannot be undone. If you have an active
-                auto-renewing subscription, cancel it from your store account before deleting your account.
+                Permanently removes your FinFindr account. This cannot be undone. Deleting your
+                FinFindr account does not cancel App Store billing, so cancel any active
+                auto-renewing subscription from your store account first.
               </Text>
               <PrimaryAction
                 label={storeSubscriptionManagementLabel()}
@@ -638,6 +641,31 @@ function ContactRow({
       </View>
       <Ionicons name="chevron-forward" size={15} color={paper.dashboardMuted} />
     </Pressable>
+  );
+}
+
+function SettingsSummaryRow({
+  icon,
+  title,
+  value,
+  detail,
+}: {
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  value: string;
+  detail?: string;
+}) {
+  return (
+    <View style={styles.summaryRow}>
+      <View style={styles.summaryIcon}>
+        <Ionicons name={icon} size={16} color={paper.dashboardBlue} />
+      </View>
+      <View style={styles.summaryCopy}>
+        <Text style={styles.summaryTitle}>{title}</Text>
+        {detail ? <Text style={styles.summaryDetail}>{detail}</Text> : null}
+      </View>
+      <Text style={styles.summaryValue}>{value}</Text>
+    </View>
   );
 }
 
@@ -770,11 +798,11 @@ const styles = StyleSheet.create({
   },
   section: {
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    padding: paperSpacing.md,
-    gap: paperSpacing.sm,
+    padding: paperSpacing.sm + 2,
+    gap: paperSpacing.xs + 2,
   },
   sectionLabelRow: {
     flexDirection: 'row',
@@ -795,6 +823,57 @@ const styles = StyleSheet.create({
     opacity: 0.68,
     lineHeight: 18,
   },
+  summaryList: {
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 10,
+    overflow: 'hidden',
+  },
+  summaryRow: {
+    minHeight: 54,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: paperSpacing.xs + 2,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
+    backgroundColor: '#F8FAFC',
+  },
+  summaryIcon: {
+    width: 30,
+    height: 30,
+    borderRadius: 15,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  summaryCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  summaryTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13.5,
+    color: paper.dashboardInk,
+  },
+  summaryDetail: {
+    marginTop: 1,
+    fontFamily: paperFonts.displayItalic,
+    fontSize: 11.5,
+    color: paper.dashboardInk,
+    opacity: 0.6,
+  },
+  summaryValue: {
+    maxWidth: '42%',
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12.5,
+    color: paper.dashboardInk,
+    textAlign: 'right',
+    textTransform: 'capitalize',
+  },
   readOnlyValue: {
     fontFamily: paperFonts.body,
     fontSize: 16,
@@ -808,14 +887,15 @@ const styles = StyleSheet.create({
     textTransform: 'capitalize',
   },
   input: {
+    flex: 1,
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.md - 2,
+    paddingHorizontal: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.sm,
     fontFamily: paperFonts.body,
-    fontSize: 16,
+    fontSize: 15,
     color: paper.dashboardInk,
   },
   smallAction: {
@@ -837,20 +917,26 @@ const styles = StyleSheet.create({
     letterSpacing: 1.6,
   },
   statePicker: {
+    width: 104,
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
+    borderRadius: 10,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.md - 2,
+    paddingHorizontal: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.sm,
   },
   statePickerText: {
     fontFamily: paperFonts.body,
-    fontSize: 16,
+    fontSize: 15,
     color: paper.dashboardInk,
+  },
+  locationFields: {
+    flexDirection: 'row',
+    gap: paperSpacing.xs + 2,
+    alignItems: 'center',
   },
   statePickerPlaceholder: { opacity: 0.55 },
   stateList: {
@@ -883,8 +969,8 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardInk,
     borderWidth: 1,
     borderColor: paper.dashboardInk,
-    borderRadius: 12,
-    paddingVertical: paperSpacing.md,
+    borderRadius: 10,
+    paddingVertical: paperSpacing.sm + 2,
     marginTop: paperSpacing.xs,
   },
   actionBtnSecondary: {
@@ -953,10 +1039,10 @@ const styles = StyleSheet.create({
     gap: paperSpacing.sm,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: 12,
+    borderRadius: 10,
     backgroundColor: paper.dashboardWhite,
     paddingHorizontal: paperSpacing.sm,
-    paddingVertical: paperSpacing.sm + 2,
+    paddingVertical: paperSpacing.xs + 4,
   },
   contactRowPressed: { backgroundColor: '#F6F9FB' },
   contactIcon: {
@@ -1011,9 +1097,11 @@ const styles = StyleSheet.create({
     lineHeight: 18,
   },
   dangerSection: {
-    borderTopWidth: 1,
-    borderTopColor: paper.dashboardHair,
-    paddingTop: paperSpacing.lg,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    padding: paperSpacing.sm + 2,
     gap: paperSpacing.sm,
   },
   dangerTitle: {

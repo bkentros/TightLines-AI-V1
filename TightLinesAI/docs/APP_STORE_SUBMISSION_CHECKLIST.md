@@ -16,7 +16,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] **BLOCKER: Complete real iOS dev build RevenueCat sandbox test.** Expo Go cannot test `react-native-purchases` or `react-native-purchases-ui`; use a fresh EAS development build on a physical iPhone after native dependency changes.
 - [x] **Remove `ios.infoPlist.UIDesignRequiresCompatibility`.** Removed from `app.json` on 2026-05-20 so the app uses the default current iOS UI behavior; iPhone-only support is still controlled separately by `supportsTablet: false`.
 - [ ] **HIGH: Resolve or document the Supabase `public.spatial_ref_sys` RLS alert.** This may be a PostGIS/system-table false positive, but keep Supabase ticket details in review/ops notes and do not leave avoidable database warnings unexamined.
-- [ ] **HIGH: Confirm reviewer can access every gated feature.** Apple requires full review access when login/subscription/backends are involved.
+- [ ] **HIGH: Confirm reviewer can access every gated feature.** Reviewer credentials are entered in App Store Connect, but gated subscription behavior still needs a fresh dev/TestFlight build and sandbox/RevenueCat validation.
 
 ## Proper Order
 
@@ -35,9 +35,9 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] iOS bundle identifier is `com.finseekr.finfindr`.
 - [x] App version is `1.0.0`.
 - [x] App icon exists at 1024 x 1024.
-- [ ] Confirm Apple Developer app record uses the same bundle ID.
+- [x] Confirm Apple Developer app record uses the same bundle ID.
 - [ ] Confirm SKU, primary language, category, age rating, copyright, and contact information in App Store Connect.
-- [ ] Verify `ITSAppUsesNonExemptEncryption: false` is accurate for your app’s use of standard HTTPS/TLS only.
+- [x] Verify `ITSAppUsesNonExemptEncryption: false` is accurate for your app’s use of standard HTTPS/TLS only.
 - [x] Decide on iPhone-only vs iPad support. Current config has `supportsTablet: false`; v1 will launch iPhone-only.
 - [x] Review and remove `UIDesignRequiresCompatibility: true` unless you intentionally need iPhone compatibility mode.
 - [ ] Increment build number for every uploaded build.
@@ -69,8 +69,8 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Test restore purchase after reinstall/sign out/sign in.
 - [ ] Test entitlement changes update Supabase `profiles.subscription_tier`.
 - [ ] Test free user gating for Today's Bite, Tackle Box/recommender, and Water Read.
-- [ ] Add App Store review notes explaining how to find and test subscription-gated features.
-- [ ] Add a reviewer account that either has an active sandbox subscription or can purchase using Apple sandbox.
+- [x] Add App Store review notes explaining how to find and test subscription-gated features.
+- [x] Add a reviewer account that either has an active sandbox subscription or can purchase using Apple sandbox. Current reviewer login is entered in App Store Connect; subscription purchase still needs sandbox validation after build upload.
 - [x] Add Terms and Privacy links to subscription screen.
 - [ ] Confirm paywall clearly shows subscription title, price, billing period, what unlocks, auto-renewal/cancel language, and any trial details before purchase.
 - [ ] Confirm there are no external purchase links or CTAs for digital subscription access outside Apple IAP.
@@ -99,7 +99,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Require explicit Terms/Privacy checkbox acceptance during email sign-up.
 - [ ] For stronger audit evidence, store Terms/Privacy acceptance timestamp and document version on the user profile or a legal acceptance table.
 - [x] Make Privacy/Terms/Support reachable from Settings.
-- [ ] Complete App Privacy Nutrition Label in App Store Connect.
+- [x] Complete App Privacy Nutrition Label in App Store Connect. Published on 2026-05-20 with Contact Info, Location, User Content, Identifiers, Purchases, and Usage Data linked to the user; no tracking.
 - [ ] Wait for Florida Sunbiz approval for `FinFindr LLC`; save the filed Articles, document number, and any Certificate of Status.
 - [ ] Apply for the free IRS EIN only after the LLC is approved; use exact legal name `FinFindr LLC` and save the EIN confirmation letter.
 - [ ] Update Terms/Privacy company/entity references after the LLC is officially approved.
@@ -110,7 +110,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Confirm no App Tracking Transparency prompt is needed. Current code does not show ad tracking or cross-app tracking SDKs.
 - [ ] Confirm no third-party ads, gambling, contests, medical/safety claims, or regulated activity language appears.
 - [x] Add safety disclaimer if fishing recommendations could be interpreted as navigation/safety guidance: conditions are informational, users are responsible for local laws/weather/water safety.
-- [ ] Confirm App Store age rating answers match camera, location, UGC/logging, and web/network content behavior.
+- [x] Confirm App Store age rating answers match camera, location, UGC/logging, and web/network content behavior. App Store Connect calculated 4+ with regional equivalents on 2026-05-20.
 
 ### 6. Permissions And Device Capabilities
 
@@ -156,25 +156,25 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 
 ### 9. App Store Connect Metadata
 
-- [ ] App name: `FinFindr`.
+- [x] App name: `FinFindr: Fishing Intelligence`.
 - [ ] Subtitle.
-- [ ] Promotional text.
-- [ ] Description.
-- [ ] Keywords.
-- [ ] Support URL.
-- [ ] Marketing URL, if available.
-- [ ] Privacy Policy URL.
+- [x] Promotional text.
+- [x] Description.
+- [x] Keywords.
+- [x] Support URL.
+- [x] Marketing URL.
+- [x] Privacy Policy URL.
 - [ ] App category.
-- [ ] Age rating questionnaire.
+- [x] Age rating questionnaire.
 - [x] Screenshots for required iPhone sizes. Six 6.5-inch iPhone portrait screenshots uploaded at 1242 x 2688; this satisfies the required iPhone screenshot set when no 6.9-inch screenshots are provided, and App Store Connect scales them for other iPhone display sizes.
 - [ ] App preview video, optional.
-- [ ] Review contact name, phone, and email.
-- [ ] Demo account username/password.
-- [ ] Review notes covering subscription test path, location usage, any limited water coverage, and Supabase known issue if relevant.
-- [ ] Export compliance.
-- [ ] Content rights.
-- [ ] Pricing and availability.
-- [ ] Manual release selected if you want control after approval.
+- [x] Review contact name, phone, and email.
+- [x] Demo account username/password.
+- [x] Review notes covering subscription test path, location usage, any limited water coverage, and Supabase known issue if relevant.
+- [ ] Export compliance. `ITSAppUsesNonExemptEncryption: false` is set in app config; final App Store Connect export prompt should be verified after the production build is uploaded.
+- [x] Content rights.
+- [x] Pricing and availability. App download is free and availability is United States only.
+- [x] Manual release selected if you want control after approval.
 
 ### 9A. Business / LLC / Tax Follow-Up
 

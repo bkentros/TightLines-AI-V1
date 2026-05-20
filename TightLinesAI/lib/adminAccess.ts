@@ -1,7 +1,5 @@
 const ADMIN_EMAILS = [
   'brandonkentros@icloud.com',
-  'finseekr@hotmail.com',
-  'finseekr@hotmail',
 ];
 
 export function isAdminEmail(email: string | undefined | null): boolean {
