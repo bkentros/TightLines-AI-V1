@@ -151,7 +151,7 @@ export default function SupportScreen() {
               <Text style={styles.eyebrow}>SUPPORT DESK</Text>
               <Text style={styles.title}>{title}.</Text>
               <Text style={styles.subtitle}>
-                Write the useful part. FinFindr emails support and attaches your account, device, tier, and screen context.
+                Write the useful part. FinFindr attaches your account, device, tier, and screen context.
               </Text>
             </View>
 
