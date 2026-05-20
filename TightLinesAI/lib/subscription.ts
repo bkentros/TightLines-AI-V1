@@ -9,6 +9,7 @@
 import type { SubscriptionTier } from './types';
 import type { UserProfile } from './types';
 import type { DevSubscriptionTier } from '../store/devTestingStore';
+import { hasComplimentaryAnglerAccess } from './adminAccess';
 
 /** Usage cap (API cost in USD) per tier per billing period */
 export const USAGE_CAP_ANGLER_USD = 1;
@@ -16,16 +17,19 @@ export const USAGE_CAP_MASTER_ANGLER_USD = 3;
 
 /**
  * Resolve effective subscription tier for feature gating.
- * In __DEV__, override takes precedence when set. Production callers must pass
- * allowOverride=true only after checking admin access.
+ * Dev override is only honored when the caller has already verified admin access.
  */
 export function getEffectiveTier(
   profile: UserProfile | null,
   devOverride: DevSubscriptionTier | null,
-  allowOverride = __DEV__
+  allowOverride = false,
+  userEmail?: string | null
 ): SubscriptionTier {
   if (allowOverride && devOverride != null) {
     return devOverride;
+  }
+  if (hasComplimentaryAnglerAccess(userEmail)) {
+    return 'angler';
   }
   return profile?.subscription_tier ?? 'free';
 }

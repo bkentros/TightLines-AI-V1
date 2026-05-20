@@ -244,7 +244,8 @@ export default function HowFishingScreen() {
   const effectiveTier = getEffectiveTier(
     profile,
     overrideSubscriptionTier ?? null,
-    __DEV__ || isAdminEmail(user?.email),
+    isAdminEmail(user?.email),
+    user?.email,
   );
   const isFreeTier = effectiveTier === "free";
   const isLimitedFreeRead = isFreeTier && !isForecastDay;
@@ -255,7 +256,7 @@ export default function HowFishingScreen() {
   const [envLoading, setEnvLoading] = useState(true);
 
   useEffect(() => {
-    if (__DEV__ || isAdminEmail(user?.email)) loadDevTesting();
+    if (isAdminEmail(user?.email)) loadDevTesting();
   }, [loadDevTesting, user?.email]);
   const [locationLabel, setLocationLabel] = useState<string>(
     "Current location",

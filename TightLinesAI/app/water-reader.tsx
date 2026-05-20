@@ -334,13 +334,14 @@ export default function WaterReaderScreen() {
   const effectiveTier = getEffectiveTier(
     profile,
     overrideSubscriptionTier ?? null,
-    __DEV__ || isAdminEmail(user?.email),
+    isAdminEmail(user?.email),
+    user?.email,
   );
   const hasSubscription = canUseAIFeatures(effectiveTier);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   useEffect(() => {
-    if (__DEV__ || isAdminEmail(user?.email)) loadDevTesting();
+    if (isAdminEmail(user?.email)) loadDevTesting();
   }, [loadDevTesting, user?.email]);
 
   const [stateCode, setStateCode] = useState<string | null>(null);

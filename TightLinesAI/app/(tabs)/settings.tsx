@@ -23,6 +23,7 @@ import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import type { SubscriptionTier, UserProfile } from '../../lib/types';
 import { isAdminEmail } from '../../lib/adminAccess';
+import { getEffectiveTier } from '../../lib/subscription';
 import type { FeedbackTopic } from '../../lib/feedback';
 import {
   openStoreSubscriptionManagement,
@@ -67,8 +68,11 @@ export default function SettingsScreen() {
 
   const [homeState, setHomeState] = useState('');
   const [homeCity, setHomeCity] = useState('');
+  const [usernameDraft, setUsernameDraft] = useState('');
+  const [editingUsername, setEditingUsername] = useState(false);
   const [showStateList, setShowStateList] = useState(false);
   const [saving, setSaving] = useState(false);
+  const [usernameSaving, setUsernameSaving] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const [clearingCaches, setClearingCaches] = useState(false);
   const [tierModeSaving, setTierModeSaving] = useState(false);
@@ -85,7 +89,8 @@ export default function SettingsScreen() {
     if (!profile) return;
     setHomeState(profile.home_state ?? '');
     setHomeCity(profile.home_city ?? '');
-  }, [profile?.id]);
+    setUsernameDraft(profile.username ?? '');
+  }, [profile?.id, profile?.username]);
 
   useEffect(() => {
     if (canSeeTestingTools) loadDevTesting();
@@ -171,6 +176,81 @@ export default function SettingsScreen() {
     }
   };
 
+  const handleSaveUsername = async () => {
+    if (!user || !profile) return;
+
+    const trimmedUsername = usernameDraft.trim().toLowerCase();
+    if (trimmedUsername === profile.username) {
+      setEditingUsername(false);
+      return;
+    }
+    if (trimmedUsername.length < 3) {
+      setNotice({
+        title: 'Username too short',
+        message: 'Use at least 3 characters.',
+        tone: 'error',
+      });
+      return;
+    }
+    if (!/^[a-z0-9_]+$/.test(trimmedUsername)) {
+      setNotice({
+        title: 'Invalid username',
+        message: 'Use letters, numbers, and underscores only.',
+        tone: 'error',
+      });
+      return;
+    }
+
+    setNotice(null);
+    hapticImpact(ImpactFeedbackStyle.Medium);
+    setUsernameSaving(true);
+    try {
+      const { data: existing, error: lookupError } = await supabase
+        .from('profiles')
+        .select('id')
+        .eq('username', trimmedUsername)
+        .neq('id', user.id)
+        .limit(1);
+
+      if (lookupError) throw lookupError;
+      if (existing && existing.length > 0) {
+        setNotice({
+          title: 'Username taken',
+          message: 'Pick another handle and try again.',
+          tone: 'error',
+        });
+        return;
+      }
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .update({
+          username: trimmedUsername,
+          updated_at: new Date().toISOString(),
+        })
+        .eq('id', user.id)
+        .select()
+        .single();
+
+      if (error) throw error;
+      setProfile(data as UserProfile);
+      setEditingUsername(false);
+      setNotice({
+        title: 'Username saved',
+        message: `Your handle is now @${trimmedUsername}.`,
+        tone: 'success',
+      });
+    } catch {
+      setNotice({
+        title: 'Could not save username',
+        message: 'Please try again in a moment.',
+        tone: 'error',
+      });
+    } finally {
+      setUsernameSaving(false);
+    }
+  };
+
   const handleClearCaches = async () => {
     setNotice(null);
     setClearingCaches(true);
@@ -198,7 +278,7 @@ export default function SettingsScreen() {
       params: {
         topic,
         contextLines: JSON.stringify([
-          `Tier: ${profile?.subscription_tier ?? 'unknown'}`,
+          `Tier: ${effectiveTier}`,
           `Home: ${buildHomeRegion() || 'not set'}`,
         ]),
       },
@@ -304,10 +384,12 @@ export default function SettingsScreen() {
     );
   }
 
-  const effectiveTier =
-    canSeeTestingTools && overrideSubscriptionTier
-      ? overrideSubscriptionTier
-      : profile.subscription_tier ?? 'free';
+  const effectiveTier = getEffectiveTier(
+    profile,
+    overrideSubscriptionTier ?? null,
+    canSeeTestingTools,
+    user?.email,
+  );
 
   return (
     <View style={styles.root}>
@@ -338,10 +420,62 @@ export default function SettingsScreen() {
               <Text style={styles.sectionLabel}>ACCOUNT</Text>
               <View style={styles.summaryList}>
                 <SettingsSummaryRow
+                  icon="mail-outline"
+                  title="Email"
+                  value={user?.email ?? 'Not available'}
+                />
+                <SettingsSummaryRow
                   icon="person-circle-outline"
                   title="Username"
                   value={`@${profile.username}`}
+                  actionLabel="Edit"
+                  onAction={() => {
+                    setUsernameDraft(profile.username ?? '');
+                    setEditingUsername(true);
+                  }}
                 />
+                {editingUsername ? (
+                  <View style={styles.usernameEditor}>
+                    <TextInput
+                      style={[styles.input, styles.usernameInput]}
+                      value={usernameDraft}
+                      onChangeText={setUsernameDraft}
+                      autoCapitalize="none"
+                      autoCorrect={false}
+                      placeholder="username"
+                      placeholderTextColor={paper.dashboardMuted}
+                    />
+                    <Pressable
+                      style={({ pressed }) => [
+                        styles.inlineButton,
+                        pressed && styles.smallActionPressed,
+                        usernameSaving && styles.btnDisabled,
+                      ]}
+                      onPress={handleSaveUsername}
+                      disabled={usernameSaving}
+                    >
+                      {usernameSaving ? (
+                        <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                      ) : (
+                        <Text style={styles.inlineButtonText}>SAVE</Text>
+                      )}
+                    </Pressable>
+                    <Pressable
+                      style={({ pressed }) => [
+                        styles.inlineButton,
+                        styles.inlineButtonGhost,
+                        pressed && styles.smallActionPressed,
+                      ]}
+                      onPress={() => {
+                        setUsernameDraft(profile.username ?? '');
+                        setEditingUsername(false);
+                      }}
+                      disabled={usernameSaving}
+                    >
+                      <Text style={styles.inlineButtonText}>CANCEL</Text>
+                    </Pressable>
+                  </View>
+                ) : null}
                 <SettingsSummaryRow
                   icon="card-outline"
                   title="Membership"
@@ -649,11 +783,15 @@ function SettingsSummaryRow({
   title,
   value,
   detail,
+  actionLabel,
+  onAction,
 }: {
   icon: keyof typeof Ionicons.glyphMap;
   title: string;
   value: string;
   detail?: string;
+  actionLabel?: string;
+  onAction?: () => void;
 }) {
   return (
     <View style={styles.summaryRow}>
@@ -664,7 +802,14 @@ function SettingsSummaryRow({
         <Text style={styles.summaryTitle}>{title}</Text>
         {detail ? <Text style={styles.summaryDetail}>{detail}</Text> : null}
       </View>
-      <Text style={styles.summaryValue}>{value}</Text>
+      <View style={styles.summaryTrailing}>
+        <Text style={styles.summaryValue} numberOfLines={1}>{value}</Text>
+        {actionLabel && onAction ? (
+          <Pressable onPress={onAction} hitSlop={8}>
+            <Text style={styles.summaryAction}>{actionLabel.toUpperCase()}</Text>
+          </Pressable>
+        ) : null}
+      </View>
     </View>
   );
 }
@@ -867,12 +1012,53 @@ const styles = StyleSheet.create({
     opacity: 0.6,
   },
   summaryValue: {
-    maxWidth: '42%',
     fontFamily: paperFonts.bodyBold,
     fontSize: 12.5,
     color: paper.dashboardInk,
     textAlign: 'right',
-    textTransform: 'capitalize',
+  },
+  summaryTrailing: {
+    maxWidth: '52%',
+    alignItems: 'flex-end',
+    gap: 3,
+  },
+  summaryAction: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.dashboardBlue,
+    letterSpacing: 1.2,
+  },
+  usernameEditor: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.xs,
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: paperSpacing.xs + 2,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+  },
+  usernameInput: {
+    minHeight: 42,
+  },
+  inlineButton: {
+    minHeight: 42,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: paperSpacing.sm,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardWhite,
+  },
+  inlineButtonGhost: {
+    borderColor: paper.dashboardLine,
+  },
+  inlineButtonText: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    color: paper.dashboardBlue,
+    letterSpacing: 1.3,
   },
   readOnlyValue: {
     fontFamily: paperFonts.body,

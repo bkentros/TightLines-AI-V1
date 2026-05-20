@@ -248,7 +248,8 @@ export default function HomeScreen() {
   const effectiveTier = getEffectiveTier(
     profile,
     overrideSubscriptionTier ?? null,
-    __DEV__ || isAdminEmail(user?.email),
+    isAdminEmail(user?.email),
+    user?.email,
   );
   const hasSubscription = canUseAIFeatures(effectiveTier);
 
@@ -341,7 +342,7 @@ export default function HomeScreen() {
   );
 
   useEffect(() => {
-    if (__DEV__ || isAdminEmail(user?.email)) loadDevTesting();
+    if (isAdminEmail(user?.email)) loadDevTesting();
   }, [loadDevTesting, user?.email]);
 
   useEffect(() => {
