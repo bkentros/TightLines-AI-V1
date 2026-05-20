@@ -1,5 +1,9 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import {
+  checkUserRateLimit,
+  rateLimitHeaders,
+} from "../_shared/rateLimit.ts";
 
 const VALID_TOPICS = [
   "general",
@@ -13,6 +17,7 @@ const VALID_TOPICS = [
 ] as const;
 
 const VALID_SENTIMENTS = ["looks_right", "needs_work", "note"] as const;
+const SUPPORT_DAILY_LIMIT = 5;
 
 type FeedbackTopic = typeof VALID_TOPICS[number];
 type FeedbackSentiment = typeof VALID_SENTIMENTS[number];
@@ -144,6 +149,30 @@ Deno.serve(async (req) => {
   const message = cleanString(body.message);
   if (!message || message.length < 8) {
     return json({ error: "Please include a little more detail." }, 400);
+  }
+
+  const rateLimit = await checkUserRateLimit(supabase, {
+    userId: user.id,
+    feature: "support_feedback",
+    rules: [{ windowSeconds: 24 * 60 * 60, maxRequests: SUPPORT_DAILY_LIMIT }],
+  });
+  if (!rateLimit.allowed) {
+    return new Response(
+      JSON.stringify({
+        error: "rate_limited",
+        message:
+          "You've reached today's support message limit. Please try again tomorrow, or email support@finfindr.app if this is urgent.",
+        retryAfterSeconds: rateLimit.retryAfterSeconds,
+      }),
+      {
+        status: 429,
+        headers: {
+          "Content-Type": "application/json",
+          ...corsHeaders(),
+          ...rateLimitHeaders(rateLimit),
+        },
+      },
+    );
   }
 
   const { data: profile } = await supabase

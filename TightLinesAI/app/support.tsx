@@ -110,10 +110,12 @@ export default function SupportScreen() {
           : 'Thanks. Your note is saved with your account and app context. Email delivery will be checked from the support queue.',
         tone: 'success',
       });
-    } catch {
+    } catch (err) {
       setNotice({
         title: 'Could not send',
-        message: 'Please check your connection and try again.',
+        message: err instanceof Error
+          ? err.message
+          : 'Please check your connection and try again.',
         tone: 'error',
       });
     } finally {
