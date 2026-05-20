@@ -1,48 +1,24 @@
 /**
- * Subscribe / Plans screen — FinFindr membership screen.
+ * Subscribe screen.
  *
- * Uses RevenueCat offerings for live subscription purchase + restore.
+ * This screen does not sell plans directly. It opens the single RevenueCat
+ * paywall configured in RevenueCat, then provides restore and App Store
+ * subscription management actions.
  */
 
-import { ActivityIndicator, Alert, Image, ScrollView, View, Text, StyleSheet, Pressable } from 'react-native';
+import { ActivityIndicator, Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import type { PurchasesPackage } from 'react-native-purchases';
-import {
-  paper,
-  paperFonts,
-  paperSpacing,
-} from '../lib/theme';
-import {
-  PaperBestValueStamp,
-  PaperNavHeader,
-  TopographicLines,
-} from '../components/paper';
+import { paper, paperFonts, paperSpacing } from '../lib/theme';
+import { PaperNavHeader, TopographicLines } from '../components/paper';
 import { AuthFooterStamp } from '../components/paper/auth';
 import {
   openStoreSubscriptionManagement,
   storeSubscriptionManagementLabel,
 } from '../lib/legalLinks';
 import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
-import { useAuthStore } from '../store/authStore';
 import { useRevenueCatStore } from '../store/revenueCatStore';
-
-function packageLabel(pkg: PurchasesPackage): string {
-  const id = `${pkg.identifier} ${pkg.product.identifier}`.toLowerCase();
-  if (id.includes('annual') || id.includes('year')) return 'ANGLER ANNUAL';
-  if (id.includes('month')) return 'ANGLER MONTHLY';
-  if (id.includes('week')) return 'ANGLER WEEKLY';
-  return pkg.product.title?.toUpperCase() || 'FINFINDR ANGLER';
-}
-
-function packageHint(pkg: PurchasesPackage): string {
-  const id = `${pkg.identifier} ${pkg.product.identifier}`.toLowerCase();
-  if (id.includes('annual') || id.includes('year')) {
-    return 'Full access for a year, including forecast reads, Tackle Box, and Water Read.';
-  }
-  return 'Full access to every FinFindr feature while your subscription is active.';
-}
 
 const ANGLER_FEATURES: Array<{
   icon: keyof typeof Ionicons.glyphMap;
@@ -52,37 +28,30 @@ const ANGLER_FEATURES: Array<{
   {
     icon: 'analytics-outline',
     title: 'Bite reports',
-    copy: 'Full reports for today plus the next 6 days, including score, drivers, windows, and guide-level context.',
+    copy: 'Full reports for today plus the next 6 days, including score, drivers, windows, and context.',
   },
   {
     icon: 'fish-outline',
     title: 'Tackle Box',
-    copy: 'Condition-matched lure and presentation picks tuned to your water type, species, season, and daily conditions.',
+    copy: 'Condition-matched lure and fly picks tuned to species, water type, clarity, and the day.',
   },
   {
     icon: 'scan-outline',
     title: 'Water Read',
-    copy: 'Structure intelligence for supported waters, built to identify higher-percentage zones before you cast.',
+    copy: 'Structure intelligence for supported waters, built to highlight higher-percentage zones.',
   },
 ];
 
 export default function SubscribeScreen() {
   const router = useRouter();
-  const user = useAuthStore((s) => s.user);
   const {
-    configured,
-    loading,
-    purchasing,
     presentingPaywall,
     restoring,
     error,
-    offering,
     hasAngler,
-    initialize,
     presentPaywall,
     restore,
   } = useRevenueCatStore();
-  const packages = offering?.availablePackages ?? [];
 
   const handleOpenPaywall = async () => {
     hapticImpact(ImpactFeedbackStyle.Medium);
@@ -94,10 +63,6 @@ export default function SubscribeScreen() {
     }
   };
 
-  const handlePurchase = async (_pkg: PurchasesPackage) => {
-    await handleOpenPaywall();
-  };
-
   const handleRestore = async () => {
     hapticImpact(ImpactFeedbackStyle.Light);
     const unlocked = await restore();
@@ -105,12 +70,8 @@ export default function SubscribeScreen() {
       unlocked ? 'Purchases restored' : 'No active Angler subscription found',
       unlocked
         ? 'Your FinFindr Angler access is active.'
-        : 'We could not find an active subscription for this store account.',
+        : 'We could not find an active subscription for this App Store account.',
     );
-  };
-
-  const handleRetry = () => {
-    if (user?.id) void initialize(user.id);
   };
 
   const handleManageStoreSubscription = async () => {
@@ -119,7 +80,7 @@ export default function SubscribeScreen() {
     } catch {
       Alert.alert(
         'Could not open subscriptions',
-        'Open your App Store or Google Play account settings to manage or cancel your subscription.',
+        'Open your App Store account settings to manage or cancel your subscription.',
       );
     }
   };
@@ -130,7 +91,7 @@ export default function SubscribeScreen() {
         <PaperNavHeader
           eyebrow="FINFINDR · MEMBERSHIP"
           eyebrowColor={paper.bandFair}
-          title="SUBSCRIBE"
+          title="ANGLER"
           onBack={() => router.back()}
         />
         <ScrollView
@@ -191,7 +152,7 @@ export default function SubscribeScreen() {
               <Ionicons name="lock-open-outline" size={14} color={paper.dashboardBlue} />
             </View>
             <Text style={styles.freeCopy}>
-              Includes a limited Today's Bite, today's dashboard score after
+              Includes a limited Today&apos;s Bite, today&apos;s dashboard score after
               generation, and one tomorrow preview. Future reports stay locked.
             </Text>
           </View>
@@ -201,14 +162,12 @@ export default function SubscribeScreen() {
               <Ionicons name="checkmark-circle" size={18} color={paper.bandPrime} />
               <Text style={styles.unlockedText}>ANGLER IS ACTIVE</Text>
             </View>
-          ) : null}
-
-          {!hasAngler ? (
+          ) : (
             <Pressable
               style={({ pressed }) => [
                 styles.nativePaywallBtn,
                 pressed && styles.nativePaywallBtnPressed,
-                (presentingPaywall || restoring) && styles.planCardDisabled,
+                (presentingPaywall || restoring) && styles.btnDisabled,
               ]}
               onPress={handleOpenPaywall}
               disabled={presentingPaywall || restoring}
@@ -219,105 +178,33 @@ export default function SubscribeScreen() {
                 <Ionicons name="card-outline" size={15} color={paper.dashboardCream} />
               )}
               <Text style={styles.nativePaywallText}>
-                {presentingPaywall ? 'OPENING PAYWALL...' : 'OPEN SECURE PAYWALL'}
+                {presentingPaywall ? 'OPENING PAYWALL...' : 'OPEN ANGLER PAYWALL'}
               </Text>
             </Pressable>
-          ) : null}
-
-          {loading && packages.length === 0 ? (
-            <View style={styles.loadingRow}>
-              <ActivityIndicator color={paper.dashboardBlue} />
-              <Text style={styles.loadingText}>LOADING PLANS...</Text>
-            </View>
-          ) : null}
-
-          {packages.length > 0 ? (
-            packages.map((pkg, index) => {
-              const isPurchasing = purchasing === pkg.identifier;
-              return (
-                <Pressable
-                  key={pkg.identifier}
-                  style={({ pressed }) => [
-                    styles.planCard,
-                    index === 0 && styles.planCardMaster,
-                    pressed && styles.planCardPressed,
-                    (isPurchasing || restoring) && styles.planCardDisabled,
-                  ]}
-                  onPress={() => handlePurchase(pkg)}
-                  disabled={isPurchasing || restoring || hasAngler}
-                >
-                  {index === 0 ? <PaperBestValueStamp /> : null}
-                  {index === 0 ? <View style={styles.masterBar} /> : null}
-                  <View style={styles.planHeader}>
-                    <Ionicons
-                      name={index === 0 ? 'trophy' : 'fish'}
-                      size={14}
-                      color={index === 0 ? paper.bandFair : paper.dashboardBlue}
-                    />
-                    <Text style={styles.planLabel}>{packageLabel(pkg)}</Text>
-                    <View style={styles.priceBlock}>
-                      {isPurchasing ? (
-                        <ActivityIndicator size="small" color={paper.dashboardBlue} />
-                      ) : (
-                        <>
-                          <Text style={styles.priceNum}>{pkg.product.priceString}</Text>
-                          <Text style={styles.priceUnit}>
-                            {packageLabel(pkg).includes('ANNUAL') ? '/YR' : '/MO'}
-                          </Text>
-                        </>
-                      )}
-                    </View>
-                  </View>
-                  <Text style={styles.planHint}>{packageHint(pkg)}</Text>
-                </Pressable>
-              );
-            })
-          ) : !loading ? (
-            <View style={styles.emptyBox}>
-              <Text style={styles.emptyTitle}>
-                {configured ? 'NO LIVE PLANS FOUND' : 'REVENUECAT NEEDS KEYS'}
-              </Text>
-              <Text style={styles.emptyCopy}>
-                {configured
-                  ? 'App Store Connect is not returning the Angler products yet. Finish subscription metadata, pricing, and availability, then retry.'
-                  : 'Set your Expo public RevenueCat API key env vars and restart the app.'}
-              </Text>
-              <Pressable style={styles.retryBtn} onPress={handleRetry}>
-                <Text style={styles.retryText}>RETRY</Text>
-              </Pressable>
-            </View>
-          ) : null}
+          )}
 
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
-          <Pressable
-            style={({ pressed }) => [
-              styles.restoreBtn,
-              pressed && styles.restoreBtnPressed,
-              restoring && styles.restoreBtnDisabled,
-            ]}
-            onPress={handleRestore}
-            disabled={restoring || purchasing != null}
-          >
-            {restoring ? <ActivityIndicator size="small" color={paper.dashboardBlue} /> : null}
-            <Text style={styles.restoreText}>{restoring ? 'RESTORING...' : 'RESTORE PURCHASES'}</Text>
-          </Pressable>
-
-          <View style={styles.footerRow}>
-            <Text style={styles.footerText}>
-              Subscriptions renew automatically unless canceled in your App Store
-              or Google Play account settings.
+          <View style={styles.managementCard}>
+            <Text style={styles.managementTitle}>Subscription management</Text>
+            <Text style={styles.managementCopy}>
+              Purchases and cancellations are handled by the App Store. Use Restore
+              Purchases after reinstalling or signing in on a new device.
             </Text>
-            <Text style={styles.footerText}>
-              By subscribing, you agree to the{' '}
-              <Text style={styles.footerLink} onPress={() => router.push('/legal/terms')}>
-                Terms of Service
-              </Text>{' '}
-              and{' '}
-              <Text style={styles.footerLink} onPress={() => router.push('/legal/privacy')}>
-                Privacy Policy
-              </Text>.
-            </Text>
+            <Pressable
+              style={({ pressed }) => [
+                styles.restoreBtn,
+                pressed && styles.restoreBtnPressed,
+                (restoring || presentingPaywall) && styles.btnDisabled,
+              ]}
+              onPress={handleRestore}
+              disabled={restoring || presentingPaywall}
+            >
+              {restoring ? <ActivityIndicator size="small" color={paper.dashboardBlue} /> : null}
+              <Text style={styles.restoreText}>
+                {restoring ? 'RESTORING...' : 'RESTORE PURCHASES'}
+              </Text>
+            </Pressable>
             <Pressable
               style={({ pressed }) => [
                 styles.manageStoreBtn,
@@ -331,9 +218,23 @@ export default function SubscribeScreen() {
             </Pressable>
           </View>
 
-          {/* Same pressed-edition stamp the auth screens and the Today's
-              Bite report use — gives every surface the same finishing
-              "this is an issue" voice. */}
+          <View style={styles.footerRow}>
+            <Text style={styles.footerText}>
+              Subscriptions renew automatically unless canceled in your App Store
+              account settings.
+            </Text>
+            <Text style={styles.footerText}>
+              By subscribing, you agree to the{' '}
+              <Text style={styles.footerLink} onPress={() => router.push('/legal/terms')}>
+                Terms of Service
+              </Text>{' '}
+              and{' '}
+              <Text style={styles.footerLink} onPress={() => router.push('/legal/privacy')}>
+                Privacy Policy
+              </Text>.
+            </Text>
+          </View>
+
           <AuthFooterStamp />
         </ScrollView>
       </View>
@@ -437,7 +338,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'flex-start',
     gap: 10,
-    position: 'relative',
     paddingVertical: 10,
     paddingHorizontal: paperSpacing.md,
     borderRadius: 8,
@@ -484,7 +384,6 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     marginTop: 1,
   },
-
   freeBox: {
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1.25,
@@ -551,125 +450,8 @@ const styles = StyleSheet.create({
     color: paper.dashboardCream,
     letterSpacing: 2,
   },
-  loadingRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'center',
-    gap: 10,
-    paddingVertical: paperSpacing.xl,
-  },
-  loadingText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    color: paper.dashboardBlue,
-    letterSpacing: 1.6,
-  },
-
-  planCard: {
-    position: 'relative',
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
-    borderRadius: 8,
-    padding: paperSpacing.lg,
-    marginBottom: paperSpacing.lg,
-  },
-  planCardPressed: {
-    backgroundColor: '#F6F9FB',
-  },
-  planCardDisabled: {
+  btnDisabled: {
     opacity: 0.65,
-  },
-  planCardMaster: {
-    paddingLeft: paperSpacing.md + 8,
-    // The BEST VALUE badge floats above the card edge; reserve headroom so it
-    // does not visually collide with the section lede or the Angler border.
-    marginTop: paperSpacing.xs,
-  },
-  masterBar: {
-    position: 'absolute',
-    left: 0,
-    top: 0,
-    bottom: 0,
-    width: 5,
-    backgroundColor: paper.bandFair,
-  },
-  planHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: paperSpacing.xs + 2,
-    marginBottom: paperSpacing.xs + 2,
-  },
-  planLabel: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 2.6,
-  },
-  priceBlock: {
-    marginLeft: 'auto',
-    flexDirection: 'row',
-    alignItems: 'baseline',
-    gap: 2,
-  },
-  priceNum: {
-    fontFamily: paperFonts.display,
-    fontSize: 22,
-    color: paper.dashboardInk,
-    fontWeight: '700',
-    letterSpacing: 0,
-  },
-  priceUnit: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    color: paper.dashboardInk,
-    opacity: 0.65,
-    letterSpacing: 1.6,
-  },
-  planHint: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 13,
-    color: paper.dashboardInk,
-    opacity: 0.75,
-    lineHeight: 19,
-  },
-
-  emptyBox: {
-    backgroundColor: paper.dashboardWhite,
-    borderWidth: 1,
-    borderColor: paper.dashboardHair,
-    borderRadius: 10,
-    padding: paperSpacing.lg,
-    marginBottom: paperSpacing.lg,
-  },
-  emptyTitle: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 2,
-    marginBottom: 8,
-  },
-  emptyCopy: {
-    fontFamily: paperFonts.body,
-    fontSize: 13,
-    color: paper.dashboardInk,
-    lineHeight: 19,
-    opacity: 0.72,
-  },
-  retryBtn: {
-    alignSelf: 'flex-start',
-    marginTop: paperSpacing.md,
-    borderWidth: 1,
-    borderColor: paper.dashboardInk,
-    borderRadius: 8,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: 9,
-  },
-  retryText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    color: paper.dashboardInk,
-    letterSpacing: 1.8,
   },
   errorText: {
     fontFamily: paperFonts.body,
@@ -679,6 +461,28 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     marginTop: -paperSpacing.xs,
     marginBottom: paperSpacing.md,
+  },
+  managementCard: {
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 8,
+    padding: paperSpacing.md,
+    gap: paperSpacing.sm,
+  },
+  managementTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    color: paper.dashboardBlue,
+    letterSpacing: 2,
+    textTransform: 'uppercase',
+  },
+  managementCopy: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+    opacity: 0.72,
   },
   restoreBtn: {
     minHeight: 44,
@@ -690,13 +494,9 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardInk,
     borderRadius: 8,
     backgroundColor: paper.dashboardWhite,
-    marginTop: paperSpacing.xs,
   },
   restoreBtnPressed: {
     backgroundColor: '#F6F9FB',
-  },
-  restoreBtnDisabled: {
-    opacity: 0.65,
   },
   restoreText: {
     fontFamily: paperFonts.metaMonoBold,
@@ -704,7 +504,23 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     letterSpacing: 2,
   },
-
+  manageStoreBtn: {
+    minHeight: 44,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 8,
+    backgroundColor: '#F8FAFC',
+    paddingHorizontal: paperSpacing.md,
+  },
+  manageStoreBtnPressed: { backgroundColor: '#F6F9FB' },
+  manageStoreText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    color: paper.dashboardInk,
+    letterSpacing: 1.8,
+  },
   footerRow: {
     marginTop: paperSpacing.md,
     paddingTop: paperSpacing.lg,
@@ -724,21 +540,5 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     color: paper.dashboardBlue,
     opacity: 1,
-  },
-  manageStoreBtn: {
-    alignSelf: 'center',
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 999,
-    backgroundColor: paper.dashboardWhite,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.sm,
-  },
-  manageStoreBtnPressed: { backgroundColor: '#F6F9FB' },
-  manageStoreText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    color: paper.dashboardInk,
-    letterSpacing: 1.8,
   },
 });
