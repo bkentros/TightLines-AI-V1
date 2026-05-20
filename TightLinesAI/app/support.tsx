@@ -26,6 +26,8 @@ const TOPIC_OPTIONS: { topic: FeedbackTopic; label: string; icon: keyof typeof I
   { topic: 'subscription', label: 'Billing', icon: 'card-outline' },
 ];
 
+const SUPPORT_EMAIL = 'finfindr@hotmail.com';
+
 const VALID_TOPICS: FeedbackTopic[] = [
   'general',
   'bug',
@@ -95,7 +97,7 @@ export default function SupportScreen() {
     setSubmitting(true);
     setNotice(null);
     try {
-      await submitFeedback({
+      const result = await submitFeedback({
         topic,
         message: message.trim(),
         sentiment,
@@ -105,7 +107,9 @@ export default function SupportScreen() {
       setMessage('');
       setNotice({
         title: 'Sent',
-        message: 'Thanks. Your note is saved with your account and app context.',
+        message: result.email_sent
+          ? `Thanks. Your note was emailed to ${SUPPORT_EMAIL} with your account and app context.`
+          : 'Thanks. Your note is saved with your account and app context. Email delivery will be checked from the support queue.',
         tone: 'success',
       });
     } catch {
@@ -147,7 +151,7 @@ export default function SupportScreen() {
               <Text style={styles.eyebrow}>SUPPORT DESK</Text>
               <Text style={styles.title}>{title}.</Text>
               <Text style={styles.subtitle}>
-                Write the useful part. FinFindr will attach your account, device, tier, and screen context.
+                Write the useful part. FinFindr emails support and attaches your account, device, tier, and screen context.
               </Text>
             </View>
 

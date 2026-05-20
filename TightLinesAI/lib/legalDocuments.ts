@@ -74,7 +74,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
       {
         title: 'Contact',
         body: [
-          'Questions about privacy or data deletion can be sent to support@finfindr.app.',
+          'Questions about privacy or data deletion can be sent to finfindr@hotmail.com.',
         ],
       },
     ],
@@ -137,7 +137,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         title: 'Changes And Contact',
         body: [
           'We may update these Terms as the app changes. Material updates will be reflected in the app or on the published web version.',
-          'Questions can be sent to support@finfindr.app.',
+          'Questions can be sent to finfindr@hotmail.com.',
         ],
       },
     ],
