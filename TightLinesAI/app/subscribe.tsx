@@ -20,6 +20,10 @@ import {
   TopographicLines,
 } from '../components/paper';
 import { AuthFooterStamp } from '../components/paper/auth';
+import {
+  openStoreSubscriptionManagement,
+  storeSubscriptionManagementLabel,
+} from '../lib/legalLinks';
 import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
 import { useAuthStore } from '../store/authStore';
 import { useRevenueCatStore } from '../store/revenueCatStore';
@@ -69,24 +73,29 @@ export default function SubscribeScreen() {
     configured,
     loading,
     purchasing,
+    presentingPaywall,
     restoring,
     error,
     offering,
     hasAngler,
     initialize,
-    purchase,
+    presentPaywall,
     restore,
   } = useRevenueCatStore();
   const packages = offering?.availablePackages ?? [];
 
-  const handlePurchase = async (pkg: PurchasesPackage) => {
+  const handleOpenPaywall = async () => {
     hapticImpact(ImpactFeedbackStyle.Medium);
-    const unlocked = await purchase(pkg);
+    const unlocked = await presentPaywall();
     if (unlocked) {
       Alert.alert('Angler unlocked', 'You now have full access to FinFindr.', [
         { text: 'Continue', onPress: () => router.replace('/(tabs)') },
       ]);
     }
+  };
+
+  const handlePurchase = async (_pkg: PurchasesPackage) => {
+    await handleOpenPaywall();
   };
 
   const handleRestore = async () => {
@@ -102,6 +111,17 @@ export default function SubscribeScreen() {
 
   const handleRetry = () => {
     if (user?.id) void initialize(user.id);
+  };
+
+  const handleManageStoreSubscription = async () => {
+    try {
+      await openStoreSubscriptionManagement();
+    } catch {
+      Alert.alert(
+        'Could not open subscriptions',
+        'Open your App Store or Google Play account settings to manage or cancel your subscription.',
+      );
+    }
   };
 
   return (
@@ -183,6 +203,27 @@ export default function SubscribeScreen() {
             </View>
           ) : null}
 
+          {!hasAngler ? (
+            <Pressable
+              style={({ pressed }) => [
+                styles.nativePaywallBtn,
+                pressed && styles.nativePaywallBtnPressed,
+                (presentingPaywall || restoring) && styles.planCardDisabled,
+              ]}
+              onPress={handleOpenPaywall}
+              disabled={presentingPaywall || restoring}
+            >
+              {presentingPaywall ? (
+                <ActivityIndicator size="small" color={paper.dashboardCream} />
+              ) : (
+                <Ionicons name="card-outline" size={15} color={paper.dashboardCream} />
+              )}
+              <Text style={styles.nativePaywallText}>
+                {presentingPaywall ? 'OPENING PAYWALL...' : 'OPEN SECURE PAYWALL'}
+              </Text>
+            </Pressable>
+          ) : null}
+
           {loading && packages.length === 0 ? (
             <View style={styles.loadingRow}>
               <ActivityIndicator color={paper.dashboardBlue} />
@@ -238,7 +279,7 @@ export default function SubscribeScreen() {
               </Text>
               <Text style={styles.emptyCopy}>
                 {configured
-                  ? 'Add products to the current RevenueCat offering, then reopen this screen.'
+                  ? 'App Store Connect is not returning the Angler products yet. Finish subscription metadata, pricing, and availability, then retry.'
                   : 'Set your Expo public RevenueCat API key env vars and restart the app.'}
               </Text>
               <Pressable style={styles.retryBtn} onPress={handleRetry}>
@@ -267,6 +308,27 @@ export default function SubscribeScreen() {
               Subscriptions renew automatically unless canceled in your App Store
               or Google Play account settings.
             </Text>
+            <Text style={styles.footerText}>
+              By subscribing, you agree to the{' '}
+              <Text style={styles.footerLink} onPress={() => router.push('/legal/terms')}>
+                Terms of Service
+              </Text>{' '}
+              and{' '}
+              <Text style={styles.footerLink} onPress={() => router.push('/legal/privacy')}>
+                Privacy Policy
+              </Text>.
+            </Text>
+            <Pressable
+              style={({ pressed }) => [
+                styles.manageStoreBtn,
+                pressed && styles.manageStoreBtnPressed,
+              ]}
+              onPress={handleManageStoreSubscription}
+            >
+              <Text style={styles.manageStoreText}>
+                {storeSubscriptionManagementLabel().toUpperCase()}
+              </Text>
+            </Pressable>
           </View>
 
           {/* Same pressed-edition stamp the auth screens and the Today's
@@ -468,6 +530,27 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     letterSpacing: 2,
   },
+  nativePaywallBtn: {
+    minHeight: 48,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 9,
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
+    marginBottom: paperSpacing.lg,
+  },
+  nativePaywallBtnPressed: {
+    backgroundColor: '#13314F',
+  },
+  nativePaywallText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    color: paper.dashboardCream,
+    letterSpacing: 2,
+  },
   loadingRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -627,6 +710,7 @@ const styles = StyleSheet.create({
     paddingTop: paperSpacing.lg,
     borderTopWidth: 1,
     borderTopColor: paper.dashboardHair,
+    gap: paperSpacing.sm,
   },
   footerText: {
     fontFamily: paperFonts.displayItalic,
@@ -635,5 +719,26 @@ const styles = StyleSheet.create({
     opacity: 0.6,
     lineHeight: 18,
     textAlign: 'center',
+  },
+  footerLink: {
+    fontFamily: paperFonts.bodyBold,
+    color: paper.dashboardBlue,
+    opacity: 1,
+  },
+  manageStoreBtn: {
+    alignSelf: 'center',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardWhite,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: paperSpacing.sm,
+  },
+  manageStoreBtnPressed: { backgroundColor: '#F6F9FB' },
+  manageStoreText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    color: paper.dashboardInk,
+    letterSpacing: 1.8,
   },
 });

@@ -90,6 +90,7 @@ export default function SignUpScreen() {
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [acceptedLegal, setAcceptedLegal] = useState(false);
 
   const [emailStatus, setEmailStatus] = useState<FieldStatus>('idle');
   const [emailError, setEmailError] = useState('');
@@ -244,6 +245,14 @@ export default function SignUpScreen() {
       });
       return;
     }
+    if (!acceptedLegal) {
+      setNotice({
+        title: 'Terms required',
+        message: 'Review and accept the Terms of Service and Privacy Policy before creating your account.',
+        tone: 'error',
+      });
+      return;
+    }
 
     setLoading(true);
     try {
@@ -315,6 +324,7 @@ export default function SignUpScreen() {
     emailStatus === 'valid' &&
     isPasswordValid(password) &&
     confirmStatus === 'valid' &&
+    acceptedLegal &&
     !loading;
 
   const cooldownLabel =
@@ -544,11 +554,50 @@ export default function SignUpScreen() {
                 />
               </IntakeLine>
 
-              <Text style={styles.tosText}>
-                By creating an account you agree to our{' '}
-                <Text style={styles.tosLink}>Terms of Service</Text> and{' '}
-                <Text style={styles.tosLink}>Privacy Policy</Text>.
-              </Text>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.legalConsentRow,
+                  acceptedLegal && styles.legalConsentRowAccepted,
+                  pressed && styles.legalConsentRowPressed,
+                ]}
+                onPress={() => setAcceptedLegal((v) => !v)}
+                accessibilityRole="checkbox"
+                accessibilityState={{ checked: acceptedLegal }}
+                accessibilityLabel="Accept Terms of Service and Privacy Policy"
+              >
+                <View
+                  style={[
+                    styles.legalCheckbox,
+                    acceptedLegal && styles.legalCheckboxAccepted,
+                  ]}
+                >
+                  {acceptedLegal ? (
+                    <Ionicons name="checkmark" size={14} color="#FFFFFF" />
+                  ) : null}
+                </View>
+                <Text style={styles.tosText}>
+                  I have read and agree to the{' '}
+                  <Text
+                    style={styles.tosLink}
+                    onPress={(event) => {
+                      event.stopPropagation();
+                      router.push('/legal/terms');
+                    }}
+                  >
+                    Terms of Service
+                  </Text>{' '}
+                  and{' '}
+                  <Text
+                    style={styles.tosLink}
+                    onPress={(event) => {
+                      event.stopPropagation();
+                      router.push('/legal/privacy');
+                    }}
+                  >
+                    Privacy Policy
+                  </Text>.
+                </Text>
+              </Pressable>
             </View>
 
             {/* ─── Actions ───────────────────────────────────────────────── */}
@@ -1013,13 +1062,47 @@ const styles = StyleSheet.create({
   },
 
   // ── TOS ───────────────────────────────────────────────────────────────
+  legalConsentRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: paperSpacing.sm,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+    backgroundColor: 'rgba(255,255,255,0.74)',
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: paperSpacing.sm,
+    marginTop: paperSpacing.xs,
+  },
+  legalConsentRowAccepted: {
+    borderColor: paper.dashboardBlue,
+    backgroundColor: '#F6F9FB',
+  },
+  legalConsentRowPressed: {
+    opacity: 0.86,
+  },
+  legalCheckbox: {
+    width: 22,
+    height: 22,
+    borderRadius: 6,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 1,
+  },
+  legalCheckboxAccepted: {
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlue,
+  },
   tosText: {
+    flex: 1,
     fontFamily: paperFonts.displayItalic,
     fontSize: 12.5,
     color: paper.dashboardInk,
-    opacity: 0.65,
+    opacity: 0.78,
     lineHeight: 18,
-    marginTop: paperSpacing.xs,
   },
   tosLink: {
     fontFamily: paperFonts.bodyBold,

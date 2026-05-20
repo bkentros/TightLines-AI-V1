@@ -14,12 +14,11 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.finseekr.finfindr",
-      "buildNumber": "3",
+      "buildNumber": "5",
       "infoPlist": {
         "CFBundleDisplayName": "FinFindr",
         "CFBundleName": "FinFindr",
-        "ITSAppUsesNonExemptEncryption": false,
-        "UIDesignRequiresCompatibility": true
+        "ITSAppUsesNonExemptEncryption": false
       },
       "usesAppleSignIn": true
     },

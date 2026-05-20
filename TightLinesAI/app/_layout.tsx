@@ -94,6 +94,13 @@ const AUTH_ROUTE_SEGMENTS = new Set([
   'reset-password',
 ]);
 
+const PUBLIC_LEGAL_ROUTE_SEGMENTS = new Set([
+  'legal',
+  'privacy',
+  'terms',
+  'safety',
+]);
+
 function pathParts(pathname: string): string[] {
   return pathname.replace(/^\/+/, '').split('/').filter(Boolean);
 }
@@ -114,7 +121,11 @@ function routeContextFlags(pathname: string, segments: string[]) {
     (segments[0] === 'auth' && segments[1] === 'confirm') ||
     (parts.has('auth') && parts.has('confirm')) ||
     pathname.includes('auth/confirm');
-  return { inAuth, inOnboarding, inAuthEmailConfirm };
+  const inPublicLegal =
+    segments[0] === 'legal' ||
+    pathname.startsWith('/legal/') ||
+    [...parts].some((s) => PUBLIC_LEGAL_ROUTE_SEGMENTS.has(s));
+  return { inAuth, inOnboarding, inAuthEmailConfirm, inPublicLegal };
 }
 
 /**
@@ -130,7 +141,7 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
   useEffect(() => {
     if (isLoading) return;
 
-    const { inAuth, inOnboarding, inAuthEmailConfirm } = routeContextFlags(
+    const { inAuth, inOnboarding, inAuthEmailConfirm, inPublicLegal } = routeContextFlags(
       pathname,
       segments as string[],
     );
@@ -141,7 +152,7 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
     // `isProfileLoading` would block this effect forever (spinner on auth/confirm).
     if (inAuthEmailConfirm && session && !passwordRecoveryInFlight) {
       if (!isOnboarded) {
-        router.replace('/(onboarding)/step-1-welcome');
+        router.replace('/(onboarding)/step-2-preferences');
       } else {
         router.replace('/(tabs)');
       }
@@ -159,7 +170,7 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
     if (isProfileLoading) return;
 
     if (!session) {
-      if (!inAuth && !inAuthEmailConfirm) router.replace('/(auth)/welcome');
+      if (!inAuth && !inAuthEmailConfirm && !inPublicLegal) router.replace('/(auth)/welcome');
       return;
     }
 
@@ -167,7 +178,7 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
     if (inResetPassword) return;
 
     if (!isOnboarded) {
-      if (!inOnboarding) router.replace('/(onboarding)/step-1-welcome');
+      if (!inOnboarding) router.replace('/(onboarding)/step-2-preferences');
       return;
     }
 
@@ -436,6 +447,7 @@ export default function RootLayout() {
       >
         <Stack.Screen name="(auth)" options={{ headerShown: false }} />
         <Stack.Screen name="auth" options={{ headerShown: false }} />
+        <Stack.Screen name="legal" options={{ headerShown: false }} />
         <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="water-reader" options={{ headerShown: false }} />

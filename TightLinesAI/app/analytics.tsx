@@ -14,13 +14,14 @@ import {
   RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
   paperSpacing,
 } from '../lib/theme';
+import { SMART_LOG_ENABLED } from '../lib/launchLocks';
 import {
   defaultFishingAnalyticsFilter,
   getFishingAnalytics,
@@ -80,6 +81,14 @@ const ENTRY_OPTIONS: { key: EntryModeFilter; label: string }[] = [
 ];
 
 export default function AnalyticsScreen() {
+  if (!SMART_LOG_ENABLED) {
+    return <Redirect href="/(tabs)" />;
+  }
+
+  return <AnalyticsContent />;
+}
+
+function AnalyticsContent() {
   const router = useRouter();
   const [filter, setFilter] = useState<FishingAnalyticsFilter>(
     defaultFishingAnalyticsFilter(),

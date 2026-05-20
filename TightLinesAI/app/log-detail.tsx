@@ -7,13 +7,14 @@
 
 import { View, Text, StyleSheet, ScrollView, Pressable } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
   paperSpacing,
 } from '../lib/theme';
+import { SMART_LOG_ENABLED } from '../lib/launchLocks';
 import {  PaperNavHeader,} from '../components/paper';
 import { hapticSelection } from '../lib/safeHaptics';
 
@@ -65,6 +66,14 @@ const MOCK_TRIP = {
 };
 
 export default function LogDetailScreen() {
+  if (!SMART_LOG_ENABLED) {
+    return <Redirect href="/(tabs)" />;
+  }
+
+  return <LogDetailContent />;
+}
+
+function LogDetailContent() {
   const router = useRouter();
   const t = MOCK_TRIP;
 

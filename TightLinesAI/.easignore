@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+
+# Expo / native output
+.expo/
+dist/
+web-build/
+expo-env.d.ts
+ios/
+android/
+
+# Local-only secrets and generated credentials
+.env
+.env.local
+.env.*.local
+.eas/
+
+# Local tooling and non-mobile build artifacts
+scripts/
+supabase/
+docs/
+tmp/
+.tools/
+.venv-rembg/
+
+# Editors / OS
+.DS_Store
+**/.DS_Store
+.vscode/
+.idea/
+
+# Logs and TS cache
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+*.tsbuildinfo

@@ -30,6 +30,7 @@ import {
   signInWithEmail,
   signInWithApple,
   reportAppleSignInFailureIfStillSignedOut,
+  getAuthErrorMessage,
 } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
 import {
@@ -123,10 +124,10 @@ export default function SignInScreen() {
           await fetchProfile(data.session.user.id);
         }
       } catch (err: unknown) {
-        await reportAppleSignInFailureIfStillSignedOut(err, () => {
+        await reportAppleSignInFailureIfStillSignedOut(err, (failure) => {
           setNotice({
             title: 'Apple Sign-In failed',
-            message: 'Please try again.',
+            message: __DEV__ ? getAuthErrorMessage(failure) : 'Please try again.',
             tone: 'error',
           });
         });

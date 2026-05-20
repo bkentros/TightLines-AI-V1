@@ -1,5 +1,5 @@
 /**
- * Onboarding Step 2 — quick profile setup.
+ * Onboarding profile setup.
  * Username format validates on-device (instant). Uniqueness is enforced by one
  * `upsert` on Finish — no Supabase round trip while typing.
  */
@@ -71,7 +71,7 @@ const STATE_NAME_TO_ABBR: Record<string, string> = {
 
 export default function OnboardingStep2() {
   const router = useRouter();
-  const { session, user, setProfile, clearOnboardingPrefs } = useAuthStore();
+  const { session, user, setProfile, clearOnboardingPrefs, signOut } = useAuthStore();
 
   const [username, setUsername] = useState('');
   const [homeState, setHomeState] = useState('');
@@ -183,6 +183,24 @@ export default function OnboardingStep2() {
     } finally {
       setLocationLoading(false);
     }
+  };
+
+  const handleBack = () => {
+    Alert.alert(
+      'Leave setup?',
+      "You'll be signed out and can sign in again later.",
+      [
+        { text: 'Stay', style: 'cancel' },
+        {
+          text: 'Sign Out',
+          style: 'destructive',
+          onPress: async () => {
+            await signOut();
+            router.replace('/(auth)/welcome');
+          },
+        },
+      ],
+    );
   };
 
   const handleContinue = async () => {
@@ -316,8 +334,8 @@ export default function OnboardingStep2() {
         <PaperNavHeader
           eyebrow="FINFINDR · ONBOARDING"
           title="YOUR PROFILE"
-          onBack={() => router.back()}
-          right={<StepPill step={2} total={2} />}
+          onBack={handleBack}
+          right={<StepPill step={1} total={1} />}
         />
         <KeyboardAvoidingView
           style={styles.flex}
@@ -339,7 +357,7 @@ export default function OnboardingStep2() {
               <View style={styles.heroRubricRow}>
                 <View style={styles.heroRubricRule} />
                 <Text style={styles.heroRubricText}>
-                  CHAPTER 02 · YOUR PROFILE
+                  PROFILE SETUP · YOUR HOME WATER
                 </Text>
                 <View style={styles.heroRubricRule} />
               </View>
@@ -586,7 +604,7 @@ export default function OnboardingStep2() {
               )}
             </Pressable>
 
-            <Text style={styles.footnote}>— STEP 2 OF 2 —</Text>
+            <Text style={styles.footnote}>— PROFILE SETUP —</Text>
           </ScrollView>
         </KeyboardAvoidingView>
       </View>

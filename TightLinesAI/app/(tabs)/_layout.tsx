@@ -14,10 +14,10 @@ import { Ionicons } from '@expo/vector-icons';
 import { Modal, Pressable, StyleSheet, Text, View } from 'react-native';
 import { useState } from 'react';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { SMART_LOG_ENABLED } from '../../lib/launchLocks';
 import { paper } from '../../lib/theme';
 
 const MONO_BOLD = 'JetBrainsMono_600SemiBold';
-const SMART_LOG_ENABLED = false;
 
 function TabIcon({
   iconName,
@@ -140,6 +140,7 @@ function SmartLogGateProvider({
             },
           }}
           options={{
+            href: SMART_LOG_ENABLED ? undefined : null,
             title: 'Smart Log',
             tabBarIcon: ({ color, focused }) => (
               <TabIcon

@@ -15,13 +15,14 @@ import {
   RefreshControl,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
   paperFonts,
   paperSpacing,
 } from '../lib/theme';
+import { SMART_LOG_ENABLED } from '../lib/launchLocks';
 import {
   MedalBadge,  PaperNavHeader,  type MedalTier,
 } from '../components/paper';
@@ -76,6 +77,14 @@ const PB_DATA: PBRecord[] = [
 ];
 
 export default function PersonalBestsScreen() {
+  if (!SMART_LOG_ENABLED) {
+    return <Redirect href="/(tabs)" />;
+  }
+
+  return <PersonalBestsContent />;
+}
+
+function PersonalBestsContent() {
   const router = useRouter();
   const allSpecies = PB_DATA.map((pb) => pb.species);
   const [selectedSpecies, setSelectedSpecies] = useState<string | null>(null);

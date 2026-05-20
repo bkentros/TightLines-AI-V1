@@ -172,7 +172,16 @@ export function SubscribePrompt({
   onViewPlans,
   onUnlocked,
 }: SubscribePromptProps) {
-  const { loading, purchasing, error, offering, purchase, refresh } = useRevenueCatStore();
+  const {
+    loading,
+    purchasing,
+    presentingPaywall,
+    error,
+    offering,
+    purchase,
+    refresh,
+    presentPaywall,
+  } = useRevenueCatStore();
   const packages = sortedPackages(offering?.availablePackages ?? []);
   const annualPackage = packages.find(isAnnualPackage) ?? packages[0] ?? null;
   const monthlyPackage =
@@ -182,6 +191,33 @@ export function SubscribePrompt({
       ? monthlyEquivalentLabel(annualPackage)
       : null;
   const savings = annualSavingsPercent(annualPackage, monthlyPackage);
+  const attemptedPaywallForOpen = useRef(false);
+  const attemptedRefreshForOpen = useRef(false);
+
+  useEffect(() => {
+    if (!visible) {
+      attemptedPaywallForOpen.current = false;
+      return;
+    }
+    if (attemptedPaywallForOpen.current) return;
+    attemptedPaywallForOpen.current = true;
+
+    void (async () => {
+      const unlocked = await presentPaywall();
+      if (unlocked) {
+        Alert.alert('Angler unlocked', 'You now have full access to FinFindr.');
+        onDismiss();
+        onUnlocked?.();
+        return;
+      }
+
+      const message = useRevenueCatStore.getState().error;
+      if (message) {
+        Alert.alert('Subscriptions unavailable', message);
+      }
+      onDismiss();
+    })();
+  }, [onDismiss, onUnlocked, presentPaywall, visible]);
 
   const handlePurchase = async (pkg: PurchasesPackage | null) => {
     if (!pkg || purchasing) return;
@@ -194,8 +230,13 @@ export function SubscribePrompt({
   };
 
   useEffect(() => {
-    if (!visible) return;
-    if (packages.length > 0 || loading) return;
+    if (!visible) {
+      attemptedRefreshForOpen.current = false;
+      return;
+    }
+    if (packages.length > 0 || loading || attemptedRefreshForOpen.current) return;
+    if (attemptedPaywallForOpen.current) return;
+    attemptedRefreshForOpen.current = true;
     void refresh();
   }, [loading, packages.length, refresh, visible]);
 
@@ -243,6 +284,8 @@ export function SubscribePrompt({
     return () => loop.stop();
   }, [scanHeight, scanY, visible]);
 
+  if (visible) return null;
+
   return (
     <Modal
       visible={visible}
@@ -250,8 +293,11 @@ export function SubscribePrompt({
       animationType="fade"
       onRequestClose={onDismiss}
     >
-      <View style={styles.overlay}>
-        <View style={styles.card}>
+      <Pressable style={styles.overlay} onPress={onDismiss}>
+        <Pressable
+          style={styles.card}
+          onPress={(event) => event.stopPropagation()}
+        >
           {/* ─── Header strip (navy) ────────────────────────────────────── */}
           <View style={styles.headerStrip}>
             <View style={styles.headerLeft}>
@@ -551,7 +597,7 @@ export function SubscribePrompt({
                 ) : (
                   <View style={styles.loadingBox}>
                     <Text style={styles.loadingText}>
-                      PLANS NEED AN IOS DEV BUILD
+                      PLANS AREN'T AVAILABLE YET
                     </Text>
                   </View>
                 )}
@@ -664,8 +710,8 @@ export function SubscribePrompt({
               </View>
             </View>
           </ScrollView>
-        </View>
-      </View>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 }
@@ -876,7 +922,7 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardInk,
     width: '100%',
     maxWidth: 360,
-    maxHeight: '88%',
+    height: '90%',
     overflow: 'hidden',
     shadowColor: '#000',
     shadowOpacity: 0.32,
@@ -968,10 +1014,10 @@ const styles = StyleSheet.create({
 
   // ─── Body ────────────────────────────────────────────────────────────────
   body: {
-    flexGrow: 0,
+    flex: 1,
   },
   bodyContent: {
-    paddingBottom: 0,
+    paddingBottom: 20,
   },
   bodyInner: {
     paddingHorizontal: 18,

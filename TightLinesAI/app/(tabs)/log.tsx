@@ -22,7 +22,7 @@ import {
   type TextStyle,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { useFocusEffect } from '@react-navigation/native';
 import { Ionicons } from '@expo/vector-icons';
 import {
@@ -30,14 +30,13 @@ import {
   paperFonts,
   paperSpacing,
 } from '../../lib/theme';
+import { SMART_LOG_ENABLED } from '../../lib/launchLocks';
 import { useAuthStore } from '../../store/authStore';
 import {
   hapticImpact,
   hapticSelection,
   ImpactFeedbackStyle,
 } from '../../lib/safeHaptics';
-
-const SMART_LOG_ENABLED = false;
 
 /* ─── Mock Data (unchanged from pre-migration version) ─── */
 const LOG_ENTRIES = [
@@ -171,6 +170,14 @@ function CountUpNumber({
 }
 
 export default function LogScreen() {
+  if (!SMART_LOG_ENABLED) {
+    return <Redirect href="/(tabs)" />;
+  }
+
+  return <LogScreenContent />;
+}
+
+function LogScreenContent() {
   const router = useRouter();
   const { signOut } = useAuthStore();
   const [activeTab, setActiveTab] = useState<'log' | 'history'>('log');
@@ -230,35 +237,6 @@ export default function LogScreen() {
               : i.type === 'Water Read',
           ),
   })).filter((g) => g.items.length > 0);
-
-  if (!SMART_LOG_ENABLED) {
-    return (
-      <View style={styles.root}>
-        <SafeAreaView style={styles.safe} edges={['top']}>
-          <View style={[styles.content, styles.lockedContent]}>
-            <View style={styles.lockedIcon}>
-              <Ionicons name="lock-closed" size={24} color={paper.dashboardInk} />
-            </View>
-            <Text style={styles.pageEyebrow}>SMART LOG</Text>
-            <Text style={styles.lockedTitle}>Coming soon.</Text>
-            <Text style={styles.lockedBody}>
-              Smart Log is locked while we finish it up.
-            </Text>
-            <Pressable
-              style={({ pressed }) => [
-                styles.lockedHomeButton,
-                pressed && { opacity: 0.86 },
-              ]}
-              onPress={() => router.replace('/(tabs)')}
-            >
-              <Text style={styles.lockedHomeButtonText}>BACK HOME</Text>
-              <Ionicons name="arrow-forward" size={15} color="#FFFFFF" />
-            </Pressable>
-          </View>
-        </SafeAreaView>
-      </View>
-    );
-  }
 
   return (
     <View style={styles.root}>

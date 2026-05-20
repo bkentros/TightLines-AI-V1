@@ -18,7 +18,7 @@ import {
   Platform,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import Select from '../components/Select';
 import {
@@ -26,6 +26,7 @@ import {
   paperFonts,
   paperSpacing,
 } from '../lib/theme';
+import { SMART_LOG_ENABLED } from '../lib/launchLocks';
 import {
   PaperNavHeader,} from '../components/paper';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../lib/safeHaptics';
@@ -47,6 +48,14 @@ const MOON_OPTIONS = [
 const RELEASE_OPTIONS = ['Released', 'Kept'];
 
 export default function NewEntryScreen() {
+  if (!SMART_LOG_ENABLED) {
+    return <Redirect href="/(tabs)" />;
+  }
+
+  return <NewEntryContent />;
+}
+
+function NewEntryContent() {
   const router = useRouter();
   const [showConditions, setShowConditions] = useState(false);
   const [catchCount, setCatchCount] = useState(1);

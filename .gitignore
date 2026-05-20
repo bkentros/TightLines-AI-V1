@@ -60,6 +60,11 @@ TightLinesAI/scripts/_tackle-gen-full.log
 # Generated local review artifacts
 TightLinesAI/tmp/
 
+# Generated Cloudflare Pages upload bundles
+cloudflare-upload/
+finfindr-cloudflare-upload/
+finfindr-cloudflare-upload.zip
+
 # Generated audit JSONL artifacts can be very large; commit scripts and Markdown
 # summaries instead, then regenerate JSONL locally when needed.
 TightLinesAI/scripts/audit/todays-bite*.jsonl

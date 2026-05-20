@@ -21,9 +21,13 @@ import { useDevTestingStore } from '../../store/devTestingStore';
 import { getValidAccessToken, invokeEdgeFunction, supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
-import type { UserProfile } from '../../lib/types';
+import type { SubscriptionTier, UserProfile } from '../../lib/types';
 import { isAdminEmail } from '../../lib/adminAccess';
 import type { FeedbackTopic } from '../../lib/feedback';
+import {
+  openStoreSubscriptionManagement,
+  storeSubscriptionManagementLabel,
+} from '../../lib/legalLinks';
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -67,6 +71,7 @@ export default function SettingsScreen() {
   const [saving, setSaving] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const [clearingCaches, setClearingCaches] = useState(false);
+  const [tierModeSaving, setTierModeSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [notice, setNotice] = useState<{
@@ -200,12 +205,68 @@ export default function SettingsScreen() {
     });
   };
 
+  const handleOpenStoreSubscriptions = async () => {
+    setNotice(null);
+    try {
+      await openStoreSubscriptionManagement();
+    } catch {
+      setNotice({
+        title: 'Could not open subscriptions',
+        message: 'Open your App Store or Google Play account settings to manage or cancel your subscription.',
+        tone: 'error',
+      });
+    }
+  };
+
+  const handleTestingTierChange = async (tier: SubscriptionTier) => {
+    if (!user || !canSeeTestingTools) return;
+
+    setNotice(null);
+    hapticSelection();
+    setTierModeSaving(true);
+
+    try {
+      const updates = {
+        subscription_tier: tier,
+        updated_at: new Date().toISOString(),
+      };
+
+      const { data, error } = await supabase
+        .from('profiles')
+        .update(updates)
+        .eq('id', user.id)
+        .select()
+        .single();
+
+      if (error) throw error;
+
+      await setOverrideSubscriptionTier(tier);
+      setProfile(data as UserProfile);
+      setNotice({
+        title: `${tier === 'free' ? 'Free' : 'Angler'} mode active`,
+        message:
+          'Testing tier saved to your profile, so report generation and the app are using the same access rules.',
+        tone: 'success',
+      });
+    } catch {
+      setNotice({
+        title: 'Could not update tier mode',
+        message:
+          'The profile tier did not save, so report generation may still use your previous access level. Try again before testing reports.',
+        tone: 'error',
+      });
+    } finally {
+      setTierModeSaving(false);
+    }
+  };
+
   const handleDeleteAccount = async () => {
     if (!confirmDelete) {
       setConfirmDelete(true);
       setNotice({
         title: 'Confirm account deletion',
-        message: 'Tap Delete account again to permanently delete your FinFindr account and sign out.',
+        message:
+          'Tap Delete account again to permanently delete your FinFindr account and sign out. Store subscriptions continue until canceled from your App Store or Google Play account.',
         tone: 'error',
       });
       return;
@@ -380,6 +441,12 @@ export default function SettingsScreen() {
                 onPress={() => router.push('/subscribe')}
                 variant="secondary"
               />
+              <PrimaryAction
+                label={storeSubscriptionManagementLabel()}
+                icon="open-outline"
+                onPress={handleOpenStoreSubscriptions}
+                variant="secondary"
+              />
             </View>
 
             <View style={styles.section}>
@@ -410,6 +477,39 @@ export default function SettingsScreen() {
             </View>
 
             <View style={styles.section}>
+              <Text style={styles.sectionLabel}>LEGAL & SAFETY</Text>
+              <Text style={styles.sectionHint}>
+                Terms, privacy, support, and fishing-condition safety notes for review and launch.
+              </Text>
+              <View style={styles.contactList}>
+                <ContactRow
+                  icon="document-text-outline"
+                  title="Terms of Service"
+                  subtitle="Account, subscription, and usage terms."
+                  onPress={() => router.push('/legal/terms')}
+                />
+                <ContactRow
+                  icon="shield-checkmark-outline"
+                  title="Privacy Policy"
+                  subtitle="Data, permissions, purchases, and deletion."
+                  onPress={() => router.push('/legal/privacy')}
+                />
+                <ContactRow
+                  icon="warning-outline"
+                  title="Safety Notice"
+                  subtitle="Fishing recommendations are informational."
+                  onPress={() => router.push('/legal/safety')}
+                />
+                <ContactRow
+                  icon="chatbubble-ellipses-outline"
+                  title="Support"
+                  subtitle="Contact FinFindr support from the app."
+                  onPress={() => openSupportForm('general')}
+                />
+              </View>
+            </View>
+
+            <View style={styles.section}>
               <Text style={styles.sectionLabel}>DEVICE STORAGE</Text>
               <Text style={styles.sectionHint}>
                 Clears saved Daily Read, forecast, live conditions, and Tackle Box data on this device.
@@ -427,7 +527,7 @@ export default function SettingsScreen() {
               <View style={styles.section}>
                 <Text style={styles.sectionLabel}>TIER MODE</Text>
                 <Text style={styles.sectionHint}>
-                  Switch the app display between Free and Angler for testing tier gating.
+                  Switch the app and report backend between Free and Angler for testing tier gating.
                 </Text>
 
                 <Text style={styles.testingLabel}>Display as</Text>
@@ -438,8 +538,13 @@ export default function SettingsScreen() {
                     return (
                       <Pressable
                         key={String(label)}
-                        style={[styles.presetBtn, active && styles.presetBtnActive]}
-                        onPress={() => setOverrideSubscriptionTier(tier)}
+                        style={[
+                          styles.presetBtn,
+                          active && styles.presetBtnActive,
+                          tierModeSaving && styles.btnDisabled,
+                        ]}
+                        onPress={() => handleTestingTierChange(tier)}
+                        disabled={tierModeSaving}
                       >
                         <Text style={[styles.presetBtnText, active && styles.presetBtnTextActive]}>
                           {label}
@@ -473,8 +578,15 @@ export default function SettingsScreen() {
             <View style={styles.dangerSection}>
               <Text style={styles.dangerTitle}>DELETE ACCOUNT</Text>
               <Text style={styles.dangerCopy}>
-                Permanently removes your FinFindr account. This cannot be undone.
+                Permanently removes your FinFindr account. This cannot be undone. If you have an active
+                auto-renewing subscription, cancel it from your store account before deleting your account.
               </Text>
+              <PrimaryAction
+                label={storeSubscriptionManagementLabel()}
+                icon="open-outline"
+                onPress={handleOpenStoreSubscriptions}
+                variant="secondary"
+              />
               <PrimaryAction
                 label={confirmDelete ? 'Delete account forever' : 'Delete account'}
                 icon="trash-outline"

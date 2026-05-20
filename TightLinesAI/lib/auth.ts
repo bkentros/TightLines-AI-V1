@@ -26,6 +26,23 @@ const APPLE_SIGN_IN_FAILURE_POLL_MS = 100;
 /** First Apple sign-in on device can lag behind `onAuthStateChange` / storage; stay generous. */
 const APPLE_SIGN_IN_FAILURE_MAX_WAIT_MS = 12000;
 
+export function getAuthErrorMessage(err: unknown): string {
+  if (err instanceof Error && err.message) return err.message;
+  if (err && typeof err === 'object') {
+    const maybeMessage = (err as { message?: unknown }).message;
+    if (typeof maybeMessage === 'string' && maybeMessage) return maybeMessage;
+    const maybeErrorDescription = (err as { error_description?: unknown }).error_description;
+    if (typeof maybeErrorDescription === 'string' && maybeErrorDescription) {
+      return maybeErrorDescription;
+    }
+    const maybeCode = (err as { code?: unknown }).code;
+    if (typeof maybeCode === 'string' || typeof maybeCode === 'number') {
+      return `Error code ${maybeCode}`;
+    }
+  }
+  return String(err);
+}
+
 async function hasAnyAuthSession(): Promise<boolean> {
   if (useAuthStore.getState().session != null) return true;
   const { data } = await supabase.auth.getSession();
@@ -58,6 +75,9 @@ export async function reportAppleSignInFailureIfStillSignedOut(
   } catch {
     /* fall through to report */
   }
+  if (__DEV__) {
+    console.warn('[auth] Apple Sign-In did not create a session:', getAuthErrorMessage(err), err);
+  }
   report(err);
 }
 
@@ -89,6 +109,17 @@ export async function signInWithApple(
     token: identityToken,
     nonce,
   });
+  if (__DEV__) {
+    if (error) {
+      console.warn(
+        '[auth] Supabase Apple signInWithIdToken failed:',
+        getAuthErrorMessage(error),
+        error,
+      );
+    } else if (data.session) {
+      console.info('[auth] Supabase Apple session created');
+    }
+  }
   return { data, error };
 }
 
