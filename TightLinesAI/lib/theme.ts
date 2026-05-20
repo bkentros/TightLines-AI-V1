@@ -404,7 +404,7 @@ export interface DashboardBandStyle {
   fg: string;
   /** Uppercased label suitable for legend / pill use, e.g. 'PRIME'. */
   label: PaperScoreBand;
-  /** Editor's verdict word, e.g. 'EXCEPTIONAL', for the post-read headline. */
+  /** Editor's verdict word, e.g. 'PRIME', for the post-read headline. */
   verdict: string;
   /** Slightly darker tone for inline italicized verdict text. */
   verdictColor: string;
@@ -419,7 +419,7 @@ export const dashboardBandColor: Record<PaperScoreBand, DashboardBandStyle> = {
     bg: paper.bandPrime,
     fg: '#0A1B2E',
     label: 'Prime',
-    verdict: 'exceptional',
+    verdict: 'prime',
     verdictColor: '#2A8A4A',
     chipBg: '#E1F1D9',
     chipBorder: 'rgba(61, 168, 95, 0.40)',
@@ -437,7 +437,7 @@ export const dashboardBandColor: Record<PaperScoreBand, DashboardBandStyle> = {
     bg: paper.bandFair,
     fg: '#0A1B2E',
     label: 'Fair',
-    verdict: 'solid',
+    verdict: 'workable',
     verdictColor: '#C99B2D',
     chipBg: '#FAF1CF',
     chipBorder: 'rgba(232, 197, 71, 0.55)',

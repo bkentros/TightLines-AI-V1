@@ -1906,22 +1906,14 @@ function ModuleRow({
 /**
  * Leading copy for the post-report headline. Pairs with the verdict word
  * from `dashboardBandColor` so the line reads naturally for each band:
- *   Prime → "Today looks {exceptional}."
+ *   Prime → "Today looks {prime}."
  *   Good  → "Today looks {strong}."
- *   Fair  → "Today looks {solid}."
- *   Poor  → "Today's a {slow} one."
- *   Tough → "Today's a {tough} one."
+ *   Fair  → "Today looks {workable}."
+ *   Poor  → "Today looks {slow}."
+ *   Tough → "Today looks {tough}."
  */
 function verdictLeading(band: PaperScoreBand): string {
-  switch (band) {
-    case "Prime":
-    case "Good":
-    case "Fair":
-      return "Today looks";
-    case "Poor":
-    case "Tough":
-      return "Today's a";
-  }
+  return "Today looks";
 }
 
 function abbreviateDay(label: string): string {
