@@ -26,8 +26,6 @@ const TOPIC_OPTIONS: { topic: FeedbackTopic; label: string; icon: keyof typeof I
   { topic: 'subscription', label: 'Billing', icon: 'card-outline' },
 ];
 
-const SUPPORT_EMAIL = 'support@finfindr.app';
-
 const VALID_TOPICS: FeedbackTopic[] = [
   'general',
   'bug',
@@ -108,7 +106,7 @@ export default function SupportScreen() {
       setNotice({
         title: 'Sent',
         message: result.email_sent
-          ? `Thanks. Your note was emailed to ${SUPPORT_EMAIL} with your account and app context.`
+          ? 'Thanks. Your note was emailed to FinFindr support with your account and app context.'
           : 'Thanks. Your note is saved with your account and app context. Email delivery will be checked from the support queue.',
         tone: 'success',
       });
@@ -124,8 +122,8 @@ export default function SupportScreen() {
   };
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-      <View style={styles.flex}>
+    <SafeAreaView style={styles.safe} edges={['top']}>
+      <View style={styles.screen}>
         <PaperNavHeader
           eyebrow="FINFINDR · SUPPORT"
           eyebrowColor={paper.dashboardBlueLight}
@@ -264,7 +262,8 @@ function ContextLine({ label, value }: { label: string; value: string }) {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.dashboardCream },
+  safe: { flex: 1, backgroundColor: paper.dashboardInk },
+  screen: { flex: 1, backgroundColor: paper.dashboardCream },
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
