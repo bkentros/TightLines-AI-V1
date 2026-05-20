@@ -16,6 +16,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] **BLOCKER: Complete real iOS dev build RevenueCat sandbox test.** Expo Go cannot test `react-native-purchases` or `react-native-purchases-ui`; use a fresh EAS development build on a physical iPhone after native dependency changes.
 - [x] **Remove `ios.infoPlist.UIDesignRequiresCompatibility`.** Removed from `app.json` on 2026-05-20 so the app uses the default current iOS UI behavior; iPhone-only support is still controlled separately by `supportsTablet: false`.
 - [x] **Resolve Supabase `public.spatial_ref_sys` RLS/security alert.** Warning no longer appears in Supabase dashboard; `supabase db lint --linked --schema public` returned no schema errors on 2026-05-20.
+- [x] **Code-level free vs Angler gates are centralized and enforced.** Commit `65a4bd8` makes new/free users limited, allows tomorrow-only forecast preview, gates future forecast reads, gates recommender generation after step 4, gates Water Read generation after lake selection, and keeps Angler unrestricted.
 - [ ] **HIGH: Confirm reviewer can access every gated feature.** Reviewer credentials are entered in App Store Connect, but gated subscription behavior still needs a fresh dev/TestFlight build and sandbox/RevenueCat validation.
 
 ## Proper Order
@@ -49,6 +50,10 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] RevenueCat store supports iOS key lookup via `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY`.
 - [x] Purchase, restore, customer info refresh, and entitlement sync flows exist.
 - [x] Limited report CTA, subscribe prompts, and membership screen can present RevenueCat template paywalls through `presentPaywallIfNeeded`.
+- [x] New accounts are created as `free` by default. Database default is `subscription_tier = 'free'`, onboarding explicitly upserts `subscription_tier: 'free'`, and missing/unknown tiers resolve to `free` in app gating.
+- [x] Free vs Angler access policy is centralized in `lib/subscription.ts`.
+- [x] Free users can preview tomorrow's forecast score/color, generate only the limited current-day Today's Bite report, complete recommender setup before the paywall, and search/select Water Read lakes before the paywall.
+- [x] Angler users have full access to forecast reports, full Today's Bite, recommender generation, and Water Read generation.
 - [x] Entitlement ID in code is `angler`.
 - [x] Confirm RevenueCat entitlement exactly matches `angler`.
 - [x] Confirm RevenueCat offering is current and has all products attached.
@@ -68,6 +73,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Test cancel from purchase sheet.
 - [ ] Test restore purchase after reinstall/sign out/sign in.
 - [ ] Test entitlement changes update Supabase `profiles.subscription_tier`.
+- [ ] Harden final subscription tier write path before launch: RevenueCat/server-confirmed entitlement should be the trusted way to update `profiles.subscription_tier`; users must not be able to self-spoof Angler from the client.
 - [ ] Test free user gating for Today's Bite, Tackle Box/recommender, and Water Read.
 - [x] Add App Store review notes explaining how to find and test subscription-gated features.
 - [x] Add a reviewer account that either has an active sandbox subscription or can purchase using Apple sandbox. Current reviewer login is entered in App Store Connect; subscription purchase still needs sandbox validation after build upload.
@@ -138,7 +144,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 
 ### 8. App Completeness QA
 
-- [ ] Run TypeScript check: `npm run qa:water-reader-typecheck`.
+- [x] Run TypeScript check. Latest pass was 2026-05-20 after access-gating changes: `npm run qa:water-reader-typecheck`.
 - [ ] Run key Supabase/Deno tests for recommender and water-reader shared modules.
 - [ ] Run app on a physical iPhone from a development build.
 - [ ] Run app on a production-like TestFlight build.
