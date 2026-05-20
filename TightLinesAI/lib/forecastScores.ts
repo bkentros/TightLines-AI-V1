@@ -37,6 +37,10 @@ const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v7",
 ] as const;
 
+function isSignedOutError(err: unknown): boolean {
+  return err instanceof Error && /not signed in/i.test(err.message);
+}
+
 // ---------------------------------------------------------------------------
 // Types
 // ---------------------------------------------------------------------------
@@ -279,7 +283,7 @@ export async function getForecastScores(
     if (!res.ok) {
       if (__DEV__) {
         const text = await res.text().catch(() => "(unreadable)");
-        console.error(`[forecastScores] edge fn returned ${res.status}:`, text);
+        console.warn(`[forecastScores] edge fn returned ${res.status}:`, text);
       }
       return null;
     }
@@ -291,7 +295,7 @@ export async function getForecastScores(
     };
     if (!Array.isArray(json.forecast) || json.forecast.length === 0) {
       if (__DEV__) {
-        console.error(
+        console.warn(
           "[forecastScores] empty or missing forecast array:",
           json,
         );
@@ -322,7 +326,9 @@ export async function getForecastScores(
 
     return data;
   } catch (err) {
-    if (__DEV__) console.error("[forecastScores] fetch error:", err);
+    if (__DEV__ && !isSignedOutError(err)) {
+      console.warn("[forecastScores] fetch error:", err);
+    }
     return null;
   }
 }

@@ -377,7 +377,12 @@ export default function OnboardingStep2() {
                 </View>
               </View>
 
-              <Text style={styles.heroTitle}>
+              <Text
+                style={styles.heroTitle}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.82}
+              >
                 Tune your{' '}
                 <Text style={styles.heroTitleItalic}>first read</Text>
                 <Text style={styles.heroTitleDot}>.</Text>
@@ -621,7 +626,7 @@ function BenefitPill({
 }) {
   return (
     <View style={styles.benefitPill}>
-      <Ionicons name={icon} size={13} color={paper.dashboardBlueLight} />
+      <Ionicons name={icon} size={11} color={paper.dashboardBlueLight} />
       <Text style={styles.benefitPillText}>{label}</Text>
     </View>
   );
@@ -682,8 +687,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 1,
     borderColor: 'rgba(255,255,255,0.16)',
-    padding: paperSpacing.lg,
-    marginBottom: paperSpacing.xl,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
     overflow: 'hidden',
   },
   heroTopo: {
@@ -698,7 +703,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.sm,
     zIndex: 1,
   },
   heroRubricRule: {
@@ -717,8 +722,8 @@ const styles = StyleSheet.create({
   heroTopRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: paperSpacing.md,
-    marginBottom: paperSpacing.md,
+    gap: paperSpacing.sm,
+    marginBottom: paperSpacing.sm,
     zIndex: 1,
   },
   heroEmblem: {
@@ -743,11 +748,11 @@ const styles = StyleSheet.create({
   },
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 36,
+    fontSize: 31,
     color: paper.dashboardCream,
     fontWeight: '700',
-    letterSpacing: -0.3,
-    lineHeight: 40,
+    letterSpacing: 0,
+    lineHeight: 35,
     marginBottom: paperSpacing.xs,
     zIndex: 1,
   },
@@ -763,13 +768,13 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: 'rgba(255,255,255,0.78)',
     lineHeight: 21,
-    marginBottom: paperSpacing.md,
+    marginBottom: paperSpacing.sm,
     zIndex: 1,
   },
   benefitRow: {
     flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: paperSpacing.sm,
+    flexWrap: 'nowrap',
+    gap: 6,
     zIndex: 1,
   },
   benefitPill: {
@@ -780,12 +785,12 @@ const styles = StyleSheet.create({
     borderColor: 'rgba(255,255,255,0.14)',
     borderRadius: 999,
     backgroundColor: 'rgba(255,255,255,0.08)',
-    paddingHorizontal: paperSpacing.sm,
-    paddingVertical: 6,
+    paddingHorizontal: 8,
+    paddingVertical: 5,
   },
   benefitPillText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
+    fontSize: 9.5,
     color: paper.dashboardCream,
     opacity: 0.9,
   },
