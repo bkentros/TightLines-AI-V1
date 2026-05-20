@@ -74,7 +74,7 @@ async function sendEmailNotification(input: {
   contextLines: string[];
 }): Promise<boolean> {
   const apiKey = Deno.env.get("RESEND_API_KEY")?.trim();
-  const to = Deno.env.get("FEEDBACK_EMAIL_TO")?.trim() || "finfindr@hotmail.com";
+  const to = Deno.env.get("FEEDBACK_EMAIL_TO")?.trim() || "support@finfindr.app";
   const from = Deno.env.get("FEEDBACK_EMAIL_FROM")?.trim() || "FinFindr <support@finfindr.app>";
   if (!apiKey) return false;
 

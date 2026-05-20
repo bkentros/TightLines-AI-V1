@@ -26,7 +26,7 @@ const TOPIC_OPTIONS: { topic: FeedbackTopic; label: string; icon: keyof typeof I
   { topic: 'subscription', label: 'Billing', icon: 'card-outline' },
 ];
 
-const SUPPORT_EMAIL = 'finfindr@hotmail.com';
+const SUPPORT_EMAIL = 'support@finfindr.app';
 
 const VALID_TOPICS: FeedbackTopic[] = [
   'general',
