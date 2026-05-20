@@ -55,6 +55,7 @@ import type { EnvironmentData } from "../lib/env/types";
 import { oceanCoastalZoneLabel } from "../lib/coastalProximity";
 import { RebuildReportView } from "../components/fishing/RebuildReportView";
 import { HowFishingLoadingSkeleton } from "../components/fishing/HowFishingLoadingSkeleton";
+import { SubscribePrompt } from "../components/SubscribePrompt";
 import { TopographicLines } from "../components/paper";
 import { getEffectiveTier } from "../lib/subscription";
 import { FeedbackCard } from "../components/FeedbackCard";
@@ -289,6 +290,7 @@ export default function HowFishingScreen() {
   const [analysisError, setAnalysisError] = useState<string | null>(null);
   const [refreshing, setRefreshing] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
+  const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   // Horizontal pager ref + width for swipe-between-contexts. The pager only
   // renders when there are ≥2 available tabs; otherwise we keep the simpler
@@ -474,6 +476,11 @@ export default function HowFishingScreen() {
 
   const generateReports = useCallback(async () => {
     if (!hasCoords) return;
+    if (isFreeTier && isForecastDay) {
+      setShowConfirm(false);
+      setShowSubscribePrompt(true);
+      return;
+    }
     setAnalysisLoading(true);
     setAnalysisError(null);
     setShowConfirm(false);
@@ -615,6 +622,7 @@ export default function HowFishingScreen() {
     setLastReportEnv,
     isForecastDay,
     isLimitedFreeRead,
+    isFreeTier,
     dayOffset,
     targetDate,
     env,
@@ -671,6 +679,7 @@ export default function HowFishingScreen() {
     units,
     isForecastDay,
     isLimitedFreeRead,
+    isFreeTier,
     targetDate,
   ]);
 
@@ -719,6 +728,11 @@ export default function HowFishingScreen() {
             </Pressable>
           </View>
         </View>
+        <SubscribePrompt
+          visible={showSubscribePrompt}
+          onDismiss={() => setShowSubscribePrompt(false)}
+          onUnlocked={() => setShowSubscribePrompt(false)}
+        />
       </View>
     );
   }
@@ -953,6 +967,11 @@ export default function HowFishingScreen() {
               : null}
           </View>
         </View>
+        <SubscribePrompt
+          visible={showSubscribePrompt}
+          onDismiss={() => setShowSubscribePrompt(false)}
+          onUnlocked={() => setShowSubscribePrompt(false)}
+        />
       </View>
     );
   }
@@ -1150,6 +1169,11 @@ export default function HowFishingScreen() {
             </ScrollView>
           )}
       </View>
+      <SubscribePrompt
+        visible={showSubscribePrompt}
+        onDismiss={() => setShowSubscribePrompt(false)}
+        onUnlocked={() => setShowSubscribePrompt(false)}
+      />
     </View>
   );
 }

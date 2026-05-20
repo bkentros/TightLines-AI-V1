@@ -2,8 +2,8 @@
  * Subscription tier and usage cap utilities
  *
  * Used for feature gating and usage cap checks.
- * Tier preview override takes precedence in dev, or when a trusted caller
- * explicitly allows it for an admin/testing account.
+ * Tier preview override only applies when a trusted caller explicitly allows
+ * it for an admin/testing account.
  */
 
 import type { SubscriptionTier } from './types';
@@ -37,6 +37,32 @@ export function getEffectiveTier(
 /** True if user can use AI features (Angler or Master Angler) */
 export function canUseAIFeatures(tier: SubscriptionTier): boolean {
   return tier === 'angler' || tier === 'master_angler';
+}
+
+/**
+ * Free users may see tomorrow's 6-day score/color as a preview, but all
+ * generated planning products remain Angler-only.
+ */
+export const FREE_FORECAST_PREVIEW_DAY_OFFSET = 1;
+
+export function canViewForecastScore(
+  tier: SubscriptionTier,
+  dayOffset: number,
+): boolean {
+  return canUseAIFeatures(tier) ||
+    dayOffset === FREE_FORECAST_PREVIEW_DAY_OFFSET;
+}
+
+export function canGenerateForecastReport(tier: SubscriptionTier): boolean {
+  return canUseAIFeatures(tier);
+}
+
+export function canGenerateRecommenderReport(tier: SubscriptionTier): boolean {
+  return canUseAIFeatures(tier);
+}
+
+export function canGenerateWaterRead(tier: SubscriptionTier): boolean {
+  return canUseAIFeatures(tier);
 }
 
 /** Usage cap in USD for the given tier */

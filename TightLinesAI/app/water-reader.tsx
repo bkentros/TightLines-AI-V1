@@ -50,7 +50,11 @@ import { fetchWaterReaderHistory, fetchWaterReaderRead, searchWaterbodies } from
 import { TopographicLines } from '../components/paper';
 import { useAuthStore } from '../store/authStore';
 import { useDevTestingStore } from '../store/devTestingStore';
-import { canUseAIFeatures, getEffectiveTier } from '../lib/subscription';
+import {
+  canGenerateWaterRead,
+  canUseAIFeatures,
+  getEffectiveTier,
+} from '../lib/subscription';
 import { isAdminEmail } from '../lib/adminAccess';
 import { WaterReaderMapCard } from '../components/water-reader/WaterReaderMapCard';
 import type { WaterReaderMapCardState } from '../components/water-reader/WaterReaderMapCard';
@@ -338,6 +342,7 @@ export default function WaterReaderScreen() {
     user?.email,
   );
   const hasSubscription = canUseAIFeatures(effectiveTier);
+  const canGenerateRead = canGenerateWaterRead(effectiveTier);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   useEffect(() => {
@@ -386,7 +391,7 @@ export default function WaterReaderScreen() {
   }, [stateCode]);
 
   useEffect(() => {
-    if (!selected || !canOpenWaterReaderRead(selected)) {
+    if (!selected || !canOpenWaterReaderRead(selected) || !canGenerateRead) {
       readRequestId.current += 1;
       setReadState({ status: 'idle', read: null, errorMessage: null });
       return;
@@ -432,7 +437,7 @@ export default function WaterReaderScreen() {
     return () => {
       readRequestId.current += 1;
     };
-  }, [selected, readRetryNonce]);
+  }, [canGenerateRead, selected, readRetryNonce]);
 
   useEffect(() => {
     if (!hasSubscription) {
@@ -580,13 +585,9 @@ export default function WaterReaderScreen() {
     historyItems.some((item) => item.status === 'building' && item.lakeId !== selectedReadyLakeId);
 
   const openStatePicker = useCallback(() => {
-    if (!hasSubscription) {
-      setShowSubscribePrompt(true);
-      return;
-    }
     if (hasBuildingRead) return;
     setStateModalOpen(true);
-  }, [hasBuildingRead, hasSubscription]);
+  }, [hasBuildingRead]);
 
   const onSearchQueryChange = useCallback((value: string) => {
     if (hasBuildingRead) return;
@@ -1041,6 +1042,29 @@ export default function WaterReaderScreen() {
             {/* ── Map + legend ── */}
             {!selected ? (
               <WaterReadIdlePreview />
+            ) : !canGenerateRead ? (
+              <View style={styles.waterReadUnlockCard}>
+                <Text style={styles.waterReadUnlockEyebrow}>ANGLER WATER READ</Text>
+                <Text style={styles.waterReadUnlockTitle}>
+                  Generate {selected.name}
+                </Text>
+                <Text style={styles.waterReadUnlockBody}>
+                  Free accounts can search supported lakes. Building the structure map and seasonal legend requires Angler.
+                </Text>
+                <Pressable
+                  style={({ pressed }) => [
+                    styles.readRetryButton,
+                    pressed && styles.readRetryButtonPressed,
+                  ]}
+                  onPress={() => setShowSubscribePrompt(true)}
+                  accessibilityLabel="Generate Water Read"
+                >
+                  <Ionicons name="map-outline" size={14} color="#FFFFFF" />
+                  <Text style={styles.readRetryButtonText}>
+                    GENERATE WATER READ
+                  </Text>
+                </Pressable>
+              </View>
             ) : readState.status === 'recent_building' ? (
               <RecentReadBuildingNotice
                 lakeName={selected.name}
@@ -2431,6 +2455,33 @@ const styles = StyleSheet.create({
     fontSize: 10,
     letterSpacing: 1.4,
     color: '#FFFFFF',
+  },
+  waterReadUnlockCard: {
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    padding: 18,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    gap: 10,
+    alignItems: 'flex-start',
+  },
+  waterReadUnlockEyebrow: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 2.4,
+    color: paper.dashboardBlue,
+  },
+  waterReadUnlockTitle: {
+    fontFamily: SERIF_SEMI,
+    fontSize: 21,
+    lineHeight: 25,
+    color: paper.dashboardInk,
+  },
+  waterReadUnlockBody: {
+    fontFamily: SANS_MEDIUM,
+    fontSize: 13,
+    lineHeight: 18,
+    color: '#555555',
   },
 
   // Guardrails card

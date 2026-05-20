@@ -91,7 +91,10 @@ import type {
   SpeciesGroup,
   WaterClarity,
 } from "../lib/recommenderContracts";
-import { canUseAIFeatures, getEffectiveTier } from "../lib/subscription";
+import {
+  canGenerateRecommenderReport,
+  getEffectiveTier,
+} from "../lib/subscription";
 import {
   DAILY_PICKS_UI_CONTEXTS,
   DAILY_PICKS_UI_SPECIES,
@@ -935,7 +938,7 @@ export default function RecommenderScreen() {
     isAdminEmail(user?.email),
     user?.email,
   );
-  const hasSubscription = canUseAIFeatures(effectiveTier);
+  const canGenerateRecommendation = canGenerateRecommenderReport(effectiveTier);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   useEffect(() => {
@@ -1112,7 +1115,7 @@ export default function RecommenderScreen() {
       viewVariant?: DailyPicksVariant,
     ) => {
       if (!isReady || !species || !context || !clarity) return;
-      if (!hasSubscription) {
+      if (!canGenerateRecommendation) {
         setShowSubscribePrompt(true);
         return;
       }
@@ -1200,7 +1203,7 @@ export default function RecommenderScreen() {
       lon,
       result,
       screenState,
-      hasSubscription,
+      canGenerateRecommendation,
     ],
   );
 
@@ -1395,7 +1398,7 @@ export default function RecommenderScreen() {
           }
           if (!isReady) return;
           hapticImpact(ImpactFeedbackStyle.Medium);
-          if (!hasSubscription) {
+          if (!canGenerateRecommendation) {
             setShowSubscribePrompt(true);
             return;
           }

@@ -1161,20 +1161,6 @@ Deno.serve(async (req: Request) => {
     return rateLimitExceededResponse(rateLimit, corsHeaders());
   }
 
-  const { data: profile } = await supabase
-    .from("profiles")
-    .select("subscription_tier")
-    .eq("id", user.id)
-    .single<{ subscription_tier: string | null }>();
-  const tier = profile?.subscription_tier ?? "free";
-  if (tier === "free") {
-    return jsonError(
-      "Subscribe to use this feature",
-      "subscription_required",
-      403,
-    );
-  }
-
   let body: Record<string, unknown>;
   try {
     body = await req.json();

@@ -60,7 +60,13 @@ import { useAuthStore } from "../../store/authStore";
 import { useDevTestingStore } from "../../store/devTestingStore";
 import { useEnvStore } from "../../store/envStore";
 import { useLocationStore } from "../../store/locationStore";
-import { canUseAIFeatures, getEffectiveTier } from "../../lib/subscription";
+import {
+  canGenerateForecastReport,
+  canUseAIFeatures,
+  canViewForecastScore,
+  FREE_FORECAST_PREVIEW_DAY_OFFSET,
+  getEffectiveTier,
+} from "../../lib/subscription";
 import { isAdminEmail } from "../../lib/adminAccess";
 import {
   getCachedMultiRebuild,
@@ -252,6 +258,7 @@ export default function HomeScreen() {
     user?.email,
   );
   const hasSubscription = canUseAIFeatures(effectiveTier);
+  const canGenerateForecast = canGenerateForecastReport(effectiveTier);
 
   useEffect(() => {
     if (!gpsCoords) {
@@ -630,7 +637,7 @@ export default function HomeScreen() {
   const handleForecastDayPress = useCallback(
     (day: DayForecastScore) => {
       hapticImpact(ImpactFeedbackStyle.Light);
-      if (!hasSubscription) {
+      if (!canGenerateForecast) {
         setShowSubscribePrompt(true);
         return;
       }
@@ -646,7 +653,7 @@ export default function HomeScreen() {
         },
       });
     },
-    [hasSubscription, coords, locationLabel, router],
+    [canGenerateForecast, coords, locationLabel, router],
   );
 
   // ── Derived presentation values ───────────────────────────────────────────
@@ -670,6 +677,11 @@ export default function HomeScreen() {
     );
   const lockedForecastSeedDate = forecastDisplayDays[0]?.date ??
     forecastDays?.find((d) => d.day_offset === 0)?.date ?? "";
+  const freeForecastPreviewDay =
+    forecastDisplayDays.find((d) =>
+      canViewForecastScore(effectiveTier, d.day_offset) &&
+      d.day_offset === FREE_FORECAST_PREVIEW_DAY_OFFSET
+    ) ?? null;
   const lockedForecastPlaceholders = useMemo(
     () =>
       buildLockedForecastPlaceholders(
@@ -683,8 +695,8 @@ export default function HomeScreen() {
     ? forecastDisplayDays.length > 0
       ? forecastDisplayDays
       : Array.from({ length: FORECAST_COLS }).map(() => null)
-    : forecastDisplayDays.length > 0
-    ? [forecastDisplayDays[0]!, ...lockedForecastPlaceholders].slice(
+    : freeForecastPreviewDay
+    ? [freeForecastPreviewDay, ...lockedForecastPlaceholders].slice(
       0,
       FORECAST_COLS,
     )
