@@ -13,6 +13,7 @@ import {
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { paper, paperFonts, paperSpacing } from '../../lib/theme';
@@ -329,7 +330,9 @@ export default function SettingsScreen() {
   if (!profile) {
     return (
       <View style={styles.root}>
-        <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+        <StatusBar style="light" />
+        <SafeAreaView style={styles.safeTop} edges={['top']} />
+        <SafeAreaView style={styles.loadingSafe} edges={['bottom']}>
           <View style={styles.loadingWrap}>
             <ActivityIndicator color={paper.dashboardBlue} />
             <Text style={styles.loadingText}>READING YOUR PROFILE...</Text>
@@ -346,7 +349,19 @@ export default function SettingsScreen() {
 
   return (
     <View style={styles.root}>
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+      <StatusBar style="light" />
+      <SafeAreaView style={styles.safeTop} edges={['top']}>
+        <View style={styles.header}>
+          <View style={styles.headerIcon}>
+            <Ionicons name="settings-outline" size={18} color="#FFFFFF" />
+          </View>
+          <View style={styles.headerCopy}>
+            <Text style={styles.headerEyebrow}>FINFINDR · ACCOUNT</Text>
+            <Text style={styles.headerTitle}>Settings</Text>
+          </View>
+        </View>
+      </SafeAreaView>
+      <SafeAreaView style={styles.safeBody} edges={['bottom']}>
         <KeyboardAvoidingView
           style={styles.kav}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
@@ -356,8 +371,6 @@ export default function SettingsScreen() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.pageEyebrow}>FINFINDR SETTINGS</Text>
-            <Text style={styles.title}>Settings.</Text>
             <Text style={styles.subtitle}>Account basics, membership, support, and device data.</Text>
 
             {notice ? (
@@ -446,7 +459,7 @@ export default function SettingsScreen() {
 
             <View style={styles.section}>
               <View style={styles.sectionLabelRow}>
-                <Text style={styles.sectionLabel}>HOME LOCATION</Text>
+                <Text style={styles.sectionLabel}>HOME WATER PROFILE</Text>
                 <Pressable
                   style={({ pressed }) => [
                     styles.smallAction,
@@ -466,7 +479,9 @@ export default function SettingsScreen() {
                   </Text>
                 </Pressable>
               </View>
-              <Text style={styles.sectionHint}>Used to personalize fishing context.</Text>
+              <Text style={styles.sectionHint}>
+                Saved to your profile for support and account context. The dashboard location picker controls the active report location.
+              </Text>
 
               <View style={styles.locationFields}>
                 <Pressable
@@ -817,9 +832,51 @@ function PrimaryAction({
 }
 
 const styles = StyleSheet.create({
-  root: { flex: 1, backgroundColor: paper.dashboardCream },
-  safe: { flex: 1 },
-  kav: { flex: 1 },
+  root: { flex: 1, backgroundColor: paper.dashboardInk },
+  safeTop: { backgroundColor: paper.dashboardInk },
+  safeBody: { flex: 1, backgroundColor: paper.dashboardCream },
+  loadingSafe: { flex: 1, backgroundColor: paper.dashboardCream },
+  header: {
+    minHeight: 84,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.sm,
+    paddingBottom: paperSpacing.md,
+    backgroundColor: paper.dashboardInk,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(255,255,255,0.08)',
+  },
+  headerIcon: {
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(255,255,255,0.08)',
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.14)',
+  },
+  headerCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  headerEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 2.4,
+    color: paper.bandFair,
+  },
+  headerTitle: {
+    marginTop: 2,
+    fontFamily: paperFonts.display,
+    fontSize: 32,
+    color: '#FFFFFF',
+    fontWeight: '700',
+    letterSpacing: 0,
+  },
+  kav: { flex: 1, backgroundColor: paper.dashboardCream },
   scroll: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.md,
@@ -839,20 +896,6 @@ const styles = StyleSheet.create({
     letterSpacing: 2.2,
     color: paper.dashboardInk,
     opacity: 0.6,
-  },
-  pageEyebrow: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    letterSpacing: 2,
-    color: paper.dashboardBlue,
-    fontWeight: '700',
-  },
-  title: {
-    fontFamily: paperFonts.display,
-    fontSize: 34,
-    color: paper.dashboardInk,
-    fontWeight: '700',
-    letterSpacing: 0,
   },
   subtitle: {
     fontFamily: paperFonts.displayItalic,
