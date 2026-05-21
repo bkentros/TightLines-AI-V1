@@ -524,7 +524,7 @@ export function RebuildReportView({
 
     const message = useRevenueCatStore.getState().error;
     if (message) {
-      Alert.alert("Subscriptions unavailable", message);
+      Alert.alert("Subscriptions temporarily unavailable", message);
     }
   };
 

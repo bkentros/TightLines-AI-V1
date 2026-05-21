@@ -16,11 +16,11 @@ import { hasComplimentaryAnglerAccess } from "../lib/adminAccess";
 
 const ANGLER_ENTITLEMENT_ID = "angler";
 const NATIVE_UNAVAILABLE_MESSAGE =
-  "This installed app does not include the RevenueCat native module yet. Create and install a fresh iOS development build, then reopen FinFindr.";
+  "This installed app does not include the subscription module yet. Create and install a fresh iOS development build, then reopen FinFindr.";
 const PAYWALL_NATIVE_UNAVAILABLE_MESSAGE =
-  "This installed app does not include the RevenueCat Paywalls native module yet. Create and install a fresh iOS development build, then reopen FinFindr.";
+  "This installed app does not include the subscription paywall module yet. Create and install a fresh iOS development build, then reopen FinFindr.";
 const OFFERINGS_UNAVAILABLE_MESSAGE =
-  "RevenueCat is connected, but Apple StoreKit is not returning the FinFindr Angler products yet. Finish any remaining App Store Connect paid-app agreement, tax, banking, and first-subscription submission steps, then test again in a fresh development or TestFlight build.";
+  "Angler plans are not available from the App Store yet. Your free access still works; please try upgrading again later.";
 
 function revenueCatNativeAvailable(): boolean {
   if (Platform.OS === "web") return false;

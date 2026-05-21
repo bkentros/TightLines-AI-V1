@@ -42,7 +42,7 @@ export function SubscribePrompt({
         onUnlocked?.();
       } else {
         const message = useRevenueCatStore.getState().error;
-        if (message) Alert.alert('Subscriptions unavailable', message);
+        if (message) Alert.alert('Subscriptions temporarily unavailable', message);
       }
       onDismiss();
     })();

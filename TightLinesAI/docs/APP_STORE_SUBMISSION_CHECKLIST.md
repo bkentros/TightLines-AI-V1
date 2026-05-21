@@ -11,13 +11,13 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] **Publish Privacy Policy, Terms of Service, and Support URL.** Public web URLs are live at `https://finfindr.app/privacy`, `https://finfindr.app/terms`, and `https://finfindr.app/support`.
 - [ ] **BLOCKER: Final owner/legal review of Terms and Privacy copy.** Current in-app copy is an app-specific launch draft. Review entity name, retention/deletion promises, third-party providers, subscription terms, jurisdiction, refunds, IP ownership, and liability language before submission.
 - [ ] **BLOCKER: Finish LLC/EIN and Apple paid-app business setup.** Florida LLC filing has been submitted and paid. Wait for approval, apply for the IRS EIN, then complete Apple/App Store Connect tax, banking, and paid-app agreement setup under the correct seller identity.
-- [ ] **BLOCKER: Fix App Store Connect subscription product availability.** Current dev-build logs show RevenueCat requesting `finfindr_angler_monthly` and `finfindr_angler_annual`, but StoreKit returns zero products. Products are configured and RevenueCat is attached; finish Apple business setup, attach the first subscriptions to the app version, allow propagation, then retry sandbox/TestFlight.
+- [ ] **BLOCKER: Fix App Store Connect subscription product availability.** Fresh iOS dev-build logs on 2026-05-21 still show RevenueCat offering fetch failing with `None of the products registered in the RevenueCat dashboard could be fetched from App Store Connect`. Products are configured and RevenueCat is attached; finish Apple business setup, attach the first subscriptions to the app version, allow propagation, then retry sandbox/TestFlight.
 - [x] **Make subscription/paywall metadata review-ready in RevenueCat.** RevenueCat template paywall is published and attached to the `default` offering with Terms/Privacy URLs.
-- [ ] **BLOCKER: Complete real iOS dev build RevenueCat sandbox test.** Expo Go cannot test `react-native-purchases` or `react-native-purchases-ui`; use a fresh EAS development build on a physical iPhone after native dependency changes.
+- [ ] **BLOCKER: Complete real iOS dev build RevenueCat sandbox test.** Fresh EAS development build was installed and RevenueCat native logging works on 2026-05-21, but sandbox purchase cannot pass while StoreKit/App Store Connect returns empty offerings.
 - [x] **Remove `ios.infoPlist.UIDesignRequiresCompatibility`.** Removed from `app.json` on 2026-05-20 so the app uses the default current iOS UI behavior; iPhone-only support is still controlled separately by `supportsTablet: false`.
 - [x] **Resolve Supabase `public.spatial_ref_sys` RLS/security alert.** Warning no longer appears in Supabase dashboard; `supabase db lint --linked --schema public` returned no schema errors on 2026-05-20.
 - [x] **Code-level free vs Angler gates are centralized and enforced.** Commit `65a4bd8` makes new/free users limited, allows tomorrow-only forecast preview, gates future forecast reads, gates recommender generation after step 4, gates Water Read generation after lake selection, and keeps Angler unrestricted.
-- [ ] **HIGH: Confirm reviewer can access every gated feature.** Reviewer credentials are entered in App Store Connect, but gated subscription behavior still needs a fresh dev/TestFlight build and sandbox/RevenueCat validation.
+- [x] **Confirm reviewer can access every gated feature.** `finfindr@hotmail.com` is configured as complimentary Angler access and successfully reached Angler-gated features in the fresh iOS dev build on 2026-05-21. This validates reviewer feature access, not the App Store purchase path.
 - [ ] **HIGH: Use EAS Cloud or update local Xcode before native iOS builds.** `expo-doctor` now passes dependency checks, but the selected local Xcode is 15.2 and Expo SDK 55 expects Xcode 26 or newer.
 
 ## Proper Order
@@ -64,7 +64,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Confirm product IDs in App Store Connect match RevenueCat products exactly.
 - [x] Add subscription group, reference names, localized display names, descriptions, prices, availability, and review screenshots.
 - [x] Confirm both App Store Connect subscriptions no longer show `Missing Metadata`.
-- [ ] Confirm RevenueCat no longer reports empty offerings in a fresh dev/TestFlight build.
+- [ ] Confirm RevenueCat no longer reports empty offerings in a fresh dev/TestFlight build. Still failing with empty offerings in the fresh iOS dev build on 2026-05-21.
 - [ ] Complete Apple Paid Apps Agreement, banking, and tax forms after the LLC/EIN path is ready.
 - [ ] Confirm App Store Connect business agreements show active/accepted, not pending.
 - [ ] Ensure each first-time subscription/IAP is selected with the app version submission.
@@ -75,7 +75,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Test restore purchase after reinstall/sign out/sign in.
 - [ ] Test entitlement changes update Supabase `profiles.subscription_tier`.
 - [ ] Harden final subscription tier write path before launch: RevenueCat/server-confirmed entitlement should be the trusted way to update `profiles.subscription_tier`; users must not be able to self-spoof Angler from the client.
-- [ ] Test free user gating for Today's Bite, Tackle Box/recommender, and Water Read.
+- [x] Test free user gating for Today's Bite, Tackle Box/recommender, and Water Read. Verified in the fresh iOS dev build on 2026-05-21; gated CTAs route into the subscription flow and currently show the unavailable fallback while App Store products are not returned.
 - [x] Add App Store review notes explaining how to find and test subscription-gated features.
 - [x] Add a reviewer account that either has an active sandbox subscription or can purchase using Apple sandbox. Current reviewer login is entered in App Store Connect; subscription purchase still needs sandbox validation after build upload.
 - [x] Add Terms and Privacy links to subscription screen.
@@ -152,7 +152,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Run app on a physical iPhone from a development build.
 - [ ] Run app on a production-like TestFlight build.
 - [ ] Test cold install, sign-up, email verification, onboarding, sign-in, sign-out.
-- [ ] Test Sign in with Apple first-time and returning-user flows.
+- [x] Test Sign in with Apple first-time flow. Fresh iOS dev build logs showed Supabase Apple session creation on 2026-05-21. Returning-user flow still needs one more explicit retest after sign-out/reinstall.
 - [ ] Test password reset from email link.
 - [ ] Test every tab and every major screen without a subscription.
 - [ ] Test every major screen with an active Angler subscription.

@@ -67,10 +67,10 @@ export default function SubscribeScreen() {
     hapticImpact(ImpactFeedbackStyle.Light);
     const unlocked = await restore();
     Alert.alert(
-      unlocked ? 'Purchases restored' : 'No active Angler subscription found',
+      unlocked ? 'Angler access active' : 'No App Store subscription found',
       unlocked
         ? 'Your FinFindr Angler access is active.'
-        : 'We could not find an active subscription for this App Store account.',
+        : 'Restore Purchases only reconnects an Angler subscription already purchased with this Apple ID.',
     );
   };
 
@@ -188,8 +188,9 @@ export default function SubscribeScreen() {
           <View style={styles.managementCard}>
             <Text style={styles.managementTitle}>Subscription management</Text>
             <Text style={styles.managementCopy}>
-              Purchases and cancellations are handled by the App Store. Use Restore
-              Purchases after reinstalling or signing in on a new device.
+              Purchases and cancellations are handled by the App Store. Restore
+              Purchases reconnects a prior App Store subscription after reinstalling
+              or signing in on a new device.
             </Text>
             <Pressable
               style={({ pressed }) => [
