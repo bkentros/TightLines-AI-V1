@@ -376,9 +376,9 @@ function NewEntryContent() {
 }
 
 const styles = StyleSheet.create({
-  safe: { flex: 1, backgroundColor: paper.dashboardCream },
-  flex: { flex: 1 },
-  scroll: { flex: 1 },
+  safe: { flex: 1, backgroundColor: paper.dashboardInk },
+  flex: { flex: 1, backgroundColor: paper.dashboardCream },
+  scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   content: {
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.sm,
