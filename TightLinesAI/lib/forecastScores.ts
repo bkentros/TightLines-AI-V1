@@ -205,23 +205,34 @@ export function meanDayScore(
 }
 
 /**
+ * Converts a raw 0–100 score to the rounded out-of-10 value the UI displays.
+ * Band/color decisions for displayed forecast means should use this value too,
+ * so a visible 5.0/10 reads as Fair instead of Poor.
+ */
+export function roundedScore10FromRaw(raw: number): number {
+  if (!Number.isFinite(raw)) return 5;
+  return Math.round(raw) / 10;
+}
+
+/**
  * Converts a raw 0–100 score to an out-of-10 display string ("7.2" or "7").
  */
 export function formatScoreDisplay(raw: number): string {
-  const v = Math.round(raw) / 10;
-  return Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
+  const score10 = roundedScore10FromRaw(raw);
+  return Number.isInteger(score10) ? score10.toFixed(0) : score10.toFixed(1);
 }
 
 /**
  * Returns a color for the given 0–100 score.
- * Aligned with bandFromScore (5-band field-edition palette):
- *   Prime ≥80, Good ≥65, Fair ≥50, Poor ≥35, Tough <35.
+ * Uses the rounded out-of-10 value shown in the UI so visible boundary scores
+ * like 5.0/10, 6.5/10, and 8.0/10 match their color.
  */
 export function scoreColor(raw: number): string {
-  if (raw >= 80) return "#3DA85F"; // Prime
-  if (raw >= 65) return "#7CC36A"; // Good
-  if (raw >= 50) return "#E8C547"; // Fair
-  if (raw >= 35) return "#E89647"; // Poor
+  const score10 = roundedScore10FromRaw(raw);
+  if (score10 >= 8) return "#3DA85F"; // Prime
+  if (score10 >= 6.5) return "#7CC36A"; // Good
+  if (score10 >= 5) return "#E8C547"; // Fair
+  if (score10 >= 3.5) return "#E89647"; // Poor
   return "#D94B3A"; // Tough
 }
 

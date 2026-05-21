@@ -1,6 +1,6 @@
 # FinFindr App Store Submission Checklist
 
-Last updated: 2026-05-20
+Last updated: 2026-05-21
 
 This is the living launch checklist for getting FinFindr through Apple review with the best chance of a fast approval. Check items off only when verified on the actual production or review build, not just assumed from code.
 
@@ -18,6 +18,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] **Resolve Supabase `public.spatial_ref_sys` RLS/security alert.** Warning no longer appears in Supabase dashboard; `supabase db lint --linked --schema public` returned no schema errors on 2026-05-20.
 - [x] **Code-level free vs Angler gates are centralized and enforced.** Commit `65a4bd8` makes new/free users limited, allows tomorrow-only forecast preview, gates future forecast reads, gates recommender generation after step 4, gates Water Read generation after lake selection, and keeps Angler unrestricted.
 - [ ] **HIGH: Confirm reviewer can access every gated feature.** Reviewer credentials are entered in App Store Connect, but gated subscription behavior still needs a fresh dev/TestFlight build and sandbox/RevenueCat validation.
+- [ ] **HIGH: Use EAS Cloud or update local Xcode before native iOS builds.** `expo-doctor` now passes dependency checks, but the selected local Xcode is 15.2 and Expo SDK 55 expects Xcode 26 or newer.
 
 ## Proper Order
 
@@ -145,6 +146,8 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 ### 8. App Completeness QA
 
 - [x] Run TypeScript check. Latest pass was 2026-05-20 after access-gating changes: `npm run qa:water-reader-typecheck`.
+- [x] Fix Expo SDK package version drift. `npx expo install --check` passed on 2026-05-21 after updating SDK 55 patch-level package versions.
+- [ ] Local native iOS build toolchain: selected Xcode is 15.2; install/select Xcode 26+ before relying on local iOS native builds. EAS Cloud build remains the recommended path for the dev client.
 - [ ] Run key Supabase/Deno tests for recommender and water-reader shared modules.
 - [ ] Run app on a physical iPhone from a development build.
 - [ ] Run app on a production-like TestFlight build.
@@ -195,6 +198,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 ### 10. Build, Upload, And Submit
 
 - [ ] Build dev client: `eas build --profile development --platform ios`.
+- [x] Confirm EAS production and development env vars are present for iOS builds: `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`, `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY`, and `EXPO_PUBLIC_AUTH_EMAIL_REDIRECT` verified on 2026-05-21.
 - [ ] Install dev build on physical iPhone.
 - [ ] Start Metro with env vars loaded and test RevenueCat sandbox.
 - [ ] Build production: `eas build --profile production --platform ios`.

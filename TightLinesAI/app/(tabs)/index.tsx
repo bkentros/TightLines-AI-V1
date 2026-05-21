@@ -80,6 +80,7 @@ import {
   invalidateForecastCache,
   meanDayScore,
   nextMidnightInTimeZoneMs,
+  roundedScore10FromRaw,
 } from "../../lib/forecastScores";
 import { recordRecentLocation } from "../../lib/recentLocations";
 
@@ -664,7 +665,10 @@ export default function HomeScreen() {
     ? formatScoreDisplay(cachedMeanRaw)
     : cachedScore;
   const hasReport = cachedMeanRaw != null;
-  const heroBand = hasReport ? paperBandForScore(cachedMeanRaw! / 10) : null;
+  const heroScore10 = cachedMeanRaw != null
+    ? roundedScore10FromRaw(cachedMeanRaw)
+    : null;
+  const heroBand = heroScore10 != null ? paperBandForScore(heroScore10) : null;
   const heroBandStyle = heroBand ? dashboardBandColor[heroBand] : null;
 
   const forecastDisplayDays =
@@ -1381,7 +1385,7 @@ export default function HomeScreen() {
                 }
                 const realDay = day as DayForecastScore;
                 const raw = combinedOutlookScore(realDay);
-                const score10 = raw / 10;
+                const score10 = roundedScore10FromRaw(raw);
                 const tileBg = scoreAccentColor(score10);
                 const isFreePreview = !hasSubscription;
                 const isFirst = i === 0;
