@@ -236,6 +236,7 @@ export default function HowFishingScreen() {
     : null;
 
   const { profile, user } = useAuthStore();
+  const reportCacheOwnerKey = user?.id ?? user?.email ?? null;
   const effectiveTier = getEffectiveTier(
     profile,
     user?.email,
@@ -433,6 +434,7 @@ export default function HowFishingScreen() {
           lon,
           targetDate,
           availableContexts,
+          reportCacheOwnerKey,
         );
         if (cancelled) return;
         if (cached) {
@@ -444,13 +446,18 @@ export default function HowFishingScreen() {
         }
         return;
       }
-      const cached = await getCachedMultiRebuild(lat, lon, availableContexts);
+      const cached = await getCachedMultiRebuild(
+        lat,
+        lon,
+        availableContexts,
+        reportCacheOwnerKey,
+      );
       if (cancelled) return;
       if (cached) {
         const tab = firstContextWithReport(cached, availableContexts);
         if (tab) setActiveTab(tab);
         setMultiBundles(cached);
-        setCurrentMultiRebuild(lat, lon, cached);
+        setCurrentMultiRebuild(lat, lon, cached, reportCacheOwnerKey);
       } else {
         setShowConfirm(true);
       }
@@ -588,12 +595,18 @@ export default function HowFishingScreen() {
         );
       }
       if (isForecastDay && targetDate) {
-        await setCachedForecastRebuild(lat, lon, targetDate, multi);
+        await setCachedForecastRebuild(
+          lat,
+          lon,
+          targetDate,
+          multi,
+          reportCacheOwnerKey,
+        );
       } else if (!isLimitedFreeRead) {
-        await setCachedMultiRebuild(lat, lon, multi);
+        await setCachedMultiRebuild(lat, lon, multi, reportCacheOwnerKey);
       }
       if (!isForecastDay) {
-        setCurrentMultiRebuild(lat, lon, bundles);
+        setCurrentMultiRebuild(lat, lon, bundles, reportCacheOwnerKey);
       }
       setLastReportEnv((envForReport as EnvironmentData) ?? env);
       setActiveTab(tabWithReport);
@@ -622,6 +635,7 @@ export default function HowFishingScreen() {
     dayOffset,
     targetDate,
     env,
+    reportCacheOwnerKey,
   ]);
 
   // Pull-to-refresh / header Refresh: reload cached report if still valid; regenerate only on miss/expiry.
@@ -642,9 +656,15 @@ export default function HowFishingScreen() {
           lon,
           targetDate,
           availableContexts,
+          reportCacheOwnerKey,
         );
       } else {
-        cached = await getCachedMultiRebuild(lat, lon, availableContexts);
+        cached = await getCachedMultiRebuild(
+          lat,
+          lon,
+          availableContexts,
+          reportCacheOwnerKey,
+        );
       }
 
       if (cached) {
@@ -652,7 +672,7 @@ export default function HowFishingScreen() {
         if (tab) setActiveTab(tab);
         setMultiBundles(cached);
         if (!isForecastDay) {
-          setCurrentMultiRebuild(lat, lon, cached);
+          setCurrentMultiRebuild(lat, lon, cached, reportCacheOwnerKey);
         }
         try {
           const refreshed = await getEnvironment({
@@ -681,6 +701,7 @@ export default function HowFishingScreen() {
     isLimitedFreeRead,
     isFreeTier,
     targetDate,
+    reportCacheOwnerKey,
   ]);
 
   const activeBundle = multiBundles?.[activeTab] ?? null;

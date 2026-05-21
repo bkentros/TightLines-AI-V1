@@ -172,6 +172,7 @@ const SANS_BOLD = "Inter_700Bold";
 export default function HomeScreen() {
   const router = useRouter();
   const { profile, user } = useAuthStore();
+  const reportCacheOwnerKey = user?.id ?? user?.email ?? null;
   const {
     ignoreGps,
     load: loadDevTesting,
@@ -368,12 +369,12 @@ export default function HomeScreen() {
       return;
     }
     const contexts = howFishingMultiContexts(locationCoastalEligible);
-    const inMemory = getCurrentMultiRebuild(lat, lon);
+    const inMemory = getCurrentMultiRebuild(lat, lon, reportCacheOwnerKey);
     const hasAllInMemory = inMemory != null &&
       contexts.every((ctx) => inMemory[ctx] != null);
     const source = hasAllInMemory
       ? inMemory!
-      : await getCachedMultiRebuild(lat, lon, contexts);
+      : await getCachedMultiRebuild(lat, lon, contexts, reportCacheOwnerKey);
     if (req !== cacheMeanRequestSeq.current) return;
     if (!source) {
       setCachedMeanRaw(null);
@@ -386,7 +387,7 @@ export default function HomeScreen() {
     const display = Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
     setCachedMeanRaw(meanRaw);
     setCachedScore(display);
-  }, [coords?.lat, coords?.lon, locationCoastalEligible]);
+  }, [coords?.lat, coords?.lon, locationCoastalEligible, reportCacheOwnerKey]);
 
   useEffect(() => {
     void loadCachedReportMean();
@@ -475,7 +476,11 @@ export default function HomeScreen() {
       void loadForecastScores();
       if (coords) {
         const contexts = howFishingMultiContexts(locationCoastalEligible);
-        const inMemory = getCurrentMultiRebuild(coords.lat, coords.lon);
+        const inMemory = getCurrentMultiRebuild(
+          coords.lat,
+          coords.lon,
+          reportCacheOwnerKey,
+        );
         if (inMemory && contexts.every((ctx) => inMemory[ctx] != null)) {
           const meanRaw = contexts.reduce((sum, ctx) =>
             sum + inMemory[ctx]!.report.score, 0) / contexts.length;
@@ -489,6 +494,7 @@ export default function HomeScreen() {
       coords?.lat,
       coords?.lon,
       locationCoastalEligible,
+      reportCacheOwnerKey,
     ]),
   );
 

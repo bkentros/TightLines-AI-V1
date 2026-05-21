@@ -29,13 +29,24 @@ export type {
 export { HOWS_FISHING_REBUILD_FEATURE, howFishingMultiContexts } from './howFishingRebuildContracts';
 
 const COORD_MATCH_THRESHOLD = 0.01;
+const ANON_CACHE_OWNER = 'anon';
 
 function coordsMatch(a: number, b: number, c: number, d: number): boolean {
   return Math.abs(a - c) < COORD_MATCH_THRESHOLD && Math.abs(b - d) < COORD_MATCH_THRESHOLD;
 }
 
-function rebuildCacheKey(lat: number, lon: number, ctx: EngineContextKey): string {
-  return `how_fishing_rebuild_v2_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`;
+function ownerSegment(ownerKey?: string | null): string {
+  const raw = ownerKey && ownerKey.trim().length > 0 ? ownerKey.trim() : ANON_CACHE_OWNER;
+  return encodeURIComponent(raw);
+}
+
+function rebuildCacheKey(
+  lat: number,
+  lon: number,
+  ctx: EngineContextKey,
+  ownerKey?: string | null,
+): string {
+  return `how_fishing_rebuild_v3_${ownerSegment(ownerKey)}_${lat.toFixed(3)}_${lon.toFixed(3)}_${ctx}`;
 }
 
 function forecastCacheKey(
@@ -43,8 +54,9 @@ function forecastCacheKey(
   lon: number,
   targetDate: string,
   ctx: EngineContextKey,
+  ownerKey?: string | null,
 ): string {
-  return `how_fishing_forecast_v2_${lat.toFixed(3)}_${lon.toFixed(3)}_${targetDate}_${ctx}`;
+  return `how_fishing_forecast_v3_${ownerSegment(ownerKey)}_${lat.toFixed(3)}_${lon.toFixed(3)}_${targetDate}_${ctx}`;
 }
 
 interface RebuildCacheEntry {
@@ -67,9 +79,10 @@ async function getCachedHowFishingRebuild(
   latitude: number,
   longitude: number,
   engineContext: EngineContextKey,
+  ownerKey?: string | null,
 ): Promise<HowFishingRebuildBundle | null> {
   try {
-    const key = rebuildCacheKey(latitude, longitude, engineContext);
+    const key = rebuildCacheKey(latitude, longitude, engineContext, ownerKey);
     const raw = await AsyncStorage.getItem(key);
     if (!raw) return null;
     const entry = JSON.parse(raw) as RebuildCacheEntry;
@@ -87,9 +100,10 @@ async function setCachedHowFishingRebuild(
   latitude: number,
   longitude: number,
   bundle: HowFishingRebuildBundle,
+  ownerKey?: string | null,
 ): Promise<void> {
   try {
-    const key = rebuildCacheKey(latitude, longitude, bundle.engine_context);
+    const key = rebuildCacheKey(latitude, longitude, bundle.engine_context, ownerKey);
     const entry: RebuildCacheEntry = {
       lat: latitude,
       lon: longitude,
@@ -108,11 +122,12 @@ export async function getCachedForecastRebuild(
   longitude: number,
   targetDate: string,
   contexts: EngineContextKey[],
+  ownerKey?: string | null,
 ): Promise<Record<EngineContextKey, HowFishingRebuildBundle> | null> {
   const results: Partial<Record<EngineContextKey, HowFishingRebuildBundle>> = {};
   for (const ctx of contexts) {
     try {
-      const key = forecastCacheKey(latitude, longitude, targetDate, ctx);
+      const key = forecastCacheKey(latitude, longitude, targetDate, ctx, ownerKey);
       const raw = await AsyncStorage.getItem(key);
       if (!raw) return null;
       const entry = JSON.parse(raw) as ForecastCacheEntry;
@@ -132,11 +147,12 @@ export async function setCachedForecastRebuild(
   longitude: number,
   targetDate: string,
   multi: HowFishingRebuildMultiBundle,
+  ownerKey?: string | null,
 ): Promise<void> {
   for (const ctx of multi.contexts) {
     const bundle = (multi.reports as Partial<Record<EngineContextKey, HowFishingRebuildBundle>>)[ctx];
     if (!bundle) continue;
-    const key = forecastCacheKey(latitude, longitude, targetDate, ctx);
+    const key = forecastCacheKey(latitude, longitude, targetDate, ctx, ownerKey);
     const entry: ForecastCacheEntry = {
       lat: latitude,
       lon: longitude,
@@ -156,10 +172,11 @@ export async function getCachedMultiRebuild(
   latitude: number,
   longitude: number,
   contexts: EngineContextKey[],
+  ownerKey?: string | null,
 ): Promise<Record<EngineContextKey, HowFishingRebuildBundle> | null> {
   const results: Partial<Record<EngineContextKey, HowFishingRebuildBundle>> = {};
   for (const ctx of contexts) {
-    const cached = await getCachedHowFishingRebuild(latitude, longitude, ctx);
+    const cached = await getCachedHowFishingRebuild(latitude, longitude, ctx, ownerKey);
     if (!cached) return null;
     results[ctx] = cached;
   }
@@ -170,16 +187,18 @@ export async function setCachedMultiRebuild(
   latitude: number,
   longitude: number,
   multi: HowFishingRebuildMultiBundle,
+  ownerKey?: string | null,
 ): Promise<void> {
   for (const ctx of multi.contexts) {
     const bundle = multi.reports[ctx];
     if (bundle) {
-      await setCachedHowFishingRebuild(latitude, longitude, bundle);
+      await setCachedHowFishingRebuild(latitude, longitude, bundle, ownerKey);
     }
   }
 }
 
 let currentMultiRebuildEntry: {
+  ownerKey: string;
   lat: number;
   lon: number;
   bundles: Record<EngineContextKey, HowFishingRebuildBundle>;
@@ -189,15 +208,25 @@ export function setCurrentMultiRebuild(
   latitude: number,
   longitude: number,
   bundles: Record<EngineContextKey, HowFishingRebuildBundle>,
+  ownerKey?: string | null,
 ): void {
-  currentMultiRebuildEntry = { lat: latitude, lon: longitude, bundles };
+  currentMultiRebuildEntry = {
+    ownerKey: ownerSegment(ownerKey),
+    lat: latitude,
+    lon: longitude,
+    bundles,
+  };
 }
 
 export function getCurrentMultiRebuild(
   latitude?: number,
   longitude?: number,
+  ownerKey?: string | null,
 ): Record<EngineContextKey, HowFishingRebuildBundle> | null {
   if (!currentMultiRebuildEntry) return null;
+  if (currentMultiRebuildEntry.ownerKey !== ownerSegment(ownerKey)) {
+    return null;
+  }
   if (
     typeof latitude === 'number' &&
     typeof longitude === 'number' &&
