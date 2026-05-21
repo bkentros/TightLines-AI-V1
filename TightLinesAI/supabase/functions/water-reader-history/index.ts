@@ -1,5 +1,6 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
+import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 import {
   checkUserRateLimit,
   rateLimitExceededResponse,
@@ -255,7 +256,10 @@ Deno.serve(async (req: Request) => {
     .select("subscription_tier")
     .eq("id", user.id)
     .single<{ subscription_tier: string | null }>();
-  const tier = profile?.subscription_tier ?? "free";
+  const tier = resolveServerSubscriptionTier(
+    profile?.subscription_tier,
+    user.email,
+  );
   if (tier === "free") {
     return jsonError("Subscribe to use this feature", "subscription_required", 403);
   }

@@ -25,11 +25,11 @@ export function getEffectiveTier(
   allowOverride = false,
   userEmail?: string | null
 ): SubscriptionTier {
-  if (allowOverride && devOverride != null) {
-    return devOverride;
-  }
   if (hasComplimentaryAnglerAccess(userEmail)) {
     return 'angler';
+  }
+  if (allowOverride && devOverride != null) {
+    return devOverride;
   }
   return profile?.subscription_tier ?? 'free';
 }

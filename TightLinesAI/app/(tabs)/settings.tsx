@@ -21,7 +21,7 @@ import { useDevTestingStore } from '../../store/devTestingStore';
 import { getValidAccessToken, invokeEdgeFunction, supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
-import type { SubscriptionTier, UserProfile } from '../../lib/types';
+import type { UserProfile } from '../../lib/types';
 import { isAdminEmail } from '../../lib/adminAccess';
 import { getEffectiveTier } from '../../lib/subscription';
 import type { FeedbackTopic } from '../../lib/feedback';
@@ -63,7 +63,6 @@ export default function SettingsScreen() {
     overrideSubscriptionTier,
     load: loadDevTesting,
     setIgnoreGps,
-    setOverrideSubscriptionTier,
   } = useDevTestingStore();
 
   const [homeState, setHomeState] = useState('');
@@ -75,7 +74,6 @@ export default function SettingsScreen() {
   const [usernameSaving, setUsernameSaving] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
   const [clearingCaches, setClearingCaches] = useState(false);
-  const [tierModeSaving, setTierModeSaving] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
   const [notice, setNotice] = useState<{
@@ -298,33 +296,6 @@ export default function SettingsScreen() {
     }
   };
 
-  const handleTestingTierChange = async (tier: SubscriptionTier) => {
-    if (!user || !canSeeTestingTools) return;
-
-    setNotice(null);
-    hapticSelection();
-    setTierModeSaving(true);
-
-    try {
-      await setOverrideSubscriptionTier(tier);
-      setNotice({
-        title: `${tier === 'free' ? 'Free' : 'Angler'} mode active`,
-        message:
-          'Testing mode is local to this device. Your real account tier was not changed.',
-        tone: 'success',
-      });
-    } catch {
-      setNotice({
-        title: 'Could not update tier mode',
-        message:
-          'Testing mode did not save on this device. Try again before testing reports.',
-        tone: 'error',
-      });
-    } finally {
-      setTierModeSaving(false);
-    }
-  };
-
   const handleDeleteAccount = async () => {
     if (!confirmDelete) {
       setConfirmDelete(true);
@@ -465,11 +436,7 @@ export default function SettingsScreen() {
                   icon="card-outline"
                   title="Membership"
                   value={effectiveTier.replace('_', ' ')}
-                  detail={
-                    canSeeTestingTools && overrideSubscriptionTier
-                      ? `Dev override. Real tier: ${profile.subscription_tier}`
-                      : 'Current account tier'
-                  }
+                  detail="Current account tier"
                 />
               </View>
               <PrimaryAction
@@ -648,35 +615,7 @@ export default function SettingsScreen() {
 
             {canSeeTestingTools && (
               <View style={styles.section}>
-                <Text style={styles.sectionLabel}>TIER MODE</Text>
-                <Text style={styles.sectionHint}>
-                  Switch the app and report backend between Free and Angler for testing tier gating.
-                </Text>
-
-                <Text style={styles.testingLabel}>Display as</Text>
-                <View style={styles.presetRow}>
-                  {(['free', 'angler'] as const).map((tier) => {
-                    const label = tier === 'free' ? 'Free' : 'Angler';
-                    const active = effectiveTier === tier;
-                    return (
-                      <Pressable
-                        key={String(label)}
-                        style={[
-                          styles.presetBtn,
-                          active && styles.presetBtnActive,
-                          tierModeSaving && styles.btnDisabled,
-                        ]}
-                        onPress={() => handleTestingTierChange(tier)}
-                        disabled={tierModeSaving}
-                      >
-                        <Text style={[styles.presetBtnText, active && styles.presetBtnTextActive]}>
-                          {label}
-                        </Text>
-                      </Pressable>
-                    );
-                  })}
-                </View>
-
+                <Text style={styles.sectionLabel}>ADMIN TOOLS</Text>
                 <View style={styles.testingRow}>
                   <Text style={styles.testingLabel}>Ignore GPS</Text>
                   <Switch

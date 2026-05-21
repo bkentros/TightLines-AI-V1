@@ -20,6 +20,7 @@ import {
   checkUserRateLimit,
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
+import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 
 const VALID_CONTEXTS: EngineContext[] = [
   "freshwater_lake_pond",
@@ -227,7 +228,10 @@ Deno.serve(async (req: Request) => {
     .select("subscription_tier")
     .eq("id", userId)
     .single();
-  const tier = (profile?.subscription_tier as string) ?? "free";
+  const tier = resolveServerSubscriptionTier(
+    profile?.subscription_tier as string | null | undefined,
+    user.email,
+  );
 
   const billingPeriod = new Date().toISOString().slice(0, 7);
   const { data: usageRow } = await supabase

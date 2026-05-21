@@ -58,6 +58,7 @@ import {
   checkUserRateLimit,
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
+import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 
 const VALID_WATER_CLARITY: WaterClarity[] = ["clear", "stained", "dirty"];
 const VALID_RECOMMENDATION_GOALS: RecommendationGoal[] = [
@@ -251,7 +252,10 @@ export async function handleRecommenderRequest(
     .select("subscription_tier")
     .eq("id", user.id)
     .single<{ subscription_tier: string | null }>();
-  const tier = profile?.subscription_tier ?? "free";
+  const tier = resolveServerSubscriptionTier(
+    profile?.subscription_tier,
+    user.email,
+  );
   if (tier === "free") {
     return jsonError(
       "Subscribe to use this feature",
