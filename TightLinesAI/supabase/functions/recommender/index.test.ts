@@ -413,7 +413,7 @@ Deno.test("recommender handler rejects invalid state-species-context combos", as
     ),
     {
       createAdminClient: () =>
-        mockClient({ userId: "user-1", subscriptionTier: "pro" }) as never,
+        mockClient({ userId: "user-1", subscriptionTier: "angler" }) as never,
     },
   );
 
@@ -433,7 +433,7 @@ Deno.test("recommender handler rejects unsupported daily-picks species even if g
     ),
     {
       createAdminClient: () =>
-        mockClient({ userId: "user-1", subscriptionTier: "pro" }) as never,
+        mockClient({ userId: "user-1", subscriptionTier: "angler" }) as never,
     },
   );
 
@@ -447,7 +447,7 @@ Deno.test("recommender handler rejects invalid recommendation_goal", async () =>
     makeRequest(validBody({ recommendation_goal: "numbers_only" })),
     {
       createAdminClient: () =>
-        mockClient({ userId: "user-1", subscriptionTier: "pro" }) as never,
+        mockClient({ userId: "user-1", subscriptionTier: "angler" }) as never,
     },
   );
 
@@ -463,7 +463,7 @@ Deno.test("recommender handler rejects invalid recommendation_goal", async () =>
 Deno.test("recommender handler returns daily-picks 2x2 by default for valid requests", async () => {
   const response = await handleRecommenderRequest(makeRequest(validBody()), {
     createAdminClient: () =>
-      mockClient({ userId: "user-1", subscriptionTier: "pro" }) as never,
+      mockClient({ userId: "user-1", subscriptionTier: "angler" }) as never,
   });
 
   assertEquals(response.status, 200);
@@ -503,7 +503,7 @@ Deno.test("recommender preview gate returns future daily-picks 2x2 response", as
       createAdminClient: () =>
         mockClient({
           userId: "00000000-0000-0000-0000-000000000101",
-          subscriptionTier: "pro",
+          subscriptionTier: "angler",
         }) as never,
     },
   );
@@ -528,7 +528,7 @@ Deno.test("recommender preview daily-picks session: repeat request returns same 
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000102",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -553,7 +553,7 @@ Deno.test("recommender preview daily-picks session: refresh creates B with avoid
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000103",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -591,7 +591,7 @@ Deno.test("recommender preview daily-picks session: repeated refresh returns sto
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000104",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -626,7 +626,7 @@ Deno.test("recommender preview daily-picks session: stored A can be viewed after
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000104",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -663,7 +663,7 @@ Deno.test("recommender preview header remains compatible with default daily-pick
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000105",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -694,7 +694,7 @@ Deno.test("recommender preview all-purpose and big-fish sessions remain separate
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000106",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
   const baseBody = floridaLargemouthWindBody(5);
@@ -750,7 +750,7 @@ Deno.test("recommender default daily-picks session: first request creates varian
       createAdminClient: () =>
         mockClient({
           userId: "00000000-0000-0000-0000-000000000001",
-          subscriptionTier: "pro",
+          subscriptionTier: "angler",
           dailySessions,
         }) as never,
     },
@@ -773,7 +773,7 @@ Deno.test("recommender default daily-picks session: repeat request returns same 
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000002",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -799,7 +799,7 @@ Deno.test("recommender default daily-picks session: refresh after A returns B an
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000003",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -832,7 +832,7 @@ Deno.test("recommender default daily-picks session: goal separates all-purpose a
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000009",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -873,7 +873,7 @@ Deno.test("recommender default daily-picks session: refresh for one goal does no
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000010",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -925,7 +925,7 @@ Deno.test("recommender default daily-picks session: water clarity creates a sepa
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000011",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
   const baseBody = floridaLargemouthWindBody(5);
@@ -964,7 +964,7 @@ Deno.test("recommender default daily-picks session: repeated refresh returns B w
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000004",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -993,7 +993,7 @@ Deno.test("recommender default daily-picks session: stored A can be viewed after
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000012",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -1024,7 +1024,7 @@ Deno.test("recommender default daily-picks session: refresh_requested on first r
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000005",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
   }) as never;
 
@@ -1051,7 +1051,7 @@ Deno.test("recommender default daily-picks session: stale refresh claim returns 
   const dailySessions = new Map<string, Record<string, unknown>>();
   const client = mockClient({
     userId: "00000000-0000-0000-0000-000000000007",
-    subscriptionTier: "pro",
+    subscriptionTier: "angler",
     dailySessions,
     refreshClaimConflict: true,
   }) as never;
@@ -1080,7 +1080,7 @@ Deno.test("recommender default daily-picks session: first-create conflict return
       createAdminClient: () =>
         mockClient({
           userId: "00000000-0000-0000-0000-000000000008",
-          subscriptionTier: "pro",
+          subscriptionTier: "angler",
           dailySessions,
           firstCreateConflict: true,
         }) as never,
@@ -1102,7 +1102,7 @@ Deno.test("recommender handler rejects non-boolean refresh_requested", async () 
       createAdminClient: () =>
         mockClient({
           userId: "00000000-0000-0000-0000-000000000006",
-          subscriptionTier: "pro",
+          subscriptionTier: "angler",
         }) as never,
     },
   );
@@ -1119,7 +1119,7 @@ Deno.test("recommender handler rejects invalid view_variant", async () => {
       createAdminClient: () =>
         mockClient({
           userId: "00000000-0000-0000-0000-000000000108",
-          subscriptionTier: "pro",
+          subscriptionTier: "angler",
         }) as never,
     },
   );

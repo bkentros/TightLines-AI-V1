@@ -43,6 +43,7 @@
     "preload:water-reader:3dhp-index": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-preload-3dhp-index.ts",
     "smoke:water-reader-live-launch": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-live-launch-smoke.ts",
     "smoke:water-reader-production-load": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-production-load-smoke.ts",
+    "smoke:recommender-cache": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/recommender-cache-smoke.ts",
     "serve:water-reader-heavy-generator": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-heavy-generator-server.ts --serve",
     "smoke:water-reader-heavy-generator": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-heavy-generator-smoke.ts",
     "smoke:water-reader-generation-queue": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-generation-queue-smoke.ts",

@@ -33,6 +33,8 @@ type GoalAwareRecommenderCallParams = RecommenderCallParams & {
   recommendation_goal: RecommendationGoal;
 };
 
+type CacheOwnerId = string;
+
 function normalizeRecommendationGoal(goal?: RecommendationGoal): RecommendationGoal {
   return goal ?? DEFAULT_RECOMMENDATION_GOAL;
 }
@@ -80,11 +82,13 @@ function cacheKey(
     'latitude' | 'longitude' | 'state_code' | 'context' | 'species' | 'water_clarity' | 'recommendation_goal' | 'env_data' | 'target_date'
   >,
   variant: DailyPicksVariant,
+  ownerId: CacheOwnerId,
 ): string {
   const dayKey = extractRequestDay(params);
   return [
     // Prefix must change when the edge response contract or selection rules change.
     DAILY_PICKS_SESSION_ENGINE_VERSION,
+    `user_${ownerId}`,
     params.latitude.toFixed(3),
     params.longitude.toFixed(3),
     params.state_code.toUpperCase(),
@@ -101,9 +105,20 @@ function coordsMatch(a: number, b: number, c: number, d: number): boolean {
   return Math.abs(a - c) < COORD_THRESHOLD && Math.abs(b - d) < COORD_THRESHOLD;
 }
 
+function currentCacheOwnerId(): CacheOwnerId | null {
+  try {
+    const { useAuthStore } = require('../store/authStore');
+    const userId = useAuthStore.getState().user?.id;
+    return typeof userId === 'string' && userId.length > 0 ? userId : null;
+  } catch {
+    return null;
+  }
+}
+
 // ─── In-memory cache ──────────────────────────────────────────────────────────
 
 interface CacheEntry {
+  user_id: CacheOwnerId;
   lat: number;
   lon: number;
   state_code: string;
@@ -183,10 +198,11 @@ function isCachedResultValid(result: RecommenderResponse): boolean {
 async function getCachedResult(
   params: GoalAwareRecommenderCallParams,
   variant: DailyPicksVariant,
+  ownerId: CacheOwnerId,
 ): Promise<RecommenderResponse | null> {
   const { latitude, longitude } = params;
   const goal = normalizeRecommendationGoal(params.recommendation_goal);
-  const key = cacheKey(params, variant);
+  const key = cacheKey(params, variant, ownerId);
 
   // 1. In-memory first
   const mem = _memCache.get(key);
@@ -198,6 +214,7 @@ async function getCachedResult(
         return null;
       }
       if (
+        mem.user_id !== ownerId ||
         mem.recommendation_goal !== goal ||
         mem.result.recommendation_goal !== goal ||
         mem.variant !== variant ||
@@ -218,6 +235,7 @@ async function getCachedResult(
     const entry = JSON.parse(raw) as CacheEntry;
     if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
     if (
+      entry.user_id !== ownerId ||
       entry.recommendation_goal !== goal ||
       entry.result.recommendation_goal !== goal ||
       entry.variant !== variant ||
@@ -243,14 +261,16 @@ async function getCachedResult(
 async function setCachedResult(
   params: GoalAwareRecommenderCallParams,
   result: RecommenderResponse,
+  ownerId: CacheOwnerId,
 ): Promise<void> {
   if (!isCachedResultValid(result)) return;
   const goal = normalizeRecommendationGoal(params.recommendation_goal);
   if (result.recommendation_goal !== goal) return;
   const variant = result.recommendation_session.variant;
   const dayKey = extractRequestDay(params);
-  const key = cacheKey(params, variant);
+  const key = cacheKey(params, variant, ownerId);
   const entry: CacheEntry = {
+    user_id: ownerId,
     lat: params.latitude,
     lon: params.longitude,
     state_code: params.state_code.toUpperCase(),
@@ -278,14 +298,15 @@ export async function fetchRecommendation(
   opts: { forceRefresh?: boolean; viewVariant?: DailyPicksVariant } = {},
 ): Promise<RecommenderResponse> {
   const requestParams = withDefaultRecommendationGoal(params);
+  const ownerId = currentCacheOwnerId();
 
   // Check cache unless this request is meant to generate Set B or read a
   // specific stored variant. Variant views go to the server so Set A metadata
   // cannot stay stale after Set B exists.
-  if (!opts.forceRefresh && !opts.viewVariant) {
-    const cachedB = await getCachedResult(requestParams, 'B');
+  if (ownerId && !opts.forceRefresh && !opts.viewVariant) {
+    const cachedB = await getCachedResult(requestParams, 'B', ownerId);
     if (cachedB) return cachedB;
-    const cachedA = await getCachedResult(requestParams, 'A');
+    const cachedA = await getCachedResult(requestParams, 'A', ownerId);
     if (cachedA) return cachedA;
   }
 
@@ -310,7 +331,10 @@ export async function fetchRecommendation(
   }
 
   // Cache only the daily-picks 2x2 result shape.
-  await setCachedResult(requestParams, result);
+  const cacheOwner = ownerId ?? currentCacheOwnerId();
+  if (cacheOwner) {
+    await setCachedResult(requestParams, result, cacheOwner);
+  }
 
   return result;
 }
