@@ -167,7 +167,7 @@ const MAX_TIDE_STATION_CANDIDATES = 8;
 const MAX_HILO_PREDICTIONS_RETURNED = 56;
 const EARTH_RADIUS_MILES = 3958.8;
 const NWS_USER_AGENT = "FinFindr/1.0 (support@finfindr.app)";
-const SERVER_ENV_CACHE_TTL_MS = 15 * 60 * 1000;
+const SERVER_ENV_CACHE_TTL_MS = 60 * 60 * 1000;
 
 // -----------------------------------------------------------------------------
 // Helpers
@@ -296,7 +296,7 @@ async function readFreshEnvironmentSnapshot(
       ...row.payload,
       source_notes: [
         ...((row.payload as EnvironmentData).source_notes ?? []),
-        "server_cache:fresh_15m",
+        "server_cache:fresh_1h",
       ],
     };
   } catch {

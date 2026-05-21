@@ -1308,10 +1308,10 @@ export default function HomeScreen() {
                 {refreshing
                   ? "Checking live conditions..."
                   : agoSeconds == null
-                  ? "Live conditions ready · swipe down to update"
+                  ? "Live conditions ready · hourly updates"
                   : `Checked ${
                     formatAgo(agoSeconds).toLowerCase()
-                  } · swipe down to update`}
+                  } · hourly updates`}
               </Text>
             </View>
           </View>

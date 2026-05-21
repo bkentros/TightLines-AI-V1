@@ -7,8 +7,8 @@
  * @see docs/ENV_API_IMPLEMENTATION_PLAN.md
  */
 
-/** Cache TTL for dashboard — refresh at most every 15 minutes */
-export const CACHE_TTL_MS = 15 * 60 * 1000;
+/** Cache TTL for dashboard live conditions — refresh at most once per hour */
+export const CACHE_TTL_MS = 60 * 60 * 1000;
 
 /** Max time to wait for env API before failing (allow cold starts on mobile resume) */
 export const ENV_FETCH_TIMEOUT_MS = 35 * 1000;
@@ -17,7 +17,7 @@ export const ENV_FETCH_TIMEOUT_MS = 35 * 1000;
 export const MANUAL_REFRESH_LIMIT = 2;
 
 /** Time window for manual refresh rate limit */
-export const REFRESH_RATE_LIMIT_WINDOW_MS = 15 * 60 * 1000;
+export const REFRESH_RATE_LIMIT_WINDOW_MS = 60 * 60 * 1000;
 
 /** AsyncStorage key prefix for env cache (single key; coords stored in value per audit #10) */
 export const ENV_CACHE_KEY = 'env_cache_v2';

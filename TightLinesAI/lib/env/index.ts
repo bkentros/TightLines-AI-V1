@@ -2,7 +2,7 @@
  * Environmental API Integration — Public API
  *
  * Single entry point for environmental data. Use getEnvironment for dashboard
- * (respects 15-min cache) and fetchFreshEnvironment when the user confirms an
+ * (respects hourly cache) and fetchFreshEnvironment when the user confirms an
  * AI action (Recommend, How's Fishing, Water Reader).
  *
  * @see docs/ENV_API_IMPLEMENTATION_PLAN.md
@@ -145,7 +145,7 @@ export interface GetEnvironmentParams {
 
 /**
  * Get environment data for the given coordinates.
- * Uses 15-min cache unless forceRefresh is true.
+ * Uses hourly cache unless forceRefresh is true.
  * Use forceRefresh when the user confirms an AI action (Recommend, etc.).
  *
  * @throws Error if coordinates are invalid or the Edge Function fails

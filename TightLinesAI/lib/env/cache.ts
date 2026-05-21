@@ -1,7 +1,7 @@
 /**
  * Environmental API Integration — Client-Side Cache
  *
- * 15-minute TTL cache for dashboard. Single AsyncStorage key with coords in value
+ * Hourly TTL cache for dashboard live conditions. Single AsyncStorage key with coords in value
  * (avoids key length limits per audit #10). Buckets coords to 4 decimals for
  * cache hits on "same" location (audit #18).
  *
