@@ -39,6 +39,10 @@ import {
   setDriverLabelSeed,
 } from "../score/driverLabels.ts";
 
+function scoreDayLegacy(norm: SharedNormalizedOutput) {
+  return scoreDay(norm, { mode: "legacy" });
+}
+
 Deno.test("pressure: two-point slow falling (sweet-spot front signal)", () => {
   const r = normalizePressureDetailed([1013, 1010.5]);
   assert(r != null);
@@ -1172,7 +1176,7 @@ function highFreshwaterEliteNorm(
 }
 
 Deno.test("scoreDay: drivers from positive contributions only", () => {
-  const s = scoreDay(minimalNorm());
+  const s = scoreDayLegacy(minimalNorm());
   assert(s.drivers.length >= 1);
   assert(s.drivers.every((d) => d.weightedContribution > 0));
   assert(s.suppressors.every((x) => x.weightedContribution < 0));
@@ -1180,7 +1184,7 @@ Deno.test("scoreDay: drivers from positive contributions only", () => {
 });
 
 Deno.test("scoreDay: tiny negatives do not surface as limiting factors", () => {
-  const s = scoreDay(minimalNorm({
+  const s = scoreDayLegacy(minimalNorm({
     temperature: {
       context_group: "freshwater",
       measurement_source: "air_daily_mean",
@@ -1199,7 +1203,7 @@ Deno.test("scoreDay: tiny negatives do not surface as limiting factors", () => {
 });
 
 Deno.test("scoreDay: tiny positives do not surface as helping factors", () => {
-  const s = scoreDay(minimalNorm({
+  const s = scoreDayLegacy(minimalNorm({
     temperature: {
       context_group: "freshwater",
       measurement_source: "air_daily_mean",
@@ -1218,7 +1222,7 @@ Deno.test("scoreDay: tiny positives do not surface as helping factors", () => {
 });
 
 Deno.test("scoreDay: mild coastal rain does not surface as a limiting factor", () => {
-  const s = scoreDay({
+  const s = scoreDayLegacy({
     location: {
       latitude: 29.76,
       longitude: -95.37,
@@ -1263,7 +1267,7 @@ Deno.test("scoreDay: mild coastal rain does not surface as a limiting factor", (
 });
 
 Deno.test("scoreDay: meaningful coastal rain still surfaces as a limiting factor", () => {
-  const s = scoreDay({
+  const s = scoreDayLegacy({
     location: {
       latitude: 29.76,
       longitude: -95.37,
@@ -1308,7 +1312,7 @@ Deno.test("scoreDay: meaningful coastal rain still surfaces as a limiting factor
 });
 
 Deno.test("scoreDay policy: active disruption caps final score and recomputes band", () => {
-  const s = scoreDay(rainPolicyNorm({
+  const s = scoreDayLegacy(rainPolicyNorm({
     precipitation_disruption: { label: "active_disruption", score: -2 },
   }));
   assertEquals(s.score, 55);
@@ -1317,7 +1321,7 @@ Deno.test("scoreDay policy: active disruption caps final score and recomputes ba
 });
 
 Deno.test("scoreDay policy: wet recent rain caps final score at 65", () => {
-  const s = scoreDay(rainPolicyNorm({
+  const s = scoreDayLegacy(rainPolicyNorm({
     precipitation_disruption: { label: "recent_rain", score: -0.45 },
   }));
   assertEquals(s.score, 65);
@@ -1325,13 +1329,13 @@ Deno.test("scoreDay policy: wet recent rain caps final score at 65", () => {
 });
 
 Deno.test("scoreDay policy: precip cap tapers numerically between active and recent rain", () => {
-  const active = scoreDay(rainPolicyNorm({
+  const active = scoreDayLegacy(rainPolicyNorm({
     precipitation_disruption: { label: "active_disruption", score: -1.1 },
   }));
-  const middle = scoreDay(rainPolicyNorm({
+  const middle = scoreDayLegacy(rainPolicyNorm({
     precipitation_disruption: { label: "active_disruption", score: -0.775 },
   }));
-  const recent = scoreDay(rainPolicyNorm({
+  const recent = scoreDayLegacy(rainPolicyNorm({
     precipitation_disruption: { label: "recent_rain", score: -0.45 },
   }));
 
@@ -1341,14 +1345,14 @@ Deno.test("scoreDay policy: precip cap tapers numerically between active and rec
 });
 
 Deno.test("scoreDay policy: recent rain above wet threshold is not capped", () => {
-  const s = scoreDay(rainPolicyNorm({
+  const s = scoreDayLegacy(rainPolicyNorm({
     precipitation_disruption: { label: "recent_rain", score: -0.44 },
   }));
   assert(s.score > 65);
 });
 
 Deno.test("scoreDay policy: major suppressor caps high scores at 69", () => {
-  const s = scoreDay(rainPolicyNorm({
+  const s = scoreDayLegacy(rainPolicyNorm({
     wind_condition: { label: "extreme", score: -2 },
     precipitation_disruption: { label: "dry_stable", score: 0.4 },
   }));
@@ -1358,7 +1362,7 @@ Deno.test("scoreDay policy: major suppressor caps high scores at 69", () => {
 });
 
 Deno.test("scoreDay policy: no major suppressor means no suppressor ceiling", () => {
-  const s = scoreDay(rainPolicyNorm({
+  const s = scoreDayLegacy(rainPolicyNorm({
     wind_condition: { label: "moderate", score: -0.2 },
     precipitation_disruption: { label: "dry_stable", score: 0.4 },
   }));
@@ -1367,7 +1371,7 @@ Deno.test("scoreDay policy: no major suppressor means no suppressor ceiling", ()
 });
 
 Deno.test("scoreDay policy: final score cap preserves contribution surfaces", () => {
-  const s = scoreDay(rainPolicyNorm({
+  const s = scoreDayLegacy(rainPolicyNorm({
     precipitation_disruption: { label: "active_disruption", score: -2 },
   }));
   assertEquals(s.score, 55);
@@ -1422,11 +1426,11 @@ Deno.test("scoreDay policy: score-only and report paths stay consistent", () => 
 });
 
 Deno.test("scoreDay policy: data-quality caps apply after freshwater elite gate", () => {
-  const complete = scoreDay(highFreshwaterEliteNorm());
-  const missing = scoreDay(highFreshwaterEliteNorm({
+  const complete = scoreDayLegacy(highFreshwaterEliteNorm());
+  const missing = scoreDayLegacy(highFreshwaterEliteNorm({
     missing_variables: ["precipitation_disruption"],
   }));
-  const lowReliability = scoreDay(highFreshwaterEliteNorm({
+  const lowReliability = scoreDayLegacy(highFreshwaterEliteNorm({
     reliability: "medium",
   }));
 
@@ -1437,7 +1441,7 @@ Deno.test("scoreDay policy: data-quality caps apply after freshwater elite gate"
 
 Deno.test("scoreDay policy: freshwater elite gate is not applied to non-freshwater rows", () => {
   const base = highFreshwaterEliteNorm();
-  const coastal = scoreDay({
+  const coastal = scoreDayLegacy({
     ...base,
     context: "coastal",
     location: {
@@ -2400,7 +2404,7 @@ Deno.test("golden: coastal missing precip still scores (reweight)", () => {
     data_coverage: {},
   });
   assert(!n.available_variables.includes("precipitation_disruption"));
-  const s = scoreDay(n);
+  const s = scoreDayLegacy(n);
   assert(s.score >= 0 && s.score <= 100);
 });
 

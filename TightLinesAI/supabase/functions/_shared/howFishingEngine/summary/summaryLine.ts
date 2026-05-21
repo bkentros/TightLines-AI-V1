@@ -23,6 +23,7 @@ export type ReportSummaryInput = {
   score: number;
   context: EngineContext;
   reliability: "high" | "medium" | "low";
+  limitedData?: boolean;
   drivers: SummaryFactor[];
   suppressors: SummaryFactor[];
   seed: string;
@@ -129,6 +130,34 @@ const POSITIVE_TEMPLATES_STRONG = [
   "The strongest support is that {driver}.",
   "The clearest helper is that {driver}.",
   "{driver}, which gives the plan a useful starting point.",
+] as const;
+
+const LIMITED_POSITIVE_TEMPLATES = [
+  "A partial read shows {driver}, but keep the setup broader than usual.",
+  "Limited data still points to {driver}, but avoid treating that as a precise call.",
+  "{driver}; treat that as one available signal, not the whole read.",
+  "One workable piece in the partial read is that {driver}.",
+] as const;
+
+const SECONDARY_POSITIVE_TEMPLATES = [
+  "One workable piece is that {driver}, but it is not enough to rescue the setup.",
+  "{driver}, which is useful, but the overall read stays limited.",
+  "There is one helpful piece: {driver}. Still, the dominant read stays restrictive.",
+  "{driver}, but treat that as secondary to the broader limitation.",
+] as const;
+
+const LIMITED_MIXED_TEMPLATES = [
+  "A partial read shows {driver}, while {suppressor}.",
+  "{driver}. With limited data, keep that balanced against the fact that {suppressor}.",
+  "One available support signal is that {driver}, but {suppressor}.",
+  "{driver}. Treat the read as broader than usual because {suppressor}.",
+] as const;
+
+const SECONDARY_MIXED_TEMPLATES = [
+  "One workable piece is that {driver}, but {suppressor} keeps the setup limited.",
+  "{driver}, which is useful, but {suppressor}.",
+  "There is one helpful piece: {driver}. Still, {suppressor}.",
+  "{driver}, but the dominant limitation is that {suppressor}.",
 ] as const;
 
 const SUMMARY_MAX_LEN = 220;
@@ -609,11 +638,52 @@ function buildFactorPhrase(
   return genericFactorPhrase(factor, context, role, strength, seed);
 }
 
+function cautiousDriverPhrase(
+  factor: SummaryFactor,
+  context: EngineContext,
+): string {
+  const noun = buildVariableSummaryLabel(factor.variable, context, "driver");
+  switch (factor.variable) {
+    case "temperature_condition":
+      return "temperature is one available support signal";
+    case "pressure_regime":
+      return "pressure is one available support signal";
+    case "wind_condition":
+      return "wind is one workable piece";
+    case "light_cloud_condition":
+      return "cloud cover is one workable piece";
+    case "precipitation_disruption":
+      return "the rain signal is one workable piece";
+    case "runoff_flow_disruption":
+      return context === "freshwater_river"
+        ? "stable flow is one workable piece"
+        : "the runoff signal is one workable piece";
+    case "tide_current_movement":
+      return context === "coastal" || context === "coastal_flats_estuary"
+        ? "tide and current are one workable piece"
+        : "current is one workable piece";
+    default:
+      return `${noun} is one workable piece`;
+  }
+}
+
 export function buildReportSummaryLine(input: ReportSummaryInput): string {
-  const { band, drivers, suppressors, seed, context, reliability } = input;
+  const {
+    band,
+    drivers,
+    suppressors,
+    seed,
+    context,
+    reliability,
+    limitedData,
+  } = input;
+  const limitedRead = limitedData || reliability !== "high";
+  const lowBand = band === "Tough" || band === "Poor";
   const opener = pickDeterministic(OPENERS[band], seed, "summary:opener");
   const driver = drivers[0]
-    ? buildFactorPhrase(drivers[0], context, "driver", seed)
+    ? limitedRead || lowBand
+      ? cautiousDriverPhrase(drivers[0], context)
+      : buildFactorPhrase(drivers[0], context, "driver", seed)
     : null;
   const suppressor = suppressors[0]
     ? buildFactorPhrase(suppressors[0], context, "suppressor", seed)
@@ -624,10 +694,13 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
   const parts: string[] = [normalizeSurfaceSentence(opener)];
 
   if (driver && suppressor) {
-    const templates =
-      driverStrength === "slight" || suppressorStrength === "slight"
-        ? MIXED_TEMPLATES_SOFT
-        : MIXED_TEMPLATES_STRONG;
+    const templates = limitedRead
+      ? LIMITED_MIXED_TEMPLATES
+      : lowBand
+      ? SECONDARY_MIXED_TEMPLATES
+      : driverStrength === "slight" || suppressorStrength === "slight"
+      ? MIXED_TEMPLATES_SOFT
+      : MIXED_TEMPLATES_STRONG;
     parts.push(
       normalizeSurfaceSentence(
         pickDeterministic(templates, seed, "summary:mixed")
@@ -636,7 +709,11 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
       ),
     );
   } else if (driver) {
-    const templates = driverStrength === "slight"
+    const templates = limitedRead
+      ? LIMITED_POSITIVE_TEMPLATES
+      : lowBand
+      ? SECONDARY_POSITIVE_TEMPLATES
+      : driverStrength === "slight"
       ? POSITIVE_TEMPLATES_SOFT
       : POSITIVE_TEMPLATES_STRONG;
     parts.push(
@@ -663,9 +740,14 @@ export function buildReportSummaryLine(input: ReportSummaryInput): string {
     );
   }
 
-  if (reliability === "low") {
+  if (limitedRead) {
+    const reliabilityTier = reliability === "high" ? "low" : reliability;
     const reliabilityCloser = normalizeSurfaceSentence(
-      pickDeterministic(RELIABILITY_CLOSERS.low, seed, "summary:reliability"),
+      pickDeterministic(
+        RELIABILITY_CLOSERS[reliabilityTier],
+        seed,
+        "summary:reliability",
+      ),
     );
     const withReliability = appendIfFits(
       parts,

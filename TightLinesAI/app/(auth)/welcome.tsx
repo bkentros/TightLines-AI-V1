@@ -66,7 +66,7 @@ const FEATURES: {
   {
     numeral: 'I',
     icon: 'pulse-outline',
-    title: 'The Daily Read',
+    title: "Today's Bite",
     blurb: "Today's score, best windows, and a clear answer on whether to go.",
   },
   {
@@ -79,7 +79,7 @@ const FEATURES: {
     numeral: 'III',
     icon: 'scan-outline',
     title: 'Water Read',
-    blurb: 'Hydrography for any supported lake — structure zones before you cast.',
+    blurb: 'Creates structure-related high-probability fishing zones for any supported lake.',
   },
 ];
 

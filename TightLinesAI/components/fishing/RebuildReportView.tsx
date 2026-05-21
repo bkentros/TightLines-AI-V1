@@ -487,7 +487,7 @@ export function RebuildReportView({
   /** Called after an inline RevenueCat purchase succeeds so the parent can rebuild the full read. */
   onAnglerUnlocked?: () => void;
 }) {
-  const [showAnglerModal, setShowAnglerModal] = useState(false);
+  const { presentingPaywall, presentPaywall } = useRevenueCatStore();
   const tier = tierForScore(report.score);
   const accent = accentForScore100(report.score);
   // Derive the band label locally from the numeric score using the same
@@ -511,6 +511,22 @@ export function RebuildReportView({
   const heroMetaText = `${
     headline.secondary ?? (isFuture ? "FORECAST READ" : "TODAY'S READ")
   } · ${reportDateText}`;
+
+  const handleAnglerUpgradePress = async () => {
+    if (presentingPaywall) return;
+
+    const unlocked = await presentPaywall();
+    if (unlocked) {
+      Alert.alert("Angler unlocked", "Building your full read now.");
+      onAnglerUnlocked?.();
+      return;
+    }
+
+    const message = useRevenueCatStore.getState().error;
+    if (message) {
+      Alert.alert("Subscriptions unavailable", message);
+    }
+  };
 
   // Phrase keys off the score-derived band so the verdict word always
   // matches the number and the displayed band label.
@@ -683,8 +699,10 @@ export function RebuildReportView({
               style={({ pressed }) => [
                 styles.limitedCta,
                 pressed && styles.limitedCtaPressed,
+                presentingPaywall && styles.limitedCtaPressed,
               ]}
-              onPress={() => setShowAnglerModal(true)}
+              onPress={handleAnglerUpgradePress}
+              disabled={presentingPaywall}
             >
               <UpgradeCtaShimmer />
               <View style={styles.limitedCtaLeft}>
@@ -696,9 +714,13 @@ export function RebuildReportView({
                   />
                 </View>
                 <View style={styles.limitedCtaCopy}>
-                  <Text style={styles.limitedCtaEyebrow}>UPGRADE TO</Text>
+                  <Text style={styles.limitedCtaEyebrow}>
+                    {presentingPaywall ? "OPENING" : "UPGRADE TO"}
+                  </Text>
                   <View style={styles.limitedCtaTitleRow}>
-                    <Text style={styles.limitedCtaTitle}>Angler</Text>
+                    <Text style={styles.limitedCtaTitle}>
+                      {presentingPaywall ? "Paywall" : "Angler"}
+                    </Text>
                     <Text style={styles.limitedCtaTitleDot}>.</Text>
                   </View>
                 </View>
@@ -718,15 +740,6 @@ export function RebuildReportView({
             <Text style={styles.limitedTrust}>
               SEE PLANS · CANCEL ANYTIME
             </Text>
-
-            <AnglerUpgradeModal
-              visible={showAnglerModal}
-              onClose={() => setShowAnglerModal(false)}
-              onUnlocked={() => {
-                setShowAnglerModal(false);
-                onAnglerUnlocked?.();
-              }}
-            />
           </View>
         )
         : null}
@@ -1026,29 +1039,26 @@ function AnglerUpgradeModal({
   onClose: () => void;
   onUnlocked: () => void;
 }) {
-  const { loading, purchasing, error, offering, purchase, refresh } =
-    useRevenueCatStore();
-  const packages = sortedAnglerPackages(offering?.availablePackages ?? []);
-  const annualPackage = packages.find(isAnnualPackage) ?? packages[0] ?? null;
-  const monthlyPackage = packages.find(isMonthlyPackage) ??
-    packages.find((pkg) => pkg !== annualPackage) ?? null;
-  const primarySubtitle = annualPackage && isAnnualPackage(annualPackage)
-    ? monthlyEquivalentLabel(annualPackage)
-    : null;
-  const savings = annualSavingsPercent(annualPackage, monthlyPackage);
+  const { presentingPaywall, presentPaywall } = useRevenueCatStore();
+  const [paywallError, setPaywallError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (!visible) return;
-    if (packages.length > 0 || loading) return;
-    void refresh();
-  }, [loading, packages.length, refresh, visible]);
+    if (!visible) setPaywallError(null);
+  }, [visible]);
 
-  const handlePurchase = async (pkg: PurchasesPackage | null) => {
-    if (!pkg || purchasing) return;
-    const unlocked = await purchase(pkg);
+  const handleOpenRevenueCatPaywall = async () => {
+    if (presentingPaywall) return;
+    setPaywallError(null);
+    const unlocked = await presentPaywall();
     if (unlocked) {
       Alert.alert("Angler unlocked", "Building your full read now.");
       onUnlocked();
+      return;
+    }
+
+    const message = useRevenueCatStore.getState().error;
+    if (message) {
+      setPaywallError(message);
     }
   };
 
@@ -1102,8 +1112,11 @@ function AnglerUpgradeModal({
       animationType="fade"
       onRequestClose={onClose}
     >
-      <View style={styles.upgradeOverlay}>
-        <View style={styles.upgradeSheet}>
+      <Pressable style={styles.upgradeOverlay} onPress={onClose}>
+        <Pressable
+          style={styles.upgradeSheet}
+          onPress={(event) => event.stopPropagation()}
+        >
           {/* ─── Header strip (navy) ──────────────────────────────────── */}
           <View style={styles.upgradeHeader}>
             <View style={styles.upgradeHeaderLeft}>
@@ -1347,148 +1360,95 @@ function AnglerUpgradeModal({
                   ── CHOOSE YOUR PLAN
                 </Text>
 
-                {annualPackage
-                  ? (
-                    <View style={styles.upgradeAnnualWrap}>
-                      <PaperBestValueStamp
-                        topLine={savings != null ? `SAVE ${savings}%` : "BEST"}
-                        bottomLine="VALUE"
-                        style={styles.upgradeBestStamp}
-                      />
-                      <Pressable
-                        style={({ pressed }) => [
-                          styles.upgradeAnnualCta,
-                          pressed && styles.upgradeAnnualCtaPressed,
-                          purchasing === annualPackage.identifier &&
-                          styles.upgradePlanDisabled,
-                        ]}
-                        onPress={() => handlePurchase(annualPackage)}
-                        disabled={purchasing != null}
-                      >
-                        <UpgradeCtaShimmer />
-                        <View style={styles.upgradeAnnualLeft}>
-                          <View style={styles.upgradeAnnualEyebrowRow}>
-                            <View style={styles.upgradeAnnualIconTile}>
-                              <Ionicons
-                                name="trophy"
-                                size={12}
-                                color={paper.dashboardInk}
-                              />
-                            </View>
-                            <Text style={styles.upgradeAnnualEyebrow}>
-                              ANGLER · ANNUAL
-                            </Text>
-                          </View>
-                          {primarySubtitle
-                            ? (
-                              <Text style={styles.upgradeAnnualSubtext}>
-                                {primarySubtitle}
-                              </Text>
-                            )
-                            : null}
-                        </View>
-                        <View style={styles.upgradeAnnualRight}>
-                          {purchasing === annualPackage.identifier
-                            ? (
-                              <ActivityIndicator
-                                size="small"
-                                color="#FFFFFF"
-                              />
-                            )
-                            : (
-                              <>
-                                <UpgradeCtaWave />
-                                <View style={styles.upgradeAnnualPriceCol}>
-                                  <Text style={styles.upgradeAnnualPrice}>
-                                    {annualPackage.product.priceString}
-                                  </Text>
-                                  <Text style={styles.upgradeAnnualPriceUnit}>
-                                    /YR
-                                  </Text>
-                                </View>
-                                <View style={styles.upgradeAnnualArrowTile}>
-                                  <Ionicons
-                                    name="arrow-forward"
-                                    size={14}
-                                    color={paper.dashboardInk}
-                                  />
-                                </View>
-                              </>
-                            )}
-                        </View>
-                      </Pressable>
-                    </View>
-                  )
-                  : loading
-                  ? (
-                    <View style={styles.upgradeLoading}>
-                      <ActivityIndicator
-                        size="small"
-                        color={paper.dashboardBlue}
-                      />
-                      <Text style={styles.upgradeLoadingText}>
-                        LOADING PLANS...
-                      </Text>
-                    </View>
-                  )
-                  : (
-                    <View style={styles.upgradeLoading}>
-                      <Text style={styles.upgradeLoadingText}>
-                        PLANS AREN'T AVAILABLE YET
-                      </Text>
-                    </View>
-                  )}
-
-                {monthlyPackage
-                  ? (
-                    <Pressable
-                      style={({ pressed }) => [
-                        styles.upgradeMonthly,
-                        pressed && styles.upgradeMonthlyPressed,
-                        purchasing === monthlyPackage.identifier &&
-                        styles.upgradePlanDisabled,
-                      ]}
-                      onPress={() => handlePurchase(monthlyPackage)}
-                      disabled={purchasing != null}
-                    >
-                      <View style={styles.upgradeMonthlyLeft}>
-                        <View style={styles.upgradeMonthlyEyebrowRow}>
+                <View style={styles.upgradeAnnualWrap}>
+                  <PaperBestValueStamp
+                    topLine="APP STORE"
+                    bottomLine="SECURE"
+                    style={styles.upgradeBestStamp}
+                  />
+                  <Pressable
+                    style={({ pressed }) => [
+                      styles.upgradeAnnualCta,
+                      pressed && styles.upgradeAnnualCtaPressed,
+                      presentingPaywall && styles.upgradePlanDisabled,
+                    ]}
+                    onPress={handleOpenRevenueCatPaywall}
+                    disabled={presentingPaywall}
+                  >
+                    <UpgradeCtaShimmer />
+                    <View style={styles.upgradeAnnualLeft}>
+                      <View style={styles.upgradeAnnualEyebrowRow}>
+                        <View style={styles.upgradeAnnualIconTile}>
                           <Ionicons
-                            name="calendar-outline"
-                            size={11}
-                            color={paper.dashboardMuted}
+                            name="card"
+                            size={12}
+                            color={paper.dashboardInk}
                           />
-                          <Text style={styles.upgradeMonthlyEyebrow}>
-                            ANGLER · MONTHLY
-                          </Text>
                         </View>
-                        <Text style={styles.upgradeMonthlySubtext}>
-                          Flexible · cancel any time
+                        <Text style={styles.upgradeAnnualEyebrow}>
+                          ANGLER · MONTHLY OR ANNUAL
                         </Text>
                       </View>
-                      {purchasing === monthlyPackage.identifier
+                      <Text style={styles.upgradeAnnualSubtext}>
+                        Prices and billing are shown by Apple before checkout
+                      </Text>
+                    </View>
+                    <View style={styles.upgradeAnnualRight}>
+                      {presentingPaywall
                         ? (
                           <ActivityIndicator
                             size="small"
-                            color={paper.dashboardBlue}
+                            color="#FFFFFF"
                           />
                         )
                         : (
-                          <View style={styles.upgradeMonthlyPriceCol}>
-                            <Text style={styles.upgradeMonthlyPrice}>
-                              {monthlyPackage.product.priceString}
-                            </Text>
-                            <Text style={styles.upgradeMonthlyPriceUnit}>
-                              /MO
-                            </Text>
-                          </View>
+                          <>
+                            <UpgradeCtaWave />
+                            <View style={styles.upgradeAnnualPriceCol}>
+                              <Text style={styles.upgradeAnnualPrice}>
+                                SEE
+                              </Text>
+                              <Text style={styles.upgradeAnnualPriceUnit}>
+                                PLANS
+                              </Text>
+                            </View>
+                            <View style={styles.upgradeAnnualArrowTile}>
+                              <Ionicons
+                                name="arrow-forward"
+                                size={14}
+                                color={paper.dashboardInk}
+                              />
+                            </View>
+                          </>
                         )}
-                    </Pressable>
-                  )
-                  : null}
+                    </View>
+                  </Pressable>
+                </View>
 
-                {error
-                  ? <Text style={styles.upgradeError}>{error}</Text>
+                <View style={styles.upgradeMonthly}>
+                  <View style={styles.upgradeMonthlyLeft}>
+                    <View style={styles.upgradeMonthlyEyebrowRow}>
+                      <Ionicons
+                        name="shield-checkmark-outline"
+                        size={11}
+                        color={paper.dashboardMuted}
+                      />
+                      <Text style={styles.upgradeMonthlyEyebrow}>
+                        REVENUECAT · APP STORE CHECKOUT
+                      </Text>
+                    </View>
+                    <Text style={styles.upgradeMonthlySubtext}>
+                      Cancel anytime in your Apple account settings.
+                    </Text>
+                  </View>
+                  <View style={styles.upgradeMonthlyPriceCol}>
+                    <Text style={styles.upgradeMonthlyPrice}>IOS</Text>
+                    <Text style={styles.upgradeMonthlyPriceUnit}>IAP</Text>
+                  </View>
+                </View>
+
+                {paywallError
+                  ? <Text style={styles.upgradeError}>{paywallError}</Text>
                   : null}
 
                 <Pressable
@@ -1551,8 +1511,8 @@ function AnglerUpgradeModal({
               </View>
             </View>
           </ScrollView>
-        </View>
-      </View>
+        </Pressable>
+      </Pressable>
     </Modal>
   );
 }
@@ -3443,7 +3403,7 @@ const styles = StyleSheet.create({
   upgradeSheet: {
     width: "100%",
     maxWidth: 360,
-    maxHeight: "88%",
+    height: "90%",
     backgroundColor: paper.dashboardWhite,
     borderRadius: 16,
     borderWidth: 1.5,
@@ -3535,8 +3495,8 @@ const styles = StyleSheet.create({
   },
 
   // Body / scrollable content
-  upgradeBody: { flexGrow: 0 },
-  upgradeBodyContent: { paddingBottom: 0 },
+  upgradeBody: { flex: 1 },
+  upgradeBodyContent: { paddingBottom: 20 },
   upgradeBodyInner: {
     paddingHorizontal: 18,
     paddingTop: 16,

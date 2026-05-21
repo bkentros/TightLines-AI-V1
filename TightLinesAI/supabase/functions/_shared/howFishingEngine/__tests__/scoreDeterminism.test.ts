@@ -4,7 +4,10 @@
  */
 import { assertEquals } from "jsr:@std/assert";
 import { buildSharedEngineRequestFromEnvData } from "../request/buildFromEnvData.ts";
-import { runHowFishingReport, runHowFishingScoreOnly } from "../runHowFishingReport.ts";
+import {
+  runHowFishingReport,
+  runHowFishingScoreOnly,
+} from "../runHowFishingReport.ts";
 
 const fixtureEnv = {
   weather: {

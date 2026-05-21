@@ -35,12 +35,14 @@ Deno.test("forecast-scores envRecord shape: engine runs for day_offset 0 and 1",
   };
 
   for (const dayOffset of [0, 1] as const) {
-    for (const context of [
-      "freshwater_lake_pond",
-      "freshwater_river",
-      "coastal",
-      "coastal_flats_estuary",
-    ] as const) {
+    for (
+      const context of [
+        "freshwater_lake_pond",
+        "freshwater_river",
+        "coastal",
+        "coastal_flats_estuary",
+      ] as const
+    ) {
       const req = buildSharedEngineRequestFromEnvData(
         41.88,
         -87.63,
@@ -100,14 +102,17 @@ Deno.test("forecast-scores: clone baseReq + context matches full build per conte
       envRecord,
       dayOffset,
     );
-    for (const context of [
-      "freshwater_lake_pond",
-      "freshwater_river",
-      "coastal",
-      "coastal_flats_estuary",
-    ] as const) {
-      const cloned =
-        context === "freshwater_lake_pond" ? baseReq : { ...baseReq, context };
+    for (
+      const context of [
+        "freshwater_lake_pond",
+        "freshwater_river",
+        "coastal",
+        "coastal_flats_estuary",
+      ] as const
+    ) {
+      const cloned = context === "freshwater_lake_pond"
+        ? baseReq
+        : { ...baseReq, context };
       const full = buildSharedEngineRequestFromEnvData(
         lat,
         lon,
@@ -117,7 +122,10 @@ Deno.test("forecast-scores: clone baseReq + context matches full build per conte
         envRecord,
         dayOffset,
       );
-      assertEquals(runHowFishingScoreOnly(cloned), runHowFishingScoreOnly(full));
+      assertEquals(
+        runHowFishingScoreOnly(cloned),
+        runHowFishingScoreOnly(full),
+      );
     }
   }
 });
@@ -135,7 +143,8 @@ Deno.test("forecast-scores day 0 matches calendar-day fallback used by locked da
   const hourlyPressureMb: Array<{ time_utc: string; value: number }> = [];
   for (let i = 0; i <= targetNoonIdx; i++) {
     hourlyPressureMb.push({
-      time_utc: new Date(Date.UTC(2026, 5, 1, 0, 0, 0) + i * 3600 * 1000).toISOString(),
+      time_utc: new Date(Date.UTC(2026, 5, 1, 0, 0, 0) + i * 3600 * 1000)
+        .toISOString(),
       value: 1000 + i,
     });
   }

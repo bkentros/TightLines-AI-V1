@@ -9,7 +9,7 @@
  *  - Cover card is compact: small emblem, short title, short dek.
  *  - Chapter preview icons on the right look like the actual app UI
  *    vocabulary — no foreign animations. Specifically:
- *      01 Daily Read  → a green score chip (same band + number style as
+ *      01 Today's Bite → a green score chip (same band + number style as
  *                        the dashboard hero score)
  *      02 Tackle Box  → two stacked lure-name pills (same style as the
  *                        recommender's lure chips)
@@ -178,14 +178,14 @@ export default function OnboardingStep1() {
           {/* ── 3 compact chapter rows ────────────────────────────────── */}
           <View style={styles.chapters}>
 
-            {/* Chapter I — The Daily Read */}
+            {/* Chapter I — Today's Bite */}
             <View style={[styles.chapterRow, { borderLeftColor: paper.bandPrime }]}>
               <View style={styles.chapterLeft}>
                 <View style={[styles.chapterNumeralBadge, { borderColor: paper.bandPrime }]}>
                   <Text style={[styles.chapterNumeral, { color: paper.bandPrime }]}>01</Text>
                 </View>
                 <View style={styles.chapterTextCol}>
-                  <Text style={styles.chapterTitle}>The Daily Read</Text>
+                  <Text style={styles.chapterTitle}>Today's Bite</Text>
                   <Text style={styles.chapterBlurb}>
                     Today's score, best windows, whether to go.
                   </Text>
@@ -239,7 +239,7 @@ export default function OnboardingStep1() {
                 <View style={styles.chapterTextCol}>
                   <Text style={styles.chapterTitle}>Water Read</Text>
                   <Text style={styles.chapterBlurb}>
-                    Lake structure, cover zones, where fish hold.
+                    Creates structure-related high-probability fishing zones for any supported lake.
                   </Text>
                   <View style={[styles.chapterTagPill, { borderColor: 'rgba(42,110,150,0.4)', backgroundColor: 'rgba(42,110,150,0.08)' }]}>
                     <Text style={[styles.chapterTagText, { color: '#2A6E96' }]}>STRUCTURE · COVER · HOLDING</Text>

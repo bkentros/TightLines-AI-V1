@@ -3,8 +3,6 @@ import type {
   SharedEngineRequest,
 } from "./contracts/mod.ts";
 import { DISPLAY_CONTEXT_LABEL } from "./contracts/mod.ts";
-import { buildSharedNormalizedOutput } from "./normalize/buildNormalized.ts";
-import { scoreDay } from "./score/scoreDay.ts";
 import { analyzeSharedConditions } from "./analyzeSharedConditions.ts";
 
 /**
@@ -12,8 +10,7 @@ import { analyzeSharedConditions } from "./analyzeSharedConditions.ts";
  * Skips timing, tips, summary, and rich condition context — use for bulk / edge limits.
  */
 export function runHowFishingScoreOnly(req: SharedEngineRequest): number {
-  const norm = buildSharedNormalizedOutput(req);
-  return scoreDay(norm).score;
+  return analyzeSharedConditions(req).scored.score;
 }
 import {
   buildReportSummaryLine,
@@ -57,6 +54,9 @@ export function runHowFishingReport(
   const analysis = analyzeSharedConditions(req);
   const { norm, scored, timing, condition_context } = analysis;
   const reliability = norm.reliability;
+  const limitedData = reliability !== "high" ||
+    norm.missing_variables.length > 0 ||
+    norm.data_gaps.length > 0;
   const copySeed = [
     req.context,
     req.region_key,
@@ -74,6 +74,7 @@ export function runHowFishingReport(
     scored.suppressors[0],
     norm.normalized,
     copySeed,
+    { band: scored.band, limitedData },
   );
 
   // ── Timing engine (parallel lane to scoring) ──────────────────────────
@@ -125,6 +126,7 @@ export function runHowFishingReport(
       score: scored.score,
       context: req.context,
       reliability,
+      limitedData,
       drivers: summaryDrivers,
       suppressors: summarySuppressors,
       seed: copySeed,

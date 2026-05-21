@@ -7,6 +7,7 @@
  */
 
 import { supabase } from './supabase';
+import { SMART_LOG_ENABLED } from './launchLocks';
 
 export const MAX_ANALYTICS_CATCH_ROWS = 5000;
 const FETCH_PAGE_SIZE = 500;
@@ -482,6 +483,10 @@ function computeAnalytics(
 export async function getFishingAnalytics(
   filter: FishingAnalyticsFilter,
 ): Promise<FishingAnalyticsResponse> {
+  if (!SMART_LOG_ENABLED) {
+    return { ok: false, error: 'Smart Log is disabled for this release.' };
+  }
+
   const {
     data: { user },
     error: authError,

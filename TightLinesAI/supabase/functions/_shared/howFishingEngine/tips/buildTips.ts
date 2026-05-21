@@ -1,6 +1,7 @@
 import type {
   ActionableTipTag,
   EngineContext,
+  ScoreBand,
   SharedNormalizedOutput,
 } from "../contracts/mod.ts";
 import { isCoastalFamilyContext } from "../contracts/context.ts";
@@ -119,6 +120,7 @@ export function buildActionableTip(
   topSuppressor: ActiveVariableScore | undefined,
   norm: SharedNormalizedOutput["normalized"],
   seed: string,
+  options: { band?: ScoreBand; limitedData?: boolean } = {},
 ): EngineActionableTipBundle {
   let actionable_tip: string = pick(GENERAL_STRATEGY, seed, "general");
   let actionable_tip_tag: ActionableTipTag = "strategy_field_plan";
@@ -187,9 +189,12 @@ export function buildActionableTip(
   }
 
   const lowInformation = Object.values(norm).filter(Boolean).length <= 3;
-  if (lowInformation) {
+  if (options.limitedData || lowInformation) {
     actionable_tip = pick(DATA_STRATEGY, seed, "data_limited");
     actionable_tip_tag = "strategy_data_limited";
+  } else if (options.band === "Tough" || options.band === "Poor") {
+    actionable_tip = pick(PATIENT_STRATEGY, seed, "low_band_patient");
+    actionable_tip_tag = "strategy_patient_plan";
   }
 
   return {

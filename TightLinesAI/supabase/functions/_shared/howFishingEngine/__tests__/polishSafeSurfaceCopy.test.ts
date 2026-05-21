@@ -445,7 +445,7 @@ Deno.test("report does not surface low-edge warm-season temperature as a limitin
     longitude: -82.3,
     state_code: "FL",
     region_key: "florida",
-    local_date: "2026-05-14",
+    local_date: "2026-07-14",
     local_timezone: "America/New_York",
     context: "freshwater_lake_pond",
     environment: {
@@ -577,9 +577,9 @@ Deno.test("meaningfully suppressive temperature surfaces as temperature only", (
     local_timezone: "America/New_York",
     context: "freshwater_lake_pond",
     environment: {
-      daily_mean_air_temp_f: 96,
-      prior_day_mean_air_temp_f: 96,
-      day_minus_2_mean_air_temp_f: 96,
+      daily_mean_air_temp_f: 104,
+      prior_day_mean_air_temp_f: 104,
+      day_minus_2_mean_air_temp_f: 104,
       pressure_history_mb: [1014, 1014, 1014, 1014],
       wind_speed_mph: 7,
       cloud_cover_pct: 55,
