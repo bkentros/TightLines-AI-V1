@@ -72,7 +72,7 @@ const FEATURES: {
     icon: 'layers-outline',
     title: 'Water Read',
     tag: 'POLYGON',
-    blurb: 'Most lakes: structure + potential hotspots',
+    blurb: 'Creates structure-related high-probability fishing zones for any supported lake.',
     iconBg: ['#E8F2FA', '#C8DFF2'],
     iconBorder: '#0F63B0',
     iconColor: '#0A4A87',
@@ -82,7 +82,7 @@ const FEATURES: {
     icon: 'fish-outline',
     title: 'Tackle Box',
     tag: 'RECOMMENDER',
-    blurb: "Tuned picks for today's conditions & species",
+    blurb: 'Two lures and two flies ranked for your weather, water, and season.',
     iconBg: ['#FBF1D9', '#F4DFA4'],
     iconBorder: '#C99B2D',
     iconColor: '#8A6A1A',
@@ -92,7 +92,7 @@ const FEATURES: {
     icon: 'sparkles-outline',
     title: "Today's Bite",
     tag: 'CONDITIONS',
-    blurb: 'Full breakdown · windows · limiting factors',
+    blurb: "Today's score, best windows, and a clear answer on whether to go.",
     iconBg: ['#E5F2DD', '#C5E0B5'],
     iconBorder: '#3DA85F',
     iconColor: '#1F6B38',
@@ -229,8 +229,8 @@ export default function WelcomeScreen() {
             </Text>
             <View style={styles.brandRule} />
             <Text style={styles.tagline}>
-              <Text style={styles.taglineItalic}>Find the bite</Text>
-              {' '}before you head out.
+              <Text style={styles.taglineItalic}>Finding fins</Text>
+              , made easier.
             </Text>
           </View>
 
