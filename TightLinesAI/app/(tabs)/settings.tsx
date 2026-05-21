@@ -60,7 +60,6 @@ export default function SettingsScreen() {
   const { profile, user, setProfile, signOut } = useAuthStore();
   const {
     ignoreGps,
-    overrideSubscriptionTier,
     load: loadDevTesting,
     setIgnoreGps,
   } = useDevTestingStore();
@@ -342,8 +341,6 @@ export default function SettingsScreen() {
 
   const effectiveTier = getEffectiveTier(
     profile,
-    overrideSubscriptionTier ?? null,
-    canSeeTestingTools,
     user?.email,
   );
 

@@ -173,7 +173,6 @@ export default function HomeScreen() {
   const { profile, user } = useAuthStore();
   const {
     ignoreGps,
-    overrideSubscriptionTier,
     load: loadDevTesting,
     setIgnoreGps,
   } = useDevTestingStore();
@@ -253,8 +252,6 @@ export default function HomeScreen() {
   // ── Subscription gating ───────────────────────────────────────────────────
   const effectiveTier = getEffectiveTier(
     profile,
-    overrideSubscriptionTier ?? null,
-    isAdminEmail(user?.email),
     user?.email,
   );
   const hasSubscription = canUseAIFeatures(effectiveTier);

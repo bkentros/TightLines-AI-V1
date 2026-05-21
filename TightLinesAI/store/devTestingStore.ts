@@ -1,5 +1,5 @@
 /**
- * Dev Testing Store — QA/admin preview toggles
+ * Dev Testing Store — QA/admin device toggles
  *
  * Persisted via AsyncStorage. Location overrides were removed — use the home
  * screen location picker instead.
@@ -10,21 +10,15 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const STORAGE_KEY = 'dev_testing_store';
 
-export type DevSubscriptionTier = 'free' | 'angler' | 'master_angler';
-
 export interface DevTestingState {
   /** When true, Home uses null coords → "Sync location" state */
   ignoreGps: boolean;
-  /** When set, trusted callers can override profile subscription_tier for feature gating previews. */
-  overrideSubscriptionTier: DevSubscriptionTier | null;
   load: () => Promise<void>;
   setIgnoreGps: (value: boolean) => Promise<void>;
-  setOverrideSubscriptionTier: (tier: DevSubscriptionTier | null) => Promise<void>;
 }
 
 async function persist(data: {
   ignoreGps?: boolean;
-  overrideSubscriptionTier?: DevSubscriptionTier | null;
 }) {
   try {
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
@@ -33,9 +27,8 @@ async function persist(data: {
   }
 }
 
-export const useDevTestingStore = create<DevTestingState>((set, get) => ({
+export const useDevTestingStore = create<DevTestingState>((set) => ({
   ignoreGps: false,
-  overrideSubscriptionTier: null,
 
   load: async () => {
     try {
@@ -43,12 +36,8 @@ export const useDevTestingStore = create<DevTestingState>((set, get) => ({
       if (!raw) return;
       const parsed = JSON.parse(raw);
       if (parsed && typeof parsed === 'object') {
-        const tier = parsed.overrideSubscriptionTier;
-        const validTier =
-          tier === 'free' || tier === 'angler' || tier === 'master_angler' ? tier : null;
         set({
           ignoreGps: Boolean(parsed.ignoreGps),
-          overrideSubscriptionTier: validTier,
         });
       }
     } catch {
@@ -60,15 +49,6 @@ export const useDevTestingStore = create<DevTestingState>((set, get) => ({
     set({ ignoreGps: value });
     await persist({
       ignoreGps: value,
-      overrideSubscriptionTier: get().overrideSubscriptionTier,
-    });
-  },
-
-  setOverrideSubscriptionTier: async (tier) => {
-    set({ overrideSubscriptionTier: tier });
-    await persist({
-      ignoreGps: get().ignoreGps,
-      overrideSubscriptionTier: tier,
     });
   },
 }));

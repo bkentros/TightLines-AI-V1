@@ -13,6 +13,7 @@ import {
   StyleSheet,
   Pressable,
   Text,
+  Image,
   KeyboardAvoidingView,
   Platform,
   ScrollView,
@@ -35,7 +36,6 @@ import {
 import { useAuthStore } from '../../store/authStore';
 import {
   AuthBackButton,
-  AuthBrandRibbon,
   AuthDivider,
   AuthField,
   AuthFooterStamp,
@@ -150,8 +150,25 @@ export default function SignInScreen() {
             showsVerticalScrollIndicator={false}
           >
             <View style={styles.topSection}>
-              <AuthBrandRibbon />
-              <AuthBackButton onPress={() => router.back()} />
+              <View style={styles.topBar}>
+                <View style={styles.topBack}>
+                  <AuthBackButton onPress={() => router.back()} />
+                </View>
+                <View style={styles.centerBrand} pointerEvents="none">
+                  <Image
+                    source={require('../../assets/images/finfindr-logo.png')}
+                    style={styles.centerBrandLogo}
+                    resizeMode="contain"
+                  />
+                  <View style={styles.centerBrandLockup}>
+                    <View style={styles.centerBrandWordmarkRow}>
+                      <Text style={styles.centerBrandWordmark}>FinFindr</Text>
+                      <Text style={styles.centerBrandWordmarkDot}>.</Text>
+                    </View>
+                    <View style={styles.centerBrandRule} />
+                  </View>
+                </View>
+              </View>
 
               <AuthHeader
                 eyebrow="— FINFINDR · SIGN IN —"
@@ -273,6 +290,61 @@ const styles = StyleSheet.create({
   },
   topSection: {
     gap: paperSpacing.xl,
+  },
+  topBar: {
+    minHeight: 58,
+    justifyContent: 'center',
+    alignItems: 'center',
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: paper.dashboardLine,
+    paddingBottom: paperSpacing.sm,
+    position: 'relative',
+  },
+  topBack: {
+    position: 'absolute',
+    left: 0,
+    top: 4,
+    zIndex: 2,
+  },
+  centerBrand: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 10,
+  },
+  centerBrandLogo: {
+    width: 28,
+    height: 36,
+  },
+  centerBrandLockup: {
+    alignItems: 'flex-start',
+  },
+  centerBrandWordmarkRow: {
+    flexDirection: 'row',
+    alignItems: 'baseline',
+  },
+  centerBrandWordmark: {
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    color: paper.dashboardInk,
+    fontWeight: '700',
+    letterSpacing: -0.3,
+    lineHeight: 20,
+  },
+  centerBrandWordmarkDot: {
+    fontFamily: paperFonts.display,
+    fontSize: 18,
+    color: paper.dashboardBlue,
+    fontWeight: '700',
+    lineHeight: 20,
+  },
+  centerBrandRule: {
+    width: 22,
+    height: 1.5,
+    backgroundColor: paper.dashboardBlue,
+    borderRadius: 1,
+    marginTop: 2,
+    opacity: 0.85,
   },
   form: {
     gap: paperSpacing.md,

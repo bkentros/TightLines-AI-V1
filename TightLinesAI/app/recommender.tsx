@@ -71,8 +71,6 @@ import { ALL_LURE_IMAGES } from "../lib/lureImages";
 import { ALL_FLY_IMAGES } from "../lib/flyImages";
 import { Asset } from "expo-asset";
 import { useAuthStore } from "../store/authStore";
-import { useDevTestingStore } from "../store/devTestingStore";
-import { isAdminEmail } from "../lib/adminAccess";
 import { fetchRecommendation } from "../lib/recommender";
 import {
   getForecastScores,
@@ -930,20 +928,12 @@ export default function RecommenderScreen() {
   }>();
 
   const { profile, user } = useAuthStore();
-  const overrideSubscriptionTier = useDevTestingStore((s) => s.overrideSubscriptionTier);
-  const loadDevTesting = useDevTestingStore((s) => s.load);
   const effectiveTier = getEffectiveTier(
     profile,
-    overrideSubscriptionTier ?? null,
-    isAdminEmail(user?.email),
     user?.email,
   );
   const canGenerateRecommendation = canGenerateRecommenderReport(effectiveTier);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
-
-  useEffect(() => {
-    if (isAdminEmail(user?.email)) loadDevTesting();
-  }, [loadDevTesting, user?.email]);
 
   const lat = parseFloat(params.latitude ?? "");
   const lon = parseFloat(params.longitude ?? "");
@@ -1219,6 +1209,14 @@ export default function RecommenderScreen() {
     setClarity(null);
     setRecommendationGoal("all_purpose");
   }, []);
+
+  useEffect(() => {
+    if (canGenerateRecommendation || screenState !== "result") return;
+    setResult(null);
+    setResultTimeZone(undefined);
+    setScreenState("setup");
+    setIsRefreshing(false);
+  }, [canGenerateRecommendation, screenState]);
 
   const accentColor = context ? contextAccentColor(context) : colors.primary;
 

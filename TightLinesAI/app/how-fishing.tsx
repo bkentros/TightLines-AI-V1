@@ -29,7 +29,6 @@ import { paper, paperFonts, paperSpacing } from "../lib/theme";
 import { getEnvironment } from "../lib/env";
 import { getValidAccessToken, invokeEdgeFunction } from "../lib/supabase";
 import { useAuthStore } from "../store/authStore";
-import { useDevTestingStore } from "../store/devTestingStore";
 import {
   type EngineContextKey,
   getCachedForecastRebuild,
@@ -59,7 +58,6 @@ import { SubscribePrompt } from "../components/SubscribePrompt";
 import { TopographicLines } from "../components/paper";
 import { getEffectiveTier } from "../lib/subscription";
 import { FeedbackCard } from "../components/FeedbackCard";
-import { isAdminEmail } from "../lib/adminAccess";
 
 /* ─── Date/time helpers ─────────────────────────────────────────────────── */
 
@@ -238,14 +236,8 @@ export default function HowFishingScreen() {
     : null;
 
   const { profile, user } = useAuthStore();
-  const overrideSubscriptionTier = useDevTestingStore((s) =>
-    s.overrideSubscriptionTier
-  );
-  const loadDevTesting = useDevTestingStore((s) => s.load);
   const effectiveTier = getEffectiveTier(
     profile,
-    overrideSubscriptionTier ?? null,
-    isAdminEmail(user?.email),
     user?.email,
   );
   const isFreeTier = effectiveTier === "free";
@@ -256,9 +248,6 @@ export default function HowFishingScreen() {
   const [env, setEnv] = useState<EnvironmentData | null>(null);
   const [envLoading, setEnvLoading] = useState(true);
 
-  useEffect(() => {
-    if (isAdminEmail(user?.email)) loadDevTesting();
-  }, [loadDevTesting, user?.email]);
   const [locationLabel, setLocationLabel] = useState<string>(
     "Current location",
   );
@@ -428,6 +417,12 @@ export default function HowFishingScreen() {
     if (!hasCoords || envLoading) return;
     let cancelled = false;
     (async () => {
+      if (isFreeTier && isForecastDay) {
+        setMultiBundles(null);
+        setShowConfirm(false);
+        setShowSubscribePrompt(true);
+        return;
+      }
       if (isLimitedFreeRead) {
         setShowConfirm(true);
         return;
@@ -471,6 +466,7 @@ export default function HowFishingScreen() {
     availableContexts,
     isForecastDay,
     targetDate,
+    isFreeTier,
     isLimitedFreeRead,
   ]);
 
@@ -632,6 +628,10 @@ export default function HowFishingScreen() {
   const handleRefresh = useCallback(async () => {
     setRefreshing(true);
     try {
+      if (isFreeTier && isForecastDay) {
+        setShowSubscribePrompt(true);
+        return;
+      }
       let cached: Record<EngineContextKey, HowFishingRebuildBundle> | null =
         null;
       if (isLimitedFreeRead) {

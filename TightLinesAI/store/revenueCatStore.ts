@@ -12,6 +12,7 @@ import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
 import { supabase } from "../lib/supabase";
 import { useAuthStore } from "./authStore";
 import type { SubscriptionTier } from "../lib/types";
+import { hasComplimentaryAnglerAccess } from "../lib/adminAccess";
 
 const ANGLER_ENTITLEMENT_ID = "angler";
 const NATIVE_UNAVAILABLE_MESSAGE =
@@ -47,6 +48,11 @@ function tierFromCustomerInfo(info: CustomerInfo | null): SubscriptionTier {
   return info.entitlements.active[ANGLER_ENTITLEMENT_ID]?.isActive
     ? "angler"
     : "free";
+}
+
+function hasEffectiveAnglerAccess(info: CustomerInfo | null): boolean {
+  return tierFromCustomerInfo(info) === "angler" ||
+    hasComplimentaryAnglerAccess(useAuthStore.getState().user?.email);
 }
 
 function isOfferingsConfigurationError(message: string): boolean {
@@ -164,7 +170,7 @@ async function refreshCustomerInfoOnly(
   const customerInfo = await Purchases.getCustomerInfo();
   set({
     customerInfo,
-    hasAngler: tierFromCustomerInfo(customerInfo) === "angler",
+    hasAngler: hasEffectiveAnglerAccess(customerInfo),
   });
   await syncProfileTier(customerInfo);
 }
@@ -188,7 +194,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
         error: NATIVE_UNAVAILABLE_MESSAGE,
         customerInfo: null,
         offering: null,
-        hasAngler: false,
+        hasAngler: hasEffectiveAnglerAccess(null),
       });
       return;
     }
@@ -198,6 +204,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       set({
         configured: false,
         loading: false,
+        hasAngler: hasEffectiveAnglerAccess(null),
         error:
           "Add EXPO_PUBLIC_REVENUECAT_IOS_API_KEY and/or EXPO_PUBLIC_REVENUECAT_ANDROID_API_KEY.",
       });
@@ -223,7 +230,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
             customerInfoListener = (info) => {
               set({
                 customerInfo: info,
-                hasAngler: tierFromCustomerInfo(info) === "angler",
+                hasAngler: hasEffectiveAnglerAccess(info),
               });
               void syncProfileTier(info);
             };
@@ -253,7 +260,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
         error: NATIVE_UNAVAILABLE_MESSAGE,
         customerInfo: null,
         offering: null,
-        hasAngler: false,
+        hasAngler: hasEffectiveAnglerAccess(null),
       });
       return;
     }
@@ -281,7 +288,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       const customerInfo = await Purchases.getCustomerInfo();
       set({
         customerInfo,
-        hasAngler: tierFromCustomerInfo(customerInfo) === "angler",
+        hasAngler: hasEffectiveAnglerAccess(customerInfo),
       });
       await syncProfileTier(customerInfo);
 
@@ -299,6 +306,10 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
   },
 
   presentPaywall: async () => {
+    if (hasComplimentaryAnglerAccess(useAuthStore.getState().user?.email)) {
+      set({ presentingPaywall: false, error: null, hasAngler: true });
+      return true;
+    }
     if (!revenueCatNativeAvailable()) {
       set({ presentingPaywall: false, error: NATIVE_UNAVAILABLE_MESSAGE });
       return false;
@@ -344,7 +355,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       });
 
       const customerInfo = await Purchases.getCustomerInfo();
-      const hasAngler = tierFromCustomerInfo(customerInfo) === "angler";
+      const hasAngler = hasEffectiveAnglerAccess(customerInfo);
       set({
         customerInfo,
         hasAngler,
@@ -386,7 +397,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       }
 
       const result = await Purchases.purchasePackage(pkg);
-      const hasAngler = tierFromCustomerInfo(result.customerInfo) === "angler";
+      const hasAngler = hasEffectiveAnglerAccess(result.customerInfo);
       set({ customerInfo: result.customerInfo, hasAngler });
       await syncProfileTier(result.customerInfo);
       return hasAngler;
@@ -421,7 +432,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       }
 
       const customerInfo = await Purchases.restorePurchases();
-      const hasAngler = tierFromCustomerInfo(customerInfo) === "angler";
+      const hasAngler = hasEffectiveAnglerAccess(customerInfo);
       set({ customerInfo, hasAngler });
       await syncProfileTier(customerInfo);
       return hasAngler;
