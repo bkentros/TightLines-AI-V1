@@ -298,9 +298,7 @@ export default function WelcomeScreen() {
                     </View>
                     <Text
                       style={styles.valueModuleDesc}
-                      numberOfLines={1}
-                      adjustsFontSizeToFit
-                      minimumFontScale={0.9}
+                      numberOfLines={2}
                     >
                       {item.blurb}
                     </Text>
@@ -568,7 +566,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 8,
-    marginBottom: 2,
+    marginBottom: 4,
   },
   valueModuleTitle: {
     fontFamily: paperFonts.display,
@@ -584,9 +582,10 @@ const styles = StyleSheet.create({
   },
   valueModuleDesc: {
     fontFamily: paperFonts.bodyMedium,
-    fontSize: 11,
-    lineHeight: 14,
-    color: '#555',
+    fontSize: 12.5,
+    lineHeight: 16.5,
+    color: paper.dashboardInk,
+    opacity: 0.72,
   },
 
   // ── Actions ───────────────────────────────────────────────────────────
