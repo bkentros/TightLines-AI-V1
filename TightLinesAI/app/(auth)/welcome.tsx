@@ -61,25 +61,41 @@ const FEATURES: {
   numeral: string;
   icon: keyof typeof Ionicons.glyphMap;
   title: string;
+  tag: string;
   blurb: string;
+  iconBg: [string, string];
+  iconBorder: string;
+  iconColor: string;
 }[] = [
   {
     numeral: 'I',
-    icon: 'pulse-outline',
-    title: "Today's Bite",
-    blurb: "Today's score, best windows, and a clear answer on whether to go.",
+    icon: 'layers-outline',
+    title: 'Water Read',
+    tag: 'POLYGON',
+    blurb: 'Most lakes: structure + potential hotspots',
+    iconBg: ['#E8F2FA', '#C8DFF2'],
+    iconBorder: '#0F63B0',
+    iconColor: '#0A4A87',
   },
   {
     numeral: 'II',
     icon: 'fish-outline',
-    title: 'The Tackle Box',
-    blurb: 'Two lures and two flies ranked for your weather, water, and season.',
+    title: 'Tackle Box',
+    tag: 'RECOMMENDER',
+    blurb: "Tuned picks for today's conditions & species",
+    iconBg: ['#FBF1D9', '#F4DFA4'],
+    iconBorder: '#C99B2D',
+    iconColor: '#8A6A1A',
   },
   {
     numeral: 'III',
-    icon: 'scan-outline',
-    title: 'Water Read',
-    blurb: 'Creates structure-related high-probability fishing zones for any supported lake.',
+    icon: 'sparkles-outline',
+    title: "Today's Bite",
+    tag: 'CONDITIONS',
+    blurb: 'Full breakdown · windows · limiting factors',
+    iconBg: ['#E5F2DD', '#C5E0B5'],
+    iconBorder: '#3DA85F',
+    iconColor: '#1F6B38',
   },
 ];
 
@@ -235,17 +251,59 @@ export default function WelcomeScreen() {
             </View>
             <View style={styles.valueProps}>
               {FEATURES.map((item) => (
-                <View key={item.numeral} style={styles.valueProp}>
-                  <View style={styles.valueNumeralCol}>
-                    <Text style={styles.valueNumeral}>{item.numeral}</Text>
-                    <View style={styles.valueNumeralRule} />
+                <View key={item.numeral} style={styles.valueModule}>
+                  <View style={styles.valueModuleDots}>
+                    <View
+                      style={[
+                        styles.valueModuleDot,
+                        { backgroundColor: item.iconBorder, opacity: 0.5 },
+                      ]}
+                    />
+                    <View
+                      style={[
+                        styles.valueModuleDot,
+                        { backgroundColor: item.iconBorder, opacity: 0.7 },
+                      ]}
+                    />
+                    <View
+                      style={[
+                        styles.valueModuleDot,
+                        { backgroundColor: item.iconBorder },
+                      ]}
+                    />
                   </View>
-                  <View style={styles.valueIconWrap}>
-                    <Ionicons name={item.icon} size={15} color={paper.dashboardBlue} />
+                  <Text
+                    style={[
+                      styles.valueModuleCode,
+                      { color: item.iconBorder },
+                    ]}
+                  >
+                    {item.numeral}
+                  </Text>
+                  <View
+                    style={[
+                      styles.valueModuleIcon,
+                      {
+                        backgroundColor: item.iconBg[1],
+                        borderColor: `${item.iconBorder}60`,
+                      },
+                    ]}
+                  >
+                    <Ionicons name={item.icon} size={20} color={item.iconColor} />
                   </View>
-                  <View style={styles.valueText}>
-                    <Text style={styles.valueTitle}>{item.title}</Text>
-                    <Text style={styles.valueBlurb}>{item.blurb}</Text>
+                  <View style={styles.valueModuleTextCol}>
+                    <View style={styles.valueModuleTitleRow}>
+                      <Text style={styles.valueModuleTitle}>{item.title}</Text>
+                      <Text style={styles.valueModuleTag}>{item.tag}</Text>
+                    </View>
+                    <Text
+                      style={styles.valueModuleDesc}
+                      numberOfLines={1}
+                      adjustsFontSizeToFit
+                      minimumFontScale={0.9}
+                    >
+                      {item.blurb}
+                    </Text>
                   </View>
                 </View>
               ))}
@@ -465,63 +523,70 @@ const styles = StyleSheet.create({
   valueProps: {
     gap: paperSpacing.sm + 2,
   },
-  valueProp: {
+  valueModule: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: paperSpacing.sm + 2,
+    gap: 12,
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 10,
-    paddingVertical: paperSpacing.sm + 2,
-    paddingHorizontal: paperSpacing.sm + 4,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
+    borderRadius: 8,
+    padding: 14,
+    position: 'relative',
   },
-  valueNumeralCol: {
-    alignItems: 'center',
-    width: 20,
+  valueModuleDots: {
+    position: 'absolute',
+    top: 6,
+    right: 6,
+    flexDirection: 'row',
+    gap: 1.5,
   },
-  valueNumeral: {
-    fontFamily: paperFonts.display,
-    fontSize: 15,
-    color: paper.dashboardBlue,
-    fontWeight: '700',
-    letterSpacing: 0,
-    lineHeight: 17,
+  valueModuleDot: {
+    width: 3,
+    height: 3,
+    borderRadius: 1.5,
   },
-  valueNumeralRule: {
-    width: 12,
-    height: 1,
-    backgroundColor: paper.dashboardBlue,
-    opacity: 0.5,
-    marginTop: 3,
+  valueModuleCode: {
+    width: 24,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    letterSpacing: 1,
+    opacity: 0.85,
   },
-  valueIconWrap: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: paper.dashboardCream,
+  valueModuleIcon: {
+    width: 42,
+    height: 42,
+    borderRadius: 6,
     borderWidth: 1,
-    borderColor: paper.dashboardLine,
     alignItems: 'center',
     justifyContent: 'center',
   },
-  valueText: {
+  valueModuleTextCol: {
     flex: 1,
-    gap: 1,
   },
-  valueTitle: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 13,
-    color: paper.dashboardInk,
-    letterSpacing: 0.1,
-    lineHeight: 15,
+  valueModuleTitleRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 2,
   },
-  valueBlurb: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 12,
+  valueModuleTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 16,
     color: paper.dashboardInk,
-    opacity: 0.7,
-    lineHeight: 16,
+    fontWeight: '600',
+  },
+  valueModuleTag: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1.3,
+    color: paper.dashboardMuted,
+  },
+  valueModuleDesc: {
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 11,
+    lineHeight: 14,
+    color: '#555',
   },
 
   // ── Actions ───────────────────────────────────────────────────────────
