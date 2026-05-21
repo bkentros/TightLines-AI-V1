@@ -589,7 +589,10 @@ const styles = StyleSheet.create({
   },
 
   // ── Actions ───────────────────────────────────────────────────────────
-  actions: { gap: paperSpacing.xs + 2 },
+  actions: {
+    gap: paperSpacing.xs + 2,
+    marginTop: paperSpacing.xs,
+  },
   appleBtn: { height: 48, width: '100%' },
 
   // ── Footer ────────────────────────────────────────────────────────────
