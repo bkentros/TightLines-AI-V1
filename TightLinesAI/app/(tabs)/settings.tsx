@@ -306,33 +306,18 @@ export default function SettingsScreen() {
     setTierModeSaving(true);
 
     try {
-      const updates = {
-        subscription_tier: tier,
-        updated_at: new Date().toISOString(),
-      };
-
-      const { data, error } = await supabase
-        .from('profiles')
-        .update(updates)
-        .eq('id', user.id)
-        .select()
-        .single();
-
-      if (error) throw error;
-
       await setOverrideSubscriptionTier(tier);
-      setProfile(data as UserProfile);
       setNotice({
         title: `${tier === 'free' ? 'Free' : 'Angler'} mode active`,
         message:
-          'Testing tier saved to your profile, so report generation and the app are using the same access rules.',
+          'Testing mode is local to this device. Your real account tier was not changed.',
         tone: 'success',
       });
     } catch {
       setNotice({
         title: 'Could not update tier mode',
         message:
-          'The profile tier did not save, so report generation may still use your previous access level. Try again before testing reports.',
+          'Testing mode did not save on this device. Try again before testing reports.',
         tone: 'error',
       });
     } finally {

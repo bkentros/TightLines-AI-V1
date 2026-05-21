@@ -2,9 +2,10 @@ const ADMIN_EMAILS = [
   'brandonkentros@icloud.com',
 ];
 
+// Keep complimentary Angler access admin-only. RevenueCat should be the only
+// path that upgrades normal user accounts.
 const COMPLIMENTARY_ANGLER_EMAILS = [
   'brandonkentros@icloud.com',
-  'finfindr@hotmail.com',
 ];
 
 export function isAdminEmail(email: string | undefined | null): boolean {

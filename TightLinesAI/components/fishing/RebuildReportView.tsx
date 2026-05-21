@@ -715,11 +715,11 @@ export function RebuildReportView({
                 </View>
                 <View style={styles.limitedCtaCopy}>
                   <Text style={styles.limitedCtaEyebrow}>
-                    {presentingPaywall ? "OPENING" : "UPGRADE TO"}
+                    UPGRADE TO
                   </Text>
                   <View style={styles.limitedCtaTitleRow}>
                     <Text style={styles.limitedCtaTitle}>
-                      {presentingPaywall ? "Paywall" : "Angler"}
+                      Angler
                     </Text>
                     <Text style={styles.limitedCtaTitleDot}>.</Text>
                   </View>

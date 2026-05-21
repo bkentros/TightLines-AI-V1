@@ -614,6 +614,15 @@ export default function WaterReaderScreen() {
     setSelected(historyItemToSearchResult(item));
   }, [hasBuildingRead, hasSubscription, stateCode]);
 
+  const onSelectWaterbodyResult = useCallback((result: WaterbodySearchResult) => {
+    if (!canOpenWaterReaderRead(result)) return;
+    if (!canGenerateRead) {
+      setShowSubscribePrompt(true);
+      return;
+    }
+    setSelected(result);
+  }, [canGenerateRead]);
+
   const showResultsPanel =
     !hasBuildingRead && !selected && stateCode && (query.trim().length >= SEARCH_MIN_CHARS || searching || (searchError != null && query.trim().length >= SEARCH_MIN_CHARS));
 
@@ -992,7 +1001,7 @@ export default function WaterReaderScreen() {
                                 pressed && open && styles.resultRowPressed,
                               ]}
                               onPress={() => {
-                                if (canOpenWaterReaderRead(r)) setSelected(r);
+                                onSelectWaterbodyResult(r);
                               }}
                               disabled={!open}
                             >
@@ -1042,29 +1051,6 @@ export default function WaterReaderScreen() {
             {/* ── Map + legend ── */}
             {!selected ? (
               <WaterReadIdlePreview />
-            ) : !canGenerateRead ? (
-              <View style={styles.waterReadUnlockCard}>
-                <Text style={styles.waterReadUnlockEyebrow}>ANGLER WATER READ</Text>
-                <Text style={styles.waterReadUnlockTitle}>
-                  Generate {selected.name}
-                </Text>
-                <Text style={styles.waterReadUnlockBody}>
-                  Free accounts can search supported lakes. Building the structure map and seasonal legend requires Angler.
-                </Text>
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.readRetryButton,
-                    pressed && styles.readRetryButtonPressed,
-                  ]}
-                  onPress={() => setShowSubscribePrompt(true)}
-                  accessibilityLabel="Generate Water Read"
-                >
-                  <Ionicons name="map-outline" size={14} color="#FFFFFF" />
-                  <Text style={styles.readRetryButtonText}>
-                    GENERATE WATER READ
-                  </Text>
-                </Pressable>
-              </View>
             ) : readState.status === 'recent_building' ? (
               <RecentReadBuildingNotice
                 lakeName={selected.name}
@@ -2456,34 +2442,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1.4,
     color: '#FFFFFF',
   },
-  waterReadUnlockCard: {
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
-    padding: 18,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    gap: 10,
-    alignItems: 'flex-start',
-  },
-  waterReadUnlockEyebrow: {
-    fontFamily: MONO_BOLD,
-    fontSize: 10,
-    letterSpacing: 2.4,
-    color: paper.dashboardBlue,
-  },
-  waterReadUnlockTitle: {
-    fontFamily: SERIF_SEMI,
-    fontSize: 21,
-    lineHeight: 25,
-    color: paper.dashboardInk,
-  },
-  waterReadUnlockBody: {
-    fontFamily: SANS_MEDIUM,
-    fontSize: 13,
-    lineHeight: 18,
-    color: '#555555',
-  },
-
   // Guardrails card
   guardrailCard: {
     overflow: 'hidden',
