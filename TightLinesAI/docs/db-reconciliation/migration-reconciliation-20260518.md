@@ -111,3 +111,25 @@ After the launch patch is confirmed:
 3. Mark only verified already-applied versions as applied in migration history.
 4. Archive or remove local-only migrations that are dev/ingest artifacts and not production schema.
 5. Repair migration history so future `supabase db push` runs cleanly again.
+
+## Final History Repair - 2026-05-21
+
+Final pre-launch migration-history repair was completed on 2026-05-21 using Supabase CLI `2.98.2`.
+
+Before repair, `supabase db push --dry-run --yes` refused to proceed because 32 older local migration files were not recorded in the linked project's migration history. The live schema was checked first:
+
+- launch patch verification still passed (`app_feedback` exists with RLS, Smart Log authenticated policies remaining `0`, lifecycle constraints `6`)
+- Water Reader runtime tables/RPCs used by the app were present
+- old password-reset/delete-account helper RPCs were intentionally absent after `20260514170000_security_hardening_prelaunch.sql`
+- prototype aerial planning RPCs and the private ingest promotion helper were not active runtime dependencies
+- PostGIS RPC `search_path` settings were already `public, extensions`
+
+The 32 missing history rows were repaired as `applied` with `supabase migration repair ... --status applied --yes`. This was a migration ledger repair only; old SQL files were not replayed against production.
+
+Post-repair checks:
+
+- `supabase migration list --linked` showed all local versions matched to remote versions
+- `supabase db push --dry-run --yes` returned `Remote database is up to date.`
+- relevant Today’s Bite Deno tests passed (`176 passed / 0 failed`)
+- `npm run qa:water-reader-typecheck` passed
+- `npm run qa:water-reader-app-integration-smoke` passed

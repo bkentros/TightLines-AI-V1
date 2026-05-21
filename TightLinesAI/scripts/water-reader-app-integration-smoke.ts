@@ -151,7 +151,8 @@ assert(appSource.includes('pendingRetryDelayMs'), 'app polling should respect re
 assert(appSource.includes('generationStatus') && appSource.includes("'queued'") && appSource.includes("'processing'"), 'app should poll queued/processing reads');
 assert(appSource.includes("r.hasPolygonGeometry && r.waterReaderSupportStatus !== 'not_supported'"), 'app should open every polygon-backed non-blocked support status');
 assert(appSource.includes('same-name') && appSource.includes('compare county and acres'), 'app should surface duplicate-name disambiguation copy');
-assert(appSource.includes('const SEARCH_RESULT_LIMIT = 20'), 'app search should request enough candidates for same-name lake discovery');
+const appSearchLimit = appSource.match(/const SEARCH_RESULT_LIMIT = (\d+);/)?.[1];
+assert(Number(appSearchLimit) >= 20, 'app search should request enough candidates for same-name lake discovery');
 assert(appSource.includes('nestedScrollEnabled') && appSource.includes('dropdownListContent'), 'app search dropdown should be independently scrollable');
 assert(appSource.includes('CountyFilterChip') && appSource.includes('countyFilter'), 'app search should expose county chips for dense same-name results');
 assert(appSource.includes("water-reader-pontiac-sample.png"), 'idle preview should use a bundled static Water Read sample image');
