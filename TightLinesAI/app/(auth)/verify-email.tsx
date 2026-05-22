@@ -34,6 +34,13 @@ import {
   paperFonts,
   paperSpacing,
 } from '../../lib/theme';
+import {
+  AUTH_EMAIL_COOLDOWN_SECONDS,
+  SIGNUP_VERIFICATION_EMAIL_COOLDOWN_KEY,
+  clearAuthEmailCooldown,
+  readAuthEmailCooldownSeconds,
+  setAuthEmailCooldown,
+} from '../../lib/authEmailCooldown';
 import { getAuthEmailRedirectUrl } from '../../lib/authEmailRedirect';
 import { supabase } from '../../lib/supabase';
 import { useAuthStore } from '../../store/authStore';
@@ -46,19 +53,17 @@ import {
   AuthTip,
 } from '../../components/paper/auth';
 
-const COOLDOWN_SECONDS = 60;
-
 export default function VerifyEmailScreen() {
   const router = useRouter();
   const { email: paramEmail } = useLocalSearchParams<{ email?: string }>();
   const { user, signOut } = useAuthStore();
-  // Prefer route param (set by sign-up), fall back to store user email
-  const emailToShow = paramEmail ?? user?.email ?? '';
+  // Prefer the signed-in user's email when Supabase has a session; new
+  // email-confirmation users usually only have the route param.
+  const emailToShow = user?.email ?? paramEmail ?? '';
   const [resending, setResending] = useState(false);
   const [justSent, setJustSent] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const [notice, setNotice] = useState('');
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   // Mail-seal pulse — a subtle "still listening for your tap" cue. Same
   // native-driver opacity loop used across the paper system's live dots.
@@ -85,22 +90,37 @@ export default function VerifyEmailScreen() {
   }, [sealPulse]);
 
   useEffect(() => {
+    let mounted = true;
+    readAuthEmailCooldownSeconds(SIGNUP_VERIFICATION_EMAIL_COOLDOWN_KEY).then(
+      (seconds) => {
+        if (mounted) setCooldown(seconds);
+      },
+    );
+
+    const id = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 0) return 0;
+        const next = prev - 1;
+        if (next <= 0) {
+          void clearAuthEmailCooldown(SIGNUP_VERIFICATION_EMAIL_COOLDOWN_KEY);
+          return 0;
+        }
+        return next;
+      });
+    }, 1000);
+
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      mounted = false;
+      clearInterval(id);
     };
   }, []);
 
-  const startCooldown = () => {
-    setCooldown(COOLDOWN_SECONDS);
-    timerRef.current = setInterval(() => {
-      setCooldown((prev) => {
-        if (prev <= 1) {
-          clearInterval(timerRef.current!);
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+  const startCooldown = async () => {
+    await setAuthEmailCooldown(
+      SIGNUP_VERIFICATION_EMAIL_COOLDOWN_KEY,
+      AUTH_EMAIL_COOLDOWN_SECONDS,
+    );
+    setCooldown(AUTH_EMAIL_COOLDOWN_SECONDS);
   };
 
   const handleResend = async () => {
@@ -117,7 +137,7 @@ export default function VerifyEmailScreen() {
         setNotice(error.message);
       } else {
         setJustSent(true);
-        startCooldown();
+        await startCooldown();
       }
     } finally {
       setResending(false);
@@ -207,14 +227,14 @@ export default function VerifyEmailScreen() {
             <Pressable
               style={({ pressed }) => [
                 styles.resendBtn,
-                justSent && styles.resendBtnSent,
+                (justSent || cooldown > 0) && styles.resendBtnSent,
                 pressed && !buttonDisabled && styles.resendBtnPressed,
                 buttonDisabled && styles.resendBtnDisabled,
               ]}
               onPress={handleResend}
               disabled={buttonDisabled}
             >
-              {justSent && cooldown > 0 ? (
+              {cooldown > 0 ? (
                 <View style={styles.resendInner}>
                   <Ionicons
                     name="checkmark-circle"
@@ -222,7 +242,7 @@ export default function VerifyEmailScreen() {
                     color={paper.dashboardBlue}
                   />
                   <Text style={styles.resendTextSent}>
-                    SENT — RESEND IN {cooldown}S
+                    SENT - RESEND IN {cooldown}S
                   </Text>
                 </View>
               ) : (

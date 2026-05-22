@@ -40,6 +40,13 @@ import {
   paperFonts,
   paperSpacing,
 } from '../../lib/theme';
+import {
+  AUTH_EMAIL_COOLDOWN_SECONDS,
+  PASSWORD_RESET_EMAIL_COOLDOWN_KEY,
+  clearAuthEmailCooldown,
+  readAuthEmailCooldownSeconds,
+  setAuthEmailCooldown,
+} from '../../lib/authEmailCooldown';
 import { getPasswordResetEmailRedirectUrl } from '../../lib/authEmailRedirect';
 import { supabase } from '../../lib/supabase';
 import { TopographicLines } from '../../components/paper';
@@ -55,8 +62,6 @@ import {
 
 type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
-const COOLDOWN_SECONDS = 60;
-
 export default function ForgotPasswordScreen() {
   const router = useRouter();
   const [email, setEmail] = useState('');
@@ -64,33 +69,53 @@ export default function ForgotPasswordScreen() {
   const [sent, setSent] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const [notice, setNotice] = useState<Notice | null>(null);
-  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
 
   useEffect(() => {
+    let mounted = true;
+    readAuthEmailCooldownSeconds(PASSWORD_RESET_EMAIL_COOLDOWN_KEY).then(
+      (seconds) => {
+        if (mounted) setCooldown(seconds);
+      },
+    );
+
+    const id = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 0) return 0;
+        const next = prev - 1;
+        if (next <= 0) {
+          void clearAuthEmailCooldown(PASSWORD_RESET_EMAIL_COOLDOWN_KEY);
+          return 0;
+        }
+        return next;
+      });
+    }, 1000);
+
     return () => {
-      if (timerRef.current) clearInterval(timerRef.current);
+      mounted = false;
+      clearInterval(id);
     };
   }, []);
 
-  const startCooldown = () => {
-    if (timerRef.current) clearInterval(timerRef.current);
-    setCooldown(COOLDOWN_SECONDS);
-    timerRef.current = setInterval(() => {
-      setCooldown((prev) => {
-        if (prev <= 1) {
-          if (timerRef.current) {
-            clearInterval(timerRef.current);
-            timerRef.current = null;
-          }
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
+  const startCooldown = async () => {
+    await setAuthEmailCooldown(
+      PASSWORD_RESET_EMAIL_COOLDOWN_KEY,
+      AUTH_EMAIL_COOLDOWN_SECONDS,
+    );
+    setCooldown(AUTH_EMAIL_COOLDOWN_SECONDS);
   };
 
   const handleSend = async () => {
-    if (loading || cooldown > 0) return;
+    if (loading) return;
+    if (cooldown > 0) {
+      const m = Math.floor(cooldown / 60);
+      const s = cooldown % 60;
+      setNotice({
+        title: 'Reset link sent',
+        message: `Please wait ${m}:${s.toString().padStart(2, '0')} before sending another reset email from this device.`,
+        tone: 'info',
+      });
+      return;
+    }
     const trimmed = email.trim().toLowerCase();
     setNotice(null);
     if (!trimmed) {
@@ -108,7 +133,7 @@ export default function ForgotPasswordScreen() {
         redirectTo: getPasswordResetEmailRedirectUrl(),
       });
       setSent(true);
-      startCooldown();
+      await startCooldown();
     } finally {
       setLoading(false);
     }
@@ -199,9 +224,10 @@ export default function ForgotPasswordScreen() {
 
                 <View style={styles.actions}>
                   <AuthPrimaryButton
-                    label="Send reset link"
+                    label={cooldown > 0 ? resendLabel : 'Send reset link'}
                     loading={loading}
                     loadingLabel="TRANSMITTING…"
+                    disabled={cooldown > 0}
                     onPress={handleSend}
                   />
                   <Pressable

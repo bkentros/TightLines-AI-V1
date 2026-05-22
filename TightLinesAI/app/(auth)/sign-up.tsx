@@ -50,6 +50,13 @@ import {
   isSignUpEmailFormatAcceptable,
 } from '../../lib/emailValidation';
 import {
+  AUTH_EMAIL_COOLDOWN_SECONDS,
+  SIGNUP_VERIFICATION_EMAIL_COOLDOWN_KEY,
+  clearAuthEmailCooldown,
+  readAuthEmailCooldownSeconds,
+  setAuthEmailCooldown,
+} from '../../lib/authEmailCooldown';
+import {
   getPasswordValidationError,
   isPasswordValid,
   PASSWORD_POLICY_LABEL,
@@ -96,6 +103,7 @@ export default function SignUpScreen() {
   const [emailError, setEmailError] = useState('');
   const [confirmStatus, setConfirmStatus] = useState<FieldStatus>('idle');
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
+  const [verificationCooldownSeconds, setVerificationCooldownSeconds] = useState(0);
   const [notice, setNotice] = useState<Notice | null>(null);
 
   const emailDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
@@ -126,12 +134,16 @@ export default function SignUpScreen() {
   // Restore cooldown from storage on mount, then count down every second
   useEffect(() => {
     (async () => {
-      const raw = await AsyncStorage.getItem(RATE_LIMIT_STORAGE_KEY);
+      const [raw, verificationSeconds] = await Promise.all([
+        AsyncStorage.getItem(RATE_LIMIT_STORAGE_KEY),
+        readAuthEmailCooldownSeconds(SIGNUP_VERIFICATION_EMAIL_COOLDOWN_KEY),
+      ]);
       const until = raw ? parseInt(raw, 10) : 0;
       const now = Date.now();
       if (until > now) {
         setCooldownSeconds(Math.ceil((until - now) / 1000));
       }
+      setVerificationCooldownSeconds(verificationSeconds);
     })();
 
     const id = setInterval(() => {
@@ -140,6 +152,15 @@ export default function SignUpScreen() {
         const next = prev - 1;
         if (next <= 0) {
           AsyncStorage.removeItem(RATE_LIMIT_STORAGE_KEY);
+          return 0;
+        }
+        return next;
+      });
+      setVerificationCooldownSeconds((prev) => {
+        if (prev <= 0) return 0;
+        const next = prev - 1;
+        if (next <= 0) {
+          void clearAuthEmailCooldown(SIGNUP_VERIFICATION_EMAIL_COOLDOWN_KEY);
           return 0;
         }
         return next;
@@ -209,6 +230,16 @@ export default function SignUpScreen() {
         title: 'Please wait',
         message: `Too many sign-up attempts. Try again in ${m}:${s.toString().padStart(2, '0')}.`,
         tone: 'error',
+      });
+      return;
+    }
+    if (verificationCooldownSeconds > 0) {
+      const m = Math.floor(verificationCooldownSeconds / 60);
+      const s = verificationCooldownSeconds % 60;
+      setNotice({
+        title: 'Verification email sent',
+        message: `Please wait ${m}:${s.toString().padStart(2, '0')} before sending another verification email from this device.`,
+        tone: 'info',
       });
       return;
     }
@@ -311,6 +342,11 @@ export default function SignUpScreen() {
             onAction: () => router.replace('/(auth)/sign-in'),
           });
         } else {
+          await setAuthEmailCooldown(
+            SIGNUP_VERIFICATION_EMAIL_COOLDOWN_KEY,
+            AUTH_EMAIL_COOLDOWN_SECONDS,
+          );
+          setVerificationCooldownSeconds(AUTH_EMAIL_COOLDOWN_SECONDS);
           router.push({ pathname: '/(auth)/verify-email', params: { email: trimmedEmail } });
         }
       }
@@ -321,6 +357,7 @@ export default function SignUpScreen() {
 
   const canSubmit =
     cooldownSeconds === 0 &&
+    verificationCooldownSeconds === 0 &&
     emailStatus === 'valid' &&
     isPasswordValid(password) &&
     confirmStatus === 'valid' &&
@@ -330,7 +367,9 @@ export default function SignUpScreen() {
   const cooldownLabel =
     cooldownSeconds > 0
       ? `TRY AGAIN IN ${Math.floor(cooldownSeconds / 60)}:${(cooldownSeconds % 60).toString().padStart(2, '0')}`
-      : null;
+      : verificationCooldownSeconds > 0
+        ? `VERIFY AGAIN IN ${Math.floor(verificationCooldownSeconds / 60)}:${(verificationCooldownSeconds % 60).toString().padStart(2, '0')}`
+        : null;
 
   // Edition rubric
   const today = new Date();
