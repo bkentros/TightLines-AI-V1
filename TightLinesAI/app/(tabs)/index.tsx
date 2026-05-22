@@ -679,6 +679,11 @@ export default function HomeScreen() {
     router.push("/water-reader");
   }, [router]);
 
+  const handleHowItWorksPress = useCallback(() => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    router.push("/how-it-works");
+  }, [router]);
+
   const handleSettingsPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Light);
     router.push("/(tabs)/settings");
@@ -1568,6 +1573,37 @@ export default function HomeScreen() {
             iconName="sparkles-outline"
             onPress={handleHowFishingPress}
           />
+          <Pressable
+            style={({ pressed }) => [
+              styles.howWorksCta,
+              pressed && { opacity: 0.86 },
+            ]}
+            onPress={handleHowItWorksPress}
+            accessibilityRole="button"
+            accessibilityLabel="Open How FinFindr Reads A Day"
+          >
+            <View style={styles.howWorksLeft}>
+              <View style={styles.howWorksIconTile}>
+                <Ionicons
+                  name="information-circle-outline"
+                  size={15}
+                  color={paper.dashboardBlue}
+                />
+              </View>
+              <View style={styles.howWorksTextCol}>
+                <Text style={styles.howWorksEyebrow}>TRANSPARENCY</Text>
+                <Text style={styles.howWorksTitle}>
+                  How FinFindr reads a day
+                </Text>
+              </View>
+            </View>
+            <Ionicons
+              name="chevron-forward"
+              size={15}
+              color={paper.dashboardInk}
+              style={{ opacity: 0.62 }}
+            />
+          </Pressable>
         </View>
 
         {/* ─── Footer ────────────────────────────────────────────────────── */}
@@ -2522,6 +2558,47 @@ const styles = StyleSheet.create({
     borderColor: "rgba(42,110,150,0.3)",
     justifyContent: "center",
     alignItems: "center",
+  },
+  howWorksCta: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+    backgroundColor: "#FAFAF7",
+    borderWidth: 1,
+    borderColor: "rgba(10,27,46,0.10)",
+    borderRadius: 8,
+    marginBottom: 14,
+  },
+  howWorksLeft: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+    flex: 1,
+  },
+  howWorksIconTile: {
+    width: 31,
+    height: 31,
+    borderRadius: 15.5,
+    backgroundColor: "rgba(42,110,150,0.10)",
+    borderWidth: 1,
+    borderColor: "rgba(42,110,150,0.18)",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  howWorksTextCol: { flex: 1 },
+  howWorksEyebrow: {
+    fontFamily: MONO_BOLD,
+    fontSize: 8,
+    letterSpacing: 1.6,
+    color: paper.dashboardBlue,
+    marginBottom: 2,
+  },
+  howWorksTitle: {
+    fontFamily: SANS_SEMI,
+    fontSize: 13,
+    color: paper.dashboardInk,
   },
 
   // metric grid
