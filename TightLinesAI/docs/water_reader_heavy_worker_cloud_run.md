@@ -60,7 +60,7 @@ The compatibility endpoint is `POST /water-reader/generate` and requires header 
 
 ## Queue Runner
 
-Production Edge reads should return cached reads immediately, fetch the runtime polygon, generate normal lakes inline, and send only measured high-complexity reads to the heavy worker before queueing. The heavy route is used for high runtime vertex count, large runtime GeoJSON payloads, high interior-ring/component counts, and combined complexity score; acreage alone should not route a lake away from the fast inline path. Set `WATER_READER_DIRECT_HEAVY_GENERATION=true` only when direct worker calls are intentionally enabled, and keep `WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=false` for the hybrid launch path. The emergency route-all switch should be `true` only if inline Edge generation begins failing broadly.
+Production Edge reads should return cached reads immediately and route uncached generation to the Cloud Run worker. Do not let normal cache misses generate inside Supabase Edge during launch; an engine cache-version bump can turn many previously cached lakes into fresh generations, and Edge can hit compute ceilings before the queue fallback responds. Keep `WATER_READER_DIRECT_HEAVY_GENERATION=true`, `WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=true`, and `WATER_READER_EDGE_INLINE_CACHE_MISSES=false` unless you are intentionally running a controlled hybrid test.
 
 The production safety contract depends on the queue/history migrations and the active-generation guard migration being applied before deploying the Edge functions. `water_reader_user_active_generation_requests` enforces one active uncached generation per user at the database boundary, and `begin_water_reader_generation_request` serializes same-user starts with an advisory transaction lock. Cached reads are still allowed to return immediately; uncached second reads get the friendly Recent Water Reads building response until the active request is ready.
 
@@ -105,7 +105,8 @@ npx supabase@latest secrets set --project-ref "$SUPABASE_PROJECT_REF" \
   WATER_READER_INTERNAL_KEY="<same-secret-as-worker>" \
   WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="20000" \
   WATER_READER_DIRECT_HEAVY_GENERATION="true" \
-  WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="false"
+  WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="true" \
+  WATER_READER_EDGE_INLINE_CACHE_MISSES="false"
 ```
 
 If production smoke shows legitimate worker timeouts, raise the direct heavy timeout cautiously. Reads that do not finish inside the timeout fall back to the Recent Water Reads queue instead of returning a user-facing failure:

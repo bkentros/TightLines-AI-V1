@@ -138,7 +138,8 @@ assert(serverSource.includes('buildServerWaterReaderRead'), 'server read endpoin
 assert(serverSource.includes('WATER_READER_HEAVY_GENERATOR_URL'), 'server read endpoint should route heavy rows to worker when configured');
 assert(serverSource.includes('x-water-reader-internal-key'), 'server read endpoint should use internal key for diagnostics and worker auth');
 assert(serverSource.includes('heavyRouteInfo'), 'server read endpoint should classify heavy rows structurally');
-assert(serverSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER'), 'server read endpoint should require an explicit flag before routing every cache miss through the worker');
+assert(serverSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER'), 'server read endpoint should support explicit route-all cache miss routing');
+assert(serverSource.includes('WATER_READER_EDGE_INLINE_CACHE_MISSES') && serverSource.includes('!== "true"'), 'server read endpoint should keep cache misses off Edge unless inline generation is explicitly enabled');
 assert(serverSource.includes('WATER_READER_DIRECT_HEAVY_GENERATION'), 'server read endpoint should support direct heavy generation before queue fallback');
 assert(serverSource.includes('if (routeViaHeavyWorker && allowDirectHeavyGeneration())'), 'server read endpoint should try direct heavy worker generation for risky reads');
 assert(serverSource.includes('if (routeViaHeavyWorker)') && serverSource.includes('heavyGeneratorConfigured()'), 'server read endpoint should queue measured heavy reads only when the worker is configured');

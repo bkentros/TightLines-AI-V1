@@ -279,8 +279,11 @@ function allowEdgeHeavyLocalFallback(): boolean {
 }
 
 function routeAllCacheMissesThroughHeavyWorker(): boolean {
-  return heavyGeneratorConfigured() &&
-    Deno.env.get("WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER") === "true";
+  if (!heavyGeneratorConfigured()) return false;
+  if (Deno.env.get("WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER") === "true") return true;
+  // Cache misses should stay off Supabase Edge unless inline generation is
+  // explicitly re-enabled for a controlled hybrid test.
+  return Deno.env.get("WATER_READER_EDGE_INLINE_CACHE_MISSES") !== "true";
 }
 
 function heavyGeneratorConfigured(): boolean {

@@ -29,7 +29,8 @@ async function main() {
   assert(edgeSource.includes('GENERATION_JOB_MAX_ATTEMPTS = 10'), 'edge should keep generation jobs retryable for launch traffic');
   assert(edgeSource.includes('keepGenerationJobRetryable'), 'edge should reopen failed generation jobs instead of leaving a dead end');
   assert(!edgeSource.includes('EDGE_INLINE_METADATA_AREA_ACRES_LIMIT'), 'edge should not route by acreage alone before runtime complexity is known');
-  assert(edgeSource.includes('heavy.heavy && heavyGeneratorConfigured()'), 'edge should only worker-route measured heavy reads when the worker is configured');
+  assert(edgeSource.includes('Deno.env.get("WATER_READER_EDGE_INLINE_CACHE_MISSES") !== "true"'), 'edge should keep uncached generation off Edge unless inline cache misses are explicitly enabled');
+  assert(edgeSource.includes('heavy.heavy && heavyGeneratorConfigured()'), 'edge should still worker-route measured heavy reads when the worker is configured');
   assert(edgeSource.includes('Deno.env.get("WATER_READER_DIRECT_HEAVY_GENERATION") === "true"'), 'direct heavy generation should be explicit opt-in');
   assert(edgeSource.includes('surface_area_acres, centroid'), 'edge metadata lookup should include lightweight area and centroid for pre-polygon routing');
   assert(edgeSource.includes('metadataPendingPolygon(metadata)'), 'edge should build a pending response from metadata for emergency queueing and polygon RPC failure');
@@ -55,7 +56,12 @@ async function main() {
   assert(historySource.includes('requeue_stale_water_reader_generation_jobs'), 'history should run the stale job watchdog before deriving recent-read status');
   assert(docsSource.includes('Cloud Scheduler'), 'queue runner docs should mention Cloud Scheduler');
   assert(docsSource.includes('/water-reader/jobs/drain'), 'queue runner docs should mention the drain endpoint');
-  assert(docsSource.includes('WATER_READER_DIRECT_HEAVY_GENERATION="true"') && docsSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER=false') && docsSource.includes('hybrid launch path'), 'queue runner docs should recommend hybrid production routing');
+  assert(
+    docsSource.includes('WATER_READER_DIRECT_HEAVY_GENERATION="true"') &&
+      docsSource.includes('WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="true"') &&
+      docsSource.includes('WATER_READER_EDGE_INLINE_CACHE_MISSES="false"'),
+    'queue runner docs should keep production cache misses on the worker path',
+  );
   assert(docsSource.includes('Cloud Tasks') && docsSource.includes('multiple Cloud Scheduler jobs'), 'queue runner docs should mention high-volume runner options');
 
   const server = startHeavyGeneratorServer(0);

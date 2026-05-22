@@ -220,7 +220,7 @@ npm run smoke:water-reader-live-launch
 
 ## Phase 5 - Supabase Edge Configuration
 
-Objective: route heavy rows from Edge to the hosted worker.
+Objective: route uncached generation from Edge to the hosted worker.
 
 Set production Supabase secrets:
 
@@ -232,7 +232,8 @@ npx supabase@latest secrets set --project-ref "$SUPABASE_PROJECT_REF" \
   WATER_READER_INTERNAL_KEY="<same-secret-as-worker>" \
   WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="20000" \
   WATER_READER_DIRECT_HEAVY_GENERATION="true" \
-  WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="false"
+  WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="true" \
+  WATER_READER_EDGE_INLINE_CACHE_MISSES="false"
 ```
 
 If heavy rows time out during production smoke, raise timeout cautiously:
