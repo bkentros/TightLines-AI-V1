@@ -73,7 +73,7 @@ assert(
 );
 
 assert(
-  waterReaderContracts.includes("water-reader-engine-v6-conservative-copy"),
+  waterReaderContracts.includes("water-reader-engine-v7-legend-guidance-copy"),
   "Water Reader cache should bump engine version when legend/read copy changes",
 );
 assert(

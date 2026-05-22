@@ -9,7 +9,7 @@ import type {
 } from '../lib/waterReaderContracts.ts';
 
 const CURRENT_DATE = '2026-07-15T12:00:00.000Z';
-const ENGINE_VERSION = 'water-reader-engine-v6-conservative-copy';
+const ENGINE_VERSION = 'water-reader-engine-v7-legend-guidance-copy';
 const MAP_WIDTH = 420;
 const DEFAULT_USERS = 3;
 const READY_TARGETS = [

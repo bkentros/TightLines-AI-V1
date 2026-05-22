@@ -69,13 +69,11 @@ export function WaterReaderLegend({
 }: WaterReaderLegendProps) {
   if (!entries || entries.length === 0) return null;
 
-  // Pass-9: season display surfaces transitions. When the engine's season
-  // of record differs from the calendar season for today, the badge shows
-  // "SPRING → SUMMER" (etc.) so the angler sees that this region is
-  // already behaving like summer even though the calendar still says
-  // spring. `seasonBadgeStyle` keys off the engine season (the climate-
-  // adjusted reality) for color, regardless of whether we're showing a
-  // single-season or transition label.
+  // The badge surfaces regional timing. When the engine's season of record
+  // differs from the meteorological calendar season, the badge shows a
+  // two-season pattern label ("SPRING → SUMMER", etc.). This is separate
+  // from the row-level transition warning emitted during the engine's true
+  // regional transition window.
   const seasonInfo = useMemo(
     () => (season ? seasonDisplayLabel(season) : null),
     [season],
@@ -106,7 +104,7 @@ export function WaterReaderLegend({
               ]}
             >
               <Text style={styles.seasonBadgeEyebrow}>
-                {seasonInfo.isTransition ? 'SEASON · TRANSITION' : 'SEASON'}
+                {seasonInfo.isTransition ? 'REGIONAL PATTERN' : 'SEASON'}
               </Text>
               <Text
                 style={[
@@ -129,7 +127,7 @@ export function WaterReaderLegend({
           <Text style={styles.mastheadDot}>·</Text>
           <Text style={styles.mastheadHint} numberOfLines={2}>
             {seasonInfo?.isTransition
-              ? 'This region is on a seasonal transition — notes lean on the season the climate is moving into.'
+              ? 'Regional timing can run ahead of or behind the calendar; use the pattern shown here.'
               : 'Notes tuned for the season above.'}
           </Text>
         </View>

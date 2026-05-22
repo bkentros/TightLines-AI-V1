@@ -81,9 +81,15 @@ assert(responseShape.feature === 'water_reader_read_v1', 'read response feature 
 assert(historyResponseShape.feature === 'water_reader_history_v1', 'history response feature marker should be stable');
 assert(pendingResponseShape.generationStatus === 'queued' && pendingResponseShape.productionSvgResult === null, 'pending read response contract should be representable');
 assert(legendCopyQuality.ok, `legend guide copy should stay compact/public: ${JSON.stringify(legendCopyQuality.issues.slice(0, 5))}`);
-assert(legendCopyQuality.checked > 500, 'legend guide copy should cover a deep standalone and confluence template pool');
-assert(pointCoveConfluenceFixture.toLowerCase().includes('mouth') || pointCoveConfluenceFixture.toLowerCase().includes('cove'), 'point+cove confluence should use mouth/cove-specific guidance');
-assert(islandSaddleConfluenceFixture.toLowerCase().includes('island') || islandSaddleConfluenceFixture.toLowerCase().includes('saddle'), 'island+saddle confluence should use member-specific guidance');
+assert(legendCopyQuality.checked > 400, 'legend guide copy should cover standalone and confluence fallback variants');
+assert(
+  pointCoveConfluenceFixture.toLowerCase().includes('pocket') || pointCoveConfluenceFixture.toLowerCase().includes('protected'),
+  'point+cove confluence should use shape-safe cove guidance',
+);
+assert(
+  islandSaddleConfluenceFixture.toLowerCase().includes('rim') || islandSaddleConfluenceFixture.toLowerCase().includes('connected edge'),
+  'island+saddle confluence should use member-specific guidance',
+);
 assert(!paperifiedLeaderFixture.includes('round"/ stroke-dasharray'), 'paperifier should not insert leader dash attributes after a self-closing slash');
 assert(paperifiedLeaderFixture.includes('stroke-linecap="round" stroke-dasharray="4 3"/>'), 'paperifier should insert leader dash attributes before the self-closing slash');
 assert(clientSource.includes('export async function fetchWaterReaderRead'), 'fetchWaterReaderRead should be exported');
@@ -98,13 +104,13 @@ assert(contractSource.includes('generationJobId?: string | null'), 'app read res
 assert(contractSource.includes('retryAfterMs?: number | null'), 'app read response should expose retry-after polling hint');
 assert(contractSource.includes('legendEntries: WaterReaderProductionSvgLegendEntry[]'), 'app SVG contract should expose native legend entries');
 assert(contractSource.includes('featureClasses?: Exclude<WaterReaderProductionSvgFeatureClass'), 'app legend entries should expose confluence member feature classes');
-// v6 keeps the dashboard-native renderer and refreshes the server-supplied
+// v7 keeps the dashboard-native renderer and refreshes the server-supplied
 // legend copy. Bumping the constant intentionally invalidates older cached
 // read rows. If renderer output, palette, or server read copy changes again,
 // bump this string and the constants in the engine contracts + cache builder
 // in the same change.
-assert(serverContractsSource.includes('water-reader-engine-v6-conservative-copy'), 'server read contract should use the v6 conservative-copy cache version');
-assert(cacheBuilderSource.includes('water-reader-engine-v6-conservative-copy'), 'cache builder should use the v6 conservative-copy cache version');
+assert(serverContractsSource.includes('water-reader-engine-v7-legend-guidance-copy'), 'server read contract should use the v7 legend-guidance cache version');
+assert(cacheBuilderSource.includes('water-reader-engine-v7-legend-guidance-copy'), 'cache builder should use the v7 legend-guidance cache version');
 const oldEngineVersionNeedle = ['water-reader-engine', 'v1'].join('-');
 assert(!serverContractsSource.includes(oldEngineVersionNeedle), 'server read contract should not use v1 cache version');
 assert(!cacheBuilderSource.includes(oldEngineVersionNeedle), 'cache builder should not use v1 cache version');

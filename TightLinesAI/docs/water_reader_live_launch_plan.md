@@ -100,13 +100,13 @@ Update:
 Current launch value:
 
 ```ts
-export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v4-paper-redesign";
+export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v7-legend-guidance-copy";
 ```
 
 Rules:
 
 - Bump engine version for any future detection, geometry, display, or ranking change.
-- Copy-only legend changes can choose either to bump or accept old cached copy until refreshed.
+- Server-supplied legend copy changes should bump when old cached rows would otherwise keep stale wording live.
 - Do not reuse the old `water-reader-engine-v2-feature-envelope` cache namespace for the final launch.
 
 Acceptance:
@@ -225,22 +225,27 @@ Objective: route heavy rows from Edge to the hosted worker.
 Set production Supabase secrets:
 
 ```bash
-supabase secrets set \
+export SUPABASE_PROJECT_REF="<supabase-project-ref>"
+
+npx supabase@latest secrets set --project-ref "$SUPABASE_PROJECT_REF" \
   WATER_READER_HEAVY_GENERATOR_URL="<hosted-worker-base-url>" \
   WATER_READER_INTERNAL_KEY="<same-secret-as-worker>" \
-  WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="25000"
+  WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="20000" \
+  WATER_READER_DIRECT_HEAVY_GENERATION="true" \
+  WATER_READER_ROUTE_ALL_CACHE_MISSES_TO_WORKER="false"
 ```
 
 If heavy rows time out during production smoke, raise timeout cautiously:
 
 ```bash
-supabase secrets set WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="45000"
+npx supabase@latest secrets set --project-ref "$SUPABASE_PROJECT_REF" WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="45000"
 ```
 
 Deploy:
 
 ```bash
-supabase functions deploy water-reader-read
+npx supabase@latest functions deploy water-reader-read --project-ref "$SUPABASE_PROJECT_REF"
+npx supabase@latest functions deploy water-reader-history --project-ref "$SUPABASE_PROJECT_REF"
 ```
 
 If the deploy flow requires shared function bundling, follow the repo's existing Supabase deploy procedure and verify `_shared/waterReaderEngine` is included.
@@ -337,7 +342,7 @@ Old-version cleanup:
 
 ```sql
 delete from public.water_reader_engine_read_cache
-where engine_version <> 'water-reader-engine-v4-paper-redesign';
+where engine_version <> 'water-reader-engine-v7-legend-guidance-copy';
 ```
 
 Do not tune production by editing cache rows manually. Change engine code, bump version, regenerate.

@@ -5,7 +5,7 @@
 Build from the repo root with the dedicated Dockerfile:
 
 ```bash
-export TAG="water-reader-engine-v6-conservative-copy"
+export TAG="water-reader-engine-v7-legend-guidance-copy"
 
 cp Dockerfile.water-reader-heavy-generator Dockerfile
 
@@ -18,7 +18,7 @@ The container starts the existing heavy-generator server entrypoint. On Cloud Ru
 Important: the image tag must match the current `WATER_READER_ENGINE_VERSION`. The current launch tag is:
 
 ```text
-water-reader-engine-v6-conservative-copy
+water-reader-engine-v7-legend-guidance-copy
 ```
 
 ## Required Worker Secrets
@@ -38,7 +38,7 @@ WATER_READER_INTERNAL_KEY
 Use queue mode for production cache misses. Keep worker request concurrency at 1 so each container drains one heavy read at a time, then let Cloud Run scale out by instance count.
 
 ```bash
-export TAG="water-reader-engine-v6-conservative-copy"
+export TAG="water-reader-engine-v7-legend-guidance-copy"
 
 gcloud run deploy water-reader-heavy-generator \
   --image us-central1-docker.pkg.dev/<gcp-project>/<artifact-repo>/water-reader-heavy-generator:$TAG \
@@ -98,7 +98,9 @@ For higher-volume spikes, add multiple Cloud Scheduler jobs with staggered sched
 After the Cloud Run URL is known:
 
 ```bash
-supabase secrets set \
+export SUPABASE_PROJECT_REF="<supabase-project-ref>"
+
+npx supabase@latest secrets set --project-ref "$SUPABASE_PROJECT_REF" \
   WATER_READER_HEAVY_GENERATOR_URL="<cloud-run-service-url>" \
   WATER_READER_INTERNAL_KEY="<same-secret-as-worker>" \
   WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="20000" \
@@ -109,14 +111,14 @@ supabase secrets set \
 If production smoke shows legitimate worker timeouts, raise the direct heavy timeout cautiously. Reads that do not finish inside the timeout fall back to the Recent Water Reads queue instead of returning a user-facing failure:
 
 ```bash
-supabase secrets set WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="45000"
+npx supabase@latest secrets set --project-ref "$SUPABASE_PROJECT_REF" WATER_READER_HEAVY_GENERATOR_TIMEOUT_MS="45000"
 ```
 
 Then deploy the read function:
 
 ```bash
-supabase functions deploy water-reader-read
-supabase functions deploy water-reader-history
+npx supabase@latest functions deploy water-reader-read --project-ref "$SUPABASE_PROJECT_REF"
+npx supabase@latest functions deploy water-reader-history --project-ref "$SUPABASE_PROJECT_REF"
 ```
 
 Run the live launch smoke after both deploys. It signs in with the Water Reader test user, searches real indexed lakes, opens several reads through deployed Supabase, and fails if deployed reads are not serving the current engine version:

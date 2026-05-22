@@ -194,6 +194,14 @@ assert(legendCoverage.placementKindCount === WATER_READER_ZONE_PLACEMENT_KINDS.l
 assert(legendCoverage.missingTemplateKeys.length === 0, `legend templates should cover every supported placement kind: ${legendCoverage.missingTemplateKeys.join(', ')}`);
 assert(legendCoverage.missingColorKeys.length === 0, `legend colors should cover every feature class: ${legendCoverage.missingColorKeys.join(', ')}`);
 assert(
+  legendCoverage.standaloneVariantGaps.length === 0,
+  `standalone legend cadence should have enough variants for repeated features: ${legendCoverage.standaloneVariantGaps.join(', ')}`,
+);
+assert(
+  legendCoverage.confluenceVariantGaps.length === 0,
+  `confluence legend cadence should have enough variants for repeated overlaps: ${legendCoverage.confluenceVariantGaps.join(', ')}`,
+);
+assert(
   legendCoverage.forbiddenTemplateHits.length === 0,
   `legend template copy should not contain forbidden phrases: ${JSON.stringify(legendCoverage.forbiddenTemplateHits)}`,
 );

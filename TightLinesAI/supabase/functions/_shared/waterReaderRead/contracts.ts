@@ -13,12 +13,12 @@ import type {
 
 export const WATER_READER_READ_FEATURE = "water_reader_read_v1" as const;
 export const WATER_READER_APP_SVG_WIDTH = 420;
-// v6 keeps the dashboard-native renderer and refreshes Water Read legend
-// copy so cached read rows regenerate with conservative structure/confluence
-// guidance.
+// v7 keeps the dashboard-native renderer and refreshes Water Read legend
+// copy so cached read rows regenerate with clearer structure/confluence
+// guidance and varied repeated-feature cadence.
 // If you change the renderer or palette again, bump this string and update
 // the constant copy in `scripts/water-reader-build-read-cache.ts`.
-export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v6-conservative-copy" as const;
+export const WATER_READER_ENGINE_VERSION = "water-reader-engine-v7-legend-guidance-copy" as const;
 
 export type WaterReaderReadCacheStatus = "hit" | "miss";
 export type WaterReaderReadCacheWriteStatus = "stored" | "failed" | "skipped";

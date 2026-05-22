@@ -20,7 +20,7 @@ const WATER_READER_APP_SVG_WIDTH = 420;
 // Must mirror the canonical Deno constant in
 // `supabase/functions/_shared/waterReaderRead/contracts.ts`. Bump both
 // together whenever renderer output or server-supplied read copy changes.
-const WATER_READER_ENGINE_VERSION = 'water-reader-engine-v6-conservative-copy';
+const WATER_READER_ENGINE_VERSION = 'water-reader-engine-v7-legend-guidance-copy';
 const BASELINE_9_LAKES: Array<{ label: string; query: string; county?: string }> = [
   { label: 'Torch Lake, MI', query: 'Torch Lake' },
   { label: 'Glen Lake, Leelanau County, MI', query: 'Glen Lake', county: 'Leelanau' },

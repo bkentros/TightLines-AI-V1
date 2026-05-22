@@ -912,14 +912,14 @@ For a `structure_confluence` group, the legend entry uses the confluence color a
 
 The template table is keyed by (feature_type, season, structure-area semantic) and returns a static description string. Total entries cover supported feature-envelope structure areas plus 4 transition warnings.
 
-Template language must stay educational and conditional. Use phrases such as "logical area to check", "seasonally relevant structure", "can be worth checking", and "general approach". Do not use "best", "guaranteed", "fish are here", "fish hold here", "highest confidence", "most productive", "GPS waypoint", "depth break", "channel", "hump", or "deepest water".
+Template language must stay educational, conditional, and plain. Each row should tell the angler where to start, what to check next, and what clues justify slowing down or leaving. Use action-first phrases such as "start on", "check", "use this as a quick checkpoint", "stay longer where cover, bait, shade, or wind lines up", and "leave quickly if no clue is present". Do not use "best", "guaranteed", "fish are here", "fish hold here", "highest confidence", "most productive", "GPS waypoint", "depth break", "channel", "hump", or "deepest water".
 
 Examples:
-- (Main Lake Point, Spring, structure area): "In spring, this point structure area is a seasonal structure reference that includes the detected tip and adjacent shoulder water."
-- (Dam, Winter, structure area): "In winter, this dam structure area marks the dam segment and its transition corners as deterministic polygon structure."
-- (Cove, Summer, structure area): "In summer, this cove structure area marks the bounded cove reference from the mouth shoulders toward the inner shoreline."
+- (Main Lake Point, Spring, structure area): "Start on the side that leads toward protected water, then check the tip and open-water side. Give more time to warmth, cover, and calmer water near the highlighted edge."
+- (Dam, Winter, structure area): "Start where the hard edge changes direction or meets natural shoreline. Stay longer if shade, bait, wind, or warmer rock makes the corner stand out."
+- (Cove, Summer, structure area): "Start on the side closest to open water, then check the calmer inside edge. Stay longer where cover, bait, shade, or a sharper bank turn lines up."
 
-The full template table is built once during implementation. Once written, the same string is returned every time for the same key.
+The full template table is built once during implementation. Repeated structures should rotate through deterministic cadence variants so a legend with several coves, points, islands, or confluences does not repeat the same body rhythm row after row.
 
 ---
 
