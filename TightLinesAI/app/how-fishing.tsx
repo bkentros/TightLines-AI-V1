@@ -42,7 +42,6 @@ import {
 } from "../lib/howFishing";
 import {
   getForecastScores,
-  mergeMeasuredWaterTempFields,
   stripMeasuredWaterTempFields,
 } from "../lib/forecastScores";
 import {
@@ -515,17 +514,9 @@ export default function HowFishingScreen() {
           "We could not load the shared daily conditions snapshot for this spot. Please try again in a moment.",
         );
       }
-      let envForReport: Record<string, unknown> | EnvironmentData;
-      if (shouldUseMeasuredWaterTemp) {
-        const envMeasuredWaterSource = env ??
-          (await getEnvironment({ latitude: lat, longitude: lon, units }));
-        envForReport = mergeMeasuredWaterTempFields(
-          forecastEnvForReport,
-          envMeasuredWaterSource,
-        );
-      } else {
-        envForReport = stripMeasuredWaterTempFields(forecastEnvForReport);
-      }
+      const envForReport: Record<string, unknown> = shouldUseMeasuredWaterTemp
+        ? forecastEnvForReport
+        : stripMeasuredWaterTempFields(forecastEnvForReport);
 
       const polishLocationName = await resolveLocationLabelForPolish(
         lat,

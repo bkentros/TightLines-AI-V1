@@ -15,7 +15,6 @@ import {
   type HowsFishingReport,
   runHowFishingReport,
 } from "../_shared/howFishingEngine/index.ts";
-import { fetchOpenMeteo14Day } from "../_shared/openMeteo14DayFetch.ts";
 import {
   checkUserRateLimit,
   rateLimitExceededResponse,
@@ -271,6 +270,19 @@ Deno.serve(async (req: Request) => {
   const todayAtLocation = localDateInTz(extractTimezone(envData));
   const isTodayRead = dayOffset === 0 &&
     (targetDateStr == null || targetDateStr === todayAtLocation);
+  if (!useForecastSnapshot) {
+    return new Response(
+      JSON.stringify({
+        error: "canonical_snapshot_required",
+        message:
+          "A shared daily conditions snapshot is required to build this report. Please refresh and try again.",
+      }),
+      {
+        status: 409,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      },
+    );
+  }
   if (tier === "free" && !isTodayRead) {
     return new Response(
       JSON.stringify({
@@ -284,27 +296,6 @@ Deno.serve(async (req: Request) => {
     );
   }
   const limitedAccess = tier === "free";
-
-  // Forecast-day reports: replace Open-Meteo-derived fields with a fresh server fetch so
-  // scores match forecast-scores and client env_data cannot drift or omit hourly wind.
-  // When the client provides the cached forecast snapshot from forecast-scores, reuse it
-  // verbatim so the report stays aligned with the midnight-refreshed daily snapshot
-  // for the rest of the local day, including day 0 ("today").
-  if (dayOffset > 0 && !useForecastSnapshot) {
-    const om = await fetchOpenMeteo14Day(lat, lon, "imperial");
-    if (om?.weather) {
-      envData = {
-        ...envData,
-        timezone: om.timezone ?? envData.timezone,
-        tz_offset_hours: om.tz_offset_hours ?? envData.tz_offset_hours,
-        weather: om.weather,
-        hourly_pressure_mb: om.hourly_pressure_mb ?? [],
-        hourly_air_temp_f: om.hourly_air_temp_f ?? [],
-        hourly_cloud_cover_pct: om.hourly_cloud_cover_pct ?? [],
-        hourly_wind_speed: om.hourly_wind_speed ?? [],
-      };
-    }
-  }
 
   const coastalAllowed = isCoastalEnv(envData);
 
