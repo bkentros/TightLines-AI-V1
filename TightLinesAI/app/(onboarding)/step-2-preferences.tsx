@@ -322,11 +322,10 @@ export default function OnboardingStep2() {
   const usernameFieldBad =
     usernameFieldInvalidChars || usernameAvailability === 'taken';
 
-  // Completion meter — fills cream-to-green as the two required fields
-  // are satisfied. Provides a subtle premium "you're getting there" tell.
-  const completed =
-    (usernameFieldGood ? 1 : 0) + (homeState ? 1 : 0);
-  const completionFraction = completed / 2;
+  // Single-page setup meter. It still fills as the required details are
+  // completed, but the visible copy reflects that onboarding is one page.
+  const completionFraction =
+    (usernameFieldGood ? 0.5 : 0) + (homeState ? 0.5 : 0);
 
   return (
     <SafeAreaView style={styles.safe} edges={['top']}>
@@ -354,25 +353,30 @@ export default function OnboardingStep2() {
                 count={5}
               />
 
-              <View style={styles.heroSignal}>
-                <BrandEmblem
-                  size={36}
-                  halo
-                  haloColor={paper.dashboardBlue}
-                  haloOpacity={0.08}
-                />
-                <Text style={styles.pageEyebrow}>PROFILE SETUP</Text>
+              <View style={styles.heroMasthead}>
+                <View style={styles.heroEmblemWrap}>
+                  <BrandEmblem
+                    size={58}
+                    halo
+                    haloColor={paper.dashboardBlue}
+                    haloOpacity={0.08}
+                  />
+                </View>
+                <View style={styles.heroCopy}>
+                  <View style={styles.heroMetaRow}>
+                    <Text style={styles.pageEyebrow}>FINFINDR · PROFILE</Text>
+                    <Text style={styles.heroPageChip}>1 / 1</Text>
+                  </View>
+                  <Text style={styles.heroTitle} allowFontScaling={false}>
+                    Set your{'\n'}
+                    <Text style={styles.heroTitleAccent}>home base.</Text>
+                  </Text>
+                  <Text style={styles.heroLede}>
+                    Choose a handle and home water so FinFindr opens with your
+                    local read ready.
+                  </Text>
+                </View>
               </View>
-
-              <Text style={styles.heroTitle} allowFontScaling={false}>
-                LET'S TUNE YOUR{'\n'}
-                <Text style={styles.heroTitleAccent}>FIRST READ.</Text>
-              </Text>
-
-              <Text style={styles.heroLede}>
-                Pick a handle and home water so the dashboard opens with the
-                right local conditions.
-              </Text>
 
               <View style={styles.benefitRow}>
                 <BenefitPill icon="person-outline" label="Handle" />
@@ -525,19 +529,17 @@ export default function OnboardingStep2() {
               />
             </SetupPanel>
 
-            {/* Completion meter — fills from cream → green as the
-                two required fields go from 0 → 1 → 2. Subtle premium
-                "you're getting there" cue. */}
+            {/* Single-page setup meter — fills as required details are entered. */}
             <View style={styles.meter}>
               <View style={styles.meterRow}>
-                <Text style={styles.meterLabel}>READY TO LAUNCH</Text>
+                <Text style={styles.meterLabel}>PROFILE SETUP</Text>
                 <Text
                   style={[
                     styles.meterCount,
                     completionFraction === 1 && styles.meterCountReady,
                   ]}
                 >
-                  {completed} / 2
+                  PAGE 1 / 1
                 </Text>
               </View>
               <View style={styles.meterTrack}>
@@ -665,10 +667,13 @@ const styles = StyleSheet.create({
   },
   heroPanel: {
     position: 'relative',
-    alignItems: 'center',
-    backgroundColor: paper.dashboardCream,
-    paddingHorizontal: paperSpacing.sm,
-    paddingTop: paperSpacing.sm,
+    alignItems: 'stretch',
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    paddingHorizontal: paperSpacing.md,
+    paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.md,
     marginBottom: paperSpacing.lg,
     overflow: 'hidden',
@@ -679,30 +684,66 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.16,
+    opacity: 0.11,
   },
-  heroSignal: {
+  heroMasthead: {
+    flexDirection: 'row',
     alignItems: 'center',
-    gap: paperSpacing.xs,
+    gap: paperSpacing.md,
     marginBottom: paperSpacing.sm,
     zIndex: 1,
+  },
+  heroEmblemWrap: {
+    width: 74,
+    height: 74,
+    borderRadius: 37,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F6F9FB',
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+  },
+  heroCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  heroMetaRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+    marginBottom: 3,
   },
   pageEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 9.5,
-    letterSpacing: 2.6,
+    letterSpacing: 2.2,
     color: paper.dashboardBlue,
     fontWeight: '700',
+    flexShrink: 1,
+  },
+  heroPageChip: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    color: paper.dashboardInk,
+    letterSpacing: 1.2,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardCream,
+    paddingHorizontal: 8,
+    paddingVertical: 3,
+    overflow: 'hidden',
   },
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 33,
+    fontSize: 31,
     color: paper.dashboardInk,
     fontWeight: '700',
     letterSpacing: 0,
-    lineHeight: 35,
-    textAlign: 'center',
-    marginBottom: paperSpacing.xs,
+    lineHeight: 32,
+    textAlign: 'left',
+    marginBottom: 4,
     zIndex: 1,
   },
   heroTitleAccent: {
@@ -713,17 +754,15 @@ const styles = StyleSheet.create({
     fontSize: 14,
     color: paper.dashboardInk,
     opacity: 0.72,
-    lineHeight: 20,
-    marginBottom: paperSpacing.sm,
-    maxWidth: 320,
-    textAlign: 'center',
+    lineHeight: 18,
+    textAlign: 'left',
     zIndex: 1,
   },
   benefitRow: {
     flexDirection: 'row',
     flexWrap: 'nowrap',
     gap: 6,
-    justifyContent: 'center',
+    justifyContent: 'flex-start',
     zIndex: 1,
   },
   benefitPill: {

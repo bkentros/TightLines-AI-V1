@@ -39,14 +39,21 @@ export interface SavedLocation {
 interface LocationState {
   savedLocation: SavedLocation | null;
   useCustom: boolean;
+  /** Profile id whose onboarding home water has already seeded Home once. */
+  profileHomeSeededFor: string | null;
   // Actions
   setSavedLocation: (loc: SavedLocation) => Promise<void>;
+  seedFromProfileHome: (profileId: string, loc: SavedLocation) => Promise<void>;
   clearSavedLocation: () => Promise<void>;
   setUseCustom: (val: boolean) => Promise<void>;
   load: () => Promise<void>;
 }
 
-async function persist(data: { savedLocation: SavedLocation | null; useCustom: boolean }) {
+async function persist(data: {
+  savedLocation: SavedLocation | null;
+  useCustom: boolean;
+  profileHomeSeededFor: string | null;
+}) {
   try {
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
   } catch {
@@ -57,6 +64,7 @@ async function persist(data: { savedLocation: SavedLocation | null; useCustom: b
 export const useLocationStore = create<LocationState>((set, get) => ({
   savedLocation: null,
   useCustom: false,
+  profileHomeSeededFor: null,
 
   load: async () => {
     try {
@@ -71,10 +79,23 @@ export const useLocationStore = create<LocationState>((set, get) => ({
             label: String(p.savedLocation.label ?? 'Custom location'),
           },
           useCustom: Boolean(p.useCustom),
+          profileHomeSeededFor:
+            typeof p.profileHomeSeededFor === 'string'
+              ? p.profileHomeSeededFor
+              : null,
         });
       } else if (p?.savedLocation != null) {
         await AsyncStorage.removeItem(STORAGE_KEY);
-        set({ savedLocation: null, useCustom: false });
+        set({ savedLocation: null, useCustom: false, profileHomeSeededFor: null });
+      } else if (p) {
+        set({
+          savedLocation: null,
+          useCustom: Boolean(p.useCustom),
+          profileHomeSeededFor:
+            typeof p.profileHomeSeededFor === 'string'
+              ? p.profileHomeSeededFor
+              : null,
+        });
       }
     } catch {
       // Ignore
@@ -83,19 +104,28 @@ export const useLocationStore = create<LocationState>((set, get) => ({
 
   setSavedLocation: async (loc) => {
     set({ savedLocation: loc, useCustom: true });
-    await persist({ savedLocation: loc, useCustom: true });
+    const { profileHomeSeededFor } = get();
+    await persist({ savedLocation: loc, useCustom: true, profileHomeSeededFor });
+  },
+
+  seedFromProfileHome: async (profileId, loc) => {
+    set({ savedLocation: loc, useCustom: true, profileHomeSeededFor: profileId });
+    await persist({
+      savedLocation: loc,
+      useCustom: true,
+      profileHomeSeededFor: profileId,
+    });
   },
 
   clearSavedLocation: async () => {
     set({ savedLocation: null, useCustom: false });
-    try {
-      await AsyncStorage.removeItem(STORAGE_KEY);
-    } catch {}
+    const { profileHomeSeededFor } = get();
+    await persist({ savedLocation: null, useCustom: false, profileHomeSeededFor });
   },
 
   setUseCustom: async (val) => {
     set({ useCustom: val });
-    const { savedLocation } = get();
-    await persist({ savedLocation, useCustom: val });
+    const { savedLocation, profileHomeSeededFor } = get();
+    await persist({ savedLocation, useCustom: val, profileHomeSeededFor });
   },
 }));

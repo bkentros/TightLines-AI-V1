@@ -83,6 +83,7 @@ import {
   roundedScore10FromRaw,
 } from "../../lib/forecastScores";
 import { recordRecentLocation } from "../../lib/recentLocations";
+import { searchUsCities } from "../../lib/locationSearch";
 
 // ─── Layout constants ────────────────────────────────────────────────────────
 const SCREEN_W = Dimensions.get("window").width;
@@ -186,11 +187,15 @@ export default function HomeScreen() {
     savedLocation,
     useCustom,
     setSavedLocation,
+    seedFromProfileHome,
     clearSavedLocation,
+    profileHomeSeededFor,
     load: loadLocationStore,
   } = useLocationStore();
   const appStateRef = useRef<AppStateStatus>(AppState.currentState);
   const lastAutoRefreshAtRef = useRef(0);
+  const profileHomeSeedAttemptRef = useRef<string | null>(null);
+  const [locationPrefsLoaded, setLocationPrefsLoaded] = useState(false);
   const [gpsCoords, setGpsCoords] = useState<
     { lat: number; lon: number } | null
   >(null);
@@ -352,8 +357,49 @@ export default function HomeScreen() {
   }, [loadDevTesting, user?.email]);
 
   useEffect(() => {
-    loadLocationStore();
+    let cancelled = false;
+    void (async () => {
+      await loadLocationStore();
+      if (!cancelled) setLocationPrefsLoaded(true);
+    })();
+    return () => {
+      cancelled = true;
+    };
   }, [loadLocationStore]);
+
+  useEffect(() => {
+    if (!locationPrefsLoaded) return;
+    if (!profile?.id || !profile.home_state || !profile.home_city) return;
+    if (savedLocation || useCustom) return;
+    if (profileHomeSeededFor === profile.id) return;
+
+    const homeCity = profile.home_city.trim();
+    if (homeCity.length < 2) return;
+    const homeQuery = `${homeCity}, ${profile.home_state}`;
+    if (profileHomeSeedAttemptRef.current === homeQuery) return;
+    profileHomeSeedAttemptRef.current = homeQuery;
+
+    let cancelled = false;
+    void (async () => {
+      const [match] = await searchUsCities(homeQuery);
+      if (cancelled || !match) return;
+      await seedFromProfileHome(profile.id, match);
+      await recordRecentLocation(match);
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [
+    locationPrefsLoaded,
+    profile?.id,
+    profile?.home_state,
+    profile?.home_city,
+    savedLocation,
+    useCustom,
+    profileHomeSeededFor,
+    seedFromProfileHome,
+  ]);
 
   // ── Cached multi-rebuild mean (today's score) ────────────────────────────
   const cacheMeanRequestSeq = useRef(0);
