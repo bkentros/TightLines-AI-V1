@@ -194,10 +194,10 @@ These are useful next moves that do not require the LLC approval, EIN, or Apple 
 
 - [x] Choose and enter the final App Store subtitle: `Bite Forecasts & Tackle`.
 - [x] Choose and confirm the primary App Store category: `Sports`.
-- [ ] Re-read App Store description, promotional text, and keywords against the current product: free tier, Angler subscription, supported-water limits, no external purchase path.
+- [x] Re-read App Store description, promotional text, and keywords against the current product: free tier, Angler subscription, supported-water limits, no external purchase path. Description was tightened and entered on 2026-05-22.
 - [ ] Review uploaded screenshots for fictional/non-sensitive account data, clear in-app use, and no misleading paid-feature promises.
 - [ ] Confirm the Support URL page has a clear support email/contact path and loads without auth.
-- [ ] Confirm public Privacy/Terms/Safety/Support URLs load cleanly in Safari, not just in-app.
+- [x] Confirm public Privacy/Terms/Safety/Support URLs load cleanly in Safari, not just in-app. Verified live on 2026-05-22 after deploying the public Safety page.
 - [ ] Prepare final App Review notes with exact demo credentials, reviewer account, feature test path, supported-water guidance, and the subscription status note.
 - [ ] Run a final free-account walkthrough on a second email and capture short notes/screenshots for yourself.
 - [ ] Create a sandbox Apple tester account in App Store Connect, even if purchases cannot complete until paid-app setup is active.
