@@ -137,10 +137,10 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 ### 7. Backend And Supabase Launch Readiness
 
 - [x] Resolve Supabase RLS/security alert or attach Supabase support/ticket outcome to launch notes.
-- [ ] Confirm all required Edge Functions are deployed in the production Supabase project.
-- [ ] Confirm required function secrets are set: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `REVENUECAT_SECRET_API_KEY`, `RESEND_API_KEY`, feedback email vars, and any water-reader internal keys.
+- [x] Confirm all required Edge Functions are deployed in the production Supabase project. Verified with `supabase functions list` on 2026-05-22; `sync-subscription-tier` is active.
+- [x] Confirm required function secrets are set: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `REVENUECAT_SECRET_API_KEY`, `RESEND_API_KEY`, feedback email vars, and any water-reader internal keys. Verified by secret name/digest with `supabase secrets list` on 2026-05-22.
 - [ ] Run production smoke tests for auth, profile creation, environment fetch, forecast scores, how-fishing, recommender, waterbody search, water-reader polygon/read, feedback, and delete-account.
-- [ ] Confirm database migrations are applied in production.
+- [x] Confirm database migrations are applied in production. `20260522190000_protect_profile_subscription_tier` was pushed and appears in the remote migration list on 2026-05-22.
 - [ ] Confirm Row Level Security is enabled on user-owned app tables and service-role functions enforce authenticated user access.
 - [ ] Confirm Supabase Auth redirect URLs include `https://finfindr.app/auth/confirm/` and app scheme links as needed.
 - [ ] Confirm production domain forwards auth confirmation links into the app.
@@ -201,7 +201,7 @@ These are useful next moves that do not require the LLC approval, EIN, or Apple 
 - [x] Prepare final App Review notes with exact demo credentials, reviewer account, feature test path, supported-water guidance, free-tier lock explanation, and location guidance. Entered in App Store Connect on 2026-05-22.
 - [ ] Run a final free-account walkthrough on a second email and capture short notes/screenshots for yourself.
 - [x] Create a sandbox Apple tester account in App Store Connect, even if purchases cannot complete until paid-app setup is active. Sandbox tester `hooksettr@hotmail.com` exists in App Store Connect as of 2026-05-22.
-- [ ] Confirm all production Supabase Edge Functions and secrets are deployed/set before the TestFlight build, including `sync-subscription-tier` and `REVENUECAT_SECRET_API_KEY`.
+- [x] Confirm all production Supabase Edge Functions and secrets are deployed/set before the TestFlight build, including `sync-subscription-tier` and `REVENUECAT_SECRET_API_KEY`.
 
 ### 9B. Business / LLC / Tax Follow-Up
 
