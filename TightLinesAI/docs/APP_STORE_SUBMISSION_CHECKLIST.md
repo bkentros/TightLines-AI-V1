@@ -169,14 +169,14 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 ### 9. App Store Connect Metadata
 
 - [x] App name: `FinFindr: Fishing Intelligence`.
-- [ ] Subtitle.
+- [x] Subtitle: `Bite Forecasts & Tackle`.
 - [x] Promotional text.
 - [x] Description.
 - [x] Keywords.
 - [x] Support URL.
 - [x] Marketing URL.
 - [x] Privacy Policy URL.
-- [ ] App category.
+- [x] App category: Primary `Sports`, secondary `Weather` if available.
 - [x] Age rating questionnaire.
 - [x] Screenshots for required iPhone sizes. Six 6.5-inch iPhone portrait screenshots uploaded at 1242 x 2688; this satisfies the required iPhone screenshot set when no 6.9-inch screenshots are provided, and App Store Connect scales them for other iPhone display sizes.
 - [ ] App preview video, optional.
@@ -192,8 +192,8 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 
 These are useful next moves that do not require the LLC approval, EIN, or Apple paid-app agreement to be active:
 
-- [ ] Choose and enter the final App Store subtitle.
-- [ ] Choose and confirm the primary App Store category, likely `Sports` or `Weather`, depending on how you want FinFindr positioned.
+- [x] Choose and enter the final App Store subtitle: `Bite Forecasts & Tackle`.
+- [x] Choose and confirm the primary App Store category: `Sports`.
 - [ ] Re-read App Store description, promotional text, and keywords against the current product: free tier, Angler subscription, supported-water limits, no external purchase path.
 - [ ] Review uploaded screenshots for fictional/non-sensitive account data, clear in-app use, and no misleading paid-feature promises.
 - [ ] Confirm the Support URL page has a clear support email/contact path and loads without auth.
