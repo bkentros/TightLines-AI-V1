@@ -24,8 +24,8 @@ export {
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
-/** v7 keys include the requested forecast scope so free previews never hydrate from a full paid cache. */
-const CACHE_KEY_PREFIX = "forecast_scores_v7";
+/** v8 invalidates pre-canonical daily snapshots so report scores stay identical across users. */
+const CACHE_KEY_PREFIX = "forecast_scores_v8";
 
 const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v1",
@@ -35,6 +35,7 @@ const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v5",
   "forecast_scores_v6",
   "forecast_scores_v7",
+  "forecast_scores_v8",
 ] as const;
 
 function isSignedOutError(err: unknown): boolean {

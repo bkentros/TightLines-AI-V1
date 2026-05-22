@@ -510,26 +510,21 @@ export default function HowFishingScreen() {
         snapshotDateForReport,
         { allowMeasuredWaterTemp: shouldUseMeasuredWaterTemp },
       );
+      if (!forecastEnvForReport) {
+        throw new Error(
+          "We could not load the shared daily conditions snapshot for this spot. Please try again in a moment.",
+        );
+      }
       let envForReport: Record<string, unknown> | EnvironmentData;
-      if (forecastEnvForReport) {
-        if (shouldUseMeasuredWaterTemp) {
-          const envMeasuredWaterSource = env ??
-            (await getEnvironment({ latitude: lat, longitude: lon, units }));
-          envForReport = mergeMeasuredWaterTempFields(
-            forecastEnvForReport,
-            envMeasuredWaterSource,
-          );
-        } else {
-          envForReport = forecastEnvForReport;
-        }
-      } else {
-        const envFallback = env ??
+      if (shouldUseMeasuredWaterTemp) {
+        const envMeasuredWaterSource = env ??
           (await getEnvironment({ latitude: lat, longitude: lon, units }));
-        envForReport = shouldUseMeasuredWaterTemp
-          ? envFallback
-          : stripMeasuredWaterTempFields(
-            envFallback as unknown as Record<string, unknown>,
-          );
+        envForReport = mergeMeasuredWaterTempFields(
+          forecastEnvForReport,
+          envMeasuredWaterSource,
+        );
+      } else {
+        envForReport = stripMeasuredWaterTempFields(forecastEnvForReport);
       }
 
       const polishLocationName = await resolveLocationLabelForPolish(
@@ -606,7 +601,7 @@ export default function HowFishingScreen() {
       if (!isForecastDay) {
         setCurrentMultiRebuild(lat, lon, bundles, reportCacheOwnerKey);
       }
-      setLastReportEnv((envForReport as EnvironmentData) ?? env);
+      setLastReportEnv((envForReport as unknown as EnvironmentData) ?? env);
       setActiveTab(tabWithReport);
       setMultiBundles(bundles);
     } catch (err) {
