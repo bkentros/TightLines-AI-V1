@@ -196,11 +196,11 @@ These are useful next moves that do not require the LLC approval, EIN, or Apple 
 - [x] Choose and confirm the primary App Store category: `Sports`.
 - [x] Re-read App Store description, promotional text, and keywords against the current product: free tier, Angler subscription, supported-water limits, no external purchase path. Description was tightened and entered on 2026-05-22.
 - [x] Review uploaded screenshots for fictional/non-sensitive account data, clear in-app use, and no misleading paid-feature promises. Six iPhone screenshots reviewed on 2026-05-22; `Water Reader` label is acceptable as public feature framing.
-- [ ] Confirm the Support URL page has a clear support email/contact path and loads without auth.
+- [x] Confirm the Support URL page has a clear support email/contact path and loads without auth. `https://finfindr.app/support` is public and lists `support@finfindr.app`.
 - [x] Confirm public Privacy/Terms/Safety/Support URLs load cleanly in Safari, not just in-app. Verified live on 2026-05-22 after deploying the public Safety page.
 - [x] Prepare final App Review notes with exact demo credentials, reviewer account, feature test path, supported-water guidance, free-tier lock explanation, and location guidance. Entered in App Store Connect on 2026-05-22.
 - [ ] Run a final free-account walkthrough on a second email and capture short notes/screenshots for yourself.
-- [ ] Create a sandbox Apple tester account in App Store Connect, even if purchases cannot complete until paid-app setup is active.
+- [x] Create a sandbox Apple tester account in App Store Connect, even if purchases cannot complete until paid-app setup is active. Sandbox tester `hooksettr@hotmail.com` exists in App Store Connect as of 2026-05-22.
 - [ ] Confirm all production Supabase Edge Functions and secrets are deployed/set before the TestFlight build.
 
 ### 9B. Business / LLC / Tax Follow-Up
@@ -215,9 +215,9 @@ These are useful next moves that do not require the LLC approval, EIN, or Apple 
 
 ### 10. Build, Upload, And Submit
 
-- [ ] Build dev client: `eas build --profile development --platform ios`.
+- [x] Build dev client: `eas build --profile development --platform ios`. Fresh iOS development build was created and installed on device for launch QA on 2026-05-21/2026-05-22.
 - [x] Confirm EAS production and development env vars are present for iOS builds: `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`, `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY`, and `EXPO_PUBLIC_AUTH_EMAIL_REDIRECT` verified on 2026-05-21.
-- [ ] Install dev build on physical iPhone.
+- [x] Install dev build on physical iPhone. Fresh iOS dev client was loaded on the iPhone 15 Pro Max for launch QA on 2026-05-21/2026-05-22.
 - [ ] Start Metro with env vars loaded and test RevenueCat sandbox.
 - [ ] Build production: `eas build --profile production --platform ios`.
 - [ ] Upload to App Store Connect.
