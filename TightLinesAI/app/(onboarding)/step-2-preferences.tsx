@@ -350,52 +350,34 @@ export default function OnboardingStep2() {
             <View style={styles.heroPanel}>
               <TopographicLines
                 style={styles.heroTopo}
-                color={paper.dashboardCream}
+                color={paper.dashboardBlue}
                 count={5}
               />
 
-              <View style={styles.heroRubricRow}>
-                <View style={styles.heroRubricRule} />
-                <Text style={styles.heroRubricText}>
-                  PROFILE SETUP · YOUR HOME WATER
-                </Text>
-                <View style={styles.heroRubricRule} />
+              <View style={styles.heroSignal}>
+                <BrandEmblem
+                  size={36}
+                  halo
+                  haloColor={paper.dashboardBlue}
+                  haloOpacity={0.08}
+                />
+                <Text style={styles.pageEyebrow}>PROFILE SETUP</Text>
               </View>
 
-              <View style={styles.heroTopRow}>
-                <View style={styles.heroEmblem}>
-                  <BrandEmblem
-                    size={34}
-                    halo
-                    haloColor={paper.dashboardCream}
-                    haloOpacity={0.18}
-                  />
-                </View>
-                <View style={styles.heroKickerWrap}>
-                  <Text style={styles.pageEyebrow}>PROFILE CALIBRATION</Text>
-                  <Text style={styles.heroMeta}>Handle + home water</Text>
-                </View>
-              </View>
-
-              <Text
-                style={styles.heroTitle}
-                numberOfLines={1}
-                adjustsFontSizeToFit
-                minimumFontScale={0.82}
-              >
-                Tune your{' '}
-                <Text style={styles.heroTitleItalic}>first read</Text>
-                <Text style={styles.heroTitleDot}>.</Text>
+              <Text style={styles.heroTitle} allowFontScaling={false}>
+                LET'S TUNE YOUR{'\n'}
+                <Text style={styles.heroTitleAccent}>FIRST READ.</Text>
               </Text>
+
               <Text style={styles.heroLede}>
-                Set your public handle and home area so FinFindr opens with the
-                right water, weather, and regional context from the first tap.
+                Pick a handle and home water so the dashboard opens with the
+                right local conditions.
               </Text>
 
               <View style={styles.benefitRow}>
-                <BenefitPill icon="speedometer-outline" label="Local reports" />
+                <BenefitPill icon="person-outline" label="Handle" />
+                <BenefitPill icon="location-outline" label="Home water" />
                 <BenefitPill icon="partly-sunny-outline" label="Weather sync" />
-                <BenefitPill icon="water-outline" label="Water reads" />
               </View>
             </View>
 
@@ -626,7 +608,7 @@ function BenefitPill({
 }) {
   return (
     <View style={styles.benefitPill}>
-      <Ionicons name={icon} size={11} color={paper.dashboardBlueLight} />
+      <Ionicons name={icon} size={11} color={paper.dashboardBlue} />
       <Text style={styles.benefitPillText}>{label}</Text>
     </View>
   );
@@ -683,11 +665,11 @@ const styles = StyleSheet.create({
   },
   heroPanel: {
     position: 'relative',
-    backgroundColor: paper.dashboardInk,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.16)',
-    padding: paperSpacing.md,
+    alignItems: 'center',
+    backgroundColor: paper.dashboardCream,
+    paddingHorizontal: paperSpacing.sm,
+    paddingTop: paperSpacing.sm,
+    paddingBottom: paperSpacing.md,
     marginBottom: paperSpacing.lg,
     overflow: 'hidden',
   },
@@ -697,84 +679,51 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.18,
+    opacity: 0.16,
   },
-  heroRubricRow: {
-    flexDirection: 'row',
+  heroSignal: {
     alignItems: 'center',
-    gap: 8,
+    gap: paperSpacing.xs,
     marginBottom: paperSpacing.sm,
     zIndex: 1,
   },
-  heroRubricRule: {
-    flex: 1,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardCream,
-    opacity: 0.35,
-  },
-  heroRubricText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    color: paper.dashboardCream,
-    letterSpacing: 2.4,
-    opacity: 0.75,
-  },
-  heroTopRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: paperSpacing.sm,
-    marginBottom: paperSpacing.sm,
-    zIndex: 1,
-  },
-  heroEmblem: {
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  heroKickerWrap: { flex: 1 },
   pageEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    letterSpacing: 2,
-    color: paper.dashboardBlueLight,
+    fontSize: 9.5,
+    letterSpacing: 2.6,
+    color: paper.dashboardBlue,
     fontWeight: '700',
-  },
-  heroMeta: {
-    marginTop: 3,
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 12,
-    color: 'rgba(255,255,255,0.68)',
-    letterSpacing: 0.8,
-    textTransform: 'uppercase',
   },
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 31,
-    color: paper.dashboardCream,
+    fontSize: 33,
+    color: paper.dashboardInk,
     fontWeight: '700',
     letterSpacing: 0,
     lineHeight: 35,
+    textAlign: 'center',
     marginBottom: paperSpacing.xs,
     zIndex: 1,
   },
-  heroTitleItalic: {
-    fontFamily: paperFonts.displayItalic,
-    color: paper.dashboardCream,
-  },
-  heroTitleDot: {
-    color: paper.dashboardBlueLight,
+  heroTitleAccent: {
+    color: paper.bandPrime,
   },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
     fontSize: 14,
-    color: 'rgba(255,255,255,0.78)',
-    lineHeight: 21,
+    color: paper.dashboardInk,
+    opacity: 0.72,
+    lineHeight: 20,
     marginBottom: paperSpacing.sm,
+    maxWidth: 320,
+    textAlign: 'center',
     zIndex: 1,
   },
   benefitRow: {
     flexDirection: 'row',
     flexWrap: 'nowrap',
     gap: 6,
+    justifyContent: 'center',
     zIndex: 1,
   },
   benefitPill: {
@@ -782,17 +731,17 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 5,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.14)',
+    borderColor: paper.dashboardLine,
     borderRadius: 999,
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    backgroundColor: paper.dashboardWhite,
     paddingHorizontal: 8,
     paddingVertical: 5,
   },
   benefitPillText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 9.5,
-    color: paper.dashboardCream,
-    opacity: 0.9,
+    color: paper.dashboardInk,
+    opacity: 0.72,
   },
   setupPanel: {
     backgroundColor: paper.dashboardWhite,

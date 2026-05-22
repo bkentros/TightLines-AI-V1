@@ -6,13 +6,15 @@
  * presentation layer was rebuilt to match the renovated welcome screen.
  *
  * Visual intent
- *  - Light "account signal" masthead with dashboard-style scan lines,
- *    live status, feature metrics, and a topographic backdrop.
- *  - Three-step progress beacon so the user sees the path:
- *    SECURE → VERIFY → DASHBOARD.
- *  - Compact intelligence preview cards for Today's Bite, Tackle Box,
- *    and Water Read before the account fields.
- *  - Each form field is presented as a numbered secure setup line.
+ *  - "FIELD INTAKE / NEW ANGLER" rubric strip + 3-step progress beacon
+ *    so the user sees they're at step 1 of "INTAKE → VERIFY → SETUP."
+ *  - Editorial hero matching the welcome screen: small brand emblem on
+ *    the left of a Fraunces serif title with italic accent, rule, and
+ *    italic dek.
+ *  - Each form field is presented as a numbered "intake line"
+ *    (01 / 02 / 03) with hairline-tinted ordinal markers — the form
+ *    reads like a field requisition rather than a generic input list.
+ *  - Topographic backdrop on the hero card.
  *  - Edition stamp + trust line at the bottom (preserved).
  *
  * No business logic touched.
@@ -81,39 +83,9 @@ type Notice = {
 };
 
 const STEPS: { numeral: string; label: string }[] = [
-  { numeral: '01', label: 'SECURE' },
+  { numeral: '01', label: 'INTAKE' },
   { numeral: '02', label: 'VERIFY' },
-  { numeral: '03', label: 'DASHBOARD' },
-];
-
-const INTELLIGENCE_PREVIEW: {
-  code: string;
-  title: string;
-  caption: string;
-  iconName: keyof typeof Ionicons.glyphMap;
-  accent: string;
-}[] = [
-  {
-    code: '01',
-    title: "Today's Bite",
-    caption: 'Daily score and timing windows',
-    iconName: 'analytics-outline',
-    accent: paper.bandPrime,
-  },
-  {
-    code: '02',
-    title: 'Tackle Box',
-    caption: 'Condition-matched lure and fly picks',
-    iconName: 'fish-outline',
-    accent: paper.dashboardBlue,
-  },
-  {
-    code: '03',
-    title: 'Water Read',
-    caption: 'Structure guidance for supported waters',
-    iconName: 'map-outline',
-    accent: paper.bandFair,
-  },
+  { numeral: '03', label: 'SETUP' },
 ];
 
 export default function SignUpScreen() {
@@ -426,7 +398,7 @@ export default function SignUpScreen() {
               </Text>
             </View>
 
-            {/* ─── Hero — account signal masthead ──────────────────────── */}
+            {/* ─── Hero — premium intake masthead ──────────────────────── */}
             <View style={styles.hero}>
               <TopographicLines
                 style={styles.heroTopo}
@@ -434,65 +406,46 @@ export default function SignUpScreen() {
                 count={5}
               />
 
-              <View style={styles.heroGrid} pointerEvents="none">
-                <View style={[styles.heroGridLine, { top: '34%' }]} />
-                <View style={[styles.heroGridLine, { top: '68%' }]} />
-                <View style={[styles.heroGridCol, { left: '36%' }]} />
-                <View style={[styles.heroGridCol, { left: '72%' }]} />
+              <View style={styles.heroRubricRow}>
+                <View style={styles.heroRubricRule} />
+                <Text style={styles.heroRubricText}>
+                  FIELD INTAKE · NEW ANGLER
+                </Text>
+                <View style={styles.heroRubricRule} />
               </View>
 
-              <View style={styles.heroTopRow}>
-                <View style={styles.heroBrandRow}>
-                  <Image
-                    source={require('../../assets/images/finfindr-logo.png')}
-                    style={styles.heroEmblem}
-                    resizeMode="contain"
-                  />
-                  <View>
-                    <Text style={styles.heroWordmark}>
-                      FinFindr<Text style={styles.heroTitleDot}>.</Text>
-                    </Text>
-                    <Text style={styles.heroRubricText}>ACCOUNT SIGNAL</Text>
+              <View style={styles.heroLockup}>
+                <Image
+                  source={require('../../assets/images/finfindr-logo.png')}
+                  style={styles.heroEmblem}
+                  resizeMode="contain"
+                />
+                <View style={styles.heroLockupText}>
+                  <View style={styles.eyebrowRow}>
+                    <View style={styles.eyebrowPulseWrap}>
+                      <View style={styles.eyebrowPulseRing} />
+                      <Animated.View
+                        style={[styles.eyebrowPulseDot, { opacity: livePulse }]}
+                      />
+                    </View>
+                    <Text style={styles.eyebrowText}>FINFINDR · NEW ACCOUNT</Text>
                   </View>
-                </View>
-
-                <View style={styles.liveBadge}>
-                  <Animated.View
-                    style={[styles.liveBadgeDot, { opacity: livePulse }]}
-                  />
-                  <Text style={styles.liveBadgeText}>LIVE</Text>
+                  <Text style={styles.heroTitle}>
+                    Create{'\n'}
+                    <Text style={styles.heroTitleItalic}>account</Text>
+                    <Text style={styles.heroTitleDot}>.</Text>
+                  </Text>
+                  <View style={styles.heroRule} />
                 </View>
               </View>
-
-              <Text style={styles.heroKicker}>FISHING INTELLIGENCE</Text>
-              <Text style={styles.heroTitle}>
-                Build your{'\n'}
-                <Text style={styles.heroTitleItalic}>angler dashboard</Text>
-                <Text style={styles.heroTitleDot}>.</Text>
-              </Text>
 
               <Text style={styles.heroDek}>
-                One secure sign-in unlocks your daily read, forecast preview,
-                tackle signals, and supported-water structure.
+                Set up your reports and tackle picks before your next trip —
+                takes about a minute.
               </Text>
-
-              <View style={styles.heroMetricRow}>
-                <View style={styles.heroMetric}>
-                  <Text style={styles.heroMetricValue}>7.0</Text>
-                  <Text style={styles.heroMetricLabel}>SCORE</Text>
-                </View>
-                <View style={styles.heroMetric}>
-                  <Text style={styles.heroMetricValue}>6</Text>
-                  <Text style={styles.heroMetricLabel}>DAYS</Text>
-                </View>
-                <View style={styles.heroMetric}>
-                  <Text style={styles.heroMetricValue}>3</Text>
-                  <Text style={styles.heroMetricLabel}>MODULES</Text>
-                </View>
-              </View>
             </View>
 
-            {/* ─── Step beacons — 01 SECURE · 02 VERIFY · 03 DASHBOARD ─── */}
+            {/* ─── Step beacons — 01 INTAKE · 02 VERIFY · 03 SETUP ────── */}
             <View style={styles.beacons}>
               {STEPS.map((step, idx) => {
                 const isActive = idx === 0;
@@ -536,18 +489,6 @@ export default function SignUpScreen() {
               })}
             </View>
 
-            <View style={styles.previewPanel}>
-              <View style={styles.previewHeader}>
-                <Text style={styles.previewEyebrow}>WHAT OPENS NEXT</Text>
-                <Text style={styles.previewCount}>3 SIGNALS</Text>
-              </View>
-              <View style={styles.previewDeck}>
-                {INTELLIGENCE_PREVIEW.map((item) => (
-                  <IntelligencePreviewCard key={item.code} item={item} />
-                ))}
-              </View>
-            </View>
-
             {/* ─── Form — numbered intake lines ────────────────────────── */}
             <View style={styles.form}>
               {notice ? (
@@ -570,7 +511,7 @@ export default function SignUpScreen() {
                 <FieldInput
                   value={email}
                   onChangeText={handleEmailChange}
-                  placeholder="email address"
+                  placeholder="you@example.com"
                   keyboardType="email-address"
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -584,12 +525,12 @@ export default function SignUpScreen() {
               <IntakeLine
                 ordinal="02"
                 label="PASSWORD"
-                hint={`Secure access. ${PASSWORD_POLICY_LABEL}`}
+                hint={PASSWORD_POLICY_LABEL}
               >
                 <FieldInput
                   value={password}
                   onChangeText={handlePasswordChange}
-                  placeholder="create password"
+                  placeholder="Set a strong password"
                   secureTextEntry={!showPassword}
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -614,7 +555,7 @@ export default function SignUpScreen() {
               <IntakeLine
                 ordinal="03"
                 label="CONFIRM"
-                hint="One more check before the dashboard"
+                hint="Re-enter your password"
                 status={confirmStatus}
                 error={confirmStatus === 'invalid' ? 'Passwords do not match' : undefined}
                 success={confirmStatus === 'valid' ? 'Passwords match' : undefined}
@@ -622,7 +563,7 @@ export default function SignUpScreen() {
                 <FieldInput
                   value={confirmPassword}
                   onChangeText={handleConfirmChange}
-                  placeholder="confirm password"
+                  placeholder="Re-enter your password"
                   secureTextEntry={!showConfirm}
                   autoCapitalize="none"
                   autoCorrect={false}
@@ -797,27 +738,6 @@ function IntakeLine({
   );
 }
 
-function IntelligencePreviewCard({
-  item,
-}: {
-  item: (typeof INTELLIGENCE_PREVIEW)[number];
-}) {
-  return (
-    <View style={styles.previewCard}>
-      <View style={[styles.previewIcon, { borderColor: item.accent }]}>
-        <Ionicons name={item.iconName} size={17} color={item.accent} />
-      </View>
-      <Text style={styles.previewCode}>{item.code}</Text>
-      <Text style={styles.previewTitle} numberOfLines={1} adjustsFontSizeToFit>
-        {item.title}
-      </Text>
-      <Text style={styles.previewCaption} numberOfLines={2}>
-        {item.caption}
-      </Text>
-    </View>
-  );
-}
-
 /**
  * FieldInput — a small wrapper around the AuthField visuals so
  * IntakeLine can supply its own label + hint chrome above the input.
@@ -884,18 +804,18 @@ const styles = StyleSheet.create({
   // ── Hero ──────────────────────────────────────────────────────────────
   hero: {
     position: 'relative',
-    backgroundColor: '#FBFCFD',
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: 'rgba(10,27,46,0.18)',
-    paddingHorizontal: paperSpacing.md + 4,
-    paddingTop: paperSpacing.md + 2,
-    paddingBottom: paperSpacing.md + 4,
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    paddingHorizontal: paperSpacing.md + 2,
+    paddingTop: paperSpacing.md,
+    paddingBottom: paperSpacing.md,
     overflow: 'hidden',
     shadowColor: paper.dashboardInk,
-    shadowOpacity: 0.07,
-    shadowRadius: 18,
-    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 5 },
   },
   heroTopo: {
     position: 'absolute',
@@ -903,98 +823,82 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.18,
+    opacity: 0.32,
   },
-  heroGrid: {
-    ...StyleSheet.absoluteFillObject,
-    opacity: 0.35,
-  },
-  heroGridLine: {
-    position: 'absolute',
-    left: paperSpacing.md,
-    right: paperSpacing.md,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardHair,
-  },
-  heroGridCol: {
-    position: 'absolute',
-    top: paperSpacing.md,
-    bottom: paperSpacing.md,
-    width: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardHair,
-  },
-  heroTopRow: {
+  heroRubricRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: paperSpacing.sm,
+    gap: 8,
+    paddingHorizontal: 2,
+    marginBottom: paperSpacing.sm,
     zIndex: 1,
-    marginBottom: paperSpacing.md,
   },
-  heroBrandRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: paperSpacing.sm,
-    minWidth: 0,
-  },
-  heroEmblem: {
-    width: 34,
-    height: 44,
-  },
-  heroWordmark: {
-    fontFamily: paperFonts.display,
-    fontSize: 21,
-    color: paper.dashboardInk,
-    fontWeight: '700',
-    letterSpacing: 0,
-    lineHeight: 23,
+  heroRubricRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.35,
   },
   heroRubricText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    color: paper.dashboardBlue,
-    letterSpacing: 2.1,
-    marginTop: 1,
+    fontSize: 9,
+    color: paper.dashboardInk,
+    letterSpacing: 2.4,
+    opacity: 0.7,
   },
-  liveBadge: {
+  heroLockup: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 6,
+    gap: paperSpacing.md,
+    zIndex: 1,
+  },
+  heroEmblem: {
+    width: 50,
+    height: 64,
+  },
+  heroLockupText: {
+    flex: 1,
+  },
+  eyebrowRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    marginBottom: 4,
+  },
+  eyebrowPulseWrap: {
+    width: 9,
+    height: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  eyebrowPulseRing: {
+    position: 'absolute',
+    width: 9,
+    height: 9,
+    borderRadius: 4.5,
     borderWidth: 1,
-    borderColor: 'rgba(61,168,95,0.32)',
-    backgroundColor: 'rgba(61,168,95,0.09)',
-    borderRadius: 999,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.45,
   },
-  liveBadgeDot: {
-    width: 7,
-    height: 7,
-    borderRadius: 3.5,
-    backgroundColor: paper.bandPrime,
+  eyebrowPulseDot: {
+    width: 4.5,
+    height: 4.5,
+    borderRadius: 2.25,
+    backgroundColor: paper.dashboardBlue,
   },
-  liveBadgeText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    color: paper.dashboardInk,
-    letterSpacing: 1.8,
-  },
-  heroKicker: {
+  eyebrowText: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
     color: paper.dashboardBlue,
-    letterSpacing: 2.8,
-    zIndex: 1,
+    letterSpacing: 2.6,
   },
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 36,
+    fontSize: 30,
     color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: 0,
-    lineHeight: 38,
-    marginTop: 4,
-    zIndex: 1,
+    letterSpacing: -0.4,
+    lineHeight: 33,
   },
   heroTitleItalic: {
     fontFamily: paperFonts.displayItalic,
@@ -1003,45 +907,21 @@ const styles = StyleSheet.create({
   heroTitleDot: {
     color: paper.dashboardBlue,
   },
+  heroRule: {
+    width: 36,
+    height: 2,
+    backgroundColor: paper.dashboardBlue,
+    borderRadius: 1,
+    marginTop: 6,
+  },
   heroDek: {
     fontFamily: paperFonts.displayItalic,
-    fontSize: 14,
+    fontSize: 13,
     color: paper.dashboardInk,
-    opacity: 0.72,
-    lineHeight: 20,
+    opacity: 0.75,
+    lineHeight: 18,
     marginTop: paperSpacing.sm,
     zIndex: 1,
-  },
-  heroMetricRow: {
-    flexDirection: 'row',
-    gap: paperSpacing.xs,
-    marginTop: paperSpacing.md,
-    zIndex: 1,
-  },
-  heroMetric: {
-    flex: 1,
-    minHeight: 54,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: 'rgba(10,27,46,0.12)',
-    backgroundColor: 'rgba(255,255,255,0.72)',
-    paddingHorizontal: paperSpacing.sm,
-    paddingVertical: paperSpacing.xs + 2,
-    justifyContent: 'center',
-  },
-  heroMetricValue: {
-    fontFamily: paperFonts.display,
-    fontSize: 23,
-    color: paper.dashboardInk,
-    fontWeight: '700',
-    lineHeight: 25,
-  },
-  heroMetricLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    color: paper.dashboardBlue,
-    letterSpacing: 1.7,
-    marginTop: 1,
   },
 
   // ── Step beacons ──────────────────────────────────────────────────────
@@ -1110,93 +990,13 @@ const styles = StyleSheet.create({
     opacity: 0.5,
   },
 
-  // ── Intelligence preview ───────────────────────────────────────────────
-  previewPanel: {
-    gap: paperSpacing.sm,
-  },
-  previewHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    paddingHorizontal: 2,
-  },
-  previewEyebrow: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
-    color: paper.dashboardInk,
-    letterSpacing: 2.3,
-    opacity: 0.78,
-  },
-  previewCount: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    color: paper.dashboardBlue,
-    letterSpacing: 1.8,
-  },
-  previewDeck: {
-    flexDirection: 'row',
-    gap: paperSpacing.xs + 2,
-  },
-  previewCard: {
-    flex: 1,
-    minHeight: 104,
-    borderRadius: 8,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    backgroundColor: paper.dashboardWhite,
-    paddingHorizontal: paperSpacing.xs + 2,
-    paddingVertical: paperSpacing.sm,
-    alignItems: 'center',
-  },
-  previewIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: '#F8FAFB',
-    marginBottom: 5,
-  },
-  previewCode: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    color: paper.dashboardBlue,
-    letterSpacing: 1.4,
-    marginBottom: 3,
-  },
-  previewTitle: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 0,
-    lineHeight: 14,
-    textAlign: 'center',
-  },
-  previewCaption: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 10,
-    color: paper.dashboardInk,
-    opacity: 0.58,
-    lineHeight: 13,
-    textAlign: 'center',
-    marginTop: 3,
-  },
-
   // ── Form — intake lines ───────────────────────────────────────────────
   form: {
     gap: paperSpacing.md,
     marginTop: paperSpacing.xs,
   },
   line: {
-    gap: paperSpacing.xs + 2,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    backgroundColor: 'rgba(255,255,255,0.84)',
-    paddingHorizontal: paperSpacing.sm + 2,
-    paddingTop: paperSpacing.sm + 2,
-    paddingBottom: paperSpacing.sm,
+    gap: 6,
   },
   lineHeader: {
     flexDirection: 'row',
@@ -1278,12 +1078,12 @@ const styles = StyleSheet.create({
   input: {
     position: 'relative',
     borderWidth: 1,
-    borderRadius: 8,
+    borderRadius: 12,
     backgroundColor: paper.dashboardWhite,
   },
   inputText: {
-    paddingHorizontal: paperSpacing.sm + 2,
-    paddingVertical: 13,
+    paddingHorizontal: paperSpacing.md,
+    paddingVertical: 14,
     fontFamily: paperFonts.body,
     fontSize: 16,
     color: paper.dashboardInk,
