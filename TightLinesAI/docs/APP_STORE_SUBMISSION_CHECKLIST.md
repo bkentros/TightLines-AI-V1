@@ -172,7 +172,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Subtitle: `Bite Forecasts & Tackle`.
 - [x] Promotional text.
 - [x] Description.
-- [x] Keywords.
+- [x] Keywords: `bass,smallmouth,largemouth,trout,pike,lure,fly,moon,tide,weather,lake,river,pond,map,solunar,angler`.
 - [x] Support URL.
 - [x] Marketing URL.
 - [x] Privacy Policy URL.
