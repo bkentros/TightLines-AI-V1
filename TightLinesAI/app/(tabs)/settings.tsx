@@ -298,13 +298,8 @@ export default function SettingsScreen() {
 
   const handleDeleteAccount = async () => {
     if (!confirmDelete) {
+      setNotice(null);
       setConfirmDelete(true);
-      setNotice({
-        title: 'Confirm account deletion',
-        message:
-          'Tap Delete account again to permanently delete your FinFindr account and sign out. Store subscriptions continue until canceled from your App Store or Google Play account.',
-        tone: 'error',
-      });
       return;
     }
 
@@ -654,6 +649,19 @@ export default function SettingsScreen() {
                 FinFindr account does not cancel App Store billing, so cancel any active
                 auto-renewing subscription from your store account first.
               </Text>
+              {confirmDelete ? (
+                <View style={styles.deleteWarning}>
+                  <View style={styles.deleteWarningHeader}>
+                    <Ionicons name="warning-outline" size={15} color={paper.bandTough} />
+                    <Text style={styles.deleteWarningTitle}>FINAL CHECK</Text>
+                  </View>
+                  <Text style={styles.deleteWarningCopy}>
+                    Tap Delete account forever to permanently delete your FinFindr account and
+                    sign out. Store subscriptions must still be canceled from your App Store or
+                    Google Play account.
+                  </Text>
+                </View>
+              ) : null}
               <PrimaryAction
                 label={storeSubscriptionManagementLabel()}
                 icon="open-outline"
@@ -1266,6 +1274,33 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     opacity: 0.72,
     lineHeight: 18,
+  },
+  deleteWarning: {
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: `${paper.bandTough}66`,
+    backgroundColor: '#FFF6F3',
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: paperSpacing.sm,
+    gap: paperSpacing.xs,
+  },
+  deleteWarningHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.xs,
+  },
+  deleteWarningTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    color: paper.bandTough,
+    letterSpacing: 1.8,
+  },
+  deleteWarningCopy: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    color: paper.dashboardInk,
+    lineHeight: 18,
+    opacity: 0.78,
   },
   cancelDelete: {
     alignItems: 'center',

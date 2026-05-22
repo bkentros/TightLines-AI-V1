@@ -6,11 +6,10 @@
  * presentation layer was rebuilt to match the renovated welcome screen.
  *
  * Visual intent
- *  - "FIELD INTAKE / NEW ANGLER" rubric strip + 3-step progress beacon
+ *  - Single "FINFINDR / NEW ACCOUNT" rubric + 3-step progress beacon
  *    so the user sees they're at step 1 of "INTAKE → VERIFY → SETUP."
- *  - Editorial hero matching the welcome screen: small brand emblem on
- *    the left of a Fraunces serif title with italic accent, rule, and
- *    italic dek.
+ *  - Editorial hero matching the welcome screen: small brand emblem, a
+ *    one-line Fraunces serif title, rule, and simple italic dek.
  *  - Each form field is presented as a numbered "intake line"
  *    (01 / 02 / 03) with hairline-tinted ordinal markers — the form
  *    reads like a field requisition rather than a generic input list.
@@ -406,14 +405,6 @@ export default function SignUpScreen() {
                 count={5}
               />
 
-              <View style={styles.heroRubricRow}>
-                <View style={styles.heroRubricRule} />
-                <Text style={styles.heroRubricText}>
-                  FIELD INTAKE · NEW ANGLER
-                </Text>
-                <View style={styles.heroRubricRule} />
-              </View>
-
               <View style={styles.heroLockup}>
                 <Image
                   source={require('../../assets/images/finfindr-logo.png')}
@@ -430,9 +421,13 @@ export default function SignUpScreen() {
                     </View>
                     <Text style={styles.eyebrowText}>FINFINDR · NEW ACCOUNT</Text>
                   </View>
-                  <Text style={styles.heroTitle}>
-                    Create{'\n'}
-                    <Text style={styles.heroTitleItalic}>account</Text>
+                  <Text
+                    style={styles.heroTitle}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.82}
+                  >
+                    Create account
                     <Text style={styles.heroTitleDot}>.</Text>
                   </Text>
                   <View style={styles.heroRule} />
@@ -440,8 +435,7 @@ export default function SignUpScreen() {
               </View>
 
               <Text style={styles.heroDek}>
-                Set up your reports and tackle picks before your next trip —
-                takes about a minute.
+                Set up once, then start every trip with a cleaner read.
               </Text>
             </View>
 
@@ -824,27 +818,6 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     opacity: 0.32,
-  },
-  heroRubricRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-    paddingHorizontal: 2,
-    marginBottom: paperSpacing.sm,
-    zIndex: 1,
-  },
-  heroRubricRule: {
-    flex: 1,
-    height: StyleSheet.hairlineWidth,
-    backgroundColor: paper.dashboardInk,
-    opacity: 0.35,
-  },
-  heroRubricText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    color: paper.dashboardInk,
-    letterSpacing: 2.4,
-    opacity: 0.7,
   },
   heroLockup: {
     flexDirection: 'row',

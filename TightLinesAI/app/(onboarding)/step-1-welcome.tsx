@@ -122,7 +122,7 @@ export default function OnboardingStep1() {
           eyebrow="FINFINDR · ONBOARDING"
           title="WELCOME"
           onBack={handleBack}
-          right={<StepPill step={1} total={2} />}
+          right={<StepPill step={1} total={1} />}
         />
 
         {/* ── Main content — no ScrollView; must fit viewport ─────── */}
@@ -292,7 +292,7 @@ export default function OnboardingStep1() {
 
           <View style={styles.footerRow}>
             <View style={styles.footerRule} />
-            <Text style={styles.footerText}>STEP 01 OF 02 · YOUR PROFILE NEXT</Text>
+            <Text style={styles.footerText}>PAGE 01 OF 01 · PROFILE SETUP</Text>
             <View style={styles.footerRule} />
           </View>
         </View>
