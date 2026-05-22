@@ -9,9 +9,9 @@ import Purchases, {
   type PurchasesPackage,
 } from "react-native-purchases";
 import RevenueCatUI, { PAYWALL_RESULT } from "react-native-purchases-ui";
-import { supabase } from "../lib/supabase";
+import { getValidAccessToken, invokeEdgeFunction } from "../lib/supabase";
 import { useAuthStore } from "./authStore";
-import type { SubscriptionTier } from "../lib/types";
+import type { SubscriptionTier, UserProfile } from "../lib/types";
 import { hasComplimentaryAnglerAccess } from "../lib/adminAccess";
 
 const ANGLER_ENTITLEMENT_ID = "angler";
@@ -21,6 +21,12 @@ const PAYWALL_NATIVE_UNAVAILABLE_MESSAGE =
   "This installed app does not include the subscription paywall module yet. Create and install a fresh iOS development build, then reopen FinFindr.";
 const OFFERINGS_UNAVAILABLE_MESSAGE =
   "Angler plans are not available from the App Store yet. Your free access still works; please try upgrading again later.";
+
+type SyncSubscriptionTierResponse = {
+  subscription_tier: SubscriptionTier;
+  has_angler: boolean;
+  profile: UserProfile | null;
+};
 
 function revenueCatNativeAvailable(): boolean {
   if (Platform.OS === "web") return false;
@@ -107,21 +113,26 @@ async function syncProfileTier(
   const user = useAuthStore.getState().user;
   const profile = useAuthStore.getState().profile;
   if (!user || !profile) return;
-  const nextTier = tierFromCustomerInfo(customerInfo);
-  if (profile.subscription_tier === nextTier) return;
+  const observedTier = tierFromCustomerInfo(customerInfo);
+  const hasComplimentaryAccess = hasComplimentaryAnglerAccess(user.email);
+  const shouldConfirmServerTier = hasComplimentaryAccess
+    ? profile.subscription_tier !== "angler"
+    : profile.subscription_tier !== observedTier ||
+      profile.subscription_tier !== "free" ||
+      observedTier !== "free";
+  if (!shouldConfirmServerTier) return;
 
-  const { data, error } = await supabase
-    .from("profiles")
-    .update({
-      subscription_tier: nextTier,
-      updated_at: new Date().toISOString(),
-    })
-    .eq("id", user.id)
-    .select()
-    .single();
+  const accessToken = await getValidAccessToken();
+  const result = await invokeEdgeFunction<SyncSubscriptionTierResponse>(
+    "sync-subscription-tier",
+    {
+      accessToken,
+      body: {},
+    },
+  );
 
-  if (!error && data) {
-    useAuthStore.getState().setProfile(data);
+  if (result.profile) {
+    useAuthStore.getState().setProfile(result.profile);
   }
 }
 
@@ -232,7 +243,9 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
                 customerInfo: info,
                 hasAngler: hasEffectiveAnglerAccess(info),
               });
-              void syncProfileTier(info);
+              void syncProfileTier(info).catch((err) => {
+                if (__DEV__) console.warn("[RevenueCat] tier sync failed", err);
+              });
             };
             Purchases.addCustomerInfoUpdateListener(customerInfoListener);
           }

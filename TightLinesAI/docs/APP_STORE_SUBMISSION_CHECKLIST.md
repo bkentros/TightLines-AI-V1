@@ -53,7 +53,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] RevenueCat store supports iOS key lookup via `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY`.
 - [x] Purchase, restore, customer info refresh, and entitlement sync flows exist.
 - [x] Limited report CTA, subscribe prompts, and membership screen can present RevenueCat template paywalls through `presentPaywallIfNeeded`.
-- [x] New accounts are created as `free` by default. Database default is `subscription_tier = 'free'`, onboarding explicitly upserts `subscription_tier: 'free'`, and missing/unknown tiers resolve to `free` in app gating.
+- [x] New accounts are created as `free` by default. Database default is `subscription_tier = 'free'`, onboarding no longer writes the tier from the client, and missing/unknown tiers resolve to `free` in app gating.
 - [x] Free vs Angler access policy is centralized in `lib/subscription.ts`.
 - [x] Free users can preview tomorrow's forecast score/color, generate only the limited current-day Today's Bite report, complete recommender setup before the paywall, and search/select Water Read lakes before the paywall.
 - [x] Angler users have full access to forecast reports, full Today's Bite, recommender generation, and Water Read generation.
@@ -76,7 +76,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Test cancel from purchase sheet.
 - [ ] Test restore purchase after reinstall/sign out/sign in.
 - [ ] Test entitlement changes update Supabase `profiles.subscription_tier`.
-- [ ] Harden final subscription tier write path before launch: RevenueCat/server-confirmed entitlement should be the trusted way to update `profiles.subscription_tier`; users must not be able to self-spoof Angler from the client.
+- [x] Harden final subscription tier write path before launch. Added a database trigger that blocks authenticated/anon clients from changing `profiles.subscription_tier`, moved tier sync behind the `sync-subscription-tier` Edge Function, and made RevenueCat/server-confirmed entitlement the trusted write path.
 - [x] Test free user gating for Today's Bite, Tackle Box/recommender, and Water Read. Verified in the fresh iOS dev build on 2026-05-21; gated CTAs route into the subscription flow and currently show the unavailable fallback while App Store products are not returned.
 - [x] Add App Store review notes explaining how to find and test subscription-gated features.
 - [x] Add a reviewer account that either has an active sandbox subscription or can purchase using Apple sandbox. Current reviewer login is entered in App Store Connect; subscription purchase still needs sandbox validation after build upload.
@@ -138,7 +138,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 
 - [x] Resolve Supabase RLS/security alert or attach Supabase support/ticket outcome to launch notes.
 - [ ] Confirm all required Edge Functions are deployed in the production Supabase project.
-- [ ] Confirm required function secrets are set: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `RESEND_API_KEY`, feedback email vars, and any water-reader internal keys.
+- [ ] Confirm required function secrets are set: `SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY`, `REVENUECAT_SECRET_API_KEY`, `RESEND_API_KEY`, feedback email vars, and any water-reader internal keys.
 - [ ] Run production smoke tests for auth, profile creation, environment fetch, forecast scores, how-fishing, recommender, waterbody search, water-reader polygon/read, feedback, and delete-account.
 - [ ] Confirm database migrations are applied in production.
 - [ ] Confirm Row Level Security is enabled on user-owned app tables and service-role functions enforce authenticated user access.
@@ -201,7 +201,7 @@ These are useful next moves that do not require the LLC approval, EIN, or Apple 
 - [x] Prepare final App Review notes with exact demo credentials, reviewer account, feature test path, supported-water guidance, free-tier lock explanation, and location guidance. Entered in App Store Connect on 2026-05-22.
 - [ ] Run a final free-account walkthrough on a second email and capture short notes/screenshots for yourself.
 - [x] Create a sandbox Apple tester account in App Store Connect, even if purchases cannot complete until paid-app setup is active. Sandbox tester `hooksettr@hotmail.com` exists in App Store Connect as of 2026-05-22.
-- [ ] Confirm all production Supabase Edge Functions and secrets are deployed/set before the TestFlight build.
+- [ ] Confirm all production Supabase Edge Functions and secrets are deployed/set before the TestFlight build, including `sync-subscription-tier` and `REVENUECAT_SECRET_API_KEY`.
 
 ### 9B. Business / LLC / Tax Follow-Up
 

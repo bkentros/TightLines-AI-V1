@@ -250,7 +250,6 @@ export default function OnboardingStep2() {
         fishing_mode: 'both' as const,
         target_species: [] as string[],
         preferred_units: 'imperial' as const,
-        subscription_tier: 'free' as const,
         onboarding_complete: true,
       };
 
