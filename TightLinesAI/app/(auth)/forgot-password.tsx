@@ -55,14 +55,42 @@ import {
 
 type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
+const COOLDOWN_SECONDS = 60;
+
 export default function ForgotPasswordScreen() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
+  const [cooldown, setCooldown] = useState(0);
   const [notice, setNotice] = useState<Notice | null>(null);
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null);
+
+  useEffect(() => {
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current);
+    };
+  }, []);
+
+  const startCooldown = () => {
+    if (timerRef.current) clearInterval(timerRef.current);
+    setCooldown(COOLDOWN_SECONDS);
+    timerRef.current = setInterval(() => {
+      setCooldown((prev) => {
+        if (prev <= 1) {
+          if (timerRef.current) {
+            clearInterval(timerRef.current);
+            timerRef.current = null;
+          }
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+  };
 
   const handleSend = async () => {
+    if (loading || cooldown > 0) return;
     const trimmed = email.trim().toLowerCase();
     setNotice(null);
     if (!trimmed) {
@@ -80,10 +108,16 @@ export default function ForgotPasswordScreen() {
         redirectTo: getPasswordResetEmailRedirectUrl(),
       });
       setSent(true);
+      startCooldown();
     } finally {
       setLoading(false);
     }
   };
+
+  const resendLabel =
+    loading ? 'Transmitting...'
+    : cooldown > 0 ? `Sent - resend in ${cooldown}s`
+    : 'Resend reset link';
 
   return (
     <View style={styles.root}>
@@ -222,6 +256,12 @@ export default function ForgotPasswordScreen() {
                   Don&apos;t see it? Check your spam or junk folder, or try
                   resending after a minute.
                 </AuthTip>
+
+                <AuthSecondaryButton
+                  label={resendLabel}
+                  onPress={handleSend}
+                  disabled={loading || cooldown > 0}
+                />
 
                 <AuthSecondaryButton
                   label="Back to sign in"
