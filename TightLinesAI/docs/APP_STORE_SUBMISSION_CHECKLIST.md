@@ -1,6 +1,6 @@
 # FinFindr App Store Submission Checklist
 
-Last updated: 2026-05-21
+Last updated: 2026-05-22
 
 This is the living launch checklist for getting FinFindr through Apple review with the best chance of a fast approval. Check items off only when verified on the actual production or review build, not just assumed from code.
 
@@ -18,6 +18,8 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] **Resolve Supabase `public.spatial_ref_sys` RLS/security alert.** Warning no longer appears in Supabase dashboard; `supabase db lint --linked --schema public` returned no schema errors on 2026-05-20.
 - [x] **Code-level free vs Angler gates are centralized and enforced.** Commit `65a4bd8` makes new/free users limited, allows tomorrow-only forecast preview, gates future forecast reads, gates recommender generation after step 4, gates Water Read generation after lake selection, and keeps Angler unrestricted.
 - [x] **Confirm reviewer can access every gated feature.** `finfindr@hotmail.com` is configured as complimentary Angler access and successfully reached Angler-gated features in the fresh iOS dev build on 2026-05-21. This validates reviewer feature access, not the App Store purchase path.
+- [x] **Account/auth lifecycle E2E is passing in the fresh iOS dev build.** Email signup, verification email, account deletion, recreating the same email after deletion, password reset email/link, and returning-user Sign in with Apple were QA-verified on device by 2026-05-22.
+- [x] **Legal/safety page presentation QA passed.** Terms, Privacy, and Safety pages render with the corrected navy safe-area/header treatment and were visually checked on device by 2026-05-22. Final legal/entity copy review remains blocked on LLC/EIN.
 - [ ] **HIGH: Use EAS Cloud or update local Xcode before native iOS builds.** `expo-doctor` now passes dependency checks, but the selected local Xcode is 15.2 and Expo SDK 55 expects Xcode 26 or newer.
 
 ## Proper Order
@@ -93,9 +95,9 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Confirm account deletion removes or anonymizes associated profile/log/feedback/app data as promised in the Privacy Policy.
 - [x] Add subscription warning before deletion: Apple says users with auto-renewing subscriptions should be told billing continues through Apple and asked to cancel first.
 - [x] Provide manage subscription link or native subscription management before/near deletion.
-- [ ] Test delete account on real device and confirm the user cannot sign back in.
+- [x] Test delete account on real device and confirm the user cannot sign back in / can recreate with the same email. Verified with `kentrosbrandon@gmail` on 2026-05-22.
 - [ ] Confirm Apple private relay email works for support/password flows.
-- [ ] Confirm email confirmation and password reset deep links work from the production domain.
+- [x] Confirm email confirmation and password reset deep links work from the production domain. Signup verification and password reset email flows were verified E2E from device on 2026-05-22.
 
 ### 5. Privacy, Legal, And Data Disclosures
 
@@ -106,6 +108,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Require explicit Terms/Privacy checkbox acceptance during email sign-up.
 - [ ] For stronger audit evidence, store Terms/Privacy acceptance timestamp and document version on the user profile or a legal acceptance table.
 - [x] Make Privacy/Terms/Support reachable from Settings.
+- [x] Make Safety reachable from Settings.
 - [x] Complete App Privacy Nutrition Label in App Store Connect. Published on 2026-05-20 with Contact Info, Location, User Content, Identifiers, Purchases, and Usage Data linked to the user; no tracking.
 - [ ] Wait for Florida Sunbiz approval for `FinFindr LLC`; save the filed Articles, document number, and any Certificate of Status.
 - [ ] Apply for the free IRS EIN only after the LLC is approved; use exact legal name `FinFindr LLC` and save the EIN confirmation letter.
@@ -145,17 +148,17 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 
 ### 8. App Completeness QA
 
-- [x] Run TypeScript check. Latest pass was 2026-05-20 after access-gating changes: `npm run qa:water-reader-typecheck`.
+- [x] Run TypeScript check. Latest pass was 2026-05-22 after auth resend cooldown updates: `npm run qa:water-reader-typecheck`.
 - [x] Fix Expo SDK package version drift. `npx expo install --check` passed on 2026-05-21 after updating SDK 55 patch-level package versions.
 - [ ] Local native iOS build toolchain: selected Xcode is 15.2; install/select Xcode 26+ before relying on local iOS native builds. EAS Cloud build remains the recommended path for the dev client.
 - [ ] Run key Supabase/Deno tests for recommender and water-reader shared modules.
-- [ ] Run app on a physical iPhone from a development build.
+- [x] Run app on a physical iPhone from a development build. Fresh iOS dev client was installed and used for account/subscription-access QA on 2026-05-21/2026-05-22.
 - [ ] Run app on a production-like TestFlight build.
-- [ ] Test cold install, sign-up, email verification, onboarding, sign-in, sign-out.
-- [x] Test Sign in with Apple first-time flow. Fresh iOS dev build logs showed Supabase Apple session creation on 2026-05-21. Returning-user flow still needs one more explicit retest after sign-out/reinstall.
-- [ ] Test password reset from email link.
-- [ ] Test every tab and every major screen without a subscription.
-- [ ] Test every major screen with an active Angler subscription.
+- [x] Test cold install, sign-up, email verification, onboarding, sign-in, sign-out. Email account flow was verified E2E on device by 2026-05-22.
+- [x] Test Sign in with Apple first-time and returning-user flows. Fresh iOS dev build logs showed Supabase Apple session creation on 2026-05-21; returning-user one-tap Sign in with Apple was verified on device by 2026-05-22.
+- [x] Test password reset from email link. Verified on device by 2026-05-22.
+- [x] Test every tab and every major screen without a subscription. Free-account gates were verified on device; gated CTAs route into the subscription flow and currently show the unavailable fallback while Apple products are unavailable.
+- [x] Test every major screen with active Angler access. Verified on device using complimentary Angler reviewer access; actual paid sandbox subscription still must be tested after App Store products are returned.
 - [ ] Test airplane mode / poor network states.
 - [ ] Test small screen iPhone and large iPhone layouts.
 - [ ] Test light mode only behavior since `userInterfaceStyle` is `light`.
@@ -185,7 +188,22 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Pricing and availability. App download is free and availability is United States only.
 - [x] Manual release selected if you want control after approval.
 
-### 9A. Business / LLC / Tax Follow-Up
+### 9A. While LLC / EIN Is Pending
+
+These are useful next moves that do not require the LLC approval, EIN, or Apple paid-app agreement to be active:
+
+- [ ] Choose and enter the final App Store subtitle.
+- [ ] Choose and confirm the primary App Store category, likely `Sports` or `Weather`, depending on how you want FinFindr positioned.
+- [ ] Re-read App Store description, promotional text, and keywords against the current product: free tier, Angler subscription, supported-water limits, no external purchase path.
+- [ ] Review uploaded screenshots for fictional/non-sensitive account data, clear in-app use, and no misleading paid-feature promises.
+- [ ] Confirm the Support URL page has a clear support email/contact path and loads without auth.
+- [ ] Confirm public Privacy/Terms/Safety/Support URLs load cleanly in Safari, not just in-app.
+- [ ] Prepare final App Review notes with exact demo credentials, reviewer account, feature test path, supported-water guidance, and the subscription status note.
+- [ ] Run a final free-account walkthrough on a second email and capture short notes/screenshots for yourself.
+- [ ] Create a sandbox Apple tester account in App Store Connect, even if purchases cannot complete until paid-app setup is active.
+- [ ] Confirm all production Supabase Edge Functions and secrets are deployed/set before the TestFlight build.
+
+### 9B. Business / LLC / Tax Follow-Up
 
 - [ ] Watch for the Sunbiz approval email for the Florida LLC filing.
 - [ ] Search Sunbiz once approved and save the public filing page/PDF for records.
@@ -232,9 +250,11 @@ Location is used to fill weather, tide, moon, and local fishing-condition inputs
 ## Official References Used
 
 - Apple App Review overview and common rejection issues: https://developer.apple.com/app-store/review/
-- Apple App Review Guidelines: https://developer.apple.com/appstore/resources/approval/guidelines.html
+- Apple App Review Guidelines: https://developer.apple.com/app-store/review/guidelines/
 - Apple account deletion guidance: https://developer.apple.com/support/offering-account-deletion-in-your-app/
 - Apple app privacy details: https://developer.apple.com/app-store/app-privacy-details/
+- App Store Connect app privacy fields: https://developer.apple.com/help/app-store-connect/reference/app-information/app-privacy
+- App Store Connect version metadata fields: https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information
 - App Store Connect app submission help: https://developer.apple.com/help/app-store-connect/manage-submissions-to-app-review/submit-an-app
 - App Store Connect first-time IAP/subscription submission help: https://developer.apple.com/help/app-store-connect/manage-submissions-to-app-review/submit-an-in-app-purchase
 - App Store Connect IAP metadata fields: https://developer.apple.com/help/app-store-connect/reference/in-app-purchase-information
