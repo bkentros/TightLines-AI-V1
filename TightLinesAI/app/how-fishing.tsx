@@ -424,10 +424,6 @@ export default function HowFishingScreen() {
         setShowSubscribePrompt(true);
         return;
       }
-      if (isLimitedFreeRead) {
-        setShowConfirm(true);
-        return;
-      }
       if (isForecastDay && targetDate) {
         const cached = await getCachedForecastRebuild(
           lat,
@@ -451,6 +447,7 @@ export default function HowFishingScreen() {
         lon,
         availableContexts,
         reportCacheOwnerKey,
+        { allowLimited: isLimitedFreeRead },
       );
       if (cancelled) return;
       if (cached) {
@@ -475,6 +472,7 @@ export default function HowFishingScreen() {
     targetDate,
     isFreeTier,
     isLimitedFreeRead,
+    reportCacheOwnerKey,
   ]);
 
   const generateReports = useCallback(async () => {
@@ -602,7 +600,7 @@ export default function HowFishingScreen() {
           multi,
           reportCacheOwnerKey,
         );
-      } else if (!isLimitedFreeRead) {
+      } else {
         await setCachedMultiRebuild(lat, lon, multi, reportCacheOwnerKey);
       }
       if (!isForecastDay) {
@@ -648,9 +646,7 @@ export default function HowFishingScreen() {
       }
       let cached: Record<EngineContextKey, HowFishingRebuildBundle> | null =
         null;
-      if (isLimitedFreeRead) {
-        cached = null;
-      } else if (isForecastDay && targetDate) {
+      if (isForecastDay && targetDate) {
         cached = await getCachedForecastRebuild(
           lat,
           lon,
@@ -664,6 +660,7 @@ export default function HowFishingScreen() {
           lon,
           availableContexts,
           reportCacheOwnerKey,
+          { allowLimited: isLimitedFreeRead },
         );
       }
 

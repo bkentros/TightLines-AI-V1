@@ -207,6 +207,9 @@ export default function HomeScreen() {
   const [cachedScore, setCachedScore] = useState<string | null>(null);
   /** Mean 0–100 across today's multi-tab cached reports — only populated after report generation. */
   const [cachedMeanRaw, setCachedMeanRaw] = useState<number | null>(null);
+  const [cachedScoreExpiresAtMs, setCachedScoreExpiresAtMs] = useState<
+    number | null
+  >(null);
   const [forecastDays, setForecastDays] = useState<DayForecastScore[] | null>(
     null,
   );
@@ -411,6 +414,7 @@ export default function HomeScreen() {
       if (req === cacheMeanRequestSeq.current) {
         setCachedMeanRaw(null);
         setCachedScore(null);
+        setCachedScoreExpiresAtMs(null);
       }
       return;
     }
@@ -420,24 +424,49 @@ export default function HomeScreen() {
       contexts.every((ctx) => inMemory[ctx] != null);
     const source = hasAllInMemory
       ? inMemory!
-      : await getCachedMultiRebuild(lat, lon, contexts, reportCacheOwnerKey);
+      : await getCachedMultiRebuild(
+        lat,
+        lon,
+        contexts,
+        reportCacheOwnerKey,
+        { allowLimited: true },
+      );
     if (req !== cacheMeanRequestSeq.current) return;
     if (!source) {
       setCachedMeanRaw(null);
       setCachedScore(null);
+      setCachedScoreExpiresAtMs(null);
       return;
     }
     const scores = contexts.map((ctx) => source[ctx]!.report.score);
     const meanRaw = scores.reduce((a, b) => a + b, 0) / scores.length;
+    const expiresAtMs = Math.min(
+      ...contexts
+        .map((ctx) => new Date(source[ctx]!.cache_expires_at).getTime())
+        .filter(Number.isFinite),
+    );
     const v = Math.round(meanRaw) / 10;
     const display = Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
     setCachedMeanRaw(meanRaw);
     setCachedScore(display);
+    setCachedScoreExpiresAtMs(Number.isFinite(expiresAtMs) ? expiresAtMs : null);
   }, [coords?.lat, coords?.lon, locationCoastalEligible, reportCacheOwnerKey]);
 
   useEffect(() => {
     void loadCachedReportMean();
   }, [loadCachedReportMean]);
+
+  useEffect(() => {
+    if (cachedScoreExpiresAtMs == null) return;
+    const delayMs = Math.max(1000, cachedScoreExpiresAtMs - Date.now() + 1000);
+    const timer = setTimeout(() => {
+      setCachedMeanRaw(null);
+      setCachedScore(null);
+      setCachedScoreExpiresAtMs(null);
+      void loadCachedReportMean();
+    }, delayMs);
+    return () => clearTimeout(timer);
+  }, [cachedScoreExpiresAtMs, loadCachedReportMean]);
 
   useFocusEffect(
     useCallback(() => {
@@ -575,6 +604,7 @@ export default function HomeScreen() {
       setForecastLows(null);
       setCachedScore(null);
       setCachedMeanRaw(null);
+      setCachedScoreExpiresAtMs(null);
       const units = profile?.preferred_units ?? "imperial";
       loadEnv(loc.lat, loc.lon, { units });
     },
@@ -592,6 +622,7 @@ export default function HomeScreen() {
     setForecastExpiresAtMs(null);
     setCachedScore(null);
     setCachedMeanRaw(null);
+    setCachedScoreExpiresAtMs(null);
     try {
       let { status } = await Location.getForegroundPermissionsAsync();
       if (status === "undetermined") {

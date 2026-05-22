@@ -59,6 +59,10 @@ function forecastCacheKey(
   return `how_fishing_forecast_v3_${ownerSegment(ownerKey)}_${lat.toFixed(3)}_${lon.toFixed(3)}_${targetDate}_${ctx}`;
 }
 
+interface ReportCacheReadOptions {
+  allowLimited?: boolean;
+}
+
 interface RebuildCacheEntry {
   lat: number;
   lon: number;
@@ -80,6 +84,7 @@ async function getCachedHowFishingRebuild(
   longitude: number,
   engineContext: EngineContextKey,
   ownerKey?: string | null,
+  options: ReportCacheReadOptions = {},
 ): Promise<HowFishingRebuildBundle | null> {
   try {
     const key = rebuildCacheKey(latitude, longitude, engineContext, ownerKey);
@@ -89,7 +94,7 @@ async function getCachedHowFishingRebuild(
     if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
     const expires = new Date(entry.cache_expires_at).getTime();
     if (Number.isFinite(expires) && Date.now() >= expires) return null;
-    if (entry.bundle.access_tier === 'free_limited') return null;
+    if (entry.bundle.access_tier === 'free_limited' && !options.allowLimited) return null;
     return entry.bundle;
   } catch {
     return null;
@@ -173,10 +178,11 @@ export async function getCachedMultiRebuild(
   longitude: number,
   contexts: EngineContextKey[],
   ownerKey?: string | null,
+  options: ReportCacheReadOptions = {},
 ): Promise<Record<EngineContextKey, HowFishingRebuildBundle> | null> {
   const results: Partial<Record<EngineContextKey, HowFishingRebuildBundle>> = {};
   for (const ctx of contexts) {
-    const cached = await getCachedHowFishingRebuild(latitude, longitude, ctx, ownerKey);
+    const cached = await getCachedHowFishingRebuild(latitude, longitude, ctx, ownerKey, options);
     if (!cached) return null;
     results[ctx] = cached;
   }
@@ -201,8 +207,18 @@ let currentMultiRebuildEntry: {
   ownerKey: string;
   lat: number;
   lon: number;
+  cacheExpiresAtMs: number;
   bundles: Record<EngineContextKey, HowFishingRebuildBundle>;
 } | null = null;
+
+function multiCacheExpiresAtMs(
+  bundles: Record<EngineContextKey, HowFishingRebuildBundle>,
+): number {
+  const expiries = Object.values(bundles)
+    .map((bundle) => new Date(bundle.cache_expires_at).getTime())
+    .filter(Number.isFinite);
+  return expiries.length > 0 ? Math.min(...expiries) : 0;
+}
 
 export function setCurrentMultiRebuild(
   latitude: number,
@@ -214,6 +230,7 @@ export function setCurrentMultiRebuild(
     ownerKey: ownerSegment(ownerKey),
     lat: latitude,
     lon: longitude,
+    cacheExpiresAtMs: multiCacheExpiresAtMs(bundles),
     bundles,
   };
 }
@@ -224,6 +241,13 @@ export function getCurrentMultiRebuild(
   ownerKey?: string | null,
 ): Record<EngineContextKey, HowFishingRebuildBundle> | null {
   if (!currentMultiRebuildEntry) return null;
+  if (
+    !Number.isFinite(currentMultiRebuildEntry.cacheExpiresAtMs) ||
+    Date.now() >= currentMultiRebuildEntry.cacheExpiresAtMs
+  ) {
+    currentMultiRebuildEntry = null;
+    return null;
+  }
   if (currentMultiRebuildEntry.ownerKey !== ownerSegment(ownerKey)) {
     return null;
   }
