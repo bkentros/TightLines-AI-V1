@@ -21,6 +21,8 @@ const PAYWALL_NATIVE_UNAVAILABLE_MESSAGE =
   "This installed app does not include the subscription paywall module yet. Create and install a fresh iOS development build, then reopen FinFindr.";
 const OFFERINGS_UNAVAILABLE_MESSAGE =
   "Angler plans are not available from the App Store yet. Your free access still works; please try upgrading again later.";
+const RECEIPT_ALREADY_OWNED_MESSAGE =
+  "This App Store subscription is already connected to another FinFindr account. Sign in to that original FinFindr account to restore access, or contact support if you need account recovery.";
 
 type SyncSubscriptionTierResponse = {
   subscription_tier: SubscriptionTier;
@@ -100,6 +102,13 @@ function errorMessage(err: unknown): string {
       }
       if (isOfferingsConfigurationError(message)) {
         return OFFERINGS_UNAVAILABLE_MESSAGE;
+      }
+      if (
+        message.includes("already another active subscriber") ||
+        message.includes("same receipt") ||
+        message.includes("ReceiptAlreadyInUse")
+      ) {
+        return RECEIPT_ALREADY_OWNED_MESSAGE;
       }
       return message;
     }

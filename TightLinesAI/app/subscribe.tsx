@@ -84,8 +84,15 @@ export default function SubscribeScreen() {
     hapticImpact(ImpactFeedbackStyle.Light);
     const unlocked = await restore();
     const restoreError = useRevenueCatStore.getState().error;
+    const receiptBelongsToAnotherAccount = Boolean(
+      restoreError?.includes('already connected to another FinFindr account'),
+    );
     Alert.alert(
-      unlocked ? 'Angler access active' : 'No App Store subscription found',
+      unlocked
+        ? 'Angler access active'
+        : receiptBelongsToAnotherAccount
+          ? 'Subscription linked elsewhere'
+          : 'No App Store subscription found',
       unlocked
         ? 'Your FinFindr Angler access is active.'
         : restoreError ||
