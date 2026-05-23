@@ -36,6 +36,16 @@ export type SharedEngineRequest = {
     active_precip_now?: boolean | null;
     /** Optional — improves precip disruption when present */
     precip_rate_now_in_per_hr?: number | null;
+    /** Target local day has later thunderstorm weather-code evidence. */
+    storm_risk_later_today?: boolean | null;
+    /** Target local day has meaningful later rain/weather risk. */
+    rain_risk_later_today?: boolean | null;
+    /** Target local day has a heavy rain signal later, not trace rain. */
+    heavy_rain_later_today?: boolean | null;
+    /** First local hour with later storm/rain evidence, when hourly data can identify it. */
+    storm_window_start_local_hour?: number | null;
+    /** Max precip probability for the target local day, when available. */
+    max_precip_probability_pct?: number | null;
     tide_movement_state?: string | null;
     tide_station_id?: string | null;
     /** Strongest current speed (kt) today when available */
@@ -43,7 +53,9 @@ export type SharedEngineRequest = {
     /** Hourly tide height (ft) for 3h swing — optional */
     tide_height_hourly_ft?: number[] | null;
     /** CO-OPS high/low events for intra-day movement proxy */
-    tide_high_low?: Array<{ time: string; value: number; type?: string }> | null;
+    tide_high_low?:
+      | Array<{ time: string; value: number; type?: string }>
+      | null;
     sunrise_local?: string | null;
     sunset_local?: string | null;
     solunar_peak_local?: string[] | null;

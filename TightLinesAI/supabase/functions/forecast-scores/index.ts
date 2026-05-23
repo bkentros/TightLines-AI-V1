@@ -327,6 +327,13 @@ function trimSnapshotForMaxDayOffset(
       trimArray(envRecord.hourly_cloud_cover_pct, maxHourlyLength) ?? [],
     hourly_wind_speed:
       trimArray(envRecord.hourly_wind_speed, maxHourlyLength) ?? [],
+    hourly_weather_code:
+      trimArray(envRecord.hourly_weather_code, maxHourlyLength) ?? [],
+    hourly_precip_probability_pct:
+      trimArray(envRecord.hourly_precip_probability_pct, maxHourlyLength) ??
+        [],
+    hourly_precipitation_in:
+      trimArray(envRecord.hourly_precipitation_in, maxHourlyLength) ?? [],
     forecast_tides_by_date:
       trimArray(envRecord.forecast_tides_by_date, maxDayOffset + 1) ?? [],
   };
@@ -658,6 +665,9 @@ Deno.serve(async (req: Request) => {
       hourly_air_temp_f: om.hourly_air_temp_f ?? [],
       hourly_cloud_cover_pct: om.hourly_cloud_cover_pct ?? [],
       hourly_wind_speed: om.hourly_wind_speed ?? [],
+      hourly_weather_code: om.hourly_weather_code ?? [],
+      hourly_precip_probability_pct: om.hourly_precip_probability_pct ?? [],
+      hourly_precipitation_in: om.hourly_precipitation_in ?? [],
       forecast_tides_by_date: tideSnapshot.forecast_tides_by_date,
     };
 
@@ -703,6 +713,9 @@ Deno.serve(async (req: Request) => {
     "hourly_air_temp_f",
     "hourly_cloud_cover_pct",
     "hourly_wind_speed",
+    "hourly_weather_code",
+    "hourly_precip_probability_pct",
+    "hourly_precipitation_in",
   ] as const;
 
   const fullHourly: Record<string, Array<{ time_utc: string; value: number }>> =

@@ -79,6 +79,11 @@ export type ConditionEnvironmentSnapshot = {
   precip_7d_in: number | null;
   active_precip_now: boolean | null;
   precip_rate_now_in_per_hr: number | null;
+  storm_risk_later_today: boolean | null;
+  rain_risk_later_today: boolean | null;
+  heavy_rain_later_today: boolean | null;
+  storm_window_start_local_hour: number | null;
+  max_precip_probability_pct: number | null;
   tide_movement_state: string | null;
   tide_station_id: string | null;
   current_speed_knots_max: number | null;

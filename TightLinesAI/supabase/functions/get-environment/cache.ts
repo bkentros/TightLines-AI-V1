@@ -17,6 +17,9 @@ export type EnvironmentSnapshotLike = {
   hourly_air_temp_f?: Array<{ time_utc: string; value: number }>;
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
+  hourly_weather_code?: Array<{ time_utc: string; value: number }>;
+  hourly_precip_probability_pct?: Array<{ time_utc: string; value: number }>;
+  hourly_precipitation_in?: Array<{ time_utc: string; value: number }>;
   tide_predictions_30day?: Array<Record<string, unknown>>;
   measured_water_temp_f?: number | null;
   measured_water_temp_source?: string | null;
@@ -31,6 +34,16 @@ export type EnvironmentSnapshotLike = {
 
 const MIN_HOURLY_ENV_POINTS = 12;
 
+const HOURLY_WEATHER_SERIES_KEYS = [
+  "hourly_pressure_mb",
+  "hourly_air_temp_f",
+  "hourly_cloud_cover_pct",
+  "hourly_wind_speed",
+  "hourly_weather_code",
+  "hourly_precip_probability_pct",
+  "hourly_precipitation_in",
+] as const;
+
 function roundBucket(n: number): string {
   return (Math.round(n * 100) / 100).toFixed(2);
 }
@@ -44,7 +57,10 @@ export function buildEnvironmentSnapshotKey(
   return `${roundBucket(lat)}:${roundBucket(lon)}:${units}:${localDate}`;
 }
 
-export function localDateFromUtcIso(iso: string, tzOffsetHours: number): string {
+export function localDateFromUtcIso(
+  iso: string,
+  tzOffsetHours: number,
+): string {
   const d = new Date(iso);
   if (Number.isNaN(d.getTime())) return "1970-01-01";
   const shifted = new Date(d.getTime() + tzOffsetHours * 60 * 60 * 1000);
@@ -57,12 +73,16 @@ export function hasSufficientHourlySeries(
   return Array.isArray(series) && series.length >= MIN_HOURLY_ENV_POINTS;
 }
 
-export function hasSufficientHourlyWeather(env: EnvironmentSnapshotLike): boolean {
+export function hasSufficientHourlyWeather(
+  env: EnvironmentSnapshotLike,
+): boolean {
   return hasSufficientHourlySeries(env.hourly_air_temp_f) &&
     hasSufficientHourlySeries(env.hourly_cloud_cover_pct);
 }
 
-export function isEnvironmentSnapshotUsable(env: EnvironmentSnapshotLike | null | undefined): boolean {
+export function isEnvironmentSnapshotUsable(
+  env: EnvironmentSnapshotLike | null | undefined,
+): boolean {
   if (!env) return false;
   return env.weather_available ||
     env.tides_available ||
@@ -84,44 +104,54 @@ export function mergeEnvironmentWithSnapshot(
   const addNote = (note: string) => {
     if (!notes.includes(note)) notes.push(note);
   };
+  const fillMissingHourlySeries = () => {
+    for (const key of HOURLY_WEATHER_SERIES_KEYS) {
+      if (
+        (!merged[key] || merged[key]?.length === 0) &&
+        cached[key]?.length
+      ) {
+        merged[key] = cached[key];
+      }
+    }
+  };
 
-  if ((!merged.weather_available || !merged.weather) && cached.weather_available && cached.weather) {
+  if (
+    (!merged.weather_available || !merged.weather) &&
+    cached.weather_available && cached.weather
+  ) {
     merged.weather_available = true;
     merged.weather = cached.weather;
     if (!merged.forecast_daily?.length && cached.forecast_daily?.length) {
       merged.forecast_daily = cached.forecast_daily;
     }
-    if ((!merged.hourly_pressure_mb || merged.hourly_pressure_mb.length === 0) && cached.hourly_pressure_mb?.length) {
-      merged.hourly_pressure_mb = cached.hourly_pressure_mb;
-    }
-    if ((!merged.hourly_wind_speed || merged.hourly_wind_speed.length === 0) && cached.hourly_wind_speed?.length) {
-      merged.hourly_wind_speed = cached.hourly_wind_speed;
-    }
+    fillMissingHourlySeries();
     if (merged.altitude_ft == null && cached.altitude_ft != null) {
       merged.altitude_ft = cached.altitude_ft;
     }
     addNote("snapshot_fallback:weather");
   }
 
-  if (!hasSufficientHourlyWeather(merged) && hasSufficientHourlyWeather(cached)) {
+  if (
+    !hasSufficientHourlyWeather(merged) && hasSufficientHourlyWeather(cached)
+  ) {
     merged.hourly_air_temp_f = cached.hourly_air_temp_f;
     merged.hourly_cloud_cover_pct = cached.hourly_cloud_cover_pct;
-    if ((!merged.hourly_pressure_mb || merged.hourly_pressure_mb.length === 0) && cached.hourly_pressure_mb?.length) {
-      merged.hourly_pressure_mb = cached.hourly_pressure_mb;
-    }
-    if ((!merged.hourly_wind_speed || merged.hourly_wind_speed.length === 0) && cached.hourly_wind_speed?.length) {
-      merged.hourly_wind_speed = cached.hourly_wind_speed;
-    }
+    fillMissingHourlySeries();
     addNote("snapshot_fallback:hourly_weather");
   }
 
-  if ((!merged.sun_available || !merged.sun) && cached.sun_available && cached.sun) {
+  if (
+    (!merged.sun_available || !merged.sun) && cached.sun_available && cached.sun
+  ) {
     merged.sun_available = true;
     merged.sun = cached.sun;
     addNote("snapshot_fallback:sun");
   }
 
-  if ((!merged.moon_available || !merged.moon) && cached.moon_available && cached.moon) {
+  if (
+    (!merged.moon_available || !merged.moon) && cached.moon_available &&
+    cached.moon
+  ) {
     merged.moon_available = true;
     merged.moon = cached.moon;
     if (!merged.solunar && cached.solunar) {
@@ -138,7 +168,10 @@ export function mergeEnvironmentWithSnapshot(
   ) {
     merged.tides_available = true;
     merged.tides = cached.tides;
-    if (!merged.tide_predictions_30day?.length && cached.tide_predictions_30day?.length) {
+    if (
+      !merged.tide_predictions_30day?.length &&
+      cached.tide_predictions_30day?.length
+    ) {
       merged.tide_predictions_30day = cached.tide_predictions_30day;
     }
     if (!merged.nearest_tide_station_id && cached.nearest_tide_station_id) {
@@ -154,9 +187,12 @@ export function mergeEnvironmentWithSnapshot(
     cached.measured_water_temp_f != null
   ) {
     merged.measured_water_temp_f = cached.measured_water_temp_f;
-    merged.measured_water_temp_24h_ago_f = cached.measured_water_temp_24h_ago_f ?? null;
-    merged.measured_water_temp_72h_ago_f = cached.measured_water_temp_72h_ago_f ?? null;
-    merged.measured_water_temp_source = cached.measured_water_temp_source ?? null;
+    merged.measured_water_temp_24h_ago_f =
+      cached.measured_water_temp_24h_ago_f ?? null;
+    merged.measured_water_temp_72h_ago_f =
+      cached.measured_water_temp_72h_ago_f ?? null;
+    merged.measured_water_temp_source = cached.measured_water_temp_source ??
+      null;
     addNote("snapshot_fallback:water_temp");
   }
 

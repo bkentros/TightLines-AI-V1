@@ -43,7 +43,10 @@ function unixSecToLocalHHMM(unixSec: number, timeZone: string): string {
   return `${hour.padStart(2, "0")}:${minute.padStart(2, "0")}`;
 }
 
-function findCurrentHourlyIndex(hourlyUnix: number[], observationUnix: number | null): number {
+function findCurrentHourlyIndex(
+  hourlyUnix: number[],
+  observationUnix: number | null,
+): number {
   if (!hourlyUnix.length) return -1;
   if (observationUnix == null || !Number.isFinite(observationUnix)) {
     return hourlyUnix.length - 1;
@@ -72,9 +75,17 @@ function classifyPressureTrend(rateMbPerHr: number): PressureTrend {
   return "rapidly_rising";
 }
 
-type TempTrend3Day = "rapid_warming" | "warming" | "stable" | "cooling" | "rapid_cooling";
+type TempTrend3Day =
+  | "rapid_warming"
+  | "warming"
+  | "stable"
+  | "cooling"
+  | "rapid_cooling";
 
-function classifyTempTrend(deltaF72hr: number, maxDrop24hr: number): TempTrend3Day {
+function classifyTempTrend(
+  deltaF72hr: number,
+  maxDrop24hr: number,
+): TempTrend3Day {
   if (maxDrop24hr > 3) return "rapid_cooling";
   if (deltaF72hr >= 4) return "rapid_warming";
   if (deltaF72hr >= 2) return "warming";
@@ -90,6 +101,7 @@ export interface OpenMeteo14DayWeather {
   wind_speed: number;
   wind_direction: number;
   precipitation: number;
+  weather_code?: number | null;
   gust_speed: number | null;
   temp_unit: string;
   wind_speed_unit: string;
@@ -103,6 +115,8 @@ export interface OpenMeteo14DayWeather {
   precip_48hr_inches?: number;
   precip_7day_inches?: number;
   precip_7day_daily?: number[];
+  weather_code_daily?: number[];
+  precipitation_probability_max_daily?: number[];
   /** Daily max wind (same unit as wind_speed), 21 entries: index 14 = today */
   wind_speed_10m_max_daily?: number[];
 }
@@ -132,6 +146,9 @@ export interface OpenMeteo14DayResult {
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   /** Same unit as weather.wind_speed (mph or km/h per request) */
   hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
+  hourly_weather_code?: Array<{ time_utc: string; value: number }>;
+  hourly_precip_probability_pct?: Array<{ time_utc: string; value: number }>;
+  hourly_precipitation_in?: Array<{ time_utc: string; value: number }>;
   timezone?: string;
   tz_offset_hours?: number;
   forecast_daily?: OpenMeteo14DayForecastDay[];
@@ -149,10 +166,11 @@ export async function fetchOpenMeteo14Day(
     latitude: String(lat),
     longitude: String(lon),
     current:
-      "temperature_2m,relative_humidity_2m,cloud_cover,pressure_msl,wind_speed_10m,wind_direction_10m,precipitation,wind_gusts_10m",
-    hourly: "pressure_msl,temperature_2m,cloud_cover,wind_speed_10m,wind_direction_10m,precipitation",
+      "temperature_2m,relative_humidity_2m,cloud_cover,pressure_msl,wind_speed_10m,wind_direction_10m,precipitation,weather_code,wind_gusts_10m",
+    hourly:
+      "pressure_msl,temperature_2m,cloud_cover,wind_speed_10m,wind_direction_10m,precipitation,precipitation_probability,weather_code",
     daily:
-      "sunrise,sunset,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,wind_speed_10m_max",
+      "sunrise,sunset,temperature_2m_max,temperature_2m_min,precipitation_sum,precipitation_probability_max,weather_code,wind_speed_10m_max",
     temperature_unit: tempUnit,
     wind_speed_unit: windUnit,
     timezone: "auto",
@@ -162,7 +180,9 @@ export async function fetchOpenMeteo14Day(
   });
 
   const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-  const res = await fetch(url, { headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" } });
+  const res = await fetch(url, {
+    headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+  });
   if (!res.ok) return null;
 
   const json = await res.json();
@@ -184,13 +204,17 @@ export async function fetchOpenMeteo14Day(
     wind_speed: Number(current.wind_speed_10m) || 0,
     wind_direction: Number(current.wind_direction_10m) || 0,
     precipitation: Number(current.precipitation) || 0,
+    weather_code: Number.isFinite(Number(current.weather_code))
+      ? Number(current.weather_code)
+      : null,
     gust_speed: Number(current.wind_gusts_10m) || null,
     temp_unit: units === "imperial" ? "°F" : "°C",
     wind_speed_unit: units === "imperial" ? "mph" : "km/h",
   };
 
   const hourlyUnix: number[] = Array.isArray(hourly.time)
-    ? (hourly.time as unknown[]).map((x) => parseOpenMeteoUnixSeconds(x)).filter((x): x is number => x != null)
+    ? (hourly.time as unknown[]).map((x) => parseOpenMeteoUnixSeconds(x))
+      .filter((x): x is number => x != null)
     : [];
   const currentUnix = parseOpenMeteoUnixSeconds(current.time);
   const pressureHourly: number[] = Array.isArray(hourly.pressure_msl)
@@ -217,10 +241,29 @@ export async function fetchOpenMeteo14Day(
     ? (hourly.temperature_2m as (number | null)[]).map((v) => Number(v) || 0)
     : [];
   const cloudHourly: number[] = Array.isArray(hourly.cloud_cover)
-    ? (hourly.cloud_cover as (number | null)[]).map((v) => Math.max(0, Math.min(100, Number(v) || 0)))
+    ? (hourly.cloud_cover as (number | null)[]).map((v) =>
+      Math.max(0, Math.min(100, Number(v) || 0))
+    )
     : [];
   const windHourly: number[] = Array.isArray(hourly.wind_speed_10m)
     ? (hourly.wind_speed_10m as (number | null)[]).map((v) => Number(v) || 0)
+    : [];
+  const weatherCodeHourly: number[] = Array.isArray(hourly.weather_code)
+    ? (hourly.weather_code as (number | null)[]).map((v) =>
+      Math.round(Number(v) || 0)
+    )
+    : [];
+  const precipProbabilityHourly: number[] = Array.isArray(
+      hourly.precipitation_probability,
+    )
+    ? (hourly.precipitation_probability as (number | null)[]).map((v) =>
+      Math.max(0, Math.min(100, Math.round(Number(v) || 0)))
+    )
+    : [];
+  const precipHourlyIn: number[] = Array.isArray(hourly.precipitation)
+    ? (hourly.precipitation as (number | null)[]).map((v) =>
+      Math.round((Number(v) || 0) * MM_TO_INCHES * 1000) / 1000
+    )
     : [];
 
   if (tempHourly.length > 0 && currentHourIdx >= 0) {
@@ -243,25 +286,37 @@ export async function fetchOpenMeteo14Day(
   const dailyLows: (number | null)[] = Array.isArray(daily.temperature_2m_min)
     ? daily.temperature_2m_min
     : [];
-  const dailyWindMax: (number | null)[] = Array.isArray(daily.wind_speed_10m_max)
-    ? daily.wind_speed_10m_max
+  const dailyWindMax: (number | null)[] =
+    Array.isArray(daily.wind_speed_10m_max) ? daily.wind_speed_10m_max : [];
+  const dailyWeatherCodes: (number | null)[] = Array.isArray(
+      daily.weather_code,
+    )
+    ? daily.weather_code
     : [];
 
   if (dailyHighs.length > 0) {
-    weather.temp_7day_high = dailyHighs.map((v) => Math.round((Number(v) || 0) * 10) / 10);
+    weather.temp_7day_high = dailyHighs.map((v) =>
+      Math.round((Number(v) || 0) * 10) / 10
+    );
   }
   if (dailyLows.length > 0) {
-    weather.temp_7day_low = dailyLows.map((v) => Math.round((Number(v) || 0) * 10) / 10);
+    weather.temp_7day_low = dailyLows.map((v) =>
+      Math.round((Number(v) || 0) * 10) / 10
+    );
   }
   if (dailyWindMax.length > 0) {
     weather.wind_speed_10m_max_daily = dailyWindMax.map((v) =>
       Math.round((Number(v) || 0) * 10) / 10
     );
   }
+  if (dailyWeatherCodes.length > 0) {
+    weather.weather_code_daily = dailyWeatherCodes.map((v) =>
+      Math.round(Number(v) || 0)
+    );
+  }
 
-  const dailyPrecipMm: (number | null)[] = Array.isArray(daily.precipitation_sum)
-    ? daily.precipitation_sum
-    : [];
+  const dailyPrecipMm: (number | null)[] =
+    Array.isArray(daily.precipitation_sum) ? daily.precipitation_sum : [];
 
   if (dailyPrecipMm.length > 0) {
     const dailyPrecipIn = dailyPrecipMm.map((v) =>
@@ -270,12 +325,20 @@ export async function fetchOpenMeteo14Day(
     weather.precip_7day_daily = dailyPrecipIn;
 
     const todayPrecipIdx = Math.min(14, dailyPrecipIn.length - 1);
-    const yesterdayIn = todayPrecipIdx >= 1 ? (dailyPrecipIn[todayPrecipIdx - 1] ?? 0) : 0;
-    const todayIn = todayPrecipIdx >= 0 ? (dailyPrecipIn[todayPrecipIdx] ?? 0) : 0;
-    weather.precip_48hr_inches = Math.round((yesterdayIn + todayIn) * 1000) / 1000;
+    const yesterdayIn = todayPrecipIdx >= 1
+      ? (dailyPrecipIn[todayPrecipIdx - 1] ?? 0)
+      : 0;
+    const todayIn = todayPrecipIdx >= 0
+      ? (dailyPrecipIn[todayPrecipIdx] ?? 0)
+      : 0;
+    weather.precip_48hr_inches = Math.round((yesterdayIn + todayIn) * 1000) /
+      1000;
     const precip7Start = Math.max(0, todayPrecipIdx - 6);
     weather.precip_7day_inches = Math.round(
-      dailyPrecipIn.slice(precip7Start, todayPrecipIdx + 1).reduce((sum, v) => sum + (v ?? 0), 0) * 1000
+      dailyPrecipIn.slice(precip7Start, todayPrecipIdx + 1).reduce(
+        (sum, v) => sum + (v ?? 0),
+        0,
+      ) * 1000,
     ) / 1000;
   }
 
@@ -284,20 +347,25 @@ export async function fetchOpenMeteo14Day(
   const todayIdx = Math.min(14, Math.max(0, sunriseArr.length - 1));
   const todaySunriseUnix = parseOpenMeteoUnixSeconds(sunriseArr[todayIdx]);
   const todaySunsetUnix = parseOpenMeteoUnixSeconds(sunsetArr[todayIdx]);
-  const sunriseHHMM =
-    todaySunriseUnix != null ? unixSecToLocalHHMM(todaySunriseUnix, timezone) : "";
-  const sunsetHHMM =
-    todaySunsetUnix != null ? unixSecToLocalHHMM(todaySunsetUnix, timezone) : "";
+  const sunriseHHMM = todaySunriseUnix != null
+    ? unixSecToLocalHHMM(todaySunriseUnix, timezone)
+    : "";
+  const sunsetHHMM = todaySunsetUnix != null
+    ? unixSecToLocalHHMM(todaySunsetUnix, timezone)
+    : "";
 
-  const sun: OpenMeteo14DaySun | undefined =
-    sunriseHHMM && sunsetHHMM
-      ? { sunrise: sunriseHHMM, sunset: sunsetHHMM }
-      : undefined;
+  const sun: OpenMeteo14DaySun | undefined = sunriseHHMM && sunsetHHMM
+    ? { sunrise: sunriseHHMM, sunset: sunsetHHMM }
+    : undefined;
 
   const hourlyPressureMb: Array<{ time_utc: string; value: number }> = [];
   const hourlyAirTempF: Array<{ time_utc: string; value: number }> = [];
   const hourlyCloudCoverPct: Array<{ time_utc: string; value: number }> = [];
   const hourlyWindSpeed: Array<{ time_utc: string; value: number }> = [];
+  const hourlyWeatherCode: Array<{ time_utc: string; value: number }> = [];
+  const hourlyPrecipProbabilityPct: Array<{ time_utc: string; value: number }> =
+    [];
+  const hourlyPrecipitationIn: Array<{ time_utc: string; value: number }> = [];
 
   if (hourlyUnix.length > 0) {
     for (let i = 0; i < hourlyUnix.length; i++) {
@@ -317,17 +385,45 @@ export async function fetchOpenMeteo14Day(
       if (windHourly.length > i) {
         hourlyWindSpeed.push({ time_utc: utcIso, value: windHourly[i] });
       }
+      if (weatherCodeHourly.length > i) {
+        hourlyWeatherCode.push({
+          time_utc: utcIso,
+          value: weatherCodeHourly[i],
+        });
+      }
+      if (precipProbabilityHourly.length > i) {
+        hourlyPrecipProbabilityPct.push({
+          time_utc: utcIso,
+          value: precipProbabilityHourly[i],
+        });
+      }
+      if (precipHourlyIn.length > i) {
+        hourlyPrecipitationIn.push({
+          time_utc: utcIso,
+          value: precipHourlyIn[i],
+        });
+      }
     }
   }
 
   const dailyTimeAxis: unknown[] = Array.isArray(daily.time) ? daily.time : [];
-  const dailyPrecipProb: (number | null)[] = Array.isArray(daily.precipitation_probability_max)
-    ? daily.precipitation_probability_max
-    : [];
+  const dailyPrecipProb: (number | null)[] =
+    Array.isArray(daily.precipitation_probability_max)
+      ? daily.precipitation_probability_max
+      : [];
+  if (dailyPrecipProb.length > 0) {
+    weather.precipitation_probability_max_daily = dailyPrecipProb.map((v) =>
+      Math.max(0, Math.min(100, Math.round(Number(v) || 0)))
+    );
+  }
 
   const forecastDaily: OpenMeteo14DayForecastDay[] = [];
   const todayDailyIdx = 14;
-  for (let d = todayDailyIdx; d < Math.min(todayDailyIdx + 7, dailyTimeAxis.length); d++) {
+  for (
+    let d = todayDailyIdx;
+    d < Math.min(todayDailyIdx + 7, dailyTimeAxis.length);
+    d++
+  ) {
     const dayUnix = parseOpenMeteoUnixSeconds(dailyTimeAxis[d]);
     if (dayUnix == null) continue;
     const dateStr = unixSecToLocalDateYmd(dayUnix, timezone);
@@ -353,6 +449,9 @@ export async function fetchOpenMeteo14Day(
     hourly_air_temp_f: hourlyAirTempF,
     hourly_cloud_cover_pct: hourlyCloudCoverPct,
     hourly_wind_speed: hourlyWindSpeed,
+    hourly_weather_code: hourlyWeatherCode,
+    hourly_precip_probability_pct: hourlyPrecipProbabilityPct,
+    hourly_precipitation_in: hourlyPrecipitationIn,
     timezone,
     tz_offset_hours: tzOffsetHours,
     forecast_daily: forecastDaily,

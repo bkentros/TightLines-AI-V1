@@ -74,7 +74,20 @@ export function runHowFishingReport(
     scored.suppressors[0],
     norm.normalized,
     copySeed,
-    { band: scored.band, limitedData },
+    {
+      band: scored.band,
+      limitedData,
+      weatherSignals: {
+        storm_risk_later_today: req.environment.storm_risk_later_today,
+        rain_risk_later_today: req.environment.rain_risk_later_today,
+        heavy_rain_later_today: req.environment.heavy_rain_later_today,
+        storm_window_start_local_hour:
+          req.environment.storm_window_start_local_hour,
+        max_precip_probability_pct: req.environment.max_precip_probability_pct,
+        active_precip_now: req.environment.active_precip_now,
+        precip_rate_now_in_per_hr: req.environment.precip_rate_now_in_per_hr,
+      },
+    },
   );
 
   // ── Timing engine (parallel lane to scoring) ──────────────────────────

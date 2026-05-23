@@ -19,17 +19,18 @@ import {
 } from "../_shared/rateLimit.ts";
 import {
   buildEnvironmentSnapshotKey,
+  type EnvironmentSnapshotLike,
   hasSufficientHourlyWeather,
   isEnvironmentSnapshotUsable,
   localDateFromUtcIso,
   mergeEnvironmentWithSnapshot,
-  type EnvironmentSnapshotLike,
 } from "./cache.ts";
 
 const CORS_HEADERS = {
   "Access-Control-Allow-Origin": "*",
   "Access-Control-Allow-Methods": "POST, OPTIONS",
-  "Access-Control-Allow-Headers": "Content-Type, Authorization, apikey, x-user-token",
+  "Access-Control-Allow-Headers":
+    "Content-Type, Authorization, apikey, x-user-token",
 };
 const GET_ENVIRONMENT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -48,15 +49,26 @@ interface WeatherData {
   wind_speed: number;
   wind_direction: number;
   precipitation: number;
+  weather_code?: number | null;
   gust_speed: number | null;
   temp_unit: string;
   wind_speed_unit: string;
   // Pressure trend
-  pressure_trend?: 'rapidly_falling' | 'slowly_falling' | 'stable' | 'slowly_rising' | 'rapidly_rising';
+  pressure_trend?:
+    | "rapidly_falling"
+    | "slowly_falling"
+    | "stable"
+    | "slowly_rising"
+    | "rapidly_rising";
   pressure_change_rate_mb_hr?: number;
   pressure_48hr?: number[];
   // Temp trend
-  temp_trend_3day?: 'rapid_warming' | 'warming' | 'stable' | 'cooling' | 'rapid_cooling';
+  temp_trend_3day?:
+    | "rapid_warming"
+    | "warming"
+    | "stable"
+    | "cooling"
+    | "rapid_cooling";
   temp_trend_direction_f?: number;
   temp_7day_high?: number[];
   temp_7day_low?: number[];
@@ -64,13 +76,15 @@ interface WeatherData {
   precip_48hr_inches?: number;
   precip_7day_inches?: number;
   precip_7day_daily?: number[];
+  weather_code_daily?: number[];
+  precipitation_probability_max_daily?: number[];
   wind_speed_10m_max_daily?: number[];
 }
 
 interface TideData {
   station_id: string;
   station_name: string;
-  high_low: { time: string; type: 'H' | 'L'; value: number }[];
+  high_low: { time: string; type: "H" | "L"; value: number }[];
   phase?: string;
   unit: string;
 }
@@ -95,7 +109,7 @@ interface SunData {
 interface SolunarPeriod {
   start: string;
   end: string;
-  type?: 'overhead' | 'underfoot';
+  type?: "overhead" | "underfoot";
 }
 
 interface SolunarData {
@@ -122,7 +136,12 @@ interface EnvironmentData {
   hourly_cloud_cover_pct?: Array<{ time_utc: string; value: number }>;
   /** Hourly wind — same unit as weather.wind_speed (mph or km/h) */
   hourly_wind_speed?: Array<{ time_utc: string; value: number }>;
-  tide_predictions_30day?: Array<{ date: string; high_ft: number; low_ft: number }>;
+  hourly_weather_code?: Array<{ time_utc: string; value: number }>;
+  hourly_precip_probability_pct?: Array<{ time_utc: string; value: number }>;
+  hourly_precipitation_in?: Array<{ time_utc: string; value: number }>;
+  tide_predictions_30day?: Array<
+    { date: string; high_ft: number; low_ft: number }
+  >;
   measured_water_temp_f?: number | null;
   measured_water_temp_source?: string | null;
   measured_water_temp_24h_ago_f?: number | null;
@@ -173,12 +192,16 @@ const SERVER_ENV_CACHE_TTL_MS = 60 * 60 * 1000;
 // Helpers
 // -----------------------------------------------------------------------------
 
-function haversineMiles(lat1: number, lon1: number, lat2: number, lon2: number): number {
+function haversineMiles(
+  lat1: number,
+  lon1: number,
+  lat2: number,
+  lon2: number,
+): number {
   const toRad = (d: number) => (d * Math.PI) / 180;
   const dLat = toRad(lat2 - lat1);
   const dLon = toRad(lon2 - lon1);
-  const a =
-    Math.sin(dLat / 2) ** 2 +
+  const a = Math.sin(dLat / 2) ** 2 +
     Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon / 2) ** 2;
   return EARTH_RADIUS_MILES * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
 }
@@ -186,11 +209,11 @@ function haversineMiles(lat1: number, lon1: number, lat2: number, lon2: number):
 function derivePhaseFromIllumination(frac: number): string {
   // NOTE: illumination alone cannot distinguish waxing vs waning.
   // This fallback is only used when USNO curphase is unavailable.
-  if (frac <= 0.05) return 'New Moon';
-  if (frac <= 0.4) return 'Crescent';  // waxing/waning unknown
-  if (frac <= 0.6) return 'Quarter';   // first/third unknown
-  if (frac <= 0.9) return 'Gibbous';   // waxing/waning unknown
-  return 'Full Moon';
+  if (frac <= 0.05) return "New Moon";
+  if (frac <= 0.4) return "Crescent"; // waxing/waning unknown
+  if (frac <= 0.6) return "Quarter"; // first/third unknown
+  if (frac <= 0.9) return "Gibbous"; // waxing/waning unknown
+  return "Full Moon";
 }
 
 /**
@@ -198,10 +221,10 @@ function derivePhaseFromIllumination(frac: number): string {
  * Only used as a fallback when live provider offsets are unavailable.
  */
 function getTzOffsetHours(lon: number): number {
-  if (lon >= -81) return -5;   // Eastern
-  if (lon >= -96) return -6;   // Central
-  if (lon >= -114) return -7;  // Mountain
-  return -8;                   // Pacific
+  if (lon >= -81) return -5; // Eastern
+  if (lon >= -96) return -6; // Central
+  if (lon >= -114) return -7; // Mountain
+  return -8; // Pacific
 }
 
 /**
@@ -210,13 +233,13 @@ function getTzOffsetHours(lon: number): number {
  */
 function isoUtcToLocalHHMM(isoStr: string, tzHours: number): string {
   const d = new Date(isoStr);
-  if (isNaN(d.getTime())) return '—';
+  if (isNaN(d.getTime())) return "—";
   const utcH = d.getUTCHours();
   const utcM = d.getUTCMinutes();
   let localH = utcH + tzHours;
   if (localH < 0) localH += 24;
   if (localH >= 24) localH -= 24;
-  return `${String(localH).padStart(2, '0')}:${String(utcM).padStart(2, '0')}`;
+  return `${String(localH).padStart(2, "0")}:${String(utcM).padStart(2, "0")}`;
 }
 
 /**
@@ -224,13 +247,13 @@ function isoUtcToLocalHHMM(isoStr: string, tzHours: number): string {
  * Handles wrapping past midnight.
  */
 function addMinsToHHMM(timeStr: string, minutes: number): string {
-  const [h, m] = timeStr.split(':').map(Number);
-  if (h === undefined || m === undefined || isNaN(h) || isNaN(m)) return '—';
+  const [h, m] = timeStr.split(":").map(Number);
+  if (h === undefined || m === undefined || isNaN(h) || isNaN(m)) return "—";
   const totalMins = h * 60 + m + minutes;
   const wrapped = ((totalMins % (24 * 60)) + 24 * 60) % (24 * 60);
   const hh = Math.floor(wrapped / 60);
   const mm = wrapped % 60;
-  return `${String(hh).padStart(2, '0')}:${String(mm).padStart(2, '0')}`;
+  return `${String(hh).padStart(2, "0")}:${String(mm).padStart(2, "0")}`;
 }
 
 function latBucket(lat: number): number {
@@ -289,9 +312,13 @@ async function readFreshEnvironmentSnapshot(
       .order("captured_at", { ascending: false })
       .limit(1)
       .maybeSingle();
-    const row = data as { payload?: EnvironmentData; captured_at?: string } | null;
+    const row = data as
+      | { payload?: EnvironmentData; captured_at?: string }
+      | null;
     if (error || !row?.payload) return null;
-    if (!isEnvironmentSnapshotUsable(row.payload as EnvironmentSnapshotLike)) return null;
+    if (!isEnvironmentSnapshotUsable(row.payload as EnvironmentSnapshotLike)) {
+      return null;
+    }
     return {
       ...row.payload,
       source_notes: [
@@ -323,7 +350,9 @@ async function writeEnvironmentSnapshot(
     local_date: localDate,
     payload,
     captured_at: payload.fetched_at,
-    has_hourly_weather: hasSufficientHourlyWeather(payload as EnvironmentSnapshotLike),
+    has_hourly_weather: hasSufficientHourlyWeather(
+      payload as EnvironmentSnapshotLike,
+    ),
     weather_available: payload.weather_available,
     tides_available: payload.tides_available,
     water_temp_available: payload.measured_water_temp_f != null,
@@ -338,7 +367,6 @@ async function writeEnvironmentSnapshot(
   }
 }
 
-
 // -----------------------------------------------------------------------------
 // Sunrise-Sunset.org — civil twilight
 // -----------------------------------------------------------------------------
@@ -346,11 +374,14 @@ async function writeEnvironmentSnapshot(
 async function fetchCivilTwilight(
   lat: number,
   lon: number,
-  tzHours: number
+  tzHours: number,
 ): Promise<{ twilight_begin: string; twilight_end: string } | null> {
-  const url = `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=today&formatted=0`;
+  const url =
+    `https://api.sunrise-sunset.org/json?lat=${lat}&lng=${lon}&date=today&formatted=0`;
   try {
-    const res = await fetch(url, { headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' } });
+    const res = await fetch(url, {
+      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+    });
     if (!res.ok) return null;
     const json = await res.json();
     const results = json?.results;
@@ -421,7 +452,9 @@ function windDirectionDegrees(raw: unknown): number {
 
 function parseNwsWindMph(raw: unknown): number {
   const text = String(raw ?? "");
-  const matches = Array.from(text.matchAll(/\d+(?:\.\d+)?/g)).map((m) => Number(m[0]));
+  const matches = Array.from(text.matchAll(/\d+(?:\.\d+)?/g)).map((m) =>
+    Number(m[0])
+  );
   const valid = matches.filter(Number.isFinite);
   if (valid.length === 0) return 0;
   return valid.reduce((sum, value) => sum + value, 0) / valid.length;
@@ -434,18 +467,26 @@ function cloudCoverEstimate(shortForecast: unknown): number {
   if (text.includes("partly")) return 45;
   if (text.includes("mostly cloudy")) return 75;
   if (text.includes("cloudy") || text.includes("overcast")) return 90;
-  if (text.includes("rain") || text.includes("storm") || text.includes("snow")) return 85;
+  if (
+    text.includes("rain") || text.includes("storm") || text.includes("snow")
+  ) return 85;
   return 55;
 }
 
-function maybeFahrenheit(value: number, unit: unknown, requestedUnits: "imperial" | "metric"): number {
+function maybeFahrenheit(
+  value: number,
+  unit: unknown,
+  requestedUnits: "imperial" | "metric",
+): number {
   const unitText = String(unit ?? "").toLowerCase();
   if (unitText === "f" || unitText.includes("fahrenheit")) return value;
   if (unitText === "c" || unitText.includes("celsius")) return cToF(value);
   return requestedUnits === "imperial" ? value : cToF(value);
 }
 
-async function fetchJsonWithNwsHeaders(url: string): Promise<Record<string, unknown> | null> {
+async function fetchJsonWithNwsHeaders(
+  url: string,
+): Promise<Record<string, unknown> | null> {
   const res = await fetch(url, {
     headers: {
       "Accept": "application/geo+json, application/json",
@@ -454,47 +495,81 @@ async function fetchJsonWithNwsHeaders(url: string): Promise<Record<string, unkn
   });
   if (!res.ok) return null;
   const json = await res.json();
-  return json && typeof json === "object" ? json as Record<string, unknown> : null;
+  return json && typeof json === "object"
+    ? json as Record<string, unknown>
+    : null;
 }
 
 async function fetchNwsWeatherFallback(
   lat: number,
   lon: number,
   units: "imperial" | "metric",
-): Promise<{ weather: WeatherData; hourly_wind_speed: Array<{ time_utc: string; value: number }> } | null> {
+): Promise<
+  {
+    weather: WeatherData;
+    hourly_wind_speed: Array<{ time_utc: string; value: number }>;
+  } | null
+> {
   try {
-    const point = await fetchJsonWithNwsHeaders(`https://api.weather.gov/points/${lat},${lon}`);
+    const point = await fetchJsonWithNwsHeaders(
+      `https://api.weather.gov/points/${lat},${lon}`,
+    );
     const props = point?.properties as Record<string, unknown> | undefined;
-    const hourlyUrl = typeof props?.forecastHourly === "string" ? props.forecastHourly : null;
-    const stationsUrl = typeof props?.observationStations === "string" ? props.observationStations : null;
+    const hourlyUrl = typeof props?.forecastHourly === "string"
+      ? props.forecastHourly
+      : null;
+    const stationsUrl = typeof props?.observationStations === "string"
+      ? props.observationStations
+      : null;
     if (!hourlyUrl && !stationsUrl) return null;
 
     const [hourlyJson, stationsJson] = await Promise.all([
       hourlyUrl ? fetchJsonWithNwsHeaders(hourlyUrl) : Promise.resolve(null),
-      stationsUrl ? fetchJsonWithNwsHeaders(stationsUrl) : Promise.resolve(null),
+      stationsUrl
+        ? fetchJsonWithNwsHeaders(stationsUrl)
+        : Promise.resolve(null),
     ]);
 
-    const periods = Array.isArray((hourlyJson?.properties as { periods?: unknown })?.periods)
-      ? ((hourlyJson?.properties as { periods: Array<Record<string, unknown>> }).periods)
-      : [];
+    const periods =
+      Array.isArray((hourlyJson?.properties as { periods?: unknown })?.periods)
+        ? ((hourlyJson?.properties as {
+          periods: Array<Record<string, unknown>>;
+        }).periods)
+        : [];
     const firstPeriod = periods[0] ?? null;
 
     let latestObservation: Record<string, unknown> | null = null;
     const stationFeatures = Array.isArray(stationsJson?.features)
       ? stationsJson.features as Array<Record<string, unknown>>
       : [];
-    const stationId = String((stationFeatures[0]?.properties as { stationIdentifier?: unknown } | undefined)?.stationIdentifier ?? "");
+    const stationId = String(
+      (stationFeatures[0]?.properties as
+        | { stationIdentifier?: unknown }
+        | undefined)?.stationIdentifier ?? "",
+    );
     if (stationId) {
-      latestObservation = await fetchJsonWithNwsHeaders(`https://api.weather.gov/stations/${stationId}/observations/latest`);
+      latestObservation = await fetchJsonWithNwsHeaders(
+        `https://api.weather.gov/stations/${stationId}/observations/latest`,
+      );
     }
-    const observation = latestObservation?.properties as Record<string, unknown> | undefined;
+    const observation = latestObservation?.properties as
+      | Record<string, unknown>
+      | undefined;
 
     const obsTempC = parseNwsQuantitativeValue(observation?.temperature);
-    const obsHumidity = parseNwsQuantitativeValue(observation?.relativeHumidity);
+    const obsHumidity = parseNwsQuantitativeValue(
+      observation?.relativeHumidity,
+    );
     const obsWindKmh = parseNwsQuantitativeValue(observation?.windSpeed);
-    const obsWindDirection = parseNwsQuantitativeValue(observation?.windDirection);
-    const obsPressurePa = parseNwsQuantitativeValue(observation?.barometricPressure);
-    const obsPrecipMm = parseNwsQuantitativeValue(observation?.precipitationLastHour);
+    const obsWindDirection = parseNwsQuantitativeValue(
+      observation?.windDirection,
+    );
+    const obsPressurePa = parseNwsQuantitativeValue(
+      observation?.barometricPressure,
+    );
+    const obsPrecipMm = parseNwsQuantitativeValue(
+      observation?.precipitationLastHour,
+    );
 
     const periodTemp = firstPeriod ? numValue(firstPeriod.temperature) : null;
     const periodTempF = periodTemp != null
@@ -511,7 +586,9 @@ async function fetchNwsWeatherFallback(
     if (temperature == null) return null;
 
     const hourlyWind = periods.slice(0, 24).flatMap((period) => {
-      const startTime = typeof period.startTime === "string" ? period.startTime : null;
+      const startTime = typeof period.startTime === "string"
+        ? period.startTime
+        : null;
       if (!startTime) return [];
       return [{
         time_utc: new Date(startTime).toISOString(),
@@ -523,9 +600,16 @@ async function fetchNwsWeatherFallback(
       temperature: Math.round(temperature * 10) / 10,
       humidity: Math.round(obsHumidity ?? periodHumidity ?? 0),
       cloud_cover: cloudCoverEstimate(firstPeriod?.shortForecast),
-      pressure: obsPressurePa != null ? Math.round(paToHpa(obsPressurePa) * 10) / 10 : 1013.25,
-      wind_speed: Math.round(((obsWindKmh != null ? kmhToMph(obsWindKmh) : parseNwsWindMph(firstPeriod?.windSpeed)) || 0) * 10) / 10,
-      wind_direction: obsWindDirection ?? windDirectionDegrees(firstPeriod?.windDirection),
+      pressure: obsPressurePa != null
+        ? Math.round(paToHpa(obsPressurePa) * 10) / 10
+        : 1013.25,
+      wind_speed: Math.round(
+        ((obsWindKmh != null
+          ? kmhToMph(obsWindKmh)
+          : parseNwsWindMph(firstPeriod?.windSpeed)) || 0) * 10,
+      ) / 10,
+      wind_direction: obsWindDirection ??
+        windDirectionDegrees(firstPeriod?.windDirection),
       precipitation: Math.round((obsPrecipMm ?? periodPrecip ?? 0) * 10) / 10,
       gust_speed: null,
       temp_unit: "°F",
@@ -552,13 +636,17 @@ interface NOAAStation {
   longitude?: number;
 }
 
-let waterLevelStationsCache: { fetchedAt: number; stations: NOAAStation[] } | null = null;
+let waterLevelStationsCache:
+  | { fetchedAt: number; stations: NOAAStation[] }
+  | null = null;
 
 interface NOAAResult {
   tides: TideData | null;
   nearestMiles: number;
   stationId: string | null;
-  tide_predictions_30day?: Array<{ date: string; high_ft: number; low_ft: number }>;
+  tide_predictions_30day?: Array<
+    { date: string; high_ft: number; low_ft: number }
+  >;
   measured_water_temp_f?: number | null;
   measured_water_temp_24h_ago_f?: number | null;
   measured_water_temp_72h_ago_f?: number | null;
@@ -571,7 +659,7 @@ interface NOAAObservation {
 }
 
 function parseNoaaLocalTimeToUtcMs(localTime: string, tzHours: number): number {
-  const asIfUtcMs = new Date(localTime.replace(' ', 'T') + ':00Z').getTime();
+  const asIfUtcMs = new Date(localTime.replace(" ", "T") + ":00Z").getTime();
   return asIfUtcMs - tzHours * 3600 * 1000;
 }
 
@@ -579,14 +667,16 @@ function pickClosestObservationValueF(
   observations: NOAAObservation[],
   tzHours: number,
   targetUtcMs: number,
-  maxDiffHours: number
+  maxDiffHours: number,
 ): number | null {
   let closest: { value: number; diff: number } | null = null;
   for (const obs of observations) {
-    const time = String(obs.t ?? '');
-    const value = parseFloat(String(obs.v ?? ''));
+    const time = String(obs.t ?? "");
+    const value = parseFloat(String(obs.v ?? ""));
     if (!time || !Number.isFinite(value)) continue;
-    const diff = Math.abs(parseNoaaLocalTimeToUtcMs(time, tzHours) - targetUtcMs);
+    const diff = Math.abs(
+      parseNoaaLocalTimeToUtcMs(time, tzHours) - targetUtcMs,
+    );
     if (!closest || diff < closest.diff) {
       closest = { value, diff };
     }
@@ -597,7 +687,7 @@ function pickClosestObservationValueF(
 
 async function fetchNoaaWaterTemperature(
   stationId: string,
-  tzHours: number
+  tzHours: number,
 ): Promise<{
   measured_water_temp_f: number | null;
   measured_water_temp_24h_ago_f: number | null;
@@ -605,8 +695,11 @@ async function fetchNoaaWaterTemperature(
   measured_water_temp_source: "noaa_coops" | null;
 }> {
   try {
-    const url = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=water_temperature&station=${stationId}&format=json&units=english&time_zone=lst_ldt&range=96`;
-    const res = await fetch(url, { headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' } });
+    const url =
+      `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=water_temperature&station=${stationId}&format=json&units=english&time_zone=lst_ldt&range=96`;
+    const res = await fetch(url, {
+      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+    });
     if (!res.ok) {
       return {
         measured_water_temp_f: null,
@@ -616,7 +709,9 @@ async function fetchNoaaWaterTemperature(
       };
     }
     const json = await res.json();
-    const observations: NOAAObservation[] = Array.isArray(json?.data) ? json.data : [];
+    const observations: NOAAObservation[] = Array.isArray(json?.data)
+      ? json.data
+      : [];
     if (observations.length === 0) {
       return {
         measured_water_temp_f: null,
@@ -626,18 +721,23 @@ async function fetchNoaaWaterTemperature(
       };
     }
 
-    const latest = pickClosestObservationValueF(observations, tzHours, Date.now(), 12);
+    const latest = pickClosestObservationValueF(
+      observations,
+      tzHours,
+      Date.now(),
+      12,
+    );
     const twentyFourHoursAgo = pickClosestObservationValueF(
       observations,
       tzHours,
       Date.now() - 24 * 3600 * 1000,
-      12
+      12,
     );
     const seventyTwoHoursAgo = pickClosestObservationValueF(
       observations,
       tzHours,
       Date.now() - 72 * 3600 * 1000,
-      12
+      12,
     );
 
     if (latest === null) {
@@ -666,25 +766,30 @@ async function fetchNoaaWaterTemperature(
 }
 
 /** Local calendar begin/end for NOAA begin_date/end_date (aligns with Open-Meteo IANA tz). */
-function tideHiloDateRangeYyyymmdd(ianaTimeZone: string): { beginDate: string; endDate: string } {
+function tideHiloDateRangeYyyymmdd(
+  ianaTimeZone: string,
+): { beginDate: string; endDate: string } {
   try {
     const now = new Date();
-    const fmt = new Intl.DateTimeFormat('en-CA', {
+    const fmt = new Intl.DateTimeFormat("en-CA", {
       timeZone: ianaTimeZone,
-      year: 'numeric',
-      month: '2-digit',
-      day: '2-digit',
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
     });
-    const toCompact = (d: Date) => fmt.format(d).replace(/-/g, '');
+    const toCompact = (d: Date) => fmt.format(d).replace(/-/g, "");
     const beginDate = toCompact(now);
     const endCap = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
     const endDate = toCompact(endCap);
     return { beginDate, endDate };
   } catch {
     const now = new Date();
-    const beginDate = now.toISOString().slice(0, 10).replace(/-/g, '');
+    const beginDate = now.toISOString().slice(0, 10).replace(/-/g, "");
     const end = new Date(now.getTime() + 7 * 24 * 60 * 60 * 1000);
-    return { beginDate, endDate: end.toISOString().slice(0, 10).replace(/-/g, '') };
+    return {
+      beginDate,
+      endDate: end.toISOString().slice(0, 10).replace(/-/g, ""),
+    };
   }
 }
 
@@ -696,14 +801,15 @@ async function getWaterLevelStationsCached(): Promise<NOAAStation[] | null> {
     return waterLevelStationsCache.stations;
   }
   const stationsUrl =
-    'https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=waterlevels';
+    "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=waterlevels";
   try {
     const stationsRes = await fetch(stationsUrl, {
-      headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' },
+      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
     });
     if (!stationsRes.ok) return waterLevelStationsCache?.stations ?? null;
     const stationsJson = await stationsRes.json();
-    const stations: NOAAStation[] = stationsJson?.stations ?? stationsJson?.data?.stations ?? [];
+    const stations: NOAAStation[] = stationsJson?.stations ??
+      stationsJson?.data?.stations ?? [];
     if (!Array.isArray(stations) || stations.length === 0) {
       return waterLevelStationsCache?.stations ?? null;
     }
@@ -735,12 +841,12 @@ function rankNearbyTideStations(
 
 function mapPredictionsToHighLow(
   preds: unknown,
-): Array<{ time: string; type: 'H' | 'L'; value: number }> {
+): Array<{ time: string; type: "H" | "L"; value: number }> {
   const arr = Array.isArray(preds) ? preds : [];
   return arr.slice(0, MAX_HILO_PREDICTIONS_RETURNED).map(
     (p: { t?: string; v?: string; type?: string }) => ({
-      time: String(p.t ?? ''),
-      type: (p.type === 'L' ? 'L' : 'H') as 'H' | 'L',
+      time: String(p.t ?? ""),
+      type: (p.type === "L" ? "L" : "H") as "H" | "L",
       value: parseFloat(String(p.v ?? 0)) || 0,
     }),
   );
@@ -748,15 +854,17 @@ function mapPredictionsToHighLow(
 
 async function fetchHiloPredictions(
   stationId: string,
-  units: 'imperial' | 'metric',
+  units: "imperial" | "metric",
   beginDate: string,
   endDate: string,
-): Promise<Array<{ time: string; type: 'H' | 'L'; value: number }>> {
-  const unitsParam = units === 'imperial' ? 'english' : 'metric';
+): Promise<Array<{ time: string; type: "H" | "L"; value: number }>> {
+  const unitsParam = units === "imperial" ? "english" : "metric";
   const predUrl =
     `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=${stationId}&format=json&interval=hilo&units=${unitsParam}&datum=mllw&begin_date=${beginDate}&end_date=${endDate}&time_zone=lst_ldt`;
   try {
-    const predRes = await fetch(predUrl, { headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' } });
+    const predRes = await fetch(predUrl, {
+      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+    });
     if (!predRes.ok) return [];
     const predJson = await predRes.json();
     return mapPredictionsToHighLow(predJson?.predictions ?? []);
@@ -766,12 +874,13 @@ async function fetchHiloPredictions(
 }
 
 function deriveTidePhaseFromHighLow(
-  highLow: Array<{ time: string; type: 'H' | 'L'; value: number }>,
+  highLow: Array<{ time: string; type: "H" | "L"; value: number }>,
   tzHours: number,
 ): string | undefined {
   if (highLow.length < 2) return undefined;
   const nowMs = Date.now();
-  const parseNOAALocalTime = (t: string) => parseNoaaLocalTimeToUtcMs(t, tzHours);
+  const parseNOAALocalTime = (t: string) =>
+    parseNoaaLocalTimeToUtcMs(t, tzHours);
   const pastPreds = highLow.filter((p) => parseNOAALocalTime(p.time) <= nowMs);
   const futurePreds = highLow.filter((p) => parseNOAALocalTime(p.time) > nowMs);
   if (pastPreds.length > 0 && futurePreds.length > 0) {
@@ -779,12 +888,12 @@ function deriveTidePhaseFromHighLow(
     const nextPred = futurePreds[0]!;
     const minsToNext = (parseNOAALocalTime(nextPred.time) - nowMs) / 60000;
     if (minsToNext <= 30) {
-      return 'approaching slack';
+      return "approaching slack";
     }
-    if (lastPred.type === 'L') {
-      return 'incoming';
+    if (lastPred.type === "L") {
+      return "incoming";
     }
-    return 'outgoing';
+    return "outgoing";
   }
   return undefined;
 }
@@ -792,7 +901,7 @@ function deriveTidePhaseFromHighLow(
 async function fetchNOAA(
   lat: number,
   lon: number,
-  units: 'imperial' | 'metric',
+  units: "imperial" | "metric",
   tzHours: number,
   ianaTimeZone: string,
 ): Promise<NOAAResult | null> {
@@ -823,7 +932,12 @@ async function fetchNOAA(
 
   for (const { station, miles } of candidates) {
     const stationId = String(station.id);
-    const highLow = await fetchHiloPredictions(stationId, units, beginDate, endDate);
+    const highLow = await fetchHiloPredictions(
+      stationId,
+      units,
+      beginDate,
+      endDate,
+    );
     if (highLow.length < 2) continue;
 
     const phase = deriveTidePhaseFromHighLow(highLow, tzHours);
@@ -835,11 +949,15 @@ async function fetchNOAA(
         station_name: String(station.name ?? stationId),
         high_low: highLow,
         phase,
-        unit: units === 'imperial' ? 'ft' : 'm',
+        unit: units === "imperial" ? "ft" : "m",
       },
       nearestMiles: miles,
       stationId,
-      tide_predictions_30day: await fetch30DayTideRange(stationId, units, tzHours),
+      tide_predictions_30day: await fetch30DayTideRange(
+        stationId,
+        units,
+        tzHours,
+      ),
       ...waterTemp,
     };
   }
@@ -859,32 +977,36 @@ async function fetchNOAA(
 // Fetch 30-day daily tide range for tide strength calculation (Section 4E)
 async function fetch30DayTideRange(
   stationId: string,
-  units: 'imperial' | 'metric',
-  tzHours: number
+  units: "imperial" | "metric",
+  tzHours: number,
 ): Promise<Array<{ date: string; high_ft: number; low_ft: number }>> {
   try {
     const today = new Date();
-    const endDate = today.toISOString().slice(0, 10).replace(/-/g, '');
+    const endDate = today.toISOString().slice(0, 10).replace(/-/g, "");
     const start = new Date(today.getTime() - 30 * 24 * 3600 * 1000);
-    const beginDate = start.toISOString().slice(0, 10).replace(/-/g, '');
-    const unitsParam = units === 'imperial' ? 'english' : 'metric';
+    const beginDate = start.toISOString().slice(0, 10).replace(/-/g, "");
+    const unitsParam = units === "imperial" ? "english" : "metric";
 
-    const url = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=${stationId}&format=json&interval=hilo&units=${unitsParam}&datum=mllw&begin_date=${beginDate}&end_date=${endDate}&time_zone=lst_ldt`;
-    const res = await fetch(url, { headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' } });
+    const url =
+      `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=${stationId}&format=json&interval=hilo&units=${unitsParam}&datum=mllw&begin_date=${beginDate}&end_date=${endDate}&time_zone=lst_ldt`;
+    const res = await fetch(url, {
+      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+    });
     if (!res.ok) return [];
 
     const json = await res.json();
-    const preds: Array<{ t?: string; v?: string; type?: string }> = json?.predictions ?? [];
+    const preds: Array<{ t?: string; v?: string; type?: string }> =
+      json?.predictions ?? [];
     if (!Array.isArray(preds) || preds.length === 0) return [];
 
     // Group predictions by date
     const byDate: Record<string, { highs: number[]; lows: number[] }> = {};
     for (const p of preds) {
-      const date = String(p.t ?? '').slice(0, 10);
+      const date = String(p.t ?? "").slice(0, 10);
       if (!date) continue;
       if (!byDate[date]) byDate[date] = { highs: [], lows: [] };
-      const val = parseFloat(String(p.v ?? '0')) || 0;
-      if (p.type === 'H') byDate[date].highs.push(val);
+      const val = parseFloat(String(p.v ?? "0")) || 0;
+      if (p.type === "H") byDate[date].highs.push(val);
       else byDate[date].lows.push(val);
     }
 
@@ -910,12 +1032,19 @@ interface USNOResult {
   sun?: SunData;
 }
 
-async function fetchUSNO(lat: number, lon: number, tzHours: number): Promise<USNOResult | null> {
+async function fetchUSNO(
+  lat: number,
+  lon: number,
+  tzHours: number,
+): Promise<USNOResult | null> {
   const today = new Date().toISOString().slice(0, 10);
   const coords = `${lat},${lon}`;
-  const url = `https://aa.usno.navy.mil/api/rstt/oneday?date=${today}&coords=${coords}&tz=${tzHours}`;
+  const url =
+    `https://aa.usno.navy.mil/api/rstt/oneday?date=${today}&coords=${coords}&tz=${tzHours}`;
 
-  const res = await fetch(url, { headers: { 'User-Agent': 'TightLinesAI/2.0 (fishing app)' } });
+  const res = await fetch(url, {
+    headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+  });
   if (!res.ok) return null;
 
   const json = await res.json();
@@ -931,11 +1060,11 @@ async function fetchUSNO(lat: number, lon: number, tzHours: number): Promise<USN
 
   // USNO returns full phenomenon strings: "Rise", "Set", "Upper Transit"
   for (const m of moondata) {
-    const phen = String(m?.phen ?? '').toLowerCase();
-    const t = m?.time ?? '';
-    if (phen === 'rise') rise = t;
-    else if (phen === 'set') set = t;
-    else if (phen.includes('upper transit')) upperTransit = t;
+    const phen = String(m?.phen ?? "").toLowerCase();
+    const t = m?.time ?? "";
+    if (phen === "rise") rise = t;
+    else if (phen === "set") set = t;
+    else if (phen.includes("upper transit")) upperTransit = t;
   }
 
   let sunRise: string | null = null;
@@ -943,33 +1072,35 @@ async function fetchUSNO(lat: number, lon: number, tzHours: number): Promise<USN
   let civilTwilightBegin: string | null = null;
   let civilTwilightEnd: string | null = null;
   for (const s of sundata) {
-    const phen = String(s?.phen ?? '').toLowerCase();
-    const t = s?.time ?? '';
-    if (phen === 'rise') sunRise = t;
-    else if (phen === 'set') sunSet = t;
-    else if (phen.includes('begin civil twilight')) civilTwilightBegin = t;
-    else if (phen.includes('end civil twilight')) civilTwilightEnd = t;
+    const phen = String(s?.phen ?? "").toLowerCase();
+    const t = s?.time ?? "";
+    if (phen === "rise") sunRise = t;
+    else if (phen === "set") sunSet = t;
+    else if (phen.includes("begin civil twilight")) civilTwilightBegin = t;
+    else if (phen.includes("end civil twilight")) civilTwilightEnd = t;
   }
 
   let phase = phasedata?.curphase ?? phasedata?.phase ?? null;
   let frac = phasedata?.frac;
   if (frac == null && phasedata?.fracillum != null) {
-    const s = String(phasedata.fracillum).replace('%', '');
+    const s = String(phasedata.fracillum).replace("%", "");
     frac = parseFloat(s) / 100;
   }
-  const illumination = typeof frac === 'number' ? frac : parseFloat(String(frac ?? 0)) || 0;
+  const illumination = typeof frac === "number"
+    ? frac
+    : parseFloat(String(frac ?? 0)) || 0;
 
   // Determine waxing/waning from curphase text before falling back to illumination
   let isWaxing: boolean | null = null;
   if (phase) {
     const phaseStr = String(phase).toLowerCase();
-    if (phaseStr.includes('waxing')) isWaxing = true;
-    else if (phaseStr.includes('waning')) isWaxing = false;
-    else if (phaseStr.includes('new moon')) isWaxing = null; // N/A
-    else if (phaseStr.includes('full moon')) isWaxing = null; // N/A
+    if (phaseStr.includes("waxing")) isWaxing = true;
+    else if (phaseStr.includes("waning")) isWaxing = false;
+    else if (phaseStr.includes("new moon")) isWaxing = null; // N/A
+    else if (phaseStr.includes("full moon")) isWaxing = null; // N/A
   }
 
-  if (!phase || String(phase).toLowerCase() === 'unknown') {
+  if (!phase || String(phase).toLowerCase() === "unknown") {
     phase = derivePhaseFromIllumination(illumination);
   }
 
@@ -1008,9 +1139,13 @@ async function fetchUSNO(lat: number, lon: number, tzHours: number): Promise<USN
 // Open-Meteo — elevation
 // -----------------------------------------------------------------------------
 
-async function fetchElevation(lat: number, lon: number): Promise<number | null> {
+async function fetchElevation(
+  lat: number,
+  lon: number,
+): Promise<number | null> {
   try {
-    const url = `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
+    const url =
+      `https://api.open-meteo.com/v1/elevation?latitude=${lat}&longitude=${lon}`;
     const res = await fetch(url);
     if (!res.ok) return null;
     const data = await res.json();
@@ -1030,7 +1165,7 @@ async function fetchElevation(lat: number, lon: number): Promise<number | null> 
 // Phase-modulated solunar window duration
 function getSolunarHalfWindow(
   moonPhase: string | null,
-  periodType: "major" | "minor"
+  periodType: "major" | "minor",
 ): number {
   const phase = (moonPhase ?? "").toLowerCase();
   if (phase.includes("new") || phase.includes("full")) {
@@ -1058,11 +1193,11 @@ function computeSolunar(moon: MoonData): SolunarData {
   const addPeriod = (
     timeStr: string | null,
     halfMins: number,
-    type?: 'overhead' | 'underfoot'
+    type?: "overhead" | "underfoot",
   ) => {
     if (!timeStr) return;
     // Ensure "HH:mm" format (USNO returns "HH:mm" already)
-    const t = timeStr.includes(':') ? timeStr : null;
+    const t = timeStr.includes(":") ? timeStr : null;
     if (!t) return;
     const start = addMinsToHHMM(t, -halfMins);
     const end = addMinsToHHMM(t, halfMins);
@@ -1073,8 +1208,8 @@ function computeSolunar(moon: MoonData): SolunarData {
     }
   };
 
-  addPeriod(moon.upper_transit, majorHalf, 'overhead');
-  addPeriod(moon.lower_transit, majorHalf, 'underfoot');
+  addPeriod(moon.upper_transit, majorHalf, "overhead");
+  addPeriod(moon.lower_transit, majorHalf, "underfoot");
   addPeriod(moon.rise, minorHalf);
   addPeriod(moon.set, minorHalf);
 
@@ -1086,14 +1221,17 @@ function computeSolunar(moon: MoonData): SolunarData {
 // -----------------------------------------------------------------------------
 
 Deno.serve(async (req: Request) => {
-  if (req.method === 'OPTIONS') {
+  if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: CORS_HEADERS });
   }
 
-  if (req.method !== 'POST') {
-    return new Response(JSON.stringify({ error: 'Method not allowed' }), {
+  if (req.method !== "POST") {
+    return new Response(JSON.stringify({ error: "Method not allowed" }), {
       status: 405,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
@@ -1111,17 +1249,28 @@ Deno.serve(async (req: Request) => {
     // Client call — validate user token
     const token = userToken || bearerToken;
     if (!token) {
-      return new Response(JSON.stringify({ error: "Missing authentication token" }), {
-        status: 401,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
-      });
+      return new Response(
+        JSON.stringify({ error: "Missing authentication token" }),
+        {
+          status: 401,
+          headers: {
+            "Content-Type": "application/json",
+            "Access-Control-Allow-Origin": "*",
+          },
+        },
+      );
     }
 
-    const { data: { user }, error: authError } = await supabase.auth.getUser(token);
+    const { data: { user }, error: authError } = await supabase.auth.getUser(
+      token,
+    );
     if (authError || !user) {
       return new Response(JSON.stringify({ error: "Unauthorized" }), {
         status: 401,
-        headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+        headers: {
+          "Content-Type": "application/json",
+          "Access-Control-Allow-Origin": "*",
+        },
       });
     }
 
@@ -1140,31 +1289,45 @@ Deno.serve(async (req: Request) => {
   try {
     body = await req.json();
   } catch {
-    return new Response(JSON.stringify({ error: 'Invalid JSON body' }), {
+    return new Response(JSON.stringify({ error: "Invalid JSON body" }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
   const lat = Number(body.latitude);
   const lon = Number(body.longitude);
-  const units = body.units === 'metric' ? 'metric' : 'imperial';
+  const units = body.units === "metric" ? "metric" : "imperial";
   const startedAt = Date.now();
 
   if (isNaN(lat) || lat < -90 || lat > 90) {
-    return new Response(JSON.stringify({ error: 'Invalid latitude' }), {
+    return new Response(JSON.stringify({ error: "Invalid latitude" }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
   if (isNaN(lon) || lon < -180 || lon > 180) {
-    return new Response(JSON.stringify({ error: 'Invalid longitude' }), {
+    return new Response(JSON.stringify({ error: "Invalid longitude" }), {
       status: 400,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
-  const freshSnapshot = await readFreshEnvironmentSnapshot(supabase, lat, lon, units);
+  const freshSnapshot = await readFreshEnvironmentSnapshot(
+    supabase,
+    lat,
+    lon,
+    units,
+  );
   if (freshSnapshot) {
     logEnvironmentEvent("cache_hit", {
       latitude_bucket: latBucket(lat),
@@ -1177,7 +1340,10 @@ Deno.serve(async (req: Request) => {
     });
     return new Response(JSON.stringify(freshSnapshot), {
       status: 200,
-      headers: { 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*' },
+      headers: {
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*",
+      },
     });
   }
 
@@ -1189,7 +1355,13 @@ Deno.serve(async (req: Request) => {
   const snapshotKey = buildEnvironmentSnapshotKey(lat, lon, units, localDate);
 
   // Fetch all remaining sources in parallel once the live timezone offset is known.
-  const [snapshotResult, twilightResult, noaaResult, usnoResult, elevationResult] = await Promise.allSettled([
+  const [
+    snapshotResult,
+    twilightResult,
+    noaaResult,
+    usnoResult,
+    elevationResult,
+  ] = await Promise.allSettled([
     readEnvironmentSnapshot(supabase, snapshotKey),
     fetchCivilTwilight(lat, lon, tzHours),
     fetchNOAA(lat, lon, units, tzHours, timezone),
@@ -1197,11 +1369,17 @@ Deno.serve(async (req: Request) => {
     fetchElevation(lat, lon),
   ]);
 
-  const cachedSnapshot = snapshotResult.status === 'fulfilled' ? snapshotResult.value : null;
-  const twilight = twilightResult.status === 'fulfilled' ? twilightResult.value : null;
-  const noaa = noaaResult.status === 'fulfilled' ? noaaResult.value : null;
-  const usno = usnoResult.status === 'fulfilled' ? usnoResult.value : null;
-  const altitude_ft = elevationResult.status === 'fulfilled' ? elevationResult.value : null;
+  const cachedSnapshot = snapshotResult.status === "fulfilled"
+    ? snapshotResult.value
+    : null;
+  const twilight = twilightResult.status === "fulfilled"
+    ? twilightResult.value
+    : null;
+  const noaa = noaaResult.status === "fulfilled" ? noaaResult.value : null;
+  const usno = usnoResult.status === "fulfilled" ? usnoResult.value : null;
+  const altitude_ft = elevationResult.status === "fulfilled"
+    ? elevationResult.value
+    : null;
   const cachedHasWeather = Boolean(
     (cachedSnapshot as EnvironmentSnapshotLike | null)?.weather_available &&
       (cachedSnapshot as EnvironmentSnapshotLike | null)?.weather,
@@ -1242,8 +1420,9 @@ Deno.serve(async (req: Request) => {
 
   const liveResponse: EnvironmentData = {
     weather_available: Boolean(
-      (meteo?.weather && typeof meteo.weather.temperature === 'number') ||
-        (nwsFallback?.weather && typeof nwsFallback.weather.temperature === 'number'),
+      (meteo?.weather && typeof meteo.weather.temperature === "number") ||
+        (nwsFallback?.weather &&
+          typeof nwsFallback.weather.temperature === "number"),
     ),
     tides_available,
     moon_available: Boolean(moon?.phase),
@@ -1260,7 +1439,11 @@ Deno.serve(async (req: Request) => {
     hourly_pressure_mb: meteo?.hourly_pressure_mb ?? [],
     hourly_air_temp_f: meteo?.hourly_air_temp_f ?? [],
     hourly_cloud_cover_pct: meteo?.hourly_cloud_cover_pct ?? [],
-    hourly_wind_speed: meteo?.hourly_wind_speed ?? nwsFallback?.hourly_wind_speed ?? [],
+    hourly_wind_speed: meteo?.hourly_wind_speed ??
+      nwsFallback?.hourly_wind_speed ?? [],
+    hourly_weather_code: meteo?.hourly_weather_code ?? [],
+    hourly_precip_probability_pct: meteo?.hourly_precip_probability_pct ?? [],
+    hourly_precipitation_in: meteo?.hourly_precipitation_in ?? [],
     tide_predictions_30day: noaa?.tide_predictions_30day ?? [],
     measured_water_temp_f: noaa?.measured_water_temp_f ?? null,
     measured_water_temp_source: noaa?.measured_water_temp_source ?? null,
@@ -1292,9 +1475,17 @@ Deno.serve(async (req: Request) => {
     latitude_bucket: latBucket(lat),
     longitude_bucket: lonBucket(lon),
     units,
-    weather_provider: meteo?.weather ? "open-meteo" : nwsFallback?.weather ? "nws" : "none",
+    weather_provider: meteo?.weather
+      ? "open-meteo"
+      : nwsFallback?.weather
+      ? "nws"
+      : "none",
     used_nws_fallback: Boolean(nwsFallback?.weather),
-    used_snapshot_merge: Boolean(response.source_notes?.some((note) => note.startsWith("snapshot_fallback:"))),
+    used_snapshot_merge: Boolean(
+      response.source_notes?.some((note) =>
+        note.startsWith("snapshot_fallback:")
+      ),
+    ),
     weather_available: response.weather_available,
     tides_available: response.tides_available,
     moon_available: response.moon_available,
@@ -1306,8 +1497,8 @@ Deno.serve(async (req: Request) => {
   return new Response(JSON.stringify(response), {
     status: 200,
     headers: {
-      'Content-Type': 'application/json',
-      'Access-Control-Allow-Origin': '*',
+      "Content-Type": "application/json",
+      "Access-Control-Allow-Origin": "*",
     },
   });
 });

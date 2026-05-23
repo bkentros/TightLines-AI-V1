@@ -68,6 +68,191 @@ function sumRecent(
   return total;
 }
 
+function isThunderstormCode(code: number | null): boolean {
+  return code === 95 || code === 96 || code === 99;
+}
+
+function isRainCode(code: number | null): boolean {
+  if (code == null) return false;
+  return (code >= 51 && code <= 67) || (code >= 80 && code <= 82) ||
+    isThunderstormCode(code);
+}
+
+function isHeavyRainCode(code: number | null): boolean {
+  return code === 65 || code === 67 || code === 82 || code === 96 ||
+    code === 99;
+}
+
+function asHourlyPoints(
+  raw: unknown,
+): Array<{ time_utc: string; value: number }> | null {
+  if (!Array.isArray(raw) || raw.length === 0) return null;
+  const out: Array<{ time_utc: string; value: number }> = [];
+  for (const p of raw) {
+    if (!p || typeof p !== "object") continue;
+    const r = p as { time_utc?: unknown; value?: unknown };
+    if (typeof r.time_utc !== "string") continue;
+    const value = num(r.value);
+    if (value == null) continue;
+    out.push({ time_utc: r.time_utc, value });
+  }
+  return out.length ? out : null;
+}
+
+function maxFinite(values: Array<number | null | undefined>): number | null {
+  let max: number | null = null;
+  for (const value of values) {
+    if (value == null || !Number.isFinite(value)) continue;
+    max = max == null ? value : Math.max(max, value);
+  }
+  return max;
+}
+
+function roundPct(value: number | null): number | null {
+  if (value == null || !Number.isFinite(value)) return null;
+  return Math.max(0, Math.min(100, Math.round(value)));
+}
+
+type LaterWeatherSignals = {
+  storm_risk_later_today: boolean | null;
+  rain_risk_later_today: boolean | null;
+  heavy_rain_later_today: boolean | null;
+  storm_window_start_local_hour: number | null;
+  max_precip_probability_pct: number | null;
+};
+
+function forecastPrecipProbabilityForDate(
+  forecastDaily: unknown,
+  localDate: string,
+): number | null {
+  if (!Array.isArray(forecastDaily)) return null;
+  for (const entry of forecastDaily) {
+    if (!entry || typeof entry !== "object") continue;
+    const e = entry as { date?: unknown; precip_chance_pct?: unknown };
+    if (e.date !== localDate) continue;
+    return roundPct(num(e.precip_chance_pct));
+  }
+  return null;
+}
+
+function buildLaterWeatherSignals(
+  env: Record<string, unknown>,
+  weather: Record<string, unknown> | null,
+  localDate: string,
+  timeZone: string,
+  dayOffset: number,
+  precip24hIn: number | null,
+): LaterWeatherSignals {
+  const empty = {
+    storm_risk_later_today: null,
+    rain_risk_later_today: null,
+    heavy_rain_later_today: null,
+    storm_window_start_local_hour: null,
+    max_precip_probability_pct: null,
+  } satisfies LaterWeatherSignals;
+  if (!weather) return empty;
+
+  const weatherCodePts = asHourlyPoints(env.hourly_weather_code);
+  const precipProbPts = asHourlyPoints(env.hourly_precip_probability_pct);
+  const precipInPts = asHourlyPoints(env.hourly_precipitation_in);
+  const hourlyCodes = weatherCodePts
+    ? hourlyPointsTo24ArrayForLocalDate(weatherCodePts, localDate, timeZone)
+    : null;
+  const hourlyProb = precipProbPts
+    ? hourlyPointsTo24ArrayForLocalDate(precipProbPts, localDate, timeZone)
+    : null;
+  const hourlyPrecipIn = precipInPts
+    ? hourlyPointsTo24ArrayForLocalDate(precipInPts, localDate, timeZone)
+    : null;
+
+  const laterStartHour = 10;
+  let firstStormHour: number | null = null;
+  let firstRainHour: number | null = null;
+  let stormFromHourly = false;
+  let rainFromHourly = false;
+  let heavyFromHourly = false;
+  let laterHourlyProbMax: number | null = null;
+
+  if (hourlyCodes) {
+    for (let hour = laterStartHour; hour < hourlyCodes.length; hour++) {
+      const code = Math.round(hourlyCodes[hour] ?? 0);
+      if (isThunderstormCode(code)) {
+        stormFromHourly = true;
+        firstStormHour ??= hour;
+      }
+      if (isRainCode(code)) {
+        rainFromHourly = true;
+        firstRainHour ??= hour;
+      }
+      if (isHeavyRainCode(code)) heavyFromHourly = true;
+    }
+  }
+
+  const maxProb = roundPct(maxFinite([
+    ...(hourlyProb ?? []),
+    (() => {
+      const arr = weather.precipitation_probability_max_daily as
+        | unknown[]
+        | undefined;
+      const idx = currentDailyIndex(arr, dayOffset);
+      return idx != null && arr ? num(arr[idx]) : null;
+    })(),
+    forecastPrecipProbabilityForDate(env.forecast_daily, localDate),
+  ]));
+
+  if (hourlyProb) {
+    for (let hour = laterStartHour; hour < hourlyProb.length; hour++) {
+      const prob = hourlyProb[hour] ?? 0;
+      laterHourlyProbMax = laterHourlyProbMax == null
+        ? prob
+        : Math.max(laterHourlyProbMax, prob);
+      if (prob >= 55) {
+        rainFromHourly = true;
+        firstRainHour ??= hour;
+      }
+    }
+  }
+  if (hourlyPrecipIn) {
+    for (let hour = laterStartHour; hour < hourlyPrecipIn.length; hour++) {
+      const amount = hourlyPrecipIn[hour] ?? 0;
+      if (amount >= 0.03) {
+        rainFromHourly = true;
+        firstRainHour ??= hour;
+      }
+      if (amount >= 0.18) heavyFromHourly = true;
+    }
+  }
+
+  const dailyCodes = weather.weather_code_daily as unknown[] | undefined;
+  const dailyCodeIdx = currentDailyIndex(dailyCodes, dayOffset);
+  const dailyCode = dailyCodeIdx != null && dailyCodes
+    ? num(dailyCodes[dailyCodeIdx])
+    : null;
+  const useDailyWeatherCode = hourlyCodes == null;
+  const stormFromDaily = useDailyWeatherCode && isThunderstormCode(dailyCode);
+  const rainFromDaily = useDailyWeatherCode && isRainCode(dailyCode);
+  const heavyFromDaily = useDailyWeatherCode && isHeavyRainCode(dailyCode);
+
+  const useDailyPrecipAmount = hourlyPrecipIn == null;
+  const meaningfulDailyRain = useDailyPrecipAmount && precip24hIn != null &&
+    precip24hIn >= 0.08;
+  const heavyDailyRain = useDailyPrecipAmount && precip24hIn != null &&
+    precip24hIn >= 0.75;
+  const probabilityRain = hourlyProb
+    ? (laterHourlyProbMax ?? 0) >= 55
+    : maxProb != null && maxProb >= 55;
+
+  return {
+    storm_risk_later_today: stormFromHourly || stormFromDaily,
+    rain_risk_later_today: rainFromHourly || rainFromDaily ||
+      meaningfulDailyRain || probabilityRain,
+    heavy_rain_later_today: heavyFromHourly || heavyFromDaily ||
+      heavyDailyRain,
+    storm_window_start_local_hour: firstStormHour ?? firstRainHour,
+    max_precip_probability_pct: maxProb,
+  };
+}
+
 /**
  * Maps client get-environment payload into SharedEngineRequest.
  *
@@ -410,6 +595,15 @@ export function buildSharedEngineRequestFromEnvData(
     );
   }
 
+  const laterWeatherSignals = buildLaterWeatherSignals(
+    envData,
+    w,
+    localDate,
+    tzForHourly,
+    dayOffset,
+    precip_24h,
+  );
+
   return {
     latitude,
     longitude,
@@ -438,6 +632,13 @@ export function buildSharedEngineRequestFromEnvData(
       precip_7d_in: precip_7d_in,
       active_precip_now,
       precip_rate_now_in_per_hr: precip_rate_now_out,
+      storm_risk_later_today: laterWeatherSignals.storm_risk_later_today,
+      rain_risk_later_today: laterWeatherSignals.rain_risk_later_today,
+      heavy_rain_later_today: laterWeatherSignals.heavy_rain_later_today,
+      storm_window_start_local_hour:
+        laterWeatherSignals.storm_window_start_local_hour,
+      max_precip_probability_pct:
+        laterWeatherSignals.max_precip_probability_pct,
       tide_movement_state: tidePhase,
       tide_station_id: tides && typeof tides.station_id === "string"
         ? tides.station_id

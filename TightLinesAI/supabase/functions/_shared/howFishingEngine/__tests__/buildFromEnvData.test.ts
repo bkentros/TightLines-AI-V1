@@ -440,6 +440,141 @@ Deno.test("buildFromEnvData: calendar profile keeps noon/current separate from d
   assertEquals(req.environment.day_minus_2_mean_air_temp_f, 72);
 });
 
+Deno.test("buildFromEnvData: weather-code thunderstorm evidence sets storm later flag", () => {
+  const localDate = "2026-07-10";
+  const tz = "America/New_York";
+  const hourly_weather_code = Array.from({ length: 24 }, (_, h) => ({
+    time_utc: new Date(
+      `2026-07-10T${String(h).padStart(2, "0")}:00:00-04:00`,
+    ).toISOString(),
+    value: h === 15 ? 95 : 0,
+  }));
+  const hourly_precip_probability_pct = Array.from({ length: 24 }, (_, h) => ({
+    time_utc: new Date(
+      `2026-07-10T${String(h).padStart(2, "0")}:00:00-04:00`,
+    ).toISOString(),
+    value: h === 15 ? 80 : 5,
+  }));
+
+  const req = buildSharedEngineRequestFromEnvData(
+    40.7,
+    -74.0,
+    localDate,
+    tz,
+    "freshwater_lake_pond",
+    {
+      timezone: tz,
+      weather: {
+        temperature: 70,
+        pressure: 1013,
+        wind_speed: 5,
+        cloud_cover: 40,
+        temp_7day_high: Array.from({ length: 21 }, () => 80),
+        temp_7day_low: Array.from({ length: 21 }, () => 60),
+      },
+      hourly_weather_code,
+      hourly_precip_probability_pct,
+    },
+    0,
+    { useCalendarDayProfileForToday: true },
+  );
+
+  assertEquals(req.environment.storm_risk_later_today, true);
+  assertEquals(req.environment.rain_risk_later_today, true);
+  assertEquals(req.environment.heavy_rain_later_today, false);
+  assertEquals(req.environment.storm_window_start_local_hour, 15);
+  assertEquals(req.environment.max_precip_probability_pct, 80);
+});
+
+Deno.test("buildFromEnvData: rain probability without thunder code does not set storm flag", () => {
+  const localDate = "2026-07-10";
+  const tz = "America/New_York";
+  const hourly_weather_code = Array.from({ length: 24 }, (_, h) => ({
+    time_utc: new Date(
+      `2026-07-10T${String(h).padStart(2, "0")}:00:00-04:00`,
+    ).toISOString(),
+    value: h === 16 ? 61 : 0,
+  }));
+  const hourly_precip_probability_pct = Array.from({ length: 24 }, (_, h) => ({
+    time_utc: new Date(
+      `2026-07-10T${String(h).padStart(2, "0")}:00:00-04:00`,
+    ).toISOString(),
+    value: h === 16 ? 70 : 0,
+  }));
+
+  const req = buildSharedEngineRequestFromEnvData(
+    40.7,
+    -74.0,
+    localDate,
+    tz,
+    "freshwater_lake_pond",
+    {
+      timezone: tz,
+      weather: {
+        temperature: 70,
+        pressure: 1013,
+        wind_speed: 5,
+        cloud_cover: 40,
+        temp_7day_high: Array.from({ length: 21 }, () => 80),
+        temp_7day_low: Array.from({ length: 21 }, () => 60),
+      },
+      hourly_weather_code,
+      hourly_precip_probability_pct,
+    },
+    0,
+    { useCalendarDayProfileForToday: true },
+  );
+
+  assertEquals(req.environment.storm_risk_later_today, false);
+  assertEquals(req.environment.rain_risk_later_today, true);
+  assertEquals(req.environment.heavy_rain_later_today, false);
+  assertEquals(req.environment.storm_window_start_local_hour, 16);
+});
+
+Deno.test("buildFromEnvData: heavy rain later requires heavy code or meaningful amount", () => {
+  const localDate = "2026-07-10";
+  const tz = "America/New_York";
+  const hourly_weather_code = Array.from({ length: 24 }, (_, h) => ({
+    time_utc: new Date(
+      `2026-07-10T${String(h).padStart(2, "0")}:00:00-04:00`,
+    ).toISOString(),
+    value: h === 18 ? 82 : 0,
+  }));
+  const hourly_precipitation_in = Array.from({ length: 24 }, (_, h) => ({
+    time_utc: new Date(
+      `2026-07-10T${String(h).padStart(2, "0")}:00:00-04:00`,
+    ).toISOString(),
+    value: h === 18 ? 0.24 : 0,
+  }));
+
+  const req = buildSharedEngineRequestFromEnvData(
+    40.7,
+    -74.0,
+    localDate,
+    tz,
+    "freshwater_river",
+    {
+      timezone: tz,
+      weather: {
+        temperature: 70,
+        pressure: 1013,
+        wind_speed: 5,
+        cloud_cover: 40,
+        temp_7day_high: Array.from({ length: 21 }, () => 80),
+        temp_7day_low: Array.from({ length: 21 }, () => 60),
+      },
+      hourly_weather_code,
+      hourly_precipitation_in,
+    },
+    0,
+    { useCalendarDayProfileForToday: true },
+  );
+
+  assertEquals(req.environment.storm_risk_later_today, false);
+  assertEquals(req.environment.rain_risk_later_today, true);
+  assertEquals(req.environment.heavy_rain_later_today, true);
+});
+
 Deno.test("buildFromEnvData: forecast profile daily means use same-source prior days", () => {
   const localDate = "2026-07-12";
   const tz = "America/New_York";

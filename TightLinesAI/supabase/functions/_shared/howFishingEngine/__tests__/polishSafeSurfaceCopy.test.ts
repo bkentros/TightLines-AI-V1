@@ -146,6 +146,11 @@ Deno.test("buildDeterministicSolunarNote stays soft and non-null when peaks exis
         precip_7d_in: 0,
         active_precip_now: false,
         precip_rate_now_in_per_hr: 0,
+        storm_risk_later_today: null,
+        rain_risk_later_today: null,
+        heavy_rain_later_today: null,
+        storm_window_start_local_hour: null,
+        max_precip_probability_pct: null,
         tide_movement_state: null,
         tide_station_id: null,
         current_speed_knots_max: null,
@@ -269,6 +274,226 @@ Deno.test("light temperature suppressor picks patient strategy without heat/cold
     false,
     out.actionable_tip,
   );
+});
+
+const tipNorm = {
+  temperature: {
+    context_group: "freshwater",
+    measurement_source: "air_daily_mean",
+    measurement_value_f: 68,
+    band_label: "optimal",
+    band_score: 1.2,
+    trend_label: "stable",
+    trend_adjustment: 0,
+    shock_label: "none",
+    shock_adjustment: 0,
+    final_score: 1.2,
+  },
+  pressure_regime: { label: "stable", score: 0 },
+  wind_condition: { label: "manageable", score: 0.2 },
+  light_cloud_condition: { label: "mixed", score: 0.2 },
+} as const;
+
+Deno.test("actionable tip uses pre-storm window only with storm-code evidence", () => {
+  const out = buildActionableTip(
+    "freshwater_lake_pond",
+    undefined,
+    undefined,
+    tipNorm,
+    "storm-later-tip",
+    {
+      weatherSignals: {
+        storm_risk_later_today: true,
+        rain_risk_later_today: true,
+        heavy_rain_later_today: false,
+        storm_window_start_local_hour: 15,
+        max_precip_probability_pct: 70,
+        active_precip_now: false,
+        precip_rate_now_in_per_hr: 0,
+      },
+    },
+  );
+  assert(
+    /\b(pre-storm|storms?|before weather|before rain)\b/i.test(
+      out.actionable_tip,
+    ),
+    out.actionable_tip,
+  );
+});
+
+Deno.test("daily-only storm risk avoids precise pre-storm window copy", () => {
+  const out = buildActionableTip(
+    "freshwater_lake_pond",
+    undefined,
+    undefined,
+    tipNorm,
+    "daily-storm-risk-tip",
+    {
+      weatherSignals: {
+        storm_risk_later_today: true,
+        rain_risk_later_today: true,
+        heavy_rain_later_today: false,
+        storm_window_start_local_hour: null,
+        max_precip_probability_pct: 70,
+        active_precip_now: false,
+        precip_rate_now_in_per_hr: 0,
+      },
+    },
+  );
+  assertStringIncludes(out.actionable_tip.toLowerCase(), "storm");
+  assertEquals(
+    /\b(pre-storm|before weather arrives|before storms? arrive|before rain)\b/i
+      .test(out.actionable_tip),
+    false,
+    out.actionable_tip,
+  );
+});
+
+Deno.test("rain-later actionable tip without thunderstorm evidence does not say storm", () => {
+  const out = buildActionableTip(
+    "freshwater_lake_pond",
+    undefined,
+    undefined,
+    tipNorm,
+    "rain-later-no-storm-tip",
+    {
+      weatherSignals: {
+        storm_risk_later_today: false,
+        rain_risk_later_today: true,
+        heavy_rain_later_today: false,
+        storm_window_start_local_hour: 16,
+        max_precip_probability_pct: 65,
+        active_precip_now: false,
+        precip_rate_now_in_per_hr: 0,
+      },
+    },
+  );
+  assertStringIncludes(out.actionable_tip.toLowerCase(), "rain");
+  assertEquals(
+    /\bstorms?\b/i.test(out.actionable_tip),
+    false,
+    out.actionable_tip,
+  );
+});
+
+Deno.test("actionable tip without rain or storm evidence does not invent arriving weather", () => {
+  const out = buildActionableTip(
+    "freshwater_lake_pond",
+    {
+      key: "light_cloud_condition",
+      score: 0.8,
+      label: "Light",
+      weight: 20,
+      weightedContribution: 16,
+    },
+    undefined,
+    tipNorm,
+    "no-weather-evidence-tip",
+    {
+      weatherSignals: {
+        storm_risk_later_today: false,
+        rain_risk_later_today: false,
+        heavy_rain_later_today: false,
+        storm_window_start_local_hour: null,
+        max_precip_probability_pct: 10,
+        active_precip_now: false,
+        precip_rate_now_in_per_hr: 0,
+      },
+    },
+  );
+  assertEquals(
+    /\b(storms?|weather arrives|weather begins|rain arrives|rain builds)\b/i
+      .test(out.actionable_tip),
+    false,
+    out.actionable_tip,
+  );
+});
+
+Deno.test("active heavy rain does not produce pre-storm copy", () => {
+  const out = buildActionableTip(
+    "freshwater_lake_pond",
+    undefined,
+    undefined,
+    tipNorm,
+    "active-heavy-rain-tip",
+    {
+      weatherSignals: {
+        storm_risk_later_today: true,
+        rain_risk_later_today: true,
+        heavy_rain_later_today: true,
+        storm_window_start_local_hour: 14,
+        max_precip_probability_pct: 90,
+        active_precip_now: true,
+        precip_rate_now_in_per_hr: 0.06,
+      },
+    },
+  );
+  assertEquals(
+    /\bpre-storm\b/i.test(out.actionable_tip),
+    false,
+    out.actionable_tip,
+  );
+  assertEquals(
+    /\bstorms?\b/i.test(out.actionable_tip),
+    false,
+    out.actionable_tip,
+  );
+});
+
+Deno.test("river weather-later actionable tip mentions runoff or visibility", () => {
+  const out = buildActionableTip(
+    "freshwater_river",
+    undefined,
+    undefined,
+    tipNorm,
+    "river-storm-later-tip",
+    {
+      weatherSignals: {
+        storm_risk_later_today: true,
+        rain_risk_later_today: true,
+        heavy_rain_later_today: false,
+        storm_window_start_local_hour: 15,
+        max_precip_probability_pct: 80,
+        active_precip_now: false,
+        precip_rate_now_in_per_hr: 0,
+      },
+    },
+  );
+  assert(
+    /\b(runoff|visibility)\b/i.test(out.actionable_tip),
+    out.actionable_tip,
+  );
+});
+
+Deno.test("actionable weather tip remains deterministic for the same seed", () => {
+  const options = {
+    weatherSignals: {
+      storm_risk_later_today: false,
+      rain_risk_later_today: true,
+      heavy_rain_later_today: false,
+      storm_window_start_local_hour: 17,
+      max_precip_probability_pct: 60,
+      active_precip_now: false,
+      precip_rate_now_in_per_hr: 0,
+    },
+  } as const;
+  const a = buildActionableTip(
+    "coastal_flats_estuary",
+    undefined,
+    undefined,
+    tipNorm,
+    "same-weather-tip-seed",
+    options,
+  );
+  const b = buildActionableTip(
+    "coastal_flats_estuary",
+    undefined,
+    undefined,
+    tipNorm,
+    "same-weather-tip-seed",
+    options,
+  );
+  assertEquals(a.actionable_tip, b.actionable_tip);
 });
 
 Deno.test("report factor rows use condition-specific copy, not generic category labels", () => {

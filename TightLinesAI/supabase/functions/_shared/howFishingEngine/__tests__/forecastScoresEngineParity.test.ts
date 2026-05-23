@@ -216,3 +216,68 @@ Deno.test("forecast-scores day 0 matches calendar-day fallback used by locked da
     runHowFishingScoreOnly(liveReq),
   );
 });
+
+Deno.test("forecast-scores envRecord shape carries hourly weather risk fields", () => {
+  const localDate = "2026-07-10";
+  const hourlyWeatherCode = Array.from({ length: 72 }, (_, i) => ({
+    time_utc: new Date(
+      `2026-07-${String(9 + Math.floor(i / 24)).padStart(2, "0")}T${
+        String(i % 24).padStart(2, "0")
+      }:00:00-04:00`,
+    ).toISOString(),
+    value: i === 24 + 15 ? 95 : 0,
+  }));
+  const hourlyPrecipProbabilityPct = Array.from({ length: 72 }, (_, i) => ({
+    time_utc: hourlyWeatherCode[i]!.time_utc,
+    value: i === 24 + 15 ? 80 : 5,
+  }));
+  const hourlyPrecipitationIn = Array.from({ length: 72 }, (_, i) => ({
+    time_utc: hourlyWeatherCode[i]!.time_utc,
+    value: i === 24 + 15 ? 0.12 : 0,
+  }));
+
+  const envRecord: Record<string, unknown> = {
+    timezone: "America/New_York",
+    tz_offset_hours: -4,
+    forecast_daily: [{ date: localDate }],
+    weather: {
+      temperature: 72,
+      humidity: 55,
+      cloud_cover: 40,
+      pressure: 1012,
+      wind_speed: 8,
+      wind_direction: 200,
+      precipitation: 0,
+      gust_speed: null as number | null,
+      temp_unit: "°F",
+      wind_speed_unit: "mph",
+      temp_7day_high: Array.from({ length: 21 }, () => 78),
+      temp_7day_low: Array.from({ length: 21 }, () => 58),
+      precip_7day_daily: Array.from({ length: 21 }, () => 0),
+      wind_speed_10m_max_daily: Array.from({ length: 21 }, () => 12),
+    },
+    hourly_weather_code: hourlyWeatherCode,
+    hourly_precip_probability_pct: hourlyPrecipProbabilityPct,
+    hourly_precipitation_in: hourlyPrecipitationIn,
+    hourly_pressure_mb: [],
+    hourly_air_temp_f: [],
+    hourly_cloud_cover_pct: [],
+    hourly_wind_speed: [],
+  };
+
+  const req = buildSharedEngineRequestFromEnvData(
+    40.7,
+    -74,
+    localDate,
+    "America/New_York",
+    "freshwater_lake_pond",
+    envRecord,
+    0,
+    { useCalendarDayProfileForToday: true },
+  );
+
+  assertEquals(req.environment.storm_risk_later_today, true);
+  assertEquals(req.environment.rain_risk_later_today, true);
+  assertEquals(req.environment.storm_window_start_local_hour, 15);
+  assertEquals(req.environment.max_precip_probability_pct, 80);
+});
