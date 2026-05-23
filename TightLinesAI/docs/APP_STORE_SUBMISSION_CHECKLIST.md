@@ -1,6 +1,6 @@
 # FinFindr App Store Submission Checklist
 
-Last updated: 2026-05-22
+Last updated: 2026-05-23
 
 This is the living launch checklist for getting FinFindr through Apple review with the best chance of a fast approval. Check items off only when verified on the actual production or review build, not just assumed from code.
 
@@ -10,10 +10,11 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 
 - [x] **Publish Privacy Policy, Terms of Service, and Support URL.** Public web URLs are live at `https://finfindr.app/privacy`, `https://finfindr.app/terms`, and `https://finfindr.app/support`.
 - [ ] **BLOCKER: Final owner/legal review of Terms and Privacy copy.** Current in-app copy is an app-specific launch draft. Review entity name, retention/deletion promises, third-party providers, subscription terms, jurisdiction, refunds, IP ownership, and liability language before submission.
-- [ ] **BLOCKER: Finish LLC/EIN and Apple paid-app business setup.** Florida LLC filing has been submitted and paid. Wait for approval, apply for the IRS EIN, then complete Apple/App Store Connect tax, banking, and paid-app agreement setup under the correct seller identity.
-- [ ] **BLOCKER: Fix App Store Connect subscription product availability.** Fresh iOS dev-build logs on 2026-05-21 still show RevenueCat offering fetch failing with `None of the products registered in the RevenueCat dashboard could be fetched from App Store Connect`. Products are configured and RevenueCat is attached; finish Apple business setup, attach the first subscriptions to the app version, allow propagation, then retry sandbox/TestFlight.
+- [ ] **BLOCKER FOR PUBLIC LAUNCH: Finish LLC/EIN/D-U-N-S and Apple organization conversion.** Florida LLC filing has been submitted and paid. Fast-track plan is to keep moving toward App Review under the current individual developer account, keep the app on Manual Release, then convert the Apple Developer membership/seller identity to `FinFindr LLC` before public launch if Apple timing allows.
+- [x] **Activate Paid Apps Agreement.** App Store Connect now shows Paid Apps Agreement, bank account, and U.S. Form W-9 as Active on 2026-05-23. Current setup is still under the individual account; convert/update to `FinFindr LLC` before public launch if Apple timing allows.
+- [x] **Resolve App Store Connect subscription product availability.** RevenueCat now returns the monthly and annual App Store products in the iOS dev build, and the paywall loads after Paid Apps/tax/banking became active on 2026-05-23.
 - [x] **Make subscription/paywall metadata review-ready in RevenueCat.** RevenueCat template paywall is published and attached to the `default` offering with Terms/Privacy URLs.
-- [ ] **BLOCKER: Complete real iOS dev build RevenueCat sandbox test.** Fresh EAS development build was installed and RevenueCat native logging works on 2026-05-21, but sandbox purchase cannot pass while StoreKit/App Store Connect returns empty offerings.
+- [ ] **HIGH: Finish the subscription regression pass.** Sandbox purchase succeeds and restore works on the same device, but still verify cancel-from-sheet, reinstall/sign-out restore behavior, Supabase tier sync, and final RevenueCat restore-transfer policy before App Review.
 - [x] **Remove `ios.infoPlist.UIDesignRequiresCompatibility`.** Removed from `app.json` on 2026-05-20 so the app uses the default current iOS UI behavior; iPhone-only support is still controlled separately by `supportsTablet: false`.
 - [x] **Resolve Supabase `public.spatial_ref_sys` RLS/security alert.** Warning no longer appears in Supabase dashboard; `supabase db lint --linked --schema public` returned no schema errors on 2026-05-20.
 - [x] **Code-level free vs Angler gates are centralized and enforced.** Commit `65a4bd8` makes new/free users limited, allows tomorrow-only forecast preview, gates future forecast reads, gates recommender generation after step 4, gates Water Read generation after lake selection, and keeps Angler unrestricted.
@@ -61,27 +62,30 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Confirm RevenueCat entitlement exactly matches `angler`.
 - [x] Confirm RevenueCat offering is current and has all products attached.
 - [x] Attach a RevenueCat paywall/template to the current `default` offering.
+- [x] RevenueCat SDK is configured with the signed-in Supabase user id as the identified App User ID before purchase/restore attempts.
+- [x] RevenueCat local membership state is cleared when no FinFindr user is signed in, preventing stale premium UI after sign-out/account switching.
 - [x] Add App Store Connect API credentials in RevenueCat for the FinFindr iOS app.
 - [x] Create matching auto-renewable subscription products in App Store Connect.
 - [x] Confirm product IDs in App Store Connect match RevenueCat products exactly.
 - [x] Add subscription group, reference names, localized display names, descriptions, prices, availability, and review screenshots.
 - [x] Confirm both App Store Connect subscriptions no longer show `Missing Metadata`.
-- [ ] Confirm RevenueCat no longer reports empty offerings in a fresh dev/TestFlight build. Still failing with empty offerings in the fresh iOS dev build on 2026-05-21.
-- [ ] Complete Apple Paid Apps Agreement, banking, and tax forms after the LLC/EIN path is ready.
-- [ ] Confirm App Store Connect business agreements show active/accepted, not pending.
+- [x] Confirm RevenueCat no longer reports empty offerings in a fresh dev/TestFlight build. Paywall loaded monthly/annual App Store products in the iOS dev build on 2026-05-23 after Paid Apps/tax/banking became active.
+- [x] Complete Apple Paid Apps Agreement, banking, and tax forms enough to make Paid Apps active for subscription testing. Current fast-track path used the individual/disregarded-entity W-9 first; update/convert to `FinFindr LLC` before public release if Apple timing allows.
+- [x] Confirm App Store Connect business agreements show active/accepted, not pending. Paid Apps Agreement, bank account, and U.S. Form W-9 were shown Active on 2026-05-23.
 - [ ] Ensure each first-time subscription/IAP is selected with the app version submission.
 - [ ] Add the monthly and annual subscriptions to App Store Connect app version `1.0` before submitting the app/subscriptions for review.
-- [ ] Allow App Store Connect/StoreKit propagation after business/subscription changes, then restart the app and retry.
-- [ ] Test sandbox purchase on a physical iPhone dev build.
+- [x] Allow App Store Connect/StoreKit propagation after business/subscription changes, then restart the app and retry. Product fetch/paywall succeeded on 2026-05-23.
+- [x] Test sandbox purchase on a physical iPhone dev build. Sandbox purchase showed Apple success confirmation on 2026-05-23.
 - [ ] Test cancel from purchase sheet.
-- [ ] Test restore purchase after reinstall/sign out/sign in.
+- [ ] Test restore purchase after reinstall/sign out/sign in. Restore immediately after sandbox purchase showed Angler active on 2026-05-23; still needs reinstall/sign-out/new-session validation.
+- [ ] Set/confirm RevenueCat restore behavior for launch. Current observed sandbox behavior means the project is likely using the default transfer behavior: the same active Apple ID receipt can move Angler to the currently signed-in FinFindr account. For a strict one-account policy, set Project Settings > General > Restore Behavior to `Keep with original App User ID`; then retest restore on a second FinFindr account and confirm it does not transfer active Angler.
 - [ ] Test entitlement changes update Supabase `profiles.subscription_tier`.
 - [x] Harden final subscription tier write path before launch. Added a database trigger that blocks authenticated/anon clients from changing `profiles.subscription_tier`, moved tier sync behind the `sync-subscription-tier` Edge Function, and made RevenueCat/server-confirmed entitlement the trusted write path.
 - [x] Test free user gating for Today's Bite, Tackle Box/recommender, and Water Read. Verified in the fresh iOS dev build on 2026-05-21; gated CTAs route into the subscription flow and currently show the unavailable fallback while App Store products are not returned.
 - [x] Add App Store review notes explaining how to find and test subscription-gated features.
 - [x] Add a reviewer account that either has an active sandbox subscription or can purchase using Apple sandbox. Current reviewer login is entered in App Store Connect; subscription purchase still needs sandbox validation after build upload.
 - [x] Add Terms and Privacy links to subscription screen.
-- [ ] Confirm paywall clearly shows subscription title, price, billing period, what unlocks, auto-renewal/cancel language, and any trial details before purchase.
+- [ ] Confirm RevenueCat paywall clearly shows subscription title, price, billing period, what unlocks, auto-renewal/cancel language, and any trial details before purchase. Verify the paywall footer `Terms`, `Privacy`, and `Restore Purchases` actions open the correct live pages/flows before submission.
 - [ ] Confirm there are no external purchase links or CTAs for digital subscription access outside Apple IAP.
 - [x] Add a clear “manage subscription” path or instructions from Settings, especially near account deletion.
 
@@ -113,8 +117,8 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Wait for Florida Sunbiz approval for `FinFindr LLC`; save the filed Articles, document number, and any Certificate of Status.
 - [ ] Apply for the free IRS EIN only after the LLC is approved; use exact legal name `FinFindr LLC` and save the EIN confirmation letter.
 - [ ] Update Terms/Privacy company/entity references after the LLC is officially approved.
-- [ ] Decide Apple seller path: keep individual Apple developer account for now or start Apple organization enrollment / seller identity update after LLC/EIN documents are ready.
-- [ ] Complete App Store Connect Digital Services Act/trader compliance if distributing in the EU.
+- [ ] Decide Apple seller path: current fast-track plan is submit for review from the individual account with Manual Release, then request Apple Developer membership conversion to `FinFindr LLC` after LLC approval, EIN, and D-U-N-S are ready.
+- [ ] Complete App Store Connect Digital Services Act/trader compliance before EU distribution. Current app availability is United States only, so this is not intended to block U.S.-only submission unless App Store Connect requires a declaration before review.
 - [ ] Confirm policy covers account data, email, location, photos/camera uploads, microphone/voice logs if enabled, fishing logs, support messages, purchases, diagnostics, and third parties.
 - [ ] Document third parties: Supabase, RevenueCat, Resend, Open-Meteo, NOAA/NWS, USNO/Sunrise-Sunset, geocoding provider, and any AI/image providers actually used in production.
 - [ ] Confirm no App Tracking Transparency prompt is needed. Current code does not show ad tracking or cross-app tracking SDKs.
@@ -185,7 +189,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Review notes covering subscription test path, location usage, any limited water coverage, and Supabase known issue if relevant.
 - [ ] Export compliance. `ITSAppUsesNonExemptEncryption: false` is set in app config; final App Store Connect export prompt should be verified after the production build is uploaded.
 - [x] Content rights.
-- [x] Pricing and availability. App download is free and availability is United States only.
+- [x] Pricing and availability. App download is free and availability is United States only. App availability has been confirmed as `1 of 175 countries or regions`; the `175 countries or regions` shown under Business agreements is agreement scope, not live app availability.
 - [x] Manual release selected if you want control after approval.
 
 ### 9A. While LLC / EIN Is Pending
@@ -209,9 +213,25 @@ These are useful next moves that do not require the LLC approval, EIN, or Apple 
 - [ ] Search Sunbiz once approved and save the public filing page/PDF for records.
 - [ ] Apply for EIN directly through the IRS site; do not pay a third-party EIN site.
 - [ ] Open/update a business bank account after EIN is available.
-- [ ] Complete App Store Connect banking and tax forms with the final legal/tax identity.
-- [ ] Confirm the Apple Paid Apps Agreement is active before expecting subscriptions to work reliably.
+- [x] Complete current App Store Connect W-9/tax info and wait for banking to finish processing if using the fast-track individual-account path to unblock Paid Apps/subscription testing. Completed/active on 2026-05-23.
+- [x] Confirm the Apple Paid Apps Agreement is active before expecting subscriptions to work reliably. Confirmed Active on 2026-05-23.
 - [ ] Add the next Florida annual report reminder: file between January 1 and May 1 each year, starting the calendar year after formation.
+
+### 9C. Manual Release / LLC Conversion Gate
+
+These items must be checked before clicking the final public release button, especially if App Review approval happens before the LLC conversion is complete:
+
+- [ ] Confirm the App Store version release option is still `Manually release this version` before submitting.
+- [ ] If the app is approved before LLC conversion, leave it in `Pending Developer Release`; do not publicly release until the seller/entity plan is confirmed.
+- [ ] After `FinFindr LLC` is approved, apply for the EIN directly through the IRS and save the confirmation letter.
+- [ ] Get or confirm the D-U-N-S number for `FinFindr LLC`.
+- [ ] Open Apple Developer Support request to convert the Individual membership to an Organization membership for `FinFindr LLC`.
+- [ ] Confirm Apple Developer account / App Store Connect seller identity shows `FinFindr LLC` or intentionally approve launching under the individual seller name.
+- [ ] Re-check Paid Apps Agreement, banking, tax forms, DSA/trader info, and public seller/contact information after Apple conversion.
+- [ ] Update Terms and Privacy entity references to `FinFindr LLC` once the entity is officially approved and the launch seller path is final.
+- [ ] Confirm app availability remains United States only.
+- [ ] Confirm monthly and annual subscription availability is United States only.
+- [ ] Re-check RevenueCat products, sandbox purchase, restore, cancel, and Supabase entitlement sync after any account/business conversion changes.
 
 ### 10. Build, Upload, And Submit
 
@@ -224,6 +244,7 @@ These are useful next moves that do not require the LLC approval, EIN, or Apple 
 - [ ] Add the build to the app version.
 - [ ] Attach first-time IAP/subscriptions to the version submission.
 - [ ] Submit for review.
+- [ ] If approved before LLC conversion, keep the app in `Pending Developer Release` until the 9C launch gate is complete.
 - [ ] Monitor App Review messages and respond with exact steps, credentials, and screenshots/video if asked.
 
 ## Review Notes Draft
@@ -257,6 +278,8 @@ Location is used to fill weather, tide, moon, and local fishing-condition inputs
 - App Store Connect version metadata fields: https://developer.apple.com/help/app-store-connect/reference/app-information/platform-version-information
 - App Store Connect app submission help: https://developer.apple.com/help/app-store-connect/manage-submissions-to-app-review/submit-an-app
 - App Store Connect first-time IAP/subscription submission help: https://developer.apple.com/help/app-store-connect/manage-submissions-to-app-review/submit-an-in-app-purchase
+- App Store Connect release option help: https://developer.apple.com/help/app-store-connect/manage-your-apps-availability/select-an-app-store-version-release-option/
+- Apple Developer account support / individual-to-organization conversion: https://developer.apple.com/support/account/
 - App Store Connect IAP metadata fields: https://developer.apple.com/help/app-store-connect/reference/in-app-purchase-information
 - Apple App Store Connect IAP setup overview: https://developer.apple.com/help/app-store-connect/configure-in-app-purchase-settings/overview-for-configuring-in-app-purchases/
 - RevenueCat offerings-empty troubleshooting: https://revenuecat.github.io/codelabs/troubleshooting/fetching-offerings/

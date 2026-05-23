@@ -151,6 +151,7 @@ interface RevenueCatState {
   presentPaywall: () => Promise<boolean>;
   purchase: (pkg: PurchasesPackage) => Promise<boolean>;
   restore: () => Promise<boolean>;
+  reset: () => void;
 }
 
 let configuredUserId: string | null = null;
@@ -239,6 +240,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
 
           if (!customerInfoListener) {
             customerInfoListener = (info) => {
+              if (!useAuthStore.getState().user?.id) return;
               set({
                 customerInfo: info,
                 hasAngler: hasEffectiveAnglerAccess(info),
@@ -282,20 +284,22 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     set({ loading: true, error: null });
     try {
       if (initializationPromise) await initializationPromise;
+      const userId = useAuthStore.getState().user?.id;
+      if (!userId) {
+        set({
+          configured: false,
+          customerInfo: null,
+          offering: null,
+          hasAngler: false,
+          error: "Sign in before loading subscription plans.",
+        });
+        return;
+      }
       const alreadyConfigured = await Purchases.isConfigured().catch(() =>
         false
       );
-      if (!alreadyConfigured) {
-        const userId = useAuthStore.getState().user?.id;
-        if (userId) {
-          await get().initialize(userId);
-        } else {
-          set({
-            configured: false,
-            error: "Sign in before loading subscription plans.",
-          });
-        }
-        return;
+      if (!alreadyConfigured || configuredUserId !== userId) {
+        await get().initialize(userId);
       }
 
       const customerInfo = await Purchases.getCustomerInfo();
@@ -339,15 +343,15 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     set({ presentingPaywall: true, error: null });
     try {
       if (initializationPromise) await initializationPromise;
+      const userId = useAuthStore.getState().user?.id;
+      if (!userId) {
+        set({ error: "Sign in before purchasing Angler." });
+        return false;
+      }
       const alreadyConfigured = await Purchases.isConfigured().catch(() =>
         false
       );
-      if (!alreadyConfigured) {
-        const userId = useAuthStore.getState().user?.id;
-        if (!userId) {
-          set({ error: "Sign in before purchasing Angler." });
-          return false;
-        }
+      if (!alreadyConfigured || configuredUserId !== userId) {
         await get().initialize(userId);
       }
 
@@ -397,15 +401,15 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     configureRevenueCatLogs();
     set({ purchasing: pkg.identifier, error: null });
     try {
+      const userId = useAuthStore.getState().user?.id;
+      if (!userId) {
+        set({ error: "Sign in before purchasing Angler." });
+        return false;
+      }
       const alreadyConfigured = await Purchases.isConfigured().catch(() =>
         false
       );
-      if (!alreadyConfigured) {
-        const userId = useAuthStore.getState().user?.id;
-        if (!userId) {
-          set({ error: "Sign in before purchasing Angler." });
-          return false;
-        }
+      if (!alreadyConfigured || configuredUserId !== userId) {
         await get().initialize(userId);
       }
 
@@ -432,15 +436,15 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     configureRevenueCatLogs();
     set({ restoring: true, error: null });
     try {
+      const userId = useAuthStore.getState().user?.id;
+      if (!userId) {
+        set({ error: "Sign in before restoring purchases." });
+        return false;
+      }
       const alreadyConfigured = await Purchases.isConfigured().catch(() =>
         false
       );
-      if (!alreadyConfigured) {
-        const userId = useAuthStore.getState().user?.id;
-        if (!userId) {
-          set({ error: "Sign in before restoring purchases." });
-          return false;
-        }
+      if (!alreadyConfigured || configuredUserId !== userId) {
         await get().initialize(userId);
       }
 
@@ -455,5 +459,20 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     } finally {
       set({ restoring: false });
     }
+  },
+
+  reset: () => {
+    configuredUserId = null;
+    set({
+      configured: false,
+      loading: false,
+      purchasing: null,
+      presentingPaywall: false,
+      restoring: false,
+      error: null,
+      customerInfo: null,
+      offering: null,
+      hasAngler: false,
+    });
   },
 }));

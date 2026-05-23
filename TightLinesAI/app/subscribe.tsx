@@ -53,6 +53,23 @@ export default function SubscribeScreen() {
     restore,
   } = useRevenueCatStore();
 
+  const heroTitle = hasAngler
+    ? (
+      <>
+        ANGLER MEMBERSHIP{'\n'}
+        <Text style={styles.titleAccent}>ACTIVE.</Text>
+      </>
+    )
+    : (
+      <>
+        UNLOCK FISHING{'\n'}
+        <Text style={styles.titleAccent}>INTELLIGENCE.</Text>
+      </>
+    );
+  const heroCopy = hasAngler
+    ? 'Your App Store subscription is connected. Full bite reports, tactical tackle direction, and supported-water structure reads are unlocked.'
+    : 'Angler opens full bite reports, tactical tackle direction, and structure intelligence for supported waters.';
+
   const handleOpenPaywall = async () => {
     hapticImpact(ImpactFeedbackStyle.Medium);
     const unlocked = await presentPaywall();
@@ -66,11 +83,13 @@ export default function SubscribeScreen() {
   const handleRestore = async () => {
     hapticImpact(ImpactFeedbackStyle.Light);
     const unlocked = await restore();
+    const restoreError = useRevenueCatStore.getState().error;
     Alert.alert(
       unlocked ? 'Angler access active' : 'No App Store subscription found',
       unlocked
         ? 'Your FinFindr Angler access is active.'
-        : 'Restore Purchases only reconnects an Angler subscription already purchased with this Apple ID.',
+        : restoreError ||
+          'Restore Purchases only reconnects an active Angler subscription already purchased with this Apple ID. If that subscription is tied to another FinFindr account, sign in to that original account or contact support.',
     );
   };
 
@@ -119,16 +138,27 @@ export default function SubscribeScreen() {
             </View>
 
             <Text style={styles.pageEyebrow}>FINFINDR · ANGLER</Text>
-            <Text style={styles.title}>
-              UNLOCK FISHING{'\n'}
-              <Text style={styles.titleAccent}>INTELLIGENCE.</Text>
-            </Text>
-            <Text style={styles.lede}>
-              Angler opens full bite reports, tactical tackle direction, and
-              structure intelligence for supported waters.
-            </Text>
+            <Text style={styles.title}>{heroTitle}</Text>
+            <Text style={styles.lede}>{heroCopy}</Text>
           </View>
 
+          {hasAngler ? (
+            <View style={styles.statusPanel}>
+              <View style={styles.statusIcon}>
+                <Ionicons name="checkmark" size={14} color="#FFFFFF" />
+              </View>
+              <View style={styles.statusBody}>
+                <Text style={styles.statusTitle}>Angler is active</Text>
+                <Text style={styles.statusCopy}>
+                  This FinFindr account is connected to an active App Store subscription.
+                </Text>
+              </View>
+            </View>
+          ) : null}
+
+          <Text style={styles.sectionLabel}>
+            {hasAngler ? 'Included with Angler' : 'What Angler unlocks'}
+          </Text>
           <View style={styles.featureList}>
             {ANGLER_FEATURES.map((feature) => (
               <View key={feature.title} style={styles.featureItem}>
@@ -146,41 +176,46 @@ export default function SubscribeScreen() {
             ))}
           </View>
 
-          <View style={styles.freeBox}>
-            <View style={styles.freeHeader}>
-              <Text style={styles.freeLabel}>FREE TIER</Text>
-              <Ionicons name="lock-open-outline" size={14} color={paper.dashboardBlue} />
-            </View>
-            <Text style={styles.freeCopy}>
-              Includes a limited Today&apos;s Bite, today&apos;s dashboard score after
-              generation, and one tomorrow preview. Future reports stay locked.
-            </Text>
-          </View>
+          {!hasAngler ? (
+            <>
+              <View style={styles.freeBox}>
+                <View style={styles.freeHeader}>
+                  <Text style={styles.freeLabel}>FREE TIER</Text>
+                  <Ionicons name="lock-open-outline" size={14} color={paper.dashboardBlue} />
+                </View>
+                <Text style={styles.freeCopy}>
+                  Includes a limited Today&apos;s Bite, today&apos;s dashboard score after
+                  generation, and one tomorrow preview. Future reports stay locked.
+                </Text>
+              </View>
 
-          {hasAngler ? (
-            <View style={styles.unlockedBox}>
-              <Ionicons name="checkmark-circle" size={18} color={paper.bandPrime} />
-              <Text style={styles.unlockedText}>ANGLER IS ACTIVE</Text>
-            </View>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.nativePaywallBtn,
+                  pressed && styles.nativePaywallBtnPressed,
+                  (presentingPaywall || restoring) && styles.btnDisabled,
+                ]}
+                onPress={handleOpenPaywall}
+                disabled={presentingPaywall || restoring}
+              >
+                {presentingPaywall ? (
+                  <ActivityIndicator size="small" color={paper.dashboardCream} />
+                ) : (
+                  <Ionicons name="card-outline" size={15} color={paper.dashboardCream} />
+                )}
+                <Text style={styles.nativePaywallText}>
+                  {presentingPaywall ? 'OPENING PAYWALL...' : 'UPGRADE TO ANGLER'}
+                </Text>
+              </Pressable>
+            </>
           ) : (
-            <Pressable
-              style={({ pressed }) => [
-                styles.nativePaywallBtn,
-                pressed && styles.nativePaywallBtnPressed,
-                (presentingPaywall || restoring) && styles.btnDisabled,
-              ]}
-              onPress={handleOpenPaywall}
-              disabled={presentingPaywall || restoring}
-            >
-              {presentingPaywall ? (
-                <ActivityIndicator size="small" color={paper.dashboardCream} />
-              ) : (
-                <Ionicons name="card-outline" size={15} color={paper.dashboardCream} />
-              )}
-              <Text style={styles.nativePaywallText}>
-                {presentingPaywall ? 'OPENING PAYWALL...' : 'OPEN ANGLER PAYWALL'}
+            <View style={styles.memberNote}>
+              <Ionicons name="sparkles-outline" size={15} color={paper.dashboardBlue} />
+              <Text style={styles.memberNoteText}>
+                Premium features are ready. Use the App Store controls below to restore,
+                manage, or cancel billing.
               </Text>
-            </Pressable>
+            </View>
           )}
 
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
@@ -189,8 +224,8 @@ export default function SubscribeScreen() {
             <Text style={styles.managementTitle}>Subscription management</Text>
             <Text style={styles.managementCopy}>
               Purchases and cancellations are handled by the App Store. Restore
-              Purchases reconnects a prior App Store subscription after reinstalling
-              or signing in on a new device.
+              Purchases reconnects an active App Store subscription from the Apple ID
+              currently signed into the App Store.
             </Text>
             <Pressable
               style={({ pressed }) => [
@@ -331,6 +366,52 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginTop: paperSpacing.sm,
   },
+  statusPanel: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 10,
+    backgroundColor: 'rgba(61,168,95,0.12)',
+    borderWidth: 1,
+    borderColor: 'rgba(61,168,95,0.35)',
+    borderRadius: 8,
+    padding: paperSpacing.md,
+    marginBottom: paperSpacing.lg,
+  },
+  statusIcon: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    backgroundColor: paper.bandPrime,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 1,
+  },
+  statusBody: {
+    flex: 1,
+  },
+  statusTitle: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    color: paper.dashboardInk,
+    letterSpacing: 1.8,
+    textTransform: 'uppercase',
+    marginBottom: 4,
+  },
+  statusCopy: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+    opacity: 0.74,
+  },
+  sectionLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
+    color: paper.dashboardBlue,
+    letterSpacing: 2,
+    textTransform: 'uppercase',
+    marginBottom: 8,
+  },
   featureList: {
     gap: 8,
     marginBottom: paperSpacing.lg,
@@ -413,22 +494,24 @@ const styles = StyleSheet.create({
     lineHeight: 19,
     opacity: 0.72,
   },
-  unlockedBox: {
+  memberNote: {
     flexDirection: 'row',
-    alignItems: 'center',
+    alignItems: 'flex-start',
     gap: 8,
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
-    borderColor: paper.bandPrime,
-    borderRadius: 10,
+    borderColor: paper.dashboardLine,
+    borderRadius: 8,
     padding: paperSpacing.md,
     marginBottom: paperSpacing.lg,
   },
-  unlockedText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
+  memberNoteText: {
+    flex: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 18,
     color: paper.dashboardInk,
-    letterSpacing: 2,
+    opacity: 0.74,
   },
   nativePaywallBtn: {
     minHeight: 48,

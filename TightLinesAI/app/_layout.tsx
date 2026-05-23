@@ -201,6 +201,7 @@ export default function RootLayout() {
   const router = useRouter();
   const { hydrate, setSession, setProfile, fetchProfile, user } = useAuthStore();
   const initializeRevenueCat = useRevenueCatStore((s) => s.initialize);
+  const resetRevenueCat = useRevenueCatStore((s) => s.reset);
   const [passwordRecoveryInFlight, setPasswordRecoveryInFlight] = useState(false);
 
   const [fontsLoaded] = useFonts({
@@ -244,9 +245,12 @@ export default function RootLayout() {
   }, [hydrate]);
 
   useEffect(() => {
-    if (!user?.id) return;
+    if (!user?.id) {
+      resetRevenueCat();
+      return;
+    }
     void initializeRevenueCat(user.id);
-  }, [initializeRevenueCat, user?.id]);
+  }, [initializeRevenueCat, resetRevenueCat, user?.id]);
 
   // Handle deep links — email verification & password reset tokens
   useEffect(() => {
