@@ -647,7 +647,9 @@ export default function SettingsScreen() {
               <Text style={styles.dangerCopy}>
                 Permanently removes your FinFindr account. This cannot be undone. Deleting your
                 FinFindr account does not cancel App Store billing, so cancel any active
-                auto-renewing subscription from your store account first.
+                auto-renewing subscription from your store account first. If you delete this
+                account while Angler is active, Restore Purchases may not reconnect that
+                subscription to a new or recreated FinFindr account.
               </Text>
               {confirmDelete ? (
                 <View style={styles.deleteWarning}>
@@ -658,7 +660,8 @@ export default function SettingsScreen() {
                   <Text style={styles.deleteWarningCopy}>
                     Tap Delete account forever to permanently delete your FinFindr account and
                     sign out. Store subscriptions must still be canceled from your App Store or
-                    Google Play account.
+                    Google Play account. Active Angler access is tied to this FinFindr account, so
+                    a newly created account may not be able to restore it.
                   </Text>
                 </View>
               ) : null}

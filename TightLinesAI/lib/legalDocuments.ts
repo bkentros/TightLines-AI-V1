@@ -109,7 +109,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         body: [
           'Angler subscriptions unlock paid features while the subscription is active. Subscription pricing, billing period, renewal, cancellation, and refunds are handled by the App Store or Google Play account used for purchase.',
           'Subscription access is tied to the FinFindr account that originally purchased or restored the active subscription. Restore Purchases is intended to reconnect that subscription to the original FinFindr account and may not transfer access to a different FinFindr account.',
-          'Subscriptions renew automatically unless canceled through your store account settings before renewal. Deleting your FinFindr account does not cancel store billing.',
+          'Subscriptions renew automatically unless canceled through your store account settings before renewal. Deleting your FinFindr account does not cancel store billing and may prevent subscription access from being restored to a new or recreated FinFindr account.',
           'FinFindr does not provide external purchase links for digital subscription access inside the app.',
         ],
       },

@@ -97,7 +97,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Account deletion is exposed in Settings.
 - [x] Account deletion calls a Supabase Edge Function that deletes the Supabase Auth user.
 - [ ] Confirm account deletion removes or anonymizes associated profile/log/feedback/app data as promised in the Privacy Policy.
-- [x] Add subscription warning before deletion: Apple says users with auto-renewing subscriptions should be told billing continues through Apple and asked to cancel first.
+- [x] Add subscription warning before deletion: Apple says users with auto-renewing subscriptions should be told billing continues through Apple and asked to cancel first. Settings now also warns that active Angler access may not restore to a new/recreated FinFindr account after deletion.
 - [x] Provide manage subscription link or native subscription management before/near deletion.
 - [x] Test delete account on real device and confirm the user cannot sign back in / can recreate with the same email. Verified with `kentrosbrandon@gmail` on 2026-05-22.
 - [ ] Confirm Apple private relay email works for support/password flows.
