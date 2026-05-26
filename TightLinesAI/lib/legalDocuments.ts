@@ -123,6 +123,14 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         ],
       },
       {
+        title: 'Refunds And Store Billing',
+        body: [
+          'FinFindr does not directly process App Store or Google Play subscription payments, cancellations, renewals, or refunds.',
+          'Refund requests for store purchases must be submitted through the store account used for purchase and are handled under that store provider\'s policies, except where applicable law requires otherwise.',
+          'Deleting a FinFindr account, losing access because a subscription is linked to another FinFindr account, or choosing not to use paid features does not automatically create a separate refund obligation from FinFindr.',
+        ],
+      },
+      {
         title: 'Fishing Content',
         body: [
           'Forecasts, tackle recommendations, water reads, maps, scores, timing windows, and related content are informational planning tools. They are not professional, legal, navigational, emergency, or safety advice.',
@@ -150,6 +158,27 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         body: [
           'FinFindr is provided for planning and informational use. We do not guarantee catches, outcomes, water access, coverage, uptime, or that app guidance will be accurate for the exact conditions you encounter.',
           'To the fullest extent allowed by law, FinFindr is provided as is and as available.',
+        ],
+      },
+      {
+        title: 'Assumption Of Outdoor Risk',
+        body: [
+          'Fishing and related travel involve inherent risks, including injury, drowning, boating accidents, weather exposure, ice, current, wildlife, trespass, equipment failure, and changing water conditions.',
+          'You are responsible for your own decisions, safety gear, legal compliance, route choices, water access, and whether conditions are safe enough for you to fish.',
+          'To the fullest extent allowed by law, FinFindr is not responsible for injuries, losses, citations, property damage, or other consequences from your fishing activity, travel, or reliance on app information.',
+        ],
+      },
+      {
+        title: 'Limitation Of Liability',
+        body: [
+          'To the fullest extent allowed by law, FinFindr will not be liable for indirect, incidental, consequential, special, exemplary, or punitive damages, or for lost profits, lost data, lost opportunities, outdoor incidents, or personal injury connected to use of the app.',
+          'Some jurisdictions do not allow certain limitations, so parts of this section may not apply to every user.',
+        ],
+      },
+      {
+        title: 'Your Responsibility For Claims',
+        body: [
+          'You are responsible for claims, losses, or expenses that arise from your unlawful conduct, your submitted content, your breach of these Terms, or your misuse of FinFindr.',
         ],
       },
       {
