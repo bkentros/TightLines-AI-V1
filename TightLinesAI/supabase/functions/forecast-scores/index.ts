@@ -101,7 +101,7 @@ const forecastSnapshotMemoryCache = new Map<
   { expiresAtMs: number; payload: Record<string, unknown> }
 >();
 
-type ForecastSnapshotSource = "active" | "stale_recent";
+type ForecastSnapshotSource = "active" | "stale_recent" | "environment_recent";
 type ForecastSnapshotRead = {
   payload: Record<string, unknown>;
   source: ForecastSnapshotSource;
@@ -299,6 +299,49 @@ function rebaseForecastSnapshotPayload(
   return rebased;
 }
 
+function environmentPayloadToForecastPayload(
+  payload: Record<string, unknown>,
+): Record<string, unknown> {
+  const out: Record<string, unknown> = {
+    timezone: payload.timezone,
+    tz_offset_hours: payload.tz_offset_hours,
+    coastal: Boolean(payload.coastal),
+    tides_available: Boolean(payload.tides_available),
+    nearest_tide_station_id: payload.nearest_tide_station_id ?? null,
+    weather: payload.weather,
+    forecast_daily: Array.isArray(payload.forecast_daily)
+      ? payload.forecast_daily
+      : [],
+    hourly_pressure_mb: Array.isArray(payload.hourly_pressure_mb)
+      ? payload.hourly_pressure_mb
+      : [],
+    hourly_air_temp_f: Array.isArray(payload.hourly_air_temp_f)
+      ? payload.hourly_air_temp_f
+      : [],
+    hourly_cloud_cover_pct: Array.isArray(payload.hourly_cloud_cover_pct)
+      ? payload.hourly_cloud_cover_pct
+      : [],
+    hourly_wind_speed: Array.isArray(payload.hourly_wind_speed)
+      ? payload.hourly_wind_speed
+      : [],
+    hourly_weather_code: Array.isArray(payload.hourly_weather_code)
+      ? payload.hourly_weather_code
+      : [],
+    hourly_precip_probability_pct: Array.isArray(
+        payload.hourly_precip_probability_pct,
+      )
+      ? payload.hourly_precip_probability_pct
+      : [],
+    hourly_precipitation_in: Array.isArray(payload.hourly_precipitation_in)
+      ? payload.hourly_precipitation_in
+      : [],
+    forecast_tides_by_date: Array.isArray(payload.forecast_tides_by_date)
+      ? payload.forecast_tides_by_date
+      : [],
+  };
+  return out;
+}
+
 async function readForecastScoreSnapshot(
   supabase: ReturnType<typeof createClient>,
   latitude: number,
@@ -374,6 +417,50 @@ async function readRecentStaleForecastScoreSnapshot(
       if (!isUsableForecastSnapshotPayload(rebased)) continue;
       if (forecastDailyDates(rebased)[0] !== today) continue;
       return { payload: rebased, source: "stale_recent" };
+    }
+  } catch {
+    return null;
+  }
+  return null;
+}
+
+async function readRecentEnvironmentForecastSnapshot(
+  supabase: ReturnType<typeof createClient>,
+  latitude: number,
+  longitude: number,
+): Promise<ForecastSnapshotRead | null> {
+  const now = new Date();
+  const minCapturedAt = new Date(
+    now.getTime() - MAX_STALE_SNAPSHOT_AGE_MS,
+  ).toISOString();
+
+  try {
+    const { data, error } = await supabase
+      .from("environment_snapshots")
+      .select("payload,captured_at")
+      .eq("latitude_bucket", latBucket(latitude))
+      .eq("longitude_bucket", lonBucket(longitude))
+      .eq("units", SNAPSHOT_UNITS)
+      .gte("captured_at", minCapturedAt)
+      .order("captured_at", { ascending: false })
+      .limit(STALE_FALLBACK_LOOKUP_LIMIT);
+    if (error || !Array.isArray(data)) return null;
+    for (const row of data as Array<{ payload?: unknown }>) {
+      if (!row.payload || typeof row.payload !== "object") continue;
+      const payload = environmentPayloadToForecastPayload(
+        row.payload as Record<string, unknown>,
+      );
+      if (!isUsableForecastSnapshotPayload(payload)) continue;
+      const timezone = typeof payload.timezone === "string"
+        ? payload.timezone
+        : "UTC";
+      const today = formatDateInZone(now, timezone);
+      const startIndex = forecastDailyDates(payload).indexOf(today);
+      if (startIndex < 0) continue;
+      const rebased = rebaseForecastSnapshotPayload(payload, startIndex);
+      if (!isUsableForecastSnapshotPayload(rebased)) continue;
+      if (forecastDailyDates(rebased)[0] !== today) continue;
+      return { payload: rebased, source: "environment_recent" };
     }
   } catch {
     return null;
@@ -772,8 +859,12 @@ Deno.serve(async (req: Request) => {
       supabase,
       latitude,
       longitude,
+    ) ?? await readRecentEnvironmentForecastSnapshot(
+      supabase,
+      latitude,
+      longitude,
     );
-    const MAX_RETRIES = staleFallback ? 1 : 3;
+    const MAX_RETRIES = staleFallback ? 1 : 2;
     const RETRY_DELAY_MS = 600;
     let om = null;
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
