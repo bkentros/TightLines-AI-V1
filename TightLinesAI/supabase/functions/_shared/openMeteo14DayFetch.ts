@@ -4,6 +4,21 @@
  */
 
 const MM_TO_INCHES = 1 / 25.4;
+const OPEN_METEO_TIMEOUT_MS = 10_000;
+
+async function fetchWithTimeout(
+  url: string,
+  init: RequestInit,
+  timeoutMs: number,
+): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
+}
 
 function getTzOffsetHours(lon: number): number {
   if (lon >= -81) return -5;
@@ -180,9 +195,13 @@ export async function fetchOpenMeteo14Day(
   });
 
   const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
-  const res = await fetch(url, {
-    headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
-  });
+  const res = await fetchWithTimeout(
+    url,
+    {
+      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+    },
+    OPEN_METEO_TIMEOUT_MS,
+  );
   if (!res.ok) return null;
 
   const json = await res.json();

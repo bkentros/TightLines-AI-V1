@@ -45,6 +45,9 @@ const MAX_HILO_PREDICTIONS_RETURNED = 56;
 const EARTH_RADIUS_MILES = 3958.8;
 const SNAPSHOT_UNITS = "imperial";
 const SNAPSHOT_CACHE_VERSION = "v1";
+const NOAA_STATIONS_TIMEOUT_MS = 4_500;
+const NOAA_PREDICTIONS_TIMEOUT_MS = 4_500;
+const TIDE_SNAPSHOT_BUDGET_MS = 9_000;
 
 interface NOAAStation {
   id?: string;
@@ -93,6 +96,20 @@ function jsonError(message: string, status: number): Response {
     status,
     headers: { ...corsHeaders(), "Content-Type": "application/json" },
   });
+}
+
+async function fetchWithTimeout(
+  url: string,
+  init: RequestInit,
+  timeoutMs: number,
+): Promise<Response> {
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...init, signal: controller.signal });
+  } finally {
+    clearTimeout(timer);
+  }
 }
 
 function createServiceClient(): ReturnType<typeof createClient> | null {
@@ -363,9 +380,13 @@ async function getWaterLevelStationsCached(): Promise<NOAAStation[] | null> {
   const stationsUrl =
     "https://api.tidesandcurrents.noaa.gov/mdapi/prod/webapi/stations.json?type=waterlevels";
   try {
-    const response = await fetch(stationsUrl, {
-      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
-    });
+    const response = await fetchWithTimeout(
+      stationsUrl,
+      {
+        headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+      },
+      NOAA_STATIONS_TIMEOUT_MS,
+    );
     if (!response.ok) return waterLevelStationsCache?.stations ?? null;
     const json = await response.json();
     const stations: NOAAStation[] = json?.stations ?? json?.data?.stations ??
@@ -437,14 +458,19 @@ async function fetchHiloPredictions(
   stationId: string,
   beginDate: string,
   endDate: string,
+  timeoutMs: number = NOAA_PREDICTIONS_TIMEOUT_MS,
 ): Promise<TideEntry[]> {
   const url =
     `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?product=predictions&station=${stationId}` +
     `&format=json&interval=hilo&units=english&datum=mllw&begin_date=${beginDate}&end_date=${endDate}&time_zone=lst_ldt`;
   try {
-    const response = await fetch(url, {
-      headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
-    });
+    const response = await fetchWithTimeout(
+      url,
+      {
+        headers: { "User-Agent": "TightLinesAI/2.0 (fishing app)" },
+      },
+      timeoutMs,
+    );
     if (!response.ok) return [];
     const json = await response.json();
     return mapPredictionsToHighLow(json?.predictions ?? []);
@@ -511,6 +537,7 @@ async function fetchForecastTides(
   nearest_tide_station_id: string | null;
   forecast_tides_by_date: ForecastTideDay[];
 }> {
+  const deadlineMs = Date.now() + TIDE_SNAPSHOT_BUDGET_MS;
   const stations = await getWaterLevelStationsCached();
   if (!stations || stations.length === 0) {
     return {
@@ -532,8 +559,15 @@ async function fetchForecastTides(
   const { beginDate, endDate } = tideDateRangeYyyymmdd(timezone);
 
   for (const { station } of candidates) {
+    const remainingMs = deadlineMs - Date.now();
+    if (remainingMs < 1_000) break;
     const stationId = String(station.id);
-    const highLow = await fetchHiloPredictions(stationId, beginDate, endDate);
+    const highLow = await fetchHiloPredictions(
+      stationId,
+      beginDate,
+      endDate,
+      Math.max(1_000, Math.min(NOAA_PREDICTIONS_TIMEOUT_MS, remainingMs)),
+    );
     if (highLow.length < 2) continue;
 
     const byDate = new Map<string, TideEntry[]>();
