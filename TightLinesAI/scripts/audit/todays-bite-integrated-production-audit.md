@@ -1,6 +1,6 @@
 # Today's Bite Integrated Production Audit
 
-Generated: 2026-05-14T16:34:44.735Z
+Generated: 2026-05-26T12:51:43.458Z
 
 Production snapshot over the current engine after Phase 9F rain/wet final-score policy wiring. No production normalizer, report copy, app/forecast behavior, or recommender production logic was changed by this audit.
 
@@ -24,10 +24,10 @@ Production snapshot over the current engine after Phase 9F rain/wet final-score 
 
 | Context | 0-34 | 35-49 | 50-64 | 65-79 | 80-100 |
 | --- | ---: | ---: | ---: | ---: | ---: |
-| freshwater_lake_pond | 592 | 3350 | 4520 | 1906 | 0 |
-| freshwater_river | 814 | 3454 | 4764 | 1336 | 0 |
-| coastal | 134 | 2616 | 6636 | 982 | 0 |
-| coastal_flats_estuary | 430 | 3300 | 5632 | 1006 | 0 |
+| freshwater_lake_pond | 484 | 1962 | 3788 | 3488 | 646 |
+| freshwater_river | 752 | 2080 | 3770 | 3632 | 134 |
+| coastal | 128 | 986 | 6404 | 2672 | 178 |
+| coastal_flats_estuary | 372 | 1918 | 4512 | 3052 | 514 |
 
 ## Reliability Distribution
 
@@ -36,12 +36,12 @@ Production snapshot over the current engine after Phase 9F rain/wet final-score 
 
 ## Top Questionable Flags
 
-- high_score_with_major_suppressor: 0
-- low_score_with_multiple_strong_drivers: 492
-- stable_bad_temp_scored_too_well: 76
-- improving_temp_shock_over_penalized: 236
-- worsening_temp_shock_under_penalized: 8
-- hot_bright_calm_not_penalized: 268
+- high_score_with_major_suppressor: 42
+- low_score_with_multiple_strong_drivers: 550
+- stable_bad_temp_scored_too_well: 944
+- improving_temp_shock_over_penalized: 62
+- worsening_temp_shock_under_penalized: 30
+- hot_bright_calm_not_penalized: 1000
 - cold_clear_not_neutral_enough: 84
 - heavy_rain_score_too_high: 0
 - wet_baseline_score_too_high: 0
@@ -59,51 +59,51 @@ Production snapshot over the current engine after Phase 9F rain/wet final-score 
 
 | Region | Month | Context | Archetype | Clarity | Score | Reliability | Flags |
 | --- | ---: | --- | --- | --- | ---: | --- | --- |
-| mountain_alpine | 1 | freshwater_river | stable_poor_cold | clear | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| mountain_alpine | 1 | freshwater_river | stable_poor_cold | stained | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| mountain_alpine | 12 | freshwater_river | stable_poor_cold | clear | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| mountain_alpine | 12 | freshwater_river | stable_poor_cold | stained | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| alaska | 1 | freshwater_river | stable_poor_cold | clear | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| alaska | 1 | freshwater_river | stable_poor_cold | stained | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| alaska | 2 | freshwater_river | stable_poor_cold | clear | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| alaska | 2 | freshwater_river | stable_poor_cold | stained | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| alaska | 12 | freshwater_river | stable_poor_cold | clear | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| alaska | 12 | freshwater_river | stable_poor_cold | stained | 63 | high | stable_bad_temp_scored_too_well, cold_clear_not_neutral_enough |
-| florida | 6 | coastal_flats_estuary | stable_poor_hot | clear | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
-| florida | 6 | coastal_flats_estuary | stable_poor_hot | stained | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
-| florida | 7 | coastal_flats_estuary | stable_poor_hot | clear | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
-| florida | 7 | coastal_flats_estuary | stable_poor_hot | stained | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
-| south_central | 8 | coastal_flats_estuary | stable_poor_hot | clear | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
-| south_central | 8 | coastal_flats_estuary | stable_poor_hot | stained | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
-| mountain_west | 8 | coastal_flats_estuary | stable_poor_hot | clear | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
-| mountain_west | 8 | coastal_flats_estuary | stable_poor_hot | stained | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
-| southwest_desert | 8 | coastal_flats_estuary | stable_poor_hot | clear | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
-| southwest_desert | 8 | coastal_flats_estuary | stable_poor_hot | stained | 62 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| florida | 6 | coastal_flats_estuary | stable_poor_hot | clear | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| florida | 6 | coastal_flats_estuary | stable_poor_hot | stained | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| florida | 7 | coastal_flats_estuary | stable_poor_hot | clear | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| florida | 7 | coastal_flats_estuary | stable_poor_hot | stained | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| south_central | 8 | coastal_flats_estuary | stable_poor_hot | clear | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| south_central | 8 | coastal_flats_estuary | stable_poor_hot | stained | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| mountain_west | 8 | coastal_flats_estuary | stable_poor_hot | clear | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| mountain_west | 8 | coastal_flats_estuary | stable_poor_hot | stained | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| southwest_desert | 8 | coastal_flats_estuary | stable_poor_hot | clear | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| southwest_desert | 8 | coastal_flats_estuary | stable_poor_hot | stained | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| southwest_high_desert | 8 | coastal_flats_estuary | stable_poor_hot | clear | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| southwest_high_desert | 8 | coastal_flats_estuary | stable_poor_hot | stained | 71 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| gulf_coast | 8 | coastal_flats_estuary | stable_poor_hot | clear | 70 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| gulf_coast | 8 | coastal_flats_estuary | stable_poor_hot | stained | 70 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| hawaii | 11 | coastal_flats_estuary | stable_poor_hot | clear | 70 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| hawaii | 11 | coastal_flats_estuary | stable_poor_hot | stained | 70 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| northeast | 1 | coastal_flats_estuary | stable_poor_hot | clear | 69 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| northeast | 1 | coastal_flats_estuary | stable_poor_hot | stained | 69 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| northeast | 2 | coastal_flats_estuary | stable_poor_hot | clear | 69 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
+| northeast | 2 | coastal_flats_estuary | stable_poor_hot | stained | 69 | high | stable_bad_temp_scored_too_well, hot_bright_calm_not_penalized |
 
 ## Best 20 Rows That Look Sensible
 
 | Region | Month | Context | Archetype | Clarity | Score | Band | Drivers |
 | --- | ---: | --- | --- | --- | ---: | --- | --- |
-| south_central | 1 | freshwater_lake_pond | light_mist_dry_baseline | clear | 78 | Good | temperature_condition, light_cloud_condition |
-| south_central | 1 | freshwater_lake_pond | light_mist_dry_baseline | stained | 78 | Good | temperature_condition, light_cloud_condition |
-| southwest_desert | 3 | freshwater_lake_pond | light_mist_dry_baseline | clear | 78 | Good | temperature_condition, light_cloud_condition |
-| southwest_desert | 3 | freshwater_lake_pond | light_mist_dry_baseline | stained | 78 | Good | temperature_condition, light_cloud_condition |
-| southwest_high_desert | 3 | freshwater_lake_pond | light_mist_dry_baseline | clear | 78 | Good | temperature_condition, light_cloud_condition |
-| southwest_high_desert | 3 | freshwater_lake_pond | light_mist_dry_baseline | stained | 78 | Good | temperature_condition, light_cloud_condition |
-| mountain_alpine | 6 | freshwater_lake_pond | light_mist_dry_baseline | clear | 78 | Good | temperature_condition, light_cloud_condition |
-| mountain_alpine | 6 | freshwater_lake_pond | light_mist_dry_baseline | stained | 78 | Good | temperature_condition, light_cloud_condition |
-| mountain_alpine | 9 | freshwater_lake_pond | light_mist_dry_baseline | clear | 78 | Good | temperature_condition, light_cloud_condition |
-| mountain_alpine | 9 | freshwater_lake_pond | light_mist_dry_baseline | stained | 78 | Good | temperature_condition, light_cloud_condition |
-| alaska | 11 | freshwater_lake_pond | light_mist_dry_baseline | clear | 78 | Good | temperature_condition, light_cloud_condition |
-| alaska | 11 | freshwater_lake_pond | light_mist_dry_baseline | stained | 78 | Good | temperature_condition, light_cloud_condition |
-| gulf_coast | 11 | freshwater_lake_pond | light_mist_dry_baseline | clear | 77 | Good | temperature_condition, light_cloud_condition |
-| gulf_coast | 11 | freshwater_lake_pond | light_mist_dry_baseline | stained | 77 | Good | temperature_condition, light_cloud_condition |
-| south_central | 2 | freshwater_lake_pond | light_mist_dry_baseline | clear | 77 | Good | temperature_condition, light_cloud_condition |
-| south_central | 2 | freshwater_lake_pond | light_mist_dry_baseline | stained | 77 | Good | temperature_condition, light_cloud_condition |
-| pacific_northwest | 6 | freshwater_lake_pond | light_mist_dry_baseline | clear | 77 | Good | temperature_condition, light_cloud_condition |
-| pacific_northwest | 6 | freshwater_lake_pond | light_mist_dry_baseline | stained | 77 | Good | temperature_condition, light_cloud_condition |
-| pacific_northwest | 8 | freshwater_lake_pond | light_mist_dry_baseline | clear | 77 | Good | temperature_condition, light_cloud_condition |
-| pacific_northwest | 8 | freshwater_lake_pond | light_mist_dry_baseline | stained | 77 | Good | temperature_condition, light_cloud_condition |
+| southeast_atlantic | 2 | coastal_flats_estuary | improving_shock_toward_good | clear | 99 | Prime | temperature_condition, tide_current_movement |
+| southeast_atlantic | 2 | coastal_flats_estuary | improving_shock_toward_good | stained | 99 | Prime | temperature_condition, tide_current_movement |
+| south_central | 2 | coastal_flats_estuary | improving_shock_toward_good | clear | 99 | Prime | temperature_condition, tide_current_movement |
+| south_central | 2 | coastal_flats_estuary | improving_shock_toward_good | stained | 99 | Prime | temperature_condition, tide_current_movement |
+| southwest_desert | 1 | coastal_flats_estuary | improving_shock_toward_good | clear | 99 | Prime | temperature_condition, tide_current_movement |
+| southwest_desert | 1 | coastal_flats_estuary | improving_shock_toward_good | stained | 99 | Prime | temperature_condition, tide_current_movement |
+| southwest_desert | 2 | coastal_flats_estuary | improving_shock_toward_good | clear | 99 | Prime | temperature_condition, tide_current_movement |
+| southwest_desert | 2 | coastal_flats_estuary | improving_shock_toward_good | stained | 99 | Prime | temperature_condition, tide_current_movement |
+| southwest_high_desert | 1 | coastal_flats_estuary | improving_shock_toward_good | clear | 99 | Prime | temperature_condition, tide_current_movement |
+| southwest_high_desert | 1 | coastal_flats_estuary | improving_shock_toward_good | stained | 99 | Prime | temperature_condition, tide_current_movement |
+| southwest_high_desert | 2 | coastal_flats_estuary | improving_shock_toward_good | clear | 99 | Prime | temperature_condition, tide_current_movement |
+| southwest_high_desert | 2 | coastal_flats_estuary | improving_shock_toward_good | stained | 99 | Prime | temperature_condition, tide_current_movement |
+| southern_california | 2 | coastal_flats_estuary | improving_shock_toward_good | clear | 99 | Prime | temperature_condition, tide_current_movement |
+| southern_california | 2 | coastal_flats_estuary | improving_shock_toward_good | stained | 99 | Prime | temperature_condition, tide_current_movement |
+| south_central | 1 | freshwater_lake_pond | light_mist_dry_baseline | clear | 95 | Prime | temperature_condition, light_cloud_condition |
+| south_central | 1 | freshwater_lake_pond | light_mist_dry_baseline | stained | 95 | Prime | temperature_condition, light_cloud_condition |
+| southwest_desert | 3 | freshwater_lake_pond | light_mist_dry_baseline | clear | 95 | Prime | temperature_condition, light_cloud_condition |
+| southwest_desert | 3 | freshwater_lake_pond | light_mist_dry_baseline | stained | 95 | Prime | temperature_condition, light_cloud_condition |
+| southwest_high_desert | 3 | freshwater_lake_pond | light_mist_dry_baseline | clear | 95 | Prime | temperature_condition, light_cloud_condition |
+| southwest_high_desert | 3 | freshwater_lake_pond | light_mist_dry_baseline | stained | 95 | Prime | temperature_condition, light_cloud_condition |
 
 ## Recommender Protection
 
@@ -114,27 +114,27 @@ Production snapshot over the current engine after Phase 9F rain/wet final-score 
 - Not applicable coastal/flats rows: 20736
 
 Activity distribution:
-- neutral: 15164
-- suppressed: 1318
-- active: 798
+- neutral: 13496
+- active: 2608
+- suppressed: 1176
 
 Surface gate distribution:
-- closed: 12874
-- open: 2492
-- caution: 1914
+- closed: 12744
+- caution: 2590
+- open: 1946
 
 Scenario tag counts:
-- wind_reaction: 9698
-- dirty_vibration: 5135
-- open_water_search: 4654
+- wind_reaction: 6126
 - heat_finesse: 3432
-- clear_subtle: 2807
-- cold_slow: 2320
+- dirty_vibration: 3355
+- clear_subtle: 2655
+- open_water_search: 1986
+- cold_slow: 1916
 - runoff_streamer: 1626
 - current_swing: 1626
-- calm_surface: 1440
-- low_light_surface: 1322
-- warming_search: 516
+- low_light_surface: 1350
+- calm_surface: 1168
+- warming_search: 534
 
 This is a production snapshot only, so there are no candidate-vs-baseline selected-pick changes. Unsupported exact rows are recorded as unsupported rather than failures.
 
@@ -142,13 +142,13 @@ This is a production snapshot only, so there are no candidate-vs-baseline select
 
 | Day offset | Target date | Context | Score | Reliability | Mean | Prior | D-2 | P24 | P72 | P7d | Pressure count | Measured water present | Temp source | Status | Notes |
 | ---: | --- | --- | ---: | --- | ---: | ---: | ---: | ---: | ---: | ---: | ---: | --- | --- | --- | --- |
-| 0 | 2026-06-15 | coastal | 66 | high | 71.48493299359394 | 68.97559994043908 | 66.20292250900536 | 0.02 | 0.12000000000000001 | 0.59 | 48 | yes | coastal_water_temp | pass | none |
-| 1 | 2026-06-16 | freshwater_lake_pond | 45 | high | 73.1899998838737 | 71.48493299359394 | 68.97559994043908 | 0.35 | 0.38999999999999996 | 0.92 | 48 | no | air_daily_mean | pass | none |
-| 2 | 2026-06-17 | coastal | 61 | medium | 73.74679123311691 | 73.1899998838737 | 71.48493299359394 | 0.02 | 0.39 | 0.8600000000000001 | 48 | no | air_daily_mean | pass | none |
-| 3 | 2026-06-18 | freshwater_lake_pond | 41 | high | 73.09243556311745 | 73.74679123311691 | 73.1899998838737 | 0.02 | 0.39 | 0.53 | 48 | no | air_daily_mean | pass | none |
+| 0 | 2026-06-15 | coastal | 88 | high | 71.48493299359394 | 68.97559994043908 | 66.20292250900536 | 0.02 | 0.12000000000000001 | 0.59 | 48 | yes | coastal_water_temp | pass | none |
+| 1 | 2026-06-16 | freshwater_lake_pond | 52 | high | 73.1899998838737 | 71.48493299359394 | 68.97559994043908 | 0.35 | 0.38999999999999996 | 0.92 | 48 | no | air_daily_mean | pass | none |
+| 2 | 2026-06-17 | coastal | 64 | medium | 73.74679123311691 | 73.1899998838737 | 71.48493299359394 | 0.02 | 0.39 | 0.8600000000000001 | 48 | no | air_daily_mean | pass | none |
+| 3 | 2026-06-18 | freshwater_lake_pond | 47 | high | 73.09243556311745 | 73.74679123311691 | 73.1899998838737 | 0.02 | 0.39 | 0.53 | 48 | no | air_daily_mean | pass | none |
 | 4 | 2026-06-19 | coastal | 65 | medium | 71.46059242620879 | 73.09243556311745 | 73.74679123311691 | 0.08 | 0.12 | 0.59 | 48 | no | air_daily_mean | pass | none |
-| 5 | 2026-06-20 | freshwater_lake_pond | 40 | high | 69.32424439769096 | 71.46059242620879 | 73.09243556311745 | 0.02 | 0.12000000000000001 | 0.53 | 48 | no | air_daily_mean | pass | none |
-| 6 | 2026-06-21 | coastal | 61 | medium | 67.27989444555315 | 69.32424439769096 | 71.46059242620879 | 0.35 | 0.44999999999999996 | 0.86 | 48 | no | air_daily_mean | pass | none |
+| 5 | 2026-06-20 | freshwater_lake_pond | 46 | high | 69.32424439769096 | 71.46059242620879 | 73.09243556311745 | 0.02 | 0.12000000000000001 | 0.53 | 48 | no | air_daily_mean | pass | none |
+| 6 | 2026-06-21 | coastal | 64 | medium | 67.27989444555315 | 69.32424439769096 | 71.46059242620879 | 0.35 | 0.44999999999999996 | 0.86 | 48 | no | air_daily_mean | pass | none |
 
 Findings:
 - Target-day daily means, prior means, precipitation windows, and pressure histories are materialized by day offset 0..6.

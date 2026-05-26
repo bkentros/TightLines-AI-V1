@@ -171,7 +171,11 @@ export function buildSharedNormalizedOutput(
   let runoff: ReturnType<typeof normalizeRunoff> = null;
   if (req.context === "freshwater_river") {
     if (p24 != null && p72 != null && p7dRiver != null) {
-      runoff = normalizeRunoff(req.region_key, p24, p72, p7dRiver, month);
+      runoff = normalizeRunoff(req.region_key, p24, p72, p7dRiver, month, {
+        activeHeavyRain: Boolean(
+          e.active_precip_now && (e.precip_rate_now_in_per_hr ?? 0) >= 0.05,
+        ),
+      });
     }
   }
 

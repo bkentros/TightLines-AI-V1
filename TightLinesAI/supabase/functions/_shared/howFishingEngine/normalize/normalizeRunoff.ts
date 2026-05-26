@@ -42,6 +42,11 @@ const FLASHY_REGIONS = new Set<RegionKey>([
 
 const PERFECT_CLEAR_MAX = 0.55;
 const STABLE_MAX = 0.35;
+const STALE_SETTLING_DETAIL = "stale_settling_p7d_only";
+
+type NormalizeRunoffOptions = {
+  activeHeavyRain?: boolean | null;
+};
 
 function finiteWindow(value: number | null | undefined): value is number {
   return value != null && Number.isFinite(value) && value >= 0;
@@ -117,6 +122,69 @@ function rampBetween(
   );
 }
 
+function staleSettlingEligible(
+  region: RegionKey,
+  month: number | undefined,
+  label: string,
+  p24: number,
+  p72: number,
+  p7d: number,
+  t: ReturnType<typeof scaledThresholds>,
+  activeHeavyRain: boolean,
+): boolean {
+  if (activeHeavyRain) return false;
+  if (label !== "slightly_elevated" && label !== "elevated") return false;
+  if (p24 >= t.stable[0]! || p72 >= t.stable[1]!) return false;
+  if (p24 >= 0.35 || p72 >= 1.0) return false;
+
+  const meaningfullyStaleP7d = p7d >= Math.max(t.stable[2]! * 1.12, 1.25);
+  if (!meaningfullyStaleP7d || p7d >= t.elevated[2]!) return false;
+
+  if (label === "elevated") {
+    if (FLASHY_REGIONS.has(region)) return false;
+    const m = month ?? 0;
+    if (SNOWMELT_RISK_REGIONS.has(region) && m >= 6) return false;
+  }
+  return true;
+}
+
+function withStaleSettlingSoftness(
+  state: VariableState,
+  region: RegionKey,
+  month: number | undefined,
+  p24: number,
+  p72: number,
+  p7d: number,
+  t: ReturnType<typeof scaledThresholds>,
+  activeHeavyRain: boolean,
+): VariableState {
+  if (
+    !staleSettlingEligible(
+      region,
+      month,
+      state.label,
+      p24,
+      p72,
+      p7d,
+      t,
+      activeHeavyRain,
+    )
+  ) {
+    return state;
+  }
+
+  const recentU = Math.max(p24 / t.stable[0]!, p72 / t.stable[1]!);
+  const recentSettledStrength = Math.max(0, Math.min(1, 1 - recentU / 0.9));
+  const multiplierBase = state.label === "slightly_elevated" ? 0.76 : 0.82;
+  const multiplier = multiplierBase - 0.08 * recentSettledStrength;
+  const score = Math.min(0, state.score * multiplier);
+  return {
+    ...state,
+    score: clampEngineScore(score),
+    detail: [state.detail, STALE_SETTLING_DETAIL].filter(Boolean).join("; "),
+  };
+}
+
 /**
  * River Hydrology / Runoff Proxy V2 is production-wired.
  *
@@ -131,6 +199,7 @@ export function normalizeRunoff(
   p72: number | null | undefined,
   p7d: number | null | undefined,
   month?: number,
+  options: NormalizeRunoffOptions = {},
 ): VariableState | null {
   if (!finiteWindow(p24) || !finiteWindow(p72) || !finiteWindow(p7d)) {
     return null;
@@ -166,32 +235,50 @@ export function normalizeRunoff(
     };
   }
   if (belowAll(p24, p72, p7d, t.slight)) {
-    return {
-      label: "slightly_elevated",
-      score: clampEngineScore(
-        pieceLinear(
-          rampBetween(p24, p72, p7d, t.stable, t.slight),
-          0,
-          1,
-          -0.05,
-          -0.60,
+    return withStaleSettlingSoftness(
+      {
+        label: "slightly_elevated",
+        score: clampEngineScore(
+          pieceLinear(
+            rampBetween(p24, p72, p7d, t.stable, t.slight),
+            0,
+            1,
+            -0.05,
+            -0.60,
+          ),
         ),
-      ),
-    };
+      },
+      region,
+      month,
+      p24,
+      p72,
+      p7d,
+      t,
+      options.activeHeavyRain === true,
+    );
   }
   if (belowAll(p24, p72, p7d, t.elevated)) {
-    return {
-      label: "elevated",
-      score: clampEngineScore(
-        pieceLinear(
-          rampBetween(p24, p72, p7d, t.slight, t.elevated),
-          0,
-          1,
-          -0.65,
-          -1.25,
+    return withStaleSettlingSoftness(
+      {
+        label: "elevated",
+        score: clampEngineScore(
+          pieceLinear(
+            rampBetween(p24, p72, p7d, t.slight, t.elevated),
+            0,
+            1,
+            -0.65,
+            -1.25,
+          ),
         ),
-      ),
-    };
+      },
+      region,
+      month,
+      p24,
+      p72,
+      p7d,
+      t,
+      options.activeHeavyRain === true,
+    );
   }
 
   const u = Math.min(

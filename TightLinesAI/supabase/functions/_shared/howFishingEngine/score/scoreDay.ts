@@ -228,9 +228,11 @@ function scoreDayV46CombinedLight(
   const activeHeavyRain = Boolean(
     options.activePrecipNow && (options.precipRateNowInPerHr ?? 0) >= 0.05,
   );
+  const staleSettlingRunoff = isStaleSettlingRunoff(norm);
   const recentWetRain = (options.precip72hIn ?? 0) >= 1.0 ||
-    (options.precip7dIn ?? 0) >= 2.0 ||
-    (norm.normalized.runoff_flow_disruption?.score ?? 0) <= -1;
+    (!staleSettlingRunoff && (options.precip7dIn ?? 0) >= 2.0) ||
+    (!staleSettlingRunoff &&
+      (norm.normalized.runoff_flow_disruption?.score ?? 0) <= -1);
 
   const baseFacts = buildV43Facts(
     norm,
@@ -348,6 +350,13 @@ function scoreDayV46CombinedLight(
       options,
     ),
   };
+}
+
+function isStaleSettlingRunoff(norm: SharedNormalizedOutput): boolean {
+  return norm.context === "freshwater_river" &&
+    /\bstale_settling_p7d_only\b/.test(
+      norm.normalized.runoff_flow_disruption?.detail ?? "",
+    );
 }
 
 function v46HardSpreadBlock(facts: V43RowFacts): boolean {
