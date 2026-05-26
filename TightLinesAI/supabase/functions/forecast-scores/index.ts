@@ -48,6 +48,25 @@ const SNAPSHOT_CACHE_VERSION = "v1";
 const NOAA_STATIONS_TIMEOUT_MS = 4_500;
 const NOAA_PREDICTIONS_TIMEOUT_MS = 4_500;
 const TIDE_SNAPSHOT_BUDGET_MS = 9_000;
+const MAX_STALE_SNAPSHOT_AGE_MS = 48 * 60 * 60 * 1000;
+const STALE_FALLBACK_LOOKUP_LIMIT = 5;
+const DAILY_WEATHER_ARRAY_KEYS = [
+  "temp_7day_high",
+  "temp_7day_low",
+  "precip_7day_daily",
+  "weather_code_daily",
+  "precipitation_probability_max_daily",
+  "wind_speed_10m_max_daily",
+] as const;
+const HOURLY_ENV_ARRAY_KEYS = [
+  "hourly_pressure_mb",
+  "hourly_air_temp_f",
+  "hourly_cloud_cover_pct",
+  "hourly_wind_speed",
+  "hourly_weather_code",
+  "hourly_precip_probability_pct",
+  "hourly_precipitation_in",
+] as const;
 
 interface NOAAStation {
   id?: string;
@@ -81,6 +100,12 @@ const forecastSnapshotMemoryCache = new Map<
   string,
   { expiresAtMs: number; payload: Record<string, unknown> }
 >();
+
+type ForecastSnapshotSource = "active" | "stale_recent";
+type ForecastSnapshotRead = {
+  payload: Record<string, unknown>;
+  source: ForecastSnapshotSource;
+};
 
 function corsHeaders() {
   return {
@@ -224,11 +249,61 @@ function isUsableForecastSnapshotPayload(
   );
 }
 
+function forecastDailyDates(payload: Record<string, unknown>): string[] {
+  const daily = payload.forecast_daily;
+  if (!Array.isArray(daily)) return [];
+  return daily
+    .map((entry) =>
+      entry && typeof entry === "object"
+        ? String((entry as { date?: unknown }).date ?? "")
+        : ""
+    )
+    .filter((date) => /^\d{4}-\d{2}-\d{2}$/.test(date));
+}
+
+function rebaseForecastSnapshotPayload(
+  payload: Record<string, unknown>,
+  startIndex: number,
+): Record<string, unknown> {
+  if (startIndex <= 0) return payload;
+
+  const rebased: Record<string, unknown> = { ...payload };
+  const weather = payload.weather && typeof payload.weather === "object"
+    ? { ...(payload.weather as Record<string, unknown>) }
+    : null;
+  if (weather) {
+    for (const key of DAILY_WEATHER_ARRAY_KEYS) {
+      const value = weather[key];
+      if (Array.isArray(value)) weather[key] = value.slice(startIndex);
+    }
+    rebased.weather = weather;
+  }
+
+  const hourlyStart = startIndex * 24;
+  for (const key of HOURLY_ENV_ARRAY_KEYS) {
+    const value = payload[key];
+    if (Array.isArray(value)) rebased[key] = value.slice(hourlyStart);
+  }
+  const daily = payload.forecast_daily;
+  if (Array.isArray(daily)) {
+    rebased.forecast_daily = daily.slice(startIndex);
+  }
+  const firstRebasedDate = forecastDailyDates(rebased)[0];
+  const tides = payload.forecast_tides_by_date;
+  if (firstRebasedDate && Array.isArray(tides)) {
+    rebased.forecast_tides_by_date = tides.filter((entry) =>
+      entry && typeof entry === "object" &&
+      String((entry as { date?: unknown }).date ?? "") >= firstRebasedDate
+    );
+  }
+  return rebased;
+}
+
 async function readForecastScoreSnapshot(
   supabase: ReturnType<typeof createClient>,
   latitude: number,
   longitude: number,
-): Promise<Record<string, unknown> | null> {
+): Promise<ForecastSnapshotRead | null> {
   const memoryKey = activeSnapshotMemoryKey(latitude, longitude);
   const memoryHit = forecastSnapshotMemoryCache.get(memoryKey);
   if (
@@ -236,7 +311,7 @@ async function readForecastScoreSnapshot(
     memoryHit.expiresAtMs > Date.now() &&
     isUsableForecastSnapshotPayload(memoryHit.payload)
   ) {
-    return memoryHit.payload;
+    return { payload: memoryHit.payload, source: "active" };
   }
 
   try {
@@ -258,10 +333,52 @@ async function readForecastScoreSnapshot(
       ).getTime(),
       payload: row.payload,
     });
-    return row.payload;
+    return { payload: row.payload, source: "active" };
   } catch {
     return null;
   }
+}
+
+async function readRecentStaleForecastScoreSnapshot(
+  supabase: ReturnType<typeof createClient>,
+  latitude: number,
+  longitude: number,
+): Promise<ForecastSnapshotRead | null> {
+  const now = new Date();
+  const minCreatedAt = new Date(
+    now.getTime() - MAX_STALE_SNAPSHOT_AGE_MS,
+  ).toISOString();
+
+  try {
+    const { data, error } = await supabase
+      .from("forecast_score_snapshots")
+      .select("payload,created_at,expires_at")
+      .eq("latitude_bucket", latBucket(latitude))
+      .eq("longitude_bucket", lonBucket(longitude))
+      .eq("units", SNAPSHOT_UNITS)
+      .lt("expires_at", now.toISOString())
+      .gte("created_at", minCreatedAt)
+      .order("created_at", { ascending: false })
+      .limit(STALE_FALLBACK_LOOKUP_LIMIT);
+    if (error || !Array.isArray(data)) return null;
+    for (const row of data as Array<{ payload?: unknown }>) {
+      if (!isUsableForecastSnapshotPayload(row.payload)) continue;
+      const payload = row.payload;
+      const timezone = typeof payload.timezone === "string"
+        ? payload.timezone
+        : "UTC";
+      const today = formatDateInZone(now, timezone);
+      const startIndex = forecastDailyDates(payload).indexOf(today);
+      if (startIndex < 0) continue;
+      const rebased = rebaseForecastSnapshotPayload(payload, startIndex);
+      if (!isUsableForecastSnapshotPayload(rebased)) continue;
+      if (forecastDailyDates(rebased)[0] !== today) continue;
+      return { payload: rebased, source: "stale_recent" };
+    }
+  } catch {
+    return null;
+  }
+  return null;
 }
 
 async function writeForecastScoreSnapshot(
@@ -641,14 +758,22 @@ Deno.serve(async (req: Request) => {
   const supabase = createServiceClient();
   if (!supabase) return jsonError("Auth service is not configured", 500);
 
-  let envRecord = await readForecastScoreSnapshot(
+  const activeSnapshot = await readForecastScoreSnapshot(
     supabase,
     latitude,
     longitude,
   );
+  let envRecord = activeSnapshot?.payload ?? null;
+  let snapshotSource: ForecastSnapshotSource | "fresh" =
+    activeSnapshot?.source ?? "fresh";
 
   if (!envRecord) {
-    const MAX_RETRIES = 3;
+    const staleFallback = await readRecentStaleForecastScoreSnapshot(
+      supabase,
+      latitude,
+      longitude,
+    );
+    const MAX_RETRIES = staleFallback ? 1 : 3;
     const RETRY_DELAY_MS = 600;
     let om = null;
     for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
@@ -670,52 +795,70 @@ Deno.serve(async (req: Request) => {
     }
 
     if (!om?.weather) {
-      return new Response(
-        JSON.stringify({ error: "Weather data unavailable" }),
-        {
-          status: 503,
-          headers: { ...corsHeaders(), "Content-Type": "application/json" },
-        },
-      );
+      if (staleFallback) {
+        envRecord = staleFallback.payload;
+        snapshotSource = staleFallback.source;
+      } else {
+        return new Response(
+          JSON.stringify({ error: "Weather data unavailable" }),
+          {
+            status: 503,
+            headers: { ...corsHeaders(), "Content-Type": "application/json" },
+          },
+        );
+      }
     }
 
-    const timezone = om.timezone ?? "UTC";
-    const tideSnapshot = await fetchForecastTides(
-      latitude,
-      longitude,
-      timezone,
-      om.tz_offset_hours ?? 0,
-    );
-
-    envRecord = {
-      timezone: om.timezone,
-      tz_offset_hours: om.tz_offset_hours,
-      coastal: tideSnapshot.coastal,
-      tides_available: tideSnapshot.forecast_tides_by_date.length > 0,
-      nearest_tide_station_id: tideSnapshot.nearest_tide_station_id,
-      weather: om.weather,
-      forecast_daily: om.forecast_daily ?? [],
-      hourly_pressure_mb: om.hourly_pressure_mb ?? [],
-      hourly_air_temp_f: om.hourly_air_temp_f ?? [],
-      hourly_cloud_cover_pct: om.hourly_cloud_cover_pct ?? [],
-      hourly_wind_speed: om.hourly_wind_speed ?? [],
-      hourly_weather_code: om.hourly_weather_code ?? [],
-      hourly_precip_probability_pct: om.hourly_precip_probability_pct ?? [],
-      hourly_precipitation_in: om.hourly_precipitation_in ?? [],
-      forecast_tides_by_date: tideSnapshot.forecast_tides_by_date,
-    };
-
-    const localDate = om.forecast_daily?.[0]?.date;
-    if (localDate && localDate.length === 10) {
-      await writeForecastScoreSnapshot(
-        supabase,
+    if (om?.weather) {
+      const timezone = om.timezone ?? "UTC";
+      const tideSnapshot = await fetchForecastTides(
         latitude,
         longitude,
         timezone,
-        localDate,
-        envRecord,
+        om.tz_offset_hours ?? 0,
       );
+
+      envRecord = {
+        timezone: om.timezone,
+        tz_offset_hours: om.tz_offset_hours,
+        coastal: tideSnapshot.coastal,
+        tides_available: tideSnapshot.forecast_tides_by_date.length > 0,
+        nearest_tide_station_id: tideSnapshot.nearest_tide_station_id,
+        weather: om.weather,
+        forecast_daily: om.forecast_daily ?? [],
+        hourly_pressure_mb: om.hourly_pressure_mb ?? [],
+        hourly_air_temp_f: om.hourly_air_temp_f ?? [],
+        hourly_cloud_cover_pct: om.hourly_cloud_cover_pct ?? [],
+        hourly_wind_speed: om.hourly_wind_speed ?? [],
+        hourly_weather_code: om.hourly_weather_code ?? [],
+        hourly_precip_probability_pct: om.hourly_precip_probability_pct ?? [],
+        hourly_precipitation_in: om.hourly_precipitation_in ?? [],
+        forecast_tides_by_date: tideSnapshot.forecast_tides_by_date,
+      };
+      snapshotSource = "fresh";
+
+      const localDate = om.forecast_daily?.[0]?.date;
+      if (localDate && localDate.length === 10) {
+        await writeForecastScoreSnapshot(
+          supabase,
+          latitude,
+          longitude,
+          timezone,
+          localDate,
+          envRecord,
+        );
+      }
     }
+  }
+
+  if (!envRecord) {
+    return new Response(
+      JSON.stringify({ error: "Weather data unavailable" }),
+      {
+        status: 503,
+        headers: { ...corsHeaders(), "Content-Type": "application/json" },
+      },
+    );
   }
 
   const timezone = typeof envRecord.timezone === "string"
@@ -843,9 +986,10 @@ Deno.serve(async (req: Request) => {
     ? {
       forecast,
       timezone,
+      snapshot_source: snapshotSource,
       snapshot_env: trimSnapshotForMaxDayOffset(envRecord, maxDayOffset),
     }
-    : { forecast, timezone };
+    : { forecast, timezone, snapshot_source: snapshotSource };
 
   return new Response(
     JSON.stringify(responseBody),
