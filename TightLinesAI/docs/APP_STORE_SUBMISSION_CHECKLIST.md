@@ -27,7 +27,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 
 ### 1. Freeze The Submission Surface
 
-- [ ] Create a `release/app-store-v1` branch after current visual/subscription work is stable.
+- [x] Create a `release/app-store-v1` branch after current visual/subscription work is stable. Created and pushed from commit `a0afd89` on 2026-05-26.
 - [ ] Decide final scope for v1: no half-enabled screens, no “coming soon” promises unless non-blocking and polished.
 - [ ] Remove or hide any dev-only controls from production users.
 - [x] Dev tier override is limited to `__DEV__` or admin email in `app/(tabs)/settings.tsx`.
