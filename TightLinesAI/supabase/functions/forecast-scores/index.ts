@@ -501,13 +501,11 @@ async function fetchNwsForecastSnapshotFallback(
 
     const today = formatDateInZone(new Date(), timezone);
     const offset = nwsStartOffset(periods);
-    const periodByDateHour = new Map<string, Record<string, unknown>>();
     const dailyPeriods = new Map<string, Array<Record<string, unknown>>>();
     for (const period of periods) {
       const date = nwsPeriodDate(period);
       const hour = nwsPeriodHour(period);
       if (!date || hour == null) continue;
-      periodByDateHour.set(`${date}|${hour}`, period);
       const bucket = dailyPeriods.get(date) ?? [];
       bucket.push(period);
       dailyPeriods.set(date, bucket);
@@ -525,12 +523,12 @@ async function fetchNwsForecastSnapshotFallback(
     const dates21: string[] = [];
     for (let i = -14; i <= 6; i++) dates21.push(addDaysYmd(today, i));
 
-    const tempHighs: number[] = [];
-    const tempLows: number[] = [];
-    const precipDaily: number[] = [];
-    const precipProbDaily: number[] = [];
-    const weatherCodeDaily: number[] = [];
-    const windMaxDaily: number[] = [];
+    const tempHighs: Array<number | null> = [];
+    const tempLows: Array<number | null> = [];
+    const precipDaily: Array<number | null> = [];
+    const precipProbDaily: Array<number | null> = [];
+    const weatherCodeDaily: Array<number | null> = [];
+    const windMaxDaily: Array<number | null> = [];
     const forecastDaily: Array<Record<string, unknown>> = [];
 
     for (const date of dates21) {
@@ -547,21 +545,25 @@ async function fetchNwsForecastSnapshotFallback(
         .map((p) => parseNwsQuantitativeValue(p.probabilityOfPrecipitation))
         .filter((v): v is number => v != null);
       const codes = dayPeriods.map((p) => weatherCodeEstimate(p.shortForecast));
-      const high = temps.length ? Math.max(...temps) : firstTemp;
-      const low = temps.length ? Math.min(...temps) : firstTemp;
-      const precipProb = probs.length ? Math.max(...probs) : 0;
-      const windMax = winds.length ? Math.max(...winds) : currentWind;
+      const high = temps.length ? Math.max(...temps) : null;
+      const low = temps.length ? Math.min(...temps) : null;
+      const precipProb = probs.length ? Math.max(...probs) : null;
+      const windMax = winds.length ? Math.max(...winds) : null;
       const code = codes.includes(95)
         ? 95
         : codes.includes(61)
         ? 61
-        : codes[0] ?? currentCode;
-      tempHighs.push(Math.round(high * 10) / 10);
-      tempLows.push(Math.round(low * 10) / 10);
-      precipDaily.push(0);
-      precipProbDaily.push(Math.max(0, Math.min(100, Math.round(precipProb))));
+        : codes[0] ?? null;
+      tempHighs.push(high == null ? null : Math.round(high * 10) / 10);
+      tempLows.push(low == null ? null : Math.round(low * 10) / 10);
+      precipDaily.push(null);
+      precipProbDaily.push(
+        precipProb == null
+          ? null
+          : Math.max(0, Math.min(100, Math.round(precipProb))),
+      );
       weatherCodeDaily.push(code);
-      windMaxDaily.push(Math.round(windMax * 10) / 10);
+      windMaxDaily.push(windMax == null ? null : Math.round(windMax * 10) / 10);
     }
 
     for (let day = 0; day <= 6; day++) {
@@ -569,10 +571,10 @@ async function fetchNwsForecastSnapshotFallback(
       const date = dates21[idx]!;
       forecastDaily.push({
         date,
-        high_temp_f: tempHighs[idx],
-        low_temp_f: tempLows[idx],
-        precip_chance_pct: precipProbDaily[idx],
-        wind_mph_max: windMaxDaily[idx],
+        high_temp_f: tempHighs[idx] ?? 0,
+        low_temp_f: tempLows[idx] ?? 0,
+        precip_chance_pct: precipProbDaily[idx] ?? 0,
+        wind_mph_max: windMaxDaily[idx] ?? 0,
         sunrise_local: "",
         sunset_local: "",
       });
@@ -587,46 +589,40 @@ async function fetchNwsForecastSnapshotFallback(
     > = [];
     const hourlyPrecipitationIn: Array<{ time_utc: string; value: number }> =
       [];
-    for (const date of dates21) {
-      for (let hour = 0; hour < 24; hour++) {
-        const period = periodByDateHour.get(`${date}|${hour}`) ?? firstPeriod;
-        const time_utc = localHourIsoToUtc(date, hour, offset);
-        hourlyAirTempF.push({
-          time_utc,
-          value: Math.round(
-            maybeFahrenheit(
-              num(period.temperature) ?? firstTemp,
-              period.temperatureUnit,
-            ) *
-              10,
-          ) / 10,
-        });
-        hourlyCloudCoverPct.push({
-          time_utc,
-          value: cloudCoverEstimate(period.shortForecast),
-        });
-        hourlyWindSpeed.push({
-          time_utc,
-          value: Math.round(parseNwsWindMph(period.windSpeed) * 10) / 10,
-        });
-        hourlyWeatherCode.push({
-          time_utc,
-          value: weatherCodeEstimate(period.shortForecast),
-        });
+    for (const period of periods) {
+      const date = nwsPeriodDate(period);
+      const hour = nwsPeriodHour(period);
+      if (!date || hour == null) continue;
+      const time_utc = localHourIsoToUtc(date, hour, offset);
+      hourlyAirTempF.push({
+        time_utc,
+        value: Math.round(
+          maybeFahrenheit(
+            num(period.temperature) ?? firstTemp,
+            period.temperatureUnit,
+          ) * 10,
+        ) / 10,
+      });
+      hourlyCloudCoverPct.push({
+        time_utc,
+        value: cloudCoverEstimate(period.shortForecast),
+      });
+      hourlyWindSpeed.push({
+        time_utc,
+        value: Math.round(parseNwsWindMph(period.windSpeed) * 10) / 10,
+      });
+      hourlyWeatherCode.push({
+        time_utc,
+        value: weatherCodeEstimate(period.shortForecast),
+      });
+      const precipProbability = parseNwsQuantitativeValue(
+        period.probabilityOfPrecipitation,
+      );
+      if (precipProbability != null) {
         hourlyPrecipProbabilityPct.push({
           time_utc,
-          value: Math.max(
-            0,
-            Math.min(
-              100,
-              Math.round(
-                parseNwsQuantitativeValue(period.probabilityOfPrecipitation) ??
-                  0,
-              ),
-            ),
-          ),
+          value: Math.max(0, Math.min(100, Math.round(precipProbability))),
         });
-        hourlyPrecipitationIn.push({ time_utc, value: 0 });
       }
     }
 
