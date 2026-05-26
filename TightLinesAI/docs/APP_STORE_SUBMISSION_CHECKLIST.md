@@ -1,6 +1,6 @@
 # FinFindr App Store Submission Checklist
 
-Last updated: 2026-05-23
+Last updated: 2026-05-26
 
 This is the living launch checklist for getting FinFindr through Apple review with the best chance of a fast approval. Check items off only when verified on the actual production or review build, not just assumed from code.
 
@@ -9,7 +9,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 ## Current Top Risks
 
 - [x] **Publish Privacy Policy, Terms of Service, and Support URL.** Public web URLs are live at `https://finfindr.app/privacy`, `https://finfindr.app/terms`, and `https://finfindr.app/support`.
-- [ ] **BLOCKER: Final owner/legal review of Terms and Privacy copy.** Current in-app copy is an app-specific launch draft. Review entity name, retention/deletion promises, third-party providers, subscription terms, jurisdiction, refunds, IP ownership, and liability language before submission.
+- [x] **Complete app-review consistency pass for Terms, Privacy, Safety, and Support copy.** In-app copy and public legal pages were reconciled on 2026-05-26 for subscription restore behavior, account deletion, third-party providers, fishing safety limits, and public contact paths. This is not a formal attorney opinion; the remaining planned copy change is the entity-name update after `FinFindr LLC` is approved and the Apple seller path is final.
 - [ ] **BLOCKER FOR PUBLIC LAUNCH: Finish LLC/EIN/D-U-N-S and Apple organization conversion.** Florida LLC filing has been submitted and paid. Fast-track plan is to keep moving toward App Review under the current individual developer account, keep the app on Manual Release, then convert the Apple Developer membership/seller identity to `FinFindr LLC` before public launch if Apple timing allows.
 - [x] **Activate Paid Apps Agreement.** App Store Connect now shows Paid Apps Agreement, bank account, and U.S. Form W-9 as Active on 2026-05-23. Current setup is still under the individual account; convert/update to `FinFindr LLC` before public launch if Apple timing allows.
 - [x] **Resolve App Store Connect subscription product availability.** RevenueCat now returns the monthly and annual App Store products in the iOS dev build, and the paywall loads after Paid Apps/tax/banking became active on 2026-05-23.
@@ -20,7 +20,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] **Code-level free vs Angler gates are centralized and enforced.** Commit `65a4bd8` makes new/free users limited, allows tomorrow-only forecast preview, gates future forecast reads, gates recommender generation after step 4, gates Water Read generation after lake selection, and keeps Angler unrestricted.
 - [x] **Confirm reviewer can access every gated feature.** `finfindr@hotmail.com` is configured as complimentary Angler access and successfully reached Angler-gated features in the fresh iOS dev build on 2026-05-21. This validates reviewer feature access, not the App Store purchase path.
 - [x] **Account/auth lifecycle E2E is passing in the fresh iOS dev build.** Email signup, verification email, account deletion, recreating the same email after deletion, password reset email/link, and returning-user Sign in with Apple were QA-verified on device by 2026-05-22.
-- [x] **Legal/safety page presentation QA passed.** Terms, Privacy, and Safety pages render with the corrected navy safe-area/header treatment and were visually checked on device by 2026-05-22. Final legal/entity copy review remains blocked on LLC/EIN.
+- [x] **Legal/safety page presentation QA passed.** Terms, Privacy, and Safety pages render with the corrected navy safe-area/header treatment and were visually checked on device by 2026-05-22. Legal copy was reconciled across in-app and public pages on 2026-05-26; the entity-name swap remains pending LLC/EIN/Apple seller conversion.
 - [ ] **HIGH: Use EAS Cloud or update local Xcode before native iOS builds.** `expo-doctor` now passes dependency checks, but the selected local Xcode is 15.2 and Expo SDK 55 expects Xcode 26 or newer.
 
 ## Proper Order
@@ -117,10 +117,10 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Wait for Florida Sunbiz approval for `FinFindr LLC`; save the filed Articles, document number, and any Certificate of Status.
 - [ ] Apply for the free IRS EIN only after the LLC is approved; use exact legal name `FinFindr LLC` and save the EIN confirmation letter.
 - [ ] Update Terms/Privacy company/entity references after the LLC is officially approved.
-- [ ] Decide Apple seller path: current fast-track plan is submit for review from the individual account with Manual Release, then request Apple Developer membership conversion to `FinFindr LLC` after LLC approval, EIN, and D-U-N-S are ready.
+- [x] Decide Apple seller path for the fast-track review plan: submit for review from the individual account with Manual Release, then request Apple Developer membership conversion to `FinFindr LLC` after LLC approval, EIN, and D-U-N-S are ready. Do not use `FinFindr LLC` as the legal entity name in public legal copy before the entity is approved and the seller path is final.
 - [ ] Complete App Store Connect Digital Services Act/trader compliance before EU distribution. Current app availability is United States only, so this is not intended to block U.S.-only submission unless App Store Connect requires a declaration before review.
-- [ ] Confirm policy covers account data, email, location, photos/camera uploads, microphone/voice logs if enabled, fishing logs, support messages, purchases, diagnostics, and third parties.
-- [ ] Document third parties: Supabase, RevenueCat, Resend, Open-Meteo, NOAA/NWS, USNO/Sunrise-Sunset, geocoding provider, and any AI/image providers actually used in production.
+- [x] Confirm policy covers account data, email, location, photos/camera uploads, microphone/voice logs if enabled, fishing logs, support messages, purchases, diagnostics, account deletion, subscription restore behavior, and third parties. Reconciled on 2026-05-26.
+- [x] Document third parties: Supabase, RevenueCat, Apple platform services, Google platform services where supported, Resend, Open-Meteo, NOAA/NWS, NOAA CO-OPS, USNO, Sunrise-Sunset.org, mapping/geocoding providers, and similar operational vendors. Reconciled on 2026-05-26.
 - [ ] Confirm no App Tracking Transparency prompt is needed. Current code does not show ad tracking or cross-app tracking SDKs.
 - [ ] Confirm no third-party ads, gambling, contests, medical/safety claims, or regulated activity language appears.
 - [x] Add safety disclaimer if fishing recommendations could be interpreted as navigation/safety guidance: conditions are informational, users are responsible for local laws/weather/water safety.
