@@ -48,6 +48,8 @@ const SNAPSHOT_CACHE_VERSION = "v1";
 const NOAA_STATIONS_TIMEOUT_MS = 4_500;
 const NOAA_PREDICTIONS_TIMEOUT_MS = 4_500;
 const TIDE_SNAPSHOT_BUDGET_MS = 9_000;
+const NWS_TIMEOUT_MS = 7_000;
+const NWS_USER_AGENT = "FinFindr/1.0 (support@finfindr.app)";
 const MAX_STALE_SNAPSHOT_AGE_MS = 48 * 60 * 60 * 1000;
 const STALE_FALLBACK_LOOKUP_LIMIT = 5;
 const DAILY_WEATHER_ARRAY_KEYS = [
@@ -101,7 +103,11 @@ const forecastSnapshotMemoryCache = new Map<
   { expiresAtMs: number; payload: Record<string, unknown> }
 >();
 
-type ForecastSnapshotSource = "active" | "stale_recent" | "environment_recent";
+type ForecastSnapshotSource =
+  | "active"
+  | "stale_recent"
+  | "environment_recent"
+  | "nws_degraded";
 type ForecastSnapshotRead = {
   payload: Record<string, unknown>;
   source: ForecastSnapshotSource;
@@ -340,6 +346,332 @@ function environmentPayloadToForecastPayload(
       : [],
   };
   return out;
+}
+
+function cToF(c: number): number {
+  return c * 9 / 5 + 32;
+}
+
+function parseNwsQuantitativeValue(raw: unknown): number | null {
+  if (!raw || typeof raw !== "object") return null;
+  return num((raw as { value?: unknown }).value);
+}
+
+function maybeFahrenheit(value: number, unit: unknown): number {
+  const unitText = String(unit ?? "").toLowerCase();
+  if (unitText === "f" || unitText.includes("fahrenheit")) return value;
+  if (unitText === "c" || unitText.includes("celsius")) return cToF(value);
+  return value;
+}
+
+function parseNwsWindMph(raw: unknown): number {
+  const text = String(raw ?? "");
+  const matches = Array.from(text.matchAll(/\d+(?:\.\d+)?/g)).map((m) =>
+    Number(m[0])
+  );
+  const valid = matches.filter(Number.isFinite);
+  if (valid.length === 0) return 0;
+  return valid.reduce((sum, value) => sum + value, 0) / valid.length;
+}
+
+function windDirectionDegrees(raw: unknown): number {
+  if (typeof raw === "number" && Number.isFinite(raw)) return raw;
+  const key = String(raw ?? "").trim().toUpperCase();
+  const lookup: Record<string, number> = {
+    N: 0,
+    NNE: 22.5,
+    NE: 45,
+    ENE: 67.5,
+    E: 90,
+    ESE: 112.5,
+    SE: 135,
+    SSE: 157.5,
+    S: 180,
+    SSW: 202.5,
+    SW: 225,
+    WSW: 247.5,
+    W: 270,
+    WNW: 292.5,
+    NW: 315,
+    NNW: 337.5,
+  };
+  return lookup[key] ?? 0;
+}
+
+function cloudCoverEstimate(shortForecast: unknown): number {
+  const text = String(shortForecast ?? "").toLowerCase();
+  if (text.includes("clear") || text.includes("sunny")) return 10;
+  if (text.includes("mostly sunny") || text.includes("mostly clear")) return 25;
+  if (text.includes("partly")) return 45;
+  if (text.includes("mostly cloudy")) return 75;
+  if (text.includes("cloudy") || text.includes("overcast")) return 90;
+  if (
+    text.includes("rain") || text.includes("storm") || text.includes("snow")
+  ) return 85;
+  return 55;
+}
+
+function weatherCodeEstimate(shortForecast: unknown): number {
+  const text = String(shortForecast ?? "").toLowerCase();
+  if (text.includes("thunder") || text.includes("storm")) return 95;
+  if (text.includes("rain") || text.includes("shower")) return 61;
+  if (text.includes("snow")) return 71;
+  if (text.includes("fog")) return 45;
+  if (text.includes("cloud") || text.includes("overcast")) return 3;
+  return 1;
+}
+
+function addDaysYmd(date: string, days: number): string {
+  const d = new Date(date + "T12:00:00Z");
+  if (Number.isNaN(d.getTime())) return date;
+  d.setUTCDate(d.getUTCDate() + days);
+  return d.toISOString().slice(0, 10);
+}
+
+function localHourIsoToUtc(localDate: string, hour: number, offset: string) {
+  const hh = String(hour).padStart(2, "0");
+  return new Date(`${localDate}T${hh}:00:00${offset}`).toISOString();
+}
+
+function nwsStartOffset(periods: Array<Record<string, unknown>>): string {
+  const startTime = String(periods[0]?.startTime ?? "");
+  const match = startTime.match(/([+-]\d{2}:\d{2})$/);
+  return match?.[1] ?? "Z";
+}
+
+function nwsPeriodDate(period: Record<string, unknown>): string | null {
+  const startTime = typeof period.startTime === "string"
+    ? period.startTime
+    : "";
+  return /^\d{4}-\d{2}-\d{2}/.test(startTime) ? startTime.slice(0, 10) : null;
+}
+
+function nwsPeriodHour(period: Record<string, unknown>): number | null {
+  const startTime = typeof period.startTime === "string"
+    ? period.startTime
+    : "";
+  const hour = Number(startTime.slice(11, 13));
+  return Number.isFinite(hour) ? hour : null;
+}
+
+async function fetchNwsJson(
+  url: string,
+): Promise<Record<string, unknown> | null> {
+  const res = await fetchWithTimeout(
+    url,
+    {
+      headers: {
+        Accept: "application/geo+json, application/json",
+        "User-Agent": NWS_USER_AGENT,
+      },
+    },
+    NWS_TIMEOUT_MS,
+  );
+  if (!res.ok) return null;
+  const json = await res.json();
+  return json && typeof json === "object"
+    ? json as Record<string, unknown>
+    : null;
+}
+
+async function fetchNwsForecastSnapshotFallback(
+  latitude: number,
+  longitude: number,
+): Promise<Record<string, unknown> | null> {
+  try {
+    const point = await fetchNwsJson(
+      `https://api.weather.gov/points/${latitude},${longitude}`,
+    );
+    const props = point?.properties as Record<string, unknown> | undefined;
+    const hourlyUrl = typeof props?.forecastHourly === "string"
+      ? props.forecastHourly
+      : null;
+    if (!hourlyUrl) return null;
+    const timezone = typeof props?.timeZone === "string"
+      ? props.timeZone
+      : "UTC";
+    const hourlyJson = await fetchNwsJson(hourlyUrl);
+    const periods =
+      Array.isArray((hourlyJson?.properties as { periods?: unknown })?.periods)
+        ? ((hourlyJson?.properties as {
+          periods: Array<Record<string, unknown>>;
+        }).periods)
+        : [];
+    if (periods.length === 0) return null;
+
+    const today = formatDateInZone(new Date(), timezone);
+    const offset = nwsStartOffset(periods);
+    const periodByDateHour = new Map<string, Record<string, unknown>>();
+    const dailyPeriods = new Map<string, Array<Record<string, unknown>>>();
+    for (const period of periods) {
+      const date = nwsPeriodDate(period);
+      const hour = nwsPeriodHour(period);
+      if (!date || hour == null) continue;
+      periodByDateHour.set(`${date}|${hour}`, period);
+      const bucket = dailyPeriods.get(date) ?? [];
+      bucket.push(period);
+      dailyPeriods.set(date, bucket);
+    }
+
+    const firstPeriod = periods[0]!;
+    const firstTemp = maybeFahrenheit(
+      num(firstPeriod.temperature) ?? 0,
+      firstPeriod.temperatureUnit,
+    );
+    const currentCloud = cloudCoverEstimate(firstPeriod.shortForecast);
+    const currentWind = parseNwsWindMph(firstPeriod.windSpeed);
+    const currentCode = weatherCodeEstimate(firstPeriod.shortForecast);
+
+    const dates21: string[] = [];
+    for (let i = -14; i <= 6; i++) dates21.push(addDaysYmd(today, i));
+
+    const tempHighs: number[] = [];
+    const tempLows: number[] = [];
+    const precipDaily: number[] = [];
+    const precipProbDaily: number[] = [];
+    const weatherCodeDaily: number[] = [];
+    const windMaxDaily: number[] = [];
+    const forecastDaily: Array<Record<string, unknown>> = [];
+
+    for (const date of dates21) {
+      const dayPeriods = dailyPeriods.get(date) ?? [];
+      const temps = dayPeriods
+        .map((p) =>
+          maybeFahrenheit(num(p.temperature) ?? firstTemp, p.temperatureUnit)
+        )
+        .filter(Number.isFinite);
+      const winds = dayPeriods
+        .map((p) => parseNwsWindMph(p.windSpeed))
+        .filter(Number.isFinite);
+      const probs = dayPeriods
+        .map((p) => parseNwsQuantitativeValue(p.probabilityOfPrecipitation))
+        .filter((v): v is number => v != null);
+      const codes = dayPeriods.map((p) => weatherCodeEstimate(p.shortForecast));
+      const high = temps.length ? Math.max(...temps) : firstTemp;
+      const low = temps.length ? Math.min(...temps) : firstTemp;
+      const precipProb = probs.length ? Math.max(...probs) : 0;
+      const windMax = winds.length ? Math.max(...winds) : currentWind;
+      const code = codes.includes(95)
+        ? 95
+        : codes.includes(61)
+        ? 61
+        : codes[0] ?? currentCode;
+      tempHighs.push(Math.round(high * 10) / 10);
+      tempLows.push(Math.round(low * 10) / 10);
+      precipDaily.push(0);
+      precipProbDaily.push(Math.max(0, Math.min(100, Math.round(precipProb))));
+      weatherCodeDaily.push(code);
+      windMaxDaily.push(Math.round(windMax * 10) / 10);
+    }
+
+    for (let day = 0; day <= 6; day++) {
+      const idx = 14 + day;
+      const date = dates21[idx]!;
+      forecastDaily.push({
+        date,
+        high_temp_f: tempHighs[idx],
+        low_temp_f: tempLows[idx],
+        precip_chance_pct: precipProbDaily[idx],
+        wind_mph_max: windMaxDaily[idx],
+        sunrise_local: "",
+        sunset_local: "",
+      });
+    }
+
+    const hourlyAirTempF: Array<{ time_utc: string; value: number }> = [];
+    const hourlyCloudCoverPct: Array<{ time_utc: string; value: number }> = [];
+    const hourlyWindSpeed: Array<{ time_utc: string; value: number }> = [];
+    const hourlyWeatherCode: Array<{ time_utc: string; value: number }> = [];
+    const hourlyPrecipProbabilityPct: Array<
+      { time_utc: string; value: number }
+    > = [];
+    const hourlyPrecipitationIn: Array<{ time_utc: string; value: number }> =
+      [];
+    for (const date of dates21) {
+      for (let hour = 0; hour < 24; hour++) {
+        const period = periodByDateHour.get(`${date}|${hour}`) ?? firstPeriod;
+        const time_utc = localHourIsoToUtc(date, hour, offset);
+        hourlyAirTempF.push({
+          time_utc,
+          value: Math.round(
+            maybeFahrenheit(
+              num(period.temperature) ?? firstTemp,
+              period.temperatureUnit,
+            ) *
+              10,
+          ) / 10,
+        });
+        hourlyCloudCoverPct.push({
+          time_utc,
+          value: cloudCoverEstimate(period.shortForecast),
+        });
+        hourlyWindSpeed.push({
+          time_utc,
+          value: Math.round(parseNwsWindMph(period.windSpeed) * 10) / 10,
+        });
+        hourlyWeatherCode.push({
+          time_utc,
+          value: weatherCodeEstimate(period.shortForecast),
+        });
+        hourlyPrecipProbabilityPct.push({
+          time_utc,
+          value: Math.max(
+            0,
+            Math.min(
+              100,
+              Math.round(
+                parseNwsQuantitativeValue(period.probabilityOfPrecipitation) ??
+                  0,
+              ),
+            ),
+          ),
+        });
+        hourlyPrecipitationIn.push({ time_utc, value: 0 });
+      }
+    }
+
+    return {
+      timezone,
+      coastal: false,
+      tides_available: false,
+      nearest_tide_station_id: null,
+      weather: {
+        temperature: Math.round(firstTemp * 10) / 10,
+        humidity: Math.round(
+          parseNwsQuantitativeValue(firstPeriod.relativeHumidity) ?? 0,
+        ),
+        cloud_cover: currentCloud,
+        pressure: 1013.25,
+        wind_speed: Math.round(currentWind * 10) / 10,
+        wind_direction: windDirectionDegrees(firstPeriod.windDirection),
+        precipitation: 0,
+        weather_code: currentCode,
+        gust_speed: null,
+        temp_unit: "°F",
+        wind_speed_unit: "mph",
+        temp_7day_high: tempHighs,
+        temp_7day_low: tempLows,
+        precip_7day_daily: precipDaily,
+        weather_code_daily: weatherCodeDaily,
+        precipitation_probability_max_daily: precipProbDaily,
+        wind_speed_10m_max_daily: windMaxDaily,
+      },
+      forecast_daily: forecastDaily,
+      hourly_pressure_mb: [],
+      hourly_air_temp_f: hourlyAirTempF,
+      hourly_cloud_cover_pct: hourlyCloudCoverPct,
+      hourly_wind_speed: hourlyWindSpeed,
+      hourly_weather_code: hourlyWeatherCode,
+      hourly_precip_probability_pct: hourlyPrecipProbabilityPct,
+      hourly_precipitation_in: hourlyPrecipitationIn,
+      forecast_tides_by_date: [],
+      source_notes: [
+        "forecast_snapshot_fallback:nws_degraded_no_pressure_or_runoff_history",
+      ],
+    };
+  } catch {
+    return null;
+  }
 }
 
 async function readForecastScoreSnapshot(
@@ -890,6 +1222,30 @@ Deno.serve(async (req: Request) => {
         envRecord = staleFallback.payload;
         snapshotSource = staleFallback.source;
       } else {
+        const nwsFallback = await fetchNwsForecastSnapshotFallback(
+          latitude,
+          longitude,
+        );
+        if (nwsFallback) {
+          envRecord = nwsFallback;
+          snapshotSource = "nws_degraded";
+          const timezone = typeof nwsFallback.timezone === "string"
+            ? nwsFallback.timezone
+            : "UTC";
+          const localDate = forecastDailyDates(nwsFallback)[0];
+          if (localDate && localDate.length === 10) {
+            await writeForecastScoreSnapshot(
+              supabase,
+              latitude,
+              longitude,
+              timezone,
+              localDate,
+              nwsFallback,
+            );
+          }
+        }
+      }
+      if (!envRecord) {
         return new Response(
           JSON.stringify({ error: "Weather data unavailable" }),
           {
