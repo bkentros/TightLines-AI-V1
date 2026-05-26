@@ -24,8 +24,8 @@ export {
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
-/** v8 invalidates pre-canonical daily snapshots so report scores stay identical across users. */
-const CACHE_KEY_PREFIX = "forecast_scores_v8";
+/** v9 requires canonical daily snapshots for report-building callers. */
+const CACHE_KEY_PREFIX = "forecast_scores_v9";
 
 const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v1",
@@ -36,6 +36,7 @@ const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v6",
   "forecast_scores_v7",
   "forecast_scores_v8",
+  "forecast_scores_v9",
 ] as const;
 
 function isSignedOutError(err: unknown): boolean {
@@ -170,6 +171,29 @@ function cacheKey(
   }`;
 }
 
+function hasUsableSnapshotEnv(
+  snapshot: ForecastSnapshotEnv | undefined,
+): snapshot is ForecastSnapshotEnv {
+  return Boolean(
+    snapshot &&
+      typeof snapshot === "object" &&
+      !Array.isArray(snapshot) &&
+      snapshot.weather &&
+      typeof snapshot.weather === "object" &&
+      !Array.isArray(snapshot.weather),
+  );
+}
+
+function requiresSnapshotEnv(options: {
+  includeSnapshotEnv: boolean;
+}): boolean {
+  return options.includeSnapshotEnv !== false;
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
 // ---------------------------------------------------------------------------
 // Score helpers
 // ---------------------------------------------------------------------------
@@ -263,10 +287,17 @@ export async function getForecastScores(
       };
       // Valid until the midnight that was computed when the data was fetched
       if (Date.now() < (parsed._expires_at ?? 0)) {
-        return {
-          ...parsed,
-          forecast: normalizeForecastRows(parsed.forecast ?? []),
-        };
+        if (
+          requiresSnapshotEnv(normalizedOptions) &&
+          !hasUsableSnapshotEnv(parsed.snapshot_env)
+        ) {
+          await AsyncStorage.removeItem(key).catch(() => {});
+        } else {
+          return {
+            ...parsed,
+            forecast: normalizeForecastRows(parsed.forecast ?? []),
+          };
+        }
       }
     }
   } catch {
@@ -274,75 +305,102 @@ export async function getForecastScores(
   }
 
   // Fetch from edge function
-  try {
-    const accessToken = await getValidAccessToken();
-    const res = await fetch(`${SUPABASE_URL}/functions/v1/forecast-scores`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        apikey: SUPABASE_ANON_KEY,
-        Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
-        "x-user-token": accessToken,
-      },
-      body: JSON.stringify({
-        latitude: lat,
-        longitude: lon,
-        max_day_offset: normalizedOptions.maxDayOffset,
-        include_snapshot_env: normalizedOptions.includeSnapshotEnv,
-      }),
-    });
-
-    if (!res.ok) {
-      if (__DEV__) {
-        const text = await res.text().catch(() => "(unreadable)");
-        console.warn(`[forecastScores] edge fn returned ${res.status}:`, text);
-      }
-      return null;
-    }
-
-    const json = await res.json() as {
-      forecast?: Partial<DayForecastScore>[];
-      timezone?: string;
-      snapshot_env?: ForecastSnapshotEnv;
-    };
-    if (!Array.isArray(json.forecast) || json.forecast.length === 0) {
-      if (__DEV__) {
-        console.warn(
-          "[forecastScores] empty or missing forecast array:",
-          json,
-        );
-      }
-      return null;
-    }
-
-    const data: ForecastScoresResult = {
-      forecast: normalizeForecastRows(json.forecast),
-      timezone: json.timezone ?? "UTC",
-      fetched_at: new Date().toISOString(),
-      snapshot_env: json.snapshot_env,
-    };
-
-    // Persist to cache — stable until the location's next midnight rollover.
+  let lastFetchError: unknown = null;
+  for (let attempt = 0; attempt < 2; attempt++) {
     try {
-      await AsyncStorage.setItem(
-        key,
-        JSON.stringify({
-          ...data,
-          _fetched_at: Date.now(),
-          _expires_at: nextMidnightInTimeZoneMs(data.timezone),
+      const accessToken = await getValidAccessToken();
+      const res = await fetch(`${SUPABASE_URL}/functions/v1/forecast-scores`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          apikey: SUPABASE_ANON_KEY,
+          Authorization: `Bearer ${SUPABASE_ANON_KEY}`,
+          "x-user-token": accessToken,
+        },
+        body: JSON.stringify({
+          latitude: lat,
+          longitude: lon,
+          max_day_offset: normalizedOptions.maxDayOffset,
+          include_snapshot_env: normalizedOptions.includeSnapshotEnv,
         }),
-      );
-    } catch {
-      // Non-fatal
-    }
+      });
 
-    return data;
-  } catch (err) {
-    if (__DEV__ && !isSignedOutError(err)) {
-      console.warn("[forecastScores] fetch error:", err);
+      if (!res.ok) {
+        const text = await res.text().catch(() => "(unreadable)");
+        if (res.status >= 500 && attempt === 0) {
+          await delay(400);
+          continue;
+        }
+        if (__DEV__) {
+          console.warn(
+            `[forecastScores] edge fn returned ${res.status}:`,
+            text,
+          );
+        }
+        return null;
+      }
+
+      const json = await res.json() as {
+        forecast?: Partial<DayForecastScore>[];
+        timezone?: string;
+        snapshot_env?: ForecastSnapshotEnv;
+      };
+      if (!Array.isArray(json.forecast) || json.forecast.length === 0) {
+        if (__DEV__) {
+          console.warn(
+            "[forecastScores] empty or missing forecast array:",
+            json,
+          );
+        }
+        return null;
+      }
+      if (
+        requiresSnapshotEnv(normalizedOptions) &&
+        !hasUsableSnapshotEnv(json.snapshot_env)
+      ) {
+        if (__DEV__) {
+          console.warn(
+            "[forecastScores] missing canonical snapshot_env for snapshot-backed request",
+          );
+        }
+        return null;
+      }
+
+      const data: ForecastScoresResult = {
+        forecast: normalizeForecastRows(json.forecast),
+        timezone: json.timezone ?? "UTC",
+        fetched_at: new Date().toISOString(),
+        snapshot_env: json.snapshot_env,
+      };
+
+      // Persist to cache — stable until the location's next midnight rollover.
+      try {
+        await AsyncStorage.setItem(
+          key,
+          JSON.stringify({
+            ...data,
+            _fetched_at: Date.now(),
+            _expires_at: nextMidnightInTimeZoneMs(data.timezone),
+          }),
+        );
+      } catch {
+        // Non-fatal
+      }
+
+      return data;
+    } catch (err) {
+      lastFetchError = err;
+      if (attempt === 0 && !isSignedOutError(err)) {
+        await delay(400);
+        continue;
+      }
+      break;
     }
-    return null;
   }
+  if (__DEV__ && !isSignedOutError(lastFetchError)) {
+    console.warn("[forecastScores] fetch error:", lastFetchError);
+  }
+  return null;
 }
 
 /**
