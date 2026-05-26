@@ -24,8 +24,8 @@ export {
 const SUPABASE_URL = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const SUPABASE_ANON_KEY = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
-/** v9 requires canonical daily snapshots for report-building callers. */
-const CACHE_KEY_PREFIX = "forecast_scores_v9";
+/** v10 drops degraded fallback snapshots after enabling customer Open-Meteo. */
+const CACHE_KEY_PREFIX = "forecast_scores_v10";
 
 const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v1",
@@ -37,6 +37,7 @@ const LEGACY_FORECAST_CACHE_PREFIXES = [
   "forecast_scores_v7",
   "forecast_scores_v8",
   "forecast_scores_v9",
+  "forecast_scores_v10",
 ] as const;
 
 function isSignedOutError(err: unknown): boolean {
@@ -107,7 +108,7 @@ export interface ForecastSnapshotEnv {
 export function mergeMeasuredWaterTempFields<T extends Record<string, unknown>>(
   forecastEnv: T,
   envData:
-    | Pick<EnvironmentData, typeof MEASURED_WATER_TEMP_KEYS[number]>
+    | Pick<EnvironmentData, (typeof MEASURED_WATER_TEMP_KEYS)[number]>
     | Record<string, unknown>
     | null
     | undefined,
@@ -176,11 +177,11 @@ function hasUsableSnapshotEnv(
 ): snapshot is ForecastSnapshotEnv {
   return Boolean(
     snapshot &&
-      typeof snapshot === "object" &&
-      !Array.isArray(snapshot) &&
-      snapshot.weather &&
-      typeof snapshot.weather === "object" &&
-      !Array.isArray(snapshot.weather),
+    typeof snapshot === "object" &&
+    !Array.isArray(snapshot) &&
+    snapshot.weather &&
+    typeof snapshot.weather === "object" &&
+    !Array.isArray(snapshot.weather),
   );
 }
 
@@ -223,8 +224,9 @@ export function meanDayScore(
   if (isCoastalEligible) {
     const flats = day.coastal_flats_estuary ?? day.coastal;
     return (
-      day.freshwater_lake_pond + day.freshwater_river + day.coastal + flats
-    ) / 4;
+      (day.freshwater_lake_pond + day.freshwater_river + day.coastal + flats) /
+      4
+    );
   }
   return (day.freshwater_lake_pond + day.freshwater_river) / 2;
 }
@@ -340,7 +342,7 @@ export async function getForecastScores(
         return null;
       }
 
-      const json = await res.json() as {
+      const json = (await res.json()) as {
         forecast?: Partial<DayForecastScore>[];
         timezone?: string;
         snapshot_env?: ForecastSnapshotEnv;
@@ -414,9 +416,9 @@ export function invalidateForecastCache(lat: number, lon: number): void {
     .then((keys) =>
       AsyncStorage.multiRemove(
         keys.filter((k) =>
-          k.startsWith(`${CACHE_KEY_PREFIX}_${latR}_${lonR}_`)
+          k.startsWith(`${CACHE_KEY_PREFIX}_${latR}_${lonR}_`),
         ),
-      )
+      ),
     )
     .catch(() => {});
 }
@@ -426,7 +428,7 @@ export async function clearAllForecastScoreCaches(): Promise<void> {
   try {
     const keys = await AsyncStorage.getAllKeys();
     const toRemove = keys.filter((k) =>
-      LEGACY_FORECAST_CACHE_PREFIXES.some((p) => k.startsWith(`${p}_`))
+      LEGACY_FORECAST_CACHE_PREFIXES.some((p) => k.startsWith(`${p}_`)),
     );
     if (toRemove.length > 0) {
       await AsyncStorage.multiRemove(toRemove);

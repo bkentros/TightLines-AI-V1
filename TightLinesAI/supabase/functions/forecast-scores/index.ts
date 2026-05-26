@@ -44,7 +44,7 @@ const MAX_TIDE_STATION_CANDIDATES = 8;
 const MAX_HILO_PREDICTIONS_RETURNED = 56;
 const EARTH_RADIUS_MILES = 3958.8;
 const SNAPSHOT_UNITS = "imperial";
-const SNAPSHOT_CACHE_VERSION = "v1";
+const SNAPSHOT_CACHE_VERSION = "v2";
 const NOAA_STATIONS_TIMEOUT_MS = 4_500;
 const NOAA_PREDICTIONS_TIMEOUT_MS = 4_500;
 const TIDE_SNAPSHOT_BUDGET_MS = 9_000;
@@ -692,6 +692,7 @@ async function readForecastScoreSnapshot(
       .eq("latitude_bucket", latBucket(latitude))
       .eq("longitude_bucket", lonBucket(longitude))
       .eq("units", SNAPSHOT_UNITS)
+      .like("snapshot_key", `${SNAPSHOT_CACHE_VERSION}:%`)
       .gt("expires_at", new Date().toISOString())
       .order("created_at", { ascending: false })
       .limit(1)
@@ -727,6 +728,7 @@ async function readRecentStaleForecastScoreSnapshot(
       .eq("latitude_bucket", latBucket(latitude))
       .eq("longitude_bucket", lonBucket(longitude))
       .eq("units", SNAPSHOT_UNITS)
+      .like("snapshot_key", `${SNAPSHOT_CACHE_VERSION}:%`)
       .lt("expires_at", now.toISOString())
       .gte("created_at", minCreatedAt)
       .order("created_at", { ascending: false })

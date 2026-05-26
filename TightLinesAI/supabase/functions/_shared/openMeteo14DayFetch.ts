@@ -5,6 +5,18 @@
 
 const MM_TO_INCHES = 1 / 25.4;
 const OPEN_METEO_TIMEOUT_MS = 10_000;
+const FREE_OPEN_METEO_FORECAST_URL = "https://api.open-meteo.com/v1/forecast";
+const CUSTOMER_OPEN_METEO_FORECAST_URL =
+  "https://customer-api.open-meteo.com/v1/forecast";
+
+function openMeteoForecastUrl(): string {
+  const explicitUrl = Deno.env.get("OPEN_METEO_BASE_URL")?.trim();
+  if (explicitUrl) return explicitUrl;
+  const apiKey = Deno.env.get("OPEN_METEO_API_KEY")?.trim();
+  return apiKey
+    ? CUSTOMER_OPEN_METEO_FORECAST_URL
+    : FREE_OPEN_METEO_FORECAST_URL;
+}
 
 async function fetchWithTimeout(
   url: string,
@@ -194,7 +206,10 @@ export async function fetchOpenMeteo14Day(
     timeformat: "unixtime",
   });
 
-  const url = `https://api.open-meteo.com/v1/forecast?${params.toString()}`;
+  const apiKey = Deno.env.get("OPEN_METEO_API_KEY")?.trim();
+  if (apiKey) params.set("apikey", apiKey);
+
+  const url = `${openMeteoForecastUrl()}?${params.toString()}`;
   const res = await fetchWithTimeout(
     url,
     {
