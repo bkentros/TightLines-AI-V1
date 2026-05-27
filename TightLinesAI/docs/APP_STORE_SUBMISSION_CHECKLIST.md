@@ -86,7 +86,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Add a reviewer account that either has an active sandbox subscription or can purchase using Apple sandbox. Current reviewer login is entered in App Store Connect; subscription purchase still needs sandbox validation after build upload.
 - [x] Add Terms and Privacy links to subscription screen.
 - [x] Confirm RevenueCat paywall clearly shows subscription title, price, billing period, what unlocks, and purchase/restore actions. RevenueCat paywall footer `Terms` and `Privacy` open the live public URLs, and `Restore Purchases` connects only the original App User ID under the launch restore policy.
-- [ ] Confirm there are no external purchase links or CTAs for digital subscription access outside Apple IAP.
+- [x] Confirm there are no external purchase links or CTAs for digital subscription access outside Apple IAP. Code search found only the native RevenueCat/App Store purchase path plus Apple subscription management/legal/support URLs.
 - [x] Add a clear “manage subscription” path or instructions from Settings, especially near account deletion.
 
 ### 4. Apple Login, Accounts, And Account Deletion
