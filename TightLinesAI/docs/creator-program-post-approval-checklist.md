@@ -14,8 +14,10 @@ subscriptions are Ready for Distribution.
 - Seller/entity, Paid Apps Agreement, tax, banking, DSA/trader info, and public
   support/contact information have been rechecked after any Apple account
   conversion.
-- Public Terms, Privacy, Safety, and Support pages are deployed with the latest
-  `FinFindr LLC`, analytics, subscription, restore, and creator-code language.
+- Public Terms, Privacy, Safety, and Support pages on `https://finfindr.app`
+  are deployed with the latest `FinFindr LLC`, analytics, subscription,
+  restore, and creator-code language. Manual Release only holds the App Store
+  binary; it does not publish website/legal-site edits.
 - App Store Connect App Privacy answers have been rechecked against the shipped
   build, especially PostHog analytics, creator attribution, purchase data, and
   usage data.
@@ -42,10 +44,28 @@ subscriptions are Ready for Distribution.
   - Product interaction / usage analytics are collected and linked to the user.
   - Purchases and subscription status are collected and linked to the user.
   - Identifiers/account IDs are collected and linked to the user.
+  - Add `Device ID` under Identifiers if PostHog or any analytics SDK stores an
+    anonymous/device-level distinct ID in production.
   - Creator/referral code attribution is covered under purchase/usage/other
     app-functionality data as applicable.
+  - Only keep any `Usage Data` under `Data Not Linked to You` if that data is
+    truly anonymous and is not later connected to the signed-in FinFindr user.
   - No tracking is declared unless FinFindr starts using data to track users
     across other companies' apps or websites for advertising/measurement.
+
+## Public Legal Site
+
+- Open these URLs in a private/incognito browser and verify they show the latest
+  post-PostHog / creator-code copy before manual release:
+  - `https://finfindr.app/privacy`
+  - `https://finfindr.app/terms`
+  - `https://finfindr.app/safety`
+  - `https://finfindr.app/support`
+- Confirm the Privacy page names PostHog and product analytics.
+- Confirm the Privacy page covers creator/referral/offer-code attribution.
+- Confirm the Terms page covers creator/referral/promotional/offer-code rules.
+- If the live pages do not show the latest copy, deploy/publish the `legal-site`
+  changes before manual release.
 
 ## Apple Account / LLC Conversion Ticket
 
