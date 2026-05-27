@@ -14,7 +14,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] **Activate Paid Apps Agreement.** App Store Connect now shows Paid Apps Agreement, bank account, and U.S. Form W-9 as Active on 2026-05-23. Current setup is still under the individual account; convert/update to `FinFindr LLC` before public launch if Apple timing allows.
 - [x] **Resolve App Store Connect subscription product availability.** RevenueCat now returns the monthly and annual App Store products in the iOS dev build, and the paywall loads after Paid Apps/tax/banking became active on 2026-05-23.
 - [x] **Make subscription/paywall metadata review-ready in RevenueCat.** RevenueCat template paywall is published and attached to the `default` offering with Terms/Privacy URLs.
-- [ ] **HIGH: Finish the subscription regression pass.** Sandbox purchase succeeds, same-account restore works, active Angler access survives sign-out/sign-in, and RevenueCat now blocks restoring the same App Store receipt onto a different/recreated FinFindr account. Still verify cancel-from-sheet, reinstall/new-session behavior, and Supabase tier sync on the final review/TestFlight build.
+- [ ] **HIGH: Finish the subscription regression pass.** Sandbox purchase succeeds, canceling from the Apple purchase sheet returns cleanly without unlocking, same-account restore works, active Angler access survives sign-out/sign-in, and RevenueCat now blocks restoring the same App Store receipt onto a different/recreated FinFindr account. Still verify reinstall/new-session behavior and Supabase tier sync on the final review/TestFlight build.
 - [x] **Remove `ios.infoPlist.UIDesignRequiresCompatibility`.** Removed from `app.json` on 2026-05-20 so the app uses the default current iOS UI behavior; iPhone-only support is still controlled separately by `supportsTablet: false`.
 - [x] **Resolve Supabase `public.spatial_ref_sys` RLS/security alert.** Warning no longer appears in Supabase dashboard; `supabase db lint --linked --schema public` returned no schema errors on 2026-05-20.
 - [x] **Code-level free vs Angler gates are centralized and enforced.** Commit `65a4bd8` makes new/free users limited, allows tomorrow-only forecast preview, gates future forecast reads, gates recommender generation after step 4, gates Water Read generation after lake selection, and keeps Angler unrestricted. Free-user 6-day forecast taps now route into the upgrade/paywall path from both Home and the limited read teaser.
@@ -76,7 +76,7 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] Add the monthly and annual subscriptions to App Store Connect app version `1.0` before submitting the app/subscriptions for review.
 - [x] Allow App Store Connect/StoreKit propagation after business/subscription changes, then restart the app and retry. Product fetch/paywall succeeded on 2026-05-23.
 - [x] Test sandbox purchase on a physical iPhone dev build. Sandbox purchase showed Apple success confirmation on 2026-05-23.
-- [ ] Test cancel from purchase sheet.
+- [x] Test cancel from purchase sheet. Verified on device that canceling from Apple's sandbox purchase sheet returns cleanly without unlocking Angler.
 - [ ] Test restore purchase after reinstall/sign out/sign in. Restore immediately after sandbox purchase showed Angler active on 2026-05-23, and same-account sign-out/sign-in kept access in the dev build; still needs reinstall/new-session validation on the final review/TestFlight build.
 - [x] Set/confirm RevenueCat restore behavior for launch. RevenueCat is using `Keep with original App User ID`; sandbox testing confirmed the same active App Store receipt does not transfer to a different or recreated FinFindr account and instead shows the "Subscription linked elsewhere" recovery message.
 - [ ] Test entitlement changes update Supabase `profiles.subscription_tier`.
@@ -238,7 +238,7 @@ These items must be checked before clicking the final public release button, esp
 - [x] Build dev client: `eas build --profile development --platform ios`. Fresh iOS development build was created and installed on device for launch QA on 2026-05-21/2026-05-22.
 - [x] Confirm EAS production and development env vars are present for iOS builds: `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`, `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY`, and `EXPO_PUBLIC_AUTH_EMAIL_REDIRECT` verified on 2026-05-21.
 - [x] Install dev build on physical iPhone. Fresh iOS dev client was loaded on the iPhone 15 Pro Max for launch QA on 2026-05-21/2026-05-22.
-- [ ] Start Metro with env vars loaded and test RevenueCat sandbox.
+- [x] Start Metro with env vars loaded and test RevenueCat sandbox. LAN dev-client testing confirmed paywall load, sandbox purchase, cancel-from-sheet, same-account restore, and strict restore blocking for a different/recreated FinFindr account.
 - [ ] Build production: `eas build --profile production --platform ios`.
 - [ ] Upload to App Store Connect.
 - [ ] Add the build to the app version.
