@@ -1498,7 +1498,7 @@ export default function HomeScreen() {
                       pressed && { opacity: 0.85 },
                     ]}
                     accessibilityLabel={isFreePreview
-                      ? "Tomorrow forecast score preview"
+                      ? "Unlock forecast day report"
                       : "Open forecast day report"}
                   >
                     {isFirst && (

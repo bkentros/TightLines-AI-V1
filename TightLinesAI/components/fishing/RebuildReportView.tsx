@@ -1213,7 +1213,17 @@ function AnglerUpgradeModal({
                 </View>
                 <View style={styles.upgradeTeaserGrid}>
                   {ANGLER_FORECAST_TEASER.map((t, i) => (
-                    <View key={i} style={styles.upgradeTeaserTile}>
+                    <Pressable
+                      key={i}
+                      style={({ pressed }) => [
+                        styles.upgradeTeaserTile,
+                        pressed && styles.upgradeTeaserTilePressed,
+                      ]}
+                      onPress={handleOpenRevenueCatPaywall}
+                      disabled={presentingPaywall}
+                      accessibilityRole="button"
+                      accessibilityLabel={`Unlock ${t.day} forecast report`}
+                    >
                       <View style={styles.upgradeTeaserTileHead}>
                         <Text style={styles.upgradeTeaserTileDay}>{t.day}</Text>
                         <Text style={styles.upgradeTeaserTileDate}>
@@ -1233,7 +1243,7 @@ function AnglerUpgradeModal({
                           color="rgba(10,27,46,0.62)"
                         />
                       </View>
-                    </View>
+                    </Pressable>
                   ))}
                 </View>
                 <View style={styles.upgradeTeaserLegend}>
@@ -3588,6 +3598,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     overflow: "hidden",
   },
+  upgradeTeaserTilePressed: { opacity: 0.82 },
   upgradeTeaserTileHead: {
     paddingVertical: 3,
     alignItems: "center",
