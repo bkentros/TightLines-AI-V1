@@ -13,6 +13,7 @@ import { getValidAccessToken, invokeEdgeFunction } from "../lib/supabase";
 import { useAuthStore } from "./authStore";
 import type { SubscriptionTier, UserProfile } from "../lib/types";
 import { hasComplimentaryAnglerAccess } from "../lib/adminAccess";
+import { captureAnalytics } from "../lib/analytics";
 
 const ANGLER_ENTITLEMENT_ID = "angler";
 const NATIVE_UNAVAILABLE_MESSAGE =
@@ -116,6 +117,16 @@ function errorMessage(err: unknown): string {
   return "RevenueCat could not complete that request.";
 }
 
+function classifyRevenueCatError(message: string): string {
+  if (!message) return "cancelled_or_unknown";
+  if (message === NATIVE_UNAVAILABLE_MESSAGE) return "native_unavailable";
+  if (message === PAYWALL_NATIVE_UNAVAILABLE_MESSAGE) return "paywall_native_unavailable";
+  if (message === OFFERINGS_UNAVAILABLE_MESSAGE) return "offerings_unavailable";
+  if (message === RECEIPT_ALREADY_OWNED_MESSAGE) return "receipt_already_owned";
+  if (/sign in/i.test(message)) return "auth_required";
+  return "revenuecat_error";
+}
+
 async function syncProfileTier(
   customerInfo: CustomerInfo | null,
 ): Promise<void> {
@@ -143,6 +154,11 @@ async function syncProfileTier(
   if (result.profile) {
     useAuthStore.getState().setProfile(result.profile);
   }
+
+  captureAnalytics("subscription_tier_synced", {
+    subscription_tier: result.subscription_tier,
+    has_angler: result.has_angler,
+  });
 }
 
 interface RevenueCatState {
@@ -349,6 +365,9 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     }
 
     configureRevenueCatLogs();
+    captureAnalytics("paywall_opened", {
+      entitlement_id: ANGLER_ENTITLEMENT_ID,
+    });
     set({ presentingPaywall: true, error: null });
     try {
       if (initializationPromise) await initializationPromise;
@@ -391,10 +410,24 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       });
       await syncProfileTier(customerInfo);
 
+      captureAnalytics("paywall_closed", {
+        result,
+        has_angler: hasAngler,
+      });
+      if (hasAngler) {
+        captureAnalytics("subscription_unlocked", {
+          source: "paywall",
+          entitlement_id: ANGLER_ENTITLEMENT_ID,
+        });
+      }
+
       return hasAngler || result === PAYWALL_RESULT.NOT_PRESENTED;
     } catch (err) {
       const message = errorMessage(err);
       if (message) set({ error: message });
+      captureAnalytics("paywall_failed", {
+        reason: classifyRevenueCatError(message),
+      });
       return false;
     } finally {
       set({ presentingPaywall: false });
@@ -408,6 +441,9 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     }
 
     configureRevenueCatLogs();
+    captureAnalytics("purchase_started", {
+      package_identifier: pkg.identifier,
+    });
     set({ purchasing: pkg.identifier, error: null });
     try {
       const userId = useAuthStore.getState().user?.id;
@@ -426,10 +462,18 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       const hasAngler = hasEffectiveAnglerAccess(result.customerInfo);
       set({ customerInfo: result.customerInfo, hasAngler });
       await syncProfileTier(result.customerInfo);
+      captureAnalytics("purchase_completed", {
+        package_identifier: pkg.identifier,
+        has_angler: hasAngler,
+      });
       return hasAngler;
     } catch (err) {
       const message = errorMessage(err);
       if (message) set({ error: message });
+      captureAnalytics("purchase_failed", {
+        package_identifier: pkg.identifier,
+        reason: classifyRevenueCatError(message),
+      });
       return false;
     } finally {
       set({ purchasing: null });
@@ -443,6 +487,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     }
 
     configureRevenueCatLogs();
+    captureAnalytics("restore_started");
     set({ restoring: true, error: null });
     try {
       const userId = useAuthStore.getState().user?.id;
@@ -461,9 +506,16 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       const hasAngler = hasEffectiveAnglerAccess(customerInfo);
       set({ customerInfo, hasAngler });
       await syncProfileTier(customerInfo);
+      captureAnalytics("restore_completed", {
+        has_angler: hasAngler,
+      });
       return hasAngler;
     } catch (err) {
-      set({ error: errorMessage(err) });
+      const message = errorMessage(err);
+      set({ error: message });
+      captureAnalytics("restore_failed", {
+        reason: classifyRevenueCatError(message),
+      });
       return false;
     } finally {
       set({ restoring: false });

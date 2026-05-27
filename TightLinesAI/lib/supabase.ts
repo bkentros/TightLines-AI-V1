@@ -2,6 +2,7 @@ import 'react-native-url-polyfill/auto';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { createClient } from '@supabase/supabase-js';
 import { isRefreshTokenRevokedError } from './authSessionErrors';
+import { captureAnalytics } from './analytics';
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
@@ -32,6 +33,14 @@ export async function invokeEdgeFunction<TResponse>(
     headers?: Record<string, string>;
   }
 ): Promise<TResponse> {
+  const startedAt = Date.now();
+  const shouldTrack = TRACKED_EDGE_FUNCTIONS.has(functionName);
+  if (shouldTrack) {
+    captureAnalytics('edge_function_started', {
+      function_name: functionName,
+    });
+  }
+
   const response = await fetch(`${supabaseUrl}/functions/v1/${functionName}`, {
     method: 'POST',
     headers: {
@@ -53,6 +62,13 @@ export async function invokeEdgeFunction<TResponse>(
   }
 
   if (!response.ok) {
+    if (shouldTrack) {
+      captureAnalytics('edge_function_failed', {
+        function_name: functionName,
+        status: response.status,
+        duration_ms: Date.now() - startedAt,
+      });
+    }
     if (__DEV__) {
       console.log(`[invokeEdgeFunction] ${functionName} FAILED`, {
         status: response.status,
@@ -78,8 +94,24 @@ export async function invokeEdgeFunction<TResponse>(
     throw new Error(message);
   }
 
+  if (shouldTrack) {
+    captureAnalytics('edge_function_succeeded', {
+      function_name: functionName,
+      status: response.status,
+      duration_ms: Date.now() - startedAt,
+    });
+  }
+
   return parsed as TResponse;
 }
+
+const TRACKED_EDGE_FUNCTIONS = new Set([
+  'how-fishing',
+  'recommender',
+  'water-reader-read',
+  'sync-subscription-tier',
+  'creator-code-attribution',
+]);
 
 /**
  * Returns a guaranteed-valid access token, refreshing the session if the
