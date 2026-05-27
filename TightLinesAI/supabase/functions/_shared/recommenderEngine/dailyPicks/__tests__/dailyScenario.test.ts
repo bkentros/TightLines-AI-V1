@@ -347,9 +347,17 @@ Deno.test("DailyScenario suppressed activity blocks wind-reaction even when wind
 
 Deno.test("DailyScenario seasonal surface false keeps surface closed on calm low-light active days", () => {
   const scenario = buildDailyScenario({
-    req: baseReq({ env_data: { wind_speed_mph: 3 } }),
+    req: baseReq({
+      location: {
+        ...baseReq().location,
+        local_date: "2026-02-20",
+        month: 2,
+      },
+      env_data: { wind_speed_mph: 3 },
+    }),
     analysis: analysis({ score: 80, lightLabel: "low_light" }),
     seasonalRow: baseRow({
+      month: 2,
       column_range: ["bottom", "mid", "upper"],
       surface_seasonally_possible: false,
     }),
@@ -363,6 +371,135 @@ Deno.test("DailyScenario seasonal surface false keeps surface closed on calm low
   assert(!scenario.scenario_tags.includes("low_light_surface"));
 });
 
+Deno.test("DailyScenario May bass can open broad warm-season surface without a prime score", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      location: {
+        ...baseReq().location,
+        local_date: "2026-05-20",
+        month: 5,
+      },
+      env_data: { wind_speed_mph: 3 },
+    }),
+    analysis: analysis({ score: 62, lightLabel: "low_light" }),
+    seasonalRow: baseRow({
+      month: 5,
+      column_range: ["bottom", "mid", "upper"],
+      column_baseline: "upper",
+      surface_seasonally_possible: false,
+    }),
+  });
+
+  assertEquals(scenario.surface_daily_gate, "open");
+  assert(
+    scenario.surface_daily_reason_codes.includes(
+      "warm_season_surface_exception",
+    ),
+  );
+  assert(scenario.scenario_tags.includes("calm_surface"));
+  assert(scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario southern April bass can open surface without a prime score", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      location: {
+        ...baseReq().location,
+        state_code: "FL",
+        region_key: "florida",
+        local_date: "2026-04-15",
+        month: 4,
+      },
+      env_data: { wind_speed_mph: 3 },
+    }),
+    analysis: analysis({ score: 56, lightLabel: "low_light" }),
+    seasonalRow: baseRow({
+      region_key: "florida",
+      month: 4,
+      column_range: ["bottom", "mid", "upper"],
+      column_baseline: "upper",
+      surface_seasonally_possible: false,
+    }),
+  });
+
+  assertEquals(scenario.surface_daily_gate, "open");
+  assert(
+    scenario.surface_daily_reason_codes.includes(
+      "southern_april_surface_exception",
+    ),
+  );
+});
+
+Deno.test("DailyScenario southern March bass surface exception still requires a prime score", () => {
+  const base = {
+    req: baseReq({
+      location: {
+        ...baseReq().location,
+        state_code: "FL",
+        region_key: "florida",
+        local_date: "2026-03-20",
+        month: 3,
+      },
+      env_data: { wind_speed_mph: 3 },
+    }),
+    seasonalRow: baseRow({
+      region_key: "florida",
+      month: 3,
+      column_range: ["bottom", "mid", "upper"],
+      column_baseline: "upper",
+      surface_seasonally_possible: false,
+    }),
+  };
+  const almostPrime = buildDailyScenario({
+    ...base,
+    analysis: analysis({ score: 79, lightLabel: "low_light" }),
+  });
+  const prime = buildDailyScenario({
+    ...base,
+    analysis: analysis({ score: 82, lightLabel: "low_light" }),
+  });
+
+  assertEquals(almostPrime.surface_daily_gate, "closed");
+  assert(
+    !almostPrime.surface_daily_reason_codes.includes(
+      "southern_march_prime_surface_exception",
+    ),
+  );
+  assertEquals(prime.surface_daily_gate, "open");
+  assert(
+    prime.surface_daily_reason_codes.includes(
+      "southern_march_prime_surface_exception",
+    ),
+  );
+});
+
+Deno.test("DailyScenario northern April bass can open surface on prime days", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({
+      location: {
+        ...baseReq().location,
+        local_date: "2026-04-24",
+        month: 4,
+      },
+      env_data: { wind_speed_mph: 3 },
+    }),
+    analysis: analysis({ score: 84, lightLabel: "low_light" }),
+    seasonalRow: baseRow({
+      month: 4,
+      column_range: ["bottom", "mid", "upper"],
+      column_baseline: "upper",
+      surface_seasonally_possible: false,
+    }),
+  });
+
+  assertEquals(scenario.surface_daily_gate, "open");
+  assert(
+    scenario.surface_daily_reason_codes.includes(
+      "prime_april_surface_exception",
+    ),
+  );
+});
+
 Deno.test("DailyScenario seasonally valid calm low-light active day opens surface and emits surface tags", () => {
   const scenario = buildDailyScenario({
     req: baseReq({ env_data: { wind_speed_mph: 3 } }),
@@ -373,6 +510,23 @@ Deno.test("DailyScenario seasonally valid calm low-light active day opens surfac
   assertEquals(scenario.surface_daily_gate, "open");
   assert(scenario.surface_daily_reason_codes.includes("calm_surface_open"));
   assert(scenario.scenario_tags.includes("calm_surface"));
+  assert(scenario.scenario_tags.includes("low_light_surface"));
+});
+
+Deno.test("DailyScenario seasonally valid slight low-light day opens surface", () => {
+  const scenario = buildDailyScenario({
+    req: baseReq({ env_data: { wind_speed_mph: 7 } }),
+    analysis: analysis({ score: 80, lightLabel: "low_light" }),
+    seasonalRow: baseRow(),
+  });
+
+  assertEquals(scenario.wind_mode, "slight");
+  assertEquals(scenario.surface_daily_gate, "open");
+  assert(
+    scenario.surface_daily_reason_codes.includes(
+      "slight_low_light_surface_open",
+    ),
+  );
   assert(scenario.scenario_tags.includes("low_light_surface"));
 });
 

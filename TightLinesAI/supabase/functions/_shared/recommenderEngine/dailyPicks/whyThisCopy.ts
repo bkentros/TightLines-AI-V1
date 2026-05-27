@@ -263,9 +263,9 @@ const WHY_LINES_BY_ID = {
     "the props make noise without forcing the lure to leave high-percentage water",
   ],
   hollow_body_frog: [
-    "a hollow-body frog slides over grass and shade where bass expect surface prey",
-    "its weedless body lets you put a topwater into places open-hook baits cannot go",
-    "the frog profile gives fish under mats, pads, and overhangs a natural overhead target",
+    "a hollow-body frog gives bass a compact surface target they can track and commit to",
+    "its weedless body lets you work a topwater through shallow lanes and around cover",
+    "the frog profile creates a patient overhead meal when bigger fish are willing to rise",
   ],
   wake_bait: [
     "a wake bait leaves a slow surface bulge that looks like an easy baitfish or bluegill",

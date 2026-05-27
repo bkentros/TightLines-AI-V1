@@ -38,6 +38,7 @@ const SCORE = {
   largemouthFrogCoverBigFishLane: 36,
   largemouthBuzzbaitBigFishLane: 6,
   largemouthPopperTargetBigFishLane: 20,
+  largemouthMouseFlyBigFishLane: 18,
   smallmouthBottomFinesseLane: 6,
   smallmouthNedFinesseLane: 18,
   smallmouthTexasCrawLane: 14,
@@ -358,6 +359,28 @@ function isLargemouthPaddleTailBigFishLane(args: {
   return searchWindow && !heatPenaltyWindow;
 }
 
+function hasLargemouthFrogForageOrCover(args: {
+  row: SeasonalRowV4;
+  scenario: DailyScenario;
+  tags: ReadonlySet<string>;
+  allowGenericStainedLakeProxy: boolean;
+}): boolean {
+  const { row, scenario, tags } = args;
+  const explicitCoverOrForage = tags.has("cover_ambush") ||
+    row.primary_forage === "bluegill_perch" ||
+    row.secondary_forage === "bluegill_perch" ||
+    row.primary_forage === "surface_prey" ||
+    row.secondary_forage === "surface_prey";
+  if (explicitCoverOrForage) return true;
+  if (!args.allowGenericStainedLakeProxy) return false;
+
+  const controlledSurface = tags.has("low_light_surface") ||
+    (tags.has("calm_surface") && scenario.wind_mode !== "breezy");
+  return row.water_type === "freshwater_lake_pond" &&
+    scenario.water_clarity !== "clear" &&
+    controlledSurface;
+}
+
 function isLargemouthFrogCoverBigFishLane(args: {
   profile: ArchetypeProfileV4;
   row: SeasonalRowV4;
@@ -375,16 +398,20 @@ function isLargemouthFrogCoverBigFishLane(args: {
   }
 
   const tags = new Set(scenario.scenario_tags);
-  const coverOrForageProxy = tags.has("cover_ambush") ||
+  const explicitCoverOrForage = tags.has("cover_ambush") ||
     row.primary_forage === "bluegill_perch" ||
     row.secondary_forage === "bluegill_perch" ||
     row.primary_forage === "surface_prey" ||
-    row.secondary_forage === "surface_prey" ||
-    (row.water_type === "freshwater_lake_pond" &&
-      scenario.water_clarity !== "clear");
+    row.secondary_forage === "surface_prey";
+  const coverOrForageProxy = hasLargemouthFrogForageOrCover({
+    row,
+    scenario,
+    tags,
+    allowGenericStainedLakeProxy: true,
+  });
   const lightOrSurfaceFit = tags.has("low_light_surface") ||
     tags.has("calm_surface") ||
-    scenario.surface_daily_gate === "caution";
+    (scenario.surface_daily_gate === "caution" && explicitCoverOrForage);
   const heatNoLight = scenario.thermal_mode === "heat_limited" &&
     scenario.light_mode !== "low_light";
 
@@ -408,13 +435,12 @@ function isLargemouthFrogCoverAllPurposeLane(args: {
   }
 
   const tags = new Set(scenario.scenario_tags);
-  const coverOrForageProxy = tags.has("cover_ambush") ||
-    row.primary_forage === "bluegill_perch" ||
-    row.secondary_forage === "bluegill_perch" ||
-    row.primary_forage === "surface_prey" ||
-    row.secondary_forage === "surface_prey" ||
-    (row.water_type === "freshwater_lake_pond" &&
-      scenario.water_clarity !== "clear");
+  const coverOrForageProxy = hasLargemouthFrogForageOrCover({
+    row,
+    scenario,
+    tags,
+    allowGenericStainedLakeProxy: false,
+  });
   const lightOrCalmFit = tags.has("low_light_surface") ||
     (tags.has("calm_surface") &&
       (scenario.wind_mode === "calm" || scenario.wind_mode === "slight"));
@@ -482,6 +508,43 @@ function isLargemouthPopperTargetBigFishLane(args: {
     scenario.light_mode !== "low_light";
 
   return targetWater && surfaceFit && !heatNoLight;
+}
+
+function isLargemouthMouseFlyBigFishLane(args: {
+  profile: ArchetypeProfileV4;
+  row: SeasonalRowV4;
+  scenario: DailyScenario;
+}): boolean {
+  const { profile, row, scenario } = args;
+  if (
+    scenario.species !== "largemouth_bass" ||
+    scenario.recommendation_goal !== "big_fish" ||
+    profile.id !== "mouse_fly" ||
+    scenario.activity_level === "suppressed" ||
+    scenario.surface_daily_gate === "closed" ||
+    scenario.water_clarity === "dirty" ||
+    scenario.month < 5 ||
+    scenario.month > 9
+  ) {
+    return false;
+  }
+
+  const tags = new Set(scenario.scenario_tags);
+  const controlledSurface = tags.has("low_light_surface") ||
+    (tags.has("calm_surface") &&
+      (scenario.wind_mode === "calm" || scenario.wind_mode === "slight"));
+  const bankOrShadeFood = row.column_baseline === "upper" ||
+    row.column_baseline === "surface" ||
+    row.primary_forage === "surface_prey" ||
+    row.secondary_forage === "surface_prey" ||
+    row.primary_forage === "bluegill_perch" ||
+    row.secondary_forage === "bluegill_perch" ||
+    row.primary_forage === "baitfish" ||
+    row.secondary_forage === "baitfish";
+  const heatNoLight = scenario.thermal_mode === "heat_limited" &&
+    scenario.light_mode !== "low_light";
+
+  return controlledSurface && bankOrShadeFood && !heatNoLight;
 }
 
 function isLargemouthLiplessCrankAllPurposeLane(args: {
@@ -710,11 +773,11 @@ function isLargemouthSurfaceAllPurposeLane(args: {
           tags.has("wind_reaction"));
     case "hollow_body_frog":
       return row.water_type === "freshwater_lake_pond" &&
-        (row.primary_forage === "bluegill_perch" ||
+        (tags.has("cover_ambush") ||
+          row.primary_forage === "bluegill_perch" ||
           row.secondary_forage === "bluegill_perch" ||
           row.primary_forage === "surface_prey" ||
-          row.secondary_forage === "surface_prey" ||
-          scenario.water_clarity !== "clear") &&
+          row.secondary_forage === "surface_prey") &&
         (tags.has("low_light_surface") ||
           (tags.has("calm_surface") && scenario.activity_level === "active"));
     default:
@@ -1908,6 +1971,13 @@ export function scoreCandidate(args: {
       reasons,
       "daily_lane:largemouth_popper_target_big_fish",
       SCORE.largemouthPopperTargetBigFishLane,
+    );
+  }
+  if (isLargemouthMouseFlyBigFishLane({ profile, row, scenario })) {
+    score += addScore(
+      reasons,
+      "daily_lane:largemouth_mouse_fly_big_fish",
+      SCORE.largemouthMouseFlyBigFishLane,
     );
   }
   if (isSmallmouthBottomFinesseAllPurposeLane({ profile, row, scenario })) {

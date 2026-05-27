@@ -86,6 +86,39 @@ export type DailyScenario = {
   confidence: "high" | "medium" | "low";
 };
 
+export const SHOULDER_SURFACE_REASON_CODES = [
+  "warm_season_surface_exception",
+  "southern_april_surface_exception",
+  "prime_april_surface_exception",
+  "southern_march_prime_surface_exception",
+] as const;
+
+export type ShoulderSurfaceReasonCode =
+  (typeof SHOULDER_SURFACE_REASON_CODES)[number];
+
+const PRIME_SHOULDER_SURFACE_MIN_SCORE = 80;
+const SOUTHERN_EARLY_SURFACE_REGIONS = new Set<RegionKey>([
+  "florida",
+  "gulf_coast",
+  "southeast_atlantic",
+  "south_central",
+  "southwest_desert",
+  "southwest_high_desert",
+  "southern_california",
+  "hawaii",
+]);
+const APRIL_PRIME_SURFACE_REGIONS = new Set<RegionKey>([
+  "northeast",
+  "great_lakes_upper_midwest",
+  "midwest_interior",
+  "mountain_west",
+  "pacific_northwest",
+  "northern_california",
+  "appalachian",
+  "inland_northwest",
+  "southwest_high_desert",
+]);
+
 function speciesToV4(
   species: SpeciesGroup | RecommenderV4Species,
 ): RecommenderV4Species {
@@ -315,9 +348,60 @@ function seasonalSurfaceAllowed(row: SeasonalRowV4): boolean {
     row.surface_seasonally_possible;
 }
 
+function shoulderSurfaceExceptionReason(args: {
+  species: RecommenderV4Species;
+  regionKey: RegionKey;
+  month: number;
+  row: SeasonalRowV4;
+  howsScore: number;
+  activityLevel: DailyActivityLevel;
+  thermalMode: DailyThermalMode;
+}): ShoulderSurfaceReasonCode | null {
+  if (
+    args.species !== "largemouth_bass" &&
+    args.species !== "smallmouth_bass"
+  ) {
+    return null;
+  }
+  if (args.row.surface_seasonally_possible) return null;
+  if (!args.row.column_range.includes("upper")) return null;
+  if (args.activityLevel === "suppressed") return null;
+  if (
+    args.thermalMode === "cold_slow" ||
+    args.thermalMode === "cooling_or_shock" ||
+    args.thermalMode === "unknown"
+  ) {
+    return null;
+  }
+
+  const southernEarly = SOUTHERN_EARLY_SURFACE_REGIONS.has(args.regionKey);
+  if (args.month >= 5 && args.month <= 9) {
+    return "warm_season_surface_exception";
+  }
+  if (args.month === 4 && southernEarly) {
+    return "southern_april_surface_exception";
+  }
+  if (
+    args.month === 4 &&
+    APRIL_PRIME_SURFACE_REGIONS.has(args.regionKey) &&
+    args.howsScore >= PRIME_SHOULDER_SURFACE_MIN_SCORE
+  ) {
+    return "prime_april_surface_exception";
+  }
+  if (
+    args.month === 3 &&
+    southernEarly &&
+    args.howsScore >= PRIME_SHOULDER_SURFACE_MIN_SCORE
+  ) {
+    return "southern_march_prime_surface_exception";
+  }
+  return null;
+}
+
 function surfaceGate(args: {
   species: RecommenderV4Species;
   seasonalSurfaceAllowed: boolean;
+  shoulderSurfaceExceptionReason: ShoulderSurfaceReasonCode | null;
   windMode: DailyWindMode;
   activityLevel: DailyActivityLevel;
   recommendationGoal: RecommendationGoal;
@@ -331,9 +415,13 @@ function surfaceGate(args: {
   const reasons: string[] = [];
   if (!args.seasonalSurfaceAllowed) {
     reasons.push("seasonal_surface_closed");
-    return { gate: "closed", reasonCodes: reasons };
+    if (args.shoulderSurfaceExceptionReason == null) {
+      return { gate: "closed", reasonCodes: reasons };
+    }
+    reasons.push(args.shoulderSurfaceExceptionReason);
+  } else {
+    reasons.push("seasonal_surface_open");
   }
-  reasons.push("seasonal_surface_open");
 
   if (args.pikeColdSurfaceClosed) {
     reasons.push("pike_cold_surface_closed");
@@ -385,6 +473,11 @@ function surfaceGate(args: {
   if (args.windMode === "calm") {
     reasons.push("calm_surface_open");
     if (args.lightMode === "low_light") reasons.push("low_light_surface_open");
+    return { gate: "open", reasonCodes: reasons };
+  }
+
+  if (args.windMode === "slight" && args.lightMode === "low_light") {
+    reasons.push("slight_low_light_surface_open");
     return { gate: "open", reasonCodes: reasons };
   }
 
@@ -504,9 +597,19 @@ export function buildDailyScenario(args: {
   }
 
   const seasonalAllowsSurface = seasonalSurfaceAllowed(seasonalRow);
+  const shoulderSurfaceReason = shoulderSurfaceExceptionReason({
+    species,
+    regionKey: req.location.region_key,
+    month: req.location.month,
+    row: seasonalRow,
+    howsScore,
+    activityLevel,
+    thermalMode,
+  });
   const surface = surfaceGate({
     species,
     seasonalSurfaceAllowed: seasonalAllowsSurface,
+    shoulderSurfaceExceptionReason: shoulderSurfaceReason,
     windMode,
     activityLevel,
     recommendationGoal: req.recommendation_goal,

@@ -176,6 +176,41 @@ function profileFor(id: string): ArchetypeProfileV4 {
   return profile;
 }
 
+function hasPaceFit(
+  profile: ArchetypeProfileV4,
+  rowPaces: readonly string[],
+): boolean {
+  return rowPaces.includes(profile.primary_pace) ||
+    (profile.secondary_pace != null &&
+      rowPaces.includes(profile.secondary_pace));
+}
+
+function hasSurfaceException(response: DailyPicksFutureResponse): boolean {
+  return response.scenario_summary.surface_daily_reason_codes.some((reason) =>
+    reason.endsWith("_surface_exception")
+  );
+}
+
+function assertPickRespectsRowEnvelope(args: {
+  pick: DailyPicksResponsePick;
+  response: DailyPicksFutureResponse;
+  row: ReturnType<typeof resolveDailyPicksSeasonalRow>;
+}): void {
+  const { pick, response, row } = args;
+  const profile = profileFor(pick.id);
+  const rowIds = pick.gear_mode === "lure"
+    ? row.primary_lure_ids as readonly string[]
+    : row.primary_fly_ids as readonly string[];
+  if (rowIds.includes(pick.id)) return;
+
+  assert(
+    response.species === "largemouth_bass" ||
+      response.species === "smallmouth_bass",
+  );
+  assert(row.column_range.includes(profile.column));
+  assert(hasPaceFit(profile, row.pace_range));
+}
+
 function assertPreviewInvariants(response: DailyPicksFutureResponse): void {
   const picks = allPicks(response);
   assertEquals(picks.length, 4);
@@ -204,14 +239,13 @@ function assertPreviewInvariants(response: DailyPicksFutureResponse): void {
     water_type: response.water_type,
   });
   for (const pick of picks) {
-    if (pick.gear_mode === "lure") {
-      assert((row.primary_lure_ids as readonly string[]).includes(pick.id));
-    } else {
-      assert((row.primary_fly_ids as readonly string[]).includes(pick.id));
-    }
+    assertPickRespectsRowEnvelope({ pick, response, row });
     if (pick.is_surface) {
-      assert(row.surface_seasonally_possible);
-      assert(row.column_range.includes("surface"));
+      assert(
+        (row.surface_seasonally_possible &&
+          row.column_range.includes("surface")) ||
+          (hasSurfaceException(response) && row.column_range.includes("upper")),
+      );
       assert(response.scenario_summary.surface_daily_gate !== "closed");
     }
   }

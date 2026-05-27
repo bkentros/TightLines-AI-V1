@@ -63,6 +63,8 @@ export type DailyPicksFinalistPoolDiagnostics =
 
 const TOP_QUALITY_BAND = 18;
 const HONORABLE_QUALITY_BAND = 24;
+const BASS_TOP_QUALITY_BAND = 30;
+const BASS_HONORABLE_QUALITY_BAND = 36;
 const SET_B_EXACT_ID_FALLBACK_BAND = 36;
 const TARGET_FINALIST_POOL_SIZE = 4;
 const SET_B_NOVELTY_FINALIST_POOL_SIZE = 2;
@@ -116,6 +118,20 @@ const BASS_LURE_MACRO_DIVERSITY_IDS = new Set<string>([
   "wake_bait",
   "hollow_body_frog",
 ]);
+
+function topQualityBandForScenario(scenario: DailyScenario): number {
+  if (!isBassSpecies(scenario)) return TOP_QUALITY_BAND;
+  return scenario.recommendation_goal === "all_purpose"
+    ? BASS_TOP_QUALITY_BAND
+    : TOP_QUALITY_BAND + 6;
+}
+
+function honorableQualityBandForScenario(scenario: DailyScenario): number {
+  if (!isBassSpecies(scenario)) return HONORABLE_QUALITY_BAND;
+  return scenario.recommendation_goal === "all_purpose"
+    ? BASS_HONORABLE_QUALITY_BAND
+    : HONORABLE_QUALITY_BAND + 6;
+}
 
 function hashString(input: string): number {
   let hash = 2166136261;
@@ -1675,7 +1691,11 @@ function topFinalistCandidateSet(args: {
   const bestScore = Math.max(
     ...args.candidates.map((candidate) => candidate.score),
   );
-  const inBand = qualityBand(args.candidates, bestScore, TOP_QUALITY_BAND);
+  const inBand = qualityBand(
+    args.candidates,
+    bestScore,
+    topQualityBandForScenario(args.scenario),
+  );
   const eligibleAvoiding = qualityBandRespectingAvoids({
     candidates: args.candidates,
     inBand,
@@ -2868,7 +2888,7 @@ function honorableFinalistCandidateSet(args: {
   const inBand = qualityBand(
     remaining,
     bestRemainingScore,
-    HONORABLE_QUALITY_BAND,
+    honorableQualityBandForScenario(args.scenario),
   );
   const eligibleAvoiding = qualityBandRespectingAvoids({
     candidates: remaining,

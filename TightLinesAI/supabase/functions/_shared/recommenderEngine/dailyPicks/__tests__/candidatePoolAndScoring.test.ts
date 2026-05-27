@@ -99,7 +99,7 @@ function cloneWithGoalTags(
   };
 }
 
-Deno.test("DailyPick candidate pool includes only row-authored IDs", () => {
+Deno.test("DailyPick candidate pool preserves authored IDs and can widen thin row pools", () => {
   const pool = buildCandidatePool({
     row: baseRow({
       primary_lure_ids: ["spinnerbait", "buzzbait"],
@@ -108,7 +108,9 @@ Deno.test("DailyPick candidate pool includes only row-authored IDs", () => {
     scenario: baseScenario(),
   });
 
-  assertEquals(ids(pool.lures).sort(), ["buzzbait", "spinnerbait"]);
+  assert(ids(pool.lures).includes("spinnerbait"));
+  assert(ids(pool.lures).includes("buzzbait"));
+  assert(pool.lures.length > 2);
   assertEquals(pool.flies, []);
 });
 
@@ -211,7 +213,9 @@ Deno.test("DailyPick candidate pool keeps surface candidates when seasonal and d
     scenario: baseScenario({ surface_daily_gate: "open" }),
   });
 
-  assertEquals(ids(pool.lures).sort(), ["buzzbait", "spinnerbait"]);
+  assert(ids(pool.lures).includes("spinnerbait"));
+  assert(ids(pool.lures).includes("buzzbait"));
+  assert(pool.lures.some((candidate) => candidate.profile.is_surface));
 });
 
 Deno.test("DailyPick candidate pool protects frog from closed surface gates", () => {
@@ -232,7 +236,40 @@ Deno.test("DailyPick candidate pool protects frog from closed surface gates", ()
   });
 
   assertEquals(ids(closed.lures), ["spinnerbait"]);
-  assertEquals(ids(open.lures).sort(), ["hollow_body_frog", "spinnerbait"]);
+  assert(ids(open.lures).includes("hollow_body_frog"));
+  assert(ids(open.lures).includes("spinnerbait"));
+});
+
+Deno.test("DailyPick candidate pool backfills surface on warm-season shoulder exceptions", () => {
+  const row = baseRow({
+    month: 5,
+    column_range: ["bottom", "mid", "upper"],
+    column_baseline: "upper",
+    primary_lure_ids: ["spinnerbait", "glidebait"],
+    primary_fly_ids: ["clouser_minnow", "bluegill_streamer"],
+    surface_seasonally_possible: false,
+  });
+  const scenario = baseScenario({
+    month: 5,
+    surface_daily_gate: "open",
+    surface_daily_reason_codes: [
+      "seasonal_surface_closed",
+      "warm_season_surface_exception",
+      "calm_surface_open",
+    ],
+    scenario_tags: ["calm_surface", "low_light_surface"],
+    wind_mode: "calm",
+    daylight_wind_mph: 3,
+    recommendation_goal: "big_fish",
+  });
+
+  const pool = buildCandidatePool({ row, scenario });
+
+  assert(ids(pool.lures).includes("walking_topwater"));
+  assert(ids(pool.lures).includes("popping_topwater"));
+  assert(ids(pool.lures).includes("hollow_body_frog"));
+  assert(ids(pool.flies).includes("popper_fly"));
+  assert(ids(pool.flies).includes("mouse_fly"));
 });
 
 Deno.test("DailyPick candidate pool does not hard-gate clarity mismatch, but scoring skips clarity bonus", () => {
@@ -640,6 +677,34 @@ Deno.test("DailyPick scoring blocks frog PB lift outside surface-cover fit", () 
   }
 });
 
+Deno.test("DailyPick scoring does not treat generic stained lake caution as frog cover", () => {
+  const row = baseRow({
+    primary_lure_ids: ["hollow_body_frog"],
+    primary_forage: "baitfish",
+    secondary_forage: "crawfish",
+    column_baseline: "upper",
+    pace_baseline: "medium",
+  });
+  const scenario = baseScenario({
+    recommendation_goal: "big_fish",
+    surface_daily_gate: "caution",
+    scenario_tags: [],
+    water_clarity: "stained",
+    light_mode: "mixed",
+  });
+  const scored = scoreFor({
+    profile: lure("hollow_body_frog"),
+    row,
+    scenario,
+  });
+
+  assert(
+    !scored.reasons.includes(
+      "daily_lane:largemouth_frog_cover_big_fish:+36",
+    ),
+  );
+});
+
 Deno.test("DailyPick scoring gives LMB popper a narrow PB target-surface path", () => {
   const row = baseRow({
     primary_lure_ids: ["popping_topwater"],
@@ -690,6 +755,38 @@ Deno.test("DailyPick scoring gives LMB popper a narrow PB target-surface path", 
         .includes("daily_lane:largemouth_popper_target_big_fish:+20"),
     );
   }
+});
+
+Deno.test("DailyPick scoring gives LMB mouse fly a controlled PB surface lane", () => {
+  const row = baseRow({
+    month: 5,
+    primary_lure_ids: [],
+    primary_fly_ids: ["mouse_fly"],
+    column_baseline: "upper",
+    primary_forage: "crawfish",
+    secondary_forage: "baitfish",
+  });
+  const scenario = baseScenario({
+    month: 5,
+    recommendation_goal: "big_fish",
+    surface_daily_gate: "open",
+    wind_mode: "calm",
+    scenario_tags: ["calm_surface", "low_light_surface"],
+    water_clarity: "stained",
+    light_mode: "low_light",
+  });
+  const scored = scoreFor({
+    profile: fly("mouse_fly"),
+    row,
+    scenario,
+    side: "fly",
+  });
+
+  assert(
+    scored.reasons.includes(
+      "daily_lane:largemouth_mouse_fly_big_fish:+18",
+    ),
+  );
 });
 
 Deno.test("DailyPick scoring gives LMB Buzzbait PB lift only in noisy low-light surface windows", () => {

@@ -200,6 +200,44 @@ Deno.test("why-this keeps breezy wind-reaction copy conservative", () => {
   }
 });
 
+Deno.test("why-this frog copy does not invent specific surface-cover habitat", () => {
+  const profile = archetype("hollow_body_frog");
+  const day = scenarioWith(profile, {
+    species: "largemouth_bass",
+    water_type: "freshwater_lake_pond",
+    water_clarity: "stained",
+    recommendation_goal: "big_fish",
+    surface_daily_gate: "open",
+    surface_daily_reason_codes: [
+      "seasonal_surface_closed",
+      "warm_season_surface_exception",
+      "calm_surface_open",
+      "low_light_surface_open",
+    ],
+    scenario_tags: ["calm_surface", "low_light_surface"],
+  });
+  const pickScore = scoreWithReasons(profile, [
+    "base:+100",
+    "condition_tag:calm_surface:+16",
+    "daily_lane:largemouth_frog_cover_big_fish:+18",
+  ]);
+
+  for (let index = 0; index < 16; index++) {
+    const copy = whyThisCopy({
+      score: pickScore,
+      scenario: day,
+      slot: "lure_of_the_day",
+      seed: `generic-frog-${index}`,
+      variant: "A",
+    });
+
+    assert(
+      !/\b(grass|mats|pads|overhangs|shade)\b/i.test(copy),
+      `frog copy should not invent specific cover habitat: ${copy}`,
+    );
+  }
+});
+
 Deno.test("why-this avoids wind terms on slight-wind spinnerbait fits", () => {
   const profile = archetype("spinnerbait");
   const day = scenarioWith(profile, {
