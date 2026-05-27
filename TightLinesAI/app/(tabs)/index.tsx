@@ -534,15 +534,15 @@ export default function HomeScreen() {
 
   // ── Live conditions auto-refresh ──────────────────────────────────────────
   const refreshLiveConditions = useCallback(() => {
+    const lat = coords?.lat;
+    const lon = coords?.lon;
+    if (lat == null || lon == null) return;
+
     const now = Date.now();
     if (now - lastAutoRefreshAtRef.current < 3000) return;
     lastAutoRefreshAtRef.current = now;
     const units = profile?.preferred_units ?? "imperial";
-    const lat = coords?.lat;
-    const lon = coords?.lon;
-    if (lat != null && lon != null) {
-      loadEnv(lat, lon, { units });
-    }
+    loadEnv(lat, lon, { units });
   }, [profile?.preferred_units, coords?.lat, coords?.lon, loadEnv]);
 
   useFocusEffect(
