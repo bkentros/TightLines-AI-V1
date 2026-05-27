@@ -1,6 +1,6 @@
 # FinFindr App Store Submission Checklist
 
-Last updated: 2026-05-26
+Last updated: 2026-05-27
 
 This is the living launch checklist for getting FinFindr through Apple review with the best chance of a fast approval. Check items off only when verified on the actual production or review build, not just assumed from code.
 
@@ -209,12 +209,14 @@ These are useful next moves that do not require the LLC approval, EIN, or Apple 
 
 ### 9B. Business / LLC / Tax Follow-Up
 
-- [ ] Watch for the Sunbiz approval email for the Florida LLC filing.
-- [ ] Search Sunbiz once approved and save the public filing page/PDF for records.
-- [ ] Apply for EIN directly through the IRS site; do not pay a third-party EIN site.
+- [x] Watch for the Sunbiz approval email for the Florida LLC filing. `FinFindr LLC` is approved.
+- [x] Search Sunbiz once approved and save the public filing page/PDF for records.
+- [x] Apply for EIN directly through the IRS site; do not pay a third-party EIN site. EIN is obtained and saved.
 - [ ] Open/update a business bank account after EIN is available.
 - [x] Complete current App Store Connect W-9/tax info and wait for banking to finish processing if using the fast-track individual-account path to unblock Paid Apps/subscription testing. Completed/active on 2026-05-23.
 - [x] Confirm the Apple Paid Apps Agreement is active before expecting subscriptions to work reliably. Confirmed Active on 2026-05-23.
+- [ ] Wait for D-U-N-S confirmation before expecting Apple to complete the Individual-to-Organization conversion request.
+- [ ] After D-U-N-S confirmation, submit Apple Developer Support request to convert the Individual membership to an Organization membership for `FinFindr LLC`.
 - [ ] Add the next Florida annual report reminder: file between January 1 and May 1 each year, starting the calendar year after formation.
 
 ### 9C. Manual Release / LLC Conversion Gate
@@ -253,6 +255,9 @@ Use this as a starting point in App Store Connect after the unchecked items are 
 
 ```text
 FinFindr is a fishing forecast and tackle recommendation app. Reviewers can create an account with email/password or Sign in with Apple. A demo account is provided below.
+
+Business/entity note:
+FinFindr LLC has been approved and the EIN has been obtained. The app is currently being submitted from the existing individual Apple Developer account while D-U-N-S confirmation and Apple Developer Individual-to-Organization conversion are pending. The version is set to Manual Release, and the app will not be publicly released until seller/account information is reconciled or intentionally approved for launch. The Terms, Privacy Policy, Safety Notice, and Support pages identify FinFindr LLC as the app operator.
 
 Core review path:
 1. Sign in with the demo account.
