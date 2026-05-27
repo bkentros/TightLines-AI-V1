@@ -45,6 +45,8 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
           'Fishing and app data you choose to create, including catches, sessions, locations, species preferences, photos or water images, voice logs if enabled, support messages, and feedback.',
           'Location information when you grant permission or manually choose a location. FinFindr uses this to build weather, tide, moon, and fishing-condition context.',
           'Purchase and entitlement status from the app store used for purchase, including the App Store, Google Play where supported, and RevenueCat. FinFindr does not receive full payment card numbers from Apple or Google.',
+          'Product analytics and interaction data, such as app opens, screen views, feature usage, paywall events, purchase and restore events, subscription tier, region settings, onboarding status, and similar product-quality signals.',
+          'Creator, referral, and offer-code information if you use or arrive through a creator code, redemption link, or promotional campaign. This may include the code, creator attribution, subscription product, RevenueCat event details, payout ledger records, redemption URLs, and limited anti-abuse or attribution diagnostics such as hashed IP address or hashed user-agent information for web referral clicks.',
           'Operational data such as device platform, app version, rate-limit records, cache identifiers, error context, and diagnostics needed to run, secure, and improve the service.',
         ],
       },
@@ -53,15 +55,18 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         body: [
           'To create and secure your account, sync your profile, provide forecasts, tackle recommendations, water reads, fishing logs, and subscription-gated features.',
           'To respond to support requests, troubleshoot bugs, prevent abuse, enforce rate limits, improve app quality, maintain production systems, and protect users and FinFindr.',
+          'To measure product usage and subscription flows, understand which app areas need improvement, and confirm that subscription, restore, and creator-code attribution systems are working correctly.',
+          'To administer creator, referral, offer-code, commission, refund, reversal, payout, and attribution records where a creator program or promotional code is used.',
           'To send transactional emails such as account verification, password reset, support messages, and important account or service notices.',
         ],
       },
       {
         title: 'Third-Party Services',
         body: [
-          'FinFindr uses service providers for app infrastructure and core functionality, including Supabase, RevenueCat, Apple platform services, Google platform services where supported, Resend, Open-Meteo, NOAA/NWS, NOAA CO-OPS, USNO, Sunrise-Sunset.org, mapping/geocoding providers, analytics and diagnostics providers, and similar operational vendors.',
+          'FinFindr uses service providers for app infrastructure and core functionality, including Supabase, RevenueCat, PostHog, Apple platform services, Google platform services where supported, Resend, Open-Meteo, NOAA/NWS, NOAA CO-OPS, USNO, Sunrise-Sunset.org, mapping/geocoding providers, analytics and diagnostics providers, and similar operational vendors.',
           'Weather, water, sun, moon, map, and geocoding providers may receive coordinates, search terms, or request context needed to return app data. They are not given your full FinFindr account profile unless needed for the service.',
-          'Store providers and RevenueCat process purchase and entitlement records under their own policies. App Store billing, cancellation, renewal, and refund decisions are handled by Apple for App Store purchases.',
+          'PostHog is used for product analytics, not advertising. Session replay is disabled in the app configuration, and FinFindr does not use PostHog to sell data or track you across other companies\' apps or websites.',
+          'Store providers and RevenueCat process purchase, offer-code, and entitlement records under their own policies. App Store billing, cancellation, renewal, offer redemption, and refund decisions are handled by Apple for App Store purchases.',
           'We do not sell your personal information or use third-party advertising trackers in the app.',
         ],
       },
@@ -86,7 +91,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         title: 'Security And Retention',
         body: [
           'We use reasonable administrative, technical, and organizational measures intended to protect app data, but no internet or mobile service can be guaranteed to be perfectly secure.',
-          'We keep personal information for as long as needed to provide the app, comply with law, resolve disputes, enforce agreements, prevent abuse, and maintain records required for subscriptions, tax, accounting, or security purposes.',
+          'We keep personal information for as long as needed to provide the app, comply with law, resolve disputes, enforce agreements, prevent abuse, and maintain records required for subscriptions, creator attribution, payouts, refunds, tax, accounting, or security purposes.',
         ],
       },
       {
@@ -144,6 +149,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
           'Angler subscriptions unlock paid features while the subscription is active. Subscription pricing, billing period, renewal, cancellation, and refunds are handled by the app store account used for purchase, including the App Store or Google Play where supported.',
           'Subscription access is tied to the FinFindr account that originally purchased or restored the active subscription. Restore Purchases is intended to reconnect that subscription to the original FinFindr account and may not transfer access to a different FinFindr account.',
           'Subscriptions renew automatically unless canceled through your store account settings before renewal. Deleting your FinFindr account does not cancel store billing and may prevent subscription access from being restored to a new or recreated FinFindr account.',
+          'Creator, referral, promotional, or offer codes may be subject to Apple, RevenueCat, and FinFindr eligibility rules. Codes, discounts, redemptions, creator attribution, and related commission records may be tracked to administer the offer and are not guaranteed to remain available indefinitely.',
           'FinFindr does not provide external purchase links for digital subscription access inside the app.',
         ],
       },

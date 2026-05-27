@@ -3,6 +3,25 @@
 Use this after Apple approves the first FinFindr build and the Angler
 subscriptions are Ready for Distribution.
 
+## Do Not Manually Release Until
+
+- App Store Connect shows the approved version in `Pending Developer Release`.
+- The app release option is still `Manually release this version`.
+- D-U-N-S confirmation is received or intentionally deferred for launch.
+- If D-U-N-S is ready, the Apple Developer Support request to convert the
+  Individual membership to the `FinFindr LLC` Organization membership has been
+  submitted and tracked.
+- Seller/entity, Paid Apps Agreement, tax, banking, DSA/trader info, and public
+  support/contact information have been rechecked after any Apple account
+  conversion.
+- Public Terms, Privacy, Safety, and Support pages are deployed with the latest
+  `FinFindr LLC`, analytics, subscription, restore, and creator-code language.
+- App Store Connect App Privacy answers have been rechecked against the shipped
+  build, especially PostHog analytics, creator attribution, purchase data, and
+  usage data.
+- RevenueCat, Supabase, and PostHog production settings are confirmed.
+- A final production/TestFlight smoke test passes on a clean install.
+
 ## App Store Connect
 
 - Confirm `finfindr_angler_monthly` and `finfindr_angler_annual` are approved.
@@ -16,9 +35,49 @@ subscriptions are Ready for Distribution.
 - Generate custom offer codes for each creator.
 - Save each production redemption URL from App Store Connect.
 - Do a sandbox redemption test with one real code before sharing publicly.
+- Confirm the App Store product page still shows the correct Privacy Policy URL,
+  Support URL, copyright, app availability, subscription availability, and
+  manual-release status.
+- Re-open App Privacy and confirm the labels still match the production build:
+  - Product interaction / usage analytics are collected and linked to the user.
+  - Purchases and subscription status are collected and linked to the user.
+  - Identifiers/account IDs are collected and linked to the user.
+  - Creator/referral code attribution is covered under purchase/usage/other
+    app-functionality data as applicable.
+  - No tracking is declared unless FinFindr starts using data to track users
+    across other companies' apps or websites for advertising/measurement.
+
+## Apple Account / LLC Conversion Ticket
+
+- Wait for D-U-N-S confirmation before expecting the conversion to complete.
+- Submit the Apple Developer Support request:
+  - Request: convert Individual Apple Developer Program membership to
+    Organization.
+  - Legal entity: `FinFindr LLC`.
+  - Include D-U-N-S number, EIN confirmation, Sunbiz filing/document number,
+    contact name, phone, and email.
+  - Mention the app is approved but held on Manual Release pending seller/entity
+    reconciliation.
+- Save the Apple case/ticket number in this checklist.
+- Do not publicly release until the case is resolved or you intentionally decide
+  to launch under the individual seller name.
+- After conversion, re-check:
+  - Apple Developer account name.
+  - App Store Connect seller name.
+  - Agreements, Tax, and Banking.
+  - DSA/trader compliance if expanding beyond U.S.-only availability.
+  - App Store review notes and public legal pages.
 
 ## Supabase
 
+- Confirm all creator-program migrations are applied in production.
+- Confirm RLS/service-role restrictions are still in place for creator,
+  attribution, RevenueCat event, subscription period, payout, and ledger tables.
+- Deploy `creator-code-attribution`.
+- Deploy `revenuecat-webhook` with JWT verification disabled.
+- Confirm production Edge Function secrets are set:
+  - `REVENUECAT_WEBHOOK_AUTH_TOKEN`.
+  - Existing Supabase service-role secrets required by Edge Functions.
 - Replace the placeholder `TEST10` row or create a new `creator_codes` row for
   each real App Store custom code.
 - Set each launch-ready code to `is_active = true`.
@@ -48,11 +107,36 @@ where code = 'TEST10';
   - Environment: both Production and Sandbox
   - App: FinFindr App Store app
   - Events: all events
+- Confirm the webhook Authorization header exactly matches the Supabase secret:
+  `Bearer <REVENUECAT_WEBHOOK_AUTH_TOKEN>`.
+- Confirm sandbox and production environments are both enabled only when you are
+  ready to receive both.
 - Confirm a real sandbox purchase creates:
   - one `revenuecat_events` row
   - one `subscription_periods` row
   - one `user_attributions` row if an offer code was used
   - one pending `creator_commission_ledger` row for paid purchases
+- Confirm refund/cancellation events create a reversal ledger row before any
+  creator payouts are approved.
+
+## PostHog / Analytics
+
+- Confirm the production EAS environment includes:
+  - `EXPO_PUBLIC_POSTHOG_API_KEY`
+  - `EXPO_PUBLIC_POSTHOG_HOST=https://us.i.posthog.com`
+- Confirm PostHog receives only the intended explicit events:
+  - app open
+  - screen view
+  - paywall opened/closed/failed
+  - purchase started/completed/failed
+  - restore started/completed/failed
+  - subscription tier synced
+- Keep PostHog session replay disabled unless Privacy Policy, App Store privacy
+  labels, and any required user consent are reviewed again.
+- Keep touch autocapture disabled unless Privacy Policy and App Store privacy
+  labels are reviewed again.
+- Confirm no PostHog data is used for third-party advertising or cross-app/site
+  tracking unless the app adds ATT and updates App Store privacy answers.
 
 ## Launch Operations
 

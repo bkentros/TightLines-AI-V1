@@ -31,6 +31,8 @@
           <li>Fishing and app data you choose to create, including catches, sessions, locations, species preferences, photos or water images, voice logs if enabled, support messages, and feedback.</li>
           <li>Location information when you grant permission or manually choose a location. FinFindr uses this to build weather, tide, moon, and fishing-condition context.</li>
           <li>Purchase and entitlement status from the app store used for purchase, including the App Store, Google Play where supported, and RevenueCat. FinFindr does not receive full payment card numbers from Apple or Google.</li>
+          <li>Product analytics and interaction data, such as app opens, screen views, feature usage, paywall events, purchase and restore events, subscription tier, region settings, onboarding status, and similar product-quality signals.</li>
+          <li>Creator, referral, and offer-code information if you use or arrive through a creator code, redemption link, or promotional campaign. This may include the code, creator attribution, subscription product, RevenueCat event details, payout ledger records, redemption URLs, and limited anti-abuse or attribution diagnostics such as hashed IP address or hashed user-agent information for web referral clicks.</li>
           <li>Operational data such as device platform, app version, rate-limit records, cache identifiers, error context, and diagnostics needed to run, secure, and improve the service.</li>
         </ul>
       </section>
@@ -39,15 +41,18 @@
         <ul>
           <li>To create and secure your account, sync your profile, provide forecasts, tackle recommendations, water reads, fishing logs, and subscription-gated features.</li>
           <li>To respond to support requests, troubleshoot bugs, prevent abuse, enforce rate limits, improve app quality, maintain production systems, and protect users and FinFindr.</li>
+          <li>To measure product usage and subscription flows, understand which app areas need improvement, and confirm that subscription, restore, and creator-code attribution systems are working correctly.</li>
+          <li>To administer creator, referral, offer-code, commission, refund, reversal, payout, and attribution records where a creator program or promotional code is used.</li>
           <li>To send transactional emails such as account verification, password reset, support messages, and important account or service notices.</li>
         </ul>
       </section>
       <section>
         <h2>Third-Party Services</h2>
         <ul>
-          <li>FinFindr uses service providers for app infrastructure and core functionality, including Supabase, RevenueCat, Apple platform services, Google platform services where supported, Resend, Open-Meteo, NOAA/NWS, NOAA CO-OPS, USNO, Sunrise-Sunset.org, mapping/geocoding providers, analytics and diagnostics providers, and similar operational vendors.</li>
+          <li>FinFindr uses service providers for app infrastructure and core functionality, including Supabase, RevenueCat, PostHog, Apple platform services, Google platform services where supported, Resend, Open-Meteo, NOAA/NWS, NOAA CO-OPS, USNO, Sunrise-Sunset.org, mapping/geocoding providers, analytics and diagnostics providers, and similar operational vendors.</li>
           <li>Weather, water, sun, moon, map, and geocoding providers may receive coordinates, search terms, or request context needed to return app data. They are not given your full FinFindr account profile unless needed for the service.</li>
-          <li>Store providers and RevenueCat process purchase and entitlement records under their own policies. App Store billing, cancellation, renewal, and refund decisions are handled by Apple for App Store purchases.</li>
+          <li>PostHog is used for product analytics, not advertising. Session replay is disabled in the app configuration, and FinFindr does not use PostHog to sell data or track you across other companies' apps or websites.</li>
+          <li>Store providers and RevenueCat process purchase, offer-code, and entitlement records under their own policies. App Store billing, cancellation, renewal, offer redemption, and refund decisions are handled by Apple for App Store purchases.</li>
           <li>We do not sell your personal information or use third-party advertising trackers in the app.</li>
         </ul>
       </section>
@@ -71,7 +76,7 @@
       <section>
         <h2>Security And Retention</h2>
         <p>We use reasonable administrative, technical, and organizational measures intended to protect app data, but no internet or mobile service can be guaranteed to be perfectly secure.</p>
-        <p>We keep personal information for as long as needed to provide the app, comply with law, resolve disputes, enforce agreements, prevent abuse, and maintain records required for subscriptions, tax, accounting, or security purposes.</p>
+        <p>We keep personal information for as long as needed to provide the app, comply with law, resolve disputes, enforce agreements, prevent abuse, and maintain records required for subscriptions, creator attribution, payouts, refunds, tax, accounting, or security purposes.</p>
       </section>
       <section>
         <h2>Your Choices</h2>
