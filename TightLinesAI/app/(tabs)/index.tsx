@@ -1988,21 +1988,35 @@ function MetricCell({
   return (
     <View style={[styles.metricCell, divider && styles.metricCellDivider]}>
       <View style={styles.metricCellTopRow}>
-        <Ionicons name={icon} size={10} color={paper.dashboardMuted} />
-        <Text style={styles.metricCellLabel}>{label}</Text>
+        <Ionicons name={icon} size={9} color={paper.dashboardMuted} />
+        <Text
+          style={styles.metricCellLabel}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.65}
+        >
+          {label}
+        </Text>
       </View>
       <View style={styles.metricCellValueRow}>
         <Text
           style={styles.metricCellValue}
           numberOfLines={1}
           adjustsFontSizeToFit
-          minimumFontScale={0.7}
+          minimumFontScale={0.65}
         >
           {value}
         </Text>
         <Text style={styles.metricCellUnit}>{unit}</Text>
       </View>
-      <Text style={styles.metricCellSub}>{sub}</Text>
+      <Text
+        style={styles.metricCellSub}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.65}
+      >
+        {sub}
+      </Text>
     </View>
   );
 }
@@ -2716,19 +2730,21 @@ const styles = StyleSheet.create({
   // metric grid
   metricsGrid: {
     flexDirection: "row",
-    flexWrap: "nowrap",
+    alignItems: "stretch",
+    width: "100%",
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
     borderBottomWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 6,
-    overflow: "hidden",
   },
   metricCell: {
-    flex: 1,
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
     minWidth: 0,
-    paddingHorizontal: 5,
+    paddingHorizontal: 4,
     paddingVertical: 7,
     borderColor: paper.dashboardLine,
   },
@@ -2736,13 +2752,16 @@ const styles = StyleSheet.create({
   metricCellTopRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 3,
+    gap: 2,
     marginBottom: 3,
+    minWidth: 0,
   },
   metricCellLabel: {
+    flex: 1,
+    minWidth: 0,
     fontFamily: MONO_BOLD,
     fontSize: 7,
-    letterSpacing: 1.0,
+    letterSpacing: 0.6,
     color: paper.dashboardMuted,
   },
   metricCellValueRow: { flexDirection: "row", alignItems: "baseline", gap: 1 },
