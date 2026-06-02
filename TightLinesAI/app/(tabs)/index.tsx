@@ -36,7 +36,6 @@ import {
   ScrollView,
   StyleSheet,
   Text,
-  useWindowDimensions,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -55,6 +54,7 @@ import {
 } from "../../lib/theme";
 import { hapticImpact, ImpactFeedbackStyle } from "../../lib/safeHaptics";
 import { SubscribePrompt } from "../../components/SubscribePrompt";
+import { HomeLayoutPreviewFrame } from "../../components/dev/HomeLayoutPreviewFrame";
 import { LocationPickerModal } from "../../components/LocationPickerModal";
 import { useAuthStore } from "../../store/authStore";
 import { useDevTestingStore } from "../../store/devTestingStore";
@@ -91,18 +91,6 @@ const FORECAST_GAP = 6;
 const FORECAST_DAYS_SHOWN = 6;
 const HOME_MAX_CONTENT_WIDTH = 520;
 const DAY_MS = 24 * 60 * 60 * 1000;
-
-function getForecastTileWidth(windowWidth: number): number {
-  const contentWidth = Math.min(windowWidth, HOME_MAX_CONTENT_WIDTH) -
-    HOME_H_PADDING * 2;
-  return Math.max(
-    44,
-    Math.floor(
-      (contentWidth - FORECAST_GAP * (FORECAST_DAYS_SHOWN - 1)) /
-        FORECAST_DAYS_SHOWN,
-    ),
-  );
-}
 
 function parseForecastCalendarDate(value: string | undefined): Date | null {
   const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})$/);
@@ -213,18 +201,17 @@ const SANS_BOLD = "Inter_700Bold";
 
 export default function HomeScreen() {
   const router = useRouter();
-  const { width: windowWidth } = useWindowDimensions();
-  const forecastTileWidth = useMemo(
-    () => getForecastTileWidth(windowWidth),
-    [windowWidth],
-  );
   const { profile, user } = useAuthStore();
   const reportCacheOwnerKey = user?.id ?? user?.email ?? null;
   const {
     ignoreGps,
+    homeLayoutPreviewWidth,
     load: loadDevTesting,
     setIgnoreGps,
   } = useDevTestingStore();
+  const layoutPreviewWidth = isAdminEmail(user?.email)
+    ? homeLayoutPreviewWidth
+    : null;
   const loadEnv = useEnvStore((s) => s.loadEnv);
   const envData = useEnvStore((s) => s.envData);
   const envLastCoords = useEnvStore((s) => s.lastCoords);
@@ -1076,6 +1063,7 @@ export default function HomeScreen() {
     <View style={styles.root}>
       {/* Light status bar text/icons so they read against the navy header. */}
       <StatusBar style="light" />
+      <HomeLayoutPreviewFrame width={layoutPreviewWidth}>
       <SafeAreaView edges={["top"]} style={styles.safeNav}>
         <View style={styles.navBar}>
           <View style={styles.navBarLeft}>
@@ -1471,7 +1459,6 @@ export default function HomeScreen() {
                       key={`skel-${i}`}
                       style={[
                         styles.forecastTile,
-                        { width: forecastTileWidth },
                         styles.forecastTileSkeleton,
                       ]}
                     >
@@ -1488,16 +1475,25 @@ export default function HomeScreen() {
                       accessibilityLabel="Locked Angler forecast day"
                       style={({ pressed }) => [
                         styles.forecastTile,
-                        { width: forecastTileWidth },
                         styles.forecastTileLocked,
                         pressed && { opacity: 0.85 },
                       ]}
                     >
                       <View style={styles.forecastTileHead}>
-                        <Text style={styles.forecastTileDay} numberOfLines={1}>
+                        <Text
+                          style={styles.forecastTileDay}
+                          numberOfLines={1}
+                          adjustsFontSizeToFit
+                          minimumFontScale={0.7}
+                        >
                           {day.dayLabel}
                         </Text>
-                        <Text style={styles.forecastTileDate}>
+                        <Text
+                          style={styles.forecastTileDate}
+                          numberOfLines={1}
+                          adjustsFontSizeToFit
+                          minimumFontScale={0.75}
+                        >
                           {day.dateNum}
                         </Text>
                       </View>
@@ -1548,7 +1544,6 @@ export default function HomeScreen() {
                       { pressed },
                     ) => [
                       styles.forecastTile,
-                      { width: forecastTileWidth },
                       pressed && { opacity: 0.85 },
                     ]}
                     accessibilityLabel={isFreePreview
@@ -1561,10 +1556,22 @@ export default function HomeScreen() {
                       </Text>
                     )}
                     <View style={styles.forecastTileHead}>
-                      <Text style={styles.forecastTileDay} numberOfLines={1}>
+                      <Text
+                        style={styles.forecastTileDay}
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.7}
+                      >
                         {dayLabel}
                       </Text>
-                      <Text style={styles.forecastTileDate}>{dateNum}</Text>
+                      <Text
+                        style={styles.forecastTileDate}
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.75}
+                      >
+                        {dateNum}
+                      </Text>
                     </View>
                     <View
                       style={[
@@ -1576,6 +1583,9 @@ export default function HomeScreen() {
                         style={[styles.forecastTileScore, {
                           color: paper.dashboardInk,
                         }]}
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.7}
                       >
                         {formatScoreDisplay(raw)}
                       </Text>
@@ -1741,6 +1751,7 @@ export default function HomeScreen() {
           </View>
         </View>
       </ScrollView>
+      </HomeLayoutPreviewFrame>
 
       {/* Modals */}
       <LocationPickerModal
@@ -2764,12 +2775,18 @@ const styles = StyleSheet.create({
     letterSpacing: 0.6,
     color: paper.dashboardMuted,
   },
-  metricCellValueRow: { flexDirection: "row", alignItems: "baseline", gap: 1 },
+  metricCellValueRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+    gap: 1,
+    minWidth: 0,
+  },
   metricCellValue: {
+    flexShrink: 1,
     fontFamily: SERIF_SEMI,
-    fontSize: 14,
+    fontSize: 13,
     color: paper.dashboardInk,
-    lineHeight: 16,
+    lineHeight: 15,
   },
   metricCellUnit: {
     fontFamily: MONO_BOLD,
@@ -2779,9 +2796,10 @@ const styles = StyleSheet.create({
   metricCellSub: {
     fontFamily: MONO_BOLD,
     fontSize: 7,
-    letterSpacing: 1.0,
+    letterSpacing: 0.6,
     color: "#333",
     marginTop: 2,
+    minWidth: 0,
   },
 
   // ─── Forecast ────────────────────────────────────────────────────────────
@@ -2810,6 +2828,7 @@ const styles = StyleSheet.create({
   forecastGrid: {
     flexDirection: "row",
     flexWrap: "nowrap",
+    width: "100%",
     gap: FORECAST_GAP,
   },
   forecastDisclaimer: {
@@ -2822,6 +2841,10 @@ const styles = StyleSheet.create({
     opacity: 0.72,
   },
   forecastTile: {
+    flexGrow: 1,
+    flexShrink: 1,
+    flexBasis: 0,
+    minWidth: 0,
     backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderColor: paper.dashboardLine,
@@ -2864,6 +2887,7 @@ const styles = StyleSheet.create({
     letterSpacing: 1.2,
     color: paper.dashboardMuted,
     lineHeight: 10,
+    textAlign: "center",
   },
   forecastTileDate: {
     fontFamily: SERIF_SEMI,
@@ -2871,6 +2895,7 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     marginTop: 2,
     lineHeight: 14,
+    textAlign: "center",
   },
   forecastTileScoreBlock: {
     height: 36,

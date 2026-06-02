@@ -19,6 +19,7 @@ import * as Location from 'expo-location';
 import { paper, paperFonts, paperSpacing } from '../../lib/theme';
 import { useAuthStore } from '../../store/authStore';
 import { useDevTestingStore } from '../../store/devTestingStore';
+import { IPHONE_LAYOUT_PREVIEW_PRESETS } from '../../lib/iphoneLayoutPreview';
 import { getValidAccessToken, invokeEdgeFunction, supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
@@ -65,8 +66,10 @@ export default function SettingsScreen() {
   const { profile, user, setProfile, signOut } = useAuthStore();
   const {
     ignoreGps,
+    homeLayoutPreviewWidth,
     load: loadDevTesting,
     setIgnoreGps,
+    setHomeLayoutPreviewWidth,
   } = useDevTestingStore();
 
   const [homeState, setHomeState] = useState('');
@@ -664,6 +667,35 @@ export default function SettingsScreen() {
                     trackColor={{ false: paper.dashboardHair, true: paper.dashboardBlue }}
                     thumbColor={paper.dashboardWhite}
                   />
+                </View>
+                <Text style={[styles.sectionHint, { marginTop: 14 }]}>
+                  Scaled layout preview (approximate). Tap Off before judging the real
+                  App Store layout on your phone.
+                </Text>
+                <View style={styles.presetRow}>
+                  {IPHONE_LAYOUT_PREVIEW_PRESETS.map((preset) => {
+                    const active = homeLayoutPreviewWidth === preset.width;
+                    return (
+                      <Pressable
+                        key={preset.id}
+                        onPress={() => setHomeLayoutPreviewWidth(preset.width)}
+                        style={({ pressed }) => [
+                          styles.presetBtn,
+                          active && styles.presetBtnActive,
+                          pressed && { opacity: 0.85 },
+                        ]}
+                      >
+                        <Text
+                          style={[
+                            styles.presetBtnText,
+                            active && styles.presetBtnTextActive,
+                          ]}
+                        >
+                          {preset.label}
+                        </Text>
+                      </Pressable>
+                    );
+                  })}
                 </View>
               </View>
             )}
