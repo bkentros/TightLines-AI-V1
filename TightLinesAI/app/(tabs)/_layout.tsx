@@ -140,8 +140,6 @@ function SmartLogGateProvider({
             },
           }}
           options={{
-            href: SMART_LOG_ENABLED ? undefined : null,
-            tabBarButton: SMART_LOG_ENABLED ? undefined : () => null,
             title: 'Smart Log',
             tabBarIcon: ({ color, focused }) => (
               <TabIcon
