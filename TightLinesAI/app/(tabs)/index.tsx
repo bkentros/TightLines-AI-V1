@@ -1290,45 +1290,51 @@ export default function HomeScreen() {
                 </View>
               )}
 
-              {/* Temp + sparkline */}
+              {/* Temp + sparkline — cluster matches reference card height */}
               <View
                 style={[
-                  styles.liveCardTempCol,
-                  hasReport && { paddingLeft: 14 },
+                  styles.liveCardTempSparkCluster,
+                  hasReport && styles.liveCardTempSparkClusterWithScore,
                 ]}
               >
-                <View style={styles.liveCardTempRow}>
-                  <Text style={styles.liveCardTempNumber}>
-                    {currentTemp != null ? Math.round(currentTemp) : "—"}
-                  </Text>
-                  <Text style={styles.liveCardTempUnit}>
-                    {tempUnit || "°F"}
+                <View style={styles.liveCardTempCol}>
+                  <View style={styles.liveCardTempRow}>
+                    <Text
+                      style={[
+                        styles.liveCardTempNumber,
+                        !hasReport && styles.liveCardTempNumberSolo,
+                      ]}
+                    >
+                      {currentTemp != null ? Math.round(currentTemp) : "—"}
+                    </Text>
+                    <Text style={styles.liveCardTempUnit}>
+                      {tempUnit || "°F"}
+                    </Text>
+                  </View>
+                  <Text style={styles.liveCardTempSubline}>
+                    {conditionsSubline ?? "Conditions loading…"}
                   </Text>
                 </View>
-                <Text style={styles.liveCardTempSubline}>
-                  {conditionsSubline ?? "Conditions loading…"}
-                </Text>
-              </View>
 
-              {/* Sparkline (right-aligned) */}
-              <View style={styles.liveCardSparkCol}>
-                <Text style={styles.liveCardSparkEyebrow}>
-                  HOURLY TEMP · 6H
-                </Text>
-                <SparklineBars
-                  points={sparklinePoints}
-                  width={108}
-                  height={36}
-                />
-                {tempTrendDisplay && (
-                  <Text
-                    style={[styles.liveCardSparkTrend, {
-                      color: tempTrendDisplay.color,
-                    }]}
-                  >
-                    {tempTrendDisplay.label}
+                <View style={styles.liveCardSparkCol}>
+                  <Text style={styles.liveCardSparkEyebrow}>
+                    HOURLY TEMP · 6H
                   </Text>
-                )}
+                  <SparklineBars
+                    points={sparklinePoints}
+                    width={100}
+                    height={32}
+                  />
+                  {tempTrendDisplay && (
+                    <Text
+                      style={[styles.liveCardSparkTrend, {
+                        color: tempTrendDisplay.color,
+                      }]}
+                    >
+                      {tempTrendDisplay.label}
+                    </Text>
+                  )}
+                </View>
               </View>
             </View>
 
@@ -1685,7 +1691,7 @@ export default function HomeScreen() {
         </View>
 
         {__DEV__ ? (
-          <Text style={styles.devLayoutMarker}>DEV · home-layout-v4</Text>
+          <Text style={styles.devLayoutMarker}>DEV · home-layout-v5</Text>
         ) : null}
 
         {/* ─── Footer ────────────────────────────────────────────────────── */}
@@ -2442,8 +2448,8 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    paddingHorizontal: 14,
-    paddingVertical: 8,
+    paddingHorizontal: 12,
+    paddingVertical: 6,
     backgroundColor: "#FAFAF7",
     borderBottomWidth: 1,
     borderColor: paper.dashboardHair,
@@ -2474,20 +2480,31 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
   },
 
-  liveCardBody: { paddingHorizontal: 14, paddingVertical: 12 },
+  liveCardBody: { paddingHorizontal: 12, paddingVertical: 10 },
   liveCardTopRow: {
     flexDirection: "row",
     alignItems: "flex-end",
-    marginBottom: 12,
+    marginBottom: 10,
+  },
+  liveCardTempSparkCluster: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "flex-end",
+    justifyContent: "space-between",
+    gap: 8,
+    minWidth: 0,
+  },
+  liveCardTempSparkClusterWithScore: {
+    paddingLeft: 12,
   },
   liveCardScoreChip: {
     backgroundColor: "#FAF6E5",
     borderWidth: 1,
     borderColor: "rgba(0,0,0,0.10)",
     borderRadius: 8,
-    paddingHorizontal: 10,
-    paddingVertical: 8,
-    minWidth: 90,
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    minWidth: 84,
   },
   liveCardScoreEyebrow: {
     fontFamily: MONO_BOLD,
@@ -2499,9 +2516,9 @@ const styles = StyleSheet.create({
   liveCardScoreNumberRow: { flexDirection: "row", alignItems: "baseline" },
   liveCardScoreNumber: {
     fontFamily: SERIF_BOLD,
-    fontSize: 28,
-    letterSpacing: -1.0,
-    lineHeight: 30,
+    fontSize: 26,
+    letterSpacing: -0.8,
+    lineHeight: 28,
     color: paper.dashboardInk,
   },
   liveCardScoreUnit: {
@@ -2527,32 +2544,37 @@ const styles = StyleSheet.create({
     letterSpacing: 1.3,
   },
 
-  liveCardTempCol: { flex: 1, minWidth: 0 },
-  liveCardTempRow: { flexDirection: "row", alignItems: "baseline", gap: 4 },
+  liveCardTempCol: { flexShrink: 1, minWidth: 0 },
+  liveCardTempRow: { flexDirection: "row", alignItems: "baseline", gap: 3 },
   liveCardTempNumber: {
     fontFamily: SERIF_MEDIUM,
-    fontSize: 48,
-    lineHeight: 50,
-    letterSpacing: -1.6,
+    fontSize: 40,
+    lineHeight: 42,
+    letterSpacing: -1.4,
     color: paper.dashboardInk,
+  },
+  liveCardTempNumberSolo: {
+    fontSize: 44,
+    lineHeight: 46,
+    letterSpacing: -1.5,
   },
   liveCardTempUnit: {
     fontFamily: MONO_BOLD,
-    fontSize: 13,
+    fontSize: 12,
     color: paper.dashboardMuted,
   },
   liveCardTempSubline: {
     fontFamily: SANS_MEDIUM,
-    fontSize: 11,
+    fontSize: 10,
     color: "#333",
-    marginTop: 3,
+    marginTop: 2,
   },
 
   liveCardSparkCol: {
     alignItems: "flex-end",
     justifyContent: "flex-end",
-    paddingBottom: 4,
-    minWidth: 108,
+    paddingBottom: 2,
+    flexShrink: 0,
   },
   liveCardSparkEyebrow: {
     fontFamily: MONO_BOLD,
@@ -2572,8 +2594,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "flex-start",
     gap: 6,
-    marginTop: 9,
-    paddingTop: 8,
+    marginTop: 6,
+    paddingTop: 6,
     borderTopWidth: 1,
     borderTopColor: "rgba(31,58,74,0.08)",
   },
@@ -2602,13 +2624,13 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 14,
-    paddingVertical: 12,
+    paddingHorizontal: 10,
+    paddingVertical: 8,
     backgroundColor: paper.dashboardBlueSky,
     borderWidth: 1,
     borderColor: "rgba(79,149,194,0.45)",
     borderRadius: 8,
-    marginBottom: 14,
+    marginBottom: 10,
     overflow: "hidden",
     position: "relative",
   },
@@ -2619,10 +2641,10 @@ const styles = StyleSheet.create({
     width: 100,
     backgroundColor: "rgba(255,255,255,0.45)",
   },
-  biteCtaLeft: { flexDirection: "row", alignItems: "center", gap: 12 },
+  biteCtaLeft: { flexDirection: "row", alignItems: "center", gap: 10 },
   biteCtaIconTile: {
-    width: 36,
-    height: 36,
+    width: 32,
+    height: 32,
     borderRadius: 6,
     backgroundColor: "rgba(255,255,255,0.6)",
     borderWidth: 1,
@@ -2638,9 +2660,9 @@ const styles = StyleSheet.create({
   },
   biteCtaTitle: {
     fontFamily: SERIF_SEMI,
-    fontSize: 17,
+    fontSize: 15,
     color: "#1A3A52",
-    marginTop: 2,
+    marginTop: 1,
   },
   biteCtaRight: { flexDirection: "row", alignItems: "center", gap: 10 },
   biteCtaArrowTile: {
@@ -2708,8 +2730,8 @@ const styles = StyleSheet.create({
   },
   metricCell: {
     width: "50%",
-    paddingHorizontal: 8,
-    paddingVertical: 10,
+    paddingHorizontal: 7,
+    paddingVertical: 8,
     borderBottomWidth: 1,
     borderColor: paper.dashboardLine,
   },
@@ -2729,9 +2751,9 @@ const styles = StyleSheet.create({
   metricCellValueRow: { flexDirection: "row", alignItems: "baseline", gap: 2 },
   metricCellValue: {
     fontFamily: SERIF_SEMI,
-    fontSize: 18,
+    fontSize: 16,
     color: paper.dashboardInk,
-    lineHeight: 20,
+    lineHeight: 18,
   },
   metricCellUnit: {
     fontFamily: MONO_BOLD,
