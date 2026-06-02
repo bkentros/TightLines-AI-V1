@@ -2268,6 +2268,9 @@ const wizardStyles = StyleSheet.create({
   },
 
   scrollContent: {
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.sm,
     paddingBottom: paperSpacing.xl + paperSpacing.md,

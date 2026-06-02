@@ -27,8 +27,10 @@ import {
   Text,
   StyleSheet,
   Platform,
+  ScrollView,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
+import * as Crypto from 'expo-crypto';
 import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as AppleAuthentication from 'expo-apple-authentication';
@@ -43,6 +45,8 @@ import {
   getAuthErrorMessage,
 } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
+import { supabase } from '../../lib/supabase';
+import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 import {
   BrandScopeStage,
   TopographicLines,
@@ -50,9 +54,9 @@ import {
 import {
   AuthFooterStamp,
   AuthPrimaryButton,
-  AuthSecondaryButton,
   AuthDivider,
   AuthNotice,
+  AuthTextLink,
 } from '../../components/paper/auth';
 
 type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
@@ -72,7 +76,7 @@ const FEATURES: {
     icon: 'layers-outline',
     title: 'Water Read',
     tag: 'POLYGON',
-    blurb: 'Creates structure-related high-probability fishing zones for any supported lake.',
+    blurb: 'Structure zones for supported lakes.',
     iconBg: ['#E8F2FA', '#C8DFF2'],
     iconBorder: '#0F63B0',
     iconColor: '#0A4A87',
@@ -82,7 +86,7 @@ const FEATURES: {
     icon: 'fish-outline',
     title: 'Tackle Box',
     tag: 'RECOMMENDER',
-    blurb: 'Two lures and two flies ranked for your weather, water, and season.',
+    blurb: 'Lures and flies ranked for conditions.',
     iconBg: ['#FBF1D9', '#F4DFA4'],
     iconBorder: '#C99B2D',
     iconColor: '#8A6A1A',
@@ -92,7 +96,7 @@ const FEATURES: {
     icon: 'sparkles-outline',
     title: "Today's Bite",
     tag: 'CONDITIONS',
-    blurb: "Today's score, best windows, and a clear answer on whether to go.",
+    blurb: 'Score, windows, and go/no-go guidance.',
     iconBg: ['#E5F2DD', '#C5E0B5'],
     iconBorder: '#3DA85F',
     iconColor: '#1F6B38',
@@ -103,6 +107,7 @@ export default function WelcomeScreen() {
   const router = useRouter();
   const { fetchProfile, setSession } = useAuthStore();
   const [notice, setNotice] = useState<Notice | null>(null);
+  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('spread');
 
   // Live pulse on the eyebrow dot — same anatomy used everywhere in the
   // paper system. Native opacity loop.
@@ -136,7 +141,6 @@ export default function WelcomeScreen() {
     appleSignInInFlight.current = true;
     try {
       try {
-        const Crypto = await import('expo-crypto');
         const nonce = Crypto.randomUUID();
         const hashedNonce = await Crypto.digestStringAsync(
           Crypto.CryptoDigestAlgorithm.SHA256,
@@ -162,6 +166,7 @@ export default function WelcomeScreen() {
 
         if (error) throw error;
         if (data.session) {
+          supabase.functions.setAuth(data.session.access_token);
           setSession(data.session);
           await fetchProfile(data.session.user.id);
         }
@@ -190,7 +195,12 @@ export default function WelcomeScreen() {
   return (
     <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.container}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={[styles.container, scrollLayout]}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
           {/* ─── Hero — issue cover ─────────────────────────────────────── */}
           <View style={styles.hero}>
             <TopographicLines
@@ -202,7 +212,12 @@ export default function WelcomeScreen() {
             {/* Issue rubric — small mono line at the top of the cover */}
             <View style={styles.issueRubricRow}>
               <View style={styles.issueRubricRule} />
-              <Text style={styles.issueRubricText}>
+              <Text
+                style={styles.issueRubricText}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.74}
+              >
                 FIELD GUIDE · NO. 001 · {editionMonth} {editionYear}
               </Text>
               <View style={styles.issueRubricRule} />
@@ -211,7 +226,7 @@ export default function WelcomeScreen() {
             {/* Scope-target stage — 4 corner crosshairs, scan beam,
                 sonar pings, breathing emblem. Shared with onboarding
                 step-1 via the BrandScopeStage primitive. */}
-            <BrandScopeStage size={132} emblemSize={86} style={styles.stageWrap} />
+            <BrandScopeStage size={108} emblemSize={72} style={styles.stageWrap} />
 
             {/* Live label + wordmark */}
             <View style={styles.liveRow}>
@@ -221,7 +236,14 @@ export default function WelcomeScreen() {
                   style={[styles.livePulseDot, { opacity: pulse }]}
                 />
               </View>
-              <Text style={styles.liveLabel}>FIELD-EDITION ACTIVE</Text>
+              <Text
+                style={styles.liveLabel}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.78}
+              >
+                FIELD-EDITION ACTIVE
+              </Text>
             </View>
 
             <Text style={styles.brandMark}>
@@ -245,7 +267,14 @@ export default function WelcomeScreen() {
           {/* ─── Field-guide entries — I · II · III ────────────────────── */}
           <View style={styles.valuePropsBlock}>
             <View style={styles.valuePropsHeader}>
-              <Text style={styles.valuePropsEyebrow}>WHAT&apos;S INSIDE</Text>
+              <Text
+                style={styles.valuePropsEyebrow}
+                numberOfLines={1}
+                adjustsFontSizeToFit
+                minimumFontScale={0.78}
+              >
+                WHAT&apos;S INSIDE
+              </Text>
               <View style={styles.valuePropsRule} />
               <Text style={styles.valuePropsOrnament}>◆</Text>
             </View>
@@ -293,8 +322,22 @@ export default function WelcomeScreen() {
                   </View>
                   <View style={styles.valueModuleTextCol}>
                     <View style={styles.valueModuleTitleRow}>
-                      <Text style={styles.valueModuleTitle}>{item.title}</Text>
-                      <Text style={styles.valueModuleTag}>{item.tag}</Text>
+                      <Text
+                        style={styles.valueModuleTitle}
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.8}
+                      >
+                        {item.title}
+                      </Text>
+                      <Text
+                        style={styles.valueModuleTag}
+                        numberOfLines={1}
+                        adjustsFontSizeToFit
+                        minimumFontScale={0.78}
+                      >
+                        {item.tag}
+                      </Text>
                     </View>
                     <Text
                       style={styles.valueModuleDesc}
@@ -315,8 +358,9 @@ export default function WelcomeScreen() {
               onPress={() => router.push('/(auth)/sign-up')}
             />
 
-            <AuthSecondaryButton
-              label="Sign in"
+            <AuthTextLink
+              leadText="Already have an account?"
+              linkText="Sign in"
               onPress={() => router.push('/(auth)/sign-in')}
             />
 
@@ -347,7 +391,7 @@ export default function WelcomeScreen() {
             </View>
             <AuthFooterStamp />
           </View>
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
@@ -356,18 +400,21 @@ export default function WelcomeScreen() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
+  scroll: { flex: 1 },
   container: {
-    flex: 1,
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.md,
-    paddingTop: paperSpacing.xs,
-    justifyContent: 'space-between',
+    paddingTop: paperSpacing.xs + 2,
+    gap: 10,
   },
 
   // ── Hero / issue cover ────────────────────────────────────────────────
   hero: {
     position: 'relative',
-    paddingVertical: paperSpacing.md - 2,
+    paddingVertical: paperSpacing.sm,
     paddingHorizontal: paperSpacing.md,
     alignItems: 'center',
     backgroundColor: paper.dashboardWhite,
@@ -406,15 +453,15 @@ const styles = StyleSheet.create({
   },
   issueRubricText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
+    fontSize: 8,
     color: paper.dashboardInk,
     letterSpacing: 2.4,
     opacity: 0.7,
   },
 
   stageWrap: {
-    marginTop: 2,
-    marginBottom: 2,
+    marginTop: 0,
+    marginBottom: 0,
     zIndex: 1,
   },
 
@@ -448,18 +495,18 @@ const styles = StyleSheet.create({
   },
   liveLabel: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
+    fontSize: 8.8,
     color: paper.dashboardBlue,
     letterSpacing: 2.6,
   },
 
   brandMark: {
     fontFamily: paperFonts.display,
-    fontSize: 38,
+    fontSize: 30,
     color: paper.dashboardInk,
     letterSpacing: -0.5,
     fontWeight: '700',
-    lineHeight: 42,
+    lineHeight: 34,
     marginTop: 4,
     zIndex: 1,
   },
@@ -476,7 +523,7 @@ const styles = StyleSheet.create({
   },
   tagline: {
     fontFamily: paperFonts.body,
-    fontSize: 13.5,
+    fontSize: 12.5,
     color: paper.dashboardInk,
     opacity: 0.78,
     marginTop: 6,
@@ -490,7 +537,7 @@ const styles = StyleSheet.create({
 
   // ── Field-guide entries ───────────────────────────────────────────────
   valuePropsBlock: {
-    gap: paperSpacing.sm,
+    gap: 7,
   },
   valuePropsHeader: {
     flexDirection: 'row',
@@ -500,7 +547,7 @@ const styles = StyleSheet.create({
   },
   valuePropsEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
+    fontSize: 8.8,
     color: paper.dashboardInk,
     letterSpacing: 2.8,
     opacity: 0.7,
@@ -519,17 +566,17 @@ const styles = StyleSheet.create({
   },
 
   valueProps: {
-    gap: paperSpacing.sm + 2,
+    gap: 8,
   },
   valueModule: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 10,
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 8,
-    padding: 14,
+    padding: 10,
     position: 'relative',
   },
   valueModuleDots: {
@@ -552,8 +599,8 @@ const styles = StyleSheet.create({
     opacity: 0.85,
   },
   valueModuleIcon: {
-    width: 42,
-    height: 42,
+    width: 34,
+    height: 34,
     borderRadius: 6,
     borderWidth: 1,
     alignItems: 'center',
@@ -565,25 +612,26 @@ const styles = StyleSheet.create({
   valueModuleTitleRow: {
     flexDirection: 'row',
     alignItems: 'center',
+    flexWrap: 'wrap',
     gap: 8,
-    marginBottom: 4,
+    marginBottom: 2,
   },
   valueModuleTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 16,
+    fontSize: 15,
     color: paper.dashboardInk,
     fontWeight: '600',
   },
   valueModuleTag: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
+    fontSize: 7.5,
     letterSpacing: 1.3,
     color: paper.dashboardMuted,
   },
   valueModuleDesc: {
     fontFamily: paperFonts.bodyMedium,
-    fontSize: 12.5,
-    lineHeight: 16.5,
+    fontSize: 11.8,
+    lineHeight: 15.5,
     color: paper.dashboardInk,
     opacity: 0.72,
   },
@@ -591,7 +639,6 @@ const styles = StyleSheet.create({
   // ── Actions ───────────────────────────────────────────────────────────
   actions: {
     gap: paperSpacing.xs + 2,
-    marginTop: paperSpacing.xs,
   },
   appleBtn: { height: 48, width: '100%' },
 

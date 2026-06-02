@@ -29,7 +29,6 @@ import {
   Animated,
   AppState,
   type AppStateStatus,
-  Dimensions,
   Easing,
   Image,
   Pressable,
@@ -37,6 +36,7 @@ import {
   ScrollView,
   StyleSheet,
   Text,
+  useWindowDimensions,
   View,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -86,17 +86,55 @@ import { recordRecentLocation } from "../../lib/recentLocations";
 import { searchUsCities } from "../../lib/locationSearch";
 
 // ─── Layout constants ────────────────────────────────────────────────────────
-const SCREEN_W = Dimensions.get("window").width;
 const HOME_H_PADDING = 20;
 const FORECAST_GAP = 6;
-const FORECAST_COLS = 6;
-const FORECAST_TILE_W = Math.max(
-  46,
-  Math.floor(
-    (SCREEN_W - HOME_H_PADDING * 2 - FORECAST_GAP * (FORECAST_COLS - 1)) /
-      FORECAST_COLS,
-  ),
-);
+const FORECAST_DAYS_SHOWN = 6;
+const HOME_MAX_CONTENT_WIDTH = 520;
+const DAY_MS = 24 * 60 * 60 * 1000;
+
+function getForecastTileWidth(windowWidth: number): number {
+  const contentWidth = Math.min(windowWidth, HOME_MAX_CONTENT_WIDTH) -
+    HOME_H_PADDING * 2;
+  const cols = contentWidth < 340 ? 2 : 3;
+  return Math.floor((contentWidth - FORECAST_GAP * (cols - 1)) / cols);
+}
+
+function parseForecastCalendarDate(value: string | undefined): Date | null {
+  const match = value?.match(/^(\d{4})-(\d{2})-(\d{2})$/);
+  if (!match) return null;
+  const year = Number(match[1]);
+  const month = Number(match[2]);
+  const day = Number(match[3]);
+  const date = new Date(Date.UTC(year, month - 1, day, 12));
+  if (
+    date.getUTCFullYear() !== year ||
+    date.getUTCMonth() !== month - 1 ||
+    date.getUTCDate() !== day
+  ) {
+    return null;
+  }
+  return date;
+}
+
+function forecastDateParts(date: Date): { dayLabel: string; dateNum: string } {
+  return {
+    dayLabel: date
+      .toLocaleDateString("en-US", { weekday: "short", timeZone: "UTC" })
+      .toUpperCase(),
+    dateNum: String(date.getUTCDate()),
+  };
+}
+
+function forecastDayDisplay(
+  day: Pick<DayForecastScore, "date" | "day_label" | "month_day">,
+): { dayLabel: string; dateNum: string } {
+  const calendarDate = parseForecastCalendarDate(day.date);
+  if (calendarDate) return forecastDateParts(calendarDate);
+  return {
+    dayLabel: abbreviateDay(day.day_label),
+    dateNum: day.month_day?.split(/[ /-]/).pop() ?? "",
+  };
+}
 type LockedForecastPlaceholder = {
   kind: "locked";
   key: string;
@@ -138,21 +176,19 @@ function buildLockedForecastPlaceholders(
   }
 
   const [seedDate] = seedInput.split("|");
-  const [year, month, day] = (seedDate ?? "").split("-").map(Number);
-  const start =
-    Number.isFinite(year) && Number.isFinite(month) && Number.isFinite(day)
-      ? new Date(year!, month! - 1, day! + 1, 12)
-      : new Date(Date.now() + 2 * 24 * 60 * 60 * 1000);
+  const parsedSeedDate = parseForecastCalendarDate(seedDate);
+  const start = parsedSeedDate
+    ? new Date(parsedSeedDate.getTime() + DAY_MS)
+    : new Date(Date.now() + 2 * DAY_MS);
 
   return bands.map((band, i) => {
-    const date = new Date(start.getTime() + i * 24 * 60 * 60 * 1000);
+    const date = new Date(start.getTime() + i * DAY_MS);
+    const display = forecastDateParts(date);
     return {
       kind: "locked",
       key: `locked-${i}-${band}`,
-      dayLabel: abbreviateDay(
-        date.toLocaleDateString("en-US", { weekday: "short" }),
-      ),
-      dateNum: String(date.getDate()),
+      dayLabel: display.dayLabel,
+      dateNum: display.dateNum,
       color: dashboardBandColor[band].bg,
     };
   });
@@ -172,6 +208,12 @@ const SANS_BOLD = "Inter_700Bold";
 
 export default function HomeScreen() {
   const router = useRouter();
+  const { width: windowWidth } = useWindowDimensions();
+  const compactHomeLayout = windowWidth < 460;
+  const forecastTileWidth = useMemo(
+    () => getForecastTileWidth(windowWidth),
+    [windowWidth],
+  );
   const { profile, user } = useAuthStore();
   const reportCacheOwnerKey = user?.id ?? user?.email ?? null;
   const {
@@ -762,7 +804,7 @@ export default function HomeScreen() {
   const forecastDisplayDays =
     (forecastDays?.filter((d) => d.day_offset > 0) ?? []).slice(
       0,
-      FORECAST_COLS,
+      FORECAST_DAYS_SHOWN,
     );
   const lockedForecastSeedDate = forecastDisplayDays[0]?.date ??
     forecastDays?.find((d) => d.day_offset === 0)?.date ?? "";
@@ -783,15 +825,15 @@ export default function HomeScreen() {
   > = hasSubscription
     ? forecastDisplayDays.length > 0
       ? forecastDisplayDays
-      : Array.from({ length: FORECAST_COLS }).map(() => null)
+      : Array.from({ length: FORECAST_DAYS_SHOWN }).map(() => null)
     : freeForecastPreviewDay
     ? [freeForecastPreviewDay, ...lockedForecastPlaceholders].slice(
       0,
-      FORECAST_COLS,
+      FORECAST_DAYS_SHOWN,
     )
     : lockedForecastPlaceholders.length > 0
-    ? lockedForecastPlaceholders.slice(0, FORECAST_COLS)
-    : Array.from({ length: FORECAST_COLS }).map(() => null);
+    ? lockedForecastPlaceholders.slice(0, FORECAST_DAYS_SHOWN)
+    : Array.from({ length: FORECAST_DAYS_SHOWN }).map(() => null);
 
   // ── Live wall-clock + greeting ────────────────────────────────────────────
   const [now, setNow] = useState(() => new Date());
@@ -1200,7 +1242,12 @@ export default function HomeScreen() {
 
           {/* Body */}
           <View style={styles.liveCardBody}>
-            <View style={styles.liveCardTopRow}>
+            <View
+              style={[
+                styles.liveCardTopRow,
+                compactHomeLayout && styles.liveCardTopRowCompact,
+              ]}
+            >
               {/* Optional score chip on the left */}
               {hasReport && heroBandStyle && (
                 <View
@@ -1248,7 +1295,8 @@ export default function HomeScreen() {
               <View
                 style={[
                   styles.liveCardTempCol,
-                  hasReport && { paddingLeft: 14 },
+                  hasReport && !compactHomeLayout && { paddingLeft: 14 },
+                  compactHomeLayout && styles.liveCardTempColCompact,
                 ]}
               >
                 <View style={styles.liveCardTempRow}>
@@ -1271,7 +1319,7 @@ export default function HomeScreen() {
                 </Text>
                 <SparklineBars
                   points={sparklinePoints}
-                  width={108}
+                  width={compactHomeLayout ? Math.min(220, windowWidth - 96) : 108}
                   height={36}
                 />
                 {tempTrendDisplay && (
@@ -1344,6 +1392,7 @@ export default function HomeScreen() {
                 value={windMph != null ? String(Math.round(windMph)) : "—"}
                 unit="mph"
                 sub={windCardinal ?? "—"}
+                divider
               />
               <MetricCell
                 icon="water-outline"
@@ -1362,6 +1411,7 @@ export default function HomeScreen() {
                   : "—"}
                 unit="°F"
                 sub="HI / LO"
+                divider
               />
               <MetricCell
                 icon="speedometer-outline"
@@ -1369,7 +1419,6 @@ export default function HomeScreen() {
                 value={pressureInches ?? "—"}
                 unit="in"
                 sub={pressureTrendLabel}
-                last
               />
             </View>
 
@@ -1417,6 +1466,7 @@ export default function HomeScreen() {
                       key={`skel-${i}`}
                       style={[
                         styles.forecastTile,
+                        { width: forecastTileWidth },
                         styles.forecastTileSkeleton,
                       ]}
                     >
@@ -1433,6 +1483,7 @@ export default function HomeScreen() {
                       accessibilityLabel="Locked Angler forecast day"
                       style={({ pressed }) => [
                         styles.forecastTile,
+                        { width: forecastTileWidth },
                         styles.forecastTileLocked,
                         pressed && { opacity: 0.85 },
                       ]}
@@ -1477,10 +1528,7 @@ export default function HomeScreen() {
                 const tileBg = scoreAccentColor(score10);
                 const isFreePreview = !hasSubscription;
                 const isFirst = i === 0;
-                const dateNum = realDay.month_day?.split(/[ /-]/).pop() ?? "";
-                const dayLabel = isFirst
-                  ? "TOMORROW"
-                  : abbreviateDay(realDay.day_label);
+                const { dayLabel, dateNum } = forecastDayDisplay(realDay);
                 // 21-entry hi/lo arrays: index 14 = today, so 14 + day_offset
                 // gives this forecast day's slot. Fallback to em-dashes when
                 // the forecast snapshot didn't carry the temperature arrays.
@@ -1495,6 +1543,7 @@ export default function HomeScreen() {
                       { pressed },
                     ) => [
                       styles.forecastTile,
+                      { width: forecastTileWidth },
                       pressed && { opacity: 0.85 },
                     ]}
                     accessibilityLabel={isFreePreview
@@ -1508,7 +1557,7 @@ export default function HomeScreen() {
                     )}
                     <View style={styles.forecastTileHead}>
                       <Text style={styles.forecastTileDay} numberOfLines={1}>
-                        {isFirst ? abbreviateDay(realDay.day_label) : dayLabel}
+                        {dayLabel}
                       </Text>
                       <Text style={styles.forecastTileDate}>{dateNum}</Text>
                     </View>
@@ -1922,17 +1971,17 @@ function MetricCell({
   value,
   unit,
   sub,
-  last,
+  divider,
 }: {
   icon: React.ComponentProps<typeof Ionicons>["name"];
   label: string;
   value: string;
   unit: string;
   sub: string;
-  last?: boolean;
+  divider?: boolean;
 }) {
   return (
-    <View style={[styles.metricCell, !last && styles.metricCellDivider]}>
+    <View style={[styles.metricCell, divider && styles.metricCellDivider]}>
       <View style={styles.metricCellTopRow}>
         <Ionicons name={icon} size={10} color={paper.dashboardMuted} />
         <Text style={styles.metricCellLabel}>{label}</Text>
@@ -2052,7 +2101,7 @@ function verdictLeading(band: PaperScoreBand): string {
 function abbreviateDay(label: string): string {
   const clean = label.trim().toUpperCase();
   if (clean === "TODAY") return "TODAY";
-  if (clean === "TMRW" || clean === "TOMORROW") return "FRI";
+  if (clean === "TMRW" || clean === "TOMORROW") return "TMRW";
   // Backend day_label is "Mon"/"Tue"/…; uppercasing is the abbrev.
   return clean.slice(0, 3);
 }
@@ -2224,6 +2273,9 @@ const styles = StyleSheet.create({
   // ─── Scroll content ──────────────────────────────────────────────────────
   scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   scrollContent: {
+    width: "100%",
+    maxWidth: HOME_MAX_CONTENT_WIDTH,
+    alignSelf: "center",
     paddingHorizontal: HOME_H_PADDING,
     paddingBottom: 32,
     paddingTop: 22,
@@ -2418,6 +2470,11 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     marginBottom: 14,
   },
+  liveCardTopRowCompact: {
+    flexWrap: "wrap",
+    alignItems: "center",
+    gap: 12,
+  },
   liveCardScoreChip: {
     backgroundColor: "#FAF6E5",
     borderWidth: 1,
@@ -2465,7 +2522,10 @@ const styles = StyleSheet.create({
     letterSpacing: 1.3,
   },
 
-  liveCardTempCol: { flex: 1 },
+  liveCardTempCol: { flex: 1, minWidth: 0 },
+  liveCardTempColCompact: {
+    minWidth: 120,
+  },
   liveCardTempRow: { flexDirection: "row", alignItems: "baseline", gap: 4 },
   liveCardTempNumber: {
     fontFamily: SERIF_MEDIUM,
@@ -2490,6 +2550,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     justifyContent: "flex-end",
     paddingBottom: 4,
+    minWidth: 108,
   },
   liveCardSparkEyebrow: {
     fontFamily: MONO_BOLD,
@@ -2635,6 +2696,7 @@ const styles = StyleSheet.create({
   // metric grid
   metricsGrid: {
     flexDirection: "row",
+    flexWrap: "wrap",
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
@@ -2643,7 +2705,7 @@ const styles = StyleSheet.create({
     overflow: "hidden",
   },
   metricCell: {
-    flex: 1,
+    width: "50%",
     paddingHorizontal: 8,
     paddingVertical: 10,
     borderBottomWidth: 1,
@@ -2686,8 +2748,10 @@ const styles = StyleSheet.create({
   forecast: { marginBottom: 22 },
   forecastHeaderRow: {
     flexDirection: "row",
+    flexWrap: "wrap",
     justifyContent: "space-between",
     alignItems: "center",
+    gap: 6,
     marginBottom: 12,
   },
   forecastEyebrow: {
@@ -2695,6 +2759,7 @@ const styles = StyleSheet.create({
     fontSize: 10,
     letterSpacing: 2.2,
     color: "#444",
+    flexShrink: 1,
   },
   forecastUnit: {
     fontFamily: MONO_BOLD,
@@ -2702,7 +2767,11 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
     letterSpacing: 0.5,
   },
-  forecastGrid: { flexDirection: "row", gap: FORECAST_GAP },
+  forecastGrid: {
+    flexDirection: "row",
+    flexWrap: "wrap",
+    gap: FORECAST_GAP,
+  },
   forecastDisclaimer: {
     marginTop: 7,
     paddingHorizontal: 2,
@@ -2713,7 +2782,6 @@ const styles = StyleSheet.create({
     opacity: 0.72,
   },
   forecastTile: {
-    width: FORECAST_TILE_W,
     backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderColor: paper.dashboardLine,
@@ -2891,6 +2959,7 @@ const styles = StyleSheet.create({
   moduleTitleRow: {
     flexDirection: "row",
     alignItems: "center",
+    flexWrap: "wrap",
     gap: 8,
     marginBottom: 2,
   },

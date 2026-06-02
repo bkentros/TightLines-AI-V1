@@ -24,6 +24,10 @@ import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import type { UserProfile } from '../../lib/types';
 import { isAdminEmail } from '../../lib/adminAccess';
+import {
+  getAnalyticsDiagnostics,
+  sendAnalyticsDiagnosticsPing,
+} from '../../lib/analyticsDiagnostics';
 import { getEffectiveTier } from '../../lib/subscription';
 import type { FeedbackTopic } from '../../lib/feedback';
 import {
@@ -82,6 +86,8 @@ export default function SettingsScreen() {
     tone?: NoticeTone;
   } | null>(null);
   const canSeeTestingTools = isAdminEmail(user?.email);
+  const analyticsDiag = getAnalyticsDiagnostics();
+  const [analyticsPingLoading, setAnalyticsPingLoading] = useState(false);
 
   useEffect(() => {
     if (!profile) return;
@@ -623,6 +629,33 @@ export default function SettingsScreen() {
             {canSeeTestingTools && (
               <View style={styles.section}>
                 <Text style={styles.sectionLabel}>ADMIN TOOLS</Text>
+                <Text style={styles.sectionHint}>
+                  Analytics:{' '}
+                  {analyticsDiag.enabled
+                    ? analyticsDiag.clientReady
+                      ? 'enabled (client ready)'
+                      : 'key set but client failed init'
+                    : 'disabled (store-like — no PostHog key in .env)'}
+                </Text>
+                <PrimaryAction
+                  label="Send analytics test event"
+                  icon="pulse-outline"
+                  loading={analyticsPingLoading}
+                  onPress={async () => {
+                    setAnalyticsPingLoading(true);
+                    try {
+                      const result = await sendAnalyticsDiagnosticsPing(user?.id);
+                      setNotice({
+                        title: result.ok ? 'Analytics ping sent' : 'Analytics ping failed',
+                        message: result.message,
+                        tone: result.ok ? 'success' : 'error',
+                      });
+                    } finally {
+                      setAnalyticsPingLoading(false);
+                    }
+                  }}
+                  variant="secondary"
+                />
                 <View style={styles.testingRow}>
                   <Text style={styles.testingLabel}>Ignore GPS</Text>
                   <Switch
@@ -889,6 +922,9 @@ const styles = StyleSheet.create({
   },
   kav: { flex: 1, backgroundColor: paper.dashboardCream },
   scroll: {
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.xxl,

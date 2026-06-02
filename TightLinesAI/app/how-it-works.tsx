@@ -345,6 +345,9 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardCream,
   },
   scrollContent: {
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,

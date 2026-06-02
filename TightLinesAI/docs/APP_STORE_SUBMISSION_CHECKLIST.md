@@ -15,8 +15,8 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [ ] **Re-check App Store Privacy after PostHog and creator attribution.** PostHog product analytics and creator/referral attribution are now documented in Privacy/Terms, but App Store Connect privacy answers must be rechecked against the production build before submission/release.
 - [x] **Resolve App Store Connect subscription product availability.** RevenueCat now returns the monthly and annual App Store products in the iOS dev build, and the paywall loads after Paid Apps/tax/banking became active on 2026-05-23.
 - [x] **Make subscription/paywall metadata review-ready in RevenueCat.** RevenueCat template paywall is published and attached to the `default` offering with Terms/Privacy URLs.
-- [ ] **HIGH: Finish the subscription regression pass.** Sandbox purchase succeeds, canceling from the Apple purchase sheet returns cleanly without unlocking, same-account restore works, active Angler access survives sign-out/sign-in, and RevenueCat now blocks restoring the same App Store receipt onto a different/recreated FinFindr account. Still verify reinstall/new-session behavior and Supabase tier sync on the final review/TestFlight build.
-- [x] **Remove `ios.infoPlist.UIDesignRequiresCompatibility`.** Removed from `app.json` on 2026-05-20 so the app uses the default current iOS UI behavior; iPhone-only support is still controlled separately by `supportsTablet: false`.
+- [x] **HIGH: Finish the subscription regression pass.** Sandbox purchase succeeds, canceling from the Apple purchase sheet returns cleanly without unlocking, same-account restore works, active Angler access survives sign-out/sign-in, and RevenueCat now blocks restoring the same App Store receipt onto a different/recreated FinFindr account. Final TestFlight/App Store build `1.0.0 (6)` was smoke-tested on 2026-05-27 and another sandbox subscription granted full Angler access.
+- [x] **Remove `ios.infoPlist.UIDesignRequiresCompatibility`.** Removed from `app.json` on 2026-05-20 and explicitly pinned to `false` again on 2026-05-27 so the app uses the default current iOS UI behavior; iPhone-only support is still controlled separately by `supportsTablet: false`.
 - [x] **Resolve Supabase `public.spatial_ref_sys` RLS/security alert.** Warning no longer appears in Supabase dashboard; `supabase db lint --linked --schema public` returned no schema errors on 2026-05-20.
 - [x] **Code-level free vs Angler gates are centralized and enforced.** Commit `65a4bd8` makes new/free users limited, allows tomorrow-only forecast preview, gates future forecast reads, gates recommender generation after step 4, gates Water Read generation after lake selection, and keeps Angler unrestricted. Free-user 6-day forecast taps now route into the upgrade/paywall path from both Home and the limited read teaser.
 - [x] **Confirm reviewer can access every gated feature.** `finfindr@hotmail.com` is configured as complimentary Angler access and successfully reached Angler-gated features in the fresh iOS dev build on 2026-05-21. This validates reviewer feature access, not the App Store purchase path.
@@ -80,11 +80,11 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 - [x] Test cancel from purchase sheet. Verified on device that canceling from Apple's sandbox purchase sheet returns cleanly without unlocking Angler.
 - [ ] Test restore purchase after reinstall/sign out/sign in. Restore immediately after sandbox purchase showed Angler active on 2026-05-23, and same-account sign-out/sign-in kept access in the dev build; still needs reinstall/new-session validation on the final review/TestFlight build.
 - [x] Set/confirm RevenueCat restore behavior for launch. RevenueCat is using `Keep with original App User ID`; sandbox testing confirmed the same active App Store receipt does not transfer to a different or recreated FinFindr account and instead shows the "Subscription linked elsewhere" recovery message.
-- [ ] Test entitlement changes update Supabase `profiles.subscription_tier`.
+- [x] Test entitlement changes update Supabase `profiles.subscription_tier`. Final TestFlight/App Store build `1.0.0 (6)` sandbox subscription granted full Angler access on 2026-05-27.
 - [x] Harden final subscription tier write path before launch. Added a database trigger that blocks authenticated/anon clients from changing `profiles.subscription_tier`, moved tier sync behind the `sync-subscription-tier` Edge Function, and made RevenueCat/server-confirmed entitlement the trusted write path.
 - [x] Test free user gating for Today's Bite, Tackle Box/recommender, and Water Read. Verified in the fresh iOS dev build on 2026-05-21; gated CTAs route into the subscription flow and currently show the unavailable fallback while App Store products are not returned.
 - [x] Add App Store review notes explaining how to find and test subscription-gated features.
-- [x] Add a reviewer account that either has an active sandbox subscription or can purchase using Apple sandbox. Current reviewer login is entered in App Store Connect; subscription purchase still needs sandbox validation after build upload.
+- [x] Add a reviewer account that either has an active sandbox subscription or can purchase using Apple sandbox. Current reviewer login is entered in App Store Connect; sandbox subscription purchase was validated on uploaded build `1.0.0 (6)` on 2026-05-27.
 - [x] Add Terms and Privacy links to subscription screen.
 - [x] Confirm RevenueCat paywall clearly shows subscription title, price, billing period, what unlocks, and purchase/restore actions. RevenueCat paywall footer `Terms` and `Privacy` open the live public URLs, and `Restore Purchases` connects only the original App User ID under the launch restore policy.
 - [x] Confirm there are no external purchase links or CTAs for digital subscription access outside Apple IAP. Code search found only the native RevenueCat/App Store purchase path plus Apple subscription management/legal/support URLs.
@@ -130,13 +130,13 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 ### 6. Permissions And Device Capabilities
 
 - [x] Location permission purpose text exists.
-- [x] Camera permission purpose text exists.
-- [x] Photo permission purpose text exists.
-- [x] Microphone permission purpose text exists.
-- [ ] Verify iOS generated `Info.plist` contains `NSLocationWhenInUseUsageDescription`; current config only sets `locationAlwaysAndWhenInUsePermission`.
+- [x] Camera permission is not requested in the v1 submission build.
+- [x] Photo permission is not requested in the v1 submission build.
+- [x] Microphone permission is not requested in the v1 submission build.
+- [x] Verify iOS generated `Info.plist` contains `NSLocationWhenInUseUsageDescription`. Explicit foreground location copy was added to `app.json` on 2026-05-27.
 - [ ] Confirm app does not require location permission to access unrelated functionality.
-- [ ] Test denial states for location, camera, photos, microphone, notifications, and biometrics.
-- [ ] Confirm camera/photo/microphone features are complete, hidden, or gracefully unavailable.
+- [ ] Test denial states for location and biometrics. Camera, photos, microphone, and notifications are not requested in the v1 submission build.
+- [x] Confirm camera/photo/microphone features are complete, hidden, or gracefully unavailable. No shipping code path imports camera, image picker, audio, or notifications; unused native packages were removed from the v1 submission branch on 2026-05-27 to keep the App Store permission surface accurate.
 - [ ] Confirm push notification permission is requested only in context, if used at all.
 
 ### 7. Backend And Supabase Launch Readiness
@@ -153,12 +153,12 @@ Apple can still reject an app for reviewer-specific findings, policy interpretat
 
 ### 8. App Completeness QA
 
-- [x] Run TypeScript check. Latest pass was 2026-05-22 after auth resend cooldown updates: `npm run qa:water-reader-typecheck`.
-- [x] Fix Expo SDK package version drift. `npx expo install --check` passed on 2026-05-21 after updating SDK 55 patch-level package versions.
+- [x] Run TypeScript check. Latest pass was 2026-05-27: `npm run qa:water-reader-typecheck`.
+- [x] Fix Expo SDK package version drift. `npx expo install --check` passed on 2026-05-27.
 - [ ] Local native iOS build toolchain: selected Xcode is 15.2; install/select Xcode 26+ before relying on local iOS native builds. EAS Cloud build remains the recommended path for the dev client.
-- [ ] Run key Supabase/Deno tests for recommender and water-reader shared modules.
+- [x] Run key Supabase/Deno tests for recommender and water-reader shared modules. `find supabase/functions -name '*.test.ts' -print0 | xargs -0 deno test -A` passed on 2026-05-27 with `581 passed / 0 failed`.
 - [x] Run app on a physical iPhone from a development build. Fresh iOS dev client was installed and used for account/subscription-access QA on 2026-05-21/2026-05-22.
-- [ ] Run app on a production-like TestFlight build.
+- [x] Run app on a production-like TestFlight build. Build `1.0.0 (6)` smoke test passed on 2026-05-27, including sandbox subscription purchase and Angler unlock.
 - [x] Test cold install, sign-up, email verification, onboarding, sign-in, sign-out. Email account flow was verified E2E on device by 2026-05-22.
 - [x] Test Sign in with Apple first-time and returning-user flows. Fresh iOS dev build logs showed Supabase Apple session creation on 2026-05-21; returning-user one-tap Sign in with Apple was verified on device by 2026-05-22.
 - [x] Test password reset from email link. Verified on device by 2026-05-22.
@@ -243,8 +243,8 @@ These items must be checked before clicking the final public release button, esp
 - [x] Confirm EAS production and development env vars are present for iOS builds: `EXPO_PUBLIC_SUPABASE_URL`, `EXPO_PUBLIC_SUPABASE_ANON_KEY`, `EXPO_PUBLIC_REVENUECAT_IOS_API_KEY`, and `EXPO_PUBLIC_AUTH_EMAIL_REDIRECT` verified on 2026-05-21.
 - [x] Install dev build on physical iPhone. Fresh iOS dev client was loaded on the iPhone 15 Pro Max for launch QA on 2026-05-21/2026-05-22.
 - [x] Start Metro with env vars loaded and test RevenueCat sandbox. LAN dev-client testing confirmed paywall load, sandbox purchase, cancel-from-sheet, same-account restore, and strict restore blocking for a different/recreated FinFindr account.
-- [ ] Build production: `eas build --profile production --platform ios`.
-- [ ] Upload to App Store Connect.
+- [x] Build production: `eas build --profile production --platform ios`. Build `1.0.0 (6)` completed on 2026-05-27.
+- [x] Upload to App Store Connect. Build `1.0.0 (6)` uploaded on 2026-05-27.
 - [ ] Add the build to the app version.
 - [ ] Attach first-time IAP/subscriptions to the version submission.
 - [ ] Submit for review.
@@ -252,6 +252,8 @@ These items must be checked before clicking the final public release button, esp
 - [ ] Monitor App Review messages and respond with exact steps, credentials, and screenshots/video if asked.
 
 ## Review Notes Draft
+
+Copy-paste version prepared on 2026-05-27: `docs/APP_REVIEW_NOTES_20260527.md`.
 
 Use this as a starting point in App Store Connect after the unchecked items are done:
 

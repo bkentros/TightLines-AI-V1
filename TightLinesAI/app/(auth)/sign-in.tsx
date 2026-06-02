@@ -21,6 +21,7 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
 import * as AppleAuthentication from 'expo-apple-authentication';
+import * as Crypto from 'expo-crypto';
 import { Ionicons } from '@expo/vector-icons';
 import {
   paper,
@@ -34,6 +35,8 @@ import {
   getAuthErrorMessage,
 } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
+import { supabase } from '../../lib/supabase';
+import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 import {
   AuthBackButton,
   AuthDivider,
@@ -57,6 +60,7 @@ export default function SignInScreen() {
   const [loading, setLoading] = useState(false);
   const [notice, setNotice] = useState<Notice | null>(null);
   const appleSignInInFlight = useRef(false);
+  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('spread');
 
   const handleSignIn = async () => {
     const trimmedEmail = email.trim().toLowerCase();
@@ -78,6 +82,7 @@ export default function SignInScreen() {
         return;
       }
       if (data.session) {
+        supabase.functions.setAuth(data.session.access_token);
         setSession(data.session);
         await fetchProfile(data.session.user.id);
         // Navigation handled by root layout guard
@@ -92,9 +97,6 @@ export default function SignInScreen() {
     appleSignInInFlight.current = true;
     try {
       try {
-        // Lazy-load so email-only flows (e.g. magic link) don't require the
-        // ExpoCrypto native module until Apple Sign-In is used.
-        const Crypto = await import('expo-crypto');
         const nonce = Crypto.randomUUID();
         const hashedNonce = await Crypto.digestStringAsync(
           Crypto.CryptoDigestAlgorithm.SHA256,
@@ -120,6 +122,7 @@ export default function SignInScreen() {
 
         if (error) throw error;
         if (data.session) {
+          supabase.functions.setAuth(data.session.access_token);
           setSession(data.session);
           await fetchProfile(data.session.user.id);
         }
@@ -145,7 +148,8 @@ export default function SignInScreen() {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <ScrollView
-            contentContainerStyle={styles.scroll}
+            style={styles.scrollView}
+            contentContainerStyle={[styles.scroll, scrollLayout]}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
@@ -280,12 +284,14 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   kav: { flex: 1 },
+  scrollView: { flex: 1 },
   scroll: {
-    flexGrow: 1,
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xl + paperSpacing.lg,
     paddingTop: paperSpacing.md,
-    justifyContent: 'space-between',
     gap: paperSpacing.xl,
   },
   topSection: {

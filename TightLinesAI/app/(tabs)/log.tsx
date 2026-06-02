@@ -573,6 +573,9 @@ const styles = StyleSheet.create({
   safe: { flex: 1 },
   scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   content: {
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
   },

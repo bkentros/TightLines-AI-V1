@@ -1394,6 +1394,9 @@ const styles = StyleSheet.create({
   scroll: { flex: 1, backgroundColor: paper.dashboardCream },
   pager: { flex: 1 },
   reportContent: {
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
     paddingTop: paperSpacing.md,

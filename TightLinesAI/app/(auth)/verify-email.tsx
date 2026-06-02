@@ -170,7 +170,12 @@ export default function VerifyEmailScreen() {
               {/* Rubric strip — small mono line at the top */}
               <View style={styles.signetRubricRow}>
                 <View style={styles.signetRubricRule} />
-                <Text style={styles.signetRubricText}>
+                <Text
+                  style={styles.signetRubricText}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.72}
+                >
                   FINFINDR · VERIFY YOUR EMAIL
                 </Text>
                 <View style={styles.signetRubricRule} />
@@ -246,7 +251,12 @@ export default function VerifyEmailScreen() {
                   </Text>
                 </View>
               ) : (
-                <Text style={styles.resendText}>
+                <Text
+                  style={styles.resendText}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.78}
+                >
                   {resending ? 'SENDING…' : 'RESEND VERIFICATION EMAIL'}
                 </Text>
               )}
@@ -265,6 +275,9 @@ const styles = StyleSheet.create({
   safe: { flex: 1 },
   container: {
     flex: 1,
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.xl + paperSpacing.lg,

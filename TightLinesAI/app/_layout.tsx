@@ -42,6 +42,7 @@ import { useEnvStore } from '../store/envStore';
 import { useRevenueCatStore } from '../store/revenueCatStore';
 import { useBiometricLock } from '../hooks/useBiometricLock';
 import { AnalyticsProvider } from '../components/AnalyticsProvider';
+import { AppErrorBoundary } from '../components/AppErrorBoundary';
 import { paper, paperFonts } from '../lib/theme';
 
 if (__DEV__) {
@@ -434,9 +435,10 @@ export default function RootLayout() {
   }
 
   return (
-    <AnalyticsProvider>
-      <StatusBar style="dark" />
-      <Stack
+    <AppErrorBoundary>
+      <AnalyticsProvider>
+        <StatusBar style="dark" />
+        <Stack
         screenOptions={{
           headerStyle: { backgroundColor: paper.dashboardInk },
           headerTintColor: '#FFFFFF',
@@ -484,8 +486,9 @@ export default function RootLayout() {
           options={{ headerShown: false }}
         />
         <Stack.Screen name="analytics" options={{ headerShown: false }} />
-      </Stack>
-    </AnalyticsProvider>
+        </Stack>
+      </AnalyticsProvider>
+    </AppErrorBoundary>
   );
 }
 

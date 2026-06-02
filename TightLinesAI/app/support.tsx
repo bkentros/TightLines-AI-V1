@@ -269,6 +269,9 @@ const styles = StyleSheet.create({
   flex: { flex: 1 },
   scroll: { flex: 1 },
   content: {
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.xxl,

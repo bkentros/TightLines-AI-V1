@@ -14,11 +14,12 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.finseekr.finfindr",
-      "buildNumber": "5",
+      "buildNumber": "12",
       "infoPlist": {
         "CFBundleDisplayName": "FinFindr",
         "CFBundleName": "FinFindr",
-        "ITSAppUsesNonExemptEncryption": false
+        "ITSAppUsesNonExemptEncryption": false,
+        "UIDesignRequiresCompatibility": false
       },
       "usesAppleSignIn": true
     },
@@ -38,28 +39,10 @@
       [
         "expo-location",
         {
+          "locationWhenInUsePermission": "FinFindr uses your location to auto-fill weather, tide, and moon conditions for better fishing recommendations.",
           "locationAlwaysAndWhenInUsePermission": "FinFindr uses your location to auto-fill weather, tide, and moon conditions for better fishing recommendations."
         }
       ],
-      [
-        "expo-camera",
-        {
-          "cameraPermission": "FinFindr uses your camera to photograph catches and upload water images for AI analysis."
-        }
-      ],
-      [
-        "expo-image-picker",
-        {
-          "photosPermission": "FinFindr accesses your photos to upload water images and catch photos."
-        }
-      ],
-      [
-        "expo-audio",
-        {
-          "microphonePermission": "FinFindr uses your microphone to record voice fishing logs."
-        }
-      ],
-      "expo-notifications",
       "expo-apple-authentication",
       "expo-local-authentication",
       "expo-asset",

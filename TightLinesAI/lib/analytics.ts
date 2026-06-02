@@ -10,16 +10,31 @@ export const posthogHost =
 
 export const analyticsEnabled = posthogApiKey.length > 0;
 
-export const posthogClient = analyticsEnabled
-  ? new PostHog(posthogApiKey, {
+/** Lazy singleton — never construct PostHog at module import (can crash launch). */
+let posthogClientInstance: PostHog | null | undefined;
+
+export function getPostHogClient(): PostHog | null {
+  if (!analyticsEnabled) return null;
+  if (posthogClientInstance !== undefined) return posthogClientInstance;
+
+  try {
+    posthogClientInstance = new PostHog(posthogApiKey, {
       host: posthogHost,
-      captureAppLifecycleEvents: true,
+      captureAppLifecycleEvents: false,
       enableSessionReplay: false,
       personProfiles: 'identified_only',
       flushAt: __DEV__ ? 1 : 20,
       flushInterval: __DEV__ ? 2000 : 10000,
-    })
-  : null;
+    });
+  } catch (err) {
+    posthogClientInstance = null;
+    if (__DEV__) {
+      console.warn('[analytics] PostHog init failed:', err);
+    }
+  }
+
+  return posthogClientInstance;
+}
 
 type AnalyticsValue = string | number | boolean | null | undefined;
 type AnalyticsProperties = Record<string, AnalyticsValue>;
@@ -36,22 +51,38 @@ function compactProperties(
   return compacted;
 }
 
+function safeAnalyticsCall(action: () => void): void {
+  try {
+    action();
+  } catch (err) {
+    if (__DEV__) {
+      console.warn('[analytics] call failed:', err);
+    }
+  }
+}
+
 export function captureAnalytics(
   eventName: string,
   properties?: AnalyticsProperties,
 ): void {
-  posthogClient?.capture(eventName, compactProperties(properties));
+  safeAnalyticsCall(() => {
+    getPostHogClient()?.capture(eventName, compactProperties(properties));
+  });
 }
 
 export function screenAnalytics(
   screenName: string,
   properties?: AnalyticsProperties,
 ): void {
-  void posthogClient?.screen(screenName, compactProperties(properties));
+  safeAnalyticsCall(() => {
+    void getPostHogClient()?.screen(screenName, compactProperties(properties));
+  });
 }
 
 export function resetAnalyticsUser(): void {
-  posthogClient?.reset();
+  safeAnalyticsCall(() => {
+    getPostHogClient()?.reset();
+  });
 }
 
 export function identifyAnalyticsUser(args: {
@@ -59,17 +90,19 @@ export function identifyAnalyticsUser(args: {
   email?: string | null;
   profile?: UserProfile | null;
 }): void {
-  const emailDomain = args.email?.split('@')[1]?.toLowerCase() ?? null;
-  const profile = args.profile;
+  safeAnalyticsCall(() => {
+    const emailDomain = args.email?.split('@')[1]?.toLowerCase() ?? null;
+    const profile = args.profile;
 
-  posthogClient?.identify(args.userId, {
-    email_domain: emailDomain,
-    home_state: profile?.home_state ?? null,
-    fishing_mode: profile?.fishing_mode ?? null,
-    preferred_units: profile?.preferred_units ?? null,
-    subscription_tier: profile?.subscription_tier ?? 'free',
-    onboarding_complete: profile?.onboarding_complete ?? false,
-    target_species_count: profile?.target_species?.length ?? 0,
+    getPostHogClient()?.identify(args.userId, {
+      email_domain: emailDomain,
+      home_state: profile?.home_state ?? null,
+      fishing_mode: profile?.fishing_mode ?? null,
+      preferred_units: profile?.preferred_units ?? null,
+      subscription_tier: profile?.subscription_tier ?? 'free',
+      onboarding_complete: profile?.onboarding_complete ?? false,
+      target_species_count: profile?.target_species?.length ?? 0,
+    });
   });
 }
 

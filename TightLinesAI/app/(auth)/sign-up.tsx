@@ -68,6 +68,7 @@ import {
   AuthPrimaryButton,
   AuthTextLink,
 } from '../../components/paper/auth';
+import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 
 const RATE_LIMIT_COOLDOWN_MINUTES = 15;
 const RATE_LIMIT_STORAGE_KEY = 'signup_rate_limit_until';
@@ -104,6 +105,7 @@ export default function SignUpScreen() {
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
   const [verificationCooldownSeconds, setVerificationCooldownSeconds] = useState(0);
   const [notice, setNotice] = useState<Notice | null>(null);
+  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('form');
 
   const emailDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -385,7 +387,8 @@ export default function SignUpScreen() {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <ScrollView
-            contentContainerStyle={styles.scroll}
+            style={styles.scrollView}
+            contentContainerStyle={[styles.scroll, scrollLayout]}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
@@ -773,8 +776,11 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   kav: { flex: 1 },
+  scrollView: { flex: 1 },
   scroll: {
-    flexGrow: 1,
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.xl + paperSpacing.lg,
     paddingTop: paperSpacing.sm,

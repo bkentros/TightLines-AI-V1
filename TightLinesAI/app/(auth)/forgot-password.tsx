@@ -59,6 +59,7 @@ import {
   AuthSecondaryButton,
   AuthTip,
 } from '../../components/paper/auth';
+import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 
 type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
@@ -69,6 +70,7 @@ export default function ForgotPasswordScreen() {
   const [sent, setSent] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const [notice, setNotice] = useState<Notice | null>(null);
+  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('form');
 
   useEffect(() => {
     let mounted = true;
@@ -152,7 +154,8 @@ export default function ForgotPasswordScreen() {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <ScrollView
-            contentContainerStyle={styles.scroll}
+            style={styles.scrollView}
+            contentContainerStyle={[styles.scroll, scrollLayout]}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
@@ -521,8 +524,11 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   kav: { flex: 1 },
+  scrollView: { flex: 1 },
   scroll: {
-    flexGrow: 1,
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.sm,
     paddingBottom: paperSpacing.xl + paperSpacing.lg,

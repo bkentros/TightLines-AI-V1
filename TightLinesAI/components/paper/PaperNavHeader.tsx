@@ -115,8 +115,20 @@ export function PaperNavHeader({
 
       {/* ── Centered title block (absolute, doesn't disturb flanks) ── */}
       <View style={styles.navTitleWrap} pointerEvents="none">
-        <Text style={[styles.navEyebrow, { color: eyebrowColor }]}>{eyebrow}</Text>
-        <Text style={styles.navTitle} numberOfLines={1}>
+        <Text
+          style={[styles.navEyebrow, { color: eyebrowColor }]}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.75}
+        >
+          {eyebrow}
+        </Text>
+        <Text
+          style={styles.navTitle}
+          numberOfLines={1}
+          adjustsFontSizeToFit
+          minimumFontScale={0.8}
+        >
           {title}
         </Text>
       </View>
@@ -158,8 +170,8 @@ const styles = StyleSheet.create({
   },
   navTitleWrap: {
     position: 'absolute',
-    left: 0,
-    right: 0,
+    left: 76,
+    right: 76,
     top: paperSpacing.md,
     bottom: paperSpacing.md,
     alignItems: 'center',

@@ -1,12 +1,13 @@
-import { useEffect, useRef, type ReactNode } from 'react';
+import { useEffect, useRef, useState, type ReactNode } from 'react';
 import { usePathname, useSegments } from 'expo-router';
 import { PostHogProvider } from 'posthog-react-native';
+import type { PostHog } from 'posthog-react-native';
 import { useAuthStore } from '../store/authStore';
 import {
   analyticsEnabled,
   captureAnalytics,
+  getPostHogClient,
   identifyAnalyticsUser,
-  posthogClient,
   resetAnalyticsUser,
   routeGroup,
   routeScreenName,
@@ -71,13 +72,20 @@ function AnalyticsRuntime() {
 }
 
 export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
-  if (!analyticsEnabled || !posthogClient) {
+  const [client, setClient] = useState<PostHog | null>(null);
+
+  useEffect(() => {
+    if (!analyticsEnabled) return;
+    setClient(getPostHogClient());
+  }, []);
+
+  if (!analyticsEnabled || !client) {
     return <>{children}</>;
   }
 
   return (
     <PostHogProvider
-      client={posthogClient}
+      client={client}
       autocapture={{ captureScreens: false, captureTouches: false }}
     >
       <AnalyticsRuntime />

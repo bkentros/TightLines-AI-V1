@@ -55,6 +55,7 @@ import {
   AuthNotice,
   AuthPrimaryButton,
 } from '../../components/paper/auth';
+import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 
 type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
 
@@ -67,6 +68,7 @@ export default function ResetPasswordScreen() {
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [notice, setNotice] = useState<Notice | null>(null);
+  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('form');
 
   const passwordOk = isPasswordValid(password);
   const matchOk = password.length > 0 && password === confirmPassword;
@@ -179,7 +181,8 @@ export default function ResetPasswordScreen() {
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
         >
           <ScrollView
-            contentContainerStyle={styles.scroll}
+            style={styles.scrollView}
+            contentContainerStyle={[styles.scroll, scrollLayout]}
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
@@ -514,8 +517,11 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
   kav: { flex: 1 },
+  scrollView: { flex: 1 },
   scroll: {
-    flexGrow: 1,
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.sm,
     paddingBottom: paperSpacing.xl + paperSpacing.lg,

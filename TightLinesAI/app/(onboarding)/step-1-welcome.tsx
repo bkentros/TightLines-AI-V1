@@ -26,6 +26,7 @@ import {
   Animated,
   Easing,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -45,10 +46,12 @@ import {
 } from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
+import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 
 export default function OnboardingStep1() {
   const router = useRouter();
   const { signOut } = useAuthStore();
+  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('spread', 72);
 
   // Live pulse on the eyebrow dot
   const livePulse = useRef(new Animated.Value(1)).current;
@@ -125,8 +128,11 @@ export default function OnboardingStep1() {
           right={<StepPill step={1} total={1} />}
         />
 
-        {/* ── Main content — no ScrollView; must fit viewport ─────── */}
-        <View style={styles.content}>
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={[styles.content, scrollLayout]}
+          showsVerticalScrollIndicator={false}
+        >
 
           {/* ── Compact cover card ──────────────────────────────────── */}
           <View style={styles.cover}>
@@ -295,7 +301,7 @@ export default function OnboardingStep1() {
             <Text style={styles.footerText}>PAGE 01 OF 01 · PROFILE SETUP</Text>
             <View style={styles.footerRule} />
           </View>
-        </View>
+        </ScrollView>
       </View>
     </SafeAreaView>
   );
@@ -316,14 +322,16 @@ function StepPill({ step, total }: { step: number; total: number }) {
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: paper.dashboardInk },
   root: { flex: 1, backgroundColor: paper.dashboardCream },
+  scroll: { flex: 1, backgroundColor: paper.dashboardCream },
 
   content: {
-    flex: 1,
+    width: '100%',
+    maxWidth: 520,
+    alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.sm + 2,
     paddingBottom: paperSpacing.sm,
     gap: paperSpacing.sm,
-    justifyContent: 'space-between',
   },
 
   // ── Cover card ────────────────────────────────────────────────────────────

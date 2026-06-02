@@ -5,6 +5,55 @@ import { isRefreshTokenRevokedError } from '../lib/authSessionErrors';
 import { supabase } from '../lib/supabase';
 import { useEnvStore } from './envStore';
 
+const PROFILE_FETCH_TIMEOUT_MS = 12_000;
+
+function getErrorMessage(err: unknown): string {
+  if (err instanceof Error && err.message) return err.message;
+  if (err && typeof err === 'object') {
+    const maybeMessage = (err as { message?: unknown }).message;
+    if (typeof maybeMessage === 'string' && maybeMessage) return maybeMessage;
+  }
+  return String(err);
+}
+
+function isAbortLikeError(err: unknown): boolean {
+  if (err instanceof Error) {
+    return err.name === 'AbortError' || /abort|timed out|timeout/i.test(err.message);
+  }
+  return /abort|timed out|timeout/i.test(String(err));
+}
+
+async function fetchProfileRow(userId: string) {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error('Profile request timed out. Check your connection and try again.'));
+    }, PROFILE_FETCH_TIMEOUT_MS);
+  });
+  const query = supabase
+    .from('profiles')
+    .select('*')
+    .eq('id', userId)
+    .single();
+
+  try {
+    return await Promise.race([query, timeout]);
+  } catch (err) {
+    const timedOut = isAbortLikeError(err);
+    return {
+      data: null,
+      error: {
+        code: timedOut ? 'PROFILE_FETCH_TIMEOUT' : 'PROFILE_FETCH_ERROR',
+        message: timedOut
+          ? 'Profile request timed out. Check your connection and try again.'
+          : getErrorMessage(err),
+      },
+    };
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
+}
+
 interface AuthState {
   // Core auth
   session: Session | null;
@@ -39,17 +88,33 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   onboardingPrefs: {},
 
   setSession: (session) => {
+    if (!session) {
+      set({
+        session: null,
+        user: null,
+        isProfileLoading: false,
+        profile: null,
+        isOnboarded: false,
+      });
+      return;
+    }
+
     const currentProfile = get().profile;
+    const currentUser = get().user;
     const profileMatchesSession =
-      !!session?.user && currentProfile?.id === session.user.id;
+      currentProfile?.id === session.user.id;
     const userChanged =
-      !!session?.user && !profileMatchesSession;
+      currentUser?.id !== session.user.id;
     set({
       session,
-      user: session?.user ?? null,
-      isProfileLoading: userChanged ? true : false,
+      user: session.user,
+      isProfileLoading: !profileMatchesSession,
       profile: profileMatchesSession ? currentProfile : null,
-      isOnboarded: profileMatchesSession ? currentProfile.onboarding_complete : false,
+      isOnboarded: profileMatchesSession
+        ? currentProfile.onboarding_complete
+        : userChanged
+          ? false
+          : get().isOnboarded,
     });
   },
 
@@ -73,17 +138,16 @@ export const useAuthStore = create<AuthState>((set, get) => ({
   fetchProfile: async (userId: string) => {
     set({ isProfileLoading: true });
     try {
-      const { data, error } = await supabase
-        .from('profiles')
-        .select('*')
-        .eq('id', userId)
-        .single();
+      const { data, error } = await fetchProfileRow(userId);
 
       if (error || !data) {
         const current = get().profile;
         // Don’t clobber a completed profile on transient failures (slow network,
         // token-refresh racing the onboarding upsert, RLS blips). Only a successful
         // select above replaces state; PGRST116 with no local row still clears below.
+        if (__DEV__ && error) {
+          console.warn('[auth] fetchProfile failed:', error.message);
+        }
         if (current?.id === userId && current.onboarding_complete) {
           return;
         }

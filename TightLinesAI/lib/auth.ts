@@ -25,6 +25,29 @@ export function isAppleUserCancellation(err: unknown): boolean {
 const APPLE_SIGN_IN_FAILURE_POLL_MS = 100;
 /** First Apple sign-in on device can lag behind `onAuthStateChange` / storage; stay generous. */
 const APPLE_SIGN_IN_FAILURE_MAX_WAIT_MS = 12000;
+const AUTH_REQUEST_TIMEOUT_MS = 20_000;
+
+async function withAuthTimeout<T>(request: Promise<T>): Promise<T> {
+  let timeoutId: ReturnType<typeof setTimeout> | undefined;
+  const timeout = new Promise<never>((_, reject) => {
+    timeoutId = setTimeout(() => {
+      reject(new Error('The request took too long. Check your connection and try again.'));
+    }, AUTH_REQUEST_TIMEOUT_MS);
+  });
+
+  try {
+    return await Promise.race([request, timeout]);
+  } finally {
+    if (timeoutId) clearTimeout(timeoutId);
+  }
+}
+
+function authFailure<TData>(data: TData, err: unknown) {
+  return {
+    data,
+    error: { message: getAuthErrorMessage(err) },
+  };
+}
 
 export function getAuthErrorMessage(err: unknown): string {
   if (err instanceof Error && err.message) return err.message;
@@ -82,33 +105,39 @@ export async function reportAppleSignInFailureIfStillSignedOut(
 }
 
 export async function signUpWithEmail(email: string, password: string) {
-  const { data, error } = await supabase.auth.signUp({
-    email,
-    password,
-    options: {
-      emailRedirectTo: getAuthEmailRedirectUrl(),
-    },
-  });
-  return { data, error };
+  try {
+    return await withAuthTimeout(supabase.auth.signUp({
+      email,
+      password,
+      options: {
+        emailRedirectTo: getAuthEmailRedirectUrl(),
+      },
+    }));
+  } catch (err) {
+    return authFailure({ user: null, session: null }, err);
+  }
 }
 
 export async function signInWithEmail(email: string, password: string) {
-  const { data, error } = await supabase.auth.signInWithPassword({
-    email,
-    password,
-  });
-  return { data, error };
+  try {
+    return await withAuthTimeout(supabase.auth.signInWithPassword({
+      email,
+      password,
+    }));
+  } catch (err) {
+    return authFailure({ user: null, session: null }, err);
+  }
 }
 
 export async function signInWithApple(
   identityToken: string,
   nonce: string,
 ) {
-  const { data, error } = await supabase.auth.signInWithIdToken({
+  const { data, error } = await withAuthTimeout(supabase.auth.signInWithIdToken({
     provider: 'apple',
     token: identityToken,
     nonce,
-  });
+  })).catch((err) => authFailure({ user: null, session: null }, err));
   if (__DEV__) {
     if (error) {
       console.warn(
@@ -129,6 +158,9 @@ export async function signOut() {
 }
 
 export async function resetPassword(email: string) {
-  const { data, error } = await supabase.auth.resetPasswordForEmail(email);
-  return { data, error };
+  try {
+    return await withAuthTimeout(supabase.auth.resetPasswordForEmail(email));
+  } catch (err) {
+    return authFailure({}, err);
+  }
 }
