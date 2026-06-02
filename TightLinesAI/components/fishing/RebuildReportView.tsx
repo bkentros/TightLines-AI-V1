@@ -84,6 +84,38 @@ function formatVariableEyebrow(v: string): string {
   return v.replace(/_/g, " ").toUpperCase();
 }
 
+/**
+ * Optional second line under Watch Out → PRESSURE only.
+ * Shown for a small set of clearly negative regimes (score < 0) so we do not
+ * contradict the factor headline — e.g. no "steadied" copy under "less favorable."
+ */
+function formatPressureWatchOutContext(
+  report: HowsFishingReportV1,
+): string | null {
+  const ctx = report.condition_context;
+  if (!ctx) return null;
+
+  const entry = ctx.normalized_variable_scores?.find(
+    (v) => v.variable_key === "pressure_regime",
+  );
+  const label = entry?.engine_label ?? null;
+  const score = entry?.engine_score;
+  if (label == null || score == null || score >= 0) return null;
+
+  switch (label) {
+    case "volatile":
+      return "Expect back-and-forth barometric swings — keep plans short and focused.";
+    case "rising_fast":
+      return "A quick rise often tightens the bite until pressure levels off.";
+    case "rising_slow":
+      return "A gradual rise can make fish selective until conditions settle.";
+    case "falling_hard":
+      return "A fast drop usually means a narrow window before weather settles in.";
+    default:
+      return null;
+  }
+}
+
 /** Parse a solunar time string (ISO local or "HH:mm") to "9:15am" format. */
 function parseSolunarTime(t: string): string {
   const isoMatch = t.match(/T(\d{2}):(\d{2})/);
@@ -813,6 +845,9 @@ export function RebuildReportView({
                     ribbonColor={paper.bandTough}
                     eyebrow={formatVariableEyebrow(s.variable)}
                     label={formatFactorLabel(s.label)}
+                    contextLine={s.variable === "pressure_regime"
+                      ? formatPressureWatchOutContext(report)
+                      : null}
                     isLast={i === topSuppressors.length - 1}
                   />
                 ))}
@@ -2799,12 +2834,14 @@ function FactorRow({
   ribbonColor,
   eyebrow,
   label,
+  contextLine,
   isLast,
 }: {
   index: number;
   ribbonColor: string;
   eyebrow: string;
   label: string;
+  contextLine?: string | null;
   isLast: boolean;
 }) {
   return (
@@ -2832,6 +2869,13 @@ function FactorRow({
           {eyebrow}
         </Text>
         <Text style={styles.factorLabel}>{label}</Text>
+        {contextLine
+          ? (
+            <Text style={styles.factorContext} numberOfLines={3}>
+              {contextLine}
+            </Text>
+          )
+          : null}
       </View>
       {
         /* Small ribbon-tinted notch on the right edge — adds a finishing
@@ -4230,6 +4274,14 @@ const styles = StyleSheet.create({
     lineHeight: 20,
     color: paper.dashboardInk,
     fontWeight: "600",
+  },
+  factorContext: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 17,
+    color: paper.dashboardMuted,
+    marginTop: 5,
+    fontWeight: "500",
   },
   mutedText: {
     fontFamily: paperFonts.displayItalic,
