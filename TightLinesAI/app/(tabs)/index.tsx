@@ -1406,6 +1406,7 @@ export default function HomeScreen() {
                   : "—"}
                 unit="%"
                 sub={humidityDisplay(envData?.weather?.humidity)}
+                divider
               />
               <MetricCell
                 icon="thermometer-outline"
@@ -1689,10 +1690,6 @@ export default function HomeScreen() {
             />
           </Pressable>
         </View>
-
-        {__DEV__ ? (
-          <Text style={styles.devLayoutMarker}>DEV · home-layout-v5</Text>
-        ) : null}
 
         {/* ─── Footer ────────────────────────────────────────────────────── */}
         <View style={styles.footer}>
@@ -2548,15 +2545,14 @@ const styles = StyleSheet.create({
   liveCardTempRow: { flexDirection: "row", alignItems: "baseline", gap: 3 },
   liveCardTempNumber: {
     fontFamily: SERIF_MEDIUM,
-    fontSize: 40,
-    lineHeight: 42,
-    letterSpacing: -1.4,
+    fontSize: 38,
+    lineHeight: 40,
+    letterSpacing: -1.2,
     color: paper.dashboardInk,
   },
   liveCardTempNumberSolo: {
-    fontSize: 44,
-    lineHeight: 46,
-    letterSpacing: -1.5,
+    fontSize: 40,
+    lineHeight: 42,
   },
   liveCardTempUnit: {
     fontFamily: MONO_BOLD,
@@ -2720,52 +2716,53 @@ const styles = StyleSheet.create({
   // metric grid
   metricsGrid: {
     flexDirection: "row",
-    flexWrap: "wrap",
+    flexWrap: "nowrap",
     borderTopWidth: 1,
     borderLeftWidth: 1,
     borderRightWidth: 1,
+    borderBottomWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 6,
     overflow: "hidden",
   },
   metricCell: {
-    width: "50%",
-    paddingHorizontal: 7,
-    paddingVertical: 8,
-    borderBottomWidth: 1,
+    flex: 1,
+    minWidth: 0,
+    paddingHorizontal: 5,
+    paddingVertical: 7,
     borderColor: paper.dashboardLine,
   },
   metricCellDivider: { borderRightWidth: 1 },
   metricCellTopRow: {
     flexDirection: "row",
     alignItems: "center",
-    gap: 4,
-    marginBottom: 4,
+    gap: 3,
+    marginBottom: 3,
   },
   metricCellLabel: {
     fontFamily: MONO_BOLD,
-    fontSize: 8,
-    letterSpacing: 1.4,
+    fontSize: 7,
+    letterSpacing: 1.0,
     color: paper.dashboardMuted,
   },
-  metricCellValueRow: { flexDirection: "row", alignItems: "baseline", gap: 2 },
+  metricCellValueRow: { flexDirection: "row", alignItems: "baseline", gap: 1 },
   metricCellValue: {
     fontFamily: SERIF_SEMI,
-    fontSize: 16,
+    fontSize: 14,
     color: paper.dashboardInk,
-    lineHeight: 18,
+    lineHeight: 16,
   },
   metricCellUnit: {
     fontFamily: MONO_BOLD,
-    fontSize: 9,
+    fontSize: 8,
     color: paper.dashboardMuted,
   },
   metricCellSub: {
     fontFamily: MONO_BOLD,
-    fontSize: 8,
-    letterSpacing: 1.4,
+    fontSize: 7,
+    letterSpacing: 1.0,
     color: "#333",
-    marginTop: 4,
+    marginTop: 2,
   },
 
   // ─── Forecast ────────────────────────────────────────────────────────────
@@ -3006,16 +3003,6 @@ const styles = StyleSheet.create({
   },
 
   // ─── Footer ──────────────────────────────────────────────────────────────
-  devLayoutMarker: {
-    fontFamily: MONO_BOLD,
-    fontSize: 9,
-    letterSpacing: 1.2,
-    color: paper.dashboardMuted,
-    textAlign: "center",
-    marginTop: 8,
-    marginBottom: 4,
-    opacity: 0.65,
-  },
   footer: {
     flexDirection: "row",
     justifyContent: "space-between",
