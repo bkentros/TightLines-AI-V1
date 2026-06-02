@@ -90,8 +90,6 @@ const HOME_H_PADDING = 20;
 const FORECAST_GAP = 6;
 const FORECAST_DAYS_SHOWN = 6;
 const HOME_MAX_CONTENT_WIDTH = 520;
-/** Only iPhone SE / legacy narrow widths; Pro/Plus/Max use the full live-card row. */
-const HOME_COMPACT_MAX_WIDTH = 380;
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 function getForecastTileWidth(windowWidth: number): number {
@@ -211,8 +209,6 @@ const SANS_BOLD = "Inter_700Bold";
 export default function HomeScreen() {
   const router = useRouter();
   const { width: windowWidth } = useWindowDimensions();
-  const compactHomeLayout = windowWidth < HOME_COMPACT_MAX_WIDTH;
-  const livePillMaxWidth = compactHomeLayout ? 130 : Math.min(210, windowWidth * 0.46);
   const forecastTileWidth = useMemo(
     () => getForecastTileWidth(windowWidth),
     [windowWidth],
@@ -1095,7 +1091,7 @@ export default function HomeScreen() {
             <Pressable
               style={(
                 { pressed },
-              ) => [styles.livePill, { maxWidth: livePillMaxWidth }, pressed && { opacity: 0.7 }]}
+              ) => [styles.livePill, pressed && { opacity: 0.7 }]}
               onPress={() => setShowLocationPicker(true)}
               hitSlop={8}
             >
@@ -1245,12 +1241,7 @@ export default function HomeScreen() {
 
           {/* Body */}
           <View style={styles.liveCardBody}>
-            <View
-              style={[
-                styles.liveCardTopRow,
-                compactHomeLayout && styles.liveCardTopRowCompact,
-              ]}
-            >
+            <View style={styles.liveCardTopRow}>
               {/* Optional score chip on the left */}
               {hasReport && heroBandStyle && (
                 <View
@@ -1298,8 +1289,7 @@ export default function HomeScreen() {
               <View
                 style={[
                   styles.liveCardTempCol,
-                  hasReport && !compactHomeLayout && { paddingLeft: 14 },
-                  compactHomeLayout && styles.liveCardTempColCompact,
+                  hasReport && { paddingLeft: 14 },
                 ]}
               >
                 <View style={styles.liveCardTempRow}>
@@ -1322,7 +1312,7 @@ export default function HomeScreen() {
                 </Text>
                 <SparklineBars
                   points={sparklinePoints}
-                  width={compactHomeLayout ? Math.min(220, windowWidth - 96) : 108}
+                  width={108}
                   height={36}
                 />
                 {tempTrendDisplay && (
@@ -1688,6 +1678,10 @@ export default function HomeScreen() {
             />
           </Pressable>
         </View>
+
+        {__DEV__ ? (
+          <Text style={styles.devLayoutMarker}>DEV · home-layout-v3</Text>
+        ) : null}
 
         {/* ─── Footer ────────────────────────────────────────────────────── */}
         <View style={styles.footer}>
@@ -2232,7 +2226,14 @@ const styles = StyleSheet.create({
     marginLeft: 1,
     lineHeight: 32,
   },
-  navBarRight: { flexDirection: "row", alignItems: "center", gap: 8 },
+  navBarRight: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    flex: 1,
+    justifyContent: "flex-end",
+    minWidth: 0,
+  },
 
   livePill: {
     flexDirection: "row",
@@ -2245,6 +2246,8 @@ const styles = StyleSheet.create({
     borderColor: "rgba(255,255,255,0.16)",
     gap: 5,
     flexShrink: 1,
+    minWidth: 0,
+    maxWidth: 200,
   },
   livePillDot: {
     width: 5,
@@ -2472,11 +2475,6 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     marginBottom: 14,
   },
-  liveCardTopRowCompact: {
-    flexWrap: "wrap",
-    alignItems: "center",
-    gap: 12,
-  },
   liveCardScoreChip: {
     backgroundColor: "#FAF6E5",
     borderWidth: 1,
@@ -2525,9 +2523,6 @@ const styles = StyleSheet.create({
   },
 
   liveCardTempCol: { flex: 1, minWidth: 0 },
-  liveCardTempColCompact: {
-    minWidth: 120,
-  },
   liveCardTempRow: { flexDirection: "row", alignItems: "baseline", gap: 4 },
   liveCardTempNumber: {
     fontFamily: SERIF_MEDIUM,
@@ -2984,6 +2979,16 @@ const styles = StyleSheet.create({
   },
 
   // ─── Footer ──────────────────────────────────────────────────────────────
+  devLayoutMarker: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
+    textAlign: "center",
+    marginTop: 8,
+    marginBottom: 4,
+    opacity: 0.65,
+  },
   footer: {
     flexDirection: "row",
     justifyContent: "space-between",
