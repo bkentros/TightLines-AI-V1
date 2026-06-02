@@ -90,6 +90,8 @@ const HOME_H_PADDING = 20;
 const FORECAST_GAP = 6;
 const FORECAST_DAYS_SHOWN = 6;
 const HOME_MAX_CONTENT_WIDTH = 520;
+/** Only iPhone SE / legacy narrow widths; Pro/Plus/Max use the full live-card row. */
+const HOME_COMPACT_MAX_WIDTH = 380;
 const DAY_MS = 24 * 60 * 60 * 1000;
 
 function getForecastTileWidth(windowWidth: number): number {
@@ -209,7 +211,8 @@ const SANS_BOLD = "Inter_700Bold";
 export default function HomeScreen() {
   const router = useRouter();
   const { width: windowWidth } = useWindowDimensions();
-  const compactHomeLayout = windowWidth < 460;
+  const compactHomeLayout = windowWidth < HOME_COMPACT_MAX_WIDTH;
+  const livePillMaxWidth = compactHomeLayout ? 130 : Math.min(210, windowWidth * 0.46);
   const forecastTileWidth = useMemo(
     () => getForecastTileWidth(windowWidth),
     [windowWidth],
@@ -1092,7 +1095,7 @@ export default function HomeScreen() {
             <Pressable
               style={(
                 { pressed },
-              ) => [styles.livePill, pressed && { opacity: 0.7 }]}
+              ) => [styles.livePill, { maxWidth: livePillMaxWidth }, pressed && { opacity: 0.7 }]}
               onPress={() => setShowLocationPicker(true)}
               hitSlop={8}
             >
@@ -2241,7 +2244,6 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: "rgba(255,255,255,0.16)",
     gap: 5,
-    maxWidth: 130,
     flexShrink: 1,
   },
   livePillDot: {
