@@ -95,8 +95,13 @@ const DAY_MS = 24 * 60 * 60 * 1000;
 function getForecastTileWidth(windowWidth: number): number {
   const contentWidth = Math.min(windowWidth, HOME_MAX_CONTENT_WIDTH) -
     HOME_H_PADDING * 2;
-  const cols = contentWidth < 340 ? 2 : 3;
-  return Math.floor((contentWidth - FORECAST_GAP * (cols - 1)) / cols);
+  return Math.max(
+    44,
+    Math.floor(
+      (contentWidth - FORECAST_GAP * (FORECAST_DAYS_SHOWN - 1)) /
+        FORECAST_DAYS_SHOWN,
+    ),
+  );
 }
 
 function parseForecastCalendarDate(value: string | undefined): Date | null {
@@ -1680,7 +1685,7 @@ export default function HomeScreen() {
         </View>
 
         {__DEV__ ? (
-          <Text style={styles.devLayoutMarker}>DEV · home-layout-v3</Text>
+          <Text style={styles.devLayoutMarker}>DEV · home-layout-v4</Text>
         ) : null}
 
         {/* ─── Footer ────────────────────────────────────────────────────── */}
@@ -2469,11 +2474,11 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
   },
 
-  liveCardBody: { padding: 16 },
+  liveCardBody: { paddingHorizontal: 14, paddingVertical: 12 },
   liveCardTopRow: {
     flexDirection: "row",
     alignItems: "flex-end",
-    marginBottom: 14,
+    marginBottom: 12,
   },
   liveCardScoreChip: {
     backgroundColor: "#FAF6E5",
@@ -2494,9 +2499,9 @@ const styles = StyleSheet.create({
   liveCardScoreNumberRow: { flexDirection: "row", alignItems: "baseline" },
   liveCardScoreNumber: {
     fontFamily: SERIF_BOLD,
-    fontSize: 32,
-    letterSpacing: -1.2,
-    lineHeight: 34,
+    fontSize: 28,
+    letterSpacing: -1.0,
+    lineHeight: 30,
     color: paper.dashboardInk,
   },
   liveCardScoreUnit: {
@@ -2526,21 +2531,21 @@ const styles = StyleSheet.create({
   liveCardTempRow: { flexDirection: "row", alignItems: "baseline", gap: 4 },
   liveCardTempNumber: {
     fontFamily: SERIF_MEDIUM,
-    fontSize: 56,
-    lineHeight: 58,
-    letterSpacing: -2,
+    fontSize: 48,
+    lineHeight: 50,
+    letterSpacing: -1.6,
     color: paper.dashboardInk,
   },
   liveCardTempUnit: {
     fontFamily: MONO_BOLD,
-    fontSize: 14,
+    fontSize: 13,
     color: paper.dashboardMuted,
   },
   liveCardTempSubline: {
     fontFamily: SANS_MEDIUM,
-    fontSize: 12,
+    fontSize: 11,
     color: "#333",
-    marginTop: 4,
+    marginTop: 3,
   },
 
   liveCardSparkCol: {
@@ -2766,7 +2771,7 @@ const styles = StyleSheet.create({
   },
   forecastGrid: {
     flexDirection: "row",
-    flexWrap: "wrap",
+    flexWrap: "nowrap",
     gap: FORECAST_GAP,
   },
   forecastDisclaimer: {
