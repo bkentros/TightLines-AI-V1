@@ -122,8 +122,47 @@ const TAB_ERROR_LABEL: Record<EngineContextKey, string> = {
   coastal_flats_estuary: "flats or estuary",
 };
 
+function isTransientHowFishingResourceError(message: string): boolean {
+  const lower = message.toLowerCase();
+  return lower.includes("compute resources") ||
+    lower.includes("worker_resource_limit") ||
+    lower.includes("edge function returned 546") ||
+    lower.includes('"code":"worker_resource_limit"');
+}
+
+/** Retry brief Supabase worker CPU spikes (546 / WORKER_RESOURCE_LIMIT). */
+async function invokeHowFishingReport<T>(
+  accessToken: string,
+  body: Record<string, unknown>,
+): Promise<T> {
+  const retryDelaysMs = [0, 900, 1800];
+  let lastError: unknown;
+  for (let attempt = 0; attempt < retryDelaysMs.length; attempt++) {
+    const delay = retryDelaysMs[attempt] ?? 0;
+    if (delay > 0) {
+      await new Promise((resolve) => setTimeout(resolve, delay));
+    }
+    try {
+      return await invokeEdgeFunction<T>("how-fishing", { accessToken, body });
+    } catch (err) {
+      lastError = err;
+      const msg = err instanceof Error ? err.message : String(err);
+      if (
+        !isTransientHowFishingResourceError(msg) ||
+        attempt === retryDelaysMs.length - 1
+      ) {
+        throw err;
+      }
+    }
+  }
+  throw lastError;
+}
+
 function friendlyHowFishingError(message: string): string {
   const lower = message.toLowerCase();
+  if (isTransientHowFishingResourceError(message)) {
+    return "Our servers were briefly busy building your read. Please try again — it usually works on the second attempt.";
+  }
   if (
     lower.includes("engine_context") ||
     lower.includes("invalid response") ||
@@ -285,6 +324,7 @@ export default function HowFishingScreen() {
   // renders when there are ≥2 available tabs; otherwise we keep the simpler
   // single-vertical-scroll path.
   const pagerRef = useRef<ScrollView>(null);
+  const generateInFlightRef = useRef(false);
   const { width: windowWidth } = useWindowDimensions();
 
   // Keep the active tab valid when availableContexts shrinks (e.g. coastal drop).
@@ -476,15 +516,48 @@ export default function HowFishingScreen() {
 
   const generateReports = useCallback(async () => {
     if (!hasCoords) return;
+    if (generateInFlightRef.current) return;
     if (isFreeTier && isForecastDay) {
       setShowConfirm(false);
       setShowSubscribePrompt(true);
       return;
     }
+    generateInFlightRef.current = true;
     setAnalysisLoading(true);
     setAnalysisError(null);
     setShowConfirm(false);
     try {
+      if (isForecastDay && targetDate) {
+        const cachedForecast = await getCachedForecastRebuild(
+          lat,
+          lon,
+          targetDate,
+          availableContexts,
+          reportCacheOwnerKey,
+        );
+        if (cachedForecast) {
+          const tab = firstContextWithReport(cachedForecast, availableContexts);
+          if (tab) setActiveTab(tab);
+          setMultiBundles(cachedForecast);
+          return;
+        }
+      } else {
+        const cachedToday = await getCachedMultiRebuild(
+          lat,
+          lon,
+          availableContexts,
+          reportCacheOwnerKey,
+          { allowLimited: isLimitedFreeRead },
+        );
+        if (cachedToday) {
+          const tab = firstContextWithReport(cachedToday, availableContexts);
+          if (tab) setActiveTab(tab);
+          setMultiBundles(cachedToday);
+          setCurrentMultiRebuild(lat, lon, cachedToday, reportCacheOwnerKey);
+          return;
+        }
+      }
+
       const accessToken = await getValidAccessToken();
       const forecastSnapshot = await getForecastScores(
         lat,
@@ -528,22 +601,19 @@ export default function HowFishingScreen() {
         setLocationLabel(polishLocationName);
       }
 
-      const result = await invokeEdgeFunction<
+      const result = await invokeHowFishingReport<
         HowFishingRebuildMultiBundle | { error: string; message?: string }
-      >("how-fishing", {
-        accessToken,
-        body: {
-          latitude: lat,
-          longitude: lon,
-          units,
-          mode: "multi",
-          contexts: availableContexts,
-          env_data: envForReport,
-          use_forecast_snapshot: Boolean(forecastEnvForReport),
-          location_name: polishLocationName,
-          ...(isForecastDay &&
-            { day_offset: dayOffset, target_date: targetDate }),
-        },
+      >(accessToken, {
+        latitude: lat,
+        longitude: lon,
+        units,
+        mode: "multi",
+        contexts: availableContexts,
+        env_data: envForReport,
+        use_forecast_snapshot: Boolean(forecastEnvForReport),
+        location_name: polishLocationName,
+        ...(isForecastDay &&
+          { day_offset: dayOffset, target_date: targetDate }),
       });
 
       if (result && typeof result === "object" && "error" in result) {
@@ -603,6 +673,7 @@ export default function HowFishingScreen() {
       setAnalysisError(msg);
       Alert.alert("Could not build your fishing read", msg);
     } finally {
+      generateInFlightRef.current = false;
       setAnalysisLoading(false);
     }
   }, [
