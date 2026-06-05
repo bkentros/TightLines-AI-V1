@@ -189,14 +189,35 @@ Opens the App Store directly (302 redirect). Also works: `https://finfindr.app/a
 
 **Permanent App Store URL (same destination):** `https://apps.apple.com/app/id6769178136`
 
-### Deploy to Cloudflare (you do this — agent has no Cloudflare login)
+### Cloudflare — make `/download` go straight to App Store (you do this)
 
-1. Log in to [dash.cloudflare.com](https://dash.cloudflare.com)
-2. **Workers & Pages** → your **finfindr.app** Pages project
-3. **Create deployment** / upload **`legal-site/`** folder (same project as privacy/terms)
-4. After deploy, open `https://finfindr.app/download` on your phone — tap **Download on the App Store**
+Git pushes to `main` only work if Pages is connected and **Production** points at the latest deploy. If you still see the legal or download landing page, do **both** steps below.
 
-Files live in repo: `legal-site/download/index.html`, `legal-site/assets/download.css`
+#### A) Zone redirect rule (fastest — works even if Pages is stale)
+
+1. [dash.cloudflare.com](https://dash.cloudflare.com) → select zone **finfindr.app**
+2. **Rules** → **Redirect Rules** → **Create rule**
+3. **Name:** `App Store download`
+4. **When incoming requests match:** Custom filter expression:
+   ```
+   (http.request.uri.path eq "/download") or (http.request.uri.path eq "/download/") or (http.request.uri.path eq "/app") or (http.request.uri.path eq "/app/")
+   ```
+5. **Then:** Dynamic redirect → **302** → URL `https://apps.apple.com/app/id6769178136`
+6. **Deploy** the rule
+7. **Caching** → **Configuration** → **Purge Everything** (clears old HTML)
+
+#### B) Pages production deploy (keeps privacy/terms in sync)
+
+1. **Workers & Pages** → project **finfindr-auth** (custom domain `finfindr.app`)
+2. **Settings** → **Builds & deployments** → confirm **Production branch** = `main`, **Root directory** = `legal-site`
+3. **Deployments** → latest commit from GitHub should be **Production** (not an old manual upload). If not: **⋯** → **Promote to production**
+4. Or deploy from terminal (API token required):
+   ```bash
+   export CLOUDFLARE_API_TOKEN='...'
+   bash TightLinesAI/scripts/deploy-legal-site.sh
+   ```
+
+Redirect logic in repo: `legal-site/_redirects` + `legal-site/functions/download*.js`
 
 ---
 
