@@ -32,7 +32,7 @@ import {
   signInWithEmail,
   signInWithApple,
   reportAppleSignInFailureIfStillSignedOut,
-  getAuthErrorMessage,
+  getAppleSignInFailureNotice,
 } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
@@ -128,9 +128,9 @@ export default function SignInScreen() {
         }
       } catch (err: unknown) {
         await reportAppleSignInFailureIfStillSignedOut(err, (failure) => {
+          const notice = getAppleSignInFailureNotice(failure, 'sign-in');
           setNotice({
-            title: 'Apple Sign-In failed',
-            message: __DEV__ ? getAuthErrorMessage(failure) : 'Please try again.',
+            ...notice,
             tone: 'error',
           });
         });

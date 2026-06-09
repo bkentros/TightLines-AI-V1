@@ -66,6 +66,72 @@ export function getAuthErrorMessage(err: unknown): string {
   return String(err);
 }
 
+function authErrorText(err: unknown): string {
+  return getAuthErrorMessage(err).toLowerCase();
+}
+
+/** Apple ID email already tied to an email/password FinFindr account. */
+export function isAppleEmailAccountConflict(err: unknown): boolean {
+  const text = authErrorText(err);
+  if (!text) return false;
+  return (
+    text.includes('already registered')
+    || text.includes('already exists')
+    || text.includes('user already')
+    || text.includes('email already')
+    || text.includes('identity is already')
+    || text.includes('identity already')
+    || text.includes('already linked')
+    || text.includes('different provider')
+    || text.includes('different credential')
+    || text.includes('account exists')
+    || text.includes('unable to link')
+  );
+}
+
+export type AppleSignInNoticeContext = 'welcome' | 'sign-in';
+
+/** User-facing copy only — does not change auth behavior. */
+export function getAppleSignInFailureNotice(
+  err: unknown,
+  context: AppleSignInNoticeContext = 'welcome',
+): { title: string; message: string } {
+  if (isAppleEmailAccountConflict(err)) {
+    if (context === 'sign-in') {
+      return {
+        title: 'Use your email sign-in',
+        message:
+          'This Apple ID email is already tied to a FinFindr email/password account. Sign in with your email and password above, or reset your password.',
+      };
+    }
+    return {
+      title: 'Use your email sign-in',
+      message:
+        'This email already has a FinFindr account. Sign in with your email and password, or reset your password.',
+    };
+  }
+
+  const text = authErrorText(err);
+  if (text.includes('took too long') || text.includes('network')) {
+    return {
+      title: 'Connection issue',
+      message: 'The request took too long. Check your connection and try again.',
+    };
+  }
+
+  if (__DEV__) {
+    return {
+      title: 'Apple Sign-In failed',
+      message: getAuthErrorMessage(err),
+    };
+  }
+
+  return {
+    title: 'Apple Sign-In failed',
+    message: 'Please try again.',
+  };
+}
+
 async function hasAnyAuthSession(): Promise<boolean> {
   if (useAuthStore.getState().session != null) return true;
   const { data } = await supabase.auth.getSession();

@@ -42,7 +42,8 @@ import {
 import {
   signInWithApple,
   reportAppleSignInFailureIfStillSignedOut,
-  getAuthErrorMessage,
+  getAppleSignInFailureNotice,
+  isAppleEmailAccountConflict,
 } from '../../lib/auth';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
@@ -59,7 +60,13 @@ import {
   AuthTextLink,
 } from '../../components/paper/auth';
 
-type Notice = { title: string; message?: string; tone?: 'info' | 'success' | 'error' };
+type Notice = {
+  title: string;
+  message?: string;
+  tone?: 'info' | 'success' | 'error';
+  actionLabel?: string;
+  onAction?: () => void;
+};
 
 const FEATURES: {
   numeral: string;
@@ -172,17 +179,23 @@ export default function WelcomeScreen() {
         }
       } catch (err: unknown) {
         await reportAppleSignInFailureIfStillSignedOut(err, (failure) => {
+          const notice = getAppleSignInFailureNotice(failure, 'welcome');
           setNotice({
-            title: 'Apple Sign-In failed',
-            message: __DEV__ ? getAuthErrorMessage(failure) : 'Please try again.',
+            ...notice,
             tone: 'error',
+            ...(isAppleEmailAccountConflict(failure)
+              ? {
+                  actionLabel: 'Sign in with email',
+                  onAction: () => router.push('/(auth)/sign-in'),
+                }
+              : {}),
           });
         });
       }
     } finally {
       appleSignInInFlight.current = false;
     }
-  }, [fetchProfile, setSession]);
+  }, [fetchProfile, router, setSession]);
 
   // Edition meta — populated at render time so every fresh launch reads
   // as a freshly pressed "issue."
@@ -261,6 +274,8 @@ export default function WelcomeScreen() {
               title={notice.title}
               message={notice.message}
               tone={notice.tone}
+              actionLabel={notice.actionLabel}
+              onAction={notice.onAction}
             />
           ) : null}
 
