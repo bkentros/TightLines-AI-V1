@@ -26,12 +26,20 @@
     },
     "production": {
       "autoIncrement": true,
+      "ios": {
+        "appleTeamId": "MQB2WPPH5G"
+      },
       "env": {
         "npm_config_legacy_peer_deps": "true"
       }
     }
   },
   "submit": {
-    "production": {}
+    "production": {
+      "ios": {
+        "ascAppId": "6769178136",
+        "appleTeamId": "MQB2WPPH5G"
+      }
+    }
   }
 }

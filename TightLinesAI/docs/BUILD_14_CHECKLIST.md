@@ -164,10 +164,16 @@ Local `.env` does **not** affect EAS production if secrets are set on Expo.
 **One command** (build on EAS, then auto-upload to App Store Connect when the build finishes):
 
 ```bash
-cd "/Users/brandonkentros/TightLines AI V1/TightLinesAI" && eas build --platform ios --profile production --auto-submit
+cd "/Users/brandonkentros/TightLines AI V1/TightLinesAI" && eas build --platform ios --profile production --non-interactive
 ```
 
-Stay logged in to Expo (`eas login`). First run may prompt for Apple credentials — same as build 13.
+When the build finishes, upload to App Store Connect (TestFlight — **not** App Review):
+
+```bash
+cd "/Users/brandonkentros/TightLines AI V1/TightLinesAI" && eas submit --platform ios --profile production --latest
+```
+
+Stay logged in to Expo (`eas login`). **Do not** log in to Apple when EAS asks — credentials from build 13 are already on Expo (`MQB2WPPH5G`). If prompted *"Log in to your Apple account?"* answer **No** and use remote credentials.
 
 **After the command finishes:**
 
