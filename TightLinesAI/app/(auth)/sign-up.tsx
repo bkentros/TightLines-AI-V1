@@ -184,9 +184,7 @@ export default function SignUpScreen() {
     }
     if (!isSignUpEmailFormatAcceptable(trimmed)) {
       setEmailStatus('invalid');
-      setEmailError(
-        'Use a major email provider (Gmail, Yahoo, Outlook, iCloud, etc.)',
-      );
+      setEmailError('Enter a valid email address');
       return;
     }
     setEmailStatus('valid');
@@ -247,7 +245,7 @@ export default function SignUpScreen() {
     if (!trimmedEmail || !isSignUpEmailFormatAcceptable(trimmedEmail)) {
       setNotice({
         title: 'Check your details',
-        message: 'Enter a valid email from a supported provider (Gmail, Yahoo, Outlook, iCloud, etc.).',
+        message: 'Enter a valid email address.',
         tone: 'error',
       });
       return;
