@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState, type ReactNode } from 'react';
+import { Component, useEffect, useRef, useState, type ReactNode } from 'react';
 import { usePathname, useSegments } from 'expo-router';
 import { PostHogProvider } from 'posthog-react-native';
 import type { PostHog } from 'posthog-react-native';
@@ -16,6 +16,29 @@ import {
 
 interface AnalyticsProviderProps {
   children: ReactNode;
+}
+
+/** If PostHogProvider throws, keep the app running without analytics. */
+class AnalyticsShellBoundary extends Component<
+  { children: ReactNode; fallback: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false };
+
+  static getDerivedStateFromError(): { failed: boolean } {
+    return { failed: true };
+  }
+
+  componentDidCatch(error: Error) {
+    if (__DEV__) {
+      console.warn('[analytics] PostHog shell failed — analytics disabled:', error);
+    }
+  }
+
+  render() {
+    if (this.state.failed) return this.props.fallback;
+    return this.props.children;
+  }
 }
 
 function AnalyticsRuntime() {
@@ -76,14 +99,21 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
 
   useEffect(() => {
     if (!analyticsEnabled) return;
-    setClient(getPostHogClient());
+    try {
+      setClient(getPostHogClient());
+    } catch (err) {
+      if (__DEV__) {
+        console.warn('[analytics] PostHog client setup failed:', err);
+      }
+      setClient(null);
+    }
   }, []);
 
   if (!analyticsEnabled || !client) {
     return <>{children}</>;
   }
 
-  return (
+  const shell = (
     <PostHogProvider
       client={client}
       autocapture={{ captureScreens: false, captureTouches: false }}
@@ -91,5 +121,11 @@ export function AnalyticsProvider({ children }: AnalyticsProviderProps) {
       <AnalyticsRuntime />
       {children}
     </PostHogProvider>
+  );
+
+  return (
+    <AnalyticsShellBoundary fallback={<>{children}</>}>
+      {shell}
+    </AnalyticsShellBoundary>
   );
 }

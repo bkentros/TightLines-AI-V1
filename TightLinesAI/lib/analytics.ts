@@ -3,12 +3,33 @@ import type { UserProfile } from './types';
 
 const DEFAULT_POSTHOG_HOST = 'https://us.i.posthog.com';
 
-export const posthogApiKey =
-  process.env.EXPO_PUBLIC_POSTHOG_API_KEY?.trim() ?? '';
-export const posthogHost =
+function isValidPostHogApiKey(key: string): boolean {
+  return key.startsWith('phc_') && key.length >= 24;
+}
+
+function isValidPostHogHost(host: string): boolean {
+  try {
+    const url = new URL(host);
+    return url.protocol === 'https:' && url.hostname.includes('.');
+  } catch {
+    return false;
+  }
+}
+
+const rawPostHogApiKey = process.env.EXPO_PUBLIC_POSTHOG_API_KEY?.trim() ?? '';
+const rawPostHogHost =
   process.env.EXPO_PUBLIC_POSTHOG_HOST?.trim() || DEFAULT_POSTHOG_HOST;
 
-export const analyticsEnabled = posthogApiKey.length > 0;
+export const posthogApiKey = isValidPostHogApiKey(rawPostHogApiKey)
+  ? rawPostHogApiKey
+  : '';
+export const posthogHost = isValidPostHogHost(rawPostHogHost)
+  ? rawPostHogHost
+  : DEFAULT_POSTHOG_HOST;
+
+/** Off unless key + host look valid — bad EAS secrets must not crash the app. */
+export const analyticsEnabled =
+  posthogApiKey.length > 0 && isValidPostHogHost(posthogHost);
 
 /** Lazy singleton — never construct PostHog at module import (can crash launch). */
 let posthogClientInstance: PostHog | null | undefined;
