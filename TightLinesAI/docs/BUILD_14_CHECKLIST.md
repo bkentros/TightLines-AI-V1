@@ -12,6 +12,8 @@ Build **13** stays live on the App Store while this ships.
 |------|----------------|-------------------|
 | **PostHog** | EAS production secrets + events in live app | Yes (new binary) |
 | **App icon** | Bigger logo in `assets/icon.png` | Yes (new binary) |
+| **Apple Sign-In UX** | Clearer errors when Apple email conflicts with existing email/password account | Yes (new binary) |
+| **Email sign-up** | Any valid email domain (business/custom) | Yes (new binary) |
 | **Legal pages** | Privacy / Terms / Safety aligned + published | Web deploy (separate from binary); verify URLs |
 
 ---
@@ -87,18 +89,20 @@ Local `.env` does **not** affect EAS production if secrets are set on Expo.
 
 ### Checklist
 
-- [ ] Read all three in-app docs in Settings (Terms, Privacy, Safety)
-- [ ] Compare to live URLs:
+- [x] Read all three in-app docs in Settings (Terms, Privacy, Safety)
+- [x] Compare to live URLs (repo + live were aligned as of May 27, 2026):
   - https://finfindr.app/privacy
   - https://finfindr.app/terms
   - https://finfindr.app/safety
   - https://finfindr.app/support
-- [ ] Confirm **FinFindr LLC** is named as operator (especially after org migration completes)
-- [ ] Confirm **PostHog** / analytics wording matches build 14 (analytics enabled in production)
-- [ ] Confirm **account deletion** and **subscription cancel** language is clear
-- [ ] Update **“Last updated”** date on any page you change (in-app `legalDocuments.ts` + HTML)
+- [x] Confirm **FinFindr LLC** is named as operator (especially after org migration completes)
+- [x] Confirm **PostHog** / analytics wording matches build 14 (analytics enabled in production)
+- [x] Confirm **account deletion** and **subscription cancel** language is clear
+- [x] Update **“Last updated”** date on any page you change (in-app `legalDocuments.ts` + HTML) → **June 2, 2026**
+- [x] Build 14 copy: business/custom email sign-up noted in Privacy + Terms
 - [ ] **Deploy `legal-site/`** to Cloudflare Pages (finfindr.app) — website does **not** update from the iOS build alone
 - [ ] Re-check live URLs in a private browser after deploy
+- [ ] **Inbound support email:** enable Cloudflare Email Routing so `support@finfindr.app` forwards to your inbox (required for Apple org conversion + public contact). See `docs/FINFINDR_EMAIL_SETUP.md`
 
 **Agent task:** sync `legalDocuments.ts` ↔ `legal-site/*.html`, then deploy web.
 
@@ -155,29 +159,77 @@ Before you post on social **early next week**:
 
 ---
 
-## 7. Order of work (recommended)
+## 7. Apple Sign-In UX (auth polish)
 
-1. **Legal** — edit + deploy `legal-site` (no review wait)
-2. **Icon** — new `icon.png`
-3. **EAS PostHog** secrets
-4. **Bump** `1.0.1` in `app.json`
-5. **`eas build`** → **`eas submit`**
-6. **Wait for approval** → release **1.0.1**
-7. **Marketing** early next week
+### How it works today (build 13)
+
+| Screen | Apple button | Intended use |
+|--------|--------------|--------------|
+| **Welcome** | Sign in with Apple | **New users:** one-tap creates account → profile setup (username, home water) → home. **Returning Apple users:** one-tap sign-in → home. |
+| **Sign in** | Sign in with Apple | **Returning users** who originally created their account with Apple |
+| **Create account** (email form) | No Apple button | Email + password sign-up only |
+
+Apple is **not** “sign-in only for people who already have accounts.” On the welcome screen it is also a **valid way to create a new account** (Supabase `signInWithIdToken` creates the user on first Apple authorization).
+
+### What went wrong in your test (founder device)
+
+Likely cause: **Apple ID profile on the device was incomplete** (name/email not fully set up in Settings → Apple Account). Wife’s test on a properly configured Apple ID worked as designed: Apple one-tap → onboarding.
+
+Other case that can still happen: user already has an **email/password** FinFindr account with the same email — Apple cannot attach automatically, and build 13 shows a generic **“Apple Sign-In failed”** banner instead of helpful copy.
+
+Build 14 still improves messaging for edge cases; the happy path (new Apple user → onboarding) is already working in build 13.
+
+### Build 14 fixes (code)
+
+**Files:** `TightLinesAI/lib/auth.ts`, `TightLinesAI/app/(auth)/welcome.tsx`, `TightLinesAI/app/(auth)/sign-in.tsx`
+
+- [ ] Map Supabase “user already registered” / identity-conflict errors to friendly copy, e.g.  
+  **“This email already has a FinFindr account. Sign in with your email and password, or reset your password.”**
+- [ ] Do **not** show generic “Apple Sign-In failed” for that case
+- [ ] Optional: on welcome, short helper under Apple button — *“New here? Apple creates your account in one tap.”*
+- [ ] Optional (later): Supabase **manual identity linking** so email users can add Apple later — not required for build 14
+
+### What to tell users (support / friends)
+
+| Situation | Tell them |
+|-----------|-----------|
+| **Brand-new user** | On welcome, tap **Sign in with Apple** *or* **Create account** (email). Both work. Apple → setup screen → done. |
+| **Returning user, signed up with Apple** | Welcome or Sign in → **Sign in with Apple** |
+| **Returning user, signed up with email** | **Sign in** → email + password (Apple will not work until linking is built) |
+
+### Test before submit
+
+- [ ] Fresh Apple ID (or delete test user in Supabase) → Apple on welcome → lands on profile setup → finishes → home
+- [ ] Same Apple user again → Apple → home (no onboarding)
+- [ ] Email/password account exists → Apple on welcome → friendly “use email sign-in” message (not generic failure)
+- [ ] Email sign-in still works for that account
 
 ---
 
-## 8. Bring to your agent
+## 8. Order of work (recommended)
+
+1. **Legal** — edit + deploy `legal-site` (no review wait)
+2. **Apple Sign-In UX** — friendlier conflict errors (§7)
+3. **Icon** — new `icon.png`
+4. **EAS PostHog** secrets
+5. **Bump** `1.0.1` in `app.json`
+6. **`eas build`** → **`eas submit`**
+7. **Wait for approval** → release **1.0.1**
+8. **Marketing** early next week
+
+---
+
+## 9. Bring to your agent
 
 Paste this file and say:
 
-> “Execute BUILD_14_CHECKLIST.md — icon, PostHog EAS secrets, legal sync + deploy, 1.0.1, build and submit.”
+> “Execute BUILD_14_CHECKLIST.md — Apple Sign-In UX, icon, PostHog EAS secrets, legal sync + deploy, 1.0.1, build and submit.”
 
 Or do icon/legal yourself and ask agent only for technical steps.
 
 ---
 
-## 9. Branded download link (finfindr.app)
+## 10. Branded download link (finfindr.app)
 
 **Share this everywhere (bio, social, friends):**
 

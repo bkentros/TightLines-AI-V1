@@ -18,7 +18,7 @@ export interface LegalDocument {
   sections: LegalDocumentSection[];
 }
 
-const updated = 'May 27, 2026';
+const updated = 'June 2, 2026';
 
 export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
   privacy: {
@@ -41,7 +41,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
       {
         title: 'Information We Collect',
         body: [
-          'Account information such as email address, username, authentication provider, profile settings, home region, subscription tier, and onboarding preferences.',
+          'Account information such as email address (including business or custom domains you can verify), username, authentication provider, profile settings, home region, subscription tier, and onboarding preferences.',
           'Fishing and app data you choose to create, including catches, sessions, locations, species preferences, photos or water images, voice logs if enabled, support messages, and feedback.',
           'Location information when you grant permission or manually choose a location. FinFindr uses this to build weather, tide, moon, and fishing-condition context.',
           'Purchase and entitlement status from the app store used for purchase, including the App Store, Google Play where supported, and RevenueCat. FinFindr does not receive full payment card numbers from Apple or Google.',
@@ -139,7 +139,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         title: 'Accounts',
         body: [
           'You are responsible for the activity on your account and for keeping your sign-in credentials secure.',
-          'You must provide accurate account information and use FinFindr only where you are legally permitted to do so.',
+          'You must provide accurate account information and use FinFindr only where you are legally permitted to do so. You may sign up with any valid email address you can verify, including business or custom domains.',
           'You may not misuse the app, interfere with the service, attempt to bypass subscription gates, scrape or reverse engineer the service, or use FinFindr for unlawful or unsafe activity.',
         ],
       },
