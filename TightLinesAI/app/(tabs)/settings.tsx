@@ -633,12 +633,7 @@ export default function SettingsScreen() {
               <View style={styles.section}>
                 <Text style={styles.sectionLabel}>ADMIN TOOLS</Text>
                 <Text style={styles.sectionHint}>
-                  Analytics:{' '}
-                  {analyticsDiag.enabled
-                    ? analyticsDiag.clientReady
-                      ? 'enabled (client ready)'
-                      : 'key set but client failed init'
-                    : 'disabled (store-like — no PostHog key in .env)'}
+                  Analytics: {analyticsDiag.statusLabel}
                 </Text>
                 <PrimaryAction
                   label="Send analytics test event"

@@ -9,14 +9,28 @@ export type AnalyticsDiagnostics = {
   enabled: boolean;
   clientReady: boolean;
   host: string;
+  /** Human-readable status for Settings admin tools. */
+  statusLabel: string;
 };
 
 export function getAnalyticsDiagnostics(): AnalyticsDiagnostics {
   const client = analyticsEnabled ? getPostHogClient() : null;
+  let statusLabel = 'disabled in this app build';
+  if (analyticsEnabled && client) {
+    statusLabel = 'enabled (client ready)';
+  } else if (analyticsEnabled && !client) {
+    statusLabel = 'key in bundle but client failed init';
+  } else if (__DEV__) {
+    statusLabel =
+      'disabled — uncomment EXPO_PUBLIC_POSTHOG_API_KEY in .env, restart Metro, reload dev client';
+  } else {
+    statusLabel = 'disabled in this App Store build (analytics ships in 1.0.1+)';
+  }
   return {
     enabled: analyticsEnabled,
     clientReady: Boolean(client),
     host: posthogHost,
+    statusLabel,
   };
 }
 
@@ -26,9 +40,12 @@ export async function sendAnalyticsDiagnosticsPing(userId?: string): Promise<{
   message: string;
 }> {
   if (!analyticsEnabled) {
+    const hint = __DEV__
+      ? 'Uncomment EXPO_PUBLIC_POSTHOG_API_KEY in .env, fully restart Metro (npm run start:dev-client), then reload the dev client — not the App Store app.'
+      : 'This installed build does not include PostHog. Test on a new 1.0.1 build or dev client with PostHog in .env.';
     return {
       ok: false,
-      message: 'PostHog key not in .env — analytics disabled (store-like mode).',
+      message: `Analytics disabled in this bundle. ${hint}`,
     };
   }
 

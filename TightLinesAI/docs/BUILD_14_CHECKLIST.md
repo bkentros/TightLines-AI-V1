@@ -1,8 +1,40 @@
 # Build 14 checklist (1.0.1) — pre-marketing update
 
-Target: **build 14** tomorrow → submit → approved **before marketing early next week**.
+Target: **build 14** → submit → approved **before marketing**.
 
-Build **13** stays live on the App Store while this ships.
+Build **13** stays live on the App Store until you **release 1.0.1** after approval.
+
+---
+
+## Ship status (updated)
+
+| Item | Code / config | Status |
+|------|----------------|--------|
+| Email sign-up (all domains) | `6696989` | ✅ Shipped in repo |
+| Legal sync + June 2 copy | `792284f` | ✅ Shipped in repo |
+| Legal site deploy | Cloudflare Pages | ✅ You deployed |
+| Support email routing | Cloudflare | ✅ You configured |
+| Apple Sign-In UX (copy only) | `1ab4434` | ✅ Shipped — auth flow unchanged |
+| App icon +15% | `1ab4434` | ✅ Shipped |
+| Version **1.0.1** | `app.json` | ✅ Shipped |
+| PostHog EAS production secrets | expo.dev | ✅ Set |
+| PostHog crash hardening | `b4c3b1c` | ✅ Shipped |
+| Pressure Watch Out copy | `4bca9fb` | ✅ Shipped (earlier) |
+| **EAS build + submit** | — | ⏳ **You** — see §5 |
+| **App Store Connect** (What's New, privacy, submit for review) | — | ⏳ **You** |
+| **Release 1.0.1** after approval | — | ⏳ **You** (manual release) |
+
+**Build 13 users today:** unchanged. No OTA. PostHog and other build 14 changes apply only after users install **1.0.1**.
+
+### Change safety (why this should not break the app)
+
+| Change | Risk | Mitigation |
+|--------|------|------------|
+| PostHog | Was crash source before | Lazy init, no lifecycle autocapture, try/catch on every call, provider error boundary; invalid key → analytics off, app runs |
+| Email allowlist removed | Low | Supabase still validates; only removed client-side block |
+| Apple Sign-In UX | Low | Error **copy only** — same `signInWithApple`, session, navigation |
+| Icon +15% | None | Asset only |
+| Legal copy | None | Display text only |
 
 ---
 
@@ -25,9 +57,9 @@ Build **13** stays live on the App Store while this ships.
 - Optional: `TightLinesAI/assets/splash-icon.png` — keep consistent if you change branding
 
 **Checklist**
-- [ ] Scale logo up inside the canvas (leave safe padding — iOS rounds corners)
-- [ ] Preview on iPhone home screen (dev build or simulator) before EAS build
-- [ ] Do **not** put critical detail in corners
+- [x] Scale logo up inside the canvas (+15%, green arrow safe)
+- [x] Preview (`assets/icon-preview-phone-scale.png`)
+- [x] Do **not** put critical detail in corners
 
 **No code change** beyond the image asset unless icon path changes in `app.json` (already `./assets/icon.png`).
 
@@ -37,7 +69,7 @@ Build **13** stays live on the App Store while this ships.
 
 **Why build 14:** Store builds do **not** read local `.env`. PostHog key must be in **EAS production environment**.
 
-### A. Add EAS secrets (before `eas build`)
+### A. Add EAS secrets (before `eas build`) — ✅ done
 
 In [expo.dev](https://expo.dev) → project **tightlines-ai** → **Environment variables** → **production**:
 
@@ -100,9 +132,9 @@ Local `.env` does **not** affect EAS production if secrets are set on Expo.
 - [x] Confirm **account deletion** and **subscription cancel** language is clear
 - [x] Update **“Last updated”** date on any page you change (in-app `legalDocuments.ts` + HTML) → **June 2, 2026**
 - [x] Build 14 copy: business/custom email sign-up noted in Privacy + Terms
-- [ ] **Deploy `legal-site/`** to Cloudflare Pages (finfindr.app) — website does **not** update from the iOS build alone
-- [ ] Re-check live URLs in a private browser after deploy
-- [ ] **Inbound support email:** enable Cloudflare Email Routing so `support@finfindr.app` forwards to your inbox (required for Apple org conversion + public contact). See `docs/FINFINDR_EMAIL_SETUP.md`
+- [x] **Deploy `legal-site/`** to Cloudflare Pages (finfindr.app)
+- [x] Re-check live URLs in a private browser after deploy
+- [x] **Inbound support email:** Cloudflare Email Routing for `support@finfindr.app`. See `docs/FINFINDR_EMAIL_SETUP.md`
 
 **Agent task:** sync `legalDocuments.ts` ↔ `legal-site/*.html`, then deploy web.
 
@@ -112,34 +144,47 @@ Local `.env` does **not** affect EAS production if secrets are set on Expo.
 
 **File:** `TightLinesAI/app.json`
 
-- [ ] `version`: `1.0.0` → **`1.0.1`**
-- [ ] `ios.buildNumber`: EAS **autoIncrement** will bump (expect **14**)
+- [x] `version`: **`1.0.1`**
+- [ ] `ios.buildNumber`: EAS **autoIncrement** will bump to **14** on next build
 
-**Optional:** Add short **What’s New** in App Store Connect:
+**Add in App Store Connect** when submitting for review:
 
 ```text
+• Sign up with any email address, including business domains
 • Improved app icon visibility
+• Clearer sign-in guidance when an account already exists
 • Analytics improvements for app reliability
 • Legal and policy updates
 ```
 
 ---
 
-## 5. Build & submit (tomorrow)
+## 5. Build & submit — **your step**
+
+**One command** (build on EAS, then auto-upload to App Store Connect when the build finishes):
 
 ```bash
-cd TightLinesAI
-git status                    # clean, on release branch
-eas build --platform ios --profile production
-eas submit --platform ios --profile production
+cd "/Users/brandonkentros/TightLines AI V1/TightLinesAI" && eas build --platform ios --profile production --auto-submit
 ```
 
+Stay logged in to Expo (`eas login`). First run may prompt for Apple credentials — same as build 13.
+
+**After the command finishes:**
+
+1. [App Store Connect](https://appstoreconnect.apple.com) → **FinFindr** → version **1.0.1**
+2. Select **build 14** (processing may take 5–15 min after upload)
+3. Paste **What’s New** (§4 above)
+4. Confirm **App Privacy** still matches (analytics / usage data)
+5. **Submit for Review**
+6. After approval → **Release** (manual release if still configured)
+
 **Checklist**
-- [ ] Repo committed (icon + legal copy + version bump; **not** `.env`)
-- [ ] EAS production PostHog vars set
-- [ ] `legal-site` deployed if legal HTML changed
-- [ ] Pick **build 14** / **1.0.1** on submit
-- [ ] **Release** after approval (manual release if still configured)
+- [x] Repo committed on `release/app-store-v1` (not `.env`)
+- [x] EAS production PostHog vars set
+- [x] `legal-site` deployed
+- [ ] Run build command above
+- [ ] ASC: attach build 14, What's New, submit for review
+- [ ] **Release** after approval
 
 **Review expectation:** Smaller update than 4.3 fight — often **1–3 days**; not guaranteed.
 
@@ -183,9 +228,8 @@ Build 14 still improves messaging for edge cases; the happy path (new Apple user
 
 **Files:** `TightLinesAI/lib/auth.ts`, `TightLinesAI/app/(auth)/welcome.tsx`, `TightLinesAI/app/(auth)/sign-in.tsx`
 
-- [ ] Map Supabase “user already registered” / identity-conflict errors to friendly copy, e.g.  
-  **“This email already has a FinFindr account. Sign in with your email and password, or reset your password.”**
-- [ ] Do **not** show generic “Apple Sign-In failed” for that case
+- [x] Map Supabase “user already registered” / identity-conflict errors to friendly copy
+- [x] Do **not** show generic “Apple Sign-In failed” for that case
 - [ ] Optional: on welcome, short helper under Apple button — *“New here? Apple creates your account in one tap.”*
 - [ ] Optional (later): Supabase **manual identity linking** so email users can add Apple later — not required for build 14
 
@@ -206,16 +250,14 @@ Build 14 still improves messaging for edge cases; the happy path (new Apple user
 
 ---
 
-## 8. Order of work (recommended)
+## 8. Order of work
 
-1. **Legal** — edit + deploy `legal-site` (no review wait)
-2. **Apple Sign-In UX** — friendlier conflict errors (§7)
-3. **Icon** — new `icon.png`
-4. **EAS PostHog** secrets
-5. **Bump** `1.0.1` in `app.json`
-6. **`eas build`** → **`eas submit`**
-7. **Wait for approval** → release **1.0.1**
-8. **Marketing** early next week
+1. ~~Legal, Apple Sign-In, icon, PostHog, 1.0.1~~ — **done**
+2. **`eas build --auto-submit`** — you
+3. **App Store Connect** — attach build, What's New, submit for review — you
+4. **Wait for approval** → release **1.0.1** — you
+5. **PostHog Live events** after release — optional 5 min check
+6. **Marketing** when ready
 
 ---
 
