@@ -50,19 +50,14 @@ def scale_icon(
     scale: float,
     y_nudge: int = 0,
 ) -> Image.Image:
-    bg = sample_background(source)
-    x0, y0, x1, y1 = content_bbox(source, bg)
-    logo = source.crop((x0, y0, x1 + 1, y1 + 1))
-    new_w = max(1, round(logo.width * scale))
-    new_h = max(1, round(logo.height * scale))
-    logo = logo.resize((new_w, new_h), Image.Resampling.LANCZOS)
-
-    out = solid_background(source.width, bg)
-    canvas_w, canvas_h = out.size
-    paste_x = (canvas_w - new_w) // 2
-    paste_y = (canvas_h - new_h) // 2 + y_nudge
-    out.paste(logo, (paste_x, paste_y))
-    return out
+    """Zoom from center so the original gradient background stays seamless."""
+    w, h = source.size
+    zoom_w = max(1, round(w * scale))
+    zoom_h = max(1, round(h * scale))
+    zoomed = source.resize((zoom_w, zoom_h), Image.Resampling.LANCZOS)
+    left = (zoom_w - w) // 2
+    top = (zoom_h - h) // 2 + y_nudge
+    return zoomed.crop((left, top, left + w, top + h))
 
 
 def ios_mask(size: int) -> Image.Image:
