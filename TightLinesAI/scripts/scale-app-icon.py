@@ -40,11 +40,6 @@ def content_bbox(im: Image.Image, bg: tuple[int, int, int], threshold: float = 1
     return min(xs), min(ys), max(xs), max(ys)
 
 
-def solid_background(size: int, color: tuple[int, int, int]) -> Image.Image:
-    img = Image.new("RGB", (size, size), color)
-    return img
-
-
 def scale_icon(
     source: Image.Image,
     scale: float,
