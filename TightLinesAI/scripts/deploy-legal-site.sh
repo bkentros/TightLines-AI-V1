@@ -28,4 +28,5 @@ cd "$SITE_DIR"
 npx wrangler@3 pages deploy . --project-name="$PROJECT_NAME" --branch=main
 echo ""
 echo "Deployed $SITE_DIR → Cloudflare Pages project: $PROJECT_NAME"
-echo "Test: https://finfindr.app/download (should 302 to App Store)"
+echo "Test: https://finfindr.app/download (should show download page, 200 OK)"
+echo "Test: https://finfindr.app/app (should 302 to App Store)"
