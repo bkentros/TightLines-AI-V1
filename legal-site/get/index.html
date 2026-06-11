@@ -78,6 +78,7 @@
         text-decoration: none;
         box-shadow: 0 12px 28px rgba(7, 25, 43, 0.22);
         cursor: pointer;
+        -webkit-tap-highlight-color: transparent;
       }
 
       .cta:active {
@@ -97,8 +98,24 @@
       <h1>FinFindr</h1>
       <p class="tagline">Bite forecasts, tackle picks, and Water Read maps.</p>
 
-      <button class="cta" id="open-browser-btn" type="button" hidden>Get FinFindr</button>
-      <a class="cta" id="store-cta" href="https://apps.apple.com/app/id6769178136" hidden>
+      <a
+        class="cta"
+        id="continue-link"
+        href="https://finfindr.app/get?open=store"
+        target="_blank"
+        rel="noopener noreferrer"
+        hidden
+      >
+        Get FinFindr
+      </a>
+
+      <a
+        class="cta"
+        id="store-cta"
+        href="https://apps.apple.com/app/id6769178136"
+        rel="noopener noreferrer"
+        hidden
+      >
         Download on the App Store
       </a>
 
@@ -106,26 +123,43 @@
     </main>
     <script>
       (function () {
-        var SAFARI_URL = "https://finfindr.app/get?open=store";
+        var BROWSER_STEP = "https://finfindr.app/get?open=store";
         var ua = navigator.userAgent || "";
         var isIOS = /iPad|iPhone|iPod/.test(ua);
         var isTikTok = /tiktok|musical_ly|BytedanceWebview|aweme/i.test(ua);
-        var inSafariStep = new URLSearchParams(window.location.search).get("open") === "store";
+        var inBrowserStep = new URLSearchParams(window.location.search).get("open") === "store";
 
-        var openBrowserBtn = document.getElementById("open-browser-btn");
+        var continueLink = document.getElementById("continue-link");
         var storeCta = document.getElementById("store-cta");
 
-        if (inSafariStep && isIOS && !isTikTok) {
+        function iframeOpen(url) {
+          var frame = document.createElement("iframe");
+          frame.style.display = "none";
+          frame.src = url;
+          document.body.appendChild(frame);
+          window.setTimeout(function () {
+            if (frame.parentNode) {
+              frame.parentNode.removeChild(frame);
+            }
+          }, 2000);
+        }
+
+        if (inBrowserStep && !isTikTok) {
           storeCta.hidden = false;
           return;
         }
 
         if (isTikTok && isIOS) {
-          openBrowserBtn.hidden = false;
-          openBrowserBtn.addEventListener("click", function () {
-            var bridge = "x-safari-https://" + SAFARI_URL.replace(/^https:\/\//, "");
-            window.location.href = bridge;
+          continueLink.hidden = false;
+          continueLink.addEventListener("click", function () {
+            iframeOpen("x-safari-https://finfindr.app/get?open=store");
+            iframeOpen("itms-apps://apps.apple.com/app/id6769178136");
           });
+          return;
+        }
+
+        if (isIOS) {
+          storeCta.hidden = false;
           return;
         }
 
