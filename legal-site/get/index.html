@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>FinFindr</title>
+    <title>Get FinFindr</title>
     <meta name="description" content="Get FinFindr on the App Store." />
     <meta name="theme-color" content="#d8ebf8" />
     <style>
@@ -11,7 +11,8 @@
         --ink: #07192b;
         --muted: #4d6478;
         --water: #1f6f97;
-        --card: rgba(255, 255, 255, 0.92);
+        --water-soft: #e4f2fa;
+        --card: rgba(255, 255, 255, 0.94);
       }
 
       * {
@@ -24,49 +25,144 @@
         font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
         color: var(--ink);
         background:
-          radial-gradient(circle at 50% 0%, #ffffff 0%, transparent 42%),
-          linear-gradient(180deg, #e8f4fc 0%, #d2e8f7 48%, #c5dff3 100%);
+          radial-gradient(circle at 50% -10%, #ffffff 0%, transparent 46%),
+          linear-gradient(180deg, #eaf5fc 0%, #d4e9f7 55%, #c8e2f4 100%);
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 24px 18px 32px;
+        padding: 22px 16px 30px;
       }
 
       .card {
-        width: min(420px, 100%);
+        width: min(440px, 100%);
         background: var(--card);
-        border: 1px solid rgba(255, 255, 255, 0.95);
-        border-radius: 28px;
-        box-shadow: 0 24px 60px rgba(7, 25, 43, 0.12);
-        padding: 36px 24px 28px;
+        border: 1px solid rgba(255, 255, 255, 0.98);
+        border-radius: 30px;
+        box-shadow: 0 28px 70px rgba(7, 25, 43, 0.14);
+        padding: 30px 22px 24px;
         text-align: center;
       }
 
       .icon {
-        width: 96px;
-        height: 96px;
-        border-radius: 22px;
-        box-shadow: 0 14px 30px rgba(7, 25, 43, 0.16);
-        margin: 0 auto 16px;
+        width: 100px;
+        height: 100px;
+        border-radius: 24px;
+        box-shadow: 0 16px 34px rgba(7, 25, 43, 0.18);
+        margin: 0 auto 14px;
         display: block;
       }
 
-      h1 {
+      .eyebrow {
         margin: 0;
-        font-size: 28px;
+        color: var(--water);
+        font-size: 12px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        margin: 6px 0 0;
+        font-size: 32px;
+        line-height: 1.02;
         letter-spacing: -0.03em;
       }
 
       .tagline {
-        margin: 8px 0 0;
+        margin: 10px auto 0;
+        max-width: 20rem;
         color: var(--muted);
         font-size: 15px;
+        line-height: 1.5;
+      }
+
+      .steps {
+        margin-top: 24px;
+        text-align: left;
+        background: linear-gradient(180deg, #f7fbfe 0%, #edf6fc 100%);
+        border: 1px solid #d7e8f4;
+        border-radius: 22px;
+        padding: 18px 16px 14px;
+      }
+
+      .steps-title {
+        margin: 0 0 14px;
+        text-align: center;
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--water);
+      }
+
+      .step {
+        display: grid;
+        grid-template-columns: 34px 1fr;
+        gap: 12px;
+        align-items: start;
+        padding: 12px 0;
+      }
+
+      .step + .step {
+        border-top: 1px solid #dbeaf4;
+      }
+
+      .num {
+        width: 34px;
+        height: 34px;
+        border-radius: 999px;
+        background: var(--water);
+        color: #fff;
+        font-size: 15px;
+        font-weight: 800;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 8px 18px rgba(31, 111, 151, 0.28);
+      }
+
+      .step-copy {
+        margin: 0;
+        font-size: 16px;
         line-height: 1.45;
+        color: var(--ink);
+      }
+
+      .step-copy strong {
+        font-weight: 800;
+      }
+
+      .menu-pill {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        min-width: 34px;
+        height: 28px;
+        padding: 0 10px;
+        border-radius: 999px;
+        background: #fff;
+        border: 1px solid #c9deec;
+        color: var(--ink);
+        font-size: 18px;
+        font-weight: 800;
+        vertical-align: -2px;
+        box-shadow: 0 2px 8px rgba(7, 25, 43, 0.08);
+      }
+
+      .arrow-hint {
+        margin-top: 14px;
+        padding: 12px 14px;
+        border-radius: 16px;
+        background: var(--water-soft);
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
+        text-align: center;
       }
 
       .cta {
         display: inline-block;
-        margin-top: 28px;
+        margin-top: 22px;
         width: 100%;
         border: 0;
         border-radius: 16px;
@@ -76,13 +172,18 @@
         font-size: 17px;
         font-weight: 700;
         text-decoration: none;
-        box-shadow: 0 12px 28px rgba(7, 25, 43, 0.22);
-        cursor: pointer;
-        -webkit-tap-highlight-color: transparent;
+        box-shadow: 0 14px 30px rgba(7, 25, 43, 0.22);
       }
 
       .cta:active {
         transform: scale(0.98);
+      }
+
+      .after-copy {
+        margin: 12px 0 0;
+        font-size: 14px;
+        line-height: 1.45;
+        color: var(--muted);
       }
 
       .fine {
@@ -94,20 +195,27 @@
   </head>
   <body>
     <main class="card">
-      <img class="icon" src="/assets/app-icon.png" width="96" height="96" alt="FinFindr app icon" />
-      <h1>FinFindr</h1>
-      <p class="tagline">Bite forecasts, tackle picks, and Water Read maps.</p>
+      <img class="icon" src="/assets/app-icon.png" width="100" height="100" alt="FinFindr app icon" />
+      <p class="eyebrow">FinFindr</p>
+      <h1>Get the app</h1>
+      <p class="tagline" id="tagline">Bite forecasts, tackle picks, and Water Read maps for anglers.</p>
 
-      <a
-        class="cta"
-        id="continue-link"
-        href="https://finfindr.app/get?open=store"
-        target="_blank"
-        rel="noopener noreferrer"
-        hidden
-      >
-        Get FinFindr
-      </a>
+      <section class="steps" id="tiktok-steps" hidden>
+        <p class="steps-title">2 quick steps</p>
+        <div class="step">
+          <span class="num">1</span>
+          <p class="step-copy">
+            Tap <span class="menu-pill">⋯</span> in the <strong>top right</strong> of this screen.
+          </p>
+        </div>
+        <div class="step">
+          <span class="num">2</span>
+          <p class="step-copy">
+            Tap <strong>Open in browser</strong> or <strong>Open in Safari</strong>.
+          </p>
+        </div>
+        <p class="arrow-hint">Safari opens next. Then tap <strong>Download on the App Store</strong>.</p>
+      </section>
 
       <a
         class="cta"
@@ -118,48 +226,32 @@
       >
         Download on the App Store
       </a>
+      <p class="after-copy" id="after-copy" hidden>You're in Safari now. One tap left.</p>
 
       <p class="fine">Free · iPhone · United States</p>
     </main>
     <script>
       (function () {
-        var BROWSER_STEP = "https://finfindr.app/get?open=store";
         var ua = navigator.userAgent || "";
         var isIOS = /iPad|iPhone|iPod/.test(ua);
         var isTikTok = /tiktok|musical_ly|BytedanceWebview|aweme/i.test(ua);
         var inBrowserStep = new URLSearchParams(window.location.search).get("open") === "store";
 
-        var continueLink = document.getElementById("continue-link");
+        var tiktokSteps = document.getElementById("tiktok-steps");
         var storeCta = document.getElementById("store-cta");
-
-        function iframeOpen(url) {
-          var frame = document.createElement("iframe");
-          frame.style.display = "none";
-          frame.src = url;
-          document.body.appendChild(frame);
-          window.setTimeout(function () {
-            if (frame.parentNode) {
-              frame.parentNode.removeChild(frame);
-            }
-          }, 2000);
-        }
+        var afterCopy = document.getElementById("after-copy");
+        var tagline = document.getElementById("tagline");
 
         if (inBrowserStep && !isTikTok) {
+          tagline.textContent = "You're almost there.";
           storeCta.hidden = false;
+          afterCopy.hidden = false;
           return;
         }
 
         if (isTikTok && isIOS) {
-          continueLink.hidden = false;
-          continueLink.addEventListener("click", function () {
-            iframeOpen("x-safari-https://finfindr.app/get?open=store");
-            iframeOpen("itms-apps://apps.apple.com/app/id6769178136");
-          });
-          return;
-        }
-
-        if (isIOS) {
-          storeCta.hidden = false;
+          tagline.textContent = "Two quick steps, then you're in the App Store.";
+          tiktokSteps.hidden = false;
           return;
         }
 
