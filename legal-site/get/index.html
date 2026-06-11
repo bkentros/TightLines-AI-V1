@@ -11,7 +11,7 @@
         --ink: #07192b;
         --muted: #4d6478;
         --water: #1f6f97;
-        --card: rgba(255, 255, 255, 0.9);
+        --card: rgba(255, 255, 255, 0.92);
       }
 
       * {
@@ -38,13 +38,13 @@
         border: 1px solid rgba(255, 255, 255, 0.95);
         border-radius: 28px;
         box-shadow: 0 24px 60px rgba(7, 25, 43, 0.12);
-        padding: 30px 24px 26px;
+        padding: 32px 24px 26px;
         text-align: center;
       }
 
       .icon {
-        width: 92px;
-        height: 92px;
+        width: 96px;
+        height: 96px;
         border-radius: 22px;
         box-shadow: 0 14px 30px rgba(7, 25, 43, 0.16);
         margin: 0 auto 16px;
@@ -64,83 +64,53 @@
         line-height: 1.45;
       }
 
-      .steps {
-        margin-top: 24px;
-        text-align: left;
-        background: rgba(31, 111, 151, 0.07);
-        border-radius: 18px;
-        padding: 18px 18px 16px;
-      }
-
-      .steps h2 {
-        margin: 0 0 12px;
-        font-size: 15px;
-        text-align: center;
-        color: var(--water);
-      }
-
-      .step {
-        display: flex;
-        gap: 12px;
-        align-items: flex-start;
-        margin-bottom: 12px;
-      }
-
-      .step:last-child {
-        margin-bottom: 0;
-      }
-
-      .num {
-        flex: 0 0 28px;
-        height: 28px;
-        border-radius: 999px;
-        background: var(--water);
-        color: #fff;
-        font-size: 14px;
-        font-weight: 800;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-      }
-
-      .step p {
-        margin: 2px 0 0;
-        font-size: 15px;
-        line-height: 1.4;
-      }
-
-      .step strong {
-        color: var(--ink);
-      }
-
-      .arrow-hint {
-        margin-top: 14px;
-        font-size: 13px;
-        color: var(--muted);
-        text-align: center;
-      }
-
       .cta {
-        display: none;
-        margin-top: 22px;
+        display: inline-block;
+        margin-top: 24px;
         width: 100%;
         border: 0;
         border-radius: 16px;
-        padding: 16px 18px;
+        padding: 17px 18px;
         background: linear-gradient(180deg, #0a2742 0%, #07192b 100%);
-        color: #fff !important;
+        color: #fff;
         font-size: 17px;
         font-weight: 700;
         text-decoration: none;
         box-shadow: 0 12px 28px rgba(7, 25, 43, 0.22);
+        cursor: pointer;
+      }
+
+      .cta:active {
+        transform: scale(0.98);
+      }
+
+      .subcta {
+        margin-top: 10px;
+        font-size: 13px;
+        color: var(--muted);
       }
 
       .redirecting {
-        display: none;
-        margin-top: 20px;
+        margin-top: 18px;
         font-size: 15px;
         color: var(--water);
         font-weight: 600;
+      }
+
+      .fallback {
+        display: none;
+        margin-top: 18px;
+        padding: 14px;
+        border-radius: 14px;
+        background: rgba(31, 111, 151, 0.08);
+        font-size: 13px;
+        line-height: 1.45;
+        color: var(--muted);
+        text-align: left;
+      }
+
+      .fallback strong {
+        color: var(--ink);
       }
 
       .fine {
@@ -152,59 +122,77 @@
   </head>
   <body>
     <main class="card">
-      <img class="icon" src="/assets/app-icon.png" width="92" height="92" alt="FinFindr app icon" />
+      <img class="icon" src="/assets/app-icon.png" width="96" height="96" alt="FinFindr app icon" />
       <h1>FinFindr</h1>
       <p class="tagline">Bite forecasts, tackle picks, and Water Read maps.</p>
 
-      <section class="steps" id="tiktok-steps" hidden>
-        <h2>2 taps to the App Store</h2>
-        <div class="step">
-          <span class="num">1</span>
-          <p>Tap <strong>⋯</strong> in the <strong>top right</strong> of this screen.</p>
-        </div>
-        <div class="step">
-          <span class="num">2</span>
-          <p>Tap <strong>Open in browser</strong> or <strong>Open in Safari</strong>.</p>
-        </div>
-        <p class="arrow-hint">FinFindr opens in the App Store automatically after that.</p>
-      </section>
+      <button class="cta" id="continue-btn" type="button" hidden>Get FinFindr</button>
+      <p class="subcta" id="continue-copy" hidden>Opens in your browser, then the App Store.</p>
 
-      <p class="redirecting" id="redirecting">Opening App Store…</p>
-      <a
-        class="cta"
-        id="store-cta"
-        href="https://apps.apple.com/app/id6769178136"
-        rel="noopener noreferrer"
-      >
+      <a class="cta" id="store-cta" href="https://apps.apple.com/app/id6769178136" hidden>
         Download on the App Store
       </a>
+
+      <p class="redirecting" id="redirecting" hidden>Opening App Store…</p>
+
+      <p class="fallback" id="fallback">
+        Still here? Tap <strong>⋯</strong> (top right) → <strong>Open in browser</strong>. FinFindr opens in the App Store right after.
+      </p>
+
       <p class="fine">Free · iPhone · United States</p>
     </main>
     <script>
       (function () {
         var APP_STORE = "https://apps.apple.com/app/id6769178136";
+        var SAFARI_BRIDGE = "https://finfindr.app/get?open=store";
         var ua = navigator.userAgent || "";
         var isIOS = /iPad|iPhone|iPod/.test(ua);
         var isTikTok = /tiktok|musical_ly|BytedanceWebview|aweme/i.test(ua);
+        var params = new URLSearchParams(window.location.search);
+        var openStore = params.get("open") === "store";
 
-        var steps = document.getElementById("tiktok-steps");
+        var continueBtn = document.getElementById("continue-btn");
+        var continueCopy = document.getElementById("continue-copy");
+        var storeCta = document.getElementById("store-cta");
         var redirecting = document.getElementById("redirecting");
-        var cta = document.getElementById("store-cta");
+        var fallback = document.getElementById("fallback");
 
-        if (isTikTok && isIOS) {
-          // TikTok blocks App Store links inside its browser. Guide out to Safari instead
-          // of showing a button that triggers "Action can't be completed".
-          steps.hidden = false;
-          return;
+        function showRedirecting() {
+          redirecting.hidden = false;
         }
 
-        if (isIOS) {
-          redirecting.style.display = "block";
+        function openInRealBrowser() {
+          // Best-effort iOS escape from TikTok on a direct user tap.
+          var safariBridge = "x-safari-https://" + SAFARI_BRIDGE.replace(/^https:\/\//, "");
+          window.location.href = safariBridge;
+          window.setTimeout(function () {
+            window.open(APP_STORE, "_blank");
+          }, 350);
+          window.setTimeout(function () {
+            fallback.style.display = "block";
+          }, 1800);
+        }
+
+        if (openStore && isIOS && !isTikTok) {
+          showRedirecting();
           window.location.replace(APP_STORE);
           return;
         }
 
-        cta.style.display = "block";
+        if (isTikTok && isIOS) {
+          continueBtn.hidden = false;
+          continueCopy.hidden = false;
+          continueBtn.addEventListener("click", openInRealBrowser);
+          return;
+        }
+
+        if (isIOS) {
+          showRedirecting();
+          window.location.replace(APP_STORE);
+          return;
+        }
+
+        storeCta.hidden = false;
       })();
     </script>
   </body>
