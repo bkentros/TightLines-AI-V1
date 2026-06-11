@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>FinFindr</title>
+    <meta name="description" content="FinFindr — bite forecasts, tackle picks, and Water Read maps for anglers." />
+    <meta name="apple-itunes-app" content="app-id=6769178136" />
+    <meta name="theme-color" content="#d8ebf8" />
+    <style>
+      :root {
+        --ink: #07192b;
+        --muted: #4d6478;
+        --water: #1f6f97;
+        --card: rgba(255, 255, 255, 0.82);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        min-height: 100vh;
+        font-family: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", sans-serif;
+        color: var(--ink);
+        background:
+          radial-gradient(circle at 50% 0%, #ffffff 0%, transparent 42%),
+          linear-gradient(180deg, #e8f4fc 0%, #d2e8f7 48%, #c5dff3 100%);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 28px 20px 36px;
+      }
+
+      .card {
+        width: min(420px, 100%);
+        background: var(--card);
+        backdrop-filter: blur(12px);
+        border: 1px solid rgba(255, 255, 255, 0.9);
+        border-radius: 28px;
+        box-shadow: 0 24px 60px rgba(7, 25, 43, 0.12);
+        padding: 34px 26px 28px;
+        text-align: center;
+      }
+
+      .icon {
+        width: 108px;
+        height: 108px;
+        border-radius: 24px;
+        box-shadow: 0 14px 30px rgba(7, 25, 43, 0.18);
+        margin: 0 auto 18px;
+        display: block;
+      }
+
+      h1 {
+        margin: 0;
+        font-size: 30px;
+        line-height: 1.05;
+        letter-spacing: -0.03em;
+      }
+
+      .tagline {
+        margin: 10px 0 0;
+        color: var(--muted);
+        font-size: 16px;
+        line-height: 1.45;
+      }
+
+      .pills {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+        justify-content: center;
+        margin: 22px 0 26px;
+      }
+
+      .pill {
+        background: rgba(31, 111, 151, 0.1);
+        color: var(--water);
+        border-radius: 999px;
+        padding: 8px 12px;
+        font-size: 13px;
+        font-weight: 600;
+      }
+
+      .cta {
+        display: block;
+        width: 100%;
+        border: 0;
+        border-radius: 16px;
+        padding: 16px 18px;
+        background: linear-gradient(180deg, #0a2742 0%, #07192b 100%);
+        color: #fff;
+        font-size: 17px;
+        font-weight: 700;
+        text-decoration: none;
+        box-shadow: 0 12px 28px rgba(7, 25, 43, 0.22);
+      }
+
+      .cta:active {
+        transform: scale(0.98);
+      }
+
+      .fine {
+        margin-top: 12px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      .footer {
+        margin-top: 18px;
+        font-size: 12px;
+      }
+
+      .footer a {
+        color: var(--water);
+        text-decoration: none;
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="card">
+      <img class="icon" src="/assets/app-icon.png" width="108" height="108" alt="FinFindr app icon" />
+      <h1>FinFindr</h1>
+      <p class="tagline">Smarter days on the water — bite forecasts, tackle picks, and depth-zone maps.</p>
+      <div class="pills">
+        <span class="pill">Today's Bite</span>
+        <span class="pill">Tackle picks</span>
+        <span class="pill">Water Read</span>
+      </div>
+      <a class="cta" href="https://apps.apple.com/app/id6769178136" rel="noopener noreferrer">
+        Download on the App Store
+      </a>
+      <p class="fine">Free · iPhone · United States</p>
+      <p class="footer"><a href="https://finfindr.app/download">Open App Store directly</a></p>
+    </main>
+  </body>
+</html>
