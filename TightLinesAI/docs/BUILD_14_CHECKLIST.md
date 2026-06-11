@@ -279,15 +279,17 @@ Or do icon/legal yourself and ask agent only for technical steps.
 
 ## 10. Branded download link (finfindr.app)
 
-**Share this everywhere (bio, social, friends):**
+**Share this everywhere (bio, social, friends, business TikTok):**
 
 ```
 https://finfindr.app/download
 ```
 
-**TikTok / Instagram bios:** `/download` serves a mobile download page (HTTP 200). TikTok often **rejects** bio links that only return a 302 redirect — that is why `finfindr.app` worked but `/download` did not on some accounts. The page has a one-tap **Get FinFindr on the App Store** button.
+Opens the App Store directly (302 redirect). Use this for the shortest funnel.
 
-**Instant redirect (optional short link):** `https://finfindr.app/app` still 302s straight to the App Store (good for captions, SMS, QR codes — not all bio validators accept it).
+**Personal TikTok (if `/download` is rejected in bio):** use `https://finfindr.app/get` — mobile link-in-bio page with one **Download on the App Store** tap. Or try the raw App Store link: `https://apps.apple.com/app/id6769178136`.
+
+**Instant redirect short link:** `https://finfindr.app/app` also 302s straight to the App Store.
 
 **Permanent App Store URL (same destination):** `https://apps.apple.com/app/id6769178136`
 
@@ -295,19 +297,9 @@ https://finfindr.app/download
 
 Git pushes to `main` only work if Pages is connected and **Production** points at the latest deploy.
 
-#### A) Update zone redirect rule (important)
+#### A) Zone redirect rule (optional)
 
-If you previously created an **App Store download** redirect rule, **remove `/download` and `/download/` from it**. Only `/app` and `/app/` should 302 to the App Store now. Otherwise Cloudflare will override the new download page.
-
-1. [dash.cloudflare.com](https://dash.cloudflare.com) → select zone **finfindr.app**
-2. **Rules** → **Redirect Rules** → edit **App Store download**
-3. **When incoming requests match:** Custom filter expression:
-   ```
-   (http.request.uri.path eq "/app") or (http.request.uri.path eq "/app/")
-   ```
-4. **Then:** Dynamic redirect → **302** → URL `https://apps.apple.com/app/id6769178136`
-5. **Deploy** the rule
-6. **Caching** → **Configuration** → **Purge Everything**
+If you use a Cloudflare **Redirect Rules** entry for `/app`, keep it. `/download` is handled by Pages (`_redirects` + `functions/download*.js`). `/get` is the TikTok-safe HTML page.
 
 #### B) Pages production deploy (keeps privacy/terms in sync)
 
@@ -320,7 +312,7 @@ If you previously created an **App Store download** redirect rule, **remove `/do
    bash TightLinesAI/scripts/deploy-legal-site.sh
    ```
 
-Redirect logic in repo: `legal-site/_redirects` + `legal-site/download/index.html` (TikTok-safe page) + `legal-site/functions/app*.js` (instant redirect for `/app`)
+Redirect logic in repo: `legal-site/_redirects` + `legal-site/functions/download*.js` (instant `/download`) + `legal-site/get/index.html` (TikTok personal bio) + `legal-site/functions/app*.js` (`/app`)
 
 ---
 
