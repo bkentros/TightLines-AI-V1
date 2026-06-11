@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
     <title>FinFindr</title>
     <meta name="description" content="FinFindr — bite forecasts, tackle picks, and Water Read maps for anglers." />
-    <meta name="apple-itunes-app" content="app-id=6769178136" />
     <meta name="theme-color" content="#d8ebf8" />
     <style>
       :root {
@@ -96,6 +95,7 @@
         font-weight: 700;
         text-decoration: none;
         box-shadow: 0 12px 28px rgba(7, 25, 43, 0.22);
+        cursor: pointer;
       }
 
       .cta:active {
@@ -108,15 +108,18 @@
         color: var(--muted);
       }
 
-      .footer {
-        margin-top: 18px;
-        font-size: 12px;
+      .hint {
+        margin-top: 16px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: rgba(31, 111, 151, 0.08);
+        color: var(--muted);
+        font-size: 13px;
+        line-height: 1.45;
       }
 
-      .footer a {
-        color: var(--water);
-        text-decoration: none;
-        font-weight: 600;
+      .hint strong {
+        color: var(--ink);
       }
     </style>
   </head>
@@ -130,11 +133,32 @@
         <span class="pill">Tackle picks</span>
         <span class="pill">Water Read</span>
       </div>
-      <a class="cta" href="https://apps.apple.com/app/id6769178136" rel="noopener noreferrer">
-        Download on the App Store
-      </a>
+      <button class="cta" id="store-cta" type="button">Download on the App Store</button>
       <p class="fine">Free · iPhone · United States</p>
-      <p class="footer"><a href="https://finfindr.app/download">Open App Store directly</a></p>
+      <p class="hint">
+        Button stuck in TikTok? Tap <strong>⋯</strong> (top right) → <strong>Open in browser</strong>, then tap Download again.
+      </p>
     </main>
+    <script>
+      (function () {
+        var APP_STORE_WEB = "https://apps.apple.com/app/id6769178136";
+        var APP_STORE_IOS = "itms-apps://apps.apple.com/app/id6769178136";
+        var btn = document.getElementById("store-cta");
+
+        function openAppStore() {
+          var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+          if (isIOS) {
+            window.location.href = APP_STORE_IOS;
+            window.setTimeout(function () {
+              window.location.href = APP_STORE_WEB;
+            }, 900);
+            return;
+          }
+          window.location.href = APP_STORE_WEB;
+        }
+
+        btn.addEventListener("click", openAppStore);
+      })();
+    </script>
   </body>
 </html>
