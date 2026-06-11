@@ -185,26 +185,29 @@ Or do icon/legal yourself and ask agent only for technical steps.
 https://finfindr.app/download
 ```
 
-Opens the App Store directly (302 redirect). Also works: `https://finfindr.app/app`
+**TikTok / Instagram bios:** `/download` serves a mobile download page (HTTP 200). TikTok often **rejects** bio links that only return a 302 redirect — that is why `finfindr.app` worked but `/download` did not on some accounts. The page has a one-tap **Get FinFindr on the App Store** button.
+
+**Instant redirect (optional short link):** `https://finfindr.app/app` still 302s straight to the App Store (good for captions, SMS, QR codes — not all bio validators accept it).
 
 **Permanent App Store URL (same destination):** `https://apps.apple.com/app/id6769178136`
 
-### Cloudflare — make `/download` go straight to App Store (you do this)
+### Cloudflare — deploy download page (you do this)
 
-Git pushes to `main` only work if Pages is connected and **Production** points at the latest deploy. If you still see the legal or download landing page, do **both** steps below.
+Git pushes to `main` only work if Pages is connected and **Production** points at the latest deploy.
 
-#### A) Zone redirect rule (fastest — works even if Pages is stale)
+#### A) Update zone redirect rule (important)
+
+If you previously created an **App Store download** redirect rule, **remove `/download` and `/download/` from it**. Only `/app` and `/app/` should 302 to the App Store now. Otherwise Cloudflare will override the new download page.
 
 1. [dash.cloudflare.com](https://dash.cloudflare.com) → select zone **finfindr.app**
-2. **Rules** → **Redirect Rules** → **Create rule**
-3. **Name:** `App Store download`
-4. **When incoming requests match:** Custom filter expression:
+2. **Rules** → **Redirect Rules** → edit **App Store download**
+3. **When incoming requests match:** Custom filter expression:
    ```
-   (http.request.uri.path eq "/download") or (http.request.uri.path eq "/download/") or (http.request.uri.path eq "/app") or (http.request.uri.path eq "/app/")
+   (http.request.uri.path eq "/app") or (http.request.uri.path eq "/app/")
    ```
-5. **Then:** Dynamic redirect → **302** → URL `https://apps.apple.com/app/id6769178136`
-6. **Deploy** the rule
-7. **Caching** → **Configuration** → **Purge Everything** (clears old HTML)
+4. **Then:** Dynamic redirect → **302** → URL `https://apps.apple.com/app/id6769178136`
+5. **Deploy** the rule
+6. **Caching** → **Configuration** → **Purge Everything**
 
 #### B) Pages production deploy (keeps privacy/terms in sync)
 
@@ -217,7 +220,7 @@ Git pushes to `main` only work if Pages is connected and **Production** points a
    bash TightLinesAI/scripts/deploy-legal-site.sh
    ```
 
-Redirect logic in repo: `legal-site/_redirects` + `legal-site/functions/download*.js`
+Redirect logic in repo: `legal-site/_redirects` + `legal-site/download/index.html` (TikTok-safe page) + `legal-site/functions/app*.js` (instant redirect for `/app`)
 
 ---
 
