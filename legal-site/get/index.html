@@ -90,12 +90,11 @@
         border-radius: 16px;
         padding: 16px 18px;
         background: linear-gradient(180deg, #0a2742 0%, #07192b 100%);
-        color: #fff;
+        color: #fff !important;
         font-size: 17px;
         font-weight: 700;
         text-decoration: none;
         box-shadow: 0 12px 28px rgba(7, 25, 43, 0.22);
-        cursor: pointer;
       }
 
       .cta:active {
@@ -108,18 +107,11 @@
         color: var(--muted);
       }
 
-      .hint {
-        margin-top: 16px;
-        padding: 12px 14px;
-        border-radius: 12px;
-        background: rgba(31, 111, 151, 0.08);
-        color: var(--muted);
+      .opening {
+        margin-top: 14px;
         font-size: 13px;
-        line-height: 1.45;
-      }
-
-      .hint strong {
-        color: var(--ink);
+        color: var(--water);
+        font-weight: 600;
       }
     </style>
   </head>
@@ -133,31 +125,33 @@
         <span class="pill">Tackle picks</span>
         <span class="pill">Water Read</span>
       </div>
-      <button class="cta" id="store-cta" type="button">Download on the App Store</button>
+      <a
+        class="cta"
+        id="store-cta"
+        href="itms-apps://apps.apple.com/app/id6769178136"
+      >
+        Download on the App Store
+      </a>
       <p class="fine">Free · iPhone · United States</p>
-      <p class="hint">
-        Button stuck in TikTok? Tap <strong>⋯</strong> (top right) → <strong>Open in browser</strong>, then tap Download again.
-      </p>
+      <p class="opening" id="opening" hidden>Opening App Store…</p>
     </main>
     <script>
       (function () {
-        var APP_STORE_WEB = "https://apps.apple.com/app/id6769178136";
-        var APP_STORE_IOS = "itms-apps://apps.apple.com/app/id6769178136";
-        var btn = document.getElementById("store-cta");
+        var APP_STORE = "itms-apps://apps.apple.com/app/id6769178136";
+        var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        if (!isIOS) return;
 
-        function openAppStore() {
-          var isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-          if (isIOS) {
-            window.location.href = APP_STORE_IOS;
-            window.setTimeout(function () {
-              window.location.href = APP_STORE_WEB;
-            }, 900);
-            return;
-          }
-          window.location.href = APP_STORE_WEB;
-        }
+        var opening = document.getElementById("opening");
+        var cta = document.getElementById("store-cta");
+        if (opening) opening.hidden = false;
 
-        btn.addEventListener("click", openAppStore);
+        // Bio-link tap is still a user gesture — try opening App Store immediately.
+        window.location.href = APP_STORE;
+
+        // If TikTok blocks auto-open, the native <a href="itms-apps://"> button still works on first tap.
+        cta.addEventListener("click", function () {
+          window.location.href = APP_STORE;
+        });
       })();
     </script>
   </body>
