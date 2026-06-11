@@ -38,7 +38,7 @@
         border: 1px solid rgba(255, 255, 255, 0.95);
         border-radius: 28px;
         box-shadow: 0 24px 60px rgba(7, 25, 43, 0.12);
-        padding: 32px 24px 26px;
+        padding: 36px 24px 28px;
         text-align: center;
       }
 
@@ -66,13 +66,13 @@
 
       .cta {
         display: inline-block;
-        margin-top: 24px;
+        margin-top: 28px;
         width: 100%;
         border: 0;
         border-radius: 16px;
         padding: 17px 18px;
         background: linear-gradient(180deg, #0a2742 0%, #07192b 100%);
-        color: #fff;
+        color: #fff !important;
         font-size: 17px;
         font-weight: 700;
         text-decoration: none;
@@ -82,35 +82,6 @@
 
       .cta:active {
         transform: scale(0.98);
-      }
-
-      .subcta {
-        margin-top: 10px;
-        font-size: 13px;
-        color: var(--muted);
-      }
-
-      .redirecting {
-        margin-top: 18px;
-        font-size: 15px;
-        color: var(--water);
-        font-weight: 600;
-      }
-
-      .fallback {
-        display: none;
-        margin-top: 18px;
-        padding: 14px;
-        border-radius: 14px;
-        background: rgba(31, 111, 151, 0.08);
-        font-size: 13px;
-        line-height: 1.45;
-        color: var(--muted);
-        text-align: left;
-      }
-
-      .fallback strong {
-        color: var(--ink);
       }
 
       .fine {
@@ -126,69 +97,35 @@
       <h1>FinFindr</h1>
       <p class="tagline">Bite forecasts, tackle picks, and Water Read maps.</p>
 
-      <button class="cta" id="continue-btn" type="button" hidden>Get FinFindr</button>
-      <p class="subcta" id="continue-copy" hidden>Opens in your browser, then the App Store.</p>
-
+      <button class="cta" id="open-browser-btn" type="button" hidden>Get FinFindr</button>
       <a class="cta" id="store-cta" href="https://apps.apple.com/app/id6769178136" hidden>
         Download on the App Store
       </a>
-
-      <p class="redirecting" id="redirecting" hidden>Opening App Store…</p>
-
-      <p class="fallback" id="fallback">
-        Still here? Tap <strong>⋯</strong> (top right) → <strong>Open in browser</strong>. FinFindr opens in the App Store right after.
-      </p>
 
       <p class="fine">Free · iPhone · United States</p>
     </main>
     <script>
       (function () {
-        var APP_STORE = "https://apps.apple.com/app/id6769178136";
-        var SAFARI_BRIDGE = "https://finfindr.app/get?open=store";
+        var SAFARI_URL = "https://finfindr.app/get?open=store";
         var ua = navigator.userAgent || "";
         var isIOS = /iPad|iPhone|iPod/.test(ua);
         var isTikTok = /tiktok|musical_ly|BytedanceWebview|aweme/i.test(ua);
-        var params = new URLSearchParams(window.location.search);
-        var openStore = params.get("open") === "store";
+        var inSafariStep = new URLSearchParams(window.location.search).get("open") === "store";
 
-        var continueBtn = document.getElementById("continue-btn");
-        var continueCopy = document.getElementById("continue-copy");
+        var openBrowserBtn = document.getElementById("open-browser-btn");
         var storeCta = document.getElementById("store-cta");
-        var redirecting = document.getElementById("redirecting");
-        var fallback = document.getElementById("fallback");
 
-        function showRedirecting() {
-          redirecting.hidden = false;
-        }
-
-        function openInRealBrowser() {
-          // Best-effort iOS escape from TikTok on a direct user tap.
-          var safariBridge = "x-safari-https://" + SAFARI_BRIDGE.replace(/^https:\/\//, "");
-          window.location.href = safariBridge;
-          window.setTimeout(function () {
-            window.open(APP_STORE, "_blank");
-          }, 350);
-          window.setTimeout(function () {
-            fallback.style.display = "block";
-          }, 1800);
-        }
-
-        if (openStore && isIOS && !isTikTok) {
-          showRedirecting();
-          window.location.replace(APP_STORE);
+        if (inSafariStep && isIOS && !isTikTok) {
+          storeCta.hidden = false;
           return;
         }
 
         if (isTikTok && isIOS) {
-          continueBtn.hidden = false;
-          continueCopy.hidden = false;
-          continueBtn.addEventListener("click", openInRealBrowser);
-          return;
-        }
-
-        if (isIOS) {
-          showRedirecting();
-          window.location.replace(APP_STORE);
+          openBrowserBtn.hidden = false;
+          openBrowserBtn.addEventListener("click", function () {
+            var bridge = "x-safari-https://" + SAFARI_URL.replace(/^https:\/\//, "");
+            window.location.href = bridge;
+          });
           return;
         }
 
