@@ -70,7 +70,8 @@ export default function ForgotPasswordScreen() {
   const [sent, setSent] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const [notice, setNotice] = useState<Notice | null>(null);
-  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('form');
+  const { contentContainerStyle: scrollLayout, keyboardVerticalOffset } =
+    useAuthScrollLayout('form');
 
   useEffect(() => {
     let mounted = true;
@@ -152,11 +153,13 @@ export default function ForgotPasswordScreen() {
         <KeyboardAvoidingView
           style={styles.kav}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={keyboardVerticalOffset}
         >
           <ScrollView
             style={styles.scrollView}
             contentContainerStyle={[styles.scroll, scrollLayout]}
             keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
             showsVerticalScrollIndicator={false}
           >
             {/* Top rail */}
@@ -513,7 +516,7 @@ const beaconStyles = StyleSheet.create({
   },
   inscription: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 1.6,
     opacity: 0.55,
@@ -542,7 +545,7 @@ const styles = StyleSheet.create({
   },
   editionRubric: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 2.4,
     opacity: 0.5,
@@ -589,7 +592,7 @@ const styles = StyleSheet.create({
   },
   rubricText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 2.4,
     opacity: 0.7,
@@ -690,7 +693,7 @@ const styles = StyleSheet.create({
   },
   confirmStamp: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.bandPrime,
     letterSpacing: 2.4,
   },
@@ -725,7 +728,7 @@ const styles = StyleSheet.create({
   },
   confirmRoute: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
+    fontSize: 12,
     color: paper.dashboardInk,
     letterSpacing: 1.6,
     opacity: 0.55,
@@ -757,7 +760,7 @@ const styles = StyleSheet.create({
   },
   confirmFooterText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 1.8,
     opacity: 0.6,

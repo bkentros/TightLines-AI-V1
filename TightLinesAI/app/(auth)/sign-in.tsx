@@ -60,7 +60,8 @@ export default function SignInScreen() {
   const [loading, setLoading] = useState(false);
   const [notice, setNotice] = useState<Notice | null>(null);
   const appleSignInInFlight = useRef(false);
-  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('spread');
+  const { contentContainerStyle: scrollLayout, keyboardVerticalOffset } =
+    useAuthScrollLayout('spread');
 
   const handleSignIn = async () => {
     const trimmedEmail = email.trim().toLowerCase();
@@ -146,11 +147,13 @@ export default function SignInScreen() {
         <KeyboardAvoidingView
           style={styles.kav}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={keyboardVerticalOffset}
         >
           <ScrollView
             style={styles.scrollView}
             contentContainerStyle={[styles.scroll, scrollLayout]}
             keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
             showsVerticalScrollIndicator={false}
           >
             <View style={styles.topSection}>

@@ -48,6 +48,7 @@ import {
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
 import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
+import { authScopeStageSize } from '../../lib/responsiveAuth';
 import {
   BrandScopeStage,
   TopographicLines,
@@ -114,7 +115,9 @@ export default function WelcomeScreen() {
   const router = useRouter();
   const { fetchProfile, setSession } = useAuthStore();
   const [notice, setNotice] = useState<Notice | null>(null);
-  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('spread');
+  const { contentContainerStyle: scrollLayout, layoutTier } =
+    useAuthScrollLayout('spread');
+  const scopeStage = authScopeStageSize(layoutTier);
 
   // Live pulse on the eyebrow dot — same anatomy used everywhere in the
   // paper system. Native opacity loop.
@@ -229,7 +232,7 @@ export default function WelcomeScreen() {
                 style={styles.issueRubricText}
                 numberOfLines={1}
                 adjustsFontSizeToFit
-                minimumFontScale={0.74}
+                minimumFontScale={0.88}
               >
                 FIELD GUIDE · NO. 001 · {editionMonth} {editionYear}
               </Text>
@@ -239,7 +242,11 @@ export default function WelcomeScreen() {
             {/* Scope-target stage — 4 corner crosshairs, scan beam,
                 sonar pings, breathing emblem. Shared with onboarding
                 step-1 via the BrandScopeStage primitive. */}
-            <BrandScopeStage size={108} emblemSize={72} style={styles.stageWrap} />
+            <BrandScopeStage
+              size={scopeStage.stage}
+              emblemSize={scopeStage.emblem}
+              style={styles.stageWrap}
+            />
 
             {/* Live label + wordmark */}
             <View style={styles.liveRow}>
@@ -253,7 +260,7 @@ export default function WelcomeScreen() {
                 style={styles.liveLabel}
                 numberOfLines={1}
                 adjustsFontSizeToFit
-                minimumFontScale={0.78}
+                minimumFontScale={0.88}
               >
                 FIELD-EDITION ACTIVE
               </Text>
@@ -286,7 +293,7 @@ export default function WelcomeScreen() {
                 style={styles.valuePropsEyebrow}
                 numberOfLines={1}
                 adjustsFontSizeToFit
-                minimumFontScale={0.78}
+                minimumFontScale={0.88}
               >
                 WHAT&apos;S INSIDE
               </Text>
@@ -341,7 +348,7 @@ export default function WelcomeScreen() {
                         style={styles.valueModuleTitle}
                         numberOfLines={1}
                         adjustsFontSizeToFit
-                        minimumFontScale={0.8}
+                        minimumFontScale={0.88}
                       >
                         {item.title}
                       </Text>
@@ -349,7 +356,7 @@ export default function WelcomeScreen() {
                         style={styles.valueModuleTag}
                         numberOfLines={1}
                         adjustsFontSizeToFit
-                        minimumFontScale={0.78}
+                        minimumFontScale={0.88}
                       >
                         {item.tag}
                       </Text>
@@ -468,10 +475,10 @@ const styles = StyleSheet.create({
   },
   issueRubricText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
+    fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 2.4,
-    opacity: 0.7,
+    letterSpacing: 1.6,
+    opacity: 0.78,
   },
 
   stageWrap: {
@@ -510,9 +517,9 @@ const styles = StyleSheet.create({
   },
   liveLabel: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 8.8,
+    fontSize: 11,
     color: paper.dashboardBlue,
-    letterSpacing: 2.6,
+    letterSpacing: 1.8,
   },
 
   brandMark: {
@@ -562,10 +569,10 @@ const styles = StyleSheet.create({
   },
   valuePropsEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.8,
+    fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 2.8,
-    opacity: 0.7,
+    letterSpacing: 1.8,
+    opacity: 0.78,
   },
   valuePropsRule: {
     flex: 1,
@@ -639,8 +646,8 @@ const styles = StyleSheet.create({
   },
   valueModuleTag: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
-    letterSpacing: 1.3,
+    fontSize: 11,
+    letterSpacing: 1,
     color: paper.dashboardMuted,
   },
   valueModuleDesc: {
@@ -671,16 +678,16 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
+    fontSize: 11,
     color: paper.dashboardInk,
-    opacity: 0.55,
-    letterSpacing: 2.6,
+    opacity: 0.65,
+    letterSpacing: 1.6,
   },
   footerMono: {
     fontFamily: paperFonts.mono,
-    fontSize: 9.5,
+    fontSize: 11,
     color: paper.dashboardInk,
-    opacity: 0.55,
-    letterSpacing: 2.2,
+    opacity: 0.65,
+    letterSpacing: 1.4,
   },
 });

@@ -22,6 +22,7 @@ import {
   Animated,
   Easing,
   Pressable,
+  ScrollView,
   StyleSheet,
   Text,
   View,
@@ -52,6 +53,7 @@ import {
   AuthNotice,
   AuthTip,
 } from '../../components/paper/auth';
+import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 
 export default function VerifyEmailScreen() {
   const router = useRouter();
@@ -64,6 +66,7 @@ export default function VerifyEmailScreen() {
   const [justSent, setJustSent] = useState(false);
   const [cooldown, setCooldown] = useState(0);
   const [notice, setNotice] = useState('');
+  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('form');
 
   // Mail-seal pulse — a subtle "still listening for your tap" cue. Same
   // native-driver opacity loop used across the paper system's live dots.
@@ -154,7 +157,12 @@ export default function VerifyEmailScreen() {
   return (
     <View style={styles.root}>
       <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
-        <View style={styles.container}>
+        <ScrollView
+          style={styles.scrollView}
+          contentContainerStyle={[styles.container, scrollLayout]}
+          showsVerticalScrollIndicator={false}
+          keyboardShouldPersistTaps="handled"
+        >
           <AuthBrandRibbon />
           <AuthBackButton onPress={handleBack} label="BACK TO SIGN IN" />
 
@@ -174,7 +182,7 @@ export default function VerifyEmailScreen() {
                   style={styles.signetRubricText}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.72}
+                  minimumFontScale={0.88}
                 >
                   FINFINDR · VERIFY YOUR EMAIL
                 </Text>
@@ -255,7 +263,7 @@ export default function VerifyEmailScreen() {
                   style={styles.resendText}
                   numberOfLines={1}
                   adjustsFontSizeToFit
-                  minimumFontScale={0.78}
+                  minimumFontScale={0.88}
                 >
                   {resending ? 'SENDING…' : 'RESEND VERIFICATION EMAIL'}
                 </Text>
@@ -264,7 +272,7 @@ export default function VerifyEmailScreen() {
           </View>
 
           <AuthFooterStamp />
-        </View>
+        </ScrollView>
       </SafeAreaView>
     </View>
   );
@@ -273,8 +281,8 @@ export default function VerifyEmailScreen() {
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
+  scrollView: { flex: 1 },
   container: {
-    flex: 1,
     width: '100%',
     maxWidth: 520,
     alignSelf: 'center',
@@ -284,8 +292,6 @@ const styles = StyleSheet.create({
     gap: paperSpacing.md,
   },
   content: {
-    flex: 1,
-    justifyContent: 'center',
     gap: paperSpacing.md,
   },
 
@@ -332,10 +338,10 @@ const styles = StyleSheet.create({
   },
   signetRubricText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 2.4,
-    opacity: 0.7,
+    letterSpacing: 1.6,
+    opacity: 0.78,
   },
 
   // ── Seal ──────────────────────────────────────────────────────────────
@@ -455,7 +461,7 @@ const styles = StyleSheet.create({
   },
   toLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
+    fontSize: 11,
     color: paper.dashboardBlue,
     letterSpacing: 2.4,
   },

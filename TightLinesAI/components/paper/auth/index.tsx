@@ -455,9 +455,9 @@ const styles = StyleSheet.create({
   },
   backBtnText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
+    fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 2.2,
+    letterSpacing: 1.8,
   },
 
   // Brand ribbon
@@ -511,10 +511,10 @@ const styles = StyleSheet.create({
   },
   ribbonRubric: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
+    fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 2.2,
-    opacity: 0.65,
+    letterSpacing: 1.6,
+    opacity: 0.72,
   },
 
   // Header
@@ -563,9 +563,9 @@ const styles = StyleSheet.create({
   },
   eyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10.5,
+    fontSize: 11,
     color: paper.dashboardBlue,
-    letterSpacing: 3,
+    letterSpacing: 2.2,
   },
   title: {
     fontFamily: paperFonts.display,
@@ -590,10 +590,10 @@ const styles = StyleSheet.create({
   },
   label: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
+    fontSize: 12,
     color: paper.dashboardInk,
-    opacity: 0.7,
-    letterSpacing: 2.6,
+    opacity: 0.78,
+    letterSpacing: 1.8,
   },
   inputRow: {
     position: 'relative',
@@ -690,10 +690,10 @@ const styles = StyleSheet.create({
   },
   dividerText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
+    fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 2.6,
-    opacity: 0.55,
+    letterSpacing: 1.8,
+    opacity: 0.65,
   },
 
   // Tip callout
@@ -759,8 +759,8 @@ const styles = StyleSheet.create({
   },
   noticeActionText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10,
-    letterSpacing: 1.8,
+    fontSize: 11,
+    letterSpacing: 1.4,
   },
 
   // Text link row
@@ -860,9 +860,9 @@ const styles = StyleSheet.create({
   },
   footerStampText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 2,
+    fontSize: 11,
+    letterSpacing: 1.4,
     color: paper.dashboardMuted,
-    opacity: 0.7,
+    opacity: 0.78,
   },
 });

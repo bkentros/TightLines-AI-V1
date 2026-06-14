@@ -47,11 +47,14 @@ import {
 import { hapticImpact, ImpactFeedbackStyle } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
+import { authScopeStageSize } from '../../lib/responsiveAuth';
 
 export default function OnboardingStep1() {
   const router = useRouter();
   const { signOut } = useAuthStore();
-  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('spread', 72);
+  const { contentContainerStyle: scrollLayout, layoutTier } =
+    useAuthScrollLayout('spread', 72);
+  const scopeStage = authScopeStageSize(layoutTier);
 
   // Live pulse on the eyebrow dot
   const livePulse = useRef(new Animated.Value(1)).current;
@@ -152,7 +155,11 @@ export default function OnboardingStep1() {
 
             <View style={styles.coverMain}>
               {/* Scope-target stage — compact size */}
-              <BrandScopeStage size={88} emblemSize={58} style={styles.coverStage} />
+              <BrandScopeStage
+                size={scopeStage.stage}
+                emblemSize={scopeStage.emblem}
+                style={styles.coverStage}
+              />
 
               <View style={styles.coverTextCol}>
                 <View style={styles.coverEyebrowRow}>
@@ -371,7 +378,7 @@ const styles = StyleSheet.create({
   },
   coverRubricText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 2.2,
     opacity: 0.65,
@@ -417,7 +424,7 @@ const styles = StyleSheet.create({
   },
   coverEyebrowText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.dashboardBlue,
     letterSpacing: 2.2,
   },
@@ -453,7 +460,7 @@ const styles = StyleSheet.create({
   },
   mastheadText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
+    fontSize: 12,
     color: paper.dashboardInk,
     letterSpacing: 3,
     opacity: 0.65,
@@ -466,7 +473,7 @@ const styles = StyleSheet.create({
   },
   mastheadOrnament: {
     fontFamily: paperFonts.body,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.dashboardBlue,
     opacity: 0.5,
   },
@@ -544,7 +551,7 @@ const styles = StyleSheet.create({
   },
   chapterTagText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
+    fontSize: 11,
     letterSpacing: 1.4,
   },
 
@@ -573,7 +580,7 @@ const styles = StyleSheet.create({
   },
   previewScoreLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
+    fontSize: 11,
     color: '#FFFFFF',
     letterSpacing: 1.2,
     opacity: 0.9,
@@ -599,7 +606,7 @@ const styles = StyleSheet.create({
   },
   previewLureText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 1,
   },
@@ -690,7 +697,7 @@ const styles = StyleSheet.create({
   },
   footerText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 2.2,
     opacity: 0.65,
@@ -707,7 +714,7 @@ const styles = StyleSheet.create({
   },
   stepPillText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
+    fontSize: 12,
     color: paper.dashboardCream,
     letterSpacing: 1.6,
   },

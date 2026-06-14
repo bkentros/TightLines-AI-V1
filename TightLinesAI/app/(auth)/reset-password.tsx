@@ -68,7 +68,8 @@ export default function ResetPasswordScreen() {
   const [loading, setLoading] = useState(false);
   const [done, setDone] = useState(false);
   const [notice, setNotice] = useState<Notice | null>(null);
-  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('form');
+  const { contentContainerStyle: scrollLayout, keyboardVerticalOffset } =
+    useAuthScrollLayout('form');
 
   const passwordOk = isPasswordValid(password);
   const matchOk = password.length > 0 && password === confirmPassword;
@@ -179,11 +180,13 @@ export default function ResetPasswordScreen() {
         <KeyboardAvoidingView
           style={styles.kav}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={keyboardVerticalOffset}
         >
           <ScrollView
             style={styles.scrollView}
             contentContainerStyle={[styles.scroll, scrollLayout]}
             keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
             showsVerticalScrollIndicator={false}
           >
             {/* Top edition rail */}
@@ -506,7 +509,7 @@ const signetStyles = StyleSheet.create({
   },
   inscription: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7.5,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 1.6,
     opacity: 0.55,
@@ -535,7 +538,7 @@ const styles = StyleSheet.create({
   },
   editionRubric: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 2.4,
     opacity: 0.5,
@@ -582,7 +585,7 @@ const styles = StyleSheet.create({
   },
   rubricText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 2.4,
     opacity: 0.7,
@@ -653,7 +656,7 @@ const styles = StyleSheet.create({
   },
   strengthLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
+    fontSize: 12,
     letterSpacing: 1.6,
     marginLeft: 10,
   },

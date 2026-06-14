@@ -27,6 +27,7 @@ import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/sa
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
 import type { UserProfile } from '../../lib/types';
+import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -79,6 +80,8 @@ export default function OnboardingStep2() {
   const [showStateList, setShowStateList] = useState(false);
   const [loading, setLoading] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
+  const { contentContainerStyle: scrollLayout, keyboardVerticalOffset } =
+    useAuthScrollLayout('form', 56);
 
   // Real-time username availability — debounced supabase check that
   // tells the user immediately if the handle they typed is already
@@ -338,12 +341,14 @@ export default function OnboardingStep2() {
         <KeyboardAvoidingView
           style={styles.flex}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={keyboardVerticalOffset}
         >
           <ScrollView
             style={styles.scroll}
-            contentContainerStyle={styles.content}
+            contentContainerStyle={[styles.content, scrollLayout]}
             showsVerticalScrollIndicator={false}
             keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
           >
             <View style={styles.heroPanel}>
               <TopographicLines
@@ -718,7 +723,7 @@ const styles = StyleSheet.create({
   },
   pageEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
+    fontSize: 12,
     letterSpacing: 2.2,
     color: paper.dashboardBlue,
     fontWeight: '700',
@@ -726,7 +731,7 @@ const styles = StyleSheet.create({
   },
   heroPageChip: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 1.2,
     borderWidth: 1,
@@ -780,7 +785,7 @@ const styles = StyleSheet.create({
   },
   benefitPillText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
+    fontSize: 12,
     color: paper.dashboardInk,
     opacity: 0.72,
   },
@@ -968,14 +973,14 @@ const styles = StyleSheet.create({
   },
   meterLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 2.4,
     opacity: 0.6,
   },
   meterCount: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
+    fontSize: 12,
     color: paper.dashboardInk,
     letterSpacing: 1.2,
     opacity: 0.7,
@@ -1003,7 +1008,7 @@ const styles = StyleSheet.create({
   footnote: {
     marginTop: paperSpacing.md,
     fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.dashboardInk,
     opacity: 0.55,
     letterSpacing: 2.2,
@@ -1019,7 +1024,7 @@ const styles = StyleSheet.create({
   },
   stepPillText: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 9.5,
+    fontSize: 12,
     color: paper.dashboardCream,
     letterSpacing: 1.6,
     fontWeight: '700',

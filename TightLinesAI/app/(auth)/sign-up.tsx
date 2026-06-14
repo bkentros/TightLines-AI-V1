@@ -69,6 +69,7 @@ import {
   AuthTextLink,
 } from '../../components/paper/auth';
 import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
+import { authHeroTitleSize } from '../../lib/responsiveAuth';
 
 const RATE_LIMIT_COOLDOWN_MINUTES = 15;
 const RATE_LIMIT_STORAGE_KEY = 'signup_rate_limit_until';
@@ -105,7 +106,12 @@ export default function SignUpScreen() {
   const [cooldownSeconds, setCooldownSeconds] = useState(0);
   const [verificationCooldownSeconds, setVerificationCooldownSeconds] = useState(0);
   const [notice, setNotice] = useState<Notice | null>(null);
-  const { contentContainerStyle: scrollLayout } = useAuthScrollLayout('form');
+  const {
+    contentContainerStyle: scrollLayout,
+    keyboardVerticalOffset,
+    layoutTier,
+  } = useAuthScrollLayout('form');
+  const heroTitleSize = authHeroTitleSize(layoutTier);
 
   const emailDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
 
@@ -383,11 +389,13 @@ export default function SignUpScreen() {
         <KeyboardAvoidingView
           style={styles.kav}
           behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+          keyboardVerticalOffset={keyboardVerticalOffset}
         >
           <ScrollView
             style={styles.scrollView}
             contentContainerStyle={[styles.scroll, scrollLayout]}
             keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="on-drag"
             showsVerticalScrollIndicator={false}
           >
             {/* ─── Top rail: back chip + edition rubric ──────────────── */}
@@ -423,7 +431,7 @@ export default function SignUpScreen() {
                     <Text style={styles.eyebrowText}>FINFINDR · NEW ACCOUNT</Text>
                   </View>
                   <Text
-                    style={styles.heroTitle}
+                    style={[styles.heroTitle, { fontSize: heroTitleSize, lineHeight: heroTitleSize + 3 }]}
                     numberOfLines={1}
                     adjustsFontSizeToFit
                     minimumFontScale={0.82}
@@ -793,10 +801,10 @@ const styles = StyleSheet.create({
   },
   editionRubric: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 2.4,
-    opacity: 0.5,
+    letterSpacing: 1.6,
+    opacity: 0.68,
   },
 
   // ── Hero ──────────────────────────────────────────────────────────────
@@ -865,9 +873,9 @@ const styles = StyleSheet.create({
   },
   eyebrowText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
+    fontSize: 11,
     color: paper.dashboardBlue,
-    letterSpacing: 2.6,
+    letterSpacing: 1.8,
   },
   heroTitle: {
     fontFamily: paperFonts.display,
@@ -933,10 +941,10 @@ const styles = StyleSheet.create({
   },
   beaconNumeral: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
+    fontSize: 11,
     color: paper.dashboardInk,
     letterSpacing: 0.5,
-    opacity: 0.5,
+    opacity: 0.65,
   },
   beaconNumeralActive: {
     color: '#FFFFFF',
@@ -944,10 +952,10 @@ const styles = StyleSheet.create({
   },
   beaconLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
+    fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 1.6,
-    opacity: 0.55,
+    letterSpacing: 1.2,
+    opacity: 0.68,
     marginTop: 4,
   },
   beaconLabelActive: {
@@ -1005,9 +1013,9 @@ const styles = StyleSheet.create({
   },
   lineLabel: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10.5,
+    fontSize: 12,
     color: paper.dashboardInk,
-    letterSpacing: 2.4,
+    letterSpacing: 1.6,
   },
   lineHint: {
     fontFamily: paperFonts.displayItalic,
@@ -1145,10 +1153,10 @@ const styles = StyleSheet.create({
   },
   trustText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
+    fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 1.6,
-    opacity: 0.55,
+    letterSpacing: 1.2,
+    opacity: 0.68,
   },
   trustDivider: {
     width: 1,
