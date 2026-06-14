@@ -20,6 +20,12 @@ import {
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
 import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
+import {
+  FREE_TRIAL_PROFILE_SELECT,
+  type FreeTrialProfileRow,
+  freeTodayBiteFullTrialAvailable,
+  markFreeTodayBiteFullUsed,
+} from "../_shared/freeTrialAccess.ts";
 
 const VALID_CONTEXTS: EngineContext[] = [
   "freshwater_lake_pond",
@@ -224,11 +230,11 @@ Deno.serve(async (req: Request) => {
   // ─── Shared setup: subscription, usage, env ───
   const { data: profile } = await supabase
     .from("profiles")
-    .select("subscription_tier")
+    .select(FREE_TRIAL_PROFILE_SELECT)
     .eq("id", userId)
-    .single();
+    .single<FreeTrialProfileRow>();
   const tier = resolveServerSubscriptionTier(
-    profile?.subscription_tier as string | null | undefined,
+    profile?.subscription_tier,
     user.email,
   );
 
@@ -295,7 +301,8 @@ Deno.serve(async (req: Request) => {
       },
     );
   }
-  const limitedAccess = tier === "free";
+  const limitedAccess = tier === "free" &&
+    !freeTodayBiteFullTrialAvailable(profile);
 
   const coastalAllowed = isCoastalEnv(envData);
 
@@ -502,6 +509,10 @@ Deno.serve(async (req: Request) => {
       contexts,
     });
 
+    if (tier === "free" && isTodayRead && freeTodayBiteFullTrialAvailable(profile)) {
+      await markFreeTodayBiteFullUsed(supabase, userId);
+    }
+
     return new Response(JSON.stringify(multiBundle), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders() },
@@ -576,6 +587,10 @@ Deno.serve(async (req: Request) => {
     longitude: lon,
     engine_context: context,
   });
+
+  if (tier === "free" && isTodayRead && freeTodayBiteFullTrialAvailable(profile)) {
+    await markFreeTodayBiteFullUsed(supabase, userId);
+  }
 
   return new Response(JSON.stringify(responseBundle), {
     status: 200,

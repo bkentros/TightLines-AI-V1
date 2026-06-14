@@ -260,9 +260,6 @@ Deno.serve(async (req: Request) => {
     profile?.subscription_tier,
     user.email,
   );
-  if (tier === "free") {
-    return jsonError("Subscribe to use this feature", "subscription_required", 403);
-  }
 
   let body: Record<string, unknown> = {};
   try {

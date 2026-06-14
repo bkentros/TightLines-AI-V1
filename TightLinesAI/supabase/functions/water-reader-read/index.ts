@@ -15,6 +15,13 @@ import {
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
 import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
+import {
+  FREE_TRIAL_PROFILE_SELECT,
+  type FreeTrialProfileRow,
+  freeWaterReadTrialAvailable,
+  markFreeWaterReadTrialUsed,
+  userHasWaterReadHistoryForLake,
+} from "../_shared/freeTrialAccess.ts";
 import type {
   WaterbodyPreviewBbox,
   WaterbodyType,
@@ -1388,16 +1395,13 @@ Deno.serve(async (req: Request) => {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("subscription_tier")
+    .select(FREE_TRIAL_PROFILE_SELECT)
     .eq("id", user.id)
-    .single<{ subscription_tier: string | null }>();
+    .single<FreeTrialProfileRow>();
   const tier = resolveServerSubscriptionTier(
     profile?.subscription_tier,
     user.email,
   );
-  if (tier === "free") {
-    return jsonError("Subscribe to use this feature", "subscription_required", 403);
-  }
 
   let body: Record<string, unknown>;
   try {
@@ -1409,6 +1413,17 @@ Deno.serve(async (req: Request) => {
   const lakeIdRaw = typeof body.lakeId === "string" ? body.lakeId.trim() : "";
   if (!lakeIdRaw || !UUID_RE.test(lakeIdRaw)) {
     return jsonError("lakeId must be a valid UUID", "invalid_lake_id", 400);
+  }
+
+  if (tier === "free" && !freeWaterReadTrialAvailable(profile)) {
+    const allowedLake = await userHasWaterReadHistoryForLake(
+      supabase,
+      user.id,
+      lakeIdRaw,
+    );
+    if (!allowedLake) {
+      return jsonError("Subscribe to use this feature", "subscription_required", 403);
+    }
   }
 
   const currentDate = parseCurrentDate(body.currentDate);
@@ -1469,6 +1484,9 @@ Deno.serve(async (req: Request) => {
     }
 
     if (cacheRow?.read_response) {
+      if (tier === "free" && freeWaterReadTrialAvailable(profile)) {
+        await markFreeWaterReadTrialUsed(supabase, user.id);
+      }
       runInBackground(Promise.all([
         clearActiveGenerationRequest({
           supabase,
@@ -1919,6 +1937,9 @@ Deno.serve(async (req: Request) => {
             seasonContextKey: seasonContext.seasonContextKey,
           }));
         }
+        if (tier === "free" && freeWaterReadTrialAvailable(profile)) {
+          await markFreeWaterReadTrialUsed(supabase, user.id);
+        }
         return new Response(
           JSON.stringify({
             ...generatedRead,
@@ -2030,6 +2051,10 @@ Deno.serve(async (req: Request) => {
       lakeId: polygon.lakeId,
       seasonContextKey: seasonContext.seasonContextKey,
     }));
+  }
+
+  if (tier === "free" && freeWaterReadTrialAvailable(profile)) {
+    await markFreeWaterReadTrialUsed(supabase, user.id);
   }
 
   return new Response(

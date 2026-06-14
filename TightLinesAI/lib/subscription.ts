@@ -7,6 +7,11 @@
 import type { SubscriptionTier } from './types';
 import type { UserProfile } from './types';
 import { hasComplimentaryAnglerAccess } from './adminAccess';
+import {
+  freeRecommenderTrialAvailable,
+  freeTodayBiteFullTrialAvailable,
+  freeWaterReadTrialAvailable,
+} from './freeTrialAccess';
 
 /** Usage cap (API cost in USD) per tier per billing period */
 export const USAGE_CAP_ANGLER_USD = 1;
@@ -46,16 +51,46 @@ export function canViewForecastScore(
     dayOffset === FREE_FORECAST_PREVIEW_DAY_OFFSET;
 }
 
+/** Forecast day report generation — Angler only (6-day strip unchanged for free). */
 export function canGenerateForecastReport(tier: SubscriptionTier): boolean {
   return canUseAIFeatures(tier);
 }
 
-export function canGenerateRecommenderReport(tier: SubscriptionTier): boolean {
-  return canUseAIFeatures(tier);
+/** New Tackle Box session — Angler or unused free trial. */
+export function canGenerateRecommenderReport(
+  tier: SubscriptionTier,
+  profile?: UserProfile | null,
+): boolean {
+  if (canUseAIFeatures(tier)) return true;
+  return freeRecommenderTrialAvailable(profile);
 }
 
-export function canGenerateWaterRead(tier: SubscriptionTier): boolean {
-  return canUseAIFeatures(tier);
+/** Changeup / variant actions on an in-flight Tackle Box result after trial spent. */
+export function canContinueRecommenderSession(
+  tier: SubscriptionTier,
+  profile: UserProfile | null | undefined,
+  hasActiveResult: boolean,
+): boolean {
+  if (canGenerateRecommenderReport(tier, profile)) return true;
+  return hasActiveResult;
+}
+
+/** New Water Read lake — Angler or unused free trial. */
+export function canGenerateWaterRead(
+  tier: SubscriptionTier,
+  profile?: UserProfile | null,
+): boolean {
+  if (canUseAIFeatures(tier)) return true;
+  return freeWaterReadTrialAvailable(profile);
+}
+
+/** Today's Bite limited surface — free after the one full today report is consumed. */
+export function shouldLimitFreeTodayBiteReport(
+  tier: SubscriptionTier,
+  profile?: UserProfile | null,
+): boolean {
+  if (canUseAIFeatures(tier)) return false;
+  return !freeTodayBiteFullTrialAvailable(profile);
 }
 
 /** Usage cap in USD for the given tier */

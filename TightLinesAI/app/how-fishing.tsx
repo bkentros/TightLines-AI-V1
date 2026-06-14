@@ -55,7 +55,7 @@ import { RebuildReportView } from "../components/fishing/RebuildReportView";
 import { HowFishingLoadingSkeleton } from "../components/fishing/HowFishingLoadingSkeleton";
 import { SubscribePrompt } from "../components/SubscribePrompt";
 import { TopographicLines } from "../components/paper";
-import { getEffectiveTier } from "../lib/subscription";
+import { getEffectiveTier, shouldLimitFreeTodayBiteReport } from "../lib/subscription";
 import { FeedbackCard } from "../components/FeedbackCard";
 
 /* ─── Date/time helpers ─────────────────────────────────────────────────── */
@@ -273,14 +273,15 @@ export default function HowFishingScreen() {
     ? params.location_label.trim()
     : null;
 
-  const { profile, user } = useAuthStore();
+  const { profile, user, fetchProfile } = useAuthStore();
   const reportCacheOwnerKey = user?.id ?? user?.email ?? null;
   const effectiveTier = getEffectiveTier(
     profile,
     user?.email,
   );
   const isFreeTier = effectiveTier === "free";
-  const isLimitedFreeRead = isFreeTier && !isForecastDay;
+  const isLimitedFreeRead = isFreeTier && !isForecastDay &&
+    shouldLimitFreeTodayBiteReport(effectiveTier, profile);
   const units = profile?.preferred_units ?? "imperial";
   const setLastReportEnv = useEnvStore((s) => s.setLastReportEnv);
 
@@ -665,6 +666,9 @@ export default function HowFishingScreen() {
       setLastReportEnv((envForReport as unknown as EnvironmentData) ?? env);
       setActiveTab(tabWithReport);
       setMultiBundles(bundles);
+      if (!isForecastDay && isFreeTier && user?.id) {
+        void fetchProfile(user.id);
+      }
     } catch (err) {
       const rawMsg = err instanceof Error
         ? err.message
@@ -691,6 +695,8 @@ export default function HowFishingScreen() {
     targetDate,
     env,
     reportCacheOwnerKey,
+    fetchProfile,
+    user?.id,
   ]);
 
   // Pull-to-refresh / header Refresh: reload cached report if still valid; regenerate only on miss/expiry.

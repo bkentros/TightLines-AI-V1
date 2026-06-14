@@ -1,6 +1,12 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
+import {
+  FREE_TRIAL_PROFILE_SELECT,
+  type FreeTrialProfileRow,
+  freeWaterReadTrialAvailable,
+  userHasWaterReadHistoryForLake,
+} from "../_shared/freeTrialAccess.ts";
 import { WATERBODY_POLYGON_FEATURE } from "../_shared/waterReader/index.ts";
 import {
   checkUserRateLimit,
@@ -93,16 +99,13 @@ Deno.serve(async (req: Request) => {
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("subscription_tier")
+    .select(FREE_TRIAL_PROFILE_SELECT)
     .eq("id", user.id)
-    .single<{ subscription_tier: string | null }>();
+    .single<FreeTrialProfileRow>();
   const tier = resolveServerSubscriptionTier(
     profile?.subscription_tier,
     user.email,
   );
-  if (tier === "free") {
-    return jsonError("Subscribe to use this feature", "subscription_required", 403);
-  }
 
   let body: Record<string, unknown>;
   try {
@@ -114,6 +117,17 @@ Deno.serve(async (req: Request) => {
   const lakeIdRaw = typeof body.lakeId === "string" ? body.lakeId.trim() : "";
   if (!lakeIdRaw || !UUID_RE.test(lakeIdRaw)) {
     return jsonError("lakeId must be a valid UUID", "invalid_lake_id", 400);
+  }
+
+  if (tier === "free" && !freeWaterReadTrialAvailable(profile)) {
+    const allowedLake = await userHasWaterReadHistoryForLake(
+      supabase,
+      user.id,
+      lakeIdRaw,
+    );
+    if (!allowedLake) {
+      return jsonError("Subscribe to use this feature", "subscription_required", 403);
+    }
   }
 
   const { data, error } = await supabase.rpc("get_waterbody_polygon_for_reader", {

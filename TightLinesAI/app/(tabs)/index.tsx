@@ -56,6 +56,10 @@ import { hapticImpact, ImpactFeedbackStyle } from "../../lib/safeHaptics";
 import { SubscribePrompt } from "../../components/SubscribePrompt";
 import { HomeLayoutPreviewFrame } from "../../components/dev/HomeLayoutPreviewFrame";
 import { LocationPickerModal } from "../../components/LocationPickerModal";
+import {
+  IntelligenceModuleEmblem,
+  type IntelligenceModuleId,
+} from "../../components/paper/IntelligenceModuleIcons";
 import { useAuthStore } from "../../store/authStore";
 import { useDevTestingStore } from "../../store/devTestingStore";
 import { useEnvStore } from "../../store/envStore";
@@ -1640,10 +1644,10 @@ export default function HomeScreen() {
             title="Water Read"
             tag="POLYGON"
             desc="Most lakes: structure + potential hotspots"
+            moduleId="water-read"
             iconBg={["#E8F2FA", "#C8DFF2"]}
             iconBorder="#0F63B0"
             iconColor="#0A4A87"
-            iconName="layers-outline"
             onPress={handleWaterReadPress}
           />
           <ModuleRow
@@ -1651,10 +1655,10 @@ export default function HomeScreen() {
             title="Tackle Box"
             tag="RECOMMENDER"
             desc="Tuned picks for today's conditions & species"
+            moduleId="tackle-box"
             iconBg={["#FBF1D9", "#F4DFA4"]}
             iconBorder="#C99B2D"
             iconColor="#8A6A1A"
-            iconName="fish-outline"
             onPress={handleRecommenderPress}
           />
           <ModuleRow
@@ -1662,10 +1666,10 @@ export default function HomeScreen() {
             title="Today's Bite"
             tag="CONDITIONS"
             desc="Full breakdown · windows · limiting factors"
+            moduleId="todays-bite"
             iconBg={["#E5F2DD", "#C5E0B5"]}
             iconBorder="#3DA85F"
             iconColor="#1F6B38"
-            iconName="sparkles-outline"
             onPress={handleHowFishingPress}
           />
           <Pressable
@@ -2040,7 +2044,7 @@ function ModuleRow({
   iconBg,
   iconBorder,
   iconColor,
-  iconName,
+  moduleId,
   onPress,
 }: {
   code: string;
@@ -2050,7 +2054,7 @@ function ModuleRow({
   iconBg: [string, string];
   iconBorder: string;
   iconColor: string;
-  iconName: React.ComponentProps<typeof Ionicons>["name"];
+  moduleId: IntelligenceModuleId;
   onPress: () => void;
 }) {
   return (
@@ -2079,25 +2083,19 @@ function ModuleRow({
         <View style={[styles.moduleDot, { backgroundColor: iconBorder }]} />
       </View>
       <Text style={styles.moduleCode}>{code}</Text>
-      <View
-        style={[styles.moduleIcon, {
-          backgroundColor: iconBg[1],
-          borderColor: iconBorder + "60",
-        }]}
-      >
-        <Ionicons name={iconName} size={20} color={iconColor} />
-      </View>
+      <IntelligenceModuleEmblem
+        module={moduleId}
+        iconBg={iconBg}
+        iconBorder={iconBorder}
+        iconColor={iconColor}
+        size={50}
+      />
       <View style={styles.moduleTextCol}>
         <View style={styles.moduleTitleRow}>
           <Text style={styles.moduleTitle}>{title}</Text>
           <Text style={styles.moduleTag}>{tag}</Text>
         </View>
-        <Text
-          style={styles.moduleDesc}
-          numberOfLines={1}
-          adjustsFontSizeToFit
-          minimumFontScale={0.9}
-        >
+        <Text style={styles.moduleDesc} numberOfLines={2}>
           {desc}
         </Text>
       </View>
@@ -3012,14 +3010,6 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
     color: "#AAA",
   },
-  moduleIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 6,
-    borderWidth: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
   moduleTextCol: { flex: 1 },
   moduleTitleRow: {
     flexDirection: "row",
@@ -3041,8 +3031,8 @@ const styles = StyleSheet.create({
   },
   moduleDesc: {
     fontFamily: SANS_MEDIUM,
-    fontSize: 11,
-    lineHeight: 14,
+    fontSize: 12,
+    lineHeight: 16,
     color: "#555",
   },
 

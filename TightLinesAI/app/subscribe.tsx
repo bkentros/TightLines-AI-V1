@@ -191,8 +191,9 @@ export default function SubscribeScreen() {
                   <Ionicons name="lock-open-outline" size={14} color={paper.dashboardBlue} />
                 </View>
                 <Text style={styles.freeCopy}>
-                  Includes a limited Today&apos;s Bite, today&apos;s dashboard score after
-                  generation, and one tomorrow preview. Future reports stay locked.
+                  Try one full Today&apos;s Bite, one Tackle Box session (including
+                  Changeup), and one Water Read lake. Tomorrow&apos;s score preview stays
+                  free; future forecast reports stay locked.
                 </Text>
               </View>
 

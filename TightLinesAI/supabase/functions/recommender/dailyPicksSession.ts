@@ -262,6 +262,16 @@ async function claimVariantB(args: {
   return data as SessionRow | null;
 }
 
+export async function dailyPicksSessionExists(args: {
+  supabase: SupabaseLike;
+  userId: string;
+  req: RecommenderRequest;
+}): Promise<boolean> {
+  const key = buildSessionKey({ userId: args.userId, req: args.req });
+  const existing = await readSession({ supabase: args.supabase, key });
+  return existing != null;
+}
+
 export async function resolveDailyPicksSession(args: {
   supabase: SupabaseLike;
   userId: string;

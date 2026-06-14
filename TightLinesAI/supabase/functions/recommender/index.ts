@@ -49,6 +49,7 @@ import {
 } from "../_shared/recommenderEngine/v4/scope.ts";
 import {
   DailyPicksVariantUnavailableError,
+  dailyPicksSessionExists,
   resolveDailyPicksSession,
 } from "./dailyPicksSession.ts";
 import {
@@ -59,6 +60,12 @@ import {
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
 import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
+import {
+  FREE_TRIAL_PROFILE_SELECT,
+  type FreeTrialProfileRow,
+  freeRecommenderTrialAvailable,
+  markFreeRecommenderTrialUsed,
+} from "../_shared/freeTrialAccess.ts";
 
 const VALID_WATER_CLARITY: WaterClarity[] = ["clear", "stained", "dirty"];
 const VALID_RECOMMENDATION_GOALS: RecommendationGoal[] = [
@@ -249,20 +256,13 @@ export async function handleRecommenderRequest(
   // ── Subscription gate ─────────────────────────────────────────────────────
   const { data: profile } = await supabase
     .from("profiles")
-    .select("subscription_tier")
+    .select(FREE_TRIAL_PROFILE_SELECT)
     .eq("id", user.id)
-    .single<{ subscription_tier: string | null }>();
+    .single<FreeTrialProfileRow>();
   const tier = resolveServerSubscriptionTier(
     profile?.subscription_tier,
     user.email,
   );
-  if (tier === "free") {
-    return jsonError(
-      "Subscribe to use this feature",
-      "subscription_required",
-      403,
-    );
-  }
 
   // ── Parse body ────────────────────────────────────────────────────────────
   let body: Record<string, unknown> = {};
@@ -402,6 +402,21 @@ export async function handleRecommenderRequest(
   const refreshRequested = body.refresh_requested === true;
   const viewVariant = body.view_variant as "A" | "B" | undefined;
 
+  if (tier === "free" && !freeRecommenderTrialAvailable(profile)) {
+    const sessionExists = await dailyPicksSessionExists({
+      supabase,
+      userId: user.id,
+      req: engineReq,
+    });
+    if (!sessionExists) {
+      return jsonError(
+        "Subscribe to use this feature",
+        "subscription_required",
+        403,
+      );
+    }
+  }
+
   // ── Run recommender ───────────────────────────────────────────────────────
   let result;
   try {
@@ -426,6 +441,9 @@ export async function handleRecommenderRequest(
       seed: `${user.id}|daily-picks-default|${engineReq.location.local_date}`,
     });
     result = session.result;
+    if (tier === "free" && freeRecommenderTrialAvailable(profile)) {
+      await markFreeRecommenderTrialUsed(supabase, user.id);
+    }
     return new Response(JSON.stringify(result), {
       status: 200,
       headers: { "Content-Type": "application/json", ...corsHeaders() },

@@ -114,7 +114,7 @@ const FEATURE_SECTIONS: FeatureSection[] = [
       'one daily Changeup angle when you want a second look',
     ],
     note:
-      'The recommender avoids random grab-bag picks. It filters first, then scores and selects from condition-matched options.',
+      'The recommender avoids random grab-bag picks. It filters first, then scores and selects from condition-matched options. In V1, fly picks are streamer patterns only — dry flies, nymphs, and other fly categories are not included yet.',
   },
   {
     code: '04',

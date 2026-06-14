@@ -90,6 +90,7 @@ import type {
   WaterClarity,
 } from "../lib/recommenderContracts";
 import {
+  canContinueRecommenderSession,
   canGenerateRecommenderReport,
   getEffectiveTier,
 } from "../lib/subscription";
@@ -281,7 +282,15 @@ function recommenderErrorMessage(
   if (msg === "daily_snapshot_unavailable") {
     return "We could not load today's conditions for this spot. Please try again in a moment.";
   }
+  if (msg === "subscription_required" || /subscribe/i.test(msg)) {
+    return "subscription_required";
+  }
   return msg;
+}
+
+function isRecommenderSubscriptionError(error: unknown): boolean {
+  const msg = error instanceof Error ? error.message : String(error);
+  return msg === "subscription_required" || /subscribe to use/i.test(msg);
 }
 
 function readinessMessage(args: {
@@ -927,12 +936,15 @@ export default function RecommenderScreen() {
     context?: string;
   }>();
 
-  const { profile, user } = useAuthStore();
+  const { profile, user, fetchProfile } = useAuthStore();
   const effectiveTier = getEffectiveTier(
     profile,
     user?.email,
   );
-  const canGenerateRecommendation = canGenerateRecommenderReport(effectiveTier);
+  const canGenerateRecommendation = canGenerateRecommenderReport(
+    effectiveTier,
+    profile,
+  );
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   const lat = parseFloat(params.latitude ?? "");
@@ -976,6 +988,11 @@ export default function RecommenderScreen() {
   );
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [isRefreshing, setIsRefreshing] = useState(false);
+  const canUseRecommenderActions = canContinueRecommenderSession(
+    effectiveTier,
+    profile,
+    screenState === "result" && result !== null,
+  );
 
   // ─── Wizard step (setup phase only) ──────────────────────────────────────
   // `wizardStep` is purely a UI convenience; the underlying selection state
@@ -1105,10 +1122,6 @@ export default function RecommenderScreen() {
       viewVariant?: DailyPicksVariant,
     ) => {
       if (!isReady || !species || !context || !clarity) return;
-      if (!canGenerateRecommendation) {
-        setShowSubscribePrompt(true);
-        return;
-      }
       const isInlineRefresh = (forceRefresh || viewVariant != null) &&
         screenState === "result" &&
         result !== null;
@@ -1164,7 +1177,26 @@ export default function RecommenderScreen() {
         setResult(res);
         setResultTimeZone(timeZone);
         setScreenState("result");
+        if (user?.id) {
+          void fetchProfile(user.id);
+        }
       } catch (err: unknown) {
+        if (isRecommenderSubscriptionError(err)) {
+          if (isInlineRefresh) {
+            Alert.alert(
+              "Angler feature",
+              "Subscribe to refresh picks or start a new Tackle Box session.",
+            );
+          } else {
+            setShowSubscribePrompt(true);
+          }
+          if (isInlineRefresh) {
+            setIsRefreshing(false);
+          } else if (screenState === "loading") {
+            setScreenState("setup");
+          }
+          return;
+        }
         const friendlyMessage = recommenderErrorMessage(err, species, context);
         if (isInlineRefresh) {
           Alert.alert(
@@ -1193,7 +1225,12 @@ export default function RecommenderScreen() {
       lon,
       result,
       screenState,
+      canUseRecommenderActions,
       canGenerateRecommendation,
+      screenState,
+      result,
+      fetchProfile,
+      user?.id,
     ],
   );
 
@@ -1212,11 +1249,11 @@ export default function RecommenderScreen() {
 
   useEffect(() => {
     if (canGenerateRecommendation || screenState !== "result") return;
-    setResult(null);
+    if (result != null) return;
     setResultTimeZone(undefined);
     setScreenState("setup");
     setIsRefreshing(false);
-  }, [canGenerateRecommendation, screenState]);
+  }, [canGenerateRecommendation, screenState, result]);
 
   const accentColor = context ? contextAccentColor(context) : colors.primary;
 
@@ -1396,10 +1433,6 @@ export default function RecommenderScreen() {
           }
           if (!isReady) return;
           hapticImpact(ImpactFeedbackStyle.Medium);
-          if (!canGenerateRecommendation) {
-            setShowSubscribePrompt(true);
-            return;
-          }
           handleFetch(false);
         };
 

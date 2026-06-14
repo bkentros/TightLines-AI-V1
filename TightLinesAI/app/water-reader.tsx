@@ -330,13 +330,13 @@ function isRecentWaterReadBuildingDiagnostic(read: WaterReaderReadResponse): boo
 
 export default function WaterReaderScreen() {
   const router = useRouter();
-  const { profile, user } = useAuthStore();
+  const { profile, user, fetchProfile } = useAuthStore();
   const effectiveTier = getEffectiveTier(
     profile,
     user?.email,
   );
   const hasSubscription = canUseAIFeatures(effectiveTier);
-  const canGenerateRead = canGenerateWaterRead(effectiveTier);
+  const canGenerateRead = canGenerateWaterRead(effectiveTier, profile);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   const [stateCode, setStateCode] = useState<string | null>(null);
@@ -424,6 +424,9 @@ export default function WaterReaderScreen() {
             return;
           }
           setReadState({ status: 'ready', read: res, errorMessage: null });
+          if (!hasSubscription && user?.id) {
+            void fetchProfile(user.id);
+          }
           return;
         }
       } catch (e) {
@@ -434,10 +437,10 @@ export default function WaterReaderScreen() {
     return () => {
       readRequestId.current += 1;
     };
-  }, [canGenerateRead, selected, readRetryNonce]);
+  }, [canGenerateRead, selected, readRetryNonce, fetchProfile, hasSubscription, user?.id]);
 
   useEffect(() => {
-    if (!hasSubscription) {
+    if (!user) {
       historyRequestId.current += 1;
       setHistoryItems([]);
       setHistoryLoading(false);
@@ -459,11 +462,11 @@ export default function WaterReaderScreen() {
         if (historyRequestId.current === reqId) setHistoryLoading(false);
       }
     })();
-  }, [hasSubscription, historyRefreshNonce]);
+  }, [user, historyRefreshNonce]);
 
   useEffect(() => {
     const hasBuildingRead = historyItems.some((item) => item.status === 'building');
-    if (!hasSubscription || !hasBuildingRead) {
+    if (!user || !hasBuildingRead) {
       historyBuildingPollStartedAt.current = null;
       return;
     }
@@ -479,7 +482,7 @@ export default function WaterReaderScreen() {
       setHistoryRefreshNonce((value) => value + 1);
     }, pollMs);
     return () => clearTimeout(timer);
-  }, [hasSubscription, historyItems, historyLoading, historyRefreshNonce]);
+  }, [user, historyItems, historyLoading, historyRefreshNonce]);
 
   useEffect(() => {
     if (
@@ -593,10 +596,6 @@ export default function WaterReaderScreen() {
   }, [hasBuildingRead, selected]);
 
   const onSelectHistoryItem = useCallback((item: WaterReaderHistoryItem) => {
-    if (!hasSubscription) {
-      setShowSubscribePrompt(true);
-      return;
-    }
     if (hasBuildingRead && item.status === 'failed') return;
     if (item.state && item.state !== stateCode) {
       preserveSelectionForHistoryStateChange.current = true;
@@ -609,16 +608,17 @@ export default function WaterReaderScreen() {
     setSearchEmpty(false);
     setSearchExpanded(false);
     setSelected(historyItemToSearchResult(item));
-  }, [hasBuildingRead, hasSubscription, stateCode]);
+  }, [hasBuildingRead, stateCode]);
 
   const onSelectWaterbodyResult = useCallback((result: WaterbodySearchResult) => {
     if (!canOpenWaterReaderRead(result)) return;
-    if (!canGenerateRead) {
+    const inHistory = historyItems.some((item) => item.lakeId === result.lakeId);
+    if (!canGenerateRead && !inHistory) {
       setShowSubscribePrompt(true);
       return;
     }
     setSelected(result);
-  }, [canGenerateRead]);
+  }, [canGenerateRead, historyItems]);
 
   const showResultsPanel =
     !hasBuildingRead && !selected && stateCode && (query.trim().length >= SEARCH_MIN_CHARS || searching || (searchError != null && query.trim().length >= SEARCH_MIN_CHARS));

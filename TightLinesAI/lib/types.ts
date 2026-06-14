@@ -15,6 +15,12 @@ export interface UserProfile {
   preferred_units: 'imperial' | 'metric';
   target_species: string[];
   subscription_tier: SubscriptionTier;
+  /** Server-set when the one free Tackle Box session is consumed. */
+  free_recommender_trial_used_at?: string | null;
+  /** Server-set when the one free Water Read lake is consumed. */
+  free_water_read_trial_used_at?: string | null;
+  /** Server-set after the one full Today's Bite report; later today reads are limited. */
+  free_today_bite_full_used_at?: string | null;
   onboarding_complete: boolean;
   avatar_url: string | null;
   created_at: string;

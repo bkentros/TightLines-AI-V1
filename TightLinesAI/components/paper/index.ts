@@ -29,3 +29,10 @@ export { PaperColophon } from './PaperColophon';
 export { PaperBestValueStamp } from './PaperBestValueStamp';
 export { BrandEmblem } from './BrandEmblem';
 export { BrandScopeStage } from './BrandScopeStage';
+export {
+  IntelligenceModuleEmblem,
+  IntelligenceModuleIcon,
+  INTELLIGENCE_MODULE_ICON_VARIANT,
+  type IntelligenceModuleIconVariant,
+  type IntelligenceModuleId,
+} from './IntelligenceModuleIcons';

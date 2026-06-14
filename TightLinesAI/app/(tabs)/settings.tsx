@@ -63,7 +63,7 @@ type NoticeTone = 'info' | 'success' | 'error';
 
 export default function SettingsScreen() {
   const router = useRouter();
-  const { profile, user, setProfile, signOut } = useAuthStore();
+  const { profile, user, setProfile, signOut, fetchProfile } = useAuthStore();
   const {
     ignoreGps,
     homeLayoutPreviewWidth,
@@ -91,6 +91,7 @@ export default function SettingsScreen() {
   const canSeeTestingTools = isAdminEmail(user?.email);
   const analyticsDiag = getAnalyticsDiagnostics();
   const [analyticsPingLoading, setAnalyticsPingLoading] = useState(false);
+  const [resettingFreeTrials, setResettingFreeTrials] = useState(false);
 
   useEffect(() => {
     if (!profile) return;
@@ -650,6 +651,44 @@ export default function SettingsScreen() {
                       });
                     } finally {
                       setAnalyticsPingLoading(false);
+                    }
+                  }}
+                  variant="secondary"
+                />
+                <PrimaryAction
+                  label="Module icon preview"
+                  icon="color-palette-outline"
+                  onPress={() => router.push('/module-icons-preview')}
+                  variant="secondary"
+                />
+                <PrimaryAction
+                  label="Reset free tier trials"
+                  icon="refresh-outline"
+                  loading={resettingFreeTrials}
+                  onPress={async () => {
+                    if (!user?.id) return;
+                    setResettingFreeTrials(true);
+                    try {
+                      const accessToken = await getValidAccessToken();
+                      await invokeEdgeFunction<{ ok: boolean }>(
+                        'admin-reset-free-trials',
+                        { accessToken, body: {} },
+                      );
+                      await fetchProfile(user.id);
+                      setNotice({
+                        title: 'Free trials reset',
+                        message:
+                          'Tackle Box, Water Read, and Today\'s Bite full trials are available again for this account.',
+                        tone: 'success',
+                      });
+                    } catch (err) {
+                      setNotice({
+                        title: 'Reset failed',
+                        message: err instanceof Error ? err.message : 'Could not reset free trials.',
+                        tone: 'error',
+                      });
+                    } finally {
+                      setResettingFreeTrials(false);
                     }
                   }}
                   variant="secondary"

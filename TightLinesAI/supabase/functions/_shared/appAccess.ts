@@ -15,6 +15,16 @@ export function hasFullAccessEmail(email: string | null | undefined): boolean {
   return FULL_ACCESS_EMAILS.includes(normalized);
 }
 
+const ADMIN_EMAILS = [
+  "brandonkentros@icloud.com",
+];
+
+export function isAdminEmail(email: string | null | undefined): boolean {
+  const normalized = normalizeEmail(email);
+  if (!normalized) return false;
+  return ADMIN_EMAILS.includes(normalized);
+}
+
 export function resolveServerSubscriptionTier(
   profileTier: string | null | undefined,
   email: string | null | undefined,

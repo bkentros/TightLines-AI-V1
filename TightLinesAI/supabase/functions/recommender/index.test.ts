@@ -130,6 +130,7 @@ function mockClient(options: {
   userId?: string | null;
   authError?: unknown;
   subscriptionTier?: string | null;
+  freeRecommenderTrialUsed?: boolean;
   dailySessions?: Map<string, Record<string, unknown>>;
   firstCreateConflict?: boolean;
   refreshClaimConflict?: boolean;
@@ -169,8 +170,21 @@ function mockClient(options: {
               single: async () => ({
                 data: options.subscriptionTier === undefined
                   ? null
-                  : { subscription_tier: options.subscriptionTier },
+                  : {
+                    subscription_tier: options.subscriptionTier,
+                    free_recommender_trial_used_at:
+                      options.freeRecommenderTrialUsed
+                        ? "2026-01-01T00:00:00.000Z"
+                        : null,
+                    free_water_read_trial_used_at: null,
+                    free_today_bite_full_used_at: null,
+                  },
               }),
+            }),
+          }),
+          update: () => ({
+            eq: () => ({
+              is: async () => ({ error: null }),
             }),
           }),
         };
@@ -391,10 +405,14 @@ Deno.test("recommender handler rejects missing auth before doing work", async ()
   assertEquals(json.error, "unauthorized");
 });
 
-Deno.test("recommender handler enforces subscription gate", async () => {
+Deno.test("recommender handler enforces subscription gate after free trial spent", async () => {
   const response = await handleRecommenderRequest(makeRequest(validBody()), {
     createAdminClient: () =>
-      mockClient({ userId: "user-1", subscriptionTier: "free" }) as never,
+      mockClient({
+        userId: "user-1",
+        subscriptionTier: "free",
+        freeRecommenderTrialUsed: true,
+      }) as never,
   });
 
   assertEquals(response.status, 403);
