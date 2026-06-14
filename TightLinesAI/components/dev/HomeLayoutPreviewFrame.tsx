@@ -1,7 +1,8 @@
-import { StyleSheet, Text, useWindowDimensions, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 
 import { paper } from "../../lib/theme";
 import { layoutPreviewLabel } from "../../lib/iphoneLayoutPreview";
+import { IPHONE_LAYOUT_PROFILES } from "../../lib/responsiveAuth";
 
 type Props = {
   width: number | null;
@@ -9,31 +10,33 @@ type Props = {
 };
 
 /**
- * Admin-only: shows Home as it would appear on a narrower iPhone by scaling
- * the full device layout down (edge-to-edge inside the preview column, no side gutters).
+ * Admin-only: previews Home inside a true-to-size device frame at the chosen
+ * iPhone width/height. We constrain the box (no transform scaling) so the inner
+ * ScrollView keeps native scrolling — the whole layout, including the footer and
+ * Transparency button, stays reachable on every preset.
  */
 export function HomeLayoutPreviewFrame({ width, children }: Props) {
-  const { width: deviceWidth, height: deviceHeight } = useWindowDimensions();
-
   if (width == null) return <>{children}</>;
 
-  const scale = width / deviceWidth;
+  // For a given width, simulate the SHORTEST matching iPhone so vertical-fit
+  // issues surface in the strictest case (e.g. 375 → SE 667, not Mini 812).
+  const matching = IPHONE_LAYOUT_PROFILES.filter((p) => p.width === width);
+  const presetHeight = matching.length
+    ? Math.min(...matching.map((p) => p.height))
+    : null;
 
   return (
     <View style={styles.host}>
       <Text style={styles.badge}>
-        Layout preview · {layoutPreviewLabel(width)} · scaled to {width}pt · tap Off
-        in Settings for full screen
+        Layout preview · {layoutPreviewLabel(width)} · tap Off in Settings for
+        full screen
       </Text>
-      <View style={[styles.clip, { width }]}>
+      <View style={styles.stage}>
         <View
           style={[
-            styles.scaledLayer,
-            {
-              width: deviceWidth,
-              height: deviceHeight,
-              transform: [{ scale }],
-            },
+            styles.frame,
+            { width, maxWidth: "100%" },
+            presetHeight != null && { height: presetHeight, maxHeight: "100%" },
           ]}
         >
           {children}
@@ -46,8 +49,7 @@ export function HomeLayoutPreviewFrame({ width, children }: Props) {
 const styles = StyleSheet.create({
   host: {
     flex: 1,
-    backgroundColor: paper.dashboardCream,
-    alignItems: "center",
+    backgroundColor: paper.dashboardInk,
   },
   badge: {
     alignSelf: "stretch",
@@ -58,15 +60,19 @@ const styles = StyleSheet.create({
     fontFamily: "JetBrainsMono_500Medium",
     fontSize: 8.5,
     letterSpacing: 0.6,
-    color: "rgba(10,27,46,0.55)",
-    backgroundColor: "rgba(10,27,46,0.06)",
+    color: "rgba(255,255,255,0.7)",
+    backgroundColor: "rgba(255,255,255,0.08)",
   },
-  clip: {
+  stage: {
     flex: 1,
-    overflow: "hidden",
-    alignSelf: "center",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  scaledLayer: {
-    transformOrigin: "top left",
+  frame: {
+    overflow: "hidden",
+    backgroundColor: paper.dashboardCream,
+    borderRadius: 14,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.18)",
   },
 });

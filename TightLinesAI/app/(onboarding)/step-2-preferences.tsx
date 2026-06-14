@@ -8,6 +8,8 @@ import { useEffect, useRef, useState } from 'react';
 import {
   ActivityIndicator,
   Alert,
+  Animated,
+  Easing,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -82,6 +84,53 @@ export default function OnboardingStep2() {
   const [locationLoading, setLocationLoading] = useState(false);
   const { contentContainerStyle: scrollLayout, keyboardVerticalOffset } =
     useAuthScrollLayout('form', 56);
+
+  // Live pulse on the hero eyebrow dot — shared paper-system anatomy.
+  const livePulse = useRef(new Animated.Value(1)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(livePulse, {
+          toValue: 0.4,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(livePulse, {
+          toValue: 1,
+          duration: 1000,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [livePulse]);
+
+  // Slow premium light sheen sweeping across the hero cover.
+  const heroSheen = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(heroSheen, {
+          toValue: 0,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+        Animated.delay(1400),
+        Animated.timing(heroSheen, {
+          toValue: 1,
+          duration: 1500,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.delay(3400),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [heroSheen]);
 
   // Real-time username availability — debounced supabase check that
   // tells the user immediately if the handle they typed is already
@@ -353,61 +402,108 @@ export default function OnboardingStep2() {
             <View style={styles.heroPanel}>
               <TopographicLines
                 style={styles.heroTopo}
-                color={paper.dashboardBlue}
+                color={paper.dashboardInk}
                 count={5}
               />
+              <Animated.View
+                pointerEvents="none"
+                style={[
+                  styles.heroSheen,
+                  {
+                    opacity: heroSheen.interpolate({
+                      inputRange: [0, 0.12, 0.88, 1],
+                      outputRange: [0, 0.16, 0.16, 0],
+                    }),
+                    transform: [
+                      {
+                        translateX: heroSheen.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [-140, 520],
+                        }),
+                      },
+                      { skewX: '-18deg' },
+                    ],
+                  },
+                ]}
+              />
+
+              <View style={styles.heroRubricRow}>
+                <View style={styles.heroRubricRule} />
+                <Text style={styles.heroRubricText}>FIELD GUIDE · NO. 001</Text>
+                <View style={styles.heroRubricRule} />
+              </View>
 
               <View style={styles.heroMasthead}>
-                <View style={styles.heroEmblemWrap}>
-                  <BrandEmblem
-                    size={58}
-                    halo
-                    haloColor={paper.dashboardBlue}
-                    haloOpacity={0.08}
-                  />
+                <View style={styles.heroSealWrap}>
+                  <View style={styles.heroSealRing} />
+                  <BrandEmblem size={46} />
+                  <View style={[styles.heroSealDot, styles.heroSealDotTop]} />
+                  <View style={[styles.heroSealDot, styles.heroSealDotRight]} />
+                  <View style={[styles.heroSealDot, styles.heroSealDotBottom]} />
+                  <View style={[styles.heroSealDot, styles.heroSealDotLeft]} />
                 </View>
                 <View style={styles.heroCopy}>
-                  <View style={styles.heroMetaRow}>
-                    <Text style={styles.pageEyebrow}>FINFINDR · PROFILE</Text>
-                    <Text style={styles.heroPageChip}>1 / 1</Text>
+                  <View style={styles.heroEyebrowRow}>
+                    <View style={styles.heroPulseWrap}>
+                      <View style={styles.heroPulseRing} />
+                      <Animated.View
+                        style={[styles.heroPulseDot, { opacity: livePulse }]}
+                      />
+                    </View>
+                    <Text style={styles.heroEyebrowText}>PROFILE · STEP 1 / 1</Text>
                   </View>
                   <Text style={styles.heroTitle} allowFontScaling={false}>
                     Set your{'\n'}
                     <Text style={styles.heroTitleAccent}>home base.</Text>
                   </Text>
-                  <Text style={styles.heroLede}>
-                    Choose a handle and home water so FinFindr opens with your
-                    local read ready.
-                  </Text>
+                  <View style={styles.heroRule} />
                 </View>
               </View>
 
-              <View style={styles.benefitRow}>
-                <BenefitPill icon="person-outline" label="Handle" />
-                <BenefitPill icon="location-outline" label="Home water" />
-                <BenefitPill icon="partly-sunny-outline" label="Weather sync" />
+              <Text style={styles.heroLede}>
+                Choose your handle and home water so FinFindr opens straight to
+                your local read.
+              </Text>
+
+              <View style={styles.heroIndexRow}>
+                <HeroIndexItem numeral="01" label="HANDLE" />
+                <View style={styles.heroIndexDivider} />
+                <HeroIndexItem numeral="02" label="HOME WATER" />
+                <View style={styles.heroIndexDivider} />
+                <HeroIndexItem numeral="03" label="FORECAST" />
               </View>
             </View>
 
             <SetupPanel
-              icon="person-circle-outline"
-              label="USERNAME"
-              hint="This is your public handle. Keep it short and easy to recognize."
+              icon="at-outline"
+              label="YOUR HANDLE"
+              hint="Claim the name other anglers will see on your logs and the community feed."
             >
-              <View style={styles.usernameRow}>
-                <TextInput
+              <View
+                style={[
+                  styles.usernameField,
+                  usernameFieldBad && styles.inputError,
+                  usernameFieldGood && styles.inputSuccess,
+                ]}
+              >
+                <Text
                   style={[
-                    styles.input,
-                    styles.usernameInput,
-                    usernameFieldBad && styles.inputError,
-                    usernameFieldGood && styles.inputSuccess,
+                    styles.usernameAt,
+                    usernameFieldGood && { color: paper.bandPrime },
+                    usernameFieldBad && { color: paper.bandTough },
                   ]}
+                >
+                  @
+                </Text>
+                <TextInput
+                  style={styles.usernameInput}
                   value={username}
                   onChangeText={setUsername}
-                  placeholder="e.g. redfish_brandon"
-                  placeholderTextColor={paper.dashboardInk + '70'}
+                  placeholder="yourhandle"
+                  placeholderTextColor={paper.dashboardInk + '4D'}
                   autoCapitalize="none"
                   autoCorrect={false}
+                  autoComplete="username-new"
                   returnKeyType="next"
                   maxLength={30}
                 />
@@ -605,17 +701,18 @@ export default function OnboardingStep2() {
   );
 }
 
-function BenefitPill({
-  icon,
-  label,
-}: {
-  icon: keyof typeof Ionicons.glyphMap;
-  label: string;
-}) {
+function HeroIndexItem({ numeral, label }: { numeral: string; label: string }) {
   return (
-    <View style={styles.benefitPill}>
-      <Ionicons name={icon} size={11} color={paper.dashboardBlue} />
-      <Text style={styles.benefitPillText}>{label}</Text>
+    <View style={styles.heroIndexItem}>
+      <Text style={styles.heroIndexNumeral}>{numeral}</Text>
+      <Text
+        style={styles.heroIndexLabel}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.8}
+      >
+        {label}
+      </Text>
     </View>
   );
 }
@@ -676,14 +773,18 @@ const styles = StyleSheet.create({
     position: 'relative',
     alignItems: 'stretch',
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 10,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    paddingHorizontal: paperSpacing.md,
+    borderRadius: 12,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    paddingHorizontal: paperSpacing.md + 2,
     paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.md,
     marginBottom: paperSpacing.lg,
     overflow: 'hidden',
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 5 },
   },
   heroTopo: {
     position: 'absolute',
@@ -691,7 +792,35 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.11,
+    opacity: 0.3,
+  },
+  heroSheen: {
+    position: 'absolute',
+    top: -20,
+    bottom: -20,
+    width: 64,
+    backgroundColor: 'rgba(255,255,255,0.55)',
+    zIndex: 2,
+  },
+  heroRubricRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: paperSpacing.sm,
+    zIndex: 1,
+  },
+  heroRubricRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.3,
+  },
+  heroRubricText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 11,
+    color: paper.dashboardInk,
+    letterSpacing: 2.2,
+    opacity: 0.62,
   },
   heroMasthead: {
     flexDirection: 'row',
@@ -700,94 +829,135 @@ const styles = StyleSheet.create({
     marginBottom: paperSpacing.sm,
     zIndex: 1,
   },
-  heroEmblemWrap: {
-    width: 74,
-    height: 74,
-    borderRadius: 37,
+  heroSealWrap: {
+    width: 64,
+    height: 64,
     alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: '#F6F9FB',
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
+    position: 'relative',
+    flexShrink: 0,
   },
+  heroSealRing: {
+    position: 'absolute',
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    borderWidth: StyleSheet.hairlineWidth,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.5,
+  },
+  heroSealDot: {
+    position: 'absolute',
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: paper.dashboardBlue,
+    opacity: 0.55,
+  },
+  heroSealDotTop: { top: 0, alignSelf: 'center' },
+  heroSealDotBottom: { bottom: 0, alignSelf: 'center' },
+  heroSealDotLeft: { left: 0, top: '50%', marginTop: -2 },
+  heroSealDotRight: { right: 0, top: '50%', marginTop: -2 },
   heroCopy: {
     flex: 1,
     minWidth: 0,
   },
-  heroMetaRow: {
+  heroEyebrowRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'space-between',
-    gap: paperSpacing.sm,
-    marginBottom: 3,
+    gap: 7,
+    marginBottom: 5,
   },
-  pageEyebrow: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 12,
-    letterSpacing: 2.2,
-    color: paper.dashboardBlue,
-    fontWeight: '700',
-    flexShrink: 1,
+  heroPulseWrap: {
+    width: 9,
+    height: 9,
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  heroPageChip: {
+  heroPulseRing: {
+    position: 'absolute',
+    width: 9,
+    height: 9,
+    borderRadius: 4.5,
+    borderWidth: 1,
+    borderColor: paper.dashboardBlue,
+    opacity: 0.45,
+  },
+  heroPulseDot: {
+    width: 4.5,
+    height: 4.5,
+    borderRadius: 2.25,
+    backgroundColor: paper.dashboardBlue,
+  },
+  heroEyebrowText: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
-    color: paper.dashboardInk,
-    letterSpacing: 1.2,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 999,
-    backgroundColor: paper.dashboardCream,
-    paddingHorizontal: 8,
-    paddingVertical: 3,
-    overflow: 'hidden',
+    color: paper.dashboardBlue,
+    letterSpacing: 2.2,
   },
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 31,
+    fontSize: 28,
     color: paper.dashboardInk,
     fontWeight: '700',
-    letterSpacing: 0,
-    lineHeight: 32,
+    letterSpacing: -0.3,
+    lineHeight: 30,
     textAlign: 'left',
-    marginBottom: 4,
     zIndex: 1,
   },
   heroTitleAccent: {
     color: paper.bandPrime,
   },
+  heroRule: {
+    width: 36,
+    height: 2.5,
+    backgroundColor: paper.dashboardBlue,
+    borderRadius: 1,
+    marginTop: 8,
+  },
   heroLede: {
     fontFamily: paperFonts.displayItalic,
-    fontSize: 14,
+    fontSize: 13.5,
     color: paper.dashboardInk,
     opacity: 0.72,
     lineHeight: 18,
     textAlign: 'left',
+    marginTop: paperSpacing.sm,
     zIndex: 1,
   },
-  benefitRow: {
-    flexDirection: 'row',
-    flexWrap: 'nowrap',
-    gap: 6,
-    justifyContent: 'flex-start',
-    zIndex: 1,
-  },
-  benefitPill: {
+  heroIndexRow: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 999,
-    backgroundColor: paper.dashboardWhite,
-    paddingHorizontal: 8,
-    paddingVertical: 5,
+    marginTop: paperSpacing.md,
+    paddingTop: paperSpacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.dashboardInk,
+    zIndex: 1,
   },
-  benefitPillText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 12,
+  heroIndexItem: {
+    flex: 1,
+    alignItems: 'center',
+    gap: 2,
+  },
+  heroIndexNumeral: {
+    fontFamily: paperFonts.display,
+    fontSize: 14,
+    fontWeight: '700',
+    color: paper.dashboardBlue,
+    lineHeight: 16,
+  },
+  heroIndexLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 10,
     color: paper.dashboardInk,
-    opacity: 0.72,
+    letterSpacing: 1.2,
+    opacity: 0.7,
+  },
+  heroIndexDivider: {
+    width: StyleSheet.hairlineWidth,
+    height: 22,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.2,
   },
   setupPanel: {
     backgroundColor: paper.dashboardWhite,
@@ -851,9 +1021,31 @@ const styles = StyleSheet.create({
   },
   inputError: { borderColor: paper.bandTough, borderWidth: 1.5 },
   inputSuccess: { borderColor: paper.bandPrime, borderWidth: 1.5 },
-  usernameRow: { flexDirection: 'row', alignItems: 'center', gap: paperSpacing.sm },
-  usernameInput: { flex: 1 },
-  usernameStatusSlot: { width: 26, alignItems: 'center' },
+  usernameField: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 8,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    paddingHorizontal: paperSpacing.md,
+  },
+  usernameAt: {
+    fontFamily: paperFonts.display,
+    fontSize: 20,
+    fontWeight: '700',
+    color: paper.dashboardBlue,
+    lineHeight: 24,
+    marginRight: 5,
+  },
+  usernameInput: {
+    flex: 1,
+    paddingVertical: paperSpacing.md - 2,
+    fontFamily: paperFonts.body,
+    fontSize: 16,
+    color: paper.dashboardInk,
+  },
+  usernameStatusSlot: { width: 26, alignItems: 'center', marginLeft: paperSpacing.xs },
   errorText: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 11.5,

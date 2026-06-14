@@ -32,7 +32,6 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import * as Crypto from 'expo-crypto';
 import { useRouter } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
 import * as AppleAuthentication from 'expo-apple-authentication';
 import {
   paper,
@@ -54,6 +53,10 @@ import {
   TopographicLines,
 } from '../../components/paper';
 import {
+  IntelligenceModuleEmblem,
+  type IntelligenceModuleId,
+} from '../../components/paper/IntelligenceModuleIcons';
+import {
   AuthFooterStamp,
   AuthPrimaryButton,
   AuthDivider,
@@ -71,17 +74,18 @@ type Notice = {
 
 const FEATURES: {
   numeral: string;
-  icon: keyof typeof Ionicons.glyphMap;
+  moduleId: IntelligenceModuleId;
   title: string;
   tag: string;
   blurb: string;
   iconBg: [string, string];
   iconBorder: string;
   iconColor: string;
+  comingSoon?: boolean;
 }[] = [
   {
     numeral: 'I',
-    icon: 'layers-outline',
+    moduleId: 'water-read',
     title: 'Water Read',
     tag: 'POLYGON',
     blurb: 'Structure zones for supported lakes.',
@@ -91,7 +95,7 @@ const FEATURES: {
   },
   {
     numeral: 'II',
-    icon: 'fish-outline',
+    moduleId: 'tackle-box',
     title: 'Tackle Box',
     tag: 'RECOMMENDER',
     blurb: 'Lures and flies ranked for conditions.',
@@ -101,13 +105,24 @@ const FEATURES: {
   },
   {
     numeral: 'III',
-    icon: 'sparkles-outline',
+    moduleId: 'todays-bite',
     title: "Today's Bite",
     tag: 'CONDITIONS',
     blurb: 'Score, windows, and go/no-go guidance.',
     iconBg: ['#E5F2DD', '#C5E0B5'],
     iconBorder: '#3DA85F',
     iconColor: '#1F6B38',
+  },
+  {
+    numeral: 'IV',
+    moduleId: 'river-run',
+    title: 'River Run',
+    tag: 'MIGRATION',
+    blurb: 'Run timing & strength for Great Lakes migratory species.',
+    iconBg: ['#FBE4E1', '#F3C2BC'],
+    iconBorder: '#C0392B',
+    iconColor: '#9A2B20',
+    comingSoon: true,
   },
 ];
 
@@ -142,6 +157,32 @@ export default function WelcomeScreen() {
     loop.start();
     return () => loop.stop();
   }, [pulse]);
+
+  // Slow, premium light sheen that sweeps across the hero cover on a long
+  // cadence — the same glint vocabulary used on the dashboard module emblems
+  // and the onboarding CTA, so the first screen feels alive without noise.
+  const heroSheen = useRef(new Animated.Value(0)).current;
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(heroSheen, {
+          toValue: 0,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+        Animated.delay(1200),
+        Animated.timing(heroSheen, {
+          toValue: 1,
+          duration: 1500,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.delay(3200),
+      ]),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [heroSheen]);
 
   const appleSignInInFlight = useRef(false);
 
@@ -224,6 +265,27 @@ export default function WelcomeScreen() {
               color={paper.dashboardInk}
               count={5}
             />
+            <Animated.View
+              pointerEvents="none"
+              style={[
+                styles.heroSheen,
+                {
+                  opacity: heroSheen.interpolate({
+                    inputRange: [0, 0.12, 0.88, 1],
+                    outputRange: [0, 0.16, 0.16, 0],
+                  }),
+                  transform: [
+                    {
+                      translateX: heroSheen.interpolate({
+                        inputRange: [0, 1],
+                        outputRange: [-140, 520],
+                      }),
+                    },
+                    { skewX: '-18deg' },
+                  ],
+                },
+              ]}
+            />
 
             {/* Issue rubric — small mono line at the top of the cover */}
             <View style={styles.issueRubricRow}>
@@ -302,71 +364,107 @@ export default function WelcomeScreen() {
             </View>
             <View style={styles.valueProps}>
               {FEATURES.map((item) => (
-                <View key={item.numeral} style={styles.valueModule}>
-                  <View style={styles.valueModuleDots}>
+                <View
+                  key={item.numeral}
+                  style={[
+                    styles.valueModule,
+                    { borderLeftWidth: 3, borderLeftColor: item.iconBorder },
+                  ]}
+                >
+                  {item.comingSoon ? (
                     <View
                       style={[
-                        styles.valueModuleDot,
-                        { backgroundColor: item.iconBorder, opacity: 0.5 },
+                        styles.valueModuleSoonBadge,
+                        {
+                          backgroundColor: `${item.iconBorder}16`,
+                          borderColor: `${item.iconBorder}59`,
+                        },
                       ]}
-                    />
-                    <View
-                      style={[
-                        styles.valueModuleDot,
-                        { backgroundColor: item.iconBorder, opacity: 0.7 },
-                      ]}
-                    />
-                    <View
-                      style={[
-                        styles.valueModuleDot,
-                        { backgroundColor: item.iconBorder },
-                      ]}
-                    />
-                  </View>
-                  <Text
-                    style={[
-                      styles.valueModuleCode,
-                      { color: item.iconBorder },
-                    ]}
-                  >
-                    {item.numeral}
-                  </Text>
-                  <View
-                    style={[
-                      styles.valueModuleIcon,
-                      {
-                        backgroundColor: item.iconBg[1],
-                        borderColor: `${item.iconBorder}60`,
-                      },
-                    ]}
-                  >
-                    <Ionicons name={item.icon} size={20} color={item.iconColor} />
-                  </View>
-                  <View style={styles.valueModuleTextCol}>
-                    <View style={styles.valueModuleTitleRow}>
+                      pointerEvents="none"
+                    >
                       <Text
-                        style={styles.valueModuleTitle}
-                        numberOfLines={1}
-                        adjustsFontSizeToFit
-                        minimumFontScale={0.88}
+                        style={[
+                          styles.valueModuleSoonText,
+                          { color: item.iconBorder },
+                        ]}
                       >
-                        {item.title}
-                      </Text>
-                      <Text
-                        style={styles.valueModuleTag}
-                        numberOfLines={1}
-                        adjustsFontSizeToFit
-                        minimumFontScale={0.88}
-                      >
-                        {item.tag}
+                        SOON
                       </Text>
                     </View>
+                  ) : (
+                    <View style={styles.valueModuleDots}>
+                      <View
+                        style={[
+                          styles.valueModuleDot,
+                          { backgroundColor: item.iconBorder, opacity: 0.5 },
+                        ]}
+                      />
+                      <View
+                        style={[
+                          styles.valueModuleDot,
+                          { backgroundColor: item.iconBorder, opacity: 0.7 },
+                        ]}
+                      />
+                      <View
+                        style={[
+                          styles.valueModuleDot,
+                          { backgroundColor: item.iconBorder },
+                        ]}
+                      />
+                    </View>
+                  )}
+                  <View
+                    style={[
+                      styles.valueModuleMain,
+                      item.comingSoon && styles.valueModuleMainSoon,
+                    ]}
+                  >
                     <Text
-                      style={styles.valueModuleDesc}
-                      numberOfLines={2}
+                      style={[
+                        styles.valueModuleCode,
+                        { color: item.iconBorder },
+                      ]}
                     >
-                      {item.blurb}
+                      {item.numeral}
                     </Text>
+                    <IntelligenceModuleEmblem
+                      module={item.moduleId}
+                      iconBg={item.iconBg}
+                      iconBorder={item.iconBorder}
+                      iconColor={item.iconColor}
+                      size={44}
+                    />
+                    <View style={styles.valueModuleTextCol}>
+                      <View
+                        style={[
+                          styles.valueModuleTitleRow,
+                          item.comingSoon && styles.valueModuleTitleRowSoon,
+                        ]}
+                      >
+                        <Text
+                          style={styles.valueModuleTitle}
+                          numberOfLines={1}
+                          adjustsFontSizeToFit
+                          minimumFontScale={0.88}
+                        >
+                          {item.title}
+                        </Text>
+                        <Text
+                          style={styles.valueModuleTag}
+                          numberOfLines={1}
+                          adjustsFontSizeToFit
+                          minimumFontScale={0.88}
+                        >
+                          {item.tag}
+                        </Text>
+                      </View>
+                      <Text
+                        style={styles.valueModuleDesc}
+                        numberOfLines={item.comingSoon ? 3 : 2}
+                      >
+                        {item.blurb}
+                      </Text>
+                    </View>
                   </View>
                 </View>
               ))}
@@ -429,7 +527,7 @@ const styles = StyleSheet.create({
     alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.md,
-    paddingTop: paperSpacing.xs + 2,
+    paddingTop: paperSpacing.md + 6,
     gap: 10,
   },
 
@@ -456,6 +554,14 @@ const styles = StyleSheet.create({
     right: 0,
     bottom: 0,
     opacity: 0.32,
+  },
+  heroSheen: {
+    position: 'absolute',
+    top: -20,
+    bottom: -20,
+    width: 64,
+    backgroundColor: 'rgba(255,255,255,0.55)',
+    zIndex: 2,
   },
 
   issueRubricRow: {
@@ -601,6 +707,33 @@ const styles = StyleSheet.create({
     padding: 10,
     position: 'relative',
   },
+  valueModuleMain: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  valueModuleMainSoon: {
+    opacity: 0.5,
+  },
+  valueModuleTitleRowSoon: {
+    paddingRight: 50,
+  },
+  valueModuleSoonBadge: {
+    position: 'absolute',
+    top: 8,
+    right: 8,
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 999,
+    borderWidth: 1,
+    zIndex: 2,
+  },
+  valueModuleSoonText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1,
+  },
   valueModuleDots: {
     position: 'absolute',
     top: 6,
@@ -619,14 +752,6 @@ const styles = StyleSheet.create({
     fontSize: 10,
     letterSpacing: 1,
     opacity: 0.85,
-  },
-  valueModuleIcon: {
-    width: 34,
-    height: 34,
-    borderRadius: 6,
-    borderWidth: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
   },
   valueModuleTextCol: {
     flex: 1,

@@ -1636,7 +1636,7 @@ export default function HomeScreen() {
         <View style={styles.modules}>
           <View style={styles.modulesHeader}>
             <Text style={styles.modulesEyebrow}>── INTELLIGENCE MODULES</Text>
-            <Text style={styles.modulesCount}>3 / 3</Text>
+            <Text style={styles.modulesCount}>3 / 4</Text>
           </View>
 
           <ModuleRow
@@ -1671,6 +1671,18 @@ export default function HomeScreen() {
             iconBorder="#3DA85F"
             iconColor="#1F6B38"
             onPress={handleHowFishingPress}
+          />
+          <ModuleRow
+            code="04"
+            title="River Run"
+            tag="MIGRATION"
+            desc="Daily run score, strength & fishability for Great Lakes migratory species"
+            moduleId="river-run"
+            iconBg={["#FBE4E1", "#F3C2BC"]}
+            iconBorder="#C0392B"
+            iconColor="#9A2B20"
+            comingSoon
+            descLines={3}
           />
           <Pressable
             style={({ pressed }) => [
@@ -2046,6 +2058,8 @@ function ModuleRow({
   iconColor,
   moduleId,
   onPress,
+  comingSoon = false,
+  descLines = 2,
 }: {
   code: string;
   title: string;
@@ -2055,33 +2069,12 @@ function ModuleRow({
   iconBorder: string;
   iconColor: string;
   moduleId: IntelligenceModuleId;
-  onPress: () => void;
+  onPress?: () => void;
+  comingSoon?: boolean;
+  descLines?: number;
 }) {
-  return (
-    <Pressable
-      style={(
-        { pressed },
-      ) => [
-        styles.moduleRow,
-        pressed && { opacity: 0.92, transform: [{ translateY: -1 }] },
-      ]}
-      onPress={onPress}
-    >
-      <View style={styles.moduleDots}>
-        <View
-          style={[styles.moduleDot, {
-            backgroundColor: iconBorder,
-            opacity: 0.5,
-          }]}
-        />
-        <View
-          style={[styles.moduleDot, {
-            backgroundColor: iconBorder,
-            opacity: 0.7,
-          }]}
-        />
-        <View style={[styles.moduleDot, { backgroundColor: iconBorder }]} />
-      </View>
+  const inner = (
+    <>
       <Text style={styles.moduleCode}>{code}</Text>
       <IntelligenceModuleEmblem
         module={moduleId}
@@ -2089,16 +2082,78 @@ function ModuleRow({
         iconBorder={iconBorder}
         iconColor={iconColor}
         size={50}
+        animate
       />
       <View style={styles.moduleTextCol}>
-        <View style={styles.moduleTitleRow}>
+        <View
+          style={[
+            styles.moduleTitleRow,
+            comingSoon && styles.moduleTitleRowSoon,
+          ]}
+        >
           <Text style={styles.moduleTitle}>{title}</Text>
           <Text style={styles.moduleTag}>{tag}</Text>
         </View>
-        <Text style={styles.moduleDesc} numberOfLines={2}>
+        <Text style={styles.moduleDesc} numberOfLines={descLines}>
           {desc}
         </Text>
       </View>
+    </>
+  );
+
+  if (comingSoon) {
+    return (
+      <View
+        style={[
+          styles.moduleRow,
+          styles.moduleRowSoon,
+          { borderLeftWidth: 3, borderLeftColor: iconBorder },
+        ]}
+        accessibilityRole="text"
+        accessibilityLabel={`${title}. ${desc}. Coming soon.`}
+      >
+        <View style={styles.moduleSoonBody}>{inner}</View>
+        <View style={styles.moduleSoonVeil} pointerEvents="none" />
+        <View
+          style={[
+            styles.moduleSoonBadge,
+            {
+              backgroundColor: `${iconBorder}16`,
+              borderColor: `${iconBorder}59`,
+            },
+          ]}
+          pointerEvents="none"
+        >
+          <Ionicons name="lock-closed" size={9} color={iconBorder} />
+          <Text style={[styles.moduleSoonText, { color: iconBorder }]}>
+            SOON
+          </Text>
+        </View>
+      </View>
+    );
+  }
+
+  return (
+    <Pressable
+      style={(
+        { pressed },
+      ) => [
+        styles.moduleRow,
+        { borderLeftWidth: 3, borderLeftColor: iconBorder },
+        pressed && { opacity: 0.92, transform: [{ translateY: -1 }] },
+      ]}
+      onPress={onPress}
+    >
+      <View style={styles.moduleDots}>
+        <View
+          style={[styles.moduleDot, { backgroundColor: iconBorder, opacity: 0.5 }]}
+        />
+        <View
+          style={[styles.moduleDot, { backgroundColor: iconBorder, opacity: 0.7 }]}
+        />
+        <View style={[styles.moduleDot, { backgroundColor: iconBorder }]} />
+      </View>
+      {inner}
       <Ionicons
         name="arrow-up"
         size={16}
@@ -3034,6 +3089,44 @@ const styles = StyleSheet.create({
     fontSize: 12,
     lineHeight: 16,
     color: "#555",
+  },
+  moduleRowSoon: {
+    backgroundColor: "#F4F5F6",
+    borderColor: "#DFE2E4",
+  },
+  moduleSoonBody: {
+    flex: 1,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    opacity: 0.5,
+  },
+  moduleTitleRowSoon: {
+    paddingRight: 62,
+  },
+  moduleSoonVeil: {
+    ...StyleSheet.absoluteFillObject,
+    backgroundColor: "rgba(150,156,162,0.1)",
+    borderRadius: 8,
+    zIndex: 1,
+  },
+  moduleSoonBadge: {
+    position: "absolute",
+    top: 10,
+    right: 12,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 4,
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 999,
+    borderWidth: 1,
+    zIndex: 2,
+  },
+  moduleSoonText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 9,
+    letterSpacing: 1.4,
   },
 
   // ─── Footer ──────────────────────────────────────────────────────────────

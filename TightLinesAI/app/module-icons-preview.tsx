@@ -64,6 +64,17 @@ const MODULES: ModuleSpec[] = [
     iconColor: '#1F6B38',
     legacyIcon: 'sparkles-outline',
   },
+  {
+    id: 'river-run',
+    code: '04',
+    title: 'River Run',
+    tag: 'MIGRATION',
+    desc: 'Daily run score, strength & fishability for Great Lakes rivers',
+    iconBg: ['#FBE4E1', '#F3C2BC'],
+    iconBorder: '#C0392B',
+    iconColor: '#9A2B20',
+    legacyIcon: 'fish-outline',
+  },
 ];
 
 const VARIANTS: {
