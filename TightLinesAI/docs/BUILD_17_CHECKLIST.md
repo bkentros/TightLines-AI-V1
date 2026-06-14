@@ -7,7 +7,8 @@
 | **App version** | `1.0.1` (`app.json`) |
 | **iOS build number** | `17` (`app.json` → `ios.buildNumber`) |
 | **Branch** | `release/app-store-v1` |
-| **Status** | 🟡 In progress — more changes planned before EAS build |
+| **Status** | 🟡 In progress — free tier shipped on branch; more changes planned before EAS build |
+| **Latest commit** | `eec8e3b` — free tier hardening + Today's Bite polish |
 
 **Live users today:** Still on the last **released** App Store build until you ship 1.0.1. No OTA — every item below requires this new binary.
 
@@ -17,10 +18,13 @@
 
 | Item | Commit / ref | In build 17? | Status |
 |------|----------------|--------------|--------|
-| Auth & onboarding responsive layout hardening | `4976b7a` | ✅ Yes | ✅ Committed locally |
-| Layout QA script (`npm run qa:responsive-auth-layout`) | `4976b7a` | ✅ Yes | ✅ Committed locally |
-| Transparency — V1 fly scope (streamers only) | — | ✅ Yes | ⬜ Uncommitted |
-| Free tier one-time trials (Tackle Box, Water Read, Today's Bite full) | — | ✅ Yes | ✅ Deployed (migration + edge fns) |
+| Auth & onboarding responsive layout hardening | `4976b7a` | ✅ Yes | ✅ Committed & pushed |
+| Layout QA script (`npm run qa:responsive-auth-layout`) | `4976b7a` | ✅ Yes | ✅ Committed & pushed |
+| Transparency — V1 fly scope (streamers only) | `d6e475f` / `a68d452` | ✅ Yes | ✅ Committed & pushed |
+| Free tier one-time trials (Tackle Box, Water Read, Today's Bite full) | `a68d452` | ✅ Yes | ✅ Committed, migrated, edge fns deployed |
+| Free tier hardening (revisit, flicker, fail-closed trial mark, admin reset) | `eec8e3b` | ✅ Yes | ✅ Committed, migrated, edge fns deployed |
+| Moon/tide solunar widget removed from Today's Bite report | `eec8e3b` | ✅ Yes | ✅ Committed & pushed |
+| Free tier contract smoke (`npm run qa:free-tier-today-bite-contract`) | `eec8e3b` | ✅ Yes | ✅ Committed & pushed |
 | *Add your next items here* | — | ⬜ | ⬜ Planned |
 
 ---
@@ -71,24 +75,62 @@
 
 ---
 
-### Free tier one-time trials (Tackle Box, Water Read, Today's Bite full)
+### Free tier one-time trials (`a68d452`)
 
-**Why:** Give free users a real taste of core products before paywalls — Angler tier unchanged; 6-day forecast strip untouched (tomorrow score preview only).
+**Why:** Give free users a real taste of core products before paywalls — Angler tier unchanged; 6-day forecast strip untouched (tomorrow score preview only; forecast day taps always paywall).
 
-**What changed:**
+**Product rules:**
 
 | Feature | Free tier gets | After trial used |
 |---------|----------------|------------------|
-| **Tackle Box** | 1 full daily-picks report + Changeup on same session | Paywall on new sessions |
-| **Water Read** | 1 lake generation | Paywall on new lakes (can re-open trial lake via history) |
-| **Today's Bite (today)** | 1 full today report | Later today → limited report surface |
+| **Tackle Box** | 1 full daily-picks report + Changeup on same session | Paywall on new sessions; same exact setup same day can revisit until local midnight |
+| **Water Read** | 1 lake generation | Paywall on new lakes; trial lake in history revisitable forever |
+| **Today's Bite (today)** | 1 full report ever (first day cached until local midnight) | Same-day revisit full; after midnight or regenerate → partial only forever |
 | **6-day forecast** | Unchanged — tomorrow preview only | Unchanged |
 
-**Server:** Migration `20260614120000_add_free_tier_trial_flags.sql`; edge functions `recommender`, `how-fishing`, `water-reader-read`, `waterbody-polygon`, `water-reader-history`, `admin-reset-free-trials`.
+**Server:** Migration `20260614152959_add_free_tier_trial_flags.sql`; edge functions `recommender`, `how-fishing`, `water-reader-read`, `waterbody-polygon`, `water-reader-history`, `admin-reset-free-trials`.
 
-**Client:** `lib/subscription.ts`, `lib/freeTrialAccess.ts`, recommender / water-reader / how-fishing screens, subscribe copy, Settings → ADMIN TOOLS → Reset free tier trials.
+**Client:** `lib/subscription.ts`, `lib/freeTrialAccess.ts`, recommender / water-reader / how-fishing screens, subscribe copy.
 
-**Deploy before testing:** Run migration + deploy edge functions on Supabase.
+---
+
+### Free tier hardening + polish (`eec8e3b`)
+
+**Why:** Fix QA bugs from first trial pass; prevent double full Today's Bite; make admin reset safe for re-testing.
+
+**Fixes & polish:**
+
+| Area | Change |
+|------|--------|
+| **Tackle Box** | Paywall dismiss no longer leaves spinner; subscribe flow retries generation; same-day revisit after trial spent |
+| **Water Read** | Trial lake enforced server-side; building/ready flicker fixed (`stableReadyReadRef`) |
+| **Today's Bite** | Limited UI only when `bundle.access_tier === 'free_limited'`; cache expiry hardened; trial mark fail-closed (503 if DB write fails) |
+| **Admin reset** | Admin-only (`brandonkentros@icloud.com`); **requires target free account email**; clears server trials + history + sessions + device caches |
+| **Report UI** | Removed Moon & Tide solunar widget from Today's Bite (mislabeled; not used in engine timing) |
+| **QA** | `scripts/free-tier-today-bite-contract-smoke.ts` + `npm run qa:free-tier-today-bite-contract` |
+
+**Server (additional):** Migration `20260614182712_admin_lookup_user_id_by_email.sql`; redeployed `how-fishing`, `recommender`, `water-reader-read`, `waterbody-polygon`, `admin-reset-free-trials`.
+
+**Supabase deploy status:** Migrations applied; edge functions deployed on project `hsesngprhpgajyfbrwbf`.
+
+---
+
+### Testing accounts — admin vs free (read this)
+
+**You do NOT need to give anyone `brandonkentros@icloud.com` to test or approve this build.**
+
+| Account | Purpose | Free tier behavior |
+|---------|---------|-------------------|
+| **`brandonkentros@icloud.com`** | Your admin account — complimentary **Angler** (full access), not free tier | Sees **ADMIN TOOLS** in Settings (reset trials, layout preview, etc.) |
+| **Any other account** (e.g. a Gmail you use for QA) | Free tier smoke tests, another agent's work, App Store review | Normal free user — gets one trial per feature |
+
+**How re-testing works:**
+
+1. Sign in on the **free test account** and burn trials (Tackle Box, Water Read, Today's Bite).
+2. To reset and run again: sign in as **admin** → Settings → **Reset free tier trials** → enter the **free test account's email** (required). Blank only resets admin's own server state.
+3. **Clear cache** alone does **not** reset server trial flags.
+
+**Apple App Store review:** Reviewers create/use their own account — no admin access needed.
 
 ---
 
@@ -116,6 +158,7 @@ Paste into App Store Connect when build 17 is attached. **Edit as you add more c
 • Better keyboard behavior when creating an account
 • Transparency page now clarifies that fly picks are streamers only in this version
 • Free tier: try one full Tackle Box session, one Water Read lake, and one full Today's Bite before upgrading
+• Bug fixes and polish across Tackle Box, Water Read, and Today's Bite for free users
 ```
 
 *(Add bullets here as you ship more in this build.)*
@@ -128,8 +171,9 @@ Run before `eas build`:
 
 ```bash
 cd TightLinesAI
-npm run qa:responsive-auth-layout   # auth layout matrix — no device needed
-npx tsc --noEmit                    # typecheck
+npm run qa:responsive-auth-layout          # auth layout matrix — no device needed
+npm run qa:free-tier-today-bite-contract   # Today's Bite free-tier contract smoke
+npx tsc --noEmit                           # typecheck
 ```
 
 - [ ] All §2 planned items done or deferred to a later build
@@ -179,6 +223,16 @@ Minimum path after installing build 17:
 - [ ] Sign in with Apple + email sign-in still work
 - [ ] Home loads after onboarding
 
+**Free tier (use a separate free account — not admin):**
+
+- [ ] Today's Bite — first generate = full report
+- [ ] Today's Bite — same day reopen = full (cached)
+- [ ] Tackle Box — one full session + Changeup same day
+- [ ] Water Read — one lake generates; trial lake reopens from Recent Reads
+- [ ] After trials spent — paywalls on new Tackle Box / new lake; Today's Bite partial after midnight
+
+**Optional re-test loop (admin only):** Settings → Reset free tier trials → enter free test email.
+
 ---
 
 ## 7. Not in this binary (web / legal-site only)
@@ -197,7 +251,7 @@ These commits are on the branch but **do not** ship inside the iOS app — liste
 |--|--|
 | **Version** | 1.0.1 |
 | **Build** | 17 |
-| **Key commit (so far)** | `4976b7a` |
+| **Key commits (so far)** | `4976b7a` (auth layout), `a68d452` (free tier trials), `eec8e3b` (hardening) |
 | **EAS builds** | https://expo.dev/accounts/tightlinesai/projects/tightlines-ai/builds |
 | **Prior checklist** | `docs/BUILD_14_CHECKLIST.md` (build 14–16 era) |
 

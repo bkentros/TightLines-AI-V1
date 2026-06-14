@@ -62,7 +62,7 @@ const howFishingApp = readFileSync('app/how-fishing.tsx', 'utf8');
 const howFishingCache = readFileSync('lib/howFishing.ts', 'utf8');
 const subscriptionSource = readFileSync('lib/subscription.ts', 'utf8');
 const migrationSource = readFileSync(
-  'supabase/migrations/20260614120000_add_free_tier_trial_flags.sql',
+  'supabase/migrations/20260614152959_add_free_tier_trial_flags.sql',
   'utf8',
 );
 
