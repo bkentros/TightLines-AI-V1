@@ -25,6 +25,7 @@
 | Free tier hardening (revisit, flicker, fail-closed trial mark, admin reset) | `eec8e3b` | ✅ Yes | ✅ Committed, migrated, edge fns deployed |
 | Moon/tide solunar widget removed from Today's Bite report | `eec8e3b` | ✅ Yes | ✅ Committed & pushed |
 | Free tier contract smoke (`npm run qa:free-tier-today-bite-contract`) | `eec8e3b` | ✅ Yes | ✅ Committed & pushed |
+| Security fix — lock `admin_lookup_user_id_by_email` to service_role (was anon/authenticated executable → email→user-id enumeration) | `20260614185501` migration | ✅ Yes (DB only) | ✅ Migrated & verified |
 | *Add your next items here* | — | ⬜ | ⬜ Planned |
 
 ---
