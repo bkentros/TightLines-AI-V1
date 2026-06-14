@@ -8,7 +8,7 @@
 | **iOS build number** | `17` (`app.json` → `ios.buildNumber`) |
 | **Branch** | `release/app-store-v1` |
 | **Status** | 🟡 In progress — free tier shipped on branch; more changes planned before EAS build |
-| **Latest commit** | `eec8e3b` — free tier hardening + Today's Bite polish |
+| **Latest commit** | `456bcab` — premium UI polish (module emblems, River Run, account/login) |
 
 **Live users today:** Still on the last **released** App Store build until you ship 1.0.1. No OTA — every item below requires this new binary.
 
@@ -26,6 +26,11 @@
 | Moon/tide solunar widget removed from Today's Bite report | `eec8e3b` | ✅ Yes | ✅ Committed & pushed |
 | Free tier contract smoke (`npm run qa:free-tier-today-bite-contract`) | `eec8e3b` | ✅ Yes | ✅ Committed & pushed |
 | Security fix — lock `admin_lookup_user_id_by_email` to service_role (was anon/authenticated executable → email→user-id enumeration) | `20260614185501` migration | ✅ Yes (DB only) | ✅ Migrated & verified |
+| Paywall reliability — fix 6-day forecast paywall dying after a few opens | `0d8c489` | ✅ Yes | ✅ Committed & pushed |
+| Premium intelligence-module emblems (Water Read, Tackle Box, Today's Bite) + glint/twinkle motion | `456bcab` | ✅ Yes | ✅ Committed & pushed |
+| River Run "coming soon" module (migratory species) on dashboard + login, with colored left accents on all module cards | `456bcab` | ✅ Yes | ✅ Committed & pushed |
+| Admin Home layout-preview rebuilt as scrollable device frame (footer/Transparency reachable on every preset) | `456bcab` | ✅ Yes (admin-only tool) | ✅ Committed & pushed |
+| Premium account/login polish — `@handle` username claim, onboarding profile hero redesign, welcome hero sheen | `456bcab` | ✅ Yes | ✅ Committed & pushed |
 | *Add your next items here* | — | ⬜ | ⬜ Planned |
 
 ---
@@ -116,6 +121,29 @@
 
 ---
 
+### Premium UI polish — modules, River Run, account/login (`456bcab`, `0d8c489`)
+
+**Why:** Make the first-open and core dashboard feel premium and curated; ship the next product (River Run) as a visible "coming soon"; fix a paywall reliability bug; make admin layout QA trustworthy.
+
+**What changed:**
+
+| Area | Change |
+|------|--------|
+| **Module emblems** | Rebuilt Water Read / Tackle Box / Today's Bite icons as premium gradient SVGs with staggered glint + twinkle motion (respects Reduce Motion) |
+| **River Run** | New "coming soon" module (mentions *migratory species*) on dashboard **and** login — greyed with active glimmer, solid colored left accent |
+| **Module cards** | Colored left-accent rule added to every dashboard + login intelligence-module card |
+| **Account / username** | Profile-setup username is now a premium `@handle` claim (curated `yourhandle` placeholder, `@` prefix, live availability tint) |
+| **Onboarding hero** | Profile "top box" redesigned — field-guide rubric, brand seal, eyebrow pulse, accent rule, 01·02·03 index strip, light sheen |
+| **Welcome hero** | Subtle premium light-sheen sweep on the cover; value cards carry colored accents + animated emblems |
+| **Paywall reliability** | 6-day forecast paywall no longer silently stops appearing after a few opens (`SubscribePrompt` ref refactor) — `0d8c489` |
+| **Admin layout preview** | Rebuilt `HomeLayoutPreviewFrame` as a true-size, natively scrollable device frame so the footer + Transparency button stay reachable on every iPhone preset (was a scaled transform that clipped the bottom) |
+
+**Client only:** No migrations or edge-function changes — ships entirely in the EAS binary. Remote Supabase verified reconciled (all Build-17 migrations applied, edge functions ACTIVE, no ERROR-level security advisories; `admin_lookup_user_id_by_email` no longer flagged).
+
+**Screens touched:** `(tabs)/index.tsx`, `(auth)/welcome.tsx`, `(onboarding)/step-2-preferences.tsx`, `components/paper/IntelligenceModuleIcons.tsx`, `components/dev/HomeLayoutPreviewFrame.tsx`, `app/module-icons-preview.tsx`.
+
+---
+
 ### Testing accounts — admin vs free (read this)
 
 **You do NOT need to give anyone `brandonkentros@icloud.com` to test or approve this build.**
@@ -160,6 +188,10 @@ Paste into App Store Connect when build 17 is attached. **Edit as you add more c
 • Transparency page now clarifies that fly picks are streamers only in this version
 • Free tier: try one full Tackle Box session, one Water Read lake, and one full Today's Bite before upgrading
 • Bug fixes and polish across Tackle Box, Water Read, and Today's Bite for free users
+• Redesigned, premium intelligence-module icons on the dashboard
+• New "River Run" module preview for Great Lakes migratory species — coming soon
+• A more premium account setup: claim your @handle and a refreshed profile screen
+• Fixed an issue where the forecast paywall could stop appearing
 ```
 
 *(Add bullets here as you ship more in this build.)*
@@ -252,7 +284,7 @@ These commits are on the branch but **do not** ship inside the iOS app — liste
 |--|--|
 | **Version** | 1.0.1 |
 | **Build** | 17 |
-| **Key commits (so far)** | `4976b7a` (auth layout), `a68d452` (free tier trials), `eec8e3b` (hardening) |
+| **Key commits (so far)** | `4976b7a` (auth layout), `a68d452` (free tier trials), `eec8e3b` (hardening), `0d8c489` (paywall fix), `456bcab` (premium UI polish) |
 | **EAS builds** | https://expo.dev/accounts/tightlinesai/projects/tightlines-ai/builds |
 | **Prior checklist** | `docs/BUILD_14_CHECKLIST.md` (build 14–16 era) |
 
