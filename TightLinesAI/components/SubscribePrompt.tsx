@@ -22,35 +22,49 @@ export function SubscribePrompt({
   onUnlocked,
 }: SubscribePromptProps) {
   const presentPaywall = useRevenueCatStore((s) => s.presentPaywall);
-  const attemptedForOpen = useRef(false);
+
+  // Route callbacks through refs so parent re-renders never re-run or cancel an
+  // in-flight paywall. The present effect intentionally keys only on `visible`:
+  // depending on the inline parent callbacks here previously cancelled the
+  // dismiss when the parent re-rendered mid-paywall, leaving `visible` stuck
+  // true and silently swallowing every subsequent open.
+  const onDismissRef = useRef(onDismiss);
+  const onUnlockedRef = useRef(onUnlocked);
+  const presentPaywallRef = useRef(presentPaywall);
+  onDismissRef.current = onDismiss;
+  onUnlockedRef.current = onUnlocked;
+  presentPaywallRef.current = presentPaywall;
+
+  const presenting = useRef(false);
 
   useEffect(() => {
     if (!visible) {
-      attemptedForOpen.current = false;
+      presenting.current = false;
       return;
     }
-    if (attemptedForOpen.current) return;
-    attemptedForOpen.current = true;
+    if (presenting.current) return;
+    presenting.current = true;
 
-    let cancelled = false;
     void (async () => {
-      const unlocked = await presentPaywall();
-      if (cancelled) return;
-
-      if (unlocked) {
-        Alert.alert('Angler unlocked', 'You now have full access to FinFindr.');
-        onUnlocked?.();
-      } else {
-        const message = useRevenueCatStore.getState().error;
-        if (message) Alert.alert('Subscriptions temporarily unavailable', message);
-        onDismiss();
+      try {
+        const unlocked = await presentPaywallRef.current();
+        if (unlocked) {
+          Alert.alert('Angler unlocked', 'You now have full access to FinFindr.');
+          onUnlockedRef.current?.();
+        } else {
+          const message = useRevenueCatStore.getState().error;
+          if (message) {
+            Alert.alert('Subscriptions temporarily unavailable', message);
+          }
+          onDismissRef.current();
+        }
+      } catch {
+        onDismissRef.current();
+      } finally {
+        presenting.current = false;
       }
     })();
-
-    return () => {
-      cancelled = true;
-    };
-  }, [onDismiss, onUnlocked, presentPaywall, visible]);
+  }, [visible]);
 
   return null;
 }
