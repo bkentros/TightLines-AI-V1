@@ -1,16 +1,16 @@
-# Build 17 checklist (1.0.1) — running submission log
+# Build 17 checklist (1.0.2) — running submission log
 
 **Purpose:** Living list of everything going into **build 17** so you can paste a clean summary into App Store Connect when you submit.
 
 | Field | Value |
 |-------|--------|
-| **App version** | `1.0.1` (`app.json`) |
+| **App version** | `1.0.2` (`app.json`) — bumped from 1.0.1 (1.0.1 already released, so the string was locked) |
 | **iOS build number** | `17` (`app.json` → `ios.buildNumber`) |
 | **Branch** | `release/app-store-v1` |
 | **Status** | 🟡 In progress — free tier shipped on branch; more changes planned before EAS build |
 | **Latest commit** | `456bcab` — premium UI polish (module emblems, River Run, account/login) |
 
-**Live users today:** Still on the last **released** App Store build until you ship 1.0.1. No OTA — every item below requires this new binary.
+**Live users today:** Still on the last **released** App Store build (1.0.1) until you ship 1.0.2. No OTA — every item below requires this new binary.
 
 ---
 
@@ -210,7 +210,7 @@ npx tsc --noEmit                           # typecheck
 ```
 
 - [ ] All §2 planned items done or deferred to a later build
-- [ ] `app.json` → `version` still `1.0.1`, `buildNumber` is `17` (or final number you choose)
+- [ ] `app.json` → `version` is `1.0.2`, `buildNumber` is `17` (or final number you choose)
 - [ ] Changes committed on `release/app-store-v1` (never commit `.env`)
 - [ ] `git push origin release/app-store-v1`
 
@@ -231,7 +231,7 @@ eas submit --platform ios --profile production --latest
 
 **App Store Connect**
 
-1. [App Store Connect](https://appstoreconnect.apple.com) → **FinFindr** → version **1.0.1**
+1. [App Store Connect](https://appstoreconnect.apple.com) → **FinFindr** → create/select version **1.0.2**
 2. Select **build 17** (processing may take 5–15 min after upload)
 3. Paste **What’s New** from §3
 4. Confirm **App Privacy** still matches
@@ -239,7 +239,7 @@ eas submit --platform ios --profile production --latest
 
 - [ ] EAS production build succeeded
 - [ ] Build uploaded to ASC
-- [ ] Build 17 attached to 1.0.1
+- [ ] Build 17 attached to 1.0.2
 - [ ] What’s New pasted
 - [ ] Submitted for review
 
@@ -282,7 +282,7 @@ These commits are on the branch but **do not** ship inside the iOS app — liste
 
 | | |
 |--|--|
-| **Version** | 1.0.1 |
+| **Version** | 1.0.2 |
 | **Build** | 17 |
 | **Key commits (so far)** | `4976b7a` (auth layout), `a68d452` (free tier trials), `eec8e3b` (hardening), `0d8c489` (paywall fix), `456bcab` (premium UI polish) |
 | **EAS builds** | https://expo.dev/accounts/tightlinesai/projects/tightlines-ai/builds |
