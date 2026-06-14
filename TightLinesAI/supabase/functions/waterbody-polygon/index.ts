@@ -4,8 +4,7 @@ import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 import {
   FREE_TRIAL_PROFILE_SELECT,
   type FreeTrialProfileRow,
-  freeWaterReadTrialAvailable,
-  userHasWaterReadHistoryForLake,
+  isFreeTierWaterReadAllowed,
 } from "../_shared/freeTrialAccess.ts";
 import { WATERBODY_POLYGON_FEATURE } from "../_shared/waterReader/index.ts";
 import {
@@ -119,13 +118,14 @@ Deno.serve(async (req: Request) => {
     return jsonError("lakeId must be a valid UUID", "invalid_lake_id", 400);
   }
 
-  if (tier === "free" && !freeWaterReadTrialAvailable(profile)) {
-    const allowedLake = await userHasWaterReadHistoryForLake(
+  if (tier === "free") {
+    const allowed = await isFreeTierWaterReadAllowed(
       supabase,
       user.id,
       lakeIdRaw,
+      profile,
     );
-    if (!allowedLake) {
+    if (!allowed) {
       return jsonError("Subscribe to use this feature", "subscription_required", 403);
     }
   }

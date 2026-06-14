@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import {
   ActivityIndicator,
+  Alert,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -22,6 +23,7 @@ import { useDevTestingStore } from '../../store/devTestingStore';
 import { IPHONE_LAYOUT_PREVIEW_PRESETS } from '../../lib/iphoneLayoutPreview';
 import { getValidAccessToken, invokeEdgeFunction, supabase } from '../../lib/supabase';
 import { clearOwnerFishCaches } from '../../lib/clearOwnerFishCaches';
+import { resetFreeTierState } from '../../lib/resetFreeTierState';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import type { UserProfile } from '../../lib/types';
 import { isAdminEmail } from '../../lib/adminAccess';
@@ -89,6 +91,7 @@ export default function SettingsScreen() {
     tone?: NoticeTone;
   } | null>(null);
   const canSeeTestingTools = isAdminEmail(user?.email);
+  const effectiveTier = getEffectiveTier(profile, user?.email);
   const analyticsDiag = getAnalyticsDiagnostics();
   const [analyticsPingLoading, setAnalyticsPingLoading] = useState(false);
   const [resettingFreeTrials, setResettingFreeTrials] = useState(false);
@@ -280,6 +283,62 @@ export default function SettingsScreen() {
     }
   };
 
+  const handleResetFreeTierState = async (targetEmail?: string | null) => {
+    if (!user?.id) return;
+    setNotice(null);
+    setResettingFreeTrials(true);
+    try {
+      const result = await resetFreeTierState(
+        targetEmail?.trim() ? { targetEmail: targetEmail.trim() } : undefined,
+      );
+      if (!targetEmail?.trim() || targetEmail.trim().toLowerCase() === user.email?.toLowerCase()) {
+        await fetchProfile(user.id);
+      }
+      setNotice({
+        title: 'Free tier reset complete',
+        message:
+          `Server reset for ${result.targetEmail ?? user.email ?? 'this account'} (user ${result.targetUserId?.slice(0, 8) ?? 'unknown'}…). Cleared ${result.water_read_history_deleted} Water Read history row(s), ${result.recommender_sessions_deleted} Tackle Box session(s). Device caches cleared on this phone.${result.water_read_history_deleted === 0 && result.recommender_sessions_deleted === 0 && targetEmail?.trim() ? ' If you expected server rows to clear, double-check the email.' : ''}`,
+        tone: 'success',
+      });
+    } catch (err) {
+      setNotice({
+        title: 'Reset failed',
+        message: err instanceof Error ? err.message : 'Could not reset free tier state.',
+        tone: 'error',
+      });
+    } finally {
+      setResettingFreeTrials(false);
+    }
+  };
+
+  const promptAdminFreeTierReset = () => {
+    Alert.prompt(
+      'Reset free tier state',
+      'Enter the FREE test account email (required). Leaving blank only resets your admin account on the server — not other logins. Device caches always clear on this phone.',
+      [
+        { text: 'Cancel', style: 'cancel' },
+        {
+          text: 'Reset',
+          style: 'destructive',
+          onPress: (value?: string) => {
+            if (!value?.trim()) {
+              setNotice({
+                title: 'Enter the free account email',
+                message:
+                  'Blank reset only clears server state for your signed-in admin account. Type the free test email (e.g. the Gmail you use for free-tier smoke tests).',
+                tone: 'error',
+              });
+              return;
+            }
+            void handleResetFreeTierState(value);
+          },
+        },
+      ],
+      'plain-text',
+      '',
+    );
+  };
+
   const openSupportForm = (topic: FeedbackTopic) => {
     router.push({
       pathname: '/support',
@@ -346,11 +405,6 @@ export default function SettingsScreen() {
       </View>
     );
   }
-
-  const effectiveTier = getEffectiveTier(
-    profile,
-    user?.email,
-  );
 
   return (
     <View style={styles.root}>
@@ -662,35 +716,10 @@ export default function SettingsScreen() {
                   variant="secondary"
                 />
                 <PrimaryAction
-                  label="Reset free tier trials"
+                  label="Reset free tier state (server + device)"
                   icon="refresh-outline"
                   loading={resettingFreeTrials}
-                  onPress={async () => {
-                    if (!user?.id) return;
-                    setResettingFreeTrials(true);
-                    try {
-                      const accessToken = await getValidAccessToken();
-                      await invokeEdgeFunction<{ ok: boolean }>(
-                        'admin-reset-free-trials',
-                        { accessToken, body: {} },
-                      );
-                      await fetchProfile(user.id);
-                      setNotice({
-                        title: 'Free trials reset',
-                        message:
-                          'Tackle Box, Water Read, and Today\'s Bite full trials are available again for this account.',
-                        tone: 'success',
-                      });
-                    } catch (err) {
-                      setNotice({
-                        title: 'Reset failed',
-                        message: err instanceof Error ? err.message : 'Could not reset free trials.',
-                        tone: 'error',
-                      });
-                    } finally {
-                      setResettingFreeTrials(false);
-                    }
-                  }}
+                  onPress={promptAdminFreeTierReset}
                   variant="secondary"
                 />
                 <View style={styles.testingRow}>

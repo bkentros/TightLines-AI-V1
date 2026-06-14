@@ -1187,13 +1187,12 @@ export default function RecommenderScreen() {
               "Angler feature",
               "Subscribe to refresh picks or start a new Tackle Box session.",
             );
+            setIsRefreshing(false);
           } else {
             setShowSubscribePrompt(true);
-          }
-          if (isInlineRefresh) {
-            setIsRefreshing(false);
-          } else if (screenState === "loading") {
             setScreenState("setup");
+            setWizardStep(1);
+            setErrorMsg(null);
           }
           return;
         }
@@ -1254,6 +1253,14 @@ export default function RecommenderScreen() {
     setScreenState("setup");
     setIsRefreshing(false);
   }, [canGenerateRecommendation, screenState, result]);
+
+  const handleSubscribeUnlocked = useCallback(() => {
+    setShowSubscribePrompt(false);
+    if (user?.id) {
+      void fetchProfile(user.id);
+    }
+    void handleFetch(false);
+  }, [fetchProfile, handleFetch, user?.id]);
 
   const accentColor = context ? contextAccentColor(context) : colors.primary;
 
@@ -1732,10 +1739,14 @@ export default function RecommenderScreen() {
 
       <SubscribePrompt
         visible={showSubscribePrompt}
-        onDismiss={() => setShowSubscribePrompt(false)}
-        onUnlocked={() => {
+        onDismiss={() => {
           setShowSubscribePrompt(false);
+          setScreenState("setup");
+          setWizardStep(1);
+          setIsRefreshing(false);
+          setErrorMsg(null);
         }}
+        onUnlocked={handleSubscribeUnlocked}
       />
     </SafeAreaView>
   );

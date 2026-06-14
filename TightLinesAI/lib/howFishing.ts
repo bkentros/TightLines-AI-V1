@@ -93,7 +93,7 @@ async function getCachedHowFishingRebuild(
     const entry = JSON.parse(raw) as RebuildCacheEntry;
     if (!coordsMatch(entry.lat, entry.lon, latitude, longitude)) return null;
     const expires = new Date(entry.cache_expires_at).getTime();
-    if (Number.isFinite(expires) && Date.now() >= expires) return null;
+    if (!Number.isFinite(expires) || Date.now() >= expires) return null;
     if (entry.bundle.access_tier === 'free_limited' && !options.allowLimited) return null;
     return entry.bundle;
   } catch {

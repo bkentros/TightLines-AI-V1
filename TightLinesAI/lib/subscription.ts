@@ -75,12 +75,14 @@ export function canContinueRecommenderSession(
   return hasActiveResult;
 }
 
-/** New Water Read lake — Angler or unused free trial. */
+/** New Water Read lake — Angler or unused free trial with no prior lakes. */
 export function canGenerateWaterRead(
   tier: SubscriptionTier,
   profile?: UserProfile | null,
+  existingTrialLakeCount = 0,
 ): boolean {
   if (canUseAIFeatures(tier)) return true;
+  if (existingTrialLakeCount > 0) return false;
   return freeWaterReadTrialAvailable(profile);
 }
 
@@ -90,6 +92,8 @@ export function shouldLimitFreeTodayBiteReport(
   profile?: UserProfile | null,
 ): boolean {
   if (canUseAIFeatures(tier)) return false;
+  // Conservative until profile hydrates — never assume an unused trial.
+  if (!profile) return true;
   return !freeTodayBiteFullTrialAvailable(profile);
 }
 

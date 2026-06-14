@@ -43,8 +43,8 @@ export function SubscribePrompt({
       } else {
         const message = useRevenueCatStore.getState().error;
         if (message) Alert.alert('Subscriptions temporarily unavailable', message);
+        onDismiss();
       }
-      onDismiss();
     })();
 
     return () => {

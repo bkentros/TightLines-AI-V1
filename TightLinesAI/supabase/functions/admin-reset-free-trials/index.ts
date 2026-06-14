@@ -1,6 +1,9 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { isAdminEmail } from "../_shared/appAccess.ts";
+import {
+  canResetFreeTierState,
+  resetFreeTierStateForUser,
+} from "../_shared/resetFreeTierState.ts";
 
 function corsHeaders() {
   return {
@@ -9,6 +12,12 @@ function corsHeaders() {
     "Access-Control-Allow-Headers":
       "Content-Type, Authorization, apikey, x-user-token",
   };
+}
+
+function normalizeEmail(value: unknown): string | null {
+  if (typeof value !== "string") return null;
+  const normalized = value.trim().toLowerCase();
+  return normalized.length > 0 ? normalized : null;
 }
 
 Deno.serve(async (req: Request) => {
@@ -45,32 +54,68 @@ Deno.serve(async (req: Request) => {
     });
   }
 
-  if (!isAdminEmail(user.email)) {
+  if (!canResetFreeTierState(user.email)) {
     return new Response(JSON.stringify({ error: "forbidden" }), {
       status: 403,
       headers: { "Content-Type": "application/json", ...corsHeaders() },
     });
   }
 
-  const { error } = await supabase
-    .from("profiles")
-    .update({
-      free_recommender_trial_used_at: null,
-      free_water_read_trial_used_at: null,
-      free_today_bite_full_used_at: null,
-    })
-    .eq("id", user.id);
-
-  if (error) {
-    console.error("[admin-reset-free-trials]", error.message);
-    return new Response(JSON.stringify({ error: "reset_failed" }), {
-      status: 500,
+  let body: { targetEmail?: unknown } = {};
+  try {
+    const text = await req.text();
+    if (text.trim().length > 0) {
+      body = JSON.parse(text) as { targetEmail?: unknown };
+    }
+  } catch {
+    return new Response(JSON.stringify({ error: "invalid_json" }), {
+      status: 400,
       headers: { "Content-Type": "application/json", ...corsHeaders() },
     });
   }
 
-  return new Response(JSON.stringify({ ok: true }), {
-    status: 200,
-    headers: { "Content-Type": "application/json", ...corsHeaders() },
-  });
+  const targetEmail = normalizeEmail(body.targetEmail);
+  let targetUserId = user.id;
+
+  if (targetEmail && targetEmail !== user.email?.trim().toLowerCase()) {
+    const { data: lookedUpUserId, error: lookupError } = await supabase.rpc(
+      "admin_lookup_user_id_by_email",
+      { target_email: targetEmail },
+    );
+
+    if (lookupError) {
+      console.error("[admin-reset-free-trials] target lookup failed", lookupError.message);
+      return new Response(JSON.stringify({ error: "target_lookup_failed" }), {
+        status: 500,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      });
+    }
+
+    if (!lookedUpUserId || typeof lookedUpUserId !== "string") {
+      return new Response(JSON.stringify({ error: "target_user_not_found" }), {
+        status: 404,
+        headers: { "Content-Type": "application/json", ...corsHeaders() },
+      });
+    }
+    targetUserId = lookedUpUserId;
+  }
+
+  try {
+    const result = await resetFreeTierStateForUser(supabase, targetUserId);
+    return new Response(JSON.stringify({
+      ...result,
+      targetUserId,
+      targetEmail: targetEmail ?? user.email ?? null,
+    }), {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    });
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "reset_failed";
+    console.error("[admin-reset-free-trials]", message);
+    return new Response(JSON.stringify({ error: "reset_failed", message }), {
+      status: 500,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    });
+  }
 });

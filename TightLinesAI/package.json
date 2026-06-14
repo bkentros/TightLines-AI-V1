@@ -40,6 +40,7 @@
     "qa:water-reader-production-feature-envelope": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-production-feature-envelope-smoke.ts",
     "qa:water-reader-engine-zone-review": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-engine-zone-review.ts",
     "qa:water-reader-app-integration-smoke": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-app-integration-smoke.ts",
+    "qa:free-tier-today-bite-contract": "node ./node_modules/tsx/dist/cli.mjs scripts/free-tier-today-bite-contract-smoke.ts",
     "build:water-reader-read-cache": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-build-read-cache.ts",
     "prewarm:water-reader-launch": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-launch-prewarm.ts",
     "preload:water-reader:3dhp-index": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-preload-3dhp-index.ts",

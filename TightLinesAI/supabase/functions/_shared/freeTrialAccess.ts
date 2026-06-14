@@ -60,13 +60,35 @@ export async function markFreeTodayBiteFullUsed(
   supabase: SupabaseClient,
   userId: string,
 ): Promise<void> {
-  const { error } = await supabase
+  const markedAt = new Date().toISOString();
+  const { data, error } = await supabase
     .from("profiles")
-    .update({ free_today_bite_full_used_at: new Date().toISOString() })
+    .update({ free_today_bite_full_used_at: markedAt })
     .eq("id", userId)
-    .is("free_today_bite_full_used_at", null);
+    .is("free_today_bite_full_used_at", null)
+    .select("free_today_bite_full_used_at")
+    .maybeSingle<{ free_today_bite_full_used_at: string | null }>();
+
   if (error) {
-    console.error("[freeTrialAccess] mark today bite full trial failed", error.message);
+    throw new Error(`mark_today_bite_trial_failed:${error.message}`);
+  }
+
+  if (data?.free_today_bite_full_used_at) {
+    return;
+  }
+
+  // Idempotent path: another concurrent request may have marked first.
+  const { data: profile, error: readError } = await supabase
+    .from("profiles")
+    .select("free_today_bite_full_used_at")
+    .eq("id", userId)
+    .maybeSingle<{ free_today_bite_full_used_at: string | null }>();
+
+  if (readError) {
+    throw new Error(`mark_today_bite_trial_verify_failed:${readError.message}`);
+  }
+  if (profile?.free_today_bite_full_used_at == null) {
+    throw new Error("mark_today_bite_trial_not_persisted");
   }
 }
 
@@ -87,4 +109,47 @@ export async function userHasWaterReadHistoryForLake(
     return false;
   }
   return data != null;
+}
+
+export async function userHasAnyWaterReadHistory(
+  supabase: SupabaseClient,
+  userId: string,
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("water_reader_user_history")
+    .select("lake_id")
+    .eq("user_id", userId)
+    .limit(1)
+    .maybeSingle();
+  if (error) {
+    console.error("[freeTrialAccess] water read any-history lookup failed", error.message);
+    return false;
+  }
+  return data != null;
+}
+
+/** Free tier: one trial lake ever; revisits only for lakes already in user history. */
+export async function isFreeTierWaterReadAllowed(
+  supabase: SupabaseClient,
+  userId: string,
+  lakeId: string,
+  profile: FreeTrialProfileRow | null | undefined,
+): Promise<boolean> {
+  if (await userHasWaterReadHistoryForLake(supabase, userId, lakeId)) {
+    return true;
+  }
+  if (await userHasAnyWaterReadHistory(supabase, userId)) {
+    return false;
+  }
+  return freeWaterReadTrialAvailable(profile);
+}
+
+export async function markFreeWaterReadTrialUsedIfNeeded(
+  supabase: SupabaseClient,
+  userId: string,
+  profile: FreeTrialProfileRow | null | undefined,
+  tier: string,
+): Promise<void> {
+  if (tier !== "free" || !freeWaterReadTrialAvailable(profile)) return;
+  await markFreeWaterReadTrialUsed(supabase, userId);
 }

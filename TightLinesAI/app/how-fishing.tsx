@@ -282,8 +282,17 @@ export default function HowFishingScreen() {
   const isFreeTier = effectiveTier === "free";
   const isLimitedFreeRead = isFreeTier && !isForecastDay &&
     shouldLimitFreeTodayBiteReport(effectiveTier, profile);
+  const todayReportCacheOptions = useMemo(
+    () => ({ allowLimited: isLimitedFreeRead }),
+    [isLimitedFreeRead],
+  );
   const units = profile?.preferred_units ?? "imperial";
   const setLastReportEnv = useEnvStore((s) => s.setLastReportEnv);
+
+  useEffect(() => {
+    if (!isFreeTier || !user?.id) return;
+    void fetchProfile(user.id);
+  }, [fetchProfile, isFreeTier, user?.id]);
 
   const [env, setEnv] = useState<EnvironmentData | null>(null);
   const [envLoading, setEnvLoading] = useState(true);
@@ -370,10 +379,11 @@ export default function HowFishingScreen() {
     [availableTabs, windowWidth, activeTab],
   );
 
+  /** Stored bundle tier is the source of truth — not current trial flags. */
   const shouldLimitReportSurface = useCallback(
     (bundle: HowFishingRebuildBundle | null | undefined): boolean =>
-      isLimitedFreeRead || bundle?.access_tier === "free_limited",
-    [isLimitedFreeRead],
+      bundle?.access_tier === "free_limited",
+    [],
   );
 
   const accessLabelForBundle = useCallback(
@@ -487,7 +497,7 @@ export default function HowFishingScreen() {
         lon,
         availableContexts,
         reportCacheOwnerKey,
-        { allowLimited: isLimitedFreeRead },
+        todayReportCacheOptions,
       );
       if (cancelled) return;
       if (cached) {
@@ -548,7 +558,7 @@ export default function HowFishingScreen() {
           lon,
           availableContexts,
           reportCacheOwnerKey,
-          { allowLimited: isLimitedFreeRead },
+          todayReportCacheOptions,
         );
         if (cachedToday) {
           const tab = firstContextWithReport(cachedToday, availableContexts);
@@ -723,7 +733,7 @@ export default function HowFishingScreen() {
           lon,
           availableContexts,
           reportCacheOwnerKey,
-          { allowLimited: isLimitedFreeRead },
+          todayReportCacheOptions,
         );
       }
 
@@ -1163,7 +1173,6 @@ export default function HowFishingScreen() {
                           <>
                             <RebuildReportView
                               report={bundle.report}
-                              solunarData={env?.solunar}
                               dateLabel={heroDateLabel}
                               isLimited={shouldLimitReportSurface(bundle)}
                               onAnglerUnlocked={() => {
@@ -1216,7 +1225,6 @@ export default function HowFishingScreen() {
                   <>
                     <RebuildReportView
                       report={activeBundle.report}
-                      solunarData={env?.solunar}
                       dateLabel={heroDateLabel}
                       isLimited={shouldLimitReportSurface(activeBundle)}
                       onAnglerUnlocked={() => {

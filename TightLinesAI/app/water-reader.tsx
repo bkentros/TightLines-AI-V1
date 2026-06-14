@@ -336,7 +336,6 @@ export default function WaterReaderScreen() {
     user?.email,
   );
   const hasSubscription = canUseAIFeatures(effectiveTier);
-  const canGenerateRead = canGenerateWaterRead(effectiveTier, profile);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
   const [stateCode, setStateCode] = useState<string | null>(null);
@@ -366,6 +365,32 @@ export default function WaterReaderScreen() {
   const [historyError, setHistoryError] = useState<string | null>(null);
   const [historyRefreshNonce, setHistoryRefreshNonce] = useState(0);
 
+  const trialLakeCount = useMemo(
+    () => new Set(historyItems.map((item) => item.lakeId)).size,
+    [historyItems],
+  );
+  const canGenerateRead = canGenerateWaterRead(
+    effectiveTier,
+    profile,
+    trialLakeCount,
+  );
+
+  const selectedLakeInHistory = useMemo(
+    () => Boolean(
+      selected && historyItems.some((item) => item.lakeId === selected.lakeId),
+    ),
+    [historyItems, selected],
+  );
+
+  const isLakeInHistory = useCallback(
+    (lakeId: string) => historyItems.some((item) => item.lakeId === lakeId),
+    [historyItems],
+  );
+  const stableReadyReadRef = useRef<{
+    cacheKey: string;
+    read: WaterReaderReadResponse;
+  } | null>(null);
+
   useEffect(() => {
     if (preserveSelectionForHistoryStateChange.current) {
       preserveSelectionForHistoryStateChange.current = false;
@@ -382,20 +407,43 @@ export default function WaterReaderScreen() {
 
   useEffect(() => {
     if (!selected || canGenerateRead) return;
+    if (isLakeInHistory(selected.lakeId)) return;
+    if (stableReadyReadRef.current?.read.lakeId === selected.lakeId) return;
     setSelected(null);
     setReadState({ status: 'idle', read: null, errorMessage: null });
     setShowSubscribePrompt(true);
-  }, [canGenerateRead, selected]);
+  }, [canGenerateRead, isLakeInHistory, selected]);
 
   useEffect(() => {
-    if (!selected || !canOpenWaterReaderRead(selected) || !canGenerateRead) {
+    if (!selected || !canOpenWaterReaderRead(selected)) {
+      readRequestId.current += 1;
+      stableReadyReadRef.current = null;
+      setReadState({ status: 'idle', read: null, errorMessage: null });
+      return;
+    }
+
+    const lakeId = selected.lakeId;
+    const canFetchSelectedRead = canGenerateRead || selectedLakeInHistory ||
+      stableReadyReadRef.current?.read.lakeId === lakeId;
+    if (!canFetchSelectedRead) {
       readRequestId.current += 1;
       setReadState({ status: 'idle', read: null, errorMessage: null });
       return;
     }
+
+    const readyCacheKey = `${lakeId}:${readRetryNonce}`;
+    const cachedReady = stableReadyReadRef.current;
+    if (cachedReady?.cacheKey === readyCacheKey) {
+      setReadState((prev) => (
+        prev.status === 'ready' && prev.read?.lakeId === lakeId
+          ? prev
+          : { status: 'ready', read: cachedReady.read, errorMessage: null }
+      ));
+      return;
+    }
+
     const reqId = ++readRequestId.current;
     setReadState({ status: 'reading', read: null, errorMessage: null });
-    const lakeId = selected.lakeId;
     void (async () => {
       try {
         while (readRequestId.current === reqId) {
@@ -417,27 +465,38 @@ export default function WaterReaderScreen() {
               read: null,
               errorMessage: 'Water Read could not finish preparing. Try again shortly.',
             });
+            stableReadyReadRef.current = null;
             return;
           }
           if (isRecentWaterReadBuildingDiagnostic(res)) {
             setReadState({ status: 'recent_building', read: res, errorMessage: null });
             return;
           }
+          stableReadyReadRef.current = { cacheKey: readyCacheKey, read: res };
           setReadState({ status: 'ready', read: res, errorMessage: null });
           if (!hasSubscription && user?.id) {
             void fetchProfile(user.id);
           }
+          setHistoryRefreshNonce((value) => value + 1);
           return;
         }
       } catch (e) {
         if (readRequestId.current !== reqId) return;
-        setReadState({ status: 'error', read: null, errorMessage: userFacingReadError(e) });
+        stableReadyReadRef.current = null;
+        const message = userFacingReadError(e);
+        if (message.includes('subscription')) {
+          setReadState({ status: 'idle', read: null, errorMessage: null });
+          setSelected(null);
+          setShowSubscribePrompt(true);
+          return;
+        }
+        setReadState({ status: 'error', read: null, errorMessage: message });
       }
     })();
     return () => {
       readRequestId.current += 1;
     };
-  }, [canGenerateRead, selected, readRetryNonce, fetchProfile, hasSubscription, user?.id]);
+  }, [canGenerateRead, hasSubscription, selected, selectedLakeInHistory, readRetryNonce, user?.id]);
 
   useEffect(() => {
     if (!user) {
@@ -488,8 +547,7 @@ export default function WaterReaderScreen() {
     if (
       readState.status !== 'preparing' &&
       readState.status !== 'queued' &&
-      readState.status !== 'recent_building' &&
-      readState.status !== 'ready'
+      readState.status !== 'recent_building'
     ) {
       return;
     }
@@ -612,13 +670,13 @@ export default function WaterReaderScreen() {
 
   const onSelectWaterbodyResult = useCallback((result: WaterbodySearchResult) => {
     if (!canOpenWaterReaderRead(result)) return;
-    const inHistory = historyItems.some((item) => item.lakeId === result.lakeId);
+    const inHistory = isLakeInHistory(result.lakeId);
     if (!canGenerateRead && !inHistory) {
       setShowSubscribePrompt(true);
       return;
     }
     setSelected(result);
-  }, [canGenerateRead, historyItems]);
+  }, [canGenerateRead, isLakeInHistory]);
 
   const showResultsPanel =
     !hasBuildingRead && !selected && stateCode && (query.trim().length >= SEARCH_MIN_CHARS || searching || (searchError != null && query.trim().length >= SEARCH_MIN_CHARS));

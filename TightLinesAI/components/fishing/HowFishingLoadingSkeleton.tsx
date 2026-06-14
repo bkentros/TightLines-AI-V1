@@ -6,7 +6,7 @@
  * matching bone in this skeleton — hero (with corner crosses, gauge
  * panel, verdict ornaments, meta strip), BITE FACTORS section
  * (masthead + helping/watch-out cards with ribbon-tinted ordinals),
- * WHEN TO GO timing tiles, MOON & TIDE almanac, FIELD STRATEGY with seal
+ * WHEN TO GO timing tiles, FIELD STRATEGY with seal
  * badge, and the footer with pulsing live dot + edition stamp.
  *
  * Visual-only: no data, no engine fetch. One pulse value (native
@@ -366,50 +366,6 @@ export function HowFishingLoadingSkeleton() {
         </View>
         <Bone style={styles.daypartBone} />
         <Bone style={[styles.daypartBone, { width: "76%" }]} />
-
-        {/* ── MOON & TIDE almanac ──────────────────────────────────── */}
-        <View style={styles.almanacCard}>
-          <View style={styles.almanacHeader}>
-            <View style={styles.almanacCrescentWrap}>
-              <View style={styles.almanacCrescentOuter} />
-              <View style={styles.almanacCrescentInner} />
-            </View>
-            <Bone style={styles.almanacTitleBone} />
-            <View style={styles.almanacHeaderTag}>
-              <Bone style={styles.almanacHeaderTagBone} />
-            </View>
-          </View>
-          <View style={styles.almanacRule} />
-          <View style={styles.almanacRow}>
-            <View style={styles.almanacCol}>
-              <View style={styles.almanacSubheadRow}>
-                <View style={styles.almanacSubheadBar} />
-                <Bone style={styles.almanacSubheadBone} />
-              </View>
-              {[0, 1].map((i) => (
-                <View key={i} style={styles.almanacPeriod}>
-                  <View style={styles.almanacPulseWrap}>
-                    <View style={styles.almanacPulseRing} />
-                    <View style={styles.almanacPulseCore} />
-                  </View>
-                  <Bone style={styles.almanacTimeBone} />
-                </View>
-              ))}
-            </View>
-            <View style={[styles.almanacCol, styles.almanacColRight]}>
-              <View style={styles.almanacSubheadRow}>
-                <View style={[styles.almanacSubheadBar, { opacity: 0.5 }]} />
-                <Bone style={[styles.almanacSubheadBone, { opacity: 0.7 }]} />
-              </View>
-              {[0, 1].map((i) => (
-                <View key={i} style={styles.almanacPeriod}>
-                  <View style={styles.almanacDotMinor} />
-                  <Bone style={[styles.almanacTimeBone, { opacity: 0.45 }]} />
-                </View>
-              ))}
-            </View>
-          </View>
-        </View>
 
         {/* ── FIELD STRATEGY with editor's seal badge ──────────────── */}
         <View style={styles.guideCard}>
@@ -1171,146 +1127,6 @@ const styles = StyleSheet.create({
     height: 12,
     width: "100%",
     marginTop: paperSpacing.sm + 2,
-    opacity: 0.5,
-  },
-
-  // ── MOON & TIDE almanac ──────────────────────────────────────────────
-  almanacCard: {
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.md,
-  },
-  almanacHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  almanacCrescentWrap: {
-    width: 16,
-    height: 16,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-  },
-  almanacCrescentOuter: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardBlue,
-    opacity: 0.7,
-  },
-  almanacCrescentInner: {
-    position: "absolute",
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: paper.dashboardWhite,
-    top: 1,
-    left: 4,
-  },
-  almanacTitleBone: {
-    height: 12,
-    width: 110,
-    backgroundColor: paper.dashboardBlue,
-    opacity: 0.4,
-    flexShrink: 1,
-  },
-  almanacHeaderTag: {
-    marginLeft: "auto",
-    paddingHorizontal: 7,
-    paddingVertical: 2,
-    borderRadius: 3,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: paper.dashboardLine,
-    backgroundColor: "#F6F9FB",
-  },
-  almanacHeaderTagBone: {
-    height: 9,
-    width: 42,
-    opacity: 0.5,
-  },
-  almanacRule: {
-    height: 1.5,
-    backgroundColor: paper.dashboardLine,
-    opacity: 0.7,
-    marginTop: paperSpacing.sm,
-    marginBottom: paperSpacing.sm + 2,
-  },
-  almanacRow: {
-    flexDirection: "row",
-    gap: paperSpacing.md,
-  },
-  almanacCol: {
-    flex: 1,
-  },
-  almanacColRight: {
-    borderLeftWidth: StyleSheet.hairlineWidth,
-    borderLeftColor: paper.dashboardLine,
-    paddingLeft: paperSpacing.md,
-  },
-  almanacSubheadRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginBottom: paperSpacing.xs,
-  },
-  almanacSubheadBar: {
-    width: 3,
-    height: 10,
-    borderRadius: 1.5,
-    backgroundColor: paper.dashboardBlue,
-    opacity: 0.85,
-  },
-  almanacSubheadBone: {
-    height: 9,
-    width: 100,
-    backgroundColor: paper.dashboardBlue,
-    opacity: 0.45,
-  },
-  almanacPeriod: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginBottom: 4,
-  },
-  almanacPulseWrap: {
-    width: 12,
-    height: 12,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  almanacPulseRing: {
-    position: "absolute",
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: paper.dashboardBlue,
-    opacity: 0.6,
-  },
-  almanacPulseCore: {
-    width: 5,
-    height: 5,
-    borderRadius: 2.5,
-    backgroundColor: paper.dashboardBlue,
-    opacity: 0.85,
-  },
-  almanacDotMinor: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    borderWidth: 1,
-    borderColor: paper.dashboardBlue,
-    opacity: 0.55,
-  },
-  almanacTimeBone: {
-    height: 11,
-    width: 96,
-    flex: 1,
     opacity: 0.5,
   },
 

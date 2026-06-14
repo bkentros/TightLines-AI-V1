@@ -94,6 +94,39 @@ function localDateInTz(timezone: string, d = new Date()): string {
   }
 }
 
+function trialMarkFailedResponse(): Response {
+  return new Response(
+    JSON.stringify({
+      error: "trial_mark_failed",
+      message:
+        "We built your read but could not save your free trial status. Please try again.",
+    }),
+    {
+      status: 503,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    },
+  );
+}
+
+async function finalizeFreeTodayBiteTrial(params: {
+  supabase: ReturnType<typeof createClient>;
+  userId: string;
+  tier: string;
+  isTodayRead: boolean;
+  profile: FreeTrialProfileRow | null;
+}): Promise<Response | null> {
+  if (params.tier !== "free" || !params.isTodayRead) return null;
+  if (!freeTodayBiteFullTrialAvailable(params.profile)) return null;
+  try {
+    await markFreeTodayBiteFullUsed(params.supabase, params.userId);
+  } catch (err) {
+    const message = err instanceof Error ? err.message : "trial_mark_failed";
+    console.error("[how-fishing] free today bite trial mark failed", message);
+    return trialMarkFailedResponse();
+  }
+  return null;
+}
+
 function normalizeSurfaceText(text: string | null | undefined): string | null {
   if (!text) return null;
   return text.replace(/\s+/g, " ").trim();
@@ -301,7 +334,9 @@ Deno.serve(async (req: Request) => {
       },
     );
   }
+  // Free tier: one full today report ever; every later calendar day is partial-only.
   const limitedAccess = tier === "free" &&
+    isTodayRead &&
     !freeTodayBiteFullTrialAvailable(profile);
 
   const coastalAllowed = isCoastalEnv(envData);
@@ -510,7 +545,14 @@ Deno.serve(async (req: Request) => {
     });
 
     if (tier === "free" && isTodayRead && freeTodayBiteFullTrialAvailable(profile)) {
-      await markFreeTodayBiteFullUsed(supabase, userId);
+      const trialError = await finalizeFreeTodayBiteTrial({
+        supabase,
+        userId,
+        tier,
+        isTodayRead,
+        profile,
+      });
+      if (trialError) return trialError;
     }
 
     return new Response(JSON.stringify(multiBundle), {
@@ -589,7 +631,14 @@ Deno.serve(async (req: Request) => {
   });
 
   if (tier === "free" && isTodayRead && freeTodayBiteFullTrialAvailable(profile)) {
-    await markFreeTodayBiteFullUsed(supabase, userId);
+    const trialError = await finalizeFreeTodayBiteTrial({
+      supabase,
+      userId,
+      tier,
+      isTodayRead,
+      profile,
+    });
+    if (trialError) return trialError;
   }
 
   return new Response(JSON.stringify(responseBundle), {

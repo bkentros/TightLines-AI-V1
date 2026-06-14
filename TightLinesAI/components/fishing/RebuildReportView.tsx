@@ -38,7 +38,6 @@ import {
 } from "./TimingTiles";
 import type { HowsFishingReportV1 } from "../../lib/howFishing";
 import type { ActionableTipTag } from "../../lib/howFishingRebuildContracts";
-import type { SolunarData } from "../../lib/env/types";
 import { useRevenueCatStore } from "../../store/revenueCatStore";
 
 // ─── Display helpers ─────────────────────────────────────────────────────────
@@ -114,31 +113,6 @@ function formatPressureWatchOutContext(
     default:
       return null;
   }
-}
-
-/** Parse a solunar time string (ISO local or "HH:mm") to "9:15am" format. */
-function parseSolunarTime(t: string): string {
-  const isoMatch = t.match(/T(\d{2}):(\d{2})/);
-  if (isoMatch) {
-    const h = parseInt(isoMatch[1]!, 10);
-    const m = parseInt(isoMatch[2]!, 10);
-    const period = h < 12 ? "am" : "pm";
-    const dh = h === 0 ? 12 : h > 12 ? h - 12 : h;
-    return `${dh}:${String(m).padStart(2, "0")}${period}`;
-  }
-  const hmMatch = t.match(/^(\d{1,2}):(\d{2})/);
-  if (hmMatch) {
-    const h = parseInt(hmMatch[1]!, 10);
-    const m = parseInt(hmMatch[2]!, 10);
-    const period = h < 12 ? "am" : "pm";
-    const dh = h === 0 ? 12 : h > 12 ? h - 12 : h;
-    return `${dh}:${String(m).padStart(2, "0")}${period}`;
-  }
-  return t;
-}
-
-function formatSolunarRange(start: string, end: string): string {
-  return `${parseSolunarTime(start)} – ${parseSolunarTime(end)}`;
 }
 
 /** Condense "America/New_York" → "New York"-ish short string. */
@@ -505,13 +479,11 @@ function getTimingPeriods(report: HowsFishingReportV1): PeriodSlot[] | null {
 
 export function RebuildReportView({
   report,
-  solunarData,
   dateLabel = "TODAY",
   isLimited = false,
   onAnglerUnlocked,
 }: {
   report: HowsFishingReportV1;
-  solunarData?: SolunarData | null;
   /** Uppercase date label shown in the hero outlook eyebrow. */
   dateLabel?: string;
   /** Free-tier preview: show the headline read and hide the deeper guide detail. */
@@ -889,74 +861,6 @@ export function RebuildReportView({
                 : null}
             </View>
           )}
-
-          {/* ── ALMANAC · MOON & TIDE (was "SOLUNAR WINDOWS · BONUS") ─────── */}
-          {solunarData &&
-            (solunarData.major_periods.length > 0 ||
-              solunarData.minor_periods.length > 0) &&
-            (
-              <View style={styles.almanacCard}>
-                <View style={styles.almanacHeader}>
-                  <AlmanacCrescent />
-                  <Text style={styles.almanacTitle}>MOON &amp; TIDE</Text>
-                  <View style={styles.almanacHeaderTag}>
-                    <Text style={styles.almanacHeaderTagText}>SOLUNAR</Text>
-                  </View>
-                </View>
-                <View style={styles.almanacRule} />
-                <View style={styles.almanacRow}>
-                  {solunarData.major_periods.length > 0 && (
-                    <View style={styles.almanacCol}>
-                      <View style={styles.almanacSubheadRow}>
-                        <View style={styles.almanacSubheadBar} />
-                        <Text style={styles.almanacSubhead}>
-                          STRONG WINDOWS
-                        </Text>
-                      </View>
-                      {solunarData.major_periods.map((p, i) => (
-                        <View key={`maj-${i}`} style={styles.almanacPeriod}>
-                          <AlmanacPulseDot kind="strong" />
-                          <Text style={styles.almanacTime}>
-                            {formatSolunarRange(p.start, p.end)}
-                          </Text>
-                          {p.type != null && (
-                            <Text style={styles.almanacType}>
-                              {p.type === "overhead" ? "↑" : "↓"}
-                            </Text>
-                          )}
-                        </View>
-                      ))}
-                    </View>
-                  )}
-                  {solunarData.minor_periods.length > 0 && (
-                    <View
-                      style={[
-                        styles.almanacCol,
-                        solunarData.major_periods.length > 0 &&
-                        styles.almanacColRight,
-                      ]}
-                    >
-                      <View style={styles.almanacSubheadRow}>
-                        <View
-                          style={[styles.almanacSubheadBar, { opacity: 0.5 }]}
-                        />
-                        <Text style={[styles.almanacSubhead, { opacity: 0.7 }]}>
-                          MINOR WINDOWS
-                        </Text>
-                      </View>
-                      {solunarData.minor_periods.map((p, i) => (
-                        <View key={`min-${i}`} style={styles.almanacPeriod}>
-                          <View style={styles.almanacDotMinor} />
-                          <Text style={styles.almanacTimeMinor}>
-                            {formatSolunarRange(p.start, p.end)}
-                          </Text>
-                        </View>
-                      ))}
-                    </View>
-                  )}
-                </View>
-              </View>
-            )}
 
           {/* ── FIELD STRATEGY — editorial centerpiece ──────────────────────── */}
           <View style={styles.guideCard}>
@@ -3013,65 +2917,6 @@ function TimeWindowTile({
   );
 }
 
-// ─── Almanac decorations ───────────────────────────────────────────────────
-
-/**
- * Decorative crescent glyph for the MOON & TIDE header — two concentric
- * circles with an offset that produces a crescent shape, all in
- * dashboard blue. Reads as a small almanac seal in place of the plain
- * moon icon.
- */
-function AlmanacCrescent() {
-  return (
-    <View style={styles.almanacCrescentWrap}>
-      <View style={styles.almanacCrescentOuter} />
-      <View style={styles.almanacCrescentInner} />
-    </View>
-  );
-}
-
-/**
- * Two-layer pulse dot for the strong-window list. The outer ring slowly
- * breathes opacity while the inner core stays solid — signals "active
- * window" without animating size (native-driver opacity loop, no
- * per-frame layout cost).
- */
-function AlmanacPulseDot({ kind }: { kind: "strong" }) {
-  const pulse = useRef(new Animated.Value(0.6)).current;
-  useEffect(() => {
-    const loop = Animated.loop(
-      Animated.sequence([
-        Animated.timing(pulse, {
-          toValue: 1,
-          duration: 1300,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-        Animated.timing(pulse, {
-          toValue: 0.45,
-          duration: 1300,
-          easing: Easing.inOut(Easing.ease),
-          useNativeDriver: true,
-        }),
-      ]),
-    );
-    loop.start();
-    return () => loop.stop();
-  }, [pulse]);
-  void kind;
-  return (
-    <View style={styles.almanacPulseWrap}>
-      <Animated.View
-        style={[
-          styles.almanacPulseRing,
-          { opacity: pulse },
-        ]}
-      />
-      <View style={styles.almanacPulseCore} />
-    </View>
-  );
-}
-
 // ─── Styles ──────────────────────────────────────────────────────────────────
 
 const styles = StyleSheet.create({
@@ -4401,166 +4246,6 @@ const styles = StyleSheet.create({
     backgroundColor: "#FAFAF7",
     alignItems: "center",
     justifyContent: "center",
-  },
-
-  // ── Almanac (was Solunar) ──────────────────────────────────────────
-  almanacCard: {
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 14,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    paddingHorizontal: paperSpacing.md,
-    paddingVertical: paperSpacing.md,
-  },
-  almanacHeader: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 8,
-  },
-  almanacCrescentWrap: {
-    width: 16,
-    height: 16,
-    alignItems: "center",
-    justifyContent: "center",
-    position: "relative",
-  },
-  almanacCrescentOuter: {
-    width: 14,
-    height: 14,
-    borderRadius: 7,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardBlue,
-  },
-  almanacCrescentInner: {
-    position: "absolute",
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    backgroundColor: paper.dashboardWhite,
-    top: 1,
-    left: 4,
-  },
-  almanacHeaderTag: {
-    marginLeft: "auto",
-    paddingHorizontal: 7,
-    paddingVertical: 2,
-    borderRadius: 3,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: paper.dashboardLine,
-    backgroundColor: "#F6F9FB",
-  },
-  almanacHeaderTagText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 1.6,
-    color: paper.dashboardMuted,
-    fontWeight: "700",
-  },
-  almanacSubheadRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginBottom: paperSpacing.xs,
-  },
-  almanacSubheadBar: {
-    width: 3,
-    height: 10,
-    borderRadius: 1.5,
-    backgroundColor: paper.dashboardBlue,
-    opacity: 0.85,
-  },
-  almanacPulseWrap: {
-    width: 12,
-    height: 12,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  almanacPulseRing: {
-    position: "absolute",
-    width: 12,
-    height: 12,
-    borderRadius: 6,
-    borderWidth: 1,
-    borderColor: paper.dashboardBlue,
-  },
-  almanacPulseCore: {
-    width: 5,
-    height: 5,
-    borderRadius: 2.5,
-    backgroundColor: paper.dashboardBlue,
-  },
-  almanacTitle: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    letterSpacing: 2.8,
-    color: paper.dashboardBlue,
-    fontWeight: "700",
-    flexShrink: 1,
-  },
-  almanacRule: {
-    height: 1.5,
-    backgroundColor: paper.dashboardLine,
-    opacity: 0.7,
-    marginTop: paperSpacing.sm,
-    marginBottom: paperSpacing.sm + 2,
-  },
-  almanacRow: {
-    flexDirection: "row",
-    gap: paperSpacing.md,
-  },
-  almanacCol: { flex: 1 },
-  almanacColRight: {
-    borderLeftWidth: StyleSheet.hairlineWidth,
-    borderLeftColor: paper.dashboardLine,
-    paddingLeft: paperSpacing.md,
-  },
-  almanacSubhead: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 9,
-    letterSpacing: 2.2,
-    color: paper.dashboardBlue,
-    opacity: 0.85,
-    fontWeight: "700",
-  },
-  almanacPeriod: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    marginBottom: 4,
-  },
-  almanacDotStrong: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: paper.dashboardBlue,
-  },
-  almanacDotMinor: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    borderWidth: 1,
-    borderColor: paper.dashboardBlue,
-    opacity: 0.65,
-  },
-  almanacTime: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    color: paper.dashboardInk,
-    flex: 1,
-    fontWeight: "700",
-  },
-  almanacTimeMinor: {
-    fontFamily: paperFonts.metaMono,
-    fontSize: 11,
-    color: paper.dashboardMuted,
-    opacity: 0.7,
-    flex: 1,
-  },
-  almanacType: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
-    color: paper.dashboardBlue,
-    opacity: 0.7,
   },
 
   // ── Guide's note (editorial centerpiece) ────────────────────────────
