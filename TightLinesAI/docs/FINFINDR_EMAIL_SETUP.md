@@ -77,10 +77,28 @@ Apple may ask for a support email on your domain. After Email Routing is live:
 
 ---
 
+## In-app feedback — Reply from Outlook not reaching the user
+
+**Symptom:** You receive feedback in Hotmail but **Reply** goes nowhere, loops back to you, or Outlook won't send.
+
+**Cause:** If `FEEDBACK_EMAIL_TO` is set to `support@finfindr.app`, mail is **forwarded** by Cloudflare before it hits Hotmail. Forwarding often **drops or ignores `Reply-To`**, so Outlook replies to `support@finfindr.app` (yourself) instead of the user's address.
+
+**Fix:**
+
+1. Supabase → **Edge Functions → Secrets** → set:
+   - `FEEDBACK_EMAIL_TO` = **`finfindr@hotmail.com`** (direct inbox — **not** `support@finfindr.app`)
+2. Redeploy `submit-feedback` (sets `Reply-To` + user email in subject + mailto link in body).
+3. Send a test message from the app → open in Outlook → **Reply** should address the user's email.
+
+Keep `support@finfindr.app` forwarding for **inbound** mail from the public; use **Hotmail directly** for **in-app** notifications.
+
+---
+
 ## Troubleshooting
 
 | Problem | Fix |
 |---------|-----|
+| Can't reply to user from Outlook | Set `FEEDBACK_EMAIL_TO=finfindr@hotmail.com` (not support@); redeploy `submit-feedback` |
 | MX still empty after enabling | Email Routing → DNS → **Configure** / re-enable routing |
 | Verification email not received | Check Hotmail junk; resend destination verification |
 | External mail delayed 15+ min | Wait for DNS propagation (usually &lt; 1 hour) |

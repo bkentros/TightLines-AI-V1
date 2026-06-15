@@ -70,6 +70,15 @@ function contextFromBody(body: Record<string, unknown>): Record<string, unknown>
   };
 }
 
+function escapeHtml(value: string): string {
+  return value
+    .replaceAll("&", "&amp;")
+    .replaceAll("<", "&lt;")
+    .replaceAll(">", "&gt;")
+    .replaceAll('"', "&quot;")
+    .replaceAll("'", "&#39;");
+}
+
 async function sendEmailNotification(input: {
   topic: FeedbackTopic;
   featureName: string | null;
@@ -79,21 +88,59 @@ async function sendEmailNotification(input: {
   contextLines: string[];
 }): Promise<boolean> {
   const apiKey = Deno.env.get("RESEND_API_KEY")?.trim();
-  const to = Deno.env.get("FEEDBACK_EMAIL_TO")?.trim() || "support@finfindr.app";
+  // Deliver directly to your inbox — not support@finfindr.app. Cloudflare forwarding
+  // can strip Reply-To, so Outlook Reply would loop back to you instead of the user.
+  const to = Deno.env.get("FEEDBACK_EMAIL_TO")?.trim() || "finfindr@hotmail.com";
   const from = Deno.env.get("FEEDBACK_EMAIL_FROM")?.trim() || "FinFindr <support@finfindr.app>";
   if (!apiKey) return false;
 
   const subjectFeature = input.featureName ? ` · ${input.featureName}` : "";
+  const replyTarget = input.userEmail?.trim() || null;
+  const subject = replyTarget
+    ? `FinFindr feedback · ${replyTarget} · ${input.topic}${subjectFeature}`
+    : `FinFindr feedback · ${input.topic}${subjectFeature}`;
+
   const text = [
-    `Topic: ${input.topic}${subjectFeature}`,
+    replyTarget
+      ? `Reply-To user: ${replyTarget}`
+      : "Reply-To user: unavailable — check Supabase app_feedback for this message.",
     input.username ? `Username: @${input.username}` : null,
-    input.userEmail ? `Email: ${input.userEmail}` : null,
+    `Topic: ${input.topic}${subjectFeature}`,
     "",
     input.message,
     "",
     "--- Context ---",
     ...input.contextLines,
   ].filter(Boolean).join("\n");
+
+  const html = [
+    "<div style=\"font-family:system-ui,sans-serif;line-height:1.5\">",
+    replyTarget
+      ? `<p><strong>Reply to this user:</strong> <a href="mailto:${escapeHtml(replyTarget)}">${escapeHtml(replyTarget)}</a></p>`
+      : "<p><strong>Reply-To user:</strong> unavailable — no email on this account.</p>",
+    input.username ? `<p><strong>Username:</strong> @${escapeHtml(input.username)}</p>` : "",
+    `<p><strong>Topic:</strong> ${escapeHtml(input.topic)}${subjectFeature ? escapeHtml(subjectFeature) : ""}</p>`,
+    `<pre style=\"white-space:pre-wrap;font-family:inherit\">${escapeHtml(input.message)}</pre>`,
+    "<hr />",
+    "<p><strong>Context</strong></p>",
+    `<pre style=\"white-space:pre-wrap;font-family:inherit\">${escapeHtml(input.contextLines.join("\n"))}</pre>`,
+    "</div>",
+  ].join("");
+
+  const payload: Record<string, unknown> = {
+    from,
+    to: [to],
+    subject,
+    text,
+    html,
+  };
+
+  if (replyTarget) {
+    payload.reply_to = [replyTarget];
+    payload.headers = {
+      "Reply-To": replyTarget,
+    };
+  }
 
   try {
     const res = await fetch("https://api.resend.com/emails", {
@@ -102,16 +149,15 @@ async function sendEmailNotification(input: {
         Authorization: `Bearer ${apiKey}`,
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({
-        from,
-        to: [to],
-        subject: `FinFindr feedback: ${input.topic}${subjectFeature}`,
-        text,
-        reply_to: input.userEmail ?? undefined,
-      }),
+      body: JSON.stringify(payload),
     });
+    if (!res.ok) {
+      const detail = await res.text();
+      console.error("[submit-feedback] Resend send failed", res.status, detail);
+    }
     return res.ok;
-  } catch {
+  } catch (error) {
+    console.error("[submit-feedback] Resend send error", error);
     return false;
   }
 }
