@@ -50,7 +50,6 @@ import {
   paper,
   paperBandForScore,
   type PaperScoreBand,
-  scoreAccentColor,
 } from "../../lib/theme";
 import { hapticImpact, ImpactFeedbackStyle } from "../../lib/safeHaptics";
 import { SubscribePrompt } from "../../components/SubscribePrompt";
@@ -1530,7 +1529,8 @@ export default function HomeScreen() {
                 const realDay = day as DayForecastScore;
                 const raw = combinedOutlookScore(realDay);
                 const score10 = roundedScore10FromRaw(raw);
-                const tileBg = scoreAccentColor(score10);
+                const bandStyle = dashboardBandColor[paperBandForScore(score10)];
+                const tileBg = bandStyle.bg;
                 const isFreePreview = !hasSubscription;
                 const isFirst = i === 0;
                 const { dayLabel, dateNum } = forecastDayDisplay(realDay);
@@ -1548,25 +1548,24 @@ export default function HomeScreen() {
                       { pressed },
                     ) => [
                       styles.forecastTile,
+                      isFirst && styles.forecastTileFirst,
                       pressed && { opacity: 0.85 },
                     ]}
                     accessibilityLabel={isFreePreview
                       ? "Unlock forecast day report"
                       : "Open forecast day report"}
                   >
-                    {isFirst && (
-                      <Text style={styles.forecastTileTomorrow}>
-                        TOMORROW
-                      </Text>
-                    )}
                     <View style={styles.forecastTileHead}>
                       <Text
-                        style={styles.forecastTileDay}
+                        style={[
+                          styles.forecastTileDay,
+                          isFirst && styles.forecastTileDayTomorrow,
+                        ]}
                         numberOfLines={1}
                         adjustsFontSizeToFit
-                        minimumFontScale={0.7}
+                        minimumFontScale={0.62}
                       >
-                        {dayLabel}
+                        {isFirst ? "TMRW" : dayLabel}
                       </Text>
                       <Text
                         style={styles.forecastTileDate}
@@ -1585,13 +1584,21 @@ export default function HomeScreen() {
                     >
                       <Text
                         style={[styles.forecastTileScore, {
-                          color: paper.dashboardInk,
+                          color: bandStyle.fg,
                         }]}
                         numberOfLines={1}
                         adjustsFontSizeToFit
                         minimumFontScale={0.7}
                       >
                         {formatScoreDisplay(raw)}
+                      </Text>
+                      <Text
+                        style={[styles.forecastTileBandWord, {
+                          color: bandStyle.fg,
+                        }]}
+                        numberOfLines={1}
+                      >
+                        {bandStyle.label.toUpperCase()}
                       </Text>
                     </View>
                     <View style={styles.forecastTileHiLo}>
@@ -1602,7 +1609,7 @@ export default function HomeScreen() {
                         minimumFontScale={0.75}
                       >
                         {tileHi != null ? `${Math.round(tileHi)}°` : "—"}
-                        <Text style={styles.forecastTileHiLoSep}>/</Text>
+                        <Text style={styles.forecastTileHiLoSep}> / </Text>
                         {tileLo != null ? `${Math.round(tileLo)}°` : "—"}
                       </Text>
                     </View>
@@ -2015,7 +2022,7 @@ function MetricCell({
   return (
     <View style={[styles.metricCell, divider && styles.metricCellDivider]}>
       <View style={styles.metricCellTopRow}>
-        <Ionicons name={icon} size={9} color={paper.dashboardMuted} />
+        <Ionicons name={icon} size={10} color={paper.dashboardBlue} />
         <Text
           style={styles.metricCellLabel}
           numberOfLines={1}
@@ -2801,7 +2808,7 @@ const styles = StyleSheet.create({
     borderRightWidth: 1,
     borderBottomWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: 6,
+    borderRadius: 8,
   },
   metricCell: {
     flexGrow: 1,
@@ -2836,10 +2843,10 @@ const styles = StyleSheet.create({
   },
   metricCellValue: {
     flexShrink: 1,
-    fontFamily: SERIF_SEMI,
-    fontSize: 13,
+    fontFamily: SERIF_BOLD,
+    fontSize: 14,
     color: paper.dashboardInk,
-    lineHeight: 15,
+    lineHeight: 16,
   },
   metricCellUnit: {
     fontFamily: MONO_BOLD,
@@ -2901,57 +2908,60 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: 6,
+    borderRadius: 10,
     overflow: "hidden",
     position: "relative",
     paddingTop: 0,
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.06,
+    shadowRadius: 4,
+    shadowOffset: { width: 0, height: 2 },
+    elevation: 1,
+  },
+  forecastTileFirst: {
+    borderColor: paper.dashboardBlue,
+    borderWidth: 1.5,
   },
   forecastTileLocked: {
     borderColor: "rgba(10,27,46,0.16)",
   },
-  forecastTileSkeleton: { height: 76, backgroundColor: "#EEE9DC" },
+  forecastTileSkeleton: { height: 96, backgroundColor: "#EEE9DC" },
   forecastTileHeaderSkeleton: {
-    height: 22,
+    height: 30,
     borderBottomWidth: 1,
     borderColor: paper.dashboardHair,
     backgroundColor: "#F4EEDF",
   },
   forecastTileBodySkeleton: { flex: 1, backgroundColor: "#EFE7CE" },
-  forecastTileTomorrow: {
-    position: "absolute",
-    top: -10,
-    left: 0,
-    right: 0,
-    textAlign: "center",
-    fontFamily: MONO_BOLD,
-    fontSize: 7,
-    letterSpacing: 1.2,
-    color: paper.dashboardInk,
-  },
   forecastTileHead: {
-    paddingVertical: 5,
+    paddingVertical: 6,
     alignItems: "center",
+    backgroundColor: "#FCFBF6",
     borderBottomWidth: 1,
     borderColor: paper.dashboardHair,
   },
   forecastTileDay: {
     fontFamily: MONO_BOLD,
     fontSize: 8.5,
-    letterSpacing: 1.2,
+    letterSpacing: 1.1,
     color: paper.dashboardMuted,
-    lineHeight: 10,
+    lineHeight: 11,
     textAlign: "center",
   },
+  forecastTileDayTomorrow: {
+    color: paper.dashboardBlue,
+    letterSpacing: 0.8,
+  },
   forecastTileDate: {
-    fontFamily: SERIF_SEMI,
-    fontSize: 13,
+    fontFamily: SERIF_BOLD,
+    fontSize: 15,
     color: paper.dashboardInk,
-    marginTop: 2,
-    lineHeight: 14,
+    marginTop: 1,
+    lineHeight: 17,
     textAlign: "center",
   },
   forecastTileScoreBlock: {
-    height: 36,
+    height: 44,
     justifyContent: "center",
     alignItems: "center",
   },
@@ -2961,9 +2971,17 @@ const styles = StyleSheet.create({
   },
   forecastTileScore: {
     fontFamily: SERIF_BOLD,
-    fontSize: 16,
-    lineHeight: 18,
+    fontSize: 19,
+    lineHeight: 21,
     letterSpacing: -0.5,
+  },
+  forecastTileBandWord: {
+    fontFamily: MONO_BOLD,
+    fontSize: 6.5,
+    letterSpacing: 0.8,
+    lineHeight: 8,
+    marginTop: 1,
+    opacity: 0.82,
   },
   forecastTileLockVeil: {
     ...StyleSheet.absoluteFillObject,
@@ -2973,7 +2991,7 @@ const styles = StyleSheet.create({
     opacity: 0.72,
   },
   forecastTileHiLo: {
-    paddingVertical: 3,
+    paddingVertical: 4,
     paddingHorizontal: 2,
     alignItems: "center",
     backgroundColor: "#FAFAF7",
@@ -2982,10 +3000,11 @@ const styles = StyleSheet.create({
   },
   forecastTileHiLoText: {
     fontFamily: MONO_BOLD,
-    fontSize: 9,
+    fontSize: 9.5,
     letterSpacing: 0.1,
-    color: paper.dashboardMuted,
-    lineHeight: 10,
+    color: paper.dashboardInk,
+    opacity: 0.78,
+    lineHeight: 11,
   },
   forecastTileHiLoSep: {
     fontFamily: MONO,
