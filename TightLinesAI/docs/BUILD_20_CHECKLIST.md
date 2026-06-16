@@ -7,8 +7,8 @@
 | **App version** | `1.0.3` (planned) — **not bumped yet** in `app.json` (still `1.0.2`). Bump only at the final EAS build. `1.0.2` is already live, so `1.0.3` is required for the next release. |
 | **iOS build number** | **TBD** — `production` profile has `autoIncrement: true`, so EAS sets it at build time (likely `20`; this doc is named for the target). Currently `18` in `app.json`. |
 | **Branch** | `release/app-store-v1` |
-| **Status** | 🟡 In progress — accumulating changes for 1.0.3. **No EAS build yet.** |
-| **Latest commit** | `cb939b1` — premium 6-day forecast tiles + live conditions polish |
+| **Status** | 🟡 In progress — River Run planned for 1.0.3. **No EAS build yet.** |
+| **Latest commit** | *(pending)* — reverted forecast/live-conditions UI experiment |
 
 **Live users today:** On the released App Store build **1.0.2 (build 18)**. **No OTA** — `expo-updates` is not installed, so every item below requires a brand-new binary. Metro only updates the dev client, never the App Store app.
 
@@ -18,8 +18,7 @@
 
 | Item | Commit / ref | In build 20? | Status |
 |------|----------------|--------------|--------|
-| Premium 6-day forecast tiles (rounded elevated cards, bolder serif score, per-band text color + band word, TMRW marker, fixed clipped TOMORROW label, cleaner Hi/Lo) | `cb939b1` | ✅ Yes | ✅ Committed & pushed |
-| Live conditions polish (brand-blue metric icons, bolder serif values, softer grid corners) | `cb939b1` | ✅ Yes | ✅ Committed & pushed |
+| Premium 6-day forecast + live conditions UI experiment | `cb939b1` → reverted | ❌ No | ↩️ Reverted — dashboard restored to 1.0.2 look |
 | River Run feature (full build — currently "coming soon") | — | ⬜ | ⬜ Planned |
 | *Add your next items here* | — | ⬜ | ⬜ Planned |
 
@@ -27,27 +26,7 @@
 
 ## 1. Changes in build 20 so far
 
-### Premium UI polish — 6-day forecast + live conditions (`cb939b1`)
-
-**Why:** Carry the premium feel from the intelligence-module emblems into the two most-viewed dashboard surfaces. No animation/glimmer added (the dashboard already has enough motion) — depth comes from static styling only.
-
-**What changed:**
-
-| Area | Change |
-|------|--------|
-| **Forecast tiles** | Redesigned each day as a rounded (10px), softly elevated card |
-| **Score hierarchy** | Bigger bold serif score; score-block text color now adapts per band (`bandStyle.fg`) so the red "Tough" band gets white text for proper contrast |
-| **Band word** | Each tile now names its band under the score (`PRIME / GOOD / FAIR / POOR / TOUGH`); color + label derive from the same band source so they always match the legend |
-| **Header** | Subtle warm-white header strip, bolder serif date |
-| **"Tomorrow"** | Old floating `TOMORROW` label was clipped by the tile's `overflow: hidden` — replaced with an in-tile brand-blue `TMRW` label + blue highlight border on the next-up day |
-| **Hi/Lo footer** | Slightly stronger, better-spaced `72° / 55°` |
-| **Live conditions** | Metric icons (wind / humidity / today / pressure) now brand blue; metric values bolder serif at 14px; metric grid corners rounded 6 → 8 to match the forecast cards |
-
-**Client only:** No migrations or edge-function changes — ships entirely in the EAS binary.
-
-**Screens touched:** `(tabs)/index.tsx`.
-
----
+*(Nothing shipped yet — UI polish experiment was reverted before release.)*
 
 ## 2. Planned before submit *(add items here)*
 
@@ -68,11 +47,10 @@ Use this section as your running backlog. When something is committed, move it t
 Paste into App Store Connect when the build is attached. **Edit as you add more changes.**
 
 ```text
-• Redesigned, more premium 6-day bite forecast — clearer scores and an easier-to-read layout
-• Polished live conditions panel with refreshed metrics
+• River Run — daily run score and fishability for Great Lakes migratory species
 ```
 
-*(Add bullets here as you ship more in this build — e.g. River Run when it lands.)*
+*(Add bullets here as you ship more in this build.)*
 
 ---
 
@@ -127,9 +105,7 @@ eas submit --platform ios --profile production --latest
 
 Minimum path after installing the build:
 
-- [ ] Dashboard loads; 6-day forecast tiles render correctly (scores, band words, Hi/Lo, TMRW marker)
-- [ ] Tough/red day shows white score text (contrast)
-- [ ] Live conditions metrics readable (blue icons, values)
+- [ ] Dashboard loads; 6-day forecast + live conditions match 1.0.2 baseline
 - [ ] Free tier: locked forecast days still open the paywall
 - [ ] Forecast day tap → day report opens (or paywall for free tier)
 - [ ] No layout clipping on Pro Max / 14-15-16 / SE
@@ -142,7 +118,7 @@ Minimum path after installing the build:
 |--|--|
 | **Version** | 1.0.3 (planned) |
 | **Build** | TBD (autoIncrement; target 20) |
-| **Key commits (so far)** | `cb939b1` (forecast + live conditions polish) |
+| **Key commits (so far)** | *(River Run TBD)* |
 | **EAS builds** | https://expo.dev/accounts/tightlinesai/projects/tightlines-ai/builds |
 | **Prior checklist** | `docs/BUILD_17_CHECKLIST.md` (1.0.2 / build 18 — shipped) |
 
