@@ -37,6 +37,14 @@ import {
   JetBrainsMono_600SemiBold,
 } from '@expo-google-fonts/jetbrains-mono';
 import { supabase } from '../lib/supabase';
+import {
+  activateCreatorLinkSession,
+  dismissCreatorLinkSession,
+  markCreatorLinkRouted,
+  parseCreatorDeepLink,
+  shouldAutoRouteCreatorSubscribe,
+} from '../lib/creatorAttribution';
+import { isCreatorOfferEligible } from '../lib/creatorOfferEligibility';
 import { useAuthStore } from '../store/authStore';
 import { useEnvStore } from '../store/envStore';
 import { useRevenueCatStore } from '../store/revenueCatStore';
@@ -201,7 +209,7 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
 
 export default function RootLayout() {
   const router = useRouter();
-  const { hydrate, setSession, setProfile, fetchProfile, user } = useAuthStore();
+  const { hydrate, setSession, setProfile, fetchProfile, user, isOnboarded } = useAuthStore();
   const initializeRevenueCat = useRevenueCatStore((s) => s.initialize);
   const resetRevenueCat = useRevenueCatStore((s) => s.reset);
   const [passwordRecoveryInFlight, setPasswordRecoveryInFlight] = useState(false);
@@ -254,10 +262,59 @@ export default function RootLayout() {
     void initializeRevenueCat(user.id);
   }, [initializeRevenueCat, resetRevenueCat, user?.id]);
 
+  useEffect(() => {
+    if (!user?.id || !isOnboarded) return;
+
+    void (async () => {
+      if (!(await shouldAutoRouteCreatorSubscribe())) return;
+
+      const { hasAngler: storeHasAngler, customerInfo } = useRevenueCatStore.getState();
+      const profileTier = useAuthStore.getState().profile?.subscription_tier;
+      if (!isCreatorOfferEligible({
+        customerInfo,
+        hasAngler: storeHasAngler,
+        profileTier,
+      })) {
+        await dismissCreatorLinkSession();
+        return;
+      }
+
+      await markCreatorLinkRouted();
+      router.replace('/subscribe?creator=1');
+    })();
+  }, [user?.id, isOnboarded, router]);
+
   // Handle deep links — email verification & password reset tokens
   useEffect(() => {
     const handleUrl = async (url: string) => {
       if (!url) return;
+
+      const creatorLink = parseCreatorDeepLink(url);
+      if (creatorLink) {
+        const { hasAngler: storeHasAngler } = useRevenueCatStore.getState();
+        const profileTier = useAuthStore.getState().profile?.subscription_tier;
+        const customerInfo = useRevenueCatStore.getState().customerInfo;
+        const eligible = isCreatorOfferEligible({
+          customerInfo,
+          hasAngler: storeHasAngler,
+          profileTier,
+        });
+
+        if (!eligible) {
+          await dismissCreatorLinkSession();
+          if (useAuthStore.getState().isOnboarded) {
+            router.replace('/(tabs)/settings');
+          }
+          return;
+        }
+
+        await activateCreatorLinkSession(creatorLink);
+        if (useAuthStore.getState().isOnboarded) {
+          await markCreatorLinkRouted();
+          router.replace('/subscribe?creator=1');
+        }
+        return;
+      }
 
       const [base, hash] = url.split('#');
       const parsed = Linking.parse(base);

@@ -3,6 +3,7 @@ import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
   buildAppStoreRedemptionUrl,
   cleanString,
+  isCreatorOfferEligibleUser,
   isUuid,
   normalizeCreatorCode,
 } from "../_shared/creatorProgram.ts";
@@ -67,6 +68,45 @@ async function getActiveAttribution(
   return data?.status === "active" ? data : null;
 }
 
+async function buildOfferPayload(
+  supabase: SupabaseClient,
+  code: string,
+  creatorId: string,
+  creatorCodeId: string | null,
+) {
+  const { data: creator, error: creatorError } = await supabase
+    .from("creators")
+    .select("id, display_name, status")
+    .eq("id", creatorId)
+    .maybeSingle();
+  if (creatorError) throw new Error(creatorError.message);
+  if (!creator || creator.status !== "active") {
+    return null;
+  }
+
+  let redemptionUrl: string | null = null;
+  if (creatorCodeId) {
+    const { data: codeRow } = await supabase
+      .from("creator_codes")
+      .select("code, app_store_redemption_url, apple_app_id")
+      .eq("id", creatorCodeId)
+      .maybeSingle();
+    redemptionUrl = codeRow?.app_store_redemption_url ??
+      buildAppStoreRedemptionUrl({
+        code: codeRow?.code ?? code,
+        appleAppId: codeRow?.apple_app_id,
+      });
+  } else {
+    redemptionUrl = buildAppStoreRedemptionUrl({ code });
+  }
+
+  return {
+    code,
+    creator_name: creator.display_name,
+    redemption_url: redemptionUrl,
+  };
+}
+
 Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders() });
@@ -108,18 +148,58 @@ Deno.serve(async (req: Request) => {
     return json({ error: "invalid_creator_code" }, 400);
   }
 
-  const referralClickId = cleanString(body.referral_click_id, 120);
-  if (referralClickId && !isUuid(referralClickId)) {
-    return json({ error: "invalid_referral_click_id" }, 400);
+  const referralClickToken = cleanString(
+    body.referral_click_token ?? body.referral_click_id,
+    120,
+  );
+  if (referralClickToken && !isUuid(referralClickToken)) {
+    return json({ error: "invalid_referral_click_token" }, 400);
+  }
+
+  let referralClickId: string | null = null;
+  if (referralClickToken) {
+    const { data: clickRow, error: clickLookupError } = await supabase
+      .from("referral_clicks")
+      .select("id")
+      .or(`id.eq.${referralClickToken},click_token.eq.${referralClickToken}`)
+      .maybeSingle();
+    if (clickLookupError) throw new Error(clickLookupError.message);
+    referralClickId = clickRow?.id ?? null;
+    if (!referralClickId) {
+      console.warn("[creator-code-attribution] referral click not found", {
+        referralClickToken,
+      });
+    }
   }
 
   try {
+    const eligibility = await isCreatorOfferEligibleUser(supabase, user.id);
+    if (!eligibility.eligible) {
+      return json({
+        ok: false,
+        error: "creator_offer_ineligible",
+        reason: eligibility.reason ?? "ineligible",
+        message: eligibility.reason === "already_subscribed"
+          ? "You already have an active Angler membership. Creator discounts cannot change an existing subscription."
+          : "Creator discounts are for first-time Angler subscribers only.",
+      }, 403);
+    }
+
     const existing = await getActiveAttribution(supabase, user.id);
     if (existing) {
+      const offer = await buildOfferPayload(
+        supabase,
+        existing.code ?? code,
+        existing.creator_id,
+        existing.creator_code_id,
+      );
       return json({
         ok: true,
         status: "already_attributed",
         attribution: existing,
+        creator_name: offer?.creator_name ?? null,
+        redemption_url: offer?.redemption_url ?? null,
+        code: existing.code ?? code,
       });
     }
 
@@ -172,7 +252,7 @@ Deno.serve(async (req: Request) => {
         creator_id: creatorRow.id,
         creator_code_id: creatorCode.id,
         referral_click_id: referralClickId || null,
-        attribution_source: "app_store_offer_code",
+        attribution_source: "direct_link",
         code: creatorCode.code,
         commission_rate_bps_snapshot: creatorRow.commission_rate_bps,
         commission_month_cap_snapshot: creatorRow.commission_month_cap,
@@ -193,10 +273,19 @@ Deno.serve(async (req: Request) => {
               "This account already has a creator attribution that cannot be replaced automatically.",
           }, 409);
         }
+        const offer = await buildOfferPayload(
+          supabase,
+          raced.code ?? code,
+          raced.creator_id,
+          raced.creator_code_id,
+        );
         return json({
           ok: true,
           status: "already_attributed",
           attribution: raced,
+          creator_name: offer?.creator_name ?? creatorRow.display_name,
+          redemption_url: offer?.redemption_url ?? redemptionUrl,
+          code: raced.code ?? code,
         });
       }
       throw new Error(insertError.message);

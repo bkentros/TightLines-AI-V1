@@ -9,15 +9,28 @@
 import { ActivityIndicator, Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useRouter } from 'expo-router';
+import { useCallback, useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { paper, paperFonts, paperSpacing } from '../lib/theme';
 import { PaperNavHeader, TopographicLines } from '../components/paper';
 import { AuthFooterStamp } from '../components/paper/auth';
+import { CreatorOfferBanner } from '../components/CreatorOfferBanner';
+import {
+  completeCreatorLinkSession,
+  dismissCreatorLinkSession,
+  hasActiveCreatorLinkSession,
+  loadCreatorOfferForLinkSession,
+  openCreatorOfferRedemption,
+  type CreatorOfferContext,
+} from '../lib/creatorAttribution';
+import { isCreatorOfferEligible } from '../lib/creatorOfferEligibility';
+import { useAuthStore } from '../store/authStore';
 import {
   openStoreSubscriptionManagement,
   storeSubscriptionManagementLabel,
 } from '../lib/legalLinks';
 import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
+import { getValidAccessToken, supabase } from '../lib/supabase';
 import { useRevenueCatStore } from '../store/revenueCatStore';
 
 const ANGLER_FEATURES: Array<{
@@ -44,14 +57,79 @@ const ANGLER_FEATURES: Array<{
 
 export default function SubscribeScreen() {
   const router = useRouter();
+  const [creatorOffer, setCreatorOffer] = useState<CreatorOfferContext | null>(null);
+  const [loadingCreatorOffer, setLoadingCreatorOffer] = useState(false);
+  const [applyingCreatorOffer, setApplyingCreatorOffer] = useState(false);
   const {
     presentingPaywall,
     restoring,
     error,
     hasAngler,
+    customerInfo,
     presentPaywall,
     restore,
   } = useRevenueCatStore();
+  const profileTier = useAuthStore((s) => s.profile?.subscription_tier);
+
+  const refreshCreatorOffer = useCallback(async () => {
+    if (!(await hasActiveCreatorLinkSession())) {
+      setCreatorOffer(null);
+      return;
+    }
+
+    if (!isCreatorOfferEligible({ customerInfo, hasAngler, profileTier })) {
+      await dismissCreatorLinkSession();
+      setCreatorOffer(null);
+      return;
+    }
+
+    setLoadingCreatorOffer(true);
+    try {
+      let token: string | null = null;
+      try {
+        token = await getValidAccessToken();
+      } catch {
+        const { data: { session } } = await supabase.auth.getSession();
+        token = session?.access_token ?? null;
+      }
+      const offer = await loadCreatorOfferForLinkSession(token);
+      setCreatorOffer(offer);
+    } finally {
+      setLoadingCreatorOffer(false);
+    }
+  }, [customerInfo, hasAngler, profileTier]);
+
+  const handleOpenPaywall = useCallback(async () => {
+    hapticImpact(ImpactFeedbackStyle.Medium);
+    const unlocked = await presentPaywall();
+    if (unlocked) {
+      await completeCreatorLinkSession();
+      Alert.alert('Angler unlocked', 'You now have full access to FinFindr.', [
+        { text: 'Continue', onPress: () => router.replace('/(tabs)') },
+      ]);
+    }
+  }, [presentPaywall, router]);
+
+  useEffect(() => {
+    void refreshCreatorOffer();
+  }, [refreshCreatorOffer]);
+
+  const handleLeaveSubscribe = useCallback(async () => {
+    const hadCreatorSession = await hasActiveCreatorLinkSession();
+    await dismissCreatorLinkSession();
+
+    if (hadCreatorSession) {
+      router.replace('/(tabs)/settings');
+      return;
+    }
+
+    if (router.canGoBack()) {
+      router.back();
+      return;
+    }
+
+    router.replace('/(tabs)/settings');
+  }, [router]);
 
   const heroTitle = hasAngler
     ? (
@@ -70,13 +148,28 @@ export default function SubscribeScreen() {
     ? 'Your App Store subscription is connected. Full bite reports, tactical tackle direction, and supported-water structure reads are unlocked.'
     : 'Angler opens full bite reports, tactical tackle direction, and structure intelligence for supported waters.';
 
-  const handleOpenPaywall = async () => {
+  const handleApplyCreatorOffer = async () => {
+    if (!creatorOffer) return;
+    if (!isCreatorOfferEligible({ customerInfo, hasAngler, profileTier })) {
+      await dismissCreatorLinkSession();
+      setCreatorOffer(null);
+      Alert.alert(
+        'Offer not available',
+        'Creator discounts are for first-time Angler subscribers only. Your membership is already active or this Apple ID has subscribed before.',
+      );
+      return;
+    }
     hapticImpact(ImpactFeedbackStyle.Medium);
-    const unlocked = await presentPaywall();
-    if (unlocked) {
-      Alert.alert('Angler unlocked', 'You now have full access to FinFindr.', [
-        { text: 'Continue', onPress: () => router.replace('/(tabs)') },
-      ]);
+    setApplyingCreatorOffer(true);
+    try {
+      await openCreatorOfferRedemption(creatorOffer.redemptionUrl);
+    } catch {
+      Alert.alert(
+        'Could not open offer',
+        'Try again, or contact support if the creator discount does not appear.',
+      );
+    } finally {
+      setApplyingCreatorOffer(false);
     }
   };
 
@@ -118,7 +211,7 @@ export default function SubscribeScreen() {
           eyebrow="FINFINDR · MEMBERSHIP"
           eyebrowColor={paper.bandFair}
           title="ANGLER"
-          onBack={() => router.back()}
+          onBack={handleLeaveSubscribe}
         />
         <ScrollView
           style={styles.scroll}
@@ -148,6 +241,20 @@ export default function SubscribeScreen() {
             <Text style={styles.title}>{heroTitle}</Text>
             <Text style={styles.lede}>{heroCopy}</Text>
           </View>
+
+          {!hasAngler && creatorOffer ? (
+            <CreatorOfferBanner
+              offer={creatorOffer}
+              onApplyDiscount={handleApplyCreatorOffer}
+              applying={applyingCreatorOffer}
+            />
+          ) : null}
+
+          {!hasAngler && loadingCreatorOffer ? (
+            <View style={styles.creatorLoading}>
+              <ActivityIndicator size="small" color={paper.dashboardBlue} />
+            </View>
+          ) : null}
 
           {hasAngler ? (
             <View style={styles.statusPanel}>
@@ -523,6 +630,10 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: paper.dashboardInk,
     opacity: 0.74,
+  },
+  creatorLoading: {
+    alignItems: 'center',
+    marginBottom: paperSpacing.md,
   },
   nativePaywallBtn: {
     minHeight: 48,

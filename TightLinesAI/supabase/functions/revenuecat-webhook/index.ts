@@ -4,12 +4,16 @@ import {
   calculateNetProceedsUsd,
   candidateRevenueCatUserIds,
   cleanString,
+  isCreatorOfferEligibleUser,
   isPaidRevenueEvent,
   isRefundRevenueEvent,
   isUuid,
+  linkedRevenueCatAccountsHavePaidHistory,
+  originalTransactionIdHasCrossAccountHistory,
   type ParsedRevenueCatWebhook,
   parseRevenueCatWebhookPayload,
   sanitizeRevenueCatWebhookPayload,
+  userHadPriorAnglerPeriods,
 } from "../_shared/creatorProgram.ts";
 
 type SupabaseClient = {
@@ -175,6 +179,41 @@ async function createAttributionFromOfferCode(
   event: ParsedRevenueCatWebhook,
 ): Promise<AttributionRow | null> {
   if (!event.offerCode) return null;
+
+  const eligibility = await isCreatorOfferEligibleUser(supabase, userId);
+  if (!eligibility.eligible) {
+    console.warn("[revenuecat-webhook] skipping offer-code attribution", {
+      userId,
+      code: event.offerCode,
+      reason: eligibility.reason,
+    });
+    return null;
+  }
+
+  if (
+    event.originalTransactionId &&
+    await originalTransactionIdHasCrossAccountHistory(
+      supabase,
+      event.originalTransactionId,
+      userId,
+    )
+  ) {
+    console.warn("[revenuecat-webhook] skipping offer-code attribution for reused Apple ID", {
+      userId,
+      code: event.offerCode,
+      originalTransactionId: event.originalTransactionId,
+    });
+    return null;
+  }
+
+  if (await linkedRevenueCatAccountsHavePaidHistory(supabase, event, userId)) {
+    console.warn("[revenuecat-webhook] skipping offer-code attribution for linked prior account", {
+      userId,
+      code: event.offerCode,
+      aliases: event.aliases,
+    });
+    return null;
+  }
 
   const { data: codeRow, error: codeError } = await supabase
     .from("creator_codes")
@@ -372,6 +411,48 @@ async function createPositiveLedgerRow(
     return "skipped";
   }
   if (!isPaidRevenueEvent(event)) return "skipped";
+
+  if (event.offerCode && userId) {
+    if (
+      event.type === "INITIAL_PURCHASE" &&
+      period?.id &&
+      await userHadPriorAnglerPeriods(supabase, userId, period.id)
+    ) {
+      console.warn("[revenuecat-webhook] skipping creator commission for resubscribe", {
+        userId,
+        offerCode: event.offerCode,
+        periodId: period.id,
+      });
+      return "skipped";
+    }
+
+    if (
+      event.originalTransactionId &&
+      await originalTransactionIdHasCrossAccountHistory(
+        supabase,
+        event.originalTransactionId,
+        userId,
+      )
+    ) {
+      console.warn("[revenuecat-webhook] skipping creator commission for reused Apple ID", {
+        userId,
+        offerCode: event.offerCode,
+        originalTransactionId: event.originalTransactionId,
+        eventType: event.type,
+      });
+      return "skipped";
+    }
+
+    if (await linkedRevenueCatAccountsHavePaidHistory(supabase, event, userId)) {
+      console.warn("[revenuecat-webhook] skipping creator commission for linked prior account", {
+        userId,
+        offerCode: event.offerCode,
+        aliases: event.aliases,
+        eventType: event.type,
+      });
+      return "skipped";
+    }
+  }
 
   const earningMonth = await nextEarningMonth(supabase, attribution);
   if (earningMonth == null) return "capped";

@@ -230,3 +230,159 @@ export function isUuid(value: unknown): value is string {
     /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i
       .test(value);
 }
+
+type CountQueryResult = Promise<{
+  count: number | null;
+  error: { message: string } | null;
+}> & {
+  eq: (column: string, value: string) => CountQueryResult;
+  neq: (column: string, value: string) => CountQueryResult;
+  in: (column: string, values: string[]) => CountQueryResult;
+};
+
+type SupabaseCountClient = {
+  from: (table: string) => {
+    select: (
+      columns: string,
+      options?: { count: string; head: boolean },
+    ) => CountQueryResult;
+  };
+};
+
+type SupabaseProfileClient = {
+  from: (table: string) => {
+    select: (columns: string) => {
+      eq: (column: string, value: string) => {
+        maybeSingle: () => Promise<{
+          data: { subscription_tier?: string | null } | null;
+          error: { message: string } | null;
+        }>;
+      };
+    };
+  };
+};
+
+export async function userHasPaidSubscriptionHistory(
+  supabase: SupabaseCountClient,
+  userId: string,
+): Promise<boolean> {
+  const { count: periodCount, error: periodError } = await supabase
+    .from("subscription_periods")
+    .select("id", { count: "exact", head: true })
+    .eq("user_id", userId);
+  if (periodError) throw new Error(periodError.message);
+  if ((periodCount ?? 0) > 0) return true;
+
+  const paidEventTypes = [
+    "INITIAL_PURCHASE",
+    "RENEWAL",
+    "NON_RENEWING_PURCHASE",
+    "PRODUCT_CHANGE",
+  ];
+  const { count: eventCount, error: eventError } = await supabase
+    .from("revenuecat_events")
+    .select("id", { count: "exact", head: true })
+    .eq("app_user_id", userId)
+    .in("event_type", paidEventTypes);
+  if (eventError) throw new Error(eventError.message);
+  return (eventCount ?? 0) > 0;
+}
+
+export async function userHasActiveAnglerProfile(
+  supabase: SupabaseProfileClient,
+  userId: string,
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("profiles")
+    .select("subscription_tier")
+    .eq("id", userId)
+    .maybeSingle();
+  if (error) throw new Error(error.message);
+  return data?.subscription_tier === "angler";
+}
+
+export async function isCreatorOfferEligibleUser(
+  supabase: SupabaseCountClient & SupabaseProfileClient,
+  userId: string,
+): Promise<{ eligible: boolean; reason?: string }> {
+  if (await userHasActiveAnglerProfile(supabase, userId)) {
+    return { eligible: false, reason: "already_subscribed" };
+  }
+  if (await userHasPaidSubscriptionHistory(supabase, userId)) {
+    return { eligible: false, reason: "prior_subscriber" };
+  }
+  return { eligible: true };
+}
+
+/** True when this Apple subscription chain already paid under another FinFindr account. */
+export async function originalTransactionIdHasCrossAccountHistory(
+  supabase: SupabaseCountClient,
+  originalTransactionId: string,
+  userId: string,
+): Promise<boolean> {
+  const { count: periodCount, error: periodError } = await supabase
+    .from("subscription_periods")
+    .select("id", { count: "exact", head: true })
+    .eq("original_transaction_id", originalTransactionId)
+    .neq("user_id", userId);
+  if (periodError) throw new Error(periodError.message);
+  if ((periodCount ?? 0) > 0) return true;
+
+  const paidEventTypes = [
+    "INITIAL_PURCHASE",
+    "RENEWAL",
+    "NON_RENEWING_PURCHASE",
+    "PRODUCT_CHANGE",
+  ];
+  const { count: eventCount, error: eventError } = await supabase
+    .from("revenuecat_events")
+    .select("id", { count: "exact", head: true })
+    .eq("original_transaction_id", originalTransactionId)
+    .neq("app_user_id", userId)
+    .in("event_type", paidEventTypes);
+  if (eventError) throw new Error(eventError.message);
+  return (eventCount ?? 0) > 0;
+}
+
+/** True when RevenueCat linked this purchase to another FinFindr account with paid history. */
+export async function linkedRevenueCatAccountsHavePaidHistory(
+  supabase: SupabaseCountClient,
+  event: ParsedRevenueCatWebhook,
+  userId: string,
+): Promise<boolean> {
+  for (const candidate of candidateRevenueCatUserIds(event)) {
+    if (!isUuid(candidate) || candidate === userId) continue;
+    if (await userHasPaidSubscriptionHistory(supabase, candidate)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+export async function userHadPriorAnglerPeriods(
+  supabase: {
+    from: (table: string) => {
+      select: (columns: string) => {
+        eq: (column: string, value: string) => {
+          neq: (column: string, value: string) => {
+            limit: (count: number) => Promise<{
+              data: Array<{ id: string }> | null;
+              error: { message: string } | null;
+            }>;
+          };
+        };
+      };
+    };
+  },
+  userId: string,
+  currentPeriodId: string,
+): Promise<boolean> {
+  const { data, error } = await supabase
+    .from("subscription_periods")
+    .select("id")
+    .eq("user_id", userId)
+    .neq("id", currentPeriodId)
+    .limit(1);
+  if (error) throw new Error(error.message);
+  return (data?.length ?? 0) > 0;
+}

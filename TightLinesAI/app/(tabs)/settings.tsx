@@ -3,6 +3,7 @@ import {
   ActivityIndicator,
   Alert,
   KeyboardAvoidingView,
+  Linking,
   Platform,
   Pressable,
   ScrollView,
@@ -82,6 +83,12 @@ export default function SettingsScreen() {
   const [saving, setSaving] = useState(false);
   const [usernameSaving, setUsernameSaving] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
+  const [creatorPortalAccess, setCreatorPortalAccess] = useState<{
+    portalEligible: boolean;
+    isAdmin: boolean;
+    portalUrl: string | null;
+    creatorName: string | null;
+  } | null>(null);
   const [clearingCaches, setClearingCaches] = useState(false);
   const [deleting, setDeleting] = useState(false);
   const [confirmDelete, setConfirmDelete] = useState(false);
@@ -106,6 +113,42 @@ export default function SettingsScreen() {
   useEffect(() => {
     if (canSeeTestingTools) loadDevTesting();
   }, [canSeeTestingTools, loadDevTesting]);
+
+  useEffect(() => {
+    if (!user?.id) {
+      setCreatorPortalAccess(null);
+      return;
+    }
+
+    let cancelled = false;
+    void (async () => {
+      try {
+        const accessToken = await getValidAccessToken();
+        const result = await invokeEdgeFunction<{
+          portal_eligible: boolean;
+          is_admin: boolean;
+          portal_url: string | null;
+          creator_name: string | null;
+        }>('creator-portal-access', {
+          accessToken,
+          body: {},
+        });
+        if (cancelled) return;
+        setCreatorPortalAccess({
+          portalEligible: Boolean(result.portal_eligible),
+          isAdmin: Boolean(result.is_admin),
+          portalUrl: result.portal_url,
+          creatorName: result.creator_name,
+        });
+      } catch {
+        if (!cancelled) setCreatorPortalAccess(null);
+      }
+    })();
+
+    return () => {
+      cancelled = true;
+    };
+  }, [user?.id]);
 
   const buildHomeRegion = () => {
     if (homeCity.trim() && homeState) return `${homeCity.trim()}, ${homeState}`;
@@ -514,6 +557,21 @@ export default function SettingsScreen() {
                 onPress={() => router.push('/subscribe')}
                 variant="secondary"
               />
+              {creatorPortalAccess?.portalEligible ? (
+                <PrimaryAction
+                  label={
+                    creatorPortalAccess.isAdmin
+                      ? 'Creator program admin'
+                      : 'Creator stats portal'
+                  }
+                  icon="stats-chart-outline"
+                  onPress={() => {
+                    const url = creatorPortalAccess.portalUrl ?? 'https://finfindr.app/creators/';
+                    void Linking.openURL(url);
+                  }}
+                  variant="secondary"
+                />
+              ) : null}
             </View>
 
             <View style={styles.section}>
