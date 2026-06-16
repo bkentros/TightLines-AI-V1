@@ -12,8 +12,7 @@
         "simulator": false
       },
       "env": {
-        "npm_config_legacy_peer_deps": "true",
-        "APP_VARIANT": "development"
+        "npm_config_legacy_peer_deps": "true"
       }
     },
     "preview": {
