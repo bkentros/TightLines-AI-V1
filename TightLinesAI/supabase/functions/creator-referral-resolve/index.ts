@@ -11,8 +11,12 @@ import {
   parseCreatorReferralPayload,
   REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS,
 } from "../_shared/creatorProgram.ts";
+import {
+  recordReferralAppOpen,
+  type ReferralAppOpenMatchMethod,
+} from "../_shared/creatorReferralFunnel.ts";
 
-type MatchMethod = "clipboard" | "fingerprint" | "deep_link" | "universal_link";
+type MatchMethod = ReferralAppOpenMatchMethod;
 
 function corsHeaders() {
   return {
@@ -54,32 +58,12 @@ async function recordAppOpen(
   matchMethod: MatchMethod,
   alreadyOpened: boolean,
 ): Promise<void> {
-  if (!alreadyOpened) {
-    await supabase
-      .from("referral_clicks")
-      .update({
-        app_opened_at: new Date().toISOString(),
-        app_open_match_method: matchMethod,
-      })
-      .eq("id", clickId)
-      .is("app_opened_at", null);
-  }
-
-  const { data: existing } = await supabase
-    .from("referral_funnel_events")
-    .select("id")
-    .eq("referral_click_id", clickId)
-    .eq("event_type", "app_open")
-    .maybeSingle();
-
-  if (!existing) {
-    await supabase.from("referral_funnel_events").insert({
-      referral_click_id: clickId,
-      creator_id: creatorId,
-      event_type: "app_open",
-      match_method: matchMethod,
-    });
-  }
+  await recordReferralAppOpen(supabase, {
+    clickId,
+    creatorId,
+    matchMethod,
+    alreadyOpened,
+  });
 }
 
 Deno.serve(async (req: Request) => {

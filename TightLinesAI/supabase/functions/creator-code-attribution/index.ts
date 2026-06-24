@@ -8,6 +8,7 @@ import {
   referralClickQualifiesForAttribution,
   REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS,
 } from "../_shared/creatorProgram.ts";
+import { recordReferralAppOpen } from "../_shared/creatorReferralFunnel.ts";
 
 type SupabaseClient = {
   auth: ReturnType<typeof createClient>["auth"];
@@ -277,11 +278,38 @@ Deno.serve(async (req: Request) => {
       throw new Error(insertError.message);
     }
 
-    await supabase.from("referral_funnel_events").insert({
-      referral_click_id: referralClickId,
-      creator_id: creatorRow.id,
-      event_type: "signup",
-    });
+    if (referralClickId && !referralClickAppOpenedAt) {
+      await recordReferralAppOpen(supabase, {
+        clickId: referralClickId,
+        creatorId: creatorRow.id,
+        matchMethod: "deep_link",
+        alreadyOpened: false,
+      });
+    }
+
+    const { data: existingSignupFunnel } = await supabase
+      .from("referral_funnel_events")
+      .select("id")
+      .eq("referral_click_id", referralClickId)
+      .eq("event_type", "signup")
+      .maybeSingle();
+    if (!existingSignupFunnel) {
+      const { error: funnelError } = await supabase
+        .from("referral_funnel_events")
+        .insert({
+          referral_click_id: referralClickId,
+          creator_id: creatorRow.id,
+          event_type: "signup",
+        });
+      if (funnelError) {
+        console.warn("[creator-code-attribution] signup funnel event failed", {
+          userId: user.id,
+          referralClickId,
+          creatorId: creatorRow.id,
+          error: funnelError.message,
+        });
+      }
+    }
 
     return json({
       ok: true,

@@ -83,6 +83,8 @@ export async function activateCreatorLinkSession(
   const referralClickToken = input.referralClickToken?.trim();
   if (!code || !referralClickToken) return;
 
+  await recordCreatorReferralAppOpen(input, 'deep_link');
+
   await storePendingCreatorAttribution(input);
   await writeCreatorLinkSession({
     active: true,
@@ -110,10 +112,13 @@ export async function hasVerifiedCreatorReferralSession(): Promise<boolean> {
  */
 export async function storeCreatorReferralPendingOnly(
   input: PendingCreatorAttribution,
+  matchMethod: ReferralAppOpenMatchMethod = 'deep_link',
 ): Promise<void> {
   const code = input.code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
   const referralClickToken = input.referralClickToken?.trim();
   if (!code || !referralClickToken) return;
+
+  await recordCreatorReferralAppOpen(input, matchMethod);
 
   await storePendingCreatorAttribution(input);
   await AsyncStorage.removeItem(CREATOR_LINK_SESSION_KEY);
@@ -234,6 +239,13 @@ export async function applyCreatorReferral(
     return { ok: false, error: 'invalid_creator_code' };
   }
 
+  if (input.referralClickToken?.trim()) {
+    await recordCreatorReferralAppOpen(
+      { code: normalized, referralClickToken: input.referralClickToken },
+      'deep_link',
+    );
+  }
+
   try {
     const response = await fetch(
       `${supabaseUrl}/functions/v1/creator-code-attribution`,
@@ -344,6 +356,8 @@ type CreatorReferralResolveResult = {
   error?: string;
 };
 
+type ReferralAppOpenMatchMethod = 'clipboard' | 'fingerprint' | 'deep_link' | 'universal_link';
+
 function isUuid(value: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
     value.trim(),
@@ -403,6 +417,29 @@ async function callCreatorReferralResolve(
   }
 }
 
+/** Tell the server the app opened for this referral click (idempotent). */
+export async function recordCreatorReferralAppOpen(
+  input: PendingCreatorAttribution,
+  matchMethod: ReferralAppOpenMatchMethod,
+  options?: { clipboard_payload?: string },
+): Promise<boolean> {
+  const code = input.code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+  const referralClickToken = input.referralClickToken?.trim();
+  if (!code || !referralClickToken) return false;
+
+  const body: Record<string, unknown> = {
+    match_method: matchMethod,
+    referral_click_token: referralClickToken,
+    code,
+  };
+  if (options?.clipboard_payload) {
+    body.clipboard_payload = options.clipboard_payload;
+  }
+
+  const result = await callCreatorReferralResolve(body);
+  return result.ok;
+}
+
 /**
  * Recover a creator referral after App Store install (clipboard + fingerprint fallback).
  * Persists click token in AsyncStorage so sign-up later the same day still attributes.
@@ -410,6 +447,7 @@ async function callCreatorReferralResolve(
 export async function resolveDeferredCreatorReferral(): Promise<boolean> {
   const existing = await getPendingCreatorAttribution();
   if (existing?.referralClickToken?.trim()) {
+    await recordCreatorReferralAppOpen(existing, 'deep_link');
     return true;
   }
 
@@ -429,7 +467,7 @@ export async function resolveDeferredCreatorReferral(): Promise<boolean> {
         await storeCreatorReferralPendingOnly({
           code: result.code,
           referralClickToken: result.click_token,
-        });
+        }, 'clipboard');
         return true;
       }
     }
@@ -444,7 +482,7 @@ export async function resolveDeferredCreatorReferral(): Promise<boolean> {
     await storeCreatorReferralPendingOnly({
       code: fingerprintResult.code,
       referralClickToken: fingerprintResult.click_token,
-    });
+    }, 'fingerprint');
     return true;
   }
 

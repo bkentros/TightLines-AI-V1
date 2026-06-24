@@ -4,6 +4,24 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>FinFindr Legal</title>
+    <script>
+      (function () {
+        var search = window.location.search || '';
+        var hash = window.location.hash || '';
+        if (!search && !hash) return;
+        var params = new URLSearchParams(search);
+        var hashParams = new URLSearchParams(hash.replace(/^#/, ''));
+        var type = (params.get('type') || hashParams.get('type') || '').toLowerCase();
+        if (type === 'signup' || type === 'email' || type === 'invite' || type === 'recovery') {
+          window.location.replace('/auth/confirm/' + search + hash);
+          return;
+        }
+        var hasAuth = params.get('code') || params.get('token_hash') ||
+          hashParams.get('access_token') || hashParams.get('token_hash');
+        if (!hasAuth) return;
+        window.location.replace('/creators/auth/callback/' + search + hash);
+      })();
+    </script>
     <link rel="stylesheet" href="/assets/styles.css" />
   </head>
   <body>

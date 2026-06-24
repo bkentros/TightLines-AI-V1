@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import { Animated, Easing, LogBox, View, Text, StyleSheet } from 'react-native';
+import { Animated, AppState, Easing, LogBox, View, Text, StyleSheet } from 'react-native';
 import { Stack, usePathname, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as Linking from 'expo-linking';
@@ -310,6 +310,16 @@ export default function RootLayout() {
     })();
   }, [user?.id, isOnboarded, router]);
 
+  // iOS may show the paste prompt after first launch — retry when the app is active again.
+  useEffect(() => {
+    const sub = AppState.addEventListener('change', (nextState) => {
+      if (nextState === 'active') {
+        void resolveDeferredCreatorReferral();
+      }
+    });
+    return () => sub.remove();
+  }, []);
+
   // Handle deep links — email verification & password reset tokens
   useEffect(() => {
     const handleUrl = async (url: string) => {
@@ -456,11 +466,13 @@ export default function RootLayout() {
         const creatorFromUrl = parseCreatorDeepLink(url);
         if (creatorFromUrl) {
           await handleUrl(url);
-          return;
+        } else {
+          await resolveDeferredCreatorReferral();
+          await handleUrl(url);
         }
+        return;
       }
       await resolveDeferredCreatorReferral();
-      if (url) await handleUrl(url);
     });
 
     const sub = Linking.addEventListener('url', ({ url }) => handleUrl(url));

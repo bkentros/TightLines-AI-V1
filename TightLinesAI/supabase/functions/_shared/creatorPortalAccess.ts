@@ -1,4 +1,7 @@
-const CREATOR_PORTAL_ADMIN_EMAIL = "brandonkentros@icloud.com";
+const CREATOR_PORTAL_ADMIN_EMAILS = [
+  "brandonkentros@icloud.com",
+  "finfindr@hotmail.com",
+];
 export const CREATOR_PORTAL_URL = "https://finfindr.app/creators/";
 export const CREATOR_PORTAL_AUTH_CALLBACK =
   "https://finfindr.app/creators/auth/callback/";
@@ -13,7 +16,8 @@ export function isCreatorPortalAdminEmail(
   email: string | null | undefined,
 ): boolean {
   const normalized = normalizeEmail(email);
-  return normalized === CREATOR_PORTAL_ADMIN_EMAIL;
+  if (!normalized) return false;
+  return CREATOR_PORTAL_ADMIN_EMAILS.includes(normalized);
 }
 
 type CreatorLookupClient = {

@@ -153,17 +153,33 @@
     .stat .value.money { color: var(--good); }
     .stat .value.pending { color: var(--warn); }
     .share-box {
-      border: 1px dashed var(--line);
+      border: 1px solid var(--line);
       border-radius: 14px;
       padding: 14px;
-      background: #f8fbfe;
+      background: #fff;
       margin-top: 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
     }
     .share-box code {
-      display: block;
+      flex: 1;
+      min-width: 0;
       word-break: break-all;
       font-size: 13px;
-      margin-top: 6px;
+    }
+    .copy-btn {
+      appearance: none;
+      border: 1px solid var(--line);
+      border-radius: 10px;
+      padding: 8px 12px;
+      font-size: 12px;
+      font-weight: 700;
+      background: #fff;
+      color: var(--ink);
+      cursor: pointer;
+      flex-shrink: 0;
     }
     table {
       width: 100%;
@@ -284,6 +300,48 @@
       margin-top: 4px;
       margin-bottom: 8px;
     }
+    .funnel {
+      display: flex;
+      align-items: stretch;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 4px;
+    }
+    .funnel-step {
+      flex: 1;
+      min-width: 72px;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 10px;
+      background: #fff;
+      text-align: center;
+    }
+    .funnel-val {
+      display: block;
+      font-size: 22px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+    .funnel-label {
+      display: block;
+      margin-top: 4px;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    .funnel-arrow {
+      align-self: center;
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+    .section-title {
+      margin: 0 0 12px;
+      font-size: 18px;
+    }
   </style>
 </head>
 <body>
@@ -292,11 +350,10 @@
       <div class="brand">
         <img src="/assets/app-icon.png" width="44" height="44" alt="FinFindr" />
         <div>
-          <p class="eyebrow">FinFindr · Creator Portal</p>
-          <h1>Partner stats</h1>
+          <p class="eyebrow">FinFindr</p>
+          <h1>Creator portal</h1>
         </div>
       </div>
-      <p class="lede">Sign in with the email on your creator agreement to see clicks, attributions, and earnings update live.</p>
       <form id="loginForm">
         <label for="email">Email</label>
         <input id="email" name="email" type="email" autocomplete="email" required placeholder="you@example.com" enterkeyhint="go" />
@@ -317,14 +374,12 @@
             </div>
           </div>
           <div style="display:flex;gap:8px;align-items:center;flex-wrap:wrap;">
-            <span class="live"><span class="dot"></span> Live updates</span>
             <button class="btn secondary" type="button" id="signOutBtn">Sign out</button>
           </div>
         </div>
-        <p class="lede" id="portalSubtitle"></p>
         <div id="adminTabs" class="tabs hidden">
-          <button class="tab active" type="button" data-tab="mine">My creator view</button>
-          <button class="tab" type="button" data-tab="admin">All creators (admin)</button>
+          <button class="tab active" type="button" data-tab="mine">My stats</button>
+          <button class="tab" type="button" data-tab="admin">All creators</button>
         </div>
       </div>
 
@@ -334,13 +389,17 @@
           <div class="share-box" id="shareBox"></div>
         </div>
         <div class="card">
-          <h2 style="margin:0 0 8px;font-size:18px;">Commission ledger</h2>
-          <p class="fine" style="margin-top:0;">Pending rows have a 30-day hold before payout. Refunds appear as reversals.</p>
+          <h2 class="section-title">Conversion funnel</h2>
+          <div class="funnel" id="creatorFunnel"></div>
+        </div>
+        <div class="card">
+          <h2 class="section-title">Earnings</h2>
           <div style="overflow-x:auto;">
             <table>
               <thead>
                 <tr>
                   <th>Date</th>
+                  <th>Subscriber</th>
                   <th>Month #</th>
                   <th>Net</th>
                   <th>Commission</th>
@@ -356,8 +415,7 @@
 
       <div id="adminPanel" class="hidden">
         <div class="card">
-          <h2 style="margin:0 0 8px;font-size:18px;">Add a creator</h2>
-          <p class="fine" style="margin-top:0;">Enter their name, email, commission rate, and earning term. FinFindr creates their tracked link and portal access instantly.</p>
+          <h2 style="margin:0 0 12px;font-size:18px;">Add creator</h2>
           <form id="onboardForm">
             <div class="form-grid">
               <div>
@@ -385,13 +443,10 @@
           <div id="onboardResult" class="setup-result hidden"></div>
         </div>
         <div class="card">
-          <div class="admin-banner">
-            Admin view — totals across all active creators. Pay only from approved ledger rows past the 30-day hold.
-          </div>
           <div class="stats" id="adminStats"></div>
         </div>
         <div class="card">
-          <h2 style="margin:0 0 8px;font-size:18px;">All creators</h2>
+          <h2 style="margin:0 0 12px;font-size:18px;">All creators</h2>
           <div style="overflow-x:auto;">
             <table>
               <thead>
@@ -400,7 +455,8 @@
                   <th>Email</th>
                   <th>Rate</th>
                   <th>Clicks</th>
-                  <th>Attributed</th>
+                  <th>Sign-ups</th>
+                  <th>Paid subs</th>
                   <th>Pending</th>
                   <th>Payable now</th>
                   <th>Paid</th>
@@ -418,7 +474,7 @@
 
   <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2/dist/umd/supabase.min.js"></script>
   <script>
-    const ADMIN_EMAIL = 'brandonkentros@icloud.com';
+    const ADMIN_EMAILS = ['brandonkentros@icloud.com', 'finfindr@hotmail.com'];
     const PORTAL_REDIRECT = 'https://finfindr.app/creators/';
     const AUTH_CALLBACK = 'https://finfindr.app/creators/auth/callback/';
 
@@ -452,7 +508,18 @@
     }
 
     function isAdmin() {
-      return (session?.user?.email || '').toLowerCase() === ADMIN_EMAIL;
+      const email = (session?.user?.email || '').toLowerCase();
+      return ADMIN_EMAILS.includes(email);
+    }
+
+    async function copyText(value) {
+      if (!value || !navigator.clipboard?.writeText) return false;
+      try {
+        await navigator.clipboard.writeText(value);
+        return true;
+      } catch {
+        return false;
+      }
     }
 
     function sumCommission(rows, filterFn) {
@@ -460,6 +527,47 @@
         if (filterFn && !filterFn(row)) return total;
         return total + (Number(row.commission_amount_usd) || 0);
       }, 0);
+    }
+
+    function isCreatorLedgerRow(row) {
+      return row.status !== 'void' && Boolean(row.user_attribution_id);
+    }
+
+    function countPaidSubsFromLedger(rows) {
+      const seen = new Set();
+      rows.forEach((row) => {
+        if (!isCreatorLedgerRow(row)) return;
+        if (Number(row.earning_month_number) !== 1) return;
+        seen.add(row.user_attribution_id);
+      });
+      return seen.size;
+    }
+
+    function buildSubscriberLabelMap(attributions) {
+      const map = {};
+      (attributions || [])
+        .slice()
+        .sort((a, b) => new Date(a.attributed_at).getTime() - new Date(b.attributed_at).getTime())
+        .forEach((row, index) => {
+          map[row.id] = 'Sub #' + (index + 1);
+        });
+      return map;
+    }
+
+    function renderFunnel(metrics) {
+      const steps = [
+        { label: 'Clicks', value: metrics.clicks },
+        { label: 'App opens', value: metrics.appOpens },
+        { label: 'Sign-ups', value: metrics.signups },
+        { label: 'Paid subs', value: metrics.paidSubs },
+      ];
+      return steps.map((step, index) =>
+        (index > 0 ? '<span class="funnel-arrow" aria-hidden="true">→</span>' : '') +
+        '<div class="funnel-step">' +
+          '<span class="funnel-val">' + step.value + '</span>' +
+          '<span class="funnel-label">' + step.label + '</span>' +
+        '</div>',
+      ).join('');
     }
 
     function statCard(label, value, extraClass) {
@@ -638,75 +746,83 @@
     }
 
     async function fetchCreatorMetrics(creatorId) {
-      const funnelCount = async (eventType) => {
-        const { count, error } = await supabaseClient
-          .from('referral_funnel_events')
-          .select('id', { count: 'exact', head: true })
-          .eq('creator_id', creatorId)
-          .eq('event_type', eventType);
-        if (error) throw error;
-        return count || 0;
-      };
-
-      const [clicksRes, appOpens, signups, subscribed, attrRes, ledgerRes] = await Promise.all([
+      const [clicksRes, appOpensRes, attrRes, ledgerRes] = await Promise.all([
         supabaseClient.from('referral_clicks').select('id', { count: 'exact', head: true }).eq('creator_id', creatorId),
-        funnelCount('app_open'),
-        funnelCount('signup'),
-        funnelCount('subscribed'),
-        supabaseClient.from('user_attributions').select('id', { count: 'exact', head: true }).eq('creator_id', creatorId).eq('status', 'active'),
-        supabaseClient.from('creator_commission_ledger').select('*').eq('creator_id', creatorId).order('created_at', { ascending: false }),
+        supabaseClient.from('referral_clicks').select('id', { count: 'exact', head: true }).eq('creator_id', creatorId).not('app_opened_at', 'is', null),
+        supabaseClient
+          .from('user_attributions')
+          .select('id, attributed_at')
+          .eq('creator_id', creatorId)
+          .eq('status', 'active')
+          .order('attributed_at', { ascending: true }),
+        supabaseClient
+          .from('creator_commission_ledger')
+          .select('*')
+          .eq('creator_id', creatorId)
+          .order('created_at', { ascending: false }),
       ]);
       if (clicksRes.error) throw clicksRes.error;
+      if (appOpensRes.error) throw appOpensRes.error;
       if (attrRes.error) throw attrRes.error;
       if (ledgerRes.error) throw ledgerRes.error;
+
+      const attributions = attrRes.data || [];
+      const ledger = ledgerRes.data || [];
+      const signups = attributions.length;
+      const paidSubs = countPaidSubsFromLedger(ledger);
+
       return {
         clicks: clicksRes.count || 0,
-        appOpens,
+        appOpens: appOpensRes.count || 0,
         signups,
-        subscribed,
-        attributed: attrRes.count || 0,
-        ledger: ledgerRes.data || [],
+        paidSubs,
+        attributions,
+        subscriberLabels: buildSubscriberLabelMap(attributions),
+        ledger,
       };
     }
 
     function renderCreatorStats(metrics, creator) {
-      const ledger = metrics.ledger;
+      const ledger = metrics.ledger.filter(isCreatorLedgerRow);
       const now = Date.now();
       const pending = sumCommission(ledger, (r) => r.status === 'pending');
-      const payable = sumCommission(ledger, (r) =>
-        (r.status === 'pending' || r.status === 'approved') && new Date(r.eligible_at).getTime() <= now);
-      const paid = sumCommission(ledger, (r) => r.status === 'paid');
       const lifetime = sumCommission(ledger, (r) => r.status !== 'void');
 
       document.getElementById('creatorStats').innerHTML = [
-        statCard('Link clicks', metrics.clicks),
-        statCard('App opens', metrics.appOpens),
+        statCard('Clicks', metrics.clicks),
         statCard('Sign-ups', metrics.signups),
-        statCard('Paid subs', metrics.subscribed),
+        statCard('Paid subs', metrics.paidSubs),
         statCard('Pending', money(pending), 'pending'),
-        statCard('Payable now', money(payable), 'money'),
-        statCard('Paid out', money(paid), 'money'),
-        statCard('Lifetime earned', money(lifetime), 'money'),
+        statCard('Lifetime', money(lifetime), 'money'),
       ].join('');
 
+      document.getElementById('creatorFunnel').innerHTML = renderFunnel(metrics);
+
       const link = 'https://finfindr.app/c/' + creator.slug;
-      const ratePct = ((Number(creator.commission_rate_bps) || 0) / 100).toFixed(0);
       const monthCap = Number(creator.commission_month_cap) || 12;
       document.getElementById('shareBox').innerHTML =
-        '<strong>Your tracked link</strong><code>' + link + '</code>' +
-        '<p class="fine" style="margin:8px 0 0;">Your deal: <strong>' + ratePct + '%</strong> of net subscription revenue (after Apple&rsquo;s cut) for up to <strong>' + monthCap + ' paid billing periods</strong> per referred user. Unsubscribed months do not count — if they come back, earning continues until the cap.</p>' +
-        '<p class="fine" style="margin:6px 0 0;">Share on TikTok, YouTube, or Instagram. Clicks, installs, sign-ups, and paid conversions update live below.</p>';
+        '<code id="creatorLink">' + link + '</code>' +
+        '<button type="button" class="copy-btn" id="copyLinkBtn">Copy</button>';
+      document.getElementById('copyLinkBtn').addEventListener('click', () => {
+        void copyText(link).then((ok) => {
+          const btn = document.getElementById('copyLinkBtn');
+          if (!btn) return;
+          btn.textContent = ok ? 'Copied' : 'Copy';
+          if (ok) window.setTimeout(() => { btn.textContent = 'Copy'; }, 1500);
+        });
+      });
 
       document.getElementById('ledgerBody').innerHTML = ledger.length
         ? ledger.map((row) => '<tr>' +
             '<td>' + fmtDate(row.created_at) + '</td>' +
+            '<td>' + (metrics.subscriberLabels[row.user_attribution_id] || '—') + '</td>' +
             '<td>' + row.earning_month_number + ' / ' + monthCap + '</td>' +
             '<td>' + money(row.net_proceeds_usd) + '</td>' +
             '<td>' + money(row.commission_amount_usd) + '</td>' +
             '<td><span class="pill ' + row.status + '">' + row.status + '</span></td>' +
             '<td>' + fmtDate(row.eligible_at) + '</td>' +
           '</tr>').join('')
-        : '<tr><td colspan="6">No commission rows yet. Earnings appear after attributed users subscribe.</td></tr>';
+        : '<tr><td colspan="7">No earnings yet.</td></tr>';
     }
 
     async function renderAdminDashboard() {
@@ -719,7 +835,7 @@
 
       const { data: ledger, error: ledgerError } = await supabaseClient
         .from('creator_commission_ledger')
-        .select('creator_id, commission_amount_usd, status, eligible_at');
+        .select('creator_id, commission_amount_usd, status, eligible_at, user_attribution_id, earning_month_number');
       if (ledgerError) throw ledgerError;
 
       const { data: clicks, error: clicksError } = await supabaseClient
@@ -734,14 +850,22 @@
 
       const now = Date.now();
       const clickCounts = {};
-      const attrCounts = {};
+      const signupCounts = {};
+      const paidSubCounts = {};
       (clicks || []).forEach((row) => { clickCounts[row.creator_id] = (clickCounts[row.creator_id] || 0) + 1; });
       (attrs || []).forEach((row) => {
-        if (row.status === 'active') attrCounts[row.creator_id] = (attrCounts[row.creator_id] || 0) + 1;
+        if (row.status === 'active') signupCounts[row.creator_id] = (signupCounts[row.creator_id] || 0) + 1;
+      });
+      (ledger || []).forEach((row) => {
+        if (row.status === 'void' || !row.user_attribution_id) return;
+        if (Number(row.earning_month_number) !== 1) return;
+        if (!paidSubCounts[row.creator_id]) paidSubCounts[row.creator_id] = new Set();
+        paidSubCounts[row.creator_id].add(row.user_attribution_id);
       });
 
       const byCreator = {};
       (ledger || []).forEach((row) => {
+        if (row.status === 'void' || !row.user_attribution_id) return;
         if (!byCreator[row.creator_id]) {
           byCreator[row.creator_id] = { pending: 0, payable: 0, paid: 0, lifetime: 0 };
         }
@@ -768,7 +892,8 @@
           '<td><span style="font-size:12px;">' + (creator.email || '—') + '</span></td>' +
           '<td>' + (creator.commission_rate_bps / 100).toFixed(0) + '% · ' + (creator.commission_month_cap || 12) + ' mo</td>' +
           '<td>' + (clickCounts[creator.id] || 0) + '</td>' +
-          '<td>' + (attrCounts[creator.id] || 0) + '</td>' +
+          '<td>' + (signupCounts[creator.id] || 0) + '</td>' +
+          '<td>' + ((paidSubCounts[creator.id] && paidSubCounts[creator.id].size) || 0) + '</td>' +
           '<td>' + money(stats.pending) + '</td>' +
           '<td><strong>' + money(stats.payable) + '</strong></td>' +
           '<td>' + money(stats.paid) + '</td>' +
@@ -778,7 +903,7 @@
             '<button class="btn payout-btn" type="button" data-action="mark_paid" data-creator-id="' + creator.id + '" style="width:100%;padding:8px 10px;font-size:12px;">Mark paid</button>' +
           '</td>' +
         '</tr>';
-      }).join('') || '<tr><td colspan="10">No creators yet.</td></tr>';
+      }).join('') || '<tr><td colspan="11">No creators yet.</td></tr>';
 
       document.querySelectorAll('.payout-btn').forEach((button) => {
         button.addEventListener('click', async () => {
@@ -827,27 +952,25 @@
       creatorPanel.classList.remove('hidden');
 
       if (!creatorRecord && !isAdmin()) {
-        document.getElementById('portalTitle').textContent = 'No creator account linked';
-        document.getElementById('portalSubtitle').textContent =
-          'This email is not linked to a creator profile yet. Contact FinFindr support.';
-        document.getElementById('creatorStats').innerHTML = '';
-        document.getElementById('shareBox').innerHTML = '';
-        document.getElementById('ledgerBody').innerHTML =
-          '<tr><td colspan="6">Ask FinFindr to add your email to your creator profile.</td></tr>';
+        await supabaseClient.auth.signOut();
+        session = null;
+        showLogin();
+        loginErr.textContent = 'This email is not registered for the creator portal.';
+        loginErr.classList.remove('hidden');
         return;
       }
 
       if (creatorRecord) {
         document.getElementById('portalTitle').textContent = creatorRecord.display_name;
-        document.getElementById('portalSubtitle').textContent =
-          (creatorRecord.commission_rate_bps / 100).toFixed(0) + '% commission · up to ' +
-          creatorRecord.commission_month_cap + ' paid billing periods per referred user';
         const metrics = await fetchCreatorMetrics(creatorRecord.id);
         renderCreatorStats(metrics, creatorRecord);
       } else if (isAdmin()) {
         document.getElementById('portalTitle').textContent = 'FinFindr Admin';
-        document.getElementById('portalSubtitle').textContent =
-          'Switch to “All creators” to see program-wide totals.';
+        document.getElementById('creatorStats').innerHTML = '';
+        document.getElementById('shareBox').innerHTML = '';
+        document.getElementById('creatorFunnel').innerHTML = '';
+        document.getElementById('ledgerBody').innerHTML =
+          '<tr><td colspan="7">Switch to All creators.</td></tr>';
       }
     }
 

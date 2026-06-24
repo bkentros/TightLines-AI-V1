@@ -563,8 +563,8 @@ export default function SettingsScreen() {
                 <PrimaryAction
                   label={
                     creatorPortalAccess.isAdmin
-                      ? 'Creator program admin'
-                      : 'Creator stats portal'
+                      ? 'Creator admin'
+                      : 'Creator portal'
                   }
                   icon="stats-chart-outline"
                   onPress={() => {

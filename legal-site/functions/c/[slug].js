@@ -44,40 +44,60 @@ function renderPage(payload) {
     });
   }
 
+  copyReferralPayload();
+
   function goToAppStore() {
     window.location.href = appStoreUrl;
   }
 
-  function handleCreatorCta(event) {
+  function handleAppStoreDownload(event) {
     if (event) event.preventDefault();
     copyReferralPayload().finally(goToAppStore);
+  }
+
+  function tryOpenAppThenStore(event) {
+    if (event) event.preventDefault();
+    copyReferralPayload().finally(function () {
+      if (!deepLink) {
+        goToAppStore();
+        return;
+      }
+
+      var leftPage = false;
+      function markLeft() {
+        leftPage = true;
+      }
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) markLeft();
+      }, { once: true });
+      window.addEventListener('pagehide', markLeft, { once: true });
+      window.addEventListener('blur', markLeft, { once: true });
+
+      // Hidden iframe avoids Safari's "invalid address" alert when the app is not installed.
+      var iframe = document.createElement('iframe');
+      iframe.style.cssText = 'display:none;border:0;width:0;height:0';
+      iframe.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(iframe);
+      try {
+        iframe.contentWindow.location.replace(deepLink);
+      } catch (err) {
+        // Ignore — fallback timer sends users to the App Store.
+      }
+
+      window.setTimeout(function () {
+        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        if (!leftPage) goToAppStore();
+      }, 1400);
+    });
   }
 
   var openBtn = document.getElementById('open-app-cta');
   var downloadBtn = document.getElementById('download-app-cta');
   if (openBtn) {
-    openBtn.addEventListener('click', function (event) {
-      event.preventDefault();
-      var leftPage = false;
-      copyReferralPayload().finally(function () {
-        var timer = window.setTimeout(function () {
-          if (!leftPage) goToAppStore();
-        }, 1600);
-        function markLeft() {
-          leftPage = true;
-          window.clearTimeout(timer);
-        }
-        document.addEventListener('visibilitychange', function () {
-          if (document.hidden) markLeft();
-        }, { once: true });
-        window.addEventListener('pagehide', markLeft, { once: true });
-        if (deepLink) window.location.href = deepLink;
-        else goToAppStore();
-      });
-    });
+    openBtn.addEventListener('click', tryOpenAppThenStore);
   }
   if (downloadBtn) {
-    downloadBtn.addEventListener('click', handleCreatorCta);
+    downloadBtn.addEventListener('click', handleAppStoreDownload);
   }
 })();
 </script>`
@@ -91,23 +111,21 @@ function renderPage(payload) {
   <title>${creatorName} · FinFindr</title>
   <meta name="description" content="Get FinFindr — fishing intelligence from ${creatorName}." />
   <meta name="theme-color" content="#d8ebf8" />
-  <meta name="apple-itunes-app" content="app-id=6769178136" />
   <style>
     :root { --ink:#07192b; --muted:#4d6478; --water:#1f6f97; --card:rgba(255,255,255,.94); }
     * { box-sizing:border-box; }
-    body { margin:0; min-height:100vh; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif; color:var(--ink);
+    body { margin:0; min-height:100vh; min-height:100dvh; font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text",sans-serif; color:var(--ink);
       background:radial-gradient(circle at 50% -10%, #fff 0%, transparent 46%), linear-gradient(180deg,#eaf5fc 0%,#d4e9f7 55%,#c8e2f4 100%);
-      display:flex; align-items:center; justify-content:center; padding:22px 16px 30px; }
-    .card { width:min(440px,100%); background:var(--card); border-radius:30px; box-shadow:0 28px 70px rgba(7,25,43,.14); padding:30px 22px 24px; text-align:center; }
+      display:flex; align-items:center; justify-content:center;
+      padding:max(16px, env(safe-area-inset-top)) 16px max(16px, env(safe-area-inset-bottom)); }
+    .card { width:min(440px,100%); background:var(--card); border-radius:30px; box-shadow:0 28px 70px rgba(7,25,43,.14); padding:30px 22px 24px; text-align:center;
+      transform:translateY(clamp(-32px, -6vh, -12px)); }
     .icon { width:100px; height:100px; border-radius:24px; box-shadow:0 16px 34px rgba(7,25,43,.18); margin:0 auto 14px; display:block; }
     .eyebrow { margin:0; color:var(--water); font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
     h1 { margin:6px 0 0; font-size:28px; line-height:1.05; letter-spacing:-.03em; }
     .tagline { margin:10px auto 0; max-width:22rem; color:var(--muted); font-size:15px; line-height:1.5; }
     .cta { display:block; margin-top:22px; width:100%; border:0; border-radius:16px; padding:17px 18px; background:linear-gradient(180deg,#0a2742 0%,#07192b 100%); color:#fff !important; font-size:17px; font-weight:700; text-decoration:none; box-shadow:0 14px 30px rgba(7,25,43,.22); cursor:pointer; }
     .cta-secondary { background:#fff; color:var(--ink) !important; border:1px solid #c9deec; box-shadow:none; margin-top:10px; }
-    .steps { margin-top:18px; text-align:left; font-size:14px; line-height:1.45; color:var(--muted); }
-    .steps strong { color:var(--ink); }
-    .fine { margin-top:14px; font-size:12px; color:var(--muted); }
   </style>
 </head>
 <body>
@@ -116,14 +134,8 @@ function renderPage(payload) {
     <p class="eyebrow">${creatorName}</p>
     <h1>Get FinFindr</h1>
     <p class="tagline">Bite reports, tackle direction, and water intelligence — shared by ${creatorName}.</p>
-    ${deepLink ? `<a id="open-app-cta" class="cta" href="${deepLink}">Get FinFindr</a>` : ''}
+    ${deepLink ? `<a id="open-app-cta" class="cta" href="${appStoreUrl}">Get FinFindr</a>` : ''}
     <a id="download-app-cta" class="cta cta-secondary" href="${appStoreUrl}" rel="noopener noreferrer">Download on the App Store</a>
-    <div class="steps">
-      <p><strong>1.</strong> Tap Get FinFindr — downloads from the App Store if you don't have the app yet.</p>
-      <p><strong>2.</strong> Open FinFindr and sign in. Your visit stays linked to ${creatorName} for 60 days.</p>
-      <p><strong>3.</strong> Subscribe to Angler when you're ready to unlock full intelligence.</p>
-    </div>
-    <p class="fine">Free · iPhone · United States</p>
   </main>
   ${attributionScript}
 </body>

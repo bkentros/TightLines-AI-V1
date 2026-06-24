@@ -376,6 +376,7 @@ export default function WaterReaderScreen() {
   const historyRequestId = useRef(0);
   const lastHistoryReadSignal = useRef<string | null>(null);
   const preserveSelectionForHistoryStateChange = useRef(false);
+  const skipStateBrowseResetRef = useRef(false);
   const historyBuildingPollStartedAt = useRef<number | null>(null);
   const [readState, setReadState] = useState<WaterReaderReadState>({
     status: 'idle',
@@ -423,6 +424,20 @@ export default function WaterReaderScreen() {
   useEffect(() => {
     if (preserveSelectionForHistoryStateChange.current) {
       preserveSelectionForHistoryStateChange.current = false;
+      return;
+    }
+    if (skipStateBrowseResetRef.current) {
+      skipStateBrowseResetRef.current = false;
+      setSelected(null);
+      setQuery('');
+      setCountyFilter(null);
+      setBrowseCounty(null);
+      setCountyModalOpen(false);
+      setStateCounties([]);
+      setDiscoveryError(null);
+      setSearchError(null);
+      setSearchEmpty(false);
+      setSearchExpanded(false);
       return;
     }
     setSelected(null);
@@ -676,10 +691,11 @@ export default function WaterReaderScreen() {
 
   const loadNearMe = useCallback(async () => {
     const homeState = profile?.home_state?.trim().toUpperCase() || null;
+    const nearStateFilter = homeState ?? stateCode ?? undefined;
     if (homeState && homeState !== stateCode) {
+      skipStateBrowseResetRef.current = true;
       setStateCode(homeState);
     }
-    const nearStateFilter = homeState ?? stateCode ?? undefined;
 
     setNearMeLoading(true);
     setDiscoveryError(null);
@@ -813,11 +829,13 @@ export default function WaterReaderScreen() {
     if (!stateCode || q.length < SEARCH_MIN_CHARS) {
       setSearchError(null);
       setSearchEmpty(false);
-      setSearching(false);
-      setSearchExpanded(false);
-      setCountyFilter(null);
-      if (q.length === 0 && browseMode == null) {
-        setResults([]);
+      if (browseMode == null) {
+        setSearching(false);
+        setSearchExpanded(false);
+        setCountyFilter(null);
+        if (q.length === 0) {
+          setResults([]);
+        }
       }
       return;
     }
