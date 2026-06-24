@@ -1,5 +1,5 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Clipboard from 'expo-clipboard';
+import { getOptionalClipboardString } from './optionalClipboard';
 import { isCreatorReferralEligible } from './creatorReferralEligibility';
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
@@ -414,7 +414,7 @@ export async function resolveDeferredCreatorReferral(): Promise<boolean> {
   }
 
   try {
-    const clipboardText = await Clipboard.getStringAsync();
+    const clipboardText = await getOptionalClipboardString();
     const clipboardReferral = clipboardText
       ? parseCreatorReferralPayload(clipboardText)
       : null;
