@@ -125,7 +125,7 @@ export function slugifyCreatorName(rawName: string): string {
   return slug.slice(0, 64).replace(/-+$/g, "0");
 }
 
-export function suggestCreatorOfferCode(input: {
+export function suggestCreatorReferralCode(input: {
   displayName: string;
   slug: string;
 }): string {
@@ -136,11 +136,8 @@ export function suggestCreatorOfferCode(input: {
   return code.length >= 4 ? code : "CREATOR10";
 }
 
-export function buildCreatorRedemptionUrl(code: string): string {
-  return `https://apps.apple.com/redeem?ctx=offercodes&id=${APPLE_APP_ID}&code=${
-    encodeURIComponent(code)
-  }`;
-}
+/** @deprecated Use suggestCreatorReferralCode */
+export const suggestCreatorOfferCode = suggestCreatorReferralCode;
 
 type CreatorSlugClient = {
   from: (table: string) => {
@@ -202,7 +199,7 @@ export async function reserveUniqueCreatorCode(
     if (error) throw new Error(error.message);
     if (!data) return tryCode;
   }
-  throw new Error("Could not reserve a unique creator offer code.");
+  throw new Error("Could not reserve a unique creator referral code.");
 }
 
 export { APPLE_APP_ID, DEFAULT_OFFER_REFERENCE };

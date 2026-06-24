@@ -127,20 +127,14 @@ function classifyRevenueCatError(message: string): string {
   return "revenuecat_error";
 }
 
-async function syncProfileTier(
-  customerInfo: CustomerInfo | null,
-): Promise<void> {
+function sleep(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
+}
+
+async function pullServerSubscriptionTier(): Promise<boolean> {
   const user = useAuthStore.getState().user;
   const profile = useAuthStore.getState().profile;
-  if (!user || !profile) return;
-  const observedTier = tierFromCustomerInfo(customerInfo);
-  const hasComplimentaryAccess = hasComplimentaryAnglerAccess(user.email);
-  const shouldConfirmServerTier = hasComplimentaryAccess
-    ? profile.subscription_tier !== "angler"
-    : profile.subscription_tier !== observedTier ||
-      profile.subscription_tier !== "free" ||
-      observedTier !== "free";
-  if (!shouldConfirmServerTier) return;
+  if (!user || !profile) return false;
 
   const accessToken = await getValidAccessToken();
   const result = await invokeEdgeFunction<SyncSubscriptionTierResponse>(
@@ -159,6 +153,51 @@ async function syncProfileTier(
     subscription_tier: result.subscription_tier,
     has_angler: result.has_angler,
   });
+
+  return Boolean(result.has_angler || result.subscription_tier === "angler");
+}
+
+async function syncProfileTier(
+  customerInfo: CustomerInfo | null,
+): Promise<void> {
+  const user = useAuthStore.getState().user;
+  const profile = useAuthStore.getState().profile;
+  if (!user || !profile) return;
+  const observedTier = tierFromCustomerInfo(customerInfo);
+  const hasComplimentaryAccess = hasComplimentaryAnglerAccess(user.email);
+  const shouldConfirmServerTier = hasComplimentaryAccess
+    ? profile.subscription_tier !== "angler"
+    : profile.subscription_tier !== observedTier ||
+      profile.subscription_tier !== "free" ||
+      observedTier !== "free";
+  if (!shouldConfirmServerTier) return;
+
+  try {
+    await pullServerSubscriptionTier();
+  } catch (err) {
+    if (__DEV__) console.warn("[RevenueCat] tier sync failed", err);
+  }
+}
+
+async function refreshEntitlementsAfterPurchase(): Promise<{
+  customerInfo: CustomerInfo;
+  hasAngler: boolean;
+}> {
+  let customerInfo = await Purchases.getCustomerInfo();
+  let hasAngler = hasEffectiveAnglerAccess(customerInfo);
+
+  for (let attempt = 0; attempt < 4 && !hasAngler; attempt += 1) {
+    await sleep(1500);
+    try {
+      await Purchases.syncPurchasesForResult();
+    } catch {
+      // StoreKit can lag briefly after checkout in sandbox.
+    }
+    customerInfo = await Purchases.getCustomerInfo();
+    hasAngler = hasEffectiveAnglerAccess(customerInfo);
+  }
+
+  return { customerInfo, hasAngler };
 }
 
 interface RevenueCatState {
@@ -173,6 +212,8 @@ interface RevenueCatState {
   hasAngler: boolean;
   initialize: (userId: string) => Promise<void>;
   refresh: () => Promise<void>;
+  /** Forces a server tier refresh — use after checkout or restore. */
+  syncSubscriptionTier: () => Promise<boolean>;
   presentPaywall: () => Promise<boolean>;
   purchase: (pkg: PurchasesPackage) => Promise<boolean>;
   restore: () => Promise<boolean>;
@@ -347,6 +388,27 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
     }
   },
 
+  syncSubscriptionTier: async () => {
+    try {
+      if (initializationPromise) await initializationPromise;
+      const userId = useAuthStore.getState().user?.id;
+      if (!userId) return false;
+
+      const alreadyConfigured = await Purchases.isConfigured().catch(() =>
+        false
+      );
+      if (!alreadyConfigured || configuredUserId !== userId) {
+        await get().initialize(userId);
+      }
+
+      await refreshCustomerInfoOnly(set);
+      return await pullServerSubscriptionTier();
+    } catch (err) {
+      if (__DEV__) console.warn("[RevenueCat] forced tier sync failed", err);
+      return false;
+    }
+  },
+
   presentPaywall: async () => {
     if (hasComplimentaryAnglerAccess(useAuthStore.getState().user?.email)) {
       set({ presentingPaywall: false, error: null, hasAngler: true });
@@ -399,8 +461,41 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
         displayCloseButton: true,
       });
 
-      const customerInfo = await Purchases.getCustomerInfo();
-      const hasAngler = hasEffectiveAnglerAccess(customerInfo);
+      const checkoutCompleted = result === PAYWALL_RESULT.PURCHASED ||
+        result === PAYWALL_RESULT.RESTORED;
+      const shouldRefreshAccess = checkoutCompleted ||
+        result === PAYWALL_RESULT.NOT_PRESENTED;
+
+      let customerInfo = await Purchases.getCustomerInfo();
+      let hasAngler = hasEffectiveAnglerAccess(customerInfo);
+
+      if (checkoutCompleted && !hasAngler) {
+        ({ customerInfo, hasAngler } = await refreshEntitlementsAfterPurchase());
+      }
+
+      if (shouldRefreshAccess) {
+        try {
+          const serverAngler = await pullServerSubscriptionTier();
+          hasAngler = hasAngler ||
+            serverAngler ||
+            useAuthStore.getState().profile?.subscription_tier === "angler";
+        } catch (err) {
+          if (__DEV__) console.warn("[RevenueCat] post-paywall tier sync failed", err);
+        }
+      }
+
+      if (!hasAngler && checkoutCompleted) {
+        ({ customerInfo, hasAngler } = await refreshEntitlementsAfterPurchase());
+        try {
+          const serverAngler = await pullServerSubscriptionTier();
+          hasAngler = hasAngler ||
+            serverAngler ||
+            useAuthStore.getState().profile?.subscription_tier === "angler";
+        } catch {
+          // Fall through — purchase may still be propagating.
+        }
+      }
+
       set({
         customerInfo,
         hasAngler,
@@ -408,7 +503,10 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
           ? "RevenueCat could not complete the paywall purchase. Check the subscription setup and try again."
           : null,
       });
-      await syncProfileTier(customerInfo);
+
+      if (!hasAngler) {
+        await syncProfileTier(customerInfo);
+      }
 
       captureAnalytics("paywall_closed", {
         result,
@@ -421,7 +519,7 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
         });
       }
 
-      return hasAngler || result === PAYWALL_RESULT.NOT_PRESENTED;
+      return hasAngler;
     } catch (err) {
       const message = errorMessage(err);
       if (message) set({ error: message });
@@ -503,9 +601,16 @@ export const useRevenueCatStore = create<RevenueCatState>((set, get) => ({
       }
 
       const customerInfo = await Purchases.restorePurchases();
-      const hasAngler = hasEffectiveAnglerAccess(customerInfo);
+      let hasAngler = hasEffectiveAnglerAccess(customerInfo);
+      try {
+        const serverAngler = await pullServerSubscriptionTier();
+        hasAngler = hasAngler ||
+          serverAngler ||
+          useAuthStore.getState().profile?.subscription_tier === "angler";
+      } catch {
+        await syncProfileTier(customerInfo);
+      }
       set({ customerInfo, hasAngler });
-      await syncProfileTier(customerInfo);
       captureAnalytics("restore_completed", {
         has_angler: hasAngler,
       });

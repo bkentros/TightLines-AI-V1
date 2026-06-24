@@ -6,24 +6,32 @@
  * subscription management actions.
  */
 
-import { ActivityIndicator, Alert, Image, Pressable, ScrollView, StyleSheet, Text, View } from 'react-native';
+import {
+  ActivityIndicator,
+  Image,
+  Pressable,
+  ScrollView,
+  StyleSheet,
+  Text,
+  View,
+} from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { paper, paperFonts, paperSpacing } from '../lib/theme';
 import { PaperNavHeader, TopographicLines } from '../components/paper';
 import { AuthFooterStamp } from '../components/paper/auth';
-import { CreatorOfferBanner } from '../components/CreatorOfferBanner';
+import { CreatorReferralBanner } from '../components/CreatorReferralBanner';
 import {
   completeCreatorLinkSession,
   dismissCreatorLinkSession,
-  hasActiveCreatorLinkSession,
-  loadCreatorOfferForLinkSession,
-  openCreatorOfferRedemption,
-  type CreatorOfferContext,
+  hasVerifiedCreatorReferralSession,
+  loadCreatorReferralForLinkSession,
+  promotePendingReferralToActiveSession,
+  type CreatorReferralContext,
 } from '../lib/creatorAttribution';
-import { isCreatorOfferEligible } from '../lib/creatorOfferEligibility';
+import { isCreatorReferralEligible } from '../lib/creatorReferralEligibility';
 import { useAuthStore } from '../store/authStore';
 import {
   openStoreSubscriptionManagement,
@@ -32,6 +40,7 @@ import {
 import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
 import { getValidAccessToken, supabase } from '../lib/supabase';
 import { useRevenueCatStore } from '../store/revenueCatStore';
+import { showAnglerUnlockedCelebration, showSubscriptionNotice } from '../store/subscriptionCelebrationStore';
 
 const ANGLER_FEATURES: Array<{
   icon: keyof typeof Ionicons.glyphMap;
@@ -57,9 +66,9 @@ const ANGLER_FEATURES: Array<{
 
 export default function SubscribeScreen() {
   const router = useRouter();
-  const [creatorOffer, setCreatorOffer] = useState<CreatorOfferContext | null>(null);
-  const [loadingCreatorOffer, setLoadingCreatorOffer] = useState(false);
-  const [applyingCreatorOffer, setApplyingCreatorOffer] = useState(false);
+  const { creator: creatorParam } = useLocalSearchParams<{ creator?: string }>();
+  const [creatorReferral, setCreatorReferral] = useState<CreatorReferralContext | null>(null);
+  const [loadingCreatorReferral, setLoadingCreatorReferral] = useState(false);
   const {
     presentingPaywall,
     restoring,
@@ -71,19 +80,19 @@ export default function SubscribeScreen() {
   } = useRevenueCatStore();
   const profileTier = useAuthStore((s) => s.profile?.subscription_tier);
 
-  const refreshCreatorOffer = useCallback(async () => {
-    if (!(await hasActiveCreatorLinkSession())) {
-      setCreatorOffer(null);
+  const refreshCreatorReferral = useCallback(async () => {
+    if (!(await hasVerifiedCreatorReferralSession())) {
+      setCreatorReferral(null);
       return;
     }
 
-    if (!isCreatorOfferEligible({ customerInfo, hasAngler, profileTier })) {
+    if (!isCreatorReferralEligible({ customerInfo, hasAngler, profileTier })) {
       await dismissCreatorLinkSession();
-      setCreatorOffer(null);
+      setCreatorReferral(null);
       return;
     }
 
-    setLoadingCreatorOffer(true);
+    setLoadingCreatorReferral(true);
     try {
       let token: string | null = null;
       try {
@@ -92,43 +101,45 @@ export default function SubscribeScreen() {
         const { data: { session } } = await supabase.auth.getSession();
         token = session?.access_token ?? null;
       }
-      const offer = await loadCreatorOfferForLinkSession(token);
-      setCreatorOffer(offer);
+      const referral = await loadCreatorReferralForLinkSession(token);
+      setCreatorReferral(referral);
     } finally {
-      setLoadingCreatorOffer(false);
+      setLoadingCreatorReferral(false);
     }
   }, [customerInfo, hasAngler, profileTier]);
 
   const handleOpenPaywall = useCallback(async () => {
     hapticImpact(ImpactFeedbackStyle.Medium);
+    const hadCreatorReferral = Boolean(creatorReferral);
     const unlocked = await presentPaywall();
     if (unlocked) {
+      showAnglerUnlockedCelebration(
+        hadCreatorReferral
+          ? {
+            detail: 'Your signup is linked to the creator who referred you.',
+          }
+          : undefined,
+      );
       await completeCreatorLinkSession();
-      Alert.alert('Angler unlocked', 'You now have full access to FinFindr.', [
-        { text: 'Continue', onPress: () => router.replace('/(tabs)') },
-      ]);
+      router.replace('/(tabs)');
     }
-  }, [presentPaywall, router]);
+  }, [creatorReferral, presentPaywall, router]);
 
   useEffect(() => {
-    void refreshCreatorOffer();
-  }, [refreshCreatorOffer]);
+    void (async () => {
+      if (creatorParam === '1') {
+        await promotePendingReferralToActiveSession();
+      }
+      await refreshCreatorReferral();
+    })();
+  }, [creatorParam, refreshCreatorReferral]);
 
   const handleLeaveSubscribe = useCallback(async () => {
-    const hadCreatorSession = await hasActiveCreatorLinkSession();
-    await dismissCreatorLinkSession();
-
-    if (hadCreatorSession) {
-      router.replace('/(tabs)/settings');
-      return;
-    }
-
     if (router.canGoBack()) {
       router.back();
       return;
     }
-
-    router.replace('/(tabs)/settings');
+    router.replace('/(tabs)');
   }, [router]);
 
   const heroTitle = hasAngler
@@ -148,31 +159,6 @@ export default function SubscribeScreen() {
     ? 'Your App Store subscription is connected. Full bite reports, tactical tackle direction, and supported-water structure reads are unlocked.'
     : 'Angler opens full bite reports, tactical tackle direction, and structure intelligence for supported waters.';
 
-  const handleApplyCreatorOffer = async () => {
-    if (!creatorOffer) return;
-    if (!isCreatorOfferEligible({ customerInfo, hasAngler, profileTier })) {
-      await dismissCreatorLinkSession();
-      setCreatorOffer(null);
-      Alert.alert(
-        'Offer not available',
-        'Creator discounts are for first-time Angler subscribers only. Your membership is already active or this Apple ID has subscribed before.',
-      );
-      return;
-    }
-    hapticImpact(ImpactFeedbackStyle.Medium);
-    setApplyingCreatorOffer(true);
-    try {
-      await openCreatorOfferRedemption(creatorOffer.redemptionUrl);
-    } catch {
-      Alert.alert(
-        'Could not open offer',
-        'Try again, or contact support if the creator discount does not appear.',
-      );
-    } finally {
-      setApplyingCreatorOffer(false);
-    }
-  };
-
   const handleRestore = async () => {
     hapticImpact(ImpactFeedbackStyle.Light);
     const unlocked = await restore();
@@ -180,27 +166,37 @@ export default function SubscribeScreen() {
     const receiptBelongsToAnotherAccount = Boolean(
       restoreError?.includes('already connected to another FinFindr account'),
     );
-    Alert.alert(
-      unlocked
-        ? 'Angler access active'
-        : receiptBelongsToAnotherAccount
-          ? 'Subscription linked elsewhere'
-          : 'No App Store subscription found',
-      unlocked
-        ? 'Your FinFindr Angler access is active.'
-        : restoreError ||
-          'Restore Purchases only reconnects an active Angler subscription already purchased with this Apple ID. If that subscription is tied to another FinFindr account, sign in to that original account or contact support.',
-    );
+    if (unlocked) {
+      showAnglerUnlockedCelebration(
+        creatorReferral
+          ? {
+            detail: 'Your signup is linked to the creator who referred you.',
+          }
+          : undefined,
+      );
+      await completeCreatorLinkSession();
+      router.replace('/(tabs)');
+      return;
+    }
+    showSubscriptionNotice({
+      title: receiptBelongsToAnotherAccount
+        ? 'Subscription linked elsewhere'
+        : 'No App Store subscription found',
+      message: restoreError ||
+        'Restore Purchases only reconnects an active Angler subscription already purchased with this Apple ID. If that subscription is tied to another FinFindr account, sign in to that original account or contact support.',
+      tone: receiptBelongsToAnotherAccount ? 'error' : 'info',
+    });
   };
 
   const handleManageStoreSubscription = async () => {
     try {
       await openStoreSubscriptionManagement();
     } catch {
-      Alert.alert(
-        'Could not open subscriptions',
-        'Open your App Store account settings to manage or cancel your subscription.',
-      );
+      showSubscriptionNotice({
+        title: 'Could not open subscriptions',
+        message: 'Open your App Store account settings to manage or cancel your subscription.',
+        tone: 'info',
+      });
     }
   };
 
@@ -242,15 +238,11 @@ export default function SubscribeScreen() {
             <Text style={styles.lede}>{heroCopy}</Text>
           </View>
 
-          {!hasAngler && creatorOffer ? (
-            <CreatorOfferBanner
-              offer={creatorOffer}
-              onApplyDiscount={handleApplyCreatorOffer}
-              applying={applyingCreatorOffer}
-            />
+          {!hasAngler && creatorReferral ? (
+            <CreatorReferralBanner referral={creatorReferral} />
           ) : null}
 
-          {!hasAngler && loadingCreatorOffer ? (
+          {!hasAngler && loadingCreatorReferral ? (
             <View style={styles.creatorLoading}>
               <ActivityIndicator size="small" color={paper.dashboardBlue} />
             </View>

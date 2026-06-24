@@ -18,8 +18,8 @@ export function hasPriorAnglerPurchase(customerInfo: CustomerInfo | null): boole
   return ANGLER_PRODUCT_IDS.some((id) => Boolean(purchaseDates[id]));
 }
 
-/** Client-side gate before showing creator discount UI. */
-export function isCreatorOfferEligible(input: {
+/** Client-side gate before showing creator referral subscribe UI. */
+export function isCreatorReferralEligible(input: {
   customerInfo: CustomerInfo | null;
   hasAngler: boolean;
   profileTier?: string | null;
@@ -27,3 +27,6 @@ export function isCreatorOfferEligible(input: {
   if (input.hasAngler || input.profileTier === 'angler') return false;
   return !hasPriorAnglerPurchase(input.customerInfo);
 }
+
+/** @deprecated Use isCreatorReferralEligible */
+export const isCreatorOfferEligible = isCreatorReferralEligible;

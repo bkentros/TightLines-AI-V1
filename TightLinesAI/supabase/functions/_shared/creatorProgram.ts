@@ -33,6 +33,138 @@ const PAID_EVENT_TYPES = new Set([
   "NON_RENEWING_PURCHASE",
 ]);
 
+/** Click → sign-up attribution window (does not limit renewal commissions). */
+export const REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS = 60;
+
+/** Allowed per-creator commission earning caps (months of paid subscription). */
+export const COMMISSION_MONTH_CAP_OPTIONS = [12, 24] as const;
+export type CommissionMonthCap = typeof COMMISSION_MONTH_CAP_OPTIONS[number];
+
+export function normalizeCommissionMonthCap(value: unknown): CommissionMonthCap {
+  const parsed = typeof value === "number"
+    ? value
+    : typeof value === "string"
+    ? Number(value)
+    : NaN;
+  if (parsed === 24) return 24;
+  return 12;
+}
+
+/** Positive ledger rows used to determine the next earning month for an attribution. */
+export type CreatorEarningLedgerRow = {
+  id: string;
+  status: string;
+  reversal_of: string | null;
+};
+
+/**
+ * Counts paid billing periods that still consume the creator's month cap.
+ * Churn gaps do not count — only actual paid (non-reversed) ledger rows.
+ */
+export function countActiveCreatorEarningMonths(
+  positiveRows: CreatorEarningLedgerRow[],
+  reversedOriginalIds: Iterable<string>,
+): number {
+  const reversed = new Set(reversedOriginalIds);
+  return positiveRows.filter(
+    (row) =>
+      row.reversal_of == null &&
+      row.status !== "void" &&
+      row.status !== "reversed" &&
+      !reversed.has(row.id),
+  ).length;
+}
+
+/** Returns the next earning month number, or null when the per-user cap is reached. */
+export function nextCreatorEarningMonthNumber(
+  activePaidMonths: number,
+  monthCap: number,
+): number | null {
+  const next = activePaidMonths + 1;
+  return next <= monthCap ? next : null;
+}
+
+/** Sign-up qualifies if click is recent OR we already matched an app install for this click. */
+export function referralClickQualifiesForAttribution(input: {
+  createdAt: string | null | undefined;
+  appOpenedAt?: string | null;
+  nowMs?: number;
+}): boolean {
+  if (input.appOpenedAt?.trim()) return true;
+  return isReferralClickWithinAttributionWindow(input.createdAt, input.nowMs);
+}
+
+/** Probabilistic install match: click must be this recent (hours). */
+export const FINGERPRINT_MATCH_WINDOW_HOURS = 72;
+
+export function isReferralClickWithinAttributionWindow(
+  createdAt: string | null | undefined,
+  nowMs = Date.now(),
+): boolean {
+  if (!createdAt) return false;
+  const clickedAt = Date.parse(createdAt);
+  if (!Number.isFinite(clickedAt)) return false;
+  const windowMs = REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS * 24 * 60 * 60 * 1000;
+  return nowMs - clickedAt <= windowMs;
+}
+
+export type CreatorReferralLinkParams = {
+  code: string;
+  referralClickToken: string;
+};
+
+export function buildCreatorReferralWebUrl(
+  code: string,
+  clickToken: string,
+): string {
+  const normalized = normalizeCreatorCode(code);
+  if (!normalized || !clickToken.trim()) return "";
+  return `https://finfindr.app/r?click=${
+    encodeURIComponent(clickToken.trim())
+  }&code=${encodeURIComponent(normalized)}`;
+}
+
+/** Parse finfindr://creator or https://finfindr.app/r referral payloads. */
+export function parseCreatorReferralPayload(
+  raw: string,
+): CreatorReferralLinkParams | null {
+  const trimmed = raw.trim();
+  if (!trimmed.includes("://")) return null;
+  try {
+    const parsed = new URL(trimmed);
+    const code = normalizeCreatorCode(parsed.searchParams.get("code"));
+    const clickRaw = parsed.searchParams.get("click") ??
+      parsed.searchParams.get("referral_click_token");
+    const referralClickToken = clickRaw?.trim() ?? "";
+    if (!code || !referralClickToken || !isUuid(referralClickToken)) {
+      return null;
+    }
+
+    const scheme = parsed.protocol.replace(":", "").toLowerCase();
+    const host = parsed.hostname.toLowerCase();
+    const isAppCreator = scheme === "finfindr" &&
+      parsed.host.toLowerCase().includes("creator");
+    const isWebReferral = host === "finfindr.app" &&
+      (parsed.pathname === "/r" || parsed.pathname.startsWith("/r/"));
+
+    if (!isAppCreator && !isWebReferral) return null;
+    return { code, referralClickToken };
+  } catch {
+    return null;
+  }
+}
+
+export function isReferralClickWithinFingerprintWindow(
+  createdAt: string | null | undefined,
+  nowMs = Date.now(),
+): boolean {
+  if (!createdAt) return false;
+  const clickedAt = Date.parse(createdAt);
+  if (!Number.isFinite(clickedAt)) return false;
+  const windowMs = FINGERPRINT_MATCH_WINDOW_HOURS * 60 * 60 * 1000;
+  return nowMs - clickedAt <= windowMs;
+}
+
 export function normalizeCreatorCode(rawCode: unknown): string | null {
   if (typeof rawCode !== "string" && typeof rawCode !== "number") return null;
   const normalized = String(rawCode).trim().toUpperCase().replace(
@@ -103,25 +235,6 @@ export function calculateCreatorCommissionUsd(input: {
   return roundCurrency(
     input.netProceedsUsd * (input.commissionRateBps / 10000),
   );
-}
-
-export function buildAppStoreRedemptionUrl(input: {
-  code: string;
-  appleAppId?: string | null;
-  template?: string | null;
-}): string | null {
-  const code = normalizeCreatorCode(input.code);
-  if (!code) return null;
-
-  if (input.template?.trim()) {
-    return input.template.replace(/CODE/g, encodeURIComponent(code));
-  }
-
-  const appleAppId = cleanString(input.appleAppId, 80);
-  if (!appleAppId) return null;
-  return `https://apps.apple.com/redeem?ctx=offercodes&id=${
-    encodeURIComponent(appleAppId)
-  }&code=${encodeURIComponent(code)}`;
 }
 
 export function parseRevenueCatWebhookPayload(
@@ -301,7 +414,7 @@ export async function userHasActiveAnglerProfile(
   return data?.subscription_tier === "angler";
 }
 
-export async function isCreatorOfferEligibleUser(
+export async function isCreatorReferralEligibleUser(
   supabase: SupabaseCountClient & SupabaseProfileClient,
   userId: string,
 ): Promise<{ eligible: boolean; reason?: string }> {
@@ -312,6 +425,18 @@ export async function isCreatorOfferEligibleUser(
     return { eligible: false, reason: "prior_subscriber" };
   }
   return { eligible: true };
+}
+
+/** @deprecated Use isCreatorReferralEligibleUser */
+export const isCreatorOfferEligibleUser = isCreatorReferralEligibleUser;
+
+export function attributionQualifiesForCommission(attribution: {
+  attribution_source: string;
+  referral_click_id: string | null;
+}): boolean {
+  if (attribution.attribution_source === "manual_admin") return true;
+  return attribution.attribution_source === "direct_link" &&
+    Boolean(attribution.referral_click_id);
 }
 
 /** True when this Apple subscription chain already paid under another FinFindr account. */

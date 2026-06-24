@@ -1,11 +1,22 @@
 import { assertEquals } from "jsr:@std/assert";
 import {
-  buildAppStoreRedemptionUrl,
+  attributionQualifiesForCommission,
+  buildCreatorReferralWebUrl,
   calculateCreatorCommissionUsd,
   calculateNetProceedsUsd,
   candidateRevenueCatUserIds,
+  COMMISSION_MONTH_CAP_OPTIONS,
+  countActiveCreatorEarningMonths,
+  FINGERPRINT_MATCH_WINDOW_HOURS,
+  isReferralClickWithinAttributionWindow,
+  isReferralClickWithinFingerprintWindow,
+  normalizeCommissionMonthCap,
   normalizeCreatorCode,
+  nextCreatorEarningMonthNumber,
+  parseCreatorReferralPayload,
   parseRevenueCatWebhookPayload,
+  referralClickQualifiesForAttribution,
+  REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS,
   sanitizeRevenueCatWebhookPayload,
 } from "./creatorProgram.ts";
 
@@ -31,21 +42,92 @@ Deno.test("creator program: calculates net proceeds and creator commission", () 
   );
 });
 
-Deno.test("creator program: builds App Store offer-code redemption URLs", () => {
+Deno.test("creator program: referral click attribution window is 60 days", () => {
+  assertEquals(REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS, 60);
+  const now = Date.parse("2026-06-15T12:00:00.000Z");
   assertEquals(
-    buildAppStoreRedemptionUrl({
-      code: "TEST10",
-      appleAppId: "6769178136",
-    }),
-    "https://apps.apple.com/redeem?ctx=offercodes&id=6769178136&code=TEST10",
+    isReferralClickWithinAttributionWindow("2026-05-01T12:00:00.000Z", now),
+    true,
   );
   assertEquals(
-    buildAppStoreRedemptionUrl({
-      code: "test-10",
-      template:
-        "https://apps.apple.com/redeem?ctx=offercodes&id=6769178136&code=CODE",
+    isReferralClickWithinAttributionWindow("2026-04-15T11:59:59.000Z", now),
+    false,
+  );
+});
+
+Deno.test("creator program: attribution allows install-matched clicks past click window", () => {
+  const now = Date.parse("2026-06-15T12:00:00.000Z");
+  assertEquals(
+    referralClickQualifiesForAttribution({
+      createdAt: "2026-01-01T12:00:00.000Z",
+      appOpenedAt: "2026-01-02T08:00:00.000Z",
+      nowMs: now,
     }),
-    "https://apps.apple.com/redeem?ctx=offercodes&id=6769178136&code=TEST10",
+    true,
+  );
+  assertEquals(
+    referralClickQualifiesForAttribution({
+      createdAt: "2026-01-01T12:00:00.000Z",
+      nowMs: now,
+    }),
+    false,
+  );
+});
+
+Deno.test("creator program: commission month cap normalizes to 12 or 24", () => {
+  assertEquals(COMMISSION_MONTH_CAP_OPTIONS, [12, 24]);
+  assertEquals(normalizeCommissionMonthCap(24), 24);
+  assertEquals(normalizeCommissionMonthCap("24"), 24);
+  assertEquals(normalizeCommissionMonthCap(18), 12);
+  assertEquals(normalizeCommissionMonthCap(null), 12);
+});
+
+Deno.test("creator program: earning months count only paid non-reversed periods", () => {
+  const rows = [
+    { id: "a", status: "paid", reversal_of: null },
+    { id: "b", status: "pending", reversal_of: null },
+    { id: "c", status: "reversed", reversal_of: null },
+  ];
+  assertEquals(countActiveCreatorEarningMonths(rows, ["b"]), 1);
+  assertEquals(countActiveCreatorEarningMonths(rows, []), 2);
+});
+
+Deno.test("creator program: churn gap then resubscribe continues month counter", () => {
+  assertEquals(nextCreatorEarningMonthNumber(1, 12), 2);
+  assertEquals(nextCreatorEarningMonthNumber(1, 24), 2);
+  assertEquals(nextCreatorEarningMonthNumber(12, 12), null);
+  assertEquals(nextCreatorEarningMonthNumber(23, 24), 24);
+  assertEquals(nextCreatorEarningMonthNumber(24, 24), null);
+});
+
+Deno.test("creator program: commission requires tracked creator referral", () => {
+  assertEquals(
+    attributionQualifiesForCommission({
+      attribution_source: "direct_link",
+      referral_click_id: "11111111-1111-4111-8111-111111111111",
+    }),
+    true,
+  );
+  assertEquals(
+    attributionQualifiesForCommission({
+      attribution_source: "direct_link",
+      referral_click_id: null,
+    }),
+    false,
+  );
+  assertEquals(
+    attributionQualifiesForCommission({
+      attribution_source: "revenuecat_offer_code",
+      referral_click_id: null,
+    }),
+    false,
+  );
+  assertEquals(
+    attributionQualifiesForCommission({
+      attribution_source: "manual_admin",
+      referral_click_id: null,
+    }),
+    true,
   );
 });
 
@@ -86,6 +168,44 @@ Deno.test("creator program: parses RevenueCat webhook payloads", () => {
     "22222222-2222-4222-8222-222222222222",
     "33333333-3333-4333-8333-333333333333",
   ]);
+});
+
+Deno.test("creator program: parses creator referral web and app links", () => {
+  const click = "11111111-1111-4111-8111-111111111111";
+  assertEquals(
+    parseCreatorReferralPayload(
+      "https://finfindr.app/r?click=" + click + "&code=FIN10",
+    ),
+    { code: "FIN10", referralClickToken: click },
+  );
+  assertEquals(
+    parseCreatorReferralPayload(
+      "finfindr://creator?code=FIN10&click=" + click,
+    ),
+    { code: "FIN10", referralClickToken: click },
+  );
+  assertEquals(parseCreatorReferralPayload("https://example.com/r"), null);
+});
+
+Deno.test("creator program: builds referral web URL for clipboard pass-through", () => {
+  const click = "22222222-2222-4222-8222-222222222222";
+  assertEquals(
+    buildCreatorReferralWebUrl("fin10", click),
+    "https://finfindr.app/r?click=" + encodeURIComponent(click) + "&code=FIN10",
+  );
+});
+
+Deno.test("creator program: fingerprint match window is 72 hours", () => {
+  assertEquals(FINGERPRINT_MATCH_WINDOW_HOURS, 72);
+  const now = Date.parse("2026-06-15T12:00:00.000Z");
+  assertEquals(
+    isReferralClickWithinFingerprintWindow("2026-06-14T12:00:00.000Z", now),
+    true,
+  );
+  assertEquals(
+    isReferralClickWithinFingerprintWindow("2026-06-12T11:59:59.000Z", now),
+    false,
+  );
 });
 
 Deno.test("creator program: redacts sensitive RevenueCat raw webhook fields", () => {

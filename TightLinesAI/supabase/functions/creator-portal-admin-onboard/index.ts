@@ -1,15 +1,14 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
-  buildCreatorRedemptionUrl,
-  DEFAULT_OFFER_REFERENCE,
   isCreatorPortalAdminEmail,
   normalizeEmail,
   reserveUniqueCreatorCode,
   reserveUniqueCreatorSlug,
   slugifyCreatorName,
-  suggestCreatorOfferCode,
+  suggestCreatorReferralCode,
 } from "../_shared/creatorPortalAccess.ts";
+import { normalizeCommissionMonthCap } from "../_shared/creatorProgram.ts";
 
 function corsHeaders() {
   return {
@@ -43,6 +42,10 @@ function commissionRateBps(value: unknown): number {
   if (!Number.isFinite(parsed)) return 2500;
   const bps = parsed <= 100 ? Math.round(parsed * 100) : Math.round(parsed);
   return Math.min(5000, Math.max(2000, bps));
+}
+
+function commissionMonthCap(value: unknown): number {
+  return normalizeCommissionMonthCap(value);
 }
 
 Deno.serve(async (req: Request) => {
@@ -85,10 +88,8 @@ Deno.serve(async (req: Request) => {
   const displayName = cleanString(body.display_name, 80);
   const email = normalizeEmail(body.email);
   const requestedSlug = cleanString(body.slug, 64);
-  const requestedCode = cleanString(body.offer_code, 12)?.toUpperCase()
-    .replace(/[^A-Z0-9]/g, "") ?? null;
-  const activateCode = body.activate_code === true;
   const rateBps = commissionRateBps(body.commission_rate_bps ?? body.commission_percent);
+  const monthCap = commissionMonthCap(body.commission_month_cap ?? body.month_cap);
 
   if (!displayName) return json({ error: "display_name_required" }, 400);
   if (!email) return json({ error: "invalid_email" }, 400);
@@ -112,14 +113,10 @@ Deno.serve(async (req: Request) => {
       ? await reserveUniqueCreatorSlug(supabase, slugifyCreatorName(requestedSlug))
       : await reserveUniqueCreatorSlug(supabase, displayName);
 
-    const code = requestedCode && requestedCode.length >= 4
-      ? await reserveUniqueCreatorCode(supabase, requestedCode)
-      : await reserveUniqueCreatorCode(
-        supabase,
-        suggestCreatorOfferCode({ displayName, slug }),
-      );
-
-    const redemptionUrl = buildCreatorRedemptionUrl(code);
+    const code = await reserveUniqueCreatorCode(
+      supabase,
+      suggestCreatorReferralCode({ displayName, slug }),
+    );
 
     const { data: creator, error: creatorError } = await supabase
       .from("creators")
@@ -128,11 +125,11 @@ Deno.serve(async (req: Request) => {
         slug,
         email,
         commission_rate_bps: rateBps,
-        commission_month_cap: 12,
+        commission_month_cap: monthCap,
         status: "active",
         notes: "Created via creator portal admin onboarding.",
       })
-      .select("id, display_name, slug, email, commission_rate_bps, status")
+      .select("id, display_name, slug, email, commission_rate_bps, commission_month_cap, status")
       .single();
     if (creatorError) throw new Error(creatorError.message);
 
@@ -141,17 +138,10 @@ Deno.serve(async (req: Request) => {
       .insert({
         creator_id: creator.id,
         code,
-        code_type: "app_store_offer_code",
-        subscription_product_id: "finfindr_angler_monthly",
-        app_store_offer_reference_name: DEFAULT_OFFER_REFERENCE,
-        apple_app_id: "6769178136",
-        app_store_redemption_url: redemptionUrl,
-        discount_percent: 10,
-        discount_duration_months: 3,
-        discount_billing_mode: "pay_as_you_go",
-        is_active: activateCode,
+        code_type: "manual_tracking",
+        is_active: true,
       })
-      .select("id, code, is_active, app_store_redemption_url")
+      .select("id, code, is_active")
       .single();
     if (codeError) throw new Error(codeError.message);
 
@@ -161,24 +151,16 @@ Deno.serve(async (req: Request) => {
     return json({
       ok: true,
       creator,
-      code: creatorCode,
+      tracking_code: creatorCode,
       links: {
         landing_url: landingUrl,
         portal_url: portalUrl,
       },
-      next_steps: activateCode
-        ? [
-          "Creator can sign in at finfindr.app/creators/ with the email you entered.",
-          `Share their tracked link: ${landingUrl}`,
-          "They will only see their own stats — never other creators.",
-        ]
-        : [
-          `Create custom offer code ${code} in App Store Connect under "${DEFAULT_OFFER_REFERENCE}".`,
-          "Set eligibility to New Subscribers, 10% off, 3 months, pay-as-you-go.",
-          `Then return here and activate the code, or run: update creator_codes set is_active = true where code = '${code}';`,
-          `Share their tracked link after Apple approval: ${landingUrl}`,
-          "Creator portal login is already enabled for their email.",
-        ],
+      next_steps: [
+        "Creator can sign in at finfindr.app/creators/ with the email you entered.",
+        `Share their tracked link: ${landingUrl}`,
+        "They will only see their own stats — never other creators.",
+      ],
     });
   } catch (err) {
     const message = err instanceof Error ? err.message : "Could not create creator.";

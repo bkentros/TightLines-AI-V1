@@ -19,10 +19,69 @@ function renderNotFound() {
 
 function renderPage(payload) {
   const creatorName = escapeHtml(payload.creator.display_name);
-  const discountMonths = Number(payload.discount_duration_months) || 3;
-  const discountPercent = Number(payload.discount_percent) || 10;
   const appStoreUrl = escapeHtml(payload.app_store_app_url || DEFAULT_APP_STORE_URL);
   const deepLink = escapeHtml(payload.deep_link_url || '');
+  const referralWebUrl = escapeHtml(payload.referral_web_url || '');
+  const deepLinkJs = JSON.stringify(payload.deep_link_url || '');
+  const appStoreJs = JSON.stringify(payload.app_store_app_url || DEFAULT_APP_STORE_URL);
+  const referralWebJs = JSON.stringify(payload.referral_web_url || '');
+
+  const attributionScript = payload.referral_web_url
+    ? `<script>
+(function () {
+  var deepLink = ${deepLinkJs};
+  var appStoreUrl = ${appStoreJs};
+  var referralWebUrl = ${referralWebJs};
+
+  function copyReferralPayload() {
+    if (!referralWebUrl || !navigator.clipboard || !navigator.clipboard.writeText) {
+      return Promise.resolve(false);
+    }
+    return navigator.clipboard.writeText(referralWebUrl).then(function () {
+      return true;
+    }).catch(function () {
+      return false;
+    });
+  }
+
+  function goToAppStore() {
+    window.location.href = appStoreUrl;
+  }
+
+  function handleCreatorCta(event) {
+    if (event) event.preventDefault();
+    copyReferralPayload().finally(goToAppStore);
+  }
+
+  var openBtn = document.getElementById('open-app-cta');
+  var downloadBtn = document.getElementById('download-app-cta');
+  if (openBtn) {
+    openBtn.addEventListener('click', function (event) {
+      event.preventDefault();
+      var leftPage = false;
+      copyReferralPayload().finally(function () {
+        var timer = window.setTimeout(function () {
+          if (!leftPage) goToAppStore();
+        }, 1600);
+        function markLeft() {
+          leftPage = true;
+          window.clearTimeout(timer);
+        }
+        document.addEventListener('visibilitychange', function () {
+          if (document.hidden) markLeft();
+        }, { once: true });
+        window.addEventListener('pagehide', markLeft, { once: true });
+        if (deepLink) window.location.href = deepLink;
+        else goToAppStore();
+      });
+    });
+  }
+  if (downloadBtn) {
+    downloadBtn.addEventListener('click', handleCreatorCta);
+  }
+})();
+</script>`
+    : '';
 
   const html = `<!doctype html>
 <html lang="en">
@@ -30,8 +89,9 @@ function renderPage(payload) {
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
   <title>${creatorName} · FinFindr</title>
-  <meta name="description" content="Get FinFindr with ${discountPercent}% off from ${creatorName}." />
+  <meta name="description" content="Get FinFindr — fishing intelligence from ${creatorName}." />
   <meta name="theme-color" content="#d8ebf8" />
+  <meta name="apple-itunes-app" content="app-id=6769178136" />
   <style>
     :root { --ink:#07192b; --muted:#4d6478; --water:#1f6f97; --card:rgba(255,255,255,.94); }
     * { box-sizing:border-box; }
@@ -43,7 +103,7 @@ function renderPage(payload) {
     .eyebrow { margin:0; color:var(--water); font-size:12px; font-weight:800; letter-spacing:.14em; text-transform:uppercase; }
     h1 { margin:6px 0 0; font-size:28px; line-height:1.05; letter-spacing:-.03em; }
     .tagline { margin:10px auto 0; max-width:22rem; color:var(--muted); font-size:15px; line-height:1.5; }
-    .cta { display:block; margin-top:22px; width:100%; border:0; border-radius:16px; padding:17px 18px; background:linear-gradient(180deg,#0a2742 0%,#07192b 100%); color:#fff !important; font-size:17px; font-weight:700; text-decoration:none; box-shadow:0 14px 30px rgba(7,25,43,.22); }
+    .cta { display:block; margin-top:22px; width:100%; border:0; border-radius:16px; padding:17px 18px; background:linear-gradient(180deg,#0a2742 0%,#07192b 100%); color:#fff !important; font-size:17px; font-weight:700; text-decoration:none; box-shadow:0 14px 30px rgba(7,25,43,.22); cursor:pointer; }
     .cta-secondary { background:#fff; color:var(--ink) !important; border:1px solid #c9deec; box-shadow:none; margin-top:10px; }
     .steps { margin-top:18px; text-align:left; font-size:14px; line-height:1.45; color:var(--muted); }
     .steps strong { color:var(--ink); }
@@ -55,16 +115,17 @@ function renderPage(payload) {
     <img class="icon" src="/assets/app-icon.png" width="100" height="100" alt="FinFindr app icon" />
     <p class="eyebrow">${creatorName}</p>
     <h1>Get FinFindr</h1>
-    <p class="tagline">${discountPercent}% off your first ${discountMonths} months when you subscribe in the app.</p>
-    ${deepLink ? `<a class="cta" href="${deepLink}">Open FinFindr &amp; claim ${discountPercent}% off</a>` : ''}
-    <a class="cta cta-secondary" href="${appStoreUrl}" rel="noopener noreferrer">Download on the App Store</a>
+    <p class="tagline">Bite reports, tackle direction, and water intelligence — shared by ${creatorName}.</p>
+    ${deepLink ? `<a id="open-app-cta" class="cta" href="${deepLink}">Get FinFindr</a>` : ''}
+    <a id="download-app-cta" class="cta cta-secondary" href="${appStoreUrl}" rel="noopener noreferrer">Download on the App Store</a>
     <div class="steps">
-      <p><strong>1.</strong> Download FinFindr if you don't have it yet.</p>
-      <p><strong>2.</strong> Open the link again and sign in to your FinFindr account.</p>
-      <p><strong>3.</strong> Apply the creator discount in-app, then upgrade to Angler.</p>
+      <p><strong>1.</strong> Tap Get FinFindr — downloads from the App Store if you don't have the app yet.</p>
+      <p><strong>2.</strong> Open FinFindr and sign in. Your visit stays linked to ${creatorName} for 60 days.</p>
+      <p><strong>3.</strong> Subscribe to Angler when you're ready to unlock full intelligence.</p>
     </div>
     <p class="fine">Free · iPhone · United States</p>
   </main>
+  ${attributionScript}
 </body>
 </html>`;
 
@@ -88,13 +149,30 @@ export async function onRequest(context) {
     return new Response('Creator landing is not configured.', { status: 503 });
   }
 
+  const incomingUrl = new URL(context.request.url);
   const apiUrl = new URL('/functions/v1/creator-referral-click', SUPABASE_PROJECT_URL);
   apiUrl.searchParams.set('slug', slug);
+
+  for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content', 'referrer_host']) {
+    const value = incomingUrl.searchParams.get(key);
+    if (value) apiUrl.searchParams.set(key, value);
+  }
+
+  const referer = context.request.headers.get('referer');
+  if (!apiUrl.searchParams.has('referrer_host') && referer) {
+    try {
+      const host = new URL(referer).hostname;
+      if (host) apiUrl.searchParams.set('referrer_host', host);
+    } catch {
+      // ignore malformed referer
+    }
+  }
 
   const response = await fetch(apiUrl.toString(), {
     headers: {
       apikey: anonKey,
       Authorization: `Bearer ${anonKey}`,
+      Referer: referer ?? '',
     },
   });
 

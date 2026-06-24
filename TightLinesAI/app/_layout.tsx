@@ -40,14 +40,18 @@ import { supabase } from '../lib/supabase';
 import {
   activateCreatorLinkSession,
   dismissCreatorLinkSession,
-  markCreatorLinkRouted,
+  markPendingCreatorAutoRouted,
   parseCreatorDeepLink,
-  shouldAutoRouteCreatorSubscribe,
+  resolveDeferredCreatorReferral,
+  resolvePendingCreatorReferralRoute,
+  storeCreatorReferralPendingOnly,
 } from '../lib/creatorAttribution';
-import { isCreatorOfferEligible } from '../lib/creatorOfferEligibility';
+import { isCreatorReferralEligible } from '../lib/creatorReferralEligibility';
 import { useAuthStore } from '../store/authStore';
 import { useEnvStore } from '../store/envStore';
 import { useRevenueCatStore } from '../store/revenueCatStore';
+import { AnglerUnlockedModal } from '../components/paper/AnglerUnlockedModal';
+import { showSubscriptionNotice } from '../store/subscriptionCelebrationStore';
 import { useBiometricLock } from '../hooks/useBiometricLock';
 import { AnalyticsProvider } from '../components/AnalyticsProvider';
 import { AppErrorBoundary } from '../components/AppErrorBoundary';
@@ -213,6 +217,7 @@ export default function RootLayout() {
   const initializeRevenueCat = useRevenueCatStore((s) => s.initialize);
   const resetRevenueCat = useRevenueCatStore((s) => s.reset);
   const [passwordRecoveryInFlight, setPasswordRecoveryInFlight] = useState(false);
+  const routingPendingCreatorRef = useRef(false);
 
   const [fontsLoaded] = useFonts({
     ...Ionicons.font,
@@ -257,30 +262,51 @@ export default function RootLayout() {
   useEffect(() => {
     if (!user?.id) {
       resetRevenueCat();
+      routingPendingCreatorRef.current = false;
       return;
     }
     void initializeRevenueCat(user.id);
   }, [initializeRevenueCat, resetRevenueCat, user?.id]);
 
+  // Creator link clicked while logged out → after sign-in + onboarding, open subscribe.
   useEffect(() => {
-    if (!user?.id || !isOnboarded) return;
+    if (!user?.id || !isOnboarded || routingPendingCreatorRef.current) return;
 
     void (async () => {
-      if (!(await shouldAutoRouteCreatorSubscribe())) return;
+      routingPendingCreatorRef.current = true;
+      try {
+        const authState = useAuthStore.getState();
+        if (!authState.profile && authState.user?.id) {
+          await useAuthStore.getState().fetchProfile(authState.user.id);
+        }
 
-      const { hasAngler: storeHasAngler, customerInfo } = useRevenueCatStore.getState();
-      const profileTier = useAuthStore.getState().profile?.subscription_tier;
-      if (!isCreatorOfferEligible({
-        customerInfo,
-        hasAngler: storeHasAngler,
-        profileTier,
-      })) {
-        await dismissCreatorLinkSession();
-        return;
+        const { hasAngler, customerInfo } = useRevenueCatStore.getState();
+        const profileTier = useAuthStore.getState().profile?.subscription_tier;
+        const route = await resolvePendingCreatorReferralRoute({
+          hasSession: Boolean(useAuthStore.getState().session),
+          isOnboarded: useAuthStore.getState().isOnboarded,
+          hasAngler,
+          customerInfo,
+          profileTier,
+        });
+
+        if (route === 'subscribe') {
+          await markPendingCreatorAutoRouted();
+          router.replace('/subscribe?creator=1');
+          return;
+        }
+
+        if (route === 'ineligible') {
+          showSubscriptionNotice({
+            title: 'Creator referral unavailable',
+            message:
+              'Creator referrals are for first-time Angler subscribers. Your account may already have an active membership.',
+            tone: 'info',
+          });
+        }
+      } finally {
+        routingPendingCreatorRef.current = false;
       }
-
-      await markCreatorLinkRouted();
-      router.replace('/subscribe?creator=1');
     })();
   }, [user?.id, isOnboarded, router]);
 
@@ -291,10 +317,25 @@ export default function RootLayout() {
 
       const creatorLink = parseCreatorDeepLink(url);
       if (creatorLink) {
-        const { hasAngler: storeHasAngler } = useRevenueCatStore.getState();
-        const profileTier = useAuthStore.getState().profile?.subscription_tier;
-        const customerInfo = useRevenueCatStore.getState().customerInfo;
-        const eligible = isCreatorOfferEligible({
+        let authState = useAuthStore.getState();
+        if (!authState.session) {
+          await storeCreatorReferralPendingOnly(creatorLink);
+          return;
+        }
+
+        if (!authState.profile && authState.user?.id) {
+          await useAuthStore.getState().fetchProfile(authState.user.id);
+          authState = useAuthStore.getState();
+        }
+
+        if (!authState.isOnboarded) {
+          await storeCreatorReferralPendingOnly(creatorLink);
+          return;
+        }
+
+        const { hasAngler: storeHasAngler, customerInfo } = useRevenueCatStore.getState();
+        const profileTier = authState.profile?.subscription_tier;
+        const eligible = isCreatorReferralEligible({
           customerInfo,
           hasAngler: storeHasAngler,
           profileTier,
@@ -302,17 +343,17 @@ export default function RootLayout() {
 
         if (!eligible) {
           await dismissCreatorLinkSession();
-          if (useAuthStore.getState().isOnboarded) {
-            router.replace('/(tabs)/settings');
-          }
+          showSubscriptionNotice({
+            title: 'Creator referral unavailable',
+            message:
+              'Creator referrals are for first-time Angler subscribers. Your account may already have subscribed before.',
+            tone: 'info',
+          });
           return;
         }
 
         await activateCreatorLinkSession(creatorLink);
-        if (useAuthStore.getState().isOnboarded) {
-          await markCreatorLinkRouted();
-          router.replace('/subscribe?creator=1');
-        }
+        router.replace('/subscribe?creator=1');
         return;
       }
 
@@ -410,8 +451,16 @@ export default function RootLayout() {
       }
     };
 
-    Linking.getInitialURL().then((url) => {
-      if (url) handleUrl(url);
+    Linking.getInitialURL().then(async (url) => {
+      if (url) {
+        const creatorFromUrl = parseCreatorDeepLink(url);
+        if (creatorFromUrl) {
+          await handleUrl(url);
+          return;
+        }
+      }
+      await resolveDeferredCreatorReferral();
+      if (url) await handleUrl(url);
     });
 
     const sub = Linking.addEventListener('url', ({ url }) => handleUrl(url));
@@ -495,6 +544,7 @@ export default function RootLayout() {
     <AppErrorBoundary>
       <AnalyticsProvider>
         <StatusBar style="dark" />
+        <AnglerUnlockedModal />
         <Stack
         screenOptions={{
           headerStyle: { backgroundColor: paper.dashboardInk },

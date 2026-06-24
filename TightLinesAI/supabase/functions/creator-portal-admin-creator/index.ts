@@ -1,6 +1,7 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import { isCreatorPortalAdminEmail, normalizeEmail } from "../_shared/creatorPortalAccess.ts";
+import { normalizeCommissionMonthCap } from "../_shared/creatorProgram.ts";
 
 function corsHeaders() {
   return {
@@ -16,6 +17,17 @@ function json(body: unknown, status = 200): Response {
     status,
     headers: { "Content-Type": "application/json", ...corsHeaders() },
   });
+}
+
+function commissionRateBps(value: unknown): number | null {
+  const parsed = typeof value === "number"
+    ? value
+    : typeof value === "string"
+    ? Number(value)
+    : NaN;
+  if (!Number.isFinite(parsed)) return null;
+  const bps = parsed <= 100 ? Math.round(parsed * 100) : Math.round(parsed);
+  return Math.min(5000, Math.max(2000, bps));
 }
 
 Deno.serve(async (req: Request) => {
@@ -48,7 +60,7 @@ Deno.serve(async (req: Request) => {
     return json({ error: "forbidden", message: "Admin access required." }, 403);
   }
 
-  let body: { action?: unknown; creator_id?: unknown; email?: unknown };
+  let body: Record<string, unknown>;
   try {
     body = await req.json();
   } catch {
@@ -60,30 +72,6 @@ Deno.serve(async (req: Request) => {
   if (!creatorId) return json({ error: "creator_id_required" }, 400);
 
   try {
-    if (action === "activate_code") {
-      const { data: codes, error: codeLookupError } = await supabase
-        .from("creator_codes")
-        .select("id, code")
-        .eq("creator_id", creatorId);
-      if (codeLookupError) throw new Error(codeLookupError.message);
-      if (!codes?.length) {
-        return json({ error: "creator_code_not_found" }, 404);
-      }
-
-      const { error: updateError } = await supabase
-        .from("creator_codes")
-        .update({ is_active: true })
-        .eq("creator_id", creatorId);
-      if (updateError) throw new Error(updateError.message);
-
-      return json({
-        ok: true,
-        action,
-        creator_id: creatorId,
-        activated_codes: codes.map((row) => row.code),
-      });
-    }
-
     if (action === "update_email") {
       const email = normalizeEmail(body.email);
       if (!email) return json({ error: "invalid_email" }, 400);
@@ -97,6 +85,38 @@ Deno.serve(async (req: Request) => {
       if (error) throw new Error(error.message);
 
       return json({ ok: true, action, creator: data });
+    }
+
+    if (action === "update_deal") {
+      const rateBps = commissionRateBps(
+        body.commission_rate_bps ?? body.commission_percent,
+      );
+      const monthCap = body.commission_month_cap != null || body.month_cap != null
+        ? normalizeCommissionMonthCap(body.commission_month_cap ?? body.month_cap)
+        : null;
+
+      const patch: Record<string, unknown> = {};
+      if (rateBps != null) patch.commission_rate_bps = rateBps;
+      if (monthCap != null) patch.commission_month_cap = monthCap;
+      if (Object.keys(patch).length === 0) {
+        return json({ error: "no_deal_fields" }, 400);
+      }
+
+      const { data, error } = await supabase
+        .from("creators")
+        .update(patch)
+        .eq("id", creatorId)
+        .select("id, display_name, slug, email, commission_rate_bps, commission_month_cap")
+        .single();
+      if (error) throw new Error(error.message);
+
+      return json({
+        ok: true,
+        action,
+        creator: data,
+        note:
+          "Deal changes apply to new attributions only. Existing referred users keep their snapshotted rate and month cap.",
+      });
     }
 
     return json({ error: "invalid_action" }, 400);

@@ -1,14 +1,16 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
 import {
+  attributionQualifiesForCommission,
   calculateNetProceedsUsd,
   candidateRevenueCatUserIds,
   cleanString,
-  isCreatorOfferEligibleUser,
+  countActiveCreatorEarningMonths,
   isPaidRevenueEvent,
   isRefundRevenueEvent,
   isUuid,
   linkedRevenueCatAccountsHavePaidHistory,
+  nextCreatorEarningMonthNumber,
   originalTransactionIdHasCrossAccountHistory,
   type ParsedRevenueCatWebhook,
   parseRevenueCatWebhookPayload,
@@ -26,6 +28,8 @@ type AttributionRow = {
   creator_id: string;
   creator_code_id: string | null;
   code: string | null;
+  attribution_source: string;
+  referral_click_id: string | null;
   commission_rate_bps_snapshot: number;
   commission_month_cap_snapshot: number;
   status: string;
@@ -35,6 +39,11 @@ type SubscriptionPeriodRow = {
   id: string;
   net_proceeds_usd: number | null;
 };
+
+const ANGLER_PRODUCT_IDS = new Set([
+  "finfindr_angler_monthly",
+  "finfindr_angler_annual",
+]);
 
 type LedgerRow = {
   id: string;
@@ -156,7 +165,7 @@ async function getExistingAttribution(
   const { data, error } = await supabase
     .from("user_attributions")
     .select(
-      "id, creator_id, creator_code_id, code, commission_rate_bps_snapshot, commission_month_cap_snapshot, status",
+      "id, creator_id, creator_code_id, code, attribution_source, referral_click_id, commission_rate_bps_snapshot, commission_month_cap_snapshot, status",
     )
     .eq("user_id", userId)
     .maybeSingle();
@@ -173,121 +182,55 @@ async function getExistingAttribution(
   return data as AttributionRow;
 }
 
-async function createAttributionFromOfferCode(
+async function syncProfileTierFromWebhook(
   supabase: SupabaseClient,
   userId: string,
   event: ParsedRevenueCatWebhook,
-): Promise<AttributionRow | null> {
-  if (!event.offerCode) return null;
+): Promise<void> {
+  const productId = event.productId?.trim();
+  if (!productId || !ANGLER_PRODUCT_IDS.has(productId)) return;
 
-  const eligibility = await isCreatorOfferEligibleUser(supabase, userId);
-  if (!eligibility.eligible) {
-    console.warn("[revenuecat-webhook] skipping offer-code attribution", {
-      userId,
-      code: event.offerCode,
-      reason: eligibility.reason,
-    });
-    return null;
-  }
-
-  if (
-    event.originalTransactionId &&
-    await originalTransactionIdHasCrossAccountHistory(
-      supabase,
-      event.originalTransactionId,
-      userId,
-    )
-  ) {
-    console.warn("[revenuecat-webhook] skipping offer-code attribution for reused Apple ID", {
-      userId,
-      code: event.offerCode,
-      originalTransactionId: event.originalTransactionId,
-    });
-    return null;
-  }
-
-  if (await linkedRevenueCatAccountsHavePaidHistory(supabase, event, userId)) {
-    console.warn("[revenuecat-webhook] skipping offer-code attribution for linked prior account", {
-      userId,
-      code: event.offerCode,
-      aliases: event.aliases,
-    });
-    return null;
-  }
-
-  const { data: codeRow, error: codeError } = await supabase
-    .from("creator_codes")
-    .select("id, creator_id, code")
-    .eq("code", event.offerCode)
-    .maybeSingle();
-  if (codeError || !codeRow) {
-    if (codeError) {
-      console.warn("[revenuecat-webhook] creator code lookup failed", {
-        code: event.offerCode,
-        error: codeError.message,
+  if (isPaidRevenueEvent(event)) {
+    const { error } = await supabase
+      .from("profiles")
+      .update({
+        subscription_tier: "angler",
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", userId);
+    if (error) {
+      console.warn("[revenuecat-webhook] profile tier upgrade failed", {
+        userId,
+        error: error.message,
       });
     }
-    return null;
+    return;
   }
 
-  const { data: creator, error: creatorError } = await supabase
-    .from("creators")
-    .select("id, commission_rate_bps, commission_month_cap, status")
-    .eq("id", codeRow.creator_id)
-    .maybeSingle();
-  if (creatorError || !creator || creator.status !== "active") {
-    if (creatorError) {
-      console.warn("[revenuecat-webhook] creator lookup failed", {
-        creatorId: codeRow.creator_id,
-        error: creatorError.message,
+  if (event.type === "EXPIRATION") {
+    const { error } = await supabase
+      .from("profiles")
+      .update({
+        subscription_tier: "free",
+        updated_at: new Date().toISOString(),
+      })
+      .eq("id", userId);
+    if (error) {
+      console.warn("[revenuecat-webhook] profile tier downgrade failed", {
+        userId,
+        error: error.message,
       });
     }
-    return null;
   }
-
-  const insertPayload = {
-    user_id: userId,
-    creator_id: creator.id,
-    creator_code_id: codeRow.id,
-    attribution_source: "revenuecat_offer_code",
-    code: event.offerCode,
-    commission_rate_bps_snapshot: creator.commission_rate_bps,
-    commission_month_cap_snapshot: creator.commission_month_cap,
-    status: "active",
-  };
-
-  const { data, error } = await supabase
-    .from("user_attributions")
-    .insert(insertPayload)
-    .select(
-      "id, creator_id, creator_code_id, code, commission_rate_bps_snapshot, commission_month_cap_snapshot, status",
-    )
-    .single();
-
-  if (error) {
-    if (dbErrorCode(error) === "23505") {
-      return await getExistingAttribution(supabase, userId);
-    }
-    console.warn("[revenuecat-webhook] attribution insert failed", {
-      userId,
-      code: event.offerCode,
-      error: error.message,
-    });
-    return null;
-  }
-
-  return data as AttributionRow;
 }
 
 async function resolveAttribution(
   supabase: SupabaseClient,
   userId: string | null,
-  event: ParsedRevenueCatWebhook,
+  _event: ParsedRevenueCatWebhook,
 ): Promise<AttributionRow | null> {
   if (!userId) return null;
-  const existing = await getExistingAttribution(supabase, userId);
-  if (existing) return existing;
-  return await createAttributionFromOfferCode(supabase, userId, event);
+  return await getExistingAttribution(supabase, userId);
 }
 
 async function storeRevenueCatEvent(
@@ -384,17 +327,38 @@ async function nextEarningMonth(
   supabase: SupabaseClient,
   attribution: AttributionRow,
 ): Promise<number | null> {
-  const { data, error } = await supabase
+  const { data: positiveRows, error: positiveError } = await supabase
     .from("creator_commission_ledger")
-    .select("id")
+    .select("id, status, reversal_of")
     .eq("user_attribution_id", attribution.id)
     .is("reversal_of", null)
     .neq("status", "void");
-  if (error) {
-    throw new Error(`Could not count creator earnings: ${error.message}`);
+  if (positiveError) {
+    throw new Error(`Could not count creator earnings: ${positiveError.message}`);
   }
-  const next = (data?.length ?? 0) + 1;
-  return next <= attribution.commission_month_cap_snapshot ? next : null;
+
+  const { data: reversals, error: reversalError } = await supabase
+    .from("creator_commission_ledger")
+    .select("reversal_of")
+    .eq("user_attribution_id", attribution.id)
+    .not("reversal_of", "is", null);
+  if (reversalError) {
+    throw new Error(`Could not load creator reversals: ${reversalError.message}`);
+  }
+
+  const reversedOriginalIds = (reversals ?? [])
+    .map((row) => row.reversal_of as string | null)
+    .filter((id): id is string => Boolean(id));
+
+  const activePaidMonths = countActiveCreatorEarningMonths(
+    (positiveRows ?? []) as Array<{ id: string; status: string; reversal_of: null }>,
+    reversedOriginalIds,
+  );
+
+  return nextCreatorEarningMonthNumber(
+    activePaidMonths,
+    attribution.commission_month_cap_snapshot,
+  );
 }
 
 async function createPositiveLedgerRow(
@@ -412,7 +376,54 @@ async function createPositiveLedgerRow(
   }
   if (!isPaidRevenueEvent(event)) return "skipped";
 
-  if (event.offerCode && userId) {
+  if (!attributionQualifiesForCommission(attribution)) {
+    console.warn("[revenuecat-webhook] skipping creator commission without tracked referral", {
+      userId,
+      attributionId: attribution.id,
+      attributionSource: attribution.attribution_source,
+      referralClickId: attribution.referral_click_id,
+      offerCode: event.offerCode,
+    });
+    return "skipped";
+  }
+
+  const earningMonth = await nextEarningMonth(supabase, attribution);
+  if (earningMonth == null) return "capped";
+
+  // Fraud checks only on the first paid conversion — resubscribes after churn continue
+  // earning months 2..N without re-running cross-account guards.
+  if (
+    userId &&
+    attribution.attribution_source === "direct_link" &&
+    earningMonth === 1
+  ) {
+    if (
+      event.originalTransactionId &&
+      await originalTransactionIdHasCrossAccountHistory(
+        supabase,
+        event.originalTransactionId,
+        userId,
+      )
+    ) {
+      console.warn("[revenuecat-webhook] skipping creator commission for reused Apple ID", {
+        userId,
+        originalTransactionId: event.originalTransactionId,
+        eventType: event.type,
+      });
+      return "skipped";
+    }
+
+    if (await linkedRevenueCatAccountsHavePaidHistory(supabase, event, userId)) {
+      console.warn("[revenuecat-webhook] skipping creator commission for linked prior account", {
+        userId,
+        aliases: event.aliases,
+        eventType: event.type,
+      });
+      return "skipped";
+    }
+  }
+
+  if (event.offerCode && userId && earningMonth === 1) {
     if (
       event.type === "INITIAL_PURCHASE" &&
       period?.id &&
@@ -425,37 +436,7 @@ async function createPositiveLedgerRow(
       });
       return "skipped";
     }
-
-    if (
-      event.originalTransactionId &&
-      await originalTransactionIdHasCrossAccountHistory(
-        supabase,
-        event.originalTransactionId,
-        userId,
-      )
-    ) {
-      console.warn("[revenuecat-webhook] skipping creator commission for reused Apple ID", {
-        userId,
-        offerCode: event.offerCode,
-        originalTransactionId: event.originalTransactionId,
-        eventType: event.type,
-      });
-      return "skipped";
-    }
-
-    if (await linkedRevenueCatAccountsHavePaidHistory(supabase, event, userId)) {
-      console.warn("[revenuecat-webhook] skipping creator commission for linked prior account", {
-        userId,
-        offerCode: event.offerCode,
-        aliases: event.aliases,
-        eventType: event.type,
-      });
-      return "skipped";
-    }
   }
-
-  const earningMonth = await nextEarningMonth(supabase, attribution);
-  if (earningMonth == null) return "capped";
 
   const { error } = await supabase.from("creator_commission_ledger").insert({
     creator_id: attribution.creator_id,
@@ -483,7 +464,27 @@ async function createPositiveLedgerRow(
     status: "pending",
   });
 
-  if (!error) return "created";
+  if (!error) {
+    if (
+      event.type === "INITIAL_PURCHASE" &&
+      attribution.referral_click_id
+    ) {
+      const { data: existingSubscribed } = await supabase
+        .from("referral_funnel_events")
+        .select("id")
+        .eq("referral_click_id", attribution.referral_click_id)
+        .eq("event_type", "subscribed")
+        .maybeSingle();
+      if (!existingSubscribed) {
+        await supabase.from("referral_funnel_events").insert({
+          referral_click_id: attribution.referral_click_id,
+          creator_id: attribution.creator_id,
+          event_type: "subscribed",
+        });
+      }
+    }
+    return "created";
+  }
   if (dbErrorCode(error) === "23505") return "duplicate";
   throw new Error(`Could not create commission ledger row: ${error.message}`);
 }
@@ -625,6 +626,9 @@ Deno.serve(async (req: Request) => {
     await storeRevenueCatEvent(supabase, event, payload);
 
     const userId = await findProfileId(supabase, event);
+    if (userId) {
+      await syncProfileTierFromWebhook(supabase, userId, event);
+    }
     const attribution = await resolveAttribution(supabase, userId, event);
     const shouldStorePeriod = Boolean(
       event.transactionId &&

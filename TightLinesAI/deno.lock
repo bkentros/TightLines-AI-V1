@@ -5240,6 +5240,7 @@
         "npm:expo-apple-authentication@~55.0.8",
         "npm:expo-application@~55.0.15",
         "npm:expo-asset@~55.0.8",
+        "npm:expo-clipboard@~55.0.13",
         "npm:expo-constants@~55.0.7",
         "npm:expo-crypto@~55.0.9",
         "npm:expo-dev-client@~55.0.35",

@@ -1,6 +1,7 @@
 /**
  * Intercept finfindr://creator deep links before Expo Router treats them as
- * unmatched routes (which breaks Back from /subscribe).
+ * unmatched routes. Opens subscribe when the app launches from a creator link;
+ * _layout also handles the URL for session activation and auth gating.
  */
 export function redirectSystemPath({
   path,

@@ -6,8 +6,11 @@
  */
 
 import { useEffect, useRef } from 'react';
-import { Alert } from 'react-native';
 import { useRevenueCatStore } from '../store/revenueCatStore';
+import {
+  showAnglerUnlockedCelebration,
+  showSubscriptionNotice,
+} from '../store/subscriptionCelebrationStore';
 
 export interface SubscribePromptProps {
   visible: boolean;
@@ -49,12 +52,16 @@ export function SubscribePrompt({
       try {
         const unlocked = await presentPaywallRef.current();
         if (unlocked) {
-          Alert.alert('Angler unlocked', 'You now have full access to FinFindr.');
+          showAnglerUnlockedCelebration();
           onUnlockedRef.current?.();
         } else {
           const message = useRevenueCatStore.getState().error;
           if (message) {
-            Alert.alert('Subscriptions temporarily unavailable', message);
+            showSubscriptionNotice({
+              title: 'Subscriptions temporarily unavailable',
+              message,
+              tone: 'error',
+            });
           }
           onDismissRef.current();
         }

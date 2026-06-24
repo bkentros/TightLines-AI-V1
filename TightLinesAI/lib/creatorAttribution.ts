@@ -1,42 +1,39 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import * as Linking from 'expo-linking';
-import { Platform } from 'react-native';
+import * as Clipboard from 'expo-clipboard';
+import { isCreatorReferralEligible } from './creatorReferralEligibility';
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL!;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY!;
 
 const PENDING_CODE_KEY = 'finfindr_pending_creator_code_v1';
 const PENDING_CLICK_KEY = 'finfindr_pending_creator_click_v1';
+const PENDING_AUTO_ROUTED_KEY = 'finfindr_creator_pending_auto_routed_v1';
 const CREATOR_LINK_SESSION_KEY = 'finfindr_creator_link_session_v1';
-/** Legacy key — cleared on read so old sessions do not leak discount UI. */
+/** Legacy key — cleared on read so old sessions do not leak referral UI. */
 const LEGACY_CREATOR_OFFER_UI_KEY = 'finfindr_creator_offer_ui_v1';
 const LEGACY_CREATOR_SUBSCRIBE_INTENT_KEY = 'finfindr_creator_subscribe_intent_v1';
 
-const APPLE_APP_ID = '6769178136';
-const LINK_SESSION_TTL_MS = 24 * 60 * 60 * 1000;
-
-export const CREATOR_DISCOUNT_PERCENT = 10;
-export const CREATOR_DISCOUNT_MONTHS = 3;
+/** Align with server REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS (60). */
+const LINK_SESSION_TTL_MS = 60 * 24 * 60 * 60 * 1000;
 
 export type PendingCreatorAttribution = {
   code: string;
   referralClickToken?: string | null;
 };
 
-export type CreatorOfferContext = {
+export type CreatorReferralContext = {
   code: string;
   creatorName: string;
-  redemptionUrl: string;
-  discountPercent: number;
-  discountMonths: number;
 };
+
+/** @deprecated Use CreatorReferralContext */
+export type CreatorOfferContext = CreatorReferralContext;
 
 export type CreatorAttributionResult = {
   ok: boolean;
   status?: string;
   code?: string;
   creator_name?: string;
-  redemption_url?: string | null;
   message?: string;
   error?: string;
 };
@@ -47,30 +44,8 @@ type CreatorLinkSession = {
   code: string;
   referralClickToken?: string | null;
   creatorName?: string;
-  redemptionUrl?: string;
   startedAt: number;
-  routedToSubscribe?: boolean;
 };
-
-export function buildOfferFromCode(
-  code: string,
-  creatorName = 'Creator partner',
-  redemptionUrl?: string | null,
-): CreatorOfferContext {
-  const normalized = code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-  return {
-    code: normalized,
-    creatorName,
-    redemptionUrl: redemptionUrl?.trim() || buildAppStoreRedemptionUrl(normalized),
-    discountPercent: CREATOR_DISCOUNT_PERCENT,
-    discountMonths: CREATOR_DISCOUNT_MONTHS,
-  };
-}
-
-export function buildAppStoreRedemptionUrl(code: string): string {
-  const normalized = code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-  return `https://apps.apple.com/redeem?ctx=offercodes&id=${APPLE_APP_ID}&code=${encodeURIComponent(normalized)}`;
-}
 
 async function clearLegacyCreatorStorage(): Promise<void> {
   await AsyncStorage.multiRemove([
@@ -100,12 +75,13 @@ async function writeCreatorLinkSession(session: CreatorLinkSession): Promise<voi
   await AsyncStorage.setItem(CREATOR_LINK_SESSION_KEY, JSON.stringify(session));
 }
 
-/** Called only from a creator deep link — starts a one-time in-app offer session. */
+/** Called only from a tracked creator deep link — starts an in-app referral session. */
 export async function activateCreatorLinkSession(
   input: PendingCreatorAttribution,
 ): Promise<void> {
   const code = input.code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-  if (!code) return;
+  const referralClickToken = input.referralClickToken?.trim();
+  if (!code || !referralClickToken) return;
 
   await storePendingCreatorAttribution(input);
   await writeCreatorLinkSession({
@@ -115,31 +91,60 @@ export async function activateCreatorLinkSession(
     referralClickToken: input.referralClickToken?.trim() || null,
     startedAt: Date.now(),
   });
+  await AsyncStorage.removeItem(PENDING_AUTO_ROUTED_KEY);
 }
 
 export async function hasActiveCreatorLinkSession(): Promise<boolean> {
   return (await readCreatorLinkSession()) != null;
 }
 
-export async function shouldAutoRouteCreatorSubscribe(): Promise<boolean> {
+/** True only when the user opened a tracked creator landing link (click token present). */
+export async function hasVerifiedCreatorReferralSession(): Promise<boolean> {
   const session = await readCreatorLinkSession();
-  return Boolean(session && !session.routedToSubscribe);
+  return Boolean(session?.referralClickToken?.trim());
 }
 
-export async function markCreatorLinkRouted(): Promise<void> {
-  const session = await readCreatorLinkSession();
-  if (!session) return;
-  await writeCreatorLinkSession({ ...session, routedToSubscribe: true });
+/**
+ * Records referral click for later attribution without starting in-app UI
+ * (used when the user is not signed in or has not finished onboarding).
+ */
+export async function storeCreatorReferralPendingOnly(
+  input: PendingCreatorAttribution,
+): Promise<void> {
+  const code = input.code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+  const referralClickToken = input.referralClickToken?.trim();
+  if (!code || !referralClickToken) return;
+
+  await storePendingCreatorAttribution(input);
+  await AsyncStorage.removeItem(CREATOR_LINK_SESSION_KEY);
+  await AsyncStorage.removeItem(PENDING_AUTO_ROUTED_KEY);
 }
 
-/** User closed subscribe / declined — stop showing creator discount UI. */
+export async function clearCreatorLinkUiSession(): Promise<void> {
+  await AsyncStorage.removeItem(CREATOR_LINK_SESSION_KEY);
+}
+
+export async function promotePendingReferralToActiveSession(): Promise<boolean> {
+  if (await hasVerifiedCreatorReferralSession()) return true;
+
+  const pending = await getPendingCreatorAttribution();
+  if (!pending?.referralClickToken?.trim() || !pending.code?.trim()) {
+    return false;
+  }
+
+  await activateCreatorLinkSession(pending);
+  return true;
+}
+
 export async function dismissCreatorLinkSession(): Promise<void> {
   await clearPendingCreatorAttribution();
-  await AsyncStorage.removeItem(CREATOR_LINK_SESSION_KEY);
+  await AsyncStorage.multiRemove([
+    CREATOR_LINK_SESSION_KEY,
+    PENDING_AUTO_ROUTED_KEY,
+  ]);
   await clearLegacyCreatorStorage();
 }
 
-/** Successful Angler purchase through creator flow. */
 export async function completeCreatorLinkSession(): Promise<void> {
   await dismissCreatorLinkSession();
 }
@@ -166,23 +171,61 @@ export async function getPendingCreatorAttribution(): Promise<PendingCreatorAttr
   };
 }
 
+export async function hasPendingCreatorReferralClick(): Promise<boolean> {
+  const pending = await getPendingCreatorAttribution();
+  return Boolean(pending?.referralClickToken?.trim() && pending.code?.trim());
+}
+
+async function hasPendingCreatorAutoRouted(): Promise<boolean> {
+  return (await AsyncStorage.getItem(PENDING_AUTO_ROUTED_KEY)) === '1';
+}
+
+export async function markPendingCreatorAutoRouted(): Promise<void> {
+  await AsyncStorage.setItem(PENDING_AUTO_ROUTED_KEY, '1');
+}
+
+export type PendingCreatorRouteResult = 'none' | 'subscribe' | 'ineligible';
+
+export async function resolvePendingCreatorReferralRoute(input: {
+  hasSession: boolean;
+  isOnboarded: boolean;
+  hasAngler: boolean;
+  customerInfo: import('react-native-purchases').CustomerInfo | null;
+  profileTier?: string | null;
+}): Promise<PendingCreatorRouteResult> {
+  if (!input.hasSession || !input.isOnboarded) return 'none';
+  if (!(await hasPendingCreatorReferralClick())) return 'none';
+  if (await hasPendingCreatorAutoRouted()) return 'none';
+
+  if (!isCreatorReferralEligible({
+    customerInfo: input.customerInfo,
+    hasAngler: input.hasAngler,
+    profileTier: input.profileTier,
+  })) {
+    await dismissCreatorLinkSession();
+    return 'ineligible';
+  }
+
+  await promotePendingReferralToActiveSession();
+  return 'subscribe';
+}
+
 export async function clearPendingCreatorAttribution(): Promise<void> {
   await AsyncStorage.multiRemove([PENDING_CODE_KEY, PENDING_CLICK_KEY]);
 }
 
-function offerFromAttributionResult(
+function referralFromAttributionResult(
   code: string,
   result: CreatorAttributionResult,
-): CreatorOfferContext {
+): CreatorReferralContext {
   const resolvedCode = (result.code ?? code).trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-  return buildOfferFromCode(
-    resolvedCode,
-    result.creator_name?.trim() || 'Creator partner',
-    result.redemption_url,
-  );
+  return {
+    code: resolvedCode,
+    creatorName: result.creator_name?.trim() || 'Creator partner',
+  };
 }
 
-export async function applyCreatorCode(
+export async function applyCreatorReferral(
   accessToken: string,
   input: { code: string; referralClickToken?: string | null },
 ): Promise<CreatorAttributionResult> {
@@ -224,74 +267,194 @@ export async function applyCreatorCode(
     }
     return parsed;
   } catch (err) {
-    const message = err instanceof Error ? err.message : 'Could not apply creator code.';
+    const message = err instanceof Error ? err.message : 'Could not apply creator referral.';
     return { ok: false, error: message };
   }
 }
 
-async function persistSessionOfferDetails(
+/** @deprecated Use applyCreatorReferral */
+export const applyCreatorCode = applyCreatorReferral;
+
+async function persistSessionReferralDetails(
   session: CreatorLinkSession,
-  offer: CreatorOfferContext,
+  referral: CreatorReferralContext,
 ): Promise<void> {
   await writeCreatorLinkSession({
     ...session,
-    creatorName: offer.creatorName,
-    redemptionUrl: offer.redemptionUrl,
+    creatorName: referral.creatorName,
   });
 }
 
 /**
- * Loads creator offer ONLY when the user arrived via an active creator link session.
+ * Confirms creator referral ONLY when the user arrived via a tracked creator link.
  * Returns null for organic Manage Membership visits.
  */
-export async function loadCreatorOfferForLinkSession(
+export async function loadCreatorReferralForLinkSession(
   accessToken: string | null,
-): Promise<CreatorOfferContext | null> {
+): Promise<CreatorReferralContext | null> {
   const session = await readCreatorLinkSession();
-  if (!session) return null;
-
-  if (session.creatorName && session.redemptionUrl) {
-    return buildOfferFromCode(session.code, session.creatorName, session.redemptionUrl);
+  if (!session?.referralClickToken?.trim()) {
+    return null;
   }
 
   if (!accessToken) {
-    return buildOfferFromCode(session.code);
+    return null;
   }
 
   const pending = await getPendingCreatorAttribution();
-  const result = await applyCreatorCode(accessToken, {
+  const result = await applyCreatorReferral(accessToken, {
     code: session.code,
     referralClickToken: pending?.referralClickToken ?? session.referralClickToken,
   });
 
-  if (result.error === 'creator_offer_ineligible') {
+  if (
+    result.error === 'creator_referral_ineligible' ||
+    result.error === 'creator_offer_ineligible'
+  ) {
     await dismissCreatorLinkSession();
     return null;
   }
 
   if (!result.ok) {
-    return buildOfferFromCode(session.code);
+    if (
+      result.error === 'referral_click_required' ||
+      result.error === 'referral_click_not_found' ||
+      result.error === 'referral_click_code_mismatch' ||
+      result.error === 'referral_click_expired'
+    ) {
+      await dismissCreatorLinkSession();
+    }
+    return null;
   }
 
-  const offer = offerFromAttributionResult(session.code, result);
-  await persistSessionOfferDetails(session, offer);
-  return offer;
+  const referral = referralFromAttributionResult(session.code, result);
+  await persistSessionReferralDetails(session, referral);
+  return referral;
 }
 
-export async function openCreatorOfferRedemption(
-  redemptionUrl: string,
-): Promise<boolean> {
-  const url = redemptionUrl.trim() || '';
-  if (!url) return false;
-  if (Platform.OS === 'web') {
-    window.open(url, '_blank', 'noopener,noreferrer');
+/** @deprecated Use loadCreatorReferralForLinkSession */
+export const loadCreatorOfferForLinkSession = loadCreatorReferralForLinkSession;
+
+type CreatorReferralResolveResult = {
+  ok: boolean;
+  match_method?: string;
+  click_token?: string;
+  code?: string;
+  creator_name?: string;
+  error?: string;
+};
+
+function isUuid(value: string): boolean {
+  return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
+    value.trim(),
+  );
+}
+
+/** Parse finfindr://creator or https://finfindr.app/r referral payloads. */
+export function parseCreatorReferralPayload(
+  raw: string,
+): PendingCreatorAttribution | null {
+  const trimmed = raw.trim();
+  if (!trimmed.includes('://')) return null;
+  try {
+    const parsed = new URL(trimmed);
+    const code = parsed.searchParams.get('code')?.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
+    const clickRaw = parsed.searchParams.get('click') ??
+      parsed.searchParams.get('referral_click_token');
+    const referralClickToken = clickRaw?.trim() ?? '';
+    if (!code || !referralClickToken || !isUuid(referralClickToken)) {
+      return null;
+    }
+
+    const scheme = parsed.protocol.replace(':', '').toLowerCase();
+    const host = parsed.hostname.toLowerCase();
+    const isAppCreator = scheme === 'finfindr' &&
+      parsed.host.toLowerCase().includes('creator');
+    const isWebReferral = host === 'finfindr.app' &&
+      (parsed.pathname === '/r' || parsed.pathname.startsWith('/r/'));
+
+    if (!isAppCreator && !isWebReferral) return null;
+    return { code, referralClickToken };
+  } catch {
+    return null;
+  }
+}
+
+async function callCreatorReferralResolve(
+  body: Record<string, unknown>,
+): Promise<CreatorReferralResolveResult> {
+  try {
+    const response = await fetch(
+      `${supabaseUrl}/functions/v1/creator-referral-resolve`,
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          apikey: supabaseAnonKey,
+        },
+        body: JSON.stringify(body),
+      },
+    );
+    const parsed = (await response.json()) as CreatorReferralResolveResult;
+    return parsed?.ok ? parsed : { ok: false, error: parsed?.error ?? `HTTP ${response.status}` };
+  } catch (err) {
+    const message = err instanceof Error ? err.message : 'Resolve failed';
+    return { ok: false, error: message };
+  }
+}
+
+/**
+ * Recover a creator referral after App Store install (clipboard + fingerprint fallback).
+ * Persists click token in AsyncStorage so sign-up later the same day still attributes.
+ */
+export async function resolveDeferredCreatorReferral(): Promise<boolean> {
+  const existing = await getPendingCreatorAttribution();
+  if (existing?.referralClickToken?.trim()) {
     return true;
   }
-  await Linking.openURL(url);
-  return true;
+
+  try {
+    const clipboardText = await Clipboard.getStringAsync();
+    const clipboardReferral = clipboardText
+      ? parseCreatorReferralPayload(clipboardText)
+      : null;
+    if (clipboardReferral) {
+      const result = await callCreatorReferralResolve({
+        match_method: 'clipboard',
+        clipboard_payload: clipboardText,
+        code: clipboardReferral.code,
+        referral_click_token: clipboardReferral.referralClickToken,
+      });
+      if (result.ok && result.code && result.click_token) {
+        await storeCreatorReferralPendingOnly({
+          code: result.code,
+          referralClickToken: result.click_token,
+        });
+        return true;
+      }
+    }
+  } catch {
+    // Clipboard may be denied or empty on first launch.
+  }
+
+  const fingerprintResult = await callCreatorReferralResolve({
+    match_method: 'fingerprint',
+  });
+  if (fingerprintResult.ok && fingerprintResult.code && fingerprintResult.click_token) {
+    await storeCreatorReferralPendingOnly({
+      code: fingerprintResult.code,
+      referralClickToken: fingerprintResult.click_token,
+    });
+    return true;
+  }
+
+  return false;
 }
 
 export function parseCreatorDeepLink(url: string): PendingCreatorAttribution | null {
+  const fromPayload = parseCreatorReferralPayload(url);
+  if (fromPayload) return fromPayload;
+
   const lower = url.toLowerCase();
   if (!lower.startsWith('finfindr://') || !lower.includes('creator')) {
     return null;
@@ -302,13 +465,12 @@ export function parseCreatorDeepLink(url: string): PendingCreatorAttribution | n
 
   const params = new URLSearchParams(url.slice(queryStart + 1));
   const code = params.get('code');
-  if (!code) return null;
-
   const referralClickToken = params.get('click') ??
     params.get('referral_click_token');
+  if (!code?.trim() || !referralClickToken?.trim()) return null;
 
   return {
     code,
-    referralClickToken,
+    referralClickToken: referralClickToken.trim(),
   };
 }

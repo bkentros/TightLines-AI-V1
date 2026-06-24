@@ -39,6 +39,7 @@ import {
 import type { HowsFishingReportV1 } from "../../lib/howFishing";
 import type { ActionableTipTag } from "../../lib/howFishingRebuildContracts";
 import { useRevenueCatStore } from "../../store/revenueCatStore";
+import { showAnglerUnlockedCelebration, showSubscriptionNotice } from "../../store/subscriptionCelebrationStore";
 
 // ─── Display helpers ─────────────────────────────────────────────────────────
 
@@ -521,14 +522,20 @@ export function RebuildReportView({
 
     const unlocked = await presentPaywall();
     if (unlocked) {
-      Alert.alert("Angler unlocked", "Building your full read now.");
+      showAnglerUnlockedCelebration({
+        detail: "Building your full read now.",
+      });
       onAnglerUnlocked?.();
       return;
     }
 
     const message = useRevenueCatStore.getState().error;
     if (message) {
-      Alert.alert("Subscriptions temporarily unavailable", message);
+      showSubscriptionNotice({
+        title: "Subscriptions temporarily unavailable",
+        message,
+        tone: "error",
+      });
     }
   };
 
@@ -990,7 +997,9 @@ function AnglerUpgradeModal({
     setPaywallError(null);
     const unlocked = await presentPaywall();
     if (unlocked) {
-      Alert.alert("Angler unlocked", "Building your full read now.");
+      showAnglerUnlockedCelebration({
+        detail: "Building your full read now.",
+      });
       onUnlocked();
       return;
     }

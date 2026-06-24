@@ -1,6 +1,10 @@
 import "jsr:@supabase/functions-js/edge-runtime.d.ts";
 import { createClient } from "https://esm.sh/@supabase/supabase-js@2";
-import { cleanString, normalizeCreatorCode } from "../_shared/creatorProgram.ts";
+import {
+  buildCreatorReferralWebUrl,
+  cleanString,
+  normalizeCreatorCode,
+} from "../_shared/creatorProgram.ts";
 
 const SLUG_PATTERN = /^[a-z0-9][a-z0-9-]{1,62}[a-z0-9]$/;
 const APP_STORE_APP_URL = "https://apps.apple.com/app/id6769178136";
@@ -136,13 +140,6 @@ Deno.serve(async (req: Request) => {
       ? await hashDiagnostic(userAgent.slice(0, 500), pepper)
       : null;
 
-    const redemptionUrl = creatorCode.app_store_redemption_url ??
-      (creatorCode.apple_app_id
-        ? `https://apps.apple.com/redeem?ctx=offercodes&id=${
-          encodeURIComponent(creatorCode.apple_app_id)
-        }&code=${encodeURIComponent(creatorCode.code)}`
-        : null);
-
     const { data: clickRow, error: clickError } = await supabase
       .from("referral_clicks")
       .insert({
@@ -150,7 +147,7 @@ Deno.serve(async (req: Request) => {
         creator_code_id: creatorCode.id,
         code: creatorCode.code,
         landing_path: landingPath,
-        destination_url: redemptionUrl ?? APP_STORE_APP_URL,
+        destination_url: APP_STORE_APP_URL,
         utm_source: utmSource,
         utm_medium: utmMedium,
         utm_campaign: utmCampaign,
@@ -166,6 +163,13 @@ Deno.serve(async (req: Request) => {
     const clickToken = clickRow?.click_token as string;
     const referralClickId = clickRow?.id as string;
     const normalizedCode = normalizeCreatorCode(creatorCode.code);
+    const referralWebUrl = buildCreatorReferralWebUrl(normalizedCode!, clickToken);
+
+    await supabase.from("referral_funnel_events").insert({
+      referral_click_id: referralClickId,
+      creator_id: creatorRow.id,
+      event_type: "click",
+    });
 
     return json({
       ok: true,
@@ -176,11 +180,8 @@ Deno.serve(async (req: Request) => {
         slug: creatorRow.slug,
       },
       code: normalizedCode,
-      code_active: creatorCode.is_active,
-      discount_percent: creatorCode.discount_percent,
-      discount_duration_months: creatorCode.discount_duration_months,
       app_store_app_url: APP_STORE_APP_URL,
-      app_store_redemption_url: redemptionUrl,
+      referral_web_url: referralWebUrl,
       deep_link_url: normalizedCode
         ? `finfindr://creator?code=${encodeURIComponent(normalizedCode)}&click=${
           encodeURIComponent(clickToken)

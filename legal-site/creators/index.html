@@ -260,6 +260,15 @@
       font-size: 15px;
       margin-bottom: 0;
     }
+    .form-grid select {
+      width: 100%;
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 12px 14px;
+      font-size: 15px;
+      margin-bottom: 0;
+      background: #fff;
+    }
     .setup-result {
       margin-top: 14px;
       border: 1px solid rgba(31,111,151,0.28);
@@ -348,7 +357,7 @@
       <div id="adminPanel" class="hidden">
         <div class="card">
           <h2 style="margin:0 0 8px;font-size:18px;">Add a creator</h2>
-          <p class="fine" style="margin-top:0;">Enter their name and email — FinFindr creates their slug, offer-code placeholder, tracked link, and portal access. They only ever see their own stats.</p>
+          <p class="fine" style="margin-top:0;">Enter their name, email, commission rate, and earning term. FinFindr creates their tracked link and portal access instantly.</p>
           <form id="onboardForm">
             <div class="form-grid">
               <div>
@@ -364,8 +373,11 @@
                 <input id="onboardRate" type="number" min="20" max="50" step="1" value="25" />
               </div>
               <div>
-                <label for="onboardCode">Offer code (optional)</label>
-                <input id="onboardCode" placeholder="JOHN10" />
+                <label for="onboardMonthCap">Earning months</label>
+                <select id="onboardMonthCap">
+                  <option value="12" selected>12 paid billing periods</option>
+                  <option value="24">24 paid billing periods</option>
+                </select>
               </div>
             </div>
             <button class="btn" type="submit" id="onboardBtn" style="margin-top:12px;">Create creator</button>
@@ -385,7 +397,7 @@
               <thead>
                 <tr>
                   <th>Creator</th>
-                  <th>Email / code</th>
+                  <th>Email</th>
                   <th>Rate</th>
                   <th>Clicks</th>
                   <th>Attributed</th>
@@ -480,28 +492,6 @@
       const parsed = await res.json();
       if (!res.ok) {
         throw new Error(parsed.message || parsed.error || 'Could not send sign-in link.');
-      }
-      return parsed;
-    }
-
-    async function runAdminCreatorAction(action, payload) {
-      const { data: sessionData } = await supabaseClient.auth.getSession();
-      const token = sessionData.session?.access_token;
-      if (!token) throw new Error('Sign in again to manage creators.');
-
-      const res = await fetch(portalConfig.supabaseUrl + '/functions/v1/creator-portal-admin-creator', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          apikey: portalConfig.supabaseAnonKey,
-          Authorization: 'Bearer ' + portalConfig.supabaseAnonKey,
-          'x-user-token': token,
-        },
-        body: JSON.stringify({ action, ...payload }),
-      });
-      const parsed = await res.json();
-      if (!res.ok) {
-        throw new Error(parsed.message || parsed.error || 'Creator admin action failed.');
       }
       return parsed;
     }
@@ -614,7 +604,7 @@
 
     function setupRealtime(creatorId) {
       teardownRealtime();
-      const tables = ['referral_clicks', 'user_attributions', 'creator_commission_ledger'];
+      const tables = ['referral_clicks', 'referral_funnel_events', 'user_attributions', 'creator_commission_ledger'];
       const channelName = isAdmin() ? 'creator-portal-admin' : 'creator-portal-' + creatorId;
       realtimeChannel = supabaseClient.channel(channelName);
 
@@ -638,7 +628,7 @@
       const uid = session?.user?.id;
       const { data, error } = await supabaseClient
         .from('creators')
-        .select('id, display_name, slug, email, owner_user_id, commission_rate_bps, commission_month_cap, status, creator_codes(code, is_active, app_store_redemption_url)')
+        .select('id, display_name, slug, email, owner_user_id, commission_rate_bps, commission_month_cap, status')
         .in('status', ['active', 'paused']);
       if (error) throw error;
       return (data || []).find((row) =>
@@ -648,8 +638,21 @@
     }
 
     async function fetchCreatorMetrics(creatorId) {
-      const [clicksRes, attrRes, ledgerRes] = await Promise.all([
+      const funnelCount = async (eventType) => {
+        const { count, error } = await supabaseClient
+          .from('referral_funnel_events')
+          .select('id', { count: 'exact', head: true })
+          .eq('creator_id', creatorId)
+          .eq('event_type', eventType);
+        if (error) throw error;
+        return count || 0;
+      };
+
+      const [clicksRes, appOpens, signups, subscribed, attrRes, ledgerRes] = await Promise.all([
         supabaseClient.from('referral_clicks').select('id', { count: 'exact', head: true }).eq('creator_id', creatorId),
+        funnelCount('app_open'),
+        funnelCount('signup'),
+        funnelCount('subscribed'),
         supabaseClient.from('user_attributions').select('id', { count: 'exact', head: true }).eq('creator_id', creatorId).eq('status', 'active'),
         supabaseClient.from('creator_commission_ledger').select('*').eq('creator_id', creatorId).order('created_at', { ascending: false }),
       ]);
@@ -658,6 +661,9 @@
       if (ledgerRes.error) throw ledgerRes.error;
       return {
         clicks: clicksRes.count || 0,
+        appOpens,
+        signups,
+        subscribed,
         attributed: attrRes.count || 0,
         ledger: ledgerRes.data || [],
       };
@@ -674,23 +680,27 @@
 
       document.getElementById('creatorStats').innerHTML = [
         statCard('Link clicks', metrics.clicks),
-        statCard('Attributed users', metrics.attributed),
+        statCard('App opens', metrics.appOpens),
+        statCard('Sign-ups', metrics.signups),
+        statCard('Paid subs', metrics.subscribed),
         statCard('Pending', money(pending), 'pending'),
         statCard('Payable now', money(payable), 'money'),
         statCard('Paid out', money(paid), 'money'),
         statCard('Lifetime earned', money(lifetime), 'money'),
       ].join('');
 
-      const code = creator.creator_codes?.[0];
       const link = 'https://finfindr.app/c/' + creator.slug;
+      const ratePct = ((Number(creator.commission_rate_bps) || 0) / 100).toFixed(0);
+      const monthCap = Number(creator.commission_month_cap) || 12;
       document.getElementById('shareBox').innerHTML =
         '<strong>Your tracked link</strong><code>' + link + '</code>' +
-        (code ? '<strong style="display:block;margin-top:10px;">Offer code</strong><code>' + code.code + (code.is_active ? '' : ' (pending Apple approval)') + '</code>' : '');
+        '<p class="fine" style="margin:8px 0 0;">Your deal: <strong>' + ratePct + '%</strong> of net subscription revenue (after Apple&rsquo;s cut) for up to <strong>' + monthCap + ' paid billing periods</strong> per referred user. Unsubscribed months do not count — if they come back, earning continues until the cap.</p>' +
+        '<p class="fine" style="margin:6px 0 0;">Share on TikTok, YouTube, or Instagram. Clicks, installs, sign-ups, and paid conversions update live below.</p>';
 
       document.getElementById('ledgerBody').innerHTML = ledger.length
         ? ledger.map((row) => '<tr>' +
             '<td>' + fmtDate(row.created_at) + '</td>' +
-            '<td>' + row.earning_month_number + '</td>' +
+            '<td>' + row.earning_month_number + ' / ' + monthCap + '</td>' +
             '<td>' + money(row.net_proceeds_usd) + '</td>' +
             '<td>' + money(row.commission_amount_usd) + '</td>' +
             '<td><span class="pill ' + row.status + '">' + row.status + '</span></td>' +
@@ -702,7 +712,7 @@
     async function renderAdminDashboard() {
       const { data: creators, error: creatorsError } = await supabaseClient
         .from('creators')
-        .select('id, display_name, slug, email, commission_rate_bps, status, creator_codes(code, is_active)')
+        .select('id, display_name, slug, email, commission_rate_bps, commission_month_cap, status')
         .in('status', ['active', 'paused'])
         .order('display_name');
       if (creatorsError) throw creatorsError;
@@ -750,16 +760,13 @@
 
       document.getElementById('adminBody').innerHTML = (creators || []).map((creator) => {
         const stats = byCreator[creator.id] || { pending: 0, payable: 0, paid: 0, lifetime: 0 };
-        const code = creator.creator_codes?.[0];
         totalPayable += stats.payable;
         totalPending += stats.pending;
         totalPaid += stats.paid;
         return '<tr>' +
           '<td><strong>' + creator.display_name + '</strong><br><span style="color:#4d6478;font-size:12px;">/' + creator.slug + '</span></td>' +
-          '<td><span style="font-size:12px;">' + (creator.email || '—') + '</span>' +
-            (code ? '<br><span style="font-size:12px;color:#4d6478;">' + code.code + (code.is_active ? ' · live' : ' · pending Apple') + '</span>' : '') +
-          '</td>' +
-          '<td>' + (creator.commission_rate_bps / 100).toFixed(0) + '%</td>' +
+          '<td><span style="font-size:12px;">' + (creator.email || '—') + '</span></td>' +
+          '<td>' + (creator.commission_rate_bps / 100).toFixed(0) + '% · ' + (creator.commission_month_cap || 12) + ' mo</td>' +
           '<td>' + (clickCounts[creator.id] || 0) + '</td>' +
           '<td>' + (attrCounts[creator.id] || 0) + '</td>' +
           '<td>' + money(stats.pending) + '</td>' +
@@ -767,32 +774,11 @@
           '<td>' + money(stats.paid) + '</td>' +
           '<td>' + money(stats.lifetime) + '</td>' +
           '<td style="min-width:170px;">' +
-            (code && !code.is_active
-              ? '<button class="btn secondary activate-btn" type="button" data-creator-id="' + creator.id + '" style="margin-bottom:6px;width:100%;padding:8px 10px;font-size:12px;">Activate code</button>'
-              : '') +
             '<button class="btn secondary payout-btn" type="button" data-action="approve_payable" data-creator-id="' + creator.id + '" style="margin-bottom:6px;width:100%;padding:8px 10px;font-size:12px;">Approve payable</button>' +
             '<button class="btn payout-btn" type="button" data-action="mark_paid" data-creator-id="' + creator.id + '" style="width:100%;padding:8px 10px;font-size:12px;">Mark paid</button>' +
           '</td>' +
         '</tr>';
       }).join('') || '<tr><td colspan="10">No creators yet.</td></tr>';
-
-      document.querySelectorAll('.activate-btn').forEach((button) => {
-        button.addEventListener('click', async () => {
-          const creatorId = button.getAttribute('data-creator-id');
-          if (!creatorId) return;
-          if (!window.confirm('Mark this creator offer code live in FinFindr? Only do this after Apple has approved the code.')) return;
-          button.disabled = true;
-          try {
-            await runAdminCreatorAction('activate_code', { creator_id: creatorId });
-            alert('Creator code activated.');
-            await renderAdminDashboard();
-          } catch (err) {
-            alert(err.message || 'Could not activate code.');
-          } finally {
-            button.disabled = false;
-          }
-        });
-      });
 
       document.querySelectorAll('.payout-btn').forEach((button) => {
         button.addEventListener('click', async () => {
@@ -855,7 +841,7 @@
         document.getElementById('portalTitle').textContent = creatorRecord.display_name;
         document.getElementById('portalSubtitle').textContent =
           (creatorRecord.commission_rate_bps / 100).toFixed(0) + '% commission · up to ' +
-          creatorRecord.commission_month_cap + ' paid months per subscriber';
+          creatorRecord.commission_month_cap + ' paid billing periods per referred user';
         const metrics = await fetchCreatorMetrics(creatorRecord.id);
         renderCreatorStats(metrics, creatorRecord);
       } else if (isAdmin()) {
@@ -921,19 +907,20 @@
             display_name: document.getElementById('onboardName').value.trim(),
             email: document.getElementById('onboardEmail').value.trim(),
             commission_percent: Number(document.getElementById('onboardRate').value),
-            offer_code: document.getElementById('onboardCode').value.trim() || undefined,
+            commission_month_cap: Number(document.getElementById('onboardMonthCap').value),
           });
           resultEl.innerHTML =
             '<strong>Creator ready</strong>' +
             '<code>Portal login: ' + result.creator.email + '</code>' +
             '<code>Tracked link: ' + result.links.landing_url + '</code>' +
-            '<code>Offer code: ' + result.code.code + (result.code.is_active ? ' (live)' : ' (create in App Store Connect, then Activate code)') + '</code>' +
+            '<code>Deal: ' + (result.creator.commission_rate_bps / 100).toFixed(0) + '% · up to ' + result.creator.commission_month_cap + ' paid billing periods</code>' +
             '<ul style="margin:8px 0 0;padding-left:18px;">' +
             result.next_steps.map((step) => '<li>' + step + '</li>').join('') +
             '</ul>';
           resultEl.classList.remove('hidden');
           document.getElementById('onboardForm').reset();
           document.getElementById('onboardRate').value = '25';
+          document.getElementById('onboardMonthCap').value = '12';
           await renderAdminDashboard();
         } catch (err) {
           alert(err.message || 'Could not create creator.');
