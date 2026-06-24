@@ -258,6 +258,7 @@ export type WaterbodySearchMode =
   | "nearby"
   | "county"
   | "counties"
+  | "popular"
   | "featured";
 
 export interface WaterbodyCountyOption {

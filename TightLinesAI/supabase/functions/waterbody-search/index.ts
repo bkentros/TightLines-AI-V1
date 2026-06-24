@@ -1173,6 +1173,7 @@ type WaterbodySearchMode =
   | "nearby"
   | "county"
   | "counties"
+  | "popular"
   | "featured";
 
 function parseSearchMode(value: unknown): WaterbodySearchMode {
@@ -1180,11 +1181,31 @@ function parseSearchMode(value: unknown): WaterbodySearchMode {
     value === "nearby" ||
     value === "county" ||
     value === "counties" ||
+    value === "popular" ||
     value === "featured"
   ) {
     return value;
   }
   return "search";
+}
+
+function resolveResultLimit(
+  mode: WaterbodySearchMode,
+  limitRaw: unknown,
+): number {
+  const raw = Number(limitRaw ?? 10);
+  const n = Number.isFinite(raw) ? Math.floor(raw) : 10;
+  switch (mode) {
+    case "county":
+      return Math.min(200, Math.max(1, n));
+    case "nearby":
+    case "popular":
+      return Math.min(50, Math.max(1, n));
+    case "counties":
+      return Math.min(200, Math.max(1, n));
+    default:
+      return Math.min(25, Math.max(1, n));
+  }
 }
 
 function searchResponsePayload(params: {
@@ -1295,10 +1316,7 @@ Deno.serve(async (req: Request) => {
   const state = typeof body.state === "string" && body.state.trim().length > 0
     ? body.state.trim().toUpperCase()
     : null;
-  const limitRaw = Number(body.limit ?? 10);
-  const limit = Number.isFinite(limitRaw)
-    ? Math.min(25, Math.max(1, Math.floor(limitRaw)))
-    : 10;
+  const limit = resolveResultLimit(mode, body.limit);
 
   if (mode === "counties") {
     if (!state) {
@@ -1370,6 +1388,23 @@ Deno.serve(async (req: Request) => {
     if (error) {
       console.error("[waterbody-search] county rpc failed", error);
       return jsonError("Failed to browse county waterbodies", "search_failed", 500);
+    }
+    const rows = Array.isArray(data) ? data as SearchRow[] : [];
+    return jsonSearchResponse({ mode, query, state, rows });
+  }
+
+  if (mode === "popular") {
+    if (!state) {
+      return jsonError("state is required for popular browse", "invalid_state", 400);
+    }
+    const { data, error } = await supabase.rpc("browse_waterbodies_by_state", {
+      state_filter: state,
+      waterbody_type_filter: null,
+      result_limit: limit,
+    });
+    if (error) {
+      console.error("[waterbody-search] popular rpc failed", error);
+      return jsonError("Failed to load popular waterbodies", "search_failed", 500);
     }
     const rows = Array.isArray(data) ? data as SearchRow[] : [];
     return jsonSearchResponse({ mode, query, state, rows });

@@ -79,6 +79,33 @@ function escapeHtml(value: string): string {
     .replaceAll("'", "&#39;");
 }
 
+function isApplePrivateRelay(email: string): boolean {
+  return email.toLowerCase().endsWith("@privaterelay.appleid.com");
+}
+
+function appleRelayReplyInstructions(username: string | null): string[] {
+  return [
+    "",
+    "⚠️ APPLE HIDE MY EMAIL — Outlook/Hotmail Reply will bounce (550 5.1.1)",
+    "",
+    "This user signed in with Apple and uses a private relay address.",
+    "Apple only forwards your reply if it is sent FROM a registered source.",
+    "",
+    "Option A (fastest): Register finfindr@hotmail.com",
+    "  1. developer.apple.com → Account → Services",
+    "  2. Sign in with Apple for Email Communication → Configure → +",
+    "  3. Add finfindr@hotmail.com as an individual email → verify Apple’s email",
+    "  4. Reply from Outlook as usual",
+    "",
+    "Option B (recommended): Reply from support@finfindr.app via Resend",
+    "  1. Register finfindr.app under Domains in the same Apple screen (SPF must pass)",
+    "  2. Send from support@finfindr.app (Resend dashboard or API), not personal Hotmail",
+    "",
+    "See TightLinesAI/docs/FINFINDR_EMAIL_SETUP.md → Apple Hide My Email",
+    username ? `In-app username: @${username}` : null,
+  ].filter((line): line is string => line != null);
+}
+
 async function sendEmailNotification(input: {
   topic: FeedbackTopic;
   featureName: string | null;
@@ -96,28 +123,51 @@ async function sendEmailNotification(input: {
 
   const subjectFeature = input.featureName ? ` · ${input.featureName}` : "";
   const replyTarget = input.userEmail?.trim() || null;
+  const appleRelay = replyTarget ? isApplePrivateRelay(replyTarget) : false;
+  const relayInstructions = appleRelay
+    ? appleRelayReplyInstructions(input.username)
+    : [];
   const subject = replyTarget
     ? `FinFindr feedback · ${replyTarget} · ${input.topic}${subjectFeature}`
     : `FinFindr feedback · ${input.topic}${subjectFeature}`;
 
   const text = [
     replyTarget
-      ? `Reply-To user: ${replyTarget}`
+      ? appleRelay
+        ? `Reply-To user (Apple relay): ${replyTarget}`
+        : `Reply-To user: ${replyTarget}`
       : "Reply-To user: unavailable — check Supabase app_feedback for this message.",
     input.username ? `Username: @${input.username}` : null,
     `Topic: ${input.topic}${subjectFeature}`,
     "",
     input.message,
+    ...relayInstructions,
     "",
     "--- Context ---",
     ...input.contextLines,
   ].filter(Boolean).join("\n");
+
+  const relayHtmlBlock = appleRelay
+    ? [
+      "<div style=\"margin:12px 0;padding:12px;border:1px solid #c9a227;border-radius:8px;background:#fffbea\">",
+      "<p><strong>⚠️ Apple Hide My Email</strong></p>",
+      "<p>Replies from personal Hotmail/Outlook <strong>will bounce</strong> until you register your sender in ",
+      "<a href=\"https://developer.apple.com/account/resources/services/list\">Apple Developer → Sign in with Apple → Email Communication</a>.</p>",
+      "<p><strong>Quick fix:</strong> register <code>finfindr@hotmail.com</code> as an individual email source and verify Apple’s confirmation email.</p>",
+      "<p><strong>Long-term:</strong> register <code>finfindr.app</code> and reply from <code>support@finfindr.app</code> via Resend.</p>",
+      input.username
+        ? `<p><strong>In-app username:</strong> @${escapeHtml(input.username)}</p>`
+        : "",
+      "</div>",
+    ].join("")
+    : "";
 
   const html = [
     "<div style=\"font-family:system-ui,sans-serif;line-height:1.5\">",
     replyTarget
       ? `<p><strong>Reply to this user:</strong> <a href="mailto:${escapeHtml(replyTarget)}">${escapeHtml(replyTarget)}</a></p>`
       : "<p><strong>Reply-To user:</strong> unavailable — no email on this account.</p>",
+    relayHtmlBlock,
     input.username ? `<p><strong>Username:</strong> @${escapeHtml(input.username)}</p>` : "",
     `<p><strong>Topic:</strong> ${escapeHtml(input.topic)}${subjectFeature ? escapeHtml(subjectFeature) : ""}</p>`,
     `<pre style=\"white-space:pre-wrap;font-family:inherit\">${escapeHtml(input.message)}</pre>`,

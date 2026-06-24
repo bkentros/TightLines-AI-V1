@@ -67,9 +67,16 @@ import type {
   WaterReaderReadResponse,
 } from '../lib/waterReaderContracts';
 
+type LakeBrowseMode = 'county' | 'near' | 'popular';
+
 const SEARCH_DEBOUNCE_MS = 650;
 const SEARCH_MIN_CHARS = 3;
 const SEARCH_RESULT_LIMIT = 25;
+const COUNTY_BROWSE_LIMIT = 200;
+const POPULAR_LAKES_LIMIT = 25;
+const NEARBY_LAKES_LIMIT = 30;
+/** ~6–7 visible lake rows before the list scrolls. */
+const LAKE_LIST_MAX_HEIGHT = 372;
 const WATER_READER_PENDING_DEFAULT_RETRY_MS = 4000;
 const WATER_READER_HISTORY_BUILDING_POLL_MS = 3000;
 const WATER_READER_HISTORY_BUILDING_POLL_SLOW_AFTER_MS = 10 * 60 * 1000;
@@ -353,14 +360,15 @@ export default function WaterReaderScreen() {
   const [searchEmpty, setSearchEmpty] = useState(false);
   const [results, setResults] = useState<WaterbodySearchResult[]>([]);
   const [countyFilter, setCountyFilter] = useState<string | null>(null);
+  const [browseMode, setBrowseMode] = useState<LakeBrowseMode | null>(null);
   const [browseCounty, setBrowseCounty] = useState<string | null>(null);
+  const [countyModalOpen, setCountyModalOpen] = useState(false);
   const [discoveryLoading, setDiscoveryLoading] = useState(false);
   const [discoveryError, setDiscoveryError] = useState<string | null>(null);
-  const [nearResults, setNearResults] = useState<WaterbodySearchResult[]>([]);
-  const [topResults, setTopResults] = useState<WaterbodySearchResult[]>([]);
   const [stateCounties, setStateCounties] = useState<WaterbodyCountyOption[]>([]);
   const [nearbyLocation, setNearbyLocation] = useState<{ lat: number; lon: number } | null>(null);
-  const [nearbyLoading, setNearbyLoading] = useState(false);
+  const [nearMeLoading, setNearMeLoading] = useState(false);
+  const [popularLoading, setPopularLoading] = useState(false);
   const [selected, setSelected] = useState<WaterbodySearchResult | null>(null);
   const searchRequestId = useRef(0);
   const discoveryRequestId = useRef(0);
@@ -421,9 +429,9 @@ export default function WaterReaderScreen() {
     setQuery('');
     setResults([]);
     setCountyFilter(null);
+    setBrowseMode(null);
     setBrowseCounty(null);
-    setNearResults([]);
-    setTopResults([]);
+    setCountyModalOpen(false);
     setStateCounties([]);
     setDiscoveryError(null);
     setSearchError(null);
@@ -611,6 +619,8 @@ export default function WaterReaderScreen() {
       try {
         const res = await searchWaterbodies({ query: q, state: stateCode, limit: SEARCH_RESULT_LIMIT });
         if (searchRequestId.current !== requestId) return;
+        setBrowseMode(null);
+        setBrowseCounty(null);
         setResults(res.results);
         setCountyFilter((current) =>
           current && res.results.some((row) => row.county === current)
@@ -632,45 +642,138 @@ export default function WaterReaderScreen() {
     [query, stateCode],
   );
 
-  const loadDiscovery = useCallback(async (requestId: number) => {
+  const loadStateCounties = useCallback(async (requestId: number) => {
     if (!stateCode) return;
     setDiscoveryLoading(true);
     setDiscoveryError(null);
     try {
       const res = await searchWaterbodies({
-        mode: 'featured',
+        mode: 'counties',
         state: stateCode,
-        lat: nearbyLocation?.lat,
-        lon: nearbyLocation?.lon,
-        radiusMiles: 50,
-        limit: SEARCH_RESULT_LIMIT,
+        limit: 200,
       });
       if (discoveryRequestId.current !== requestId) return;
-      setNearResults(res.nearResults ?? []);
-      setTopResults(res.topResults ?? res.results ?? []);
-      setStateCounties(res.counties ?? []);
+      setStateCounties(
+        [...(res.counties ?? [])].sort((a, b) => a.county.localeCompare(b.county)),
+      );
     } catch (e) {
       if (discoveryRequestId.current !== requestId) return;
       setDiscoveryError(userFacingSearchError(e));
-      setNearResults([]);
-      setTopResults([]);
       setStateCounties([]);
     } finally {
       if (discoveryRequestId.current === requestId) {
         setDiscoveryLoading(false);
       }
     }
-  }, [nearbyLocation, stateCode]);
+  }, [stateCode]);
 
   useEffect(() => {
     const q = query.trim();
-    if (!stateCode || q.length >= SEARCH_MIN_CHARS || browseCounty) return;
+    if (!stateCode || q.length >= SEARCH_MIN_CHARS || browseMode) return;
     const id = ++discoveryRequestId.current;
-    void loadDiscovery(id);
-  }, [browseCounty, loadDiscovery, query, stateCode, nearbyLocation]);
+    void loadStateCounties(id);
+  }, [browseMode, loadStateCounties, query, stateCode]);
+
+  const loadNearMe = useCallback(async () => {
+    const homeState = profile?.home_state?.trim().toUpperCase() || null;
+    if (homeState && homeState !== stateCode) {
+      setStateCode(homeState);
+    }
+    const nearStateFilter = homeState ?? stateCode ?? undefined;
+
+    setNearMeLoading(true);
+    setDiscoveryError(null);
+    setBrowseMode('near');
+    setBrowseCounty(null);
+    setCountyFilter(null);
+    setSearching(true);
+    setSearchError(null);
+    setSearchEmpty(false);
+    const requestId = ++searchRequestId.current;
+    try {
+      let loc = nearbyLocation;
+      if (!loc) {
+        const { status } = await Location.requestForegroundPermissionsAsync();
+        if (status !== 'granted') {
+          setDiscoveryError('Allow location to browse lakes near you.');
+          setBrowseMode(null);
+          return;
+        }
+        const position = await Location.getCurrentPositionAsync({
+          accuracy: Location.Accuracy.Balanced,
+        });
+        loc = {
+          lat: position.coords.latitude,
+          lon: position.coords.longitude,
+        };
+        setNearbyLocation(loc);
+      }
+      const res = await searchWaterbodies({
+        mode: 'nearby',
+        state: nearStateFilter,
+        lat: loc.lat,
+        lon: loc.lon,
+        radiusMiles: 50,
+        limit: NEARBY_LAKES_LIMIT,
+      });
+      if (searchRequestId.current !== requestId) return;
+      setResults(res.results);
+      setSearchEmpty(res.results.length === 0);
+      if (res.results.length === 0) {
+        setSearchError(
+          homeState
+            ? `No lakes found near you in ${stateNameForCode(homeState) ?? homeState}. Try Popular or County.`
+            : 'No lakes found near you. Try picking a state or search by name.',
+        );
+      }
+    } catch {
+      setSearchError('Could not load nearby lakes. Try again or pick a county.');
+      setResults([]);
+      setSearchEmpty(false);
+      setBrowseMode(null);
+    } finally {
+      if (searchRequestId.current === requestId) setSearching(false);
+      setNearMeLoading(false);
+    }
+  }, [nearbyLocation, profile?.home_state, stateCode]);
+
+  const loadPopularLakes = useCallback(async () => {
+    if (!stateCode) return;
+    setPopularLoading(true);
+    setDiscoveryError(null);
+    setBrowseMode('popular');
+    setBrowseCounty(null);
+    setCountyFilter(null);
+    setSearching(true);
+    setSearchError(null);
+    setSearchEmpty(false);
+    const requestId = ++searchRequestId.current;
+    try {
+      const res = await searchWaterbodies({
+        mode: 'popular',
+        state: stateCode,
+        limit: POPULAR_LAKES_LIMIT,
+      });
+      if (searchRequestId.current !== requestId) return;
+      setResults(res.results);
+      setSearchEmpty(res.results.length === 0);
+      if (res.results.length === 0) {
+        setSearchError('No lakes found for this state yet.');
+      }
+    } catch {
+      setSearchError('Could not load popular lakes. Try again in a moment.');
+      setResults([]);
+      setSearchEmpty(false);
+      setBrowseMode(null);
+    } finally {
+      if (searchRequestId.current === requestId) setSearching(false);
+      setPopularLoading(false);
+    }
+  }, [stateCode]);
 
   const loadCountyBrowse = useCallback(async (county: string) => {
     if (!stateCode) return;
+    setBrowseMode('county');
     setBrowseCounty(county);
     setCountyFilter(null);
     setSearching(true);
@@ -682,7 +785,7 @@ export default function WaterReaderScreen() {
         mode: 'county',
         state: stateCode,
         county,
-        limit: SEARCH_RESULT_LIMIT,
+        limit: COUNTY_BROWSE_LIMIT,
       });
       if (searchRequestId.current !== requestId) return;
       setResults(res.results);
@@ -697,40 +800,25 @@ export default function WaterReaderScreen() {
     }
   }, [stateCode]);
 
-  const refreshNearby = useCallback(async () => {
-    setNearbyLoading(true);
-    setDiscoveryError(null);
-    try {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setDiscoveryError('Allow location to browse lakes near you.');
-        return;
-      }
-      const loc = await Location.getCurrentPositionAsync({
-        accuracy: Location.Accuracy.Balanced,
-      });
-      setNearbyLocation({
-        lat: loc.coords.latitude,
-        lon: loc.coords.longitude,
-      });
-    } catch {
-      setDiscoveryError('Could not read your location. Try again or pick a county.');
-    } finally {
-      setNearbyLoading(false);
-    }
+  const clearBrowseResults = useCallback(() => {
+    setBrowseMode(null);
+    setBrowseCounty(null);
+    setResults([]);
+    setSearchEmpty(false);
+    setSearchError(null);
+    setCountyFilter(null);
   }, []);
   useEffect(() => {
     const q = query.trim();
     if (!stateCode || q.length < SEARCH_MIN_CHARS) {
-      if (q.length === 0) {
-        setBrowseCounty(null);
-      }
-      setResults([]);
-      setCountyFilter(null);
       setSearchError(null);
       setSearchEmpty(false);
       setSearching(false);
       setSearchExpanded(false);
+      setCountyFilter(null);
+      if (q.length === 0 && browseMode == null) {
+        setResults([]);
+      }
       return;
     }
     setSearchError(null);
@@ -739,7 +827,7 @@ export default function WaterReaderScreen() {
       void runSearch(id);
     }, SEARCH_DEBOUNCE_MS);
     return () => clearTimeout(t);
-  }, [query, stateCode, runSearch]);
+  }, [browseMode, query, stateCode, runSearch]);
 
   const activeHistoryItem = useMemo(
     () => selected ? selectedReadToHistoryItem(selected, readState) : null,
@@ -765,12 +853,12 @@ export default function WaterReaderScreen() {
 
   const onSearchQueryChange = useCallback((value: string) => {
     if (hasBuildingRead) return;
-    if (selected) setSelected(null);
     if (value.trim().length >= SEARCH_MIN_CHARS) {
+      setBrowseMode(null);
       setBrowseCounty(null);
     }
     setQuery(value);
-  }, [hasBuildingRead, selected]);
+  }, [hasBuildingRead]);
 
   const onSelectHistoryItem = useCallback((item: WaterReaderHistoryItem) => {
     if (hasBuildingRead && item.status === 'failed') return;
@@ -798,11 +886,10 @@ export default function WaterReaderScreen() {
   }, [canGenerateRead, isLakeInHistory]);
 
   const isTypingSearch = query.trim().length >= SEARCH_MIN_CHARS;
-  const showDiscoveryPanel =
-    !hasBuildingRead && !selected && Boolean(stateCode) && !isTypingSearch && !browseCounty;
+  const showDiscoveryPanel = !hasBuildingRead && Boolean(stateCode);
   const showResultsPanel =
-    !hasBuildingRead && !selected && Boolean(stateCode) &&
-    (isTypingSearch || searching || browseCounty != null ||
+    !hasBuildingRead && Boolean(stateCode) &&
+    (isTypingSearch || searching || browseMode != null ||
       (searchError != null && isTypingSearch));
 
   const stateNameForEmpty =
@@ -826,7 +913,20 @@ export default function WaterReaderScreen() {
         : results,
     [countyFilter, results],
   );
-  const showCountyFilters = countyOptions.length > 1 && results.length >= 4;
+  const showCountyFilters = browseMode == null && countyOptions.length > 1 && results.length >= 4;
+
+  const browseBannerLabel = useMemo(() => {
+    if (browseMode === 'county' && browseCounty) {
+      return `${browseCounty.toUpperCase()} COUNTY · ${results.length} LAKES`;
+    }
+    if (browseMode === 'near') {
+      return `NEAR YOU · ${results.length} LAKES`;
+    }
+    if (browseMode === 'popular') {
+      return `POPULAR LAKES · ${results.length}`;
+    }
+    return null;
+  }, [browseCounty, browseMode, results.length]);
 
   const engineRead = readState.status === 'ready' ? readState.read : null;
   const polygonLimitedNote =
@@ -1035,8 +1135,8 @@ export default function WaterReaderScreen() {
                     <Ionicons name="search" size={14} color={paper.dashboardInk} />
                     <TextInput
                       style={styles.searchInput}
-                      placeholder={`Lakes in ${stateNameForCode(stateCode) ?? stateCode}…`}
-                      placeholderTextColor="rgba(28,36,25,0.42)"
+                      placeholder="Type a lake"
+                      placeholderTextColor={paper.dashboardMuted}
                       value={query}
                       onChangeText={onSearchQueryChange}
                       autoCorrect={false}
@@ -1073,81 +1173,62 @@ export default function WaterReaderScreen() {
                     <View style={styles.discoveryPanel}>
                       <View style={styles.discoveryHeaderRow}>
                         <Text style={styles.discoveryTitle}>FIND A LAKE</Text>
-                        <Pressable
-                          style={({ pressed }) => [
-                            styles.nearMeButton,
-                            pressed && styles.nearMeButtonPressed,
-                          ]}
-                          onPress={() => { void refreshNearby(); }}
-                          disabled={nearbyLoading || discoveryLoading}
-                        >
-                          {nearbyLoading ? (
-                            <ActivityIndicator size="small" color={paper.dashboardInk} />
-                          ) : (
-                            <Ionicons name="navigate-outline" size={13} color={paper.dashboardInk} />
-                          )}
-                          <Text style={styles.nearMeButtonText}>NEAR ME</Text>
-                        </Pressable>
+                        <View style={styles.discoveryActionRow}>
+                          <Pressable
+                            style={({ pressed }) => [
+                              styles.nearMeButton,
+                              pressed && styles.nearMeButtonPressed,
+                            ]}
+                            onPress={() => { void loadNearMe(); }}
+                            disabled={nearMeLoading || popularLoading}
+                          >
+                            {nearMeLoading ? (
+                              <ActivityIndicator size="small" color={paper.dashboardInk} />
+                            ) : (
+                              <Ionicons name="navigate-outline" size={13} color={paper.dashboardInk} />
+                            )}
+                            <Text style={styles.nearMeButtonText}>NEAR ME</Text>
+                          </Pressable>
+                          <Pressable
+                            style={({ pressed }) => [
+                              styles.nearMeButton,
+                              pressed && styles.nearMeButtonPressed,
+                            ]}
+                            onPress={() => { void loadPopularLakes(); }}
+                            disabled={nearMeLoading || popularLoading}
+                          >
+                            {popularLoading ? (
+                              <ActivityIndicator size="small" color={paper.dashboardInk} />
+                            ) : (
+                              <Ionicons name="star-outline" size={13} color={paper.dashboardInk} />
+                            )}
+                            <Text style={styles.nearMeButtonText}>POPULAR</Text>
+                          </Pressable>
+                          <Pressable
+                            style={({ pressed }) => [
+                              styles.nearMeButton,
+                              pressed && styles.nearMeButtonPressed,
+                            ]}
+                            onPress={() => setCountyModalOpen(true)}
+                            disabled={nearMeLoading || popularLoading || stateCounties.length === 0}
+                          >
+                            <Ionicons name="map-outline" size={13} color={paper.dashboardInk} />
+                            <Text style={styles.nearMeButtonText}>COUNTY</Text>
+                          </Pressable>
+                        </View>
                       </View>
                       {discoveryError && (
                         <Text style={styles.discoveryHint}>{discoveryError}</Text>
                       )}
-                      {!discoveryError && !nearbyLocation && (
+                      {!discoveryError && (
                         <Text style={styles.discoveryHint}>
-                          Search by name, tap Near Me, or browse by county below.
+                          Type a lake name, or tap Near Me, Popular, or County.
                         </Text>
                       )}
-                      {discoveryLoading && (
+                      {discoveryLoading && stateCounties.length === 0 && (
                         <View style={styles.dropdownLoadingRow}>
                           <ActivityIndicator size="small" color={paper.dashboardBlue} />
-                          <Text style={styles.dropdownLoadingText}>LOADING LAKES…</Text>
-                        </View>
-                      )}
-                      {!discoveryLoading && stateCounties.length > 0 && (
-                        <View style={styles.countyFilterWrap}>
-                          <ScrollView
-                            horizontal
-                            showsHorizontalScrollIndicator={false}
-                            keyboardShouldPersistTaps="handled"
-                            contentContainerStyle={styles.countyFilterContent}
-                          >
-                            {stateCounties.slice(0, 24).map((row) => (
-                              <CountyFilterChip
-                                key={row.county}
-                                label={`${row.county.toUpperCase()} (${row.waterbodyCount})`}
-                                active={browseCounty === row.county}
-                                onPress={() => { void loadCountyBrowse(row.county); }}
-                              />
-                            ))}
-                          </ScrollView>
-                        </View>
-                      )}
-                      {!discoveryLoading && nearResults.length > 0 && (
-                        <View style={styles.discoverySection}>
-                          <Text style={styles.discoverySectionLabel}>NEAR YOU</Text>
-                          {nearResults.slice(0, 8).map((r, idx) => (
-                            <WaterbodyResultRow
-                              key={r.lakeId}
-                              result={r}
-                              idx={idx}
-                              onSelect={onSelectWaterbodyResult}
-                            />
-                          ))}
-                        </View>
-                      )}
-                      {!discoveryLoading && topResults.length > 0 && (
-                        <View style={styles.discoverySection}>
-                          <Text style={styles.discoverySectionLabel}>
-                            {nearResults.length > 0 ? 'POPULAR IN STATE' : 'LAKES IN STATE'}
-                          </Text>
-                          {topResults.slice(0, nearResults.length > 0 ? 6 : 10).map((r, idx) => (
-                            <WaterbodyResultRow
-                              key={r.lakeId}
-                              result={r}
-                              idx={idx}
-                              onSelect={onSelectWaterbodyResult}
-                            />
-                          ))}
+                          <Text style={styles.dropdownLoadingText}>LOADING COUNTIES…</Text>
                         </View>
                       )}
                     </View>
@@ -1182,9 +1263,11 @@ export default function WaterReaderScreen() {
                         color={paper.dashboardBlue}
                       />
                       <Text style={styles.dropdownLoadingText}>
-                        {searchExpanded
-                          ? 'CHECKING NATIONAL HYDROGRAPHY…'
-                          : 'SEARCHING…'}
+                        {isTypingSearch
+                          ? searchExpanded
+                            ? 'CHECKING NATIONAL HYDROGRAPHY…'
+                            : 'SEARCHING…'
+                          : 'LOADING LAKES…'}
                       </Text>
                     </View>
                   )}
@@ -1208,25 +1291,22 @@ export default function WaterReaderScreen() {
                         color={paper.dashboardMuted}
                       />
                       <Text style={styles.dropdownEmptyText}>
-                        {browseCounty
+                        {browseMode === 'county' && browseCounty
                           ? `No searchable lakes found in ${browseCounty} County yet. Try another county or search by name.`
-                          : `No matching lakes in ${stateNameForEmpty}. Try Near Me, pick a county, or another spelling.`}
+                          : browseMode === 'near'
+                            ? 'No lakes found near you in this state. Try Popular, County, or search by name.'
+                            : browseMode === 'popular'
+                              ? 'No popular lakes found for this state yet. Try Near Me, County, or search by name.'
+                              : `No matching lakes in ${stateNameForEmpty}. Try Near Me, County, or another spelling.`}
                       </Text>
                     </View>
                   )}
-                  {browseCounty && !searching && results.length > 0 && (
+                  {browseMode && browseBannerLabel && !searching && results.length > 0 && (
                     <View style={styles.dropdownCountyBanner}>
                       <Text style={styles.dropdownCountyBannerText}>
-                        {browseCounty.toUpperCase()} COUNTY
+                        {browseBannerLabel}
                       </Text>
-                      <Pressable
-                        onPress={() => {
-                          setBrowseCounty(null);
-                          setResults([]);
-                          setSearchEmpty(false);
-                        }}
-                        hitSlop={8}
-                      >
+                      <Pressable onPress={clearBrowseResults} hitSlop={8}>
                         <Text style={styles.dropdownCountyClear}>CLEAR</Text>
                       </Pressable>
                     </View>
@@ -1262,7 +1342,7 @@ export default function WaterReaderScreen() {
                         contentContainerStyle={styles.dropdownListContent}
                         nestedScrollEnabled
                         keyboardShouldPersistTaps="handled"
-                        showsVerticalScrollIndicator={filteredResults.length > 5}
+                        showsVerticalScrollIndicator={filteredResults.length > 6}
                       >
                         {filteredResults.map((r, idx) => {
                           const open = canOpenWaterReaderRead(r);
@@ -1441,6 +1521,69 @@ export default function WaterReaderScreen() {
                     ]}
                   >
                     {option.code}
+                  </Text>
+                </Pressable>
+              );
+            })}
+          </ScrollView>
+        </View>
+      </Modal>
+
+      <Modal
+        visible={countyModalOpen}
+        animationType="slide"
+        presentationStyle="pageSheet"
+        onRequestClose={() => setCountyModalOpen(false)}
+      >
+        <View style={styles.modalRoot}>
+          <View style={styles.modalHeader}>
+            <View style={styles.modalHeaderLeft}>
+              <Text style={styles.modalEyebrow}>WATER READ</Text>
+              <Text style={styles.modalTitle}>Choose a county</Text>
+            </View>
+            <Pressable
+              onPress={() => setCountyModalOpen(false)}
+              style={({ pressed }) => [
+                styles.modalDoneBtn,
+                pressed && styles.modalDoneBtnPressed,
+              ]}
+              hitSlop={8}
+            >
+              <Ionicons name="close" size={16} color="#FFFFFF" />
+            </Pressable>
+          </View>
+          <ScrollView contentContainerStyle={styles.modalListContent}>
+            {stateCounties.map((row) => {
+              const active = browseMode === 'county' && browseCounty === row.county;
+              return (
+                <Pressable
+                  key={row.county}
+                  style={({ pressed }) => [
+                    styles.modalRow,
+                    active && styles.modalRowActive,
+                    pressed && styles.modalRowPressed,
+                  ]}
+                  onPress={() => {
+                    setCountyModalOpen(false);
+                    void loadCountyBrowse(row.county);
+                  }}
+                >
+                  <Text
+                    style={[
+                      styles.modalRowName,
+                      active && styles.modalRowNameActive,
+                    ]}
+                    numberOfLines={1}
+                  >
+                    {row.county}
+                  </Text>
+                  <Text
+                    style={[
+                      styles.modalRowCode,
+                      active && styles.modalRowCodeActive,
+                    ]}
+                  >
+                    {row.waterbodyCount}
                   </Text>
                 </Pressable>
               );
@@ -1816,7 +1959,7 @@ function RecentWaterReads({
               accessibilityLabel={`${recentStatusLabel(item.status)} Water Read for ${item.lakeName}`}
             >
               <View style={styles.recentReadTopRow}>
-                <Text style={styles.recentLakeName} numberOfLines={2}>
+                <Text style={styles.recentLakeName} numberOfLines={1}>
                   {item.lakeName}
                 </Text>
                 <View
@@ -1832,7 +1975,7 @@ function RecentWaterReads({
                   </Text>
                 </View>
               </View>
-              <Text style={styles.recentContext} numberOfLines={2}>
+              <Text style={styles.recentContext} numberOfLines={1}>
                 {historyContextLine(item) || 'Waterbody details'}
               </Text>
               <View style={styles.recentActionRow}>
@@ -1845,7 +1988,7 @@ function RecentWaterReads({
                 </Text>
                 <Ionicons
                   name={item.status === 'ready' ? 'open-outline' : 'refresh'}
-                  size={12}
+                  size={10}
                   color={paper.dashboardBlue}
                 />
               </View>
@@ -2102,6 +2245,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'space-between',
     gap: paperSpacing.sm,
+    flexWrap: 'wrap',
+  },
+  discoveryActionRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.xs,
   },
   discoveryTitle: {
     fontFamily: MONO_BOLD,
@@ -2309,7 +2458,7 @@ const styles = StyleSheet.create({
   countyFilterChipTextActive: {
     color: paper.dashboardInk,
   },
-  dropdownList: { maxHeight: 430 },
+  dropdownList: { maxHeight: LAKE_LIST_MAX_HEIGHT },
   dropdownListContent: {
     paddingBottom: paperSpacing.xs,
   },
@@ -2437,14 +2586,17 @@ const styles = StyleSheet.create({
     paddingBottom: 2,
   },
   recentReadCard: {
-    width: 214,
-    minHeight: 116,
-    padding: 12,
-    borderRadius: 8,
+    width: 143,
+    minHeight: 73,
+    paddingHorizontal: 8,
+    paddingTop: 7,
+    paddingBottom: 6,
+    borderRadius: 7,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     backgroundColor: paper.dashboardWhite,
-    gap: 8,
+    gap: 4,
+    justifyContent: 'space-between',
   },
   recentReadCardPressed: {
     backgroundColor: '#FAFAF7',
@@ -2460,20 +2612,20 @@ const styles = StyleSheet.create({
     flex: 1,
     minWidth: 0,
     fontFamily: SERIF_SEMI,
-    fontSize: 15,
-    lineHeight: 18,
+    fontSize: 11,
+    lineHeight: 14,
     color: paper.dashboardInk,
   },
   recentContext: {
     fontFamily: SANS_MEDIUM,
-    fontSize: 11.5,
-    lineHeight: 16,
+    fontSize: 9,
+    lineHeight: 12,
     color: '#555555',
   },
   recentStatusPill: {
     flexShrink: 0,
-    paddingHorizontal: 7,
-    paddingVertical: 4,
+    paddingHorizontal: 5,
+    paddingVertical: 2,
     borderRadius: 6,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
@@ -2493,23 +2645,23 @@ const styles = StyleSheet.create({
   },
   recentStatusText: {
     fontFamily: MONO_BOLD,
-    fontSize: 8.5,
-    letterSpacing: 1.1,
+    fontSize: 7.5,
+    letterSpacing: 1,
     color: paper.dashboardInk,
-    lineHeight: 11,
+    lineHeight: 10,
   },
   recentActionRow: {
     marginTop: 'auto',
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 5,
+    gap: 4,
   },
   recentActionText: {
     fontFamily: MONO_BOLD,
-    fontSize: 9,
-    letterSpacing: 1.3,
+    fontSize: 8,
+    letterSpacing: 1.1,
     color: paper.dashboardBlue,
-    lineHeight: 12,
+    lineHeight: 10,
   },
 
   // Calm operational state
