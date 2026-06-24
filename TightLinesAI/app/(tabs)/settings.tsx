@@ -33,6 +33,7 @@ import {
   sendAnalyticsDiagnosticsPing,
 } from '../../lib/analyticsDiagnostics';
 import { getEffectiveTier } from '../../lib/subscription';
+import { checkUsernameAvailability } from '../../lib/usernameAvailability';
 import type { FeedbackTopic } from '../../lib/feedback';
 import {
   openStoreSubscriptionManagement,
@@ -259,18 +260,19 @@ export default function SettingsScreen() {
     hapticImpact(ImpactFeedbackStyle.Medium);
     setUsernameSaving(true);
     try {
-      const { data: existing, error: lookupError } = await supabase
-        .from('profiles')
-        .select('id')
-        .eq('username', trimmedUsername)
-        .neq('id', user.id)
-        .limit(1);
-
-      if (lookupError) throw lookupError;
-      if (existing && existing.length > 0) {
+      const availability = await checkUsernameAvailability(trimmedUsername, user.id);
+      if (availability.status === 'taken') {
         setNotice({
           title: 'Username taken',
           message: 'Pick another handle and try again.',
+          tone: 'error',
+        });
+        return;
+      }
+      if (availability.status === 'error') {
+        setNotice({
+          title: 'Could not verify username',
+          message: 'Please try again in a moment.',
           tone: 'error',
         });
         return;

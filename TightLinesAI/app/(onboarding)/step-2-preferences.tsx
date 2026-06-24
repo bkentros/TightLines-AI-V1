@@ -1,7 +1,6 @@
 /**
  * Onboarding profile setup.
- * Username format validates on-device (instant). Uniqueness is enforced by one
- * `upsert` on Finish — no Supabase round trip while typing.
+ * Username format validates on-device; availability uses is_username_available RPC.
  */
 
 import { useEffect, useRef, useState } from 'react';
@@ -28,6 +27,11 @@ import { BrandEmblem, PaperNavHeader, TopographicLines } from '../../components/
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
+import {
+  checkUsernameAvailability,
+  isUsernameFormatValid,
+  normalizeUsername,
+} from '../../lib/usernameAvailability';
 import type { UserProfile } from '../../lib/types';
 import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
 
@@ -140,36 +144,28 @@ export default function OnboardingStep2() {
   const [usernameAvailability, setUsernameAvailability] =
     useState<AvailabilityState>('idle');
   const usernameDebounce = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const usernameCheckSeq = useRef(0);
 
   useEffect(() => {
     if (usernameDebounce.current) clearTimeout(usernameDebounce.current);
 
-    const trimmed = username.trim().toLowerCase();
-    if (trimmed.length < 3 || !/^[a-z0-9_]+$/.test(trimmed)) {
+    const trimmed = normalizeUsername(username);
+    if (!isUsernameFormatValid(trimmed)) {
       setUsernameAvailability('idle');
       return;
     }
 
     setUsernameAvailability('checking');
+    const seq = ++usernameCheckSeq.current;
     usernameDebounce.current = setTimeout(async () => {
-      try {
-        let query = supabase
-          .from('profiles')
-          .select('id')
-          .eq('username', trimmed)
-          .limit(1);
-        if (user?.id) query = query.neq('id', user.id);
+      const result = await checkUsernameAvailability(trimmed, user?.id);
+      if (seq !== usernameCheckSeq.current) return;
 
-        const { data, error } = await query;
-        if (error) {
-          // Network/RLS hiccup — fall back to idle so the upsert can
-          // still validate at submit time. We don't want to block the
-          // user just because the live check failed.
-          setUsernameAvailability('idle');
-          return;
-        }
-        setUsernameAvailability(data && data.length > 0 ? 'taken' : 'available');
-      } catch {
+      if (result.status === 'available') {
+        setUsernameAvailability('available');
+      } else if (result.status === 'taken') {
+        setUsernameAvailability('taken');
+      } else {
         setUsernameAvailability('idle');
       }
     }, 450);
@@ -256,12 +252,12 @@ export default function OnboardingStep2() {
   };
 
   const handleContinue = async () => {
-    const trimmedUsername = username.trim().toLowerCase();
+    const trimmedUsername = normalizeUsername(username);
     if (trimmedUsername.length < 3) {
       Alert.alert('Username required', 'Username must be at least 3 characters.');
       return;
     }
-    if (!/^[a-z0-9_]+$/.test(trimmedUsername)) {
+    if (!isUsernameFormatValid(trimmedUsername)) {
       Alert.alert('Invalid username', 'Use letters, numbers, and underscores only.');
       return;
     }
@@ -274,6 +270,23 @@ export default function OnboardingStep2() {
     setLoading(true);
     try {
       if (!user) throw new Error('No authenticated user');
+
+      const availability = await checkUsernameAvailability(trimmedUsername, user.id);
+      if (availability.status === 'taken') {
+        setUsernameAvailability('taken');
+        Alert.alert(
+          'Username taken',
+          'That username is already in use. Pick another and tap Finish again.',
+        );
+        return;
+      }
+      if (availability.status === 'error') {
+        Alert.alert(
+          'Could not verify username',
+          'Check your connection and try again.',
+        );
+        return;
+      }
 
       const activeSession =
         session ??
@@ -360,10 +373,8 @@ export default function OnboardingStep2() {
     }
   };
 
-  const trimmedUsernamePreview = username.trim().toLowerCase();
-  const usernameFormatOk =
-    trimmedUsernamePreview.length >= 3 &&
-    /^[a-z0-9_]+$/.test(trimmedUsernamePreview);
+  const trimmedUsernamePreview = normalizeUsername(username);
+  const usernameFormatOk = isUsernameFormatValid(trimmedUsernamePreview);
   const usernameFieldInvalidChars =
     trimmedUsernamePreview.length > 0 && !/^[a-z0-9_]*$/.test(trimmedUsernamePreview);
 
