@@ -6,6 +6,7 @@ import {
   FINGERPRINT_MATCH_WINDOW_HOURS,
   isReferralClickWithinAttributionWindow,
   isReferralClickWithinFingerprintWindow,
+  isReferralClickWithinIpOnlyInstallWindow,
   isUuid,
   normalizeCreatorCode,
   parseCreatorReferralPayload,
@@ -213,10 +214,28 @@ Deno.serve(async (req: Request) => {
       .limit(5);
     if (fpError) throw new Error(fpError.message);
 
-    const clickRow = (candidates ?? []).find((row) =>
+    let clickRow = (candidates ?? []).find((row) =>
       isReferralClickWithinFingerprintWindow(row.created_at) &&
       isReferralClickWithinAttributionWindow(row.created_at)
     );
+
+    if (!clickRow) {
+      const { data: ipCandidates, error: ipError } = await supabase
+        .from("referral_clicks")
+        .select(
+          "id, creator_id, code, click_token, created_at, app_opened_at",
+        )
+        .eq("ip_hash", ipHash)
+        .is("app_opened_at", null)
+        .order("created_at", { ascending: false })
+        .limit(10);
+      if (ipError) throw new Error(ipError.message);
+
+      clickRow = (ipCandidates ?? []).find((row) =>
+        isReferralClickWithinIpOnlyInstallWindow(row.created_at) &&
+        isReferralClickWithinAttributionWindow(row.created_at)
+      );
+    }
 
     if (!clickRow) {
       return json({

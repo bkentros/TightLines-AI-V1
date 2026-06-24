@@ -29,6 +29,7 @@ import {
   hasVerifiedCreatorReferralSession,
   loadCreatorReferralForLinkSession,
   promotePendingReferralToActiveSession,
+  resolveDeferredCreatorReferral,
   type CreatorReferralContext,
 } from '../lib/creatorAttribution';
 import { isCreatorReferralEligible } from '../lib/creatorReferralEligibility';
@@ -81,6 +82,9 @@ export default function SubscribeScreen() {
   const profileTier = useAuthStore((s) => s.profile?.subscription_tier);
 
   const refreshCreatorReferral = useCallback(async () => {
+    await resolveDeferredCreatorReferral();
+    await promotePendingReferralToActiveSession();
+
     if (!(await hasVerifiedCreatorReferralSession())) {
       setCreatorReferral(null);
       return;
@@ -127,9 +131,7 @@ export default function SubscribeScreen() {
 
   useEffect(() => {
     void (async () => {
-      if (creatorParam === '1') {
-        await promotePendingReferralToActiveSession();
-      }
+      await promotePendingReferralToActiveSession();
       await refreshCreatorReferral();
     })();
   }, [creatorParam, refreshCreatorReferral]);

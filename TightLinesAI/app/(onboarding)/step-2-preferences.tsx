@@ -27,6 +27,7 @@ import { BrandEmblem, PaperNavHeader, TopographicLines } from '../../components/
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
+import { syncCreatorReferralAttribution } from '../../lib/creatorAttribution';
 import {
   checkUsernameAvailability,
   isUsernameFormatValid,
@@ -351,6 +352,7 @@ export default function OnboardingStep2() {
       clearOnboardingPrefs();
       setProfile(data as UserProfile);
       setLoading(false);
+      void syncCreatorReferralAttribution(activeSession.access_token);
       router.replace('/(tabs)');
       return;
     } catch (err) {

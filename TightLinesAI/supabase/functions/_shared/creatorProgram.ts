@@ -97,6 +97,9 @@ export function referralClickQualifiesForAttribution(input: {
 /** Probabilistic install match: click must be this recent (hours). */
 export const FINGERPRINT_MATCH_WINDOW_HOURS = 72;
 
+/** Same-network install match when Safari vs app user-agent differs (hours). */
+export const IP_ONLY_INSTALL_MATCH_WINDOW_HOURS = 2;
+
 export function isReferralClickWithinAttributionWindow(
   createdAt: string | null | undefined,
   nowMs = Date.now(),
@@ -162,6 +165,17 @@ export function isReferralClickWithinFingerprintWindow(
   const clickedAt = Date.parse(createdAt);
   if (!Number.isFinite(clickedAt)) return false;
   const windowMs = FINGERPRINT_MATCH_WINDOW_HOURS * 60 * 60 * 1000;
+  return nowMs - clickedAt <= windowMs;
+}
+
+export function isReferralClickWithinIpOnlyInstallWindow(
+  createdAt: string | null | undefined,
+  nowMs = Date.now(),
+): boolean {
+  if (!createdAt) return false;
+  const clickedAt = Date.parse(createdAt);
+  if (!Number.isFinite(clickedAt)) return false;
+  const windowMs = IP_ONLY_INSTALL_MATCH_WINDOW_HOURS * 60 * 60 * 1000;
   return nowMs - clickedAt <= windowMs;
 }
 

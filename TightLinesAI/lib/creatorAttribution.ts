@@ -441,13 +441,24 @@ export async function recordCreatorReferralAppOpen(
 }
 
 /**
- * Recover a creator referral after App Store install (clipboard + fingerprint fallback).
- * Persists click token in AsyncStorage so sign-up later the same day still attributes.
+ * Recover a creator referral after App Store install (network fingerprint, then clipboard).
+ * Persists click token in AsyncStorage so sign-up later still attributes.
  */
 export async function resolveDeferredCreatorReferral(): Promise<boolean> {
   const existing = await getPendingCreatorAttribution();
   if (existing?.referralClickToken?.trim()) {
     await recordCreatorReferralAppOpen(existing, 'deep_link');
+    return true;
+  }
+
+  const fingerprintResult = await callCreatorReferralResolve({
+    match_method: 'fingerprint',
+  });
+  if (fingerprintResult.ok && fingerprintResult.code && fingerprintResult.click_token) {
+    await storeCreatorReferralPendingOnly({
+      code: fingerprintResult.code,
+      referralClickToken: fingerprintResult.click_token,
+    }, 'fingerprint');
     return true;
   }
 
@@ -475,18 +486,30 @@ export async function resolveDeferredCreatorReferral(): Promise<boolean> {
     // Clipboard may be denied or empty on first launch.
   }
 
-  const fingerprintResult = await callCreatorReferralResolve({
-    match_method: 'fingerprint',
-  });
-  if (fingerprintResult.ok && fingerprintResult.code && fingerprintResult.click_token) {
-    await storeCreatorReferralPendingOnly({
-      code: fingerprintResult.code,
-      referralClickToken: fingerprintResult.click_token,
-    }, 'fingerprint');
-    return true;
+  return false;
+}
+
+/**
+ * Match install → click if needed, then persist creator attribution for this account.
+ * Safe to call after onboarding or before subscribe.
+ */
+export async function syncCreatorReferralAttribution(
+  accessToken: string | null,
+): Promise<CreatorAttributionResult | null> {
+  if (!accessToken) return null;
+
+  await resolveDeferredCreatorReferral();
+  await promotePendingReferralToActiveSession();
+
+  const pending = await getPendingCreatorAttribution();
+  const session = await readCreatorLinkSession();
+  const code = session?.code ?? pending?.code;
+  const referralClickToken = session?.referralClickToken ?? pending?.referralClickToken;
+  if (!code?.trim() || !referralClickToken?.trim()) {
+    return null;
   }
 
-  return false;
+  return applyCreatorReferral(accessToken, { code, referralClickToken });
 }
 
 export function parseCreatorDeepLink(url: string): PendingCreatorAttribution | null {

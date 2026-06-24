@@ -45,6 +45,7 @@ import {
   resolveDeferredCreatorReferral,
   resolvePendingCreatorReferralRoute,
   storeCreatorReferralPendingOnly,
+  syncCreatorReferralAttribution,
 } from '../lib/creatorAttribution';
 import { isCreatorReferralEligible } from '../lib/creatorReferralEligibility';
 import { useAuthStore } from '../store/authStore';
@@ -292,6 +293,10 @@ export default function RootLayout() {
 
         if (route === 'subscribe') {
           await markPendingCreatorAutoRouted();
+          const authSession = useAuthStore.getState().session;
+          if (authSession?.access_token) {
+            await syncCreatorReferralAttribution(authSession.access_token);
+          }
           router.replace('/subscribe?creator=1');
           return;
         }
