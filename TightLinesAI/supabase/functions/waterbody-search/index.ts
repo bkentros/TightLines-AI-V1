@@ -60,6 +60,7 @@ interface SearchRow {
   has_polygon_geometry: boolean;
   polygon_area_acres: number | null;
   polygon_qa_flags: string[] | null;
+  distance_miles?: number | null;
 }
 
 interface ArcGisFeature {
@@ -122,6 +123,47 @@ const CURATED_3DHP_ALIASES: Array<{
     id3dhp: "MF4DV",
     waterbodyType: "reservoir",
     aliases: ["lake fork", "lake fork reservoir"],
+  },
+  {
+    state: "IN",
+    canonicalName: "Blue Grass Pit",
+    id3dhp: "L3VSS",
+    waterbodyType: "pond",
+    aliases: [
+      "blue grass pit",
+      "bluegrass pit",
+      "bluegrass",
+      "blue grass",
+      "blue grass fwa",
+    ],
+  },
+  {
+    state: "IN",
+    canonicalName: "Loon Pit",
+    id3dhp: "KA57A",
+    waterbodyType: "pond",
+    aliases: ["loon pit", "loon pit blue grass"],
+  },
+  {
+    state: "IN",
+    canonicalName: "Otter Pit",
+    id3dhp: "KCUQA",
+    waterbodyType: "pond",
+    aliases: ["otter pit", "otter pit blue grass"],
+  },
+  {
+    state: "IN",
+    canonicalName: "Ringneck Pit",
+    id3dhp: "M5TNW",
+    waterbodyType: "pond",
+    aliases: ["ringneck pit", "ring neck pit"],
+  },
+  {
+    state: "IN",
+    canonicalName: "Bird Dog Pit",
+    id3dhp: "LUY58",
+    waterbodyType: "pond",
+    aliases: ["bird dog pit", "birddog pit"],
   },
 ];
 
@@ -1122,7 +1164,87 @@ function mapRow(row: SearchRow, sameNameCount: number): WaterbodySearchResult {
     polygonQaFlags: row.polygon_qa_flags ?? [],
     sameNameStateCandidateCount: sameNameCount,
     isAmbiguousNameInState: sameNameCount > 1,
+    distanceMiles: row.distance_miles ?? null,
   };
+}
+
+type WaterbodySearchMode =
+  | "search"
+  | "nearby"
+  | "county"
+  | "counties"
+  | "featured";
+
+function parseSearchMode(value: unknown): WaterbodySearchMode {
+  if (
+    value === "nearby" ||
+    value === "county" ||
+    value === "counties" ||
+    value === "featured"
+  ) {
+    return value;
+  }
+  return "search";
+}
+
+function searchResponsePayload(params: {
+  mode: WaterbodySearchMode;
+  query: string;
+  state: string | null;
+  results: WaterbodySearchResult[];
+  nearResults?: WaterbodySearchResult[];
+  topResults?: WaterbodySearchResult[];
+  counties?: Array<{ county: string; waterbodyCount: number }>;
+}) {
+  return {
+    feature: WATERBODY_SEARCH_FEATURE,
+    mode: params.mode,
+    query: params.query,
+    state: params.state,
+    results: params.results,
+    nearResults: params.nearResults,
+    topResults: params.topResults,
+    counties: params.counties,
+  };
+}
+
+function jsonSearchResponse(params: {
+  mode: WaterbodySearchMode;
+  query: string;
+  state: string | null;
+  rows: SearchRow[];
+  nearRows?: SearchRow[];
+  topRows?: SearchRow[];
+  counties?: Array<{ county: string; waterbodyCount: number }>;
+}): Response {
+  const sameNameCounts = sameNameStateCounts(params.rows);
+  const mapRows = (rows: SearchRow[]) =>
+    rows.map((row) =>
+      mapRow(
+        row,
+        sameNameCounts.get(
+          `${row.state}|${normalizeWaterbodyName(row.name)}`,
+        ) ?? 1,
+      )
+    );
+  const results = mapRows(params.rows);
+  return new Response(
+    JSON.stringify(
+      searchResponsePayload({
+        mode: params.mode,
+        query: params.query,
+        state: params.state,
+        results,
+        nearResults: params.nearRows ? mapRows(params.nearRows) : undefined,
+        topResults: params.topRows ? mapRows(params.topRows) : undefined,
+        counties: params.counties,
+      }),
+    ),
+    {
+      status: 200,
+      headers: { "Content-Type": "application/json", ...corsHeaders() },
+    },
+  );
 }
 
 Deno.serve(async (req: Request) => {
@@ -1168,15 +1290,8 @@ Deno.serve(async (req: Request) => {
     return jsonError("Invalid JSON body", "invalid_body", 400);
   }
 
+  const mode = parseSearchMode(body.mode);
   const query = typeof body.query === "string" ? body.query.trim() : "";
-  if (query.length < 2) {
-    return jsonError(
-      "query must be at least 2 characters",
-      "invalid_query",
-      400,
-    );
-  }
-
   const state = typeof body.state === "string" && body.state.trim().length > 0
     ? body.state.trim().toUpperCase()
     : null;
@@ -1184,6 +1299,151 @@ Deno.serve(async (req: Request) => {
   const limit = Number.isFinite(limitRaw)
     ? Math.min(25, Math.max(1, Math.floor(limitRaw)))
     : 10;
+
+  if (mode === "counties") {
+    if (!state) {
+      return jsonError("state is required for county browse", "invalid_state", 400);
+    }
+    const { data, error } = await supabase.rpc("list_waterbody_counties_for_state", {
+      state_filter: state,
+      result_limit: Math.min(200, Math.max(limit, 40)),
+    });
+    if (error) {
+      console.error("[waterbody-search] counties rpc failed", error);
+      return jsonError("Failed to list counties", "search_failed", 500);
+    }
+    const counties = (Array.isArray(data) ? data : []).map((row) => {
+      const record = row as { county?: string; waterbody_count?: number };
+      return {
+        county: String(record.county ?? ""),
+        waterbodyCount: Number(record.waterbody_count ?? 0),
+      };
+    }).filter((row) => row.county.length > 0);
+    return jsonSearchResponse({
+      mode,
+      query,
+      state,
+      rows: [],
+      counties,
+    });
+  }
+
+  if (mode === "nearby") {
+    const lat = Number(body.lat);
+    const lon = Number(body.lon);
+    if (!Number.isFinite(lat) || !Number.isFinite(lon)) {
+      return jsonError("lat and lon are required for nearby browse", "invalid_location", 400);
+    }
+    const radiusRaw = Number(body.radiusMiles ?? 40);
+    const radiusMiles = Number.isFinite(radiusRaw)
+      ? Math.min(120, Math.max(5, radiusRaw))
+      : 40;
+    const { data, error } = await supabase.rpc("browse_waterbodies_near_point", {
+      lat,
+      lon,
+      radius_miles: radiusMiles,
+      state_filter: state,
+      result_limit: limit,
+    });
+    if (error) {
+      console.error("[waterbody-search] nearby rpc failed", error);
+      return jsonError("Failed to browse nearby waterbodies", "search_failed", 500);
+    }
+    const rows = Array.isArray(data) ? data as SearchRow[] : [];
+    return jsonSearchResponse({ mode, query, state, rows });
+  }
+
+  if (mode === "county") {
+    const county = typeof body.county === "string" ? body.county.trim() : "";
+    if (!state || county.length === 0) {
+      return jsonError(
+        "state and county are required for county browse",
+        "invalid_county",
+        400,
+      );
+    }
+    const { data, error } = await supabase.rpc("browse_waterbodies_by_county", {
+      state_filter: state,
+      county_filter: county,
+      result_limit: limit,
+    });
+    if (error) {
+      console.error("[waterbody-search] county rpc failed", error);
+      return jsonError("Failed to browse county waterbodies", "search_failed", 500);
+    }
+    const rows = Array.isArray(data) ? data as SearchRow[] : [];
+    return jsonSearchResponse({ mode, query, state, rows });
+  }
+
+  if (mode === "featured") {
+    if (!state) {
+      return jsonError("state is required for featured browse", "invalid_state", 400);
+    }
+    const lat = Number(body.lat);
+    const lon = Number(body.lon);
+    const hasLocation = Number.isFinite(lat) && Number.isFinite(lon);
+    const [topResponse, countyResponse, nearResponse] = await Promise.all([
+      supabase.rpc("browse_waterbodies_by_state", {
+        state_filter: state,
+        waterbody_type_filter: null,
+        result_limit: limit,
+      }),
+      supabase.rpc("list_waterbody_counties_for_state", {
+        state_filter: state,
+        result_limit: 80,
+      }),
+      hasLocation
+        ? supabase.rpc("browse_waterbodies_near_point", {
+          lat,
+          lon,
+          radius_miles: Number(body.radiusMiles ?? 50),
+          state_filter: state,
+          result_limit: limit,
+        })
+        : Promise.resolve({ data: [], error: null }),
+    ]);
+    if (topResponse.error || countyResponse.error || nearResponse.error) {
+      console.error("[waterbody-search] featured rpc failed", {
+        top: topResponse.error,
+        counties: countyResponse.error,
+        near: nearResponse.error,
+      });
+      return jsonError("Failed to load featured waterbodies", "search_failed", 500);
+    }
+    const topRows = Array.isArray(topResponse.data)
+      ? topResponse.data as SearchRow[]
+      : [];
+    const nearRows = Array.isArray(nearResponse.data)
+      ? nearResponse.data as SearchRow[]
+      : [];
+    const counties = (Array.isArray(countyResponse.data)
+      ? countyResponse.data
+      : []).map((row) => {
+      const record = row as { county?: string; waterbody_count?: number };
+      return {
+        county: String(record.county ?? ""),
+        waterbodyCount: Number(record.waterbody_count ?? 0),
+      };
+    }).filter((row) => row.county.length > 0);
+    const primaryRows = nearRows.length > 0 ? nearRows : topRows;
+    return jsonSearchResponse({
+      mode,
+      query,
+      state,
+      rows: primaryRows,
+      nearRows,
+      topRows,
+      counties,
+    });
+  }
+
+  if (query.length < 2) {
+    return jsonError(
+      "query must be at least 2 characters",
+      "invalid_query",
+      400,
+    );
+  }
 
   if (shouldTryCrossStateAliasRetry([], query, state)) {
     const aliasRows = sortedRowsForDisplay(
@@ -1360,24 +1620,10 @@ Deno.serve(async (req: Request) => {
       );
     }
   }
-  const sameNameCounts = sameNameStateCounts(rows);
-  return new Response(
-    JSON.stringify({
-      feature: WATERBODY_SEARCH_FEATURE,
-      query,
-      state,
-      results: rows.map((row) =>
-        mapRow(
-          row,
-          sameNameCounts.get(
-            `${row.state}|${normalizeWaterbodyName(row.name)}`,
-          ) ?? 1,
-        )
-      ),
-    }),
-    {
-      status: 200,
-      headers: { "Content-Type": "application/json", ...corsHeaders() },
-    },
-  );
+  return jsonSearchResponse({
+    mode: "search",
+    query,
+    state,
+    rows,
+  });
 });

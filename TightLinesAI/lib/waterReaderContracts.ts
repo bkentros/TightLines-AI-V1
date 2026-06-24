@@ -57,13 +57,30 @@ export interface WaterbodySearchResult {
   polygonQaFlags: string[];
   sameNameStateCandidateCount?: number;
   isAmbiguousNameInState?: boolean;
+  distanceMiles?: number | null;
+}
+
+export type WaterbodySearchMode =
+  | "search"
+  | "nearby"
+  | "county"
+  | "counties"
+  | "featured";
+
+export interface WaterbodyCountyOption {
+  county: string;
+  waterbodyCount: number;
 }
 
 export interface WaterbodySearchResponse {
   feature: typeof WATERBODY_SEARCH_FEATURE;
+  mode?: WaterbodySearchMode;
   query: string;
   state?: string | null;
   results: WaterbodySearchResult[];
+  nearResults?: WaterbodySearchResult[];
+  topResults?: WaterbodySearchResult[];
+  counties?: WaterbodyCountyOption[];
 }
 
 export interface WaterbodyPolygonGeoJson {

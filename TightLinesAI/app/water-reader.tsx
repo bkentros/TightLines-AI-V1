@@ -38,6 +38,7 @@ import {
 import { Ionicons } from '@expo/vector-icons';
 import { StatusBar } from 'expo-status-bar';
 import { useRouter } from 'expo-router';
+import * as Location from 'expo-location';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import {
   paper,
@@ -57,6 +58,7 @@ import {
 import { WaterReaderMapCard } from '../components/water-reader/WaterReaderMapCard';
 import type { WaterReaderMapCardState } from '../components/water-reader/WaterReaderMapCard';
 import type {
+  WaterbodyCountyOption,
   WaterbodySearchResult,
   WaterReaderEngineSupportStatus,
   WaterReaderHistoryItem,
@@ -205,7 +207,11 @@ function resultSecondaryLine(r: WaterbodySearchResult): string {
       : typeof r.surfaceAreaAcres === 'number'
         ? `~${Math.round(r.surfaceAreaAcres).toLocaleString()} ACRES`
         : '— ACRES';
-  return `${r.state} · ${r.waterbodyType.toUpperCase()} · ${acres}`;
+  const distance =
+    typeof r.distanceMiles === 'number'
+      ? ` · ${r.distanceMiles < 10 ? r.distanceMiles.toFixed(1) : Math.round(r.distanceMiles)} MI`
+      : '';
+  return `${r.state} · ${r.waterbodyType.toUpperCase()} · ${acres}${distance}`;
 }
 
 function selectionContextLine(r: WaterbodySearchResult): string {
@@ -338,7 +344,7 @@ export default function WaterReaderScreen() {
   const hasSubscription = canUseAIFeatures(effectiveTier);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
 
-  const [stateCode, setStateCode] = useState<string | null>(null);
+  const [stateCode, setStateCode] = useState<string | null>(profile?.home_state ?? null);
   const [stateModalOpen, setStateModalOpen] = useState(false);
   const [query, setQuery] = useState('');
   const [searching, setSearching] = useState(false);
@@ -347,8 +353,17 @@ export default function WaterReaderScreen() {
   const [searchEmpty, setSearchEmpty] = useState(false);
   const [results, setResults] = useState<WaterbodySearchResult[]>([]);
   const [countyFilter, setCountyFilter] = useState<string | null>(null);
+  const [browseCounty, setBrowseCounty] = useState<string | null>(null);
+  const [discoveryLoading, setDiscoveryLoading] = useState(false);
+  const [discoveryError, setDiscoveryError] = useState<string | null>(null);
+  const [nearResults, setNearResults] = useState<WaterbodySearchResult[]>([]);
+  const [topResults, setTopResults] = useState<WaterbodySearchResult[]>([]);
+  const [stateCounties, setStateCounties] = useState<WaterbodyCountyOption[]>([]);
+  const [nearbyLocation, setNearbyLocation] = useState<{ lat: number; lon: number } | null>(null);
+  const [nearbyLoading, setNearbyLoading] = useState(false);
   const [selected, setSelected] = useState<WaterbodySearchResult | null>(null);
   const searchRequestId = useRef(0);
+  const discoveryRequestId = useRef(0);
   const readRequestId = useRef(0);
   const historyRequestId = useRef(0);
   const lastHistoryReadSignal = useRef<string | null>(null);
@@ -392,6 +407,12 @@ export default function WaterReaderScreen() {
   } | null>(null);
 
   useEffect(() => {
+    if (!stateCode && profile?.home_state) {
+      setStateCode(profile.home_state);
+    }
+  }, [profile?.home_state, stateCode]);
+
+  useEffect(() => {
     if (preserveSelectionForHistoryStateChange.current) {
       preserveSelectionForHistoryStateChange.current = false;
       return;
@@ -400,6 +421,11 @@ export default function WaterReaderScreen() {
     setQuery('');
     setResults([]);
     setCountyFilter(null);
+    setBrowseCounty(null);
+    setNearResults([]);
+    setTopResults([]);
+    setStateCounties([]);
+    setDiscoveryError(null);
     setSearchError(null);
     setSearchEmpty(false);
     setSearchExpanded(false);
@@ -606,9 +632,99 @@ export default function WaterReaderScreen() {
     [query, stateCode],
   );
 
+  const loadDiscovery = useCallback(async (requestId: number) => {
+    if (!stateCode) return;
+    setDiscoveryLoading(true);
+    setDiscoveryError(null);
+    try {
+      const res = await searchWaterbodies({
+        mode: 'featured',
+        state: stateCode,
+        lat: nearbyLocation?.lat,
+        lon: nearbyLocation?.lon,
+        radiusMiles: 50,
+        limit: SEARCH_RESULT_LIMIT,
+      });
+      if (discoveryRequestId.current !== requestId) return;
+      setNearResults(res.nearResults ?? []);
+      setTopResults(res.topResults ?? res.results ?? []);
+      setStateCounties(res.counties ?? []);
+    } catch (e) {
+      if (discoveryRequestId.current !== requestId) return;
+      setDiscoveryError(userFacingSearchError(e));
+      setNearResults([]);
+      setTopResults([]);
+      setStateCounties([]);
+    } finally {
+      if (discoveryRequestId.current === requestId) {
+        setDiscoveryLoading(false);
+      }
+    }
+  }, [nearbyLocation, stateCode]);
+
+  useEffect(() => {
+    const q = query.trim();
+    if (!stateCode || q.length >= SEARCH_MIN_CHARS || browseCounty) return;
+    const id = ++discoveryRequestId.current;
+    void loadDiscovery(id);
+  }, [browseCounty, loadDiscovery, query, stateCode, nearbyLocation]);
+
+  const loadCountyBrowse = useCallback(async (county: string) => {
+    if (!stateCode) return;
+    setBrowseCounty(county);
+    setCountyFilter(null);
+    setSearching(true);
+    setSearchError(null);
+    setSearchEmpty(false);
+    const requestId = ++searchRequestId.current;
+    try {
+      const res = await searchWaterbodies({
+        mode: 'county',
+        state: stateCode,
+        county,
+        limit: SEARCH_RESULT_LIMIT,
+      });
+      if (searchRequestId.current !== requestId) return;
+      setResults(res.results);
+      setSearchEmpty(res.results.length === 0);
+    } catch (e) {
+      if (searchRequestId.current !== requestId) return;
+      setSearchError(userFacingSearchError(e));
+      setResults([]);
+      setSearchEmpty(false);
+    } finally {
+      if (searchRequestId.current === requestId) setSearching(false);
+    }
+  }, [stateCode]);
+
+  const refreshNearby = useCallback(async () => {
+    setNearbyLoading(true);
+    setDiscoveryError(null);
+    try {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setDiscoveryError('Allow location to browse lakes near you.');
+        return;
+      }
+      const loc = await Location.getCurrentPositionAsync({
+        accuracy: Location.Accuracy.Balanced,
+      });
+      setNearbyLocation({
+        lat: loc.coords.latitude,
+        lon: loc.coords.longitude,
+      });
+    } catch {
+      setDiscoveryError('Could not read your location. Try again or pick a county.');
+    } finally {
+      setNearbyLoading(false);
+    }
+  }, []);
   useEffect(() => {
     const q = query.trim();
     if (!stateCode || q.length < SEARCH_MIN_CHARS) {
+      if (q.length === 0) {
+        setBrowseCounty(null);
+      }
       setResults([]);
       setCountyFilter(null);
       setSearchError(null);
@@ -650,6 +766,9 @@ export default function WaterReaderScreen() {
   const onSearchQueryChange = useCallback((value: string) => {
     if (hasBuildingRead) return;
     if (selected) setSelected(null);
+    if (value.trim().length >= SEARCH_MIN_CHARS) {
+      setBrowseCounty(null);
+    }
     setQuery(value);
   }, [hasBuildingRead, selected]);
 
@@ -678,8 +797,13 @@ export default function WaterReaderScreen() {
     setSelected(result);
   }, [canGenerateRead, isLakeInHistory]);
 
+  const isTypingSearch = query.trim().length >= SEARCH_MIN_CHARS;
+  const showDiscoveryPanel =
+    !hasBuildingRead && !selected && Boolean(stateCode) && !isTypingSearch && !browseCounty;
   const showResultsPanel =
-    !hasBuildingRead && !selected && stateCode && (query.trim().length >= SEARCH_MIN_CHARS || searching || (searchError != null && query.trim().length >= SEARCH_MIN_CHARS));
+    !hasBuildingRead && !selected && Boolean(stateCode) &&
+    (isTypingSearch || searching || browseCounty != null ||
+      (searchError != null && isTypingSearch));
 
   const stateNameForEmpty =
     (stateCode && US_STATE_OPTIONS.find((o) => o.code === stateCode)?.name) || 'this state';
@@ -945,10 +1069,88 @@ export default function WaterReaderScreen() {
                     <Text style={styles.searchHint}>
                       Finish the building Water Read before starting another lake.
                     </Text>
-                  ) : !selected && query.trim().length < SEARCH_MIN_CHARS && !searching && (
-                    <Text style={styles.searchHint}>
-                      Type at least 3 letters of the lake name.
-                    </Text>
+                  ) : showDiscoveryPanel && (
+                    <View style={styles.discoveryPanel}>
+                      <View style={styles.discoveryHeaderRow}>
+                        <Text style={styles.discoveryTitle}>FIND A LAKE</Text>
+                        <Pressable
+                          style={({ pressed }) => [
+                            styles.nearMeButton,
+                            pressed && styles.nearMeButtonPressed,
+                          ]}
+                          onPress={() => { void refreshNearby(); }}
+                          disabled={nearbyLoading || discoveryLoading}
+                        >
+                          {nearbyLoading ? (
+                            <ActivityIndicator size="small" color={paper.dashboardInk} />
+                          ) : (
+                            <Ionicons name="navigate-outline" size={13} color={paper.dashboardInk} />
+                          )}
+                          <Text style={styles.nearMeButtonText}>NEAR ME</Text>
+                        </Pressable>
+                      </View>
+                      {discoveryError && (
+                        <Text style={styles.discoveryHint}>{discoveryError}</Text>
+                      )}
+                      {!discoveryError && !nearbyLocation && (
+                        <Text style={styles.discoveryHint}>
+                          Search by name, tap Near Me, or browse by county below.
+                        </Text>
+                      )}
+                      {discoveryLoading && (
+                        <View style={styles.dropdownLoadingRow}>
+                          <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                          <Text style={styles.dropdownLoadingText}>LOADING LAKES…</Text>
+                        </View>
+                      )}
+                      {!discoveryLoading && stateCounties.length > 0 && (
+                        <View style={styles.countyFilterWrap}>
+                          <ScrollView
+                            horizontal
+                            showsHorizontalScrollIndicator={false}
+                            keyboardShouldPersistTaps="handled"
+                            contentContainerStyle={styles.countyFilterContent}
+                          >
+                            {stateCounties.slice(0, 24).map((row) => (
+                              <CountyFilterChip
+                                key={row.county}
+                                label={`${row.county.toUpperCase()} (${row.waterbodyCount})`}
+                                active={browseCounty === row.county}
+                                onPress={() => { void loadCountyBrowse(row.county); }}
+                              />
+                            ))}
+                          </ScrollView>
+                        </View>
+                      )}
+                      {!discoveryLoading && nearResults.length > 0 && (
+                        <View style={styles.discoverySection}>
+                          <Text style={styles.discoverySectionLabel}>NEAR YOU</Text>
+                          {nearResults.slice(0, 8).map((r, idx) => (
+                            <WaterbodyResultRow
+                              key={r.lakeId}
+                              result={r}
+                              idx={idx}
+                              onSelect={onSelectWaterbodyResult}
+                            />
+                          ))}
+                        </View>
+                      )}
+                      {!discoveryLoading && topResults.length > 0 && (
+                        <View style={styles.discoverySection}>
+                          <Text style={styles.discoverySectionLabel}>
+                            {nearResults.length > 0 ? 'POPULAR IN STATE' : 'LAKES IN STATE'}
+                          </Text>
+                          {topResults.slice(0, nearResults.length > 0 ? 6 : 10).map((r, idx) => (
+                            <WaterbodyResultRow
+                              key={r.lakeId}
+                              result={r}
+                              idx={idx}
+                              onSelect={onSelectWaterbodyResult}
+                            />
+                          ))}
+                        </View>
+                      )}
+                    </View>
                   )}
                 </>
               )}
@@ -1006,9 +1208,27 @@ export default function WaterReaderScreen() {
                         color={paper.dashboardMuted}
                       />
                       <Text style={styles.dropdownEmptyText}>
-                        No matching lakes in {stateNameForEmpty}. Try another
-                        spelling or county.
+                        {browseCounty
+                          ? `No searchable lakes found in ${browseCounty} County yet. Try another county or search by name.`
+                          : `No matching lakes in ${stateNameForEmpty}. Try Near Me, pick a county, or another spelling.`}
                       </Text>
+                    </View>
+                  )}
+                  {browseCounty && !searching && results.length > 0 && (
+                    <View style={styles.dropdownCountyBanner}>
+                      <Text style={styles.dropdownCountyBannerText}>
+                        {browseCounty.toUpperCase()} COUNTY
+                      </Text>
+                      <Pressable
+                        onPress={() => {
+                          setBrowseCounty(null);
+                          setResults([]);
+                          setSearchEmpty(false);
+                        }}
+                        hitSlop={8}
+                      >
+                        <Text style={styles.dropdownCountyClear}>CLEAR</Text>
+                      </Pressable>
                     </View>
                   )}
                   {!searching && results.length > 0 && (
@@ -1441,6 +1661,50 @@ function SupportPill({
   );
 }
 
+function WaterbodyResultRow({
+  result,
+  idx,
+  onSelect,
+}: {
+  result: WaterbodySearchResult;
+  idx: number;
+  onSelect: (result: WaterbodySearchResult) => void;
+}) {
+  const open = canOpenWaterReaderRead(result);
+  return (
+    <Pressable
+      style={({ pressed }) => [
+        styles.resultRow,
+        idx > 0 && styles.resultRowDivider,
+        !open && styles.resultRowDisabled,
+        pressed && open && styles.resultRowPressed,
+      ]}
+      onPress={() => onSelect(result)}
+      disabled={!open}
+    >
+      <View style={styles.resultRowMain}>
+        <Text style={styles.resultPrimary} numberOfLines={2}>
+          {resultPrimaryLine(result)}
+        </Text>
+        <Text style={styles.resultSecondary} numberOfLines={2}>
+          {resultSecondaryLine(result)}
+        </Text>
+        {ambiguityLine(result) && (
+          <Text style={styles.resultAmbiguity} numberOfLines={2}>
+            {ambiguityLine(result)}
+          </Text>
+        )}
+        {!open && (
+          <Text style={styles.resultBlocked} numberOfLines={2}>
+            Water Read not available for this row.
+          </Text>
+        )}
+      </View>
+      <SupportPill status={result.waterReaderSupportStatus} compact />
+    </Pressable>
+  );
+}
+
 function CountyFilterChip({
   label,
   active,
@@ -1828,6 +2092,86 @@ const styles = StyleSheet.create({
     fontSize: 12,
     color: '#555555',
     lineHeight: 17,
+  },
+  discoveryPanel: {
+    marginTop: paperSpacing.sm,
+    gap: paperSpacing.sm,
+  },
+  discoveryHeaderRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+  },
+  discoveryTitle: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 1.2,
+    color: paper.dashboardMuted,
+  },
+  nearMeButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: '#FFFFFF',
+  },
+  nearMeButtonPressed: {
+    opacity: 0.82,
+  },
+  nearMeButtonText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 0.8,
+    color: paper.dashboardInk,
+  },
+  discoveryHint: {
+    fontFamily: SANS,
+    fontSize: 12,
+    lineHeight: 17,
+    color: paper.dashboardMuted,
+  },
+  discoverySection: {
+    marginTop: paperSpacing.xs,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+    overflow: 'hidden',
+    backgroundColor: '#FFFFFF',
+  },
+  discoverySectionLabel: {
+    paddingHorizontal: paperSpacing.sm,
+    paddingTop: paperSpacing.sm,
+    paddingBottom: 4,
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 1,
+    color: paper.dashboardMuted,
+  },
+  dropdownCountyBanner: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    paddingHorizontal: paperSpacing.sm,
+    paddingVertical: 8,
+    borderBottomWidth: 1,
+    borderBottomColor: paper.dashboardLine,
+  },
+  dropdownCountyBannerText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 1,
+    color: paper.dashboardInk,
+  },
+  dropdownCountyClear: {
+    fontFamily: MONO_BOLD,
+    fontSize: 10,
+    letterSpacing: 0.8,
+    color: paper.dashboardBlue,
   },
   searchInputWrap: {
     flexDirection: 'row',

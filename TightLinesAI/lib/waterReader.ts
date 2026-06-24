@@ -1,6 +1,7 @@
 import { getValidAccessToken, invokeEdgeFunction } from "./supabase";
 import type {
   WaterbodyPolygonResponse,
+  WaterbodySearchMode,
   WaterbodySearchResponse,
   WaterReaderHistoryResponse,
   WaterReaderReadRequest,
@@ -8,8 +9,13 @@ import type {
 } from "./waterReaderContracts";
 
 export async function searchWaterbodies(params: {
-  query: string;
+  mode?: WaterbodySearchMode;
+  query?: string;
   state?: string;
+  county?: string;
+  lat?: number;
+  lon?: number;
+  radiusMiles?: number;
   limit?: number;
 }): Promise<WaterbodySearchResponse> {
   const token = await getValidAccessToken();
