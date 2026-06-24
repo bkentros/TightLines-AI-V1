@@ -17,7 +17,7 @@ function renderNotFound() {
   );
 }
 
-function renderPage(payload) {
+function renderPage(payload, anonKey) {
   const creatorName = escapeHtml(payload.creator.display_name);
   const appStoreUrl = escapeHtml(payload.app_store_app_url || DEFAULT_APP_STORE_URL);
   const deepLink = escapeHtml(payload.deep_link_url || '');
@@ -25,6 +25,8 @@ function renderPage(payload) {
   const deepLinkJs = JSON.stringify(payload.deep_link_url || '');
   const appStoreJs = JSON.stringify(payload.app_store_app_url || DEFAULT_APP_STORE_URL);
   const referralWebJs = JSON.stringify(payload.referral_web_url || '');
+  const clickTokenJs = JSON.stringify(payload.click_token || '');
+  const supabaseAnonJs = JSON.stringify(anonKey || '');
 
   const attributionScript = payload.referral_web_url
     ? `<script>
@@ -32,6 +34,8 @@ function renderPage(payload) {
   var deepLink = ${deepLinkJs};
   var appStoreUrl = ${appStoreJs};
   var referralWebUrl = ${referralWebJs};
+  var clickToken = ${clickTokenJs};
+  var supabaseAnonKey = ${supabaseAnonJs};
 
   function copyReferralPayload() {
     if (!referralWebUrl || !navigator.clipboard || !navigator.clipboard.writeText) {
@@ -45,6 +49,19 @@ function renderPage(payload) {
   }
 
   copyReferralPayload();
+
+  if (clickToken && supabaseAnonKey) {
+    fetch('${SUPABASE_PROJECT_URL}/functions/v1/creator-referral-enrich', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: supabaseAnonKey,
+      },
+      body: JSON.stringify({ click_token: clickToken }),
+    }).catch(function () {
+      // Non-blocking — install match still tries clipboard + fingerprint in app.
+    });
+  }
 
   function goToAppStore() {
     window.location.href = appStoreUrl;
@@ -180,12 +197,25 @@ export async function onRequest(context) {
     }
   }
 
+  const clientIp = context.request.headers.get('CF-Connecting-IP') ??
+    context.request.headers.get('cf-connecting-ip');
+  const userAgent = context.request.headers.get('User-Agent') ?? '';
+
+  const fetchHeaders = {
+    apikey: anonKey,
+    Authorization: `Bearer ${anonKey}`,
+    Referer: referer ?? '',
+  };
+  if (clientIp) {
+    fetchHeaders['x-forwarded-for'] = clientIp;
+    fetchHeaders['x-real-ip'] = clientIp;
+  }
+  if (userAgent) {
+    fetchHeaders['User-Agent'] = userAgent;
+  }
+
   const response = await fetch(apiUrl.toString(), {
-    headers: {
-      apikey: anonKey,
-      Authorization: `Bearer ${anonKey}`,
-      Referer: referer ?? '',
-    },
+    headers: fetchHeaders,
   });
 
   if (!response.ok) {
@@ -197,5 +227,5 @@ export async function onRequest(context) {
     return renderNotFound();
   }
 
-  return renderPage(payload);
+  return renderPage(payload, anonKey);
 }
