@@ -557,7 +557,6 @@
     function renderFunnel(metrics) {
       const steps = [
         { label: 'Clicks', value: metrics.clicks },
-        { label: 'App opens', value: metrics.appOpens },
         { label: 'Sign-ups', value: metrics.signups },
         { label: 'Paid subs', value: metrics.paidSubs },
       ];
@@ -746,9 +745,8 @@
     }
 
     async function fetchCreatorMetrics(creatorId) {
-      const [clicksRes, appOpensRes, attrRes, ledgerRes] = await Promise.all([
+      const [clicksRes, attrRes, ledgerRes] = await Promise.all([
         supabaseClient.from('referral_clicks').select('id', { count: 'exact', head: true }).eq('creator_id', creatorId),
-        supabaseClient.from('referral_clicks').select('id', { count: 'exact', head: true }).eq('creator_id', creatorId).not('app_opened_at', 'is', null),
         supabaseClient
           .from('user_attributions')
           .select('id, attributed_at')
@@ -762,7 +760,6 @@
           .order('created_at', { ascending: false }),
       ]);
       if (clicksRes.error) throw clicksRes.error;
-      if (appOpensRes.error) throw appOpensRes.error;
       if (attrRes.error) throw attrRes.error;
       if (ledgerRes.error) throw ledgerRes.error;
 
@@ -773,7 +770,6 @@
 
       return {
         clicks: clicksRes.count || 0,
-        appOpens: appOpensRes.count || 0,
         signups,
         paidSubs,
         attributions,
