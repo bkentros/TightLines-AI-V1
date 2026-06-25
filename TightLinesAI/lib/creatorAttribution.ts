@@ -2,7 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import {
   clearPendingInstallyAttribution,
   getPendingInstallyAttribution,
-  syncInstallyUserId,
   trackInstallyInstall,
 } from './installyAttribution';
 import { getOptionalClipboardString } from './optionalClipboard';
@@ -543,8 +542,6 @@ export async function syncCreatorReferralAttribution(
   if (result.ok) {
     await clearPendingInstallyAttribution();
   }
-
-  void syncInstallyUserId(accessToken);
 
   return result;
 }
