@@ -47,6 +47,11 @@ import {
   storeCreatorReferralPendingOnly,
   syncCreatorReferralAttribution,
 } from '../lib/creatorAttribution';
+import {
+  ensureInstallyConfigured,
+  syncInstallyUserId,
+  trackInstallyInstall,
+} from '../lib/installyAttribution';
 import { isCreatorReferralEligible } from '../lib/creatorReferralEligibility';
 import { useAuthStore } from '../store/authStore';
 import { useEnvStore } from '../store/envStore';
@@ -315,10 +320,14 @@ export default function RootLayout() {
     })();
   }, [user?.id, isOnboarded, router]);
 
-  // iOS may show the paste prompt after first launch — retry when the app is active again.
+  // Instally install match + legacy deferred resolve on launch and foreground.
   useEffect(() => {
+    void ensureInstallyConfigured().then(() => trackInstallyInstall());
+    void resolveDeferredCreatorReferral();
+
     const sub = AppState.addEventListener('change', (nextState) => {
       if (nextState === 'active') {
+        void trackInstallyInstall();
         void resolveDeferredCreatorReferral();
       }
     });
@@ -517,6 +526,7 @@ export default function RootLayout() {
         // without this, supabase.functions.invoke() sends no user token.
         if (session?.access_token) {
           supabase.functions.setAuth(session.access_token);
+          void syncInstallyUserId(session.user.id);
         } else {
           supabase.functions.setAuth('');
         }

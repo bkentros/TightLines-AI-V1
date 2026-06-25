@@ -1,4 +1,10 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {
+  clearPendingInstallyAttribution,
+  getPendingInstallyAttribution,
+  syncInstallyUserId,
+  trackInstallyInstall,
+} from './installyAttribution';
 import { getOptionalClipboardString } from './optionalClipboard';
 import { isCreatorReferralEligible } from './creatorReferralEligibility';
 
@@ -232,14 +238,23 @@ function referralFromAttributionResult(
 
 export async function applyCreatorReferral(
   accessToken: string,
-  input: { code: string; referralClickToken?: string | null },
+  input: {
+    code?: string | null;
+    referralClickToken?: string | null;
+    installyClickId?: string | null;
+  },
 ): Promise<CreatorAttributionResult> {
-  const normalized = input.code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '');
-  if (!normalized) {
-    return { ok: false, error: 'invalid_creator_code' };
+  const normalized = input.code?.trim()
+    ? input.code.trim().toUpperCase().replace(/[^A-Z0-9]/g, '')
+    : '';
+  const referralClickToken = input.referralClickToken?.trim() ?? '';
+  const installyClickId = input.installyClickId?.trim() ?? '';
+
+  if (!normalized && !referralClickToken && !installyClickId) {
+    return { ok: false, error: 'referral_click_required' };
   }
 
-  if (input.referralClickToken?.trim()) {
+  if (normalized && input.referralClickToken?.trim()) {
     await recordCreatorReferralAppOpen(
       { code: normalized, referralClickToken: input.referralClickToken },
       'deep_link',
@@ -258,9 +273,12 @@ export async function applyCreatorReferral(
           'x-user-token': accessToken,
         },
         body: JSON.stringify({
-          code: normalized,
+          ...(normalized ? { code: normalized } : {}),
           ...(input.referralClickToken
             ? { referral_click_token: input.referralClickToken }
+            : {}),
+          ...(input.installyClickId
+            ? { instally_click_id: input.installyClickId }
             : {}),
         }),
       },
@@ -356,7 +374,7 @@ type CreatorReferralResolveResult = {
   error?: string;
 };
 
-type ReferralAppOpenMatchMethod = 'clipboard' | 'fingerprint' | 'deep_link' | 'universal_link';
+type ReferralAppOpenMatchMethod = 'clipboard' | 'fingerprint' | 'install_recent' | 'deep_link' | 'universal_link';
 
 function isUuid(value: string): boolean {
   return /^[0-9a-f]{8}-[0-9a-f]{4}-[1-5][0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(
@@ -498,18 +516,37 @@ export async function syncCreatorReferralAttribution(
 ): Promise<CreatorAttributionResult | null> {
   if (!accessToken) return null;
 
+  await trackInstallyInstall();
   await resolveDeferredCreatorReferral();
   await promotePendingReferralToActiveSession();
 
+  const installyPending = await getPendingInstallyAttribution();
   const pending = await getPendingCreatorAttribution();
   const session = await readCreatorLinkSession();
-  const code = session?.code ?? pending?.code;
+
+  const code = session?.code ?? pending?.code ?? '';
   const referralClickToken = session?.referralClickToken ?? pending?.referralClickToken;
-  if (!code?.trim() || !referralClickToken?.trim()) {
+  const installyClickId = installyPending?.matched
+    ? installyPending.clickId
+    : null;
+
+  if (!referralClickToken?.trim() && !installyClickId?.trim()) {
     return null;
   }
 
-  return applyCreatorReferral(accessToken, { code, referralClickToken });
+  const result = await applyCreatorReferral(accessToken, {
+    ...(code.trim() ? { code } : {}),
+    referralClickToken,
+    installyClickId,
+  });
+
+  if (result.ok) {
+    await clearPendingInstallyAttribution();
+  }
+
+  void syncInstallyUserId(accessToken);
+
+  return result;
 }
 
 export function parseCreatorDeepLink(url: string): PendingCreatorAttribution | null {

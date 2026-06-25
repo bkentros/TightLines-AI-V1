@@ -394,7 +394,8 @@ async function createPositiveLedgerRow(
   // earning months 2..N without re-running cross-account guards.
   if (
     userId &&
-    attribution.attribution_source === "direct_link" &&
+    (attribution.attribution_source === "direct_link" ||
+      attribution.attribution_source === "instally") &&
     earningMonth === 1
   ) {
     if (

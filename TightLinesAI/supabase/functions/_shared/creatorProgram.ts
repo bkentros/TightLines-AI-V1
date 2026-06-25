@@ -100,6 +100,101 @@ export const FINGERPRINT_MATCH_WINDOW_HOURS = 72;
 /** Same-network install match when Safari vs app user-agent differs (hours). */
 export const IP_ONLY_INSTALL_MATCH_WINDOW_HOURS = 2;
 
+/**
+ * Last-resort install match when IP/UA drift between Safari click and app open
+ * (e.g. Wi‑Fi → cellular). Uses the newest unmatched click in this window.
+ */
+export const INSTALL_RECENT_CLICK_FALLBACK_MINUTES = 15;
+
+/** Instally probabilistic install match window (hours). */
+export const INSTALLY_INSTALL_MATCH_WINDOW_HOURS = 48;
+
+/** Instally high-confidence match window when only one recent click exists (hours). */
+export const INSTALLY_STRONG_MATCH_WINDOW_HOURS = 2;
+
+export type ReferralClickInstallyCandidate = {
+  id: string;
+  creator_id: string;
+  code: string | null;
+  created_at: string;
+  app_opened_at: string | null;
+  instally_click_id: string | null;
+};
+
+export function isReferralClickWithinInstallyMatchWindow(
+  createdAt: string | null | undefined,
+  nowMs = Date.now(),
+): boolean {
+  if (!createdAt) return false;
+  const clickedAt = Date.parse(createdAt);
+  if (!Number.isFinite(clickedAt)) return false;
+  const windowMs = INSTALLY_INSTALL_MATCH_WINDOW_HOURS * 60 * 60 * 1000;
+  return nowMs - clickedAt <= windowMs;
+}
+
+export function isReferralClickWithinInstallyStrongWindow(
+  createdAt: string | null | undefined,
+  nowMs = Date.now(),
+): boolean {
+  if (!createdAt) return false;
+  const clickedAt = Date.parse(createdAt);
+  if (!Number.isFinite(clickedAt)) return false;
+  const windowMs = INSTALLY_STRONG_MATCH_WINDOW_HOURS * 60 * 60 * 1000;
+  return nowMs - clickedAt <= windowMs;
+}
+
+/**
+ * Picks the portal referral_click row that best matches an Instally install match.
+ * Used when the app has instally_click_id but no clipboard/deep-link token.
+ */
+export function pickReferralClickForInstallyMatch(input: {
+  installyClickId: string;
+  candidates: ReferralClickInstallyCandidate[];
+  attributedClickIds: ReadonlySet<string>;
+  installyEnabledCreatorIds: ReadonlySet<string>;
+  nowMs?: number;
+}): ReferralClickInstallyCandidate | null {
+  const nowMs = input.nowMs ?? Date.now();
+  const clickId = input.installyClickId.trim();
+  if (!clickId) return null;
+
+  const alreadyLinked = input.candidates.find(
+    (row) => row.instally_click_id?.trim() === clickId,
+  );
+  if (alreadyLinked) return alreadyLinked;
+
+  const eligible = input.candidates
+    .filter((row) =>
+      input.installyEnabledCreatorIds.has(row.creator_id) &&
+      !input.attributedClickIds.has(row.id) &&
+      !row.instally_click_id?.trim() &&
+      isReferralClickWithinAttributionWindow(row.created_at, nowMs) &&
+      isReferralClickWithinInstallyMatchWindow(row.created_at, nowMs)
+    )
+    .sort(
+      (a, b) => Date.parse(b.created_at) - Date.parse(a.created_at),
+    );
+
+  if (eligible.length === 0) return null;
+
+  const recentStrong = eligible.filter((row) =>
+    isReferralClickWithinInstallyStrongWindow(row.created_at, nowMs)
+  );
+
+  if (recentStrong.length === 1) return recentStrong[0] ?? null;
+
+  const strongCreators = new Set(recentStrong.map((row) => row.creator_id));
+  if (recentStrong.length > 1 && strongCreators.size === 1) {
+    return recentStrong[0] ?? null;
+  }
+
+  if (input.installyEnabledCreatorIds.size === 1) {
+    return eligible[0] ?? null;
+  }
+
+  return null;
+}
+
 export function isReferralClickWithinAttributionWindow(
   createdAt: string | null | undefined,
   nowMs = Date.now(),
@@ -176,6 +271,17 @@ export function isReferralClickWithinIpOnlyInstallWindow(
   const clickedAt = Date.parse(createdAt);
   if (!Number.isFinite(clickedAt)) return false;
   const windowMs = IP_ONLY_INSTALL_MATCH_WINDOW_HOURS * 60 * 60 * 1000;
+  return nowMs - clickedAt <= windowMs;
+}
+
+export function isReferralClickWithinInstallRecentFallbackWindow(
+  createdAt: string | null | undefined,
+  nowMs = Date.now(),
+): boolean {
+  if (!createdAt) return false;
+  const clickedAt = Date.parse(createdAt);
+  if (!Number.isFinite(clickedAt)) return false;
+  const windowMs = INSTALL_RECENT_CLICK_FALLBACK_MINUTES * 60 * 1000;
   return nowMs - clickedAt <= windowMs;
 }
 
@@ -447,8 +553,15 @@ export const isCreatorOfferEligibleUser = isCreatorReferralEligibleUser;
 export function attributionQualifiesForCommission(attribution: {
   attribution_source: string;
   referral_click_id: string | null;
+  instally_click_id?: string | null;
 }): boolean {
   if (attribution.attribution_source === "manual_admin") return true;
+  if (attribution.attribution_source === "instally") {
+    return Boolean(
+      attribution.instally_click_id?.trim() ||
+        attribution.referral_click_id,
+    );
+  }
   return attribution.attribution_source === "direct_link" &&
     Boolean(attribution.referral_click_id);
 }

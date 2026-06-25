@@ -5,6 +5,7 @@ import {
   isCreatorReferralEligibleUser,
   isUuid,
   normalizeCreatorCode,
+  pickReferralClickForInstallyMatch,
   referralClickQualifiesForAttribution,
   REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS,
 } from "../_shared/creatorProgram.ts";
@@ -51,6 +52,74 @@ function dbErrorCode(error: unknown): string | null {
     return typeof code === "string" ? code : null;
   }
   return null;
+}
+
+async function resolveReferralClickFromInstally(
+  supabase: SupabaseClient,
+  installyClickId: string,
+) {
+  const { data: linked, error: linkedError } = await supabase
+    .from("referral_clicks")
+    .select("id, creator_id, code, created_at, app_opened_at, instally_click_id")
+    .eq("instally_click_id", installyClickId)
+    .maybeSingle();
+  if (linkedError) throw new Error(linkedError.message);
+  if (linked) return linked;
+
+  const { data: installyCreators, error: creatorError } = await supabase
+    .from("creators")
+    .select("id")
+    .eq("status", "active")
+    .not("instally_link_slug", "is", null);
+  if (creatorError) throw new Error(creatorError.message);
+
+  const installyEnabledCreatorIds = new Set(
+    (installyCreators ?? []).map((row) => row.id as string),
+  );
+  if (installyEnabledCreatorIds.size === 0) return null;
+
+  const { data: attributedRows, error: attributedError } = await supabase
+    .from("user_attributions")
+    .select("referral_click_id")
+    .not("referral_click_id", "is", null);
+  if (attributedError) throw new Error(attributedError.message);
+
+  const attributedClickIds = new Set(
+    (attributedRows ?? [])
+      .map((row) => row.referral_click_id as string | null)
+      .filter((value): value is string => Boolean(value)),
+  );
+
+  const windowStart = new Date(
+    Date.now() - 48 * 60 * 60 * 1000,
+  ).toISOString();
+
+  const { data: candidates, error: candidateError } = await supabase
+    .from("referral_clicks")
+    .select(
+      "id, creator_id, code, created_at, app_opened_at, instally_click_id",
+    )
+    .in("creator_id", [...installyEnabledCreatorIds])
+    .gte("created_at", windowStart)
+    .order("created_at", { ascending: false })
+    .limit(50);
+  if (candidateError) throw new Error(candidateError.message);
+
+  const picked = pickReferralClickForInstallyMatch({
+    installyClickId,
+    candidates: candidates ?? [],
+    attributedClickIds,
+    installyEnabledCreatorIds,
+  });
+  if (!picked) return null;
+
+  await supabase
+    .from("referral_clicks")
+    .update({ instally_click_id: installyClickId })
+    .eq("id", picked.id)
+    .is("instally_click_id", null);
+
+  return picked;
 }
 
 async function getActiveAttribution(
@@ -116,62 +185,118 @@ Deno.serve(async (req: Request) => {
     return json({ error: "invalid_json" }, 400);
   }
 
-  const code = normalizeCreatorCode(body.code);
-  if (!code) {
-    return json({ error: "invalid_creator_code" }, 400);
-  }
-
+  let code = normalizeCreatorCode(body.code);
+  const installyClickId = cleanString(body.instally_click_id, 120);
   const referralClickToken = cleanString(
     body.referral_click_token ?? body.referral_click_id,
     120,
   );
-  if (!referralClickToken) {
+
+  if (!referralClickToken && !installyClickId) {
     return json({
       ok: false,
       error: "referral_click_required",
-      message: "Creator referrals require opening the tracked creator link first.",
+      message:
+        "Creator referrals require a tracked creator link or verified install match.",
     }, 400);
   }
-  if (!isUuid(referralClickToken)) {
-    return json({ error: "invalid_referral_click_token" }, 400);
+
+  let referralClickId: string | null = null;
+  let referralClickCreatorId: string | null = null;
+  let referralClickCode: string | null = null;
+  let referralClickCreatedAt: string | null = null;
+  let referralClickAppOpenedAt: string | null = null;
+  let attributionSource: "direct_link" | "instally" = "direct_link";
+
+  if (referralClickToken) {
+    if (!isUuid(referralClickToken)) {
+      return json({ error: "invalid_referral_click_token" }, 400);
+    }
+
+    const { data: clickRow, error: clickLookupError } = await supabase
+      .from("referral_clicks")
+      .select("id, creator_id, code, created_at, app_opened_at")
+      .or(`id.eq.${referralClickToken},click_token.eq.${referralClickToken}`)
+      .maybeSingle();
+    if (clickLookupError) throw new Error(clickLookupError.message);
+
+    if (!clickRow) {
+      return json({
+        ok: false,
+        error: "referral_click_not_found",
+        message:
+          "This creator link session expired or was not opened from a valid referral link.",
+      }, 400);
+    }
+
+    referralClickId = clickRow.id;
+    referralClickCreatorId = clickRow.creator_id;
+    referralClickCode = clickRow.code;
+    referralClickCreatedAt = clickRow.created_at as string;
+    referralClickAppOpenedAt = clickRow.app_opened_at as string | null;
+
+    if (
+      !referralClickQualifiesForAttribution({
+        createdAt: referralClickCreatedAt,
+        appOpenedAt: referralClickAppOpenedAt,
+      })
+    ) {
+      return json({
+        ok: false,
+        error: "referral_click_expired",
+        message:
+          `Creator referrals must sign up within ${REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS} days of clicking the link, or after installing from that link.`,
+      }, 400);
+    }
   }
 
-  const { data: clickRow, error: clickLookupError } = await supabase
-    .from("referral_clicks")
-    .select("id, creator_id, code, created_at, app_opened_at")
-    .or(`id.eq.${referralClickToken},click_token.eq.${referralClickToken}`)
-    .maybeSingle();
-  if (clickLookupError) throw new Error(clickLookupError.message);
+  if (installyClickId) {
+    attributionSource = "instally";
 
-  const referralClickId = clickRow?.id ?? null;
-  const referralClickCreatorId = clickRow?.creator_id ?? null;
-  const referralClickCode = clickRow?.code ?? null;
-  const referralClickCreatedAt = clickRow?.created_at as string | null;
-  const referralClickAppOpenedAt = clickRow?.app_opened_at as string | null;
+    const installyClickRow = referralClickId
+      ? null
+      : await resolveReferralClickFromInstally(supabase, installyClickId);
 
-  if (!referralClickId) {
+    if (installyClickRow && !referralClickId) {
+      referralClickId = installyClickRow.id;
+      referralClickCreatorId = installyClickRow.creator_id;
+      referralClickCode = installyClickRow.code;
+      referralClickCreatedAt = installyClickRow.created_at as string;
+      referralClickAppOpenedAt = installyClickRow.app_opened_at as string | null;
+
+      if (
+        !referralClickQualifiesForAttribution({
+          createdAt: referralClickCreatedAt,
+          appOpenedAt: referralClickAppOpenedAt,
+        })
+      ) {
+        return json({
+          ok: false,
+          error: "referral_click_expired",
+          message:
+            `Creator referrals must sign up within ${REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS} days of clicking the link, or after installing from that link.`,
+        }, 400);
+      }
+    }
+  }
+
+  if (!code) {
+    code = normalizeCreatorCode(referralClickCode);
+  }
+
+  if (!code) {
     return json({
       ok: false,
-      error: "referral_click_not_found",
-      message: "This creator link session expired or was not opened from a valid referral link.",
+      error: "creator_referral_unresolved",
+      message:
+        "Could not match this install to a creator partner. Open FinFindr from the creator link you clicked.",
     }, 400);
   }
 
   if (
-    !referralClickQualifiesForAttribution({
-      createdAt: referralClickCreatedAt,
-      appOpenedAt: referralClickAppOpenedAt,
-    })
+    referralClickCode &&
+    normalizeCreatorCode(referralClickCode) !== code
   ) {
-    return json({
-      ok: false,
-      error: "referral_click_expired",
-      message:
-        `Creator referrals must sign up within ${REFERRAL_CLICK_ATTRIBUTION_WINDOW_DAYS} days of clicking the link, or after installing from that link.`,
-    }, 400);
-  }
-
-  if (referralClickCode && normalizeCreatorCode(referralClickCode) !== code) {
     return json({
       ok: false,
       error: "referral_click_code_mismatch",
@@ -245,7 +370,8 @@ Deno.serve(async (req: Request) => {
         creator_id: creatorRow.id,
         creator_code_id: creatorCode.id,
         referral_click_id: referralClickId,
-        attribution_source: "direct_link",
+        instally_click_id: installyClickId,
+        attribution_source: attributionSource,
         code: creatorCode.code,
         commission_rate_bps_snapshot: creatorRow.commission_rate_bps,
         commission_month_cap_snapshot: creatorRow.commission_month_cap,
@@ -282,9 +408,17 @@ Deno.serve(async (req: Request) => {
       await recordReferralAppOpen(supabase, {
         clickId: referralClickId,
         creatorId: creatorRow.id,
-        matchMethod: "deep_link",
+        matchMethod: installyClickId ? "install_recent" : "deep_link",
         alreadyOpened: false,
       });
+    }
+
+    if (installyClickId && referralClickId) {
+      await supabase
+        .from("referral_clicks")
+        .update({ instally_click_id: installyClickId })
+        .eq("id", referralClickId)
+        .is("instally_click_id", null);
     }
 
     const { data: existingSignupFunnel } = await supabase

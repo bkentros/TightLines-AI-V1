@@ -6,6 +6,7 @@ import {
   FINGERPRINT_MATCH_WINDOW_HOURS,
   isReferralClickWithinAttributionWindow,
   isReferralClickWithinFingerprintWindow,
+  isReferralClickWithinInstallRecentFallbackWindow,
   isReferralClickWithinIpOnlyInstallWindow,
   isUuid,
   normalizeCreatorCode,
@@ -94,6 +95,7 @@ Deno.serve(async (req: Request) => {
     "fingerprint",
     "deep_link",
     "universal_link",
+    "install_recent",
   ]);
   if (!matchMethod || !allowedMethods.has(matchMethod)) {
     return json({ error: "invalid_match_method" }, 400);
@@ -237,6 +239,28 @@ Deno.serve(async (req: Request) => {
       );
     }
 
+    let resolvedMatchMethod: MatchMethod = "fingerprint";
+
+    if (!clickRow) {
+      const { data: recentCandidates, error: recentError } = await supabase
+        .from("referral_clicks")
+        .select(
+          "id, creator_id, code, click_token, created_at, app_opened_at",
+        )
+        .is("app_opened_at", null)
+        .order("created_at", { ascending: false })
+        .limit(10);
+      if (recentError) throw new Error(recentError.message);
+
+      clickRow = (recentCandidates ?? []).find((row) =>
+        isReferralClickWithinInstallRecentFallbackWindow(row.created_at) &&
+        isReferralClickWithinAttributionWindow(row.created_at)
+      );
+      if (clickRow) {
+        resolvedMatchMethod = "install_recent";
+      }
+    }
+
     if (!clickRow) {
       return json({
         ok: false,
@@ -250,7 +274,7 @@ Deno.serve(async (req: Request) => {
       supabase,
       clickRow.id,
       clickRow.creator_id,
-      "fingerprint",
+      resolvedMatchMethod,
       false,
     );
 
@@ -265,7 +289,7 @@ Deno.serve(async (req: Request) => {
 
     return json({
       ok: true,
-      match_method: "fingerprint",
+      match_method: resolvedMatchMethod,
       referral_click_id: clickRow.id,
       click_token: token,
       code,

@@ -13,6 +13,7 @@ import {
   normalizeCommissionMonthCap,
   normalizeCreatorCode,
   nextCreatorEarningMonthNumber,
+  pickReferralClickForInstallyMatch,
   parseCreatorReferralPayload,
   parseRevenueCatWebhookPayload,
   referralClickQualifiesForAttribution,
@@ -117,6 +118,14 @@ Deno.test("creator program: commission requires tracked creator referral", () =>
   );
   assertEquals(
     attributionQualifiesForCommission({
+      attribution_source: "instally",
+      referral_click_id: null,
+      instally_click_id: "clk_123",
+    }),
+    true,
+  );
+  assertEquals(
+    attributionQualifiesForCommission({
       attribution_source: "revenuecat_offer_code",
       referral_click_id: null,
     }),
@@ -129,6 +138,50 @@ Deno.test("creator program: commission requires tracked creator referral", () =>
     }),
     true,
   );
+});
+
+Deno.test("creator program: picks referral click for instally install match", () => {
+  const nowMs = Date.parse("2026-06-15T12:00:00.000Z");
+  const creatorId = "11111111-1111-4111-8111-111111111111";
+  const installyCreators = new Set([creatorId]);
+  const attributed = new Set<string>();
+
+  const picked = pickReferralClickForInstallyMatch({
+    installyClickId: "clk_abc",
+    installyEnabledCreatorIds: installyCreators,
+    attributedClickIds: attributed,
+    nowMs,
+    candidates: [
+      {
+        id: "click-1",
+        creator_id: creatorId,
+        code: "FIN10",
+        created_at: "2026-06-15T11:50:00.000Z",
+        app_opened_at: null,
+        instally_click_id: null,
+      },
+    ],
+  });
+
+  assertEquals(picked?.id, "click-1");
+
+  const alreadyLinked = pickReferralClickForInstallyMatch({
+    installyClickId: "clk_existing",
+    installyEnabledCreatorIds: installyCreators,
+    attributedClickIds: attributed,
+    nowMs,
+    candidates: [
+      {
+        id: "click-linked",
+        creator_id: creatorId,
+        code: "FIN10",
+        created_at: "2026-06-15T11:00:00.000Z",
+        app_opened_at: "2026-06-15T11:05:00.000Z",
+        instally_click_id: "clk_existing",
+      },
+    ],
+  });
+  assertEquals(alreadyLinked?.id, "click-linked");
 });
 
 Deno.test("creator program: parses RevenueCat webhook payloads", () => {

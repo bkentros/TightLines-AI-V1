@@ -20,6 +20,7 @@ export type ReferralAppOpenMatchMethod =
   | "deep_link"
   | "clipboard"
   | "fingerprint"
+  | "install_recent"
   | "universal_link";
 
 /** Idempotent: sets referral_clicks.app_opened_at + inserts funnel app_open once. */

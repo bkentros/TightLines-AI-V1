@@ -28,14 +28,17 @@ function renderPage(payload, anonKey) {
   const clickTokenJs = JSON.stringify(payload.click_token || '');
   const supabaseAnonJs = JSON.stringify(anonKey || '');
 
+  const installyRedirectJs = JSON.stringify(payload.instally_redirect_url || '');
   const attributionScript = payload.referral_web_url
     ? `<script>
 (function () {
   var deepLink = ${deepLinkJs};
   var appStoreUrl = ${appStoreJs};
+  var installyUrl = ${installyRedirectJs};
   var referralWebUrl = ${referralWebJs};
   var clickToken = ${clickTokenJs};
   var supabaseAnonKey = ${supabaseAnonJs};
+  var storeUrl = installyUrl || appStoreUrl;
 
   function copyReferralPayload() {
     if (!referralWebUrl || !navigator.clipboard || !navigator.clipboard.writeText) {
@@ -64,7 +67,7 @@ function renderPage(payload, anonKey) {
   }
 
   function goToAppStore() {
-    window.location.href = appStoreUrl;
+    window.location.href = storeUrl;
   }
 
   function handleAppStoreDownload(event) {

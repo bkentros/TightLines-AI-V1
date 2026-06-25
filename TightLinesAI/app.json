@@ -2,7 +2,7 @@
   "expo": {
     "name": "FinFindr",
     "slug": "tightlines-ai",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -14,7 +14,7 @@
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.finseekr.finfindr",
-      "buildNumber": "18",
+      "buildNumber": "20",
       "infoPlist": {
         "CFBundleDisplayName": "FinFindr",
         "CFBundleName": "FinFindr",

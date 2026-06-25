@@ -14,6 +14,7 @@ type CreatorRow = {
   display_name: string;
   slug: string;
   status: string;
+  instally_link_slug: string | null;
 };
 
 type CreatorCodeRow = {
@@ -93,7 +94,7 @@ Deno.serve(async (req: Request) => {
   try {
     const { data: creator, error: creatorError } = await supabase
       .from("creators")
-      .select("id, display_name, slug, status")
+      .select("id, display_name, slug, status, instally_link_slug")
       .eq("slug", slug)
       .maybeSingle();
     if (creatorError) throw new Error(creatorError.message);
@@ -164,6 +165,10 @@ Deno.serve(async (req: Request) => {
     const referralClickId = clickRow?.id as string;
     const normalizedCode = normalizeCreatorCode(creatorCode.code);
     const referralWebUrl = buildCreatorReferralWebUrl(normalizedCode!, clickToken);
+    const installySlug = creatorRow.instally_link_slug?.trim() ?? null;
+    const installyRedirectUrl = installySlug
+      ? `https://finfindr.instally.io/${installySlug}`
+      : null;
 
     await supabase.from("referral_funnel_events").insert({
       referral_click_id: referralClickId,
@@ -187,6 +192,7 @@ Deno.serve(async (req: Request) => {
           encodeURIComponent(clickToken)
         }`
         : null,
+      instally_redirect_url: installyRedirectUrl,
     });
   } catch (err) {
     const message = err instanceof Error
