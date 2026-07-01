@@ -22,23 +22,26 @@ function renderPage(payload, anonKey) {
   const appStoreUrl = escapeHtml(payload.app_store_app_url || DEFAULT_APP_STORE_URL);
   const deepLink = escapeHtml(payload.deep_link_url || '');
   const referralWebUrl = escapeHtml(payload.referral_web_url || '');
+  const installyUrlRaw = payload.instally_redirect_url || '';
+  const hasInstally = Boolean(installyUrlRaw);
+  // Instally must fingerprint the device before App Store — never fall back to raw App Store href.
+  const downloadHref = escapeHtml(installyUrlRaw || payload.app_store_app_url || DEFAULT_APP_STORE_URL);
   const deepLinkJs = JSON.stringify(payload.deep_link_url || '');
-  const appStoreJs = JSON.stringify(payload.app_store_app_url || DEFAULT_APP_STORE_URL);
+  const downloadHrefJs = JSON.stringify(installyUrlRaw || payload.app_store_app_url || DEFAULT_APP_STORE_URL);
   const referralWebJs = JSON.stringify(payload.referral_web_url || '');
   const clickTokenJs = JSON.stringify(payload.click_token || '');
   const supabaseAnonJs = JSON.stringify(anonKey || '');
+  const hasInstallyJs = hasInstally ? 'true' : 'false';
 
-  const installyRedirectJs = JSON.stringify(payload.instally_redirect_url || '');
   const attributionScript = payload.referral_web_url
     ? `<script>
 (function () {
   var deepLink = ${deepLinkJs};
-  var appStoreUrl = ${appStoreJs};
-  var installyUrl = ${installyRedirectJs};
+  var downloadHref = ${downloadHrefJs};
+  var hasInstally = ${hasInstallyJs};
   var referralWebUrl = ${referralWebJs};
   var clickToken = ${clickTokenJs};
   var supabaseAnonKey = ${supabaseAnonJs};
-  var storeUrl = installyUrl || appStoreUrl;
 
   function copyReferralPayload() {
     if (!referralWebUrl || !navigator.clipboard || !navigator.clipboard.writeText) {
@@ -62,24 +65,56 @@ function renderPage(payload, anonKey) {
       },
       body: JSON.stringify({ click_token: clickToken }),
     }).catch(function () {
-      // Non-blocking — install match still tries clipboard + fingerprint in app.
+      // Non-blocking — Instally + in-app SDK handle install match.
     });
   }
 
-  function goToAppStore() {
-    window.location.href = storeUrl;
+  function goToDownload() {
+    window.location.href = downloadHref;
   }
 
-  function handleAppStoreDownload(event) {
+  function handleDownloadClick(event) {
     if (event) event.preventDefault();
-    copyReferralPayload().finally(goToAppStore);
+    copyReferralPayload().finally(goToDownload);
+  }
+
+  function tryOpenInstalledApp(event) {
+    if (event) event.preventDefault();
+    if (!deepLink) return;
+
+    copyReferralPayload().finally(function () {
+      var leftPage = false;
+      function markLeft() {
+        leftPage = true;
+      }
+      document.addEventListener('visibilitychange', function () {
+        if (document.hidden) markLeft();
+      }, { once: true });
+      window.addEventListener('pagehide', markLeft, { once: true });
+      window.addEventListener('blur', markLeft, { once: true });
+
+      var iframe = document.createElement('iframe');
+      iframe.style.cssText = 'display:none;border:0;width:0;height:0';
+      iframe.setAttribute('aria-hidden', 'true');
+      document.body.appendChild(iframe);
+      try {
+        iframe.contentWindow.location.replace(deepLink);
+      } catch (err) {
+        // Ignore — user can tap Download if the app is not installed.
+      }
+
+      window.setTimeout(function () {
+        if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
+        if (!leftPage && !hasInstally) goToDownload();
+      }, 1200);
+    });
   }
 
   function tryOpenAppThenStore(event) {
     if (event) event.preventDefault();
     copyReferralPayload().finally(function () {
       if (!deepLink) {
-        goToAppStore();
+        goToDownload();
         return;
       }
 
@@ -93,7 +128,6 @@ function renderPage(payload, anonKey) {
       window.addEventListener('pagehide', markLeft, { once: true });
       window.addEventListener('blur', markLeft, { once: true });
 
-      // Hidden iframe avoids Safari's "invalid address" alert when the app is not installed.
       var iframe = document.createElement('iframe');
       iframe.style.cssText = 'display:none;border:0;width:0;height:0';
       iframe.setAttribute('aria-hidden', 'true');
@@ -101,23 +135,23 @@ function renderPage(payload, anonKey) {
       try {
         iframe.contentWindow.location.replace(deepLink);
       } catch (err) {
-        // Ignore — fallback timer sends users to the App Store.
+        // Ignore — fallback sends users through Instally when configured.
       }
 
       window.setTimeout(function () {
         if (iframe.parentNode) iframe.parentNode.removeChild(iframe);
-        if (!leftPage) goToAppStore();
-      }, 1400);
+        if (!leftPage) goToDownload();
+      }, 1200);
     });
   }
 
   var openBtn = document.getElementById('open-app-cta');
   var downloadBtn = document.getElementById('download-app-cta');
-  if (openBtn) {
-    openBtn.addEventListener('click', tryOpenAppThenStore);
-  }
   if (downloadBtn) {
-    downloadBtn.addEventListener('click', handleAppStoreDownload);
+    downloadBtn.addEventListener('click', handleDownloadClick);
+  }
+  if (openBtn) {
+    openBtn.addEventListener('click', hasInstally ? tryOpenInstalledApp : tryOpenAppThenStore);
   }
 })();
 </script>`
@@ -154,8 +188,11 @@ function renderPage(payload, anonKey) {
     <p class="eyebrow">${creatorName}</p>
     <h1>Get FinFindr</h1>
     <p class="tagline">Bite reports, tackle direction, and water intelligence — shared by ${creatorName}.</p>
-    ${deepLink ? `<a id="open-app-cta" class="cta" href="${appStoreUrl}">Get FinFindr</a>` : ''}
-    <a id="download-app-cta" class="cta cta-secondary" href="${appStoreUrl}" rel="noopener noreferrer">Download on the App Store</a>
+    ${hasInstally
+    ? `<a id="download-app-cta" class="cta" href="${downloadHref}" rel="noopener noreferrer">Download on the App Store</a>
+    ${deepLink ? `<a id="open-app-cta" class="cta cta-secondary" href="${deepLink}">Open FinFindr</a>` : ''}`
+    : `${deepLink ? `<a id="open-app-cta" class="cta" href="${downloadHref}">Get FinFindr</a>` : ''}
+    <a id="download-app-cta" class="cta cta-secondary" href="${downloadHref}" rel="noopener noreferrer">Download on the App Store</a>`}
   </main>
   ${attributionScript}
 </body>
