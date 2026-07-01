@@ -267,5 +267,11 @@ export async function onRequest(context) {
     return renderNotFound();
   }
 
+  // Log portal click above, then send straight to Instally — no extra landing tap.
+  const installyRedirect = payload.instally_redirect_url?.trim();
+  if (installyRedirect) {
+    return Response.redirect(installyRedirect, 302);
+  }
+
   return renderPage(payload, anonKey);
 }
