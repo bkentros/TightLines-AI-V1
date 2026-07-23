@@ -30,6 +30,7 @@
     "start:dev-client:ngrok": "bash scripts/start-metro-ngrok.sh",
     "generate:us-city-index": "node scripts/generate-us-city-index.mjs",
     "generate:recommender-gating": "tsx scripts/generate-recommender-gating.ts",
+    "audit:river-run:pm": "deno run --allow-read --allow-write --allow-net=waterservices.usgs.gov scripts/river-run-pm-launch-audit.ts",
     "qa:water-reader-typecheck": "tsc --noEmit",
     "qa:responsive-auth-layout": "tsx scripts/qa-responsive-auth-layout.ts",
     "qa:water-reader-detector": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-detector-qa.ts",

@@ -592,6 +592,7 @@ export default function RootLayout() {
         <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         <Stack.Screen name="water-reader" options={{ headerShown: false }} />
+        <Stack.Screen name="river-run" options={{ headerShown: false }} />
         {/*
           The following five screens used to render the system Stack header
           (a thin grey bar with a default Back button) which clashed with

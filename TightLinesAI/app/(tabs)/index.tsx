@@ -233,9 +233,10 @@ export default function HomeScreen() {
   const lastAutoRefreshAtRef = useRef(0);
   const profileHomeSeedAttemptRef = useRef<string | null>(null);
   const [locationPrefsLoaded, setLocationPrefsLoaded] = useState(false);
-  const [gpsCoords, setGpsCoords] = useState<
-    { lat: number; lon: number } | null
-  >(null);
+  const [gpsCoords, setGpsCoords] = useState<{
+    lat: number;
+    lon: number;
+  } | null>(null);
   const [gpsLocationLabel, setGpsLocationLabel] = useState<string | null>(null);
   const [gpsRegionLabel, setGpsRegionLabel] = useState<string | null>(null);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
@@ -282,12 +283,14 @@ export default function HomeScreen() {
     gpsCoords?.lon,
   ]);
 
-  const locationLabel = useCustom && savedLocation
-    ? savedLocation.label
-    : gpsLocationLabel ?? "Current location";
+  const locationLabel =
+    useCustom && savedLocation
+      ? savedLocation.label
+      : (gpsLocationLabel ?? "Current location");
 
   const gpsLabel = gpsLocationLabel ?? "Current location";
-  const envMatchesCoords = coords != null &&
+  const envMatchesCoords =
+    coords != null &&
     envData != null &&
     envLastCoords != null &&
     Math.abs(envLastCoords.lat - coords.lat) < 0.01 &&
@@ -297,10 +300,7 @@ export default function HomeScreen() {
     : (forecastCoastalEligible ?? false);
 
   // ── Subscription gating ───────────────────────────────────────────────────
-  const effectiveTier = getEffectiveTier(
-    profile,
-    user?.email,
-  );
+  const effectiveTier = getEffectiveTier(profile, user?.email);
   const hasSubscription = canUseAIFeatures(effectiveTier);
   const canGenerateForecast = canGenerateForecastReport(effectiveTier);
 
@@ -320,9 +320,8 @@ export default function HomeScreen() {
         if (cancelled || !geo) return;
         const city = geo.city ?? geo.subregion ?? geo.district;
         const region = geo.region ?? "";
-        const label = city && region
-          ? `${city}, ${region}`
-          : city ?? region ?? null;
+        const label =
+          city && region ? `${city}, ${region}` : (city ?? region ?? null);
         if (!cancelled) {
           setGpsLocationLabel(label);
           setGpsRegionLabel(region || null);
@@ -383,13 +382,7 @@ export default function HomeScreen() {
       if (__DEV__ && ignoreGps) return;
       if (useCustom && savedLocation) return;
       void tryAcquireGpsCoords({ requestIfUndetermined: false });
-    }, [
-      gpsCoords,
-      ignoreGps,
-      useCustom,
-      savedLocation,
-      tryAcquireGpsCoords,
-    ]),
+    }, [gpsCoords, ignoreGps, useCustom, savedLocation, tryAcquireGpsCoords]),
   );
 
   useEffect(() => {
@@ -457,17 +450,13 @@ export default function HomeScreen() {
     }
     const contexts = howFishingMultiContexts(locationCoastalEligible);
     const inMemory = getCurrentMultiRebuild(lat, lon, reportCacheOwnerKey);
-    const hasAllInMemory = inMemory != null &&
-      contexts.every((ctx) => inMemory[ctx] != null);
+    const hasAllInMemory =
+      inMemory != null && contexts.every((ctx) => inMemory[ctx] != null);
     const source = hasAllInMemory
       ? inMemory!
-      : await getCachedMultiRebuild(
-        lat,
-        lon,
-        contexts,
-        reportCacheOwnerKey,
-        { allowLimited: true },
-      );
+      : await getCachedMultiRebuild(lat, lon, contexts, reportCacheOwnerKey, {
+          allowLimited: true,
+        });
     if (req !== cacheMeanRequestSeq.current) return;
     if (!source) {
       setCachedMeanRaw(null);
@@ -486,7 +475,9 @@ export default function HomeScreen() {
     const display = Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1);
     setCachedMeanRaw(meanRaw);
     setCachedScore(display);
-    setCachedScoreExpiresAtMs(Number.isFinite(expiresAtMs) ? expiresAtMs : null);
+    setCachedScoreExpiresAtMs(
+      Number.isFinite(expiresAtMs) ? expiresAtMs : null,
+    );
   }, [coords?.lat, coords?.lon, locationCoastalEligible, reportCacheOwnerKey]);
 
   useEffect(() => {
@@ -594,8 +585,11 @@ export default function HomeScreen() {
           reportCacheOwnerKey,
         );
         if (inMemory && contexts.every((ctx) => inMemory[ctx] != null)) {
-          const meanRaw = contexts.reduce((sum, ctx) =>
-            sum + inMemory[ctx]!.report.score, 0) / contexts.length;
+          const meanRaw =
+            contexts.reduce(
+              (sum, ctx) => sum + inMemory[ctx]!.report.score,
+              0,
+            ) / contexts.length;
           const v = Math.round(meanRaw) / 10;
           setCachedScore(Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1));
         }
@@ -612,7 +606,8 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
-      const wasBackgrounded = appStateRef.current === "background" ||
+      const wasBackgrounded =
+        appStateRef.current === "background" ||
         appStateRef.current === "inactive";
       if (wasBackgrounded && nextAppState === "active") {
         refreshLiveConditions();
@@ -690,9 +685,8 @@ export default function HomeScreen() {
         if (geo) {
           const city = geo.city ?? geo.subregion ?? geo.district;
           const region = geo.region ?? "";
-          label = city && region
-            ? `${city}, ${region}`
-            : city ?? region ?? label;
+          label =
+            city && region ? `${city}, ${region}` : (city ?? region ?? label);
         }
       } catch {
         /* keep default label */
@@ -747,6 +741,11 @@ export default function HomeScreen() {
     router.push("/water-reader");
   }, [router]);
 
+  const handleRiverRunPress = useCallback(() => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    router.push("/river-run");
+  }, [router]);
+
   const handleHowItWorksPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Light);
     router.push("/how-it-works");
@@ -786,27 +785,26 @@ export default function HomeScreen() {
     [locationCoastalEligible],
   );
 
-  const heroScore = cachedMeanRaw != null
-    ? formatScoreDisplay(cachedMeanRaw)
-    : cachedScore;
+  const heroScore =
+    cachedMeanRaw != null ? formatScoreDisplay(cachedMeanRaw) : cachedScore;
   const hasReport = cachedMeanRaw != null;
-  const heroScore10 = cachedMeanRaw != null
-    ? roundedScore10FromRaw(cachedMeanRaw)
-    : null;
+  const heroScore10 =
+    cachedMeanRaw != null ? roundedScore10FromRaw(cachedMeanRaw) : null;
   const heroBand = heroScore10 != null ? paperBandForScore(heroScore10) : null;
   const heroBandStyle = heroBand ? dashboardBandColor[heroBand] : null;
 
-  const forecastDisplayDays =
-    (forecastDays?.filter((d) => d.day_offset > 0) ?? []).slice(
-      0,
-      FORECAST_DAYS_SHOWN,
-    );
-  const lockedForecastSeedDate = forecastDisplayDays[0]?.date ??
-    forecastDays?.find((d) => d.day_offset === 0)?.date ?? "";
+  const forecastDisplayDays = (
+    forecastDays?.filter((d) => d.day_offset > 0) ?? []
+  ).slice(0, FORECAST_DAYS_SHOWN);
+  const lockedForecastSeedDate =
+    forecastDisplayDays[0]?.date ??
+    forecastDays?.find((d) => d.day_offset === 0)?.date ??
+    "";
   const freeForecastPreviewDay =
-    forecastDisplayDays.find((d) =>
-      canViewForecastScore(effectiveTier, d.day_offset) &&
-      d.day_offset === FREE_FORECAST_PREVIEW_DAY_OFFSET
+    forecastDisplayDays.find(
+      (d) =>
+        canViewForecastScore(effectiveTier, d.day_offset) &&
+        d.day_offset === FREE_FORECAST_PREVIEW_DAY_OFFSET,
     ) ?? null;
   const lockedForecastPlaceholders = useMemo(
     () =>
@@ -822,13 +820,13 @@ export default function HomeScreen() {
       ? forecastDisplayDays
       : Array.from({ length: FORECAST_DAYS_SHOWN }).map(() => null)
     : freeForecastPreviewDay
-    ? [freeForecastPreviewDay, ...lockedForecastPlaceholders].slice(
-      0,
-      FORECAST_DAYS_SHOWN,
-    )
-    : lockedForecastPlaceholders.length > 0
-    ? lockedForecastPlaceholders.slice(0, FORECAST_DAYS_SHOWN)
-    : Array.from({ length: FORECAST_DAYS_SHOWN }).map(() => null);
+      ? [freeForecastPreviewDay, ...lockedForecastPlaceholders].slice(
+          0,
+          FORECAST_DAYS_SHOWN,
+        )
+      : lockedForecastPlaceholders.length > 0
+        ? lockedForecastPlaceholders.slice(0, FORECAST_DAYS_SHOWN)
+        : Array.from({ length: FORECAST_DAYS_SHOWN }).map(() => null);
 
   // ── Live wall-clock + greeting ────────────────────────────────────────────
   const [now, setNow] = useState(() => new Date());
@@ -869,14 +867,16 @@ export default function HomeScreen() {
       ),
     [envData?.weather?.cloud_cover, envData?.weather?.precipitation],
   );
-  const windCardinal = envData?.weather?.wind_direction != null
-    ? cardinal8(envData.weather.wind_direction)
-    : null;
+  const windCardinal =
+    envData?.weather?.wind_direction != null
+      ? cardinal8(envData.weather.wind_direction)
+      : null;
   const windMph = envData?.weather?.wind_speed;
   const humidityPct = envData?.weather?.humidity;
-  const pressureInches = envData?.weather?.pressure != null
-    ? (envData.weather.pressure / 33.8639).toFixed(1)
-    : null;
+  const pressureInches =
+    envData?.weather?.pressure != null
+      ? (envData.weather.pressure / 33.8639).toFixed(1)
+      : null;
   const pressureTrendLabel = pressureTrendDisplay(
     envData?.weather?.pressure_trend,
   );
@@ -1068,84 +1068,94 @@ export default function HomeScreen() {
       {/* Light status bar text/icons so they read against the navy header. */}
       <StatusBar style="light" />
       <HomeLayoutPreviewFrame width={layoutPreviewWidth}>
-      <SafeAreaView edges={["top"]} style={styles.safeNav}>
-        <View style={styles.navBar}>
-          <View style={styles.navBarLeft}>
-            <FinFindrEmblemView />
-            <View style={styles.navWordmarkRow}>
-              <Text style={styles.navWordmark}>FinFindr</Text>
-              <Animated.Text
-                style={[styles.navWordmarkPeriod, {
-                  transform: [{ scale: periodPulse }],
-                }]}
+        <SafeAreaView edges={["top"]} style={styles.safeNav}>
+          <View style={styles.navBar}>
+            <View style={styles.navBarLeft}>
+              <FinFindrEmblemView />
+              <View style={styles.navWordmarkRow}>
+                <Text style={styles.navWordmark}>FinFindr</Text>
+                <Animated.Text
+                  style={[
+                    styles.navWordmarkPeriod,
+                    {
+                      transform: [{ scale: periodPulse }],
+                    },
+                  ]}
+                >
+                  .
+                </Animated.Text>
+              </View>
+            </View>
+
+            <View style={styles.navBarRight}>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.livePill,
+                  pressed && { opacity: 0.7 },
+                ]}
+                onPress={() => setShowLocationPicker(true)}
+                hitSlop={8}
               >
-                .
-              </Animated.Text>
+                <Animated.View
+                  style={[styles.livePillDot, { opacity: livePulse }]}
+                />
+                <Text
+                  style={styles.livePillText}
+                  numberOfLines={1}
+                  ellipsizeMode="tail"
+                >
+                  {(locationLabel ?? "LIVE").toUpperCase()}
+                </Text>
+                <Ionicons
+                  name="chevron-down"
+                  size={11}
+                  color="#FFFFFF"
+                  style={{ opacity: 0.7, marginLeft: 1 }}
+                />
+              </Pressable>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.overflowBtn,
+                  pressed && { opacity: 0.7 },
+                ]}
+                onPress={handleSettingsPress}
+                hitSlop={8}
+              >
+                <Ionicons
+                  name="ellipsis-horizontal"
+                  size={16}
+                  color="#FFFFFF"
+                />
+              </Pressable>
             </View>
           </View>
+        </SafeAreaView>
 
-          <View style={styles.navBarRight}>
-            <Pressable
-              style={(
-                { pressed },
-              ) => [styles.livePill, pressed && { opacity: 0.7 }]}
-              onPress={() => setShowLocationPicker(true)}
-              hitSlop={8}
-            >
-              <Animated.View
-                style={[styles.livePillDot, { opacity: livePulse }]}
-              />
-              <Text
-                style={styles.livePillText}
-                numberOfLines={1}
-                ellipsizeMode="tail"
-              >
-                {(locationLabel ?? "LIVE").toUpperCase()}
+        <ScrollView
+          style={styles.scroll}
+          contentContainerStyle={styles.scrollContent}
+          showsVerticalScrollIndicator={false}
+          refreshControl={
+            <RefreshControl
+              refreshing={refreshing}
+              onRefresh={handleRefresh}
+              tintColor={paper.dashboardInk}
+              colors={[paper.dashboardInk]}
+              progressBackgroundColor={paper.dashboardCream}
+            />
+          }
+        >
+          {/* ─── Headline band ───────────────────────────────────────────── */}
+          <View style={styles.headlineBand}>
+            <View style={styles.headlineEyebrowRow}>
+              <Text style={styles.headlineEyebrow}>
+                {hhmm} · {greeting}
               </Text>
-              <Ionicons
-                name="chevron-down"
-                size={11}
-                color="#FFFFFF"
-                style={{ opacity: 0.7, marginLeft: 1 }}
-              />
-            </Pressable>
-            <Pressable
-              style={(
-                { pressed },
-              ) => [styles.overflowBtn, pressed && { opacity: 0.7 }]}
-              onPress={handleSettingsPress}
-              hitSlop={8}
-            >
-              <Ionicons name="ellipsis-horizontal" size={16} color="#FFFFFF" />
-            </Pressable>
-          </View>
-        </View>
-      </SafeAreaView>
+            </View>
 
-      <ScrollView
-        style={styles.scroll}
-        contentContainerStyle={styles.scrollContent}
-        showsVerticalScrollIndicator={false}
-        refreshControl={
-          <RefreshControl
-            refreshing={refreshing}
-            onRefresh={handleRefresh}
-            tintColor={paper.dashboardInk}
-            colors={[paper.dashboardInk]}
-            progressBackgroundColor={paper.dashboardCream}
-          />
-        }
-      >
-        {/* ─── Headline band ───────────────────────────────────────────── */}
-        <View style={styles.headlineBand}>
-          <View style={styles.headlineEyebrowRow}>
-            <Text style={styles.headlineEyebrow}>{hhmm} · {greeting}</Text>
-          </View>
-
-          <View style={styles.headlineWaitingRow}>
-            <View style={styles.headlineWaitingText}>
-              {hasReport && heroBandStyle
-                ? (
+            <View style={styles.headlineWaitingRow}>
+              <View style={styles.headlineWaitingText}>
+                {hasReport && heroBandStyle ? (
                   <>
                     <Text style={styles.headlineWaiting}>
                       {verdictLeading(heroBand!)}
@@ -1157,8 +1167,7 @@ export default function HomeScreen() {
                       <Text style={styles.headlineWaitingDot}>.</Text>
                     </Text>
                   </>
-                )
-                : (
+                ) : (
                   <>
                     <Text style={styles.headlineWaiting}>The water is</Text>
                     <Text style={styles.headlineWaitingItalic}>
@@ -1166,305 +1175,322 @@ export default function HomeScreen() {
                     </Text>
                   </>
                 )}
-            </View>
-            <View pointerEvents="none" style={styles.headlinePines}>
-              <MistyPinesView />
+              </View>
+              <View pointerEvents="none" style={styles.headlinePines}>
+                <MistyPinesView />
+              </View>
             </View>
           </View>
-        </View>
 
-        {/* ─── Live Conditions card ──────────────────────────────────────── */}
-        <View
-          style={styles.liveCard}
-          onLayout={(e) => setScanHeight(e.nativeEvent.layout.height)}
-        >
-          {/* Corner crosses */}
-          <View style={[styles.cornerCross, styles.cornerCrossTL]} />
-          <View style={[styles.cornerCross, styles.cornerCrossTR]} />
-          <View style={[styles.cornerCross, styles.cornerCrossBL]} />
-          <View style={[styles.cornerCross, styles.cornerCrossBR]} />
-
-          {/* Scan line overlay */}
-          {scanHeight > 0 && (
-            <Animated.View
-              pointerEvents="none"
-              style={[
-                styles.scanLine,
-                {
-                  transform: [
-                    {
-                      translateY: scanY.interpolate({
-                        inputRange: [0, 1],
-                        outputRange: [-50, scanHeight + 50],
-                      }),
-                    },
-                  ],
-                },
-              ]}
-            />
-          )}
-
-          {/* Card header bar */}
-          <Pressable
-            style={(
-              { pressed },
-            ) => [styles.liveCardHeader, pressed && { opacity: 0.85 }]}
-            onPress={() => setShowLocationPicker(true)}
-            hitSlop={6}
+          {/* ─── Live Conditions card ──────────────────────────────────────── */}
+          <View
+            style={styles.liveCard}
+            onLayout={(e) => setScanHeight(e.nativeEvent.layout.height)}
           >
-            <View style={styles.liveCardHeaderLeft}>
+            {/* Corner crosses */}
+            <View style={[styles.cornerCross, styles.cornerCrossTL]} />
+            <View style={[styles.cornerCross, styles.cornerCrossTR]} />
+            <View style={[styles.cornerCross, styles.cornerCrossBL]} />
+            <View style={[styles.cornerCross, styles.cornerCrossBR]} />
+
+            {/* Scan line overlay */}
+            {scanHeight > 0 && (
               <Animated.View
-                style={[styles.liveCardHeaderDot, { opacity: livePulse }]}
-              />
-              <Text style={styles.liveCardHeaderLabel} numberOfLines={1}>
-                LIVE · {(locationLabel ?? "Pick a spot").toUpperCase()}
-              </Text>
-            </View>
-            <View style={styles.liveCardHeaderRight}>
-              {coords && (
-                <Text style={styles.liveCardHeaderCoords}>
-                  {coords.lat.toFixed(2)}°N ·{" "}
-                  {Math.abs(coords.lon).toFixed(2)}°W
-                </Text>
-              )}
-              <Ionicons
-                name="chevron-forward"
-                size={14}
-                color={paper.dashboardInk}
-                style={{ opacity: 0.6, marginLeft: 4 }}
-              />
-            </View>
-          </Pressable>
-
-          {/* Body */}
-          <View style={styles.liveCardBody}>
-            <View style={styles.liveCardTopRow}>
-              {/* Optional score chip on the left */}
-              {hasReport && heroBandStyle && (
-                <View
-                  style={[
-                    styles.liveCardScoreChip,
-                    {
-                      backgroundColor: heroBandStyle.chipBg,
-                      borderColor: heroBandStyle.chipBorder,
-                    },
-                  ]}
-                >
-                  <Text
-                    style={[styles.liveCardScoreEyebrow, {
-                      color: heroBandStyle.verdictColor,
-                    }]}
-                  >
-                    TODAY'S SCORE
-                  </Text>
-                  <View style={styles.liveCardScoreNumberRow}>
-                    <Text style={styles.liveCardScoreNumber}>{heroScore}</Text>
-                    <Text style={styles.liveCardScoreUnit}>/10</Text>
-                  </View>
-                  <View
-                    style={[styles.liveCardScoreBandPill, {
-                      backgroundColor: heroBandStyle.bg,
-                    }]}
-                  >
-                    <View
-                      style={[styles.liveCardScoreBandDot, {
-                        backgroundColor: heroBandStyle.fg,
-                      }]}
-                    />
-                    <Text
-                      style={[styles.liveCardScoreBandText, {
-                        color: heroBandStyle.fg,
-                      }]}
-                    >
-                      {heroBandStyle.label.toUpperCase()}
-                    </Text>
-                  </View>
-                </View>
-              )}
-
-              {/* Temp + sparkline — cluster matches reference card height */}
-              <View
+                pointerEvents="none"
                 style={[
-                  styles.liveCardTempSparkCluster,
-                  hasReport && styles.liveCardTempSparkClusterWithScore,
+                  styles.scanLine,
+                  {
+                    transform: [
+                      {
+                        translateY: scanY.interpolate({
+                          inputRange: [0, 1],
+                          outputRange: [-50, scanHeight + 50],
+                        }),
+                      },
+                    ],
+                  },
                 ]}
-              >
-                <View style={styles.liveCardTempCol}>
-                  <View style={styles.liveCardTempRow}>
-                    <Text
-                      style={[
-                        styles.liveCardTempNumber,
-                        !hasReport && styles.liveCardTempNumberSolo,
-                      ]}
-                    >
-                      {currentTemp != null ? Math.round(currentTemp) : "—"}
-                    </Text>
-                    <Text style={styles.liveCardTempUnit}>
-                      {tempUnit || "°F"}
-                    </Text>
-                  </View>
-                  <Text style={styles.liveCardTempSubline}>
-                    {conditionsSubline ?? "Conditions loading…"}
-                  </Text>
-                </View>
+              />
+            )}
 
-                <View style={styles.liveCardSparkCol}>
-                  <Text style={styles.liveCardSparkEyebrow}>
-                    HOURLY TEMP · 6H
-                  </Text>
-                  <SparklineBars
-                    points={sparklinePoints}
-                    width={100}
-                    height={32}
-                  />
-                  {tempTrendDisplay && (
-                    <Text
-                      style={[styles.liveCardSparkTrend, {
-                        color: tempTrendDisplay.color,
-                      }]}
-                    >
-                      {tempTrendDisplay.label}
-                    </Text>
-                  )}
-                </View>
-              </View>
-            </View>
-
-            {/* Today's bite CTA */}
+            {/* Card header bar */}
             <Pressable
-              style={(
-                { pressed },
-              ) => [styles.biteCta, pressed && { opacity: 0.92 }]}
-              onPress={handleHowFishingPress}
-              onLayout={(e) => setShimmerWidth(e.nativeEvent.layout.width)}
+              style={({ pressed }) => [
+                styles.liveCardHeader,
+                pressed && { opacity: 0.85 },
+              ]}
+              onPress={() => setShowLocationPicker(true)}
+              hitSlop={6}
             >
-              {shimmerWidth > 0 && (
+              <View style={styles.liveCardHeaderLeft}>
                 <Animated.View
-                  pointerEvents="none"
-                  style={[
-                    styles.biteCtaShimmer,
-                    {
-                      transform: [
-                        {
-                          translateX: shimmerX.interpolate({
-                            inputRange: [0, 1],
-                            outputRange: [-shimmerWidth, shimmerWidth * 1.5],
-                          }),
-                        },
-                      ],
-                    },
-                  ]}
+                  style={[styles.liveCardHeaderDot, { opacity: livePulse }]}
                 />
-              )}
-              <View style={styles.biteCtaLeft}>
-                <View style={styles.biteCtaIconTile}>
-                  <Ionicons name="pulse" size={16} color="#2A6E96" />
-                </View>
-                <View>
-                  <Text style={styles.biteCtaEyebrow}>TODAY'S BITE</Text>
-                  <Text style={styles.biteCtaTitle}>
-                    {hasReport ? "View today's report" : "Get your read"}
-                  </Text>
-                </View>
+                <Text style={styles.liveCardHeaderLabel} numberOfLines={1}>
+                  LIVE · {(locationLabel ?? "Pick a spot").toUpperCase()}
+                </Text>
               </View>
-              <View style={styles.biteCtaRight}>
-                <BiteCtaWaveView />
-                <View style={styles.biteCtaArrowTile}>
-                  <Ionicons
-                    name="arrow-up"
-                    size={12}
-                    color="#2A6E96"
-                    style={{ transform: [{ rotate: "45deg" }] }}
-                  />
-                </View>
+              <View style={styles.liveCardHeaderRight}>
+                {coords && (
+                  <Text style={styles.liveCardHeaderCoords}>
+                    {coords.lat.toFixed(2)}°N ·{" "}
+                    {Math.abs(coords.lon).toFixed(2)}°W
+                  </Text>
+                )}
+                <Ionicons
+                  name="chevron-forward"
+                  size={14}
+                  color={paper.dashboardInk}
+                  style={{ opacity: 0.6, marginLeft: 4 }}
+                />
               </View>
             </Pressable>
 
-            {/* Metric grid */}
-            <View style={styles.metricsGrid}>
-              <MetricCell
-                icon="leaf-outline"
-                label="WIND"
-                value={windMph != null ? String(Math.round(windMph)) : "—"}
-                unit="mph"
-                sub={windCardinal ?? "—"}
-                divider
-              />
-              <MetricCell
-                icon="water-outline"
-                label="HUMIDITY"
-                value={humidityPct != null
-                  ? String(Math.round(humidityPct))
-                  : "—"}
-                unit="%"
-                sub={humidityDisplay(envData?.weather?.humidity)}
-                divider
-              />
-              <MetricCell
-                icon="thermometer-outline"
-                label="TODAY"
-                value={todayHi != null && todayLo != null
-                  ? `${Math.round(todayHi)}/${Math.round(todayLo)}`
-                  : "—"}
-                unit="°F"
-                sub="HI / LO"
-                divider
-              />
-              <MetricCell
-                icon="speedometer-outline"
-                label="PRESSURE"
-                value={pressureInches ?? "—"}
-                unit="in"
-                sub={pressureTrendLabel}
-              />
-            </View>
+            {/* Body */}
+            <View style={styles.liveCardBody}>
+              <View style={styles.liveCardTopRow}>
+                {/* Optional score chip on the left */}
+                {hasReport && heroBandStyle && (
+                  <View
+                    style={[
+                      styles.liveCardScoreChip,
+                      {
+                        backgroundColor: heroBandStyle.chipBg,
+                        borderColor: heroBandStyle.chipBorder,
+                      },
+                    ]}
+                  >
+                    <Text
+                      style={[
+                        styles.liveCardScoreEyebrow,
+                        {
+                          color: heroBandStyle.verdictColor,
+                        },
+                      ]}
+                    >
+                      TODAY'S SCORE
+                    </Text>
+                    <View style={styles.liveCardScoreNumberRow}>
+                      <Text style={styles.liveCardScoreNumber}>
+                        {heroScore}
+                      </Text>
+                      <Text style={styles.liveCardScoreUnit}>/10</Text>
+                    </View>
+                    <View
+                      style={[
+                        styles.liveCardScoreBandPill,
+                        {
+                          backgroundColor: heroBandStyle.bg,
+                        },
+                      ]}
+                    >
+                      <View
+                        style={[
+                          styles.liveCardScoreBandDot,
+                          {
+                            backgroundColor: heroBandStyle.fg,
+                          },
+                        ]}
+                      />
+                      <Text
+                        style={[
+                          styles.liveCardScoreBandText,
+                          {
+                            color: heroBandStyle.fg,
+                          },
+                        ]}
+                      >
+                        {heroBandStyle.label.toUpperCase()}
+                      </Text>
+                    </View>
+                  </View>
+                )}
 
-            <View style={styles.liveRefreshHint}>
-              <View style={styles.liveRefreshHintIcon}>
-                <Ionicons
-                  name={refreshing ? "sync" : "arrow-down"}
-                  size={10}
-                  color={paper.dashboardBlue}
+                {/* Temp + sparkline — cluster matches reference card height */}
+                <View
+                  style={[
+                    styles.liveCardTempSparkCluster,
+                    hasReport && styles.liveCardTempSparkClusterWithScore,
+                  ]}
+                >
+                  <View style={styles.liveCardTempCol}>
+                    <View style={styles.liveCardTempRow}>
+                      <Text
+                        style={[
+                          styles.liveCardTempNumber,
+                          !hasReport && styles.liveCardTempNumberSolo,
+                        ]}
+                      >
+                        {currentTemp != null ? Math.round(currentTemp) : "—"}
+                      </Text>
+                      <Text style={styles.liveCardTempUnit}>
+                        {tempUnit || "°F"}
+                      </Text>
+                    </View>
+                    <Text style={styles.liveCardTempSubline}>
+                      {conditionsSubline ?? "Conditions loading…"}
+                    </Text>
+                  </View>
+
+                  <View style={styles.liveCardSparkCol}>
+                    <Text style={styles.liveCardSparkEyebrow}>
+                      HOURLY TEMP · 6H
+                    </Text>
+                    <SparklineBars
+                      points={sparklinePoints}
+                      width={100}
+                      height={32}
+                    />
+                    {tempTrendDisplay && (
+                      <Text
+                        style={[
+                          styles.liveCardSparkTrend,
+                          {
+                            color: tempTrendDisplay.color,
+                          },
+                        ]}
+                      >
+                        {tempTrendDisplay.label}
+                      </Text>
+                    )}
+                  </View>
+                </View>
+              </View>
+
+              {/* Today's bite CTA */}
+              <Pressable
+                style={({ pressed }) => [
+                  styles.biteCta,
+                  pressed && { opacity: 0.92 },
+                ]}
+                onPress={handleHowFishingPress}
+                onLayout={(e) => setShimmerWidth(e.nativeEvent.layout.width)}
+              >
+                {shimmerWidth > 0 && (
+                  <Animated.View
+                    pointerEvents="none"
+                    style={[
+                      styles.biteCtaShimmer,
+                      {
+                        transform: [
+                          {
+                            translateX: shimmerX.interpolate({
+                              inputRange: [0, 1],
+                              outputRange: [-shimmerWidth, shimmerWidth * 1.5],
+                            }),
+                          },
+                        ],
+                      },
+                    ]}
+                  />
+                )}
+                <View style={styles.biteCtaLeft}>
+                  <View style={styles.biteCtaIconTile}>
+                    <Ionicons name="pulse" size={16} color="#2A6E96" />
+                  </View>
+                  <View>
+                    <Text style={styles.biteCtaEyebrow}>TODAY'S BITE</Text>
+                    <Text style={styles.biteCtaTitle}>
+                      {hasReport ? "View today's report" : "Get your read"}
+                    </Text>
+                  </View>
+                </View>
+                <View style={styles.biteCtaRight}>
+                  <BiteCtaWaveView />
+                  <View style={styles.biteCtaArrowTile}>
+                    <Ionicons
+                      name="arrow-up"
+                      size={12}
+                      color="#2A6E96"
+                      style={{ transform: [{ rotate: "45deg" }] }}
+                    />
+                  </View>
+                </View>
+              </Pressable>
+
+              {/* Metric grid */}
+              <View style={styles.metricsGrid}>
+                <MetricCell
+                  icon="leaf-outline"
+                  label="WIND"
+                  value={windMph != null ? String(Math.round(windMph)) : "—"}
+                  unit="mph"
+                  sub={windCardinal ?? "—"}
+                  divider
+                />
+                <MetricCell
+                  icon="water-outline"
+                  label="HUMIDITY"
+                  value={
+                    humidityPct != null ? String(Math.round(humidityPct)) : "—"
+                  }
+                  unit="%"
+                  sub={humidityDisplay(envData?.weather?.humidity)}
+                  divider
+                />
+                <MetricCell
+                  icon="thermometer-outline"
+                  label="TODAY"
+                  value={
+                    todayHi != null && todayLo != null
+                      ? `${Math.round(todayHi)}/${Math.round(todayLo)}`
+                      : "—"
+                  }
+                  unit="°F"
+                  sub="HI / LO"
+                  divider
+                />
+                <MetricCell
+                  icon="speedometer-outline"
+                  label="PRESSURE"
+                  value={pressureInches ?? "—"}
+                  unit="in"
+                  sub={pressureTrendLabel}
                 />
               </View>
-              <Text
-                style={styles.liveRefreshHintText}
-                numberOfLines={1}
-                adjustsFontSizeToFit
-                minimumFontScale={0.8}
-              >
-                {refreshing
-                  ? "Checking live conditions..."
-                  : agoSeconds == null
-                  ? "Live conditions ready · hourly updates"
-                  : `Checked ${
-                    formatAgo(agoSeconds).toLowerCase()
-                  } · hourly updates`}
-              </Text>
+
+              <View style={styles.liveRefreshHint}>
+                <View style={styles.liveRefreshHintIcon}>
+                  <Ionicons
+                    name={refreshing ? "sync" : "arrow-down"}
+                    size={10}
+                    color={paper.dashboardBlue}
+                  />
+                </View>
+                <Text
+                  style={styles.liveRefreshHintText}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.8}
+                >
+                  {refreshing
+                    ? "Checking live conditions..."
+                    : agoSeconds == null
+                      ? "Live conditions ready · hourly updates"
+                      : `Checked ${formatAgo(
+                          agoSeconds,
+                        ).toLowerCase()} · hourly updates`}
+                </Text>
+              </View>
             </View>
           </View>
-        </View>
 
-        {/* ─── 6-Day Bite Forecast ───────────────────────────────────────── */}
-        <View style={styles.forecast}>
-          <View style={styles.forecastHeaderRow}>
-            <Text style={styles.forecastEyebrow}>── 6-DAY BITE FORECAST</Text>
-            <Text style={styles.forecastUnit}>
-              <Text style={{ color: paper.bandPrime }}>▲</Text>SCORE / 10
-            </Text>
-          </View>
+          {/* ─── 6-Day Bite Forecast ───────────────────────────────────────── */}
+          <View style={styles.forecast}>
+            <View style={styles.forecastHeaderRow}>
+              <Text style={styles.forecastEyebrow}>── 6-DAY BITE FORECAST</Text>
+              <Text style={styles.forecastUnit}>
+                <Text style={{ color: paper.bandPrime }}>▲</Text>SCORE / 10
+              </Text>
+            </View>
 
-          <View style={styles.forecastGrid}>
-            {forecastTileSlots.map(
-              (day, i) => {
+            <View style={styles.forecastGrid}>
+              {forecastTileSlots.map((day, i) => {
                 if (!day) {
                   return (
                     <View
                       key={`skel-${i}`}
-                      style={[
-                        styles.forecastTile,
-                        styles.forecastTileSkeleton,
-                      ]}
+                      style={[styles.forecastTile, styles.forecastTileSkeleton]}
                     >
                       <View style={styles.forecastTileHeaderSkeleton} />
                       <View style={styles.forecastTileBodySkeleton} />
@@ -1544,20 +1570,18 @@ export default function HomeScreen() {
                   <Pressable
                     key={realDay.date}
                     onPress={() => handleForecastDayPress(realDay)}
-                    style={(
-                      { pressed },
-                    ) => [
+                    style={({ pressed }) => [
                       styles.forecastTile,
                       pressed && { opacity: 0.85 },
                     ]}
-                    accessibilityLabel={isFreePreview
-                      ? "Unlock forecast day report"
-                      : "Open forecast day report"}
+                    accessibilityLabel={
+                      isFreePreview
+                        ? "Unlock forecast day report"
+                        : "Open forecast day report"
+                    }
                   >
                     {isFirst && (
-                      <Text style={styles.forecastTileTomorrow}>
-                        TOMORROW
-                      </Text>
+                      <Text style={styles.forecastTileTomorrow}>TOMORROW</Text>
                     )}
                     <View style={styles.forecastTileHead}>
                       <Text
@@ -1584,9 +1608,12 @@ export default function HomeScreen() {
                       ]}
                     >
                       <Text
-                        style={[styles.forecastTileScore, {
-                          color: paper.dashboardInk,
-                        }]}
+                        style={[
+                          styles.forecastTileScore,
+                          {
+                            color: paper.dashboardInk,
+                          },
+                        ]}
                         numberOfLines={1}
                         adjustsFontSizeToFit
                         minimumFontScale={0.7}
@@ -1608,173 +1635,190 @@ export default function HomeScreen() {
                     </View>
                   </Pressable>
                 );
-              },
-            )}
+              })}
+            </View>
+
+            <Text style={styles.forecastDisclaimer}>
+              Forecast days may change as weather conditions update.
+            </Text>
+
+            <View style={styles.forecastLegend}>
+              {(["Tough", "Poor", "Fair", "Good", "Prime"] as const).map(
+                (b) => (
+                  <View key={b} style={styles.forecastLegendItem}>
+                    <View
+                      style={[
+                        styles.forecastLegendSwatch,
+                        {
+                          backgroundColor: dashboardBandColor[b].bg,
+                        },
+                      ]}
+                    />
+                    <Text style={styles.forecastLegendLabel}>
+                      {b.toUpperCase()}
+                    </Text>
+                  </View>
+                ),
+              )}
+            </View>
           </View>
 
-          <Text style={styles.forecastDisclaimer}>
-            Forecast days may change as weather conditions update.
-          </Text>
+          {/* ─── Intelligence Modules ─────────────────────────────────────── */}
+          <View style={styles.modules}>
+            <View style={styles.modulesHeader}>
+              <Text style={styles.modulesEyebrow}>── INTELLIGENCE MODULES</Text>
+              <Text style={styles.modulesCount}>4 / 4</Text>
+            </View>
 
-          <View style={styles.forecastLegend}>
-            {(["Tough", "Poor", "Fair", "Good", "Prime"] as const).map((b) => (
-              <View key={b} style={styles.forecastLegendItem}>
+            <ModuleRow
+              code="01"
+              title="Water Read"
+              tag="POLYGON"
+              desc="Most lakes: structure + potential hotspots"
+              moduleId="water-read"
+              iconBg={["#E8F2FA", "#C8DFF2"]}
+              iconBorder="#0F63B0"
+              iconColor="#0A4A87"
+              onPress={handleWaterReadPress}
+            />
+            <ModuleRow
+              code="02"
+              title="Tackle Box"
+              tag="RECOMMENDER"
+              desc="Tuned picks for today's conditions & species"
+              moduleId="tackle-box"
+              iconBg={["#FBF1D9", "#F4DFA4"]}
+              iconBorder="#C99B2D"
+              iconColor="#8A6A1A"
+              onPress={handleRecommenderPress}
+            />
+            <ModuleRow
+              code="03"
+              title="Today's Bite"
+              tag="CONDITIONS"
+              desc="Full breakdown · windows · limiting factors"
+              moduleId="todays-bite"
+              iconBg={["#E5F2DD", "#C5E0B5"]}
+              iconBorder="#3DA85F"
+              iconColor="#1F6B38"
+              onPress={handleHowFishingPress}
+            />
+            <ModuleRow
+              code="04"
+              title="River Run"
+              tag="MIGRATION"
+              desc="Stage, schedule, push & fishability for Great Lakes migratory runs"
+              moduleId="river-run"
+              iconBg={["#FBE4E1", "#F3C2BC"]}
+              iconBorder="#C0392B"
+              iconColor="#9A2B20"
+              onPress={handleRiverRunPress}
+              descLines={3}
+            />
+            <Pressable
+              style={({ pressed }) => [
+                styles.howWorksCta,
+                pressed && { opacity: 0.86 },
+              ]}
+              onPress={handleHowItWorksPress}
+              accessibilityRole="button"
+              accessibilityLabel="Open How FinFindr Reads A Day"
+            >
+              <View style={styles.howWorksLeft}>
+                <View style={styles.howWorksIconTile}>
+                  <Ionicons
+                    name="information-circle-outline"
+                    size={15}
+                    color={paper.dashboardBlue}
+                  />
+                </View>
+                <View style={styles.howWorksTextCol}>
+                  <Text style={styles.howWorksEyebrow}>TRANSPARENCY</Text>
+                  <Text style={styles.howWorksTitle}>
+                    How FinFindr reads a day
+                  </Text>
+                </View>
+              </View>
+              <Ionicons
+                name="chevron-forward"
+                size={15}
+                color={paper.dashboardInk}
+                style={{ opacity: 0.62 }}
+              />
+            </Pressable>
+          </View>
+
+          {/* ─── Footer ────────────────────────────────────────────────────── */}
+          <View style={styles.footer}>
+            <View style={styles.footerLeft}>
+              <Ionicons
+                name="boat-outline"
+                size={11}
+                color={paper.dashboardMuted}
+              />
+              <Text style={styles.footerSync}>
+                SYNCED · {agoSeconds == null ? "—" : formatAgo(agoSeconds)}
+              </Text>
+            </View>
+            <View style={styles.footerRight}>
+              <View style={styles.signalBars}>
                 <View
-                  style={[styles.forecastLegendSwatch, {
-                    backgroundColor: dashboardBandColor[b].bg,
-                  }]}
+                  style={[
+                    styles.signalBar,
+                    {
+                      height: 5,
+                      backgroundColor: paper.bandPrime,
+                    },
+                  ]}
                 />
-                <Text style={styles.forecastLegendLabel}>
-                  {b.toUpperCase()}
-                </Text>
-              </View>
-            ))}
-          </View>
-        </View>
-
-        {/* ─── Intelligence Modules ─────────────────────────────────────── */}
-        <View style={styles.modules}>
-          <View style={styles.modulesHeader}>
-            <Text style={styles.modulesEyebrow}>── INTELLIGENCE MODULES</Text>
-            <Text style={styles.modulesCount}>3 / 4</Text>
-          </View>
-
-          <ModuleRow
-            code="01"
-            title="Water Read"
-            tag="POLYGON"
-            desc="Most lakes: structure + potential hotspots"
-            moduleId="water-read"
-            iconBg={["#E8F2FA", "#C8DFF2"]}
-            iconBorder="#0F63B0"
-            iconColor="#0A4A87"
-            onPress={handleWaterReadPress}
-          />
-          <ModuleRow
-            code="02"
-            title="Tackle Box"
-            tag="RECOMMENDER"
-            desc="Tuned picks for today's conditions & species"
-            moduleId="tackle-box"
-            iconBg={["#FBF1D9", "#F4DFA4"]}
-            iconBorder="#C99B2D"
-            iconColor="#8A6A1A"
-            onPress={handleRecommenderPress}
-          />
-          <ModuleRow
-            code="03"
-            title="Today's Bite"
-            tag="CONDITIONS"
-            desc="Full breakdown · windows · limiting factors"
-            moduleId="todays-bite"
-            iconBg={["#E5F2DD", "#C5E0B5"]}
-            iconBorder="#3DA85F"
-            iconColor="#1F6B38"
-            onPress={handleHowFishingPress}
-          />
-          <ModuleRow
-            code="04"
-            title="River Run"
-            tag="MIGRATION"
-            desc="Daily run score, strength & fishability for Great Lakes migratory species"
-            moduleId="river-run"
-            iconBg={["#FBE4E1", "#F3C2BC"]}
-            iconBorder="#C0392B"
-            iconColor="#9A2B20"
-            comingSoon
-            descLines={3}
-          />
-          <Pressable
-            style={({ pressed }) => [
-              styles.howWorksCta,
-              pressed && { opacity: 0.86 },
-            ]}
-            onPress={handleHowItWorksPress}
-            accessibilityRole="button"
-            accessibilityLabel="Open How FinFindr Reads A Day"
-          >
-            <View style={styles.howWorksLeft}>
-              <View style={styles.howWorksIconTile}>
-                <Ionicons
-                  name="information-circle-outline"
-                  size={15}
-                  color={paper.dashboardBlue}
+                <View
+                  style={[
+                    styles.signalBar,
+                    {
+                      height: 7,
+                      backgroundColor: paper.bandPrime,
+                    },
+                  ]}
+                />
+                <View
+                  style={[
+                    styles.signalBar,
+                    {
+                      height: 9,
+                      backgroundColor: paper.bandPrime,
+                    },
+                  ]}
+                />
+                <View
+                  style={[
+                    styles.signalBar,
+                    {
+                      height: 11,
+                      backgroundColor: paper.bandPrime,
+                    },
+                  ]}
                 />
               </View>
-              <View style={styles.howWorksTextCol}>
-                <Text style={styles.howWorksEyebrow}>TRANSPARENCY</Text>
-                <Text style={styles.howWorksTitle}>
-                  How FinFindr reads a day
-                </Text>
-              </View>
+              <Text style={styles.footerStamp}>
+                FINFINDR
+                {gpsRegionLabel || (savedLocation && useCustom) ? " · " : ""}
+                {savedLocation && useCustom
+                  ? regionStamp(savedLocation.label)
+                  : gpsRegionLabel
+                    ? regionStamp(gpsRegionLabel)
+                    : ""}
+              </Text>
             </View>
-            <Ionicons
-              name="chevron-forward"
-              size={15}
-              color={paper.dashboardInk}
-              style={{ opacity: 0.62 }}
-            />
-          </Pressable>
-        </View>
-
-        {/* ─── Footer ────────────────────────────────────────────────────── */}
-        <View style={styles.footer}>
-          <View style={styles.footerLeft}>
-            <Ionicons
-              name="boat-outline"
-              size={11}
-              color={paper.dashboardMuted}
-            />
-            <Text style={styles.footerSync}>
-              SYNCED · {agoSeconds == null ? "—" : formatAgo(agoSeconds)}
-            </Text>
           </View>
-          <View style={styles.footerRight}>
-            <View style={styles.signalBars}>
-              <View
-                style={[styles.signalBar, {
-                  height: 5,
-                  backgroundColor: paper.bandPrime,
-                }]}
-              />
-              <View
-                style={[styles.signalBar, {
-                  height: 7,
-                  backgroundColor: paper.bandPrime,
-                }]}
-              />
-              <View
-                style={[styles.signalBar, {
-                  height: 9,
-                  backgroundColor: paper.bandPrime,
-                }]}
-              />
-              <View
-                style={[styles.signalBar, {
-                  height: 11,
-                  backgroundColor: paper.bandPrime,
-                }]}
-              />
-            </View>
-            <Text style={styles.footerStamp}>
-              FINFINDR{gpsRegionLabel || (savedLocation && useCustom)
-                ? " · "
-                : ""}
-              {savedLocation && useCustom
-                ? regionStamp(savedLocation.label)
-                : (gpsRegionLabel ? regionStamp(gpsRegionLabel) : "")}
-            </Text>
-          </View>
-        </View>
-      </ScrollView>
+        </ScrollView>
       </HomeLayoutPreviewFrame>
 
       {/* Modals */}
       <LocationPickerModal
         visible={showLocationPicker}
-        currentLabel={useCustom && savedLocation
-          ? savedLocation.label
-          : gpsLabel}
+        currentLabel={
+          useCustom && savedLocation ? savedLocation.label : gpsLabel
+        }
         isUsingCustom={useCustom && savedLocation != null}
         savedLocation={savedLocation}
         onSelect={handleLocationSelect}
@@ -1807,13 +1851,15 @@ export default function HomeScreen() {
  * pure RN primitives and doesn't need the react-native-svg native bridge.
  * Visually still reads as "temperature trend over the last 6 hours".
  */
-function SparklineBars(
-  { points, width, height }: {
-    points: number[] | null;
-    width: number;
-    height: number;
-  },
-) {
+function SparklineBars({
+  points,
+  width,
+  height,
+}: {
+  points: number[] | null;
+  width: number;
+  height: number;
+}) {
   if (!points || points.length < 2) {
     return (
       <View
@@ -1933,8 +1979,8 @@ function BiteCtaWaveView() {
     return Array.from({ length: N }, (_, i) => {
       const offset = i / N;
       const inputRange = [0, 0.125, 0.25, 0.375, 0.5, 0.625, 0.75, 0.875, 1];
-      const outputRange = inputRange.map((t) =>
-        Math.sin((t + offset) * 2 * Math.PI) * 4.5
+      const outputRange = inputRange.map(
+        (t) => Math.sin((t + offset) * 2 * Math.PI) * 4.5,
       );
       const sineY = phase.interpolate({ inputRange, outputRange });
       return Animated.multiply(sineY, amp);
@@ -2135,9 +2181,7 @@ function ModuleRow({
 
   return (
     <Pressable
-      style={(
-        { pressed },
-      ) => [
+      style={({ pressed }) => [
         styles.moduleRow,
         { borderLeftWidth: 3, borderLeftColor: iconBorder },
         pressed && { opacity: 0.92, transform: [{ translateY: -1 }] },
@@ -2146,10 +2190,16 @@ function ModuleRow({
     >
       <View style={styles.moduleDots}>
         <View
-          style={[styles.moduleDot, { backgroundColor: iconBorder, opacity: 0.5 }]}
+          style={[
+            styles.moduleDot,
+            { backgroundColor: iconBorder, opacity: 0.5 },
+          ]}
         />
         <View
-          style={[styles.moduleDot, { backgroundColor: iconBorder, opacity: 0.7 }]}
+          style={[
+            styles.moduleDot,
+            { backgroundColor: iconBorder, opacity: 0.7 },
+          ]}
         />
         <View style={[styles.moduleDot, { backgroundColor: iconBorder }]} />
       </View>
@@ -2201,22 +2251,24 @@ function deriveConditionsSubline(
 ): string | null {
   if (cloudCover == null && precip == null) return null;
   const cloud = cloudCover ?? 0;
-  const sky = cloud >= 80
-    ? "Overcast"
-    : cloud >= 50
-    ? "Mostly cloudy"
-    : cloud >= 25
-    ? "Partly cloudy"
-    : "Clear skies";
+  const sky =
+    cloud >= 80
+      ? "Overcast"
+      : cloud >= 50
+        ? "Mostly cloudy"
+        : cloud >= 25
+          ? "Partly cloudy"
+          : "Clear skies";
   const precipMm = precip ?? 0;
   if (precipMm <= 0) return sky;
-  const wet = precipMm < 0.5
-    ? "Light drizzle"
-    : precipMm < 2
-    ? "Light rain"
-    : precipMm < 6
-    ? "Steady rain"
-    : "Heavy rain";
+  const wet =
+    precipMm < 0.5
+      ? "Light drizzle"
+      : precipMm < 2
+        ? "Light rain"
+        : precipMm < 6
+          ? "Steady rain"
+          : "Heavy rain";
   return `${sky} · ${wet}`;
 }
 

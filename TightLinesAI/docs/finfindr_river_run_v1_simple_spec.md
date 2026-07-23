@@ -39,13 +39,20 @@ Each primitive returns:
 ```ts
 type PrimitiveDisplay = {
   label: string;
-  score?: number;
+  score?: number | null;
   headline: string;
   detail: string;
   tip: string;
   reasonCodes: string[];
 };
 ```
+
+Score availability rules:
+
+- Push, Fishability, and Fish In River return `score: number` when available.
+- Push and Fishability return `score: null` and `label: "Unavailable"` when required current-condition inputs are missing.
+- Run Stage and Schedule do not return `score`.
+- Unavailable primitives must still return deterministic headline, detail, tip, and reason codes.
 
 ---
 
@@ -153,7 +160,13 @@ stale: observed snapshot age > 12h and <= 24h
 missing: observed snapshot unavailable or age > 24h
 ```
 
-If weather is stale, use available gauge-driven signals and add stale-weather reason codes. If weather is missing, rain and air-proxy temperature signals are `0`; Schedule becomes `Uncertain` when two or more required non-gauge inputs are missing.
+If weather is stale, use available gauge-driven signals and add stale-weather reason codes. If weather is missing, rain and air-proxy temperature signals are `0`; Schedule becomes `Uncertain` when two or more required non-gauge inputs are missing for yesterday's selected schedule source refresh, or when fewer than 4 of the 7 schedule source dates are usable.
+
+Missing weather must be treated differently from dry weather:
+
+- Dry weather is an observed condition and may map to an unfavorable rain signal for movement-oriented profiles.
+- Missing rain data is unknown, maps to neutral `0`, and must use missing-data reason codes.
+- Missing air-proxy temperature data is unknown, maps to neutral `0`, and must not be described as stable, cooling, or warming.
 
 ### 4.3 Water Temperature
 
@@ -197,7 +210,7 @@ Weather normalization:
 - Compute rain totals in inches over local rolling 24h, 48h, and 72h windows ending at the condition refresh time.
 - Convert precipitation to inches before thresholding.
 - Use the river timezone for daily weather windows.
-- If rain totals are unavailable, rain signal is neutral `0` with a reason code.
+- If rain totals are unavailable, raw rain signal is `missing_rain_data`, contributes neutral `0`, and uses a missing-data reason code.
 
 Temperature normalization:
 
@@ -311,11 +324,14 @@ Rain:
 
 | Raw signal | Definition |
 |---|---|
-| Dry/stale | < 0.10 in over 72h |
+| Missing rain data | Rain totals unavailable |
+| Dry | < 0.10 in over 72h |
 | Light rain | 0.10-0.34 in over 48h |
 | Meaningful rain | 0.35-0.74 in over 48h |
 | Strong rain | 0.75-1.49 in over 48h |
 | Heavy rain | >= 1.50 in over 48h |
+
+`Dry` and `missing_rain_data` must remain separate. Dry is observed evidence. Missing rain data is unknown and contributes neutral `0` before scoring.
 
 Flow/height trend:
 
@@ -347,7 +363,8 @@ Temperature trend:
 | Strong/heavy rain | +2 |
 | Meaningful rain | +1 |
 | Light rain | 0 |
-| Dry/stale | -1 |
+| Dry | -1 |
+| Missing rain data | 0 |
 | Meaningful rise or sharp rise | +2 |
 | Rising | +1 |
 | Stable | 0 |
@@ -364,7 +381,7 @@ Temperature trend:
 |---|---:|
 | Strong/heavy rain | +1 if not blown out |
 | Meaningful rain | +1 |
-| Light rain or dry/stale | 0 |
+| Light rain, dry, or missing rain data | 0 |
 | Meaningful rise | +2 if fishable, 0 if high/very-high |
 | Rising | +1 |
 | Stable fishable flow | +1 |
@@ -381,7 +398,8 @@ Temperature trend:
 |---|---:|
 | Strong/heavy rain | +1 if not blown out |
 | Meaningful rain | +1 |
-| Dry/stale | -1 |
+| Dry | -1 |
+| Missing rain data | 0 |
 | Meaningful rise | +2 if fishable, 0 if high/very-high |
 | Rising | +1 |
 | Stable fishable flow | +1 |
@@ -397,7 +415,8 @@ Temperature trend:
 |---|---:|
 | Strong/heavy rain | +2 if not blown out |
 | Meaningful rain | +1 |
-| Dry/stale | -1 |
+| Dry | -1 |
+| Missing rain data | 0 |
 | Meaningful rise or sharp rise | +2 if fishable |
 | Rising | +1 |
 | Stable | 0 |
@@ -413,7 +432,7 @@ Temperature trend:
 |---|---:|
 | Meaningful/strong rain | 0, or -1 if it destabilizes fishability |
 | Light rain | 0 |
-| Dry/stale | 0 |
+| Dry or missing rain data | 0 |
 | Stable fishable flow | +2 |
 | Rising/falling within fishable band | 0 |
 | Sharp rise or blown out | -2 |
@@ -432,9 +451,9 @@ Default percentile bands:
 |---|---|---|
 | `very_low` | Very low | below p10 |
 | `low` | Low | p10-p25 |
-| `normal_fishable` | Normal/fishable | p25-p35 and p65-p70 |
-| `ideal` | Ideal | p35-p65 |
-| `high_fishable` | High/fishable | p70-p85 |
+| `normal_fishable` | Normal/fishable | p25-p40 |
+| `ideal` | Ideal | p40-p65 |
+| `high_fishable` | High/fishable | p65-p85 |
 | `very_high` | Very high | p85-p90 |
 | `blown_out` | Blown out | above p90 |
 
@@ -573,6 +592,9 @@ export type RiverRunProfile = {
     peakTip?: string;
     endingTip?: string;
   };
+
+  researchNotes?: string;
+  sourceNotes?: string;
 };
 ```
 
@@ -593,6 +615,7 @@ Required validation:
 - Run strength is 1-5.
 - If no fishability override exists, baseline percentiles exist.
 - Temperature source config is valid.
+- Public runs include `researchNotes` or `sourceNotes` for audited run-window and run-strength decisions.
 
 ---
 
@@ -653,6 +676,7 @@ Snapshot/refresh rows must store enough context to explain the output later:
 - Local date
 - Snapshot/refresh timestamps
 - Refresh slot
+- Schedule source dates and selected source refresh slots
 - Gauge values and observed timestamp
 - Flow/height band and trend
 - Rain totals
@@ -660,6 +684,8 @@ Snapshot/refresh rows must store enough context to explain the output later:
 - Derived scores/labels
 - Reason codes
 - Data freshness metadata
+- Data quality label and reason codes
+- Interpretation note reason codes when returned
 - Engine version
 - Config version
 
@@ -762,11 +788,12 @@ Rain/stain proxy score:
 
 | Rain signal | Score |
 |---|---:|
-| dry_stale | 90 |
+| dry | 90 |
 | light_rain | 90 |
 | meaningful_rain | 70 |
 | strong_rain | 45 |
 | heavy_rain | 25 |
+| missing_rain_data | 70 |
 
 Freshness score:
 
@@ -899,24 +926,36 @@ Weather never changes Run Stage.
 
 ### 9.5 Schedule
 
-Schedule is a rolling 7-day progression read, not today's push.
+Schedule is a rolling 7-day progression read from completed days, not today's Push.
 
-For each of the last 7 local dates, compute that day's `favorabilityIndex` using the run's behavior profile.
+For each of the last 7 completed local dates ending yesterday, compute that day's `favorabilityIndex` using the run's behavior profile.
+
+Daily source rule:
+
+```txt
+For each schedule source date:
+  prefer the 16:00 condition refresh
+  else use the 08:00 condition refresh
+  else use the 00:00 condition refresh
+  else mark that date unusable
+```
+
+The daily progression snapshot generated shortly after local midnight must not use same-day conditions for Schedule. Push owns today's movement signal.
 
 Weights:
 
 | Day | Weight |
 |---:|---:|
-| 0 today | 1.50 |
-| -1 | 1.35 |
-| -2 | 1.20 |
-| -3 | 1.00 |
-| -4 | 0.80 |
-| -5 | 0.65 |
-| -6 | 0.50 |
+| -1 yesterday | 1.50 |
+| -2 | 1.35 |
+| -3 | 1.20 |
+| -4 | 1.00 |
+| -5 | 0.80 |
+| -6 | 0.65 |
+| -7 | 0.50 |
 
 ```txt
-progressionIndex = weightedAverage(favorabilityIndex[-6..0])
+progressionIndex = weightedAverage(favorabilityIndex[-7..-1])
 ```
 
 Progression levels:
@@ -946,9 +985,9 @@ Decision table:
 Override rules:
 
 ```txt
-if gauge data is missing: Schedule = Uncertain
+if gauge data is missing for yesterday's selected source refresh: Schedule = Uncertain
 if fewer than 4 of last 7 days are usable: Schedule = Uncertain
-if two or more required non-gauge inputs are missing today: Schedule = Uncertain
+if two or more required non-gauge inputs are missing for yesterday's selected source refresh: Schedule = Uncertain
 if no decision table case matches: Schedule = Uncertain
 ```
 
@@ -986,6 +1025,38 @@ The copy layer must explain disagreements between primitives:
 | Behind Schedule + Strong Push | Today's conditions improved, but the broader 7-day schedule still looks delayed. |
 | Stale gauge | Gauge data is stale; use caution interpreting current river shape. |
 | Air proxy temperature | Cooler/warmer nights may affect the trend; do not claim measured water temperature. |
+
+When any disagreement condition is present, the API must return a first-class `interpretationNote`. It is deterministic copy, not an extra score:
+
+```ts
+type InterpretationNote = {
+  headline: string;
+  detail: string;
+  reasonCodes: string[];
+};
+```
+
+The `interpretationNote` must be omitted only when the five primitives tell a straightforward, non-conflicting story.
+
+The API must also return a data-quality read. This is not travel confidence and must not recommend whether to travel:
+
+```ts
+type DataQuality = {
+  label: 'Fresh' | 'Partial' | 'Stale' | 'Limited';
+  reasonCodes: string[];
+};
+```
+
+Data quality summarizes whether the output is based on fresh gauge/weather data, stale caps, proxy temperature, missing rain/temperature inputs, limited schedule source days, or limited gauge reach quality.
+
+Label rules:
+
+| Label | Definition |
+|---|---|
+| Fresh | Gauge and weather are fresh, no required inputs are missing, no stale caps apply, and at least 6 schedule source days are usable. |
+| Partial | Output is usable, but one non-critical limitation applies, such as air temperature proxy, one missing non-gauge input, or 4-5 usable schedule source days. |
+| Stale | One or more current-condition primitives use stale data and stale caps/copy. |
+| Limited | A current-condition primitive is unavailable, Schedule is `Uncertain` because required inputs are missing, or multiple non-critical limitations apply. |
 
 Required copy examples live in Appendix A.
 
@@ -1050,6 +1121,24 @@ Returns the stable daily progression snapshot plus the latest required 8-hour co
     "label": "Behind",
     "progressionIndex": -1.34,
     "usableDays": 7,
+    "sourceDates": [
+      "2026-09-03",
+      "2026-09-04",
+      "2026-09-05",
+      "2026-09-06",
+      "2026-09-07",
+      "2026-09-08",
+      "2026-09-09"
+    ],
+    "sourceRefreshSlots": {
+      "2026-09-03": "16:00",
+      "2026-09-04": "16:00",
+      "2026-09-05": "16:00",
+      "2026-09-06": "16:00",
+      "2026-09-07": "16:00",
+      "2026-09-08": "16:00",
+      "2026-09-09": "16:00"
+    },
     "headline": "This run may be progressing slower than normal.",
     "detail": "The last week has not strongly favored movement for this run profile.",
     "tip": "Watch for the next cooldown, rain, or river bump.",
@@ -1079,6 +1168,11 @@ Returns the stable daily progression snapshot plus the latest required 8-hour co
     "tip": "Cover water efficiently and prioritize lower-to-middle river areas until stronger push conditions arrive.",
     "reasonCodes": ["building_stage", "run_strength_signature"]
   },
+  "interpretationNote": {
+    "headline": "Fish may be present, but today's movement signal is weak.",
+    "detail": "The calendar is building, while recent rain, flow, and temperature have not lined up for a fresh push.",
+    "reasonCodes": ["building_presence_limited_push"]
+  },
   "gauge": {
     "provider": "USGS",
     "siteId": "04122500",
@@ -1100,6 +1194,10 @@ Returns the stable daily progression snapshot plus the latest required 8-hour co
     "weather": "fresh",
     "waterTemperature": "proxy",
     "scheduleDaysUsable": 7
+  },
+  "dataQuality": {
+    "label": "Partial",
+    "reasonCodes": ["fresh_gauge", "fresh_weather", "air_temperature_proxy"]
   },
   "secondaryNote": "Rain in the next 48 hours may change the push signal.",
   "safety": {
@@ -1127,7 +1225,228 @@ Config remains in version-controlled code.
 
 ---
 
-## 13. Recommended File Structure
+## 13. Implementation Addendum
+
+This section removes build-time ambiguity. If any rule here conflicts with an earlier section, this addendum wins for V1 implementation.
+
+### 13.1 Unavailable Primitive Contract
+
+Unavailable is a display state, not an error response.
+
+For Push and Fishability:
+
+```ts
+{
+  score: null,
+  label: 'Unavailable',
+  headline: string,
+  detail: string,
+  tip: string,
+  reasonCodes: string[]
+}
+```
+
+Unavailable primitives must be returned inside a successful snapshot response when the river/run is valid but required condition data is missing. The endpoint should return an error only when the requested river/run is invalid, hidden, unsupported, or the request is malformed.
+
+Required unavailable labels:
+
+| Primitive | Required missing condition | Label |
+|---|---|---|
+| Push | Gauge missing or older than 24h | Unavailable |
+| Fishability | Gauge missing or older than 24h | Unavailable |
+| Schedule | Schedule override applies | Uncertain |
+
+### 13.2 Canonical Reason Codes
+
+Reason codes are part of the public contract. V1 code may add a new reason code only with a matching test and deterministic copy mapping.
+
+Gauge:
+
+```txt
+gauge_fresh
+gauge_stale
+gauge_missing
+gauge_older_than_24h
+gauge_metric_missing
+gauge_reach_limited
+baseline_missing
+baseline_insufficient_history
+```
+
+Rain/weather:
+
+```txt
+weather_fresh
+weather_stale
+weather_missing
+rain_missing
+dry_72h
+light_rain_48h
+meaningful_rain_48h
+strong_rain_48h
+heavy_rain_48h
+```
+
+Flow/height:
+
+```txt
+flow_trend_unknown
+flow_falling_24h
+flow_stable_24h
+flow_rising_24h
+flow_meaningful_rise_24h
+flow_sharp_rise_24h
+very_low_flow_band
+low_flow_band
+normal_flow_band
+ideal_flow_band
+high_fishable_flow_band
+very_high_flow_band
+blown_out_flow_band
+```
+
+Temperature:
+
+```txt
+temperature_measured
+temperature_adjusted_reference
+temperature_air_proxy
+temperature_unavailable
+temperature_neutral_missing
+temperature_cooling
+temperature_strong_cooling
+temperature_warming
+temperature_strong_warming
+temperature_too_warm_cap
+```
+
+Stage, schedule, and presence:
+
+```txt
+stage_pre_run
+stage_beginning
+stage_building
+stage_peak
+stage_tapering
+stage_ending
+stage_post_run
+schedule_ahead
+schedule_on_schedule
+schedule_behind
+schedule_uncertain
+schedule_limited_source_days
+schedule_missing_yesterday_gauge
+schedule_missing_required_inputs
+run_strength_weak
+run_strength_light
+run_strength_medium
+run_strength_strong
+run_strength_signature
+```
+
+Data quality and interpretation:
+
+```txt
+data_quality_fresh
+data_quality_partial
+data_quality_stale
+data_quality_limited
+building_presence_limited_push
+peak_presence_weak_push
+good_fishability_low_presence
+strong_push_low_fishability
+behind_schedule_strong_push
+pre_run_ahead_schedule
+```
+
+### 13.3 Baseline Generation Contract
+
+Historical baselines are generated from normalized gauge observations only.
+
+Baseline input rules:
+
+- Convert provider observations into the run's canonical primary metric before baseline generation.
+- Collapse observations to one local-date value before computing percentiles.
+- Use the local-date median when multiple observations exist for a date.
+- A local date is unusable when the primary metric is missing, non-numeric, or provider-flagged invalid.
+
+Percentile rules:
+
+- Compute percentiles per day-of-year using a +/- 14 day rolling local-date window.
+- Require at least 2 distinct calendar years in the rolling window.
+- Require at least 20 usable local-date values in the rolling window.
+- Leap day uses the combined Feb 28 to Mar 1 rolling window and must not create a separate required baseline.
+- If a day-of-year fails minimums, no default percentile band is available for that date.
+
+Run validation against baselines:
+
+- If no fishability override exists, at least 90% of dates from `start - earlyWindowDays` through `end + lateWindowDays` must have valid percentile baselines.
+- If that coverage fails, the run is hidden and logged with `baseline_insufficient_history`.
+
+### 13.4 Storage Keys And Idempotency
+
+Required unique keys:
+
+```txt
+river_run_gauge_baselines:
+  riverId + metric + dayOfYear + baselineVersion
+
+river_run_daily_progression_snapshots:
+  riverId + runId + localDate + engineVersion + configVersion
+
+river_run_condition_refreshes:
+  riverId + runId + localDate + refreshSlot + engineVersion + configVersion
+```
+
+Required indexed lookup paths:
+
+```txt
+river_run_daily_progression_snapshots:
+  riverId + runId + localDate
+
+river_run_condition_refreshes:
+  riverId + runId + localDate + refreshSlot
+  riverId + runId + conditionRefreshAt
+```
+
+Refresh generation must be idempotent. If two requests try to create the same daily snapshot or condition refresh, one row wins and both requests return the same stored output.
+
+Snapshot rows should store JSON payload columns for primitive displays, source metrics, freshness, data quality, and interpretation notes, plus scalar columns for lookup keys, timestamps, engine version, and config version.
+
+### 13.5 Launch Config Gate
+
+The launch run may be implemented with a version-controlled config fixture, but it must not be publicly visible until the PM Fall Chinook config is audited.
+
+Required audited fields:
+
+```txt
+riverId
+runId
+runWindow.start
+runWindow.peak
+runWindow.end
+runStrength
+behaviorProfile
+gauge.siteId
+gauge.primaryMetric
+gauge.reachQuality
+waterTemperatureSource
+fishabilityBands override decision
+userCopyHints
+configVersion
+researchNotes/sourceNotes
+```
+
+Audit rule:
+
+```txt
+supportStatus may be beta only after all required audited fields are present.
+supportStatus may be verified only after live gauge/weather integration and acceptance tests pass for the launch slice.
+```
+
+---
+
+## 14. Recommended File Structure
 
 ```txt
 supabase/functions/
@@ -1170,18 +1489,20 @@ supabase/functions/
 
 ---
 
-## 14. Acceptance Tests
+## 15. Acceptance Tests
 
-### 14.1 Launch Run Tests
+### 15.1 Launch Run Tests
 
 - Pere Marquette Fall Chinook config validates.
+- PM Fall Chinook remains hidden until all launch config gate fields are audited.
 - USGS 04122500 primary metric resolves.
 - Weather point resolves.
 - Air proxy temperature resolves when measured water temperature is unavailable.
 - Daily progression snapshot is stable by local date.
+- Daily Schedule uses the last 7 completed local dates ending yesterday.
 - 00:00, 08:00, and 16:00 condition refresh slots are scheduled, and missing slots are generated on first request.
 
-### 14.2 Date/Stage Tests
+### 15.2 Date/Stage Tests
 
 | Scenario | Expected |
 |---|---|
@@ -1194,7 +1515,7 @@ supabase/functions/
 | After taperingEnd before end | Stage Ending |
 | 20 days after end | Stage Post-run, Fish In River very low |
 
-### 14.3 Push Tests
+### 15.3 Push Tests
 
 | Scenario | Expected |
 |---|---|
@@ -1203,10 +1524,11 @@ supabase/functions/
 | Fall cooling: cooling only, neutral rain/flow, fishable band | Possible Push |
 | Fall cooling: strong cooling only, neutral rain/flow, fishable band | Strong Push |
 | Fall cooling: warm/dry/falling | Weak Push |
+| Fall cooling: missing rain data, neutral flow/temp, fishable band | Neutral rain contribution with missing-data reason code |
 | Stale gauge | Push capped at 55 |
-| Missing gauge | Push unavailable |
+| Missing gauge | Push returns `score: null`, `label: "Unavailable"` |
 
-### 14.4 Fishability Tests
+### 15.4 Fishability Tests
 
 | Scenario | Expected |
 |---|---|
@@ -1215,9 +1537,9 @@ supabase/functions/
 | Very low band | Poor/Tough, cap applied |
 | Sharp rise into high band | Fishability capped |
 | Stale gauge | Fishability capped and copy mentions stale data |
-| Missing gauge | Fishability unavailable |
+| Missing gauge | Fishability returns `score: null`, `label: "Unavailable"` |
 
-### 14.5 Profile Coverage Tests
+### 15.5 Profile Coverage Tests
 
 Each behavior profile must have deterministic signal mapping tests:
 
@@ -1227,7 +1549,7 @@ Each behavior profile must have deterministic signal mapping tests:
 - `summer_cool_rain_pulse`
 - `stable_cool_holding`
 
-### 14.6 Copy Matrix Tests
+### 15.6 Copy Matrix Tests
 
 Every reachable Run Stage x Schedule combination returns non-empty copy:
 
@@ -1248,16 +1570,30 @@ Every reachable Run Stage x Schedule combination returns non-empty copy:
 - Ending + Behind
 - Post-run + Uncertain
 
+Disagreement and data-quality tests:
+
+- Peak Stage + Weak Push returns an `interpretationNote`.
+- Good Fishability + Low Fish In River returns an `interpretationNote`.
+- Behind Schedule + Strong Push returns an `interpretationNote`.
+- Fresh gauge/weather with air proxy returns `dataQuality.label = Partial`.
+- Stale gauge returns `dataQuality.label = Stale`.
+- Missing weather inputs return missing-data reason codes and do not describe dry, stable, cooling, or warming conditions.
+- Canonical reason codes have deterministic copy mappings.
+- Baseline generation hides runs with insufficient rolling-window coverage.
+- Snapshot and condition refresh writes are idempotent for their required unique keys.
+
 ---
 
-## 15. Definition Of Done
+## 16. Definition Of Done
 
 River Run V1 is ready when:
 
 - PM Fall Chinook is configured and audited.
+- Launch config gate prevents unaudited runs from becoming visible.
 - The engine can support additional Great Lakes fall runs through config only.
 - Config validation hides invalid runs.
-- Gauge baseline generation works with at least 2 years of history.
+- Gauge baseline generation follows the addendum minimums and works with at least 2 years of usable history.
+- Snapshot and refresh writes are idempotent.
 - Daily progression snapshots are stable by local date.
 - Required 8-hour condition refreshes work.
 - Push and Fishability refresh without changing Stage, Schedule, or Fish In River.
@@ -1265,10 +1601,15 @@ River Run V1 is ready when:
 - Fishability formula and caps match this spec.
 - Push formula and caps match this spec.
 - Fish In River formula and caps match this spec.
-- Schedule smoothing and decision table match this spec.
+- Schedule uses completed source dates, smoothing, and decision table from this spec.
+- Missing rain data remains distinct from observed dry weather.
 - Water temperature uses measured/configured sources when available and air proxy otherwise.
 - Air proxy copy is cautious.
 - Missing/stale gauge behavior works.
+- Unavailable Push/Fishability use `score: null` and `label: "Unavailable"`.
+- Canonical reason codes are covered by tests.
+- Data quality renders without becoming travel confidence.
+- Interpretation notes explain primitive disagreements when present.
 - Unsupported rivers/runs are hidden.
 - Acceptance tests pass.
 - User-facing language avoids over-promising.
