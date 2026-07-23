@@ -422,6 +422,7 @@ async function callCreatorReferralResolve(
         headers: {
           'Content-Type': 'application/json',
           apikey: supabaseAnonKey,
+          Authorization: `Bearer ${supabaseAnonKey}`,
         },
         body: JSON.stringify(body),
       },

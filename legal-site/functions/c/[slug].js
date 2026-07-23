@@ -267,11 +267,81 @@ export async function onRequest(context) {
     return renderNotFound();
   }
 
-  // Log portal click above, then send straight to Instally — no extra landing tap.
+  // Log portal click, copy referral payload for in-app clipboard match, then Instally.
   const installyRedirect = payload.instally_redirect_url?.trim();
-  if (installyRedirect) {
-    return Response.redirect(installyRedirect, 302);
+  if (installyRedirect && payload.referral_web_url) {
+    return renderInstallyRedirectPage(payload, anonKey, installyRedirect);
   }
 
   return renderPage(payload, anonKey);
+}
+
+function renderInstallyRedirectPage(payload, anonKey, installyRedirect) {
+  const creatorName = escapeHtml(payload.creator.display_name);
+  const referralWebJs = JSON.stringify(payload.referral_web_url || '');
+  const clickTokenJs = JSON.stringify(payload.click_token || '');
+  const supabaseAnonJs = JSON.stringify(anonKey || '');
+  const installyJs = JSON.stringify(installyRedirect);
+
+  const html = `<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>${creatorName} · FinFindr</title>
+  <meta http-equiv="refresh" content="2;url=${escapeHtml(installyRedirect)}" />
+  <style>
+    body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+      font-family:-apple-system,BlinkMacSystemFont,sans-serif; background:#eaf5fc; color:#07192b; }
+    p { font-size:15px; opacity:.85; }
+  </style>
+</head>
+<body>
+  <p>Opening the App Store…</p>
+  <script>
+(function () {
+  var referralWebUrl = ${referralWebJs};
+  var clickToken = ${clickTokenJs};
+  var supabaseAnonKey = ${supabaseAnonJs};
+  var installyUrl = ${installyJs};
+
+  function copyReferralPayload() {
+    if (!referralWebUrl || !navigator.clipboard || !navigator.clipboard.writeText) {
+      return Promise.resolve(false);
+    }
+    return navigator.clipboard.writeText(referralWebUrl).then(function () {
+      return true;
+    }).catch(function () {
+      return false;
+    });
+  }
+
+  if (clickToken && supabaseAnonKey) {
+    fetch('${SUPABASE_PROJECT_URL}/functions/v1/creator-referral-enrich', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        apikey: supabaseAnonKey,
+      },
+      body: JSON.stringify({ click_token: clickToken }),
+    }).catch(function () {});
+  }
+
+  copyReferralPayload().finally(function () {
+    window.setTimeout(function () {
+      window.location.replace(installyUrl);
+    }, 120);
+  });
+})();
+  </script>
+</body>
+</html>`;
+
+  return new Response(html, {
+    status: 200,
+    headers: {
+      'Content-Type': 'text/html; charset=utf-8',
+      'Cache-Control': 'no-store',
+    },
+  });
 }

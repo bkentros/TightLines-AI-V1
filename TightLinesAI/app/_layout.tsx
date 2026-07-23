@@ -1,5 +1,13 @@
 import { useEffect, useRef, useState } from 'react';
-import { Animated, AppState, Easing, LogBox, View, Text, StyleSheet } from 'react-native';
+import {
+  Animated,
+  AppState,
+  Easing,
+  LogBox,
+  View,
+  Text,
+  StyleSheet,
+} from 'react-native';
 import { Stack, usePathname, useRouter, useSegments } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import * as Linking from 'expo-linking';
@@ -161,10 +169,8 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
   useEffect(() => {
     if (isLoading) return;
 
-    const { inAuth, inOnboarding, inAuthEmailConfirm, inPublicLegal } = routeContextFlags(
-      pathname,
-      segments as string[],
-    );
+    const { inAuth, inOnboarding, inAuthEmailConfirm, inPublicLegal } =
+      routeContextFlags(pathname, segments as string[]);
     const inResetPassword = segments.includes('reset-password');
 
     // Email PKCE: redirect as soon as `exchangeCodeForSession` sets session.
@@ -190,7 +196,8 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
     if (isProfileLoading) return;
 
     if (!session) {
-      if (!inAuth && !inAuthEmailConfirm && !inPublicLegal) router.replace('/(auth)/welcome');
+      if (!inAuth && !inAuthEmailConfirm && !inPublicLegal)
+        router.replace('/(auth)/welcome');
       return;
     }
 
@@ -219,10 +226,12 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
 
 export default function RootLayout() {
   const router = useRouter();
-  const { hydrate, setSession, setProfile, fetchProfile, user, isOnboarded } = useAuthStore();
+  const { hydrate, setSession, setProfile, fetchProfile, user, isOnboarded } =
+    useAuthStore();
   const initializeRevenueCat = useRevenueCatStore((s) => s.initialize);
   const resetRevenueCat = useRevenueCatStore((s) => s.reset);
-  const [passwordRecoveryInFlight, setPasswordRecoveryInFlight] = useState(false);
+  const [passwordRecoveryInFlight, setPasswordRecoveryInFlight] =
+    useState(false);
   const routingPendingCreatorRef = useRef(false);
 
   const [fontsLoaded] = useFonts({
@@ -320,15 +329,23 @@ export default function RootLayout() {
     })();
   }, [user?.id, isOnboarded, router]);
 
-  // Instally install match + legacy deferred resolve on launch and foreground.
+  // Instally install match + deferred resolve on launch and foreground.
   useEffect(() => {
-    void ensureInstallyConfigured().then(() => trackInstallyInstall());
-    void resolveDeferredCreatorReferral();
+    const runDeferredAttribution = () => {
+      void ensureInstallyConfigured().then(() => trackInstallyInstall());
+      void resolveDeferredCreatorReferral().then(() => {
+        const authState = useAuthStore.getState();
+        if (authState.isOnboarded && authState.session?.access_token) {
+          void syncCreatorReferralAttribution(authState.session.access_token);
+        }
+      });
+    };
+
+    runDeferredAttribution();
 
     const sub = AppState.addEventListener('change', (nextState) => {
       if (nextState === 'active') {
-        void trackInstallyInstall();
-        void resolveDeferredCreatorReferral();
+        runDeferredAttribution();
       }
     });
     return () => sub.remove();
@@ -357,7 +374,8 @@ export default function RootLayout() {
           return;
         }
 
-        const { hasAngler: storeHasAngler, customerInfo } = useRevenueCatStore.getState();
+        const { hasAngler: storeHasAngler, customerInfo } =
+          useRevenueCatStore.getState();
         const profileTier = authState.profile?.subscription_tier;
         const eligible = isCreatorReferralEligible({
           customerInfo,
@@ -388,11 +406,14 @@ export default function RootLayout() {
       if (hash) {
         hash.split('&').forEach((pair) => {
           const [k, v] = pair.split('=');
-          if (k && v) fragmentParams[decodeURIComponent(k)] = decodeURIComponent(v);
+          if (k && v)
+            fragmentParams[decodeURIComponent(k)] = decodeURIComponent(v);
         });
       }
       const params = { ...queryParams, ...fragmentParams };
-      const type = linkingParam(params['type'] as string | string[] | undefined);
+      const type = linkingParam(
+        params['type'] as string | string[] | undefined,
+      );
       const isRecoveryLink = isPasswordResetLink(params);
       const hasAuthPayload =
         Boolean(params['access_token'] && params['refresh_token']) ||
@@ -403,8 +424,12 @@ export default function RootLayout() {
         setPasswordRecoveryInFlight(true);
       }
 
-      const accessToken = linkingParam(params['access_token'] as string | string[] | undefined);
-      const refreshToken = linkingParam(params['refresh_token'] as string | string[] | undefined);
+      const accessToken = linkingParam(
+        params['access_token'] as string | string[] | undefined,
+      );
+      const refreshToken = linkingParam(
+        params['refresh_token'] as string | string[] | undefined,
+      );
       if (accessToken && refreshToken) {
         const { data, error } = await supabase.auth.setSession({
           access_token: accessToken,
@@ -413,7 +438,8 @@ export default function RootLayout() {
         if (!error && data.session) {
           const shouldReset =
             isRecoveryLink ||
-            (!type && (await hasExistingCompletedProfile(data.session.user.id)));
+            (!type &&
+              (await hasExistingCompletedProfile(data.session.user.id)));
           setSession(data.session);
           void fetchProfile(data.session.user.id);
           if (shouldReset) {
@@ -427,16 +453,23 @@ export default function RootLayout() {
         return;
       }
 
-      const authCode = linkingParam(params['code'] as string | string[] | undefined);
+      const authCode = linkingParam(
+        params['code'] as string | string[] | undefined,
+      );
       if (authCode) {
-        const { data, error } = await supabase.auth.exchangeCodeForSession(authCode);
+        const { data, error } =
+          await supabase.auth.exchangeCodeForSession(authCode);
         if (__DEV__ && error) {
-          console.warn('[deep link] exchangeCodeForSession failed', error.message);
+          console.warn(
+            '[deep link] exchangeCodeForSession failed',
+            error.message,
+          );
         }
         if (!error && data.session) {
           const shouldReset =
             isRecoveryLink ||
-            (!type && (await hasExistingCompletedProfile(data.session.user.id)));
+            (!type &&
+              (await hasExistingCompletedProfile(data.session.user.id)));
           setSession(data.session);
           void fetchProfile(data.session.user.id);
           if (shouldReset) {
@@ -451,10 +484,14 @@ export default function RootLayout() {
       }
 
       const tokenHash = linkingParam(
-        (params['token_hash'] ?? params['token']) as string | string[] | undefined,
+        (params['token_hash'] ?? params['token']) as
+          string | string[] | undefined,
       );
       if (tokenHash && type) {
-        const otpType = type === 'signup' ? 'signup' : type as 'email' | 'recovery' | 'invite';
+        const otpType =
+          type === 'signup'
+            ? 'signup'
+            : (type as 'email' | 'recovery' | 'invite');
         const { data, error } = await supabase.auth.verifyOtp({
           token_hash: tokenHash,
           type: otpType,
@@ -573,28 +610,28 @@ export default function RootLayout() {
         <StatusBar style="dark" />
         <AnglerUnlockedModal />
         <Stack
-        screenOptions={{
-          headerStyle: { backgroundColor: paper.dashboardInk },
-          headerTintColor: '#FFFFFF',
-          headerTitleStyle: {
-            fontFamily: paperFonts.display,
-            fontSize: 17,
-            color: '#FFFFFF',
-          },
-          headerShadowVisible: false,
-          contentStyle: { backgroundColor: paper.dashboardCream },
-          headerBackTitle: '',
-        }}
-      >
-        <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-        <Stack.Screen name="auth" options={{ headerShown: false }} />
-        <Stack.Screen name="legal" options={{ headerShown: false }} />
-        <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="water-reader" options={{ headerShown: false }} />
-        <Stack.Screen name="river-run" options={{ headerShown: false }} />
-        {/*
-          The following five screens used to render the system Stack header
+          screenOptions={{
+            headerStyle: { backgroundColor: paper.dashboardInk },
+            headerTintColor: '#FFFFFF',
+            headerTitleStyle: {
+              fontFamily: paperFonts.display,
+              fontSize: 17,
+              color: '#FFFFFF',
+            },
+            headerShadowVisible: false,
+            contentStyle: { backgroundColor: paper.dashboardCream },
+            headerBackTitle: '',
+          }}
+        >
+          <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+          <Stack.Screen name="auth" options={{ headerShown: false }} />
+          <Stack.Screen name="legal" options={{ headerShown: false }} />
+          <Stack.Screen name="(onboarding)" options={{ headerShown: false }} />
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+          <Stack.Screen name="water-reader" options={{ headerShown: false }} />
+          <Stack.Screen name="river-run" options={{ headerShown: false }} />
+          {/*
+          The following screens used to render the system Stack header
           (a thin grey bar with a default Back button) which clashed with
           the FinFindr paper voice everywhere else. They now render their
           own <PaperNavHeader> inside the screen body — the editorial
@@ -602,25 +639,22 @@ export default function RootLayout() {
           Keep `headerShown: false` here so the system bar does not draw
           on top of it.
         */}
-        <Stack.Screen name="new-entry" options={{ headerShown: false }} />
-        <Stack.Screen name="log-detail" options={{ headerShown: false }} />
-        <Stack.Screen name="personal-bests" options={{ headerShown: false }} />
-        <Stack.Screen name="subscribe" options={{ headerShown: false }} />
-        <Stack.Screen name="support" options={{ headerShown: false }} />
-        <Stack.Screen name="how-it-works" options={{ headerShown: false }} />
-        <Stack.Screen
-          name="recommender"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="how-fishing"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="how-fishing-results"
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen name="analytics" options={{ headerShown: false }} />
+          <Stack.Screen name="new-entry" options={{ headerShown: false }} />
+          <Stack.Screen name="log-detail" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="personal-bests"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="subscribe" options={{ headerShown: false }} />
+          <Stack.Screen name="support" options={{ headerShown: false }} />
+          <Stack.Screen name="how-it-works" options={{ headerShown: false }} />
+          <Stack.Screen name="recommender" options={{ headerShown: false }} />
+          <Stack.Screen name="how-fishing" options={{ headerShown: false }} />
+          <Stack.Screen
+            name="how-fishing-results"
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen name="analytics" options={{ headerShown: false }} />
         </Stack>
       </AnalyticsProvider>
     </AppErrorBoundary>
@@ -670,8 +704,18 @@ function BootScreen() {
           or react-native-svg up before the font bundle resolves. */}
       <View style={styles.bootTopo} pointerEvents="none">
         <View style={[styles.bootTopoLine, { width: 220, opacity: 0.28 }]} />
-        <View style={[styles.bootTopoLine, { width: 180, opacity: 0.22, marginTop: 14 }]} />
-        <View style={[styles.bootTopoLine, { width: 240, opacity: 0.18, marginTop: 14 }]} />
+        <View
+          style={[
+            styles.bootTopoLine,
+            { width: 180, opacity: 0.22, marginTop: 14 },
+          ]}
+        />
+        <View
+          style={[
+            styles.bootTopoLine,
+            { width: 240, opacity: 0.18, marginTop: 14 },
+          ]}
+        />
       </View>
       <Text style={styles.bootEyebrow}>— FINFINDR · BOOTING —</Text>
       <Text style={styles.bootTitle}>FINFINDR</Text>
