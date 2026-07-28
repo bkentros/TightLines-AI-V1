@@ -4,10 +4,13 @@ import {
   canonicalMonthDayFromBaselineDay,
   fetchUsgsDailyFlowBaselineObservations,
   generateGaugeBaselineRows,
+  getPrimaryHydraulicSource,
+  getRunTemperatureSources,
   type NormalizedBaselineObservation,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   resolveActiveRunWindow,
+  resolveConditionsSuggestCheckpoints,
   validateRiverProfile,
   validateRunProfile,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
@@ -42,13 +45,14 @@ const baselineVersion = args.baselineVersion ?? "pm-launch-audit";
 const auditYear = args.year ?? new Date().getUTCFullYear();
 const river = PERE_MARQUETTE_RIVER_PROFILE;
 const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
-const metric = river.gauge.primaryMetric;
+const hydraulicSource = getPrimaryHydraulicSource(river);
+const metric = hydraulicSource.primaryMetric;
 
 const observations = args.fetchUsgs
   ? await fetchUsgsDailyFlowBaselineObservations({
     fetchFn: fetch,
     riverId: river.riverId,
-    siteId: river.gauge.siteId,
+    siteId: hydraulicSource.siteId,
     startDate: args.start!,
     endDate: args.end!,
   })
@@ -62,8 +66,9 @@ const generatedBaselines = generateGaugeBaselineRows({
   riverId: river.riverId,
   metric,
   baselineVersion,
-  sourceNotes:
-    "PM Fall Chinook baseline seed generated from normalized USGS daily values.",
+  sourceNotes: args.fetchUsgs
+    ? `PM Fall Chinook USGS daily mean discharge ${args.start} through ${args.end} via Water Data OGC API; plus-or-minus 14 canonical-day rolling percentiles.`
+    : "PM Fall Chinook normalized local audit observations; plus-or-minus 14 canonical-day rolling percentiles.",
 });
 
 const runWindow = resolveActiveRunWindow(
@@ -71,7 +76,7 @@ const runWindow = resolveActiveRunWindow(
   `${auditYear}-${run.runWindow.peak}`,
 );
 const requiredDays = canonicalBaselineDaysBetween(
-  runWindow.earlyStartDate,
+  runWindow.stagingStartDate,
   runWindow.lateEndDate,
 );
 const generatedDays = new Set(generatedBaselines.map((row) => row.dayOfYear));
@@ -79,6 +84,17 @@ const missingDays = requiredDays.filter((day) => !generatedDays.has(day));
 const coveragePercent = requiredDays.length === 0
   ? 0
   : (requiredDays.length - missingDays.length) / requiredDays.length;
+const requiredConditionCheckpointIds = resolveConditionsSuggestCheckpoints(
+  run,
+  `${auditYear}-${run.runWindow.peak}`,
+).map((checkpoint) => checkpoint.checkpointId);
+const conditionsSeed = await inspectConditionsSuggestSeed(
+  requiredConditionCheckpointIds,
+  run.conditionsSuggest.baselineVersion,
+);
+const conditionsTemperatureSource = getRunTemperatureSources(river, run).find(
+  (source) => source.sourceId === run.conditionsSuggest.temperatureSourceId,
+);
 
 if (args.outObservationsJson) {
   await Deno.writeTextFile(
@@ -112,6 +128,30 @@ const report = {
     isEnabled: run.publicAudit?.isEnabled === true,
     auditVersion: run.publicAudit?.auditVersion ?? null,
   },
+  sources: {
+    primaryHydraulic: {
+      sourceId: hydraulicSource.sourceId,
+      provider: hydraulicSource.provider,
+      siteId: hydraulicSource.siteId,
+      metric: hydraulicSource.primaryMetric,
+    },
+    measuredWaterTemperaturePriority: getRunTemperatureSources(river, run)
+      .map((source) => ({
+        sourceId: source.sourceId,
+        provider: source.provider,
+        siteId: source.siteId,
+        seriesId: source.seriesId ?? null,
+        role: source.role,
+      })),
+    conditionsSuggestTemperature: conditionsTemperatureSource
+      ? {
+        sourceId: conditionsTemperatureSource.sourceId,
+        provider: conditionsTemperatureSource.provider,
+        siteId: conditionsTemperatureSource.siteId,
+        seriesId: conditionsTemperatureSource.seriesId ?? null,
+      }
+      : null,
+  },
   observations: {
     source: args.fetchUsgs ? "usgs_daily_values" : "local_json",
     rowCount: normalizedObservations.length,
@@ -127,18 +167,90 @@ const report = {
     missingCanonicalBaselineDays: missingDays,
     missingMonthDays: missingDays.map(canonicalMonthDayFromBaselineDay),
   },
+  conditionsSuggestBaseline: {
+    baselineVersion: run.conditionsSuggest.baselineVersion,
+    generatedRowCount: conditionsSeed.generatedRowCount,
+    coveragePercent: conditionsSeed.coveragePercent,
+    requiredCheckpointCount: requiredConditionCheckpointIds.length,
+    missingCheckpoints: conditionsSeed.missingCheckpoints,
+    minimumUsableYears: run.conditionsSuggest.minimumUsableYears,
+    repositorySeedPresent: conditionsSeed.repositorySeedPresent,
+  },
+  push: {
+    rulesVersion: run.push.version,
+    replayCommand: "npm run replay:river-run:pm-push",
+  },
+  fishability: {
+    rulesVersion: run.fishabilityBands.version,
+    metric: run.fishabilityBands.metric,
+    sourceLabel: run.fishabilityBands.sourceLabel,
+    replayCommand: "npm run replay:river-run:pm-fishability",
+  },
   readiness: {
     configStructurallyValid: riverValidation.valid && runValidation.valid,
     baselineCoveragePass: coveragePercent >= 0.9,
+    conditionsSuggestBaselinePass: conditionsSeed.repositorySeedPresent &&
+      conditionsSeed.coveragePercent >= 0.9,
     publicAuditEnabled: run.publicAudit?.isEnabled === true,
-    readyForPublicEnable: riverValidation.valid &&
+    foundationDataPass: riverValidation.valid &&
       runValidation.valid &&
       coveragePercent >= 0.9 &&
       run.publicAudit?.isEnabled === true,
+    readyForPublicEnable: false,
+    blockingGates: [
+      "Conditions Suggest in-app owner output/copy acceptance",
+      "PM Push in-app owner output/copy acceptance",
+      "PM Fishability in-app owner output/copy acceptance",
+      "hidden production observation and production smoke",
+    ],
   },
 };
 
 console.log(JSON.stringify(report, null, 2));
+
+async function inspectConditionsSuggestSeed(
+  requiredCheckpointIds: string[],
+  expectedBaselineVersion: string,
+): Promise<{
+  repositorySeedPresent: boolean;
+  generatedRowCount: number;
+  coveragePercent: number;
+  missingCheckpoints: string[];
+}> {
+  const seedUrl = new URL(
+    "../supabase/migrations/20260727123000_seed_river_run_pm_conditions_suggest_baselines.sql",
+    import.meta.url,
+  );
+  try {
+    const sql = await Deno.readTextFile(seedUrl);
+    const pattern =
+      /^\s{2}\('pere_marquette', 'pere_marquette_fall_chinook', '(river_start|building_start|peak_start|peak_complete)', \d+, \d+, '([^']+)'/gm;
+    const seededCheckpoints = new Set(
+      [...sql.matchAll(pattern)]
+        .filter((match) => match[2] === expectedBaselineVersion)
+        .map((match) => match[1]),
+    );
+    const missingCheckpoints = requiredCheckpointIds.filter((checkpointId) =>
+      !seededCheckpoints.has(checkpointId)
+    );
+    return {
+      repositorySeedPresent: true,
+      generatedRowCount: seededCheckpoints.size,
+      coveragePercent: requiredCheckpointIds.length === 0
+        ? 0
+        : (requiredCheckpointIds.length - missingCheckpoints.length) /
+          requiredCheckpointIds.length,
+      missingCheckpoints,
+    };
+  } catch {
+    return {
+      repositorySeedPresent: false,
+      generatedRowCount: 0,
+      coveragePercent: 0,
+      missingCheckpoints: requiredCheckpointIds,
+    };
+  }
+}
 
 async function readObservationFile(
   path: string,
@@ -188,8 +300,8 @@ function usageAndExit(message?: string): never {
   console.error(
     [
       "Usage:",
-      "  deno run --allow-read --allow-write --allow-net=waterservices.usgs.gov scripts/river-run-pm-launch-audit.ts --input observations.json",
-      "  deno run --allow-read --allow-write --allow-net=waterservices.usgs.gov scripts/river-run-pm-launch-audit.ts --fetch-usgs --start YYYY-MM-DD --end YYYY-MM-DD",
+      "  deno run --allow-read --allow-write --allow-net=api.waterdata.usgs.gov,monitormywatershed.org scripts/river-run-pm-launch-audit.ts --input observations.json",
+      "  deno run --allow-read --allow-write --allow-net=api.waterdata.usgs.gov,monitormywatershed.org scripts/river-run-pm-launch-audit.ts --fetch-usgs --start YYYY-MM-DD --end YYYY-MM-DD",
       "",
       "Optional exports:",
       "  --out-observations-json path --out-baselines-json path --out-baselines-sql path",

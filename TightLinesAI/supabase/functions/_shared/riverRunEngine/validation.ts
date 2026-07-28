@@ -1,10 +1,10 @@
+import { getMovementEngineDefinition } from "./config/movementEngines.ts";
 import type {
-  BehaviorProfile,
-  GaugeProvider,
   GreatLakesState,
-  ReachQuality,
+  MovementEngineId,
   RiverMetric,
   RiverProfile,
+  RiverRunConfigurationRevision,
   RiverRunProfile,
   RiverRunSpecies,
   RiverRunValidationIssue,
@@ -13,8 +13,6 @@ import type {
   RunValidationResult,
   Season,
   SupportStatus,
-  TemperatureProvider,
-  TemperatureSourceType,
   VisibleRiverRunCatalog,
 } from "./types.ts";
 
@@ -44,28 +42,14 @@ const RUN_TYPES: readonly RunType[] = [
   "summer_run",
   "holding",
 ];
-const BEHAVIOR_PROFILES: readonly BehaviorProfile[] = [
-  "fall_cooling_rain_pulse",
-  "spring_warming_flow_pulse",
-  "winter_thaw_flow_window",
-  "summer_cool_rain_pulse",
+const MOVEMENT_ENGINES: readonly MovementEngineId[] = [
+  "fall_cooling",
+  "spring_warming",
+  "winter_thaw",
+  "summer_cooling",
   "stable_cool_holding",
 ];
 const METRICS: readonly RiverMetric[] = ["flow_cfs", "gage_height_ft"];
-const GAUGE_PROVIDERS: readonly GaugeProvider[] = ["USGS", "OTHER_OFFICIAL"];
-const TEMPERATURE_PROVIDERS: readonly TemperatureProvider[] = [
-  "USGS",
-  "OTHER_OFFICIAL",
-  "OpenMeteo",
-];
-const TEMPERATURE_SOURCE_TYPES: readonly TemperatureSourceType[] = [
-  "same_gauge",
-  "nearby_gauge",
-  "adjusted_reference_gauge",
-  "air_temp_proxy",
-  "unavailable",
-];
-const PUBLIC_REACH_QUALITIES: readonly ReachQuality[] = ["good", "acceptable"];
 const SUPPORT_STATUSES: readonly SupportStatus[] = ["beta", "verified"];
 
 function issue(
@@ -83,6 +67,10 @@ function hasText(value: unknown): value is string {
 
 function hasNumber(value: unknown): value is number {
   return typeof value === "number" && Number.isFinite(value);
+}
+
+function validCap(value: unknown, maximum: number): value is number {
+  return hasNumber(value) && value >= 0 && value <= maximum;
 }
 
 function includes<T extends string>(
@@ -126,22 +114,14 @@ function parseMonthDay(value: unknown): number | null {
     day;
 }
 
-function isOrdinalInWindow(
-  ordinal: number,
-  start: number,
-  end: number,
-): boolean {
-  if (start <= end) {
-    return ordinal >= start && ordinal <= end;
-  }
-  return ordinal >= start || ordinal <= end;
+function forwardDistance(from: number, to: number): number {
+  return to >= from ? to - from : 366 - from + to;
 }
 
 export function validateRiverProfile(
   river: RiverProfile,
 ): RiverValidationResult {
   const issues: RiverRunValidationIssue[] = [];
-
   if (!hasText(river.riverId)) {
     issues.push(issue("riverId", "River ID is required."));
   }
@@ -166,7 +146,7 @@ export function validateRiverProfile(
     issues.push(
       issue(
         "timezone",
-        "River timezone is required and must be valid.",
+        "River timezone must be valid.",
         "config_invalid_value",
       ),
     );
@@ -189,94 +169,6 @@ export function validateRiverProfile(
       ),
     );
   }
-  if (river.weatherLat !== undefined && !isValidLat(river.weatherLat)) {
-    issues.push(
-      issue(
-        "weatherLat",
-        "Weather latitude must be valid when configured.",
-        "config_invalid_value",
-      ),
-    );
-  }
-  if (river.weatherLon !== undefined && !isValidLon(river.weatherLon)) {
-    issues.push(
-      issue(
-        "weatherLon",
-        "Weather longitude must be valid when configured.",
-        "config_invalid_value",
-      ),
-    );
-  }
-  if (!river.gauge) {
-    issues.push(issue("gauge", "Gauge config is required."));
-  } else {
-    if (!includes(GAUGE_PROVIDERS, river.gauge.provider)) {
-      issues.push(
-        issue(
-          "gauge.provider",
-          "Gauge provider is not supported.",
-          "config_invalid_value",
-        ),
-      );
-    }
-    if (!hasText(river.gauge.siteId)) {
-      issues.push(issue("gauge.siteId", "Gauge site ID is required."));
-    }
-    if (!hasText(river.gauge.name)) {
-      issues.push(issue("gauge.name", "Gauge name is required."));
-    }
-    if (!includes(METRICS, river.gauge.primaryMetric)) {
-      issues.push(
-        issue(
-          "gauge.primaryMetric",
-          "Gauge primary metric is not supported.",
-          "gauge_metric_missing",
-        ),
-      );
-    }
-    if (
-      river.gauge.availableMetrics &&
-      !river.gauge.availableMetrics.includes(river.gauge.primaryMetric)
-    ) {
-      issues.push(
-        issue(
-          "gauge.availableMetrics",
-          "Gauge available metrics must include the primary metric.",
-          "gauge_metric_missing",
-        ),
-      );
-    }
-    if (!PUBLIC_REACH_QUALITIES.includes(river.gauge.reachQuality)) {
-      issues.push(
-        issue(
-          "gauge.reachQuality",
-          "Gauge reach quality is not sufficient for public support.",
-          "gauge_reach_limited",
-        ),
-      );
-    }
-    if (!hasText(river.gauge.reachNotes)) {
-      issues.push(issue("gauge.reachNotes", "Gauge reach notes are required."));
-    }
-    if ((river.gauge.historyYearsAvailable ?? 0) < 2) {
-      issues.push(
-        issue(
-          "gauge.historyYearsAvailable",
-          "Gauge requires at least 2 years of usable history.",
-          "baseline_insufficient_history",
-        ),
-      );
-    }
-    if (river.gauge.maxAgeHours !== undefined && river.gauge.maxAgeHours <= 0) {
-      issues.push(
-        issue(
-          "gauge.maxAgeHours",
-          "Gauge max age must be positive when configured.",
-          "config_invalid_value",
-        ),
-      );
-    }
-  }
   if (!includes(SUPPORT_STATUSES, river.supportStatus)) {
     issues.push(
       issue(
@@ -292,7 +184,11 @@ export function validateRiverProfile(
     );
   }
 
-  const valid = issues.length === 0;
+  validateHydraulicSources(river, issues);
+  validateTemperatureSources(river, issues);
+  validateWeatherPoints(river, issues);
+
+  const valid = issues.every((item) => item.severity !== "error");
   return {
     kind: "river",
     riverId: river.riverId,
@@ -302,16 +198,285 @@ export function validateRiverProfile(
   };
 }
 
+function validateHydraulicSources(
+  river: RiverProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  if (
+    !Array.isArray(river.hydraulicSources) ||
+    river.hydraulicSources.length === 0
+  ) {
+    issues.push(
+      issue(
+        "hydraulicSources",
+        "At least one hydraulic source is required.",
+        "config_source_invalid",
+      ),
+    );
+    return;
+  }
+  if (
+    river.hydraulicSources.filter((source) => source.role === "primary")
+      .length !== 1
+  ) {
+    issues.push(
+      issue(
+        "hydraulicSources",
+        "Exactly one hydraulic source must be primary.",
+        "config_source_invalid",
+      ),
+    );
+  }
+  const ids = new Set<string>();
+  river.hydraulicSources.forEach((source, index) => {
+    const field = `hydraulicSources[${index}]`;
+    if (!hasText(source.sourceId) || ids.has(source.sourceId)) {
+      issues.push(
+        issue(
+          `${field}.sourceId`,
+          "Hydraulic source IDs must be present and unique.",
+          "config_source_invalid",
+        ),
+      );
+    }
+    ids.add(source.sourceId);
+    if (
+      source.provider !== "USGS" || !hasText(source.siteId) ||
+      !hasText(source.name)
+    ) {
+      issues.push(
+        issue(
+          field,
+          "Hydraulic sources require a supported provider, site ID, and name.",
+          "config_source_invalid",
+        ),
+      );
+    }
+    if (
+      !includes(METRICS, source.primaryMetric) ||
+      !Array.isArray(source.availableMetrics) ||
+      !source.availableMetrics.includes(source.primaryMetric)
+    ) {
+      issues.push(
+        issue(
+          `${field}.primaryMetric`,
+          "The primary hydraulic metric must be supported and available.",
+          "gauge_metric_missing",
+        ),
+      );
+    }
+    if (!["good", "acceptable"].includes(source.reachQuality)) {
+      issues.push(
+        issue(
+          `${field}.reachQuality`,
+          "A public primary/context gauge needs an audited usable reach.",
+          "gauge_reach_limited",
+        ),
+      );
+    }
+    if (!hasText(source.reachNotes)) {
+      issues.push(
+        issue(
+          `${field}.reachNotes`,
+          "Hydraulic reach notes are required.",
+          "config_source_invalid",
+        ),
+      );
+    }
+    if (
+      !hasNumber(source.historyYearsAvailable) ||
+      source.historyYearsAvailable < 2
+    ) {
+      issues.push(
+        issue(
+          `${field}.historyYearsAvailable`,
+          "Hydraulic sources need at least two usable history years.",
+          "baseline_insufficient_history",
+        ),
+      );
+    }
+    if (!hasNumber(source.maxAgeHours) || source.maxAgeHours <= 0) {
+      issues.push(
+        issue(
+          `${field}.maxAgeHours`,
+          "Hydraulic max age must be positive.",
+          "config_source_invalid",
+        ),
+      );
+    }
+  });
+}
+
+function validateTemperatureSources(
+  river: RiverProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  const ids = new Set<string>();
+  const priorities = new Set<number>();
+  for (
+    const [index, source] of (river.waterTemperatureSources ?? []).entries()
+  ) {
+    const field = `waterTemperatureSources[${index}]`;
+    if (!hasText(source.sourceId) || ids.has(source.sourceId)) {
+      issues.push(
+        issue(
+          `${field}.sourceId`,
+          "Temperature source IDs must be present and unique.",
+          "temperature_source_invalid",
+        ),
+      );
+    }
+    ids.add(source.sourceId);
+    if (
+      !["USGS", "MONITOR_MY_WATERSHED"].includes(source.provider) ||
+      !hasText(source.siteId) || !hasText(source.name)
+    ) {
+      issues.push(
+        issue(
+          field,
+          "Measured temperature sources require a supported provider, site ID, and name.",
+          "temperature_source_invalid",
+        ),
+      );
+    }
+    if (
+      source.provider === "MONITOR_MY_WATERSHED" && !hasText(source.seriesId)
+    ) {
+      issues.push(
+        issue(
+          `${field}.seriesId`,
+          "Monitor My Watershed sources require an audited series ID.",
+          "temperature_source_invalid",
+        ),
+      );
+    }
+    if (
+      !Number.isInteger(source.priority) || source.priority < 1 ||
+      priorities.has(source.priority)
+    ) {
+      issues.push(
+        issue(
+          `${field}.priority`,
+          "Temperature priorities must be unique positive integers.",
+          "temperature_source_invalid",
+        ),
+      );
+    }
+    priorities.add(source.priority);
+    if (
+      !hasNumber(source.minValidF) || !hasNumber(source.maxValidF) ||
+      source.minValidF >= source.maxValidF ||
+      source.minValidF < 25 || source.maxValidF > 95
+    ) {
+      issues.push(
+        issue(
+          field,
+          "Temperature physical bounds are invalid.",
+          "temperature_source_invalid",
+        ),
+      );
+    }
+    if (
+      !hasNumber(source.maxAgeHours) || source.maxAgeHours <= 0 ||
+      !hasNumber(source.smoothingWindowHours) ||
+      source.smoothingWindowHours <= 0 ||
+      !hasNumber(source.maxRateChangeFPerHour) ||
+      source.maxRateChangeFPerHour <= 0 ||
+      !hasNumber(source.maxPeerDifferenceF) || source.maxPeerDifferenceF <= 0
+    ) {
+      issues.push(
+        issue(
+          field,
+          "Temperature freshness and QA limits must be positive.",
+          "temperature_source_invalid",
+        ),
+      );
+    }
+    if (!hasText(source.reachNotes) || !hasText(source.attribution)) {
+      issues.push(
+        issue(
+          field,
+          "Temperature reach notes and attribution are required.",
+          "temperature_source_invalid",
+        ),
+      );
+    }
+  }
+  if (
+    !Array.isArray(river.waterTemperatureSources) ||
+    river.waterTemperatureSources.length === 0
+  ) {
+    issues.push(
+      issue(
+        "waterTemperatureSources",
+        "At least one audited measured water-temperature source is required before a river can be supported.",
+        "temperature_source_invalid",
+      ),
+    );
+  } else if (
+    river.waterTemperatureSources.filter((source) => source.role === "primary")
+      .length !== 1
+  ) {
+    issues.push(
+      issue(
+        "waterTemperatureSources",
+        "Exactly one configured water-temperature source must be primary.",
+        "temperature_source_invalid",
+      ),
+    );
+  }
+}
+
+function validateWeatherPoints(
+  river: RiverProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  if (!Array.isArray(river.weatherPoints) || river.weatherPoints.length === 0) {
+    issues.push(
+      issue(
+        "weatherPoints",
+        "At least one weather point is required.",
+        "config_source_invalid",
+      ),
+    );
+    return;
+  }
+  if (
+    river.weatherPoints.filter((point) => point.role === "primary").length !== 1
+  ) {
+    issues.push(
+      issue(
+        "weatherPoints",
+        "Exactly one weather point must be primary.",
+        "config_source_invalid",
+      ),
+    );
+  }
+  const ids = new Set<string>();
+  river.weatherPoints.forEach((point, index) => {
+    if (
+      !hasText(point.weatherPointId) || ids.has(point.weatherPointId) ||
+      !isValidLat(point.lat) || !isValidLon(point.lon)
+    ) {
+      issues.push(
+        issue(
+          `weatherPoints[${index}]`,
+          "Weather point IDs must be unique and coordinates valid.",
+          "config_source_invalid",
+        ),
+      );
+    }
+    ids.add(point.weatherPointId);
+  });
+}
+
 export function validateRunProfile(
   run: RiverRunProfile,
   river?: RiverProfile,
 ): RunValidationResult {
   const issues: RiverRunValidationIssue[] = [];
   const visibilityIssues: RiverRunValidationIssue[] = [];
-
-  if (!hasText(run.runId)) {
-    issues.push(issue("runId", "Run ID is required."));
-  }
+  if (!hasText(run.runId)) issues.push(issue("runId", "Run ID is required."));
   if (!hasText(run.riverId)) {
     issues.push(issue("riverId", "Run river ID is required."));
   }
@@ -342,70 +507,13 @@ export function validateRunProfile(
       issue("runType", "Run type is not supported.", "config_invalid_value"),
     );
   }
-  if (!includes(BEHAVIOR_PROFILES, run.behaviorProfile)) {
-    issues.push(
-      issue(
-        "behaviorProfile",
-        "Behavior profile is not supported.",
-        "config_invalid_value",
-      ),
-    );
-  }
-
-  const start = parseMonthDay(run.runWindow?.start);
-  const peak = parseMonthDay(run.runWindow?.peak);
-  const end = parseMonthDay(run.runWindow?.end);
-  if (start === null) {
-    issues.push(
-      issue(
-        "runWindow.start",
-        "Run window start must be MM-DD.",
-        "config_date_invalid",
-      ),
-    );
-  }
-  if (peak === null) {
-    issues.push(
-      issue(
-        "runWindow.peak",
-        "Run window peak must be MM-DD.",
-        "config_date_invalid",
-      ),
-    );
-  }
-  if (end === null) {
-    issues.push(
-      issue(
-        "runWindow.end",
-        "Run window end must be MM-DD.",
-        "config_date_invalid",
-      ),
-    );
-  }
-  if (
-    start !== null && peak !== null && end !== null &&
-    !isOrdinalInWindow(peak, start, end)
-  ) {
-    issues.push(
-      issue(
-        "runWindow.peak",
-        "Run window peak must fall between start and end, including cross-year windows.",
-        "config_date_order_invalid",
-      ),
-    );
-  }
-
-  if (![1, 2, 3, 4, 5].includes(run.runStrength)) {
-    issues.push(
-      issue(
-        "runStrength",
-        "Run strength must be 1 through 5.",
-        "config_invalid_value",
-      ),
-    );
-  }
-  validateFishabilityBasis(run, issues);
-  validateTemperatureSource(run, issues);
+  validateMovementEngine(run, issues);
+  validateRunDates(run, issues);
+  validateHistoricalPresence(run, issues);
+  validatePushRules(run, river, issues);
+  validateFishabilityBasis(run, river, issues);
+  validateRunTemperaturePolicy(run, river, issues);
+  validateConditionsSuggestPolicy(run, river, issues);
   validateAuditFields(run, issues);
   validatePublicAuditGate(run, visibilityIssues);
 
@@ -422,32 +530,391 @@ export function validateRunProfile(
   };
 }
 
-function validateFishabilityBasis(
+function validatePushRules(
+  run: RiverRunProfile,
+  river: RiverProfile | undefined,
+  issues: RiverRunValidationIssue[],
+): void {
+  const rules = run.push;
+  if (
+    !rules || !hasText(rules.version) || !hasText(rules.evidenceNotes) ||
+    !hasText(rules.sourceNotes)
+  ) {
+    issues.push(
+      issue(
+        "push",
+        "Push requires versioned rules plus evidence and source notes.",
+        "config_invalid_value",
+      ),
+    );
+    return;
+  }
+  const primary =
+    river?.hydraulicSources.find((source) => source.role === "primary") ?? null;
+  if (
+    !includes(METRICS, rules.hydraulic.metric) ||
+    !hasText(rules.hydraulic.sourceLabel) ||
+    (primary && rules.hydraulic.metric !== primary.primaryMetric)
+  ) {
+    issues.push(
+      issue(
+        "push.hydraulic.metric",
+        "Push must use the configured primary hydraulic metric.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  const rises = [
+    rules.hydraulic.rising24h,
+    rules.hydraulic.meaningfulRise24h,
+    rules.hydraulic.sharpRise24h,
+  ];
+  if (
+    rises.some((threshold) =>
+      !hasNumber(threshold.absolute) || threshold.absolute <= 0 ||
+      !hasNumber(threshold.percent) || threshold.percent <= 0
+    ) ||
+    !(rises[0].absolute < rises[1].absolute &&
+      rises[1].absolute < rises[2].absolute) ||
+    !(rises[0].percent < rises[1].percent &&
+      rises[1].percent < rises[2].percent)
+  ) {
+    issues.push(
+      issue(
+        "push.hydraulic",
+        "Push rise thresholds must be positive and strictly increase for both absolute and relative change.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
+    !hasNumber(rules.hydraulic.lowValue) ||
+    !hasNumber(rules.hydraulic.highValue) ||
+    !hasNumber(rules.hydraulic.severeHighValue) ||
+    rules.hydraulic.lowValue <= 0 ||
+    !(rules.hydraulic.lowValue < rules.hydraulic.highValue &&
+      rules.hydraulic.highValue < rules.hydraulic.severeHighValue)
+  ) {
+    issues.push(
+      issue(
+        "push.hydraulic",
+        "Push low, high, and severe-high values must be ordered.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
+    !hasNumber(rules.rain.meaningful48hIn) ||
+    !hasNumber(rules.rain.strong48hIn) ||
+    !hasNumber(rules.rain.heavy48hIn) ||
+    rules.rain.meaningful48hIn <= 0 ||
+    !(rules.rain.meaningful48hIn < rules.rain.strong48hIn &&
+      rules.rain.strong48hIn < rules.rain.heavy48hIn)
+  ) {
+    issues.push(
+      issue(
+        "push.rain",
+        "Push rain thresholds must be present and strictly increasing.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  const temperature = rules.temperature;
+  if (
+    !hasText(temperature.suitabilityLabel) ||
+    !hasNumber(temperature.supportiveMinF) ||
+    !hasNumber(temperature.supportiveMaxF) ||
+    !hasNumber(temperature.tooWarmF) ||
+    !hasNumber(temperature.migrationBarrierF) ||
+    temperature.supportiveMinF < 32 ||
+    temperature.migrationBarrierF > 85 ||
+    !(temperature.supportiveMinF < temperature.supportiveMaxF &&
+      temperature.supportiveMaxF < temperature.tooWarmF &&
+      temperature.tooWarmF < temperature.migrationBarrierF)
+  ) {
+    issues.push(
+      issue(
+        "push.temperature",
+        "Push temperature thresholds must progress from supportive minimum through migration barrier.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  const caps = Object.values(rules.caps);
+  if (
+    caps.some((cap) => !hasNumber(cap) || cap < 0 || cap > 100) ||
+    rules.caps.staleGauge > 55 ||
+    rules.caps.unknownTrend > 49 ||
+    rules.caps.tooWarm > 69 ||
+    rules.caps.migrationBarrier > 49 ||
+    rules.caps.severeHighFlow > 49 ||
+    rules.caps.noGaugeResponse > 69 ||
+    rules.caps.outsideExtendedWindow > 69
+  ) {
+    issues.push(
+      issue(
+        "push.caps",
+        "Push caps must be conservative 0-100 values.",
+        "config_invalid_value",
+      ),
+    );
+  }
+}
+
+function validateMovementEngine(
   run: RiverRunProfile,
   issues: RiverRunValidationIssue[],
 ): void {
-  if (run.fishabilityBands) {
-    if (!includes(METRICS, run.fishabilityBands.metric)) {
+  if (!includes(MOVEMENT_ENGINES, run.movementEngineId)) {
+    issues.push(
+      issue(
+        "movementEngineId",
+        "Movement engine is unknown.",
+        "config_movement_engine_unavailable",
+      ),
+    );
+    return;
+  }
+  const engine = getMovementEngineDefinition(run.movementEngineId);
+  if (!engine.implemented) {
+    issues.push(
+      issue(
+        "movementEngineId",
+        "This movement engine is reserved but not implemented; the run fails closed.",
+        "config_movement_engine_unavailable",
+      ),
+    );
+  }
+  if (
+    !engine.supportedSeasons.includes(run.season) ||
+    !engine.supportedRunTypes.includes(run.runType)
+  ) {
+    issues.push(
+      issue(
+        "movementEngineId",
+        "Movement engine, season, and run type are incompatible.",
+        "config_invalid_value",
+      ),
+    );
+  }
+}
+
+function validateRunDates(
+  run: RiverRunProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  const fields = ["stagingStart", "start", "peak", "end", "lateEnd"] as const;
+  const values = fields.map((field) => parseMonthDay(run.runWindow?.[field]));
+  values.forEach((value, index) => {
+    if (value === null) {
       issues.push(
         issue(
-          "fishabilityBands.metric",
-          "Fishability band metric is invalid.",
+          `runWindow.${fields[index]}`,
+          `${fields[index]} must be MM-DD.`,
+          "config_date_invalid",
+        ),
+      );
+    }
+  });
+  if (values.some((value) => value === null)) return;
+  const [staging, start, peak, end, lateEnd] = values as number[];
+  const offsets = [
+    forwardDistance(staging, start),
+    forwardDistance(staging, peak),
+    forwardDistance(staging, end),
+    forwardDistance(staging, lateEnd),
+  ];
+  if (
+    !(offsets[0] > 0 && offsets[0] < offsets[1] &&
+      offsets[1] < offsets[2] && offsets[2] < offsets[3] &&
+      offsets[3] <= 366)
+  ) {
+    issues.push(
+      issue(
+        "runWindow",
+        "Dates must progress stagingStart → start → peak → end → lateEnd, including cross-year runs.",
+        "config_date_order_invalid",
+      ),
+    );
+  }
+}
+
+function validateHistoricalPresence(
+  run: RiverRunProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  const presence = run.historicalPresence;
+  if (
+    !presence || !Number.isInteger(presence.maximum) ||
+    presence.maximum < 1 || presence.maximum > 10
+  ) {
+    issues.push(
+      issue(
+        "historicalPresence.maximum",
+        "Historical presence maximum must be 1 through 10.",
+        "config_invalid_value",
+      ),
+    );
+    return;
+  }
+  if (
+    !hasText(presence.curveVersion) || !hasText(presence.evidenceNotes) ||
+    !hasText(presence.sourceNotes)
+  ) {
+    issues.push(
+      issue(
+        "historicalPresence",
+        "The presence curve requires a version, evidence, and sources.",
+        "audit_notes_missing",
+      ),
+    );
+  }
+  if (!Array.isArray(presence.anchors) || presence.anchors.length < 2) {
+    issues.push(
+      issue(
+        "historicalPresence.anchors",
+        "The presence curve requires at least two anchors.",
+        "config_invalid_value",
+      ),
+    );
+    return;
+  }
+  let prior = -1;
+  for (const [index, anchor] of presence.anchors.entries()) {
+    if (
+      !Number.isInteger(anchor.dayOffsetFromStart) ||
+      anchor.dayOffsetFromStart < 0 ||
+      anchor.dayOffsetFromStart <= prior ||
+      !hasNumber(anchor.fractionOfMaximum) ||
+      anchor.fractionOfMaximum < 0 || anchor.fractionOfMaximum > 1
+    ) {
+      issues.push(
+        issue(
+          `historicalPresence.anchors[${index}]`,
+          "Presence anchors must have increasing non-negative day offsets and fractions from 0 to 1.",
           "config_invalid_value",
         ),
       );
     }
+    prior = anchor.dayOffsetFromStart;
+  }
+}
+
+function validateFishabilityBasis(
+  run: RiverRunProfile,
+  river: RiverProfile | undefined,
+  issues: RiverRunValidationIssue[],
+): void {
+  const bands = run.fishabilityBands;
+  if (!bands) {
+    issues.push(
+      issue(
+        "fishabilityBands",
+        "Audited reach-specific Fishability bands are required.",
+        "config_required_field_missing",
+      ),
+    );
     return;
+  }
+  if (!includes(METRICS, bands.metric)) {
+    issues.push(
+      issue(
+        "fishabilityBands.metric",
+        "Fishability band metric is invalid.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  const primaryMetric = river?.hydraulicSources.find((source) =>
+    source.role === "primary"
+  )?.primaryMetric;
+  if (primaryMetric && bands.metric !== primaryMetric) {
+    issues.push(
+      issue(
+        "fishabilityBands.metric",
+        "Fishability must use the configured primary hydraulic metric.",
+        "config_source_invalid",
+      ),
+    );
+  }
+  if (
+    !hasText(bands.version) ||
+    !hasText(bands.sourceLabel) ||
+    !hasText(bands.evidenceNotes) ||
+    !hasText(bands.sourceNotes)
+  ) {
+    issues.push(
+      issue(
+        "fishabilityBands",
+        "Fishability requires version, source label, evidence notes, and source notes.",
+        "audit_notes_missing",
+      ),
+    );
+  }
+  const thresholds = [
+    bands.tooLow?.max,
+    bands.lowFishable?.min,
+    bands.lowFishable?.max,
+    bands.ideal?.min,
+    bands.ideal?.max,
+    bands.highFishable?.min,
+    bands.highFishable?.max,
+    bands.blownOut?.min,
+  ];
+  if (
+    thresholds.some((value) => !hasNumber(value) || value < 0) ||
+    bands.tooLow.max !== bands.lowFishable.min ||
+    bands.lowFishable.min >= bands.lowFishable.max ||
+    bands.lowFishable.max > bands.ideal.min ||
+    bands.ideal.min >= bands.ideal.max ||
+    bands.ideal.max > bands.highFishable.min ||
+    bands.highFishable.min >= bands.highFishable.max ||
+    bands.highFishable.max >= bands.blownOut.min
+  ) {
+    issues.push(
+      issue(
+        "fishabilityBands",
+        "Fishability thresholds must be non-negative, ordered, and non-overlapping.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  const caps = bands.caps;
+  if (
+    !caps ||
+    !validCap(caps.staleGauge, 55) ||
+    !validCap(caps.unknownTrend, 69) ||
+    !validCap(caps.veryLow, 45) ||
+    !validCap(caps.blownOut, 24) ||
+    !validCap(caps.sharpRiseHigh, 40)
+  ) {
+    issues.push(
+      issue(
+        "fishabilityBands.caps",
+        "Fishability caps are missing or exceed conservative release limits.",
+        "config_invalid_value",
+      ),
+    );
   }
 
   if (!run.baselineCoverage?.hasPercentileBaselines) {
     issues.push(
       issue(
         "baselineCoverage",
-        "Run needs fishability override bands or percentile baselines.",
+        "Fishability requires seasonal percentile baselines for relative context and calibration.",
         "baseline_missing",
       ),
     );
     return;
+  }
+  if (!hasText(run.baselineCoverage.version)) {
+    issues.push(
+      issue(
+        "baselineCoverage.version",
+        "Baseline coverage requires an explicit version.",
+        "baseline_insufficient_history",
+      ),
+    );
   }
   if (run.baselineCoverage.coveredWindowPercent < 0.9) {
     issues.push(
@@ -458,19 +925,16 @@ function validateFishabilityBasis(
       ),
     );
   }
-  if (run.baselineCoverage.minimumHistoryYears < 2) {
+  if (run.baselineCoverage.minimumHistoryYears < 5) {
     issues.push(
       issue(
         "baselineCoverage.minimumHistoryYears",
-        "Baseline coverage requires at least 2 distinct years.",
+        "Fishability baseline coverage requires at least five distinct years.",
         "baseline_insufficient_history",
       ),
     );
   }
-  if (
-    run.baselineCoverage.metric &&
-    !includes(METRICS, run.baselineCoverage.metric)
-  ) {
+  if (!includes(METRICS, run.baselineCoverage.metric)) {
     issues.push(
       issue(
         "baselineCoverage.metric",
@@ -479,97 +943,173 @@ function validateFishabilityBasis(
       ),
     );
   }
-}
-
-function validateTemperatureSource(
-  run: RiverRunProfile,
-  issues: RiverRunValidationIssue[],
-): void {
-  const source = run.waterTemperatureSource;
-  if (!source) {
+  if (!hasText(run.baselineCoverage.sourceNotes)) {
     issues.push(
       issue(
-        "waterTemperatureSource",
-        "Water temperature source is required.",
+        "baselineCoverage.sourceNotes",
+        "Baseline source notes are required.",
+        "audit_notes_missing",
+      ),
+    );
+  }
+}
+
+function validateRunTemperaturePolicy(
+  run: RiverRunProfile,
+  river: RiverProfile | undefined,
+  issues: RiverRunValidationIssue[],
+): void {
+  const policy = run.waterTemperature;
+  if (!policy || !Array.isArray(policy.sourcePriority)) {
+    issues.push(
+      issue(
+        "waterTemperature",
+        "A water-temperature policy is required.",
         "temperature_source_invalid",
       ),
     );
     return;
   }
-  if (!includes(TEMPERATURE_SOURCE_TYPES, source.type)) {
-    issues.push(
-      issue(
-        "waterTemperatureSource.type",
-        "Water temperature source type is invalid.",
-        "temperature_source_invalid",
-      ),
-    );
-  }
   if (
-    source.provider !== undefined &&
-    !includes(TEMPERATURE_PROVIDERS, source.provider)
+    !hasText(policy.notes) ||
+    ![0, 1].includes(policy.upstreamFallbackPositiveSignalCap)
   ) {
     issues.push(
       issue(
-        "waterTemperatureSource.provider",
-        "Water temperature provider is invalid.",
+        "waterTemperature",
+        "Temperature fallback policy and notes are invalid.",
         "temperature_source_invalid",
       ),
     );
   }
+  if (new Set(policy.sourcePriority).size !== policy.sourcePriority.length) {
+    issues.push(
+      issue(
+        "waterTemperature.sourcePriority",
+        "Temperature source priority cannot contain duplicates.",
+        "temperature_source_invalid",
+      ),
+    );
+  }
+  if (river) {
+    const available = new Set(
+      river.waterTemperatureSources.map((source) => source.sourceId),
+    );
+    policy.sourcePriority.forEach((sourceId, index) => {
+      if (!available.has(sourceId)) {
+        issues.push(
+          issue(
+            `waterTemperature.sourcePriority[${index}]`,
+            `Temperature source ${sourceId} does not exist on the river.`,
+            "config_source_reference_missing",
+          ),
+        );
+      }
+    });
+  }
+  if (policy.sourcePriority.length === 0) {
+    issues.push(
+      issue(
+        "waterTemperature.sourcePriority",
+        "At least one audited measured water-temperature source is required.",
+        "temperature_source_invalid",
+      ),
+    );
+  }
+}
+
+function validateConditionsSuggestPolicy(
+  run: RiverRunProfile,
+  river: RiverProfile | undefined,
+  issues: RiverRunValidationIssue[],
+): void {
+  const policy = run.conditionsSuggest;
+  if (!policy || !hasText(policy.baselineVersion)) {
+    issues.push(
+      issue(
+        "conditionsSuggest",
+        "Conditions Suggest requires a versioned historical baseline.",
+        "conditions_baseline_missing",
+      ),
+    );
+    return;
+  }
   if (
-    ["same_gauge", "nearby_gauge", "adjusted_reference_gauge"].includes(
-      source.type,
+    !Number.isInteger(policy.minimumUsableYears) ||
+    policy.minimumUsableYears < 5
+  ) {
+    issues.push(
+      issue(
+        "conditionsSuggest.minimumUsableYears",
+        "Conditions Suggest requires at least five usable historical years.",
+        "conditions_baseline_insufficient_years",
+      ),
+    );
+  }
+  if (
+    !hasNumber(policy.minimumCoveragePercent) ||
+    policy.minimumCoveragePercent < 0.5 ||
+    policy.minimumCoveragePercent > 1
+  ) {
+    issues.push(
+      issue(
+        "conditionsSuggest.minimumCoveragePercent",
+        "Conditions Suggest cumulative coverage must be from 0.5 through 1.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
+    !hasNumber(policy.delayedPercentile) ||
+    !hasNumber(policy.aheadPercentile) ||
+    policy.delayedPercentile < 0 ||
+    policy.aheadPercentile > 100 ||
+    policy.delayedPercentile >= policy.aheadPercentile
+  ) {
+    issues.push(
+      issue(
+        "conditionsSuggest",
+        "Conditions Suggest historical percentile boundaries are invalid.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
+    !hasNumber(policy.coolEnoughPercentileCap) ||
+    policy.coolEnoughPercentileCap < 50 ||
+    policy.coolEnoughPercentileCap > 90
+  ) {
+    issues.push(
+      issue(
+        "conditionsSuggest.coolEnoughPercentileCap",
+        "Conditions Suggest cool-enough plateau must be from the 50th through 90th percentile.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
+    !hasText(policy.temperatureSourceId) ||
+    !run.waterTemperature.sourcePriority.includes(policy.temperatureSourceId)
+  ) {
+    issues.push(
+      issue(
+        "conditionsSuggest.temperatureSourceId",
+        "Conditions Suggest temperature source must be in the run's measured-water priority.",
+        "config_source_reference_missing",
+      ),
+    );
+  }
+  if (
+    river &&
+    !river.waterTemperatureSources.some((source) =>
+      source.sourceId === policy.temperatureSourceId
     )
   ) {
-    if (!hasText(source.provider)) {
-      issues.push(
-        issue(
-          "waterTemperatureSource.provider",
-          "Measured temperature sources require a provider.",
-          "temperature_source_invalid",
-        ),
-      );
-    }
-    if (!hasText(source.siteId)) {
-      issues.push(
-        issue(
-          "waterTemperatureSource.siteId",
-          "Measured temperature sources require a site ID.",
-          "temperature_source_invalid",
-        ),
-      );
-    }
-  }
-  if (
-    source.type === "air_temp_proxy" && source.provider &&
-    source.provider !== "OpenMeteo"
-  ) {
     issues.push(
       issue(
-        "waterTemperatureSource.provider",
-        "Air proxy temperature must use OpenMeteo when provider is configured.",
-        "temperature_source_invalid",
-      ),
-    );
-  }
-  if (
-    source.type === "adjusted_reference_gauge" && !hasNumber(source.adjustmentF)
-  ) {
-    issues.push(
-      issue(
-        "waterTemperatureSource.adjustmentF",
-        "Adjusted reference gauges require adjustmentF.",
-        "temperature_source_invalid",
-      ),
-    );
-  }
-  if (!hasText(source.notes)) {
-    issues.push(
-      issue(
-        "waterTemperatureSource.notes",
-        "Temperature source notes are required.",
-        "temperature_source_invalid",
+        "conditionsSuggest.temperatureSourceId",
+        "Conditions Suggest temperature source does not exist on the river.",
+        "config_source_reference_missing",
       ),
     );
   }
@@ -580,6 +1120,7 @@ function validateAuditFields(
   issues: RiverRunValidationIssue[],
 ): void {
   const requiredCopyHints = [
+    ["userCopyHints.stagingTip", run.userCopyHints?.stagingTip],
     ["userCopyHints.preRunTip", run.userCopyHints?.preRunTip],
     ["userCopyHints.peakTip", run.userCopyHints?.peakTip],
     ["userCopyHints.endingTip", run.userCopyHints?.endingTip],
@@ -595,11 +1136,11 @@ function validateAuditFields(
       );
     }
   }
-  if (!hasText(run.researchNotes) && !hasText(run.sourceNotes)) {
+  if (!hasText(run.researchNotes) || !hasText(run.sourceNotes)) {
     issues.push(
       issue(
         "researchNotes",
-        "Public runs require research notes or source notes.",
+        "Public runs require research notes and source notes.",
         "audit_notes_missing",
       ),
     );
@@ -613,7 +1154,6 @@ function validatePublicAuditGate(
   const auditGate = (run as RiverRunProfile & {
     publicAudit?: { isEnabled?: boolean };
   }).publicAudit;
-
   if (auditGate?.isEnabled !== true) {
     issues.push(
       issue(
@@ -625,17 +1165,51 @@ function validatePublicAuditGate(
   }
 }
 
+export function validateConfigurationRevision(
+  revision: RiverRunConfigurationRevision,
+): RiverRunValidationIssue[] {
+  const issues: RiverRunValidationIssue[] = [];
+  if (
+    !hasText(revision.configKey) || !Number.isInteger(revision.revision) ||
+    revision.revision < 1 || !hasText(revision.evidenceNotes)
+  ) {
+    issues.push(
+      issue(
+        "revision",
+        "Configuration revisions need a key, positive revision number, and evidence notes.",
+        "config_revision_invalid",
+      ),
+    );
+  }
+  if (
+    revision.document?.schemaVersion !== "river-run-config-v1" ||
+    !hasText(revision.document?.configVersion) ||
+    !hasText(revision.document?.movementEngineVersion)
+  ) {
+    issues.push(
+      issue(
+        "document",
+        "Configuration document version metadata is invalid.",
+        "config_revision_invalid",
+      ),
+    );
+    return issues;
+  }
+  issues.push(...validateRiverProfile(revision.document.river).issues);
+  for (const run of revision.document.runs) {
+    issues.push(...validateRunProfile(run, revision.document.river).issues);
+  }
+  return issues;
+}
+
 export function listVisibleRiverRuns(
   rivers: readonly RiverProfile[],
   runs: readonly RiverRunProfile[],
 ): VisibleRiverRunCatalog[] {
   const riverById = new Map(rivers.map((river) => [river.riverId, river]));
   const visibleRivers = new Map<GreatLakesState, VisibleRiverRunCatalog>();
-
   for (const river of rivers) {
-    const riverValidation = validateRiverProfile(river);
-    if (!riverValidation.publicVisible) continue;
-
+    if (!validateRiverProfile(river).publicVisible) continue;
     const visibleRuns = runs
       .filter((run) => run.riverId === river.riverId)
       .filter((run) =>
@@ -648,9 +1222,7 @@ export function listVisibleRiverRuns(
         season: run.season,
         supportStatus: river.supportStatus,
       }));
-
     if (visibleRuns.length === 0) continue;
-
     const stateEntry = visibleRivers.get(river.state) ?? {
       state: river.state,
       rivers: [],
@@ -662,6 +1234,5 @@ export function listVisibleRiverRuns(
     });
     visibleRivers.set(river.state, stateEntry);
   }
-
   return [...visibleRivers.values()];
 }

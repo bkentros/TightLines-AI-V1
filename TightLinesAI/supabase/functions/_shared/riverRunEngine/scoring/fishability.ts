@@ -1,145 +1,141 @@
 import type {
+  FishabilityBands,
   FlowBand,
   GaugeFreshness,
   PrimitiveDisplay,
   RawFlowTrendSignal,
-  RawRainSignal,
   RiverRunReasonCode,
-  WeatherFreshness,
 } from "../types.ts";
 import { flowBandReasonCode } from "../metrics/flow.ts";
 
+export type FishabilityScoreComponents = {
+  bandBase: number;
+  trendModifier: number;
+  appliedCaps: number[];
+};
+
 export type FishabilityScoreInput = {
+  rules: FishabilityBands;
   gaugeFreshness: GaugeFreshness;
-  weatherFreshness: WeatherFreshness;
   flowBand?: FlowBand;
   flowSignal: RawFlowTrendSignal;
-  rainSignal: RawRainSignal;
-  rainReasonCodes?: RiverRunReasonCode[];
+  currentHydraulicValue?: number | null;
+  hydraulicAbsoluteChange24h?: number | null;
+  hydraulicPercentChange24h?: number | null;
   flowReasonCodes?: RiverRunReasonCode[];
+};
+
+export type FishabilityScoreResult = PrimitiveDisplay & {
+  components?: FishabilityScoreComponents;
+  rulesVersion?: string;
 };
 
 export function scoreFishability(
   input: FishabilityScoreInput,
-): PrimitiveDisplay {
+): FishabilityScoreResult {
   if (
     input.gaugeFreshness === "missing" ||
-    input.gaugeFreshness === "older_than_24h"
+    input.gaugeFreshness === "older_than_24h" ||
+    !isNumber(input.currentHydraulicValue)
   ) {
-    return {
-      score: null,
-      label: "Unavailable",
-      ...fishabilityCopy("Unavailable", "gauge"),
-      reasonCodes: [gaugeReasonCode(input.gaugeFreshness)],
-    };
+    return unavailableResult(input, "gauge");
   }
-  if (!input.flowBand) {
-    return {
-      score: null,
-      label: "Unavailable",
-      ...fishabilityCopy("Unavailable", "baseline"),
-      reasonCodes: [
-        gaugeReasonCode(input.gaugeFreshness),
-        weatherReasonCode(input.weatherFreshness),
-        "baseline_missing",
-        ...(input.rainReasonCodes ?? []),
-        ...(input.flowReasonCodes ?? []),
-      ],
-    };
-  }
+  if (!input.flowBand) return unavailableResult(input, "band");
 
   const reasonCodes = new Set<RiverRunReasonCode>([
     gaugeReasonCode(input.gaugeFreshness),
-    weatherReasonCode(input.weatherFreshness),
-    ...(input.rainReasonCodes ?? []),
     ...(input.flowReasonCodes ?? []),
     flowBandReasonCode(input.flowBand),
   ]);
-  let score = Math.round(
-    bandScore(input.flowBand) * 0.55 +
-      trendScore(input.flowSignal) * 0.25 +
-      rainStainScore(input.rainSignal) * 0.15 +
-      freshnessScore(input.weatherFreshness) * 0.05,
-  );
+  const bandBase = bandBaseScore(input.flowBand);
+  const trendModifier = trendScoreModifier(input.flowSignal);
+  const appliedCaps: number[] = [];
+  let score = bandBase + trendModifier;
 
-  if (input.flowBand === "blown_out") score = Math.min(score, 25);
+  if (input.flowBand === "very_low") {
+    score = applyCap(score, input.rules.caps.veryLow, appliedCaps);
+    reasonCodes.add("fishability_very_low_cap");
+  }
+  if (input.flowBand === "blown_out") {
+    score = applyCap(score, input.rules.caps.blownOut, appliedCaps);
+    reasonCodes.add("fishability_blown_out_cap");
+  }
   if (
     input.flowSignal === "sharp_rise" &&
-    (input.flowBand === "high_fishable" || input.flowBand === "very_high" ||
+    (input.flowBand === "high_fishable" ||
+      input.flowBand === "very_high" ||
       input.flowBand === "blown_out")
   ) {
-    score = Math.min(score, 40);
+    score = applyCap(score, input.rules.caps.sharpRiseHigh, appliedCaps);
+    reasonCodes.add("fishability_sharp_rise_high_cap");
   }
-  if (input.flowBand === "very_low") score = Math.min(score, 45);
-  if (input.gaugeFreshness === "stale") score = Math.min(score, 55);
+  if (input.flowSignal === "unknown") {
+    score = applyCap(score, input.rules.caps.unknownTrend, appliedCaps);
+    reasonCodes.add("fishability_unknown_trend_cap");
+  }
+  if (input.gaugeFreshness === "stale") {
+    score = applyCap(score, input.rules.caps.staleGauge, appliedCaps);
+    reasonCodes.add("fishability_stale_gauge_cap");
+  }
 
-  score = Math.min(100, Math.max(0, score));
+  const finalScore = clamp(Math.round(score), 0, 100);
+  const label = fishabilityLabel(finalScore);
+  const components = {
+    bandBase,
+    trendModifier,
+    appliedCaps: [...new Set(appliedCaps)].toSorted((a, b) => a - b),
+  };
   return {
-    score,
-    label: fishabilityLabel(score),
-    ...fishabilityCopy(fishabilityLabel(score)),
+    score: finalScore,
+    label,
+    ...fishabilityCopy({
+      label,
+      flowBand: input.flowBand,
+      flowSignal: input.flowSignal,
+      currentHydraulicValue: input.currentHydraulicValue,
+      hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
+      hydraulicPercentChange24h: input.hydraulicPercentChange24h,
+      rules: input.rules,
+    }),
     reasonCodes: [...reasonCodes],
+    components,
+    rulesVersion: input.rules.version,
   };
 }
 
-function bandScore(band: FlowBand): number {
+function bandBaseScore(band: FlowBand): number {
   switch (band) {
     case "very_low":
-      return 25;
-    case "low":
-      return 45;
-    case "normal_fishable":
-      return 75;
-    case "ideal":
-      return 90;
-    case "high_fishable":
-      return 60;
-    case "very_high":
       return 35;
+    case "low":
+      return 55;
+    case "normal_fishable":
+      return 70;
+    case "ideal":
+      return 88;
+    case "high_fishable":
+      return 68;
+    case "very_high":
+      return 40;
     case "blown_out":
       return 15;
   }
 }
 
-function trendScore(signal: RawFlowTrendSignal): number {
+function trendScoreModifier(signal: RawFlowTrendSignal): number {
   switch (signal) {
     case "stable":
-      return 85;
+      return 5;
     case "falling":
+      return 2;
     case "rising":
-      return 65;
-    case "meaningful_rise":
-      return 45;
-    case "sharp_rise":
-      return 25;
-    case "unknown":
-      return 50;
-  }
-}
-
-function rainStainScore(signal: RawRainSignal): number {
-  switch (signal) {
-    case "dry":
-    case "light_rain":
-      return 90;
-    case "meaningful_rain":
-    case "missing_rain_data":
-      return 70;
-    case "strong_rain":
-      return 45;
-    case "heavy_rain":
-      return 25;
-  }
-}
-
-function freshnessScore(freshness: WeatherFreshness): number {
-  switch (freshness) {
-    case "fresh":
-      return 100;
-    case "stale":
-      return 40;
-    case "missing":
       return 0;
+    case "meaningful_rise":
+      return -8;
+    case "sharp_rise":
+      return -20;
+    case "unknown":
+      return -10;
   }
 }
 
@@ -151,74 +147,144 @@ function fishabilityLabel(score: number): string {
   return "Excellent";
 }
 
-function fishabilityCopy(
-  label: PrimitiveDisplay["label"],
-  unavailableReason?: "gauge" | "baseline",
-): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
-  if (label === "Unavailable") {
-    return unavailableReason === "baseline"
-      ? {
-        headline: "Fishability is unavailable without a resolved river band.",
-        detail:
-          "A river shape band requires matching percentile baselines or configured override bands.",
-        tip:
-          "Compare this river shape read with the other primitives separately.",
-      }
-      : {
-        headline: "Fishability is unavailable without a current gauge read.",
-        detail:
-          "A usable gauge read is required to describe current river shape.",
-        tip: "Check again after the next condition refresh.",
-      };
-  }
+function fishabilityCopy(input: {
+  label: string;
+  flowBand: FlowBand;
+  flowSignal: RawFlowTrendSignal;
+  currentHydraulicValue: number;
+  hydraulicAbsoluteChange24h?: number | null;
+  hydraulicPercentChange24h?: number | null;
+  rules: FishabilityBands;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  const unit = input.rules.metric === "flow_cfs" ? "cfs" : "ft";
+  const current = `${round(input.currentHydraulicValue)} ${unit}`;
+  const comparison = isNumber(input.hydraulicAbsoluteChange24h) &&
+      isNumber(input.hydraulicPercentChange24h)
+    ? `changed ${signed(input.hydraulicAbsoluteChange24h)} ${unit} (${
+      signed(input.hydraulicPercentChange24h)
+    }%) over the matched 24-hour comparison`
+    : "does not have a trustworthy matched 24-hour comparison";
+  return {
+    headline: headlineForLabel(input.label),
+    detail: `${input.rules.sourceLabel} is ${current}, inside the configured ${
+      flowBandLabel(input.flowBand)
+    } band, and ${comparison}. ${trendMeaning(input.flowSignal)}`,
+    tip: fishabilityTip(input.flowBand, input.flowSignal),
+  };
+}
+
+function headlineForLabel(label: string): string {
   switch (label) {
     case "Poor":
-      return {
-        headline: "Current river shape is poor.",
-        detail:
-          "Gauge band, trend, rain proxy, and freshness point to difficult river shape.",
-        tip:
-          "Compare this river shape read with the other primitives separately.",
-      };
+      return "The primary gauged reach is currently poor for consistent fishing.";
     case "Tough":
-      return {
-        headline: "Current river shape is tough.",
-        detail:
-          "The river shape inputs are usable but present meaningful constraints.",
-        tip:
-          "Compare this river shape read with the other primitives separately.",
-      };
+      return "The primary gauged reach currently presents meaningful constraints.";
     case "Fishable":
-      return {
-        headline: "Current river shape is fishable.",
-        detail:
-          "The river shape inputs are in a workable range, with some limits still possible.",
-        tip:
-          "Compare this river shape read with the other primitives separately.",
-      };
+      return "The primary gauged reach currently remains workable.";
     case "Good":
-      return {
-        headline: "Current river shape is good.",
-        detail:
-          "Gauge band, trend, rain proxy, and freshness support a good river-shape read.",
-        tip:
-          "Compare this river shape read with the other primitives separately.",
-      };
+      return "The primary gauged reach currently supports good fishing conditions.";
     case "Excellent":
-      return {
-        headline: "Current river shape is excellent.",
-        detail:
-          "The river shape inputs line up strongly for a clear river-shape read.",
-        tip:
-          "Compare this river shape read with the other primitives separately.",
-      };
+      return "The primary gauged reach is currently in an excellent working range.";
     default:
-      return {
-        headline: "Current river shape is available.",
-        detail: "Fishability describes river shape only.",
-        tip: "Use other primitives for separate River Run dimensions.",
-      };
+      return "The current primary-reach fishing shape is available.";
   }
+}
+
+function trendMeaning(signal: RawFlowTrendSignal): string {
+  switch (signal) {
+    case "stable":
+      return "The river is relatively stable.";
+    case "falling":
+      return "The river is falling materially.";
+    case "rising":
+      return "The river has an early rise.";
+    case "meaningful_rise":
+      return "The river is changing enough to reduce presentation consistency.";
+    case "sharp_rise":
+      return "The sharp rise substantially reduces hydraulic predictability.";
+    case "unknown":
+      return "The unresolved trend reduces confidence in the current shape.";
+  }
+}
+
+function fishabilityTip(
+  band: FlowBand,
+  trend: RawFlowTrendSignal,
+): string {
+  if (trend === "sharp_rise") {
+    return "A fast-changing river can make access and presentation less predictable. This is not a wading or boating safety determination.";
+  }
+  switch (band) {
+    case "very_low":
+      return "Very low water can reduce cover and make presentations less forgiving; it does not mean fish are absent.";
+    case "low":
+      return "Lower water remains workable, but reduced cover can make the river less forgiving.";
+    case "normal_fishable":
+      return "This is a workable primary-reach shape with fewer hydraulic advantages than the configured ideal band.";
+    case "ideal":
+      return "This band offers the broadest primary-reach presentation options represented by the configured gauge.";
+    case "high_fishable":
+      return "Higher water remains fishable, but some access and presentation options may narrow.";
+    case "very_high":
+      return "Very high water can materially limit access and presentation. This is not a wading or boating safety determination.";
+    case "blown_out":
+      return "This primary-reach hydraulic state is rarely workable for consistent fishing. Do not treat Fishability as a safety rating.";
+  }
+}
+
+function flowBandLabel(band: FlowBand): string {
+  switch (band) {
+    case "very_low":
+      return "Very Low";
+    case "low":
+      return "Low";
+    case "normal_fishable":
+      return "Normal Fishable";
+    case "ideal":
+      return "Ideal";
+    case "high_fishable":
+      return "High Fishable";
+    case "very_high":
+      return "Very High";
+    case "blown_out":
+      return "Blown Out";
+  }
+}
+
+function unavailableResult(
+  input: FishabilityScoreInput,
+  reason: "gauge" | "band",
+): FishabilityScoreResult {
+  if (reason === "band") {
+    return {
+      score: null,
+      label: "Unavailable",
+      headline:
+        "Current primary-reach shape is unavailable without a configured river band.",
+      detail:
+        "A current primary-gauge value must resolve against the audited reach-specific Fishability thresholds.",
+      tip:
+        "Fishability stays unavailable rather than substituting seasonal percentiles for physical fishing thresholds.",
+      reasonCodes: [
+        gaugeReasonCode(input.gaugeFreshness),
+        "baseline_missing",
+        ...(input.flowReasonCodes ?? []),
+      ],
+      rulesVersion: input.rules.version,
+    };
+  }
+  return {
+    score: null,
+    label: "Unavailable",
+    headline:
+      "Fishability is unavailable without a current primary-gauge read.",
+    detail: `A usable ${input.rules.sourceLabel} ${
+      input.rules.metric === "flow_cfs" ? "discharge" : "gage-height"
+    } reading is required to describe current primary-reach shape.`,
+    tip: "Check again after the next condition refresh.",
+    reasonCodes: [gaugeReasonCode(input.gaugeFreshness)],
+    rulesVersion: input.rules.version,
+  };
 }
 
 function gaugeReasonCode(freshness: GaugeFreshness): RiverRunReasonCode {
@@ -234,13 +300,24 @@ function gaugeReasonCode(freshness: GaugeFreshness): RiverRunReasonCode {
   }
 }
 
-function weatherReasonCode(freshness: WeatherFreshness): RiverRunReasonCode {
-  switch (freshness) {
-    case "fresh":
-      return "weather_fresh";
-    case "stale":
-      return "weather_stale";
-    case "missing":
-      return "weather_missing";
-  }
+function applyCap(score: number, cap: number, appliedCaps: number[]): number {
+  if (score > cap) appliedCaps.push(cap);
+  return Math.min(score, cap);
+}
+
+function clamp(value: number, min: number, max: number): number {
+  return Math.min(max, Math.max(min, value));
+}
+
+function signed(value: number): string {
+  const rounded = round(value);
+  return `${rounded > 0 ? "+" : ""}${rounded}`;
+}
+
+function round(value: number): number {
+  return Math.round(value * 10) / 10;
+}
+
+function isNumber(value: unknown): value is number {
+  return typeof value === "number" && Number.isFinite(value);
 }

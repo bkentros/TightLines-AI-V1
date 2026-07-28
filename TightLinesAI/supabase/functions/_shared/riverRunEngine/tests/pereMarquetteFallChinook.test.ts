@@ -42,9 +42,13 @@ const REQUIRED_REASON_CODES = [
   "high_fishable_flow_band",
   "very_high_flow_band",
   "blown_out_flow_band",
+  "fishability_very_low_cap",
+  "fishability_blown_out_cap",
+  "fishability_sharp_rise_high_cap",
+  "fishability_unknown_trend_cap",
+  "fishability_stale_gauge_cap",
   "temperature_measured",
   "temperature_adjusted_reference",
-  "temperature_air_proxy",
   "temperature_unavailable",
   "temperature_neutral_missing",
   "temperature_cooling",
@@ -52,25 +56,44 @@ const REQUIRED_REASON_CODES = [
   "temperature_warming",
   "temperature_strong_warming",
   "temperature_too_warm_cap",
+  "temperature_primary_source",
+  "temperature_upstream_fallback",
+  "temperature_source_stale",
+  "temperature_value_invalid",
   "stage_pre_run",
+  "stage_pre_run_staging",
   "stage_beginning",
   "stage_building",
   "stage_peak",
   "stage_tapering",
   "stage_ending",
   "stage_post_run",
-  "schedule_ahead",
-  "schedule_on_schedule",
-  "schedule_behind",
-  "schedule_uncertain",
-  "schedule_limited_source_days",
-  "schedule_missing_yesterday_gauge",
-  "schedule_missing_required_inputs",
+  "conditions_ahead",
+  "conditions_typical",
+  "conditions_delayed",
+  "conditions_insufficient",
+  "conditions_checkpoint_evaluating",
+  "conditions_checkpoint_river_start",
+  "conditions_checkpoint_building_start",
+  "conditions_checkpoint_peak_start",
+  "conditions_checkpoint_peak_complete",
+  "conditions_checkpoint_reversal_tempered",
+  "conditions_timing_complete",
+  "conditions_limited_source_days",
+  "conditions_missing_checkpoint_gauge",
+  "conditions_missing_checkpoint_temperature",
+  "conditions_baseline_missing",
+  "conditions_baseline_insufficient_years",
+  "conditions_baseline_version_mismatch",
+  "conditions_baseline_window_mismatch",
+  "conditions_source_mismatch",
+  "conditions_signals_mixed",
   "run_strength_weak",
   "run_strength_light",
   "run_strength_medium",
   "run_strength_strong",
   "run_strength_signature",
+  "historical_presence_curve",
   "data_quality_fresh",
   "data_quality_partial",
   "data_quality_stale",
@@ -79,24 +102,25 @@ const REQUIRED_REASON_CODES = [
   "peak_presence_weak_push",
   "good_fishability_low_presence",
   "strong_push_low_fishability",
-  "behind_schedule_strong_push",
-  "pre_run_ahead_schedule",
+  "delayed_conditions_strong_push",
+  "beginning_ahead_conditions",
+  "post_run_residual_presence",
 ] as const;
 
-type RiverOverrides = Partial<Omit<RiverProfile, "gauge">> & {
-  gauge?: Partial<RiverProfile["gauge"]>;
+type RiverOverrides = Partial<Omit<RiverProfile, "hydraulicSources">> & {
+  hydraulicSource?: Partial<RiverProfile["hydraulicSources"][number]>;
 };
 
 type RunOverrides =
   & Partial<
     Omit<
       RiverRunProfile,
-      "runWindow" | "waterTemperatureSource" | "userCopyHints"
+      "runWindow" | "waterTemperature" | "userCopyHints"
     >
   >
   & {
     runWindow?: Partial<RiverRunProfile["runWindow"]>;
-    waterTemperatureSource?: Partial<RiverRunProfile["waterTemperatureSource"]>;
+    waterTemperature?: Partial<RiverRunProfile["waterTemperature"]>;
     userCopyHints?: Partial<NonNullable<RiverRunProfile["userCopyHints"]>>;
     publicAudit?: { isEnabled: boolean; auditVersion?: string; notes?: string };
   };
@@ -105,10 +129,10 @@ function riverWith(overrides: RiverOverrides): RiverProfile {
   return {
     ...PERE_MARQUETTE_RIVER_PROFILE,
     ...overrides,
-    gauge: {
-      ...PERE_MARQUETTE_RIVER_PROFILE.gauge,
-      ...overrides.gauge,
-    },
+    hydraulicSources: [{
+      ...PERE_MARQUETTE_RIVER_PROFILE.hydraulicSources[0],
+      ...overrides.hydraulicSource,
+    }],
   };
 }
 
@@ -120,9 +144,9 @@ function runWith(overrides: RunOverrides): RiverRunProfile {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.runWindow,
       ...overrides.runWindow,
     },
-    waterTemperatureSource: {
-      ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.waterTemperatureSource,
-      ...overrides.waterTemperatureSource,
+    waterTemperature: {
+      ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.waterTemperature,
+      ...overrides.waterTemperature,
     },
     userCopyHints: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.userCopyHints,
@@ -157,6 +181,35 @@ Deno.test("PM Fall Chinook run is structurally valid", () => {
   );
 });
 
+Deno.test("river without measured water-temperature sources is unsupported", () => {
+  const river = riverWith({ waterTemperatureSources: [] });
+  const result = validateRiverProfile(river);
+
+  assertEquals(result.valid, false);
+  assertEquals(result.publicVisible, false);
+  assert(
+    result.issues.some((issue) =>
+      issue.field === "waterTemperatureSources" &&
+      issue.code === "temperature_source_invalid"
+    ),
+  );
+});
+
+Deno.test("run without a measured water-temperature source priority is invalid", () => {
+  const result = validateRunProfile(
+    runWith({ waterTemperature: { sourcePriority: [] } }),
+    PERE_MARQUETTE_RIVER_PROFILE,
+  );
+
+  assertEquals(result.valid, false);
+  assert(
+    result.issues.some((issue) =>
+      issue.field === "waterTemperature.sourcePriority" &&
+      issue.code === "temperature_source_invalid"
+    ),
+  );
+});
+
 Deno.test("explicit disabled audit gate hides otherwise valid PM run", () => {
   const hiddenResult = validateRunProfile(
     runWith({ publicAudit: { isEnabled: false } }),
@@ -171,7 +224,7 @@ Deno.test("explicit disabled audit gate hides otherwise valid PM run", () => {
 });
 
 Deno.test("invalid reach quality hides public support", () => {
-  const river = riverWith({ gauge: { reachQuality: "limited" } });
+  const river = riverWith({ hydraulicSource: { reachQuality: "limited" } });
   const result = validateRiverProfile(river);
 
   assertEquals(result.publicVisible, false);
@@ -179,7 +232,7 @@ Deno.test("invalid reach quality hides public support", () => {
 });
 
 Deno.test("missing history hides public support", () => {
-  const river = riverWith({ gauge: { historyYearsAvailable: 1 } });
+  const river = riverWith({ hydraulicSource: { historyYearsAvailable: 1 } });
   const result = validateRiverProfile(river);
 
   assertEquals(result.publicVisible, false);
@@ -222,7 +275,7 @@ Deno.test("visible helper returns no PM run when audit gate is explicitly disabl
 Deno.test("visible helper returns only valid/public runs", () => {
   const hiddenRiver = riverWith({
     riverId: "hidden_limited_reach",
-    gauge: { reachQuality: "limited" },
+    hydraulicSource: { reachQuality: "limited" },
   });
   const hiddenRun = runWith({
     runId: "hidden_missing_notes",

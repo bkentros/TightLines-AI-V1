@@ -1,5 +1,9 @@
 # FinFindr River Run — V1 Spec
 
+> Legacy design record. The reconciled source of truth is
+> `finfindr_river_run_v1_simple_spec.md` plus `river_run_rollout_plan.md`.
+> Where this document differs, the reconciled specification wins.
+
 **Feature:** River Run  
 **Product:** FinFindr  
 **V1 proof point:** Pere Marquette River — fall Chinook (king salmon)  
@@ -108,22 +112,22 @@ Reuse FinFindr's existing Open-Meteo integration (`fetchOpenMeteo14Day` / `get-e
 Required fields:
 
 - Rain: 24h, 48h, 72h observed + forecast through **10 days**
-- Air temp + overnight low trend per forecast day (fallback only for temperature signal)
 - Cloud cover (for low-light context in reasons only)
 
-### 4.3 Water temperature — preferred when available
+### 4.3 Water temperature — required
 
 Water temperature is valuable for salmon/steelhead timing, but a gauge does **not** guarantee water-temp data. Each river/run uses an admin-approved temperature source, in priority order:
 
 1. Same USGS gauge water temperature, if available
 2. Same-river or nearby water-temperature gauge, manually approved by admin
 3. Adjusted reference water-temperature gauge, manually approved by admin
-4. Open-Meteo air-temp / overnight-low trend as fallback
-5. Unavailable — remove temp signal and lower confidence
+4. Unavailable — do not support a river with no viable measured-water source;
+   fail temperature-dependent output closed during a temporary outage
 
 Adjusted reference gauges are allowed only through explicit admin config. Example: a nearby reference river runs ~3°F warmer than the target spring-fed river, so the target profile uses `adjustmentF: -3`. This is deterministic config, not daily manual scoring.
 
-Air temperature must never create a strong temperature signal by itself. When using `air_temp_proxy`, cap the temperature score and use cautious reason copy: "Cooler nights may help water temperatures trend down."
+Air temperature is not a River Run input and is never a fallback for measured
+water temperature.
 
 ### 4.4 Historical baselines — required for accuracy
 
@@ -184,8 +188,8 @@ export type RiverProfile = {
   };
 
   temperatureSource: {
-    type: 'same_gauge' | 'nearby_water_gauge' | 'adjusted_reference_gauge' | 'air_temp_proxy' | 'unavailable';
-    provider?: 'USGS' | 'OpenMeteo';
+    type: 'same_gauge' | 'nearby_water_gauge' | 'adjusted_reference_gauge' | 'unavailable';
+    provider?: 'USGS' | 'MONITOR_MY_WATERSHED';
     siteId?: string;          // required for water gauge sources
     name?: string;
     adjustmentF?: number;     // admin-entered modifier, e.g. -3 for cooler spring-fed river
@@ -430,7 +434,7 @@ Build a deterministic temperature signal from `RiverProfile.temperatureSource`, 
 
 ```ts
 tempSignal = {
-  source: 'same_gauge' | 'nearby_water_gauge' | 'adjusted_reference_gauge' | 'air_temp_proxy' | 'unavailable',
+  source: 'same_gauge' | 'nearby_water_gauge' | 'adjusted_reference_gauge' | 'unavailable',
   valueF?: number,
   trend24hF?: number,
   trend72hF?: number,
@@ -442,7 +446,8 @@ Rules:
 
 - Same-gauge water temp can score actual thermal suitability + the configured temperature trend.
 - Nearby or adjusted reference water temp can score suitability + trend, but confidence is capped below same-gauge data.
-- Air-temp proxy scores only trend pressure, not actual water suitability; cap `temperatureTriggerScore` at 60–65.
+- An unavailable current measured-water source makes temperature-dependent
+  output unavailable.
 - Unavailable temp removes this component from reasons and lowers confidence for temp-sensitive runs.
 - Adjusted reference gauges apply the admin-entered `adjustmentF` before scoring.
 
@@ -632,7 +637,7 @@ Rules:
 - Never show `worth_planning` when confidence < 65.
 - Never show `worth_planning` for outlook days beyond day 3.
 - Any blown-out/safety condition forces `do_not_travel`.
-- Use conservative labels when using only air-temp proxy or adjusted reference temp.
+- Use conservative labels when using adjusted-reference water temperature.
 
 ### 8.8 Confidence
 
@@ -657,7 +662,10 @@ Days 8–10:         × 0.45
 
 Hard caps: no gauge → 0 (unsupported); gauge stale > 12h → max 40; baseline < 5yr → max 60; outlook day > 0 → max 75.
 
-Temperature source quality contributes to `metricCompleteness`: same-gauge water temp is full credit, approved nearby/adjusted water gauge is partial credit, air-temp proxy is low credit, and unavailable temp lowers confidence for temp-sensitive runs.
+Temperature source quality contributes to `metricCompleteness`: same-gauge
+water temperature is full credit, an approved nearby/adjusted water gauge is
+partial credit, and unavailable measured temperature fails temperature-sensitive
+output closed.
 
 ### 8.9 Reason Strings
 
@@ -689,10 +697,11 @@ export const pereMarquette: RiverProfile = {
     primaryMetric: 'flow_cfs',
   },
   temperatureSource: {
-    type: 'air_temp_proxy', // replace with approved water-temp source if available before launch
-    provider: 'OpenMeteo',
-    confidence: 'low',
-    notes: 'Fallback only. Verify USGS water-temperature availability before public launch.',
+    type: 'nearby_water_gauge',
+    provider: 'MONITOR_MY_WATERSHED',
+    siteId: 'Maple Leaf',
+    confidence: 'medium',
+    notes: 'Audited PMTU Maple Leaf measured-water source.',
   },
   hydrology: {
     clearsFast: true,
@@ -799,10 +808,10 @@ Returns **today (confirmed)** + **10-day outlook bundle**.
       "observedAt": "2026-09-10T10:30:00Z"
     },
     "temperature": {
-      "source": "air_temp_proxy",
-      "valueF": null,
+      "source": "nearby_water_gauge",
+      "valueF": 61.2,
       "adjustmentF": null,
-      "confidence": "low"
+      "confidence": "medium"
     },
     "reasons": ["Flow rose meaningfully over the last 24 hours.", "..."],
     "safety": {
@@ -1152,7 +1161,7 @@ A river/run goes live when:
 - Deterministic: same inputs → same outputs
 - Run strength informs context, not live gauge data
 - Temperature source quality is visible internally and reflected in confidence/copy
-- Air-temp proxy never claims actual water temperature
+- Air temperature is not used by River Run
 - Push notifications are opt-in, deduped, and conservative
 - Gauge limitation copy included in score payloads
 
@@ -1166,7 +1175,8 @@ Build FinFindr River Run V1 as a deterministic, config-driven engine.
 Start with Pere Marquette fall Chinook only. USGS gauge 04122500.
 Auto-build historical flow + gage-height percentile baselines.
 Reuse Open-Meteo for weather at river mouth.
-Use water temperature when available. If not, use an admin-approved nearby/adjusted reference gauge or capped air-temp proxy fallback.
+Require an admin-approved measured-water source. If every configured source is
+temporarily unavailable, fail temperature-dependent output closed.
 
 Config model supports season, runStrength (1-5), and multi-run per river.
 River onboarding is admin-controlled: no automatic substitute gauges or temperature sources.

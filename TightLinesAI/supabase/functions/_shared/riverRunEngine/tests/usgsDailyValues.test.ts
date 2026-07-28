@@ -41,13 +41,19 @@ Deno.test("USGS daily-value fetcher builds deterministic daily-values request", 
 
   assertEquals(
     parsed.origin + parsed.pathname,
-    "https://waterservices.usgs.gov/nwis/dv/",
+    "https://api.waterdata.usgs.gov/ogcapi/v0/collections/daily/items",
   );
-  assertEquals(parsed.searchParams.get("format"), "json");
-  assertEquals(parsed.searchParams.get("sites"), "04122500");
-  assertEquals(parsed.searchParams.get("parameterCd"), "00060");
-  assertEquals(parsed.searchParams.get("startDT"), "2020-01-01");
-  assertEquals(parsed.searchParams.get("endDT"), "2025-12-31");
+  assertEquals(parsed.searchParams.get("f"), "json");
+  assertEquals(
+    parsed.searchParams.get("monitoring_location_id"),
+    "USGS-04122500",
+  );
+  assertEquals(parsed.searchParams.get("parameter_code"), "00060");
+  assertEquals(parsed.searchParams.get("statistic_id"), "00003");
+  assertEquals(
+    parsed.searchParams.get("datetime"),
+    "2020-01-01/2025-12-31",
+  );
   assertEquals(observations.length, 2);
 });
 

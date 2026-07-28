@@ -35,9 +35,7 @@ export function resolveTemperatureTrendSignal(
     };
   }
 
-  const result = input.sourceType === "air_temp_proxy"
-    ? resolveAirProxyTrend(input.delta72hF)
-    : resolveMeasuredTrend(input.delta72hF, input.delta24hF);
+  const result = resolveMeasuredTrend(input.delta72hF, input.delta24hF);
 
   return {
     rawSignal: result,
@@ -66,16 +64,7 @@ function resolveMeasuredTrend(
   return "neutral";
 }
 
-function resolveAirProxyTrend(delta72hF: number): RawTemperatureTrendSignal {
-  if (delta72hF <= -8) return "strong_cooling";
-  if (delta72hF <= -4) return "cooling";
-  if (delta72hF >= 8) return "strong_warming";
-  if (delta72hF >= 4) return "warming";
-  return "neutral";
-}
-
 function sourceReasonCode(type: TemperatureSourceType): RiverRunReasonCode {
-  if (type === "air_temp_proxy") return "temperature_air_proxy";
   if (type === "adjusted_reference_gauge") {
     return "temperature_adjusted_reference";
   }

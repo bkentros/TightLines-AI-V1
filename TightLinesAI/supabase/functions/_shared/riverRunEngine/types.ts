@@ -21,26 +21,25 @@ export type RunType =
   | "summer_run"
   | "holding";
 
-export type BehaviorProfile =
-  | "fall_cooling_rain_pulse"
-  | "spring_warming_flow_pulse"
-  | "winter_thaw_flow_window"
-  | "summer_cool_rain_pulse"
+export type MovementEngineId =
+  | "fall_cooling"
+  | "spring_warming"
+  | "winter_thaw"
+  | "summer_cooling"
   | "stable_cool_holding";
 
 export type RiverMetric = "flow_cfs" | "gage_height_ft";
-export type GaugeProvider = "USGS" | "OTHER_OFFICIAL";
-export type TemperatureProvider = GaugeProvider | "OpenMeteo";
+export type GaugeProvider = "USGS";
+export type TemperatureProvider = "USGS" | "MONITOR_MY_WATERSHED";
 export type SupportStatus = "beta" | "verified";
 export type ReachQuality = "good" | "acceptable" | "limited";
 export type TemperatureSourceType =
   | "same_gauge"
   | "nearby_gauge"
   | "adjusted_reference_gauge"
-  | "air_temp_proxy"
   | "unavailable";
 
-export type FishabilityBandSource = "percentile_default" | "admin_override";
+export type FishabilityBandSource = "audited_absolute";
 export type FlowBand =
   | "very_low"
   | "low"
@@ -72,12 +71,6 @@ export type RawTemperatureTrendSignal =
   | "neutral"
   | "warming"
   | "strong_warming";
-export type FavorabilityLevel =
-  | "very_unfavorable"
-  | "unfavorable"
-  | "neutral"
-  | "favorable"
-  | "very_favorable";
 export type RunStage =
   | "pre_run"
   | "beginning"
@@ -108,20 +101,85 @@ export type InterpretationNote = {
 };
 
 export type FishabilityBands = {
+  version: string;
   metric: RiverMetric;
-  tooLow?: { max: number };
-  lowFishable?: { min: number; max: number };
-  ideal?: { min: number; max: number };
-  highFishable?: { min: number; max: number };
-  blownOut?: { min: number };
+  sourceLabel: string;
+  tooLow: { max: number };
+  lowFishable: { min: number; max: number };
+  ideal: { min: number; max: number };
+  highFishable: { min: number; max: number };
+  blownOut: { min: number };
+  caps: {
+    staleGauge: number;
+    unknownTrend: number;
+    veryLow: number;
+    blownOut: number;
+    sharpRiseHigh: number;
+  };
+  evidenceNotes: string;
+  sourceNotes: string;
 };
 
 export type BaselineCoverage = {
   metric: RiverMetric;
+  version: string;
   hasPercentileBaselines: boolean;
   coveredWindowPercent: number;
   minimumHistoryYears: number;
   sourceNotes: string;
+};
+
+export type HydraulicSourceRole =
+  | "primary"
+  | "upstream_context"
+  | "tributary_context"
+  | "secondary_context";
+
+export type HydraulicSourceConfig = {
+  sourceId: string;
+  provider: GaugeProvider;
+  siteId: string;
+  name: string;
+  role: HydraulicSourceRole;
+  primaryMetric: RiverMetric;
+  availableMetrics: RiverMetric[];
+  historyYearsAvailable: number;
+  maxAgeHours: number;
+  reachQuality: ReachQuality;
+  reachNotes: string;
+};
+
+export type WaterTemperatureSourceRole =
+  | "primary"
+  | "fallback"
+  | "validation";
+
+export type WaterTemperatureSourceConfig = {
+  sourceId: string;
+  provider: TemperatureProvider;
+  siteId: string;
+  seriesId?: string;
+  name: string;
+  role: WaterTemperatureSourceRole;
+  priority: number;
+  sourceType: Exclude<TemperatureSourceType, "unavailable">;
+  maxAgeHours: number;
+  smoothingWindowHours: number;
+  minValidF: number;
+  maxValidF: number;
+  maxRateChangeFPerHour: number;
+  maxPeerDifferenceF: number;
+  adjustmentF?: number;
+  reachNotes: string;
+  attribution: string;
+};
+
+export type WeatherPointConfig = {
+  weatherPointId: string;
+  lat: number;
+  lon: number;
+  role: "primary" | "basin_context";
+  basinWeight?: number;
 };
 
 export type RiverProfile = {
@@ -133,24 +191,69 @@ export type RiverProfile = {
 
   mouthLat: number;
   mouthLon: number;
-  weatherLat?: number;
-  weatherLon?: number;
-
-  gauge: {
-    provider: GaugeProvider;
-    siteId: string;
-    name: string;
-    primaryMetric: RiverMetric;
-    secondaryMetric?: RiverMetric;
-    availableMetrics?: RiverMetric[];
-    historyYearsAvailable?: number;
-    maxAgeHours?: number;
-    reachQuality: ReachQuality;
-    reachNotes: string;
-  };
+  hydraulicSources: HydraulicSourceConfig[];
+  waterTemperatureSources: WaterTemperatureSourceConfig[];
+  weatherPoints: WeatherPointConfig[];
 
   supportStatus: SupportStatus;
   gaugeLimitationCopy: string;
+};
+
+export type HistoricalPresenceConfig = {
+  maximum: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  curveVersion: string;
+  evidenceNotes: string;
+  sourceNotes: string;
+  anchors: Array<{
+    dayOffsetFromStart: number;
+    fractionOfMaximum: number;
+  }>;
+};
+
+export type PushRules = {
+  version: string;
+  hydraulic: {
+    metric: RiverMetric;
+    sourceLabel: string;
+    lowValue: number;
+    highValue: number;
+    severeHighValue: number;
+    rising24h: {
+      absolute: number;
+      percent: number;
+    };
+    meaningfulRise24h: {
+      absolute: number;
+      percent: number;
+    };
+    sharpRise24h: {
+      absolute: number;
+      percent: number;
+    };
+  };
+  rain: {
+    meaningful48hIn: number;
+    strong48hIn: number;
+    heavy48hIn: number;
+  };
+  temperature: {
+    suitabilityLabel: string;
+    supportiveMinF: number;
+    supportiveMaxF: number;
+    tooWarmF: number;
+    migrationBarrierF: number;
+  };
+  caps: {
+    staleGauge: number;
+    unknownTrend: number;
+    noGaugeResponse: number;
+    tooWarm: number;
+    migrationBarrier: number;
+    severeHighFlow: number;
+    outsideExtendedWindow: number;
+  };
+  evidenceNotes: string;
+  sourceNotes: string;
 };
 
 export type RiverRunProfile = {
@@ -161,50 +264,42 @@ export type RiverRunProfile = {
   species: RiverRunSpecies;
   season: Season;
   runType: RunType;
-  behaviorProfile: BehaviorProfile;
+  movementEngineId: MovementEngineId;
 
   runWindow: {
+    stagingStart: string;
     start: string;
     peak: string;
     end: string;
-    earlyWindowDays?: number;
-    lateWindowDays?: number;
+    lateEnd: string;
     peakWindowDays?: number;
   };
 
-  runStrength: 1 | 2 | 3 | 4 | 5;
+  historicalPresence: HistoricalPresenceConfig;
 
-  rainThresholds?: {
-    meaningful48hIn?: number;
-    strong48hIn?: number;
-    heavy48hIn?: number;
-  };
+  push: PushRules;
 
-  riseThresholds?: {
-    rising24hPercent?: number;
-    meaningfulRise24hPercent?: number;
-    sharpRise24hPercent?: number;
-  };
+  fishabilityBands: FishabilityBands;
+  baselineCoverage: BaselineCoverage;
 
-  fishabilityBands?: FishabilityBands;
-  baselineCoverage?: BaselineCoverage;
-
-  waterTemperatureSource: {
-    type: TemperatureSourceType;
-    provider?: TemperatureProvider;
-    siteId?: string;
-    adjustmentF?: number;
+  waterTemperature: {
+    sourcePriority: string[];
+    upstreamFallbackPositiveSignalCap: 0 | 1;
     notes: string;
   };
 
-  temperatureRules?: {
-    tooColdF?: number;
-    idealMinF?: number;
-    idealMaxF?: number;
-    tooWarmF?: number;
+  conditionsSuggest: {
+    baselineVersion: string;
+    temperatureSourceId: string;
+    minimumUsableYears: number;
+    minimumCoveragePercent: number;
+    aheadPercentile: number;
+    delayedPercentile: number;
+    coolEnoughPercentileCap: number;
   };
 
   userCopyHints?: {
+    stagingTip?: string;
     preRunTip?: string;
     peakTip?: string;
     endingTip?: string;
@@ -224,12 +319,38 @@ export type AuditedRiverRunProfile = RiverRunProfile & {
   publicAudit: PublicAuditGate;
 };
 
+export type RiverRunConfigurationStatus =
+  | "draft"
+  | "published"
+  | "archived";
+
+export type RiverRunConfigurationDocument = {
+  schemaVersion: "river-run-config-v1";
+  configVersion: string;
+  movementEngineVersion: string;
+  river: RiverProfile;
+  runs: AuditedRiverRunProfile[];
+};
+
+export type RiverRunConfigurationRevision = {
+  configKey: string;
+  revision: number;
+  status: RiverRunConfigurationStatus;
+  document: RiverRunConfigurationDocument;
+  evidenceNotes: string;
+  publishedAt?: string;
+};
+
 export type RiverRunValidationCode =
   | RiverRunReasonCode
   | "config_required_field_missing"
   | "config_invalid_value"
   | "config_date_invalid"
   | "config_date_order_invalid"
+  | "config_source_invalid"
+  | "config_source_reference_missing"
+  | "config_movement_engine_unavailable"
+  | "config_revision_invalid"
   | "audit_field_missing"
   | "audit_gate_disabled"
   | "audit_notes_missing"

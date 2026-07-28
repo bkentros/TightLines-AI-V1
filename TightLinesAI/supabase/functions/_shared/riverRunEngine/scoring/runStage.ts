@@ -7,6 +7,7 @@ import {
 
 export type RunStageResult = PrimitiveDisplay & {
   stage: RunStage;
+  stagingContext: boolean;
   window: DateWindow;
 };
 
@@ -16,13 +17,19 @@ export function resolveRunStage(
 ): RunStageResult {
   const window = resolveActiveRunWindow(run, localDate);
   const stage = stageForDate(localDate, window);
+  const stagingContext = stage === "pre_run" &&
+    compareLocalDates(localDate, window.stagingStartDate) >= 0;
 
   return {
     stage,
+    stagingContext,
     window,
     label: stageLabel(stage),
-    ...stageCopy(stage),
-    reasonCodes: [stageReasonCode(stage)],
+    ...stageCopy(stage, stagingContext),
+    reasonCodes: [
+      stageReasonCode(stage),
+      ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
+    ],
   };
 }
 
@@ -63,13 +70,23 @@ function stageLabel(stage: RunStage): string {
 
 function stageCopy(
   stage: RunStage,
+  stagingContext: boolean,
 ): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   switch (stage) {
     case "pre_run":
+      if (stagingContext) {
+        return {
+          headline: "The river run window has not opened yet.",
+          detail:
+            "Maturing fish may stage in nearby lake, harbor, or river-mouth water during this configured run window staging period; this does not confirm fish in the river.",
+          tip:
+            "Treat nearby staging as seasonal context and compare it with measured river conditions separately.",
+        };
+      }
       return {
         headline: "The configured run window has not opened yet.",
         detail:
-          "This is a calendar-stage read only; current river inputs do not change the stage.",
+          "This date is also before the configured nearby-water staging advisory.",
         tip:
           "Compare this calendar-stage read with the other primitives separately.",
       };

@@ -2,17 +2,15 @@ import type { RiverRunProfile } from "../types.ts";
 
 export type DateWindow = {
   snapshotDate: string;
+  stagingStartDate: string;
   startDate: string;
   peakDate: string;
   endDate: string;
-  earlyStartDate: string;
   lateEndDate: string;
   beginningEndDate: string;
   peakStartDate: string;
   peakEndDate: string;
   taperingEndDate: string;
-  earlyWindowDays: number;
-  lateWindowDays: number;
   peakWindowDays: number;
   startToPeakDays: number;
   peakToEndDays: number;
@@ -74,19 +72,15 @@ function buildWindowCandidate(
   snapshotDate: string,
   startYear: number,
 ): DateWindow {
-  const earlyWindowDays = run.runWindow.earlyWindowDays ?? 14;
-  const lateWindowDays = run.runWindow.lateWindowDays ?? 14;
   const peakWindowDays = run.runWindow.peakWindowDays ?? 5;
 
   const start = dateFromMonthDay(startYear, run.runWindow.start);
-  const startOrdinal = monthDayOrdinal(run.runWindow.start);
-  const peakYear = startYear +
-    (monthDayOrdinal(run.runWindow.peak) < startOrdinal ? 1 : 0);
-  const endYear = startYear +
-    (monthDayOrdinal(run.runWindow.end) < startOrdinal ? 1 : 0);
-  const peak = dateFromMonthDay(peakYear, run.runWindow.peak);
-  const end = dateFromMonthDay(endYear, run.runWindow.end);
+  const stagingStart = dateOnOrBefore(start, run.runWindow.stagingStart);
+  const peak = dateOnOrAfter(start, run.runWindow.peak);
+  const end = dateOnOrAfter(peak, run.runWindow.end);
+  const lateEnd = dateOnOrAfter(end, run.runWindow.lateEnd);
 
+  const stagingStartDate = toLocalDateString(stagingStart);
   const startDate = toLocalDateString(start);
   const peakDate = toLocalDateString(peak);
   const endDate = toLocalDateString(end);
@@ -105,17 +99,15 @@ function buildWindowCandidate(
 
   return {
     snapshotDate,
+    stagingStartDate,
     startDate,
     peakDate,
     endDate,
-    earlyStartDate: addDays(startDate, -earlyWindowDays),
-    lateEndDate: addDays(endDate, lateWindowDays),
+    lateEndDate: toLocalDateString(lateEnd),
     beginningEndDate,
     peakStartDate,
     peakEndDate,
     taperingEndDate,
-    earlyWindowDays,
-    lateWindowDays,
     peakWindowDays,
     startToPeakDays,
     peakToEndDays,
@@ -148,10 +140,20 @@ function dateFromMonthDay(year: number, monthDay: string): Date {
   return new Date(Date.UTC(year, Number(match[1]) - 1, Number(match[2])));
 }
 
-function monthDayOrdinal(monthDay: string): number {
-  const date = dateFromMonthDay(2024, monthDay);
-  const yearStart = new Date(Date.UTC(2024, 0, 1));
-  return Math.round((date.getTime() - yearStart.getTime()) / MS_PER_DAY) + 1;
+function dateOnOrAfter(previous: Date, monthDay: string): Date {
+  let candidate = dateFromMonthDay(previous.getUTCFullYear(), monthDay);
+  if (candidate.getTime() < previous.getTime()) {
+    candidate = dateFromMonthDay(previous.getUTCFullYear() + 1, monthDay);
+  }
+  return candidate;
+}
+
+function dateOnOrBefore(next: Date, monthDay: string): Date {
+  let candidate = dateFromMonthDay(next.getUTCFullYear(), monthDay);
+  if (candidate.getTime() > next.getTime()) {
+    candidate = dateFromMonthDay(next.getUTCFullYear() - 1, monthDay);
+  }
+  return candidate;
 }
 
 function toLocalDateString(date: Date): string {

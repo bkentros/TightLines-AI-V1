@@ -9,11 +9,11 @@ import {
 } from "../scoring/fishInRiver.ts";
 import { resolveRunStage, type RunStageResult } from "../scoring/runStage.ts";
 import {
-  type PreviousScheduleState,
-  type ScheduleRefreshesByDate,
-  type ScheduleResult,
-  scoreSchedule,
-} from "../scoring/schedule.ts";
+  type ConditionsSuggestEvidenceByDate,
+  type ConditionsSuggestResult,
+  scoreConditionsSuggest,
+} from "../scoring/conditionsSuggest.ts";
+import type { RiverRunConditionsSuggestBaseline } from "../storage/types.ts";
 
 export type RiverRunDailySnapshot = {
   riverId: string;
@@ -21,12 +21,13 @@ export type RiverRunDailySnapshot = {
   localDate: string;
   timezone: string;
   runStage: RunStageResult;
-  schedule: ScheduleResult;
+  conditionsSuggest: ConditionsSuggestResult;
   fishInRiver: FishInRiverResult;
-  favorabilitySummaries: Array<{
+  evidenceSummaries: Array<{
     sourceDate: string;
     refreshSlot?: string;
-    favorabilityIndex?: number;
+    gaugeValue?: number | null;
+    waterTempF?: number | null;
   }>;
   sourceDates: string[];
   sourceRefreshSlots: Partial<Record<string, string>>;
@@ -39,37 +40,42 @@ export function buildDailySnapshot(input: {
   river: Pick<RiverProfile, "riverId" | "timezone">;
   run: Pick<
     RiverRunProfile,
-    "runId" | "runWindow" | "runStrength"
+    | "runId"
+    | "displayName"
+    | "runWindow"
+    | "historicalPresence"
+    | "conditionsSuggest"
+    | "push"
   >;
   localDate: string;
-  scheduleRefreshesByDate: ScheduleRefreshesByDate;
-  previousSchedule?: PreviousScheduleState;
+  conditionsEvidenceByDate: ConditionsSuggestEvidenceByDate;
+  conditionsBaselines?: RiverRunConditionsSuggestBaseline[] | null;
   engineVersion: string;
   configVersion: string;
 }): RiverRunDailySnapshot {
   const runStage = resolveRunStage(input.run, input.localDate);
   const fishInRiver = scoreFishInRiver(input.run, input.localDate);
-  const schedule = scoreSchedule({
+  const conditionsSuggest = scoreConditionsSuggest({
     localDate: input.localDate,
-    stage: runStage.stage,
-    window: runStage.window,
-    refreshesByDate: input.scheduleRefreshesByDate,
-    previousSchedule: input.previousSchedule,
+    run: input.run,
+    evidenceByDate: input.conditionsEvidenceByDate,
+    baselines: input.conditionsBaselines,
   });
-  const favorabilitySummaries = schedule.sourceDates.map((sourceDate) => {
-    const refreshSlot = schedule.sourceRefreshSlots[sourceDate];
+  const evidenceSummaries = conditionsSuggest.sourceDates.map((sourceDate) => {
+    const refreshSlot = conditionsSuggest.sourceRefreshSlots[sourceDate];
     const refresh = refreshSlot
-      ? input.scheduleRefreshesByDate[sourceDate]?.[refreshSlot]
+      ? input.conditionsEvidenceByDate[sourceDate]?.[refreshSlot]
       : undefined;
     return {
       sourceDate,
       refreshSlot,
-      favorabilityIndex: refresh?.favorabilityIndex,
+      gaugeValue: refresh?.gaugeValue,
+      waterTempF: refresh?.waterTempF,
     };
   });
   const reasonCodes = dedupeReasonCodes([
     ...runStage.reasonCodes,
-    ...schedule.reasonCodes,
+    ...conditionsSuggest.reasonCodes,
     ...fishInRiver.reasonCodes,
   ]);
 
@@ -79,11 +85,11 @@ export function buildDailySnapshot(input: {
     localDate: input.localDate,
     timezone: input.river.timezone,
     runStage,
-    schedule,
+    conditionsSuggest,
     fishInRiver,
-    favorabilitySummaries,
-    sourceDates: schedule.sourceDates,
-    sourceRefreshSlots: schedule.sourceRefreshSlots,
+    evidenceSummaries,
+    sourceDates: conditionsSuggest.sourceDates,
+    sourceRefreshSlots: conditionsSuggest.sourceRefreshSlots,
     reasonCodes,
     engineVersion: input.engineVersion,
     configVersion: input.configVersion,

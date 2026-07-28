@@ -1,10 +1,15 @@
 import { assert, assertEquals } from "jsr:@std/assert";
-import { handleRiverRunRequest } from "./index.ts";
 import {
+  handleRiverRunRequest as handleRiverRunRequestBase,
+  type RiverRunHandlerDeps,
+} from "./index.ts";
+import {
+  addDays,
   type AuditedRiverRunProfile,
   buildConditionRefresh,
   buildDailySnapshot,
   type NormalizedGaugeObservation,
+  PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   type RiverRunConditionRefreshRow,
@@ -18,6 +23,9 @@ class MockQuery {
   filters: Record<string, unknown> = {};
   ranges: Array<{ column: string; op: "gte" | "lte"; value: unknown }> = [];
   orderColumn: string | null = null;
+  orderAscending = true;
+  limitCount: number | null = null;
+  private upsertedRow: Record<string, unknown> | null = null;
 
   constructor(
     private readonly client: MockClient,
@@ -32,6 +40,7 @@ class MockQuery {
     row: Record<string, unknown>,
     options?: { onConflict?: string },
   ): MockQuery {
+    this.upsertedRow = row;
     this.client.upserts.push({ table: this.tableName, row, options });
     this.client.rows[this.tableName] ??= [];
     this.client.rows[this.tableName].push(row);
@@ -71,16 +80,34 @@ class MockQuery {
     return this;
   }
 
-  order(column: string): MockQuery {
+  order(column: string, options?: { ascending?: boolean }): MockQuery {
     this.orderColumn = column;
+    this.orderAscending = options?.ascending !== false;
+    return this;
+  }
+
+  limit(count: number): MockQuery {
+    this.limitCount = count;
     return this;
   }
 
   maybeSingle(): Promise<
-    { data: Record<string, unknown> | null; error: null }
+    {
+      data: Record<string, unknown> | null;
+      error: { message: string } | null;
+    }
   > {
+    if (
+      this.client.historyReadError &&
+      this.ranges.some((range) => range.column === "push->score")
+    ) {
+      return Promise.resolve({
+        data: null,
+        error: { message: "history offline" },
+      });
+    }
     return Promise.resolve({
-      data: this.matchingRows()[0] ?? null,
+      data: this.upsertedRow ?? this.matchingRows()[0] ?? null,
       error: null,
     });
   }
@@ -105,20 +132,61 @@ class MockQuery {
 
   private matchingRows(): Record<string, unknown>[] {
     const rows = this.client.rows[this.tableName] ?? [];
-    return rows.filter((row) =>
+    const matches = rows.filter((row) =>
       Object.entries(this.filters).every(([column, value]) =>
-        row[column] === value
+        this.rowValue(row, column) === value
       ) &&
       this.ranges.every((range) => {
-        const actual = row[range.column];
-        if (typeof actual !== "string" || typeof range.value !== "string") {
+        const actual = this.rowValue(row, range.column);
+        if (
+          (typeof actual !== "string" && typeof actual !== "number") ||
+          typeof actual !== typeof range.value
+        ) {
           return false;
         }
-        return range.op === "gte"
-          ? actual >= range.value
-          : actual <= range.value;
+        if (typeof actual === "number" && typeof range.value === "number") {
+          return range.op === "gte"
+            ? actual >= range.value
+            : actual <= range.value;
+        }
+        if (typeof actual === "string" && typeof range.value === "string") {
+          return range.op === "gte"
+            ? actual >= range.value
+            : actual <= range.value;
+        }
+        return false;
       })
     );
+    if (this.orderColumn) {
+      const column = this.orderColumn;
+      matches.sort((a, b) => {
+        const left = this.rowValue(a, column);
+        const right = this.rowValue(b, column);
+        const comparison = left === right
+          ? 0
+          : left == null
+          ? -1
+          : right == null
+          ? 1
+          : left < right
+          ? -1
+          : 1;
+        return this.orderAscending ? comparison : -comparison;
+      });
+    }
+    return this.limitCount == null
+      ? matches
+      : matches.slice(0, this.limitCount);
+  }
+
+  private rowValue(
+    row: Record<string, unknown>,
+    column: string,
+  ): unknown {
+    return column.split("->").reduce<unknown>((value, part) => {
+      if (!value || typeof value !== "object") return undefined;
+      return (value as Record<string, unknown>)[part];
+    }, row);
   }
 }
 
@@ -132,6 +200,7 @@ class MockClient implements SupabaseLikeClient {
   filters: Array<
     { table: string; column: string; value: unknown; op: string }
   > = [];
+  readonly historyReadError: boolean;
   auth: {
     getUser: (
       token: string,
@@ -145,8 +214,10 @@ class MockClient implements SupabaseLikeClient {
     private readonly options: {
       validToken?: string;
       rateLimitAllowed?: boolean;
+      historyReadError?: boolean;
     } = {},
   ) {
+    this.historyReadError = options.historyReadError === true;
     this.auth = {
       getUser: (token: string) =>
         Promise.resolve(
@@ -199,7 +270,7 @@ const gaugeObservation: NormalizedGaugeObservation = {
   siteId: "04122500",
   observedAt: "2026-09-20T19:30:00.000Z",
   flow_cfs: 600,
-  source: "usgs_instantaneous_values",
+  source: "usgs_continuous_values",
 };
 
 const envData = {
@@ -211,12 +282,28 @@ const envData = {
       .toISOString(),
     value: 0,
   })),
-  weather: { temp_7day_low: [65, 62, 58, 56] },
 };
+
+function handleRiverRunRequest(
+  req: Request,
+  deps: RiverRunHandlerDeps = {},
+): Promise<Response> {
+  return handleRiverRunRequestBase(req, {
+    publicEnabled: true,
+    allowTestOverrides: true,
+    waterTemperatureObservationsBySource: {},
+    ...deps,
+  });
+}
 
 function request(
   path: string,
-  options: { token?: string | null; authorization?: string } = {},
+  options: {
+    token?: string | null;
+    authorization?: string;
+    method?: "GET" | "POST";
+    internalKey?: string;
+  } = {},
 ): Request {
   const headers = new Headers();
   if (options.authorization) {
@@ -228,8 +315,11 @@ function request(
   if (token) {
     headers.set("x-user-token", token);
   }
+  if (options.internalKey) {
+    headers.set("x-river-run-internal-key", options.internalKey);
+  }
   return new Request(`https://example.com/functions/v1/river-run${path}`, {
-    method: "GET",
+    method: options.method ?? "GET",
     headers,
   });
 }
@@ -244,7 +334,7 @@ function dailyRow(localDate = "2026-09-20"): RiverRunDailySnapshotRow {
       river: PERE_MARQUETTE_RIVER_PROFILE,
       run: enabledRun,
       localDate,
-      scheduleRefreshesByDate: {},
+      conditionsEvidenceByDate: {},
       engineVersion: "test-engine",
       configVersion: "test-config",
     }),
@@ -258,7 +348,7 @@ function conditionRow(localDate = "2026-09-20"): RiverRunConditionRefreshRow {
       river: PERE_MARQUETTE_RIVER_PROFILE,
       run: enabledRun,
       localDate,
-      scheduleRefreshesByDate: {},
+      conditionsEvidenceByDate: {},
       engineVersion: "test-engine",
       configVersion: "test-config",
     }),
@@ -269,24 +359,46 @@ function conditionRow(localDate = "2026-09-20"): RiverRunConditionRefreshRow {
       dailySnapshot: daily,
       localDate,
       refreshSlot: "16:00",
-      behaviorProfile: "fall_cooling_rain_pulse",
+      movementEngineId: "fall_cooling",
+      pushRules: enabledRun.push,
+      fishabilityBands: enabledRun.fishabilityBands,
       gaugeFreshness: "fresh",
       weatherFreshness: "fresh",
+      waterTemperatureFreshness: "fresh",
       flowBand: "ideal",
+      currentHydraulicValue: 600,
+      hydraulicAbsoluteChange24h: 0,
+      hydraulicPercentChange24h: 0,
       rainSignal: "dry",
       flowSignal: "stable",
       temperatureSignal: "cooling",
-      temperatureSourceType: "air_temp_proxy",
+      temperatureSourceType: "same_gauge",
+      waterTempF: 61,
       sourceMetrics: {
         gauge: {
+          provider: "USGS",
+          siteId: "04122500",
           primaryMetric: "flow_cfs",
           value: 600,
           band: "ideal",
           trend: "stable",
         },
-        weather: {
-          temperatureSource: "air_temp_proxy",
-          temperatureTrend: "cooling",
+        waterTemperature: {
+          provider: "USGS",
+          sourceId: "pm_maple_leaf_temperature",
+          siteId: "04122200",
+          waterTempF: 61,
+          trend: "cooling",
+          sourceType: "same_gauge",
+        },
+        conditionsWaterTemperature: {
+          provider: "MONITOR_MY_WATERSHED",
+          sourceId: "pm_m37_temperature",
+          siteId: "PMTU37-1",
+          seriesId: "3201",
+          waterTempF: 61,
+          trend: "cooling",
+          sourceType: "nearby_gauge",
         },
       },
       engineVersion: "test-engine",
@@ -306,12 +418,154 @@ Deno.test("GET /river-run/rivers returns PM with default audited config", async 
   );
 });
 
+Deno.test("database config source loads only the published validated document", async () => {
+  const client = new MockClient();
+  client.rows.river_run_config_revisions = [{
+    config_key: "pere_marquette",
+    revision: 1,
+    status: "published",
+    schema_version: "river-run-config-v1",
+    config_version: "2026-07-27",
+    movement_engine_version: "fall-cooling-v1",
+    document: PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
+    evidence_notes: "Published PM fixture.",
+    published_at: "2026-07-27T12:00:00.000Z",
+  }];
+  const response = await handleRiverRunRequest(request("/rivers"), {
+    configSource: "database",
+    createAdminClient: () => client,
+  });
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(
+    body.states[0].rivers[0].runs[0].runId,
+    "pere_marquette_fall_chinook",
+  );
+  assert(
+    client.filters.some((filter) =>
+      filter.table === "river_run_config_revisions" &&
+      filter.column === "status" &&
+      filter.value === "published"
+    ),
+  );
+});
+
 Deno.test("GET /river-run/rivers hides PM with explicit disabled audit gate", async () => {
   const response = await handleRiverRunRequest(request("/rivers"), {
     runs: [disabledRun],
   });
   assertEquals(response.status, 200);
   assertEquals(await json(response), { states: [] });
+});
+
+Deno.test("public release gate hides catalog and snapshots by default", async () => {
+  const catalog = await handleRiverRunRequestBase(request("/rivers"), {
+    runs: [enabledRun],
+    publicEnabled: false,
+  });
+  assertEquals(await json(catalog), { states: [] });
+
+  const snapshot = await handleRiverRunRequestBase(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook",
+    ),
+    {
+      runs: [enabledRun],
+      publicEnabled: false,
+    },
+  );
+  assertEquals(snapshot.status, 403);
+  assertEquals((await json(snapshot)).error, "river_run_not_released");
+});
+
+Deno.test("production snapshot timing ignores caller query overrides", async () => {
+  const response = await handleRiverRunRequestBase(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=1999-01-01&localTime=00:01&refreshAtUtc=1999-01-01T00:01:00.000Z",
+    ),
+    {
+      createAdminClient: () => new MockClient(),
+      runs: [enabledRun],
+      publicEnabled: true,
+      now: new Date("2026-09-20T20:30:00.000Z"),
+      gaugeObservations: [gaugeObservation],
+      weatherSnapshot: envData,
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.localDate, "2026-09-20");
+  assertEquals(body.refreshSlot, "16:00");
+  assertEquals(body.conditionRefreshAt, "2026-09-20T20:30:00.000Z");
+});
+
+Deno.test("production snapshot ignores caller weather payload", async () => {
+  const injectedWeather = encodeURIComponent(JSON.stringify(envData));
+  const response = await handleRiverRunRequestBase(
+    request(
+      `/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&envData=${injectedWeather}`,
+    ),
+    {
+      createAdminClient: () => new MockClient(),
+      runs: [enabledRun],
+      publicEnabled: true,
+      now: new Date("2026-09-20T20:30:00.000Z"),
+      gaugeObservations: [gaugeObservation],
+      fetchFn: async () => ({ ok: false, json: async () => ({}) }),
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.freshness.weather, "missing");
+});
+
+Deno.test("internal refresh requires a secret and warms the current slot", async () => {
+  const forbidden = await handleRiverRunRequestBase(
+    request("/internal/refresh", { method: "POST" }),
+    {
+      createAdminClient: () => new MockClient(),
+      runs: [enabledRun],
+      internalSecret: "correct-internal-secret",
+      now: new Date("2026-09-20T20:30:00.000Z"),
+    },
+  );
+  assertEquals(forbidden.status, 403);
+
+  const client = new MockClient();
+  const response = await handleRiverRunRequestBase(
+    request("/internal/refresh", {
+      method: "POST",
+      internalKey: "correct-internal-secret",
+    }),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      internalSecret: "correct-internal-secret",
+      now: new Date("2026-09-20T20:30:00.000Z"),
+      gaugeObservations: [gaugeObservation],
+      weatherSnapshot: envData,
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.targetCount, 1);
+  assertEquals(body.failedCount, 0);
+  assertEquals(body.results[0].refreshSlot, "16:00");
+  assert(
+    client.upserts.some((item) =>
+      item.table === "river_run_condition_refreshes"
+    ),
+  );
 });
 
 Deno.test("visible snapshot without user token returns 401", async () => {
@@ -347,7 +601,7 @@ Deno.test("visible snapshot with invalid token returns 401", async () => {
 Deno.test("visible snapshot with valid token returns 200", async () => {
   const response = await handleRiverRunRequest(
     request(
-      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-15&localTime=16:30&refreshAtUtc=2026-08-15T20:30:00.000Z",
     ),
     {
       createAdminClient: () => new MockClient(),
@@ -361,13 +615,76 @@ Deno.test("visible snapshot with valid token returns 200", async () => {
   assertEquals(response.status, 200);
 });
 
+Deno.test("snapshot exposes selected measured-water value and provenance", async () => {
+  const source = PERE_MARQUETTE_RIVER_PROFILE.waterTemperatureSources[0];
+  const conditionsSource = PERE_MARQUETTE_RIVER_PROFILE
+    .waterTemperatureSources.find((candidate) =>
+      candidate.sourceId === enabledRun.conditionsSuggest.temperatureSourceId
+    )!;
+  const temperatureObservations = [
+    ["2026-09-17T19:30:00.000Z", 66],
+    ["2026-09-19T19:30:00.000Z", 63],
+    ["2026-09-20T18:30:00.000Z", 60.5],
+    ["2026-09-20T19:30:00.000Z", 60],
+  ].map(([observedAt, waterTempF]) => ({
+    sourceId: source.sourceId,
+    provider: source.provider,
+    siteId: source.siteId,
+    seriesId: source.seriesId,
+    observedAt: String(observedAt),
+    waterTempF: Number(waterTempF),
+    source: "monitor_my_watershed_csv" as const,
+  }));
+  const conditionsTemperatureObservations = temperatureObservations.map((
+    observation,
+  ) => ({
+    ...observation,
+    sourceId: conditionsSource.sourceId,
+    provider: conditionsSource.provider,
+    siteId: conditionsSource.siteId,
+    seriesId: conditionsSource.seriesId,
+    waterTempF: observation.waterTempF - 1,
+  }));
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => new MockClient(),
+      runs: [enabledRun],
+      gaugeObservations: [gaugeObservation],
+      waterTemperatureObservationsBySource: {
+        [source.sourceId]: temperatureObservations,
+        [conditionsSource.sourceId]: conditionsTemperatureObservations,
+      },
+      weatherSnapshot: envData,
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.waterTemperature.sourceId, source.sourceId);
+  assertEquals(body.waterTemperature.provider, "MONITOR_MY_WATERSHED");
+  assertEquals(body.waterTemperature.waterTempF, 60.25);
+  assertEquals(body.waterTemperature.isUpstreamFallback, false);
+  assertEquals(body.freshness.waterTemperature, "fresh");
+  assertEquals(
+    body.conditionsWaterTemperature.sourceId,
+    conditionsSource.sourceId,
+  );
+  assertEquals(body.conditionsWaterTemperature.waterTempF, 59.25);
+  assertEquals(body.freshness.conditionsWaterTemperature, "fresh");
+});
+
 Deno.test("visible PM snapshot with seeded matching baseline returns Fishability available", async () => {
   const client = new MockClient();
   client.rows.river_run_gauge_baselines = [{
     river_id: "pere_marquette",
     metric: "flow_cfs",
     day_of_year: 263,
-    baseline_version: "2026-07-08",
+    baseline_version: enabledRun.baselineCoverage?.version,
     percentiles: {
       p10: 100,
       p25: 250,
@@ -558,35 +875,281 @@ Deno.test("snapshot returns cached condition refresh when present", async () => 
   );
 });
 
-Deno.test("schedule source history is read from stored prior condition refreshes", async () => {
+Deno.test("Push history reports supportive conditions active now", async () => {
   const client = new MockClient();
-  client.rows.river_run_condition_refreshes = Array.from(
-    { length: 7 },
-    (_, index) => {
-      const day = `2026-09-${String(13 + index).padStart(2, "0")}`;
-      return {
-        ...conditionRow(day),
-        local_date: day,
-        refresh_slot: "16:00",
-        push: {
-          ...conditionRow(day).push,
-          favorability: {
-            favorabilityIndex: 3,
-            favorabilityLevel: "favorable",
-          },
-        },
-        freshness: {
-          gauge: "fresh",
-          weather: "fresh",
-          waterTemperature: "air_temp_proxy",
-          scheduleDaysUsable: 7,
-        },
-      };
-    },
-  );
+  const current = conditionRow();
+  current.push = {
+    ...current.push,
+    score: 74,
+    label: "Strong",
+  };
+  client.rows.river_run_daily_progression_snapshots = [dailyRow()];
+  client.rows.river_run_condition_refreshes = [current];
+
   const response = await handleRiverRunRequest(
     request(
       "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(body.pushHistory, {
+    status: "active_now",
+    minimumSupportiveScore: 50,
+    trackingStartDate: "2026-08-15",
+    trackingEndDate: "2026-10-20",
+    throughDate: "2026-09-20",
+    lastSupportiveConditions: {
+      localDate: "2026-09-20",
+      refreshSlot: "16:00",
+      conditionRefreshAt: "2026-09-20T20:10:00.000Z",
+      score: 74,
+      label: "Strong",
+    },
+  });
+});
+
+Deno.test("Push history finds the latest supportive conditions for only this run configuration", async () => {
+  const client = new MockClient();
+  const current = conditionRow();
+  const validPrior = conditionRow("2026-09-16");
+  validPrior.push = {
+    ...validPrior.push,
+    score: 63,
+    label: "Possible",
+  };
+  const wrongConfig = conditionRow("2026-09-19");
+  wrongConfig.config_version = "other-config";
+  wrongConfig.push = {
+    ...wrongConfig.push,
+    score: 86,
+    label: "Very strong",
+  };
+  const priorSeason = conditionRow("2025-09-19");
+  priorSeason.push = {
+    ...priorSeason.push,
+    score: 86,
+    label: "Very strong",
+  };
+  client.rows.river_run_daily_progression_snapshots = [dailyRow()];
+  client.rows.river_run_condition_refreshes = [
+    current,
+    wrongConfig,
+    priorSeason,
+    validPrior,
+  ];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(body.pushHistory.status, "previously_recorded");
+  assertEquals(body.pushHistory.lastSupportiveConditions, {
+    localDate: "2026-09-16",
+    refreshSlot: "16:00",
+    conditionRefreshAt: "2026-09-16T20:10:00.000Z",
+    score: 63,
+    label: "Possible",
+  });
+});
+
+Deno.test("Push history is honest when no supportive condition has been recorded", async () => {
+  const client = new MockClient();
+  client.rows.river_run_daily_progression_snapshots = [dailyRow()];
+  client.rows.river_run_condition_refreshes = [conditionRow()];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(body.pushHistory.status, "none_recorded");
+  assertEquals(body.pushHistory.lastSupportiveConditions, undefined);
+});
+
+Deno.test("Push and supportive history wait for the configured run start", async () => {
+  const client = new MockClient();
+  client.rows.river_run_daily_progression_snapshots = [dailyRow("2026-08-10")];
+  client.rows.river_run_condition_refreshes = [conditionRow("2026-08-10")];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-10&localTime=16:30&refreshAtUtc=2026-08-10T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(body.push.score, null);
+  assertEquals(body.push.label, "Tracking not started");
+  assert(body.push.headline.includes("August 15, 2026"));
+  assertEquals(body.pushHistory.status, "not_started");
+  assertEquals(body.pushHistory.lastSupportiveConditions, undefined);
+  assertEquals(
+    body.dataQuality.reasonCodes.includes("data_quality_limited"),
+    false,
+  );
+});
+
+Deno.test("Push and supportive history stop after the configured run end", async () => {
+  const client = new MockClient();
+  const prior = conditionRow("2026-10-18");
+  prior.push = { ...prior.push, score: 75, label: "Strong" };
+  client.rows.river_run_daily_progression_snapshots = [dailyRow("2026-10-21")];
+  client.rows.river_run_condition_refreshes = [
+    conditionRow("2026-10-21"),
+    prior,
+  ];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-10-21&localTime=16:30&refreshAtUtc=2026-10-21T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(body.push.score, null);
+  assertEquals(body.push.label, "Tracking complete");
+  assertEquals(body.pushHistory.status, "complete");
+  assertEquals(body.pushHistory.lastSupportiveConditions, undefined);
+});
+
+Deno.test("Push history failure does not make the current snapshot unavailable", async () => {
+  const client = new MockClient({ historyReadError: true });
+  client.rows.river_run_daily_progression_snapshots = [dailyRow()];
+  client.rows.river_run_condition_refreshes = [conditionRow()];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.pushHistory.status, "unavailable");
+  assertEquals(body.push.label, conditionRow().push.label);
+});
+
+function conditionsBaselineRow() {
+  return {
+    river_id: "pere_marquette",
+    run_id: "pere_marquette_fall_chinook",
+    checkpoint_id: "river_start",
+    reference_day_of_year: 227,
+    observation_start_day_of_year: 209,
+    baseline_version: enabledRun.conditionsSuggest.baselineVersion,
+    gauge_metric: "flow_cfs",
+    gauge_site_id: "04122500",
+    temperature_source_id: enabledRun.conditionsSuggest.temperatureSourceId,
+    component_samples: {
+      gaugeAbsoluteRise: [0, 200, 400, 600, 800],
+      gaugeRelativeRisePct: [0, 20, 40, 60, 80],
+      meanWaterTempF: [50, 55, 60, 65, 70],
+      waterCoolingF: [-5, 0, 5, 10, 15],
+    },
+    historical_samples: [10, 30, 50, 70, 90].map((
+      evidenceIndex,
+      index,
+    ) => ({
+      year: 2021 + index,
+      usableDays: 18,
+      gaugeAbsoluteRise: index * 200,
+      gaugeRelativeRisePct: index * 20,
+      meanWaterTempF: 70 - index * 5,
+      waterCoolingF: -5 + index * 5,
+      gaugeResponsePercentile: 10 + index * 20,
+      waterTemperaturePercentile: 10 + index * 20,
+      evidenceIndex,
+    })),
+    index_percentiles: { p10: 18, p25: 30, p75: 70, p90: 82 },
+    distinct_years: 5,
+    expected_days: 18,
+    minimum_usable_days: 15,
+    source_notes: "Fixture.",
+  };
+}
+
+function completedConditionsRows() {
+  return Array.from({ length: 18 }, (_, index) => {
+    const day = addDays("2026-07-28", index);
+    const row = conditionRow(day);
+    return {
+      ...row,
+      source_metrics: {
+        ...row.source_metrics,
+        gauge: {
+          ...row.source_metrics.gauge,
+          value: 500 + index * 20,
+        },
+        waterTemperature: {
+          ...row.source_metrics.waterTemperature,
+          waterTempF: 64 - index * 0.4,
+        },
+        conditionsWaterTemperature: {
+          ...row.source_metrics.conditionsWaterTemperature,
+          waterTempF: 64 - index * 0.4,
+        },
+      },
+      freshness: {
+        ...row.freshness,
+        gauge: "fresh",
+        waterTemperature: "fresh",
+        conditionsWaterTemperature: "fresh",
+      },
+    };
+  });
+}
+
+Deno.test("Conditions Suggest reads completed gauge and measured-water evidence", async () => {
+  const client = new MockClient();
+  client.rows.river_run_condition_refreshes = completedConditionsRows();
+  client.rows.river_run_conditions_suggest_baselines = [
+    conditionsBaselineRow(),
+  ];
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-15&localTime=16:30&refreshAtUtc=2026-08-15T20:30:00.000Z",
     ),
     {
       createAdminClient: () => client,
@@ -599,13 +1162,15 @@ Deno.test("schedule source history is read from stored prior condition refreshes
   );
   const body = await json(response);
 
-  assertEquals(body.schedule.usableDays, 7);
+  assertEquals(body.conditionsSuggest.usableDays, 18);
+  assertEquals(body.conditionsSuggest.label, "Typical");
+  assertEquals(body.conditionsSuggest.checkpointId, "river_start");
   assert(
     client.filters.some((filter) =>
       filter.table === "river_run_condition_refreshes" &&
       filter.column === "local_date" &&
       filter.op === "gte" &&
-      filter.value === "2026-09-13"
+      filter.value === "2026-07-28"
     ),
   );
   assert(
@@ -613,18 +1178,24 @@ Deno.test("schedule source history is read from stored prior condition refreshes
       filter.table === "river_run_condition_refreshes" &&
       filter.column === "local_date" &&
       filter.op === "lte" &&
-      filter.value === "2026-09-19"
+      filter.value === "2026-08-14"
     ),
   );
 });
 
-Deno.test("absent prior condition refresh history produces Uncertain limited schedule", async () => {
+Deno.test("endpoint keeps the checkpoint locked between transition dates", async () => {
+  const client = new MockClient();
+  client.rows.river_run_condition_refreshes = completedConditionsRows();
+  client.rows.river_run_conditions_suggest_baselines = [
+    conditionsBaselineRow(),
+  ];
+
   const response = await handleRiverRunRequest(
     request(
-      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-18&localTime=16:30&refreshAtUtc=2026-08-18T20:30:00.000Z",
     ),
     {
-      createAdminClient: () => new MockClient(),
+      createAdminClient: () => client,
       runs: [enabledRun],
       gaugeObservations: [gaugeObservation],
       weatherSnapshot: envData,
@@ -634,8 +1205,39 @@ Deno.test("absent prior condition refresh history produces Uncertain limited sch
   );
   const body = await json(response);
 
-  assertEquals(body.schedule.label, "Uncertain");
-  assert(body.schedule.reasonCodes.includes("schedule_limited_source_days"));
+  assertEquals(body.conditionsSuggest.candidateLabel, "Typical");
+  assertEquals(body.conditionsSuggest.label, "Typical");
+  assertEquals(body.conditionsSuggest.checkpointId, "river_start");
+  assertEquals(body.conditionsSuggest.cutoffDate, "2026-08-14");
+});
+
+Deno.test("absent completed evidence produces Insufficient evidence", async () => {
+  const client = new MockClient();
+  client.rows.river_run_conditions_suggest_baselines = [
+    conditionsBaselineRow(),
+  ];
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-15&localTime=16:30&refreshAtUtc=2026-08-15T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      gaugeObservations: [gaugeObservation],
+      weatherSnapshot: envData,
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(body.conditionsSuggest.label, "Insufficient evidence");
+  assert(
+    body.conditionsSuggest.reasonCodes.includes(
+      "conditions_missing_checkpoint_gauge",
+    ),
+  );
+  assertEquals(body.dataQuality.label, "Limited");
 });
 
 Deno.test("snapshot response includes quality, safety, freshness, and versions", async () => {
@@ -656,6 +1258,11 @@ Deno.test("snapshot response includes quality, safety, freshness, and versions",
 
   assert(body.dataQuality);
   assert(body.safety);
+  assert(
+    body.safety.activityDisclaimer.includes(
+      "not wading or boating safety",
+    ),
+  );
   assert(body.freshness);
   assertEquals(body.engineVersion, "test-engine");
   assertEquals(body.configVersion, "test-config");
@@ -680,7 +1287,7 @@ Deno.test("snapshot treats omitted weather_available with valid weather data as 
   assertEquals(body.freshness.weather, "fresh");
 });
 
-Deno.test("snapshot preserves unresolved flow band instead of exposing normal default", async () => {
+Deno.test("snapshot resolves audited Fishability band without a seasonal baseline row", async () => {
   const response = await handleRiverRunRequest(
     request(
       "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
@@ -696,10 +1303,10 @@ Deno.test("snapshot preserves unresolved flow band instead of exposing normal de
   );
   const body = await json(response);
 
-  assertEquals(body.gauge.band, undefined);
+  assertEquals(body.gauge.band, "ideal");
 });
 
-Deno.test("unresolved flow band makes Fishability unavailable and DataQuality Limited", async () => {
+Deno.test("missing 24-hour trend caps but does not erase audited Fishability", async () => {
   const response = await handleRiverRunRequest(
     request(
       "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
@@ -715,13 +1322,16 @@ Deno.test("unresolved flow band makes Fishability unavailable and DataQuality Li
   );
   const body = await json(response);
 
-  assertEquals(body.fishability.score, null);
-  assertEquals(body.fishability.label, "Unavailable");
-  assert(body.fishability.reasonCodes.includes("baseline_missing"));
+  assertEquals(body.fishability.score, 69);
+  assertEquals(body.fishability.label, "Fishable");
+  assert(
+    body.fishability.reasonCodes.includes("fishability_unknown_trend_cap"),
+  );
   assertEquals(body.dataQuality.label, "Limited");
 });
 
-Deno.test("Push does not receive fake normal band modifier when band unresolved", async () => {
+Deno.test("Push uses raw hydraulics and remains conservative when the trend is unresolved", async () => {
+  const source = PERE_MARQUETTE_RIVER_PROFILE.waterTemperatureSources[0];
   const response = await handleRiverRunRequest(
     request(
       "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
@@ -730,6 +1340,17 @@ Deno.test("Push does not receive fake normal band modifier when band unresolved"
       createAdminClient: () => new MockClient(),
       runs: [enabledRun],
       gaugeObservations: [gaugeObservation],
+      waterTemperatureObservationsBySource: {
+        [source.sourceId]: [{
+          sourceId: source.sourceId,
+          provider: source.provider,
+          siteId: source.siteId,
+          seriesId: source.seriesId,
+          observedAt: "2026-09-20T19:30:00.000Z",
+          waterTempF: 61,
+          source: "monitor_my_watershed_csv",
+        }],
+      },
       weatherSnapshot: envData,
       engineVersion: "test-engine",
       configVersion: "test-config",
@@ -737,7 +1358,9 @@ Deno.test("Push does not receive fake normal band modifier when band unresolved"
   );
   const body = await json(response);
 
-  assertEquals(body.push.score, 45);
+  assertEquals(body.push.score, 25);
+  assertEquals(body.push.components.hydraulicState, "normal");
+  assert(body.push.reasonCodes.includes("push_unknown_trend_cap"));
   assertEquals(body.push.reasonCodes.includes("normal_flow_band"), false);
 });
 
@@ -767,8 +1390,6 @@ Deno.test("live weather fallback success normalizes precipitation and lows", asy
           },
           daily: {
             time: ["2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20"],
-            temperature_2m_min: [65, 62, 58, 56],
-            temperature_2m_max: [75, 72, 68, 66],
             precipitation_probability_max: [10, 20, 30, 40],
           },
         }),
@@ -781,7 +1402,6 @@ Deno.test("live weather fallback success normalizes precipitation and lows", asy
 
   assertEquals(body.freshness.weather, "fresh");
   assertEquals(body.weather.rain72hIn, 0.72);
-  assertEquals(body.weather.temperatureTrend, "strong_cooling");
   assertEquals(
     body.secondaryNote,
     "Forecast data is informational only and does not change scores.",
@@ -807,4 +1427,28 @@ Deno.test("live weather fallback failure does not crash and yields missing weath
   assertEquals(response.status, 200);
   assertEquals(body.freshness.weather, "missing");
   assertEquals(body.dataQuality.label, "Limited");
+});
+
+Deno.test("thrown provider failures degrade to unavailable inputs", async () => {
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => new MockClient(),
+      runs: [enabledRun],
+      fetchFn: async () => {
+        throw new Error("provider offline");
+      },
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.freshness.gauge, "missing");
+  assertEquals(body.freshness.weather, "missing");
+  assertEquals(body.push.label, "Unavailable");
+  assertEquals(body.fishability.label, "Unavailable");
 });

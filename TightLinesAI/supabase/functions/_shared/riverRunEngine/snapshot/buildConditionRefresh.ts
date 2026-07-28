@@ -1,7 +1,9 @@
 import type {
-  BehaviorProfile,
+  FishabilityBands,
   FlowBand,
   GaugeFreshness,
+  MovementEngineId,
+  PushRules,
   RawFlowTrendSignal,
   RawRainSignal,
   RawTemperatureTrendSignal,
@@ -16,6 +18,7 @@ import type { RefreshSlot } from "./refreshSlots.ts";
 import type { RiverRunDailySnapshot } from "./buildDailySnapshot.ts";
 import { resolveDataQuality } from "./dataQuality.ts";
 import { resolveInterpretationNote } from "../copy/interpretation.ts";
+import { compareLocalDates } from "../metrics/dateWindow.ts";
 
 export type ConditionRefreshMetrics = {
   gauge?: {
@@ -26,14 +29,40 @@ export type ConditionRefreshMetrics = {
     value?: number | null;
     band?: FlowBand;
     trend?: RawFlowTrendSignal;
+    absoluteChange24h?: number | null;
+    percentChange24h?: number | null;
   };
   weather?: {
+    provider?: "OPEN_METEO";
+    evidenceType?: "modeled_grid";
+    weatherPointId?: string;
     rain24hIn?: number | null;
     rain48hIn?: number | null;
     rain72hIn?: number | null;
-    temperatureTrend?: RawTemperatureTrendSignal;
-    temperatureSource: TemperatureSourceType;
     forecastDaily?: Array<Record<string, unknown>>;
+  };
+  waterTemperature?: {
+    provider?: string;
+    sourceId?: string;
+    siteId?: string;
+    seriesId?: string;
+    observedAt?: string;
+    waterTempF?: number | null;
+    trend?: RawTemperatureTrendSignal;
+    sourceType: TemperatureSourceType;
+    isUpstreamFallback?: boolean;
+    attribution?: string;
+  };
+  conditionsWaterTemperature?: {
+    provider?: string;
+    sourceId?: string;
+    siteId?: string;
+    seriesId?: string;
+    observedAt?: string;
+    waterTempF?: number | null;
+    trend?: RawTemperatureTrendSignal;
+    sourceType: TemperatureSourceType;
+    attribution?: string;
   };
 };
 
@@ -45,14 +74,15 @@ export type RiverRunConditionRefresh = {
   push: PushScoreResult;
   fishability: ReturnType<typeof scoreFishability>;
   runStage: RiverRunDailySnapshot["runStage"];
-  schedule: RiverRunDailySnapshot["schedule"];
+  conditionsSuggest: RiverRunDailySnapshot["conditionsSuggest"];
   fishInRiver: RiverRunDailySnapshot["fishInRiver"];
   sourceMetrics: ConditionRefreshMetrics;
   freshness: {
     gauge: GaugeFreshness;
     weather: WeatherFreshness;
-    waterTemperature: TemperatureSourceType;
-    scheduleDaysUsable: number;
+    waterTemperature: GaugeFreshness;
+    conditionsWaterTemperature: GaugeFreshness;
+    conditionsSuggestDaysUsable: number;
   };
   dataQuality: ReturnType<typeof resolveDataQuality>;
   interpretationNote?: ReturnType<typeof resolveInterpretationNote>;
@@ -65,15 +95,24 @@ export function buildConditionRefresh(input: {
   dailySnapshot: RiverRunDailySnapshot;
   localDate: string;
   refreshSlot: RefreshSlot;
-  behaviorProfile: BehaviorProfile;
+  movementEngineId: MovementEngineId;
+  pushRules: PushRules;
+  fishabilityBands: FishabilityBands;
   gaugeFreshness: GaugeFreshness;
   weatherFreshness: WeatherFreshness;
+  waterTemperatureFreshness: GaugeFreshness;
+  conditionsWaterTemperatureFreshness?: GaugeFreshness;
   flowBand?: FlowBand;
+  currentHydraulicValue: number | null;
+  hydraulicAbsoluteChange24h: number | null;
+  hydraulicPercentChange24h: number | null;
   rainSignal: RawRainSignal;
   flowSignal: RawFlowTrendSignal;
   temperatureSignal: RawTemperatureTrendSignal;
   temperatureSourceType: TemperatureSourceType;
-  measuredWaterTooWarm?: boolean;
+  temperatureIsUpstreamFallback?: boolean;
+  temperaturePositiveSignalCap?: 0 | 1 | 2;
+  waterTempF: number | null;
   missingNonGaugeInputCount?: number;
   rainReasonCodes?: RiverRunReasonCode[];
   flowReasonCodes?: RiverRunReasonCode[];
@@ -82,44 +121,65 @@ export function buildConditionRefresh(input: {
   engineVersion: string;
   configVersion: string;
 }): RiverRunConditionRefresh {
+  const trackingStartDate = input.dailySnapshot.runStage.window.startDate;
+  const trackingEndDate = input.dailySnapshot.runStage.window.endDate;
+  const trackingState =
+    compareLocalDates(input.localDate, trackingStartDate) < 0
+      ? "not_started"
+      : compareLocalDates(input.localDate, trackingEndDate) > 0
+      ? "complete"
+      : "active";
   const push = scorePush({
-    behaviorProfile: input.behaviorProfile,
+    movementEngineId: input.movementEngineId,
+    rules: input.pushRules,
     gaugeFreshness: input.gaugeFreshness,
     rainSignal: input.rainSignal,
     flowSignal: input.flowSignal,
     temperatureSignal: input.temperatureSignal,
     temperatureSourceType: input.temperatureSourceType,
-    flowBand: input.flowBand,
-    measuredWaterTooWarm: input.measuredWaterTooWarm,
+    temperaturePositiveSignalCap: input.temperaturePositiveSignalCap,
+    currentHydraulicValue: input.currentHydraulicValue,
+    hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
+    hydraulicPercentChange24h: input.hydraulicPercentChange24h,
+    waterTempF: input.waterTempF,
+    trackingState,
+    trackingStartDate,
+    trackingEndDate,
     rainReasonCodes: input.rainReasonCodes,
     flowReasonCodes: input.flowReasonCodes,
     temperatureReasonCodes: input.temperatureReasonCodes,
   });
   const fishability = scoreFishability({
+    rules: input.fishabilityBands,
     gaugeFreshness: input.gaugeFreshness,
-    weatherFreshness: input.weatherFreshness,
     flowBand: input.flowBand,
     flowSignal: input.flowSignal,
-    rainSignal: input.rainSignal,
-    rainReasonCodes: input.rainReasonCodes,
+    currentHydraulicValue: input.currentHydraulicValue,
+    hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
+    hydraulicPercentChange24h: input.hydraulicPercentChange24h,
     flowReasonCodes: input.flowReasonCodes,
   });
   const dataQuality = resolveDataQuality({
     gaugeFreshness: input.gaugeFreshness,
     weatherFreshness: input.weatherFreshness,
     temperatureSourceType: input.temperatureSourceType,
-    scheduleDaysUsable: input.dailySnapshot.schedule.usableDays,
+    temperatureIsUpstreamFallback: input.temperatureIsUpstreamFallback,
+    conditionsSuggestDaysUsable:
+      input.dailySnapshot.conditionsSuggest.usableDays,
+    conditionsSuggestExpectedDays:
+      input.dailySnapshot.conditionsSuggest.expectedDays,
     missingNonGaugeInputCount: input.missingNonGaugeInputCount,
-    hasUnavailableCurrentPrimitive: push.score === null ||
+    hasUnavailableCurrentPrimitive:
+      (trackingState === "active" && push.score === null) ||
       fishability.score === null,
-    scheduleUncertainFromMissingInputs: input.dailySnapshot.schedule.reasonCodes
-      .includes(
-        "schedule_missing_required_inputs",
-      ),
+    conditionsSuggestInsufficient:
+      input.dailySnapshot.conditionsSuggest.timingLabel ===
+        "Insufficient evidence" ||
+      input.dailySnapshot.conditionsSuggest.label === "Insufficient evidence",
   });
   const interpretationNote = resolveInterpretationNote({
     runStage: input.dailySnapshot.runStage.stage,
-    scheduleLabel: input.dailySnapshot.schedule.label,
+    conditionsSuggestLabel: input.dailySnapshot.conditionsSuggest.label,
     push,
     fishability,
     fishInRiver: input.dailySnapshot.fishInRiver,
@@ -140,14 +200,17 @@ export function buildConditionRefresh(input: {
     push,
     fishability,
     runStage: input.dailySnapshot.runStage,
-    schedule: input.dailySnapshot.schedule,
+    conditionsSuggest: input.dailySnapshot.conditionsSuggest,
     fishInRiver: input.dailySnapshot.fishInRiver,
     sourceMetrics: input.sourceMetrics,
     freshness: {
       gauge: input.gaugeFreshness,
       weather: input.weatherFreshness,
-      waterTemperature: input.temperatureSourceType,
-      scheduleDaysUsable: input.dailySnapshot.schedule.usableDays,
+      waterTemperature: input.waterTemperatureFreshness,
+      conditionsWaterTemperature: input.conditionsWaterTemperatureFreshness ??
+        "missing",
+      conditionsSuggestDaysUsable:
+        input.dailySnapshot.conditionsSuggest.usableDays,
     },
     dataQuality,
     interpretationNote,

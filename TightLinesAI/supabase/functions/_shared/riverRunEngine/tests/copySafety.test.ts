@@ -1,20 +1,64 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import {
   addDays,
+  canonicalBaselineDay,
+  type ConditionsSuggestCheckpoint,
+  type ConditionsSuggestEvidenceByDate,
+  type ConditionsSuggestLabel,
+  daysBetween,
+  type FishabilityScoreInput,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   type PrimitiveDisplay,
+  type PushScoreInput,
+  resolveConditionsSuggestCheckpoints,
   resolveInterpretationNote,
   resolveRunStage,
+  type RiverRunConditionsSuggestBaseline,
   type RunStage,
-  type ScheduleLabel,
-  type ScheduleRefreshesByDate,
+  scoreConditionsSuggest,
   scoreFishability,
   scoreFishInRiver,
   scorePush,
-  scoreSchedule,
 } from "../index.ts";
 
 const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+
+function pushForCopy(
+  overrides: Partial<PushScoreInput> = {},
+): ReturnType<typeof scorePush> {
+  return scorePush({
+    movementEngineId: "fall_cooling",
+    rules: run.push,
+    gaugeFreshness: "fresh",
+    rainSignal: "light_rain",
+    flowSignal: "stable",
+    currentHydraulicValue: 550,
+    hydraulicAbsoluteChange24h: 0,
+    hydraulicPercentChange24h: 0,
+    temperatureSignal: "neutral",
+    temperatureSourceType: "same_gauge",
+    waterTempF: 60,
+    trackingState: "active",
+    trackingStartDate: "2026-08-15",
+    trackingEndDate: "2026-10-20",
+    ...overrides,
+  });
+}
+
+function fishabilityForCopy(
+  overrides: Partial<FishabilityScoreInput> = {},
+): ReturnType<typeof scoreFishability> {
+  return scoreFishability({
+    rules: run.fishabilityBands,
+    gaugeFreshness: "fresh",
+    flowBand: "ideal",
+    flowSignal: "stable",
+    currentHydraulicValue: 600,
+    hydraulicAbsoluteChange24h: 0,
+    hydraulicPercentChange24h: 0,
+    ...overrides,
+  });
+}
 
 const bannedPhrases = [
   /catch probability/i,
@@ -23,34 +67,117 @@ const bannedPhrases = [
   /\bstacked\b/i,
   /hot bite/i,
   /fall_cooling_rain_pulse/i,
+  /observed rain/i,
 ] as const;
 
-function refreshes(
-  localDate: string,
-  favorabilityIndex: number,
-): ScheduleRefreshesByDate {
-  const result: ScheduleRefreshesByDate = {};
-  for (let offset = -7; offset <= -1; offset++) {
-    result[addDays(localDate, offset)] = {
+function conditionsFor(
+  kind:
+    | "ahead"
+    | "typical"
+    | "delayed"
+    | "insufficient"
+    | "evaluating"
+    | "complete",
+) {
+  if (kind === "evaluating") {
+    return scoreConditionsSuggest({
+      localDate: "2026-08-01",
+      run,
+      evidenceByDate: {},
+      baselines: [],
+    });
+  }
+  const checkpoints = resolveConditionsSuggestCheckpoints(run, "2026-09-20");
+  const target = kind === "complete"
+    ? checkpoints.find((item) => item.checkpointId === "peak_complete")!
+    : checkpoints.find((item) => item.checkpointId === "river_start")!;
+  const count = daysBetween(
+    target.observationStartDate,
+    target.cutoffDate,
+  ) + 1;
+  const evidenceByDate: ConditionsSuggestEvidenceByDate = {};
+  for (
+    let index = 0;
+    index < (kind === "insufficient" ? 3 : count);
+    index++
+  ) {
+    const gaugeValue = kind === "ahead" || kind === "complete"
+      ? 400 + index * 60
+      : kind === "delayed"
+      ? 500
+      : 500 + index * 20;
+    const waterTempF = kind === "ahead" || kind === "complete"
+      ? 65 - index
+      : kind === "delayed"
+      ? 70
+      : 64 - index * 0.4;
+    evidenceByDate[addDays(target.observationStartDate, index)] = {
       "16:00": {
-        favorabilityIndex,
         gaugeFreshness: "fresh",
-        missingNonGaugeInputCount: 0,
-        reasonCodes: ["gauge_fresh"],
+        gaugeValue,
+        gaugeMetric: "flow_cfs",
+        gaugeSiteId: "04122500",
+        waterTemperatureFreshness: "fresh",
+        waterTempF,
+        waterTemperatureSourceId: run.conditionsSuggest.temperatureSourceId,
       },
     };
   }
-  return result;
+  return scoreConditionsSuggest({
+    localDate: target.checkpointDate,
+    run,
+    evidenceByDate,
+    baselines: kind === "complete"
+      ? checkpoints.map(conditionsBaseline)
+      : [conditionsBaseline(target)],
+  });
 }
 
-function scheduleFor(localDate: string, favorabilityIndex: number) {
-  const stage = resolveRunStage(run, localDate);
-  return scoreSchedule({
-    localDate,
-    stage: stage.stage,
-    window: stage.window,
-    refreshesByDate: refreshes(localDate, favorabilityIndex),
-  });
+function conditionsBaseline(
+  checkpoint: ConditionsSuggestCheckpoint,
+): RiverRunConditionsSuggestBaseline {
+  const indices = [10, 30, 50, 70, 90];
+  const expectedDays = daysBetween(
+    checkpoint.observationStartDate,
+    checkpoint.cutoffDate,
+  ) + 1;
+  return {
+    riverId: "pere_marquette",
+    runId: run.runId,
+    checkpointId: checkpoint.checkpointId,
+    referenceDayOfYear: canonicalBaselineDay(checkpoint.checkpointDate),
+    observationStartDayOfYear: canonicalBaselineDay(
+      checkpoint.observationStartDate,
+    ),
+    baselineVersion: run.conditionsSuggest.baselineVersion,
+    gaugeMetric: "flow_cfs",
+    gaugeSiteId: "04122500",
+    temperatureSourceId: run.conditionsSuggest.temperatureSourceId,
+    componentSamples: {
+      gaugeAbsoluteRise: [0, 200, 400, 600, 800],
+      gaugeRelativeRisePct: [0, 20, 40, 60, 80],
+      meanWaterTempF: [50, 55, 60, 65, 70],
+      waterCoolingF: [-5, 0, 5, 10, 15],
+    },
+    historicalSamples: indices.map((evidenceIndex, index) => ({
+      year: 2021 + index,
+      usableDays: expectedDays,
+      gaugeAbsoluteRise: index * 200,
+      gaugeRelativeRisePct: index * 20,
+      meanWaterTempF: 70 - index * 5,
+      waterCoolingF: -5 + index * 5,
+      gaugeResponsePercentile: 10 + index * 20,
+      waterTemperaturePercentile: 10 + index * 20,
+      evidenceIndex,
+    })),
+    indexPercentiles: { p10: 18, p25: 30, p75: 70, p90: 82 },
+    distinctYears: 5,
+    expectedDays,
+    minimumUsableDays: Math.ceil(
+      expectedDays * run.conditionsSuggest.minimumCoveragePercent,
+    ),
+    sourceNotes: "Test.",
+  };
 }
 
 function text(display: PrimitiveDisplay): string {
@@ -102,104 +229,77 @@ function assertDimensionCopy(
 
 function pushDisplays(): PrimitiveDisplay[] {
   return [
-    scorePush({
-      behaviorProfile: "fall_cooling_rain_pulse",
-      gaugeFreshness: "fresh",
+    pushForCopy({
       rainSignal: "dry",
       flowSignal: "falling",
       temperatureSignal: "strong_warming",
-      temperatureSourceType: "same_gauge",
-      flowBand: "low",
+      waterTempF: 69,
     }),
-    scorePush({
-      behaviorProfile: "fall_cooling_rain_pulse",
-      gaugeFreshness: "fresh",
+    pushForCopy({
       rainSignal: "dry",
       flowSignal: "stable",
       temperatureSignal: "neutral",
-      temperatureSourceType: "same_gauge",
-      flowBand: "low",
     }),
-    scorePush({
-      behaviorProfile: "fall_cooling_rain_pulse",
-      gaugeFreshness: "fresh",
+    pushForCopy({
       rainSignal: "meaningful_rain",
       flowSignal: "rising",
       temperatureSignal: "cooling",
-      temperatureSourceType: "same_gauge",
+      hydraulicAbsoluteChange24h: 20,
+      hydraulicPercentChange24h: 3,
     }),
-    scorePush({
-      behaviorProfile: "fall_cooling_rain_pulse",
-      gaugeFreshness: "fresh",
-      rainSignal: "meaningful_rain",
-      flowSignal: "rising",
-      temperatureSignal: "cooling",
-      temperatureSourceType: "same_gauge",
-      flowBand: "ideal",
-    }),
-    scorePush({
-      behaviorProfile: "fall_cooling_rain_pulse",
-      gaugeFreshness: "fresh",
+    pushForCopy({
       rainSignal: "heavy_rain",
       flowSignal: "meaningful_rise",
       temperatureSignal: "strong_cooling",
-      temperatureSourceType: "same_gauge",
-      flowBand: "ideal",
+      hydraulicAbsoluteChange24h: 50,
+      hydraulicPercentChange24h: 8,
     }),
-    scorePush({
-      behaviorProfile: "fall_cooling_rain_pulse",
+    pushForCopy({
+      rainSignal: "strong_rain",
+      flowSignal: "sharp_rise",
+      temperatureSignal: "strong_cooling",
+      hydraulicAbsoluteChange24h: 100,
+      hydraulicPercentChange24h: 15,
+    }),
+    pushForCopy({
       gaugeFreshness: "missing",
       rainSignal: "heavy_rain",
       flowSignal: "meaningful_rise",
       temperatureSignal: "strong_cooling",
-      temperatureSourceType: "same_gauge",
-      flowBand: "ideal",
     }),
+    pushForCopy({ trackingState: "not_started" }),
+    pushForCopy({ trackingState: "complete" }),
   ];
 }
 
 function fishabilityDisplays(): PrimitiveDisplay[] {
   return [
-    scoreFishability({
-      gaugeFreshness: "fresh",
-      weatherFreshness: "fresh",
+    fishabilityForCopy({
       flowBand: "blown_out",
       flowSignal: "sharp_rise",
-      rainSignal: "heavy_rain",
+      currentHydraulicValue: 1_700,
+      hydraulicAbsoluteChange24h: 300,
+      hydraulicPercentChange24h: 21.4,
     }),
-    scoreFishability({
-      gaugeFreshness: "fresh",
-      weatherFreshness: "fresh",
-      flowBand: "blown_out",
+    fishabilityForCopy({
+      flowBand: "very_high",
       flowSignal: "stable",
-      rainSignal: "dry",
+      currentHydraulicValue: 1_200,
     }),
-    scoreFishability({
-      gaugeFreshness: "fresh",
-      weatherFreshness: "fresh",
+    fishabilityForCopy({
       flowBand: "low",
       flowSignal: "stable",
-      rainSignal: "dry",
+      currentHydraulicValue: 450,
     }),
-    scoreFishability({
-      gaugeFreshness: "fresh",
-      weatherFreshness: "fresh",
+    fishabilityForCopy({
       flowBand: "normal_fishable",
       flowSignal: "stable",
-      rainSignal: "dry",
+      currentHydraulicValue: 500,
     }),
-    scoreFishability({
-      gaugeFreshness: "fresh",
-      weatherFreshness: "fresh",
-      flowBand: "ideal",
+    fishabilityForCopy(),
+    fishabilityForCopy({
+      flowBand: undefined,
       flowSignal: "stable",
-      rainSignal: "dry",
-    }),
-    scoreFishability({
-      gaugeFreshness: "fresh",
-      weatherFreshness: "fresh",
-      flowSignal: "stable",
-      rainSignal: "dry",
     }),
   ];
 }
@@ -217,6 +317,7 @@ function fishInRiverDisplays(): PrimitiveDisplay[] {
 Deno.test("primitive copy is complete for every reachable label", () => {
   const runStages = [
     resolveRunStage(run, "2026-08-10"),
+    resolveRunStage(run, "2026-08-22"),
     resolveRunStage(run, "2026-08-25"),
     resolveRunStage(run, "2026-09-10"),
     resolveRunStage(run, "2026-09-20"),
@@ -224,20 +325,17 @@ Deno.test("primitive copy is complete for every reachable label", () => {
     resolveRunStage(run, "2026-10-15"),
     resolveRunStage(run, "2026-11-05"),
   ];
-  const schedules = [
-    scheduleFor("2026-08-15", 6),
-    scheduleFor("2026-09-20", 0),
-    scheduleFor("2026-09-10", -2),
-    scoreSchedule({
-      localDate: "2026-09-10",
-      stage: "building",
-      window: resolveRunStage(run, "2026-09-10").window,
-      refreshesByDate: {},
-    }),
+  const conditions = [
+    conditionsFor("ahead"),
+    conditionsFor("typical"),
+    conditionsFor("delayed"),
+    conditionsFor("insufficient"),
+    conditionsFor("evaluating"),
+    conditionsFor("complete"),
   ];
   const displays = [
     ...runStages,
-    ...schedules,
+    ...conditions,
     ...pushDisplays(),
     ...fishabilityDisplays(),
     ...fishInRiverDisplays(),
@@ -256,18 +354,27 @@ Deno.test("primitive copy is complete for every reachable label", () => {
     ]),
   );
   assertEquals(
-    new Set(schedules.map((item) => item.label)),
-    new Set(["Ahead", "On schedule", "Behind", "Uncertain"]),
+    new Set(conditions.map((item) => item.label)),
+    new Set([
+      "Ahead",
+      "Typical",
+      "Delayed",
+      "Insufficient evidence",
+      "Evaluating",
+      "Timing complete",
+    ]),
   );
   assertEquals(
     new Set(pushDisplays().map((item) => item.label)),
     new Set([
       "Weak",
-      "Limited",
+      "No clear push",
       "Possible",
       "Strong",
       "Very strong",
       "Unavailable",
+      "Tracking not started",
+      "Tracking complete",
     ]),
   );
   assertEquals(
@@ -284,11 +391,11 @@ Deno.test("primitive copy is complete for every reachable label", () => {
   assertEquals(
     new Set(fishInRiverDisplays().map((item) => item.label)),
     new Set([
-      "Very unlikely",
-      "A few possible",
-      "Building presence",
-      "Likely present",
-      "Peak presence",
+      "Outside historical window",
+      "Low historical presence",
+      "Building historical presence",
+      "Moderate historical presence",
+      "Peak historical presence",
     ]),
   );
 
@@ -319,14 +426,14 @@ Deno.test("primitive copy stays dimension-specific", () => {
   }
   for (
     const display of [
-      scheduleFor("2026-08-15", 6),
-      scheduleFor("2026-09-10", -2),
+      conditionsFor("ahead"),
+      conditionsFor("delayed"),
     ]
   ) {
     assertDimensionCopy(
-      "Schedule",
+      "Conditions Suggest",
       display,
-      /broader progression|completed-day/i,
+      /conditions suggest|cumulative|historical/i,
       [
         /movement signal/i,
         /river shape/i,
@@ -335,16 +442,26 @@ Deno.test("primitive copy stays dimension-specific", () => {
     );
   }
   for (const display of pushDisplays()) {
-    assertDimensionCopy("Push", display, /movement signal/i, [
-      /river shape/i,
-      /seasonal presence/i,
-    ]);
+    assertDimensionCopy(
+      "Push",
+      display,
+      /\bPush\b|fresh-push signal|trigger conditions/i,
+      [
+        /river shape/i,
+        /seasonal presence/i,
+      ],
+    );
   }
   for (const display of fishabilityDisplays()) {
-    assertDimensionCopy("Fishability", display, /river shape/i, [
-      /movement signal/i,
-      /seasonal presence/i,
-    ]);
+    assertDimensionCopy(
+      "Fishability",
+      display,
+      /primary gauged reach|primary-reach/i,
+      [
+        /movement signal/i,
+        /seasonal presence/i,
+      ],
+    );
   }
   for (const display of fishInRiverDisplays()) {
     assertDimensionCopy("Fish In River", display, /seasonal presence/i, [
@@ -358,35 +475,35 @@ Deno.test("interpretation copy has no banned phrases", () => {
   const notes = [
     resolveInterpretationNote({
       runStage: "building",
-      scheduleLabel: "On schedule",
+      conditionsSuggestLabel: "Typical",
       push: strongPush(),
       fishability: toughFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-09-05"),
     }),
     resolveInterpretationNote({
       runStage: "pre_run",
-      scheduleLabel: "Ahead",
+      conditionsSuggestLabel: "Ahead",
       push: possiblePush(),
       fishability: goodFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-08-15"),
     }),
     resolveInterpretationNote({
       runStage: "peak",
-      scheduleLabel: "On schedule",
+      conditionsSuggestLabel: "Typical",
       push: weakPush(),
       fishability: goodFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-09-20"),
     }),
     resolveInterpretationNote({
       runStage: "beginning",
-      scheduleLabel: "On schedule",
+      conditionsSuggestLabel: "Typical",
       push: possiblePush(),
       fishability: excellentFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-08-01"),
     }),
     resolveInterpretationNote({
       runStage: "building",
-      scheduleLabel: "Behind",
+      conditionsSuggestLabel: "Delayed",
       push: strongPush(),
       fishability: goodFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-09-05"),
@@ -406,33 +523,36 @@ Deno.test("representative mixed reads remain composition-safe", () => {
   const cases: Array<{
     name: string;
     runStage: RunStage;
-    scheduleLabel: ScheduleLabel;
+    conditionsSuggestLabel: ConditionsSuggestLabel;
     push: PrimitiveDisplay;
     fishability: PrimitiveDisplay;
     fishInRiver: PrimitiveDisplay;
-    expectedNote?: string;
+    expectedNotes?: string[];
   }> = [
     {
-      name: "Pre-run + Ahead",
-      runStage: "pre_run",
-      scheduleLabel: "Ahead",
+      name: "Beginning + Ahead",
+      runStage: "beginning",
+      conditionsSuggestLabel: "Ahead",
       push: possiblePush(),
       fishability: goodFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-08-15"),
-      expectedNote: "pre_run_ahead_schedule",
+      expectedNotes: [
+        "beginning_ahead_conditions",
+        "good_fishability_low_presence",
+      ],
     },
     {
-      name: "Pre-run + Uncertain",
+      name: "Pre-run + Insufficient evidence",
       runStage: "pre_run",
-      scheduleLabel: "Uncertain",
+      conditionsSuggestLabel: "Insufficient evidence",
       push: possiblePush(),
       fishability: goodFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-08-15"),
     },
     {
-      name: "Building + On schedule + Weak Push",
+      name: "Building + Typical + Weak Push",
       runStage: "building",
-      scheduleLabel: "On schedule",
+      conditionsSuggestLabel: "Typical",
       push: weakPush(),
       fishability: goodFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-09-05"),
@@ -440,16 +560,16 @@ Deno.test("representative mixed reads remain composition-safe", () => {
     {
       name: "Peak + Weak Push",
       runStage: "peak",
-      scheduleLabel: "On schedule",
+      conditionsSuggestLabel: "Typical",
       push: weakPush(),
       fishability: goodFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-09-20"),
-      expectedNote: "peak_presence_weak_push",
+      expectedNotes: ["peak_presence_weak_push"],
     },
     {
       name: "Peak presence + Poor Fishability",
       runStage: "peak",
-      scheduleLabel: "On schedule",
+      conditionsSuggestLabel: "Typical",
       push: possiblePush(),
       fishability: poorFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-09-20"),
@@ -457,29 +577,53 @@ Deno.test("representative mixed reads remain composition-safe", () => {
     {
       name: "Excellent Fishability + Very unlikely Fish In River",
       runStage: "pre_run",
-      scheduleLabel: "Uncertain",
+      conditionsSuggestLabel: "Insufficient evidence",
       push: possiblePush(),
       fishability: excellentFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-08-01"),
-      expectedNote: "good_fishability_low_presence",
+      expectedNotes: ["good_fishability_low_presence"],
     },
     {
-      name: "Strong Push + Behind Schedule",
+      name: "Strong Push + Delayed Conditions Suggest",
       runStage: "building",
-      scheduleLabel: "Behind",
+      conditionsSuggestLabel: "Delayed",
       push: strongPush(),
       fishability: goodFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-09-05"),
-      expectedNote: "behind_schedule_strong_push",
+      expectedNotes: ["delayed_conditions_strong_push"],
     },
     {
       name: "Strong Push + Low Fishability",
       runStage: "building",
-      scheduleLabel: "On schedule",
+      conditionsSuggestLabel: "Typical",
       push: strongPush(),
       fishability: toughFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-09-05"),
-      expectedNote: "strong_push_low_fishability",
+      expectedNotes: ["strong_push_low_fishability"],
+    },
+    {
+      name: "Strong Push + Delayed Conditions + Tough Fishability",
+      runStage: "building",
+      conditionsSuggestLabel: "Delayed",
+      push: strongPush(),
+      fishability: toughFishability(),
+      fishInRiver: scoreFishInRiver(run, "2026-09-05"),
+      expectedNotes: [
+        "strong_push_low_fishability",
+        "delayed_conditions_strong_push",
+      ],
+    },
+    {
+      name: "Post-run + residual historical presence",
+      runStage: "post_run",
+      conditionsSuggestLabel: "Timing complete",
+      push: pushForCopy({ trackingState: "complete" }),
+      fishability: goodFishability(),
+      fishInRiver: scoreFishInRiver(run, "2026-10-25"),
+      expectedNotes: [
+        "good_fishability_low_presence",
+        "post_run_residual_presence",
+      ],
     },
   ];
 
@@ -490,10 +634,10 @@ Deno.test("representative mixed reads remain composition-safe", () => {
       assertNoBanned(text(display));
     }
     const note = resolveInterpretationNote(item);
-    if (item.expectedNote) {
+    if (item.expectedNotes) {
       assertEquals(
-        note?.reasonCodes,
-        [item.expectedNote],
+        new Set(note?.reasonCodes),
+        new Set(item.expectedNotes),
         `${item.name} should include the required interpretation note`,
       );
       assertNoBanned([note?.headline, note?.detail].join(" "));

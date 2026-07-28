@@ -10,6 +10,14 @@ export const CONDITION_REFRESH_TABLE = "river_run_condition_refreshes";
 export const CONDITION_REFRESH_ON_CONFLICT =
   "river_id,run_id,local_date,refresh_slot,engine_version,config_version";
 
+export type LastSupportivePushConditions = {
+  localDate: string;
+  refreshSlot: string;
+  conditionRefreshAt: string;
+  score: number;
+  label: string;
+};
+
 export function serializeConditionRefresh(
   refresh: StoredConditionRefresh,
 ): RiverRunConditionRefreshRow {
@@ -105,6 +113,66 @@ export async function getConditionRefresh(
     data: deserializeConditionRefresh(
       response.data as RiverRunConditionRefreshRow,
     ),
+    found: true,
+    error: null,
+  };
+}
+
+export async function getLastSupportivePushConditions(
+  client: SupabaseLikeClient,
+  key: {
+    riverId: string;
+    runId: string;
+    trackingStartDate: string;
+    throughDate: string;
+    minimumScore: number;
+    engineVersion: string;
+    configVersion: string;
+  },
+): Promise<RiverRunStorageResult<LastSupportivePushConditions>> {
+  const response = await client
+    .from(CONDITION_REFRESH_TABLE)
+    .select("local_date,refresh_slot,condition_refresh_at,push")
+    .eq("river_id", key.riverId)
+    .eq("run_id", key.runId)
+    .eq("engine_version", key.engineVersion)
+    .eq("config_version", key.configVersion)
+    .gte("local_date", key.trackingStartDate)
+    .lte("local_date", key.throughDate)
+    .gte("push->score", key.minimumScore)
+    .order("condition_refresh_at", { ascending: false })
+    .limit(1)
+    .maybeSingle();
+
+  const error = storageError(response.error);
+  if (error) return { data: null, found: false, error };
+  if (!response.data) return { data: null, found: false, error: null };
+  const row = response.data as Partial<RiverRunConditionRefreshRow>;
+  const score = row.push?.score;
+  if (
+    typeof row.local_date !== "string" ||
+    typeof row.refresh_slot !== "string" ||
+    typeof row.condition_refresh_at !== "string" ||
+    typeof score !== "number" ||
+    !Number.isFinite(score) ||
+    typeof row.push?.label !== "string"
+  ) {
+    return {
+      data: null,
+      found: false,
+      error: {
+        message: "Stored supportive Push history row is invalid.",
+      },
+    };
+  }
+  return {
+    data: {
+      localDate: row.local_date,
+      refreshSlot: row.refresh_slot,
+      conditionRefreshAt: row.condition_refresh_at,
+      score,
+      label: row.push.label,
+    },
     found: true,
     error: null,
   };

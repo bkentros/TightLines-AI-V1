@@ -10,9 +10,11 @@ export type DataQualityInput = {
   gaugeFreshness: GaugeFreshness;
   weatherFreshness: WeatherFreshness;
   temperatureSourceType: TemperatureSourceType;
-  scheduleDaysUsable: number;
+  temperatureIsUpstreamFallback?: boolean;
+  conditionsSuggestDaysUsable: number;
+  conditionsSuggestExpectedDays?: number;
   hasUnavailableCurrentPrimitive?: boolean;
-  scheduleUncertainFromMissingInputs?: boolean;
+  conditionsSuggestInsufficient?: boolean;
   missingNonGaugeInputCount?: number;
 };
 
@@ -22,22 +24,34 @@ export function resolveDataQuality(input: DataQualityInput): DataQuality {
   reasonCodes.add(weatherReasonCode(input.weatherFreshness));
 
   let nonCriticalLimitations = 0;
-  if (input.temperatureSourceType === "air_temp_proxy") {
-    nonCriticalLimitations++;
-    reasonCodes.add("temperature_air_proxy");
-  } else if (input.temperatureSourceType === "unavailable") {
+  if (input.temperatureSourceType === "unavailable") {
     nonCriticalLimitations++;
     reasonCodes.add("temperature_unavailable");
   }
-  if ((input.missingNonGaugeInputCount ?? 0) === 1) nonCriticalLimitations++;
-  if (input.scheduleDaysUsable >= 4 && input.scheduleDaysUsable <= 5) {
+  if (input.temperatureIsUpstreamFallback) {
     nonCriticalLimitations++;
-    reasonCodes.add("schedule_limited_source_days");
+    reasonCodes.add("temperature_upstream_fallback");
+  }
+  if ((input.missingNonGaugeInputCount ?? 0) === 1) nonCriticalLimitations++;
+  const expectedConditionsDays = input.conditionsSuggestExpectedDays ?? 0;
+  const conditionsCoverage = expectedConditionsDays > 0
+    ? input.conditionsSuggestDaysUsable / expectedConditionsDays
+    : 1;
+  if (
+    expectedConditionsDays > 0 &&
+    conditionsCoverage >= 0.8 &&
+    conditionsCoverage < 1
+  ) {
+    nonCriticalLimitations++;
+    reasonCodes.add("conditions_limited_source_days");
+  }
+  if (input.conditionsSuggestInsufficient) {
+    reasonCodes.add("conditions_limited_source_days");
   }
 
   if (
     input.hasUnavailableCurrentPrimitive ||
-    input.scheduleUncertainFromMissingInputs ||
+    input.conditionsSuggestInsufficient ||
     input.gaugeFreshness === "missing" ||
     input.gaugeFreshness === "older_than_24h" ||
     input.weatherFreshness === "missing" ||
@@ -60,7 +74,7 @@ export function resolveDataQuality(input: DataQualityInput): DataQuality {
   if (
     input.gaugeFreshness === "fresh" &&
     input.weatherFreshness === "fresh" &&
-    input.scheduleDaysUsable >= 6
+    conditionsCoverage >= 0.8
   ) {
     reasonCodes.add("data_quality_fresh");
     return { label: "Fresh", reasonCodes: [...reasonCodes] };

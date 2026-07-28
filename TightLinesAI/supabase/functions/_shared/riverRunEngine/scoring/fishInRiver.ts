@@ -1,4 +1,5 @@
 import type {
+  HistoricalPresenceConfig,
   PrimitiveDisplay,
   RiverRunProfile,
   RiverRunReasonCode,
@@ -7,7 +8,6 @@ import type {
 import {
   clamp,
   compareLocalDates,
-  type DateWindow,
   daysBetween,
   interpolate,
   resolveActiveRunWindow,
@@ -16,181 +16,113 @@ import { stageForDate } from "./runStage.ts";
 
 export type FishInRiverResult = PrimitiveDisplay & {
   stage: RunStage;
-  baseScore: number;
-  strengthAdjustedScore: number;
+  maximum: number;
+  curveFraction: number;
 };
 
-const STRENGTH = {
-  1: { multiplier: 0.55, cap: 55, code: "run_strength_weak" },
-  2: { multiplier: 0.7, cap: 70, code: "run_strength_light" },
-  3: { multiplier: 0.85, cap: 85, code: "run_strength_medium" },
-  4: { multiplier: 0.95, cap: 95, code: "run_strength_strong" },
-  5: { multiplier: 1, cap: 100, code: "run_strength_signature" },
-} as const;
-
 export function scoreFishInRiver(
-  run: Pick<RiverRunProfile, "runWindow" | "runStrength">,
+  run: Pick<RiverRunProfile, "runWindow" | "historicalPresence">,
   localDate: string,
 ): FishInRiverResult {
   const window = resolveActiveRunWindow(run, localDate);
   const stage = stageForDate(localDate, window);
-  const baseScore = dateBaseScore(localDate, window, stage);
-  const strength = STRENGTH[run.runStrength];
-  const strengthAdjusted = Math.min(
-    baseScore * strength.multiplier,
-    strength.cap,
-  );
-  const capped = applyContextCaps(strengthAdjusted, localDate, window, stage);
-  const score = clamp(Math.round(capped), 0, 100);
+  const curveFraction = historicalPresenceFraction({
+    localDate,
+    startDate: window.startDate,
+    lateEndDate: window.lateEndDate,
+    historicalPresence: run.historicalPresence,
+  });
+  const maximum = run.historicalPresence.maximum;
+  const score = clamp(Math.round(curveFraction * maximum), 0, maximum);
+  const label = fishInRiverLabel(score);
 
   return {
     score,
     stage,
-    baseScore,
-    strengthAdjustedScore: strengthAdjusted,
-    label: fishInRiverLabel(score),
-    ...fishInRiverCopy(fishInRiverLabel(score)),
-    reasonCodes: [stageReasonCode(stage), strength.code as RiverRunReasonCode],
+    maximum,
+    curveFraction,
+    label,
+    ...fishInRiverCopy(label, score, maximum),
+    reasonCodes: [
+      stageReasonCode(stage),
+      "historical_presence_curve",
+    ],
   };
 }
 
-function dateBaseScore(
-  localDate: string,
-  window: DateWindow,
-  stage: RunStage,
-): number {
-  if (compareLocalDates(localDate, window.earlyStartDate) < 0) return 5;
-  if (compareLocalDates(localDate, window.startDate) < 0) {
-    const day = daysBetween(window.earlyStartDate, localDate);
-    return interpolate(day, 0, window.earlyWindowDays - 1, 15, 35);
+export function historicalPresenceFraction(input: {
+  localDate: string;
+  startDate: string;
+  lateEndDate: string;
+  historicalPresence: HistoricalPresenceConfig;
+}): number {
+  if (
+    compareLocalDates(input.localDate, input.startDate) < 0 ||
+    compareLocalDates(input.localDate, input.lateEndDate) > 0
+  ) {
+    return 0;
   }
-  if (stage === "beginning") {
-    return interpolate(
-      daysBetween(window.startDate, localDate),
-      0,
-      Math.max(1, daysBetween(window.startDate, window.beginningEndDate)),
-      40,
-      55,
-    );
-  }
-  if (stage === "building") {
-    return interpolate(
-      daysBetween(window.beginningEndDate, localDate),
-      0,
-      Math.max(1, daysBetween(window.beginningEndDate, window.peakStartDate)),
-      55,
-      75,
-    );
-  }
-  if (stage === "peak") {
-    const daysFromPeak = Math.abs(daysBetween(window.peakDate, localDate));
-    return interpolate(daysFromPeak, 0, window.peakWindowDays, 100, 80);
-  }
-  if (stage === "tapering") {
-    return interpolate(
-      daysBetween(window.peakEndDate, localDate),
-      0,
-      Math.max(1, daysBetween(window.peakEndDate, window.taperingEndDate)),
-      80,
-      60,
-    );
-  }
-  if (stage === "ending") {
-    return interpolate(
-      daysBetween(window.taperingEndDate, localDate),
-      0,
-      Math.max(1, daysBetween(window.taperingEndDate, window.endDate)),
-      60,
-      35,
-    );
-  }
-  if (compareLocalDates(localDate, window.lateEndDate) <= 0) {
-    return interpolate(
-      daysBetween(window.endDate, localDate),
-      1,
-      window.lateWindowDays,
-      30,
-      10,
-    );
-  }
-  return 5;
-}
 
-function applyContextCaps(
-  score: number,
-  localDate: string,
-  window: DateWindow,
-  stage: RunStage,
-): number {
-  if (stage === "pre_run") return Math.min(score, 39);
-  if (stage === "beginning") return Math.min(score, 60);
-  if (stage === "post_run") {
-    if (compareLocalDates(localDate, window.lateEndDate) > 0) {
-      return Math.min(score, 10);
-    }
-    return Math.min(score, 25);
+  const dayOffset = daysBetween(input.startDate, input.localDate);
+  const anchors = [...input.historicalPresence.anchors].toSorted((a, b) =>
+    a.dayOffsetFromStart - b.dayOffsetFromStart
+  );
+  if (anchors.length === 0) return 0;
+  if (dayOffset <= anchors[0].dayOffsetFromStart) {
+    return clamp(anchors[0].fractionOfMaximum, 0, 1);
   }
-  return score;
+
+  for (let index = 1; index < anchors.length; index++) {
+    const prior = anchors[index - 1];
+    const next = anchors[index];
+    if (dayOffset <= next.dayOffsetFromStart) {
+      return clamp(
+        interpolate(
+          dayOffset,
+          prior.dayOffsetFromStart,
+          next.dayOffsetFromStart,
+          prior.fractionOfMaximum,
+          next.fractionOfMaximum,
+        ),
+        0,
+        1,
+      );
+    }
+  }
+
+  return clamp(anchors[anchors.length - 1].fractionOfMaximum, 0, 1);
 }
 
 function fishInRiverLabel(score: number): string {
-  if (score <= 19) return "Very unlikely";
-  if (score <= 39) return "A few possible";
-  if (score <= 59) return "Building presence";
-  if (score <= 79) return "Likely present";
-  return "Peak presence";
+  if (score === 0) return "Outside historical window";
+  if (score <= 2) return "Low historical presence";
+  if (score <= 4) return "Building historical presence";
+  if (score <= 6) return "Moderate historical presence";
+  if (score <= 8) return "High historical presence";
+  return "Peak historical presence";
 }
 
 function fishInRiverCopy(
-  label: PrimitiveDisplay["label"],
+  label: string,
+  score: number,
+  maximum: number,
 ): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
-  switch (label) {
-    case "Very unlikely":
-      return {
-        headline: "Seasonal presence context is very low.",
-        detail:
-          "The configured run calendar and run strength put this date outside the main seasonal window.",
-        tip:
-          "Compare this seasonal-presence read with the other primitives separately.",
-      };
-    case "A few possible":
-      return {
-        headline: "Seasonal presence context is still early or late.",
-        detail:
-          "The configured run calendar allows limited seasonal presence context without implying current conditions.",
-        tip:
-          "Compare this seasonal-presence read with the other primitives separately.",
-      };
-    case "Building presence":
-      return {
-        headline: "Seasonal presence context is building.",
-        detail:
-          "The configured run calendar is moving through the seasonal window.",
-        tip:
-          "Compare this seasonal-presence read with the other primitives separately.",
-      };
-    case "Likely present":
-      return {
-        headline: "Seasonal presence context is elevated.",
-        detail:
-          "The configured run calendar and run strength support elevated seasonal presence context.",
-        tip:
-          "Compare this seasonal-presence read with the other primitives separately.",
-      };
-    case "Peak presence":
-      return {
-        headline: "Seasonal presence context is near its calendar high point.",
-        detail: "The configured run calendar is near peak seasonal timing.",
-        tip:
-          "Compare this seasonal-presence read with the other primitives separately.",
-      };
-    default:
-      return {
-        headline: "Seasonal presence context is available.",
-        detail: "Fish In River describes seasonal presence context only.",
-        tip: "Use other primitives for current River Run dimensions.",
-      };
+  if (score === 0) {
+    return {
+      headline: "Historical river presence is outside the configured window.",
+      detail:
+        `The configured seasonal presence curve is ${score} / ${maximum} for this date; nearby staging does not count as fish in the river.`,
+      tip:
+        "Use Run Stage for calendar context and current-condition primitives for separate signals.",
+    };
   }
+  return {
+    headline: `${label} is typical for this point in the configured run.`,
+    detail:
+      `The river-specific historical seasonal presence level is ${score} / ${maximum}; it is not a fish count or a live observation.`,
+    tip:
+      "Compare historical presence with Push and Fishability without treating either as proof of fish numbers.",
+  };
 }
 
 function stageReasonCode(stage: RunStage): RiverRunReasonCode {

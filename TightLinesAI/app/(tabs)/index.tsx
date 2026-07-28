@@ -1707,7 +1707,7 @@ export default function HomeScreen() {
               code="04"
               title="River Run"
               tag="MIGRATION"
-              desc="Stage, schedule, push & fishability for Great Lakes migratory runs"
+              desc="Stage, historical conditions, push, fishability & seasonal presence for Great Lakes runs"
               moduleId="river-run"
               iconBg={["#FBE4E1", "#F3C2BC"]}
               iconBorder="#C0392B"

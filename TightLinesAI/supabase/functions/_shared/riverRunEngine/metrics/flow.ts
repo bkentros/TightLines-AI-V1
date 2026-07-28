@@ -7,13 +7,17 @@ import type {
 export type FlowTrendInput = {
   currentValue?: number | null;
   value24hAgo?: number | null;
+  rising24hAbsolute?: number;
   rising24hPercent?: number;
+  meaningfulRise24hAbsolute?: number;
   meaningfulRise24hPercent?: number;
+  sharpRise24hAbsolute?: number;
   sharpRise24hPercent?: number;
 };
 
 export type FlowTrendResult = {
   rawSignal: RawFlowTrendSignal;
+  absoluteChange24h: number | null;
   percentChange24h: number | null;
   reasonCodes: RiverRunReasonCode[];
 };
@@ -24,46 +28,59 @@ export function resolveFlowTrendSignal(input: FlowTrendInput): FlowTrendResult {
   if (!isUsableNumber(current) || !isUsableNumber(prior) || prior <= 0) {
     return {
       rawSignal: "unknown",
+      absoluteChange24h: null,
       percentChange24h: null,
       reasonCodes: ["flow_trend_unknown"],
     };
   }
 
-  const pct = ((current - prior) / prior) * 100;
+  const absolute = current - prior;
+  const pct = (absolute / prior) * 100;
+  const risingAbsolute = input.rising24hAbsolute ?? 0;
   const rising = input.rising24hPercent ?? 10;
+  const meaningfulRiseAbsolute = input.meaningfulRise24hAbsolute ?? 0;
   const meaningfulRise = input.meaningfulRise24hPercent ?? 25;
+  const sharpRiseAbsolute = input.sharpRise24hAbsolute ?? 0;
   const sharpRise = input.sharpRise24hPercent ?? 50;
 
   if (pct <= -10) {
     return {
       rawSignal: "falling",
+      absoluteChange24h: absolute,
       percentChange24h: pct,
       reasonCodes: ["flow_falling_24h"],
     };
   }
-  if (pct >= sharpRise) {
+  if (absolute >= sharpRiseAbsolute && pct >= sharpRise) {
     return {
       rawSignal: "sharp_rise",
+      absoluteChange24h: absolute,
       percentChange24h: pct,
       reasonCodes: ["flow_sharp_rise_24h"],
     };
   }
-  if (pct >= meaningfulRise) {
+  if (
+    absolute >= meaningfulRiseAbsolute &&
+    pct >= meaningfulRise
+  ) {
     return {
       rawSignal: "meaningful_rise",
+      absoluteChange24h: absolute,
       percentChange24h: pct,
       reasonCodes: ["flow_meaningful_rise_24h"],
     };
   }
-  if (pct >= rising) {
+  if (absolute >= risingAbsolute && pct >= rising) {
     return {
       rawSignal: "rising",
+      absoluteChange24h: absolute,
       percentChange24h: pct,
       reasonCodes: ["flow_rising_24h"],
     };
   }
   return {
     rawSignal: "stable",
+    absoluteChange24h: absolute,
     percentChange24h: pct,
     reasonCodes: ["flow_stable_24h"],
   };

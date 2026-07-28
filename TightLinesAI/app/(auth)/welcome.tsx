@@ -122,7 +122,6 @@ const FEATURES: {
     iconBg: ['#FBE4E1', '#F3C2BC'],
     iconBorder: '#C0392B',
     iconColor: '#9A2B20',
-    comingSoon: true,
   },
 ];
 

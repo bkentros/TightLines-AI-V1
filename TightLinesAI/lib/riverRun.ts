@@ -1,11 +1,13 @@
-import { getValidAccessToken } from './supabase';
+import { getValidAccessToken } from "./supabase";
+import { captureAnalytics } from "./analytics";
 import type {
   RiverRunCatalogResponse,
   RiverRunSnapshotResponse,
-} from './riverRunContracts';
+} from "./riverRunContracts";
 
 const supabaseUrl = process.env.EXPO_PUBLIC_SUPABASE_URL;
 const supabaseAnonKey = process.env.EXPO_PUBLIC_SUPABASE_ANON_KEY;
+const CLIENT_TIMEOUT_MS = 15_000;
 
 type RiverRunSnapshotParams = {
   riverId: string;
@@ -13,24 +15,24 @@ type RiverRunSnapshotParams = {
 };
 
 export async function fetchRiverRunCatalog(): Promise<RiverRunCatalogResponse> {
-  return riverRunGet<RiverRunCatalogResponse>('rivers');
+  return riverRunGet<RiverRunCatalogResponse>("rivers");
 }
 
 export async function fetchRiverRunSnapshot(
   params: RiverRunSnapshotParams,
 ): Promise<RiverRunSnapshotResponse> {
-  return riverRunGet<RiverRunSnapshotResponse>('snapshot', params, {
+  return riverRunGet<RiverRunSnapshotResponse>("snapshot", params, {
     requireAuth: true,
   });
 }
 
 async function riverRunGet<TResponse>(
-  path: 'rivers' | 'snapshot',
+  path: "rivers" | "snapshot",
   params?: Record<string, string>,
   options: { requireAuth?: boolean } = {},
 ): Promise<TResponse> {
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error('Missing Supabase configuration for River Run.');
+    throw new Error("Missing Supabase configuration for River Run.");
   }
 
   const url = new URL(`${supabaseUrl}/functions/v1/river-run/${path}`);
@@ -39,27 +41,67 @@ async function riverRunGet<TResponse>(
   }
 
   const headers: Record<string, string> = {
-    Accept: 'application/json',
+    Accept: "application/json",
     apikey: supabaseAnonKey,
     Authorization: `Bearer ${supabaseAnonKey}`,
   };
 
   if (options.requireAuth) {
-    headers['x-user-token'] = await getValidAccessToken();
+    headers["x-user-token"] = await getValidAccessToken();
   }
 
-  const response = await fetch(url.toString(), {
-    method: 'GET',
-    headers,
-  });
-  const text = await response.text();
-  const parsed = parseJsonOrText(text);
+  const startedAt = Date.now();
+  const controller = new AbortController();
+  const timer = setTimeout(() => controller.abort(), CLIENT_TIMEOUT_MS);
+  let failureTracked = false;
+  captureAnalytics("river_run_request_started", { path });
+  try {
+    const response = await fetch(url.toString(), {
+      method: "GET",
+      headers,
+      signal: controller.signal,
+    });
+    const text = await response.text();
+    const parsed = parseJsonOrText(text);
 
-  if (!response.ok) {
-    throw new Error(readErrorMessage(parsed, response.status));
+    if (!response.ok) {
+      captureAnalytics("river_run_request_failed", {
+        path,
+        status: response.status,
+        duration_ms: Date.now() - startedAt,
+      });
+      failureTracked = true;
+      throw new Error(readErrorMessage(parsed, response.status));
+    }
+
+    captureAnalytics("river_run_request_succeeded", {
+      path,
+      status: response.status,
+      duration_ms: Date.now() - startedAt,
+    });
+    return parsed as TResponse;
+  } catch (error) {
+    if (error instanceof Error && error.name === "AbortError") {
+      captureAnalytics("river_run_request_failed", {
+        path,
+        status: 0,
+        duration_ms: Date.now() - startedAt,
+        reason: "timeout",
+      });
+      throw new Error("River Run request timed out. Please try again.");
+    }
+    if (!failureTracked) {
+      captureAnalytics("river_run_request_failed", {
+        path,
+        status: 0,
+        duration_ms: Date.now() - startedAt,
+        reason: "network",
+      });
+    }
+    throw error;
+  } finally {
+    clearTimeout(timer);
   }
-
-  return parsed as TResponse;
 }
 
 function parseJsonOrText(text: string): unknown {
@@ -72,13 +114,13 @@ function parseJsonOrText(text: string): unknown {
 }
 
 function readErrorMessage(parsed: unknown, status: number): string {
-  if (typeof parsed === 'string' && parsed.length > 0) return parsed;
-  if (parsed && typeof parsed === 'object') {
+  if (typeof parsed === "string" && parsed.length > 0) return parsed;
+  if (parsed && typeof parsed === "object") {
     const body = parsed as { message?: unknown; error?: unknown };
-    if (typeof body.message === 'string' && body.message.length > 0) {
+    if (typeof body.message === "string" && body.message.length > 0) {
       return body.message;
     }
-    if (typeof body.error === 'string' && body.error.length > 0) {
+    if (typeof body.error === "string" && body.error.length > 0) {
       return body.error;
     }
   }

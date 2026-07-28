@@ -15,6 +15,11 @@ type FeedbackCardProps = {
   profile?: Profile;
   user?: User;
   compact?: boolean;
+  variant?: 'feedback' | 'request';
+  eyebrow?: string;
+  title?: string;
+  body?: string;
+  actionLabel?: string;
 };
 
 export function FeedbackCard({
@@ -24,6 +29,11 @@ export function FeedbackCard({
   profile,
   user,
   compact = false,
+  variant = 'feedback',
+  eyebrow,
+  title,
+  body,
+  actionLabel,
 }: FeedbackCardProps) {
   const router = useRouter();
   const handlePress = (sentiment: FeedbackSentiment) => {
@@ -42,6 +52,40 @@ export function FeedbackCard({
       },
     });
   };
+
+  if (variant === 'request') {
+    return (
+      <View style={[styles.card, styles.requestCard, compact && styles.cardCompact]}>
+        <View style={styles.headerRow}>
+          <View style={[styles.iconBadge, styles.requestIconBadge]}>
+            <Ionicons name="map-outline" size={16} color={paper.redDk} />
+          </View>
+          <View style={styles.headerCopy}>
+            <Text style={[styles.eyebrow, styles.requestEyebrow]}>
+              {eyebrow ?? 'REQUEST COVERAGE'}
+            </Text>
+            <Text style={styles.requestTitle}>
+              {title ?? 'What should FinFindr add next?'}
+            </Text>
+          </View>
+        </View>
+        {body ? <Text style={styles.requestBody}>{body}</Text> : null}
+        <Pressable
+          style={({ pressed }) => [
+            styles.requestButton,
+            pressed && styles.requestButtonPressed,
+          ]}
+          onPress={() => handlePress('note')}
+          accessibilityRole="button"
+        >
+          <Text style={styles.requestButtonText}>
+            {(actionLabel ?? 'SEND A REQUEST').toUpperCase()}
+          </Text>
+          <Ionicons name="arrow-forward" size={15} color="#FFFFFF" />
+        </Pressable>
+      </View>
+    );
+  }
 
   return (
     <View style={[styles.card, compact && styles.cardCompact]}>
@@ -109,6 +153,10 @@ const styles = StyleSheet.create({
   cardCompact: {
     marginTop: paperSpacing.md,
   },
+  requestCard: {
+    borderColor: 'rgba(192,57,43,0.2)',
+    backgroundColor: '#FFF7F2',
+  },
   headerRow: {
     flexDirection: 'row',
     alignItems: 'center',
@@ -124,6 +172,10 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardLine,
     backgroundColor: '#F6F9FB',
   },
+  requestIconBadge: {
+    borderColor: 'rgba(192,57,43,0.2)',
+    backgroundColor: '#FBE4E1',
+  },
   headerCopy: {
     flex: 1,
     minWidth: 0,
@@ -134,11 +186,45 @@ const styles = StyleSheet.create({
     color: paper.dashboardBlue,
     letterSpacing: 1.7,
   },
+  requestEyebrow: {
+    color: paper.redDk,
+  },
   title: {
     marginTop: 2,
     fontFamily: paperFonts.bodyBold,
     fontSize: 15,
     color: paper.dashboardInk,
+  },
+  requestTitle: {
+    marginTop: 2,
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 19,
+    lineHeight: 23,
+    color: paper.dashboardInk,
+  },
+  requestBody: {
+    fontFamily: paperFonts.body,
+    fontSize: 13,
+    lineHeight: 19,
+    color: paper.dashboardMuted,
+  },
+  requestButton: {
+    minHeight: 44,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 8,
+    borderRadius: 8,
+    backgroundColor: paper.dashboardInk,
+  },
+  requestButtonPressed: {
+    opacity: 0.88,
+  },
+  requestButtonText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    letterSpacing: 1.3,
+    color: '#FFFFFF',
   },
   actionRow: {
     flexDirection: 'row',

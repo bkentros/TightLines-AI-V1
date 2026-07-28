@@ -11,7 +11,11 @@ import {
 export type RiverRunFetch = (
   input: string | URL,
   init?: RequestInit,
-) => Promise<{ ok: boolean; json(): Promise<unknown> }>;
+) => Promise<{
+  ok: boolean;
+  json(): Promise<unknown>;
+  text?: () => Promise<string>;
+}>;
 
 export type NormalizedGaugeObservation = {
   provider: "USGS";
@@ -19,7 +23,7 @@ export type NormalizedGaugeObservation = {
   observedAt: string;
   flow_cfs?: number;
   gage_height_ft?: number;
-  source: "usgs_instantaneous_values";
+  source: "usgs_continuous_values";
 };
 
 export type NormalizedGaugeRead = {
@@ -33,7 +37,8 @@ export type NormalizedGaugeRead = {
   reasonCodes: RiverRunReasonCode[];
 };
 
-const USGS_IV_URL = "https://waterservices.usgs.gov/nwis/iv/";
+const USGS_CONTINUOUS_URL =
+  "https://api.waterdata.usgs.gov/ogcapi/v0/collections/continuous/items";
 const USGS_PARAMETER_CODES: Record<RiverMetric, string> = {
   flow_cfs: "00060",
   gage_height_ft: "00065",
@@ -44,28 +49,48 @@ export async function fetchUsgsInstantaneousValues(input: {
   siteId: string;
   metrics?: RiverMetric[];
   period?: string;
+  endAtUtc?: string;
 }): Promise<unknown | null> {
   const metrics: RiverMetric[] = input.metrics?.length
     ? [...input.metrics]
     : ["flow_cfs"];
-  const params = new URLSearchParams({
-    format: "json",
-    sites: input.siteId,
-    parameterCd: metrics.map((metric) => USGS_PARAMETER_CODES[metric]).join(
-      ",",
+  const endAtUtc = normalizeIso(input.endAtUtc) ?? new Date().toISOString();
+  const startAtUtc = new Date(
+    Date.parse(endAtUtc) - periodMilliseconds(input.period ?? "P2D"),
+  ).toISOString();
+  const monitoringLocationId = usgsMonitoringLocationId(input.siteId);
+  const payloads = await Promise.all(metrics.map(async (metric) => {
+    const params = new URLSearchParams({
+      f: "json",
+      monitoring_location_id: monitoringLocationId,
+      parameter_code: USGS_PARAMETER_CODES[metric],
+      datetime: `${startAtUtc}/${endAtUtc}`,
+      limit: "1000",
+    });
+    const response = await input.fetchFn(
+      `${USGS_CONTINUOUS_URL}?${params.toString()}`,
+    );
+    if (!response.ok) return null;
+    return await response.json();
+  }));
+  if (payloads.every((payload) => payload == null)) return null;
+  return {
+    type: "FeatureCollection",
+    features: payloads.flatMap((payload) =>
+      asArray(
+        (payload as { features?: unknown[] } | null)?.features,
+      )
     ),
-    siteStatus: "all",
-    period: input.period ?? "P2D",
-  });
-  const response = await input.fetchFn(`${USGS_IV_URL}?${params.toString()}`);
-  if (!response.ok) return null;
-  return await response.json();
+  };
 }
 
 export function parseUsgsInstantaneousValues(
   payload: unknown,
   siteId: string,
 ): NormalizedGaugeObservation[] {
+  const modern = parseModernUsgsContinuousValues(payload, siteId);
+  if (modern.length > 0) return modern;
+
   const series = asArray(
     (payload as { value?: { timeSeries?: unknown[] } } | null)?.value
       ?.timeSeries,
@@ -89,13 +114,50 @@ export function parseUsgsInstantaneousValues(
         provider: "USGS" as const,
         siteId,
         observedAt,
-        source: "usgs_instantaneous_values" as const,
+        source: "usgs_continuous_values" as const,
       };
       existing[metric] = numericValue;
       byTimestamp.set(observedAt, existing);
     }
   }
 
+  return [...byTimestamp.values()].toSorted((a, b) =>
+    Date.parse(a.observedAt) - Date.parse(b.observedAt)
+  );
+}
+
+function parseModernUsgsContinuousValues(
+  payload: unknown,
+  siteId: string,
+): NormalizedGaugeObservation[] {
+  const expectedLocation = usgsMonitoringLocationId(siteId);
+  const byTimestamp = new Map<string, NormalizedGaugeObservation>();
+  for (
+    const feature of asArray(
+      (payload as { features?: unknown[] } | null)?.features,
+    )
+  ) {
+    const properties = (feature as { properties?: Record<string, unknown> })
+      .properties;
+    if (!properties) continue;
+    if (String(properties.monitoring_location_id ?? "") !== expectedLocation) {
+      continue;
+    }
+    const metric = metricFromParameterCode(properties.parameter_code);
+    const observedAt = normalizeIso(properties.time);
+    const value = toFiniteNumber(properties.value);
+    if (!metric || !observedAt || value == null) continue;
+    if (!isExpectedUsgsUnit(metric, properties.unit_of_measure)) continue;
+
+    const observation = byTimestamp.get(observedAt) ?? {
+      provider: "USGS" as const,
+      siteId,
+      observedAt,
+      source: "usgs_continuous_values" as const,
+    };
+    observation[metric] = value;
+    byTimestamp.set(observedAt, observation);
+  }
   return [...byTimestamp.values()].toSorted((a, b) =>
     Date.parse(a.observedAt) - Date.parse(b.observedAt)
   );
@@ -150,10 +212,14 @@ export function normalizeGaugeRead(input: {
   refreshAtUtc: string;
   maxAgeHours: number;
   riseThresholds?: {
+    rising24hAbsolute?: number;
     rising24hPercent?: number;
+    meaningfulRise24hAbsolute?: number;
     meaningfulRise24hPercent?: number;
+    sharpRise24hAbsolute?: number;
     sharpRise24hPercent?: number;
   };
+  comparisonToleranceHours?: number;
 }): NormalizedGaugeRead {
   const current = selectLatestUsableGaugeObservation(
     input.observations,
@@ -167,6 +233,14 @@ export function normalizeGaugeRead(input: {
         .toISOString(),
     )
     : null;
+  const comparisonToleranceHours = input.comparisonToleranceHours ?? 3;
+  const usablePrior24h = prior24h && current &&
+      Math.abs(
+          Date.parse(prior24h.observedAt) -
+            (Date.parse(current.observedAt) - 24 * 60 * 60 * 1000),
+        ) <= comparisonToleranceHours * 60 * 60 * 1000
+    ? prior24h
+    : null;
   const gaugeFreshness = computeGaugeFreshness({
     observation: current,
     refreshAtUtc: input.refreshAtUtc,
@@ -174,7 +248,9 @@ export function normalizeGaugeRead(input: {
   });
   const flowTrend = resolveFlowTrendSignal({
     currentValue: current ? metricValue(current, input.primaryMetric) : null,
-    value24hAgo: prior24h ? metricValue(prior24h, input.primaryMetric) : null,
+    value24hAgo: usablePrior24h
+      ? metricValue(usablePrior24h, input.primaryMetric)
+      : null,
     ...input.riseThresholds,
   });
   return {
@@ -182,7 +258,7 @@ export function normalizeGaugeRead(input: {
     siteId: input.siteId,
     primaryMetric: input.primaryMetric,
     current,
-    prior24h,
+    prior24h: usablePrior24h,
     gaugeFreshness,
     flowTrend,
     reasonCodes: [gaugeReasonCode(gaugeFreshness), ...flowTrend.reasonCodes],
@@ -211,6 +287,31 @@ function metricFromUsgsSeries(item: unknown): RiverMetric | null {
     return "gage_height_ft";
   }
   return null;
+}
+
+function metricFromParameterCode(value: unknown): RiverMetric | null {
+  const code = String(value ?? "");
+  if (code === "00060") return "flow_cfs";
+  if (code === "00065") return "gage_height_ft";
+  return null;
+}
+
+function isExpectedUsgsUnit(metric: RiverMetric, unit: unknown): boolean {
+  const normalized = String(unit ?? "").toLowerCase();
+  if (metric === "flow_cfs") {
+    return normalized === "ft^3/s" || normalized.includes("cubic feet");
+  }
+  return normalized === "ft" || normalized.includes("feet");
+}
+
+function usgsMonitoringLocationId(siteId: string): string {
+  return siteId.startsWith("USGS-") ? siteId : `USGS-${siteId}`;
+}
+
+function periodMilliseconds(period: string): number {
+  const match = /^P(\d+)D$/.exec(period);
+  const days = match ? Number(match[1]) : 2;
+  return Math.max(1, days) * 24 * 60 * 60 * 1000;
 }
 
 function gaugeReasonCode(freshness: GaugeFreshness): RiverRunReasonCode {
