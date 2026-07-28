@@ -45,6 +45,7 @@ function pushWith(
     trackingState: "active",
     trackingStartDate: "2026-08-15",
     trackingEndDate: "2026-10-20",
+    copyVariant: "A",
     ...overrides,
   });
 }
@@ -60,6 +61,7 @@ function fishabilityWith(
     currentHydraulicValue: 600,
     hydraulicAbsoluteChange24h: 0,
     hydraulicPercentChange24h: 0,
+    copyVariant: "A",
     ...overrides,
   });
 }
@@ -358,7 +360,7 @@ Deno.test("ideal stable fishability is Excellent", () => {
   assertEquals(result.label, "Excellent");
   assertEquals(result.rulesVersion, "pm-scottville-fishability-v1");
   assert(result.detail.includes("Scottville is 600 cfs"));
-  assert(result.detail.includes("matched 24-hour comparison"));
+  assert(result.detail.includes("same time yesterday"));
 });
 
 Deno.test("Fishability shared scoring copy uses the configured source identity", () => {

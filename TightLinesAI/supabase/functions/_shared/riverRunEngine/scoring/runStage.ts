@@ -1,5 +1,11 @@
 import type { PrimitiveDisplay, RiverRunProfile, RunStage } from "../types.ts";
 import {
+  alternate,
+  type RiverRunCopyOptions,
+  RIVER_RUN_COPY_VERSION,
+  resolveCopyVariant,
+} from "../copy/variants.ts";
+import {
   compareLocalDates,
   type DateWindow,
   resolveActiveRunWindow,
@@ -14,22 +20,32 @@ export type RunStageResult = PrimitiveDisplay & {
 export function resolveRunStage(
   run: Pick<RiverRunProfile, "runWindow">,
   localDate: string,
+  copyOptions: RiverRunCopyOptions = {},
 ): RunStageResult {
   const window = resolveActiveRunWindow(run, localDate);
   const stage = stageForDate(localDate, window);
   const stagingContext = stage === "pre_run" &&
     compareLocalDates(localDate, window.stagingStartDate) >= 0;
+  const copyVariant = resolveCopyVariant(
+    copyOptions.copyKey ??
+      `${window.startDate}:${window.endDate}:${stage}:${
+        stagingContext ? "staging" : "before-staging"
+      }`,
+    copyOptions.copyVariant,
+  );
 
   return {
     stage,
     stagingContext,
     window,
     label: stageLabel(stage),
-    ...stageCopy(stage, stagingContext),
+    ...stageCopy(stage, stagingContext, window, copyVariant),
     reasonCodes: [
       stageReasonCode(stage),
       ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
     ],
+    copyVersion: RIVER_RUN_COPY_VERSION,
+    copyVariant,
   };
 }
 
@@ -71,73 +87,166 @@ function stageLabel(stage: RunStage): string {
 function stageCopy(
   stage: RunStage,
   stagingContext: boolean,
+  window: DateWindow,
+  variant: "A" | "B",
 ): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   switch (stage) {
     case "pre_run":
       if (stagingContext) {
         return {
-          headline: "The river run window has not opened yet.",
-          detail:
-            "Maturing fish may stage in nearby lake, harbor, or river-mouth water during this configured run window staging period; this does not confirm fish in the river.",
-          tip:
-            "Treat nearby staging as seasonal context and compare it with measured river conditions separately.",
+          headline: alternate(
+            variant,
+            "The river run has not begun, but nearby staging is seasonally possible.",
+            "This is the staging period before the river run begins.",
+          ),
+          detail: `The researched river-run window begins ${
+            displayLocalDate(window.startDate)
+          }. Mature fish may gather in nearby lake, harbor, or river-mouth water before then, but this calendar stage does not confirm fish have entered the river.`,
+          tip: alternate(
+            variant,
+            "Treat staging water separately from the river, and use measured river conditions for any current movement signal.",
+            "Nearby staging can matter now, but do not read it as proof of fish in the river.",
+          ),
         };
       }
       return {
-        headline: "The configured run window has not opened yet.",
-        detail:
-          "This date is also before the configured nearby-water staging advisory.",
-        tip:
-          "Compare this calendar-stage read with the other primitives separately.",
+        headline: alternate(
+          variant,
+          "The researched river-run season is still ahead.",
+          "It is too early for the configured river-run window.",
+        ),
+        detail: `Nearby-water staging context begins ${
+          displayLocalDate(window.stagingStartDate)
+        }, and the researched river-run window begins ${
+          displayLocalDate(window.startDate)
+        }.`,
+        tip: alternate(
+          variant,
+          "Use this as calendar context only; current weather or water cannot move the configured season dates.",
+          "Check back when the staging period opens; this card reports season timing, not current fish movement.",
+        ),
       };
     case "beginning":
       return {
-        headline: "The calendar is at the beginning of the configured window.",
-        detail:
-          "This stage marks the early portion of the researched run calendar.",
-        tip:
-          "Compare this calendar-stage read with the other primitives separately.",
+        headline: alternate(
+          variant,
+          "The researched run window is in its beginning stage.",
+          "The calendar has entered the early run window.",
+        ),
+        detail: `Beginning runs from ${displayLocalDate(window.startDate)} through ${
+          displayLocalDate(window.beginningEndDate)
+        }. This is the early portion of the river-specific historical calendar, not a live count of fish.`,
+        tip: alternate(
+          variant,
+          "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+          "Expect the run to be less established than later stages, then check the other cards for measured conditions.",
+        ),
       };
     case "building":
       return {
-        headline: "The calendar is in the building portion of the run window.",
-        detail:
-          "This stage sits between the beginning window and the configured peak window.",
-        tip:
-          "Compare this calendar-stage read with the other primitives separately.",
+        headline: alternate(
+          variant,
+          "The researched run calendar is building toward peak.",
+          "The run window is in its building stage.",
+        ),
+        detail: `This stage follows the beginning window and continues until the configured peak starts ${
+          displayLocalDate(window.peakStartDate)
+        }. It describes historical timing, not what entered today.`,
+        tip: alternate(
+          variant,
+          "Historical presence commonly increases through this stage; use Push for the newest movement signal.",
+          "Read this as an advancing season, then use current-condition cards to judge how the river is setting up.",
+        ),
       };
     case "peak":
       return {
-        headline: "The calendar is inside the configured peak window.",
-        detail: "This describes timing within the researched run calendar.",
-        tip:
-          "Compare this calendar-stage read with the other primitives separately.",
+        headline: alternate(
+          variant,
+          "The calendar is inside the researched peak window.",
+          "This is the river run's configured peak stage.",
+        ),
+        detail: `The river-specific peak window runs from ${
+          displayLocalDate(window.peakStartDate)
+        } through ${displayLocalDate(window.peakEndDate)}. Peak is a historical timing range; it does not mean fish numbers are highest on every day.`,
+        tip: alternate(
+          variant,
+          "The run should be well established by calendar timing; Fishability still determines how workable the river is.",
+          "Do not confuse peak timing with perfect fishing—check river shape and current conditions separately.",
+        ),
       };
     case "tapering":
       return {
-        headline: "The calendar is past the configured peak window.",
-        detail:
-          "This stage describes the tapering portion of the researched run calendar.",
-        tip:
-          "Compare this calendar-stage read with the other primitives separately.",
+        headline: alternate(
+          variant,
+          "The calendar is past peak and in the tapering stage.",
+          "The researched run window is now tapering.",
+        ),
+        detail: `The configured peak ended ${
+          displayLocalDate(window.peakEndDate)
+        }. Historical seasonal presence generally eases through ${
+          displayLocalDate(window.taperingEndDate)
+        }, although fish can remain in the river.`,
+        tip: alternate(
+          variant,
+          "Expect a more mature, less uniformly fresh run; use Fish In River for the river-specific historical level.",
+          "Fresh arrivals may be less consistent now, while existing fish can still provide opportunity.",
+        ),
       };
     case "ending":
       return {
-        headline: "The calendar is near the end of the configured window.",
-        detail:
-          "This stage describes the late portion of the researched run calendar.",
-        tip:
-          "Compare this calendar-stage read with the other primitives separately.",
+        headline: alternate(
+          variant,
+          "The researched run window is in its ending stage.",
+          "The river run is late in its configured season.",
+        ),
+        detail: `This is the final portion of the main run window, which ends ${
+          displayLocalDate(window.endDate)
+        }. Historical presence is declining, but this calendar stage does not mean every fish has left.`,
+        tip: alternate(
+          variant,
+          "Expect fewer fresh opportunities than earlier in the run and use Fish In River for remaining seasonal context.",
+          "Late-run fish may remain, but the calendar no longer supports an early- or peak-run expectation.",
+        ),
       };
     case "post_run":
       return {
-        headline: "The configured run window has passed.",
-        detail:
-          "This stage describes calendar timing after the researched run window.",
-        tip:
-          "Compare this calendar-stage read with the other primitives separately.",
+        headline: alternate(
+          variant,
+          "The researched river-run window has passed.",
+          "This run is now outside its configured season.",
+        ),
+        detail: `The main run window ended ${
+          displayLocalDate(window.endDate)
+        }, and its late historical-presence tail ended ${
+          displayLocalDate(window.lateEndDate)
+        }. This does not prove that no individual fish remain.`,
+        tip: alternate(
+          variant,
+          "Treat any remaining fish as outside the modeled run rather than extending the seasonal forecast.",
+          "River Run no longer presents this period as part of the researched seasonal opportunity.",
+        ),
       };
   }
+}
+
+function displayLocalDate(value: string): string {
+  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
+  if (!match) return value;
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return `${months[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
 }
 
 function stageReasonCode(

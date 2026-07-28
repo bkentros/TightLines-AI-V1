@@ -1052,6 +1052,13 @@ function ReviewControl({
                       />
                     ))}
                   </ReviewChipRow>
+                  {activeScenario?.note
+                    ? (
+                      <Text style={styles.reviewHelp}>
+                        {activeScenario.note}
+                      </Text>
+                    )
+                    : null}
                 </>
               )
               : null}

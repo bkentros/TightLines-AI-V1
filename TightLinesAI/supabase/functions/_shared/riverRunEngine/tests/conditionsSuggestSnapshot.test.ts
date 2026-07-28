@@ -170,9 +170,12 @@ Deno.test("Conditions Suggest evaluates before the first checkpoint", () => {
   });
 
   assertEquals(beforeStaging.label, "Evaluating");
-  assert(beforeStaging.detail.includes("2026-07-28"));
+  assert(beforeStaging.detail.includes("July 28, 2026"));
   assertEquals(duringStaging.label, "Evaluating");
-  assert(duringStaging.headline.includes("first cumulative checkpoint"));
+  assert(
+    duringStaging.headline.includes("first season-to-date") ||
+      duringStaging.headline.includes("first historical timing"),
+  );
   assertEquals(duringStaging.nextCheckpointDate, "2026-08-15");
 });
 
@@ -266,7 +269,10 @@ Deno.test("direct Ahead to Delayed checkpoint reversal resolves to Typical", () 
   assert(
     result.reasonCodes.includes("conditions_checkpoint_reversal_tempered"),
   );
-  assert(result.detail.includes("instead of reversing directly"));
+  assert(
+    result.detail.includes("avoid flipping directly") ||
+      result.detail.includes("holds the overall timing"),
+  );
 });
 
 Deno.test("peak completion locks timing and switches to underway copy", () => {
@@ -281,8 +287,8 @@ Deno.test("peak completion locks timing and switches to underway copy", () => {
   assertEquals(result.label, "Timing complete");
   assertEquals(result.timingLabel, "Ahead");
   assertEquals(result.checkpointId, "peak_complete");
-  assert(result.headline.includes("well underway"));
-  assert(result.detail.includes("locked"));
+  assert(result.headline.includes("underway"));
+  assert(result.detail.includes("timing evaluation stops here"));
   assert(result.reasonCodes.includes("conditions_timing_complete"));
 });
 
@@ -296,8 +302,14 @@ Deno.test("Conditions Suggest follows the main run end rather than the historica
   });
 
   assertEquals(result.label, "Timing complete");
-  assert(result.headline.includes("run window has passed"));
-  assert(result.tip.includes("Push tracking are complete"));
+  assert(
+    result.headline.includes("run window has passed") ||
+      result.headline.includes("Seasonal timing is complete"),
+  );
+  assert(
+    result.tip.includes("Push are complete") ||
+      result.tip.includes("No new early-or-late call"),
+  );
   assertEquals(result.headline.includes("well underway"), false);
 });
 

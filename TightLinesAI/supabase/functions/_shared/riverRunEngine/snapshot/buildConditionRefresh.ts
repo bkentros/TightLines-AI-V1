@@ -148,6 +148,7 @@ export function buildConditionRefresh(input: {
     rainReasonCodes: input.rainReasonCodes,
     flowReasonCodes: input.flowReasonCodes,
     temperatureReasonCodes: input.temperatureReasonCodes,
+    localDate: input.localDate,
   });
   const fishability = scoreFishability({
     rules: input.fishabilityBands,
@@ -158,6 +159,7 @@ export function buildConditionRefresh(input: {
     hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
     hydraulicPercentChange24h: input.hydraulicPercentChange24h,
     flowReasonCodes: input.flowReasonCodes,
+    localDate: input.localDate,
   });
   const dataQuality = resolveDataQuality({
     gaugeFreshness: input.gaugeFreshness,

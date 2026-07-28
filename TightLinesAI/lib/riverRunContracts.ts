@@ -10,6 +10,8 @@ export type RiverRunPrimitiveDisplay = {
   detail?: string;
   tip?: string;
   reasonCodes?: string[];
+  copyVersion?: string;
+  copyVariant?: "A" | "B";
 };
 
 export type RiverRunCatalogRun = {
@@ -90,6 +92,7 @@ export type RiverRunStage = RiverRunPrimitiveDisplay & {
 
 export type RiverRunFishInRiver = RiverRunPrimitiveDisplay & {
   curveFraction?: number;
+  curveDirection?: "rising" | "near_peak" | "falling" | "outside";
 };
 
 export type RiverRunPush = RiverRunPrimitiveDisplay & {

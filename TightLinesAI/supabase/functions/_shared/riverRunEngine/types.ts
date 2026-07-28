@@ -87,6 +87,8 @@ export type PrimitiveDisplay = {
   detail: string;
   tip: string;
   reasonCodes: RiverRunReasonCode[];
+  copyVersion?: string;
+  copyVariant?: "A" | "B";
 };
 
 export type DataQuality = {

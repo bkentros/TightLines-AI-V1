@@ -1,5 +1,6 @@
 export * from "./types.ts";
 export * from "./copy/reasonCodes.ts";
+export * from "./copy/variants.ts";
 export * from "./config/rivers.ts";
 export * from "./config/runs.ts";
 export * from "./config/movementEngines.ts";

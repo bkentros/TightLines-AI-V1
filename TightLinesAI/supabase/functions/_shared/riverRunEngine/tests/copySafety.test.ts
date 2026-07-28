@@ -393,7 +393,7 @@ Deno.test("primitive copy is complete for every reachable label", () => {
     new Set([
       "Outside historical window",
       "Low historical presence",
-      "Building historical presence",
+      "Limited historical presence",
       "Moderate historical presence",
       "Peak historical presence",
     ]),
@@ -417,10 +417,10 @@ Deno.test("primitive copy stays dimension-specific", () => {
       display,
       /calendar|configured run window/i,
       [
-        /broader progression/i,
-        /movement signal/i,
-        /river shape/i,
-        /seasonal presence/i,
+        /\bcfs\b/i,
+        /water temperature/i,
+        /rainfall/i,
+        /fishability score/i,
       ],
     );
   }
@@ -435,9 +435,9 @@ Deno.test("primitive copy stays dimension-specific", () => {
       display,
       /conditions suggest|cumulative|historical/i,
       [
-        /movement signal/i,
-        /river shape/i,
-        /seasonal presence/i,
+        /\bcfs\b/i,
+        /wading|boating safety/i,
+        /fish count/i,
       ],
     );
   }
@@ -447,8 +447,9 @@ Deno.test("primitive copy stays dimension-specific", () => {
       display,
       /\bPush\b|fresh-push signal|trigger conditions/i,
       [
-        /river shape/i,
-        /seasonal presence/i,
+        /historical presence level/i,
+        /earlier timing than typical/i,
+        /wading|boating safety/i,
       ],
     );
   }
@@ -456,17 +457,19 @@ Deno.test("primitive copy stays dimension-specific", () => {
     assertDimensionCopy(
       "Fishability",
       display,
-      /primary gauged reach|primary-reach/i,
+      /gauged river|river shape|gauge reading|river band|flow bands|gauge represents|represented by the .* gauge|current flow/i,
       [
-        /movement signal/i,
-        /seasonal presence/i,
+        /earlier timing than typical/i,
+        /fresh-push signal/i,
+        /historical presence level/i,
       ],
     );
   }
   for (const display of fishInRiverDisplays()) {
-    assertDimensionCopy("Fish In River", display, /seasonal presence/i, [
-      /movement signal/i,
-      /river shape/i,
+    assertDimensionCopy("Fish In River", display, /historical|seasonal/i, [
+      /\bcfs\b/i,
+      /water temperature/i,
+      /rainfall/i,
     ]);
   }
 });
