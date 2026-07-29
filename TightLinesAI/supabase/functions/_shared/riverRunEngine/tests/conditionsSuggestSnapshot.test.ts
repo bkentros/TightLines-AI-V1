@@ -196,6 +196,29 @@ Deno.test("river-start checkpoint uses every completed date from staging", () =>
   assertEquals(result.sourceDates.includes(target.checkpointDate), false);
 });
 
+Deno.test("Run Timing accepts every configured PM condition slot", () => {
+  const target = checkpoint("river_start");
+  const evidenceByDate = cumulativeEvidence(target, "ahead");
+  for (const localDate of Object.keys(evidenceByDate)) {
+    const base = evidenceByDate[localDate]["16:00"]!;
+    evidenceByDate[localDate] = Object.fromEntries(
+      river.conditionRefreshSchedule.activeSlots.map((slot) => [
+        slot,
+        { ...base },
+      ]),
+    );
+  }
+  const result = scoreConditionsSuggest({
+    localDate: target.checkpointDate,
+    run,
+    evidenceByDate,
+    baselines: [baseline(target)],
+  });
+
+  assertEquals(result.label, "Ahead");
+  assertEquals(result.sourceRefreshSlots[target.cutoffDate], "20:00");
+});
+
 Deno.test("checkpoint verdict cannot drift between checkpoint dates", () => {
   const target = checkpoint("river_start");
   const evidenceByDate = cumulativeEvidence(target, "ahead");

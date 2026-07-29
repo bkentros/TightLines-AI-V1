@@ -184,6 +184,20 @@ export type WeatherPointConfig = {
   basinWeight?: number;
 };
 
+export type ConditionRefreshSchedule = {
+  /**
+   * Local observation slots used from stagingStart through the main run end.
+   * The protected server job runs shortly after each configured slot so the
+   * source's newest transmitted observation has time to arrive.
+   */
+  activeSlots: string[];
+  /**
+   * Lower-frequency local slots used outside the active seasonal window.
+   */
+  inactiveSlots: string[];
+  evidenceNotes: string;
+};
+
 export type RiverProfile = {
   riverId: string;
   displayName: string;
@@ -196,6 +210,7 @@ export type RiverProfile = {
   hydraulicSources: HydraulicSourceConfig[];
   waterTemperatureSources: WaterTemperatureSourceConfig[];
   weatherPoints: WeatherPointConfig[];
+  conditionRefreshSchedule: ConditionRefreshSchedule;
 
   supportStatus: SupportStatus;
   gaugeLimitationCopy: string;

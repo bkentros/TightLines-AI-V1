@@ -94,6 +94,19 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
       role: "primary",
     },
   ],
+  conditionRefreshSchedule: {
+    activeSlots: [
+      "00:00",
+      "04:00",
+      "08:00",
+      "12:00",
+      "16:00",
+      "20:00",
+    ],
+    inactiveSlots: ["00:00"],
+    evidenceNotes:
+      "PM condition evidence refreshes every four hours from the configured staging start through the main run end. The protected server job runs 17 minutes after the hour so the newest USGS and PMTU transmissions have time to arrive. Outside that seasonal window, the river refreshes once daily.",
+  },
   supportStatus: "beta",
   gaugeLimitationCopy:
     "Based on the USGS gauge at Scottville. Conditions can vary by reach.",

@@ -10,7 +10,7 @@ import type {
 export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-07-28.3",
+    configVersion: "2026-07-29.1",
     movementEngineVersion: getMovementEngineDefinition("fall_cooling").version,
     river: PERE_MARQUETTE_RIVER_PROFILE,
     runs: [PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE],

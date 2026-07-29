@@ -80,7 +80,9 @@ A primitive is complete only when all of the following are checked:
 - [x] Added a runtime release gate that defaults to hidden.
 - [x] Prevented public date, time, refresh-time, and environmental overrides.
 - [x] Added a secret-protected internal refresh route.
-- [x] Added an idempotent hourly cron definition for local condition slots.
+- [x] Added an idempotent hourly cron definition that resolves source-audited
+  local condition slots from each river profile. PM uses four-hour active-run
+  refreshes and a daily inactive refresh.
 - [x] Added provider timeouts and deterministic provider-failure handling.
 - [x] Made storage failures explicit instead of treating them as empty data.
 - [x] Added mobile focus, foreground, and pull-to-refresh behavior.

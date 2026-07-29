@@ -300,7 +300,8 @@ export async function handleRiverRunRequest(
   try {
     const timing = resolveRequestTiming(
       url,
-      river.timezone,
+      river,
+      run,
       deps.now ?? new Date(),
       deps.allowTestOverrides === true,
     );
@@ -327,6 +328,7 @@ export async function handleRiverRunRequest(
     return jsonResponse(shapeSnapshotResponse({
       ...result,
       river,
+      run,
       timing,
       pushHistory,
     }));
@@ -467,7 +469,8 @@ async function handleInternalRefresh(
   for (const target of targets) {
     const timing = resolveRequestTiming(
       new URL(req.url),
-      target.river.timezone,
+      target.river,
+      target.run,
       now,
       false,
     );
@@ -850,6 +853,7 @@ function shapeSnapshotResponse(input: {
   dailySnapshot: StoredDailySnapshot;
   condition: StoredConditionRefresh;
   river: RiverProfile;
+  run: RiverRunProfile;
   pushHistory: PushHistoryContext;
   timing: {
     localDate: string;
@@ -862,6 +866,8 @@ function shapeSnapshotResponse(input: {
     localDate: input.timing.localDate,
     localTime: input.timing.localTime,
     timezone: input.river.timezone,
+    run: input.run,
+    schedule: input.river.conditionRefreshSchedule,
   });
   return {
     riverId: input.dailySnapshot.riverId,
@@ -1023,7 +1029,8 @@ function withTimeoutFetch(
 
 function resolveRequestTiming(
   url: URL,
-  timezone: string,
+  river: RiverProfile,
+  run: RiverRunProfile,
   now: Date,
   allowTestOverrides: boolean,
 ): RequestTiming {
@@ -1033,13 +1040,19 @@ function resolveRequestTiming(
   const dateForDefaults = new Date(refreshAtUtc);
   const localDate = allowTestOverrides
     ? url.searchParams.get("localDate") ??
-      localDateInTz(timezone, dateForDefaults)
-    : localDateInTz(timezone, dateForDefaults);
+      localDateInTz(river.timezone, dateForDefaults)
+    : localDateInTz(river.timezone, dateForDefaults);
   const localTime = allowTestOverrides
     ? url.searchParams.get("localTime") ??
-      localTimeInTz(timezone, dateForDefaults)
-    : localTimeInTz(timezone, dateForDefaults);
-  const latest = resolveLatestRefreshSlot({ localDate, localTime, timezone });
+      localTimeInTz(river.timezone, dateForDefaults)
+    : localTimeInTz(river.timezone, dateForDefaults);
+  const latest = resolveLatestRefreshSlot({
+    localDate,
+    localTime,
+    timezone: river.timezone,
+    run,
+    schedule: river.conditionRefreshSchedule,
+  });
   return {
     localDate,
     localTime,

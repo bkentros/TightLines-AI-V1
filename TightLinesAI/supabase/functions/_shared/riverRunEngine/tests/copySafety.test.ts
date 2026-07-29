@@ -431,9 +431,9 @@ Deno.test("primitive copy stays dimension-specific", () => {
     ]
   ) {
     assertDimensionCopy(
-      "Conditions Suggest",
+      "Run Timing",
       display,
-      /conditions suggest|cumulative|historical/i,
+      /run timing|cumulative|historical/i,
       [
         /\bcfs\b/i,
         /wading|boating safety/i,

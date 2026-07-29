@@ -168,6 +168,35 @@ Deno.test("PM river config is structurally valid", () => {
   assertEquals(result.issues, []);
 });
 
+Deno.test("PM refresh cadence is four-hourly in season and daily outside it", () => {
+  assertEquals(
+    PERE_MARQUETTE_RIVER_PROFILE.conditionRefreshSchedule.activeSlots,
+    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+  );
+  assertEquals(
+    PERE_MARQUETTE_RIVER_PROFILE.conditionRefreshSchedule.inactiveSlots,
+    ["00:00"],
+  );
+});
+
+Deno.test("river refresh cadence fails closed when slots are invalid", () => {
+  const river = riverWith({
+    conditionRefreshSchedule: {
+      activeSlots: ["04:00", "not-a-time"],
+      inactiveSlots: [],
+      evidenceNotes: "",
+    },
+  });
+  const result = validateRiverProfile(river);
+
+  assertEquals(result.valid, false);
+  assert(
+    result.issues.some((issue) =>
+      issue.field.startsWith("conditionRefreshSchedule")
+    ),
+  );
+});
+
 Deno.test("PM Fall Chinook run is structurally valid", () => {
   const result = validateRunProfile(
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,

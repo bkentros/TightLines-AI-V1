@@ -1,4 +1,5 @@
 import { getMovementEngineDefinition } from "./config/movementEngines.ts";
+import { isValidRefreshSlot } from "./snapshot/refreshSlots.ts";
 import type {
   GreatLakesState,
   MovementEngineId,
@@ -187,6 +188,7 @@ export function validateRiverProfile(
   validateHydraulicSources(river, issues);
   validateTemperatureSources(river, issues);
   validateWeatherPoints(river, issues);
+  validateConditionRefreshSchedule(river, issues);
 
   const valid = issues.every((item) => item.severity !== "error");
   return {
@@ -196,6 +198,78 @@ export function validateRiverProfile(
     publicVisible: valid,
     issues,
   };
+}
+
+function validateConditionRefreshSchedule(
+  river: RiverProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  const schedule = river.conditionRefreshSchedule;
+  if (!schedule || typeof schedule !== "object") {
+    issues.push(
+      issue(
+        "conditionRefreshSchedule",
+        "A researched condition refresh schedule is required.",
+        "config_invalid_value",
+      ),
+    );
+    return;
+  }
+  for (
+    const field of ["activeSlots", "inactiveSlots"] as const
+  ) {
+    const slots = schedule[field];
+    if (!Array.isArray(slots) || slots.length === 0) {
+      issues.push(
+        issue(
+          `conditionRefreshSchedule.${field}`,
+          "Condition refresh schedules require at least one local slot.",
+          "config_invalid_value",
+        ),
+      );
+      continue;
+    }
+    if (
+      slots.some((slot) => !isValidRefreshSlot(slot)) ||
+      new Set(slots).size !== slots.length
+    ) {
+      issues.push(
+        issue(
+          `conditionRefreshSchedule.${field}`,
+          "Condition refresh slots must be unique valid local HH:MM values.",
+          "config_invalid_value",
+        ),
+      );
+    }
+    if (slots[0] !== "00:00") {
+      issues.push(
+        issue(
+          `conditionRefreshSchedule.${field}`,
+          "Condition refresh schedules must begin at 00:00 local time.",
+          "config_invalid_value",
+        ),
+      );
+    }
+    const sorted = [...slots].sort();
+    if (slots.some((slot, index) => slot !== sorted[index])) {
+      issues.push(
+        issue(
+          `conditionRefreshSchedule.${field}`,
+          "Condition refresh slots must be ordered from earliest to latest.",
+          "config_invalid_value",
+        ),
+      );
+    }
+  }
+  if (!hasText(schedule.evidenceNotes)) {
+    issues.push(
+      issue(
+        "conditionRefreshSchedule.evidenceNotes",
+        "Condition refresh cadence requires source evidence notes.",
+        "config_required_field_missing",
+      ),
+    );
+  }
 }
 
 function validateHydraulicSources(

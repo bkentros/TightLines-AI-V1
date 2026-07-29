@@ -138,7 +138,7 @@ function stageCopy(
         }. This is the early portion of the river-specific historical calendar, not a live count of fish.`,
         tip: alternate(
           variant,
-          "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+          "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
           "Expect the run to be less established than later stages, then check the other cards for measured conditions.",
         ),
       };

@@ -122,7 +122,7 @@ const BASE_BY_VARIANT = {
         "2026-08-22": "16:00",
         "2026-08-23": "16:00"
       },
-      "headline": "Conditions suggest timing near the historical pattern.",
+      "headline": "Run Timing remains near the historical pattern.",
       "detail": "From staging through the beginning-stage checkpoint, the combined Scottville river-response and measured-water pattern remains near this run's historical range.",
       "tip": "Typical describes seasonal timing, not average fishing; use Push and Fishability for current conditions.",
       "reasonCodes": [
@@ -265,7 +265,7 @@ const BASE_BY_VARIANT = {
       "activityDisclaimer": "River Run is not a wading, boating, floating, or personal-safety rating."
     },
     "engineVersion": "river-run-v1.3.0-review",
-    "configVersion": "2026-07-28.3-review"
+    "configVersion": "2026-07-29.1-review"
   },
   "B": {
     "riverId": "pere_marquette",
@@ -527,7 +527,7 @@ const BASE_BY_VARIANT = {
       "activityDisclaimer": "River Run is not a wading, boating, floating, or personal-safety rating."
     },
     "engineVersion": "river-run-v1.3.0-review",
-    "configVersion": "2026-07-28.3-review"
+    "configVersion": "2026-07-29.1-review"
   }
 } as unknown as Record<"A" | "B", RiverRunSnapshotResponse>;
 
@@ -990,7 +990,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -1998,7 +1998,7 @@ const GROUP_SEEDS = [
   },
   {
     "id": "conditions",
-    "label": "Conditions",
+    "label": "Run Timing",
     "scenarios": [
       {
         "id": "conditions_before_collection_a",
@@ -2056,7 +2056,7 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Conditions Suggest has not started collecting this run's evidence.",
+            "headline": "Run Timing has not started collecting this run's evidence.",
             "detail": "Season-to-date evidence begins on the configured staging date, July 28, 2026.",
             "tip": "The first saved timing comparison will be available August 15, 2026.",
             "reasonCodes": [
@@ -2319,7 +2319,7 @@ const GROUP_SEEDS = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Conditions Suggest is building its first season-to-date comparison.",
+            "headline": "Run Timing is building its first season-to-date comparison.",
             "detail": "Measured water temperature and Scottville river response are accumulating from the staging start. No early, typical, or delayed result is issued until the first checkpoint is complete.",
             "tip": "The first saved timing comparison will be available August 15, 2026.",
             "reasonCodes": [
@@ -2558,7 +2558,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -2626,7 +2626,7 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions suggest this run is developing earlier than typical.",
+            "headline": "Run Timing points to earlier development than typical.",
             "detail": "From staging through the pre-run checkpoint, both Scottville river response and measured-water temperature rank on the earlier side of this run's historical record.",
             "tip": "This supports earlier seasonal timing; it does not confirm fish entered the river or predict today's bite.",
             "reasonCodes": [
@@ -2697,7 +2697,7 @@ const GROUP_SEEDS = [
           },
           "interpretationNote": {
             "headline": "These River Run reads differ for explainable reasons.",
-            "detail": "1. Conditions Suggest compares the season so far with history, while Run Stage reports the fixed researched calendar. Together they mean the early window may be developing faster than usual—not that the calendar stage or fish count changed. 2. Fishability says the gauged stretch is workable, while Fish In River says this date historically carries limited seasonal presence. Good water to fish is useful, but it does not mean many fish are present.",
+            "detail": "1. Run Timing compares the season so far with history, while Run Stage reports the fixed researched calendar. Together they mean the early window may be developing faster than usual—not that the calendar stage or fish count changed. 2. Fishability says the gauged stretch is workable, while Fish In River says this date historically carries limited seasonal presence. Good water to fish is useful, but it does not mean many fish are present.",
             "reasonCodes": [
               "beginning_ahead_conditions",
               "good_fishability_low_presence"
@@ -2876,7 +2876,7 @@ const GROUP_SEEDS = [
           },
           "interpretationNote": {
             "headline": "These River Run reads differ for explainable reasons.",
-            "detail": "1. Conditions Suggest compares the season so far with history, while Run Stage reports the fixed researched calendar. Together they mean the early window may be developing faster than usual—not that the calendar stage or fish count changed. 2. Fishability says the gauged stretch is workable, while Fish In River says this date historically carries limited seasonal presence. Good water to fish is useful, but it does not mean many fish are present.",
+            "detail": "1. Run Timing compares the season so far with history, while Run Stage reports the fixed researched calendar. Together they mean the early window may be developing faster than usual—not that the calendar stage or fish count changed. 2. Fishability says the gauged stretch is workable, while Fish In River says this date historically carries limited seasonal presence. Good water to fish is useful, but it does not mean many fish are present.",
             "reasonCodes": [
               "beginning_ahead_conditions",
               "good_fishability_low_presence"
@@ -2916,7 +2916,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -2984,7 +2984,7 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions suggest timing near the historical pattern.",
+            "headline": "Run Timing remains near the historical pattern.",
             "detail": "From staging through the pre-run checkpoint, the combined Scottville river-response and measured-water pattern remains near this run's historical range.",
             "tip": "Typical describes seasonal timing, not average fishing; use Push and Fishability for current conditions.",
             "reasonCodes": [
@@ -3272,7 +3272,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -3340,7 +3340,7 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions suggest this run is developing later than typical.",
+            "headline": "Run Timing points to later development than typical.",
             "detail": "From staging through the pre-run checkpoint, both Scottville river response and measured-water temperature rank on the later side of this run's historical record.",
             "tip": "Delayed does not mean fish are absent. A fresh Push can improve today's entry conditions without rewriting the saved seasonal checkpoint.",
             "reasonCodes": [
@@ -3628,7 +3628,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -3696,7 +3696,7 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions suggest timing near the historical pattern overall.",
+            "headline": "Run Timing remains near the historical pattern overall.",
             "detail": "Through the pre-run checkpoint, Scottville river response and measured-water temperature point in different timing directions. Neither is allowed to overpower the other, so the historical comparison remains Typical.",
             "tip": "Use Push for today's movement conditions; this card will not call the season early or late on one conflicting signal.",
             "reasonCodes": [
@@ -4072,8 +4072,8 @@ const GROUP_SEEDS = [
               "2026-08-22": "16:00",
               "2026-08-23": "16:00"
             },
-            "headline": "Conditions suggest timing near the historical pattern overall.",
-            "detail": "Evidence through the beginning-stage checkpoint pointed opposite the prior checkpoint. To avoid flipping directly from Ahead to Delayed, or Delayed to Ahead, Conditions Suggest conservatively holds the overall timing at Typical.",
+            "headline": "Run Timing remains near the historical pattern overall.",
+            "detail": "Evidence through the beginning-stage checkpoint pointed opposite the prior checkpoint. To avoid flipping directly from Ahead to Delayed, or Delayed to Ahead, Run Timing conservatively holds the overall timing at Typical.",
             "tip": "Use Push for today's movement conditions; this saved checkpoint compares the season so far with history.",
             "reasonCodes": [
               "gauge_fresh",
@@ -4270,7 +4270,7 @@ const GROUP_SEEDS = [
               "2026-08-23": "16:00"
             },
             "headline": "The cumulative timing read remains Typical.",
-            "detail": "Evidence through the beginning-stage checkpoint pointed opposite the prior checkpoint. To avoid flipping directly from Ahead to Delayed, or Delayed to Ahead, Conditions Suggest conservatively holds the overall timing at Typical.",
+            "detail": "Evidence through the beginning-stage checkpoint pointed opposite the prior checkpoint. To avoid flipping directly from Ahead to Delayed, or Delayed to Ahead, Run Timing conservatively holds the overall timing at Typical.",
             "tip": "The newer evidence changed direction, but not enough to erase the established seasonal pattern.",
             "reasonCodes": [
               "gauge_fresh",
@@ -4786,7 +4786,7 @@ const GROUP_SEEDS = [
               "2026-09-24": "16:00",
               "2026-09-25": "16:00"
             },
-            "headline": "The run is far enough underway that Conditions Suggest is complete.",
+            "headline": "The run is far enough underway that Run Timing is complete.",
             "detail": "The final season-to-date peak-window comparison was Ahead. The timing evaluation stops here because earlier-versus-later loses practical value once the run is well underway.",
             "tip": "The final timing result stays visible, while current movement and river shape continue to update separately.",
             "reasonCodes": [
@@ -5043,7 +5043,7 @@ const GROUP_SEEDS = [
             },
             "headline": "The configured Fall Chinook run window has passed.",
             "detail": "The final season-to-date peak-window comparison was Ahead. The timing evaluation stops here because earlier-versus-later loses practical value once the run is well underway.",
-            "tip": "Conditions Suggest and Push are complete; Fish In River remains historical seasonal context only.",
+            "tip": "Run Timing and Push are complete; Fish In River remains historical seasonal context only.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -5815,7 +5815,7 @@ const GROUP_SEEDS = [
               "2026-09-24": "16:00",
               "2026-09-25": "16:00"
             },
-            "headline": "The run is far enough underway that Conditions Suggest is complete.",
+            "headline": "The run is far enough underway that Run Timing is complete.",
             "tip": "The final timing result stays visible, while current movement and river shape continue to update separately.",
             "detail": "The final peak-window comparison did not have enough matching gauge, measured-water, and historical evidence for a responsible timing classification.",
             "reasonCodes": [
@@ -5918,7 +5918,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -5983,7 +5983,7 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions Suggest does not have enough evidence to classify this checkpoint.",
+            "headline": "Run Timing does not have enough evidence to classify this checkpoint.",
             "tip": "The engine leaves this checkpoint unclassified instead of guessing; a later checkpoint may classify with enough matching evidence.",
             "detail": "At least five matching historical years are not available for this cumulative run checkpoint.",
             "reasonCodes": [
@@ -6266,7 +6266,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -6334,7 +6334,7 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions Suggest does not have enough evidence to classify this checkpoint.",
+            "headline": "Run Timing does not have enough evidence to classify this checkpoint.",
             "tip": "The engine leaves this checkpoint unclassified instead of guessing; a later checkpoint may classify with enough matching evidence.",
             "detail": "At least five matching historical years are not available for this cumulative run checkpoint.",
             "reasonCodes": [
@@ -6624,7 +6624,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -6692,9 +6692,9 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions Suggest does not have enough evidence to classify this checkpoint.",
+            "headline": "Run Timing does not have enough evidence to classify this checkpoint.",
             "tip": "The engine leaves this checkpoint unclassified instead of guessing; a later checkpoint may classify with enough matching evidence.",
-            "detail": "The saved historical checkpoint does not match the active cumulative Conditions Suggest configuration.",
+            "detail": "The saved historical checkpoint does not match the active cumulative Run Timing configuration.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -6873,7 +6873,7 @@ const GROUP_SEEDS = [
             },
             "headline": "This historical timing comparison remains unclassified.",
             "tip": "No early, typical, or delayed label is safer than a conclusion built from incomplete or mismatched data.",
-            "detail": "The saved historical checkpoint does not match the active cumulative Conditions Suggest configuration.",
+            "detail": "The saved historical checkpoint does not match the active cumulative Run Timing configuration.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -6982,7 +6982,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -7050,9 +7050,9 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions Suggest does not have enough evidence to classify this checkpoint.",
+            "headline": "Run Timing does not have enough evidence to classify this checkpoint.",
             "tip": "The engine leaves this checkpoint unclassified instead of guessing; a later checkpoint may classify with enough matching evidence.",
-            "detail": "The saved historical checkpoint does not match the active cumulative Conditions Suggest configuration.",
+            "detail": "The saved historical checkpoint does not match the active cumulative Run Timing configuration.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -7231,7 +7231,7 @@ const GROUP_SEEDS = [
             },
             "headline": "This historical timing comparison remains unclassified.",
             "tip": "No early, typical, or delayed label is safer than a conclusion built from incomplete or mismatched data.",
-            "detail": "The saved historical checkpoint does not match the active cumulative Conditions Suggest configuration.",
+            "detail": "The saved historical checkpoint does not match the active cumulative Run Timing configuration.",
             "reasonCodes": [
               "gauge_fresh",
               "temperature_measured",
@@ -7340,7 +7340,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -7408,7 +7408,7 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions Suggest does not have enough evidence to classify this checkpoint.",
+            "headline": "Run Timing does not have enough evidence to classify this checkpoint.",
             "tip": "The engine leaves this checkpoint unclassified instead of guessing; a later checkpoint may classify with enough matching evidence.",
             "detail": "The checkpoint cutoff date does not have a current reading from the primary gauge used by this comparison.",
             "reasonCodes": [
@@ -7698,7 +7698,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -7766,7 +7766,7 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions Suggest does not have enough evidence to classify this checkpoint.",
+            "headline": "Run Timing does not have enough evidence to classify this checkpoint.",
             "tip": "The engine leaves this checkpoint unclassified instead of guessing; a later checkpoint may classify with enough matching evidence.",
             "detail": "The checkpoint cutoff date does not have a current reading from the measured-water source used by this comparison.",
             "reasonCodes": [
@@ -8056,7 +8056,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -8124,7 +8124,7 @@ const GROUP_SEEDS = [
               "2026-08-13": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions Suggest does not have enough evidence to classify this checkpoint.",
+            "headline": "Run Timing does not have enough evidence to classify this checkpoint.",
             "tip": "The engine leaves this checkpoint unclassified instead of guessing; a later checkpoint may classify with enough matching evidence.",
             "detail": "The current gauge or measured-water source does not match the source used to build this checkpoint.",
             "reasonCodes": [
@@ -8414,7 +8414,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -8468,7 +8468,7 @@ const GROUP_SEEDS = [
               "2026-07-30": "16:00",
               "2026-08-14": "16:00"
             },
-            "headline": "Conditions Suggest does not have enough evidence to classify this checkpoint.",
+            "headline": "Run Timing does not have enough evidence to classify this checkpoint.",
             "tip": "The engine leaves this checkpoint unclassified instead of guessing; a later checkpoint may classify with enough matching evidence.",
             "detail": "The cumulative checkpoint has fewer matching gauge-and-temperature dates than its configured coverage requirement.",
             "reasonCodes": [
@@ -11620,7 +11620,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -11830,7 +11830,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -14488,7 +14488,7 @@ const GROUP_SEEDS = [
             "label": "Beginning",
             "headline": "The researched run window is in its beginning stage.",
             "detail": "Beginning runs from August 15, 2026 through August 23, 2026. This is the early portion of the river-specific historical calendar, not a live count of fish.",
-            "tip": "Early fish are seasonally plausible; use Conditions Suggest and Push to understand timing and current entry conditions.",
+            "tip": "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
             "reasonCodes": [
               "stage_beginning"
             ],
@@ -14742,7 +14742,7 @@ const GROUP_SEEDS = [
               "2026-09-13": "16:00",
               "2026-09-14": "16:00"
             },
-            "headline": "Conditions suggest this run is developing later than typical.",
+            "headline": "Run Timing points to later development than typical.",
             "detail": "From staging through the building-stage checkpoint, both Scottville river response and measured-water temperature rank on the later side of this run's historical record.",
             "tip": "Delayed does not mean fish are absent. A fresh Push can improve today's entry conditions without rewriting the saved seasonal checkpoint.",
             "reasonCodes": [
@@ -14839,7 +14839,7 @@ const GROUP_SEEDS = [
           },
           "interpretationNote": {
             "headline": "Current Push is strong while seasonal timing remains Delayed.",
-            "detail": "Push describes today's movement-supporting water pattern, while Conditions Suggest preserves the season-to-date historical comparison. A delayed run can receive a strong event now; watch whether later checkpoints absorb that change.",
+            "detail": "Push describes today's movement-supporting water pattern, while Run Timing preserves the season-to-date historical comparison. A delayed run can receive a strong event now; watch whether later checkpoints absorb that change.",
             "reasonCodes": [
               "delayed_conditions_strong_push"
             ]

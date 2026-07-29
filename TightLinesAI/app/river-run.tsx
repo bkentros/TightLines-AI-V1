@@ -11,8 +11,11 @@ import {
 } from "react";
 import type { ReactNode } from "react";
 import {
+  AccessibilityInfo,
   ActivityIndicator,
+  Animated,
   AppState,
+  Easing,
   Image,
   Pressable,
   RefreshControl,
@@ -29,6 +32,7 @@ import {
   SectionEyebrow,
   TopographicLines,
 } from "../components/paper";
+import { RiverRunVisual } from "../components/river-run/RiverRunVisual";
 import { FeedbackCard } from "../components/FeedbackCard";
 import { fetchRiverRunCatalog, fetchRiverRunSnapshot } from "../lib/riverRun";
 import {
@@ -52,6 +56,11 @@ import {
   type RiverRunReviewGroup,
   type RiverRunReviewScenario,
 } from "../lib/riverRunReviewFixtures";
+import {
+  formatRiverRunTabStatus,
+  resolveRiverRunVisualModel,
+  type RiverRunVisualKind,
+} from "../lib/riverRunVisuals";
 import { getRiverRunSpeciesImage } from "../lib/riverRunSpeciesImages";
 import {
   hapticImpact,
@@ -68,10 +77,66 @@ import { useAuthStore } from "../store/authStore";
 
 type WizardStep = 1 | 2 | 3 | 4;
 type ScreenState = "setup" | "result";
+type PrimitiveTabId = RiverRunVisualKind;
+
+type PrimitiveTabDefinition = {
+  id: PrimitiveTabId;
+  index: string;
+  tabTitle: string;
+  cardTitle: string;
+  icon: keyof typeof Ionicons.glyphMap;
+};
+
+const PRIMITIVE_TABS: PrimitiveTabDefinition[] = [
+  {
+    id: "run_stage",
+    index: "01",
+    tabTitle: "STAGE",
+    cardTitle: "Run Stage",
+    icon: "calendar-outline",
+  },
+  {
+    id: "run_timing",
+    index: "02",
+    tabTitle: "TIMING",
+    cardTitle: "Run Timing",
+    icon: "speedometer-outline",
+  },
+  {
+    id: "push",
+    index: "03",
+    tabTitle: "PUSH",
+    cardTitle: "Push",
+    icon: "pulse-outline",
+  },
+  {
+    id: "fishability",
+    index: "04",
+    tabTitle: "FISHABILITY",
+    cardTitle: "Fishability",
+    icon: "water-outline",
+  },
+  {
+    id: "fish_in_river",
+    index: "05",
+    tabTitle: "PRESENCE",
+    cardTitle: "Fish In River",
+    icon: "fish-outline",
+  },
+];
+
+const REVIEW_GROUP_TAB: Partial<Record<string, PrimitiveTabId>> = {
+  run_stage: "run_stage",
+  conditions: "run_timing",
+  push: "push",
+  fishability: "fishability",
+  fish_in_river: "fish_in_river",
+};
 
 const RIVER_RUN_REVIEW_ENABLED = __DEV__ &&
   process.env.EXPO_PUBLIC_RIVER_RUN_REVIEW_MODE === "true";
 const CHINOOK_IMAGE = getRiverRunSpeciesImage("chinook_salmon");
+const RIVER_RUN_TAB_BLUE = "#1B4B68";
 
 const REVIEW_CATALOG: RiverRunCatalogResponse = {
   states: [
@@ -152,6 +217,8 @@ export default function RiverRunScreen() {
   const [reviewScenarioId, setReviewScenarioId] = useState(
     RIVER_RUN_REVIEW_GROUPS[0]?.scenarios[0]?.id ?? "",
   );
+  const [activePrimitive, setActivePrimitive] =
+    useState<PrimitiveTabId>("run_stage");
   const [catalog, setCatalog] = useState<RiverRunCatalogResponse | null>(null);
   const [catalogError, setCatalogError] = useState<string | null>(null);
   const [loadingCatalog, setLoadingCatalog] = useState(!reviewMode);
@@ -167,6 +234,8 @@ export default function RiverRunScreen() {
   const [snapshotError, setSnapshotError] = useState<string | null>(null);
   const [loadingSnapshot, setLoadingSnapshot] = useState(false);
   const snapshotRequestRef = useRef(0);
+  const resultScrollRef = useRef<ScrollView>(null);
+  const primitiveTabsYRef = useRef(0);
 
   const reviewGroup = useMemo(
     () =>
@@ -317,6 +386,7 @@ export default function RiverRunScreen() {
     setSelectedSeason(null);
     setSelectedSpecies(null);
     setSelectedRiverId(null);
+    setActivePrimitive("run_stage");
     setWizardStep(1);
   }, []);
 
@@ -385,6 +455,7 @@ export default function RiverRunScreen() {
       return;
     }
     hapticImpact(ImpactFeedbackStyle.Medium);
+    setActivePrimitive("run_stage");
     setSnapshot(null);
     setSnapshotError(null);
     setScreenState("result");
@@ -399,7 +470,18 @@ export default function RiverRunScreen() {
     resetSelection();
   }, [resetSelection, reviewMode]);
 
+  const handlePrimitiveTabChange = useCallback((tab: PrimitiveTabId) => {
+    setActivePrimitive(tab);
+    requestAnimationFrame(() => {
+      resultScrollRef.current?.scrollTo({
+        y: Math.max(0, primitiveTabsYRef.current - 1),
+        animated: true,
+      });
+    });
+  }, []);
+
   const resultSnapshot = reviewMode ? reviewScenario?.snapshot : snapshot;
+  const primitiveTabStickyIndex = RIVER_RUN_REVIEW_ENABLED ? 2 : 1;
   const resultSeason = selectedTarget?.run.season ?? selectedSeason ?? "fall";
   const resultSpecies = selectedTarget?.run.species ??
     selectedSpecies ??
@@ -453,9 +535,13 @@ export default function RiverRunScreen() {
           )
           : (
             <ScrollView
+              ref={resultScrollRef}
               style={styles.scroll}
               contentContainerStyle={styles.resultContent}
               showsVerticalScrollIndicator={false}
+              stickyHeaderIndices={resultSnapshot
+                ? [primitiveTabStickyIndex]
+                : undefined}
               refreshControl={reviewMode
                 ? undefined
                 : (
@@ -488,9 +574,24 @@ export default function RiverRunScreen() {
                     onGroupChange={(group) => {
                       setReviewGroupId(group.id);
                       setReviewScenarioId(group.scenarios[0]?.id ?? "");
+                      const matchingTab = REVIEW_GROUP_TAB[group.id];
+                      if (matchingTab) setActivePrimitive(matchingTab);
                     }}
                     onScenarioChange={(scenario) =>
                       setReviewScenarioId(scenario.id)}
+                  />
+                )
+                : null}
+
+              {resultSnapshot
+                ? (
+                  <PrimitiveTabBar
+                    snapshot={resultSnapshot}
+                    activeTab={activePrimitive}
+                    onChange={handlePrimitiveTabChange}
+                    onLayoutY={(value) => {
+                      primitiveTabsYRef.current = value;
+                    }}
                   />
                 )
                 : null}
@@ -510,7 +611,10 @@ export default function RiverRunScreen() {
                 : resultSnapshot
                 ? (
                   <>
-                    <SnapshotView snapshot={resultSnapshot} />
+                    <SnapshotView
+                      snapshot={resultSnapshot}
+                      activePrimitive={activePrimitive}
+                    />
                     <FeedbackCard
                       featureName="River Run Coverage"
                       topic="feature"
@@ -1104,37 +1208,158 @@ function ReviewChipRow({ children }: { children: ReactNode }) {
   return <View style={styles.reviewChipRow}>{children}</View>;
 }
 
-function SnapshotView({ snapshot }: { snapshot: RiverRunSnapshotResponse }) {
+function PrimitiveTabBar({
+  snapshot,
+  activeTab,
+  onChange,
+  onLayoutY,
+}: {
+  snapshot: RiverRunSnapshotResponse;
+  activeTab: PrimitiveTabId;
+  onChange: (tab: PrimitiveTabId) => void;
+  onLayoutY: (value: number) => void;
+}) {
+  const activeIndex = PRIMITIVE_TABS.findIndex((tab) => tab.id === activeTab);
+  return (
+    <View
+      style={styles.primitiveTabSticky}
+      onLayout={(event) => onLayoutY(event.nativeEvent.layout.y)}
+    >
+      <View style={styles.primitiveTabShell}>
+        <View style={styles.primitiveTabHeading}>
+          <View style={styles.primitiveTabInstruction}>
+            <Ionicons
+              name="hand-left-outline"
+              size={11}
+              color="#FFFFFF"
+            />
+            <Text style={styles.primitiveTabEyebrow}>
+              TAP A READ TO OPEN
+            </Text>
+          </View>
+          <Text style={styles.primitiveTabPosition}>
+            {String(activeIndex + 1).padStart(2, "0")} / 05
+          </Text>
+        </View>
+        <View style={styles.primitiveTabRow}>
+          {PRIMITIVE_TABS.map((tab) => {
+            const primitive = primitiveForTab(snapshot, tab.id);
+            const visual = resolveRiverRunVisualModel({
+              kind: tab.id,
+              primitive,
+            });
+            const active = tab.id === activeTab;
+            const status = formatRiverRunTabStatus(tab.id, primitive);
+            return (
+              <Pressable
+                key={tab.id}
+                style={({ pressed }) => [
+                  styles.primitiveTab,
+                  active && styles.primitiveTabActive,
+                  active && { borderColor: visual.accent },
+                  pressed && styles.primitiveTabPressed,
+                ]}
+                onPress={() => {
+                  if (active) return;
+                  hapticSelection();
+                  onChange(tab.id);
+                }}
+                accessibilityRole="tab"
+                accessibilityState={{ selected: active }}
+                accessibilityLabel={`${tab.cardTitle}: ${status}`}
+              >
+                <View
+                  style={[
+                    styles.primitiveTabIcon,
+                    {
+                      borderColor: `${visual.accent}${active ? "88" : "55"}`,
+                      backgroundColor: `${visual.accent}${active ? "20" : "12"}`,
+                    },
+                  ]}
+                >
+                  <Ionicons
+                    name={tab.icon}
+                    size={14}
+                    color={active ? visual.accent : "#DCE5EA"}
+                  />
+                </View>
+                <Text
+                  style={[
+                    styles.primitiveTabTitle,
+                    active && styles.primitiveTabTitleActive,
+                  ]}
+                  numberOfLines={1}
+                  adjustsFontSizeToFit
+                  minimumFontScale={0.72}
+                >
+                  {tab.tabTitle}
+                </Text>
+                <View style={styles.primitiveTabState}>
+                  <View
+                    style={[
+                      styles.primitiveTabDot,
+                      { backgroundColor: visual.accent },
+                    ]}
+                  />
+                  <Text
+                    style={[
+                      styles.primitiveTabStateText,
+                      active && { color: visual.accent },
+                    ]}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.68}
+                  >
+                    {status}
+                  </Text>
+                  <Ionicons
+                    name={active ? "checkmark" : "chevron-down"}
+                    size={8}
+                    color={active ? visual.accent : "rgba(255,255,255,0.68)"}
+                  />
+                </View>
+                {active
+                  ? (
+                    <View
+                      style={[
+                        styles.primitiveTabIndicator,
+                        { backgroundColor: visual.accent },
+                      ]}
+                    />
+                  )
+                  : null}
+              </Pressable>
+            );
+          })}
+        </View>
+      </View>
+    </View>
+  );
+}
+
+function SnapshotView({
+  snapshot,
+  activePrimitive,
+}: {
+  snapshot: RiverRunSnapshotResponse;
+  activePrimitive: PrimitiveTabId;
+}) {
+  const tab = PRIMITIVE_TABS.find((item) => item.id === activePrimitive) ??
+    PRIMITIVE_TABS[0];
+  const primitive = primitiveForTab(snapshot, tab.id);
   return (
     <View style={styles.snapshotStack}>
-      <View style={styles.primitiveStack}>
+      <ActivePrimitivePanel key={tab.id}>
         <PrimitiveSection
-          index="01"
-          title="Run Stage"
-          primitive={snapshot.runStage}
+          index={tab.index}
+          title={tab.cardTitle}
+          visualKind={tab.id}
+          primitive={primitive}
+          contextLine={tab.id === "push"
+            ? formatPushHistory(snapshot)
+            : undefined}
         />
-        <PrimitiveSection
-          index="02"
-          title="Conditions Suggest"
-          primitive={snapshot.conditionsSuggest}
-        />
-        <PrimitiveSection
-          index="03"
-          title="Push"
-          primitive={snapshot.push}
-          contextLine={formatPushHistory(snapshot)}
-        />
-        <PrimitiveSection
-          index="04"
-          title="Fishability"
-          primitive={snapshot.fishability}
-        />
-        <PrimitiveSection
-          index="05"
-          title="Fish In River"
-          primitive={snapshot.fishInRiver}
-        />
-      </View>
+      </ActivePrimitivePanel>
 
       {snapshot.interpretationNote
         ? (
@@ -1190,99 +1415,241 @@ function SnapshotView({ snapshot }: { snapshot: RiverRunSnapshotResponse }) {
   );
 }
 
+function ActivePrimitivePanel({ children }: { children: ReactNode }) {
+  const reduceMotion = useReduceMotionPreference();
+  const entrance = useRef(new Animated.Value(reduceMotion ? 1 : 0)).current;
+
+  useEffect(() => {
+    if (reduceMotion) {
+      entrance.setValue(1);
+      return;
+    }
+    Animated.timing(entrance, {
+      toValue: 1,
+      duration: 260,
+      easing: Easing.out(Easing.cubic),
+      useNativeDriver: true,
+    }).start();
+  }, [entrance, reduceMotion]);
+
+  return (
+    <Animated.View
+      style={{
+        opacity: entrance,
+        transform: [{
+          translateY: entrance.interpolate({
+            inputRange: [0, 1],
+            outputRange: [10, 0],
+          }),
+        }],
+      }}
+    >
+      {children}
+    </Animated.View>
+  );
+}
+
+function primitiveForTab(
+  snapshot: RiverRunSnapshotResponse,
+  tab: PrimitiveTabId,
+): RiverRunPrimitiveDisplay {
+  switch (tab) {
+    case "run_stage":
+      return snapshot.runStage;
+    case "run_timing":
+      return snapshot.conditionsSuggest;
+    case "push":
+      return snapshot.push;
+    case "fishability":
+      return snapshot.fishability;
+    case "fish_in_river":
+      return snapshot.fishInRiver;
+  }
+}
+
 function PrimitiveSection({
   index,
   title,
+  visualKind,
   primitive,
   contextLine,
 }: {
   index: string;
   title: string;
+  visualKind: RiverRunVisualKind;
   primitive: RiverRunPrimitiveDisplay;
   contextLine?: string;
 }) {
   const unavailable = primitive.score === null ||
     primitive.label === "Unavailable";
+  const visual = resolveRiverRunVisualModel({
+    kind: visualKind,
+    primitive,
+  });
+  const detailLines = primitive.detail
+    ? splitPrimitiveDetail(primitive.detail)
+    : [];
   return (
-    <View
-      style={[
-        styles.primitiveCard,
-        !primitive.tip && styles.primitiveCardWithoutTip,
-      ]}
-    >
-      <View style={styles.primitiveAccent} />
-      <View style={styles.primitiveHeader}>
-        <View style={styles.primitiveIdentity}>
-          <Text style={styles.primitiveIndex}>{index}</Text>
-          <Text style={styles.primitiveTitle}>{title.toUpperCase()}</Text>
-        </View>
-        {typeof primitive.score === "number"
-          ? (
-            <View style={styles.primitiveScore}>
-              <Text
-                style={[
-                  styles.primitiveScoreValue,
-                  unavailable && styles.unavailable,
-                ]}
-              >
-                {Math.round(primitive.score)}
-              </Text>
-              {typeof primitive.maximum === "number"
-                ? (
-                  <Text style={styles.primitiveScoreMax}>
-                    / {Math.round(primitive.maximum)}
-                  </Text>
-                )
-                : null}
-            </View>
-          )
-          : (
-            <View style={styles.primitiveNoScore}>
-              <Text style={styles.primitiveNoScoreText}>CONTEXT</Text>
-            </View>
-          )}
-      </View>
-
-      <Text
+    <View style={styles.primitiveFrame}>
+      <View
         style={[
-          styles.primitiveLabel,
-          unavailable && styles.unavailable,
+          styles.primitiveCard,
+          !primitive.tip && styles.primitiveCardWithoutTip,
         ]}
       >
-        {primitive.label}
-      </Text>
-
-      {primitive.headline
-        ? <Text style={styles.primitiveHeadline}>{primitive.headline}</Text>
-        : null}
-
-      {contextLine
-        ? (
-          <View style={styles.primitiveContext}>
-            <Ionicons
-              name="time-outline"
-              size={15}
-              color={paper.dashboardBlue}
-            />
-            <Text style={styles.primitiveContextText}>{contextLine}</Text>
+        <View
+          style={[
+            styles.primitiveAccent,
+            { backgroundColor: visual.accent },
+          ]}
+        />
+        <View style={styles.primitiveHeader}>
+          <View style={styles.primitiveIdentity}>
+            <Text style={[styles.primitiveIndex, { color: visual.accent }]}>
+              {index}
+            </Text>
+            <Text style={styles.primitiveTitle}>{title.toUpperCase()}</Text>
           </View>
-        )
-        : null}
+          {typeof primitive.score === "number"
+            ? (
+              <View style={styles.primitiveScore}>
+                <Text
+                  style={[
+                    styles.primitiveScoreValue,
+                    unavailable && styles.unavailable,
+                    !unavailable && { color: visual.accent },
+                  ]}
+                >
+                  {Math.round(primitive.score)}
+                </Text>
+                {typeof primitive.maximum === "number"
+                  ? (
+                    <Text style={styles.primitiveScoreMax}>
+                      / {Math.round(primitive.maximum)}
+                    </Text>
+                  )
+                  : null}
+              </View>
+            )
+            : (
+              <View style={styles.primitiveNoScore}>
+                <Text style={styles.primitiveNoScoreText}>CONTEXT</Text>
+              </View>
+            )}
+        </View>
 
-      {primitive.detail
-        ? <Text style={styles.primitiveDetail}>{primitive.detail}</Text>
-        : null}
+        <RiverRunVisual kind={visualKind} primitive={primitive} />
 
-      {primitive.tip
-        ? (
-          <View style={styles.primitiveTip}>
-            <Text style={styles.primitiveTipLabel}>GUIDE&apos;S READ</Text>
-            <Text style={styles.primitiveTipText}>{primitive.tip}</Text>
-          </View>
-        )
-        : null}
+        <View style={styles.primitiveResult}>
+          <Text
+            style={[
+              styles.primitiveLabel,
+              unavailable && styles.unavailable,
+            ]}
+          >
+            {primitive.label}
+          </Text>
+
+          {primitive.headline
+            ? <Text style={styles.primitiveHeadline}>{primitive.headline}</Text>
+            : null}
+        </View>
+
+        {contextLine
+          ? (
+            <View style={styles.primitiveContext}>
+              <Ionicons
+                name="time-outline"
+                size={15}
+                color={paper.dashboardBlue}
+              />
+              <Text style={styles.primitiveContextText}>{contextLine}</Text>
+            </View>
+          )
+          : null}
+
+        {detailLines.length > 0
+          ? (
+            <View style={styles.primitiveDetailCard}>
+              <View style={styles.primitiveDetailHeader}>
+                <Ionicons
+                  name="reader-outline"
+                  size={14}
+                  color={paper.dashboardBlue}
+                />
+                <Text style={styles.primitiveDetailLabel}>WHY THIS READ</Text>
+              </View>
+              <View style={styles.primitiveDetailStack}>
+                {detailLines.map((line, lineIndex) => (
+                  <View
+                    key={`${index}-detail-${lineIndex}`}
+                    style={styles.primitiveDetailRow}
+                  >
+                    <View style={styles.primitiveDetailDot} />
+                    <Text style={styles.primitiveDetailText}>{line}</Text>
+                  </View>
+                ))}
+              </View>
+            </View>
+          )
+          : null}
+
+        {primitive.tip
+          ? (
+            <View style={styles.primitiveTip}>
+              <Text style={styles.primitiveTipLabel}>GUIDE&apos;S READ</Text>
+              <Text style={styles.primitiveTipText}>{primitive.tip}</Text>
+            </View>
+          )
+          : null}
+      </View>
     </View>
   );
+}
+
+function splitPrimitiveDetail(value: string): string[] {
+  const lines: string[] = [];
+  let start = 0;
+
+  for (let index = 0; index < value.length; index += 1) {
+    if (!".!?".includes(value[index])) continue;
+    let next = index + 1;
+    while (next < value.length && /\s/.test(value[next])) next += 1;
+    if (
+      next >= value.length ||
+      (next > index + 1 && /[A-Z0-9]/.test(value[next]))
+    ) {
+      const sentence = value.slice(start, index + 1).trim();
+      if (sentence) lines.push(sentence);
+      start = next;
+      index = next - 1;
+    }
+  }
+
+  const remainder = value.slice(start).trim();
+  if (remainder) lines.push(remainder);
+  return lines.length > 0 ? lines : [value];
+}
+
+function useReduceMotionPreference(): boolean {
+  const [reduceMotion, setReduceMotion] = useState(false);
+  useEffect(() => {
+    let mounted = true;
+    AccessibilityInfo.isReduceMotionEnabled()
+      .then((enabled) => {
+        if (mounted) setReduceMotion(enabled);
+      })
+      .catch(() => undefined);
+    const subscription = AccessibilityInfo.addEventListener(
+      "reduceMotionChanged",
+      setReduceMotion,
+    );
+    return () => {
+      mounted = false;
+      subscription.remove();
+    };
+  }, []);
+  return reduceMotion;
 }
 
 function EditorialNote({
@@ -2119,8 +2486,151 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
   reviewChipTextActive: { color: "#FFFFFF" },
+  primitiveTabSticky: {
+    zIndex: 30,
+    marginHorizontal: -18,
+    paddingHorizontal: 18,
+    paddingTop: 7,
+    paddingBottom: 8,
+    backgroundColor: paper.dashboardCream,
+    shadowColor: paper.dashboardInk,
+    shadowOffset: { width: 0, height: 7 },
+    shadowOpacity: 0.12,
+    shadowRadius: 12,
+    elevation: 8,
+  },
+  primitiveTabShell: {
+    overflow: "hidden",
+    paddingHorizontal: 5,
+    paddingTop: 6,
+    paddingBottom: 5,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.22)",
+    borderRadius: 14,
+    backgroundColor: RIVER_RUN_TAB_BLUE,
+    shadowColor: "#071829",
+    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 12,
+    elevation: 6,
+  },
+  primitiveTabHeading: {
+    minHeight: 17,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+    paddingHorizontal: 5,
+    paddingBottom: 4,
+  },
+  primitiveTabInstruction: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 5,
+  },
+  primitiveTabEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.25,
+    color: "rgba(255,255,255,0.66)",
+  },
+  primitiveTabPosition: {
+    fontFamily: paperFonts.monoBold,
+    fontSize: 7.5,
+    letterSpacing: 0.7,
+    color: "rgba(255,255,255,0.46)",
+  },
+  primitiveTabRow: {
+    minHeight: 65,
+    flexDirection: "row",
+    gap: 4,
+  },
+  primitiveTab: {
+    position: "relative",
+    overflow: "hidden",
+    minWidth: 0,
+    minHeight: 65,
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 3,
+    paddingHorizontal: 2,
+    paddingTop: 5,
+    paddingBottom: 7,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.14)",
+    borderRadius: 9,
+    backgroundColor: "rgba(255,255,255,0.075)",
+    shadowColor: "#071829",
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.24,
+    shadowRadius: 3,
+    elevation: 2,
+  },
+  primitiveTabActive: {
+    borderWidth: 1.5,
+    backgroundColor: "#FFFFFF",
+  },
+  primitiveTabPressed: { opacity: 0.72 },
+  primitiveTabIcon: {
+    width: 25,
+    height: 25,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 8,
+  },
+  primitiveTabTitle: {
+    width: "100%",
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.2,
+    letterSpacing: 0.28,
+    textAlign: "center",
+    color: "rgba(255,255,255,0.9)",
+  },
+  primitiveTabTitleActive: { color: paper.dashboardInk },
+  primitiveTabState: {
+    maxWidth: "100%",
+    minWidth: 0,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 3,
+    paddingHorizontal: 2,
+  },
+  primitiveTabDot: {
+    width: 5,
+    height: 5,
+    borderRadius: 3,
+  },
+  primitiveTabStateText: {
+    minWidth: 0,
+    flexShrink: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 6.4,
+    letterSpacing: 0.2,
+    textAlign: "center",
+    color: "rgba(255,255,255,0.68)",
+  },
+  primitiveTabIndicator: {
+    position: "absolute",
+    left: 8,
+    right: 8,
+    bottom: 0,
+    height: 3,
+    borderTopLeftRadius: 3,
+    borderTopRightRadius: 3,
+  },
   snapshotStack: { gap: 16 },
-  primitiveStack: { gap: 14 },
+  primitiveFrame: {
+    width: "100%",
+    padding: 2,
+    paddingBottom: 6,
+    borderWidth: 1,
+    borderColor: "rgba(7,24,41,0.42)",
+    borderRadius: 15,
+    backgroundColor: paper.dashboardInk,
+    ...paperShadows.lift,
+  },
   primitiveCard: {
     position: "relative",
     overflow: "hidden",
@@ -2128,11 +2638,9 @@ const styles = StyleSheet.create({
     paddingTop: 18,
     paddingHorizontal: 18,
     paddingBottom: 0,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
+    borderWidth: 0,
     borderRadius: 12,
     backgroundColor: paper.dashboardWhite,
-    ...paperShadows.hard,
   },
   primitiveCardWithoutTip: { paddingBottom: 18 },
   primitiveAccent: {
@@ -2199,8 +2707,11 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
   },
   unavailable: { color: paper.dashboardMuted },
+  primitiveResult: {
+    marginTop: 19,
+    paddingBottom: 1,
+  },
   primitiveLabel: {
-    marginTop: 6,
     fontFamily: paperFonts.display,
     fontSize: 29,
     lineHeight: 33,
@@ -2233,17 +2744,55 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: paper.dashboardInk,
   },
-  primitiveDetail: {
-    marginTop: 11,
-    marginBottom: 17,
+  primitiveDetailCard: {
+    marginTop: 15,
+    marginBottom: 18,
+    paddingHorizontal: 13,
+    paddingTop: 12,
+    paddingBottom: 13,
+    gap: 10,
+    borderWidth: 1,
+    borderColor: "rgba(15,99,176,0.15)",
+    borderLeftWidth: 3,
+    borderLeftColor: paper.dashboardBlue,
+    borderRadius: 9,
+    backgroundColor: "#F2F6F8",
+  },
+  primitiveDetailHeader: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+  },
+  primitiveDetailLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1.35,
+    color: paper.dashboardBlue,
+  },
+  primitiveDetailStack: { gap: 8 },
+  primitiveDetailRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 9,
+  },
+  primitiveDetailDot: {
+    width: 5,
+    height: 5,
+    marginTop: 7,
+    borderRadius: 3,
+    backgroundColor: "rgba(15,99,176,0.55)",
+  },
+  primitiveDetailText: {
+    minWidth: 0,
+    flex: 1,
     fontFamily: paperFonts.body,
-    fontSize: 15,
-    lineHeight: 22,
-    color: paper.dashboardMuted,
+    fontSize: 13.5,
+    lineHeight: 20,
+    color: "#52606A",
   },
   primitiveTip: {
     marginHorizontal: -18,
-    marginTop: 1,
+    marginTop: 0,
     paddingHorizontal: 18,
     paddingVertical: 15,
     gap: 5,

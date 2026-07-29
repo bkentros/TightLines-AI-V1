@@ -7,9 +7,9 @@ import type {
 } from "../types.ts";
 import {
   alternate,
-  type RiverRunCopyVariant,
-  RIVER_RUN_COPY_VERSION,
   resolveCopyVariant,
+  RIVER_RUN_COPY_VERSION,
+  type RiverRunCopyVariant,
 } from "../copy/variants.ts";
 import type { RiverRunConditionsSuggestBaseline } from "../storage/types.ts";
 import { addDays, compareLocalDates } from "../metrics/dateWindow.ts";
@@ -87,7 +87,6 @@ type CheckpointScore = ConditionsSuggestResult & {
   candidateLabel: ConditionsTimingLabel;
 };
 
-const SLOT_PREFERENCE: readonly RefreshSlot[] = ["16:00", "08:00", "00:00"];
 const GAUGE_WEIGHT = 0.6;
 const WATER_TEMPERATURE_WEIGHT = 0.4;
 
@@ -537,7 +536,8 @@ function selectEvidence(
   baseline: RiverRunConditionsSuggestBaseline | null,
 ): { slot?: RefreshSlot; evidence?: ConditionsSuggestEvidence } {
   if (!refreshes) return {};
-  const usable = SLOT_PREFERENCE.flatMap((slot) => {
+  const slots = Object.keys(refreshes).toSorted().reverse() as RefreshSlot[];
+  const usable = slots.flatMap((slot) => {
     const evidence = refreshes[slot];
     return evidence && evidenceIsUsable(evidence, baseline)
       ? [{ slot, evidence }]
@@ -563,7 +563,7 @@ function selectEvidence(
       },
     };
   }
-  for (const slot of SLOT_PREFERENCE) {
+  for (const slot of slots) {
     if (refreshes[slot]) return { slot, evidence: refreshes[slot] };
   }
   return {};
@@ -644,11 +644,11 @@ function conditionsCopy(input: {
     return {
       headline: alternate(
         input.variant,
-        "Conditions suggest timing near the historical pattern overall.",
+        "Run Timing remains near the historical pattern overall.",
         "The cumulative timing read remains Typical.",
       ),
       detail:
-        `Evidence through the ${period} pointed opposite the prior checkpoint. To avoid flipping directly from Ahead to Delayed, or Delayed to Ahead, Conditions Suggest conservatively holds the overall timing at Typical.`,
+        `Evidence through the ${period} pointed opposite the prior checkpoint. To avoid flipping directly from Ahead to Delayed, or Delayed to Ahead, Run Timing conservatively holds the overall timing at Typical.`,
       tip: alternate(
         input.variant,
         "Use Push for today's movement conditions; this saved checkpoint compares the season so far with history.",
@@ -660,7 +660,7 @@ function conditionsCopy(input: {
     return {
       headline: alternate(
         input.variant,
-        "Conditions suggest timing near the historical pattern overall.",
+        "Run Timing remains near the historical pattern overall.",
         "Mixed seasonal signals resolve to Typical timing.",
       ),
       detail:
@@ -677,7 +677,7 @@ function conditionsCopy(input: {
       return {
         headline: alternate(
           input.variant,
-          "Conditions suggest this run is developing earlier than typical.",
+          "Run Timing points to earlier development than typical.",
           "The season-to-date pattern is running ahead of history.",
         ),
         detail:
@@ -692,7 +692,7 @@ function conditionsCopy(input: {
       return {
         headline: alternate(
           input.variant,
-          "Conditions suggest timing near the historical pattern.",
+          "Run Timing remains near the historical pattern.",
           "The season-to-date pattern is tracking close to history.",
         ),
         detail:
@@ -707,7 +707,7 @@ function conditionsCopy(input: {
       return {
         headline: alternate(
           input.variant,
-          "Conditions suggest this run is developing later than typical.",
+          "Run Timing points to later development than typical.",
           "The season-to-date pattern is running behind history.",
         ),
         detail:
@@ -763,12 +763,12 @@ function awaitingResult(input: {
     headline: input.observationStarted
       ? alternate(
         input.variant,
-        "Conditions Suggest is building its first season-to-date comparison.",
+        "Run Timing is building its first season-to-date comparison.",
         "The first historical timing read is still collecting evidence.",
       )
       : alternate(
         input.variant,
-        "Conditions Suggest has not started collecting this run's evidence.",
+        "Run Timing has not started collecting this run's evidence.",
         "Seasonal timing evidence begins with the staging period.",
       ),
     detail: input.observationStarted
@@ -819,13 +819,13 @@ function completeResult(input: {
       : alternate(
         input.variant,
         `The configured ${input.run.displayName} run is now well underway by calendar timing.`,
-        "The run is far enough underway that Conditions Suggest is complete.",
+        "The run is far enough underway that Run Timing is complete.",
       ),
     detail: finalDetail,
     tip: input.mainRunWindowPassed
       ? alternate(
         input.variant,
-        "Conditions Suggest and Push are complete; Fish In River remains historical seasonal context only.",
+        "Run Timing and Push are complete; Fish In River remains historical seasonal context only.",
         "No new early-or-late call will be made after the researched run window.",
       )
       : alternate(
@@ -905,7 +905,7 @@ function insufficientCopy(
   const base = {
     headline: alternate(
       variant,
-      "Conditions Suggest does not have enough evidence to classify this checkpoint.",
+      "Run Timing does not have enough evidence to classify this checkpoint.",
       "This historical timing comparison remains unclassified.",
     ),
     tip: alternate(
@@ -927,7 +927,7 @@ function insufficientCopy(
       return {
         ...base,
         detail:
-          "The saved historical checkpoint does not match the active cumulative Conditions Suggest configuration.",
+          "The saved historical checkpoint does not match the active cumulative Run Timing configuration.",
       };
     case "conditions_missing_checkpoint_gauge":
       return {

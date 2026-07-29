@@ -1214,7 +1214,21 @@ Owns:
 - Historical source/baseline versions
 - Copy template versions
 
-Condition refresh at local `00:00`, `08:00`, and `16:00`:
+Condition refreshes use a required, source-audited schedule on each river
+profile. The schedule has separate active-season and inactive-season local
+slots. Active season begins at that run's configured staging start and ends
+with its main run window; this lets one river support multiple seasonal runs
+without hard-coding dates into the refresh engine.
+
+For PM Fall Chinook:
+
+- active season: local `00:00`, `04:00`, `08:00`, `12:00`, `16:00`, and
+  `20:00`
+- outside the active season: local `00:00`
+- the protected hourly job runs shortly after the hour so the newest source
+  transmissions have time to arrive
+
+Condition refresh key:
 
 ```txt
 riverId + runId + localDate + refreshSlot + engineVersion + configVersion

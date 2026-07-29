@@ -29,8 +29,8 @@ export function resolveInterpretationNote(
     input.conditionsSuggestLabel === "Ahead" && input.runStage === "beginning"
   ) {
     findings.push(finding(
-      "Conditions suggest an early-developing run while the calendar is still Beginning.",
-      "Conditions Suggest compares the season so far with history, while Run Stage reports the fixed researched calendar. Together they mean the early window may be developing faster than usual—not that the calendar stage or fish count changed.",
+      "Run Timing is Ahead while the calendar is still Beginning.",
+      "Run Timing compares the season so far with history, while Run Stage reports the fixed researched calendar. Together they mean the early window may be developing faster than usual—not that the calendar stage or fish count changed.",
       "beginning_ahead_conditions",
     ));
   }
@@ -51,7 +51,7 @@ export function resolveInterpretationNote(
   if (input.conditionsSuggestLabel === "Delayed" && isHigh(input.push)) {
     findings.push(finding(
       "Current Push is strong while seasonal timing remains Delayed.",
-      "Push describes today's movement-supporting water pattern, while Conditions Suggest preserves the season-to-date historical comparison. A delayed run can receive a strong event now; watch whether later checkpoints absorb that change.",
+      "Push describes today's movement-supporting water pattern, while Run Timing preserves the season-to-date historical comparison. A delayed run can receive a strong event now; watch whether later checkpoints absorb that change.",
       "delayed_conditions_strong_push",
     ));
   }

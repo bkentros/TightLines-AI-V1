@@ -4,7 +4,7 @@
 
 **Engine version:** `river-run-v1.2.1`
 
-**Configuration version:** `2026-07-28.3`
+**Configuration version:** `2026-07-29.1`
 
 **Release conclusion:** Integrated engine and copy accepted locally; product
 owner in-app acceptance and production gates remain open.

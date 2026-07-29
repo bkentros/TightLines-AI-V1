@@ -1,30 +1,34 @@
-import { addDays } from "../metrics/dateWindow.ts";
+import {
+  addDays,
+  compareLocalDates,
+  resolveActiveRunWindow,
+} from "../metrics/dateWindow.ts";
+import type { ConditionRefreshSchedule, RiverRunProfile } from "../types.ts";
 
-export type RefreshSlot = "00:00" | "08:00" | "16:00";
-
-export const RIVER_RUN_REFRESH_SLOTS: readonly RefreshSlot[] = [
-  "00:00",
-  "08:00",
-  "16:00",
-];
+export type RefreshSlot = string;
 
 export type LocalDateTimeInput = {
   localDate: string;
   localTime: string;
   timezone: string;
+  run: Pick<RiverRunProfile, "runWindow">;
+  schedule: ConditionRefreshSchedule;
 };
 
 export function resolveLatestRefreshSlot(
   input: LocalDateTimeInput,
 ): { localDate: string; refreshSlot: RefreshSlot } {
   const minutes = parseLocalTimeMinutes(input.localTime);
-  if (minutes >= 16 * 60) {
-    return { localDate: input.localDate, refreshSlot: "16:00" };
+  const slots = refreshSlotsForDate(input);
+  const latest = [...slots].reverse().find((slot) =>
+    parseLocalTimeMinutes(slot) <= minutes
+  );
+  if (!latest) {
+    throw new Error(
+      "Condition refresh schedules must include a 00:00 local slot.",
+    );
   }
-  if (minutes >= 8 * 60) {
-    return { localDate: input.localDate, refreshSlot: "08:00" };
-  }
-  return { localDate: input.localDate, refreshSlot: "00:00" };
+  return { localDate: input.localDate, refreshSlot: latest };
 }
 
 export function resolveNextConditionRefresh(
@@ -36,13 +40,44 @@ export function resolveNextConditionRefresh(
   timezone: string;
 } {
   const minutes = parseLocalTimeMinutes(input.localTime);
-  if (minutes < 8 * 60) {
-    return buildNext(input.localDate, "08:00", input.timezone);
+  const nextToday = refreshSlotsForDate(input).find((slot) =>
+    parseLocalTimeMinutes(slot) > minutes
+  );
+  if (nextToday) {
+    return buildNext(input.localDate, nextToday, input.timezone);
   }
-  if (minutes < 16 * 60) {
-    return buildNext(input.localDate, "16:00", input.timezone);
+  const nextDate = addDays(input.localDate, 1);
+  const firstTomorrow = refreshSlotsForDate({
+    ...input,
+    localDate: nextDate,
+  })[0];
+  if (!firstTomorrow) {
+    throw new Error("Condition refresh schedule has no next slot.");
   }
-  return buildNext(addDays(input.localDate, 1), "00:00", input.timezone);
+  return buildNext(nextDate, firstTomorrow, input.timezone);
+}
+
+export function refreshSlotsForDate(
+  input: Pick<LocalDateTimeInput, "run" | "schedule"> & {
+    localDate: string;
+  },
+): readonly RefreshSlot[] {
+  const window = resolveActiveRunWindow(input.run, input.localDate);
+  const active = compareLocalDates(
+        input.localDate,
+        window.stagingStartDate,
+      ) >= 0 &&
+    compareLocalDates(input.localDate, window.endDate) <= 0;
+  return active ? input.schedule.activeSlots : input.schedule.inactiveSlots;
+}
+
+export function isValidRefreshSlot(value: unknown): value is RefreshSlot {
+  if (typeof value !== "string") return false;
+  const match = /^(\d{2}):(\d{2})$/.exec(value);
+  if (!match) return false;
+  const hours = Number(match[1]);
+  const minutes = Number(match[2]);
+  return hours >= 0 && hours <= 23 && minutes >= 0 && minutes <= 59;
 }
 
 function buildNext(

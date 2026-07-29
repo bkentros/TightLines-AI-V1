@@ -41,6 +41,7 @@
     "check:river-run:review-fixtures": "deno run --allow-read scripts/generate-river-run-review-fixtures.ts --check",
     "qa:river-run:review-mode": "npm run check:river-run:review-fixtures && tsx scripts/river-run-review-mode-qa.ts",
     "qa:river-run:ui": "tsx scripts/river-run-ui-qa.ts",
+    "qa:river-run:visuals": "tsx scripts/river-run-visual-qa.ts",
     "smoke:river-run:production": "deno run --allow-env --allow-net scripts/river-run-production-smoke.ts",
     "qa:water-reader-typecheck": "tsc --noEmit",
     "qa:responsive-auth-layout": "tsx scripts/qa-responsive-auth-layout.ts",
