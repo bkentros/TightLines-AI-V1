@@ -15,7 +15,7 @@ Deno.test("PM configuration document binds the published config to fall-cooling 
   );
   assertEquals(
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion,
-    "2026-07-29.1",
+    "2026-08-02.1",
   );
 });
 

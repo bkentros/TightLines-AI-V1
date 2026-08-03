@@ -65,10 +65,10 @@ function generate(
   });
 }
 
-Deno.test("Conditions Suggest generator builds four cumulative checkpoints", () => {
+Deno.test("Conditions Suggest generator builds five cumulative checkpoints", () => {
   const rows = generate();
 
-  assertEquals(rows.length, 4);
+  assertEquals(rows.length, 5);
   assertEquals(
     rows.map((row) => ({
       checkpointId: row.checkpointId,
@@ -85,6 +85,11 @@ Deno.test("Conditions Suggest generator builds four cumulative checkpoints", () 
         checkpointId: "building_start",
         expectedDays: 27,
         minimumUsableDays: 22,
+      },
+      {
+        checkpointId: "building_established",
+        expectedDays: 35,
+        minimumUsableDays: 28,
       },
       {
         checkpointId: "peak_start",
@@ -142,14 +147,14 @@ Deno.test("Conditions Suggest checkpoint replay preserves transition gates", () 
     run,
   });
 
-  assertEquals(replay.sampleCount, 20);
+  assertEquals(replay.sampleCount, 25);
   assertEquals(replay.distinctYears, 5);
   assertEquals(
     Object.values(replay.finalLabelCounts).reduce(
       (sum, count) => sum + count,
       0,
     ),
-    20,
+    25,
   );
   assertEquals(replay.candidateAgreementViolationCount, 0);
 });

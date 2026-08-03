@@ -68,6 +68,19 @@ const bannedPhrases = [
   /hot bite/i,
   /fall_cooling_rain_pulse/i,
   /observed rain/i,
+  /\bresearch(?:ed)?\b/i,
+  /\bconfigured?\b/i,
+  /\bcheckpoint\b/i,
+  /\bbaseline\b/i,
+  /\bpercentile\b/i,
+  /\bengine\b/i,
+  /\bgauge\b/i,
+  /\bmodeled\b/i,
+  /\bhistorical\b/i,
+  /\bcfs\b/i,
+  /\bvisibility\b/i,
+  /\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}\b/i,
+  /\b20\d{2}-\d{2}-\d{2}\b/,
 ] as const;
 
 function conditionsFor(
@@ -322,7 +335,7 @@ Deno.test("primitive copy is complete for every reachable label", () => {
     resolveRunStage(run, "2026-09-10"),
     resolveRunStage(run, "2026-09-20"),
     resolveRunStage(run, "2026-10-01"),
-    resolveRunStage(run, "2026-10-15"),
+    resolveRunStage(run, "2026-10-22"),
     resolveRunStage(run, "2026-11-05"),
   ];
   const conditions = [
@@ -373,8 +386,8 @@ Deno.test("primitive copy is complete for every reachable label", () => {
       "Strong",
       "Very strong",
       "Unavailable",
-      "Tracking not started",
-      "Tracking complete",
+      "Waiting for run",
+      "Run complete",
     ]),
   );
   assertEquals(
@@ -391,11 +404,11 @@ Deno.test("primitive copy is complete for every reachable label", () => {
   assertEquals(
     new Set(fishInRiverDisplays().map((item) => item.label)),
     new Set([
-      "Outside historical window",
-      "Low historical presence",
-      "Limited historical presence",
-      "Moderate historical presence",
-      "Peak historical presence",
+      "Not expected yet",
+      "Low presence",
+      "Limited presence",
+      "Moderate presence",
+      "Peak presence",
     ]),
   );
 
@@ -415,7 +428,7 @@ Deno.test("primitive copy stays dimension-specific", () => {
     assertDimensionCopy(
       "Run Stage",
       display,
-      /calendar|configured run window/i,
+      /river run|season|fish/i,
       [
         /\bcfs\b/i,
         /water temperature/i,
@@ -433,7 +446,7 @@ Deno.test("primitive copy stays dimension-specific", () => {
     assertDimensionCopy(
       "Run Timing",
       display,
-      /run timing|cumulative|historical/i,
+      /run|seasonal pace|usual/i,
       [
         /\bcfs\b/i,
         /wading|boating safety/i,
@@ -445,19 +458,27 @@ Deno.test("primitive copy stays dimension-specific", () => {
     assertDimensionCopy(
       "Push",
       display,
-      /\bPush\b|fresh-push signal|trigger conditions/i,
+      /\bPush\b|fresh|movement/i,
       [
         /historical presence level/i,
         /earlier timing than typical/i,
         /wading|boating safety/i,
       ],
     );
+    if (typeof display.score === "number") {
+      assert(
+        /fresh[- ](?:wave|fish|movement)/i.test(
+          display.headline ?? "",
+        ),
+        `Active Push headline must explain fresh-fish movement: ${display.headline}`,
+      );
+    }
   }
   for (const display of fishabilityDisplays()) {
     assertDimensionCopy(
       "Fishability",
       display,
-      /gauged river|river shape|gauge reading|river band|flow bands|gauge represents|represented by the .* gauge|current flow/i,
+      /river|flow|Fishability/i,
       [
         /earlier timing than typical/i,
         /fresh-push signal/i,
@@ -466,7 +487,7 @@ Deno.test("primitive copy stays dimension-specific", () => {
     );
   }
   for (const display of fishInRiverDisplays()) {
-    assertDimensionCopy("Fish In River", display, /historical|seasonal/i, [
+    assertDimensionCopy("Fish In River", display, /river|seasonal|fish/i, [
       /\bcfs\b/i,
       /water temperature/i,
       /rainfall/i,

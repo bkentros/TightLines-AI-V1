@@ -33,7 +33,7 @@ const flowObservations = await fetchUsgsDailyFlowBaselineObservations({
   riverId: river.riverId,
   siteId: gauge.siteId,
   startDate: `${startYear}-08-14`,
-  endDate: `${endYear}-10-20`,
+  endDate: `${endYear}-${run.runWindow.end}`,
 });
 const flowByDate = new Map(
   flowObservations.map((observation) => [

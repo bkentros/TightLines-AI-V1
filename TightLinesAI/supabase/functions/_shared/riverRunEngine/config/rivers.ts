@@ -105,7 +105,7 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
     ],
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "PM condition evidence refreshes every four hours from the configured staging start through the main run end. The protected server job runs 17 minutes after the hour so the newest USGS and PMTU transmissions have time to arrive. Outside that seasonal window, the river refreshes once daily.",
+      "PM condition evidence refreshes every four hours from the configured staging start through the historical-presence tail so Fishability remains current anywhere the feature still describes a seasonal opportunity. Push still starts and stops on its separate main-run window. The protected server job runs 17 minutes after the hour so the newest USGS and PMTU transmissions have time to arrive. Outside that seasonal window, the river refreshes once daily.",
   },
   supportStatus: "beta",
   gaugeLimitationCopy:

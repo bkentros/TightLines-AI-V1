@@ -9,12 +9,7 @@ import type {
   RiverRunReasonCode,
   TemperatureSourceType,
 } from "../types.ts";
-import {
-  alternate,
-  type RiverRunCopyVariant,
-  RIVER_RUN_COPY_VERSION,
-  resolveCopyVariant,
-} from "../copy/variants.ts";
+import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
 
 export type PushHydraulicState = "low" | "normal" | "high" | "severe_high";
 export type PushTemperatureState =
@@ -64,8 +59,6 @@ export type PushScoreInput = {
   flowReasonCodes?: RiverRunReasonCode[];
   temperatureReasonCodes?: RiverRunReasonCode[];
   localDate?: string;
-  copyVariant?: RiverRunCopyVariant;
-  copyKey?: string;
 };
 
 export type PushScoreResult = PrimitiveDisplay & {
@@ -75,19 +68,9 @@ export type PushScoreResult = PrimitiveDisplay & {
 
 export const PUSH_SUPPORTIVE_SCORE_MINIMUM = 50;
 
-const LAKE_ENTRY_DISCLAIMER =
-  "Fresh fish can enter from the lake at any point during the active run, including without a textbook weather event. Fresh entries are more commonly associated with cooling, rainfall, and a river rise, but Push cannot confirm or rule out movement.";
-const LAKE_ENTRY_DISCLAIMER_ALTERNATE =
-  "A weather-supported Push raises the odds of fresh lake entry; it never proves that entry occurred. Fish can still move during the active run without an obvious cooling, rain, and river-rise combination.";
-
 export function scorePush(input: PushScoreInput): PushScoreResult {
-  const copyVariant = resolveCopyVariant(
-    input.copyKey ??
-      `${input.localDate ?? "undated"}:${input.trackingState}:${input.flowSignal}:${input.temperatureSignal}:${input.rainSignal}:${input.gaugeFreshness}`,
-    input.copyVariant,
-  );
   if (input.trackingState !== "active") {
-    return inactiveTrackingResult(input, copyVariant);
+    return inactiveTrackingResult(input);
   }
   if (
     input.gaugeFreshness === "missing" ||
@@ -101,7 +84,6 @@ export function scorePush(input: PushScoreInput): PushScoreResult {
         ...(input.flowReasonCodes ?? []),
       ],
       rules: input.rules,
-      variant: copyVariant,
     });
   }
   if (
@@ -116,7 +98,6 @@ export function scorePush(input: PushScoreInput): PushScoreResult {
         "temperature_unavailable",
       ],
       rules: input.rules,
-      variant: copyVariant,
     });
   }
   if (input.movementEngineId !== "fall_cooling") {
@@ -124,7 +105,6 @@ export function scorePush(input: PushScoreInput): PushScoreResult {
       reason: "engine",
       reasonCodes: [gaugeReasonCode(input.gaugeFreshness)],
       rules: input.rules,
-      variant: copyVariant,
     });
   }
 
@@ -220,13 +200,11 @@ export function scorePush(input: PushScoreInput): PushScoreResult {
       label,
       input,
       components,
-      variant: copyVariant,
     }),
     reasonCodes: [...reasonCodes],
     components,
     rulesVersion: input.rules.version,
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant,
   };
 }
 
@@ -364,6 +342,13 @@ function resolveRainModifier(input: {
   if (input.signal === "missing_rain_data") {
     return { modifier: 0, role: "missing" };
   }
+  if (
+    input.signal === "dry" &&
+    (input.flowSignal === "meaningful_rise" ||
+      input.flowSignal === "sharp_rise")
+  ) {
+    return { modifier: 0, role: "absorbed_by_gauge" };
+  }
   if (input.signal === "dry") return { modifier: -5, role: "dry" };
   if (input.signal === "light_rain") {
     return { modifier: 0, role: "neutral" };
@@ -406,173 +391,116 @@ function pushCopy(input: {
   label: string;
   input: PushScoreInput;
   components: PushScoreComponents;
-  variant: RiverRunCopyVariant;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   const detail = [
     hydraulicCopy(input.input),
     temperatureCopy(input.input, input.components.temperatureState),
     temperatureSourceCopy(input.input),
-    rainCopy(
-      input.components.rainRole,
-      input.input.rules.hydraulic.sourceLabel,
-    ),
-    capCopy(input.input, input.components),
+    rainCopy(input.components.rainRole),
+    capCopy(input.input),
   ].filter(Boolean).join(" ");
   return {
-    headline: headlineForLabel(input.label, input.variant),
+    headline: pushHeadline(input.label, input.input, input.components),
     detail,
-    tip: alternate(
-      input.variant,
-      LAKE_ENTRY_DISCLAIMER,
-      LAKE_ENTRY_DISCLAIMER_ALTERNATE,
-    ),
+    tip: pushTip(input.label, input.input, input.components),
   };
 }
 
 function inactiveTrackingResult(
   input: PushScoreInput,
-  variant: RiverRunCopyVariant,
 ): PushScoreResult {
   if (input.trackingState === "not_started") {
     return {
       score: null,
-      label: "Tracking not started",
-      headline: alternate(
-        variant,
-        `Push tracking begins ${displayLocalDate(input.trackingStartDate)}.`,
-        `Fresh-entry conditions will begin reporting ${
-          displayLocalDate(input.trackingStartDate)
-        }.`,
-      ),
+      label: "Waiting for run",
+      headline: "The river run has not started, so there is no Push read yet.",
       detail:
-        "That is this river's configured run start. Before then, Run Stage covers possible lake, harbor, and river-mouth staging; Push does not imply river entry before tracking opens.",
-      tip: alternate(
-        variant,
-        "Push will begin automatically when this specific river run begins.",
-        "Until then, use the staging context without treating it as evidence of river movement.",
-      ),
+        "Push is meant to spot water conditions that may help fish enter or move during the active run. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
+      tip:
+        "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
       reasonCodes: ["push_tracking_not_started"],
       rulesVersion: input.rules.version,
       copyVersion: RIVER_RUN_COPY_VERSION,
-      copyVariant: variant,
     };
   }
   return {
     score: null,
-    label: "Tracking complete",
-    headline: alternate(
-      variant,
-      "Fresh-push tracking is complete for this run.",
-      "This run's fresh-entry conditions are no longer reported.",
-    ),
-    detail: `The configured river run ended ${
-      displayLocalDate(input.trackingEndDate)
-    }. Push no longer reports current movement-trigger conditions or prior supportive-condition dates.`,
-    tip: alternate(
-      variant,
-      "Run Stage and Fish In River continue to describe the remaining seasonal context.",
-      "Use the calendar and historical-presence cards for any remaining late-run context.",
-    ),
+    label: "Run complete",
+    headline: "The season's fresh-movement read is complete.",
+    detail:
+      "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+    tip:
+      "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
     reasonCodes: ["push_tracking_complete"],
     rulesVersion: input.rules.version,
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant: variant,
   };
 }
 
-function displayLocalDate(value: string): string {
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
-  if (!match) return value;
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  return `${months[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
-}
-
-function headlineForLabel(
+function pushHeadline(
   label: string,
-  variant: RiverRunCopyVariant,
+  input: PushScoreInput,
+  components: PushScoreComponents,
 ): string {
+  if (components.hydraulicState === "severe_high") {
+    return "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.";
+  }
+  if (components.temperatureState === "migration_barrier") {
+    return "The river is rising, but warm water prevents a dependable fresh-movement read.";
+  }
+  if (
+    components.hydraulicState === "high" &&
+    label === "No clear push" &&
+    input.flowSignal !== "falling" &&
+    input.flowSignal !== "stable"
+  ) {
+    return "The river is rising, but already-high flow keeps this from being a clear fresh-movement signal.";
+  }
+  if (input.gaugeFreshness === "stale") {
+    return "The water may support fresh movement, but an aging river reading limits confidence.";
+  }
   switch (label) {
     case "Weak":
-      return alternate(
-        variant,
-        "Current conditions show a weak fresh-push signal.",
-        "Little in the current water pattern supports a fresh push.",
-      );
+      return "Today's water shows little support for a fresh wave of fish.";
     case "No clear push":
-      return alternate(
-        variant,
-        "Current conditions do not show a clear fresh-push signal.",
-        "The current signals do not align into a clear push.",
-      );
+      return "Today's water does not show a clear signal for a fresh wave of fish.";
     case "Possible":
-      return alternate(
-        variant,
-        "Current conditions show a possible fresh-push signal.",
-        "The river has some support for a fresh push.",
-      );
+      return "Today's water offers some support for fresh fish moving into or through the river.";
     case "Strong":
-      return alternate(
-        variant,
-        "Current conditions support a strong fresh-push signal.",
-        "The measured pattern strongly favors a fresh push.",
-      );
+      return "Today's river rise and water temperature strongly support the possibility of a fresh wave moving into the river.";
     case "Very strong":
-      return alternate(
-        variant,
-        "Current conditions support a very strong fresh-push signal.",
-        "River rise and cooling align into the strongest fresh-push class.",
-      );
+      return "Today's water shows the strongest support for a fresh wave moving into the river.";
     default:
-      return alternate(
-        variant,
-        "Current fresh-entry conditions are available.",
-        "Push has a current movement-condition read.",
-      );
+      return "A current read of fresh-wave potential is available.";
   }
 }
 
 function hydraulicCopy(input: PushScoreInput): string {
-  const value = input.currentHydraulicValue;
-  const absolute = input.hydraulicAbsoluteChange24h;
-  const percent = input.hydraulicPercentChange24h;
-  const source = input.rules.hydraulic.sourceLabel;
-  const unit = input.rules.hydraulic.metric === "flow_cfs" ? "cfs" : "ft";
-  const metric = input.rules.hydraulic.metric === "flow_cfs"
-    ? "discharge"
-    : "gage height";
-  const measurement = isNumber(absolute) && isNumber(percent)
-    ? `${source} is ${round(value)} ${unit} and has changed ${
-      signed(absolute)
-    } ${unit} (${
-      signed(percent)
-    }%) since roughly the same time yesterday`
-    : `${source} is ${round(value)} ${unit} but does not have a usable same-time-yesterday comparison`;
+  const levelContext = resolveHydraulicState(
+      input.currentHydraulicValue!,
+      input.rules,
+    ) === "low"
+    ? " Overall flow remains low."
+    : resolveHydraulicState(input.currentHydraulicValue!, input.rules) ===
+        "high"
+    ? " Overall flow is already high."
+    : resolveHydraulicState(input.currentHydraulicValue!, input.rules) ===
+        "severe_high"
+    ? " Overall flow is extremely high."
+    : "";
   switch (input.flowSignal) {
     case "sharp_rise":
-      return `${measurement}, a sharp river response.`;
+      return `The river is rising quickly, creating conditions fish often use to move.${levelContext}`;
     case "meaningful_rise":
-      return `${measurement}, a meaningful river response.`;
+      return `The river has made a clear rise since yesterday.${levelContext}`;
     case "rising":
-      return `${measurement}, an early river response.`;
+      return `The river has started to rise since yesterday.${levelContext}`;
     case "falling":
-      return `${measurement}, with the river falling.`;
+      return `The river is falling instead of showing a fresh rise.${levelContext}`;
     case "stable":
-      return `${measurement}, with no material river response yet.`;
+      return `The river is holding steady with no meaningful rise yet.${levelContext}`;
     case "unknown":
-      return `${measurement}. The ${metric} trend is therefore unresolved.`;
+      return `There is not enough recent river-level history to tell whether the river is rising or falling.${levelContext}`;
   }
 }
 
@@ -580,28 +508,27 @@ function temperatureCopy(
   input: PushScoreInput,
   state: PushTemperatureState,
 ): string {
-  const value = `${round(input.waterTempF)}°F measured water`;
   const trend = temperatureTrendText(input.temperatureSignal);
   switch (state) {
     case "supportive":
-      return `${value} is inside the configured ${input.rules.temperature.suitabilityLabel} range${trend}.`;
+      return `Water temperature is favorable for fall migration${trend}.`;
     case "transitional_warm":
-      return `${value} is just above the supportive range${trend}.`;
+      return `Water is on the warm side for fall migration${trend}.`;
     case "too_warm":
-      return `${value} remains too warm for a strong positive Push classification${trend}.`;
+      return `Water temperature remains too warm to support a strong Push${trend}.`;
     case "migration_barrier":
-      return `${value} is at the configured warm migration-constraint threshold.`;
+      return "Water temperature is warm enough to seriously limit confidence in fresh movement.";
     case "cool_plateau":
-      return `${value} is already cool enough that additional cooling adds no extra Push credit.`;
+      return "Water is already plenty cool for migration, so more cooling does not strengthen the read by itself.";
   }
 }
 
 function temperatureSourceCopy(input: PushScoreInput): string {
   if (input.temperaturePositiveSignalCap == null) return "";
   if (input.temperaturePositiveSignalCap === 0) {
-    return "The selected measured-water reading is an upstream fallback: warm constraints still apply, but cooling adds no positive credit.";
+    return "The temperature reading comes from farther upstream, so cooling there is not treated as proof of lower-river conditions.";
   }
-  return "The selected measured-water reading is an upstream fallback, so positive cooling influence is reduced.";
+  return "The temperature reading comes from farther upstream, which lowers confidence in how well it represents the lower river.";
 }
 
 function temperatureTrendText(signal: RawTemperatureTrendSignal): string {
@@ -621,118 +548,116 @@ function temperatureTrendText(signal: RawTemperatureTrendSignal): string {
   }
 }
 
-function rainCopy(role: PushRainRole, hydraulicSourceLabel: string): string {
+function rainCopy(role: PushRainRole): string {
   switch (role) {
     case "precursor":
-      return `Recent modeled rainfall adds modest early support because ${hydraulicSourceLabel} has not yet shown the full river response.`;
+      return "Recent rain around the river may help, but the river has not responded enough for rain alone to create a strong Push.";
     case "partial_precursor":
-      return `Recent modeled rainfall adds only limited early support because ${hydraulicSourceLabel} has already begun rising.`;
+      return "Recent rain around the river adds some support while the river begins to rise.";
     case "absorbed_by_gauge":
-      return `Rain is already reflected in the meaningful ${hydraulicSourceLabel} rise, so it is not counted a second time.`;
+      return "The river has already made a meaningful rise, so that measured response carries the useful movement signal and rainfall adds no separate weight.";
     case "suppressed_high_flow":
-      return `Modeled rainfall adds no positive credit while ${hydraulicSourceLabel} is already high.`;
+      return "Additional rain does not improve the read while the river is already high.";
     case "dry":
-      return "The preceding 72-hour rainfall estimate is effectively dry.";
+      return "Recent weather estimates indicate very little rain around the river.";
     case "missing":
-      return "Rain evidence is unavailable and adds no credit.";
+      return "Recent rainfall information is unavailable, so it adds no confidence.";
     case "neutral":
-      return "The recent modeled rainfall estimate is too light to add precursor value.";
+      return "Recent rainfall has been too light to meaningfully change the river.";
   }
 }
 
 function capCopy(
   input: PushScoreInput,
+): string {
+  if (input.gaugeFreshness === "stale") {
+    return "The latest river-level reading is aging, so confidence is reduced.";
+  }
+  if (input.flowSignal === "unknown") {
+    return "Without a dependable river trend, there is no clear Push.";
+  }
+  return "";
+}
+
+function pushTip(
+  label: string,
+  input: PushScoreInput,
   components: PushScoreComponents,
 ): string {
   if (components.hydraulicState === "severe_high") {
-    return "Severe high flow caps Push even when movement-trigger inputs otherwise align.";
+    return "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.";
   }
-  if (components.temperatureState === "migration_barrier") {
-    return "The warm-water barrier caps Push.";
+  if (
+    components.temperatureState === "too_warm" ||
+    components.temperatureState === "migration_barrier"
+  ) {
+    return "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.";
   }
-  if (input.gaugeFreshness === "stale") {
-    return "The stale gauge reading caps confidence.";
+  if (input.flowSignal === "unknown" || input.gaugeFreshness === "stale") {
+    return "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.";
   }
-  if (input.flowSignal === "unknown") {
-    return "Without a matched 24-hour river comparison, Push cannot reach Possible.";
+  switch (label) {
+    case "Weak":
+      return "Skip the fresh-arrival hunt. Begin in established holding holes and fish each one thoroughly before moving; leave lower travel lanes as a secondary check.";
+    case "No clear push":
+      return "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.";
+    case "Possible":
+      return "Start in lower-river travel lanes, then fish the first deep resting water immediately upstream. Move to established holding water if those entry routes stay quiet.";
+    case "Strong":
+      return "Begin on lower-river travel lanes and inside seams, then work the first resting holes along that route. Keep moving until fish establish a pattern; the signal still does not prove a wave entered.";
+    case "Very strong":
+      return "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control.";
+    default:
+      return "Begin with the travel and holding water appropriate to Run Stage, and keep the presentation inside the flow Fishability identifies as workable. Do not treat this signal as proof fish entered.";
   }
-  return "";
 }
 
 function unavailableResult(input: {
   reason: "gauge" | "temperature" | "engine";
   reasonCodes: RiverRunReasonCode[];
   rules: PushRules;
-  variant: RiverRunCopyVariant;
 }): PushScoreResult {
   if (input.reason === "temperature") {
     return {
       score: null,
       label: "Unavailable",
-      headline: alternate(
-        input.variant,
-        "Push is unavailable without a current measured water temperature.",
-        "A fresh-push signal cannot be rated until measured water temperature returns.",
-      ),
+      headline:
+        "There is no dependable Push read without a current water temperature.",
       detail:
-        "A fresh reading from an approved water-temperature source is required to evaluate current movement-trigger conditions.",
-      tip: `${
-        alternate(
-          input.variant,
-          LAKE_ENTRY_DISCLAIMER,
-          LAKE_ENTRY_DISCLAIMER_ALTERNATE,
-        )
-      } Check again after the next condition refresh.`,
+        "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
+      tip:
+        "Do not chase a fresh wave from this read. Fish established holding water for the current Run Stage and check again after the next temperature update.",
       reasonCodes: [...new Set(input.reasonCodes)],
       rulesVersion: input.rules.version,
       copyVersion: RIVER_RUN_COPY_VERSION,
-      copyVariant: input.variant,
     };
   }
   if (input.reason === "engine") {
     return {
       score: null,
       label: "Unavailable",
-      headline: alternate(
-        input.variant,
-        "Push is unavailable for this run type.",
-        "This run does not yet have an audited Push model.",
-      ),
+      headline:
+        "This species and season do not have a dependable Push read yet.",
       detail:
-        "A Push decision table has not been researched and implemented for the selected seasonal movement pattern.",
-      tip: alternate(
-        input.variant,
-        "River Run will not substitute rules from a different run type.",
-        "The feature stays unavailable instead of guessing with another season's rules.",
-      ),
+        "Different migrations respond to water and weather in different ways, so another run's movement pattern would give a misleading result.",
+      tip:
+        "Fish the river section and holding water identified by Run Stage and Fish In River. Do not apply another species' rain-and-temperature pattern to this migration.",
       reasonCodes: [...new Set(input.reasonCodes)],
       rulesVersion: input.rules.version,
       copyVersion: RIVER_RUN_COPY_VERSION,
-      copyVariant: input.variant,
     };
   }
   return {
     score: null,
     label: "Unavailable",
-    headline: alternate(
-      input.variant,
-      "Push is unavailable without a current gauge reading.",
-      "The river response cannot be rated until the gauge updates.",
-    ),
-    detail: `A usable ${input.rules.hydraulic.sourceLabel} ${
-      input.rules.hydraulic.metric === "flow_cfs" ? "discharge" : "gage-height"
-    } reading is required to evaluate the current river response.`,
-    tip: `${
-      alternate(
-        input.variant,
-        LAKE_ENTRY_DISCLAIMER,
-        LAKE_ENTRY_DISCLAIMER_ALTERNATE,
-      )
-    } Check again after the next condition refresh.`,
+    headline: "There is no dependable Push read without a current river level.",
+    detail:
+      "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
+    tip:
+      "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
     reasonCodes: [...new Set(input.reasonCodes)],
     rulesVersion: input.rules.version,
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant: input.variant,
   };
 }
 
@@ -803,15 +728,6 @@ function gaugeReasonCode(freshness: GaugeFreshness): RiverRunReasonCode {
 function applyCap(score: number, cap: number, appliedCaps: number[]): number {
   if (score > cap) appliedCaps.push(cap);
   return Math.min(score, cap);
-}
-
-function signed(value: number): string {
-  const rounded = round(value);
-  return rounded > 0 ? `+${rounded}` : String(rounded);
-}
-
-function round(value: number | null | undefined): number {
-  return isNumber(value) ? Math.round(value * 10) / 10 : 0;
 }
 
 function clamp(value: number, min: number, max: number): number {

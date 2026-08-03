@@ -2,16 +2,18 @@ import type { RiverRunProfile } from "../types.ts";
 
 export type DateWindow = {
   snapshotDate: string;
+  preRunStartDate: string;
   stagingStartDate: string;
   startDate: string;
-  peakDate: string;
-  endDate: string;
-  lateEndDate: string;
   beginningEndDate: string;
+  buildingEstablishedStartDate: string;
   peakStartDate: string;
+  peakDate: string;
   peakEndDate: string;
   taperingEndDate: string;
-  peakWindowDays: number;
+  endDate: string;
+  lateEndDate: string;
+  postRunLateCopyEndDate: string;
   startToPeakDays: number;
   peakToEndDays: number;
 };
@@ -72,43 +74,63 @@ function buildWindowCandidate(
   snapshotDate: string,
   startYear: number,
 ): DateWindow {
-  const peakWindowDays = run.runWindow.peakWindowDays ?? 5;
-
   const start = dateFromMonthDay(startYear, run.runWindow.start);
   const stagingStart = dateOnOrBefore(start, run.runWindow.stagingStart);
-  const peak = dateOnOrAfter(start, run.runWindow.peak);
-  const end = dateOnOrAfter(peak, run.runWindow.end);
+  const preRunStart = dateOnOrBefore(
+    stagingStart,
+    run.runWindow.preRunStart,
+  );
+  const beginningEnd = dateOnOrAfter(start, run.runWindow.beginningEnd);
+  const buildingEstablishedStart = dateOnOrAfter(
+    beginningEnd,
+    run.runWindow.buildingEstablishedStart,
+  );
+  const peakStart = dateOnOrAfter(
+    buildingEstablishedStart,
+    run.runWindow.peakStart,
+  );
+  const peak = dateOnOrAfter(peakStart, run.runWindow.peak);
+  const peakEnd = dateOnOrAfter(peak, run.runWindow.peakEnd);
+  const taperingEnd = dateOnOrAfter(
+    peakEnd,
+    run.runWindow.taperingEnd,
+  );
+  const end = dateOnOrAfter(taperingEnd, run.runWindow.end);
   const lateEnd = dateOnOrAfter(end, run.runWindow.lateEnd);
+  const postRunLateCopyEnd = dateOnOrAfter(
+    lateEnd,
+    run.runWindow.postRunLateCopyEnd,
+  );
 
+  const preRunStartDate = toLocalDateString(preRunStart);
   const stagingStartDate = toLocalDateString(stagingStart);
   const startDate = toLocalDateString(start);
+  const beginningEndDate = toLocalDateString(beginningEnd);
+  const buildingEstablishedStartDate = toLocalDateString(
+    buildingEstablishedStart,
+  );
+  const peakStartDate = toLocalDateString(peakStart);
   const peakDate = toLocalDateString(peak);
+  const peakEndDate = toLocalDateString(peakEnd);
+  const taperingEndDate = toLocalDateString(taperingEnd);
   const endDate = toLocalDateString(end);
   const startToPeakDays = Math.max(1, daysBetween(startDate, peakDate));
   const peakToEndDays = Math.max(1, daysBetween(peakDate, endDate));
-  const beginningEndDate = addDays(
-    startDate,
-    Math.ceil(startToPeakDays * 0.2),
-  );
-  const peakStartDate = addDays(peakDate, -peakWindowDays);
-  const peakEndDate = addDays(peakDate, peakWindowDays);
-  const taperingEndDate = addDays(
-    peakDate,
-    Math.ceil(peakToEndDays * 0.75),
-  );
 
   return {
     snapshotDate,
+    preRunStartDate,
     stagingStartDate,
     startDate,
-    peakDate,
-    endDate,
-    lateEndDate: toLocalDateString(lateEnd),
     beginningEndDate,
+    buildingEstablishedStartDate,
     peakStartDate,
+    peakDate,
     peakEndDate,
     taperingEndDate,
-    peakWindowDays,
+    endDate,
+    lateEndDate: toLocalDateString(lateEnd),
+    postRunLateCopyEndDate: toLocalDateString(postRunLateCopyEnd),
     startToPeakDays,
     peakToEndDays,
   };

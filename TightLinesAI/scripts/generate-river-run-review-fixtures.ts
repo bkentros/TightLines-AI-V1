@@ -7,11 +7,12 @@ import {
   daysBetween,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   type PrimitiveDisplay,
+  resolveActiveRunWindow,
   resolveConditionsSuggestCheckpoints,
+  resolveConditionsSuggestCheckpointState,
   resolveInterpretationNote,
   resolveRunStage,
   type RiverRunConditionsSuggestBaseline,
-  type RiverRunCopyVariant,
   scoreConditionsSuggest,
   scoreFishability,
   scoreFishInRiver,
@@ -40,7 +41,15 @@ type Group = {
 };
 
 const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
-const checkpoints = resolveConditionsSuggestCheckpoints(run, "2026-09-20");
+const reviewWindow = resolveActiveRunWindow(run, "2026-09-20");
+const reviewBaseDate = addDays(
+  reviewWindow.buildingEstablishedStartDate,
+  4,
+);
+const checkpoints = resolveConditionsSuggestCheckpoints(
+  run,
+  reviewWindow.peakDate,
+);
 const outputPath = new URL(
   "../lib/riverRunReviewFixtures.generated.ts",
   import.meta.url,
@@ -55,32 +64,21 @@ const groups: Group[] = [
   combinedGroup(),
   evidenceGroup(),
 ];
-const baseByVariant = {
-  A: snapshotScenario({
-    id: "generated_base",
-    label: "Generated base",
-    localDate: "2026-09-05",
-    variant: "A",
-  }).snapshot,
-  B: snapshotScenario({
-    id: "generated_base",
-    label: "Generated base",
-    localDate: "2026-09-05",
-    variant: "B",
-  }).snapshot,
-};
+const baseSnapshot = snapshotScenario({
+  id: "generated_base",
+  label: "Generated base",
+  localDate: reviewBaseDate,
+}).snapshot;
 const compactGroups = groups.map((group) => ({
   id: group.id,
   label: group.label,
   scenarios: group.scenarios.map((scenario) => {
-    const variant = scenario.snapshot.runStage.copyVariant ?? "A";
     return {
       id: scenario.id,
       label: scenario.label,
       note: scenario.note,
-      variant,
       snapshotOverride: shallowSnapshotDiff(
-        baseByVariant[variant],
+        baseSnapshot,
         scenario.snapshot,
       ),
     };
@@ -94,9 +92,9 @@ const generated =
 import type { RiverRunReviewGroup } from "./riverRunReviewFixtures.types";
 import type { RiverRunSnapshotResponse } from "./riverRunContracts";
 
-const BASE_BY_VARIANT = ${
-    JSON.stringify(baseByVariant, null, 2)
-  } as unknown as Record<"A" | "B", RiverRunSnapshotResponse>;
+const BASE_SNAPSHOT = ${
+    JSON.stringify(baseSnapshot, null, 2)
+  } as unknown as RiverRunSnapshotResponse;
 
 const GROUP_SEEDS = ${JSON.stringify(compactGroups, null, 2)} as const;
 
@@ -109,7 +107,7 @@ export const RIVER_RUN_REVIEW_GROUPS: RiverRunReviewGroup[] = GROUP_SEEDS.map(
       label: scenario.label,
       note: scenario.note,
       snapshot: {
-        ...BASE_BY_VARIANT[scenario.variant],
+        ...BASE_SNAPSHOT,
         ...scenario.snapshotOverride,
       } as RiverRunSnapshotResponse,
     })),
@@ -141,29 +139,42 @@ if (Deno.args.includes("--check")) {
 
 function runStageGroup(): Group {
   const states = [
-    ["before_staging", "Before staging", "2026-07-20"],
-    ["staging", "Staging period", "2026-08-01"],
-    ["beginning", "Beginning", "2026-08-15"],
-    ["building", "Building", "2026-09-05"],
-    ["peak", "Peak", "2026-09-20"],
-    ["tapering", "Tapering", "2026-10-01"],
-    ["ending", "Ending", "2026-10-15"],
-    ["post", "Post-run", "2026-11-05"],
+    [
+      "offseason",
+      "True offseason",
+      addDays(reviewWindow.postRunLateCopyEndDate, 1),
+    ],
+    [
+      "before_staging",
+      "Before staging",
+      addDays(reviewWindow.preRunStartDate, 9),
+    ],
+    ["staging", "Staging period", addDays(reviewWindow.stagingStartDate, 4)],
+    ["beginning", "Beginning", reviewWindow.startDate],
+    [
+      "building_early",
+      "Building — early",
+      addDays(reviewWindow.beginningEndDate, 2),
+    ],
+    ["building_established", "Building — established", reviewBaseDate],
+    ["peak", "Peak", reviewWindow.peakDate],
+    ["tapering", "Tapering", addDays(reviewWindow.peakEndDate, 5)],
+    ["ending", "Ending", addDays(reviewWindow.taperingEndDate, 4)],
+    [
+      "post",
+      "Post-run after the main window",
+      addDays(reviewWindow.endDate, 1),
+    ],
   ] as const;
   return {
     id: "run_stage",
     label: "Run Stage",
-    scenarios: withBothVariants(
-      states.flatMap(([id, label, localDate]) =>
-        variants().map((variant) =>
-          snapshotScenario({
-            id: `stage_${id}`,
-            label,
-            localDate,
-            variant,
-          })
-        )
-      ),
+    scenarios: states.map(([id, label, localDate]) =>
+      snapshotScenario({
+        id: `stage_${id}`,
+        label,
+        localDate,
+      })
     ),
   };
 }
@@ -172,65 +183,64 @@ function conditionsGroup(): Group {
   const target = checkpoint("river_start");
   const second = checkpoint("building_start");
   const peakComplete = checkpoint("peak_complete");
+  const beforeCollectionDate = addDays(reviewWindow.stagingStartDate, -8);
+  const collectingDate = addDays(reviewWindow.stagingStartDate, 4);
+  const postRunDate = addDays(reviewWindow.endDate, 1);
 
   const basic = [
     {
       id: "before_collection",
       label: "Before evidence collection",
-      localDate: "2026-07-20",
-      make: (variant: RiverRunCopyVariant) =>
+      localDate: beforeCollectionDate,
+      make: () =>
         scoreConditionsSuggest({
-          localDate: "2026-07-20",
+          localDate: beforeCollectionDate,
           run,
           evidenceByDate: {},
           baselines: [],
-          copyVariant: variant,
         }),
     },
     {
       id: "collecting",
       label: "Collecting first read",
-      localDate: "2026-08-01",
-      make: (variant: RiverRunCopyVariant) =>
+      localDate: collectingDate,
+      make: () =>
         scoreConditionsSuggest({
-          localDate: "2026-08-01",
+          localDate: collectingDate,
           run,
           evidenceByDate: {},
           baselines: [],
-          copyVariant: variant,
         }),
     },
     ...(["ahead", "typical", "delayed"] as const).map((kind) => ({
       id: kind,
       label: title(kind),
       localDate: target.checkpointDate,
-      make: (variant: RiverRunCopyVariant) =>
+      make: () =>
         scoreConditionsSuggest({
           localDate: target.checkpointDate,
           run,
           evidenceByDate: cumulativeEvidence(target, kind),
           baselines: [baseline(target)],
-          copyVariant: variant,
         }),
     })),
     {
       id: "mixed",
       label: "Typical · mixed signals",
       localDate: target.checkpointDate,
-      make: (variant: RiverRunCopyVariant) =>
+      make: () =>
         scoreConditionsSuggest({
           localDate: target.checkpointDate,
           run,
           evidenceByDate: mixedEvidence(target),
           baselines: [baseline(target)],
-          copyVariant: variant,
         }),
     },
     {
       id: "tempered_reversal",
       label: "Typical · reversal tempered",
       localDate: second.checkpointDate,
-      make: (variant: RiverRunCopyVariant) =>
+      make: () =>
         scoreConditionsSuggest({
           localDate: second.checkpointDate,
           run,
@@ -239,46 +249,42 @@ function conditionsGroup(): Group {
             baseline(target),
             delayedSecondBaseline(second),
           ],
-          copyVariant: variant,
         }),
     },
     {
       id: "complete_underway",
       label: "Timing complete · underway",
       localDate: peakComplete.checkpointDate,
-      make: (variant: RiverRunCopyVariant) =>
+      make: () =>
         scoreConditionsSuggest({
           localDate: peakComplete.checkpointDate,
           run,
           evidenceByDate: cumulativeEvidence(peakComplete, "typical"),
           baselines: allBaselines(),
-          copyVariant: variant,
         }),
     },
     {
       id: "complete_post",
       label: "Timing complete · post-run",
-      localDate: "2026-10-25",
-      make: (variant: RiverRunCopyVariant) =>
+      localDate: postRunDate,
+      make: () =>
         scoreConditionsSuggest({
-          localDate: "2026-10-25",
+          localDate: postRunDate,
           run,
           evidenceByDate: cumulativeEvidence(peakComplete, "typical"),
           baselines: allBaselines(),
-          copyVariant: variant,
         }),
     },
     {
       id: "complete_insufficient",
       label: "Timing complete · insufficient",
       localDate: peakComplete.checkpointDate,
-      make: (variant: RiverRunCopyVariant) =>
+      make: () =>
         scoreConditionsSuggest({
           localDate: peakComplete.checkpointDate,
           run,
           evidenceByDate: cumulativeEvidence(peakComplete, "typical"),
           baselines: allBaselines().slice(0, 3),
-          copyVariant: variant,
         }),
     },
   ];
@@ -287,18 +293,13 @@ function conditionsGroup(): Group {
   return {
     id: "conditions",
     label: "Run Timing",
-    scenarios: withBothVariants(
-      [...basic, ...insufficient].flatMap((item) =>
-        variants().map((variant) =>
-          snapshotScenario({
-            id: `conditions_${item.id}`,
-            label: item.label,
-            localDate: item.localDate,
-            variant,
-            conditionsSuggest: item.make(variant),
-          })
-        )
-      ),
+    scenarios: [...basic, ...insufficient].map((item) =>
+      snapshotScenario({
+        id: `conditions_${item.id}`,
+        label: item.label,
+        localDate: item.localDate,
+        conditionsSuggest: item.make(),
+      })
     ),
   };
 }
@@ -317,9 +318,9 @@ function pushGroup(): Group {
     temperatureSourceType: "same_gauge" as const,
     waterTempF: 60,
     trackingState: "active" as const,
-    trackingStartDate: "2026-08-15",
-    trackingEndDate: "2026-10-20",
-    localDate: "2026-09-05",
+    trackingStartDate: reviewWindow.startDate,
+    trackingEndDate: reviewWindow.endDate,
+    localDate: reviewBaseDate,
   };
   const cases = [
     ["weak", "Weak · warm, dry, falling", {
@@ -457,33 +458,31 @@ function pushGroup(): Group {
     ["unavailable_engine", "Unavailable · run type", {
       movementEngineId: "spring_warming",
     }],
-    ["not_started", "Tracking not started", {
+    ["not_started", "Waiting for run", {
       trackingState: "not_started",
-      localDate: "2026-08-01",
+      localDate: addDays(reviewWindow.stagingStartDate, 4),
     }],
-    ["complete", "Tracking complete", {
+    ["first_day", "History · first run day", {
+      localDate: reviewWindow.startDate,
+    }],
+    ["complete", "Run complete", {
       trackingState: "complete",
-      localDate: "2026-10-25",
+      localDate: addDays(reviewWindow.endDate, 1),
     }],
   ] as const;
 
   return {
     id: "push",
     label: "Push",
-    scenarios: withBothVariants(
-      cases.flatMap(([id, label, overrides]) =>
-        variants().map((variant) => {
-          const input = { ...base, ...overrides, copyVariant: variant };
-          return snapshotScenario({
-            id: `push_${id}`,
-            label,
-            localDate: input.localDate,
-            variant,
-            push: scorePush(input),
-          });
-        })
-      ),
-    ),
+    scenarios: cases.map(([id, label, overrides]) => {
+      const input = { ...base, ...overrides };
+      return snapshotScenario({
+        id: `push_${id}`,
+        label,
+        localDate: input.localDate,
+        push: scorePush(input),
+      });
+    }),
   };
 }
 
@@ -495,7 +494,7 @@ function fishabilityGroup(): Group {
     currentHydraulicValue: 600,
     hydraulicAbsoluteChange24h: 0,
     hydraulicPercentChange24h: 0,
-    localDate: "2026-09-05",
+    localDate: reviewBaseDate,
   };
   const cases = [
     ["very_low", "Tough · very low", {
@@ -576,22 +575,16 @@ function fishabilityGroup(): Group {
   return {
     id: "fishability",
     label: "Fishability",
-    scenarios: withBothVariants(
-      cases.flatMap(([id, label, overrides]) =>
-        variants().map((variant) =>
-          snapshotScenario({
-            id: `fishability_${id}`,
-            label,
-            localDate: base.localDate,
-            variant,
-            fishability: scoreFishability({
-              ...base,
-              ...overrides,
-              copyVariant: variant,
-            }),
-          })
-        )
-      ),
+    scenarios: cases.map(([id, label, overrides]) =>
+      snapshotScenario({
+        id: `fishability_${id}`,
+        label,
+        localDate: base.localDate,
+        fishability: scoreFishability({
+          ...base,
+          ...overrides,
+        }),
+      })
     ),
   };
 }
@@ -599,32 +592,29 @@ function fishabilityGroup(): Group {
 function fishInRiverGroup(): Group {
   const byBranch = new Map<string, string>();
   for (
-    let localDate = "2026-07-20";
-    localDate <= "2026-11-10";
+    let localDate = addDays(reviewWindow.stagingStartDate, -8);
+    localDate <= reviewWindow.postRunLateCopyEndDate;
     localDate = addDays(localDate, 1)
   ) {
-    const result = scoreFishInRiver(run, localDate, { copyVariant: "A" });
+    const result = scoreFishInRiver(run, localDate);
     const phase = result.score === 0
       ? result.stage
+      : result.label === "High presence" && result.curveFraction >= 0.8
+      ? `${result.label}:${result.curveDirection}:upper_shoulder`
       : `${result.label}:${result.curveDirection}`;
     if (!byBranch.has(phase)) byBranch.set(phase, localDate);
   }
-  const scenarios = [...byBranch.entries()].flatMap(([branch, localDate]) =>
-    variants().map((variant) => {
-      const result = scoreFishInRiver(run, localDate, {
-        copyVariant: variant,
-      });
-      return snapshotScenario({
-        id: `fish_in_river_${slug(branch)}`,
-        label: `${result.score} / ${result.maximum} · ${
-          title(result.curveDirection.replace("_", " "))
-        }`,
-        localDate,
-        variant,
-        fishInRiver: result,
-      });
-    })
-  );
+  const scenarios = [...byBranch.entries()].map(([branch, localDate]) => {
+    const result = scoreFishInRiver(run, localDate);
+    return snapshotScenario({
+      id: `fish_in_river_${slug(branch)}`,
+      label: `${result.score} / ${result.maximum} · ${
+        title(result.curveDirection.replace("_", " "))
+      }`,
+      localDate,
+      fishInRiver: result,
+    });
+  });
   const cappedRun = {
     ...run,
     historicalPresence: {
@@ -632,44 +622,39 @@ function fishInRiverGroup(): Group {
       maximum: 6 as const,
     },
   };
-  for (const variant of variants()) {
-    const result = scoreFishInRiver(cappedRun, "2026-09-20", {
-      copyVariant: variant,
-    });
-    scenarios.push(snapshotScenario({
-      id: "fish_in_river_lower_cap",
-      label: "River cap · 6 / 6",
-      localDate: "2026-09-20",
-      variant,
-      fishInRiver: result,
-    }));
-  }
+  const result = scoreFishInRiver(cappedRun, reviewWindow.peakDate);
+  scenarios.push(snapshotScenario({
+    id: "fish_in_river_lower_cap",
+    label: "QA only · hypothetical lower-strength river ceiling · 60 / 100",
+    localDate: reviewWindow.peakDate,
+    fishInRiver: result,
+  }));
   return {
     id: "fish_in_river",
     label: "Fish In River",
-    scenarios: withBothVariants(scenarios),
+    scenarios,
   };
 }
 
 function combinedGroup(): Group {
   const cases = [
     ["strong_tough", "Strong Push + Tough fishing", {
-      localDate: "2026-09-05",
-      push: pushResult("Strong", "A"),
-      fishability: fishabilityResult("Tough", "A"),
+      localDate: reviewBaseDate,
+      push: pushResult("Strong"),
+      fishability: fishabilityResult("Tough"),
     }],
     ["peak_weak", "Peak + weak Push", {
-      localDate: "2026-09-20",
-      push: pushResult("Weak", "A"),
+      localDate: reviewWindow.peakDate,
+      push: pushResult("Weak"),
     }],
     ["good_low", "Good shape + low presence", {
-      localDate: "2026-08-15",
-      fishability: fishabilityResult("Good", "A"),
+      localDate: reviewWindow.startDate,
+      fishability: fishabilityResult("Good"),
     }],
     ["delayed_strong", "Delayed + strong Push", {
-      localDate: "2026-09-15",
-      conditionsSuggest: conditionResult("Delayed", "A"),
-      push: pushResult("Strong", "A"),
+      localDate: reviewWindow.peakStartDate,
+      conditionsSuggest: conditionResult("Delayed"),
+      push: pushResult("Strong"),
     }],
   ] as const;
   return {
@@ -679,7 +664,6 @@ function combinedGroup(): Group {
       snapshotScenario({
         id: `combined_${id}`,
         label,
-        variant: "A",
         ...overrides,
       })
     ),
@@ -694,19 +678,17 @@ function evidenceGroup(): Group {
       snapshotScenario({
         id: "evidence_fresh",
         label: "Fresh",
-        variant: "A",
       }),
       snapshotScenario({
         id: "evidence_limited",
         label: "Limited · unavailable cards",
-        variant: "A",
         push: scorePush({
-          ...basePushInput("A"),
+          ...basePushInput(),
           gaugeFreshness: "missing",
           currentHydraulicValue: null,
         }),
         fishability: scoreFishability({
-          ...baseFishabilityInput("A"),
+          ...baseFishabilityInput(),
           gaugeFreshness: "missing",
           currentHydraulicValue: null,
         }),
@@ -724,7 +706,6 @@ function snapshotScenario(input: {
   id: string;
   label: string;
   localDate?: string;
-  variant: RiverRunCopyVariant;
   conditionsSuggest?: RiverRunConditionsSuggest;
   push?: RiverRunPush;
   fishability?: RiverRunFishability;
@@ -732,22 +713,20 @@ function snapshotScenario(input: {
   dataQuality?: RiverRunSnapshotResponse["dataQuality"];
   missingSources?: boolean;
 }): Scenario {
-  const localDate = input.localDate ?? "2026-09-05";
-  const runStage = resolveRunStage(run, localDate, {
-    copyVariant: input.variant,
-  }) as RiverRunStage;
+  const localDate = input.localDate ?? reviewBaseDate;
+  const runStage = resolveRunStage(run, localDate) as RiverRunStage;
   const fishInRiver = input.fishInRiver ??
-    scoreFishInRiver(run, localDate, {
-      copyVariant: input.variant,
-    }) as RiverRunFishInRiver;
+    scoreFishInRiver(run, localDate) as RiverRunFishInRiver;
   const conditionsSuggest = input.conditionsSuggest ??
-    conditionResult("Typical", input.variant);
+    typicalConditionResultForDate(localDate);
+  const trackingState = reviewTrackingState(localDate);
   const push = input.push ?? scorePush({
-    ...basePushInput(input.variant),
+    ...basePushInput(),
     localDate,
+    trackingState,
   }) as RiverRunPush;
   const fishability = input.fishability ?? scoreFishability({
-    ...baseFishabilityInput(input.variant),
+    ...baseFishabilityInput(),
     localDate,
   }) as RiverRunFishability;
   const interpretationNote = resolveInterpretationNote({
@@ -757,19 +736,23 @@ function snapshotScenario(input: {
     fishability: fishability as PrimitiveDisplay,
     fishInRiver: fishInRiver as PrimitiveDisplay,
   });
-  const inactive = localDate < "2026-08-15"
+  const inactive = trackingState === "not_started"
     ? "not_started"
-    : localDate > "2026-10-20"
+    : trackingState === "complete"
     ? "complete"
     : push.score != null && push.score >= 50
     ? "active_now"
     : "none_recorded";
+  const pushHistoryThroughDate = inactive === "complete"
+    ? reviewWindow.endDate
+    : localDate;
+  const recentDailyPushReads = reviewRecentDailyPushReads(
+    inactive === "complete" ? addDays(reviewWindow.endDate, 1) : localDate,
+  );
   return {
-    id: `${input.id}_${input.variant.toLowerCase()}`,
-    label: `${input.label} · ${input.variant}`,
-    note: input.variant === "A"
-      ? "Canonical headline and takeaway"
-      : "Alternate headline and takeaway; facts are unchanged",
+    id: input.id,
+    label: input.label,
+    note: "Canonical production copy",
     snapshot: {
       riverId: "pere_marquette",
       runId: run.runId,
@@ -786,9 +769,22 @@ function snapshotScenario(input: {
       pushHistory: {
         status: inactive,
         minimumSupportiveScore: 50,
-        trackingStartDate: "2026-08-15",
-        trackingEndDate: "2026-10-20",
-        throughDate: localDate,
+        trackingStartDate: reviewWindow.startDate,
+        trackingEndDate: reviewWindow.endDate,
+        throughDate: pushHistoryThroughDate,
+        recentDailyReadsStatus: "available",
+        recentDailyReads: recentDailyPushReads,
+        ...(inactive === "active_now"
+          ? {
+            lastSupportiveConditions: {
+              localDate,
+              refreshSlot: "16:00",
+              conditionRefreshAt: `${localDate}T20:00:00.000Z`,
+              score: push.score ?? 50,
+              label: push.label,
+            },
+          }
+          : {}),
       },
       fishability,
       fishInRiver,
@@ -861,10 +857,46 @@ function snapshotScenario(input: {
         activityDisclaimer:
           "River Run is not a wading, boating, floating, or personal-safety rating.",
       },
-      engineVersion: "river-run-v1.3.0-review",
-      configVersion: "2026-07-29.1-review",
+      engineVersion: "river-run-v1.4.1-review",
+      configVersion: "2026-08-02.1-review",
     },
   };
+}
+
+function reviewRecentDailyPushReads(localDate: string) {
+  const examples = [
+    { score: null, label: "No supportive window", slot: null },
+    { score: null, label: "No supportive window", slot: null },
+    { score: 63, label: "Possible", slot: "08:00" },
+    { score: null, label: "No supportive window", slot: null },
+    { score: 81, label: "Strong", slot: "20:00" },
+    { score: 63, label: "Possible", slot: "16:00" },
+    { score: null, label: "No supportive window", slot: null },
+  ];
+  const reads = [];
+  for (let dayOffset = 1; dayOffset <= 7; dayOffset += 1) {
+    const readDate = addDays(localDate, -dayOffset);
+    if (readDate < reviewWindow.startDate) break;
+    const example = examples[dayOffset - 1];
+    reads.push(
+      example.slot
+        ? {
+          localDate: readDate,
+          status: "supportive_window" as const,
+          refreshSlot: example.slot,
+          conditionRefreshAt: `${readDate}T23:59:00.000Z`,
+          score: example.score,
+          label: example.label,
+        }
+        : {
+          localDate: readDate,
+          status: "no_supportive_window" as const,
+          score: null,
+          label: "No supportive window" as const,
+        },
+    );
+  }
+  return reads;
 }
 
 function insufficientConditionCases(target: ConditionsSuggestCheckpoint) {
@@ -917,7 +949,7 @@ function insufficientConditionCases(target: ConditionsSuggestCheckpoint) {
     id: id as string,
     label: label as string,
     localDate: target.checkpointDate,
-    make: (variant: RiverRunCopyVariant) => {
+    make: () => {
       let evidenceByDate = fullEvidence;
       if (id === "missing_gauge") {
         evidenceByDate = {
@@ -954,7 +986,6 @@ function insufficientConditionCases(target: ConditionsSuggestCheckpoint) {
         run,
         evidenceByDate,
         baselines: baselines as RiverRunConditionsSuggestBaseline[],
-        copyVariant: variant,
       });
     },
   }));
@@ -962,7 +993,6 @@ function insufficientConditionCases(target: ConditionsSuggestCheckpoint) {
 
 function conditionResult(
   label: "Typical" | "Delayed",
-  variant: RiverRunCopyVariant,
 ): RiverRunConditionsSuggest {
   const target = label === "Delayed"
     ? checkpoint("peak_start")
@@ -977,16 +1007,43 @@ function conditionResult(
     baselines: checkpoints
       .filter((item) => item.checkpointDate <= target.checkpointDate)
       .map((item) => baseline(item)),
-    copyVariant: variant,
   });
+}
+
+function typicalConditionResultForDate(
+  localDate: string,
+): RiverRunConditionsSuggest {
+  const state = resolveConditionsSuggestCheckpointState(run, localDate);
+  const target = state.activeCheckpoint;
+  if (!target) {
+    return scoreConditionsSuggest({
+      localDate,
+      run,
+      evidenceByDate: {},
+      baselines: [],
+    });
+  }
+  return scoreConditionsSuggest({
+    localDate,
+    run,
+    evidenceByDate: cumulativeEvidence(target, "typical"),
+    baselines: checkpoints
+      .filter((item) => item.checkpointDate <= target.checkpointDate)
+      .map((item) => baseline(item)),
+  });
+}
+
+function reviewTrackingState(localDate: string) {
+  if (localDate < reviewWindow.startDate) return "not_started" as const;
+  if (localDate > reviewWindow.endDate) return "complete" as const;
+  return "active" as const;
 }
 
 function pushResult(
   label: "Weak" | "Strong",
-  variant: RiverRunCopyVariant,
 ): RiverRunPush {
   return scorePush({
-    ...basePushInput(variant),
+    ...basePushInput(),
     ...(label === "Weak"
       ? {
         rainSignal: "dry",
@@ -1011,10 +1068,9 @@ function pushResult(
 
 function fishabilityResult(
   label: "Good" | "Tough",
-  variant: RiverRunCopyVariant,
 ): RiverRunFishability {
   return scoreFishability({
-    ...baseFishabilityInput(variant),
+    ...baseFishabilityInput(),
     ...(label === "Good"
       ? {
         flowBand: "normal_fishable",
@@ -1027,7 +1083,7 @@ function fishabilityResult(
   });
 }
 
-function basePushInput(variant: RiverRunCopyVariant) {
+function basePushInput() {
   return {
     movementEngineId: "fall_cooling" as const,
     rules: run.push,
@@ -1041,14 +1097,13 @@ function basePushInput(variant: RiverRunCopyVariant) {
     temperatureSourceType: "same_gauge" as const,
     waterTempF: 60,
     trackingState: "active" as const,
-    trackingStartDate: "2026-08-15",
-    trackingEndDate: "2026-10-20",
-    localDate: "2026-09-05",
-    copyVariant: variant,
+    trackingStartDate: reviewWindow.startDate,
+    trackingEndDate: reviewWindow.endDate,
+    localDate: reviewBaseDate,
   };
 }
 
-function baseFishabilityInput(variant: RiverRunCopyVariant) {
+function baseFishabilityInput() {
   return {
     rules: run.fishabilityBands,
     gaugeFreshness: "fresh" as const,
@@ -1057,8 +1112,7 @@ function baseFishabilityInput(variant: RiverRunCopyVariant) {
     currentHydraulicValue: 600,
     hydraulicAbsoluteChange24h: 0,
     hydraulicPercentChange24h: 0,
-    localDate: "2026-09-05",
-    copyVariant: variant,
+    localDate: reviewBaseDate,
   };
 }
 
@@ -1205,14 +1259,6 @@ function mixedEvidence(
     };
   }
   return result;
-}
-
-function variants(): RiverRunCopyVariant[] {
-  return ["A", "B"];
-}
-
-function withBothVariants(scenarios: Scenario[]): Scenario[] {
-  return scenarios;
 }
 
 function scenarioCount(value: Group[]): number {

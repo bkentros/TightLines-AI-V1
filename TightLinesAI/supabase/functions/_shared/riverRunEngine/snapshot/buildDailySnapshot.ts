@@ -42,6 +42,7 @@ export function buildDailySnapshot(input: {
     RiverRunProfile,
     | "runId"
     | "displayName"
+    | "species"
     | "runWindow"
     | "historicalPresence"
     | "conditionsSuggest"

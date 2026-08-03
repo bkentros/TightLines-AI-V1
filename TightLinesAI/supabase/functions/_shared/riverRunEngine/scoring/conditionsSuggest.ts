@@ -5,12 +5,7 @@ import type {
   RiverRunProfile,
   RiverRunReasonCode,
 } from "../types.ts";
-import {
-  alternate,
-  resolveCopyVariant,
-  RIVER_RUN_COPY_VERSION,
-  type RiverRunCopyVariant,
-} from "../copy/variants.ts";
+import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
 import type { RiverRunConditionsSuggestBaseline } from "../storage/types.ts";
 import { addDays, compareLocalDates } from "../metrics/dateWindow.ts";
 import {
@@ -62,6 +57,9 @@ export type ConditionsSuggestResult = PrimitiveDisplay & {
   candidateLabel: ConditionsTimingLabel | null;
   checkpointId?: ConditionsSuggestCheckpointId;
   checkpointDate?: string;
+  previousCheckpointId?: ConditionsSuggestCheckpointId;
+  previousCheckpointDate?: string;
+  previousTimingLabel?: ConditionsTimingLabel | null;
   cutoffDate?: string;
   observationStartDate?: string;
   nextCheckpointDate?: string;
@@ -94,38 +92,22 @@ export function scoreConditionsSuggest(input: {
   localDate: string;
   run: Pick<
     RiverRunProfile,
-    | "displayName"
     | "runWindow"
     | "conditionsSuggest"
     | "push"
   >;
   evidenceByDate: ConditionsSuggestEvidenceByDate;
   baselines?: RiverRunConditionsSuggestBaseline[] | null;
-  copyVariant?: RiverRunCopyVariant;
-  copyKey?: string;
 }): ConditionsSuggestResult {
   const checkpointState = resolveConditionsSuggestCheckpointState(
     input.run,
     input.localDate,
-  );
-  const copyVariant = resolveCopyVariant(
-    input.copyKey ??
-      `${input.run.displayName}:${
-        checkpointState.activeCheckpoint?.checkpointId ??
-          checkpointState.nextCheckpoint?.checkpointId ?? "outside"
-      }:${
-        checkpointState.activeCheckpoint?.checkpointDate ??
-          checkpointState.nextCheckpoint?.checkpointDate ?? "complete"
-      }`,
-    input.copyVariant,
   );
   if (!checkpointState.activeCheckpoint) {
     return awaitingResult({
       observationStarted: checkpointState.observationStarted,
       observationStartDate: checkpointState.window.stagingStartDate,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
-      hydraulicLabel: input.run.push.hydraulic.sourceLabel,
-      variant: copyVariant,
     });
   }
 
@@ -138,6 +120,7 @@ export function scoreConditionsSuggest(input: {
     | null = null;
   let activeResult: CheckpointScore | null = null;
   for (const checkpoint of checkpointState.activeCheckpoints) {
+    const previousCheckpointResult = activeResult;
     const baseline = baselines.find((row) =>
       row.checkpointId === checkpoint.checkpointId
     ) ?? null;
@@ -150,8 +133,15 @@ export function scoreConditionsSuggest(input: {
       completedCheckpointCount:
         checkpointState.activeCheckpoints.indexOf(checkpoint) + 1,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
-      variant: copyVariant,
     });
+    if (
+      previousCheckpointResult?.checkpointId &&
+      previousCheckpointResult.checkpointDate
+    ) {
+      scored.previousCheckpointId = previousCheckpointResult.checkpointId;
+      scored.previousCheckpointDate = previousCheckpointResult.checkpointDate;
+      scored.previousTimingLabel = previousCheckpointResult.timingLabel;
+    }
     activeResult = scored;
     if (scored.timingLabel !== "Insufficient evidence") {
       previousConfidentLabel = scored.timingLabel;
@@ -163,17 +153,13 @@ export function scoreConditionsSuggest(input: {
       observationStarted: checkpointState.observationStarted,
       observationStartDate: checkpointState.window.stagingStartDate,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
-      hydraulicLabel: input.run.push.hydraulic.sourceLabel,
-      variant: copyVariant,
     });
   }
   if (!checkpointState.complete) return activeResult;
   return completeResult({
-    run: input.run,
     checkpointResult: activeResult,
     mainRunWindowPassed:
       compareLocalDates(input.localDate, checkpointState.window.endDate) > 0,
-    variant: copyVariant,
   });
 }
 
@@ -193,7 +179,6 @@ function scoreCheckpoint(input: {
     | null;
   completedCheckpointCount: number;
   nextCheckpointDate?: string;
-  variant: RiverRunCopyVariant;
 }): CheckpointScore {
   const sourceDates = datesBetween(
     input.checkpoint.observationStartDate,
@@ -241,7 +226,6 @@ function scoreCheckpoint(input: {
         evidenceGate,
         "conditions_insufficient",
       ],
-      variant: input.variant,
     });
   }
 
@@ -268,7 +252,6 @@ function scoreCheckpoint(input: {
         "conditions_limited_source_days",
         "conditions_insufficient",
       ],
-      variant: input.variant,
     });
   }
 
@@ -369,15 +352,11 @@ function scoreCheckpoint(input: {
     sourceRefreshSlots,
     ...conditionsCopy({
       label: timingLabel,
-      checkpoint: input.checkpoint,
       signalsStronglyMixed,
       oppositeCheckpointTempered,
-      hydraulicLabel: input.run.push.hydraulic.sourceLabel,
-      variant: input.variant,
     }),
     reasonCodes: [...reasonCodes],
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant: input.variant,
   };
 }
 
@@ -609,6 +588,8 @@ function checkpointReasonCode(
       return "conditions_checkpoint_river_start";
     case "building_start":
       return "conditions_checkpoint_building_start";
+    case "building_established":
+      return "conditions_checkpoint_building_established";
     case "peak_start":
       return "conditions_checkpoint_peak_start";
     case "peak_complete":
@@ -633,106 +614,53 @@ function conditionsReasonCode(
 
 function conditionsCopy(input: {
   label: Exclude<ConditionsTimingLabel, "Insufficient evidence">;
-  checkpoint: ConditionsSuggestCheckpoint;
   signalsStronglyMixed: boolean;
   oppositeCheckpointTempered: boolean;
-  hydraulicLabel: string;
-  variant: RiverRunCopyVariant;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
-  const period = checkpointPeriodName(input.checkpoint);
   if (input.oppositeCheckpointTempered) {
     return {
-      headline: alternate(
-        input.variant,
-        "Run Timing remains near the historical pattern overall.",
-        "The cumulative timing read remains Typical.",
-      ),
+      headline: "The run still appears to be moving at a normal seasonal pace.",
       detail:
-        `Evidence through the ${period} pointed opposite the prior checkpoint. To avoid flipping directly from Ahead to Delayed, or Delayed to Ahead, Run Timing conservatively holds the overall timing at Typical.`,
-      tip: alternate(
-        input.variant,
-        "Use Push for today's movement conditions; this saved checkpoint compares the season so far with history.",
-        "The newer evidence changed direction, but not enough to erase the established seasonal pattern.",
-      ),
+        "Recent river and temperature signals changed direction, but the season as a whole does not support a clear early or late call.",
+      tip:
+        "Fish the normal river section for the current Run Stage. Begin in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
     };
   }
   if (input.signalsStronglyMixed) {
     return {
-      headline: alternate(
-        input.variant,
-        "Run Timing remains near the historical pattern overall.",
-        "Mixed seasonal signals resolve to Typical timing.",
-      ),
+      headline: "The run still appears to be moving at a normal seasonal pace.",
       detail:
-        `Through the ${period}, ${input.hydraulicLabel} river response and measured-water temperature point in different timing directions. Neither is allowed to overpower the other, so the historical comparison remains Typical.`,
-      tip: alternate(
-        input.variant,
-        "Use Push for today's movement conditions; this card will not call the season early or late on one conflicting signal.",
-        "Typical here means mixed evidence, not average fishing.",
-      ),
+        "River levels and water temperature are pointing in different directions, so neither supports a clear early or late read.",
+      tip:
+        "Keep the normal distribution plan for the current Run Stage. Start in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
     };
   }
   switch (input.label) {
     case "Ahead":
       return {
-        headline: alternate(
-          input.variant,
-          "Run Timing points to earlier development than typical.",
-          "The season-to-date pattern is running ahead of history.",
-        ),
+        headline: "The run appears to be developing earlier than usual.",
         detail:
-          `From staging through the ${period}, both ${input.hydraulicLabel} river response and measured-water temperature rank on the earlier side of this run's historical record.`,
-        tip: alternate(
-          input.variant,
-          "This supports earlier seasonal timing; it does not confirm fish entered the river or predict today's bite.",
-          "Expect the run calendar to be developing early, then use Push and Fishability for current conditions.",
-        ),
+          "The river has risen and cooled faster than it normally does by this point in the season.",
+        tip:
+          "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
       };
     case "Typical":
       return {
-        headline: alternate(
-          input.variant,
-          "Run Timing remains near the historical pattern.",
-          "The season-to-date pattern is tracking close to history.",
-        ),
+        headline:
+          "The run appears to be progressing at a normal seasonal pace.",
         detail:
-          `From staging through the ${period}, the combined ${input.hydraulicLabel} river-response and measured-water pattern remains near this run's historical range.`,
-        tip: alternate(
-          input.variant,
-          "Typical describes seasonal timing, not average fishing; use Push and Fishability for current conditions.",
-          "Keep the researched calendar as the best timing expectation and read today's river separately.",
-        ),
+          "River rises and cooling are close to what is usually seen by this point in the season.",
+        tip:
+          "Fish the core river section identified by Run Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
       };
     case "Delayed":
       return {
-        headline: alternate(
-          input.variant,
-          "Run Timing points to later development than typical.",
-          "The season-to-date pattern is running behind history.",
-        ),
+        headline: "The run appears to be developing later than usual.",
         detail:
-          `From staging through the ${period}, both ${input.hydraulicLabel} river response and measured-water temperature rank on the later side of this run's historical record.`,
-        tip: alternate(
-          input.variant,
-          "Delayed does not mean fish are absent. A fresh Push can improve today's entry conditions without rewriting the saved seasonal checkpoint.",
-          "Expect slower seasonal development, but use Push to catch a newly supportive weather-and-water event.",
-        ),
+          "The river has risen and cooled more slowly than it normally does by this point in the season.",
+        tip:
+          "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
       };
-  }
-}
-
-function checkpointPeriodName(
-  checkpoint: ConditionsSuggestCheckpoint,
-): string {
-  switch (checkpoint.checkpointId) {
-    case "river_start":
-      return "pre-run checkpoint";
-    case "building_start":
-      return "beginning-stage checkpoint";
-    case "peak_start":
-      return "building-stage checkpoint";
-    case "peak_complete":
-      return "peak-window checkpoint";
   }
 }
 
@@ -740,8 +668,6 @@ function awaitingResult(input: {
   observationStarted: boolean;
   observationStartDate: string;
   nextCheckpointDate?: string;
-  hydraulicLabel: string;
-  variant: RiverRunCopyVariant;
 }): ConditionsSuggestResult {
   return {
     label: "Evaluating",
@@ -761,78 +687,43 @@ function awaitingResult(input: {
     sourceDates: [],
     sourceRefreshSlots: {},
     headline: input.observationStarted
-      ? alternate(
-        input.variant,
-        "Run Timing is building its first season-to-date comparison.",
-        "The first historical timing read is still collecting evidence.",
-      )
-      : alternate(
-        input.variant,
-        "Run Timing has not started collecting this run's evidence.",
-        "Seasonal timing evidence begins with the staging period.",
-      ),
+      ? "Run Timing is still taking shape."
+      : "It is too early for a dependable timing read.",
     detail: input.observationStarted
-      ? `Measured water temperature and ${input.hydraulicLabel} river response are accumulating from the staging start. No early, typical, or delayed result is issued until the first checkpoint is complete.`
-      : `Season-to-date evidence begins on the configured staging date, ${
-        displayLocalDate(input.observationStartDate)
-      }.`,
-    tip: input.nextCheckpointDate
-      ? alternate(
-        input.variant,
-        `The first saved timing comparison will be available ${
-          displayLocalDate(input.nextCheckpointDate)
-        }.`,
-        `Check back after ${
-          displayLocalDate(input.nextCheckpointDate)
-        }; the engine will not guess before the evidence window closes.`,
-      )
-      : alternate(
-        input.variant,
-        "Check the configured run calendar for the first timing checkpoint.",
-        "A timing label will appear only after a configured comparison point is reached.",
-      ),
+      ? "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature."
+      : "The run has not developed enough to compare its pace with a typical season.",
+    tip: input.observationStarted
+      ? "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Run Stage advances or direct fish activity supports it."
+      : "Keep the trip in the lake, harbor, and river-mouth zone. Do not use Run Timing to justify an inland river trip before a dependable seasonal pattern exists.",
     reasonCodes: ["conditions_checkpoint_evaluating"],
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant: input.variant,
   };
 }
 
 function completeResult(input: {
-  run: Pick<RiverRunProfile, "displayName">;
   checkpointResult: CheckpointScore;
   mainRunWindowPassed: boolean;
-  variant: RiverRunCopyVariant;
 }): ConditionsSuggestResult {
   const timingLabel = input.checkpointResult.timingLabel;
   const finalDetail = timingLabel === "Insufficient evidence"
-    ? "The final peak-window comparison did not have enough matching gauge, measured-water, and historical evidence for a responsible timing classification."
-    : `The final season-to-date peak-window comparison was ${timingLabel}. The timing evaluation stops here because earlier-versus-later loses practical value once the run is well underway.`;
+    ? "There was not enough reliable season-long river and temperature information to make an early, normal, or late call."
+    : input.mainRunWindowPassed
+    ? `Earlier in the season, the run was moving ${
+      timingPhrase(timingLabel)
+    }. Now that the main run has passed, any remaining opportunity matters more than an early-or-late call.`
+    : `Earlier in the season, the run was moving ${
+      timingPhrase(timingLabel)
+    }. Now that the run is well underway, current movement and river conditions matter more than an early-or-late call.`;
   return {
     ...input.checkpointResult,
     label: "Timing complete",
     headline: input.mainRunWindowPassed
-      ? alternate(
-        input.variant,
-        `The configured ${input.run.displayName} run window has passed.`,
-        `Seasonal timing is complete for this ${input.run.displayName} run.`,
-      )
-      : alternate(
-        input.variant,
-        `The configured ${input.run.displayName} run is now well underway by calendar timing.`,
-        "The run is far enough underway that Run Timing is complete.",
-      ),
+      ? "This season's Run Timing read is complete."
+      : "The early-season timing read is complete.",
     detail: finalDetail,
     tip: input.mainRunWindowPassed
-      ? alternate(
-        input.variant,
-        "Run Timing and Push are complete; Fish In River remains historical seasonal context only.",
-        "No new early-or-late call will be made after the researched run window.",
-      )
-      : alternate(
-        input.variant,
-        "Use Push for fresh movement conditions and Fish In River for expected seasonal presence.",
-        "The final timing result stays visible, while current movement and river shape continue to update separately.",
-      ),
+      ? "Stop planning around whether the run was early or late. Fish only the remaining established holding water supported by Fish In River, and treat scattered late fish as exceptions."
+      : "Stop shifting river sections based on early-or-late timing. Begin in established holding water for the current Run Stage; if Push is Possible or stronger, make lower travel lanes the next stop.",
     reasonCodes: [
       ...new Set([
         ...input.checkpointResult.reasonCodes,
@@ -840,7 +731,6 @@ function completeResult(input: {
       ]),
     ],
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant: input.variant,
   };
 }
 
@@ -855,7 +745,6 @@ function insufficientResult(input: {
   historicalYears: number;
   baseline?: RiverRunConditionsSuggestBaseline | null;
   reasonCodes: RiverRunReasonCode[];
-  variant: RiverRunCopyVariant;
 }): CheckpointScore {
   const insufficientReason = input.reasonCodes.find((reasonCode) =>
     reasonCode.startsWith("conditions_") &&
@@ -886,7 +775,7 @@ function insufficientResult(input: {
     temperatureSourceId: input.baseline?.temperatureSourceId,
     sourceDates: input.sourceDates,
     sourceRefreshSlots: input.sourceRefreshSlots,
-    ...insufficientCopy(insufficientReason, input.variant),
+    ...insufficientCopy(insufficientReason),
     reasonCodes: [
       ...new Set([
         ...input.reasonCodes,
@@ -894,25 +783,16 @@ function insufficientResult(input: {
       ]),
     ],
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant: input.variant,
   };
 }
 
 function insufficientCopy(
   reason?: RiverRunReasonCode,
-  variant: RiverRunCopyVariant = "A",
 ): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   const base = {
-    headline: alternate(
-      variant,
-      "Run Timing does not have enough evidence to classify this checkpoint.",
-      "This historical timing comparison remains unclassified.",
-    ),
-    tip: alternate(
-      variant,
-      "The engine leaves this checkpoint unclassified instead of guessing; a later checkpoint may classify with enough matching evidence.",
-      "No early, typical, or delayed label is safer than a conclusion built from incomplete or mismatched data.",
-    ),
+    headline: "There is not enough reliable information for a Run Timing call.",
+    tip:
+      "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Run Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
   };
   switch (reason) {
     case "conditions_baseline_missing":
@@ -920,66 +800,59 @@ function insufficientCopy(
       return {
         ...base,
         detail:
-          "At least five matching historical years are not available for this cumulative run checkpoint.",
+          "There are not enough dependable past seasons to judge whether this run is early, normal, or late.",
       };
     case "conditions_baseline_version_mismatch":
     case "conditions_baseline_window_mismatch":
       return {
         ...base,
         detail:
-          "The saved historical checkpoint does not match the active cumulative Run Timing configuration.",
+          "Some of the long-term comparison data does not line up cleanly with this season, so showing a timing label would be misleading.",
       };
     case "conditions_missing_checkpoint_gauge":
       return {
         ...base,
         detail:
-          "The checkpoint cutoff date does not have a current reading from the primary gauge used by this comparison.",
+          "A dependable river-level reading was missing when this seasonal timing read needed it.",
       };
     case "conditions_missing_checkpoint_temperature":
       return {
         ...base,
         detail:
-          "The checkpoint cutoff date does not have a current reading from the measured-water source used by this comparison.",
+          "A dependable water-temperature reading was missing when this seasonal timing read needed it.",
       };
     case "conditions_source_mismatch":
       return {
         ...base,
         detail:
-          "The current gauge or measured-water source does not match the source used to build this checkpoint.",
+          "The available river and temperature readings do not line up cleanly with the long-term comparison, so the result stays blank.",
       };
     case "conditions_limited_source_days":
       return {
         ...base,
         detail:
-          "The cumulative checkpoint has fewer matching gauge-and-temperature dates than its configured coverage requirement.",
+          "Too many days are missing either river level or water temperature to make a dependable seasonal comparison.",
       };
     default:
       return {
         ...base,
         detail:
-          "This cumulative checkpoint needs matching primary-gauge, measured-water, and five-year historical evidence.",
+          "The season-long river and temperature record is incomplete, so an early, normal, or late label would overstate what is known.",
       };
   }
 }
 
-function displayLocalDate(value: string): string {
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
-  if (!match) return value;
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  return `${months[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
+function timingPhrase(label: ConditionsTimingLabel): string {
+  switch (label) {
+    case "Ahead":
+      return "earlier than usual";
+    case "Typical":
+      return "close to its normal pace";
+    case "Delayed":
+      return "later than usual";
+    case "Insufficient evidence":
+      return "without a dependable timing call";
+  }
 }
 
 function datesBetween(startDate: string, endDate: string): string[] {

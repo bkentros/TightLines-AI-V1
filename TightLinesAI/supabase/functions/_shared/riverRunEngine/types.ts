@@ -88,7 +88,6 @@ export type PrimitiveDisplay = {
   tip: string;
   reasonCodes: RiverRunReasonCode[];
   copyVersion?: string;
-  copyVariant?: "A" | "B";
 };
 
 export type DataQuality = {
@@ -186,7 +185,9 @@ export type WeatherPointConfig = {
 
 export type ConditionRefreshSchedule = {
   /**
-   * Local observation slots used from stagingStart through the main run end.
+   * Local observation slots used from stagingStart through the historical
+   * presence tail so live Fishability remains current while opportunity is
+   * still described.
    * The protected server job runs shortly after each configured slot so the
    * source's newest transmitted observation has time to arrive.
    */
@@ -284,12 +285,18 @@ export type RiverRunProfile = {
   movementEngineId: MovementEngineId;
 
   runWindow: {
+    preRunStart: string;
     stagingStart: string;
     start: string;
+    beginningEnd: string;
+    buildingEstablishedStart: string;
+    peakStart: string;
     peak: string;
+    peakEnd: string;
+    taperingEnd: string;
     end: string;
     lateEnd: string;
-    peakWindowDays?: number;
+    postRunLateCopyEnd: string;
   };
 
   historicalPresence: HistoricalPresenceConfig;
@@ -308,6 +315,7 @@ export type RiverRunProfile = {
   conditionsSuggest: {
     baselineVersion: string;
     temperatureSourceId: string;
+    finalCheckpointDaysAfterPeak: number;
     minimumUsableYears: number;
     minimumCoveragePercent: number;
     aheadPercentile: number;

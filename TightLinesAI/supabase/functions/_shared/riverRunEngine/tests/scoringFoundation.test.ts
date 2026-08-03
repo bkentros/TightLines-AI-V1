@@ -45,7 +45,6 @@ function pushWith(
     trackingState: "active",
     trackingStartDate: "2026-08-15",
     trackingEndDate: "2026-10-20",
-    copyVariant: "A",
     ...overrides,
   });
 }
@@ -61,31 +60,81 @@ function fishabilityWith(
     currentHydraulicValue: 600,
     hydraulicAbsoluteChange24h: 0,
     hydraulicPercentChange24h: 0,
-    copyVariant: "A",
     ...overrides,
   });
 }
 
 Deno.test("Run Stage scenarios cover pre-run through post-run", () => {
+  assertEquals(resolveRunStage(pmRun, "2026-06-30").stage, "post_run");
+  assertEquals(resolveRunStage(pmRun, "2026-07-01").stage, "pre_run");
+  assertEquals(resolveRunStage(pmRun, "2026-07-27").stagingContext, false);
+  assertEquals(resolveRunStage(pmRun, "2026-07-28").stagingContext, true);
   assertEquals(resolveRunStage(pmRun, "2026-08-10").stage, "pre_run");
   assertEquals(resolveRunStage(pmRun, "2026-08-22").stage, "beginning");
   assertEquals(resolveRunStage(pmRun, "2026-08-25").stage, "building");
   assertEquals(resolveRunStage(pmRun, "2026-09-10").stage, "building");
   assertEquals(resolveRunStage(pmRun, "2026-09-20").stage, "peak");
+  assertEquals(resolveRunStage(pmRun, "2026-09-30").stage, "peak");
   assertEquals(resolveRunStage(pmRun, "2026-10-01").stage, "tapering");
-  assertEquals(resolveRunStage(pmRun, "2026-10-15").stage, "ending");
+  assertEquals(resolveRunStage(pmRun, "2026-10-18").stage, "tapering");
+  assertEquals(resolveRunStage(pmRun, "2026-10-19").stage, "ending");
+  assertEquals(resolveRunStage(pmRun, "2026-10-27").stage, "ending");
+  assertEquals(resolveRunStage(pmRun, "2026-10-28").stage, "post_run");
   assertEquals(resolveRunStage(pmRun, "2026-11-05").stage, "post_run");
+});
+
+Deno.test("Run Stage uses distinct early and established Building guidance", () => {
+  const early = resolveRunStage(pmRun, "2026-08-31");
+  const established = resolveRunStage(pmRun, "2026-09-01");
+
+  assertEquals(early.stage, "building");
+  assertEquals(established.stage, "building");
+  assert(early.detail.includes("beginning to spread upstream"));
+  assert(established.detail.includes("travel well upstream"));
+  assert(established.tip.includes("middle-river holding water"));
+  assert(established.tip.includes("work upstream"));
+});
+
+Deno.test("staging guidance allows rare early river fish without claiming a run", () => {
+  const staging = resolveRunStage(pmRun, "2026-08-01");
+
+  assertEquals(staging.stage, "pre_run");
+  assertEquals(staging.stagingContext, true);
+  assert(staging.headline.includes("a few early fish could be in the river"));
+  assert(
+    staging.detail.includes("dependable river numbers have not developed"),
+  );
+});
+
+Deno.test("Post-run copy separates the late tail from the offseason", () => {
+  const lateTail = resolveRunStage(pmRun, "2026-10-28");
+  const lastLateCopyDay = resolveRunStage(pmRun, "2026-11-10");
+  const offseason = resolveRunStage(pmRun, "2026-11-11");
+
+  assertEquals(lateTail.stage, "post_run");
+  assertEquals(lastLateCopyDay.stage, "post_run");
+  assertEquals(offseason.stage, "post_run");
+  assert(lateTail.detail.includes("A few fish may remain"));
+  assert(lastLateCopyDay.detail.includes("A few fish may remain"));
+  assert(offseason.headline.includes("outside their river-run season"));
+  assertEquals(offseason.detail.includes("A few fish may remain"), false);
 });
 
 Deno.test("cross-year run window selects active year around snapshot date", () => {
   const winterRun = runWith({
     runWindow: {
+      preRunStart: "11-15",
       stagingStart: "12-01",
       start: "12-15",
+      beginningEnd: "12-20",
+      buildingEstablishedStart: "12-27",
+      peakStart: "01-05",
       peak: "01-10",
+      peakEnd: "01-15",
+      taperingEnd: "02-05",
       end: "02-15",
       lateEnd: "03-01",
-      peakWindowDays: 5,
+      postRunLateCopyEnd: "03-10",
     },
   });
 
@@ -112,12 +161,100 @@ Deno.test("Fish In River stays zero before the river start and follows the river
   const postRun = scoreFishInRiver(pmRun, "2026-11-10");
 
   assertEquals(staging.score, 0);
-  assertEquals(beginning.score, 1);
-  assertEquals(peakSignature.score, 10);
-  assertEquals(peakSignature.maximum, 10);
-  assertEquals(cappedPeak.score, 6);
-  assertEquals(cappedPeak.maximum, 6);
+  assertEquals(beginning.score, 10);
+  assertEquals(peakSignature.score, 100);
+  assertEquals(peakSignature.maximum, 100);
+  assertEquals(peakSignature.riverCeiling, 100);
+  assertEquals(cappedPeak.score, 60);
+  assertEquals(cappedPeak.maximum, 100);
+  assertEquals(cappedPeak.riverCeiling, 60);
   assertEquals(postRun.score, 0);
+});
+
+Deno.test("PM Fish In River keeps a post-peak shoulder and later October tail", () => {
+  const upperBuilding = scoreFishInRiver(pmRun, "2026-09-14");
+  const entersPeakPresence = scoreFishInRiver(pmRun, "2026-09-17");
+  const justBeyondPeak = scoreFishInRiver(pmRun, "2026-09-24");
+  const aboveSecondFallingThreshold = scoreFishInRiver(
+    pmRun,
+    "2026-10-01",
+  );
+  const belowSecondFallingThreshold = scoreFishInRiver(
+    pmRun,
+    "2026-10-02",
+  );
+  const october8 = scoreFishInRiver(pmRun, "2026-10-08");
+  const october15 = scoreFishInRiver(pmRun, "2026-10-15");
+  const october23 = scoreFishInRiver(pmRun, "2026-10-23");
+  const november3 = scoreFishInRiver(pmRun, "2026-11-03");
+  const november7 = scoreFishInRiver(pmRun, "2026-11-07");
+  const november8 = scoreFishInRiver(pmRun, "2026-11-08");
+
+  assertEquals(upperBuilding.score, 81);
+  assertEquals(upperBuilding.label, "High presence");
+  assertEquals(upperBuilding.curveDirection, "rising");
+  assertEquals(entersPeakPresence.score, 91);
+  assertEquals(entersPeakPresence.label, "Peak presence");
+  assertEquals(entersPeakPresence.curveDirection, "rising");
+  assertEquals(justBeyondPeak.score, 98);
+  assertEquals(justBeyondPeak.curveDirection, "falling");
+  assert(
+    justBeyondPeak.headline.includes("may be just beyond its usual peak"),
+  );
+  assertEquals(
+    /begun to decline|has just passed/i.test(
+      `${justBeyondPeak.headline} ${justBeyondPeak.detail}`,
+    ),
+    false,
+  );
+  assertEquals(aboveSecondFallingThreshold.score, 92);
+  assertEquals(aboveSecondFallingThreshold.label, "Peak presence");
+  assert(
+    aboveSecondFallingThreshold.headline.includes(
+      "near their strongest in-river presence",
+    ),
+  );
+  assertEquals(belowSecondFallingThreshold.score, 89);
+  assertEquals(belowSecondFallingThreshold.label, "High presence");
+  assert(
+    belowSecondFallingThreshold.headline.includes(
+      "strong Chinook salmon presence across much of the river",
+    ),
+  );
+  assert(
+    belowSecondFallingThreshold.headline.includes(
+      "usual peak window may be easing",
+    ),
+  );
+  assert(belowSecondFallingThreshold.tip.startsWith("Work established"));
+  assertEquals(october8.score, 73);
+  assertEquals(october15.score, 53);
+  assertEquals(october23.score, 31);
+  assertEquals(october23.label, "Limited presence");
+  assert(october23.tip.startsWith("Cover a short list"));
+  assertEquals(november3.score, 9);
+  assertEquals(november7.score, 2);
+  assertEquals(november8.score, 0);
+  assertEquals(
+    pmRun.historicalPresence.curveVersion,
+    "pm-fall-chinook-presence-v2",
+  );
+
+  const cappedRun = runWith({
+    historicalPresence: {
+      ...pmRun.historicalPresence,
+      maximum: 6,
+    },
+  });
+  const cappedBelowThreshold = scoreFishInRiver(cappedRun, "2026-10-02");
+  assertEquals(cappedBelowThreshold.score, 54);
+  assertEquals(cappedBelowThreshold.riverCeiling, 60);
+  assertEquals(cappedBelowThreshold.label, "High presence");
+  assert(
+    cappedBelowThreshold.headline.includes(
+      "usual peak window may be easing",
+    ),
+  );
 });
 
 Deno.test("rain missing and dry remain distinct inputs", () => {
@@ -173,7 +310,7 @@ Deno.test("sharp Scottville response plus supportive cooling produces Very stron
   assertEquals(result.components?.temperatureModifier, 10);
 });
 
-Deno.test("Push copy uses configured gauge and suitability labels", () => {
+Deno.test("Push copy does not expose internal source or suitability labels", () => {
   const result = pushWith({
     rules: {
       ...pmRun.push,
@@ -191,8 +328,9 @@ Deno.test("Push copy uses configured gauge and suitability labels", () => {
     hydraulicPercentChange24h: 8,
   });
 
-  assert(result.detail.includes("Future River Gauge"));
-  assert(result.detail.includes("adult fall Coho migration"));
+  assert(result.detail.includes("river has made a clear rise"));
+  assertEquals(result.detail.includes("Future River Gauge"), false);
+  assertEquals(result.detail.includes("adult fall Coho migration"), false);
   assertEquals(/Scottville|Chinook/.test(result.detail), false);
 });
 
@@ -209,8 +347,8 @@ Deno.test("upstream temperature fallback cannot create positive cooling credit",
   assertEquals(result.components?.temperatureModifier, 0);
   assertEquals(result.score, 80);
   assertEquals(result.label, "Strong");
-  assert(result.detail.includes("upstream fallback"));
-  assert(result.detail.includes("adds no positive credit"));
+  assert(result.detail.includes("farther upstream"));
+  assert(result.detail.includes("not treated as proof"));
 });
 
 Deno.test("fall cooling does not award Strong before a measured gauge response", () => {
@@ -234,6 +372,23 @@ Deno.test("measured gauge response absorbs rain credit", () => {
   assertEquals(result.components?.rainModifier, 0);
   assertEquals(result.components?.rainRole, "absorbed_by_gauge");
   assert(result.reasonCodes.includes("push_rain_absorbed_by_gauge"));
+});
+
+Deno.test("measured gauge response also neutralizes a dry-rain penalty", () => {
+  const result = pushWith({
+    rainSignal: "dry",
+    flowSignal: "meaningful_rise",
+    currentHydraulicValue: 700,
+    hydraulicAbsoluteChange24h: 50,
+    hydraulicPercentChange24h: 8,
+  });
+
+  assertEquals(result.components?.rainModifier, 0);
+  assertEquals(result.components?.rainRole, "absorbed_by_gauge");
+  assertEquals(result.score, 70);
+  assertEquals(result.label, "Strong");
+  assert(result.reasonCodes.includes("push_rain_absorbed_by_gauge"));
+  assert(result.detail.includes("rainfall adds no separate weight"));
 });
 
 Deno.test("severe-high fall river caps Push below Strong despite rain and cooling", () => {
@@ -273,9 +428,8 @@ Deno.test("fall cooling warm dry falling produces Weak Push", () => {
 
   assertEquals(result.score, 0);
   assertEquals(result.label, "Weak");
-  assert(result.tip.includes("can enter from the lake at any point"));
-  assert(result.tip.includes("more commonly associated with cooling"));
-  assert(result.tip.includes("cannot confirm or rule out movement"));
+  assert(result.tip.includes("Do not build the day around new arrivals"));
+  assert(result.tip.includes("established holding water"));
 });
 
 Deno.test("stale gauge caps Push at 55", () => {
@@ -301,7 +455,7 @@ Deno.test("missing gauge makes Push unavailable", () => {
   assertEquals(result.score, null);
   assertEquals(result.label, "Unavailable");
   assert(result.reasonCodes.includes("gauge_missing"));
-  assert(result.tip.includes("cannot confirm or rule out movement"));
+  assert(result.tip.includes("do not chase recent rain as proof"));
 });
 
 Deno.test("warm migration barrier caps Push below Possible", () => {
@@ -314,6 +468,46 @@ Deno.test("warm migration barrier caps Push below Possible", () => {
   assertEquals(result.score, 49);
   assertEquals(result.label, "No clear push");
   assert(result.reasonCodes.includes("push_temperature_barrier_cap"));
+});
+
+Deno.test("Push temperature boundaries distinguish favorable from warm-side water", () => {
+  const cases = [
+    { waterTempF: 50.9, state: "cool_plateau" },
+    { waterTempF: 51, state: "supportive" },
+    { waterTempF: 63, state: "supportive" },
+    { waterTempF: 63.1, state: "transitional_warm" },
+    { waterTempF: 68, state: "transitional_warm" },
+    { waterTempF: 68.1, state: "too_warm" },
+    { waterTempF: 70, state: "migration_barrier" },
+  ] as const;
+
+  for (const testCase of cases) {
+    const result = pushWith({ waterTempF: testCase.waterTempF });
+    assertEquals(
+      result.components?.temperatureState,
+      testCase.state,
+      `${testCase.waterTempF}F`,
+    );
+  }
+
+  const favorableCooling = pushWith({
+    waterTempF: 62,
+    temperatureSignal: "strong_cooling",
+  });
+  const warmSideCooling = pushWith({
+    waterTempF: 64,
+    temperatureSignal: "strong_cooling",
+  });
+  const warmSideSteady = pushWith({
+    waterTempF: 64,
+    temperatureSignal: "neutral",
+  });
+
+  assertEquals(favorableCooling.components?.temperatureModifier, 10);
+  assertEquals(warmSideCooling.components?.temperatureModifier, 8);
+  assertEquals(warmSideSteady.components?.temperatureModifier, -3);
+  assert(warmSideSteady.detail.includes("on the warm side"));
+  assertEquals(warmSideSteady.detail.includes("ideal"), false);
 });
 
 Deno.test("cool-water plateau prevents continued cooling credit", () => {
@@ -339,17 +533,19 @@ Deno.test("unknown flow trend fails conservatively", () => {
   assert(unknown.reasonCodes.includes("push_unknown_trend_cap"));
 });
 
-Deno.test("Push tracking follows the configured run start and end", () => {
+Deno.test("Push tracking uses useful seasonal copy without exposing dates", () => {
   const before = pushWith({ trackingState: "not_started" });
   const after = pushWith({ trackingState: "complete" });
 
   assertEquals(before.score, null);
-  assertEquals(before.label, "Tracking not started");
-  assert(before.headline.includes("August 15, 2026"));
+  assertEquals(before.label, "Waiting for run");
+  assert(before.headline.includes("river run has not started"));
+  assertEquals(before.headline.includes("August 15, 2026"), false);
   assert(before.reasonCodes.includes("push_tracking_not_started"));
   assertEquals(after.score, null);
-  assertEquals(after.label, "Tracking complete");
-  assert(after.detail.includes("October 20, 2026"));
+  assertEquals(after.label, "Run complete");
+  assert(after.detail.includes("no longer provide a dependable read"));
+  assertEquals(after.detail.includes("October 20, 2026"), false);
   assert(after.reasonCodes.includes("push_tracking_complete"));
 });
 
@@ -358,12 +554,29 @@ Deno.test("ideal stable fishability is Excellent", () => {
 
   assertEquals(result.score, 93);
   assertEquals(result.label, "Excellent");
-  assertEquals(result.rulesVersion, "pm-scottville-fishability-v1");
-  assert(result.detail.includes("Scottville is 600 cfs"));
-  assert(result.detail.includes("same time yesterday"));
+  assertEquals(result.rulesVersion, "pm-scottville-fishability-v2");
+  assert(result.headline.includes("excellent range"));
+  assert(result.tip.includes("primary travel lane"));
+  assert(result.tip.includes("head through the inside seam and tail"));
+  assertEquals(
+    /Scottville|600 cfs|same time yesterday/i.test(result.detail),
+    false,
+  );
 });
 
-Deno.test("Fishability shared scoring copy uses the configured source identity", () => {
+Deno.test("stable 480 cfs Scottville flow is Fishable, not Good", () => {
+  const result = fishabilityWith({
+    flowBand: "low",
+    flowSignal: "stable",
+    currentHydraulicValue: 480,
+  });
+
+  assertEquals(result.score, 60);
+  assertEquals(result.label, "Fishable");
+  assertEquals(result.rulesVersion, "pm-scottville-fishability-v2");
+});
+
+Deno.test("Fishability copy remains river-neutral and hides source identity", () => {
   const result = fishabilityWith({
     rules: {
       ...pmRun.fishabilityBands,
@@ -372,7 +585,7 @@ Deno.test("Fishability shared scoring copy uses the configured source identity",
   });
   const copy = `${result.headline} ${result.detail} ${result.tip}`;
 
-  assert(copy.includes("Future River Main Gauge"));
+  assertEquals(copy.includes("Future River Main Gauge"), false);
   assertEquals(copy.includes("Scottville"), false);
   assertEquals(copy.includes("Pere Marquette"), false);
   assertEquals(copy.includes("Chinook"), false);
@@ -391,6 +604,10 @@ Deno.test("blown out fishability cap applies", () => {
   assertEquals(result.label, "Poor");
   assert(result.reasonCodes.includes("fishability_blown_out_cap"));
   assert(result.reasonCodes.includes("fishability_sharp_rise_high_cap"));
+  assert(result.tip.includes("Choose a lower-water day"));
+  assert(result.tip.includes("If you fish now"));
+  assert(result.tip.includes("protected banks"));
+  assertEquals(/postpone/i.test(result.tip), false);
 });
 
 Deno.test("very low fishability cap applies", () => {

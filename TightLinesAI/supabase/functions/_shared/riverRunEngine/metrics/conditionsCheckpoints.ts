@@ -9,6 +9,7 @@ import {
 export type ConditionsSuggestCheckpointId =
   | "river_start"
   | "building_start"
+  | "building_established"
   | "peak_start"
   | "peak_complete";
 
@@ -31,11 +32,15 @@ export type ConditionsSuggestCheckpointState = {
 };
 
 export function resolveConditionsSuggestCheckpoints(
-  run: Pick<RiverRunProfile, "runWindow">,
+  run: Pick<RiverRunProfile, "runWindow" | "conditionsSuggest">,
   localDate: string,
 ): ConditionsSuggestCheckpoint[] {
   const window = resolveActiveRunWindow(run, localDate);
   const observationStartDate = window.stagingStartDate;
+  const finalCheckpointCutoff = addDays(
+    window.peakDate,
+    run.conditionsSuggest.finalCheckpointDaysAfterPeak,
+  );
   return [
     {
       checkpointId: "river_start",
@@ -54,6 +59,14 @@ export function resolveConditionsSuggestCheckpoints(
       final: false,
     },
     {
+      checkpointId: "building_established",
+      checkpointDate: window.buildingEstablishedStartDate,
+      cutoffDate: addDays(window.buildingEstablishedStartDate, -1),
+      observationStartDate,
+      completedStage: "building",
+      final: false,
+    },
+    {
       checkpointId: "peak_start",
       checkpointDate: window.peakStartDate,
       cutoffDate: addDays(window.peakStartDate, -1),
@@ -63,8 +76,8 @@ export function resolveConditionsSuggestCheckpoints(
     },
     {
       checkpointId: "peak_complete",
-      checkpointDate: addDays(window.peakEndDate, 1),
-      cutoffDate: window.peakEndDate,
+      checkpointDate: addDays(finalCheckpointCutoff, 1),
+      cutoffDate: finalCheckpointCutoff,
       observationStartDate,
       completedStage: "peak",
       final: true,
@@ -73,7 +86,7 @@ export function resolveConditionsSuggestCheckpoints(
 }
 
 export function resolveConditionsSuggestCheckpointState(
-  run: Pick<RiverRunProfile, "runWindow">,
+  run: Pick<RiverRunProfile, "runWindow" | "conditionsSuggest">,
   localDate: string,
 ): ConditionsSuggestCheckpointState {
   const window = resolveActiveRunWindow(run, localDate);

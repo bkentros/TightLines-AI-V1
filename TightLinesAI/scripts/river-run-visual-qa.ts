@@ -119,8 +119,8 @@ assert.deepEqual(
     "Strong",
     "Very strong",
     "Unavailable",
-    "Tracking not started",
-    "Tracking complete",
+    "Waiting for run",
+    "Run complete",
   ]),
 );
 assert.deepEqual(
@@ -188,15 +188,20 @@ for (const scenario of pushGroup.scenarios) {
     kind: "push",
     primitive: scenario.snapshot.push,
   });
+  assert.equal(model.kicker, "FRESH FISH MOVEMENT SIGNAL");
+  assert.equal(model.artLabel, "LAKE → RIVER");
   const label = scenario.snapshot.push.label;
-  if (label === "Tracking not started") {
+  if (label === "Waiting for run") {
     assert.equal(model.specialState, "waiting");
   }
-  if (label === "Tracking complete") {
+  if (label === "Run complete") {
     assert.equal(model.specialState, "complete");
   }
   if (label === "Unavailable") {
     assert.equal(model.specialState, "unavailable");
+  }
+  if (!model.specialState) {
+    assert.equal(model.stateNote, "FRESH-WAVE POTENTIAL TODAY");
   }
 }
 
@@ -222,8 +227,15 @@ const presenceScale = resolveRiverRunVisualModel({
 }).stops;
 assert.deepEqual(
   presenceScale.map((stop) => stop.color),
-  ["#7F8790", "#557A91", "#397F9B", "#2C8F98", "#37947B", "#2D9B60"],
-  "Seasonal presence must use a neutral-to-cool scale rather than bad/good colors",
+  [
+    "#B83A32",
+    "#D94B3A",
+    "#E89647",
+    "#E8C547",
+    "#7CC36A",
+    "#3DA85F",
+  ],
+  "Fish In River must use the same red-orange-yellow-green score progression",
 );
 assert.deepEqual(
   new Set(
@@ -239,16 +251,17 @@ assert.deepEqual(
 
 const lowerCap = {
   ...presenceGroup.scenarios.find((scenario) =>
-    scenario.snapshot.fishInRiver.label === "Peak historical presence"
+    scenario.snapshot.fishInRiver.label === "Peak presence"
   )!.snapshot.fishInRiver,
-  score: 6,
-  maximum: 6,
+  score: 60,
+  maximum: 100,
+  riverCeiling: 60,
 };
 const lowerCapModel = resolveRiverRunVisualModel({
   kind: "fish_in_river",
   primitive: lowerCap,
 });
-assert.equal(lowerCapModel.riverMaximum, 6);
+assert.equal(lowerCapModel.riverMaximum, 60);
 assert.equal(lowerCapModel.selectedIndex, lowerCapModel.stops.length - 1);
 
 for (const group of RIVER_RUN_REVIEW_GROUPS) {
@@ -274,6 +287,12 @@ for (const group of RIVER_RUN_REVIEW_GROUPS) {
       /Conditions Suggest/i.test(publicCopy),
       false,
       `${scenario.id} exposes the retired public primitive name`,
+    );
+    assert.equal(
+      /\b(research(?:ed)?|configured?|checkpoint|baseline|percentile|engine|gauge|modeled|historical|cfs|visibility)\b/i
+        .test(publicCopy),
+      false,
+      `${scenario.id} exposes internal language`,
     );
   }
 }

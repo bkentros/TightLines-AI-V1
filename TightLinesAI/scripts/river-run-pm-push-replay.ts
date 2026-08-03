@@ -21,6 +21,7 @@ type ReplayRow = {
   rainSignal: string;
   score: number;
   label: string;
+  priorBandLabel: string;
   rainModifier: number;
   rainRole: string;
   temperatureState: string;
@@ -53,7 +54,7 @@ const flowObservations = await fetchUsgsDailyFlowBaselineObservations({
   riverId: river.riverId,
   siteId: gauge.siteId,
   startDate: `${startYear}-07-24`,
-  endDate: `${endYear}-11-03`,
+  endDate: `${endYear}-11-08`,
 });
 const flowByDate = new Map(
   flowObservations.map((observation) => [
@@ -100,7 +101,7 @@ const rainByDate = await fetchDailyRain({
   lon: weatherPoint.lon,
   timezone: river.timezone,
   startDate: `${startYear}-07-24`,
-  endDate: `${endYear}-11-03`,
+  endDate: `${endYear}-11-08`,
 });
 
 const rows: ReplayRow[] = [];
@@ -169,6 +170,32 @@ for (let year = startYear; year <= endYear; year++) {
       flowReasonCodes: flowTrend.reasonCodes,
       temperatureReasonCodes: temperatureTrend.reasonCodes,
     });
+    const priorBandResult = scorePush({
+      movementEngineId: run.movementEngineId,
+      rules: {
+        ...run.push,
+        version: "pm-fall-chinook-push-v4-band-comparison",
+        temperature: {
+          ...run.push.temperature,
+          supportiveMaxF: 67,
+        },
+      },
+      gaugeFreshness: "fresh",
+      flowSignal: flowTrend.rawSignal,
+      currentHydraulicValue: flow,
+      hydraulicAbsoluteChange24h: flowTrend.absoluteChange24h,
+      hydraulicPercentChange24h: flowTrend.percentChange24h,
+      rainSignal: rain.rawSignal,
+      temperatureSignal: temperatureTrend.rawSignal,
+      temperatureSourceType: temperatureSource.sourceType,
+      waterTempF,
+      trackingState: "active",
+      trackingStartDate: firstDate,
+      trackingEndDate: lastDate,
+      rainReasonCodes: rain.reasonCodes,
+      flowReasonCodes: flowTrend.reasonCodes,
+      temperatureReasonCodes: temperatureTrend.reasonCodes,
+    });
     if (result.score == null || !result.components) continue;
     rows.push({
       localDate,
@@ -180,6 +207,7 @@ for (let year = startYear; year <= endYear; year++) {
       rainSignal: rain.rawSignal,
       score: result.score,
       label: result.label,
+      priorBandLabel: priorBandResult.label,
       rainModifier: result.components.rainModifier,
       rainRole: result.components.rainRole,
       temperatureState: result.components.temperatureState,
@@ -208,6 +236,13 @@ const invariants = {
       (row.flowSignal === "meaningful_rise" ||
         row.flowSignal === "sharp_rise") &&
       row.rainModifier > 0
+    ).length,
+  dryPenaltyAfterMeaningfulResponse:
+    rows.filter((row) =>
+      (row.flowSignal === "meaningful_rise" ||
+        row.flowSignal === "sharp_rise") &&
+      row.rainSignal === "dry" &&
+      row.rainModifier < 0
     ).length,
   migrationBarrierAboveNoClearPush:
     rows.filter((row) =>
@@ -242,6 +277,11 @@ const report = {
     "Daily-resolution mechanical replay using Scottville daily mean discharge, Maple Leaf daily median measured water temperature, and Baldwin-point modeled daily precipitation. Runtime uses near-real-time inputs; this replay validates rule interactions, not fish-return accuracy.",
   usableReplayDays: rows.length,
   labelCounts: counts(rows.map((row) => row.label)),
+  labelTransitionsFromSupportiveThrough67F: counts(
+    rows.filter((row) => row.priorBandLabel !== row.label).map((row) =>
+      `${row.priorBandLabel} -> ${row.label}`
+    ),
+  ),
   flowSignalCounts: counts(rows.map((row) => row.flowSignal)),
   temperatureStateCounts: counts(rows.map((row) => row.temperatureState)),
   rainRoleCounts: counts(rows.map((row) => row.rainRole)),

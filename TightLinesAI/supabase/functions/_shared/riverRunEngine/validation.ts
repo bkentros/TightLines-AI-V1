@@ -777,7 +777,20 @@ function validateRunDates(
   run: RiverRunProfile,
   issues: RiverRunValidationIssue[],
 ): void {
-  const fields = ["stagingStart", "start", "peak", "end", "lateEnd"] as const;
+  const fields = [
+    "preRunStart",
+    "stagingStart",
+    "start",
+    "beginningEnd",
+    "buildingEstablishedStart",
+    "peakStart",
+    "peak",
+    "peakEnd",
+    "taperingEnd",
+    "end",
+    "lateEnd",
+    "postRunLateCopyEnd",
+  ] as const;
   const values = fields.map((field) => parseMonthDay(run.runWindow?.[field]));
   values.forEach((value, index) => {
     if (value === null) {
@@ -791,22 +804,16 @@ function validateRunDates(
     }
   });
   if (values.some((value) => value === null)) return;
-  const [staging, start, peak, end, lateEnd] = values as number[];
-  const offsets = [
-    forwardDistance(staging, start),
-    forwardDistance(staging, peak),
-    forwardDistance(staging, end),
-    forwardDistance(staging, lateEnd),
-  ];
-  if (
-    !(offsets[0] > 0 && offsets[0] < offsets[1] &&
-      offsets[1] < offsets[2] && offsets[2] < offsets[3] &&
-      offsets[3] <= 366)
-  ) {
+  const parsed = values as number[];
+  const offsets = parsed.map((value) => forwardDistance(parsed[0], value));
+  const datesProgress = offsets.every((offset, index) =>
+    index === 0 || offset > offsets[index - 1]
+  );
+  if (!datesProgress || offsets.at(-1)! > 366) {
     issues.push(
       issue(
         "runWindow",
-        "Dates must progress stagingStart → start → peak → end → lateEnd, including cross-year runs.",
+        "Run Stage dates must progress from preRunStart through lateEnd, including cross-year runs.",
         "config_date_order_invalid",
       ),
     );
@@ -1107,6 +1114,19 @@ function validateConditionsSuggestPolicy(
       ),
     );
     return;
+  }
+  if (
+    !Number.isInteger(policy.finalCheckpointDaysAfterPeak) ||
+    policy.finalCheckpointDaysAfterPeak < 0 ||
+    policy.finalCheckpointDaysAfterPeak > 45
+  ) {
+    issues.push(
+      issue(
+        "conditionsSuggest.finalCheckpointDaysAfterPeak",
+        "Run Timing's final checkpoint offset must be from 0 through 45 days after the peak reference.",
+        "config_invalid_value",
+      ),
+    );
   }
   if (
     !Number.isInteger(policy.minimumUsableYears) ||

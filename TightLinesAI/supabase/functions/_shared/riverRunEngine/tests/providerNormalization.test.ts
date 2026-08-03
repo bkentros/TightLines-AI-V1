@@ -264,9 +264,10 @@ Deno.test("Admin fishabilityBands override maps values to bands", () => {
   assertEquals(resolveAdminOverrideBand(399.9, bands), "very_low");
   assertEquals(resolveAdminOverrideBand(400, bands), "low");
   assertEquals(resolveAdminOverrideBand(400.1, bands), "low");
-  assertEquals(resolveAdminOverrideBand(474.9, bands), "low");
-  assertEquals(resolveAdminOverrideBand(475, bands), "normal_fishable");
-  assertEquals(resolveAdminOverrideBand(475.1, bands), "normal_fishable");
+  assertEquals(resolveAdminOverrideBand(480, bands), "low");
+  assertEquals(resolveAdminOverrideBand(499.9, bands), "low");
+  assertEquals(resolveAdminOverrideBand(500, bands), "normal_fishable");
+  assertEquals(resolveAdminOverrideBand(500.1, bands), "normal_fishable");
   assertEquals(resolveAdminOverrideBand(524.9, bands), "normal_fishable");
   assertEquals(resolveAdminOverrideBand(525, bands), "ideal");
   assertEquals(resolveAdminOverrideBand(525.1, bands), "ideal");

@@ -15,6 +15,7 @@ import {
   getLastSupportivePushConditions,
   getPrimaryHydraulicSource,
   getPrimaryWeatherPoint,
+  getRecentDailyPushConditions,
   getRunTemperatureSources,
   type LastSupportivePushConditions,
   listPublishedConfigurations,
@@ -29,6 +30,7 @@ import {
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PUSH_SUPPORTIVE_SCORE_MINIMUM,
   readConditionsSuggestBaselines,
+  type RecentDailyPushConditions,
   type RefreshSlot,
   resolveConditionsSuggestCheckpointState,
   resolveLatestRefreshSlot,
@@ -53,7 +55,7 @@ import {
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
 
-const ENGINE_VERSION = "river-run-v1.3.0";
+const ENGINE_VERSION = "river-run-v1.4.1";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -132,8 +134,19 @@ type PushHistoryContext = {
   trackingStartDate: string;
   trackingEndDate: string;
   throughDate: string;
+  recentDailyReadsStatus: "available" | "unavailable";
+  recentDailyReads: PushDailyHistoryRead[];
   lastSupportiveConditions?: LastSupportivePushConditions;
 };
+
+type PushDailyHistoryRead =
+  | RecentDailyPushConditions
+  | {
+    localDate: string;
+    status: "missing";
+    score: null;
+    label: "No recorded read";
+  };
 
 async function resolveRuntimeCatalog(
   deps: RiverRunHandlerDeps,
@@ -371,15 +384,41 @@ async function resolvePushHistoryContext(input: {
     throughDate,
   };
 
+  if (!afterTrackingStart) {
+    return {
+      ...base,
+      status: "not_started",
+      recentDailyReadsStatus: "available",
+      recentDailyReads: [],
+    };
+  }
+
+  const recentDailyReads = await resolveRecentDailyPushReads({
+    client: input.client,
+    riverId: input.dailySnapshot.riverId,
+    runId: input.dailySnapshot.runId,
+    trackingStartDate,
+    throughDate: beforeTrackingEnd ? addDays(currentDate, -1) : trackingEndDate,
+    engineVersion: input.engineVersion,
+    configVersion: input.configVersion,
+  });
+
+  if (!beforeTrackingEnd) {
+    return {
+      ...base,
+      status: "complete",
+      ...recentDailyReads,
+    };
+  }
+
   if (
-    afterTrackingStart &&
-    beforeTrackingEnd &&
     typeof input.condition.push.score === "number" &&
     input.condition.push.score >= PUSH_SUPPORTIVE_SCORE_MINIMUM
   ) {
     return {
       ...base,
       status: "active_now",
+      ...recentDailyReads,
       lastSupportiveConditions: {
         localDate: input.condition.localDate,
         refreshSlot: input.condition.refreshSlot,
@@ -388,13 +427,6 @@ async function resolvePushHistoryContext(input: {
         label: input.condition.push.label,
       },
     };
-  }
-
-  if (!afterTrackingStart) {
-    return { ...base, status: "not_started" };
-  }
-  if (!beforeTrackingEnd) {
-    return { ...base, status: "complete" };
   }
 
   const result = await getLastSupportivePushConditions(input.client, {
@@ -412,15 +444,86 @@ async function resolvePushHistoryContext(input: {
       runId: input.dailySnapshot.runId,
       message: result.error.message,
     });
-    return { ...base, status: "unavailable" };
+    return {
+      ...base,
+      status: "unavailable",
+      ...recentDailyReads,
+    };
   }
   if (!result.found || !result.data) {
-    return { ...base, status: "none_recorded" };
+    return {
+      ...base,
+      status: "none_recorded",
+      ...recentDailyReads,
+    };
   }
   return {
     ...base,
     status: "previously_recorded",
+    ...recentDailyReads,
     lastSupportiveConditions: result.data,
+  };
+}
+
+async function resolveRecentDailyPushReads(input: {
+  client: SupabaseLikeClient;
+  riverId: string;
+  runId: string;
+  trackingStartDate: string;
+  throughDate: string;
+  engineVersion: string;
+  configVersion: string;
+}): Promise<
+  Pick<
+    PushHistoryContext,
+    "recentDailyReadsStatus" | "recentDailyReads"
+  >
+> {
+  if (compareLocalDates(input.throughDate, input.trackingStartDate) < 0) {
+    return {
+      recentDailyReadsStatus: "available",
+      recentDailyReads: [],
+    };
+  }
+  const result = await getRecentDailyPushConditions(input.client, {
+    ...input,
+    maximumDays: 7,
+    minimumSupportiveScore: PUSH_SUPPORTIVE_SCORE_MINIMUM,
+  });
+  if (result.error) {
+    console.error("[river-run] recent daily Push history read failed", {
+      riverId: input.riverId,
+      runId: input.runId,
+      message: result.error.message,
+    });
+    return {
+      recentDailyReadsStatus: "unavailable",
+      recentDailyReads: [],
+    };
+  }
+  const recordedByDate = new Map(
+    (result.data ?? []).map((read) => [read.localDate, read]),
+  );
+  const reads: PushDailyHistoryRead[] = [];
+  for (
+    let localDate = input.throughDate;
+    compareLocalDates(localDate, input.trackingStartDate) >= 0 &&
+    reads.length < 7;
+    localDate = addDays(localDate, -1)
+  ) {
+    const recorded = recordedByDate.get(localDate);
+    reads.push(
+      recorded ?? {
+        localDate,
+        status: "missing",
+        score: null,
+        label: "No recorded read",
+      },
+    );
+  }
+  return {
+    recentDailyReadsStatus: "available",
+    recentDailyReads: reads,
   };
 }
 

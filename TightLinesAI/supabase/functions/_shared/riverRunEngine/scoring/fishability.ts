@@ -6,12 +6,7 @@ import type {
   RawFlowTrendSignal,
   RiverRunReasonCode,
 } from "../types.ts";
-import {
-  alternate,
-  type RiverRunCopyVariant,
-  RIVER_RUN_COPY_VERSION,
-  resolveCopyVariant,
-} from "../copy/variants.ts";
+import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
 import { flowBandReasonCode } from "../metrics/flow.ts";
 
 export type FishabilityScoreComponents = {
@@ -30,8 +25,6 @@ export type FishabilityScoreInput = {
   hydraulicPercentChange24h?: number | null;
   flowReasonCodes?: RiverRunReasonCode[];
   localDate?: string;
-  copyVariant?: RiverRunCopyVariant;
-  copyKey?: string;
 };
 
 export type FishabilityScoreResult = PrimitiveDisplay & {
@@ -42,19 +35,14 @@ export type FishabilityScoreResult = PrimitiveDisplay & {
 export function scoreFishability(
   input: FishabilityScoreInput,
 ): FishabilityScoreResult {
-  const copyVariant = resolveCopyVariant(
-    input.copyKey ??
-      `${input.localDate ?? "undated"}:${input.flowBand ?? "no-band"}:${input.flowSignal}:${input.gaugeFreshness}`,
-    input.copyVariant,
-  );
   if (
     input.gaugeFreshness === "missing" ||
     input.gaugeFreshness === "older_than_24h" ||
     !isNumber(input.currentHydraulicValue)
   ) {
-    return unavailableResult(input, "gauge", copyVariant);
+    return unavailableResult(input, "gauge");
   }
-  if (!input.flowBand) return unavailableResult(input, "band", copyVariant);
+  if (!input.flowBand) return unavailableResult(input, "band");
 
   const reasonCodes = new Set<RiverRunReasonCode>([
     gaugeReasonCode(input.gaugeFreshness),
@@ -103,20 +91,14 @@ export function scoreFishability(
     score: finalScore,
     label,
     ...fishabilityCopy({
-      label,
       flowBand: input.flowBand,
       flowSignal: input.flowSignal,
-      currentHydraulicValue: input.currentHydraulicValue,
-      hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
-      hydraulicPercentChange24h: input.hydraulicPercentChange24h,
-      rules: input.rules,
-      variant: copyVariant,
+      gaugeFreshness: input.gaugeFreshness,
     }),
     reasonCodes: [...reasonCodes],
     components,
     rulesVersion: input.rules.version,
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant,
   };
 }
 
@@ -165,191 +147,278 @@ function fishabilityLabel(score: number): string {
 }
 
 function fishabilityCopy(input: {
-  label: string;
   flowBand: FlowBand;
   flowSignal: RawFlowTrendSignal;
-  currentHydraulicValue: number;
-  hydraulicAbsoluteChange24h?: number | null;
-  hydraulicPercentChange24h?: number | null;
-  rules: FishabilityBands;
-  variant: RiverRunCopyVariant;
+  gaugeFreshness: GaugeFreshness;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
-  const unit = input.rules.metric === "flow_cfs" ? "cfs" : "ft";
-  const current = `${round(input.currentHydraulicValue)} ${unit}`;
-  const comparison = isNumber(input.hydraulicAbsoluteChange24h) &&
-      isNumber(input.hydraulicPercentChange24h)
-    ? `has changed ${signed(input.hydraulicAbsoluteChange24h)} ${unit} (${
-      signed(input.hydraulicPercentChange24h)
-    }%) since roughly the same time yesterday`
-    : "does not have a trustworthy same-time-yesterday comparison";
   return {
-    headline: headlineForLabel(input.label, input.variant),
-    detail: `${input.rules.sourceLabel} is ${current}, inside this river's ${
-      flowBandLabel(input.flowBand)
-    } band, and ${comparison}. ${trendMeaning(input.flowSignal)} This describes the stretch represented by the ${input.rules.sourceLabel} gauge; it does not rate fish abundance or predict a bite.`,
-    tip: fishabilityTip(input.flowBand, input.flowSignal, input.variant),
+    headline: fishabilityHeadline(
+      input.flowBand,
+      input.flowSignal,
+      input.gaugeFreshness,
+    ),
+    detail: `${flowBandMeaning(input.flowBand)} ${
+      trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
+    } Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.`,
+    tip: fishabilityTip(
+      input.flowBand,
+      input.flowSignal,
+      input.gaugeFreshness,
+    ),
   };
 }
 
-function headlineForLabel(
-  label: string,
-  variant: RiverRunCopyVariant,
+function fishabilityHeadline(
+  band: FlowBand,
+  trend: RawFlowTrendSignal,
+  freshness: GaugeFreshness,
 ): string {
-  switch (label) {
-    case "Poor":
-      return alternate(
-        variant,
-        "The gauged river stretch is poor for consistent fishing right now.",
-        "Current river shape creates major fishing limitations.",
-      );
-    case "Tough":
-      return alternate(
-        variant,
-        "The gauged river stretch is fishable, but conditions are demanding.",
-        "Current river shape leaves a narrow margin for consistent fishing.",
-      );
-    case "Fishable":
-      return alternate(
-        variant,
-        "The gauged river stretch is workable right now.",
-        "Current river shape supports a fishable window.",
-      );
-    case "Good":
-      return alternate(
-        variant,
-        "The gauged river stretch has a good fishing shape.",
-        "Current flow supports good presentation options.",
-      );
-    case "Excellent":
-      return alternate(
-        variant,
-        "The gauged river stretch is in an excellent working range.",
-        "Current river shape offers the broadest presentation options.",
-      );
-    default:
-      return alternate(
-        variant,
-        "The current gauged-river fishing shape is available.",
-        "The gauge provides a current river-shape read.",
-      );
+  if (freshness === "stale") {
+    return "The last river reading was fishable, but it is aging and may no longer describe the water accurately.";
+  }
+  if (trend === "unknown") {
+    return "The river appears fishable, but its direction is unclear, so confidence is limited.";
+  }
+  if (band === "blown_out") {
+    return trend === "sharp_rise"
+      ? "The river is blown out and still rising fast, so normal fishing water is not dependable."
+      : "The river is too high and unsettled for a dependable fishing recommendation.";
+  }
+  if (trend === "sharp_rise") {
+    return band === "very_high"
+      ? "The river is already very high and rising fast, leaving very little controllable fishing water."
+      : "The river is rising fast, and usable fishing water is shifting toward slower margins and current breaks.";
+  }
+  if (trend === "meaningful_rise" && band === "high_fishable") {
+    return "The river is fishable, but rising water and faster current are narrowing the easiest places to present a bait.";
+  }
+  switch (band) {
+    case "very_low":
+      return "The river is fishable, but very low water will make fish easier to disturb and productive water harder to find.";
+    case "low":
+      return "The river is fishable, but lower water leaves less cover and less room for error.";
+    case "normal_fishable":
+      return "The river is in a comfortable, fishable range with a manageable pace.";
+    case "ideal":
+      return "The river is in an excellent range for covering water and presenting effectively.";
+    case "high_fishable":
+      return "The river is fishable, but higher flow is moving at a faster pace and narrowing the easiest water.";
+    case "very_high":
+      return "The river is running very high, leaving fewer practical places to fish effectively.";
   }
 }
 
-function trendMeaning(signal: RawFlowTrendSignal): string {
+function flowBandMeaning(band: FlowBand): string {
+  switch (band) {
+    case "very_low":
+      return "Water is unusually low, reducing cover and concentrating the best depth into fewer places.";
+    case "low":
+      return "Water is lower than ideal but still workable, with less depth and cover across the river.";
+    case "normal_fishable":
+      return "Flow is in a dependable working range with a useful mix of travel lanes, seams, and holding water.";
+    case "ideal":
+      return "Flow offers the broadest mix of depth, current breaks, and controllable presentation water.";
+    case "high_fishable":
+      return "Higher flow is pushing more current through the main channel, but softer edges and protected lanes remain workable.";
+    case "very_high":
+      return "Very high flow is reducing access and the amount of water where a presentation can be controlled.";
+    case "blown_out":
+      return "Excessive flow is overwhelming normal holding water and making access and presentation unreliable.";
+  }
+}
+
+function trendMeaning(
+  signal: RawFlowTrendSignal,
+  band: FlowBand,
+  freshness: GaugeFreshness,
+): string {
+  if (freshness === "stale") {
+    return "Because the latest reading is aging, the river may have changed since it was reported.";
+  }
   switch (signal) {
     case "stable":
-      return "The river is relatively stable.";
+      return stableTrendMeaning(band);
     case "falling":
-      return "The river is falling materially.";
+      return fallingTrendMeaning(band);
     case "rising":
-      return "The river has an early rise.";
+      return risingTrendMeaning(band);
     case "meaningful_rise":
-      return "The river is rising enough to make presentation less consistent.";
+      return meaningfulRiseMeaning(band);
     case "sharp_rise":
-      return "The sharp rise makes holding water, access, and presentation less predictable.";
+      return sharpRiseMeaning(band);
     case "unknown":
-      return "The unresolved trend reduces confidence in the current shape.";
+      return "There is not enough recent information to tell whether the river is rising or falling, which lowers confidence in the read.";
   }
+}
+
+function stableTrendMeaning(band: FlowBand): string {
+  switch (band) {
+    case "very_low":
+      return "The low water is holding rather than refilling, so the few deeper slots should remain easy to identify.";
+    case "low":
+      return "The lower flow is holding steady, so its limited depth and cover should remain consistent.";
+    case "normal_fishable":
+      return "The steady flow should keep travel lanes, seams, and holding water easy to read from one pass to the next.";
+    case "ideal":
+      return "The steady flow should keep depth, current breaks, and presentation speed consistent across the river.";
+    case "high_fishable":
+      return "The higher flow is not climbing, so softer edges beside the main current should remain well defined.";
+    case "very_high":
+      return "The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges.";
+    case "blown_out":
+      return "The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return.";
+  }
+}
+
+function fallingTrendMeaning(band: FlowBand): string {
+  if (band === "very_low" || band === "low") {
+    return "The river is still falling, so shallow lanes may lose depth while the deepest connected water becomes more important.";
+  }
+  if (band === "normal_fishable" || band === "ideal") {
+    return "The river is settling, which should sharpen seams and make established holding water easier to read.";
+  }
+  if (band === "high_fishable") {
+    return "The higher flow is falling, so controllable edges should expand as the river continues to settle.";
+  }
+  return "The river is falling, but very high water will take time to restore normal holding lanes and presentation control.";
+}
+
+function risingTrendMeaning(band: FlowBand): string {
+  if (band === "very_low" || band === "low") {
+    return "The early rise is adding depth and cover, but the best travel lanes are beginning to shift.";
+  }
+  if (band === "normal_fishable" || band === "ideal") {
+    return "The early rise is adding pace and depth, with inside seams and the upstream edges of holes changing first.";
+  }
+  return "The additional rise is adding speed and squeezing controllable presentations toward protected edges.";
+}
+
+function meaningfulRiseMeaning(band: FlowBand): string {
+  if (band === "very_low" || band === "low") {
+    return "The rise is restoring depth, but lanes and resting pockets are changing too quickly to fish as settled low water.";
+  }
+  if (band === "normal_fishable" || band === "ideal") {
+    return "Depth and current are changing enough to move the most controllable presentations toward inside seams and current breaks.";
+  }
+  return "The rising water is pushing hard through the main channel and compressing practical fishing water along protected edges.";
+}
+
+function sharpRiseMeaning(band: FlowBand): string {
+  if (band === "very_low" || band === "low") {
+    return "The fast rise is rapidly changing depth, lanes, and resting pockets despite the river's lower starting level.";
+  }
+  if (band === "normal_fishable" || band === "ideal") {
+    return "The fast rise is quickly replacing settled lanes with heavier current and newly formed soft edges.";
+  }
+  return "The fast rise is forcing usable fishing water out of the main flow and into the slowest protected margins.";
 }
 
 function fishabilityTip(
   band: FlowBand,
   trend: RawFlowTrendSignal,
-  variant: RiverRunCopyVariant,
+  freshness: GaugeFreshness,
 ): string {
+  if (freshness === "stale") {
+    return "Do not choose a reach from this reading alone. Check the water at the first access, and begin only in bank-side water where you can control the entire presentation.";
+  }
+  if (band === "blown_out") {
+    return "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.";
+  }
   if (trend === "sharp_rise") {
-    return alternate(
-      variant,
-      "A fast-changing river can quickly alter access, holding water, and presentation. This is not a wading or boating safety determination.",
-      "Favor conservative access and water with softer current while the rise settles. Fishability is not a safety rating.",
-    );
+    return "Leave the main channel alone. Fish newly formed soft margins, inside bends, and the downstream side of current breaks with short controlled presentations.";
+  }
+  if (trend === "unknown") {
+    return "Start at a bank-side inside bend or soft seam where the full presentation stays under control. Skip faster water until the river's direction is verified.";
+  }
+  if (trend === "meaningful_rise") {
+    return meaningfulRiseTip(band);
+  }
+  if (trend === "rising") {
+    return risingTip(band);
+  }
+  if (trend === "falling") {
+    return fallingTip(band);
   }
   switch (band) {
     case "very_low":
-      return alternate(
-        variant,
-        "Very low water reduces cover and forgiveness. Favor low light, deeper slots, and a quiet approach; low water does not mean fish are absent.",
-        "Expect exposed fish and fewer comfortable lies. Scale down disturbance and concentrate on depth and shade.",
-      );
+      return "Fish first or last light. Begin at the deepest shaded holes and slots, approach quietly, and keep foot traffic out of shallow travel lanes.";
     case "low":
-      return alternate(
-        variant,
-        "Lower water remains workable, but a quieter approach and the best available depth usually matter more.",
-        "Reduced cover can make fish less forgiving; prioritize low light, broken surface, and deeper travel lanes.",
-      );
+      return "Start with the deepest connected holding water, then fish shaded outside bends and cover. Approach quietly and make the first pass count.";
     case "normal_fishable":
-      return alternate(
-        variant,
-        "This is a dependable, workable river shape, though it offers fewer hydraulic advantages than the ideal band.",
-        "Most standard presentations remain practical; let current speed and available cover choose the lane.",
-      );
+      return "Start where a main travel lane enters the first established hole. Fish the head, inside seam, and tail in order, then move to the next piece of holding water.";
     case "ideal":
-      return alternate(
-        variant,
-        "This band offers the broadest mix of holding water and presentation options represented by the gauge.",
-        "Use the full range of productive seams, slots, and travel lanes available at this flow.",
-      );
+      return "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.";
     case "high_fishable":
-      return alternate(
-        variant,
-        "Higher water remains fishable; focus on softer edges, inside seams, and protected travel lanes.",
-        "Some access and presentations narrow, while softer current near structure becomes more important.",
-      );
+      return "Start tight to the bank on inside bends and below current-breaking cover. Shorten the presentation and keep it in the slower edge instead of forcing the main flow.";
     case "very_high":
-      return alternate(
-        variant,
-        "Very high water materially narrows access and presentation. Favor protected edges and soft current; this is not a safety determination.",
-        "Workable water may be limited to the softest margins and inside turns. Fishability is not a wading or boating safety rating.",
-      );
-    case "blown_out":
-      return alternate(
-        variant,
-        "This river shape is rarely workable for consistent fishing. Wait for the river to recover; Fishability is not a safety rating.",
-        "Access, visibility, and presentation are too compromised for a dependable recommendation. Do not treat this as a safety determination.",
-      );
+      return "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.";
   }
 }
 
-function flowBandLabel(band: FlowBand): string {
+function fallingTip(band: FlowBand): string {
   switch (band) {
     case "very_low":
-      return "Very Low";
+      return "Fish only the deepest connected slots at first or last light. Skip shallow lanes that are losing depth, approach from downstream, and keep every pass quiet.";
     case "low":
-      return "Low";
+      return "Begin in the deepest connected holding water and fish its shaded edge first. Skip shallow travel lanes that are draining as the river falls.";
     case "normal_fishable":
-      return "Normal";
+      return "Start where a sharpening seam enters an established hole. Fish from the head into the deeper half and tail, then move past shallow lanes that are losing depth.";
     case "ideal":
-      return "Ideal";
+      return "Begin on the primary seam feeding deep holding water. Work each hole from head to tail, giving the deeper downstream half one final pass as the river settles.";
     case "high_fishable":
-      return "High Fishable";
+      return "Start on inside bends and bank-side current breaks, then test newly defined seams as the river eases. Leave the main-channel current for last.";
     case "very_high":
-      return "Very High";
+      return "Stay with bank-side protected pockets and slow inside turns. Do not return to main-channel lanes until the falling river restores presentation control.";
     case "blown_out":
-      return "Blown Out";
+      return "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks and slow inside turns, and use only short controlled presentations.";
   }
+}
+
+function risingTip(band: FlowBand): string {
+  switch (band) {
+    case "very_low":
+      return "Start where fresh depth reaches the deepest connected holes. Fish the new inside edge without walking through shallow travel water, then move as the lane changes.";
+    case "low":
+      return "Begin on newly covered inside seams that connect directly to deep holding water. Keep the presentation on the soft edge and avoid wading through the new lane.";
+    case "normal_fishable":
+      return "Start on the inside seam forming above the first established hole. Follow that softer edge into the resting water and keep the faster center lane secondary.";
+    case "ideal":
+      return "Begin on the soft inside edge of the primary travel lane, then fish the first deep resting hole above it. Recheck that edge as added depth changes the lane.";
+    case "high_fishable":
+      return "Start tight to bank-side cover and protected inside bends. Use short presentations in the new soft edge and leave the accelerating main channel alone.";
+    case "very_high":
+      return "Fish only protected bank-side pockets and inside turns while the river rises. Skip the main channel and stop when a presentation will not remain controlled.";
+    case "blown_out":
+      return "Choose a lower-water day for the better fishing opportunity. If you fish now, work only protected banks, slow inside turns, and the downstream side of major current breaks.";
+  }
+}
+
+function meaningfulRiseTip(band: FlowBand): string {
+  if (band === "very_low" || band === "low") {
+    return "Fish newly covered inside margins that connect directly to the deepest holding water. Skip the old shallow lane and keep moving as depth and current rebuild it.";
+  }
+  if (band === "normal_fishable" || band === "ideal") {
+    return "Move off the center lane. Work inside seams, the downstream side of current breaks, and the first deep resting pocket with short controlled presentations.";
+  }
+  if (band === "high_fishable" || band === "very_high") {
+    return "Fish only protected margins, inside bends, and the downstream side of major current breaks. Leave the main-channel current alone while the rise continues.";
+  }
+  return "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks and major current breaks, and leave the main flow alone.";
 }
 
 function unavailableResult(
   input: FishabilityScoreInput,
   reason: "gauge" | "band",
-  variant: RiverRunCopyVariant,
 ): FishabilityScoreResult {
   if (reason === "band") {
     return {
       score: null,
       label: "Unavailable",
-      headline: alternate(
-        variant,
-        "Fishability is unavailable until this river has audited flow bands.",
-        "This gauge reading cannot be rated without river-specific fishing thresholds.",
-      ),
+      headline: "This river does not have a dependable Fishability read yet.",
       detail:
-        "A current gauge value must be matched to audited thresholds for the river stretch that gauge represents.",
-      tip: alternate(
-        variant,
-        "Fishability stays unavailable rather than substituting a generic or seasonal percentile.",
-        "No other river's thresholds are borrowed to fill this gap.",
-      ),
+        "River flow affects each river differently, and there is not enough local knowledge to translate today's water into a responsible fishing recommendation.",
+      tip:
+        "Do not use this card to choose fishing water. Rely on direct observation and verified local river guidance; FinFindr will not borrow another river's idea of low, ideal, or high flow.",
       reasonCodes: [
         gaugeReasonCode(input.gaugeFreshness),
         "baseline_missing",
@@ -357,29 +426,19 @@ function unavailableResult(
       ],
       rulesVersion: input.rules.version,
       copyVersion: RIVER_RUN_COPY_VERSION,
-      copyVariant: variant,
     };
   }
   return {
     score: null,
     label: "Unavailable",
-    headline: alternate(
-      variant,
-      "Fishability is unavailable without a current gauge reading.",
-      "A current river-shape rating cannot be made yet.",
-    ),
-    detail: `A usable ${input.rules.sourceLabel} ${
-      input.rules.metric === "flow_cfs" ? "discharge" : "gage-height"
-    } reading is required to describe the river stretch represented by this gauge.`,
-    tip: alternate(
-      variant,
-      "Check again after the next condition refresh.",
-      "The card will rate river shape as soon as a usable gauge reading returns.",
-    ),
+    headline: "There is no dependable Fishability read right now.",
+    detail:
+      "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
+    tip:
+      "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
     reasonCodes: [gaugeReasonCode(input.gaugeFreshness)],
     rulesVersion: input.rules.version,
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant: variant,
   };
 }
 
@@ -403,15 +462,6 @@ function applyCap(score: number, cap: number, appliedCaps: number[]): number {
 
 function clamp(value: number, min: number, max: number): number {
   return Math.min(max, Math.max(min, value));
-}
-
-function signed(value: number): string {
-  const rounded = round(value);
-  return `${rounded > 0 ? "+" : ""}${rounded}`;
-}
-
-function round(value: number): number {
-  return Math.round(value * 10) / 10;
 }
 
 function isNumber(value: unknown): value is number {

@@ -1,11 +1,5 @@
 import { Ionicons } from "@expo/vector-icons";
-import {
-  useEffect,
-  useId,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useEffect, useId, useMemo, useRef, useState } from "react";
 import {
   AccessibilityInfo,
   Animated,
@@ -219,33 +213,6 @@ export function RiverRunVisual({
               <Text style={styles.artLabel}>{model.artLabel}</Text>
             </View>
           </View>
-          <View
-            style={[
-              styles.statePill,
-              { borderColor: `${model.accent}AA` },
-            ]}
-          >
-            <Animated.View
-              style={[
-                styles.liveDot,
-                {
-                  backgroundColor: model.accent,
-                  opacity: pulse.interpolate({
-                    inputRange: [0, 1],
-                    outputRange: [0.72, 1],
-                  }),
-                },
-              ]}
-            />
-            <Text
-              style={styles.statePillText}
-              numberOfLines={1}
-              adjustsFontSizeToFit
-              minimumFontScale={0.72}
-            >
-              {shortStateLabel(model.stateLabel)}
-            </Text>
-          </View>
         </View>
 
         <View style={styles.artStage}>
@@ -264,14 +231,6 @@ export function RiverRunVisual({
           <Text style={styles.stateNote} numberOfLines={1}>
             {model.stateNote}
           </Text>
-          {model.kind === "fish_in_river" &&
-              typeof model.riverMaximum === "number"
-            ? (
-              <Text style={styles.capLabel}>
-                RIVER CEILING {model.riverMaximum}/10
-              </Text>
-            )
-            : null}
         </View>
 
         <View style={styles.meterRegion}>
@@ -360,7 +319,11 @@ export function RiverRunVisual({
         <Animated.View
           style={[
             styles.shimmer,
-            { transform: [{ rotate: "18deg" }, { translateX: shimmerTranslate }] },
+            {
+              transform: [{ rotate: "18deg" }, {
+                translateX: shimmerTranslate,
+              }],
+            },
           ]}
         />
         <Animated.View
@@ -778,7 +741,7 @@ function PresenceArt({
   pulse: Animated.Value;
   driftY: Animated.AnimatedInterpolation<number>;
 }) {
-  const maximum = Math.max(1, model.riverMaximum ?? 10);
+  const maximum = Math.max(1, model.riverMaximum ?? 100);
   const ratio = typeof model.score === "number"
     ? Math.max(0, Math.min(1, model.score / maximum))
     : 0;
@@ -864,13 +827,6 @@ function useReduceMotion(): boolean {
     };
   }, []);
   return reduceMotion;
-}
-
-function shortStateLabel(value: string): string {
-  return value
-    .replace(" historical presence", "")
-    .replace("Outside historical window", "Outside window")
-    .toUpperCase();
 }
 
 function directionLabel(
@@ -963,25 +919,6 @@ const styles = StyleSheet.create({
     letterSpacing: 0.4,
     color: "#FFFFFF",
   },
-  statePill: {
-    maxWidth: "48%",
-    minHeight: 27,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 6,
-    paddingHorizontal: 8,
-    borderWidth: 1,
-    borderRadius: 999,
-    backgroundColor: "rgba(4,15,25,0.56)",
-  },
-  statePillText: {
-    flexShrink: 1,
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 7,
-    letterSpacing: 0.8,
-    color: "#FFFFFF",
-  },
-  liveDot: { width: 6, height: 6, borderRadius: 3 },
   artStage: {
     zIndex: 2,
     height: ART_HEIGHT,
@@ -1024,12 +961,6 @@ const styles = StyleSheet.create({
     fontSize: 6.8,
     letterSpacing: 0.75,
     color: "rgba(255,255,255,0.66)",
-  },
-  capLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 6.5,
-    letterSpacing: 0.55,
-    color: "#BCE7CA",
   },
   meterRegion: { zIndex: 5 },
   track: {

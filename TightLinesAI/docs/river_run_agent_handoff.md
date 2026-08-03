@@ -1,14 +1,14 @@
 # River Run Agent Handoff
 
 This document is the durable engineering and product handoff for FinFindr's
-River Run feature. Read it before modifying River Run. The implementation is
-the ultimate source of truth when this document and code differ.
+River Run feature. Read it before modifying River Run. The implementation is the
+ultimate source of truth when this document and code differ.
 
 ## Repository Checkpoint
 
 - Working branch: `release/app-store-v1`
-- Completed River Run checkpoint: `338cb86`
-- Checkpoint title: `Polish River Run UI and refresh cadence`
+- Completed River Run checkpoint: `a5b7262`
+- Checkpoint title: `Add River Run agent handoff`
 - The checkpoint was pushed to `origin/release/app-store-v1`.
 - Confirm the current branch, remote synchronization, and clean working tree
   before beginning new work.
@@ -20,8 +20,8 @@ the ultimate source of truth when this document and code differ.
 Do not begin by changing code.
 
 The owner will use the in-app review gallery to inspect every reachable result
-state for all five primitives. Here, "state" usually means a primitive result
-or classification state rather than a geographic state.
+state for all five primitives. Here, "state" usually means a primitive result or
+classification state rather than a geographic state.
 
 During this review:
 
@@ -31,7 +31,7 @@ During this review:
 3. Explain recommended wording before making a non-obvious change.
 4. Preserve the primitive's exact classification, evidence, limitations, and
    relationship to the other primitives.
-5. Update both deterministic copy variants when requested.
+5. Keep one canonical production template for each reachable primitive state.
 6. Re-run copy safety, fixture, contradiction, UI, visual, and type checks.
 7. Keep commits intentional and leave the repository clean when asked.
 
@@ -54,8 +54,8 @@ configuration and acceptance testing—not new one-off scoring code.
 ### Fail closed instead of guessing
 
 The engine must never invent missing knowledge. Missing, stale, mismatched, or
-insufficient critical evidence should produce an honest conservative state
-such as `Unavailable`, `Limited`, `Evaluating`, or `Insufficient evidence`.
+insufficient critical evidence should produce an honest conservative state such
+as `Unavailable`, `Limited`, `Evaluating`, or `Insufficient evidence`.
 
 ### Keep the model intentionally small
 
@@ -65,8 +65,8 @@ Use only variables that materially answer the primitive's question.
 - A river is unsupported without an audited measured water-temperature source.
 - Flow is the primary hydraulic measurement for PM.
 - Gauge height can be context but is not currently scored for PM.
-- Modeled precipitation is supporting evidence and cannot replace measured
-  river response.
+- Modeled precipitation is supporting evidence and cannot replace measured river
+  response.
 
 ### Keep all five primitives independent
 
@@ -118,13 +118,31 @@ Reachable stages:
 - Post-run
 
 Weather and water conditions cannot move these configured dates. Pre-run may
-include a separate nearby staging advisory, but that advisory cannot claim fish
-are already in the river.
+include a separate nearby staging advisory. That advisory may acknowledge rare
+early river fish when the river-specific research supports it, but it must
+clearly separate that possibility from dependable run presence.
 
 For PM Fall Chinook:
 
+- Post-run remains active through June 30.
+- Pre-run watch begins July 1.
 - Nearby staging context begins July 28.
-- The configured river run begins August 15.
+- Beginning runs August 15–23.
+- Building uses two deterministic copy substates: August 24–31 and September
+  1–14. Both retain the public `Building` label.
+- Peak runs September 15–30.
+- Tapering runs October 1–18.
+- Ending runs October 19–27.
+- Post-run resumes October 28.
+
+The September 1 Building copy boundary changes guidance only; it does not add a
+new public stage. Post-run likewise uses late-run guidance through November 10
+and true-offseason guidance beginning November 11 without adding another public
+stage. This copy boundary is independent of the Fish In River tail, which now
+ends November 8. The September 20 peak reference remains the anchor used by the
+separately audited Run Timing baseline. Run Timing's final checkpoint remains
+September 26 with a September 25 cutoff and does not inherit Run Stage's
+expanded Peak end.
 
 The owner researches and controls these dates.
 
@@ -134,8 +152,8 @@ Run Timing was previously called `Conditions Suggest`. Internal historical
 identifiers may still use `conditionsSuggest`, but public copy should use
 `Run Timing`.
 
-It answers whether cumulative seasonal development appears earlier than,
-similar to, or later than the researched historical pattern.
+It answers whether cumulative seasonal development appears earlier than, similar
+to, or later than the researched historical pattern.
 
 Primary public states include:
 
@@ -151,20 +169,24 @@ Important behavior:
 - Evidence accumulates from staging start.
 - It uses measured water temperature and measured gauge response.
 - Comparisons use researched historical baselines.
-- Verdicts change only at configured stage checkpoints.
+- Verdicts change only at five configured checkpoints: August 15, August 24,
+  September 1, September 15, and September 26 for PM Fall Chinook.
+- Each checkpoint uses completed evidence through the prior day.
 - The result cannot bounce daily.
+- Beginning August 24, the app shows the immediately previous timing read and
+  its public date in a small context box.
 - A direct Ahead-to-Delayed or Delayed-to-Ahead reversal is tempered through
   Typical.
-- Run Timing eventually completes because an early/late call becomes less
-  useful once the run is well underway.
+- Run Timing eventually completes because an early/late call becomes less useful
+  once the run is well underway.
 
 Run Timing is not today's Push, a live fish count, or a replacement for Run
 Stage.
 
 ### 3. Push
 
-Push describes current measured conditions that may support fresh river entry
-or movement.
+Push describes current measured conditions that may support fresh river entry or
+movement.
 
 It uses:
 
@@ -180,8 +202,14 @@ Important behavior:
   conservative caps.
 - Tracking begins on the configured river-run start date.
 - Tracking stops at the configured main-run end.
-- During the active run it can show the date and strength of the most recent
-  supportive conditions.
+- During the active run a dropdown shows up to seven completed prior local
+  dates, newest first, with each date's latest stored Push category.
+- The current date is never included in that daily history because its
+  intraday read can still change.
+- Missing stored dates remain visibly missing; the engine does not reconstruct
+  or guess them.
+- The most recent `Possible`-or-stronger signal remains secondary context below
+  the daily history.
 - Copy must acknowledge that fish can move without a textbook weather event.
 
 Push never confirms that fish actually moved.
@@ -212,11 +240,12 @@ presence. It is not a live count.
 Each river/species/run combination has:
 
 - A researched seasonal curve
-- A maximum cap from 1 through 10
+- An internal maximum cap from 1 through 10, projected onto the public 0–100
+  score as a river-specific ceiling
 - River- and run-specific evidence notes
 
-PM Fall Chinook is a signature run and can reach 10. A weaker river/run might
-only reach 6 or 7 at its historical peak.
+PM Fall Chinook is a signature run and can reach 100. A weaker river/run with an
+internal maximum of 6 or 7 can reach only 60 or 70 on the public meter.
 
 Fish In River follows the configured seasonal curve and calendar. Push and
 Fishability do not directly raise or lower it.
@@ -267,12 +296,12 @@ unsupported positive cooling credit.
 
 ## Refresh Behavior
 
-Refresh cadence is required configuration on each river. A future river must
-not silently inherit PM's schedule.
+Refresh cadence is required configuration on each river. A future river must not
+silently inherit PM's schedule.
 
 PM Fall Chinook:
 
-- Active from staging start through the main run end: July 28–October 20
+- Active from staging start through the main run end: July 28–October 27
 - Condition slots: midnight, 4 AM, 8 AM, noon, 4 PM, and 8 PM Eastern
 - Outside that window: once daily at midnight
 - The protected server job runs 17 minutes after the hour
@@ -307,11 +336,12 @@ Results-page rules:
 
 - The public header is `Fall Chinook`, not the river name.
 - This limits river exposure in screenshots and social marketing.
-- The experience must match the premium visual language of the rest of
-  FinFindr.
+- The experience must match the premium visual language of the rest of FinFindr.
 - Results use clickable primitive tabs instead of one extremely long page.
 - Run Stage opens first.
 - Every primitive has a state-aware visual meter/illustration.
+- Numeric primitive scores remain internal. Public cards use the qualitative
+  meter and state label without displaying a number.
 - Applicable result quality is color-coded.
 - The tab interaction must be visually obvious.
 - Supporting "How to read today" material remains available beneath each tab.
@@ -320,9 +350,33 @@ Results-page rules:
 
 ## Copy Architecture
 
-Every reachable primitive state has deterministic A and B variants.
+Every reachable primitive state has one deterministic canonical template. The
+previous A/B copy system was removed so the owner can perfect one version before
+considering future experimentation.
 
-Variants may phrase the result differently, but they must preserve:
+Each primitive card has three separate copy jobs:
+
+- The headline gives a one- or two-sentence answer in normal angler language.
+- `WHY THIS READ` explains the evidence and limitations that matter to the
+  angler without exposing dates, thresholds, scoring machinery, or other
+  internal configuration.
+- `GUIDE'S READ` translates the result into practical, river-aware trip and
+  presentation guidance without promising fish.
+
+`GUIDE'S READ` must lead with a concrete first action. When the evidence
+supports it, the guidance should identify the river section, water type, and
+order of approach. It must not return the decision to the angler with phrases
+such as "let the river decide," "use your judgment," or a list of choices with
+no priority. Unavailable states must say what not to infer and which dependable
+primitive or direct observation to use instead.
+
+Fishability has an additional copy boundary: every available detail must make
+clear that it describes how the current flow should fish **if migratory fish
+are present**. It never estimates fish abundance. Its Guide's Read should
+translate the flow band and trend into the first water to fish, the water to
+deprioritize, and the required level of presentation control.
+
+Every template must preserve:
 
 - Classification
 - Score meaning
@@ -343,7 +397,8 @@ Avoid:
 - Excessive disclaimers that erase useful advice
 - Technical language a beginner cannot interpret
 - Simplistic language an advanced angler would dismiss
-- A/B variants that differ factually
+- Public references to researched/configured dates, baselines, checkpoints,
+  percentiles, engines, or source labels
 
 ## Important Code Locations
 
@@ -367,7 +422,8 @@ Avoid:
 - `supabase/functions/_shared/riverRunEngine/scoring/fishability.ts`
 - `supabase/functions/_shared/riverRunEngine/scoring/fishInRiver.ts`
 - `supabase/functions/_shared/riverRunEngine/copy/interpretation.ts`
-- `supabase/functions/_shared/riverRunEngine/copy/variants.ts`
+- `supabase/functions/_shared/riverRunEngine/copy/species.ts`
+- `supabase/functions/_shared/riverRunEngine/copy/version.ts`
 - `supabase/functions/_shared/riverRunEngine/snapshot/refreshSlots.ts`
 - `supabase/functions/_shared/riverRunEngine/validation.ts`
 - `supabase/functions/river-run/index.ts`
@@ -396,8 +452,8 @@ npx tsc --noEmit
 
 At the completed River Run checkpoint:
 
-- 157 River Run engine and endpoint tests passed.
-- 160 review fixture scenarios matched production copy.
+- 162 River Run engine and endpoint tests passed.
+- 85 review fixture scenarios matched production copy.
 - River Run UI QA passed.
 - River Run visual QA passed.
 - TypeScript passed.

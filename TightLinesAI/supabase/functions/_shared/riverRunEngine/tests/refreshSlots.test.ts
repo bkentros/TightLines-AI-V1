@@ -75,7 +75,7 @@ Deno.test("PM drops to daily condition refreshes outside the active window", () 
   );
 });
 
-Deno.test("PM active cadence begins at staging and ends with the main run", () => {
+Deno.test("PM active cadence begins at staging and covers the presence tail", () => {
   assertEquals(
     refreshSlotsForDate({ localDate: "2026-07-27", run, schedule }),
     ["00:00"],
@@ -85,11 +85,19 @@ Deno.test("PM active cadence begins at staging and ends with the main run", () =
     ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
   );
   assertEquals(
-    refreshSlotsForDate({ localDate: "2026-10-20", run, schedule }),
+    refreshSlotsForDate({ localDate: "2026-10-27", run, schedule }),
     ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
   );
   assertEquals(
-    refreshSlotsForDate({ localDate: "2026-10-21", run, schedule }),
+    refreshSlotsForDate({ localDate: "2026-10-28", run, schedule }),
+    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+  );
+  assertEquals(
+    refreshSlotsForDate({ localDate: "2026-11-08", run, schedule }),
+    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+  );
+  assertEquals(
+    refreshSlotsForDate({ localDate: "2026-11-09", run, schedule }),
     ["00:00"],
   );
 });

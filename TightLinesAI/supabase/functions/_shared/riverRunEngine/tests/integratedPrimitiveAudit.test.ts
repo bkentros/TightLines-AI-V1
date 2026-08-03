@@ -72,8 +72,8 @@ Deno.test("integrated PM copy matrix explains every simultaneous disagreement", 
       "Strong",
       "Very strong",
       "Unavailable",
-      "Tracking not started",
-      "Tracking complete",
+      "Waiting for run",
+      "Run complete",
     ]),
   );
   assertEquals(
@@ -87,9 +87,13 @@ Deno.test("integrated PM copy matrix explains every simultaneous disagreement", 
       "Unavailable",
     ]),
   );
-  assertEquals(
-    new Set(presence.map((item) => item.score)),
-    new Set([0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10]),
+  const presenceScores = presence.map((item) => item.score!);
+  assertEquals(Math.min(...presenceScores), 0);
+  assertEquals(Math.max(...presenceScores), 100);
+  assert(
+    presenceScores.every((value) =>
+      Number.isInteger(value) && value >= 0 && value <= 100
+    ),
   );
 
   const displays = [
@@ -136,6 +140,18 @@ Deno.test("integrated PM copy matrix explains every simultaneous disagreement", 
             assert(note.headline.trim().length > 0);
             assert(note.detail.trim().length > 0);
             assert(note.detail.length <= 900);
+            assertEquals(
+              /(?:^|\s)\d+\.\s/.test(note.detail),
+              false,
+              "How to Read Today must not use inline numbered paragraphs",
+            );
+            if (expected.length > 1) {
+              assertEquals(
+                note.detail.split("\n\n").length,
+                expected.length,
+                "Each mixed-read finding must render as its own clean paragraph",
+              );
+            }
             auditCopy(`${note.headline} ${note.detail}`);
             if (expected.length > 1) multiFindingCombinations++;
           }
@@ -144,7 +160,7 @@ Deno.test("integrated PM copy matrix explains every simultaneous disagreement", 
     }
   }
 
-  assertEquals(combinations, 22_176);
+  assertEquals(combinations, 129_024);
   assert(multiFindingCombinations > 0);
 });
 
@@ -174,9 +190,9 @@ Deno.test("integrated PM season boundaries cannot retain an active Push", () => 
   });
 
   assertEquals(before.score, null);
-  assertEquals(before.label, "Tracking not started");
+  assertEquals(before.label, "Waiting for run");
   assertEquals(after.score, null);
-  assertEquals(after.label, "Tracking complete");
+  assertEquals(after.label, "Run complete");
 });
 
 Deno.test("integrated historical presence honors lower river-specific caps", () => {
@@ -190,14 +206,14 @@ Deno.test("integrated historical presence honors lower river-specific caps", () 
   const values: number[] = [];
   for (
     let localDate = "2026-07-20";
-    localDate <= "2026-11-05";
+    localDate <= "2026-11-10";
     localDate = addDays(localDate, 1)
   ) {
     values.push(scoreFishInRiver(cappedRun, localDate).score!);
   }
 
-  assertEquals(Math.max(...values), 6);
-  assert(values.every((value) => value >= 0 && value <= 6));
+  assertEquals(Math.max(...values), 60);
+  assert(values.every((value) => value >= 0 && value <= 60));
 });
 
 function expectedInterpretationCodes(input: {
@@ -251,9 +267,9 @@ function stageVariants(): Array<{
     "2026-08-15",
     "2026-08-25",
     "2026-09-20",
-    "2026-10-01",
-    "2026-10-15",
-    "2026-10-25",
+    "2026-10-05",
+    "2026-10-22",
+    "2026-10-28",
   ].map((localDate) => {
     const display = resolveRunStage(run, localDate);
     return { stage: display.stage, display };
@@ -486,7 +502,7 @@ function presenceVariants(): ReturnType<typeof scoreFishInRiver>[] {
   const byScore = new Map<number, ReturnType<typeof scoreFishInRiver>>();
   for (
     let localDate = "2026-07-20";
-    localDate <= "2026-11-05";
+    localDate <= "2026-11-10";
     localDate = addDays(localDate, 1)
   ) {
     const display = scoreFishInRiver(run, localDate);
@@ -500,6 +516,19 @@ function auditDisplay(display: PrimitiveDisplay): void {
   assert(display.headline.trim().length > 0);
   assert(display.detail.trim().length > 0);
   assert(display.tip.trim().length > 0);
+  assert(
+    /^(?:Begin|Start|Fish|Keep|Skip|Leave|Do not|Stop|Choose|Stay|Concentrate|Target|Work|Check|Cover)\b/
+      .test(
+        display.tip.trim(),
+      ),
+    `Guide's Read must lead with a concrete action: ${display.tip}`,
+  );
+  assertEquals(
+    /\blet\b.+\bdecide\b|should be practical|keep(?:ing)? expectations (?:measured|conservative)|^focus on\b|use your judgment|postpone (?:the )?river trip/i
+      .test(display.tip),
+    false,
+    `Guide's Read is too open-ended: ${display.tip}`,
+  );
   assert(display.reasonCodes.length > 0);
   auditCopy(
     `${display.label} ${display.headline} ${display.detail} ${display.tip}`,
@@ -526,8 +555,9 @@ function isAtMost(display: PrimitiveDisplay, threshold: number): boolean {
 
 function presenceFraction(display: PrimitiveDisplay): number {
   if (typeof display.score !== "number") return Number.POSITIVE_INFINITY;
-  const maximum = (display as PrimitiveDisplay & { maximum?: number }).maximum;
-  return typeof maximum === "number" && maximum > 0
-    ? display.score / maximum
+  const riverCeiling =
+    (display as PrimitiveDisplay & { riverCeiling?: number }).riverCeiling;
+  return typeof riverCeiling === "number" && riverCeiling > 0
+    ? display.score / riverCeiling
     : display.score / 100;
 }

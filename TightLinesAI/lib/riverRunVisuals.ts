@@ -68,12 +68,12 @@ const RUN_TIMING_THREE: RiverRunMeterStop[] = [
 ];
 
 const PRESENCE_SIX: RiverRunMeterStop[] = [
-  { label: "Outside", shortLabel: "OUT", color: "#7F8790" },
-  { label: "Low", shortLabel: "LOW", color: "#557A91" },
-  { label: "Limited", shortLabel: "LIMITED", color: "#397F9B" },
-  { label: "Moderate", shortLabel: "MOD", color: "#2C8F98" },
-  { label: "High", shortLabel: "HIGH", color: "#37947B" },
-  { label: "Peak", shortLabel: "PEAK", color: "#2D9B60" },
+  { label: "Outside", shortLabel: "OUT", color: "#B83A32" },
+  { label: "Low", shortLabel: "LOW", color: "#D94B3A" },
+  { label: "Limited", shortLabel: "LIMITED", color: "#E89647" },
+  { label: "Moderate", shortLabel: "MOD", color: "#E8C547" },
+  { label: "High", shortLabel: "HIGH", color: "#7CC36A" },
+  { label: "Peak", shortLabel: "PEAK", color: "#3DA85F" },
 ];
 
 export function resolveRiverRunVisualModel(input: {
@@ -109,11 +109,11 @@ export function formatRiverRunTabStatus(
       : "COMPLETE";
   }
   return primitive.label
-    .replace("Outside historical window", "Outside")
-    .replace(" historical presence", "")
+    .replace("Not expected yet", "Waiting")
+    .replace("Run complete", "Complete")
+    .replace(" presence", "")
     .replace("No clear push", "No clear")
-    .replace("Tracking not started", "Waiting")
-    .replace("Tracking complete", "Complete")
+    .replace("Waiting for run", "Waiting")
     .replace("Insufficient evidence", "No read")
     .toUpperCase();
 }
@@ -165,21 +165,21 @@ function runTimingModel(
     : undefined;
   return baseModel({
     kind: "run_timing",
-    kicker: "HISTORICAL PACE",
+    kicker: "SEASON PACE",
     artLabel: "RUN TIMING",
     icon: "speedometer-outline",
     stops: RUN_TIMING_THREE,
     selectedIndex,
     stateLabel: primitive.label,
     stateNote: specialState === "waiting"
-      ? "BUILDING THE FIRST COMPARISON"
+      ? "SEASON PACE IS STILL DEVELOPING"
       : specialState === "unavailable"
-      ? "NO TIMING CALL WITHOUT EVIDENCE"
+      ? "NOT ENOUGH DATA FOR A TIMING CALL"
       : specialState === "complete"
       ? timingLabel
         ? `FINAL READ · ${timingLabel.toUpperCase()}`
         : "FINAL TIMING READ"
-      : "SEASON TO DATE VS. HISTORY",
+      : "PACE OF THIS RUN SO FAR",
     specialState,
   });
 }
@@ -191,28 +191,28 @@ function pushModel(
     ["weak", "no_clear_push", "possible", "strong", "very_strong"],
     normalize(primitive.label),
   );
-  const specialState = primitive.label === "Tracking not started"
+  const specialState = primitive.label === "Waiting for run"
     ? "waiting"
-    : primitive.label === "Tracking complete"
+    : primitive.label === "Run complete"
     ? "complete"
     : primitive.label === "Unavailable"
     ? "unavailable"
     : undefined;
   return baseModel({
     kind: "push",
-    kicker: "FRESH-ENTRY SIGNAL",
+    kicker: "FRESH FISH MOVEMENT SIGNAL",
     artLabel: "LAKE → RIVER",
     icon: "pulse-outline",
     stops: QUALITY_FIVE,
     selectedIndex,
     stateLabel: primitive.label,
     stateNote: specialState === "waiting"
-      ? "TRACKING OPENS WITH THE RUN"
+      ? "THE RUN HAS NOT STARTED"
       : specialState === "complete"
-      ? "TRACKING CLOSED FOR THIS RUN"
+      ? "THE RUN IS COMPLETE"
       : specialState === "unavailable"
       ? "WAITING FOR REQUIRED WATER DATA"
-      : "CURRENT MOVEMENT CONDITIONS",
+      : "FRESH-WAVE POTENTIAL TODAY",
     specialState,
     score: primitive.score,
   });
@@ -231,14 +231,14 @@ function fishabilityModel(
   return baseModel({
     kind: "fishability",
     kicker: "RIVER SHAPE",
-    artLabel: "GAUGED STRETCH",
+    artLabel: "CURRENT FLOW",
     icon: "water-outline",
     stops: FISHABILITY_FIVE,
     selectedIndex,
     stateLabel: primitive.label,
     stateNote: specialState
-      ? "WAITING FOR A USABLE GAUGE READ"
-      : "ACCESS · HOLDING WATER · PRESENTATION",
+      ? "WAITING FOR A CURRENT RIVER LEVEL"
+      : "FLOW · TREND · PRESENTATION",
     specialState,
     score: primitive.score,
   });
@@ -247,46 +247,49 @@ function fishabilityModel(
 function fishInRiverModel(
   primitive: RiverRunPrimitiveDisplay & { curveDirection?: string },
 ): RiverRunVisualModel {
-  const selectedIndex = indexFor(
+  const normalizedLabel = normalize(primitive.label);
+  const selectedIndex = normalizedLabel === "run_complete" ? 0 : indexFor(
     [
-      "outside_historical_window",
-      "low_historical_presence",
-      "limited_historical_presence",
-      "moderate_historical_presence",
-      "high_historical_presence",
-      "peak_historical_presence",
+      "not_expected_yet",
+      "low_presence",
+      "limited_presence",
+      "moderate_presence",
+      "high_presence",
+      "peak_presence",
     ],
-    normalize(primitive.label),
+    normalizedLabel,
   );
   const direction = normalizeDirection(primitive.curveDirection);
-  const maximum = typeof primitive.maximum === "number"
-    ? primitive.maximum
-    : 10;
+  const riverCeiling = typeof primitive.riverCeiling === "number"
+    ? primitive.riverCeiling
+    : 100;
   return baseModel({
     kind: "fish_in_river",
     kicker: "SEASONAL PRESENCE",
-    artLabel: "HISTORICAL CURVE",
+    artLabel: "FISH IN RIVER",
     icon: "fish-outline",
     stops: PRESENCE_SIX,
     selectedIndex,
     stateLabel: primitive.label,
     stateNote: direction === "rising"
-      ? "HISTORICAL CURVE RISING"
+      ? "SEASONAL PRESENCE IS BUILDING"
       : direction === "falling"
-      ? "HISTORICAL CURVE FALLING"
+      ? "SEASONAL PRESENCE IS DECLINING"
       : direction === "near_peak"
       ? "AT OR NEAR THE SEASONAL HIGH"
-      : "OUTSIDE THE MODELED WINDOW",
+      : "OUTSIDE THE MAIN RUN",
     direction,
-    riverMaximum: maximum,
+    riverMaximum: riverCeiling,
     score: primitive.score,
   });
 }
 
-function baseModel(input: Omit<
-  RiverRunVisualModel,
-  "position" | "accent"
->): RiverRunVisualModel {
+function baseModel(
+  input: Omit<
+    RiverRunVisualModel,
+    "position" | "accent"
+  >,
+): RiverRunVisualModel {
   const position = input.selectedIndex == null
     ? 0.5
     : input.stops.length <= 1
@@ -328,20 +331,20 @@ function normalizeDirection(
 function stageNote(index: number | null): string {
   switch (index) {
     case 0:
-      return "BEFORE THE MAIN RIVER WINDOW";
+      return "THE RIVER RUN HAS NOT STARTED";
     case 1:
-      return "EARLY HISTORICAL WINDOW";
+      return "THE FIRST PART OF THE RUN";
     case 2:
-      return "SEASON BUILDING TOWARD PEAK";
+      return "THE RUN IS GAINING MOMENTUM";
     case 3:
-      return "RESEARCHED PEAK WINDOW";
+      return "THE STRONGEST PART OF THE RUN";
     case 4:
-      return "PAST PEAK · PRESENCE EASING";
+      return "FISH REMAIN · FRESH ARRIVALS EASING";
     case 5:
-      return "LATE HISTORICAL WINDOW";
+      return "THE RUN IS WINDING DOWN";
     case 6:
       return "MAIN RUN WINDOW COMPLETE";
     default:
-      return "RESEARCHED RUN CALENDAR";
+      return "CURRENT SEASON POSITION";
   }
 }

@@ -71,8 +71,12 @@ Research and enter:
   conditions, is scoped to the exact run season and published configuration,
   and is never presented as observed movement.
 - Confirm Push begins on this run's configured river `start`, remains active
-  through its configured `end`, and shows neither a score nor history outside
-  that interval.
+  through its configured `end`, and creates no score or new history entry
+  outside that interval.
+- Confirm the public history shows at most seven completed prior local dates,
+  uses each date's strongest stored supportive window and its peak local time,
+  never includes the current date, distinguishes `No supportive window` from
+  `No recorded read`, and hides all numeric scores.
 - Temperature source priority.
 - A versioned Fishability block for the primary hydraulic source: metric,
   source label, absolute Very Low/Low/Normal/Ideal/High/Very High/Blown Out
@@ -129,7 +133,7 @@ A new combination is not complete until:
 - Lower Fish In River caps cannot reach a stronger river's maximum.
 - Unsupported movement engines fail closed.
 - Provider provenance appears in stored/API output.
-- Conditions Suggest has five-year coverage for all four cumulative checkpoints
+- Conditions Suggest has five-year coverage for all five cumulative checkpoints
   or a deterministic `Insufficient evidence` gap.
 - Daily collection begins by `stagingStart`, or any backfill preserves exact
   source provenance and daily-representative rules.

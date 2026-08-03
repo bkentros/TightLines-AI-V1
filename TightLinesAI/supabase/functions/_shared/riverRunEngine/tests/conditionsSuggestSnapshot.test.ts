@@ -139,7 +139,7 @@ function display(score: number, label = "Fixture"): PrimitiveDisplay {
   };
 }
 
-Deno.test("Conditions Suggest exposes four cumulative checkpoint dates", () => {
+Deno.test("Conditions Suggest exposes five cumulative checkpoint dates", () => {
   assertEquals(
     checkpoints.map((item) => ({
       id: item.checkpointId,
@@ -149,13 +149,18 @@ Deno.test("Conditions Suggest exposes four cumulative checkpoint dates", () => {
     [
       { id: "river_start", date: "2026-08-15", cutoff: "2026-08-14" },
       { id: "building_start", date: "2026-08-24", cutoff: "2026-08-23" },
+      {
+        id: "building_established",
+        date: "2026-09-01",
+        cutoff: "2026-08-31",
+      },
       { id: "peak_start", date: "2026-09-15", cutoff: "2026-09-14" },
       { id: "peak_complete", date: "2026-09-26", cutoff: "2026-09-25" },
     ],
   );
 });
 
-Deno.test("Conditions Suggest evaluates before the first checkpoint", () => {
+Deno.test("Run Timing stays plain and conservative before its first read", () => {
   const beforeStaging = scoreConditionsSuggest({
     localDate: "2026-07-20",
     run,
@@ -170,12 +175,11 @@ Deno.test("Conditions Suggest evaluates before the first checkpoint", () => {
   });
 
   assertEquals(beforeStaging.label, "Evaluating");
-  assert(beforeStaging.detail.includes("July 28, 2026"));
+  assert(beforeStaging.detail.includes("run has not developed enough"));
+  assertEquals(beforeStaging.detail.includes("July 28, 2026"), false);
   assertEquals(duringStaging.label, "Evaluating");
-  assert(
-    duringStaging.headline.includes("first season-to-date") ||
-      duringStaging.headline.includes("first historical timing"),
-  );
+  assert(duringStaging.headline.includes("still taking shape"));
+  assert(duringStaging.tip.includes("earliest lower-river holding water"));
   assertEquals(duringStaging.nextCheckpointDate, "2026-08-15");
 });
 
@@ -254,7 +258,10 @@ Deno.test("later checkpoints retain the full cumulative staging history", () => 
   assertEquals(result.sourceDates[0], "2026-07-28");
   assertEquals(result.sourceDates.at(-1), "2026-09-14");
   assertEquals(result.sourceDates.length, 49);
-  assertEquals(result.completedCheckpointCount, 3);
+  assertEquals(result.completedCheckpointCount, 4);
+  assertEquals(result.previousCheckpointId, "building_established");
+  assertEquals(result.previousCheckpointDate, "2026-09-01");
+  assertEquals(result.previousTimingLabel, "Ahead");
 });
 
 Deno.test("direct Ahead to Delayed checkpoint reversal resolves to Typical", () => {
@@ -289,13 +296,15 @@ Deno.test("direct Ahead to Delayed checkpoint reversal resolves to Typical", () 
 
   assertEquals(result.candidateLabel, "Delayed");
   assertEquals(result.label, "Typical");
+  assertEquals(result.previousCheckpointId, "river_start");
+  assertEquals(result.previousCheckpointDate, "2026-08-15");
+  assertEquals(result.previousTimingLabel, "Ahead");
   assert(
     result.reasonCodes.includes("conditions_checkpoint_reversal_tempered"),
   );
-  assert(
-    result.detail.includes("avoid flipping directly") ||
-      result.detail.includes("holds the overall timing"),
-  );
+  assert(result.detail.includes("season as a whole"));
+  assert(result.tip.includes("normal river section"));
+  assert(result.tip.includes("established holding water"));
 });
 
 Deno.test("peak completion locks timing and switches to underway copy", () => {
@@ -310,29 +319,23 @@ Deno.test("peak completion locks timing and switches to underway copy", () => {
   assertEquals(result.label, "Timing complete");
   assertEquals(result.timingLabel, "Ahead");
   assertEquals(result.checkpointId, "peak_complete");
-  assert(result.headline.includes("underway"));
-  assert(result.detail.includes("timing evaluation stops here"));
+  assert(result.headline.includes("timing read is complete"));
+  assert(result.detail.includes("current movement and river conditions"));
   assert(result.reasonCodes.includes("conditions_timing_complete"));
 });
 
 Deno.test("Conditions Suggest follows the main run end rather than the historical presence tail", () => {
   const target = checkpoint("peak_complete");
   const result = scoreConditionsSuggest({
-    localDate: "2026-10-25",
+    localDate: "2026-10-28",
     run,
     evidenceByDate: cumulativeEvidence(target, "ahead"),
     baselines: allBaselines(),
   });
 
   assertEquals(result.label, "Timing complete");
-  assert(
-    result.headline.includes("run window has passed") ||
-      result.headline.includes("Seasonal timing is complete"),
-  );
-  assert(
-    result.tip.includes("Push are complete") ||
-      result.tip.includes("No new early-or-late call"),
-  );
+  assert(result.headline.includes("Run Timing read is complete"));
+  assert(result.tip.includes("remaining established holding water"));
   assertEquals(result.headline.includes("well underway"), false);
 });
 
@@ -427,6 +430,39 @@ Deno.test("cool-enough plateau prevents indefinitely rewarding lower means", () 
     coolerResult.waterTemperaturePercentile,
     coldestResult.waterTemperaturePercentile,
   );
+});
+
+Deno.test("Run Timing rewards an earlier drop toward 62F independently of Push bands", () => {
+  const target = checkpoint("river_start");
+  const slowerCooling = cumulativeEvidence(target, "typical");
+  const fasterCooling = cumulativeEvidence(target, "typical");
+  const dates = Object.keys(fasterCooling).toSorted();
+
+  dates.forEach((date, index) => {
+    const progress = dates.length === 1 ? 1 : index / (dates.length - 1);
+    slowerCooling[date]!["16:00"]!.waterTempF = 70 - progress * 4;
+    fasterCooling[date]!["16:00"]!.waterTempF = 70 - progress * 8;
+  });
+
+  const slowerResult = scoreConditionsSuggest({
+    localDate: target.checkpointDate,
+    run,
+    evidenceByDate: slowerCooling,
+    baselines: [baseline(target)],
+  });
+  const fasterResult = scoreConditionsSuggest({
+    localDate: target.checkpointDate,
+    run,
+    evidenceByDate: fasterCooling,
+    baselines: [baseline(target)],
+  });
+
+  assertEquals(fasterCooling[dates.at(-1)!]!["16:00"]!.waterTempF, 62);
+  assert(
+    fasterResult.waterTemperaturePercentile! >
+      slowerResult.waterTemperaturePercentile!,
+  );
+  assertEquals(run.push.temperature.tooWarmF, 68);
 });
 
 Deno.test("DataQuality and interpretation remain dimension-specific", () => {

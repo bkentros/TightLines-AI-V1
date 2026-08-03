@@ -36,10 +36,10 @@ River Run answers five independent questions:
 | Primitive          | User question                                                                                                                                            | Output                                                                              | Refresh           |
 | ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------- |
 | Run Stage          | Where is this researched run on its calendar?                                                                                                            | Stage label                                                                         | Daily             |
-| Conditions Suggest | At four early-season checkpoints, do cumulative completed conditions suggest earlier, typical, or delayed timing compared with this river/run's history? | Evaluating; Ahead, Typical, Delayed, or Insufficient evidence; then Timing complete | Stage checkpoint  |
-| Push               | Do current and recent conditions support a fresh movement event for this river/run/species?                                                              | 0–100 score and label, or Unavailable                                               | Condition refresh |
-| Fishability        | Is the primary gauged reach currently in a fishable river shape?                                                                                         | 0–100 score and label, or Unavailable                                               | Condition refresh |
-| Fish In River      | What historical seasonal-presence level is reasonable for this date on this river/run/species?                                                           | 0–10 level, limited by a configured maximum                                         | Daily             |
+| Conditions Suggest | At five early-season checkpoints, do cumulative completed conditions suggest earlier, typical, or delayed timing compared with this river/run's history? | Evaluating; Ahead, Typical, Delayed, or Insufficient evidence; then Timing complete | Stage checkpoint  |
+| Push               | Do current and recent conditions support a fresh movement event for this river/run/species?                                                              | Internal 0–100 score; public label and qualitative meter, or Unavailable            | Condition refresh |
+| Fishability        | Is the primary gauged reach currently in a fishable river shape?                                                                                         | Internal 0–100 score; public label and qualitative meter, or Unavailable            | Condition refresh |
+| Fish In River      | What historical seasonal-presence level is reasonable for this date on this river/run/species?                                                           | Internal 0–100 score limited by a river-specific ceiling; public label and meter    | Daily             |
 
 River Run must not produce:
 
@@ -73,8 +73,11 @@ Rules:
 - Run Stage and Conditions Suggest do not require a numeric score.
 - Push and Fishability return `score: null` when required current evidence is
   unavailable.
-- Fish In River returns an integer from `0` through `10`; it can never exceed
-  the configured historical-presence maximum for that river/run/species.
+- Fish In River returns an internal integer from `0` through `100`. Its public
+  meter and label hide the number, while the configured 1–10 historical-presence
+  maximum is converted to a river-specific ceiling in ten-point increments.
+- All numeric primitive scores remain internal because they rank deterministic
+  states rather than expressing calibrated probabilities or measurements.
 - Headline, detail, tip, label, score, and reason codes must describe the same
   determination.
 - A scoring-rule change is incomplete until its copy and copy tests change in
@@ -122,7 +125,8 @@ Locked product decisions:
 5. Fishability cannot equate a historical percentile with Ideal or Blown Out
    unless that relationship is independently audited for the river/reach.
 6. Fish In River uses a configured maximum from 1–10 for each river/run/species
-   combination. Pere Marquette Fall Chinook may reach 10.
+   combination and projects it onto the public 0–100 scale. Pere Marquette Fall
+   Chinook may reach 100; a maximum-6 run may reach only 60.
 7. A river may use one or more gauges. One gauge is fully supported and remains
    the default.
 8. Raw readings from different gauges must never be averaged together.
@@ -386,12 +390,18 @@ type RiverRunProfile = {
     | "stable_cool_holding";
 
   runWindow: {
+    preRunStart: string; // MM-DD; start of useful pre-run watch
     stagingStart: string; // MM-DD; nearby-water advisory only
     start: string; // MM-DD
+    beginningEnd: string; // MM-DD
+    buildingEstablishedStart: string; // MM-DD; copy substate only
+    peakStart: string; // MM-DD
     peak: string; // MM-DD
+    peakEnd: string; // MM-DD
+    taperingEnd: string; // MM-DD
     end: string; // MM-DD
     lateEnd: string; // MM-DD; historical-presence tail
-    peakWindowDays?: number;
+    postRunLateCopyEnd: string; // MM-DD; final late post-run copy day
   };
 
   historicalPresence: {
@@ -471,6 +481,7 @@ type RiverRunProfile = {
   conditionsSuggest: {
     baselineVersion: string;
     temperatureSourceId: string;
+    finalCheckpointDaysAfterPeak: number;
     minimumUsableYears: number; // public minimum 5
     minimumCoveragePercent: number; // default 0.80 per checkpoint
     aheadPercentile: number; // default 75
@@ -639,22 +650,33 @@ Ending
 Post-run
 ```
 
-Default date segmentation:
+Date segmentation is explicit river/run configuration:
 
 ```txt
-Pre-run: before start
-Beginning: start through first 20% of start-to-peak span
-Building: after Beginning through the day before peak window
-Peak: peak date ± peakWindowDays
-Tapering: after Peak through 75% of peak-to-end span
-Ending: final 25% through end
+Post-run: before preRunStart
+Pre-run: preRunStart through the day before start
+Beginning: start through beginningEnd
+Building: after beginningEnd through the day before peakStart
+  Early Building copy: before buildingEstablishedStart
+  Established Building copy: buildingEstablishedStart through the day before peakStart
+Peak: peakStart through peakEnd
+Tapering: after peakEnd through taperingEnd
+Ending: after taperingEnd through end
 Post-run: after end
+  Late-run copy: after end through postRunLateCopyEnd
+  Offseason copy: after postRunLateCopyEnd through the day before the next preRunStart
 ```
+
+`lateEnd` controls the historical Fish In River tail. `postRunLateCopyEnd`
+controls Run Stage copy only. Keeping them separate prevents one primitive's
+seasonal estimate from silently changing another primitive's angler guidance.
 
 `stagingStart` is separate from river presence. Between `stagingStart` and
 `start`, Run Stage may explain that mature fish can stage in nearby lake,
-harbor, or river-mouth water, but Fish In River remains `0`. Staging copy is
-seasonal context, not an observation or a claim that fish are in the river.
+harbor, or river-mouth water and, where supported, that rare early fish are
+possible in the river. Fish In River remains `0` until the configured river
+start because this context does not establish dependable seasonal presence.
+Staging copy is seasonal context, not an observation.
 
 Cross-year runs are supported. Copy must call Run Stage a calendar read and must
 not claim that fish were observed.
@@ -686,20 +708,25 @@ headline must begin with or naturally include “Conditions suggest.”
 #### Checkpoints and update behavior
 
 Raw observations continue to refresh and store every scheduled day. The
-user-facing timing determination changes only at these four run-calendar
+user-facing timing determination changes only at these five run-calendar
 checkpoints:
 
-| Checkpoint       | Becomes active        | Completed evidence cutoff |
-| ---------------- | --------------------- | ------------------------- |
-| `river_start`    | First river-start day | Day before river start    |
-| `building_start` | First building day    | Last beginning day        |
-| `peak_start`     | First peak day        | Day before peak start     |
-| `peak_complete`  | First tapering day    | Last peak day             |
+| Checkpoint             | Becomes active                     | Completed evidence cutoff       |
+| ---------------------- | ---------------------------------- | ------------------------------- |
+| `river_start`          | First river-start day              | Day before river start          |
+| `building_start`       | First building day                 | Last beginning day              |
+| `building_established` | Later-building guidance boundary   | Day before that boundary        |
+| `peak_start`           | First peak day                     | Day before peak start           |
+| `peak_complete`        | Final configured timing checkpoint | Day before the final checkpoint |
 
 Every checkpoint starts its evidence window at `stagingStart`. Later checkpoints
 therefore retain all earlier evidence instead of replacing it with a short
 rolling window. Between checkpoints, the result is locked and a deterministic
 recomputation must return the same result.
+
+Beginning with the second checkpoint, the result also carries the immediately
+previous checkpoint's public timing label and date. The app displays that past
+read as context; it does not expose the next configured checkpoint date.
 
 Before the river-start checkpoint the label is `Evaluating`; no early timing
 claim is made. At `peak_complete`, Conditions Suggest stops classifying timing
@@ -861,25 +888,41 @@ Required conservative behavior:
 - Cooling below the configured supportive range receives no extra credit.
 - Severe-high primary hydraulics: maximum 49 unless an audited run-specific
   exception explicitly proves otherwise.
-- Before the configured river-run `start`: no score; show when tracking begins
-  and leave lake/harbor/river-mouth staging to Run Stage.
-- After the configured river-run `end`: no score or supportive-condition
-  history; show that fresh-push tracking is complete.
-- Every active-window Push result states that fresh fish may enter from the lake
-  without a textbook weather event, that entry is more commonly associated with
-  cooling, rainfall, and a river rise, and that Push cannot confirm or rule out
-  movement.
+- Before the configured river-run `start`: no score; say the river run has not
+  started, leave lake/harbor/river-mouth staging to Run Stage, and do not expose
+  the configured date.
+- After the configured river-run `end`: no new score or history entry; say the
+  season's fresh-movement read is complete while the final seven completed
+  in-run dates remain available as past context.
+- Every active-window Push result remains probabilistic. Its headline, detail,
+  and guide guidance describe how strongly the measured water supports movement
+  without claiming that fish entered or ruling out unprompted movement.
 
-Push also exposes the most recent recorded supportive-condition context for the
-specific river/run season. “Supportive” means a stored Push score of at least
-`50` (`Possible` or stronger); it does not mean that fish movement was observed.
-The lookup:
+Push exposes a compact history dropdown for the specific river/run season. It
+shows up to seven completed prior local dates, newest first. Each row uses the
+strongest stored `Possible`-or-greater window for that date and displays its
+public Push category and peak local time. A completed date with valid reads but
+no supportive window says `No supportive window`; a date without usable stored
+evidence says `No recorded read`. It never shows the still-changing current
+date, reconstructs a missing read, or exposes a numeric score. The lookup:
 
 - starts at that season's configured river-run `startDate`, never at the earlier
   staging advisory;
-- is available through the configured `endDate`, inclusive, and is no longer
-  shown afterward;
+- records through the configured `endDate`, inclusive, and freezes to the final
+  seven in-run dates afterward;
 - matches the exact river, run, engine version, and configuration version;
+- returns the strongest stored supportive window for each completed local date;
+- breaks equal-score ties with the later stored refresh;
+- distinguishes a valid day without a supportive window from a missing day;
+- keeps absent dates visible as `No recorded read`;
+- caps the list at seven dates; and
+- reports a temporarily unavailable history honestly if the lookup fails.
+
+Push also retains the most recent recorded supportive-condition context below
+the daily history. “Supportive” means a stored Push score of at least `50`
+(`Possible` or stronger); it does not mean that fish movement was observed. The
+supportive-context lookup:
+
 - returns the most recent stored condition refresh, not a reconstructed or
   guessed date;
 - reports `not_started`, `active_now`, `previously_recorded`, `none_recorded`,
@@ -892,9 +935,9 @@ When today is lower, it shows the latest recorded `Possible`-or-stronger
 category and date. When no matching row exists it says that no supportive Push
 signal has been recorded yet this run; it does not claim that no entry occurred.
 
-#### 6.3.1 PM Fall Chinook Push V3
+#### 6.3.1 PM Fall Chinook Push V5
 
-The PM implementation is `pm-fall-chinook-push-v3`. Scottville discharge is the
+The PM implementation is `pm-fall-chinook-push-v5`. Scottville discharge is the
 hydraulic lead. A positive response tier requires both its absolute and relative
 24-hour threshold:
 
@@ -915,8 +958,8 @@ Measured-water states:
 
 | Water state       |                   Range | Trend treatment                                                          |
 | ----------------- | ----------------------: | ------------------------------------------------------------------------ |
-| Supportive        |                 51–67°F | strong cooling +10; cooling +6; steady 0; warming -5; strong warming -10 |
-| Transitional warm |   above 67 through 68°F | +8; +5; -3; -8; -12                                                      |
+| Supportive        |                 51–63°F | strong cooling +10; cooling +6; steady 0; warming -5; strong warming -10 |
+| Transitional warm |   above 63 through 68°F | +8; +5; -3; -8; -12                                                      |
 | Too warm          | above 68 and below 70°F | -5; -8; -12; -15; -18, cap 69                                            |
 | Migration barrier |          70°F or warmer | -20, cap 49                                                              |
 | Cool plateau      |              below 51°F | 0; further cooling earns no credit                                       |
@@ -932,7 +975,8 @@ It is precursor only: meaningful/strong/heavy estimates add 5/8/10 before a
 measured river response, no more than 3 once Scottville is merely Rising, and
 zero once Scottville is Meaningfully or Sharply Rising. Rain adds zero when
 discharge is already High or Severe High. An effectively dry estimate subtracts
-5.
+5 only before a measured Meaningful or Sharp rise; once that rise exists, the
+measured response supersedes the dry estimate and rain contributes zero.
 
 The final score is the hydraulic base plus small state, temperature, and rain
 modifiers, followed by caps. It is not a probability. The five score labels use
@@ -1026,8 +1070,8 @@ For PM Fall Chinook V1, Scottville discharge uses:
 | Band            | Scottville discharge |
 | --------------- | -------------------: |
 | Very Low        |           `<400 cfs` |
-| Low             |     `>=400 and <475` |
-| Normal Fishable |     `>=475 and <525` |
+| Low             |     `>=400 and <500` |
+| Normal Fishable |     `>=500 and <525` |
 | Ideal           |    `>=525 and <=750` |
 | High Fishable   |   `>750 and <=1,000` |
 | Very High       |  `>1,000 and <1,600` |
@@ -1052,8 +1096,8 @@ Each river/run/species config owns:
 Examples:
 
 ```txt
-Pere Marquette Fall Chinook maximum: 10
-White River Fall Chinook possible researched maximum: 6 or 7
+Pere Marquette Fall Chinook internal maximum: 10 → public ceiling: 100
+White River Fall Chinook possible internal maximum: 6 or 7 → ceiling: 60 or 70
 ```
 
 The actual White River value is not accepted until its own research and audit
@@ -1063,8 +1107,9 @@ Calculation:
 
 ```txt
 curveFraction = historical curve value for local date, from 0 through 1
-fishInRiverLevel = round(curveFraction * historicalPresence.maximum)
-fishInRiverLevel = clamp(fishInRiverLevel, 0, historicalPresence.maximum)
+riverCeiling = historicalPresence.maximum * 10
+fishInRiverScore = round(curveFraction * riverCeiling)
+fishInRiverScore = clamp(fishInRiverScore, 0, riverCeiling)
 ```
 
 Default curve shape may be generated from Run Stage dates, but its anchors must
@@ -1085,21 +1130,21 @@ be stored/versioned and accepted:
 Copy must say “historical seasonal presence” or equivalent. It must not say that
 a specific number of fish are currently present.
 
-Suggested level labels:
+Suggested level labels are based on the score's share of that run's
+river-specific ceiling:
 
-| Level | Label                         |
-| ----: | ----------------------------- |
-|     0 | Outside the historical window |
-|   1–2 | Low historical presence       |
-|   3–4 | Building historical presence  |
-|   5–6 | Moderate historical presence  |
-|   7–8 | High historical presence      |
-|  9–10 | Peak historical presence      |
+| Share of ceiling | Label             |
+| ---------------: | ----------------- |
+|               0% | Outside run       |
+|            1–20% | Low presence      |
+|           21–40% | Limited presence  |
+|           41–60% | Moderate presence |
+|          61–<90% | High presence     |
+|          90–100% | Peak presence     |
 
-The same numeric level can have different significance across two runs because
-the configured maximum is itself part of the historical river/run/species
-contract. The UI must show both the current level and the combination's maximum,
-for example `6 / 7`.
+The public UI displays a qualitative meter and label without a numeric score.
+The independently audited river ceiling still prevents a lower-strength
+river/run from reaching an overstated meter position.
 
 ---
 
@@ -1113,7 +1158,9 @@ For every reachable state:
 
 - **Headline:** directly answers only that primitive's question.
 - **Detail:** names the evidence and relevant time window.
-- **Tip:** provides practical interpretation without promising fish or safety.
+- **Tip:** leads with a concrete first action and, when supported, identifies
+  the river section, water type, and order of approach without promising fish or
+  safety.
 - **Reason codes:** identify the exact branch and limitations.
 
 Copy must:
@@ -1127,6 +1174,10 @@ Copy must:
 - Describe Fish In River as historical seasonal presence.
 - Describe Push as movement-trigger conditions, not observed movement.
 - Describe Fishability as the primary gauged reach, not the entire river.
+- Make every available Fishability detail state that it describes how the flow
+  should fish if migratory fish are present, not how many fish are present.
+- Give Guide's Read a clear priority. Do not hand the decision back to the user
+  with an unranked list of plausible water types.
 
 Copy must not use unsupported claims such as:
 
@@ -1216,14 +1267,15 @@ Owns:
 
 Condition refreshes use a required, source-audited schedule on each river
 profile. The schedule has separate active-season and inactive-season local
-slots. Active season begins at that run's configured staging start and ends
-with its main run window; this lets one river support multiple seasonal runs
-without hard-coding dates into the refresh engine.
+slots. Active season begins at that run's configured staging start and ends with
+its historical-presence tail. This keeps Fishability current anywhere the
+product can still show seasonal fish presence without extending Push beyond its
+separate main-run window. The boundaries come from each run configuration, so
+the refresh engine does not hard-code dates.
 
 For PM Fall Chinook:
 
-- active season: local `00:00`, `04:00`, `08:00`, `12:00`, `16:00`, and
-  `20:00`
+- active season: local `00:00`, `04:00`, `08:00`, `12:00`, `16:00`, and `20:00`
 - outside the active season: local `00:00`
 - the protected hourly job runs shortly after the hour so the newest source
   transmissions have time to arrive
@@ -1269,6 +1321,18 @@ type RiverRunSnapshot = {
     trackingStartDate: string;
     trackingEndDate: string;
     throughDate: string;
+    recentDailyReadsStatus: "available" | "unavailable";
+    recentDailyReads: Array<{
+      localDate: string;
+      status:
+        | "supportive_window"
+        | "no_supportive_window"
+        | "missing";
+      refreshSlot?: string;
+      conditionRefreshAt?: string;
+      score: number | null;
+      label: string;
+    }>;
     lastSupportiveConditions?: {
       localDate: string;
       refreshSlot: string;
@@ -1280,7 +1344,8 @@ type RiverRunSnapshot = {
   fishability: PrimitiveDisplay;
   fishInRiver: PrimitiveDisplay & {
     score: number;
-    maximum: number;
+    maximum: 100;
+    riverCeiling: number;
   };
 
   primaryGauge: NormalizedGaugeContext;
@@ -1373,7 +1438,8 @@ To keep development linear and prevent downstream rework:
 
 1. Reconcile the shared gauge/weather/temperature truth layer with Section 3.
 2. Reconcile Run Stage and its complete copy matrix.
-3. Replace Fish In River with the configured 0–10 historical-presence model.
+3. Replace Fish In River with the configured, river-capped 0–100
+   historical-presence model.
 4. Rebuild Push interactions and calibrate PM thresholds.
 5. Replace Schedule with Conditions Suggest and add historical change baselines.
 6. Rebuild Fishability without the rain/stain proxy and require audited bands.
@@ -1455,14 +1521,15 @@ The rollout must remain paused at the public-enable step until items 1–7 pass.
 
 ### 11.6 Fish In River
 
-- Score is an integer from 0–10.
-- Score never exceeds the configured combination maximum.
-- PM Fall Chinook can reach 10 at its configured peak.
-- A maximum-7 run cannot exceed 7 at peak.
+- Score is an integer from 0–100.
+- Score never exceeds ten times the configured combination maximum.
+- PM Fall Chinook can reach 100 at its configured peak.
+- A maximum-7 run cannot exceed 70 at peak.
 - Run Stage dates and the presence curve use the same active run year.
 - Weather/gauge inputs never change Fish In River.
 - Copy always identifies the value as historical seasonal presence.
-- Output shows current level and configured maximum.
+- Public output hides the internal numeric score and uses the corresponding
+  qualitative meter position and label.
 
 ### 11.7 Cross-Primitive And Copy
 
@@ -1563,10 +1630,10 @@ Conditions can vary away from the gauge; this is not a wading or boating
 safety rating.
 ```
 
-Fish In River — 8/10:
+Fish In River — 80/100:
 
 ```txt
-Historical seasonal presence is 8 out of 10.
+Seasonal presence is 80 out of 100.
 This date falls in a historically strong portion of the researched Pere
 Marquette fall Chinook window.
 This is a calendar-based historical estimate, not a live fish count.

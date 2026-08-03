@@ -75,6 +75,7 @@ const REQUIRED_REASON_CODES = [
   "conditions_checkpoint_evaluating",
   "conditions_checkpoint_river_start",
   "conditions_checkpoint_building_start",
+  "conditions_checkpoint_building_established",
   "conditions_checkpoint_peak_start",
   "conditions_checkpoint_peak_complete",
   "conditions_checkpoint_reversal_tempered",

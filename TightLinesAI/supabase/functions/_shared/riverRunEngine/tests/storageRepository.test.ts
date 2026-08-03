@@ -8,6 +8,7 @@ import {
   getDailySnapshot,
   getLastSupportivePushConditions,
   getPublishedConfiguration,
+  getRecentDailyPushConditions,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
@@ -277,6 +278,90 @@ Deno.test("supportive Push history is scoped and returns stored condition eviden
   });
 });
 
+Deno.test("recent Push history keeps each day's strongest supportive window", async () => {
+  const client = new MockSupabaseClient();
+  client.listResponse = {
+    data: [
+      {
+        local_date: "2026-09-19",
+        refresh_slot: "20:00",
+        condition_refresh_at: "2026-09-19T23:59:00Z",
+        push: { score: 42, label: "No clear push" },
+      },
+      {
+        local_date: "2026-09-19",
+        refresh_slot: "16:00",
+        condition_refresh_at: "2026-09-19T20:10:00Z",
+        push: { score: 81, label: "Strong" },
+      },
+      {
+        local_date: "2026-09-19",
+        refresh_slot: "12:00",
+        condition_refresh_at: "2026-09-19T16:10:00Z",
+        push: { score: 81, label: "Strong" },
+      },
+      {
+        local_date: "2026-09-18",
+        refresh_slot: "20:00",
+        condition_refresh_at: "2026-09-18T23:59:00Z",
+        push: { score: 21, label: "Weak" },
+      },
+      {
+        local_date: "2026-09-17",
+        refresh_slot: "20:00",
+        condition_refresh_at: "2026-09-17T23:59:00Z",
+        push: { score: null, label: "Unavailable" },
+      },
+    ],
+    error: null,
+  };
+
+  const result = await getRecentDailyPushConditions(client, {
+    riverId: "pere_marquette",
+    runId: "pere_marquette_fall_chinook",
+    trackingStartDate: "2026-08-15",
+    throughDate: "2026-09-19",
+    maximumDays: 7,
+    minimumSupportiveScore: 50,
+    engineVersion: "engine-test",
+    configVersion: "config-test",
+  });
+
+  assertEquals(result.data, [
+    {
+      localDate: "2026-09-19",
+      status: "supportive_window",
+      refreshSlot: "16:00",
+      conditionRefreshAt: "2026-09-19T20:10:00Z",
+      score: 81,
+      label: "Strong",
+    },
+    {
+      localDate: "2026-09-18",
+      status: "no_supportive_window",
+      score: null,
+      label: "No supportive window",
+    },
+  ]);
+  assertEquals(result.found, true);
+  assertEquals(
+    client.filters.map(({ column, value }) => ({ column, value })),
+    [
+      { column: "river_id", value: "pere_marquette" },
+      { column: "run_id", value: "pere_marquette_fall_chinook" },
+      { column: "engine_version", value: "engine-test" },
+      { column: "config_version", value: "config-test" },
+      { column: "local_date", value: "2026-08-15" },
+      { column: "local_date", value: "2026-09-19" },
+    ],
+  );
+  assertEquals(client.orders[0], {
+    table: "river_run_condition_refreshes",
+    column: "condition_refresh_at",
+    options: { ascending: false },
+  });
+});
+
 Deno.test("serialized/deserialized JSON preserves snapshot and refresh displays", () => {
   const daily = storedDailySnapshot();
   const dailyRoundTrip = deserializeDailySnapshot(
@@ -390,7 +475,7 @@ Deno.test("draft configuration upsert validates and uses immutable revision key"
     client.upserts[0].options?.onConflict,
     "config_key,revision",
   );
-  assertEquals(result.data?.document.configVersion, "2026-07-29.1");
+  assertEquals(result.data?.document.configVersion, "2026-08-02.1");
 });
 
 Deno.test("published configuration read filters by key and published status", async () => {

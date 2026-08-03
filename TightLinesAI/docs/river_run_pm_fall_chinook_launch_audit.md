@@ -1,6 +1,6 @@
 # River Run PM Fall Chinook Foundation Audit
 
-**Audit version:** 2026-07-28.4
+**Audit version:** 2026-08-02.1
 
 **Release conclusion:** Foundation accepted locally; public release is not
 accepted.
@@ -10,14 +10,37 @@ accepted.
 - River/run: Pere Marquette River — Fall Chinook
 - Movement engine: `fall_cooling` / `fall-cooling-v2`
 - Nearby-water staging advisory: July 28
+- Pre-run watch: July 1
 - River-presence start: August 15
 - Peak candidate: September 20
-- End / late end: October 20 / November 3
+- Run Stage peak: September 15–30
+- End / late end: October 27 / November 8
+- True offseason copy begins: November 11
 - Historical-presence maximum: `10`
-- Presence curve: `pm-fall-chinook-presence-v1`
+- Presence curve: `pm-fall-chinook-presence-v2`
+- Canonical copy version: `river-run-copy-v10`
 
 Staging context never increases Fish In River. Fish In River remains `0` before
 August 15 and is displayed as `current / maximum`.
+
+The accepted PM presence curve now keeps a near-peak shoulder through September
+30, reaches `70 / 100` on October 9, `25 / 100` on October 25, and `0 / 100` on
+November 8. Falling copy describes a possible position beyond the usual seasonal
+peak without claiming that the current year's run has peaked or declined.
+
+Peak Presence is now reserved for at least `90%` of the configured river
+ceiling. From `61%` through less than `90%`, the label is High Presence; its
+upper falling shoulder says strong presence can remain across much of the river
+while the usual peak window may be easing. The threshold uses the percentage of
+each river's own ceiling, never a PM-only raw score. On the PM curve this keeps
+September 14 at High/rising, enters Peak/rising on September 17, remains
+Peak/falling on October 1, and returns to High/falling on October 2.
+
+Condition inputs refresh every four hours from the July 28 staging boundary
+through the November 8 historical-presence tail so Fishability remains current
+where late seasonal presence is still displayed. Push retains its independent
+August 15 through October 27 tracking window; late-tail refreshes cannot create
+a Push score or history entry.
 
 ## Audited sources
 
@@ -45,7 +68,7 @@ credit.
 - Normalized daily-flow observations: `3629`
 - Baseline version: `2026-07-27`
 - Generated canonical baseline rows: `365`
-- Staging-through-late-end coverage: `100%` (`99 / 99` canonical days)
+- Staging-through-late-end coverage: `100%` (`104 / 104` canonical days)
 - Missing canonical baseline days: none
 
 The live audit command was:
@@ -58,7 +81,7 @@ npm run audit:river-run:pm -- --fetch-usgs --start 2016-01-01 \
 ## Conditions Suggest baseline
 
 - Contract: `conditionsSuggest`; no public or internal `schedule` primitive
-- Baseline version: `pm-fall-chinook-conditions-v2`
+- Baseline version: `pm-fall-chinook-conditions-v3`
 - Historical years: `2021` through `2025`
 - Hydraulic evidence: Scottville `04122500` daily mean discharge
 - Temperature evidence: PMTU M-37 result `3201` daily median measured water
@@ -68,20 +91,21 @@ npm run audit:river-run:pm -- --fetch-usgs --start 2016-01-01 \
   stored M-37 refreshes per completed date
 - Model: two components only, `60%` gauge response and `40%` measured-water
   pattern
-- Generated checkpoint rows: `4`
-- Required checkpoint coverage: `100%` (`4 / 4`)
-- 2026 checkpoints: river start August 15, building start August 24, peak start
-  September 15, peak complete September 26
-- Expected/minimum usable cumulative days: `18/15`, `27/22`, `49/40`, `60/48`
-- Mechanical replay samples: `20`
-- Candidate labels: `1 Ahead / 17 Typical / 2 Delayed`
-- Final checkpoint labels: `1 Ahead / 17 Typical / 2 Delayed`
+- Generated checkpoint rows: `5`
+- Required checkpoint coverage: `100%` (`5 / 5`)
+- 2026 checkpoints: river start August 15, building start August 24, established
+  building September 1, peak start September 15, peak complete September 26
+- Expected/minimum usable cumulative days: `18/15`, `27/22`, `35/28`, `49/40`,
+  `60/48`
+- Mechanical replay samples: `25`
+- Candidate labels: `1 Ahead / 22 Typical / 2 Delayed`
+- Final checkpoint labels: `1 Ahead / 22 Typical / 2 Delayed`
 - Direct reversals tempered: `0` in the historical sample; deterministic
   reversal fixtures pass
-- Strongly mixed samples held at Typical: `2`
+- Strongly mixed samples held at Typical: `3`
 - Ahead/Delayed candidate component-agreement violations: `0`
 
-All four checkpoint baselines contain five usable historical years. The engine
+All five checkpoint baselines contain five usable historical years. The engine
 still returns `Insufficient evidence` rather than weakening coverage, history,
 window, version, or provenance requirements.
 
@@ -93,19 +117,22 @@ npm run build:river-run:pm-conditions-baseline
 
 ## Push interaction replay
 
-- Rules version: `pm-fall-chinook-push-v3`
+- Rules version: `pm-fall-chinook-push-v5`
 - Replay years: `2021` through `2025`
 - Hydraulic evidence: Scottville daily mean discharge
 - Temperature evidence: Maple Leaf daily median measured water
 - Rain evidence: Baldwin watershed-point modeled gridded precipitation
-- Usable configured-start-through-end days: `319`
+- Usable configured-start-through-end days: `354`
 - Labels:
-  `16 Weak / 247 No clear push / 45 Possible / 10 Strong / 1 Very
+  `22 Weak / 271 No clear push / 50 Possible / 10 Strong / 1 Very
   strong`
-- Flow responses: `258 Stable`, `4 Falling`, `39 Rising`, `13 Meaningful`,
+- Temperature states:
+  `66 Cool plateau / 232 Supportive / 55 Transitional warm / 1 Too warm`
+- Flow responses: `286 Stable`, `4 Falling`, `45 Rising`, `14 Meaningful`,
   `5 Sharp`
 - Strong without a measured positive gauge response: `0`
 - Rain credit after Meaningful or Sharp response: `0`
+- Dry-rain penalty after Meaningful or Sharp response: `0`
 - Warm migration-barrier result above No clear push: `0`
 - Severe-high-flow result above No clear push: `0`
 - Very strong result without a Sharp response: `0`
@@ -115,24 +142,32 @@ The strongest daily replay was September 25, 2024: a Sharp Scottville response,
 57.6°F supportive measured water that was cooling, and rain treated as absorbed
 context rather than a second score. It produced `86 / Very strong`.
 
+Version 5 ends the fully supportive temperature band at 63°F instead of 67°F.
+Water above 63°F through 68°F remains usable, but receives the more conservative
+Transitional warm treatment. Across 354 replay days, this moved one Strong day
+to Possible, one Possible day to No clear push, and six quiet boundary days from
+No clear push to Weak. Very strong remained unchanged. The Version 4 dry-rain
+correction remains intact: rain is precursor-only, carries no penalty after a
+Meaningful or Sharp measured rise, and cannot create Strong without measured
+river response.
+
 This is a mechanical daily-resolution interaction replay. Runtime uses
 near-real-time gauge and temperature observations and modeled rolling
 precipitation. The replay proves score/copy invariants; it does not prove that
 fish entered on any historical date.
 
-Every active-window Push result now carries the lake-entry disclaimer: fresh
-fish may enter without a textbook weather event, entries are more commonly
-associated with cooling/rain/river-rise support, and the engine cannot confirm
-or rule out movement. The app separately shows the most recent stored
-`Possible`-or-stronger category and date as a “supportive Push signal.” That
-history is limited to this exact river, run season, engine version, and
-configuration version; it never calls the date a confirmed fish push.
+Every active-window Push state keeps movement probabilistic: its headline,
+detail, and guide guidance describe water support without claiming fish entered.
+The app separately shows the most recent stored `Possible`-or-stronger category
+and date as a “supportive Push signal.” That history is limited to this exact
+river, run season, engine version, and configuration version; it never calls the
+date a confirmed fish push.
 
 Push and its supportive-condition history now begin on the configured PM river
 start, August 15—not the July 28 nearby-water staging advisory. Both remain
-active through the configured October 20 end. After that date the score and
-history disappear and the primitive reports that fresh-push tracking is
-complete.
+active through the configured October 27 end. After that date the score and new
+history entries stop, the final seven completed in-run dates remain as context,
+and the primitive reports that fresh-push tracking is complete.
 
 The replay command is:
 
@@ -142,23 +177,24 @@ npm run replay:river-run:pm-push
 
 ## Fishability calibration and replay
 
-- Rules version: `pm-scottville-fishability-v1`
+- Rules version: `pm-scottville-fishability-v2`
 - Primary scored reach/metric: Scottville lower-mainstem discharge
 - Calibration history: USGS daily means, August 15–October 20, 2016–2025
-- Usable days: `670`
+- Current-window replay: August 15–October 27, 2016–2025
+- Usable replay days: `740`
 - Modern distribution: approximately
   `p10 416 / p25 468 / median 536 / p75
   627 / p90 802 / p95 1,066 / p99 1,458 cfs`
-- Audited bands: `<400 Very Low`; `>=400 to <475 Low`;
-  `>=475 to <525 Normal
+- Audited bands: `<400 Very Low`; `>=400 to <500 Low`;
+  `>=500 to <525 Normal
   Fishable`; `>=525 to <=750 Ideal`;
   `>750 to <=1,000 High Fishable`; `>1,000
   to <1,600 Very High`;
   `>=1,600 Blown Out`
 - Band counts:
-  `50 Very Low / 136 Low / 121 Normal / 284 Ideal / 41 High / 33
-  Very High / 5 Blown Out`
-- Score labels: `9 Poor / 85 Tough / 165 Fishable / 157 Good / 254 Excellent`
+  `50 Very Low / 206 Low / 67 Normal / 317 Ideal / 51 High / 42
+  Very High / 7 Blown Out`
+- Score labels: `13 Poor / 94 Tough / 236 Fishable / 114 Good / 283 Excellent`
 - Very Low, Blown Out, and sharp-rise/high-water cap violations: `0`
 - Incomplete or unsupported rain/stain/clarity copy results: `0`
 
@@ -193,36 +229,39 @@ npm run replay:river-run:pm-fishability
 - PM Push temperature suitability, cooling plateau, warm barrier, rain
   precursor, no-response, unknown-trend, stale, severe-high, and outside-window
   behavior are tested.
-- Push history active/current, prior-supportive, no-record, season boundary, and
-  configuration-version isolation behavior are tested.
-- The lake-entry disclaimer and “last supportive conditions” wording are covered
-  by copy tests.
+- Push history active/current, first-day/second-day boundaries, prior seven
+  completed dates, strongest-window-per-date selection, equal-score peak-time
+  tie breaking, no-support versus missing rows, lookup failure isolation,
+  prior-supportive context, season boundary, and configuration-version isolation
+  behavior are tested.
+- Probabilistic Push guidance and “last supportive conditions” wording are
+  covered by copy tests.
 - Every reachable Push label and representative cross-primitive copy branch is
   covered.
 - Every Fishability boundary, label, conservative cap, unavailable branch,
   reason code, and primary-reach copy branch is covered.
+- Every reachable primitive Guide's Read is required to begin with a concrete
+  action and is rejected if it returns the decision to the angler with
+  open-ended wording.
+- Every available Fishability review branch has distinct band/trend context and
+  explicitly separates flow usability from migratory-fish abundance.
 - Draft/published/archived configuration revision storage is included in
   migration `20260727120000_create_river_run_config_revisions.sql`.
-- The integrated 2021–2025 daily replay covers 495 snapshots with zero
+- The integrated 2021–2025 daily replay covers 520 snapshots with zero
   unexplained disagreements, prohibited copy claims, or season-boundary Push
   violations. See `docs/river_run_pm_integrated_audit.md`.
 
-## Blocking release gates
+## Remaining release gates
 
-This audit does not approve public release. The following remain:
+The product-owner primitive copy audit is complete locally. This audit still
+does not approve public release. The following remain:
 
-1. Review the PM Conditions Suggest output and copy in-app with the product
-   owner after all primitives are implemented.
-2. Review the PM Push output and copy in-app with the product owner after all
-   primitives are implemented.
-3. Review the implemented PM-specific Fishability thresholds and copy in-app;
-   the 2016–2025 replay covers 670 run-window days with all cap/copy invariants
-   passing.
-4. Review final scores and all copy branches together with the product owner.
-5. Deploy hidden by staging start and continuously collect the daily
+1. Deploy hidden by staging start and continuously collect the daily
    Scottville/M-37 evidence needed for checkpoint coverage. If deployment begins
    later, use only a verified provenance-preserving backfill; otherwise accept
    `Insufficient evidence`.
-6. Observe provider transitions and pass production smoke.
+2. Observe provider transitions and pass production smoke.
+3. Complete final small-screen and accessibility acceptance on the release
+   build.
 
 `RIVER_RUN_PUBLIC_ENABLED` must remain false or unset until those gates pass.

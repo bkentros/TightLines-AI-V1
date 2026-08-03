@@ -60,7 +60,7 @@ const flowObservations = await fetchUsgsDailyFlowBaselineObservations({
   riverId: river.riverId,
   siteId: gauge.siteId,
   startDate: `${startYear}-07-27`,
-  endDate: `${endYear}-11-03`,
+  endDate: `${endYear}-11-08`,
 });
 const flowByDate = new Map(
   flowObservations.map((observation) => [
@@ -77,7 +77,7 @@ const rainByDate = await fetchDailyRain({
   lon: weatherPoint.lon,
   timezone: river.timezone,
   startDate: `${startYear}-07-25`,
-  endDate: `${endYear}-11-03`,
+  endDate: `${endYear}-11-08`,
 });
 
 const checkpointDefinitions = resolveConditionsSuggestCheckpoints(
@@ -361,7 +361,7 @@ const report = {
 };
 console.log(JSON.stringify(report, null, 2));
 if (
-  rows.length < 490 || conditionsBaselines.length !== 4 ||
+  rows.length < 490 || conditionsBaselines.length !== 5 ||
   failedInvariants.length > 0
 ) {
   Deno.exit(1);

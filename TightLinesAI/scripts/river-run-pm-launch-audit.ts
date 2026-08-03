@@ -198,10 +198,8 @@ const report = {
       run.publicAudit?.isEnabled === true,
     readyForPublicEnable: false,
     blockingGates: [
-      "Conditions Suggest in-app owner output/copy acceptance",
-      "PM Push in-app owner output/copy acceptance",
-      "PM Fishability in-app owner output/copy acceptance",
       "hidden production observation and production smoke",
+      "final release-build small-screen and accessibility acceptance",
     ],
   },
 };
@@ -218,13 +216,13 @@ async function inspectConditionsSuggestSeed(
   missingCheckpoints: string[];
 }> {
   const seedUrl = new URL(
-    "../supabase/migrations/20260727123000_seed_river_run_pm_conditions_suggest_baselines.sql",
+    "../supabase/migrations/20260729130100_seed_river_run_pm_conditions_suggest_baselines_v3.sql",
     import.meta.url,
   );
   try {
     const sql = await Deno.readTextFile(seedUrl);
     const pattern =
-      /^\s{2}\('pere_marquette', 'pere_marquette_fall_chinook', '(river_start|building_start|peak_start|peak_complete)', \d+, \d+, '([^']+)'/gm;
+      /^\s{2}\('pere_marquette', 'pere_marquette_fall_chinook', '(river_start|building_start|building_established|peak_start|peak_complete)', \d+, \d+, '([^']+)'/gm;
     const seededCheckpoints = new Set(
       [...sql.matchAll(pattern)]
         .filter((match) => match[2] === expectedBaselineVersion)

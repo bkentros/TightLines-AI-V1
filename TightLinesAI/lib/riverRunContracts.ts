@@ -5,13 +5,13 @@ export type RiverRunSupportStatus = "beta" | "verified";
 export type RiverRunPrimitiveDisplay = {
   score?: number | null;
   maximum?: number;
+  riverCeiling?: number;
   label: string;
   headline?: string;
   detail?: string;
   tip?: string;
   reasonCodes?: string[];
   copyVersion?: string;
-  copyVariant?: "A" | "B";
 };
 
 export type RiverRunCatalogRun = {
@@ -55,6 +55,7 @@ export type RiverRunConditionsSuggestLabel =
 export type RiverRunConditionsCheckpointId =
   | "river_start"
   | "building_start"
+  | "building_established"
   | "peak_start"
   | "peak_complete";
 
@@ -69,6 +70,9 @@ export type RiverRunConditionsSuggest =
     candidateLabel?: RiverRunConditionsTimingLabel | null;
     checkpointId?: RiverRunConditionsCheckpointId;
     checkpointDate?: string;
+    previousCheckpointId?: RiverRunConditionsCheckpointId;
+    previousCheckpointDate?: string;
+    previousTimingLabel?: RiverRunConditionsTimingLabel | null;
     cutoffDate?: string;
     observationStartDate?: string;
     nextCheckpointDate?: string;
@@ -202,6 +206,18 @@ export type RiverRunPushHistory = {
   trackingStartDate: string;
   trackingEndDate: string;
   throughDate: string;
+  recentDailyReadsStatus?: "available" | "unavailable";
+  recentDailyReads?: Array<{
+    localDate: string;
+    status:
+      | "supportive_window"
+      | "no_supportive_window"
+      | "missing";
+    refreshSlot?: string;
+    conditionRefreshAt?: string;
+    score: number | null;
+    label: string;
+  }>;
   lastSupportiveConditions?: {
     localDate: string;
     refreshSlot: string;

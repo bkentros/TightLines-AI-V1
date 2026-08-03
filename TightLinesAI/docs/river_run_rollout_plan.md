@@ -81,8 +81,9 @@ A primitive is complete only when all of the following are checked:
 - [x] Prevented public date, time, refresh-time, and environmental overrides.
 - [x] Added a secret-protected internal refresh route.
 - [x] Added an idempotent hourly cron definition that resolves source-audited
-  local condition slots from each river profile. PM uses four-hour active-run
-  refreshes and a daily inactive refresh.
+      local condition slots from each river profile. PM uses four-hour refreshes
+      from staging through its historical-presence tail and a daily inactive
+      refresh. Push still stops at the separate main-run end.
 - [x] Added provider timeouts and deterministic provider-failure handling.
 - [x] Made storage failures explicit instead of treating them as empty data.
 - [x] Added mobile focus, foreground, and pull-to-refresh behavior.
@@ -109,7 +110,7 @@ A primitive is complete only when all of the following are checked:
       checkpoints using only primary-gauge response and measured water
       temperature.
 - [x] Generated the versioned 2021–2025 PM Conditions Suggest baseline from
-      Scottville flow and the dedicated M-37 measured-water series for all four
+      Scottville flow and the dedicated M-37 measured-water series for all five
       checkpoints.
 
 ### Reusable foundation order completed
@@ -151,8 +152,11 @@ are tracked in Phase 1 rather than described as active scoring behavior.
 - The runtime public gate must remain false or unset.
 - Existing local River Run migrations have not been accepted for V1.1 deployment
   and may be amended or replaced before the first production push.
-- PM staging/start dates are configured as July 28/August 15. Peak, end,
-  late-end, and curve anchors remain calibration candidates.
+- PM Run Stage is configured with an explicit July 1 pre-run watch, July 28
+  staging advisory, August 15 river start, September 15–30 Peak, October 27
+  main-run end, November 8 historical-presence tail, and November 11 true
+  offseason copy transition. These boundaries and curve anchors remain
+  calibration candidates.
 - PM Fall Chinook's intended historical-presence maximum is `10`; its source
   notes and curve still require acceptance.
 
@@ -271,9 +275,11 @@ Candidate PM dates requiring evidence:
 ```txt
 staging advisory: July 28
 river start: August 15
-peak: September 20
-end: October 20
-late end: November 3
+peak stage: September 15–30
+peak reference: September 20
+end: October 27
+late end: November 8
+true offseason copy begins: November 11
 ```
 
 ### Phase 2 exit criteria
@@ -336,6 +342,8 @@ trigger read without double-counting weather and river response.
 - [x] Give rain precursor value before a gauge response where appropriate.
 - [x] Replace full rain credit once the primary gauge reflects the same event.
 - [x] Prevent rain and gauge from receiving duplicate full credit.
+- [x] Prevent a dry rainfall estimate from subtracting once the primary gauge
+      shows a Meaningful or Sharp measured rise.
 - [x] Prevent heavy rain into an already-high river from reading as simply
       better.
 - [x] Evaluate temperature direction together with absolute biological
@@ -432,19 +440,20 @@ deployed, prefer clear V1.1 migration names before the first push.
 
 PM implementation evidence:
 
-- Baseline version: `pm-fall-chinook-conditions-v2`
+- Baseline version: `pm-fall-chinook-conditions-v3`
 - Gauge: Scottville `04122500`, discharge only
 - Dedicated comparison temperature: PMTU M-37 result `3201`
 - Historical years: 2021–2025
-- Covered checkpoints: `4 / 4`
-- 2026 checkpoint dates: August 15, August 24, September 15, September 26
-- Cumulative expected/minimum days: `18/15`, `27/22`, `49/40`, `60/48`
-- Mechanical replay: `20` historical checkpoint samples
-- Candidate distribution: `1 Ahead / 17 Typical / 2 Delayed`
-- Final checkpoint distribution: `1 Ahead / 17 Typical / 2 Delayed`
+- Covered checkpoints: `5 / 5`
+- 2026 checkpoint dates: August 15, August 24, September 1, September 15,
+  September 26
+- Cumulative expected/minimum days: `18/15`, `27/22`, `35/28`, `49/40`, `60/48`
+- Mechanical replay: `25` historical checkpoint samples
+- Candidate distribution: `1 Ahead / 22 Typical / 2 Delayed`
+- Final checkpoint distribution: `1 Ahead / 22 Typical / 2 Delayed`
 - Direct reversals tempered: `0` in the historical sample; deterministic
   reversal fixtures pass
-- Strongly mixed samples resolved conservatively: `2`
+- Strongly mixed samples resolved conservatively: `3`
 - Ahead/Delayed candidate component-agreement violations: `0`
 
 Maple remains the first current-temperature source for Push. Conditions Suggest

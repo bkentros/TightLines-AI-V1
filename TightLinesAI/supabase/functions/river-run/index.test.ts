@@ -113,21 +113,32 @@ class MockQuery {
   }
 
   then<
-    TResult1 = { data: Record<string, unknown>[]; error: null },
+    TResult1 = {
+      data: Record<string, unknown>[];
+      error: { message: string } | null;
+    },
     TResult2 = never,
   >(
     onfulfilled?:
       | ((
-        value: { data: Record<string, unknown>[]; error: null },
+        value: {
+          data: Record<string, unknown>[];
+          error: { message: string } | null;
+        },
       ) => TResult1 | PromiseLike<TResult1>)
       | null,
     _onrejected?:
       | ((reason: unknown) => TResult2 | PromiseLike<TResult2>)
       | null,
   ): Promise<TResult1 | TResult2> {
-    return Promise.resolve({ data: this.matchingRows(), error: null }).then(
-      onfulfilled ?? undefined,
-    );
+    const response = this.client.recentHistoryReadError &&
+        this.tableName === "river_run_condition_refreshes"
+      ? {
+        data: [],
+        error: { message: "recent history offline" },
+      }
+      : { data: this.matchingRows(), error: null };
+    return Promise.resolve(response).then(onfulfilled ?? undefined);
   }
 
   private matchingRows(): Record<string, unknown>[] {
@@ -201,6 +212,7 @@ class MockClient implements SupabaseLikeClient {
     { table: string; column: string; value: unknown; op: string }
   > = [];
   readonly historyReadError: boolean;
+  readonly recentHistoryReadError: boolean;
   auth: {
     getUser: (
       token: string,
@@ -215,9 +227,11 @@ class MockClient implements SupabaseLikeClient {
       validToken?: string;
       rateLimitAllowed?: boolean;
       historyReadError?: boolean;
+      recentHistoryReadError?: boolean;
     } = {},
   ) {
     this.historyReadError = options.historyReadError === true;
+    this.recentHistoryReadError = options.recentHistoryReadError === true;
     this.auth = {
       getUser: (token: string) =>
         Promise.resolve(
@@ -406,6 +420,26 @@ function conditionRow(localDate = "2026-09-20"): RiverRunConditionRefreshRow {
     }),
     conditionRefreshAt: `${localDate}T20:10:00.000Z`,
   });
+}
+
+function missingPushHistoryReads(
+  throughDate: string,
+  trackingStartDate = "2026-08-15",
+) {
+  const reads = [];
+  for (
+    let localDate = throughDate;
+    localDate >= trackingStartDate && reads.length < 7;
+    localDate = addDays(localDate, -1)
+  ) {
+    reads.push({
+      localDate,
+      status: "missing",
+      score: null,
+      label: "No recorded read",
+    });
+  }
+  return reads;
 }
 
 Deno.test("GET /river-run/rivers returns PM with default audited config", async () => {
@@ -903,8 +937,10 @@ Deno.test("Push history reports supportive conditions active now", async () => {
     status: "active_now",
     minimumSupportiveScore: 50,
     trackingStartDate: "2026-08-15",
-    trackingEndDate: "2026-10-20",
+    trackingEndDate: "2026-10-27",
     throughDate: "2026-09-20",
+    recentDailyReadsStatus: "available",
+    recentDailyReads: missingPushHistoryReads("2026-09-19"),
     lastSupportiveConditions: {
       localDate: "2026-09-20",
       refreshSlot: "16:00",
@@ -966,6 +1002,21 @@ Deno.test("Push history finds the latest supportive conditions for only this run
     score: 63,
     label: "Possible",
   });
+  assertEquals(body.pushHistory.recentDailyReadsStatus, "available");
+  assertEquals(body.pushHistory.recentDailyReads[0], {
+    localDate: "2026-09-19",
+    status: "missing",
+    score: null,
+    label: "No recorded read",
+  });
+  assertEquals(body.pushHistory.recentDailyReads[3], {
+    localDate: "2026-09-16",
+    status: "supportive_window",
+    refreshSlot: "16:00",
+    conditionRefreshAt: "2026-09-16T20:10:00.000Z",
+    score: 63,
+    label: "Possible",
+  });
 });
 
 Deno.test("Push history is honest when no supportive condition has been recorded", async () => {
@@ -988,9 +1039,13 @@ Deno.test("Push history is honest when no supportive condition has been recorded
 
   assertEquals(body.pushHistory.status, "none_recorded");
   assertEquals(body.pushHistory.lastSupportiveConditions, undefined);
+  assertEquals(
+    body.pushHistory.recentDailyReads,
+    missingPushHistoryReads("2026-09-19"),
+  );
 });
 
-Deno.test("Push and supportive history wait for the configured run start", async () => {
+Deno.test("Push and supportive history wait for the river run", async () => {
   const client = new MockClient();
   client.rows.river_run_daily_progression_snapshots = [dailyRow("2026-08-10")];
   client.rows.river_run_condition_refreshes = [conditionRow("2026-08-10")];
@@ -1009,29 +1064,82 @@ Deno.test("Push and supportive history wait for the configured run start", async
   const body = await json(response);
 
   assertEquals(body.push.score, null);
-  assertEquals(body.push.label, "Tracking not started");
-  assert(body.push.headline.includes("August 15, 2026"));
+  assertEquals(body.push.label, "Waiting for run");
+  assert(body.push.headline.includes("river run has not started"));
+  assertEquals(body.push.headline.includes("August 15, 2026"), false);
   assertEquals(body.pushHistory.status, "not_started");
   assertEquals(body.pushHistory.lastSupportiveConditions, undefined);
+  assertEquals(body.pushHistory.recentDailyReadsStatus, "available");
+  assertEquals(body.pushHistory.recentDailyReads, []);
   assertEquals(
     body.dataQuality.reasonCodes.includes("data_quality_limited"),
     false,
   );
 });
 
+Deno.test("Push history starts empty on the first tracking date and adds that date the next day", async () => {
+  const firstDayClient = new MockClient();
+  firstDayClient.rows.river_run_daily_progression_snapshots = [
+    dailyRow("2026-08-15"),
+  ];
+  firstDayClient.rows.river_run_condition_refreshes = [
+    conditionRow("2026-08-15"),
+  ];
+  const firstDayResponse = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-15&localTime=16:30&refreshAtUtc=2026-08-15T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => firstDayClient,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const firstDayBody = await json(firstDayResponse);
+  assertEquals(firstDayBody.pushHistory.recentDailyReads, []);
+
+  const secondDayClient = new MockClient();
+  secondDayClient.rows.river_run_daily_progression_snapshots = [
+    dailyRow("2026-08-16"),
+  ];
+  secondDayClient.rows.river_run_condition_refreshes = [
+    conditionRow("2026-08-16"),
+    conditionRow("2026-08-15"),
+  ];
+  const secondDayResponse = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-16&localTime=16:30&refreshAtUtc=2026-08-16T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => secondDayClient,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const secondDayBody = await json(secondDayResponse);
+  assertEquals(secondDayBody.pushHistory.recentDailyReads, [{
+    localDate: "2026-08-15",
+    status: "no_supportive_window",
+    score: null,
+    label: "No supportive window",
+  }]);
+});
+
 Deno.test("Push and supportive history stop after the configured run end", async () => {
   const client = new MockClient();
-  const prior = conditionRow("2026-10-18");
+  const prior = conditionRow("2026-10-25");
   prior.push = { ...prior.push, score: 75, label: "Strong" };
-  client.rows.river_run_daily_progression_snapshots = [dailyRow("2026-10-21")];
+  client.rows.river_run_daily_progression_snapshots = [dailyRow("2026-10-28")];
   client.rows.river_run_condition_refreshes = [
-    conditionRow("2026-10-21"),
+    conditionRow("2026-10-28"),
     prior,
   ];
 
   const response = await handleRiverRunRequest(
     request(
-      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-10-21&localTime=16:30&refreshAtUtc=2026-10-21T20:30:00.000Z",
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-10-28&localTime=16:30&refreshAtUtc=2026-10-28T20:30:00.000Z",
     ),
     {
       createAdminClient: () => client,
@@ -1043,9 +1151,24 @@ Deno.test("Push and supportive history stop after the configured run end", async
   const body = await json(response);
 
   assertEquals(body.push.score, null);
-  assertEquals(body.push.label, "Tracking complete");
+  assertEquals(body.push.label, "Run complete");
   assertEquals(body.pushHistory.status, "complete");
   assertEquals(body.pushHistory.lastSupportiveConditions, undefined);
+  assertEquals(body.pushHistory.recentDailyReadsStatus, "available");
+  assertEquals(body.pushHistory.recentDailyReads[0], {
+    localDate: "2026-10-27",
+    status: "missing",
+    score: null,
+    label: "No recorded read",
+  });
+  assertEquals(body.pushHistory.recentDailyReads[2], {
+    localDate: "2026-10-25",
+    status: "supportive_window",
+    refreshSlot: "16:00",
+    conditionRefreshAt: "2026-10-25T20:10:00.000Z",
+    score: 75,
+    label: "Strong",
+  });
 });
 
 Deno.test("Push history failure does not make the current snapshot unavailable", async () => {
@@ -1068,7 +1191,120 @@ Deno.test("Push history failure does not make the current snapshot unavailable",
 
   assertEquals(response.status, 200);
   assertEquals(body.pushHistory.status, "unavailable");
+  assertEquals(body.pushHistory.recentDailyReadsStatus, "available");
+  assertEquals(body.pushHistory.recentDailyReads.length, 7);
   assertEquals(body.push.label, conditionRow().push.label);
+});
+
+Deno.test("recent daily Push history failure is isolated from today's Push read", async () => {
+  const client = new MockClient({ recentHistoryReadError: true });
+  client.rows.river_run_daily_progression_snapshots = [dailyRow()];
+  client.rows.river_run_condition_refreshes = [conditionRow()];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-09-20&localTime=16:30&refreshAtUtc=2026-09-20T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(body.pushHistory.recentDailyReadsStatus, "unavailable");
+  assertEquals(body.pushHistory.recentDailyReads, []);
+  assertEquals(body.push.label, conditionRow().push.label);
+  assertEquals(body.push.score, conditionRow().push.score);
+});
+
+Deno.test("Push history exposes each completed day's strongest supportive window", async () => {
+  const client = new MockClient();
+  const reads = [
+    ["2026-08-29", 42, "No clear push"],
+    ["2026-08-28", 21, "Weak"],
+    ["2026-08-27", 63, "Possible"],
+    ["2026-08-26", 81, "Strong"],
+    ["2026-08-25", 100, "Very strong"],
+    ["2026-08-24", 42, "No clear push"],
+    ["2026-08-23", 63, "Possible"],
+    ["2026-08-22", 21, "Weak"],
+  ] as const;
+  const storedReads = reads.map(([localDate, score, label]) => {
+    const row = conditionRow(localDate);
+    row.push = { ...row.push, score, label };
+    return row;
+  });
+  const earlierAugust29Read = conditionRow("2026-08-29");
+  earlierAugust29Read.push = {
+    ...earlierAugust29Read.push,
+    score: 81,
+    label: "Strong",
+  };
+  earlierAugust29Read.refresh_slot = "12:00";
+  earlierAugust29Read.condition_refresh_at = "2026-08-29T16:10:00.000Z";
+  storedReads[0].refresh_slot = "20:00";
+  storedReads[0].condition_refresh_at = "2026-08-29T23:59:00.000Z";
+
+  client.rows.river_run_daily_progression_snapshots = [
+    dailyRow("2026-08-30"),
+  ];
+  client.rows.river_run_condition_refreshes = [
+    conditionRow("2026-08-30"),
+    earlierAugust29Read,
+    ...storedReads,
+  ];
+
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-30&localTime=16:30&refreshAtUtc=2026-08-30T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => client,
+      runs: [enabledRun],
+      engineVersion: "test-engine",
+      configVersion: "test-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(
+    body.pushHistory.recentDailyReads.map(
+      (read: { localDate: string }) => read.localDate,
+    ),
+    [
+      "2026-08-29",
+      "2026-08-28",
+      "2026-08-27",
+      "2026-08-26",
+      "2026-08-25",
+      "2026-08-24",
+      "2026-08-23",
+    ],
+  );
+  assertEquals(body.pushHistory.recentDailyReads[0], {
+    localDate: "2026-08-29",
+    status: "supportive_window",
+    refreshSlot: "12:00",
+    conditionRefreshAt: "2026-08-29T16:10:00.000Z",
+    score: 81,
+    label: "Strong",
+  });
+  assertEquals(body.pushHistory.recentDailyReads[1], {
+    localDate: "2026-08-28",
+    status: "no_supportive_window",
+    score: null,
+    label: "No supportive window",
+  });
+  assertEquals(
+    body.pushHistory.recentDailyReads.some(
+      (read: { localDate: string }) => read.localDate === "2026-08-22",
+    ),
+    false,
+  );
 });
 
 function conditionsBaselineRow() {

@@ -67,7 +67,7 @@ export function refreshSlotsForDate(
         input.localDate,
         window.stagingStartDate,
       ) >= 0 &&
-    compareLocalDates(input.localDate, window.endDate) <= 0;
+    compareLocalDates(input.localDate, window.lateEndDate) <= 0;
   return active ? input.schedule.activeSlots : input.schedule.inactiveSlots;
 }
 

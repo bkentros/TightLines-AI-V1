@@ -2,13 +2,7 @@ import { Ionicons } from "@expo/vector-icons";
 import { useFocusEffect } from "@react-navigation/native";
 import { useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
-import {
-  useCallback,
-  useEffect,
-  useMemo,
-  useRef,
-  useState,
-} from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import {
   AccessibilityInfo,
@@ -39,11 +33,11 @@ import {
   formatRiverRunSeason,
   formatRiverRunSpecies,
   resolveRiverRunTarget,
+  type RiverRunChoice,
   riverRunRiverChoices,
   riverRunSeasonChoices,
   riverRunSpeciesChoices,
   riverRunStateChoices,
-  type RiverRunChoice,
 } from "../lib/riverRunCatalogSelection";
 import type {
   RiverRunCatalogResponse,
@@ -67,12 +61,7 @@ import {
   hapticSelection,
   ImpactFeedbackStyle,
 } from "../lib/safeHaptics";
-import {
-  paper,
-  paperFonts,
-  paperRadius,
-  paperShadows,
-} from "../lib/theme";
+import { paper, paperFonts, paperRadius, paperShadows } from "../lib/theme";
 import { useAuthStore } from "../store/authStore";
 
 type WizardStep = 1 | 2 | 3 | 4;
@@ -217,15 +206,17 @@ export default function RiverRunScreen() {
   const [reviewScenarioId, setReviewScenarioId] = useState(
     RIVER_RUN_REVIEW_GROUPS[0]?.scenarios[0]?.id ?? "",
   );
-  const [activePrimitive, setActivePrimitive] =
-    useState<PrimitiveTabId>("run_stage");
+  const [activePrimitive, setActivePrimitive] = useState<PrimitiveTabId>(
+    "run_stage",
+  );
   const [catalog, setCatalog] = useState<RiverRunCatalogResponse | null>(null);
   const [catalogError, setCatalogError] = useState<string | null>(null);
   const [loadingCatalog, setLoadingCatalog] = useState(!reviewMode);
   const [refreshing, setRefreshing] = useState(false);
   const [selectedState, setSelectedState] = useState<string | null>(null);
-  const [selectedSeason, setSelectedSeason] =
-    useState<RiverRunSeason | null>(null);
+  const [selectedSeason, setSelectedSeason] = useState<RiverRunSeason | null>(
+    null,
+  );
   const [selectedSpecies, setSelectedSpecies] = useState<string | null>(null);
   const [selectedRiverId, setSelectedRiverId] = useState<string | null>(null);
   const [snapshot, setSnapshot] = useState<RiverRunSnapshotResponse | null>(
@@ -279,9 +270,7 @@ export default function RiverRunScreen() {
   );
   const seasonChoices = useMemo(
     () =>
-      activeCatalog
-        ? riverRunSeasonChoices(activeCatalog, selectedState)
-        : [],
+      activeCatalog ? riverRunSeasonChoices(activeCatalog, selectedState) : [],
     [activeCatalog, selectedState],
   );
   const speciesChoices = useMemo(
@@ -489,9 +478,9 @@ export default function RiverRunScreen() {
   const navSpecies = formatRiverRunSpecies(resultSpecies)
     .replace(/\s+Salmon$/i, "");
   const navTitle = screenState === "result"
-    ? `${formatRiverRunSeason(resultSeason).toUpperCase()} ${
-      navSpecies.toUpperCase()
-    }`
+    ? `${
+      formatRiverRunSeason(resultSeason).toUpperCase()
+    } ${navSpecies.toUpperCase()}`
     : "RIVER RUN";
 
   return (
@@ -505,9 +494,7 @@ export default function RiverRunScreen() {
         )
         : null}
       <PaperNavHeader
-        eyebrow={screenState === "result"
-          ? "FINFINDR · RIVER RUN"
-          : "FINFINDR"}
+        eyebrow={screenState === "result" ? "FINFINDR · RIVER RUN" : "FINFINDR"}
         title={navTitle}
         onBack={handleBack}
         backLabel={screenState === "result" ? "SETUP" : "BACK"}
@@ -542,21 +529,19 @@ export default function RiverRunScreen() {
               stickyHeaderIndices={resultSnapshot
                 ? [primitiveTabStickyIndex]
                 : undefined}
-              refreshControl={reviewMode
-                ? undefined
-                : (
-                  <RefreshControl
-                    refreshing={refreshing}
-                    onRefresh={() => {
-                      setRefreshing(true);
-                      void Promise.all([
-                        loadCatalog(true),
-                        loadSnapshot(false),
-                      ]).finally(() => setRefreshing(false));
-                    }}
-                    tintColor={paper.dashboardInk}
-                  />
-                )}
+              refreshControl={reviewMode ? undefined : (
+                <RefreshControl
+                  refreshing={refreshing}
+                  onRefresh={() => {
+                    setRefreshing(true);
+                    void Promise.all([
+                      loadCatalog(true),
+                      loadSnapshot(false),
+                    ]).finally(() => setRefreshing(false));
+                  }}
+                  tintColor={paper.dashboardInk}
+                />
+              )}
             >
               <ResultHero
                 season={resultSeason}
@@ -852,8 +837,8 @@ function SetupView({
         : null}
 
       <Text style={styles.setupDisclaimer}>
-        Only river, run, gauge, and measured-water configurations that pass
-        FinFindr&apos;s audit appear here.
+        Only runs backed by dependable local water data and seasonal evidence
+        appear here.
       </Text>
     </ScrollView>
   );
@@ -917,9 +902,7 @@ function ChoiceCard({
   step: WizardStep;
   onPress: () => void;
 }) {
-  const speciesImage = step === 3
-    ? getRiverRunSpeciesImage(choice.id)
-    : null;
+  const speciesImage = step === 3 ? getRiverRunSpeciesImage(choice.id) : null;
   const icon = step === 1
     ? "map"
     : step === 2
@@ -1273,7 +1256,9 @@ function PrimitiveTabBar({
                     styles.primitiveTabIcon,
                     {
                       borderColor: `${visual.accent}${active ? "88" : "55"}`,
-                      backgroundColor: `${visual.accent}${active ? "20" : "12"}`,
+                      backgroundColor: `${visual.accent}${
+                        active ? "20" : "12"
+                      }`,
                     },
                   ]}
                 >
@@ -1355,8 +1340,11 @@ function SnapshotView({
           title={tab.cardTitle}
           visualKind={tab.id}
           primitive={primitive}
-          contextLine={tab.id === "push"
-            ? formatPushHistory(snapshot)
+          contextLine={tab.id === "run_timing"
+            ? formatPreviousTimingRead(snapshot)
+            : undefined}
+          contextContent={tab.id === "push"
+            ? <PushHistoryDropdown history={snapshot.pushHistory} />
             : undefined}
         />
       </ActivePrimitivePanel>
@@ -1473,12 +1461,14 @@ function PrimitiveSection({
   visualKind,
   primitive,
   contextLine,
+  contextContent,
 }: {
   index: string;
   title: string;
   visualKind: RiverRunVisualKind;
   primitive: RiverRunPrimitiveDisplay;
   contextLine?: string;
+  contextContent?: ReactNode;
 }) {
   const unavailable = primitive.score === null ||
     primitive.label === "Unavailable";
@@ -1486,9 +1476,6 @@ function PrimitiveSection({
     kind: visualKind,
     primitive,
   });
-  const detailLines = primitive.detail
-    ? splitPrimitiveDetail(primitive.detail)
-    : [];
   return (
     <View style={styles.primitiveFrame}>
       <View
@@ -1509,53 +1496,36 @@ function PrimitiveSection({
               {index}
             </Text>
             <Text style={styles.primitiveTitle}>{title.toUpperCase()}</Text>
+            <View style={styles.primitiveHeaderRule} />
+            <Text
+              style={[
+                styles.primitiveHeaderState,
+                unavailable && styles.unavailable,
+                !unavailable && { color: visual.accent },
+              ]}
+              numberOfLines={1}
+              adjustsFontSizeToFit
+              minimumFontScale={0.7}
+            >
+              {primitive.label}
+            </Text>
           </View>
-          {typeof primitive.score === "number"
-            ? (
-              <View style={styles.primitiveScore}>
-                <Text
-                  style={[
-                    styles.primitiveScoreValue,
-                    unavailable && styles.unavailable,
-                    !unavailable && { color: visual.accent },
-                  ]}
-                >
-                  {Math.round(primitive.score)}
-                </Text>
-                {typeof primitive.maximum === "number"
-                  ? (
-                    <Text style={styles.primitiveScoreMax}>
-                      / {Math.round(primitive.maximum)}
-                    </Text>
-                  )
-                  : null}
-              </View>
-            )
-            : (
-              <View style={styles.primitiveNoScore}>
-                <Text style={styles.primitiveNoScoreText}>CONTEXT</Text>
-              </View>
-            )}
+          <View style={styles.primitiveNoScore}>
+            <Text style={styles.primitiveNoScoreText}>CONTEXT</Text>
+          </View>
         </View>
 
         <RiverRunVisual kind={visualKind} primitive={primitive} />
 
-        <View style={styles.primitiveResult}>
-          <Text
-            style={[
-              styles.primitiveLabel,
-              unavailable && styles.unavailable,
-            ]}
-          >
-            {primitive.label}
-          </Text>
+        {primitive.headline
+          ? (
+            <View style={styles.primitiveResult}>
+              <Text style={styles.primitiveHeadline}>{primitive.headline}</Text>
+            </View>
+          )
+          : null}
 
-          {primitive.headline
-            ? <Text style={styles.primitiveHeadline}>{primitive.headline}</Text>
-            : null}
-        </View>
-
-        {contextLine
+        {contextContent ?? (contextLine
           ? (
             <View style={styles.primitiveContext}>
               <Ionicons
@@ -1566,12 +1536,12 @@ function PrimitiveSection({
               <Text style={styles.primitiveContextText}>{contextLine}</Text>
             </View>
           )
-          : null}
+          : null)}
 
-        {detailLines.length > 0
+        {primitive.detail
           ? (
-            <View style={styles.primitiveDetailCard}>
-              <View style={styles.primitiveDetailHeader}>
+            <View style={styles.primitiveDetail}>
+              <View style={styles.primitiveDetailHeading}>
                 <Ionicons
                   name="reader-outline"
                   size={14}
@@ -1579,17 +1549,7 @@ function PrimitiveSection({
                 />
                 <Text style={styles.primitiveDetailLabel}>WHY THIS READ</Text>
               </View>
-              <View style={styles.primitiveDetailStack}>
-                {detailLines.map((line, lineIndex) => (
-                  <View
-                    key={`${index}-detail-${lineIndex}`}
-                    style={styles.primitiveDetailRow}
-                  >
-                    <View style={styles.primitiveDetailDot} />
-                    <Text style={styles.primitiveDetailText}>{line}</Text>
-                  </View>
-                ))}
-              </View>
+              <PrimitiveDetailCopy value={primitive.detail} />
             </View>
           )
           : null}
@@ -1607,28 +1567,51 @@ function PrimitiveSection({
   );
 }
 
+function PrimitiveDetailCopy({ value }: { value: string }) {
+  const detailLines = splitPrimitiveDetail(value);
+  return (
+    <View
+      style={styles.primitiveDetailList}
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={value}
+    >
+      {detailLines.map((line, lineIndex) => (
+        <View
+          key={`${lineIndex}:${line}`}
+          style={styles.primitiveDetailBulletRow}
+          accessible={false}
+        >
+          <View style={styles.primitiveDetailBullet} />
+          <PrimitiveDetailWordFlow value={line} />
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function PrimitiveDetailWordFlow({ value }: { value: string }) {
+  const words = value.trim().split(/\s+/);
+  return (
+    <View style={styles.primitiveDetailTextFlow}>
+      {words.map((word, wordIndex) => (
+        <Text
+          key={`${wordIndex}:${word}`}
+          style={styles.primitiveDetailWord}
+          accessible={false}
+        >
+          {word}
+        </Text>
+      ))}
+    </View>
+  );
+}
+
 function splitPrimitiveDetail(value: string): string[] {
-  const lines: string[] = [];
-  let start = 0;
-
-  for (let index = 0; index < value.length; index += 1) {
-    if (!".!?".includes(value[index])) continue;
-    let next = index + 1;
-    while (next < value.length && /\s/.test(value[next])) next += 1;
-    if (
-      next >= value.length ||
-      (next > index + 1 && /[A-Z0-9]/.test(value[next]))
-    ) {
-      const sentence = value.slice(start, index + 1).trim();
-      if (sentence) lines.push(sentence);
-      start = next;
-      index = next - 1;
-    }
-  }
-
-  const remainder = value.slice(start).trim();
-  if (remainder) lines.push(remainder);
-  return lines.length > 0 ? lines : [value];
+  const sentences = value.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
+  return (sentences ?? [value])
+    .map((sentence) => sentence.trim())
+    .filter(Boolean);
 }
 
 function useReduceMotionPreference(): boolean {
@@ -1872,35 +1855,185 @@ function formatLocalDateTime(value: string): string {
   return value.replace("T", " ").slice(0, 16);
 }
 
-function formatPushHistory(
-  snapshot: RiverRunSnapshotResponse,
+function PushHistoryDropdown({
+  history,
+}: {
+  history: RiverRunSnapshotResponse["pushHistory"];
+}) {
+  const [expanded, setExpanded] = useState(false);
+  if (!history) return null;
+  if (history.status === "not_started") return null;
+  const reads = history.recentDailyReads ?? [];
+  const readsAvailable = history.recentDailyReadsStatus !== "unavailable";
+  if (history.status === "complete" && reads.length === 0 && readsAvailable) {
+    return null;
+  }
+  const countLabel = reads.length === 1 ? "1 day" : `${reads.length} days`;
+  const summary = !readsAvailable
+    ? "Recent Push windows are temporarily unavailable"
+    : reads.length === 0
+    ? "No prior Push windows yet"
+    : `Recent Push windows · ${countLabel}`;
+  const supportiveSummary = formatLastSupportivePush(history);
+
+  return (
+    <View style={styles.pushHistoryCard}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.pushHistorySummary,
+          pressed && { opacity: 0.8 },
+        ]}
+        onPress={() => {
+          hapticSelection();
+          setExpanded((current) => !current);
+        }}
+        accessibilityRole="button"
+        accessibilityState={{ expanded }}
+        accessibilityLabel={`${summary}. ${
+          expanded ? "Collapse" : "Expand"
+        } recent Push windows.`}
+      >
+        <Ionicons
+          name="time-outline"
+          size={15}
+          color={paper.dashboardBlue}
+        />
+        <Text style={styles.pushHistorySummaryText}>{summary}</Text>
+        <Ionicons
+          name={expanded ? "chevron-up" : "chevron-down"}
+          size={15}
+          color={paper.dashboardBlue}
+        />
+      </Pressable>
+      {expanded
+        ? (
+          <View style={styles.pushHistoryExpanded}>
+            {readsAvailable && reads.length > 0
+              ? reads.map((read) => (
+                <View key={read.localDate} style={styles.pushHistoryRow}>
+                  <View
+                    style={[
+                      styles.pushHistoryDot,
+                      {
+                        backgroundColor: pushHistoryColor(
+                          read.label,
+                          read.status,
+                        ),
+                      },
+                    ]}
+                  />
+                  <Text style={styles.pushHistoryDate}>
+                    {formatLocalDate(read.localDate)}
+                  </Text>
+                  <Text style={styles.pushHistoryLabel}>
+                    {formatPushHistoryWindow(read)}
+                  </Text>
+                </View>
+              ))
+              : (
+                <Text style={styles.pushHistoryEmpty}>
+                  {readsAvailable
+                    ? "The first completed daily read will appear tomorrow."
+                    : "Check again after the next successful refresh."}
+                </Text>
+              )}
+            {supportiveSummary
+              ? (
+                <View style={styles.pushHistorySupportive}>
+                  <Text style={styles.pushHistorySupportiveText}>
+                    {supportiveSummary}
+                  </Text>
+                </View>
+              )
+              : null}
+          </View>
+        )
+        : null}
+    </View>
+  );
+}
+
+function formatLastSupportivePush(
+  history: RiverRunSnapshotResponse["pushHistory"],
 ): string | undefined {
-  const history = snapshot.pushHistory;
-  if (!history) return undefined;
-  if (history.status === "not_started" || history.status === "complete") {
-    return undefined;
-  }
-  if (history.status === "active_now") {
-    const current = history.lastSupportiveConditions;
-    return current
-      ? `Current supportive Push signal: ${current.label} · ${
-        formatLocalDate(current.localDate)
-      }`
-      : "A supportive Push signal is active today.";
-  }
-  if (history.status === "unavailable") {
-    return "Supportive Push-signal history is temporarily unavailable.";
-  }
   if (
-    history.status === "previously_recorded" &&
+    (history.status === "active_now" ||
+      history.status === "previously_recorded") &&
     history.lastSupportiveConditions
   ) {
-    const last = history.lastSupportiveConditions;
-    return `Last supportive Push signal: ${last.label} · ${
-      formatLocalDate(last.localDate)
-    }`;
+    const signal = history.lastSupportiveConditions;
+    return `${
+      history.status === "active_now"
+        ? "Supportive signal today"
+        : "Last supportive signal this run"
+    }: ${signal.label} · ${formatLocalDate(signal.localDate)}`;
   }
-  return "No supportive Push signal has been recorded yet this run.";
+  if (history.status === "none_recorded") {
+    return "No Possible-or-stronger signal has been recorded this run.";
+  }
+  if (history.status === "unavailable") {
+    return "The last-supportive-signal lookup is temporarily unavailable.";
+  }
+  return undefined;
+}
+
+function pushHistoryColor(
+  label: string,
+  status: "supportive_window" | "no_supportive_window" | "missing",
+): string {
+  if (
+    status === "missing" ||
+    status === "no_supportive_window" ||
+    label === "Unavailable"
+  ) {
+    return paper.dashboardMuted;
+  }
+  switch (label) {
+    case "Weak":
+      return "#D94A3A";
+    case "No clear push":
+      return "#D58B32";
+    case "Possible":
+      return "#D6AD31";
+    case "Strong":
+      return "#58A85D";
+    case "Very strong":
+      return "#27874D";
+    default:
+      return paper.dashboardMuted;
+  }
+}
+
+function formatPushHistoryWindow(
+  read: NonNullable<
+    RiverRunSnapshotResponse["pushHistory"]["recentDailyReads"]
+  >[number],
+): string {
+  if (read.status !== "supportive_window" || !read.refreshSlot) {
+    return read.label;
+  }
+  return `${read.label} · peak ${formatRefreshSlotTime(read.refreshSlot)}`;
+}
+
+function formatRefreshSlotTime(value: string): string {
+  const [rawHour, rawMinute = "00"] = value.split(":");
+  const hour = Number(rawHour);
+  if (!Number.isInteger(hour) || hour < 0 || hour > 23) return value;
+  const suffix = hour >= 12 ? "PM" : "AM";
+  const displayHour = hour % 12 || 12;
+  return `${displayHour}:${rawMinute} ${suffix}`;
+}
+
+function formatPreviousTimingRead(
+  snapshot: RiverRunSnapshotResponse,
+): string | undefined {
+  const timing = snapshot.conditionsSuggest;
+  if (!timing.previousCheckpointDate || !timing.previousTimingLabel) {
+    return undefined;
+  }
+  return `Previous timing read: ${timing.previousTimingLabel} · ${
+    formatLocalDate(timing.previousCheckpointDate)
+  }`;
 }
 
 function formatLocalDate(value: string): string {
@@ -2678,21 +2811,18 @@ const styles = StyleSheet.create({
     letterSpacing: 1.7,
     color: paper.dashboardMuted,
   },
-  primitiveScore: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    justifyContent: "flex-end",
+  primitiveHeaderRule: {
+    width: 1,
+    height: 18,
+    backgroundColor: "rgba(17,45,64,0.18)",
   },
-  primitiveScoreValue: {
-    fontFamily: paperFonts.monoBold,
-    fontSize: 28,
-    lineHeight: 32,
+  primitiveHeaderState: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.display,
+    fontSize: 20,
+    lineHeight: 23,
     color: paper.dashboardInk,
-  },
-  primitiveScoreMax: {
-    fontFamily: paperFonts.monoBold,
-    fontSize: 11,
-    color: paper.dashboardMuted,
   },
   primitiveNoScore: {
     paddingHorizontal: 8,
@@ -2708,17 +2838,10 @@ const styles = StyleSheet.create({
   },
   unavailable: { color: paper.dashboardMuted },
   primitiveResult: {
-    marginTop: 19,
+    marginTop: 17,
     paddingBottom: 1,
   },
-  primitiveLabel: {
-    fontFamily: paperFonts.display,
-    fontSize: 29,
-    lineHeight: 33,
-    color: paper.dashboardInk,
-  },
   primitiveHeadline: {
-    marginTop: 11,
     fontFamily: paperFonts.bodyBold,
     fontSize: 16,
     lineHeight: 23,
@@ -2744,21 +2867,94 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: paper.dashboardInk,
   },
-  primitiveDetailCard: {
-    marginTop: 15,
-    marginBottom: 18,
-    paddingHorizontal: 13,
-    paddingTop: 12,
-    paddingBottom: 13,
-    gap: 10,
+  pushHistoryCard: {
+    marginTop: 13,
+    overflow: "hidden",
     borderWidth: 1,
-    borderColor: "rgba(15,99,176,0.15)",
-    borderLeftWidth: 3,
-    borderLeftColor: paper.dashboardBlue,
-    borderRadius: 9,
+    borderColor: "rgba(15,99,176,0.16)",
+    borderRadius: 8,
+    backgroundColor: "#EEF6FB",
+  },
+  pushHistorySummary: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    minHeight: 42,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
+  pushHistorySummaryText: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+  },
+  pushHistoryExpanded: {
+    paddingHorizontal: 12,
+    paddingBottom: 10,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(15,99,176,0.12)",
+  },
+  pushHistoryRow: {
+    minHeight: 33,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 8,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: "rgba(17,45,64,0.12)",
+  },
+  pushHistoryDot: {
+    width: 7,
+    height: 7,
+    borderRadius: 4,
+  },
+  pushHistoryDate: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 0.8,
+    color: paper.dashboardMuted,
+  },
+  pushHistoryLabel: {
+    flexShrink: 0,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 12,
+    lineHeight: 17,
+    color: paper.dashboardInk,
+  },
+  pushHistoryEmpty: {
+    paddingTop: 10,
+    fontFamily: paperFonts.body,
+    fontSize: 12,
+    lineHeight: 18,
+    color: paper.dashboardMuted,
+  },
+  pushHistorySupportive: {
+    marginTop: 10,
+    paddingTop: 9,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: "rgba(17,45,64,0.16)",
+  },
+  pushHistorySupportiveText: {
+    fontFamily: paperFonts.body,
+    fontSize: 11.5,
+    lineHeight: 17,
+    color: paper.dashboardMuted,
+  },
+  primitiveDetail: {
+    marginHorizontal: -18,
+    marginTop: 15,
+    paddingHorizontal: 18,
+    paddingVertical: 15,
+    gap: 7,
+    borderTopWidth: 1,
+    borderTopColor: "rgba(15,99,176,0.14)",
     backgroundColor: "#F2F6F8",
   },
-  primitiveDetailHeader: {
+  primitiveDetailHeading: {
     flexDirection: "row",
     alignItems: "center",
     gap: 7,
@@ -2769,25 +2965,35 @@ const styles = StyleSheet.create({
     letterSpacing: 1.35,
     color: paper.dashboardBlue,
   },
-  primitiveDetailStack: { gap: 8 },
-  primitiveDetailRow: {
-    flexDirection: "row",
-    alignItems: "flex-start",
-    gap: 9,
+  primitiveDetailList: {
+    alignSelf: "stretch",
+    gap: 8,
   },
-  primitiveDetailDot: {
+  primitiveDetailBulletRow: {
+    position: "relative",
+    alignSelf: "stretch",
+    paddingLeft: 15,
+  },
+  primitiveDetailBullet: {
+    position: "absolute",
+    top: 8,
+    left: 1,
     width: 5,
     height: 5,
-    marginTop: 7,
     borderRadius: 3,
     backgroundColor: "rgba(15,99,176,0.55)",
   },
-  primitiveDetailText: {
-    minWidth: 0,
-    flex: 1,
-    fontFamily: paperFonts.body,
-    fontSize: 13.5,
-    lineHeight: 20,
+  primitiveDetailTextFlow: {
+    alignSelf: "stretch",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    columnGap: 3.5,
+    rowGap: 0,
+  },
+  primitiveDetailWord: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 14,
+    lineHeight: 21,
     color: "#52606A",
   },
   primitiveTip: {

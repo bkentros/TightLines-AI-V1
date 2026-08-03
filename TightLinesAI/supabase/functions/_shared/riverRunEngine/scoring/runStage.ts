@@ -1,10 +1,6 @@
 import type { PrimitiveDisplay, RiverRunProfile, RunStage } from "../types.ts";
-import {
-  alternate,
-  type RiverRunCopyOptions,
-  RIVER_RUN_COPY_VERSION,
-  resolveCopyVariant,
-} from "../copy/variants.ts";
+import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
+import { anglerSpeciesName } from "../copy/species.ts";
 import {
   compareLocalDates,
   type DateWindow,
@@ -18,38 +14,43 @@ export type RunStageResult = PrimitiveDisplay & {
 };
 
 export function resolveRunStage(
-  run: Pick<RiverRunProfile, "runWindow">,
+  run: Pick<RiverRunProfile, "runWindow" | "species">,
   localDate: string,
-  copyOptions: RiverRunCopyOptions = {},
 ): RunStageResult {
   const window = resolveActiveRunWindow(run, localDate);
   const stage = stageForDate(localDate, window);
   const stagingContext = stage === "pre_run" &&
     compareLocalDates(localDate, window.stagingStartDate) >= 0;
-  const copyVariant = resolveCopyVariant(
-    copyOptions.copyKey ??
-      `${window.startDate}:${window.endDate}:${stage}:${
-        stagingContext ? "staging" : "before-staging"
-      }`,
-    copyOptions.copyVariant,
-  );
+  const establishedBuildingContext = stage === "building" &&
+    compareLocalDates(localDate, window.buildingEstablishedStartDate) >= 0;
+  const latePostRunContext = stage === "post_run" &&
+    compareLocalDates(localDate, window.endDate) > 0 &&
+    compareLocalDates(localDate, window.postRunLateCopyEndDate) <= 0;
 
   return {
     stage,
     stagingContext,
     window,
     label: stageLabel(stage),
-    ...stageCopy(stage, stagingContext, window, copyVariant),
+    ...stageCopy(
+      stage,
+      stagingContext,
+      establishedBuildingContext,
+      latePostRunContext,
+      anglerSpeciesName(run.species),
+    ),
     reasonCodes: [
       stageReasonCode(stage),
       ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
     ],
     copyVersion: RIVER_RUN_COPY_VERSION,
-    copyVariant,
   };
 }
 
 export function stageForDate(localDate: string, window: DateWindow): RunStage {
+  if (compareLocalDates(localDate, window.preRunStartDate) < 0) {
+    return "post_run";
+  }
   if (compareLocalDates(localDate, window.startDate) < 0) return "pre_run";
   if (compareLocalDates(localDate, window.beginningEndDate) <= 0) {
     return "beginning";
@@ -87,166 +88,100 @@ function stageLabel(stage: RunStage): string {
 function stageCopy(
   stage: RunStage,
   stagingContext: boolean,
-  window: DateWindow,
-  variant: "A" | "B",
+  establishedBuildingContext: boolean,
+  latePostRunContext: boolean,
+  species: string,
 ): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   switch (stage) {
     case "pre_run":
       if (stagingContext) {
         return {
-          headline: alternate(
-            variant,
-            "The river run has not begun, but nearby staging is seasonally possible.",
-            "This is the staging period before the river run begins.",
-          ),
-          detail: `The researched river-run window begins ${
-            displayLocalDate(window.startDate)
-          }. Mature fish may gather in nearby lake, harbor, or river-mouth water before then, but this calendar stage does not confirm fish have entered the river.`,
-          tip: alternate(
-            variant,
-            "Treat staging water separately from the river, and use measured river conditions for any current movement signal.",
-            "Nearby staging can matter now, but do not read it as proof of fish in the river.",
-          ),
+          headline:
+            `${species} may be gathering near the river mouth, and a few early fish could be in the river.`,
+          detail:
+            `Most ${species} are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but dependable river numbers have not developed yet.`,
+          tip:
+            "Fish the harbor and river mouth first, then make one deliberate check of the first deep lower-river travel lane. Skip a middle- or upper-river trip until the run becomes dependable.",
         };
       }
       return {
-        headline: alternate(
-          variant,
-          "The researched river-run season is still ahead.",
-          "It is too early for the configured river-run window.",
-        ),
-        detail: `Nearby-water staging context begins ${
-          displayLocalDate(window.stagingStartDate)
-        }, and the researched river-run window begins ${
-          displayLocalDate(window.startDate)
-        }.`,
-        tip: alternate(
-          variant,
-          "Use this as calendar context only; current weather or water cannot move the configured season dates.",
-          "Check back when the staging period opens; this card reports season timing, not current fish movement.",
-        ),
+        headline: `${species} have not started their river run yet.`,
+        detail:
+          `Most ${species} are still expected to be in the lake, so meaningful numbers in the river are unlikely right now.`,
+        tip:
+          "Keep the trip in the lake, harbor, and river-mouth zone. Do not spend the day searching inland river water for a run that has not started.",
       };
     case "beginning":
       return {
-        headline: alternate(
-          variant,
-          "The researched run window is in its beginning stage.",
-          "The calendar has entered the early run window.",
-        ),
-        detail: `Beginning runs from ${displayLocalDate(window.startDate)} through ${
-          displayLocalDate(window.beginningEndDate)
-        }. This is the early portion of the river-specific historical calendar, not a live count of fish.`,
-        tip: alternate(
-          variant,
-          "Early fish are seasonally plausible; use Run Timing and Push to understand timing and current entry conditions.",
-          "Expect the run to be less established than later stages, then check the other cards for measured conditions.",
-        ),
+        headline: `The first ${species} are beginning their river run.`,
+        detail:
+          `Fresh ${species} may be entering the river, but numbers can still be scattered and inconsistent this early.`,
+        tip:
+          "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
       };
     case "building":
+      if (establishedBuildingContext) {
+        return {
+          headline:
+            `The ${species} run is building across much more of the river.`,
+          detail:
+            `Earlier waves have had time to travel well upstream while later ${species} may continue to enter. Fish can now be spread from lower travel lanes into upper holding water wherever passage is open.`,
+          tip:
+            "Begin in established middle-river holding water, then work upstream through deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
+        };
+      }
       return {
-        headline: alternate(
-          variant,
-          "The researched run calendar is building toward peak.",
-          "The run window is in its building stage.",
-        ),
-        detail: `This stage follows the beginning window and continues until the configured peak starts ${
-          displayLocalDate(window.peakStartDate)
-        }. It describes historical timing, not what entered today.`,
-        tip: alternate(
-          variant,
-          "Historical presence commonly increases through this stage; use Push for the newest movement signal.",
-          "Read this as an advancing season, then use current-condition cards to judge how the river is setting up.",
-        ),
+        headline: `The ${species} run is gaining momentum.`,
+        detail:
+          `More ${species} are typically entering and beginning to spread upstream, although arrivals can still come in uneven waves.`,
+        tip:
+          "Start where lower-river travel water enters the first dependable holding holes. Cover those holes from head to tail, then continue into the middle river instead of waiting in one lower-river spot.",
       };
     case "peak":
       return {
-        headline: alternate(
-          variant,
-          "The calendar is inside the researched peak window.",
-          "This is the river run's configured peak stage.",
-        ),
-        detail: `The river-specific peak window runs from ${
-          displayLocalDate(window.peakStartDate)
-        } through ${displayLocalDate(window.peakEndDate)}. Peak is a historical timing range; it does not mean fish numbers are highest on every day.`,
-        tip: alternate(
-          variant,
-          "The run should be well established by calendar timing; Fishability still determines how workable the river is.",
-          "Do not confuse peak timing with perfect fishing—check river shape and current conditions separately.",
-        ),
+        headline:
+          `This is typically the strongest and most dependable river opportunity of the ${species} season.`,
+        detail:
+          `Multiple waves have had time to spread, so ${species} are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.`,
+        tip:
+          "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
       };
     case "tapering":
       return {
-        headline: alternate(
-          variant,
-          "The calendar is past peak and in the tapering stage.",
-          "The researched run window is now tapering.",
-        ),
-        detail: `The configured peak ended ${
-          displayLocalDate(window.peakEndDate)
-        }. Historical seasonal presence generally eases through ${
-          displayLocalDate(window.taperingEndDate)
-        }, although fish can remain in the river.`,
-        tip: alternate(
-          variant,
-          "Expect a more mature, less uniformly fresh run; use Fish In River for the river-specific historical level.",
-          "Fresh arrivals may be less consistent now, while existing fish can still provide opportunity.",
-        ),
+        headline:
+          `This can remain a productive part of the ${species} run, even as fresh arrivals typically become less consistent.`,
+        detail:
+          `Good numbers of ${species} may still be spread through the river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.`,
+        tip:
+          "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
       };
     case "ending":
       return {
-        headline: alternate(
-          variant,
-          "The researched run window is in its ending stage.",
-          "The river run is late in its configured season.",
-        ),
-        detail: `This is the final portion of the main run window, which ends ${
-          displayLocalDate(window.endDate)
-        }. Historical presence is declining, but this calendar stage does not mean every fish has left.`,
-        tip: alternate(
-          variant,
-          "Expect fewer fresh opportunities than earlier in the run and use Fish In River for remaining seasonal context.",
-          "Late-run fish may remain, but the calendar no longer supports an early- or peak-run expectation.",
-        ),
+        headline:
+          `${species} can still provide a worthwhile late-run river opportunity.`,
+        detail:
+          "Fish can still be present, but many have been in the system for a while and fresh arrivals tend to be less dependable.",
+        tip:
+          "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
       };
     case "post_run":
+      if (!latePostRunContext) {
+        return {
+          headline: `${species} are outside their river-run season.`,
+          detail:
+            `A dependable seasonal presence of ${species} is not expected in the river right now.`,
+          tip:
+            "Do not build a river trip around this run. Target a species with an active seasonal window and return to this read as the next migration approaches.",
+        };
+      }
       return {
-        headline: alternate(
-          variant,
-          "The researched river-run window has passed.",
-          "This run is now outside its configured season.",
-        ),
-        detail: `The main run window ended ${
-          displayLocalDate(window.endDate)
-        }, and its late historical-presence tail ended ${
-          displayLocalDate(window.lateEndDate)
-        }. This does not prove that no individual fish remain.`,
-        tip: alternate(
-          variant,
-          "Treat any remaining fish as outside the modeled run rather than extending the seasonal forecast.",
-          "River Run no longer presents this period as part of the researched seasonal opportunity.",
-        ),
+        headline: `The main ${species} river run is over.`,
+        detail:
+          "A few fish may remain, but the season no longer supports a dependable river-wide opportunity.",
+        tip:
+          "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
       };
   }
-}
-
-function displayLocalDate(value: string): string {
-  const match = /^(\d{4})-(\d{2})-(\d{2})$/.exec(value);
-  if (!match) return value;
-  const months = [
-    "January",
-    "February",
-    "March",
-    "April",
-    "May",
-    "June",
-    "July",
-    "August",
-    "September",
-    "October",
-    "November",
-    "December",
-  ];
-  return `${months[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
 }
 
 function stageReasonCode(
