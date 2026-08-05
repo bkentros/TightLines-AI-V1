@@ -16,19 +16,18 @@ import {
 
 const run = PERE_MARQUETTE_FALL_COHO_RUN_PROFILE;
 
-Deno.test("PM Fall Coho is a valid hidden build-pass run capped at 6", () => {
+Deno.test("PM Fall Coho is a valid public run capped at 6", () => {
   const result = validateRunProfile(run, PERE_MARQUETTE_RIVER_PROFILE);
 
   assertEquals(result.valid, true);
-  assertEquals(result.publicVisible, false);
+  assertEquals(result.publicVisible, true);
   assertEquals(run.historicalPresence.maximum, 6);
   assertEquals(resolveRunOpportunityCopyContext(run.historicalPresence), {
     strength: "moderate",
     distributionScope: "broad",
   });
-  assert(
-    result.issues.some((item) => item.code === "audit_gate_disabled"),
-  );
+  assertEquals(run.publicAudit?.auditVersion, "pm-fall-coho-acceptance-v1");
+  assertEquals(result.issues, []);
 });
 
 Deno.test("PM document binds Coho and Chinook to explicit shared biology", () => {
@@ -161,12 +160,14 @@ Deno.test("PM Fall Coho Migration Timing has five dedicated checkpoints", () => 
   );
 });
 
-Deno.test("production catalog keeps Coho hidden until acceptance", () => {
+Deno.test("production catalog exposes accepted Coho", () => {
   const catalog = listVisibleRiverRuns(
     [PERE_MARQUETTE_RIVER_PROFILE],
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT.runs,
   );
   assertEquals(catalog[0].rivers[0].runs.map((item) => item.runId), [
     "pere_marquette_fall_chinook",
+    "pere_marquette_fall_coho",
+    "pere_marquette_fall_steelhead",
   ]);
 });

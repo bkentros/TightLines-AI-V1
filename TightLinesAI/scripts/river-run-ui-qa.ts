@@ -451,12 +451,12 @@ assert.match(
 assert.match(
   riverRunScreen,
   /runId: "pere_marquette_fall_coho"[\s\S]*?species: "coho_salmon"/,
-  "Development catalog must expose the hidden Coho run for acceptance only",
+  "Development catalog must expose the Coho review run",
 );
 assert.match(
   riverRunScreen,
   /runId: "pere_marquette_fall_steelhead"[\s\S]*?species: "steelhead"/,
-  "Development catalog must expose hidden Fall Steelhead for acceptance only",
+  "Development catalog must expose the Fall Steelhead review run",
 );
 
 console.log(

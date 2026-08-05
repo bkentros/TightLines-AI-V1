@@ -226,7 +226,7 @@ export const PERE_MARQUETTE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     evidenceNotes:
       "Coho uses the audited PM hydraulic and precipitation response because Scottville, not species identity, measures the river response. The species-specific migration band is fully supportive from 50-62F, transitional above 62F, too warm at 68F, and migration-limiting at 70F. Rain remains precursor-only and strong positive movement language still requires a measured Scottville response.",
     sourceNotes:
-      "PM hydraulics: USGS 04122500 daily means, 2016-2025. Rain: Open-Meteo archive at the audited Baldwin watershed point, 2016-2025. Temperature: PMTU measured water, prioritized Maple Leaf then Bowman and M-37. Coho biology: Michigan DNR Coho profile and Great Lakes/peer-reviewed migration-temperature literature recorded in great_lakes_coho_v1. The 2021-2025 Coho replay produced 446 usable dates with zero safety or copy violations; values remain hidden pending owner acceptance.",
+      "PM hydraulics: USGS 04122500 daily means, 2016-2025. Rain: Open-Meteo archive at the audited Baldwin watershed point, 2016-2025. Temperature: PMTU measured water, prioritized Maple Leaf then Bowman and M-37. Coho biology: Michigan DNR Coho profile and Great Lakes/peer-reviewed migration-temperature literature recorded in great_lakes_coho_v1. The 2021-2025 Coho replay produced 446 usable dates with zero safety or copy violations; the owner accepted these values for public release.",
   },
   fishabilityBands: {
     ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.fishabilityBands,
@@ -260,13 +260,14 @@ export const PERE_MARQUETTE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     waterTemperatureWeight: 0.4,
   },
   researchNotes:
-    "PM Fall Coho acceptance configuration. The pre-run watch begins August 15, staging context begins August 25, the river window begins September 1, the run builds through September, peaks from October 10 through November 5 around an October 20 reference, tapers through November 20, ends November 30, and retains a sparse historical-presence tail through December 31. January 1-2 uses late post-run copy before true offseason guidance. The 6-of-10 ceiling represents a dependable moderate PM opportunity and passed the full local mechanical acceptance replay; final in-app owner acceptance remains required.",
+    "PM Fall Coho accepted release configuration. The pre-run watch begins August 15, staging context begins August 25, the river window begins September 1, the migration builds through September, peaks from October 10 through November 5 around an October 20 reference, tapers through November 20, ends November 30, and retains a sparse historical-presence tail through December 31. January 1-2 uses late post-migration copy before true offseason guidance. The 6-of-10 ceiling represents a dependable moderate PM opportunity and passed the full local mechanical acceptance replay and explicit owner acceptance.",
   sourceNotes:
-    "Sources include the Michigan DNR Coho salmon species profile, Michigan DNR Pere Marquette fishery and angler-survey material, Great Lakes Coho stocking and life-history context, USGS 04122500 Scottville, and PMTU measured-water stations. River sources, Fishability, and provider priority are deliberately shared with PM Chinook; timing, presence, biology, migration temperature, and Run Timing baselines are Coho-specific. Local acceptance passed; public visibility remains disabled pending device-level release acceptance and explicit owner approval.",
+    "Sources include the Michigan DNR Coho salmon species profile, Michigan DNR Pere Marquette fishery and angler-survey material, Great Lakes Coho stocking and life-history context, USGS 04122500 Scottville, and PMTU measured-water stations. River sources, Fishability, and provider priority are deliberately shared with PM Chinook; timing, presence, biology, migration temperature, and Migration Timing baselines are Coho-specific. Local acceptance and explicit owner release approval passed.",
   publicAudit: {
-    isEnabled: false,
+    isEnabled: true,
+    auditVersion: "pm-fall-coho-acceptance-v1",
     notes:
-      "Local acceptance audit passed: 446 Push dates, 910 Fishability dates, 645 integrated snapshots, five timing baselines, and 104 Coho review scenarios produced zero safety, copy, boundary, or cross-primitive violations. Public visibility remains disabled pending live hidden-production observation, release-device small-screen/accessibility acceptance, and explicit owner approval.",
+      "Local acceptance audit passed: 446 Push dates, 910 Fishability dates, 645 integrated snapshots, five timing baselines, and 104 Coho review scenarios produced zero safety, copy, boundary, or cross-primitive violations. The owner explicitly approved public visibility after device review.",
   },
 };
 
@@ -345,7 +346,7 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile =
       evidenceNotes:
         "Steelhead uses the audited PM hydraulic and rainfall response because Scottville measures the same river. The species branch weights temperature differently: 46-52F is the core fall-entry band, 40-45F remains movement-capable but increasingly favors holding, and approximately 39F or colder caps active-movement confidence while retaining in-river presence. Rain remains precursor-only and strong language still requires a measured Scottville response.",
       sourceNotes:
-        "PM hydraulics: USGS 04122500 daily means, 2016-2025. Rain: Open-Meteo archive at the audited Baldwin watershed point. Temperature: prioritized PMTU measured-water stations. Species response: Michigan DNR steelhead life-history guidance and Pere Marquette/Great Lakes steelhead telemetry documenting temperature-dominant movement and a movement slowdown near 4C/39F. Thresholds are launch calibration values pending hidden acceptance replay and owner review.",
+        "PM hydraulics: USGS 04122500 daily means, 2016-2025. Rain: Open-Meteo archive at the audited Baldwin watershed point. Temperature: prioritized PMTU measured-water stations. Species response: Michigan DNR steelhead life-history guidance and Pere Marquette/Great Lakes steelhead telemetry documenting temperature-dominant movement and a movement slowdown near 4C/39F. The launch calibration values passed the acceptance replay and explicit owner review.",
     },
     fishabilityBands: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.fishabilityBands,
@@ -383,11 +384,12 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile =
     researchNotes:
       "PM fall steelhead launch configuration. Early monitoring begins August 15, condition tracking begins September 1, and the river-entry window begins September 20 so occasional late-September fish are represented without overstating dependability. Meaningful presence and broadening distribution develop by mid-October, the 8-of-10 ceiling begins November 15, tapering begins December 5, the holding transition begins December 20, and presence remains 70-of-100 on December 22. December 23 is an explicit handoff to a future winter-holding experience with different activity-focused primitives; the fall migration primitives stop rather than fabricating winter scores.",
     sourceNotes:
-      "Sources include Michigan DNR steelhead biology and Great Lakes tributary timing, Michigan DNR Pere Marquette fishery/angler-survey material, Pere Marquette and broader Great Lakes telemetry, USGS 04122500 Scottville, and PMTU measured-water stations. PM hydraulics and providers are shared; biology, timing, retained presence, temperature response, condition weights, and winter handoff are steelhead-specific. Public visibility remains disabled pending the full acceptance pass and explicit owner approval.",
+      "Sources include Michigan DNR steelhead biology and Great Lakes tributary timing, Michigan DNR Pere Marquette fishery/angler-survey material, Pere Marquette and broader Great Lakes telemetry, USGS 04122500 Scottville, and PMTU measured-water stations. PM hydraulics and providers are shared; biology, timing, retained presence, temperature response, condition weights, and winter handoff are steelhead-specific. The full local acceptance pass and explicit owner release approval are complete.",
     publicAudit: {
-      isEnabled: false,
+      isEnabled: true,
+      auditVersion: "pm-fall-steelhead-acceptance-v1",
       notes:
-        "Local build audit passed: 419 Push dates, 921 Fishability dates, 570 integrated snapshots, five timing baselines, and 103 Steelhead review scenarios produced zero safety, copy, boundary, meter, or cross-primitive violations. Public visibility remains disabled pending owner acceptance, release-device small-screen/accessibility review, hidden production observation, and explicit owner approval.",
+        "Local build audit passed: 419 Push dates, 921 Fishability dates, 570 integrated snapshots, five timing baselines, and 103 Steelhead review scenarios produced zero safety, copy, boundary, meter, or cross-primitive violations. The owner explicitly approved public visibility after device review.",
     },
   };
 

@@ -19,14 +19,18 @@ import {
 
 const run = PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE;
 
-Deno.test("PM Fall Steelhead is a valid hidden fall-entry configuration capped at 8", () => {
+Deno.test("PM Fall Steelhead is a valid public fall-entry configuration capped at 8", () => {
   const result = validateRunProfile(run, PERE_MARQUETTE_RIVER_PROFILE);
   assertEquals(result.valid, true);
-  assertEquals(result.publicVisible, false);
+  assertEquals(result.publicVisible, true);
   assertEquals(run.historicalPresence.maximum, 8);
   assertEquals(run.runType, "fall_entry");
   assertEquals(run.movementEngineId, "fall_entry_cooling");
-  assert(result.issues.some((item) => item.code === "audit_gate_disabled"));
+  assertEquals(
+    run.publicAudit?.auditVersion,
+    "pm-fall-steelhead-acceptance-v1",
+  );
+  assertEquals(result.issues, []);
 });
 
 Deno.test("fall-entry handoff fails closed when the retained-presence anchor misses the final migration day", () => {
@@ -253,7 +257,7 @@ Deno.test("December 23 completes migration primitives and requires the winter fi
   );
 });
 
-Deno.test("PM Fall Steelhead has dedicated timing checkpoints and remains hidden", () => {
+Deno.test("PM Fall Steelhead has dedicated timing checkpoints and is public", () => {
   assertEquals(
     resolveConditionsSuggestCheckpoints(run, "2026-12-01").map((item) => [
       item.checkpointId,
@@ -275,5 +279,7 @@ Deno.test("PM Fall Steelhead has dedicated timing checkpoints and remains hidden
   );
   assertEquals(catalog[0].rivers[0].runs.map((item) => item.runId), [
     "pere_marquette_fall_chinook",
+    "pere_marquette_fall_coho",
+    "pere_marquette_fall_steelhead",
   ]);
 });

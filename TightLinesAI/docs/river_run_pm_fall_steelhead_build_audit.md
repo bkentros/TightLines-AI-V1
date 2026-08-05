@@ -2,7 +2,7 @@
 
 **Status:** implementation complete; public audit gate disabled\
 **Engine version:** `river-run-v1.5.3`\
-**Configuration version:** `2026-08-05.5`\
+**Configuration version:** `2026-08-05.6`\
 **Copy version:** `river-run-copy-v20`\
 **Movement branch:** `fall_entry_cooling` / `fall-entry-cooling-v1`
 
@@ -141,15 +141,13 @@ Coho assets as style and scale references. The fish is chrome-silver with an
 olive-blue back, restrained pink lateral band, and steelhead spotting across the
 back and tail.
 
-## Remaining acceptance gates
+## Public release approval
 
-1. Owner device review of the 103 Steelhead scenarios, with special attention to
-   the two established-building states, early entry, late-fall copy,
-   cold-holding Push, and the December 22–23 transition.
-2. Release-device small-screen and accessibility review.
-3. Hidden production observation and production smoke after the baseline
-   migration is applied.
-4. Explicit owner approval before enabling `publicAudit.isEnabled`.
-5. A separate future winter-holding engine with activity- and feeding-oriented
-   primitives; the fall branch deliberately does not implement those winter
-   scores.
+The owner completed device review and explicitly approved the accepted Fall
+Steelhead configuration for public visibility. `publicAudit` is enabled under
+`pm-fall-steelhead-acceptance-v1`.
+
+Deployment and the authenticated production smoke path remain operational
+steps. A separate future winter-holding engine with activity- and
+feeding-oriented primitives remains future work; the completed fall branch
+deliberately does not fabricate those winter scores.

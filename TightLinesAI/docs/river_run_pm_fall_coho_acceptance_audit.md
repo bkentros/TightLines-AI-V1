@@ -90,17 +90,15 @@ support a later, lower-abundance PM Coho run centered in the August-November
 period. The exact 6/10 ceiling, October 20 reference peak, 50-62F fully
 supportive band, and sparse December curve are conservative accepted product
 calibrations—not PM telemetry or a direct annual abundance estimate. They should
-be compared with hidden live-season observations before public enablement.
+continue to be compared with live-season observations after release.
 
-## Remaining release gates
+## Public release approval
 
-These are not engine/configuration failures and were not bypassed:
+The owner completed device review and explicitly approved the accepted Coho
+configuration for public visibility. `publicAudit` is enabled under
+`pm-fall-coho-acceptance-v1`.
 
-- Observe the hidden run against deployed production providers and run the
-  authenticated production smoke path.
-- Complete release-device small-screen and accessibility review.
-- Obtain explicit owner approval, then enable `publicAudit` in a separate
-  intentional change.
+Deployment and the authenticated production smoke path remain operational
+steps; they do not change the accepted engine, configuration, or copy.
 
-No migration was applied, no deployment occurred, and the Coho public audit gate
-remains disabled.
+No deployment is performed by this audit document itself.
