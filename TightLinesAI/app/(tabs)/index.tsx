@@ -49,6 +49,7 @@ import {
   dashboardBandColor,
   paper,
   paperBandForScore,
+  paperShadows,
   type PaperScoreBand,
   scoreAccentColor,
 } from "../../lib/theme";
@@ -1670,28 +1671,19 @@ export default function HomeScreen() {
 
             <ModuleRow
               code="01"
-              title="Water Read"
-              tag="POLYGON"
-              desc="Most lakes: structure + potential hotspots"
-              moduleId="water-read"
-              iconBg={["#E8F2FA", "#C8DFF2"]}
-              iconBorder="#0F63B0"
-              iconColor="#0A4A87"
-              onPress={handleWaterReadPress}
+              title="River Migration"
+              tag="MIGRATION"
+              badge="NEW"
+              desc="Migration stage, river conditions, fishability & fish presence"
+              moduleId="river-run"
+              iconBg={["#FBE4E1", "#F3C2BC"]}
+              iconBorder="#C0392B"
+              iconColor="#9A2B20"
+              onPress={handleRiverRunPress}
+              descLines={2}
             />
             <ModuleRow
               code="02"
-              title="Tackle Box"
-              tag="RECOMMENDER"
-              desc="Tuned picks for today's conditions & species"
-              moduleId="tackle-box"
-              iconBg={["#FBF1D9", "#F4DFA4"]}
-              iconBorder="#C99B2D"
-              iconColor="#8A6A1A"
-              onPress={handleRecommenderPress}
-            />
-            <ModuleRow
-              code="03"
               title="Today's Bite"
               tag="CONDITIONS"
               desc="Full breakdown · windows · limiting factors"
@@ -1702,16 +1694,26 @@ export default function HomeScreen() {
               onPress={handleHowFishingPress}
             />
             <ModuleRow
+              code="03"
+              title="Tackle Box"
+              tag="RECOMMENDER"
+              desc="Tuned picks for today's conditions & species"
+              moduleId="tackle-box"
+              iconBg={["#FBF1D9", "#F4DFA4"]}
+              iconBorder="#C99B2D"
+              iconColor="#8A6A1A"
+              onPress={handleRecommenderPress}
+            />
+            <ModuleRow
               code="04"
-              title="River Migration"
-              tag="MIGRATION"
-              desc="Stage, historical conditions, push, fishability & seasonal presence for Great Lakes runs"
-              moduleId="river-run"
-              iconBg={["#FBE4E1", "#F3C2BC"]}
-              iconBorder="#C0392B"
-              iconColor="#9A2B20"
-              onPress={handleRiverRunPress}
-              descLines={3}
+              title="Water Read"
+              tag="POLYGON"
+              desc="Most lakes: structure + potential hotspots"
+              moduleId="water-read"
+              iconBg={["#E8F2FA", "#C8DFF2"]}
+              iconBorder="#0F63B0"
+              iconColor="#0A4A87"
+              onPress={handleWaterReadPress}
             />
             <Pressable
               style={({ pressed }) => [
@@ -2102,6 +2104,7 @@ function ModuleRow({
   iconColor,
   moduleId,
   onPress,
+  badge,
   comingSoon = false,
   descLines = 2,
 }: {
@@ -2114,6 +2117,7 @@ function ModuleRow({
   iconColor: string;
   moduleId: IntelligenceModuleId;
   onPress?: () => void;
+  badge?: string;
   comingSoon?: boolean;
   descLines?: number;
 }) {
@@ -2137,6 +2141,13 @@ function ModuleRow({
         >
           <Text style={styles.moduleTitle}>{title}</Text>
           <Text style={styles.moduleTag}>{tag}</Text>
+          {badge
+            ? (
+              <View style={styles.moduleNewBadge}>
+                <Text style={styles.moduleNewBadgeText}>{badge}</Text>
+              </View>
+            )
+            : null}
         </View>
         <Text style={styles.moduleDesc} numberOfLines={descLines}>
           {desc}
@@ -3131,6 +3142,20 @@ const styles = StyleSheet.create({
     fontSize: 8,
     letterSpacing: 1.3,
     color: paper.dashboardMuted,
+  },
+  moduleNewBadge: {
+    paddingHorizontal: 7,
+    paddingVertical: 3,
+    borderRadius: 999,
+    backgroundColor: paper.red,
+    ...paperShadows.lift,
+  },
+  moduleNewBadgeText: {
+    fontFamily: MONO_BOLD,
+    fontSize: 7.5,
+    lineHeight: 10,
+    letterSpacing: 1.2,
+    color: "#FFFFFF",
   },
   moduleDesc: {
     fontFamily: SANS_MEDIUM,

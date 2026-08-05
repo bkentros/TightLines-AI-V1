@@ -196,10 +196,59 @@ const riverRunScreen = readFileSync(
   `${projectRoot}app/river-run.tsx`,
   "utf8",
 );
+const homeScreen = readFileSync(`${projectRoot}app/(tabs)/index.tsx`, "utf8");
+const welcomeScreen = readFileSync(
+  `${projectRoot}app/(auth)/welcome.tsx`,
+  "utf8",
+);
+assert.match(
+  homeScreen,
+  /code="01"[\s\S]*?title="River Migration"[\s\S]*?badge="NEW"[\s\S]*?code="02"[\s\S]*?title="Today's Bite"[\s\S]*?code="03"[\s\S]*?title="Tackle Box"[\s\S]*?code="04"[\s\S]*?title="Water Read"/,
+  "Authenticated-home modules must lead with new River Migration",
+);
+assert.match(
+  homeScreen,
+  /title="River Migration"[\s\S]*?desc="Migration stage, river conditions, fishability & fish presence"[\s\S]*?descLines=\{2\}/,
+  "Authenticated-home River Migration description must remain concise",
+);
+assert.match(
+  welcomeScreen,
+  /numeral: "I"[\s\S]*?moduleId: "todays-bite"[\s\S]*?numeral: "II"[\s\S]*?moduleId: "river-run"[\s\S]*?numeral: "III"[\s\S]*?moduleId: "tackle-box"[\s\S]*?numeral: "IV"[\s\S]*?moduleId: "water-read"/,
+  "Signed-out modules must use Today's Bite, River Migration, Tackle Box, Water Read order",
+);
+const welcomeRiverMigration = welcomeScreen.match(
+  /\{\s*numeral: "II",[\s\S]*?moduleId: "river-run"[\s\S]*?\n  \},/,
+);
+assert(welcomeRiverMigration, "Missing signed-out River Migration module");
+assert.doesNotMatch(
+  welcomeRiverMigration[0],
+  /comingSoon:\s*true/,
+  "Signed-out River Migration must not be greyed out",
+);
 assert.match(
   riverRunScreen,
   /disabled=\{disabled\}[\s\S]*?accessibilityState=\{\{ checked: selected, disabled \}\}/,
   "Future catalog choices must be disabled visually and accessibly",
+);
+assert.match(
+  riverRunScreen,
+  /<ResultHero[\s\S]*?readDate=\{currentDeviceLocalDate\(\)\}/,
+  "The visible read date must use the user's current device date, not a review fixture date",
+);
+assert.doesNotMatch(
+  riverRunScreen,
+  /\{snapshot \? formatLocalDate\(snapshot\.localDate\) : "Preview"\}/,
+  "Review fixture dates must not leak into the result hero",
+);
+assert.match(
+  riverRunScreen,
+  /resultFishStage:\s*\{[\s\S]*?height:\s*128,[\s\S]*?overflow:\s*"hidden"[\s\S]*?resultFishImage:\s*\{[\s\S]*?transform:\s*\[\{ scale: 1\.48 \}\]/,
+  "The result fish stage must remove roughly one third of its vertical whitespace without shrinking the fish",
+);
+assert.match(
+  riverRunScreen,
+  /<FeedbackCard[\s\S]*?featureName="River Migration Coverage"[\s\S]*?variant="request"[\s\S]*?compact[\s\S]*?title=\{config\.requestTitle\}/,
+  "Every setup step must expose the compact coverage-request route",
 );
 assert.match(
   riverRunScreen,
@@ -213,8 +262,8 @@ const riverRunVisual = readFileSync(
 const anglerFacingFeatureSources = [
   riverRunScreen,
   riverRunVisual,
-  readFileSync(`${projectRoot}app/(auth)/welcome.tsx`, "utf8"),
-  readFileSync(`${projectRoot}app/(tabs)/index.tsx`, "utf8"),
+  welcomeScreen,
+  homeScreen,
   readFileSync(`${projectRoot}app/module-icons-preview.tsx`, "utf8"),
   readFileSync(`${projectRoot}lib/riverRunCatalogSelection.ts`, "utf8"),
 ];

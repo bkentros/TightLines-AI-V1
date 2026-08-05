@@ -234,6 +234,8 @@ const STEP_CONFIG: Record<
     question: string;
     caption: string;
     icon: keyof typeof Ionicons.glyphMap;
+    requestTitle: string;
+    requestAction: string;
   }
 > = {
   1: {
@@ -242,6 +244,8 @@ const STEP_CONFIG: Record<
     question: "Which state?",
     caption: "Michigan is available now. Planned regions are marked below.",
     icon: "map-outline",
+    requestTitle: "Need another state?",
+    requestAction: "Request a state",
   },
   2: {
     label: "SEASON",
@@ -249,6 +253,8 @@ const STEP_CONFIG: Record<
     question: "Which migration season are you following?",
     caption: "Fall is available now. Planned seasons are marked below.",
     icon: "calendar-outline",
+    requestTitle: "Need another season?",
+    requestAction: "Request a season",
   },
   3: {
     label: "SPECIES",
@@ -256,6 +262,8 @@ const STEP_CONFIG: Record<
     question: "What is moving?",
     caption: "Choose an available species. Planned additions stay visible.",
     icon: "fish-outline",
+    requestTitle: "Need another species?",
+    requestAction: "Request a species",
   },
   4: {
     label: "RIVER",
@@ -263,6 +271,8 @@ const STEP_CONFIG: Record<
     question: "Which river should we read?",
     caption: "Rivers are filtered by species. Planned coverage is marked.",
     icon: "water-outline",
+    requestTitle: "Need another river?",
+    requestAction: "Request a river",
   },
 };
 
@@ -498,6 +508,27 @@ export default function RiverRunScreen() {
     currentChoices.some((choice) =>
       choice.id === currentSelection && !choice.disabled
     );
+  const coverageContextLines = [
+    `Setup step: ${STEP_CONFIG[wizardStep].label}`,
+    selectedState
+      ? `Selected state: ${
+        stateChoices.find((choice) => choice.id === selectedState)?.label ??
+          selectedState
+      }`
+      : null,
+    selectedSeason
+      ? `Selected migration season: ${formatRiverRunSeason(selectedSeason)}`
+      : null,
+    selectedSpecies
+      ? `Selected species: ${formatRiverRunSpecies(selectedSpecies)}`
+      : null,
+    selectedRiverId
+      ? `Selected river: ${
+        riverChoices.find((choice) => choice.id === selectedRiverId)?.label ??
+          selectedRiverId
+      }`
+      : null,
+  ].filter((line): line is string => line !== null);
 
   const selectChoice = useCallback((choice: RiverRunChoice) => {
     if (choice.disabled) return;
@@ -624,6 +655,9 @@ export default function RiverRunScreen() {
               canContinue={canContinue}
               onRetry={() => void loadCatalog()}
               reviewMode={reviewMode}
+              profile={profile}
+              user={user}
+              coverageContextLines={coverageContextLines}
             />
           )
           : (
@@ -653,6 +687,7 @@ export default function RiverRunScreen() {
                 season={resultSeason}
                 species={resultSpecies}
                 snapshot={resultSnapshot}
+                readDate={currentDeviceLocalDate()}
               />
 
               {RIVER_RUN_REVIEW_ENABLED
@@ -783,6 +818,9 @@ function SetupView({
   canContinue,
   onRetry,
   reviewMode,
+  profile,
+  user,
+  coverageContextLines,
 }: {
   loading: boolean;
   error: string | null;
@@ -795,6 +833,9 @@ function SetupView({
   canContinue: boolean;
   onRetry: () => void;
   reviewMode: boolean;
+  profile: ReturnType<typeof useAuthStore.getState>["profile"];
+  user: ReturnType<typeof useAuthStore.getState>["user"];
+  coverageContextLines: string[];
 }) {
   const config = STEP_CONFIG[step];
   return (
@@ -940,6 +981,26 @@ function SetupView({
               />
             </Pressable>
           </View>
+        )
+        : null}
+
+      {!loading && !error
+        ? (
+          <FeedbackCard
+            featureName="River Migration Coverage"
+            topic="feature"
+            variant="request"
+            compact
+            eyebrow="REQUEST COVERAGE"
+            title={config.requestTitle}
+            actionLabel={config.requestAction}
+            profile={profile}
+            user={user}
+            contextLines={[
+              "Request category: River Migration setup coverage",
+              ...coverageContextLines,
+            ]}
+          />
         )
         : null}
 
@@ -1192,10 +1253,12 @@ function ResultHero({
   season,
   species,
   snapshot,
+  readDate,
 }: {
   season: RiverRunSeason;
   species: string;
   snapshot?: RiverRunSnapshotResponse | null;
+  readDate: string;
 }) {
   const speciesImage = getRiverRunSpeciesImage(species);
   return (
@@ -1231,7 +1294,7 @@ function ResultHero({
         <View style={styles.resultHeroMetaItem}>
           <Text style={styles.resultHeroMetaLabel}>READ DATE</Text>
           <Text style={styles.resultHeroMetaValue}>
-            {snapshot ? formatLocalDate(snapshot.localDate) : "Preview"}
+            {formatLocalDate(readDate)}
           </Text>
         </View>
         <View style={styles.resultHeroMetaRule} />
@@ -2147,6 +2210,13 @@ function formatLocalDate(value: string): string {
   return `${months[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
 }
 
+function currentDeviceLocalDate(date = new Date()): string {
+  const year = date.getFullYear();
+  const month = String(date.getMonth() + 1).padStart(2, "0");
+  const day = String(date.getDate()).padStart(2, "0");
+  return `${year}-${month}-${day}`;
+}
+
 const styles = StyleSheet.create({
   safeRoot: {
     flex: 1,
@@ -2594,13 +2664,15 @@ const styles = StyleSheet.create({
   },
   resultFishStage: {
     width: "100%",
-    height: 190,
+    height: 128,
     alignItems: "center",
     justifyContent: "center",
+    overflow: "hidden",
   },
   resultFishImage: {
     width: "100%",
     height: "100%",
+    transform: [{ scale: 1.48 }],
   },
   resultHeroMeta: {
     width: "100%",

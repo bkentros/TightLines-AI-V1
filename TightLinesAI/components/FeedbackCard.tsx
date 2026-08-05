@@ -54,8 +54,38 @@ export function FeedbackCard({
   };
 
   if (variant === 'request') {
+    if (compact) {
+      return (
+        <Pressable
+          style={({ pressed }) => [
+            styles.miniRequestCard,
+            pressed && styles.requestButtonPressed,
+          ]}
+          onPress={() => handlePress('note')}
+          accessibilityRole="button"
+          accessibilityLabel={actionLabel ?? 'Request coverage'}
+        >
+          <View style={[styles.iconBadge, styles.requestIconBadge, styles.miniRequestIcon]}>
+            <Ionicons name="map-outline" size={14} color={paper.redDk} />
+          </View>
+          <View style={styles.miniRequestCopy}>
+            <Text style={[styles.eyebrow, styles.requestEyebrow]}>
+              {eyebrow ?? 'REQUEST COVERAGE'}
+            </Text>
+            <Text style={styles.miniRequestTitle} numberOfLines={1}>
+              {title ?? 'What should FinFindr add next?'}
+            </Text>
+          </View>
+          <Text style={styles.miniRequestAction} numberOfLines={1}>
+            {(actionLabel ?? 'SEND A REQUEST').toUpperCase()}
+          </Text>
+          <Ionicons name="arrow-forward" size={14} color={paper.redDk} />
+        </Pressable>
+      );
+    }
+
     return (
-      <View style={[styles.card, styles.requestCard, compact && styles.cardCompact]}>
+      <View style={[styles.card, styles.requestCard]}>
         <View style={styles.headerRow}>
           <View style={[styles.iconBadge, styles.requestIconBadge]}>
             <Ionicons name="map-outline" size={16} color={paper.redDk} />
@@ -156,6 +186,41 @@ const styles = StyleSheet.create({
   requestCard: {
     borderColor: 'rgba(192,57,43,0.2)',
     backgroundColor: '#FFF7F2',
+  },
+  miniRequestCard: {
+    minHeight: 54,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    paddingHorizontal: 11,
+    paddingVertical: 8,
+    borderWidth: 1,
+    borderColor: 'rgba(192,57,43,0.24)',
+    borderRadius: 9,
+    backgroundColor: '#FFF7F2',
+  },
+  miniRequestIcon: {
+    width: 28,
+    height: 28,
+    borderRadius: 14,
+  },
+  miniRequestCopy: {
+    minWidth: 0,
+    flex: 1,
+  },
+  miniRequestTitle: {
+    marginTop: 1,
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 12.5,
+    lineHeight: 16,
+    color: paper.dashboardInk,
+  },
+  miniRequestAction: {
+    maxWidth: 122,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 0.8,
+    color: paper.redDk,
   },
   headerRow: {
     flexDirection: 'row',
