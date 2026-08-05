@@ -630,7 +630,11 @@ Deno.serve(async (req: Request) => {
     if (userId) {
       await syncProfileTierFromWebhook(supabase, userId, event);
     }
-    const attribution = await resolveAttribution(supabase, userId, event);
+    const creatorProgramEnabled =
+      Deno.env.get("CREATOR_PROGRAM_ENABLED") === "true";
+    const attribution = creatorProgramEnabled
+      ? await resolveAttribution(supabase, userId, event)
+      : null;
     const shouldStorePeriod = Boolean(
       event.transactionId &&
         (isPaidRevenueEvent(event) || isRefundRevenueEvent(event)),

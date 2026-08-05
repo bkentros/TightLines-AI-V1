@@ -1,5 +1,9 @@
 # FinFindr Creator Program Phase 1
 
+> Archived August 5, 2026. The creator program is disabled and is not part of
+> the current app release. This document is retained only as historical design
+> context.
+
 This file locks the first creator-program rules before we wire the public
 landing pages, RevenueCat webhook, admin dashboard, and creator dashboard.
 

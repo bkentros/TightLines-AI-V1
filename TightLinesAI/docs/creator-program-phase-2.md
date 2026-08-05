@@ -1,5 +1,9 @@
 # FinFindr Creator Program Phase 2
 
+> Archived August 5, 2026. The creator program is disabled and is not part of
+> the current app release. This document is retained only as historical design
+> context.
+
 Phase 2 wires the creator-program tables into real event flow while Apple is
 still blocking custom code generation until the app/subscription is approved.
 

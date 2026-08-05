@@ -37,6 +37,7 @@ import {
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
 import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
+import { TopographicLines } from '../../components/paper';
 import {
   AuthBackButton,
   AuthDivider,
@@ -177,14 +178,45 @@ export default function SignInScreen() {
                 </View>
               </View>
 
-              <AuthHeader
-                eyebrow="— FINFINDR · SIGN IN —"
-                title={'Welcome\nback.'}
-                subtitle="Sign in to pick up your log, reports, and tackle recommendations right where you left them."
-              />
+              <View style={styles.signInHero}>
+                <TopographicLines
+                  style={styles.signInHeroTopo}
+                  color={paper.dashboardInk}
+                  count={5}
+                />
+                <View style={styles.secureAccessPill}>
+                  <Ionicons name="lock-closed-outline" size={11} color={paper.dashboardBlue} />
+                  <Text style={styles.secureAccessText}>SECURE ANGLER ACCESS</Text>
+                </View>
+                <AuthHeader
+                  eyebrow="FINFINDR · SIGN IN"
+                  title={'Welcome back.'}
+                  subtitle="Return to your local conditions, reports, saved logs, and fishing tools."
+                />
+                <View style={styles.returningStrip}>
+                  <View style={styles.returningItem}>
+                    <Ionicons name="location-outline" size={13} color={paper.dashboardBlue} />
+                    <Text style={styles.returningText}>HOME WATER</Text>
+                  </View>
+                  <View style={styles.returningDivider} />
+                  <View style={styles.returningItem}>
+                    <Ionicons name="book-outline" size={13} color={paper.dashboardBlue} />
+                    <Text style={styles.returningText}>SAVED LOGS</Text>
+                  </View>
+                  <View style={styles.returningDivider} />
+                  <View style={styles.returningItem}>
+                    <Ionicons name="pulse-outline" size={13} color={paper.dashboardBlue} />
+                    <Text style={styles.returningText}>LIVE READS</Text>
+                  </View>
+                </View>
+              </View>
             </View>
 
             <View style={styles.form}>
+              <View style={styles.formHeadingRow}>
+                <Text style={styles.formHeading}>ACCOUNT DETAILS</Text>
+                <View style={styles.formHeadingRule} />
+              </View>
               {notice ? (
                 <AuthNotice
                   title={notice.title}
@@ -298,7 +330,7 @@ const styles = StyleSheet.create({
     gap: paperSpacing.xl,
   },
   topSection: {
-    gap: paperSpacing.xl,
+    gap: paperSpacing.md,
   },
   topBar: {
     minHeight: 58,
@@ -355,8 +387,97 @@ const styles = StyleSheet.create({
     marginTop: 2,
     opacity: 0.85,
   },
+  signInHero: {
+    position: 'relative',
+    overflow: 'hidden',
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
+    borderRadius: 14,
+    padding: paperSpacing.lg,
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.08,
+    shadowRadius: 12,
+    shadowOffset: { width: 0, height: 5 },
+  },
+  signInHeroTopo: {
+    ...StyleSheet.absoluteFillObject,
+    opacity: 0.25,
+  },
+  secureAccessPill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    alignSelf: 'flex-start',
+    paddingHorizontal: 9,
+    paddingVertical: 5,
+    marginBottom: paperSpacing.sm,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardBlueSky,
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.20)',
+    zIndex: 1,
+  },
+  secureAccessText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardBlue,
+    letterSpacing: 1.5,
+  },
+  returningStrip: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: paperSpacing.md,
+    paddingTop: paperSpacing.sm,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: paper.dashboardInk,
+    zIndex: 1,
+  },
+  returningItem: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 4,
+  },
+  returningDivider: {
+    width: StyleSheet.hairlineWidth,
+    height: 18,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.18,
+  },
+  returningText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    color: paper.dashboardInk,
+    letterSpacing: 0.8,
+    opacity: 0.72,
+  },
   form: {
     gap: paperSpacing.md,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+    padding: paperSpacing.md,
+  },
+  formHeadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  formHeading: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardInk,
+    letterSpacing: 2,
+    opacity: 0.68,
+  },
+  formHeadingRule: {
+    flex: 1,
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardInk,
+    opacity: 0.18,
   },
   forgotLink: {
     alignSelf: 'flex-end',

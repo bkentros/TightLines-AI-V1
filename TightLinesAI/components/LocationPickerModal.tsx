@@ -214,7 +214,7 @@ export function LocationPickerModal({
                   <Text style={styles.headerTitleDot}>.</Text>
                 </Text>
                 <Text style={styles.headerSubtitle}>
-                  Search any U.S. city for local weather and fishing reads.
+                  Set the place behind every local FinFindr read.
                 </Text>
               </View>
 
@@ -233,44 +233,56 @@ export function LocationPickerModal({
               </Pressable>
             </View>
 
-            {/* Active location dispatch card — inside the header */}
-            <View style={styles.dispatchCard}>
-              <View style={styles.dispatchLeft}>
-                <View style={styles.dispatchSourcePill}>
-                  <View
-                    style={[
-                      styles.dispatchDot,
-                      isUsingCustom
-                        ? styles.dispatchDotCustom
-                        : styles.dispatchDotGps,
-                    ]}
-                  />
-                  <Text style={styles.dispatchSourceText}>{sourceLabel}</Text>
-                </View>
-                <Text
-                  style={styles.dispatchLabel}
-                  numberOfLines={1}
-                  ellipsizeMode="tail"
-                >
-                  {currentLabel}
-                </Text>
-              </View>
-              <View style={styles.dispatchActiveBadge}>
-                <Ionicons
-                  name={isUsingCustom ? 'location' : 'navigate'}
-                  size={11}
-                  color={paper.dashboardBlue}
-                />
-                <Text style={styles.dispatchActiveBadgeText}>ACTIVE</Text>
-              </View>
-            </View>
           </View>
 
           {/* ── Body ───────────────────────────────────────────────────── */}
           <View style={styles.body}>
 
+            {/* ── Current read scope ──────────────────────────────────── */}
+            <View style={styles.scopeDeck}>
+              <View style={styles.dispatchCard}>
+                <View style={styles.dispatchIconTile}>
+                  <Ionicons
+                    name={isUsingCustom ? 'location' : 'navigate'}
+                    size={17}
+                    color="#FFFFFF"
+                  />
+                </View>
+                <View style={styles.dispatchLeft}>
+                  <View style={styles.dispatchSourcePill}>
+                    <View
+                      style={[
+                        styles.dispatchDot,
+                        isUsingCustom
+                          ? styles.dispatchDotCustom
+                          : styles.dispatchDotGps,
+                      ]}
+                    />
+                    <Text style={styles.dispatchSourceText}>READING NOW · {sourceLabel}</Text>
+                  </View>
+                  <Text
+                    style={styles.dispatchLabel}
+                    numberOfLines={1}
+                    ellipsizeMode="tail"
+                  >
+                    {currentLabel}
+                  </Text>
+                </View>
+                <View style={styles.dispatchActiveBadge}>
+                  <Text style={styles.dispatchActiveBadgeText}>ACTIVE</Text>
+                </View>
+              </View>
+              <View style={styles.scopeNote}>
+                <Ionicons name="pulse-outline" size={12} color={paper.dashboardBlue} />
+                <Text style={styles.scopeNoteText} numberOfLines={2}>
+                  This location powers Live Conditions, Today&apos;s Bite, and the Tackle Box.
+                </Text>
+              </View>
+            </View>
+
             {/* ── Search field ─────────────────────────────────────────── */}
             <View style={styles.searchBlock}>
+              <Text style={styles.searchEyebrow}>SEARCH FOR A DIFFERENT PLACE</Text>
               <View style={styles.searchWrap}>
                 <View style={styles.searchIconTile}>
                   <Ionicons
@@ -687,7 +699,7 @@ const styles = StyleSheet.create({
     position: 'relative',
     backgroundColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.lg,
-    paddingBottom: 0,
+    paddingBottom: paperSpacing.md,
     overflow: 'hidden',
   },
   headerTopo: {
@@ -786,14 +798,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: 'rgba(255,255,255,0.08)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.16)',
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1.5,
+    borderColor: paper.dashboardInk,
     borderRadius: 10,
-    paddingVertical: 10,
+    paddingVertical: 11,
     paddingHorizontal: 12,
-    marginBottom: paperSpacing.md,
-    zIndex: 1,
+  },
+  dispatchIconTile: {
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: paper.dashboardInk,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flexShrink: 0,
   },
   dispatchLeft: { flex: 1, gap: 3 },
   dispatchSourcePill: {
@@ -812,13 +831,13 @@ const styles = StyleSheet.create({
   dispatchSourceText: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 8.5,
-    color: 'rgba(255,255,255,0.65)',
-    letterSpacing: 2,
+    color: paper.dashboardBlue,
+    letterSpacing: 1.6,
   },
   dispatchLabel: {
     fontFamily: paperFonts.display,
     fontSize: 17,
-    color: '#FFFFFF',
+    color: paper.dashboardInk,
     fontWeight: '700',
     letterSpacing: -0.2,
   },
@@ -846,12 +865,46 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardCream,
   },
 
+  scopeDeck: {
+    marginHorizontal: paperSpacing.lg,
+    marginTop: paperSpacing.md,
+    padding: 6,
+    borderRadius: 13,
+    backgroundColor: '#EAF3F7',
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.20)',
+  },
+  scopeNote: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    paddingHorizontal: 9,
+    paddingTop: 7,
+    paddingBottom: 3,
+  },
+  scopeNoteText: {
+    flex: 1,
+    fontFamily: paperFonts.bodyMedium,
+    fontSize: 10.5,
+    lineHeight: 14,
+    color: paper.dashboardInk,
+    opacity: 0.68,
+  },
+
   // ── Search ─────────────────────────────────────────────────────────────────
   searchBlock: {
     paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.md,
+    paddingTop: paperSpacing.sm + 2,
     paddingBottom: paperSpacing.sm,
     backgroundColor: paper.dashboardCream,
+  },
+  searchEyebrow: {
+    marginBottom: 6,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardInk,
+    letterSpacing: 1.8,
+    opacity: 0.62,
   },
   searchWrap: {
     flexDirection: 'row',

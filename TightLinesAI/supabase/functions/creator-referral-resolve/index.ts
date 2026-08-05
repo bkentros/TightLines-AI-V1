@@ -72,6 +72,9 @@ Deno.serve(async (req: Request) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { status: 204, headers: corsHeaders() });
   }
+  if (Deno.env.get("CREATOR_PROGRAM_ENABLED") !== "true") {
+    return json({ error: "creator_program_disabled" }, 404);
+  }
   if (req.method !== "POST") {
     return json({ error: "Method not allowed" }, 405);
   }

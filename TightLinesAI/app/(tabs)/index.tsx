@@ -2101,17 +2101,15 @@ function MetricCell({
           {label}
         </Text>
       </View>
-      <View style={styles.metricCellValueRow}>
-        <Text
-          style={styles.metricCellValue}
-          numberOfLines={1}
-          adjustsFontSizeToFit
-          minimumFontScale={0.65}
-        >
-          {value}
-        </Text>
-        <Text style={styles.metricCellUnit}>{unit}</Text>
-      </View>
+      <Text
+        style={styles.metricCellReading}
+        numberOfLines={1}
+        adjustsFontSizeToFit
+        minimumFontScale={0.78}
+      >
+        <Text style={styles.metricCellValue}>{value}</Text>
+        <Text style={styles.metricCellUnit}> {unit}</Text>
+      </Text>
       <Text
         style={styles.metricCellSub}
         numberOfLines={1}
@@ -2920,12 +2918,11 @@ const styles = StyleSheet.create({
     borderRadius: 6,
   },
   metricCell: {
-    flexGrow: 1,
-    flexShrink: 1,
-    flexBasis: 0,
+    flex: 1,
     minWidth: 0,
-    paddingHorizontal: 4,
-    paddingVertical: 7,
+    minHeight: 58,
+    paddingHorizontal: 6,
+    paddingVertical: 8,
     borderColor: paper.dashboardLine,
   },
   metricCellDivider: { borderRightWidth: 1 },
@@ -2944,22 +2941,23 @@ const styles = StyleSheet.create({
     letterSpacing: 0.6,
     color: paper.dashboardMuted,
   },
-  metricCellValueRow: {
-    flexDirection: "row",
-    alignItems: "baseline",
-    gap: 1,
+  metricCellReading: {
+    width: "100%",
     minWidth: 0,
+    fontFamily: SERIF_SEMI,
+    fontSize: 13,
+    lineHeight: 17,
+    color: paper.dashboardInk,
   },
   metricCellValue: {
-    flexShrink: 1,
     fontFamily: SERIF_SEMI,
     fontSize: 13,
     color: paper.dashboardInk,
-    lineHeight: 15,
+    lineHeight: 17,
   },
   metricCellUnit: {
     fontFamily: MONO_BOLD,
-    fontSize: 8,
+    fontSize: 7.5,
     color: paper.dashboardMuted,
   },
   metricCellSub: {

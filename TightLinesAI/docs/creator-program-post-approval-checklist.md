@@ -1,5 +1,9 @@
 # Creator Program Post-Approval Checklist
 
+> Archived August 5, 2026. The creator program is disabled and is not part of
+> the current app release. Do not execute this checklist unless the product
+> owner explicitly reactivates the program and completes a new privacy review.
+
 Use this after Apple approves the first FinFindr build and the Angler
 subscriptions are Ready for Distribution.
 

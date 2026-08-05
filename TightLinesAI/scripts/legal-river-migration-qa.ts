@@ -22,9 +22,9 @@ for (const provider of ["U.S. Geological Survey (USGS)", "Monitor My Watershed"]
   assert.ok(privacy.includes(provider), `Web Privacy must name ${provider}`);
 }
 
-for (const phrase of ["Instally", "install-attribution identifiers", "device model category"]) {
-  assert.ok(appLegal.includes(phrase), `In-app Privacy missing: ${phrase}`);
-  assert.ok(privacy.includes(phrase), `Web Privacy missing: ${phrase}`);
+for (const phrase of ["Instally", "install-attribution identifiers", "creator referral attribution"]) {
+  assert.ok(!appLegal.includes(phrase), `In-app Privacy must not claim inactive collection: ${phrase}`);
+  assert.ok(!privacy.includes(phrase), `Web Privacy must not claim inactive collection: ${phrase}`);
 }
 
 for (const phrase of [
@@ -45,5 +45,5 @@ for (const phrase of [
 }
 
 console.log(
-  "Legal QA passed: in-app and public River Migration disclosures, providers, limitations, and safety language are synchronized.",
+  "Legal QA passed: in-app and public disclosures are synchronized, inactive attribution claims are absent, and River Migration limitations remain intact.",
 );

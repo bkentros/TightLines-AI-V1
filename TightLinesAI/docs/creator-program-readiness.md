@@ -1,5 +1,9 @@
 # Creator program — production readiness
 
+> Archived August 5, 2026. The creator program is disabled and is not part of
+> the current app release. Do not deploy or enable this plan unless the product
+> owner explicitly reactivates the program and completes a new privacy review.
+
 Link-only creator affiliate program for FinFindr. Last updated: June 17, 2026.
 
 ---

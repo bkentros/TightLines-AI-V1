@@ -16,8 +16,8 @@ import {
   View,
 } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import { useLocalSearchParams, useRouter } from 'expo-router';
-import { useCallback, useEffect, useState } from 'react';
+import { useRouter } from 'expo-router';
+import { useCallback } from 'react';
 import { Ionicons } from '@expo/vector-icons';
 import { paper, paperFonts, paperShadows, paperSpacing } from '../lib/theme';
 import {
@@ -29,24 +29,11 @@ import {
   type IntelligenceModuleId,
 } from '../components/paper';
 import { AuthFooterStamp } from '../components/paper/auth';
-import { CreatorReferralBanner } from '../components/CreatorReferralBanner';
-import {
-  completeCreatorLinkSession,
-  dismissCreatorLinkSession,
-  hasVerifiedCreatorReferralSession,
-  loadCreatorReferralForLinkSession,
-  promotePendingReferralToActiveSession,
-  resolveDeferredCreatorReferral,
-  type CreatorReferralContext,
-} from '../lib/creatorAttribution';
-import { isCreatorReferralEligible } from '../lib/creatorReferralEligibility';
-import { useAuthStore } from '../store/authStore';
 import {
   openStoreSubscriptionManagement,
   storeSubscriptionManagementLabel,
 } from '../lib/legalLinks';
 import { hapticImpact, ImpactFeedbackStyle } from '../lib/safeHaptics';
-import { getValidAccessToken, supabase } from '../lib/supabase';
 import { useRevenueCatStore } from '../store/revenueCatStore';
 import { showAnglerUnlockedCelebration, showSubscriptionNotice } from '../store/subscriptionCelebrationStore';
 
@@ -94,74 +81,22 @@ const ANGLER_FEATURES: Array<{
 
 export default function SubscribeScreen() {
   const router = useRouter();
-  const { creator: creatorParam } = useLocalSearchParams<{ creator?: string }>();
-  const [creatorReferral, setCreatorReferral] = useState<CreatorReferralContext | null>(null);
-  const [loadingCreatorReferral, setLoadingCreatorReferral] = useState(false);
   const {
     presentingPaywall,
     restoring,
     error,
     hasAngler,
-    customerInfo,
     presentPaywall,
     restore,
   } = useRevenueCatStore();
-  const profileTier = useAuthStore((s) => s.profile?.subscription_tier);
-
-  const refreshCreatorReferral = useCallback(async () => {
-    await resolveDeferredCreatorReferral();
-    await promotePendingReferralToActiveSession();
-
-    if (!(await hasVerifiedCreatorReferralSession())) {
-      setCreatorReferral(null);
-      return;
-    }
-
-    if (!isCreatorReferralEligible({ customerInfo, hasAngler, profileTier })) {
-      await dismissCreatorLinkSession();
-      setCreatorReferral(null);
-      return;
-    }
-
-    setLoadingCreatorReferral(true);
-    try {
-      let token: string | null = null;
-      try {
-        token = await getValidAccessToken();
-      } catch {
-        const { data: { session } } = await supabase.auth.getSession();
-        token = session?.access_token ?? null;
-      }
-      const referral = await loadCreatorReferralForLinkSession(token);
-      setCreatorReferral(referral);
-    } finally {
-      setLoadingCreatorReferral(false);
-    }
-  }, [customerInfo, hasAngler, profileTier]);
-
   const handleOpenPaywall = useCallback(async () => {
     hapticImpact(ImpactFeedbackStyle.Medium);
-    const hadCreatorReferral = Boolean(creatorReferral);
     const unlocked = await presentPaywall();
     if (unlocked) {
-      showAnglerUnlockedCelebration(
-        hadCreatorReferral
-          ? {
-            detail: 'Your signup is linked to the creator who referred you.',
-          }
-          : undefined,
-      );
-      await completeCreatorLinkSession();
+      showAnglerUnlockedCelebration();
       router.replace('/(tabs)');
     }
-  }, [creatorReferral, presentPaywall, router]);
-
-  useEffect(() => {
-    void (async () => {
-      await promotePendingReferralToActiveSession();
-      await refreshCreatorReferral();
-    })();
-  }, [creatorParam, refreshCreatorReferral]);
+  }, [presentPaywall, router]);
 
   const handleLeaveSubscribe = useCallback(async () => {
     if (router.canGoBack()) {
@@ -196,14 +131,7 @@ export default function SubscribeScreen() {
       restoreError?.includes('already connected to another FinFindr account'),
     );
     if (unlocked) {
-      showAnglerUnlockedCelebration(
-        creatorReferral
-          ? {
-            detail: 'Your signup is linked to the creator who referred you.',
-          }
-          : undefined,
-      );
-      await completeCreatorLinkSession();
+      showAnglerUnlockedCelebration();
       router.replace('/(tabs)');
       return;
     }
@@ -278,16 +206,6 @@ export default function SubscribeScreen() {
               </Text>
             </View>
           </View>
-
-          {!hasAngler && creatorReferral ? (
-            <CreatorReferralBanner referral={creatorReferral} />
-          ) : null}
-
-          {!hasAngler && loadingCreatorReferral ? (
-            <View style={styles.creatorLoading}>
-              <ActivityIndicator size="small" color={paper.dashboardBlue} />
-            </View>
-          ) : null}
 
           {hasAngler ? (
             <View style={styles.statusPanel}>
@@ -706,10 +624,6 @@ const styles = StyleSheet.create({
     lineHeight: 18,
     color: paper.dashboardInk,
     opacity: 0.74,
-  },
-  creatorLoading: {
-    alignItems: 'center',
-    marginBottom: paperSpacing.md,
   },
   nativePaywallBtn: {
     minHeight: 48,

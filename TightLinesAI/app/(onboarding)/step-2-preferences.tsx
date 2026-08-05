@@ -27,7 +27,6 @@ import { BrandEmblem, PaperNavHeader, TopographicLines } from '../../components/
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
-import { syncCreatorReferralAttribution } from '../../lib/creatorAttribution';
 import {
   checkUsernameAvailability,
   isUsernameFormatValid,
@@ -352,7 +351,6 @@ export default function OnboardingStep2() {
       clearOnboardingPrefs();
       setProfile(data as UserProfile);
       setLoading(false);
-      void syncCreatorReferralAttribution(activeSession.access_token);
       router.replace('/(tabs)');
       return;
     } catch (err) {
@@ -466,7 +464,7 @@ export default function OnboardingStep2() {
                     <Text style={styles.heroEyebrowText}>PROFILE · STEP 1 / 1</Text>
                   </View>
                   <Text style={styles.heroTitle} allowFontScaling={false}>
-                    Set your{'\n'}
+                    Set your{' '}
                     <Text style={styles.heroTitleAccent}>home base.</Text>
                   </Text>
                   <View style={styles.heroRule} />
@@ -474,23 +472,22 @@ export default function OnboardingStep2() {
               </View>
 
               <Text style={styles.heroLede}>
-                Choose your handle and home water so FinFindr opens straight to
-                your local read.
+                Add two details so FinFindr can open with your identity and local context ready.
               </Text>
 
               <View style={styles.heroIndexRow}>
                 <HeroIndexItem numeral="01" label="HANDLE" />
                 <View style={styles.heroIndexDivider} />
-                <HeroIndexItem numeral="02" label="HOME WATER" />
+                <HeroIndexItem numeral="02" label="STATE" />
                 <View style={styles.heroIndexDivider} />
-                <HeroIndexItem numeral="03" label="FORECAST" />
+                <HeroIndexItem numeral="03" label="CITY · OPT." />
               </View>
             </View>
 
             <SetupPanel
               icon="at-outline"
               label="YOUR HANDLE"
-              hint="Claim the name other anglers will see on your logs and the community feed."
+              hint="This is the name shown on your fishing logs and account."
             >
               <View
                 style={[
@@ -557,8 +554,8 @@ export default function OnboardingStep2() {
 
             <SetupPanel
               icon="location-outline"
-              label="HOME WATER"
-              hint="State is required. City helps FinFindr start with conditions close to where you fish."
+              label="HOME LOCATION"
+              hint="Your state sets the region. Adding a city gives your first local read a closer starting point."
               action={
                 <Pressable
                   style={({ pressed }) => [
@@ -580,24 +577,43 @@ export default function OnboardingStep2() {
                 </Pressable>
               }
             >
-              <Pressable
-                style={styles.statePicker}
-                onPress={() => {
-                  hapticSelection();
-                  setShowStateList((v) => !v);
-                }}
-              >
-                <Text
-                  style={[styles.statePickerText, !homeState && styles.statePickerPlaceholder]}
-                >
-                  {homeState || 'Select your state'}
-                </Text>
-                <Ionicons
-                  name={showStateList ? 'chevron-up' : 'chevron-down'}
-                  size={16}
-                  color={paper.dashboardInk}
-                />
-              </Pressable>
+              <View style={styles.locationFieldsRow}>
+                <View style={styles.locationFieldState}>
+                  <Text style={styles.miniFieldLabel}>STATE · REQUIRED</Text>
+                  <Pressable
+                    style={styles.statePicker}
+                    onPress={() => {
+                      hapticSelection();
+                      setShowStateList((v) => !v);
+                    }}
+                  >
+                    <Text
+                      style={[styles.statePickerText, !homeState && styles.statePickerPlaceholder]}
+                    >
+                      {homeState || 'State'}
+                    </Text>
+                    <Ionicons
+                      name={showStateList ? 'chevron-up' : 'chevron-down'}
+                      size={16}
+                      color={paper.dashboardInk}
+                    />
+                  </Pressable>
+                </View>
+
+                <View style={styles.locationFieldCity}>
+                  <Text style={styles.miniFieldLabel}>CITY · OPTIONAL</Text>
+                  <TextInput
+                    style={styles.input}
+                    value={homeCity}
+                    onChangeText={setHomeCity}
+                    placeholder="Your city"
+                    placeholderTextColor={paper.dashboardInk + '70'}
+                    autoCorrect={false}
+                    returnKeyType="done"
+                    maxLength={60}
+                  />
+                </View>
+              </View>
 
               {showStateList && (
                 <View style={styles.stateList}>
@@ -630,29 +646,19 @@ export default function OnboardingStep2() {
                 </View>
               )}
 
-              <TextInput
-                style={[styles.input, { marginTop: paperSpacing.sm }]}
-                value={homeCity}
-                onChangeText={setHomeCity}
-                placeholder="City (optional)"
-                placeholderTextColor={paper.dashboardInk + '70'}
-                autoCorrect={false}
-                returnKeyType="done"
-                maxLength={60}
-              />
             </SetupPanel>
 
             {/* Single-page setup meter — fills as required details are entered. */}
             <View style={styles.meter}>
               <View style={styles.meterRow}>
-                <Text style={styles.meterLabel}>PROFILE SETUP</Text>
+                <Text style={styles.meterLabel}>REQUIRED DETAILS</Text>
                 <Text
                   style={[
                     styles.meterCount,
                     completionFraction === 1 && styles.meterCountReady,
                   ]}
                 >
-                  PAGE 1 / 1
+                  {Math.round(completionFraction * 2)} / 2 READY
                 </Text>
               </View>
               <View style={styles.meterTrack}>
@@ -790,9 +796,9 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.md + 2,
-    paddingTop: paperSpacing.md,
-    paddingBottom: paperSpacing.md,
-    marginBottom: paperSpacing.lg,
+    paddingTop: paperSpacing.sm + 2,
+    paddingBottom: paperSpacing.sm + 2,
+    marginBottom: paperSpacing.md,
     overflow: 'hidden',
     shadowColor: paper.dashboardInk,
     shadowOpacity: 0.08,
@@ -839,12 +845,12 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: paperSpacing.md,
-    marginBottom: paperSpacing.sm,
+    marginBottom: paperSpacing.xs,
     zIndex: 1,
   },
   heroSealWrap: {
-    width: 64,
-    height: 64,
+    width: 54,
+    height: 54,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
@@ -852,9 +858,9 @@ const styles = StyleSheet.create({
   },
   heroSealRing: {
     position: 'absolute',
-    width: 64,
-    height: 64,
-    borderRadius: 32,
+    width: 54,
+    height: 54,
+    borderRadius: 27,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: paper.dashboardBlue,
     opacity: 0.5,
@@ -935,7 +941,7 @@ const styles = StyleSheet.create({
     opacity: 0.72,
     lineHeight: 18,
     textAlign: 'left',
-    marginTop: paperSpacing.sm,
+    marginTop: paperSpacing.xs + 2,
     zIndex: 1,
   },
   heroIndexRow: {
@@ -978,7 +984,7 @@ const styles = StyleSheet.create({
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
     padding: paperSpacing.md,
-    marginBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.md,
     shadowColor: paper.dashboardInk,
     shadowOpacity: 0.08,
     shadowRadius: 10,
@@ -1031,6 +1037,26 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.body,
     fontSize: 16,
     color: paper.dashboardInk,
+  },
+  locationFieldsRow: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: paperSpacing.sm,
+  },
+  locationFieldState: {
+    width: 112,
+    gap: 5,
+  },
+  locationFieldCity: {
+    flex: 1,
+    minWidth: 0,
+    gap: 5,
+  },
+  miniFieldLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    color: paper.dashboardMuted,
+    letterSpacing: 1.2,
   },
   inputError: { borderColor: paper.bandTough, borderWidth: 1.5 },
   inputSuccess: { borderColor: paper.bandPrime, borderWidth: 1.5 },
@@ -1117,7 +1143,7 @@ const styles = StyleSheet.create({
   },
   statePickerPlaceholder: { opacity: 0.55 },
   stateList: {
-    marginTop: paperSpacing.xs,
+    marginTop: paperSpacing.sm,
     borderRadius: 8,
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,

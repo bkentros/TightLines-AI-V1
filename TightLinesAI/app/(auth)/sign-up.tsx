@@ -444,7 +444,7 @@ export default function SignUpScreen() {
               </View>
 
               <Text style={styles.heroDek}>
-                Set up once, then start every trip with a cleaner read.
+                One secure account keeps your waters, reports, and fishing tools together.
               </Text>
             </View>
 
@@ -494,6 +494,15 @@ export default function SignUpScreen() {
 
             {/* ─── Form — numbered intake lines ────────────────────────── */}
             <View style={styles.form}>
+              <View style={styles.formMasthead}>
+                <View>
+                  <Text style={styles.formMastheadEyebrow}>ACCOUNT CREDENTIALS</Text>
+                  <Text style={styles.formMastheadTitle}>Create your secure sign-in.</Text>
+                </View>
+                <View style={styles.formCountPill}>
+                  <Text style={styles.formCountText}>3 FIELDS</Text>
+                </View>
+              </View>
               {notice ? (
                 <AuthNotice
                   title={notice.title}
@@ -979,6 +988,50 @@ const styles = StyleSheet.create({
   form: {
     gap: paperSpacing.md,
     marginTop: paperSpacing.xs,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+    padding: paperSpacing.md,
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.05,
+    shadowRadius: 8,
+    shadowOffset: { width: 0, height: 3 },
+  },
+  formMasthead: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    gap: paperSpacing.sm,
+    paddingBottom: paperSpacing.sm,
+    borderBottomWidth: StyleSheet.hairlineWidth,
+    borderBottomColor: paper.dashboardLine,
+  },
+  formMastheadEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardBlue,
+    letterSpacing: 1.8,
+  },
+  formMastheadTitle: {
+    marginTop: 2,
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 14,
+    color: paper.dashboardInk,
+  },
+  formCountPill: {
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderRadius: 999,
+    backgroundColor: paper.dashboardBlueSky,
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.20)',
+  },
+  formCountText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    color: paper.dashboardBlue,
+    letterSpacing: 1.2,
   },
   line: {
     gap: 6,

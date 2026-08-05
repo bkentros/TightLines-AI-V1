@@ -166,6 +166,29 @@ export default function VerifyEmailScreen() {
           <AuthBrandRibbon />
           <AuthBackButton onPress={handleBack} label="BACK TO SIGN IN" />
 
+          <View style={styles.journeyRail}>
+            <View style={styles.journeyStep}>
+              <View style={[styles.journeyDot, styles.journeyDotComplete]}>
+                <Ionicons name="checkmark" size={11} color="#FFFFFF" />
+              </View>
+              <Text style={styles.journeyLabel}>ACCOUNT</Text>
+            </View>
+            <View style={[styles.journeyLine, styles.journeyLineActive]} />
+            <View style={styles.journeyStep}>
+              <View style={[styles.journeyDot, styles.journeyDotActive]}>
+                <Text style={styles.journeyDotTextActive}>02</Text>
+              </View>
+              <Text style={[styles.journeyLabel, styles.journeyLabelActive]}>VERIFY</Text>
+            </View>
+            <View style={styles.journeyLine} />
+            <View style={styles.journeyStep}>
+              <View style={styles.journeyDot}>
+                <Text style={styles.journeyDotText}>03</Text>
+              </View>
+              <Text style={styles.journeyLabel}>PROFILE</Text>
+            </View>
+          </View>
+
           <View style={styles.content}>
             {/* ─── Letter signet panel ────────────────────────────────── */}
             <View style={styles.signetCard}>
@@ -227,48 +250,60 @@ export default function VerifyEmailScreen() {
               </Text>
             </View>
 
-            <AuthTip>Don&apos;t see it? Check your spam or junk folder.</AuthTip>
-
-            {notice ? (
-              <AuthNotice
-                title="Could not resend"
-                message={notice}
-                tone="error"
-              />
-            ) : null}
-
-            <Pressable
-              style={({ pressed }) => [
-                styles.resendBtn,
-                (justSent || cooldown > 0) && styles.resendBtnSent,
-                pressed && !buttonDisabled && styles.resendBtnPressed,
-                buttonDisabled && styles.resendBtnDisabled,
-              ]}
-              onPress={handleResend}
-              disabled={buttonDisabled}
-            >
-              {cooldown > 0 ? (
-                <View style={styles.resendInner}>
-                  <Ionicons
-                    name="checkmark-circle"
-                    size={16}
-                    color={paper.dashboardBlue}
-                  />
-                  <Text style={styles.resendTextSent}>
-                    SENT - RESEND IN {cooldown}S
-                  </Text>
+            <View style={styles.deliveryCard}>
+              <View style={styles.deliveryHeadingRow}>
+                <View style={styles.deliveryIconTile}>
+                  <Ionicons name="mail-unread-outline" size={15} color={paper.dashboardBlue} />
                 </View>
-              ) : (
-                <Text
-                  style={styles.resendText}
-                  numberOfLines={1}
-                  adjustsFontSizeToFit
-                  minimumFontScale={0.88}
-                >
-                  {resending ? 'SENDING…' : 'RESEND VERIFICATION EMAIL'}
-                </Text>
-              )}
-            </Pressable>
+                <View style={styles.deliveryHeadingCopy}>
+                  <Text style={styles.deliveryEyebrow}>DELIVERY CHECK</Text>
+                  <Text style={styles.deliveryTitle}>Still waiting for the email?</Text>
+                </View>
+              </View>
+
+              <AuthTip>Check your spam or junk folder before requesting another link.</AuthTip>
+
+              {notice ? (
+                <AuthNotice
+                  title="Could not resend"
+                  message={notice}
+                  tone="error"
+                />
+              ) : null}
+
+              <Pressable
+                style={({ pressed }) => [
+                  styles.resendBtn,
+                  (justSent || cooldown > 0) && styles.resendBtnSent,
+                  pressed && !buttonDisabled && styles.resendBtnPressed,
+                  buttonDisabled && styles.resendBtnDisabled,
+                ]}
+                onPress={handleResend}
+                disabled={buttonDisabled}
+              >
+                {cooldown > 0 ? (
+                  <View style={styles.resendInner}>
+                    <Ionicons
+                      name="checkmark-circle"
+                      size={16}
+                      color={paper.dashboardBlue}
+                    />
+                    <Text style={styles.resendTextSent}>
+                      SENT - RESEND IN {cooldown}S
+                    </Text>
+                  </View>
+                ) : (
+                  <Text
+                    style={styles.resendText}
+                    numberOfLines={1}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.88}
+                  >
+                    {resending ? 'SENDING…' : 'RESEND VERIFICATION EMAIL'}
+                  </Text>
+                )}
+              </Pressable>
+            </View>
           </View>
 
           <AuthFooterStamp />
@@ -293,6 +328,62 @@ const styles = StyleSheet.create({
   },
   content: {
     gap: paperSpacing.md,
+  },
+  journeyRail: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    paddingHorizontal: 4,
+    marginVertical: 2,
+  },
+  journeyStep: {
+    width: 62,
+    alignItems: 'center',
+    gap: 4,
+  },
+  journeyDot: {
+    width: 26,
+    height: 26,
+    borderRadius: 13,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1.5,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+  },
+  journeyDotComplete: {
+    borderColor: paper.bandPrime,
+    backgroundColor: paper.bandPrime,
+  },
+  journeyDotActive: {
+    borderColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlue,
+  },
+  journeyDotText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardMuted,
+  },
+  journeyDotTextActive: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: '#FFFFFF',
+  },
+  journeyLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    color: paper.dashboardMuted,
+    letterSpacing: 1,
+  },
+  journeyLabelActive: { color: paper.dashboardBlue },
+  journeyLine: {
+    flex: 1,
+    height: 1,
+    marginTop: 13,
+    backgroundColor: paper.dashboardLine,
+  },
+  journeyLineActive: {
+    backgroundColor: paper.bandPrime,
+    opacity: 0.6,
   },
 
   // ── Signet card ───────────────────────────────────────────────────────
@@ -346,8 +437,8 @@ const styles = StyleSheet.create({
 
   // ── Seal ──────────────────────────────────────────────────────────────
   sealWrap: {
-    width: 108,
-    height: 108,
+    width: 92,
+    height: 92,
     alignItems: 'center',
     justifyContent: 'center',
     position: 'relative',
@@ -356,35 +447,35 @@ const styles = StyleSheet.create({
   },
   sealOuterRing: {
     position: 'absolute',
-    width: 108,
-    height: 108,
-    borderRadius: 54,
+    width: 92,
+    height: 92,
+    borderRadius: 46,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: paper.dashboardBlue,
     opacity: 0.4,
   },
   sealMidRing: {
     position: 'absolute',
-    width: 88,
-    height: 88,
-    borderRadius: 44,
+    width: 76,
+    height: 76,
+    borderRadius: 38,
     borderWidth: StyleSheet.hairlineWidth,
     borderColor: paper.dashboardBlue,
     opacity: 0.55,
   },
   sealInnerRing: {
     position: 'absolute',
-    width: 72,
-    height: 72,
-    borderRadius: 36,
+    width: 62,
+    height: 62,
+    borderRadius: 31,
     borderWidth: 1,
     borderColor: paper.dashboardBlue,
     opacity: 0.8,
   },
   sealCore: {
-    width: 60,
-    height: 60,
-    borderRadius: 30,
+    width: 52,
+    height: 52,
+    borderRadius: 26,
     backgroundColor: paper.dashboardInk,
     alignItems: 'center',
     justifyContent: 'center',
@@ -425,13 +516,13 @@ const styles = StyleSheet.create({
 
   signetTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 32,
+    fontSize: 29,
     color: paper.dashboardInk,
     fontWeight: '700',
     letterSpacing: -0.5,
-    lineHeight: 35,
+    lineHeight: 32,
     textAlign: 'center',
-    marginTop: 14,
+    marginTop: 10,
     zIndex: 1,
   },
   signetTitleAccent: {
@@ -491,6 +582,43 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
 
+  deliveryCard: {
+    gap: paperSpacing.sm,
+    padding: paperSpacing.md,
+    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 12,
+  },
+  deliveryHeadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  deliveryIconTile: {
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: paper.dashboardBlueSky,
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.20)',
+  },
+  deliveryHeadingCopy: { flex: 1 },
+  deliveryEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    color: paper.dashboardBlue,
+    letterSpacing: 1.6,
+  },
+  deliveryTitle: {
+    marginTop: 1,
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 14,
+    color: paper.dashboardInk,
+  },
+
   // ── Resend button ─────────────────────────────────────────────────────
   resendBtn: {
     paddingVertical: paperSpacing.md - 2,
@@ -500,8 +628,7 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardInk,
     backgroundColor: paper.dashboardWhite,
     alignItems: 'center',
-    alignSelf: 'center',
-    minWidth: 260,
+    alignSelf: 'stretch',
   },
   resendBtnSent: {
     backgroundColor: paper.dashboardWhite,

@@ -16,10 +16,6 @@
           window.location.replace('/auth/confirm/' + search + hash);
           return;
         }
-        var hasAuth = params.get('code') || params.get('token_hash') ||
-          hashParams.get('access_token') || hashParams.get('token_hash');
-        if (!hasAuth) return;
-        window.location.replace('/creators/auth/callback/' + search + hash);
       })();
     </script>
     <link rel="stylesheet" href="/assets/styles.css" />

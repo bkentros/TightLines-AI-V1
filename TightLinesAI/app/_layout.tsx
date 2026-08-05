@@ -1,7 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import {
   Animated,
-  AppState,
   Easing,
   LogBox,
   View,
@@ -45,27 +44,10 @@ import {
   JetBrainsMono_600SemiBold,
 } from '@expo-google-fonts/jetbrains-mono';
 import { supabase } from '../lib/supabase';
-import {
-  activateCreatorLinkSession,
-  dismissCreatorLinkSession,
-  markPendingCreatorAutoRouted,
-  parseCreatorDeepLink,
-  resolveDeferredCreatorReferral,
-  resolvePendingCreatorReferralRoute,
-  storeCreatorReferralPendingOnly,
-  syncCreatorReferralAttribution,
-} from '../lib/creatorAttribution';
-import {
-  ensureInstallyConfigured,
-  syncInstallyUserId,
-  trackInstallyInstall,
-} from '../lib/installyAttribution';
-import { isCreatorReferralEligible } from '../lib/creatorReferralEligibility';
 import { useAuthStore } from '../store/authStore';
 import { useEnvStore } from '../store/envStore';
 import { useRevenueCatStore } from '../store/revenueCatStore';
 import { AnglerUnlockedModal } from '../components/paper/AnglerUnlockedModal';
-import { showSubscriptionNotice } from '../store/subscriptionCelebrationStore';
 import { useBiometricLock } from '../hooks/useBiometricLock';
 import { AnalyticsProvider } from '../components/AnalyticsProvider';
 import { AppErrorBoundary } from '../components/AppErrorBoundary';
@@ -226,13 +208,12 @@ function useProtectedRoute(passwordRecoveryInFlight: boolean) {
 
 export default function RootLayout() {
   const router = useRouter();
-  const { hydrate, setSession, setProfile, fetchProfile, user, isOnboarded } =
+  const { hydrate, setSession, setProfile, fetchProfile, user } =
     useAuthStore();
   const initializeRevenueCat = useRevenueCatStore((s) => s.initialize);
   const resetRevenueCat = useRevenueCatStore((s) => s.reset);
   const [passwordRecoveryInFlight, setPasswordRecoveryInFlight] =
     useState(false);
-  const routingPendingCreatorRef = useRef(false);
 
   const [fontsLoaded] = useFonts({
     ...Ionicons.font,
@@ -277,127 +258,15 @@ export default function RootLayout() {
   useEffect(() => {
     if (!user?.id) {
       resetRevenueCat();
-      routingPendingCreatorRef.current = false;
       return;
     }
     void initializeRevenueCat(user.id);
   }, [initializeRevenueCat, resetRevenueCat, user?.id]);
 
-  // Creator link clicked while logged out → after sign-in + onboarding, open subscribe.
-  useEffect(() => {
-    if (!user?.id || !isOnboarded || routingPendingCreatorRef.current) return;
-
-    void (async () => {
-      routingPendingCreatorRef.current = true;
-      try {
-        const authState = useAuthStore.getState();
-        if (!authState.profile && authState.user?.id) {
-          await useAuthStore.getState().fetchProfile(authState.user.id);
-        }
-
-        const { hasAngler, customerInfo } = useRevenueCatStore.getState();
-        const profileTier = useAuthStore.getState().profile?.subscription_tier;
-        const route = await resolvePendingCreatorReferralRoute({
-          hasSession: Boolean(useAuthStore.getState().session),
-          isOnboarded: useAuthStore.getState().isOnboarded,
-          hasAngler,
-          customerInfo,
-          profileTier,
-        });
-
-        if (route === 'subscribe') {
-          await markPendingCreatorAutoRouted();
-          const authSession = useAuthStore.getState().session;
-          if (authSession?.access_token) {
-            await syncCreatorReferralAttribution(authSession.access_token);
-          }
-          router.replace('/subscribe?creator=1');
-          return;
-        }
-
-        if (route === 'ineligible') {
-          showSubscriptionNotice({
-            title: 'Creator referral unavailable',
-            message:
-              'Creator referrals are for first-time Angler subscribers. Your account may already have an active membership.',
-            tone: 'info',
-          });
-        }
-      } finally {
-        routingPendingCreatorRef.current = false;
-      }
-    })();
-  }, [user?.id, isOnboarded, router]);
-
-  // Instally install match + deferred resolve on launch and foreground.
-  useEffect(() => {
-    const runDeferredAttribution = () => {
-      void ensureInstallyConfigured().then(() => trackInstallyInstall());
-      void resolveDeferredCreatorReferral().then(() => {
-        const authState = useAuthStore.getState();
-        if (authState.isOnboarded && authState.session?.access_token) {
-          void syncCreatorReferralAttribution(authState.session.access_token);
-        }
-      });
-    };
-
-    runDeferredAttribution();
-
-    const sub = AppState.addEventListener('change', (nextState) => {
-      if (nextState === 'active') {
-        runDeferredAttribution();
-      }
-    });
-    return () => sub.remove();
-  }, []);
-
   // Handle deep links — email verification & password reset tokens
   useEffect(() => {
     const handleUrl = async (url: string) => {
       if (!url) return;
-
-      const creatorLink = parseCreatorDeepLink(url);
-      if (creatorLink) {
-        let authState = useAuthStore.getState();
-        if (!authState.session) {
-          await storeCreatorReferralPendingOnly(creatorLink);
-          return;
-        }
-
-        if (!authState.profile && authState.user?.id) {
-          await useAuthStore.getState().fetchProfile(authState.user.id);
-          authState = useAuthStore.getState();
-        }
-
-        if (!authState.isOnboarded) {
-          await storeCreatorReferralPendingOnly(creatorLink);
-          return;
-        }
-
-        const { hasAngler: storeHasAngler, customerInfo } =
-          useRevenueCatStore.getState();
-        const profileTier = authState.profile?.subscription_tier;
-        const eligible = isCreatorReferralEligible({
-          customerInfo,
-          hasAngler: storeHasAngler,
-          profileTier,
-        });
-
-        if (!eligible) {
-          await dismissCreatorLinkSession();
-          showSubscriptionNotice({
-            title: 'Creator referral unavailable',
-            message:
-              'Creator referrals are for first-time Angler subscribers. Your account may already have subscribed before.',
-            tone: 'info',
-          });
-          return;
-        }
-
-        await activateCreatorLinkSession(creatorLink);
-        router.replace('/subscribe?creator=1');
-        return;
-      }
 
       const [base, hash] = url.split('#');
       const parsed = Linking.parse(base);
@@ -512,18 +381,8 @@ export default function RootLayout() {
       }
     };
 
-    Linking.getInitialURL().then(async (url) => {
-      if (url) {
-        const creatorFromUrl = parseCreatorDeepLink(url);
-        if (creatorFromUrl) {
-          await handleUrl(url);
-        } else {
-          await resolveDeferredCreatorReferral();
-          await handleUrl(url);
-        }
-        return;
-      }
-      await resolveDeferredCreatorReferral();
+    Linking.getInitialURL().then((url) => {
+      if (url) void handleUrl(url);
     });
 
     const sub = Linking.addEventListener('url', ({ url }) => handleUrl(url));
@@ -563,7 +422,6 @@ export default function RootLayout() {
         // without this, supabase.functions.invoke() sends no user token.
         if (session?.access_token) {
           supabase.functions.setAuth(session.access_token);
-          void syncInstallyUserId(session.user.id);
         } else {
           supabase.functions.setAuth('');
         }

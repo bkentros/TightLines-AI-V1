@@ -110,7 +110,6 @@ const TRACKED_EDGE_FUNCTIONS = new Set([
   'recommender',
   'water-reader-read',
   'sync-subscription-tier',
-  'creator-code-attribution',
 ]);
 
 /**
