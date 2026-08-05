@@ -13,8 +13,8 @@ import {
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
-import { PaperNavHeader, TopographicLines } from '../components/paper';
-import { paper, paperFonts, paperSpacing } from '../lib/theme';
+import { CornerMarkSet, PaperNavHeader, TopographicLines } from '../components/paper';
+import { paper, paperFonts, paperRadius, paperShadows, paperSpacing } from '../lib/theme';
 import { useAuthStore } from '../store/authStore';
 import { submitFeedback } from '../lib/feedback';
 import type { FeedbackSentiment, FeedbackTopic } from '../lib/feedback';
@@ -77,6 +77,7 @@ export default function SupportScreen() {
     featureName?: string;
     sentiment?: string;
     contextLines?: string;
+    requestMode?: string;
   }>();
   const { profile, user } = useAuthStore();
   const [topic, setTopic] = useState<FeedbackTopic>(() => parseTopic(params.topic));
@@ -85,9 +86,14 @@ export default function SupportScreen() {
   const [notice, setNotice] = useState<{ title: string; message?: string; tone: 'success' | 'error' } | null>(null);
 
   const featureName = typeof params.featureName === 'string' ? params.featureName : null;
+  const requestMode = params.requestMode === 'true';
   const sentiment = parseSentiment(params.sentiment);
   const contextLines = useMemo(() => parseContextLines(params.contextLines), [params.contextLines]);
-  const title = featureName ? `${featureName} feedback` : TOPIC_TITLE[topic];
+  const title = requestMode
+    ? 'Request coverage'
+    : featureName
+      ? `${featureName} feedback`
+      : TOPIC_TITLE[topic];
   const canSubmit = message.trim().length >= 8 && !submitting;
 
   const handleSubmit = async () => {
@@ -104,10 +110,14 @@ export default function SupportScreen() {
       });
       setMessage('');
       setNotice({
-        title: 'Sent',
+        title: requestMode ? 'Request sent' : 'Sent',
         message: result.email_sent
-          ? 'Thanks. Your note was emailed to FinFindr support with your account and app context.'
-          : 'Thanks. Your note is saved with your account and app context. Email delivery will be checked from the support queue.',
+          ? requestMode
+            ? 'Thanks. Your coverage request was emailed to FinFindr with your account and app context.'
+            : 'Thanks. Your note was emailed to FinFindr support with your account and app context.'
+          : requestMode
+            ? 'Thanks. Your coverage request is saved with your account and app context. Email delivery will be checked from the support queue.'
+            : 'Thanks. Your note is saved with your account and app context. Email delivery will be checked from the support queue.',
         tone: 'success',
       });
     } catch (err) {
@@ -127,9 +137,9 @@ export default function SupportScreen() {
     <SafeAreaView style={styles.safe} edges={['top']}>
       <View style={styles.screen}>
         <PaperNavHeader
-          eyebrow="FINFINDR · SUPPORT"
+          eyebrow={requestMode ? 'FINFINDR · COVERAGE' : 'FINFINDR · SUPPORT'}
           eyebrowColor={paper.dashboardBlueLight}
-          title="CONTACT"
+          title={requestMode ? 'REQUEST' : 'CONTACT'}
           onBack={() => router.back()}
         />
         <KeyboardAvoidingView
@@ -148,10 +158,24 @@ export default function SupportScreen() {
                 color={paper.dashboardBlue}
                 count={4}
               />
-              <Text style={styles.eyebrow}>SUPPORT DESK</Text>
+              <CornerMarkSet color={requestMode ? paper.red : paper.dashboardBlue} size={11} thickness={1.2} inset={8} />
+              <View style={styles.heroHeadingRow}>
+                <View style={[styles.heroIcon, requestMode && styles.heroIconRequest]}>
+                  <Ionicons
+                    name={requestMode ? 'map-outline' : 'chatbubble-ellipses-outline'}
+                    size={17}
+                    color={requestMode ? paper.redDk : paper.dashboardBlue}
+                  />
+                </View>
+                <Text style={[styles.eyebrow, requestMode && styles.eyebrowRequest]}>
+                  {requestMode ? 'EXPANSION DESK' : 'SUPPORT DESK'}
+                </Text>
+              </View>
               <Text style={styles.title}>{title}.</Text>
               <Text style={styles.subtitle}>
-                Write the useful part. FinFindr LLC support receives your account, device, tier, and screen context.
+                {requestMode
+                  ? 'Tell us which river, species, state, or season you want FinFindr to add next.'
+                  : 'Send the useful details. Your account and app context are attached automatically.'}
               </Text>
             </View>
 
@@ -198,12 +222,27 @@ export default function SupportScreen() {
             ) : null}
 
             <View style={styles.formCard}>
-              <Text style={styles.fieldLabel}>MESSAGE</Text>
+              <View style={styles.composerHeader}>
+                <View style={[styles.composerRule, requestMode && styles.composerRuleRequest]} />
+                <View style={styles.composerHeading}>
+                  <Ionicons
+                    name={requestMode ? 'navigate-outline' : 'create-outline'}
+                    size={15}
+                    color={requestMode ? paper.redDk : paper.dashboardBlue}
+                  />
+                  <Text style={[styles.fieldLabel, requestMode && styles.fieldLabelRequest]}>
+                    {requestMode ? 'YOUR REQUEST' : 'YOUR MESSAGE'}
+                  </Text>
+                </View>
+                <Text style={styles.composerHint}>
+                  {requestMode ? 'Name the water or coverage you want.' : 'A few clear details help us respond faster.'}
+                </Text>
+              </View>
               <TextInput
                 value={message}
                 onChangeText={setMessage}
                 style={styles.messageInput}
-                placeholder="Tell us what happened, what felt off, or what would make this better."
+                placeholder="Type your message here."
                 placeholderTextColor="rgba(10,27,46,0.42)"
                 multiline
                 textAlignVertical="top"
@@ -224,7 +263,7 @@ export default function SupportScreen() {
                     <ActivityIndicator size="small" color="#FFFFFF" />
                   ) : (
                     <>
-                      <Text style={styles.submitBtnText}>SEND</Text>
+                      <Text style={styles.submitBtnText}>{requestMode ? 'SEND REQUEST' : 'SEND'}</Text>
                       <Ionicons name="send" size={13} color="#FFFFFF" />
                     </>
                   )}
@@ -233,7 +272,15 @@ export default function SupportScreen() {
             </View>
 
             <View style={styles.contextCard}>
-              <Text style={styles.contextTitle}>ATTACHED AUTOMATICALLY</Text>
+              <View style={styles.contextHeadingRow}>
+                <View style={styles.contextIcon}>
+                  <Ionicons name="shield-checkmark-outline" size={14} color={paper.dashboardBlue} />
+                </View>
+                <View style={styles.contextHeadingCopy}>
+                  <Text style={styles.contextTitle}>ATTACHED AUTOMATICALLY</Text>
+                  <Text style={styles.contextSubtitle}>So you do not have to repeat the basics.</Text>
+                </View>
+              </View>
               <ContextLine label="Email" value={user?.email ?? 'Signed-in account'} />
               <ContextLine label="Username" value={profile?.username ? `@${profile.username}` : 'Not set'} />
               <ContextLine label="Tier" value={profile?.subscription_tier ?? 'Unknown'} />
@@ -278,14 +325,36 @@ const styles = StyleSheet.create({
     gap: paperSpacing.md,
   },
   hero: {
+    ...paperShadows.hard,
     position: 'relative',
-    backgroundColor: paper.dashboardWhite,
+    backgroundColor: '#F2F7FA',
     borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 12,
-    padding: paperSpacing.md,
+    borderColor: 'rgba(42,110,150,0.24)',
+    borderRadius: paperRadius.card,
+    paddingHorizontal: paperSpacing.md + 2,
+    paddingVertical: paperSpacing.lg,
     overflow: 'hidden',
     gap: paperSpacing.xs,
+  },
+  heroHeadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    marginBottom: 2,
+  },
+  heroIcon: {
+    width: 32,
+    height: 32,
+    borderRadius: 8,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#E3F0F7',
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.24)',
+  },
+  heroIconRequest: {
+    backgroundColor: '#FBE9E4',
+    borderColor: 'rgba(155,40,34,0.20)',
   },
   eyebrow: {
     fontFamily: paperFonts.metaMonoBold,
@@ -293,6 +362,7 @@ const styles = StyleSheet.create({
     color: paper.dashboardBlue,
     letterSpacing: 2,
   },
+  eyebrowRequest: { color: paper.redDk },
   title: {
     fontFamily: paperFonts.display,
     fontSize: 34,
@@ -361,12 +431,38 @@ const styles = StyleSheet.create({
   },
   topicChipTextActive: { color: '#FFFFFF' },
   formCard: {
+    ...paperShadows.hard,
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: 12,
+    borderRadius: paperRadius.card,
     padding: paperSpacing.md,
     gap: paperSpacing.sm,
+    overflow: 'hidden',
+  },
+  composerHeader: {
+    gap: 3,
+    marginBottom: 2,
+  },
+  composerRule: {
+    position: 'absolute',
+    left: -paperSpacing.md,
+    top: 0,
+    bottom: 0,
+    width: 3,
+    backgroundColor: paper.dashboardBlue,
+  },
+  composerRuleRequest: { backgroundColor: paper.red },
+  composerHeading: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+  },
+  composerHint: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 17,
+    color: paper.dashboardMuted,
   },
   fieldLabel: {
     fontFamily: paperFonts.metaMonoBold,
@@ -374,12 +470,13 @@ const styles = StyleSheet.create({
     color: paper.dashboardBlue,
     letterSpacing: 2,
   },
+  fieldLabelRequest: { color: paper.redDk },
   messageInput: {
     minHeight: 170,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 12,
-    backgroundColor: '#F6F9FB',
+    backgroundColor: '#F7F8F6',
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md,
     fontFamily: paperFonts.body,
@@ -403,7 +500,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.xs,
-    minWidth: 92,
+    minWidth: 104,
     borderRadius: 12,
     backgroundColor: paper.dashboardInk,
     paddingHorizontal: paperSpacing.md,
@@ -418,19 +515,44 @@ const styles = StyleSheet.create({
     letterSpacing: 2,
   },
   contextCard: {
-    backgroundColor: paper.dashboardWhite,
+    backgroundColor: '#EEF5F8',
     borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 12,
+    borderColor: 'rgba(42,110,150,0.18)',
+    borderRadius: paperRadius.card,
     padding: paperSpacing.md,
     gap: paperSpacing.xs,
   },
+  contextHeadingRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: paperSpacing.sm,
+    paddingBottom: paperSpacing.sm,
+    marginBottom: 2,
+    borderBottomWidth: 1,
+    borderBottomColor: 'rgba(42,110,150,0.14)',
+  },
+  contextIcon: {
+    width: 29,
+    height: 29,
+    borderRadius: 7,
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.18)',
+  },
+  contextHeadingCopy: { flex: 1, minWidth: 0 },
   contextTitle: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 10,
     color: paper.dashboardBlue,
     letterSpacing: 2,
-    marginBottom: paperSpacing.xs,
+  },
+  contextSubtitle: {
+    marginTop: 2,
+    fontFamily: paperFonts.body,
+    fontSize: 11.5,
+    color: paper.dashboardMuted,
   },
   contextLine: {
     flexDirection: 'row',

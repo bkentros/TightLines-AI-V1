@@ -1,8 +1,9 @@
 /**
  * Premium intelligence-module emblems for the home dashboard.
  *
- * Literal, readable marks at phone scale — bathymetric lake + hotspot pin,
- * a metallic crankbait lure, and a rising sun over water. Each emblem tile adds
+ * Compact intelligence-instrument marks at phone scale. Each module uses the
+ * same calibrated viewport, measurement grid, and status-light language, then
+ * distinguishes itself through its data signature. The surrounding tile adds
  * a slow diagonal light sweep ("glint") and a subtle twinkle for a premium feel
  * (both respect the system Reduce Motion setting).
  * Compare on-device: /module-icons-preview
@@ -306,9 +307,9 @@ export function IntelligenceModuleIcon({
 }
 
 /**
- * Refined field-guide marks: restrained line work, drafting geometry, and
- * literal fishing cues. The surrounding tile keeps the premium glint while
- * the art itself reads like an etched equipment mark instead of a cartoon.
+ * Refined intelligence marks: restrained line work, measurement geometry, and
+ * a shared sensor viewport. The surrounding tile keeps the premium glint while
+ * the art reads like a calibrated field instrument instead of clip art.
  */
 function FieldMarkArt({
   module,
@@ -324,39 +325,39 @@ function FieldMarkArt({
   return <WaterReadFieldMark color={color} />;
 }
 
+function InstrumentFrame({ color }: { color: string }) {
+  return (
+    <>
+      <Rect
+        x={3.75}
+        y={4.25}
+        width={24.5}
+        height={23.5}
+        rx={3.2}
+        fill="#FFFFFF"
+        fillOpacity={0.34}
+        stroke={color}
+        strokeWidth={0.8}
+        strokeOpacity={0.32}
+      />
+      <Path d="M7 8.7 H25 M7 13.7 H25 M7 18.7 H25 M7 23.7 H25" stroke={color} strokeWidth={0.45} strokeOpacity={0.16} />
+      <Path d="M10 7 V25 M16 7 V25 M22 7 V25" stroke={color} strokeWidth={0.45} strokeOpacity={0.14} />
+      <Path d="M6.2 9 V7.2 H8 M24 7.2 H25.8 V9 M6.2 23 V24.8 H8 M24 24.8 H25.8 V23" fill="none" stroke={color} strokeWidth={1.05} strokeLinecap="round" strokeLinejoin="round" />
+      <Circle cx={25.1} cy={7.9} r={1.05} fill={color} />
+    </>
+  );
+}
+
 function TodaysBiteFieldMark({ color }: { color: string }) {
   return (
     <>
-      <Circle
-        cx={16}
-        cy={12}
-        r={4.2}
-        fill={color}
-        fillOpacity={0.1}
-        stroke={color}
-        strokeWidth={1.35}
-      />
-      <Line x1={16} y1={4} x2={16} y2={6} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
-      <Line x1={8.9} y1={6.3} x2={10.4} y2={7.7} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
-      <Line x1={23.1} y1={6.3} x2={21.6} y2={7.7} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
-      <Line x1={6.5} y1={12} x2={9} y2={12} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
-      <Line x1={23} y1={12} x2={25.5} y2={12} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
-      <Path
-        d="M5 21 C8.2 19.2 11 19.2 14.2 21 C17.4 22.8 20.1 22.8 27 19.5"
-        fill="none"
-        stroke={color}
-        strokeWidth={1.5}
-        strokeLinecap="round"
-      />
-      <Path
-        d="M7 25 C10 23.6 12.6 23.7 15.6 25 C18.8 26.4 21.5 26.2 25 24.3"
-        fill="none"
-        stroke={color}
-        strokeWidth={1}
-        strokeOpacity={0.55}
-        strokeLinecap="round"
-      />
-      <Circle cx={16} cy={12} r={1.1} fill={color} />
+      <InstrumentFrame color={color} />
+      <Path d="M7.2 21.8 L10.7 19.2 L14 20.1 L17.4 14.5 L20.3 16.2 L24.8 10.5" fill="none" stroke={color} strokeWidth={1.55} strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M22.5 10.5 H24.8 V12.8" fill="none" stroke={color} strokeWidth={1.15} strokeLinecap="round" strokeLinejoin="round" />
+      <Circle cx={10.7} cy={19.2} r={1.35} fill="#FFFFFF" stroke={color} strokeWidth={1} />
+      <Circle cx={17.4} cy={14.5} r={1.35} fill="#FFFFFF" stroke={color} strokeWidth={1} />
+      <Rect x={7.2} y={10.2} width={1.5} height={5.1} rx={0.75} fill={color} fillOpacity={0.44} />
+      <Rect x={10} y={8.4} width={1.5} height={6.9} rx={0.75} fill={color} fillOpacity={0.25} />
     </>
   );
 }
@@ -364,40 +365,13 @@ function TodaysBiteFieldMark({ color }: { color: string }) {
 function RiverMigrationFieldMark({ color }: { color: string }) {
   return (
     <>
-      <Path
-        d="M8 3.8 C18 7.4 18.7 12 11.2 15.8 C4.8 19 7.1 24.3 17.3 28.2"
-        fill="none"
-        stroke={color}
-        strokeWidth={1.2}
-        strokeOpacity={0.48}
-        strokeLinecap="round"
-      />
-      <Path
-        d="M16.2 3.8 C26.2 7.4 26.9 12 19.4 15.8 C13 19 15.3 24.3 25.5 28.2"
-        fill="none"
-        stroke={color}
-        strokeWidth={1.2}
-        strokeOpacity={0.48}
-        strokeLinecap="round"
-      />
-      <Path
-        d="M11.8 9.4 L15.8 7.4 L19.8 9.4 L15.8 11.4 Z"
-        fill={color}
-        fillOpacity={0.12}
-        stroke={color}
-        strokeWidth={1.05}
-        strokeLinejoin="round"
-      />
-      <Path
-        d="M14 20.9 L18 18.9 L22 20.9 L18 22.9 Z"
-        fill={color}
-        fillOpacity={0.12}
-        stroke={color}
-        strokeWidth={1.05}
-        strokeLinejoin="round"
-      />
-      <Path d="M15.8 6.2 V3.8 M14.2 5.4 L15.8 3.8 L17.4 5.4" fill="none" stroke={color} strokeWidth={1.15} strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M18 17.7 V15.3 M16.4 16.9 L18 15.3 L19.6 16.9" fill="none" stroke={color} strokeWidth={1.15} strokeLinecap="round" strokeLinejoin="round" />
+      <InstrumentFrame color={color} />
+      <Path d="M9.2 24 C6.8 20.4 8.1 17.5 13.2 15.5 C18.3 13.5 19.1 10.5 16.4 7.4" fill="none" stroke={color} strokeWidth={1.05} strokeOpacity={0.45} strokeLinecap="round" />
+      <Path d="M15.2 24.2 C12.8 20.5 14.1 17.7 19.2 15.7 C24.3 13.7 25 10.6 22.4 7.4" fill="none" stroke={color} strokeWidth={1.05} strokeOpacity={0.45} strokeLinecap="round" />
+      <Circle cx={11.8} cy={19.4} r={1.65} fill="#FFFFFF" stroke={color} strokeWidth={1.15} />
+      <Circle cx={19.8} cy={12.5} r={1.65} fill={color} fillOpacity={0.15} stroke={color} strokeWidth={1.15} />
+      <Path d="M11.8 17 V13.5 M10.1 15.2 L11.8 13.5 L13.5 15.2" fill="none" stroke={color} strokeWidth={1.2} strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M19.8 10.1 V7.2 M18.2 8.8 L19.8 7.2 L21.4 8.8" fill="none" stroke={color} strokeWidth={1.2} strokeLinecap="round" strokeLinejoin="round" />
     </>
   );
 }
@@ -405,20 +379,13 @@ function RiverMigrationFieldMark({ color }: { color: string }) {
 function TackleBoxFieldMark({ color }: { color: string }) {
   return (
     <>
-      <Path
-        d="M5.3 12.2 C8.4 8.6 16.2 7.7 23.1 10.5 C25.6 11.5 26.6 13.3 24.4 14.9 C18.8 18.8 9.6 18.3 5.3 14.4 Z"
-        fill={color}
-        fillOpacity={0.1}
-        stroke={color}
-        strokeWidth={1.25}
-        strokeLinejoin="round"
-      />
-      <Circle cx={21.7} cy={12.2} r={1.05} fill={color} />
-      <Path d="M5.5 13.4 L2.8 16.2 L6.5 15.4" fill="none" stroke={color} strokeWidth={1.15} strokeLinecap="round" strokeLinejoin="round" />
-      <Path d="M12.2 17.4 V21.2 C12.2 24.5 8.1 24.8 8.1 21.8" fill="none" stroke={color} strokeWidth={1.2} strokeLinecap="round" />
-      <Path d="M20.5 16.2 V20 C20.5 23.3 16.4 23.6 16.4 20.6" fill="none" stroke={color} strokeWidth={1.2} strokeLinecap="round" />
-      <Path d="M8.2 6.1 H23.8" stroke={color} strokeWidth={1} strokeOpacity={0.5} strokeLinecap="round" />
-      <Circle cx={8.2} cy={6.1} r={1.2} fill="none" stroke={color} strokeWidth={1} />
+      <InstrumentFrame color={color} />
+      <Circle cx={8.6} cy={10.2} r={1.5} fill="#FFFFFF" stroke={color} strokeWidth={1.05} />
+      <Circle cx={8.6} cy={16} r={1.5} fill="#FFFFFF" stroke={color} strokeWidth={1.05} />
+      <Circle cx={8.6} cy={21.8} r={1.5} fill="#FFFFFF" stroke={color} strokeWidth={1.05} />
+      <Path d="M10.3 10.2 C14.2 10.2 15.2 13.8 18.4 15.3 M10.3 16 H18.4 M10.3 21.8 C14.2 21.8 15.2 18.2 18.4 16.7" fill="none" stroke={color} strokeWidth={1.05} strokeOpacity={0.58} strokeLinecap="round" />
+      <Rect x={18.2} y={12.8} width={7.2} height={6.4} rx={1.6} fill={color} fillOpacity={0.12} stroke={color} strokeWidth={1.25} />
+      <Path d="M20.1 16 H23.5" stroke={color} strokeWidth={1.15} strokeLinecap="round" />
     </>
   );
 }
@@ -426,13 +393,13 @@ function TackleBoxFieldMark({ color }: { color: string }) {
 function WaterReadFieldMark({ color }: { color: string }) {
   return (
     <>
-      <Path d="M5 19 C3.8 13.8 7.5 7.2 13.2 5.6 C19.2 3.9 25.9 7.5 27.1 13.3 C28.4 19.5 23.7 26.4 17.4 27.1 C11.4 27.8 6.3 24.5 5 19Z" fill={color} fillOpacity={0.06} stroke={color} strokeWidth={1.15} />
-      <Path d="M8.1 18.5 C7.2 14.7 10 10.1 14 9 C18.2 7.8 23 10.3 23.9 14.4 C24.8 18.8 21.5 23.6 17 24.1 C12.8 24.5 9 22.1 8.1 18.5Z" fill="none" stroke={color} strokeWidth={1} strokeOpacity={0.72} />
-      <Path d="M11.2 18 C10.7 15.7 12.4 12.9 14.9 12.2 C17.5 11.5 20.4 13 21 15.5 C21.5 18.1 19.6 21 16.9 21.3 C14.4 21.5 11.8 20.2 11.2 18Z" fill="none" stroke={color} strokeWidth={0.95} strokeOpacity={0.48} />
-      <Circle cx={21.8} cy={9.1} r={2.2} fill="#FFFFFF" stroke={color} strokeWidth={1.15} />
-      <Line x1={21.8} y1={5.5} x2={21.8} y2={12.7} stroke={color} strokeWidth={0.8} strokeOpacity={0.6} />
-      <Line x1={18.2} y1={9.1} x2={25.4} y2={9.1} stroke={color} strokeWidth={0.8} strokeOpacity={0.6} />
-      <Circle cx={21.8} cy={9.1} r={0.8} fill={color} />
+      <InstrumentFrame color={color} />
+      <Path d="M6.8 20.4 C8.2 17.2 11.3 17.7 12.4 14.9 C13.7 11.8 17.3 12.1 18.4 9 C21.3 9.2 24 11.6 25.1 14.7 C26.4 18.4 23.8 23.4 19.7 24.5 C14.8 25.8 9.3 24 6.8 20.4Z" fill={color} fillOpacity={0.07} stroke={color} strokeWidth={1.05} />
+      <Path d="M9.9 20.1 C11 18 13.4 18.3 14.2 16.3 C15.2 14 18 14.2 18.8 11.8 C21.1 12 23.1 13.8 23.7 16.2 C24.4 19 22.4 22.2 19.5 22.9 C16 23.8 12.1 22.5 9.9 20.1Z" fill="none" stroke={color} strokeWidth={0.9} strokeOpacity={0.6} />
+      <Circle cx={19.4} cy={15.9} r={2.1} fill="#FFFFFF" stroke={color} strokeWidth={1.05} />
+      <Line x1={19.4} y1={12.7} x2={19.4} y2={19.1} stroke={color} strokeWidth={0.75} strokeOpacity={0.68} />
+      <Line x1={16.2} y1={15.9} x2={22.6} y2={15.9} stroke={color} strokeWidth={0.75} strokeOpacity={0.68} />
+      <Circle cx={19.4} cy={15.9} r={0.7} fill={color} />
     </>
   );
 }
@@ -440,12 +407,14 @@ function WaterReadFieldMark({ color }: { color: string }) {
 function ColorMatchFieldMark({ color }: { color: string }) {
   return (
     <>
-      <Rect x={7.2} y={7} width={11.5} height={18} rx={2.1} fill="#FFFFFF" stroke={color} strokeWidth={1.1} transform="rotate(-18 13 16)" />
-      <Rect x={11} y={6.2} width={11.5} height={18} rx={2.1} fill="#FFFFFF" stroke={color} strokeWidth={1.1} transform="rotate(-2 16.75 15.2)" />
-      <Rect x={14.4} y={7.2} width={11.5} height={18} rx={2.1} fill={color} fillOpacity={0.1} stroke={color} strokeWidth={1.15} transform="rotate(15 20.2 16.2)" />
-      <Circle cx={20.2} cy={11.1} r={1.25} fill={color} />
-      <Circle cx={20.2} cy={15.8} r={1.55} fill={color} fillOpacity={0.72} />
-      <Circle cx={20.2} cy={21} r={1.9} fill={color} fillOpacity={0.42} />
+      <InstrumentFrame color={color} />
+      <Rect x={7.4} y={18.5} width={2.35} height={5.1} rx={0.8} fill={color} fillOpacity={0.28} />
+      <Rect x={10.9} y={15.4} width={2.35} height={8.2} rx={0.8} fill={color} fillOpacity={0.42} />
+      <Rect x={14.4} y={11.2} width={2.35} height={12.4} rx={0.8} fill={color} fillOpacity={0.58} />
+      <Rect x={17.9} y={8.4} width={2.35} height={15.2} rx={0.8} fill={color} fillOpacity={0.78} />
+      <Rect x={21.4} y={13.4} width={2.35} height={10.2} rx={0.8} fill={color} />
+      <Circle cx={17.9} cy={12.4} r={4} fill="none" stroke={color} strokeWidth={1.05} />
+      <Circle cx={17.9} cy={12.4} r={1.2} fill="#FFFFFF" stroke={color} strokeWidth={0.9} />
     </>
   );
 }

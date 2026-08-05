@@ -61,6 +61,7 @@ import {
   IntelligenceModuleEmblem,
   type IntelligenceModuleId,
 } from "../../components/paper/IntelligenceModuleIcons";
+import { CornerMarkSet, TopographicLines } from "../../components/paper";
 import { useAuthStore } from "../../store/authStore";
 import { useDevTestingStore } from "../../store/devTestingStore";
 import { useEnvStore } from "../../store/envStore";
@@ -1197,11 +1198,17 @@ export default function HomeScreen() {
             style={styles.liveCard}
             onLayout={(e) => setScanHeight(e.nativeEvent.layout.height)}
           >
-            {/* Corner crosses */}
-            <View style={[styles.cornerCross, styles.cornerCrossTL]} />
-            <View style={[styles.cornerCross, styles.cornerCrossTR]} />
-            <View style={[styles.cornerCross, styles.cornerCrossBL]} />
-            <View style={[styles.cornerCross, styles.cornerCrossBR]} />
+            <TopographicLines
+              style={StyleSheet.absoluteFill}
+              color={paper.dashboardBlue}
+              count={4}
+            />
+            <CornerMarkSet
+              color={paper.dashboardBlue}
+              size={10}
+              thickness={1.1}
+              inset={7}
+            />
 
             {/* Scan line overlay */}
             {scanHeight > 0 && (
@@ -1762,7 +1769,7 @@ export default function HomeScreen() {
               code="05"
               title="Color Match"
               tag="COLOR GUIDE"
-              desc="Advanced soft-plastic & hard-bait color guidance"
+              desc="Advanced color guidance for soft plastics, hard baits & flies"
               moduleId="color-match"
               iconBg={["#FBEBDD", "#F3C9A7"]}
               iconBorder="#D9772B"
@@ -2578,6 +2585,7 @@ const styles = StyleSheet.create({
 
   // ─── Live conditions card ───────────────────────────────────────────────
   liveCard: {
+    ...paperShadows.hard,
     backgroundColor: paper.dashboardWhite,
     borderRadius: 12,
     borderWidth: 1,
@@ -2586,11 +2594,6 @@ const styles = StyleSheet.create({
     position: "relative",
     marginBottom: 22,
   },
-  cornerCross: { position: "absolute", width: 9, height: 9, zIndex: 2 },
-  cornerCrossTL: { top: -5, left: -5 },
-  cornerCrossTR: { top: -5, right: -5 },
-  cornerCrossBL: { bottom: -5, left: -5 },
-  cornerCrossBR: { bottom: -5, right: -5 },
 
   scanLine: {
     position: "absolute",
@@ -2602,14 +2605,16 @@ const styles = StyleSheet.create({
   },
 
   liveCardHeader: {
+    position: "relative",
+    zIndex: 2,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     paddingHorizontal: 12,
     paddingVertical: 6,
-    backgroundColor: "#FAFAF7",
+    backgroundColor: "#F2F7FA",
     borderBottomWidth: 1,
-    borderColor: paper.dashboardHair,
+    borderColor: "rgba(42,110,150,0.14)",
   },
   liveCardHeaderLeft: {
     flexDirection: "row",
@@ -2637,7 +2642,12 @@ const styles = StyleSheet.create({
     color: paper.dashboardMuted,
   },
 
-  liveCardBody: { paddingHorizontal: 12, paddingVertical: 10 },
+  liveCardBody: {
+    position: "relative",
+    zIndex: 2,
+    paddingHorizontal: 12,
+    paddingVertical: 10,
+  },
   liveCardTopRow: {
     flexDirection: "row",
     alignItems: "flex-end",

@@ -43,6 +43,7 @@ export function FeedbackCard({
         topic,
         sentiment,
         featureName,
+        requestMode: variant === 'request' ? 'true' : undefined,
         contextLines: JSON.stringify([
           `Feature: ${featureName}`,
           profile?.username ? `Username: @${profile.username}` : null,

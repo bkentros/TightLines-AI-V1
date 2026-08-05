@@ -43,6 +43,11 @@ assert.match(
   /INTELLIGENCE_MODULE_ICON_VARIANT: IntelligenceModuleIconVariant = 'field'/,
   "Refined field marks must be the production icon default",
 );
+assert.match(
+  marks,
+  /function InstrumentFrame\(/,
+  "Production marks must share the intelligence-instrument frame",
+);
 for (const component of [
   "TodaysBiteFieldMark",
   "RiverMigrationFieldMark",
@@ -61,7 +66,12 @@ assert.match(
   /id: "color-match"[\s\S]*?title: "Color Match"[\s\S]*?key: "field"/,
   "The internal icon preview must cover Color Match and the field-mark pass",
 );
+assert.match(
+  home,
+  /Advanced color guidance for soft plastics, hard baits & flies/,
+  "Color Match must include fly color guidance",
+);
 
 console.log(
-  "Module mark QA passed: compact guide CTA, two-line hero, five refined marks, and disabled Color Match.",
+  "Module mark QA passed: compact guide CTA, shared instrument system, five refined marks, and fly-inclusive Color Match.",
 );

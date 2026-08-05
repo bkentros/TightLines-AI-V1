@@ -80,7 +80,7 @@ const MODULES: ModuleSpec[] = [
     code: "05",
     title: "Color Match",
     tag: "COLOR GUIDE",
-    desc: "Advanced soft-plastic & hard-bait color guidance",
+    desc: "Advanced color guidance for soft plastics, hard baits & flies",
     iconBg: ["#FBEBDD", "#F3C9A7"],
     iconBorder: "#D9772B",
     iconColor: "#9B4E18",
