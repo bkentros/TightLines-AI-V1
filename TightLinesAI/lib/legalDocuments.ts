@@ -18,7 +18,7 @@ export interface LegalDocument {
   sections: LegalDocumentSection[];
 }
 
-const updated = 'June 17, 2026';
+const updated = 'August 5, 2026';
 
 export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
   privacy: {
@@ -43,17 +43,17 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         body: [
           'Account information such as email address (including business or custom domains you can verify), username, authentication provider, profile settings, home region, subscription tier, and onboarding preferences.',
           'Fishing and app data you choose to create, including catches, sessions, locations, species preferences, photos or water images, voice logs if enabled, support messages, and feedback.',
-          'Location information when you grant permission or manually choose a location. FinFindr uses this to build weather, tide, moon, and fishing-condition context.',
+          'Location information when you grant permission or manually choose a location. FinFindr uses this to build weather, tide, moon, river-migration, and fishing-condition context.',
           'Purchase and entitlement status from the app store used for purchase, including the App Store, Google Play where supported, and RevenueCat. FinFindr does not receive full payment card numbers from Apple or Google.',
           'Product analytics and interaction data, such as app opens, screen views, feature usage, paywall events, purchase and restore events, subscription tier, region settings, onboarding status, and similar product-quality signals.',
-          'Creator and referral attribution information if you arrive through a tracked creator link. This may include referral click identifiers, creator attribution, subscription product, RevenueCat billing event metadata used for commission accounting, payout ledger records, and limited anti-abuse diagnostics such as hashed IP address or hashed user-agent information for web referral clicks.',
+          'Creator and referral attribution information if you arrive through a tracked creator link. This may include referral click and install-attribution identifiers, creator attribution, subscription product, RevenueCat billing event metadata used for commission accounting, payout ledger records, and limited attribution or anti-abuse signals such as platform, device model category, operating-system version, screen size, time zone, language, and hashed IP address or hashed user-agent information.',
           'Operational data such as device platform, app version, rate-limit records, cache identifiers, error context, and diagnostics needed to run, secure, and improve the service.',
         ],
       },
       {
         title: 'How We Use Information',
         body: [
-          'To create and secure your account, sync your profile, provide forecasts, tackle recommendations, water reads, fishing logs, and subscription-gated features.',
+          'To create and secure your account, sync your profile, provide forecasts, tackle recommendations, water reads, river-migration reads, fishing logs, and subscription-gated features.',
           'To respond to support requests, troubleshoot bugs, prevent abuse, enforce rate limits, improve app quality, maintain production systems, and protect users and FinFindr.',
           'To measure product usage and subscription flows, understand which app areas need improvement, and confirm that subscription, restore, and creator referral attribution systems are working correctly.',
           'To administer creator referral attribution, commission, refund, reversal, payout, and partner reporting for the creator program.',
@@ -63,11 +63,12 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
       {
         title: 'Third-Party Services',
         body: [
-          'FinFindr uses service providers for app infrastructure and core functionality, including Supabase, RevenueCat, PostHog, Apple platform services, Google platform services where supported, Resend, Open-Meteo, NOAA/NWS, NOAA CO-OPS, USNO, Sunrise-Sunset.org, mapping/geocoding providers, analytics and diagnostics providers, and similar operational vendors.',
+          'FinFindr uses service providers and public data sources for app infrastructure and core functionality, including Supabase, RevenueCat, PostHog, Instally, Apple platform services, Google platform services where supported, Resend, Open-Meteo, NOAA/NWS, NOAA CO-OPS, the U.S. Geological Survey (USGS), Monitor My Watershed, USNO, Sunrise-Sunset.org, mapping/geocoding providers, analytics and diagnostics providers, and similar operational vendors.',
           'Weather, water, sun, moon, map, and geocoding providers may receive coordinates, search terms, or request context needed to return app data. They are not given your full FinFindr account profile unless needed for the service.',
           'PostHog is used for product analytics, not advertising. Session replay is disabled in the app configuration, and FinFindr does not use PostHog to sell data or track you across other companies\' apps or websites.',
           'Store providers and RevenueCat process purchase and entitlement records under their own policies. App Store billing, cancellation, renewal, and refund decisions are handled by Apple for App Store purchases.',
-          'We do not sell your personal information or use third-party advertising trackers in the app.',
+          'We require service providers that process personal information on our behalf to protect it consistently with our agreements and applicable law. Their services may also be governed by their own privacy policies.',
+          'We do not sell your personal information or use personal information to serve targeted third-party advertising in the app.',
         ],
       },
       {
@@ -164,8 +165,9 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
       {
         title: 'Fishing Content',
         body: [
-          'Forecasts, tackle recommendations, water reads, maps, scores, timing windows, species suggestions, and related content are informational planning tools. They are not professional, legal, navigational, emergency, medical, environmental, boating, or safety advice.',
-          'Maps, structure reads, and location-related features are not depth charts, property boundary tools, marine charts, emergency routes, official access maps, or substitutes for official maps and local sources.',
+          'Forecasts, tackle recommendations, water reads, River Migration reads, maps, scores, timing windows, migration-stage labels, fish-presence estimates, likely river-section guidance, species suggestions, and related content are informational planning tools. They are not professional, legal, navigational, emergency, medical, environmental, boating, or safety advice.',
+          'River Migration outputs are estimates and inferences based on configured seasonal patterns and available environmental data. They are not direct observations, fish counts, guarantees that fish are present, or guarantees that fish will be present in a stated river section or at a stated time.',
+          'Maps, structure reads, river-section guidance, and location-related features are not depth charts, property boundary tools, marine charts, emergency routes, official access maps, or substitutes for official maps and local sources.',
           'You are responsible for checking local laws, licensing, access rules, harvest limits, weather, water conditions, hazards, closures, and safety risks before fishing.',
         ],
       },
@@ -181,6 +183,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         title: 'Service Availability',
         body: [
           'FinFindr depends on network services, public data sources, device permissions, store systems, and third-party providers. Features may be unavailable, delayed, incomplete, or inaccurate.',
+          'River conditions may be measured at configured gauges or monitoring stations and may differ from the conditions at another river reach, access point, or time. Data may also be delayed, provisional, corrected, or unavailable.',
           'Coverage for water bodies and data sources varies by region. Unsupported or limited waters may show limited guidance rather than a full read.',
           'We may change, suspend, limit, or discontinue features at any time, including where needed for safety, reliability, legal compliance, abuse prevention, or product changes.',
         ],
@@ -235,7 +238,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
       {
         title: 'Use Field Judgment',
         body: [
-          'FinFindr is operated by FinFindr LLC and provides informational fishing guidance based on available weather, water, season, species, and location inputs. Conditions can change quickly.',
+          'FinFindr is operated by FinFindr LLC and provides informational fishing guidance, including River Migration estimates, based on available weather, water, season, species, location, and public environmental data. Conditions can change quickly.',
           'Always verify current weather, water levels, closures, hazards, access rules, and local fishing regulations before you go.',
           'Do not rely on FinFindr to decide whether a trip, route, launch, crossing, wade, ice condition, or waterbody is safe.',
           'You are responsible for your own field decisions and for stopping, changing plans, or leaving when conditions are unsafe.',
@@ -245,7 +248,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         title: 'Not Navigation Or Emergency Advice',
         body: [
           'FinFindr is not a marine navigation tool, emergency alert system, weather warning service, legal compliance service, or replacement for official safety sources.',
-          'Maps and water reads are not depth charts, property boundary tools, marine charts, emergency routes, or official access maps.',
+          'Maps, water reads, and River Migration river-section guidance are not depth charts, property boundary tools, marine charts, emergency routes, official access maps, safe-access directions, or safe-wading or boating instructions.',
           'Use official weather alerts, charts, local agencies, fish and wildlife agencies, land managers, emergency services, and local authorities when safety or legal decisions matter.',
         ],
       },
@@ -260,6 +263,7 @@ export const LEGAL_DOCUMENTS: Record<LegalDocumentKey, LegalDocument> = {
         title: 'Water And Outdoor Risk',
         body: [
           'Fishing can involve boating, wading, ice, cold water, storms, lightning, heat, current, remote areas, wildlife, private property, limited cell service, and other risks.',
+          'A Fishability score or description addresses expected fishing workability only. It does not determine whether travel, access, boating, floating, crossing, or wading is safe.',
           'Wear appropriate safety gear, follow boating and access laws, tell someone your plan, and leave when conditions are unsafe.',
           'No app can remove the risks of fishing or guarantee that a waterbody, access point, forecast, or recommendation is safe.',
         ],
