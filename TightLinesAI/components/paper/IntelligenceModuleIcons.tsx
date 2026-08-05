@@ -33,12 +33,13 @@ export type IntelligenceModuleId =
   | 'water-read'
   | 'tackle-box'
   | 'todays-bite'
-  | 'river-run';
+  | 'river-run'
+  | 'color-match';
 
-export type IntelligenceModuleIconVariant = 'premium' | 'legacy';
+export type IntelligenceModuleIconVariant = 'field' | 'premium' | 'legacy';
 
 /** Active variant for production surfaces. */
-export const INTELLIGENCE_MODULE_ICON_VARIANT: IntelligenceModuleIconVariant = 'premium';
+export const INTELLIGENCE_MODULE_ICON_VARIANT: IntelligenceModuleIconVariant = 'field';
 
 interface IntelligenceModuleIconProps {
   module: IntelligenceModuleId;
@@ -66,6 +67,7 @@ const SWEEP_STAGGER_MS: Record<IntelligenceModuleId, number> = {
   'tackle-box': 1300,
   'todays-bite': 2600,
   'river-run': 3900,
+  'color-match': 5200,
 };
 
 let _uidCounter = 0;
@@ -212,7 +214,7 @@ export function IntelligenceModuleEmblem({
       />
       <View style={styles.emblemArt} pointerEvents="none">
         <Svg width={markSize} height={markSize} viewBox={`0 0 ${VB} ${VB}`}>
-          <EmblemArt module={module} color={iconColor} uid={uid} />
+          <FieldMarkArt module={module} color={iconColor} />
         </Svg>
       </View>
 
@@ -288,10 +290,163 @@ export function IntelligenceModuleIcon({
     );
   }
 
+  if (variant === 'premium') {
+    return (
+      <Svg width={size} height={size} viewBox={`0 0 ${VB} ${VB}`}>
+        <EmblemArt module={module} color={color} uid={uid} />
+      </Svg>
+    );
+  }
+
   return (
     <Svg width={size} height={size} viewBox={`0 0 ${VB} ${VB}`}>
-      <EmblemArt module={module} color={color} uid={uid} />
+      <FieldMarkArt module={module} color={color} />
     </Svg>
+  );
+}
+
+/**
+ * Refined field-guide marks: restrained line work, drafting geometry, and
+ * literal fishing cues. The surrounding tile keeps the premium glint while
+ * the art itself reads like an etched equipment mark instead of a cartoon.
+ */
+function FieldMarkArt({
+  module,
+  color,
+}: {
+  module: IntelligenceModuleId;
+  color: string;
+}) {
+  if (module === 'todays-bite') return <TodaysBiteFieldMark color={color} />;
+  if (module === 'river-run') return <RiverMigrationFieldMark color={color} />;
+  if (module === 'tackle-box') return <TackleBoxFieldMark color={color} />;
+  if (module === 'color-match') return <ColorMatchFieldMark color={color} />;
+  return <WaterReadFieldMark color={color} />;
+}
+
+function TodaysBiteFieldMark({ color }: { color: string }) {
+  return (
+    <>
+      <Circle
+        cx={16}
+        cy={12}
+        r={4.2}
+        fill={color}
+        fillOpacity={0.1}
+        stroke={color}
+        strokeWidth={1.35}
+      />
+      <Line x1={16} y1={4} x2={16} y2={6} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
+      <Line x1={8.9} y1={6.3} x2={10.4} y2={7.7} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
+      <Line x1={23.1} y1={6.3} x2={21.6} y2={7.7} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
+      <Line x1={6.5} y1={12} x2={9} y2={12} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
+      <Line x1={23} y1={12} x2={25.5} y2={12} stroke={color} strokeWidth={1.2} strokeLinecap="round" />
+      <Path
+        d="M5 21 C8.2 19.2 11 19.2 14.2 21 C17.4 22.8 20.1 22.8 27 19.5"
+        fill="none"
+        stroke={color}
+        strokeWidth={1.5}
+        strokeLinecap="round"
+      />
+      <Path
+        d="M7 25 C10 23.6 12.6 23.7 15.6 25 C18.8 26.4 21.5 26.2 25 24.3"
+        fill="none"
+        stroke={color}
+        strokeWidth={1}
+        strokeOpacity={0.55}
+        strokeLinecap="round"
+      />
+      <Circle cx={16} cy={12} r={1.1} fill={color} />
+    </>
+  );
+}
+
+function RiverMigrationFieldMark({ color }: { color: string }) {
+  return (
+    <>
+      <Path
+        d="M8 3.8 C18 7.4 18.7 12 11.2 15.8 C4.8 19 7.1 24.3 17.3 28.2"
+        fill="none"
+        stroke={color}
+        strokeWidth={1.2}
+        strokeOpacity={0.48}
+        strokeLinecap="round"
+      />
+      <Path
+        d="M16.2 3.8 C26.2 7.4 26.9 12 19.4 15.8 C13 19 15.3 24.3 25.5 28.2"
+        fill="none"
+        stroke={color}
+        strokeWidth={1.2}
+        strokeOpacity={0.48}
+        strokeLinecap="round"
+      />
+      <Path
+        d="M11.8 9.4 L15.8 7.4 L19.8 9.4 L15.8 11.4 Z"
+        fill={color}
+        fillOpacity={0.12}
+        stroke={color}
+        strokeWidth={1.05}
+        strokeLinejoin="round"
+      />
+      <Path
+        d="M14 20.9 L18 18.9 L22 20.9 L18 22.9 Z"
+        fill={color}
+        fillOpacity={0.12}
+        stroke={color}
+        strokeWidth={1.05}
+        strokeLinejoin="round"
+      />
+      <Path d="M15.8 6.2 V3.8 M14.2 5.4 L15.8 3.8 L17.4 5.4" fill="none" stroke={color} strokeWidth={1.15} strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M18 17.7 V15.3 M16.4 16.9 L18 15.3 L19.6 16.9" fill="none" stroke={color} strokeWidth={1.15} strokeLinecap="round" strokeLinejoin="round" />
+    </>
+  );
+}
+
+function TackleBoxFieldMark({ color }: { color: string }) {
+  return (
+    <>
+      <Path
+        d="M5.3 12.2 C8.4 8.6 16.2 7.7 23.1 10.5 C25.6 11.5 26.6 13.3 24.4 14.9 C18.8 18.8 9.6 18.3 5.3 14.4 Z"
+        fill={color}
+        fillOpacity={0.1}
+        stroke={color}
+        strokeWidth={1.25}
+        strokeLinejoin="round"
+      />
+      <Circle cx={21.7} cy={12.2} r={1.05} fill={color} />
+      <Path d="M5.5 13.4 L2.8 16.2 L6.5 15.4" fill="none" stroke={color} strokeWidth={1.15} strokeLinecap="round" strokeLinejoin="round" />
+      <Path d="M12.2 17.4 V21.2 C12.2 24.5 8.1 24.8 8.1 21.8" fill="none" stroke={color} strokeWidth={1.2} strokeLinecap="round" />
+      <Path d="M20.5 16.2 V20 C20.5 23.3 16.4 23.6 16.4 20.6" fill="none" stroke={color} strokeWidth={1.2} strokeLinecap="round" />
+      <Path d="M8.2 6.1 H23.8" stroke={color} strokeWidth={1} strokeOpacity={0.5} strokeLinecap="round" />
+      <Circle cx={8.2} cy={6.1} r={1.2} fill="none" stroke={color} strokeWidth={1} />
+    </>
+  );
+}
+
+function WaterReadFieldMark({ color }: { color: string }) {
+  return (
+    <>
+      <Path d="M5 19 C3.8 13.8 7.5 7.2 13.2 5.6 C19.2 3.9 25.9 7.5 27.1 13.3 C28.4 19.5 23.7 26.4 17.4 27.1 C11.4 27.8 6.3 24.5 5 19Z" fill={color} fillOpacity={0.06} stroke={color} strokeWidth={1.15} />
+      <Path d="M8.1 18.5 C7.2 14.7 10 10.1 14 9 C18.2 7.8 23 10.3 23.9 14.4 C24.8 18.8 21.5 23.6 17 24.1 C12.8 24.5 9 22.1 8.1 18.5Z" fill="none" stroke={color} strokeWidth={1} strokeOpacity={0.72} />
+      <Path d="M11.2 18 C10.7 15.7 12.4 12.9 14.9 12.2 C17.5 11.5 20.4 13 21 15.5 C21.5 18.1 19.6 21 16.9 21.3 C14.4 21.5 11.8 20.2 11.2 18Z" fill="none" stroke={color} strokeWidth={0.95} strokeOpacity={0.48} />
+      <Circle cx={21.8} cy={9.1} r={2.2} fill="#FFFFFF" stroke={color} strokeWidth={1.15} />
+      <Line x1={21.8} y1={5.5} x2={21.8} y2={12.7} stroke={color} strokeWidth={0.8} strokeOpacity={0.6} />
+      <Line x1={18.2} y1={9.1} x2={25.4} y2={9.1} stroke={color} strokeWidth={0.8} strokeOpacity={0.6} />
+      <Circle cx={21.8} cy={9.1} r={0.8} fill={color} />
+    </>
+  );
+}
+
+function ColorMatchFieldMark({ color }: { color: string }) {
+  return (
+    <>
+      <Rect x={7.2} y={7} width={11.5} height={18} rx={2.1} fill="#FFFFFF" stroke={color} strokeWidth={1.1} transform="rotate(-18 13 16)" />
+      <Rect x={11} y={6.2} width={11.5} height={18} rx={2.1} fill="#FFFFFF" stroke={color} strokeWidth={1.1} transform="rotate(-2 16.75 15.2)" />
+      <Rect x={14.4} y={7.2} width={11.5} height={18} rx={2.1} fill={color} fillOpacity={0.1} stroke={color} strokeWidth={1.15} transform="rotate(15 20.2 16.2)" />
+      <Circle cx={20.2} cy={11.1} r={1.25} fill={color} />
+      <Circle cx={20.2} cy={15.8} r={1.55} fill={color} fillOpacity={0.72} />
+      <Circle cx={20.2} cy={21} r={1.9} fill={color} fillOpacity={0.42} />
+    </>
   );
 }
 
@@ -304,6 +459,7 @@ function EmblemArt({
   color: string;
   uid: string;
 }) {
+  if (module === 'color-match') return <ColorMatchFieldMark color={color} />;
   if (module === 'water-read') return <WaterReadEmblem color={color} uid={uid} />;
   if (module === 'tackle-box') return <TackleBoxEmblem color={color} uid={uid} />;
   if (module === 'todays-bite') return <TodaysBiteEmblem color={color} uid={uid} />;
@@ -317,6 +473,9 @@ function LegacyEmblemArt({
   module: IntelligenceModuleId;
   color: string;
 }) {
+  if (module === 'color-match') {
+    return <ColorMatchFieldMark color={color} />;
+  }
   if (module === 'water-read') {
     return (
       <>

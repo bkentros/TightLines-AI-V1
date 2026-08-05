@@ -75,6 +75,17 @@ const MODULES: ModuleSpec[] = [
     iconColor: "#9A2B20",
     legacyIcon: "fish-outline",
   },
+  {
+    id: "color-match",
+    code: "05",
+    title: "Color Match",
+    tag: "COLOR GUIDE",
+    desc: "Advanced soft-plastic & hard-bait color guidance",
+    iconBg: ["#FBEBDD", "#F3C9A7"],
+    iconBorder: "#D9772B",
+    iconColor: "#9B4E18",
+    legacyIcon: "color-palette-outline",
+  },
 ];
 
 const VARIANTS: {
@@ -93,9 +104,9 @@ const VARIANTS: {
     blurb: "Thin custom SVG — too small / incomplete",
   },
   {
-    key: "premium",
-    label: "Premium",
-    blurb: "Bold filled emblems — current default on Home",
+    key: "field",
+    label: "Field mark",
+    blurb: "Refined etched marks — current default on Home",
   },
 ];
 
@@ -122,9 +133,9 @@ export default function ModuleIconsPreviewScreen() {
             <Text style={styles.introEyebrow}>INTELLIGENCE MODULES</Text>
             <Text style={styles.introTitle}>Premium emblem pass.</Text>
             <Text style={styles.introBody}>
-              Literal marks at phone scale: lake map + pin, side-profile fish,
-              and sun/cloud over water. Description text no longer auto-shrinks
-              on longer lines.
+              Refined equipment-style marks at phone scale: conditions, river
+              movement, tackle, contours, and color swatches. Premium tile
+              shimmer remains around quieter line art.
             </Text>
           </View>
 
@@ -139,7 +150,7 @@ export default function ModuleIconsPreviewScreen() {
               <View style={styles.variantGrid}>
                 {VARIANTS.map((variant) => (
                   <View key={variant.key} style={styles.variantCard}>
-                    {variant.key === "premium"
+                    {variant.key === "field"
                       ? (
                         <IntelligenceModuleEmblem
                           module={module.id}
@@ -197,7 +208,7 @@ export default function ModuleIconsPreviewScreen() {
 function PreviewRow({ module }: { module: ModuleSpec }) {
   return (
     <View style={styles.previewRow}>
-      <Text style={styles.previewEyebrow}>IN CONTEXT · PREMIUM</Text>
+      <Text style={styles.previewEyebrow}>IN CONTEXT · FIELD MARK</Text>
       <View style={styles.moduleRow}>
         <Text style={styles.rowCode}>{module.code}</Text>
         <IntelligenceModuleEmblem

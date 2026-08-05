@@ -1675,7 +1675,7 @@ export default function HomeScreen() {
           <View style={styles.modules}>
             <View style={styles.modulesHeader}>
               <Text style={styles.modulesEyebrow}>── INTELLIGENCE MODULES</Text>
-              <Text style={styles.modulesCount}>4 / 4</Text>
+              <Text style={styles.modulesCount}>4 LIVE · 1 PLANNED</Text>
             </View>
 
             <Pressable
@@ -1691,8 +1691,8 @@ export default function HomeScreen() {
                 <View style={styles.howWorksIconTile}>
                   <Ionicons
                     name="compass-outline"
-                    size={18}
-                    color="#FFFFFF"
+                    size={16}
+                    color={paper.dashboardBlue}
                   />
                 </View>
                 <View style={styles.howWorksTextCol}>
@@ -1706,8 +1706,8 @@ export default function HomeScreen() {
               <View style={styles.howWorksArrowTile}>
                 <Ionicons
                   name="arrow-forward"
-                  size={16}
-                  color={paper.dashboardInk}
+                  size={14}
+                  color="#FFFFFF"
                 />
               </View>
             </Pressable>
@@ -1757,6 +1757,17 @@ export default function HomeScreen() {
               iconBorder="#0F63B0"
               iconColor="#0A4A87"
               onPress={handleWaterReadPress}
+            />
+            <ModuleRow
+              code="05"
+              title="Color Match"
+              tag="COLOR GUIDE"
+              desc="Advanced soft-plastic & hard-bait color guidance"
+              moduleId="color-match"
+              iconBg={["#FBEBDD", "#F3C9A7"]}
+              iconBorder="#D9772B"
+              iconColor="#9B4E18"
+              comingSoon
             />
           </View>
 
@@ -2142,7 +2153,7 @@ function ModuleRow({
         iconBorder={iconBorder}
         iconColor={iconColor}
         size={50}
-        animate
+        animate={!comingSoon}
       />
       <View style={styles.moduleTextCol}>
         <View
@@ -2825,18 +2836,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     gap: 12,
-    minHeight: 82,
-    paddingHorizontal: 14,
-    paddingVertical: 13,
-    backgroundColor: paper.dashboardInk,
+    minHeight: 64,
+    paddingHorizontal: 11,
+    paddingVertical: 9,
+    backgroundColor: "#EAF3F7",
     borderWidth: 1,
-    borderColor: "rgba(192,57,43,0.55)",
+    borderColor: "rgba(42,110,150,0.24)",
     borderRadius: 10,
     marginBottom: 10,
-    ...paperShadows.hard,
+    ...paperShadows.lift,
   },
   howWorksCtaPressed: {
-    backgroundColor: "#132C46",
+    backgroundColor: "#DCECF3",
     opacity: 0.94,
   },
   howWorksLeft: {
@@ -2846,44 +2857,44 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   howWorksIconTile: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    backgroundColor: paper.red,
+    width: 34,
+    height: 34,
+    borderRadius: 17,
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
-    borderColor: "rgba(255,255,255,0.22)",
+    borderColor: "rgba(42,110,150,0.22)",
     justifyContent: "center",
     alignItems: "center",
   },
   howWorksTextCol: { flex: 1 },
   howWorksEyebrow: {
     fontFamily: MONO_BOLD,
-    fontSize: 8.5,
-    letterSpacing: 1.7,
-    color: paper.bandFair,
-    marginBottom: 3,
+    fontSize: 7.5,
+    letterSpacing: 1.4,
+    color: paper.redDk,
+    marginBottom: 1,
   },
   howWorksTitle: {
     fontFamily: SERIF_SEMI,
-    fontSize: 18,
-    lineHeight: 21,
-    color: "#FFFFFF",
+    fontSize: 16,
+    lineHeight: 19,
+    color: paper.dashboardInk,
   },
   howWorksSubtitle: {
-    marginTop: 3,
+    marginTop: 1,
     fontFamily: SANS_MEDIUM,
-    fontSize: 10.5,
-    lineHeight: 15,
-    color: "rgba(255,255,255,0.68)",
+    fontSize: 9.5,
+    lineHeight: 13,
+    color: paper.dashboardMuted,
   },
   howWorksArrowTile: {
-    width: 34,
-    height: 34,
+    width: 30,
+    height: 30,
     flexShrink: 0,
     alignItems: "center",
     justifyContent: "center",
-    borderRadius: 17,
-    backgroundColor: "#FFFFFF",
+    borderRadius: 15,
+    backgroundColor: paper.red,
   },
 
   // metric grid

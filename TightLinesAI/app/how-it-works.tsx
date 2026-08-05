@@ -212,8 +212,8 @@ export default function FeatureGuideScreen() {
               <Text style={styles.heroPillText}>FOUR TOOLS · FOUR JOBS</Text>
             </View>
             <Text style={styles.heroTitle} allowFontScaling={false}>
-              START WITH THE QUESTION.{"\n"}
-              <Text style={styles.heroTitleAccent}>FINFINDR HANDLES THE REST.</Text>
+              PICK A QUESTION.{"\n"}
+              <Text style={styles.heroTitleAccent}>FIND YOUR TOOL.</Text>
             </Text>
             <Text style={styles.heroBody}>
               Each FinFindr feature answers a different question. Start with
