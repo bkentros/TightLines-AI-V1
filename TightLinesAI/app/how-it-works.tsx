@@ -1,164 +1,150 @@
-import { useRouter } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { Ionicons } from '@expo/vector-icons';
-import {
-  ScrollView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { PaperNavHeader, TopographicLines } from '../components/paper';
+import {
+  CornerMarkSet,
+  IntelligenceModuleEmblem,
+  PaperNavHeader,
+  SectionEyebrow,
+  TopographicLines,
+  type IntelligenceModuleId,
+} from "../components/paper";
+import {
+  hapticImpact,
+  ImpactFeedbackStyle,
+} from "../lib/safeHaptics";
 import {
   paper,
   paperFonts,
   paperRadius,
   paperShadows,
   paperSpacing,
-} from '../lib/theme';
+} from "../lib/theme";
 
 type IconName = keyof typeof Ionicons.glyphMap;
+type FeatureRoute =
+  | "/how-fishing"
+  | "/river-run"
+  | "/recommender"
+  | "/water-reader";
 
-type FeatureSection = {
+type FeatureGuide = {
   code: string;
   title: string;
-  kicker: string;
-  icon: IconName;
-  color: string;
+  tag: string;
+  tagline: string;
+  module: IntelligenceModuleId;
+  route: FeatureRoute;
+  action: string;
+  iconBg: [string, string];
+  accent: string;
+  iconColor: string;
   tint: string;
-  summary: string;
-  inputs: string[];
-  outputs: string[];
-  note?: string;
+  whenToUse: string;
+  howItReads: string;
+  guidesNote: string;
+  supporting?: boolean;
 };
 
-const DATA_SIGNALS: { label: string; detail: string; icon: IconName }[] = [
-  { label: 'Place', detail: 'area, region, timezone', icon: 'location-outline' },
-  { label: 'Season', detail: 'month and local timing', icon: 'calendar-outline' },
-  { label: 'Water', detail: 'lake, river, coast, flats', icon: 'water-outline' },
-  { label: 'Weather', detail: 'temperature, wind, rain, sky', icon: 'partly-sunny-outline' },
-  { label: 'Movement', detail: 'pressure, flow, tide/current', icon: 'pulse-outline' },
-  { label: 'Light', detail: 'sun, clouds, low-light edges', icon: 'sunny-outline' },
-  { label: 'Timing', detail: 'daypart opportunities', icon: 'time-outline' },
-  { label: 'Coverage', detail: 'available data and confidence', icon: 'shield-checkmark-outline' },
-];
-
-const FEATURE_SECTIONS: FeatureSection[] = [
+const FEATURE_GUIDES: FeatureGuide[] = [
   {
-    code: '01',
+    code: "01",
     title: "Today's Bite",
-    kicker: 'Condition read',
-    icon: 'analytics-outline',
-    color: paper.bandPrime,
-    tint: '#E8F4DF',
-    summary:
-      "Today’s Bite turns local conditions into a practical fishing read for the water type you choose.",
-    inputs: [
-      'your area, season, and selected water type',
-      'temperature, pressure, wind, sky, and precipitation patterns',
-      'river movement or coastal tide/current context when relevant',
-      'light, sun timing, solunar context, and fresh forecast updates',
-    ],
-    outputs: [
-      'score, band, and plain-language daily summary',
-      'helping conditions and limiting conditions',
-      'best timing windows for the day',
-      'practical field strategy and confidence context',
-    ],
-    note:
-      'The score is deterministic. It is guidance from weighted conditions, not a guarantee that fish will bite.',
+    tag: "PRIMARY DAILY READ",
+    tagline: "Plan the fishing day.",
+    module: "todays-bite",
+    route: "/how-fishing",
+    action: "OPEN TODAY'S BITE",
+    iconBg: ["#E5F2DD", "#C5E0B5"],
+    accent: "#3D955A",
+    iconColor: "#1F6B38",
+    tint: "#F0F7EB",
+    whenToUse:
+      "Start here for warmwater species and a practical read of how the day is setting up.",
+    howItReads:
+      "It turns current and forecast conditions into clear timing, helping factors, limiting factors, and a field plan.",
+    guidesNote:
+      "It can also apply strongly to trout and other coldwater species in fall, winter, and spring. Do not rely on it for coldwater species in summer.",
   },
   {
-    code: '02',
-    title: '6-Day Forecast',
-    kicker: 'Forward read',
-    icon: 'calendar-number-outline',
-    color: paper.bandFair,
-    tint: '#FAF1CF',
-    summary:
-      'The forecast reuses the same condition engine on future daily snapshots so the outlook stays consistent with Today’s Bite.',
-    inputs: [
-      'upcoming weather and seasonal context',
-      'the same water-type logic behind Today’s Bite',
-      'fresh location-aware forecast updates',
-    ],
-    outputs: [
-      'six forward bite scores for Angler members',
-      'tomorrow preview score for the free tier',
-      'future report entry points for planning ahead',
-    ],
-    note:
-      'Forecast days can move as weather updates. The app treats them as planning signals, not fixed outcomes.',
+    code: "02",
+    title: "River Migration",
+    tag: "MIGRATION SPECIALIST",
+    tagline: "Follow fish through the river.",
+    module: "river-run",
+    route: "/river-run",
+    action: "OPEN RIVER MIGRATION",
+    iconBg: ["#FBE4E1", "#F3C2BC"],
+    accent: paper.red,
+    iconColor: "#9A2B20",
+    tint: "#FFF3F0",
+    whenToUse:
+      "Use it for supported Great Lakes salmon and steelhead migrations—especially timing, likely location, fishability, and fish presence.",
+    howItReads:
+      "It pairs fresh river conditions with audited species biology and river-specific seasonal context.",
+    guidesNote:
+      "When a supported migration is your main question, this is the primary read—not Today's Bite.",
   },
   {
-    code: '03',
-    title: 'Tackle Box',
-    kicker: 'Daily picks',
-    icon: 'fish-outline',
-    color: '#C99B2D',
-    tint: '#FBF1D9',
-    summary:
-      'Tackle Box starts with the same day-read, then adds species and setup choices to recommend a focused lure-and-fly plan.',
-    inputs: [
-      'target species, region, season, and water type',
-      'water clarity and your goal for the day',
-      'the current condition read from Today’s Bite',
-      'curated lure and fly options filtered for fit',
-    ],
-    outputs: [
-      'lure of the day plus honorable lure',
-      'fly of the day plus honorable fly',
-      'why each pick fits the day',
-      'how to fish each pick',
-      'one daily Changeup angle when you want a second look',
-    ],
-    note:
-      'The recommender avoids random grab-bag picks. It filters first, then scores and selects from condition-matched options. In V1, fly picks are streamer patterns only — dry flies, nymphs, and other fly categories are not included yet.',
+    code: "03",
+    title: "Tackle Box",
+    tag: "PRESENTATION GUIDE",
+    tagline: "Choose what to throw.",
+    module: "tackle-box",
+    route: "/recommender",
+    action: "OPEN TACKLE BOX",
+    iconBg: ["#FBF1D9", "#F4DFA4"],
+    accent: "#C99B2D",
+    iconColor: "#8A6A1A",
+    tint: "#FFF9EA",
+    whenToUse:
+      "Open it when you know the species and water, but want a focused lure or fly starting point.",
+    howItReads:
+      "It matches a curated tackle library to your target, water, season, clarity, goal, and the day's conditions.",
+    guidesNote:
+      "Use the picks as a disciplined starting plan, then adjust to what the fish show you. Fly recommendations are streamer patterns in this version.",
   },
   {
-    code: '04',
-    title: 'Water Read',
-    kicker: 'Structure map',
-    icon: 'map-outline',
-    color: paper.dashboardBlue,
-    tint: '#E8F2FA',
-    summary:
-      'Water Read studies supported lake shapes and turns polygon geometry into a conservative structure map.',
-    inputs: [
-      'supported lake outline geometry',
-      'shoreline shape and major structure forms',
-      'season context for map notes',
-      'quality checks that keep uncertain reads conservative',
-    ],
-    outputs: [
-      'stylized lake outline',
-      'numbered structured fishing zones',
-      'season-aware map key',
-      'support status for limited or unavailable waters',
-    ],
-    note:
-      'Water Read does not use photos, depth charts, species, weather, your live position, or exact fishing coordinates in this version.',
+    code: "04",
+    title: "Water Read",
+    tag: "SUPPORTING MAP",
+    tagline: "Scout unfamiliar lake water.",
+    module: "water-read",
+    route: "/water-reader",
+    action: "OPEN WATER READ",
+    iconBg: ["#E8F2FA", "#C8DFF2"],
+    accent: paper.dashboardBlue,
+    iconColor: "#0A4A87",
+    tint: "#F0F6FA",
+    whenToUse:
+      "Use it for a conservative first look at broad structure on an unfamiliar supported lake.",
+    howItReads:
+      "It studies lake shape and shoreline structure to mark general zones worth investigating.",
+    guidesNote:
+      "It is not a depth chart, sonar view, live-position tool, or promise of exact fish locations.",
+    supporting: true,
   },
 ];
 
-const GUARDRAILS = [
-  'FinFindr is informational fishing guidance only.',
-  'Coverage varies by location, water type, and available data.',
-  'Always check local regulations, access rules, weather, water levels, and safety conditions before fishing.',
-];
-
-export default function HowItWorksScreen() {
+export default function FeatureGuideScreen() {
   const router = useRouter();
 
+  const openFeature = (route: FeatureRoute) => {
+    hapticImpact(ImpactFeedbackStyle.Light);
+    router.push(route);
+  };
+
   return (
-    <SafeAreaView style={styles.safe} edges={['top']}>
+    <SafeAreaView style={styles.safe} edges={["top"]}>
       <StatusBar style="light" />
       <View style={styles.screen}>
         <PaperNavHeader
-          eyebrow="FINFINDR · TRANSPARENCY"
+          eyebrow="FINFINDR · FIELD GUIDE"
           eyebrowColor={paper.dashboardBlueLight}
-          title="HOW IT READS"
+          title="CHOOSE YOUR READ"
           onBack={() => router.back()}
         />
 
@@ -170,163 +156,209 @@ export default function HowItWorksScreen() {
           <View style={styles.heroCard}>
             <TopographicLines
               style={StyleSheet.absoluteFill}
-              color={paper.dashboardBlueLight}
-              count={6}
+              color={paper.dashboardBlue}
+              count={7}
             />
-            <View style={styles.heroTopRow}>
-              <View style={styles.heroSignalPill}>
-                <View style={styles.liveDot} />
-                <Text style={styles.heroSignalText}>ENGINE NOTES</Text>
-              </View>
-              <Text style={styles.heroEdition}>MAY · 2026</Text>
+            <CornerMarkSet color={paper.red} size={17} thickness={2} inset={12} />
+            <View style={styles.heroPill}>
+              <Ionicons name="compass-outline" size={13} color={paper.redDk} />
+              <Text style={styles.heroPillText}>FOUR TOOLS · FOUR JOBS</Text>
             </View>
-            <Text style={styles.heroTitle}>
-              How FinFindr reads{'\n'}
-              <Text style={styles.heroTitleAccent}>a fishing day.</Text>
+            <Text style={styles.heroTitle} allowFontScaling={false}>
+              MATCH THE TOOL.{"\n"}
+              <Text style={styles.heroTitleAccent}>FISH WITH PURPOSE.</Text>
             </Text>
             <Text style={styles.heroBody}>
-              FinFindr does not promise fish. It weighs the signals that shape a day,
-              explains what helped or hurt the read, and turns that into practical
-              planning guidance without exposing the private formulas behind it.
+              Each FinFindr feature answers a different question. Start with
+              the one that matches yours.
             </Text>
-            <View style={styles.heroFooter}>
-              <SignalMini label="Weighted" icon="scale-outline" />
-              <SignalMini label="Local" icon="navigate-outline" />
-              <SignalMini label="Explainable" icon="list-outline" />
+            <View style={styles.questionStrip}>
+              <QuestionCue icon="partly-sunny-outline" label="THE DAY" />
+              <View style={styles.questionRule} />
+              <QuestionCue icon="fish-outline" label="THE FISH" />
+              <View style={styles.questionRule} />
+              <QuestionCue icon="color-wand-outline" label="THE TACKLE" />
+              <View style={styles.questionRule} />
+              <QuestionCue icon="map-outline" label="THE WATER" />
             </View>
           </View>
 
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionEyebrow}>DATA LAYER</Text>
-            <Text style={styles.sectionTitle}>The signals underneath the read.</Text>
-            <Text style={styles.sectionIntro}>
-              The app pulls together environmental context first, then each feature
-              uses the categories that apply to its job. This page explains the
-              approach, not the exact recipe.
+          <View style={styles.guideIntro}>
+            <SectionEyebrow
+              dashes={false}
+              align="left"
+              color={paper.redDk}
+              size={9.5}
+              tracking={2.1}
+            >
+              THE FINFINDR FIELD GUIDE
+            </SectionEyebrow>
+            <Text style={styles.guideTitle}>What each feature is for.</Text>
+            <Text style={styles.guideSubtitle}>
+              A quick guide to choosing the right read—without the engine-room
+              details.
             </Text>
           </View>
 
-          <View style={styles.signalGrid}>
-            {DATA_SIGNALS.map((signal) => (
-              <View key={signal.label} style={styles.signalCard}>
-                <View style={styles.signalIcon}>
-                  <Ionicons name={signal.icon} size={15} color={paper.dashboardBlue} />
-                </View>
-                <Text style={styles.signalLabel}>{signal.label}</Text>
-                <Text style={styles.signalDetail}>{signal.detail}</Text>
-              </View>
-            ))}
-          </View>
-
-          <View style={styles.flowCard}>
-            <View style={styles.flowNode}>
-              <Text style={styles.flowNodeLabel}>01</Text>
-              <Text style={styles.flowNodeTitle}>Collect</Text>
-            </View>
-            <View style={styles.flowLine} />
-            <View style={styles.flowNode}>
-              <Text style={styles.flowNodeLabel}>02</Text>
-              <Text style={styles.flowNodeTitle}>Weight</Text>
-            </View>
-            <View style={styles.flowLine} />
-            <View style={styles.flowNode}>
-              <Text style={styles.flowNodeLabel}>03</Text>
-              <Text style={styles.flowNodeTitle}>Explain</Text>
-            </View>
-          </View>
-
-          <View style={styles.sectionHeader}>
-            <Text style={styles.sectionEyebrow}>FEATURES</Text>
-            <Text style={styles.sectionTitle}>What each module considers.</Text>
-          </View>
-
-          {FEATURE_SECTIONS.map((feature) => (
-            <FeatureCard key={feature.title} feature={feature} />
+          {FEATURE_GUIDES.map((feature) => (
+            <FeatureCard
+              key={feature.module}
+              feature={feature}
+              onOpen={() => openFeature(feature.route)}
+            />
           ))}
 
-          <View style={styles.guardrailCard}>
-            <View style={styles.guardrailTitleRow}>
-              <View style={styles.guardrailIcon}>
-                <Ionicons name="shield-checkmark-outline" size={17} color="#FFFFFF" />
-              </View>
-              <View style={styles.guardrailTitleText}>
-                <Text style={styles.guardrailEyebrow}>BOUNDARIES</Text>
-                <Text style={styles.guardrailTitle}>What this is, and is not.</Text>
-              </View>
+          <View style={styles.truthCard}>
+            <View style={styles.truthIcon}>
+              <Ionicons
+                name="shield-checkmark-outline"
+                size={17}
+                color="#FFFFFF"
+              />
             </View>
-            {GUARDRAILS.map((item) => (
-              <View key={item} style={styles.guardrailRow}>
-                <Ionicons name="checkmark-circle" size={15} color={paper.bandPrime} />
-                <Text style={styles.guardrailText}>{item}</Text>
-              </View>
-            ))}
+            <View style={styles.truthCopy}>
+              <Text style={styles.truthLabel}>THE BOTTOM LINE</Text>
+              <Text style={styles.truthText}>
+                FinFindr helps you make a better plan. Conditions, regulations,
+                access, and safety still belong to the angler.
+              </Text>
+            </View>
           </View>
 
-          <Text style={styles.footerStamp}>FINFINDR · TRANSPARENCY READ</Text>
+          <Text style={styles.footerStamp}>FINFINDR · CHOOSE WITH INTENT</Text>
         </ScrollView>
       </View>
     </SafeAreaView>
   );
 }
 
-function SignalMini({ label, icon }: { label: string; icon: IconName }) {
+function QuestionCue({ icon, label }: { icon: IconName; label: string }) {
   return (
-    <View style={styles.signalMini}>
-      <Ionicons name={icon} size={12} color={paper.dashboardBlue} />
-      <Text style={styles.signalMiniText}>{label}</Text>
+    <View style={styles.questionCue}>
+      <Ionicons name={icon} size={13} color={paper.dashboardBlue} />
+      <Text style={styles.questionCueText}>{label}</Text>
     </View>
   );
 }
 
-function FeatureCard({ feature }: { feature: FeatureSection }) {
+function FeatureCard({
+  feature,
+  onOpen,
+}: {
+  feature: FeatureGuide;
+  onOpen: () => void;
+}) {
   return (
-    <View style={styles.featureCard}>
-      <View style={styles.featureTop}>
-        <View style={[styles.featureCode, { borderColor: feature.color }]}>
-          <Text style={[styles.featureCodeText, { color: feature.color }]}>
+    <View
+      style={[
+        styles.featureCard,
+        feature.supporting && styles.featureCardSupporting,
+      ]}
+    >
+      <TopographicLines
+        style={StyleSheet.absoluteFill}
+        color={feature.accent}
+        count={feature.supporting ? 3 : 5}
+      />
+      <View style={[styles.featureRail, { backgroundColor: feature.accent }]} />
+      <CornerMarkSet
+        color={feature.accent}
+        size={13}
+        thickness={1.5}
+        inset={10}
+      />
+
+      <View style={styles.featureTopRow}>
+        <IntelligenceModuleEmblem
+          module={feature.module}
+          iconBg={feature.iconBg}
+          iconBorder={feature.accent}
+          iconColor={feature.iconColor}
+          size={feature.supporting ? 48 : 54}
+          animate={false}
+        />
+        <View style={styles.featureHeading}>
+          <Text style={[styles.featureTag, { color: feature.accent }]}>
+            {feature.tag}
+          </Text>
+          <Text style={styles.featureTitle} allowFontScaling={false}>
+            {feature.title}
+          </Text>
+        </View>
+        <View style={[styles.featureCode, { borderColor: feature.accent }]}>
+          <Text style={[styles.featureCodeText, { color: feature.accent }]}>
             {feature.code}
           </Text>
         </View>
-        <View style={[styles.featureIcon, { backgroundColor: feature.tint }]}>
-          <Ionicons name={feature.icon} size={20} color={feature.color} />
-        </View>
-        <View style={styles.featureTitleBlock}>
-          <Text style={styles.featureKicker}>{feature.kicker}</Text>
-          <Text style={styles.featureTitle}>{feature.title}</Text>
-        </View>
       </View>
 
-      <Text style={styles.featureSummary}>{feature.summary}</Text>
+      <Text style={styles.featureTagline}>{feature.tagline}</Text>
 
-      <View style={styles.detailBlock}>
-        <Text style={styles.detailLabel}>What it considers</Text>
-        {feature.inputs.map((input) => (
-          <DetailRow key={input} text={input} toneColor={feature.color} />
-        ))}
+      <View style={styles.readSections}>
+        <ReadSection
+          icon="navigate-outline"
+          label="WHEN TO USE IT"
+          text={feature.whenToUse}
+          accent={feature.accent}
+          tint={feature.tint}
+        />
+        <ReadSection
+          icon="layers-outline"
+          label="HOW IT READS"
+          text={feature.howItReads}
+          accent={feature.accent}
+          tint={feature.tint}
+        />
+        <ReadSection
+          icon="chatbubble-ellipses-outline"
+          label="GUIDE'S NOTE"
+          text={feature.guidesNote}
+          accent={feature.accent}
+          tint={feature.tint}
+        />
       </View>
 
-      <View style={styles.detailBlock}>
-        <Text style={styles.detailLabel}>What it returns</Text>
-        {feature.outputs.map((output) => (
-          <DetailRow key={output} text={output} toneColor={paper.dashboardBlue} />
-        ))}
-      </View>
-
-      {feature.note ? (
-        <View style={styles.noteBox}>
-          <Ionicons name="information-circle-outline" size={15} color={paper.dashboardBlue} />
-          <Text style={styles.noteText}>{feature.note}</Text>
-        </View>
-      ) : null}
+      <Pressable
+        style={({ pressed }) => [
+          styles.openButton,
+          { borderColor: feature.accent },
+          pressed && { backgroundColor: feature.tint, opacity: 0.9 },
+        ]}
+        onPress={onOpen}
+        accessibilityRole="button"
+        accessibilityLabel={feature.action}
+      >
+        <Text style={[styles.openButtonText, { color: feature.accent }]}>
+          {feature.action}
+        </Text>
+        <Ionicons name="arrow-forward" size={15} color={feature.accent} />
+      </Pressable>
     </View>
   );
 }
 
-function DetailRow({ text, toneColor }: { text: string; toneColor: string }) {
+function ReadSection({
+  icon,
+  label,
+  text,
+  accent,
+  tint,
+}: {
+  icon: IconName;
+  label: string;
+  text: string;
+  accent: string;
+  tint: string;
+}) {
   return (
-    <View style={styles.detailRow}>
-      <View style={[styles.detailDot, { backgroundColor: toneColor }]} />
-      <Text style={styles.detailText}>{text}</Text>
+    <View style={[styles.readSection, { backgroundColor: tint }]}>
+      <View style={[styles.readSectionIcon, { borderColor: `${accent}38` }]}>
+        <Ionicons name={icon} size={14} color={accent} />
+      </View>
+      <View style={styles.readSectionCopy}>
+        <Text style={[styles.readSectionLabel, { color: accent }]}>{label}</Text>
+        <Text style={styles.readSectionText}>{text}</Text>
+      </View>
     </View>
   );
 }
@@ -345,359 +377,277 @@ const styles = StyleSheet.create({
     backgroundColor: paper.dashboardCream,
   },
   scrollContent: {
-    width: '100%',
-    maxWidth: 520,
-    alignSelf: 'center',
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.lg,
-    paddingBottom: paperSpacing.xxl,
+    width: "100%",
+    maxWidth: 540,
+    alignSelf: "center",
+    paddingHorizontal: 18,
+    paddingTop: 18,
+    paddingBottom: 56,
+    gap: 16,
   },
   heroCard: {
-    position: 'relative',
-    overflow: 'hidden',
-    backgroundColor: '#E4F1F7',
+    position: "relative",
+    overflow: "hidden",
+    alignItems: "center",
+    paddingHorizontal: 24,
+    paddingTop: 27,
+    paddingBottom: 0,
+    borderWidth: 1,
+    borderColor: "rgba(42,110,150,0.22)",
     borderRadius: paperRadius.card,
-    borderWidth: 1,
-    borderColor: 'rgba(42,110,150,0.18)',
-    padding: paperSpacing.lg,
-    marginBottom: paperSpacing.section,
-    ...paperShadows.lift,
+    backgroundColor: "#EAF3F7",
+    ...paperShadows.hard,
   },
-  heroTopRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    marginBottom: paperSpacing.md,
-  },
-  heroSignalPill: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 7,
-    paddingHorizontal: 10,
-    paddingVertical: 6,
-    borderRadius: 999,
-    backgroundColor: 'rgba(255,255,255,0.64)',
-    borderWidth: 1,
-    borderColor: 'rgba(42,110,150,0.18)',
-  },
-  liveDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    backgroundColor: paper.bandPrime,
-  },
-  heroSignalText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    letterSpacing: 1.8,
-    color: paper.dashboardInk,
-  },
-  heroEdition: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    letterSpacing: 2,
-    color: 'rgba(10,27,46,0.48)',
-  },
-  heroTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 39,
-    lineHeight: 42,
-    color: paper.dashboardInk,
-    letterSpacing: 0,
-    marginBottom: paperSpacing.md,
-  },
-  heroTitleAccent: {
-    color: paper.dashboardBlueLight,
-  },
-  heroBody: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 17,
-    lineHeight: 27,
-    color: 'rgba(10,27,46,0.70)',
-    letterSpacing: 0,
-    marginBottom: paperSpacing.lg,
-  },
-  heroFooter: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 8,
-  },
-  signalMini: {
-    flexDirection: 'row',
-    alignItems: 'center',
+  heroPill: {
+    flexDirection: "row",
+    alignItems: "center",
     gap: 6,
     paddingHorizontal: 10,
-    paddingVertical: 7,
-    borderRadius: 999,
-    backgroundColor: 'rgba(255,255,255,0.62)',
+    paddingVertical: 6,
     borderWidth: 1,
-    borderColor: 'rgba(42,110,150,0.18)',
+    borderColor: "rgba(192,57,43,0.22)",
+    borderRadius: 999,
+    backgroundColor: "rgba(255,255,255,0.76)",
   },
-  signalMiniText: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
+  heroPillText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.4,
+    color: paper.redDk,
+  },
+  heroTitle: {
+    marginTop: 17,
+    fontFamily: paperFonts.display,
+    fontSize: 33,
+    lineHeight: 36,
+    textAlign: "center",
     color: paper.dashboardInk,
   },
-  sectionHeader: {
-    marginBottom: paperSpacing.md,
+  heroTitleAccent: {
+    color: paper.red,
   },
-  sectionEyebrow: {
+  heroBody: {
+    maxWidth: 390,
+    marginTop: 11,
+    marginBottom: 22,
+    fontFamily: paperFonts.body,
+    fontSize: 14,
+    lineHeight: 21,
+    textAlign: "center",
+    color: paper.dashboardMuted,
+  },
+  questionStrip: {
+    width: "100%",
+    minHeight: 55,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    borderTopWidth: 1,
+    borderTopColor: "rgba(42,110,150,0.18)",
+  },
+  questionCue: {
+    flex: 1,
+    minWidth: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 4,
+  },
+  questionCueText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    letterSpacing: 2.3,
-    color: paper.dashboardBlue,
-    marginBottom: 8,
+    fontSize: 7.5,
+    letterSpacing: 0.8,
+    color: paper.dashboardInk,
   },
-  sectionTitle: {
+  questionRule: {
+    width: 1,
+    height: 24,
+    backgroundColor: "rgba(42,110,150,0.18)",
+  },
+  guideIntro: {
+    paddingHorizontal: 4,
+    paddingTop: 6,
+  },
+  guideTitle: {
+    marginTop: 7,
     fontFamily: paperFonts.display,
     fontSize: 27,
     lineHeight: 31,
     color: paper.dashboardInk,
-    letterSpacing: 0,
   },
-  sectionIntro: {
+  guideSubtitle: {
+    maxWidth: 430,
+    marginTop: 7,
     fontFamily: paperFonts.body,
-    fontSize: 15,
-    lineHeight: 22,
-    color: 'rgba(10,27,46,0.72)',
-    marginTop: 9,
-  },
-  signalGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    gap: 10,
-    marginBottom: paperSpacing.lg,
-  },
-  signalCard: {
-    width: '48.5%',
-    minHeight: 118,
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 9,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    padding: 13,
-  },
-  signalIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    backgroundColor: 'rgba(42,110,150,0.10)',
-    borderWidth: 1,
-    borderColor: 'rgba(42,110,150,0.18)',
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginBottom: 10,
-  },
-  signalLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10.5,
-    letterSpacing: 1.8,
-    color: paper.dashboardInk,
-    marginBottom: 5,
-  },
-  signalDetail: {
-    fontFamily: paperFonts.body,
-    fontSize: 13,
-    lineHeight: 18,
-    color: 'rgba(10,27,46,0.68)',
-  },
-  flowCard: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FAFAF7',
-    borderRadius: 9,
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    padding: 12,
-    marginBottom: paperSpacing.section,
-  },
-  flowNode: {
-    flex: 1,
-    alignItems: 'center',
-  },
-  flowNodeLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    letterSpacing: 1.4,
-    color: paper.dashboardBlue,
-    marginBottom: 3,
-  },
-  flowNodeTitle: {
-    fontFamily: paperFonts.bodyBold,
-    fontSize: 13,
-    color: paper.dashboardInk,
-  },
-  flowLine: {
-    width: 22,
-    height: 1,
-    backgroundColor: 'rgba(10,27,46,0.18)',
+    fontSize: 13.5,
+    lineHeight: 20,
+    color: paper.dashboardMuted,
   },
   featureCard: {
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: paperRadius.card,
+    position: "relative",
+    overflow: "hidden",
+    paddingHorizontal: 17,
+    paddingTop: 18,
+    paddingBottom: 16,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    padding: paperSpacing.lg,
-    marginBottom: paperSpacing.lg,
+    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardWhite,
     ...paperShadows.hard,
   },
-  featureTop: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: paperSpacing.md,
+  featureCardSupporting: {
+    backgroundColor: "#FBFCFC",
+    shadowOpacity: 0.05,
+    elevation: 1,
+  },
+  featureRail: {
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    left: 0,
+    width: 4,
+  },
+  featureTopRow: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 12,
+    paddingHorizontal: 3,
+  },
+  featureHeading: {
+    flex: 1,
+    minWidth: 0,
+  },
+  featureTag: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    lineHeight: 12,
+    letterSpacing: 1.4,
+  },
+  featureTitle: {
+    marginTop: 3,
+    fontFamily: paperFonts.display,
+    fontSize: 25,
+    lineHeight: 29,
+    color: paper.dashboardInk,
   },
   featureCode: {
-    width: 34,
-    height: 34,
-    borderRadius: 17,
-    borderWidth: 1.5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 10,
+    width: 31,
+    height: 31,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 16,
+    backgroundColor: "rgba(255,255,255,0.76)",
   },
   featureCodeText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    letterSpacing: 1,
+    fontSize: 8.5,
+    letterSpacing: 0.7,
   },
-  featureIcon: {
-    width: 40,
-    height: 40,
-    borderRadius: 20,
-    alignItems: 'center',
-    justifyContent: 'center',
-    marginRight: 12,
-  },
-  featureTitleBlock: {
-    flex: 1,
-  },
-  featureKicker: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    letterSpacing: 1.8,
-    color: paper.dashboardBlue,
-    marginBottom: 2,
-    textTransform: 'uppercase',
-  },
-  featureTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 23,
-    color: paper.dashboardInk,
-    letterSpacing: 0,
-  },
-  featureSummary: {
+  featureTagline: {
+    marginTop: 14,
+    paddingHorizontal: 3,
     fontFamily: paperFonts.displayItalic,
-    fontSize: 16,
-    lineHeight: 24,
-    color: 'rgba(10,27,46,0.72)',
-    marginBottom: paperSpacing.lg,
-  },
-  detailBlock: {
-    marginBottom: paperSpacing.md,
-  },
-  detailLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9.5,
-    letterSpacing: 2,
+    fontSize: 17,
+    lineHeight: 22,
     color: paper.dashboardInk,
-    marginBottom: 9,
-    textTransform: 'uppercase',
   },
-  detailRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 9,
-    marginBottom: 8,
-  },
-  detailDot: {
-    width: 6,
-    height: 6,
-    borderRadius: 3,
-    marginTop: 7,
-  },
-  detailText: {
-    flex: 1,
-    fontFamily: paperFonts.body,
-    fontSize: 14,
-    lineHeight: 20,
-    color: 'rgba(10,27,46,0.76)',
-  },
-  noteBox: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
+  readSections: {
     gap: 8,
-    padding: 12,
+    marginTop: 14,
+  },
+  readSection: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 10,
+    paddingHorizontal: 11,
+    paddingVertical: 10,
     borderRadius: 8,
-    backgroundColor: 'rgba(42,110,150,0.08)',
+  },
+  readSectionIcon: {
+    width: 28,
+    height: 28,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
     borderWidth: 1,
-    borderColor: 'rgba(42,110,150,0.16)',
+    borderRadius: 14,
+    backgroundColor: "rgba(255,255,255,0.72)",
   },
-  noteText: {
+  readSectionCopy: {
     flex: 1,
-    fontFamily: paperFonts.bodyMedium,
-    fontSize: 13,
-    lineHeight: 19,
-    color: 'rgba(10,27,46,0.72)',
+    minWidth: 0,
   },
-  guardrailCard: {
-    backgroundColor: paper.dashboardInk,
-    borderRadius: paperRadius.card,
-    padding: paperSpacing.lg,
-    marginTop: paperSpacing.sm,
-    marginBottom: paperSpacing.lg,
-    overflow: 'hidden',
-  },
-  guardrailTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: paperSpacing.md,
-  },
-  guardrailIcon: {
-    width: 38,
-    height: 38,
-    borderRadius: 19,
-    alignItems: 'center',
-    justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.10)',
-    borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.16)',
-    marginRight: 12,
-  },
-  guardrailTitleText: {
-    flex: 1,
-  },
-  guardrailEyebrow: {
+  readSectionLabel: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    letterSpacing: 1.8,
-    color: paper.dashboardBlueLight,
-    marginBottom: 3,
+    fontSize: 8,
+    lineHeight: 11,
+    letterSpacing: 1.3,
   },
-  guardrailTitle: {
-    fontFamily: paperFonts.display,
-    fontSize: 22,
-    color: '#FFFFFF',
-    letterSpacing: 0,
-  },
-  guardrailRow: {
-    flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 9,
-    marginTop: 9,
-  },
-  guardrailText: {
-    flex: 1,
+  readSectionText: {
+    marginTop: 4,
     fontFamily: paperFonts.body,
-    fontSize: 14,
-    lineHeight: 20,
-    color: 'rgba(255,255,255,0.78)',
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: paper.dashboardInk,
+  },
+  openButton: {
+    minHeight: 43,
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    gap: 8,
+    marginTop: 12,
+    borderWidth: 1,
+    borderRadius: 8,
+    backgroundColor: "rgba(255,255,255,0.84)",
+  },
+  openButtonText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.2,
+  },
+  truthCard: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 12,
+    padding: paperSpacing.md,
+    borderRadius: paperRadius.card,
+    backgroundColor: paper.dashboardInk,
+  },
+  truthIcon: {
+    width: 34,
+    height: 34,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.16)",
+    borderRadius: 17,
+    backgroundColor: "rgba(255,255,255,0.08)",
+  },
+  truthCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  truthLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.5,
+    color: paper.dashboardBlueLight,
+  },
+  truthText: {
+    marginTop: 4,
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: "rgba(255,255,255,0.8)",
   },
   footerStamp: {
-    textAlign: 'center',
+    marginTop: 4,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 9,
-    letterSpacing: 2.4,
-    color: 'rgba(10,27,46,0.34)',
-    marginTop: paperSpacing.md,
+    fontSize: 8.5,
+    letterSpacing: 2,
+    textAlign: "center",
+    color: "rgba(10,27,46,0.34)",
   },
 });

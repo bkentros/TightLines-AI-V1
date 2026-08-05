@@ -51,6 +51,7 @@
     "smoke:river-run:production": "deno run --allow-env --allow-net scripts/river-run-production-smoke.ts",
     "qa:water-reader-typecheck": "tsc --noEmit",
     "qa:responsive-auth-layout": "tsx scripts/qa-responsive-auth-layout.ts",
+    "qa:feature-guide": "tsx scripts/feature-guide-qa.ts",
     "qa:water-reader-detector": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-detector-qa.ts",
     "qa:water-reader-engine-foundation": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-engine-foundation-smoke.ts",
     "qa:water-reader-engine-features": "node --env-file=.env ./node_modules/tsx/dist/cli.mjs scripts/water-reader-engine-feature-smoke.ts",

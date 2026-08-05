@@ -1722,7 +1722,7 @@ export default function HomeScreen() {
               ]}
               onPress={handleHowItWorksPress}
               accessibilityRole="button"
-              accessibilityLabel="Open How FinFindr Reads A Day"
+              accessibilityLabel="Open FinFindr Feature Guide"
             >
               <View style={styles.howWorksLeft}>
                 <View style={styles.howWorksIconTile}>
@@ -1733,9 +1733,9 @@ export default function HomeScreen() {
                   />
                 </View>
                 <View style={styles.howWorksTextCol}>
-                  <Text style={styles.howWorksEyebrow}>TRANSPARENCY</Text>
+                  <Text style={styles.howWorksEyebrow}>FIELD GUIDE</Text>
                   <Text style={styles.howWorksTitle}>
-                    How FinFindr reads a day
+                    Choose the right read
                   </Text>
                 </View>
               </View>
