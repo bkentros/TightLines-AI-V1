@@ -90,9 +90,10 @@ Deno.test("Run Stage uses distinct early and established Building guidance", () 
   assertEquals(early.stage, "building");
   assertEquals(established.stage, "building");
   assert(early.detail.includes("beginning to spread upstream"));
-  assert(established.detail.includes("travel well upstream"));
-  assert(established.tip.includes("middle-river holding water"));
-  assert(established.tip.includes("work upstream"));
+  assert(established.detail.includes("lower- and middle-river holding water"));
+  assert(established.detail.includes("upper river should remain a secondary"));
+  assert(established.tip.includes("lower- or middle-river holding water"));
+  assert(established.tip.includes("Move into upper sections"));
 });
 
 Deno.test("staging guidance allows rare early river fish without claiming a run", () => {
@@ -131,6 +132,7 @@ Deno.test("cross-year run window selects active year around snapshot date", () =
       start: "12-15",
       beginningEnd: "12-20",
       buildingEstablishedStart: "12-27",
+      buildingBroadStart: undefined,
       peakStart: "01-05",
       peak: "01-10",
       peakEnd: "01-15",

@@ -28,7 +28,7 @@ Deno.test("every primitive uses the single canonical copy template", () => {
     }),
   ];
 
-  assertEquals(RIVER_RUN_COPY_VERSION, "river-run-copy-v19");
+  assertEquals(RIVER_RUN_COPY_VERSION, "river-run-copy-v20");
   for (const display of displays) {
     assertEquals(display.copyVersion, RIVER_RUN_COPY_VERSION);
     assertEquals("copyVariant" in display, false);

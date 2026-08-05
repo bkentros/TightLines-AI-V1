@@ -5,6 +5,8 @@ import {
   PERE_MARQUETTE_RIVER_PROFILE,
   type PrimitiveDisplay,
   RIVER_RUN_REASON_CODES,
+  resolveRunStage,
+  scoreFishInRiver,
   type RiverProfile,
   type RiverRunProfile,
   validateRiverProfile,
@@ -211,6 +213,59 @@ Deno.test("PM Fall Chinook run is structurally valid", () => {
     result.issues.some((issue) => issue.code === "audit_gate_disabled"),
     false,
   );
+});
+
+Deno.test("PM Fall Chinook location guidance broadens without changing presence", () => {
+  const earlyEstablished = resolveRunStage(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-09-01",
+  );
+  assertEquals(earlyEstablished.stage, "building");
+  assertEquals(earlyEstablished.broadBuildingContext, false);
+  assert(/lower and middle river first/i.test(earlyEstablished.whereToStart ?? ""));
+  assert(/upper holding water/i.test(earlyEstablished.detail));
+  assert(/secondary starting choice/i.test(earlyEstablished.detail));
+
+  for (const localDate of ["2026-09-10", "2026-09-19"]) {
+    const broadlyEstablished = resolveRunStage(
+      PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+      localDate,
+    );
+    assertEquals(broadlyEstablished.stage, "building");
+    assertEquals(broadlyEstablished.broadBuildingContext, true);
+    assert(/lower and middle river remain the first choices/i.test(
+      broadlyEstablished.whereToStart ?? "",
+    ));
+    assert(/lower, middle, and upper sections are all in play/i.test(
+      broadlyEstablished.detail,
+    ));
+    assert(/upper water can now hold meaningful numbers/i.test(
+      broadlyEstablished.detail,
+    ));
+  }
+
+  const peak = resolveRunStage(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-09-20",
+  );
+  assertEquals(peak.stage, "peak");
+  assertEquals(peak.broadBuildingContext, false);
+
+  const expectedPresence = new Map([
+    ["2026-09-01", 44],
+    ["2026-09-09", 66],
+    ["2026-09-10", 69],
+    ["2026-09-19", 97],
+    ["2026-09-20", 100],
+  ]);
+  for (const [localDate, expectedScore] of expectedPresence) {
+    assertEquals(
+      scoreFishInRiver(PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE, localDate)
+        .score,
+      expectedScore,
+      `Fish In River changed at ${localDate}`,
+    );
+  }
 });
 
 Deno.test("river without measured water-temperature sources is unsupported", () => {

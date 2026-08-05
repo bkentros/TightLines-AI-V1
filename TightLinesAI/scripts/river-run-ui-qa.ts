@@ -162,6 +162,7 @@ assert.deepEqual(
 assert.equal(formatRiverRunSpecies("chinook_salmon"), "Chinook Salmon");
 assert.equal(formatRiverRunSpecies("coho_salmon"), "Coho Salmon");
 assert.equal(formatRiverRunSpecies("steelhead"), "Steelhead");
+assert.equal(formatRiverRunSpecies("atlantic_salmon"), "Atlantic Salmon");
 
 const target = resolveRiverRunTarget(catalog, {
   stateCode: "MI",
@@ -372,7 +373,14 @@ assert.equal(
   "Why This Read bullet rows must not restore the native flex text-row bug",
 );
 
-for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
+for (
+  const species of [
+    "chinook_salmon",
+    "coho_salmon",
+    "steelhead",
+    "atlantic_salmon",
+  ] as const
+) {
   const imagePath = `${projectRoot}assets/images/fish/${species}.png`;
   assert(existsSync(imagePath), `Missing River Run ${species} image`);
   const png = readFileSync(imagePath);
@@ -389,6 +397,52 @@ const speciesImageRegistry = readFileSync(
 );
 assert.match(speciesImageRegistry, /coho_salmon\.png/);
 assert.match(speciesImageRegistry, /steelhead\.png/);
+assert.match(speciesImageRegistry, /atlantic_salmon\.png/);
+for (const size of ["small", "medium", "large"] as const) {
+  const imagePath = `${projectRoot}assets/images/river-run/river_${size}.png`;
+  assert(existsSync(imagePath), `Missing ${size} river selector image`);
+  const png = readFileSync(imagePath);
+  assert.equal(png.subarray(1, 4).toString("ascii"), "PNG");
+  assert.equal(png[25], 6, `${size} river image must retain transparency`);
+}
+const riverChoiceImageRegistry = readFileSync(
+  `${projectRoot}lib/riverRunChoiceImages.ts`,
+  "utf8",
+);
+for (const riverId of ["pere_marquette", "betsie", "white"]) {
+  assert.match(
+    riverChoiceImageRegistry,
+    new RegExp(`${riverId}: "medium"`),
+  );
+}
+for (const riverId of ["big_manistee", "muskegon", "grand", "platte", "au_sable"]) {
+  assert.match(
+    riverChoiceImageRegistry,
+    new RegExp(`${riverId}: "large"`),
+  );
+}
+assert.match(
+  riverRunScreen,
+  /function StateChoiceIcon[\s\S]*?<TopographicLines[\s\S]*?\{stateCode\}/,
+  "State choices must render readable monograms over contour lines",
+);
+for (const icon of ["leaf", "snow", "flower", "sunny"]) {
+  assert.match(
+    riverRunScreen,
+    new RegExp(`icon: "${icon}"`),
+    `Missing ${icon} season icon`,
+  );
+}
+assert.match(
+  riverRunScreen,
+  /const riverImage = step === 4 \? getRiverRunRiverImage\(choice\.id\) : null/,
+  "River choices must resolve their size-specific illustrations",
+);
+assert.doesNotMatch(
+  riverRunScreen.match(/style=\{\[styles\.choiceTitle[\s\S]*?<\/Text>/)?.[0] ?? "",
+  /adjustsFontSizeToFit/,
+  "Choice titles must not auto-shrink the enabled Michigan row",
+);
 assert.match(
   riverRunScreen,
   /selectedSpecies === "coho_salmon"[\s\S]*?RIVER_RUN_COHO_REVIEW_GROUPS[\s\S]*?selectedSpecies === "steelhead"[\s\S]*?RIVER_RUN_STEELHEAD_REVIEW_GROUPS[\s\S]*?: RIVER_RUN_REVIEW_GROUPS/,
@@ -406,5 +460,5 @@ assert.match(
 );
 
 console.log(
-  "River Run UI QA passed: simplified data status, catalog filtering, species-correct review routing, and Chinook/Coho/Steelhead alpha assets.",
+  "River Run UI QA passed: compact catalog filtering, state/season icons, river-size artwork, and four transparent salmonid assets.",
 );

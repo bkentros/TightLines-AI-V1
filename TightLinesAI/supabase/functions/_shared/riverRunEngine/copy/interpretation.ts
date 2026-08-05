@@ -76,8 +76,8 @@ export function resolveInterpretationNote(
     input.conditionsSuggestLabel === "Delayed"
   ) {
     findings.push(finding(
-      "Steelhead are usually broadly established by now, but this season still appears delayed.",
-      "The November calendar makes middle- and upper-river holding water legitimate, while slower river rises and cooling reduce confidence that fish are distributed as broadly as usual. Start in dependable lower- or middle-river holding water and expand upstream only after direct fish activity supports it.",
+      "Fish are usually more broadly established by now, but this season still appears delayed.",
+      "The calendar makes lower, middle, and upper sections legitimate, while slower river rises and cooling reduce confidence that fish are distributed as broadly as usual. Start in dependable lower- or middle-river holding water and expand upstream only after direct fish activity supports it.",
       "broad_building_delayed_conditions",
     ));
   }

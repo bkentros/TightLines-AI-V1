@@ -26,6 +26,7 @@ const BASE_SNAPSHOT = {
       "startDate": "2026-08-15",
       "beginningEndDate": "2026-08-23",
       "buildingEstablishedStartDate": "2026-09-01",
+      "buildingBroadStartDate": "2026-09-10",
       "peakStartDate": "2026-09-15",
       "peakDate": "2026-09-20",
       "peakEndDate": "2026-09-30",
@@ -37,14 +38,14 @@ const BASE_SNAPSHOT = {
       "peakToEndDays": 37
     },
     "label": "Building",
-    "headline": "Chinook salmon are spreading across much more of the river.",
-    "detail": "Earlier waves have had time to travel well upstream while later Chinook salmon may continue to enter. Fish can now be spread from lower travel lanes into upper holding water wherever passage is open.",
-    "tip": "Begin in established middle-river holding water, then work upstream through deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-    "whereToStart": "Middle and upper holding water, with lower travel lanes for newer arrivals.",
+    "headline": "Chinook salmon are becoming established through more of the river.",
+    "detail": "More Chinook salmon are settling into lower- and middle-river holding water, which should still contain the most dependable concentrations. Some earlier fish may already have reached upper holding water wherever passage is open, but the upper river should remain a secondary starting choice at this stage.",
+    "tip": "Begin in dependable lower- or middle-river holding water and cover its deep holes, outside bends, and current breaks. Move into upper sections after those primary areas have been checked or direct fish activity supports the move.",
+    "whereToStart": "Lower and middle river first; some earlier fish may already have reached upper holding water.",
     "reasonCodes": [
       "stage_building"
     ],
-    "copyVersion": "river-run-copy-v19"
+    "copyVersion": "river-run-copy-v20"
   },
   "conditionsSuggest": {
     "label": "Ahead",
@@ -150,7 +151,7 @@ const BASE_SNAPSHOT = {
       "conditions_checkpoint_building_established",
       "conditions_ahead"
     ],
-    "copyVersion": "river-run-copy-v19",
+    "copyVersion": "river-run-copy-v20",
     "previousCheckpointId": "building_start",
     "previousCheckpointDate": "2026-08-24",
     "previousTimingLabel": "Typical"
@@ -179,7 +180,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-fall-chinook-push-v5",
-    "copyVersion": "river-run-copy-v19"
+    "copyVersion": "river-run-copy-v20"
   },
   "pushHistory": {
     "status": "none_recorded",
@@ -255,7 +256,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-scottville-fishability-v2",
-    "copyVersion": "river-run-copy-v19"
+    "copyVersion": "river-run-copy-v20"
   },
   "fishInRiver": {
     "score": 44,
@@ -274,7 +275,7 @@ const BASE_SNAPSHOT = {
       "stage_building",
       "historical_presence_curve"
     ],
-    "copyVersion": "river-run-copy-v19"
+    "copyVersion": "river-run-copy-v20"
   },
   "gauge": {
     "provider": "USGS",
@@ -337,7 +338,7 @@ const BASE_SNAPSHOT = {
     "activityDisclaimer": "River Run is not a wading, boating, floating, or personal-safety rating."
   },
   "engineVersion": "river-run-v1.5.3-review",
-  "configVersion": "2026-08-05.4-review"
+  "configVersion": "2026-08-05.5-review"
 } as unknown as RiverRunSnapshotResponse;
 
 const GROUP_SEEDS = [
@@ -367,6 +368,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -386,7 +388,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -410,7 +412,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "push": {
             "score": null,
@@ -422,7 +424,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "complete",
@@ -499,7 +501,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -565,6 +567,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -583,7 +586,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -608,7 +611,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "push": {
             "score": null,
@@ -620,7 +623,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "not_started",
@@ -648,7 +651,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -714,6 +717,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -733,7 +737,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -758,7 +762,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "push": {
             "score": null,
@@ -770,7 +774,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "not_started",
@@ -798,7 +802,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -864,6 +868,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -882,7 +887,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -954,7 +959,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -982,7 +987,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -1048,6 +1053,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -1066,7 +1072,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -1156,7 +1162,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-08-15",
             "previousTimingLabel": "Typical"
@@ -1236,7 +1242,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -1287,6 +1293,161 @@ const GROUP_SEEDS = [
         "snapshotOverride": {}
       },
       {
+        "id": "stage_building_broad",
+        "label": "Building — broadly established",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "localDate": "2026-09-10",
+          "progressionSnapshotAt": "2026-09-10T12:00:00.000Z",
+          "conditionRefreshAt": "2026-09-10T20:00:00.000Z",
+          "progressionExpiresAt": "2026-09-10T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-09-10T22:00:00.000Z",
+          "runStage": {
+            "stage": "building",
+            "stagingContext": false,
+            "broadBuildingContext": true,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-09-10",
+              "preRunStartDate": "2026-07-01",
+              "stagingStartDate": "2026-07-28",
+              "startDate": "2026-08-15",
+              "beginningEndDate": "2026-08-23",
+              "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
+              "peakStartDate": "2026-09-15",
+              "peakDate": "2026-09-20",
+              "peakEndDate": "2026-09-30",
+              "taperingEndDate": "2026-10-18",
+              "endDate": "2026-10-27",
+              "lateEndDate": "2026-11-08",
+              "postRunLateCopyEndDate": "2026-11-10",
+              "startToPeakDays": 36,
+              "peakToEndDays": 37
+            },
+            "label": "Building",
+            "headline": "Chinook salmon can now be found throughout the accessible river.",
+            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
+            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
+            "whereToStart": "Lower and middle river remain the first choices; upper holding water is also firmly in play wherever passage is open.",
+            "reasonCodes": [
+              "stage_building"
+            ],
+            "copyVersion": "river-run-copy-v20"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-08-15",
+            "trackingEndDate": "2026-10-27",
+            "throughDate": "2026-09-10",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": [
+              {
+                "localDate": "2026-09-09",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-08",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-07",
+                "status": "supportive_window",
+                "refreshSlot": "08:00",
+                "conditionRefreshAt": "2026-09-07T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-06",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              },
+              {
+                "localDate": "2026-09-05",
+                "status": "supportive_window",
+                "refreshSlot": "20:00",
+                "conditionRefreshAt": "2026-09-05T23:59:00.000Z",
+                "score": 81,
+                "label": "Strong"
+              },
+              {
+                "localDate": "2026-09-04",
+                "status": "supportive_window",
+                "refreshSlot": "16:00",
+                "conditionRefreshAt": "2026-09-04T23:59:00.000Z",
+                "score": 63,
+                "label": "Possible"
+              },
+              {
+                "localDate": "2026-09-03",
+                "status": "no_supportive_window",
+                "score": null,
+                "label": "No supportive window"
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 69,
+            "stage": "building",
+            "maximum": 100,
+            "riverCeiling": 100,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.6875,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "High presence",
+            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
+            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "reasonCodes": [
+              "stage_building",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v20"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04122500",
+            "primaryMetric": "flow_cfs",
+            "observedAt": "2026-09-10T19:45:00.000Z",
+            "value": 600,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "waterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_maple_leaf",
+            "siteId": "PMTU-MapleLeaf",
+            "seriesId": "4939",
+            "observedAt": "2026-09-10T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "conditionsWaterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_m37",
+            "siteId": "PMTU-M37",
+            "seriesId": "3201",
+            "observedAt": "2026-09-10T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          }
+        }
+      },
+      {
         "id": "stage_peak",
         "label": "Peak",
         "note": "Canonical production copy",
@@ -1308,6 +1469,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -1326,7 +1488,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -1460,7 +1622,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -1540,7 +1702,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -1606,6 +1768,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -1624,7 +1787,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -1780,7 +1943,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -1860,7 +2023,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -1919,6 +2082,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -1937,7 +2101,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2093,7 +2257,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -2173,7 +2337,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -2232,6 +2396,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -2250,7 +2415,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2406,7 +2571,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -2421,7 +2586,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "complete",
@@ -2498,7 +2663,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -2571,6 +2736,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -2589,7 +2755,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -2614,7 +2780,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "push": {
             "score": null,
@@ -2626,7 +2792,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2654,7 +2820,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -2720,6 +2886,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -2739,7 +2906,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -2764,7 +2931,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "push": {
             "score": null,
@@ -2776,7 +2943,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2804,7 +2971,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -2870,6 +3037,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -2888,7 +3056,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -2960,7 +3128,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -2988,7 +3156,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -3055,6 +3223,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -3073,7 +3242,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3145,7 +3314,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3173,7 +3342,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -3239,6 +3408,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -3257,7 +3427,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3329,7 +3499,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3357,7 +3527,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -3423,6 +3593,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -3441,7 +3612,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3514,7 +3685,7 @@ const GROUP_SEEDS = [
               "conditions_typical",
               "conditions_signals_mixed"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3542,7 +3713,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -3608,6 +3779,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -3626,7 +3798,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3716,7 +3888,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-08-15",
             "previousTimingLabel": "Typical"
@@ -3796,7 +3968,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -3862,6 +4034,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -3880,7 +4053,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4036,7 +4209,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -4116,7 +4289,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -4182,6 +4355,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -4200,7 +4374,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4356,7 +4530,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -4371,7 +4545,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "complete",
@@ -4448,7 +4622,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -4515,6 +4689,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -4533,7 +4708,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4685,7 +4860,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Insufficient evidence"
@@ -4765,7 +4940,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -4831,6 +5006,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -4849,7 +5025,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -4917,7 +5093,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -4945,7 +5121,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -5011,6 +5187,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -5029,7 +5206,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5102,7 +5279,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5130,7 +5307,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -5196,6 +5373,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -5214,7 +5392,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5287,7 +5465,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5315,7 +5493,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -5381,6 +5559,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -5399,7 +5578,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5472,7 +5651,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5500,7 +5679,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -5566,6 +5745,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -5584,7 +5764,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5657,7 +5837,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5685,7 +5865,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -5751,6 +5931,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -5769,7 +5950,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5842,7 +6023,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5870,7 +6051,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -5936,6 +6117,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -5954,7 +6136,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6027,7 +6209,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6055,7 +6237,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -6121,6 +6303,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -6139,7 +6322,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -6198,7 +6381,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -6226,7 +6409,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -6306,7 +6489,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -6344,7 +6527,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6441,7 +6624,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6538,7 +6721,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6636,7 +6819,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6733,7 +6916,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6830,7 +7013,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -6863,7 +7046,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -6895,7 +7078,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6993,7 +7176,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7093,7 +7276,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -7125,7 +7308,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7222,7 +7405,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7321,7 +7504,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -7356,7 +7539,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7456,7 +7639,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -7475,7 +7658,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -7495,7 +7678,7 @@ const GROUP_SEEDS = [
               "temperature_unavailable"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -7514,7 +7697,7 @@ const GROUP_SEEDS = [
               "gauge_fresh"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -7540,6 +7723,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -7559,7 +7743,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -7584,7 +7768,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "push": {
             "score": null,
@@ -7596,7 +7780,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "not_started",
@@ -7624,7 +7808,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -7690,6 +7874,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -7709,7 +7894,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7733,7 +7918,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "push": {
             "score": null,
@@ -7745,7 +7930,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "complete",
@@ -7822,7 +8007,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -7888,6 +8073,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -7906,7 +8092,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -7978,7 +8164,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8006,7 +8192,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -8072,6 +8258,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -8090,7 +8277,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -8246,7 +8433,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -8261,7 +8448,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "complete",
@@ -8338,7 +8525,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -8411,7 +8598,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8436,7 +8623,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8461,7 +8648,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8492,7 +8679,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8517,7 +8704,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8543,7 +8730,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8568,7 +8755,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8593,7 +8780,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8618,7 +8805,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8646,7 +8833,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8674,7 +8861,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8702,7 +8889,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8721,7 +8908,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -8741,7 +8928,7 @@ const GROUP_SEEDS = [
               "baseline_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       }
@@ -8773,6 +8960,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -8792,7 +8980,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8817,7 +9005,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "push": {
             "score": null,
@@ -8829,7 +9017,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "not_started",
@@ -8857,7 +9045,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -8923,6 +9111,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -8941,7 +9130,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8966,7 +9155,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "push": {
             "score": null,
@@ -8978,7 +9167,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "not_started",
@@ -9006,7 +9195,7 @@ const GROUP_SEEDS = [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -9072,6 +9261,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -9090,7 +9280,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9162,7 +9352,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9190,7 +9380,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -9256,6 +9446,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -9274,7 +9465,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9346,7 +9537,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9409,7 +9600,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -9475,6 +9666,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -9493,7 +9685,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9583,7 +9775,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-08-15",
             "previousTimingLabel": "Typical"
@@ -9663,7 +9855,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -9722,6 +9914,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -9733,14 +9926,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are spreading across much more of the river.",
-            "detail": "Earlier waves have had time to travel well upstream while later Chinook salmon may continue to enter. Fish can now be spread from lower travel lanes into upper holding water wherever passage is open.",
-            "tip": "Begin in established middle-river holding water, then work upstream through deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-            "whereToStart": "Middle and upper holding water, with lower travel lanes for newer arrivals.",
+            "headline": "Chinook salmon are becoming established through more of the river.",
+            "detail": "More Chinook salmon are settling into lower- and middle-river holding water, which should still contain the most dependable concentrations. Some earlier fish may already have reached upper holding water wherever passage is open, but the upper river should remain a secondary starting choice at this stage.",
+            "tip": "Begin in dependable lower- or middle-river holding water and cover its deep holes, outside bends, and current breaks. Move into upper sections after those primary areas have been checked or direct fish activity supports the move.",
+            "whereToStart": "Lower and middle river first; some earlier fish may already have reached upper holding water.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9817,7 +10010,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -9867,7 +10060,7 @@ const GROUP_SEEDS = [
           "runStage": {
             "stage": "building",
             "stagingContext": false,
-            "broadBuildingContext": false,
+            "broadBuildingContext": true,
             "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-09-14",
@@ -9876,6 +10069,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -9887,14 +10081,14 @@ const GROUP_SEEDS = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are spreading across much more of the river.",
-            "detail": "Earlier waves have had time to travel well upstream while later Chinook salmon may continue to enter. Fish can now be spread from lower travel lanes into upper holding water wherever passage is open.",
-            "tip": "Begin in established middle-river holding water, then work upstream through deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-            "whereToStart": "Middle and upper holding water, with lower travel lanes for newer arrivals.",
+            "headline": "Chinook salmon can now be found throughout the accessible river.",
+            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
+            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
+            "whereToStart": "Lower and middle river remain the first choices; upper holding water is also firmly in play wherever passage is open.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9971,7 +10165,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -10019,9 +10213,9 @@ const GROUP_SEEDS = [
           "progressionExpiresAt": "2026-09-17T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-09-17T22:00:00.000Z",
           "runStage": {
-            "stage": "peak",
+            "stage": "building",
             "stagingContext": false,
-            "broadBuildingContext": false,
+            "broadBuildingContext": true,
             "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-09-17",
@@ -10030,6 +10224,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -10040,15 +10235,15 @@ const GROUP_SEEDS = [
               "startToPeakDays": 36,
               "peakToEndDays": 37
             },
-            "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Throughout the accessible river, from lower travel water into upstream holding areas.",
+            "label": "Building",
+            "headline": "Chinook salmon can now be found throughout the accessible river.",
+            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
+            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
+            "whereToStart": "Lower and middle river remain the first choices; upper holding water is also firmly in play wherever passage is open.",
             "reasonCodes": [
-              "stage_peak"
+              "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10182,7 +10377,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -10247,7 +10442,7 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 91,
-            "stage": "peak",
+            "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
             "historicalRunStrength": "strong",
@@ -10259,10 +10454,10 @@ const GROUP_SEEDS = [
             "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
             "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
             "reasonCodes": [
-              "stage_peak",
+              "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -10296,13 +10491,6 @@ const GROUP_SEEDS = [
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
-            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
-            "reasonCodes": [
-              "peak_presence_weak_push"
-            ]
           }
         }
       },
@@ -10328,6 +10516,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -10346,7 +10535,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10480,7 +10669,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -10560,7 +10749,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -10626,6 +10815,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -10644,7 +10834,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10778,7 +10968,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -10858,7 +11048,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -10924,6 +11114,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -10942,7 +11133,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11098,7 +11289,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -11178,7 +11369,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -11237,6 +11428,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -11255,7 +11447,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11411,7 +11603,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -11491,7 +11683,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -11550,6 +11742,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -11568,7 +11761,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11724,7 +11917,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -11804,7 +11997,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -11863,6 +12056,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -11881,7 +12075,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -12037,7 +12231,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -12117,7 +12311,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -12176,6 +12370,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -12194,7 +12389,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -12350,7 +12545,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -12365,7 +12560,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "complete",
@@ -12442,7 +12637,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -12509,6 +12704,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -12527,7 +12723,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -12683,7 +12879,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -12698,7 +12894,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "complete",
@@ -12775,7 +12971,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -12841,6 +13037,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -12859,7 +13056,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -12993,7 +13190,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -13073,7 +13270,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -13141,6 +13338,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -13159,7 +13357,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "fishInRiver": {
             "score": 27,
@@ -13178,7 +13376,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -13205,6 +13403,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -13223,7 +13422,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13357,7 +13556,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -13437,7 +13636,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -13504,6 +13703,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -13522,7 +13722,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -13678,7 +13878,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -13758,7 +13958,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -13818,6 +14018,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -13836,7 +14037,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -13992,7 +14193,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -14072,7 +14273,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -14123,7 +14324,7 @@ const GROUP_SEEDS = [
           "runStage": {
             "stage": "building",
             "stagingContext": false,
-            "broadBuildingContext": false,
+            "broadBuildingContext": true,
             "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-09-14",
@@ -14132,6 +14333,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -14146,11 +14348,11 @@ const GROUP_SEEDS = [
             "headline": "Chinook salmon are becoming established through more dependable river sections.",
             "detail": "Earlier arrivals have had time to move upstream while later Chinook salmon may continue to enter. Fish may now be distributed through several dependable river sections, wherever passage is open.",
             "tip": "Begin in a dependable middle-river section, then work through its deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-            "whereToStart": "Established middle-river holding sections, with lower lanes for newer arrivals.",
+            "whereToStart": "Lower and middle holding sections first, with established upstream sections also in play.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14227,7 +14429,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -14287,6 +14489,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -14305,7 +14508,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -14439,7 +14642,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -14519,7 +14722,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -14586,6 +14789,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -14604,7 +14808,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14760,7 +14964,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -14840,7 +15044,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -14895,6 +15099,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -14913,7 +15118,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "fishInRiver": {
             "score": 13,
@@ -14932,7 +15137,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           }
         }
       },
@@ -14959,6 +15164,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -14977,7 +15183,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -15111,7 +15317,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -15191,7 +15397,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -15258,6 +15464,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -15276,7 +15483,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15432,7 +15639,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -15512,7 +15719,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -15572,6 +15779,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -15590,7 +15798,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15746,7 +15954,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -15826,7 +16034,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -15877,7 +16085,7 @@ const GROUP_SEEDS = [
           "runStage": {
             "stage": "building",
             "stagingContext": false,
-            "broadBuildingContext": false,
+            "broadBuildingContext": true,
             "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-09-14",
@@ -15886,6 +16094,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -15904,7 +16113,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15981,7 +16190,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -16041,6 +16250,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -16059,7 +16269,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16193,7 +16403,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -16273,7 +16483,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -16340,6 +16550,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -16358,7 +16569,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -16514,7 +16725,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-09-15",
             "previousTimingLabel": "Ahead"
@@ -16594,7 +16805,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -16665,7 +16876,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -16748,7 +16959,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "interpretationNote": {
             "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
@@ -16781,6 +16992,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -16799,7 +17011,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16933,7 +17145,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Ahead"
@@ -16963,7 +17175,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17040,7 +17252,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -17106,6 +17318,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -17124,7 +17337,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -17196,7 +17409,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17223,7 +17436,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "fishInRiver": {
             "score": 10,
@@ -17242,7 +17455,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -17297,9 +17510,9 @@ const GROUP_SEEDS = [
           "progressionExpiresAt": "2026-09-15T23:59:59.000Z",
           "nextConditionRefreshAt": "2026-09-15T22:00:00.000Z",
           "runStage": {
-            "stage": "peak",
+            "stage": "building",
             "stagingContext": false,
-            "broadBuildingContext": false,
+            "broadBuildingContext": true,
             "winterHoldingContext": false,
             "window": {
               "snapshotDate": "2026-09-15",
@@ -17308,6 +17521,7 @@ const GROUP_SEEDS = [
               "startDate": "2026-08-15",
               "beginningEndDate": "2026-08-23",
               "buildingEstablishedStartDate": "2026-09-01",
+              "buildingBroadStartDate": "2026-09-10",
               "peakStartDate": "2026-09-15",
               "peakDate": "2026-09-20",
               "peakEndDate": "2026-09-30",
@@ -17318,15 +17532,15 @@ const GROUP_SEEDS = [
               "startToPeakDays": 36,
               "peakToEndDays": 37
             },
-            "label": "Peak",
-            "headline": "This is typically the strongest and most dependable river opportunity of the Chinook salmon season.",
-            "detail": "Multiple waves have had time to spread, so Chinook salmon are likely distributed throughout the accessible river—from lower travel water through upstream holding and spawning reaches, except above dams or other barriers.",
-            "tip": "Choose an accessible river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Throughout the accessible river, from lower travel water into upstream holding areas.",
+            "label": "Building",
+            "headline": "Chinook salmon can now be found throughout the accessible river.",
+            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
+            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
+            "whereToStart": "Lower and middle river remain the first choices; upper holding water is also firmly in play wherever passage is open.",
             "reasonCodes": [
-              "stage_peak"
+              "stage_building"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -17460,7 +17674,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v19",
+            "copyVersion": "river-run-copy-v20",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Delayed"
@@ -17488,7 +17702,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "pushHistory": {
             "status": "active_now",
@@ -17557,7 +17771,7 @@ const GROUP_SEEDS = [
           },
           "fishInRiver": {
             "score": 84,
-            "stage": "peak",
+            "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
             "historicalRunStrength": "strong",
@@ -17569,10 +17783,10 @@ const GROUP_SEEDS = [
             "detail": "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.",
             "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
             "reasonCodes": [
-              "stage_peak",
+              "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": {
             "provider": "USGS",
@@ -17609,9 +17823,9 @@ const GROUP_SEEDS = [
           },
           "interpretationNote": {
             "headline": "Today's reads are pointing to different parts of the picture.",
-            "detail": "The usual calendar supports broader fish distribution, while slower river rises and cooling argue against assuming the normal middle- and upper-river water has filled in. Start one accessible section lower than the normal peak plan, work established holding water, and expand upstream only after direct fish activity supports it.\n\nA delayed migration can still receive a strong movement event. Start on lower-river travel lanes and the first deep resting holes above them; do not jump to upper water as though the whole season has caught up.",
+            "detail": "The calendar makes lower, middle, and upper sections legitimate, while slower river rises and cooling reduce confidence that fish are distributed as broadly as usual. Start in dependable lower- or middle-river holding water and expand upstream only after direct fish activity supports it.\n\nA delayed migration can still receive a strong movement event. Start on lower-river travel lanes and the first deep resting holes above them; do not jump to upper water as though the whole season has caught up.",
             "reasonCodes": [
-              "peak_delayed_conditions",
+              "broad_building_delayed_conditions",
               "delayed_conditions_strong_push"
             ]
           }
@@ -17644,7 +17858,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-chinook-push-v5",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "fishability": {
             "score": null,
@@ -17656,7 +17870,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v19"
+            "copyVersion": "river-run-copy-v20"
           },
           "gauge": null,
           "weather": null,

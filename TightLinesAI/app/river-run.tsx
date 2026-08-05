@@ -58,6 +58,7 @@ import {
   type RiverRunVisualKind,
 } from "../lib/riverRunVisuals";
 import { getRiverRunSpeciesImage } from "../lib/riverRunSpeciesImages";
+import { getRiverRunRiverImage } from "../lib/riverRunChoiceImages";
 import {
   hapticImpact,
   hapticSelection,
@@ -129,7 +130,58 @@ const RIVER_RUN_REVIEW_ENABLED = __DEV__ &&
 const CHINOOK_IMAGE = getRiverRunSpeciesImage("chinook_salmon");
 const COHO_IMAGE = getRiverRunSpeciesImage("coho_salmon");
 const STEELHEAD_IMAGE = getRiverRunSpeciesImage("steelhead");
+const ATLANTIC_IMAGE = getRiverRunSpeciesImage("atlantic_salmon");
 const RIVER_RUN_TAB_BLUE = "#1B4B68";
+
+type ChoiceIconTheme = {
+  background: string;
+  foreground: string;
+};
+
+const STATE_ICON_THEMES: Record<string, ChoiceIconTheme> = {
+  MI: {
+    background: "#EAF4FC",
+    foreground: "#4F91BA",
+  },
+  NY: {
+    background: "#F2ECFA",
+    foreground: "#9B78B6",
+  },
+  WI: {
+    background: "#EAF5ED",
+    foreground: "#68A17B",
+  },
+  OH: {
+    background: "#FFF1E3",
+    foreground: "#CF955C",
+  },
+};
+
+const SEASON_ICON_THEMES: Record<
+  string,
+  ChoiceIconTheme & { icon: keyof typeof Ionicons.glyphMap }
+> = {
+  fall: {
+    background: "#FFF0E5",
+    foreground: "#C8793E",
+    icon: "leaf",
+  },
+  winter: {
+    background: "#EAF4FC",
+    foreground: "#4F91BA",
+    icon: "snow",
+  },
+  spring: {
+    background: "#EEF7EA",
+    foreground: "#70A45D",
+    icon: "flower",
+  },
+  summer: {
+    background: "#FFF7D9",
+    foreground: "#D3A42F",
+    icon: "sunny",
+  },
+};
 
 const REVIEW_CATALOG: RiverRunCatalogResponse = {
   states: [
@@ -538,6 +590,13 @@ export default function RiverRunScreen() {
           </View>
         )
         : null}
+      {ATLANTIC_IMAGE
+        ? (
+          <View pointerEvents="none" style={styles.preloadImage}>
+            <Image source={ATLANTIC_IMAGE} style={styles.preloadImageAsset} />
+          </View>
+        )
+        : null}
       <PaperNavHeader
         eyebrow={screenState === "result"
           ? "FINFINDR · RIVER MIGRATION"
@@ -939,6 +998,52 @@ function WizardProgress({ current }: { current: WizardStep }) {
   );
 }
 
+function StateChoiceIcon({ stateCode, disabled }: {
+  stateCode: string;
+  disabled: boolean;
+}) {
+  const theme = STATE_ICON_THEMES[stateCode] ?? STATE_ICON_THEMES.MI;
+  return (
+    <View
+      style={[
+        styles.illustratedChoiceIcon,
+        { backgroundColor: theme.background },
+        disabled && styles.illustratedChoiceIconDisabled,
+      ]}
+    >
+      <TopographicLines
+        style={StyleSheet.absoluteFill}
+        color={theme.foreground}
+        count={3}
+      />
+      <Text
+        style={[styles.stateChoiceMonogram, { color: theme.foreground }]}
+        allowFontScaling={false}
+      >
+        {stateCode}
+      </Text>
+    </View>
+  );
+}
+
+function SeasonChoiceIcon({ season, disabled }: {
+  season: string;
+  disabled: boolean;
+}) {
+  const theme = SEASON_ICON_THEMES[season] ?? SEASON_ICON_THEMES.fall;
+  return (
+    <View
+      style={[
+        styles.illustratedChoiceIcon,
+        { backgroundColor: theme.background },
+        disabled && styles.illustratedChoiceIconDisabled,
+      ]}
+    >
+      <Ionicons name={theme.icon} size={27} color={theme.foreground} />
+    </View>
+  );
+}
+
 function ChoiceCard({
   choice,
   selected,
@@ -951,6 +1056,7 @@ function ChoiceCard({
   onPress: () => void;
 }) {
   const speciesImage = step === 3 ? getRiverRunSpeciesImage(choice.id) : null;
+  const riverImage = step === 4 ? getRiverRunRiverImage(choice.id) : null;
   const disabled = choice.disabled === true;
   const icon = step === 1
     ? "map"
@@ -973,7 +1079,11 @@ function ChoiceCard({
       accessibilityRole="radio"
       accessibilityState={{ checked: selected, disabled }}
     >
-      {speciesImage
+      {step === 1
+        ? <StateChoiceIcon stateCode={choice.id} disabled={disabled} />
+        : step === 2
+        ? <SeasonChoiceIcon season={choice.id} disabled={disabled} />
+        : speciesImage
         ? (
           <View style={styles.speciesChoiceImageStage}>
             <TopographicLines
@@ -985,8 +1095,22 @@ function ChoiceCard({
               source={speciesImage}
               style={[
                 styles.speciesChoiceImage,
-                choice.id === "steelhead" &&
+                (choice.id === "steelhead" ||
+                  choice.id === "atlantic_salmon") &&
                   styles.speciesChoiceImageSteelhead,
+                disabled && styles.choiceImageDisabled,
+              ]}
+              resizeMode="contain"
+            />
+          </View>
+        )
+        : riverImage
+        ? (
+          <View style={styles.riverChoiceImageStage}>
+            <Image
+              source={riverImage}
+              style={[
+                styles.riverChoiceImage,
                 disabled && styles.choiceImageDisabled,
               ]}
               resizeMode="contain"
@@ -1031,9 +1155,7 @@ function ChoiceCard({
       >
         <Text
           style={[styles.choiceTitle, disabled && styles.choiceTextDisabled]}
-          numberOfLines={2}
-          adjustsFontSizeToFit
-          minimumFontScale={0.84}
+          numberOfLines={1}
         >
           {choice.label}
         </Text>
@@ -2252,6 +2374,23 @@ const styles = StyleSheet.create({
     borderColor: "rgba(15,99,176,0.22)",
     backgroundColor: "#EAF3FA",
   },
+  illustratedChoiceIcon: {
+    width: 48,
+    height: 48,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "rgba(27,75,104,0.13)",
+    borderRadius: 11,
+  },
+  illustratedChoiceIconDisabled: { opacity: 0.62 },
+  stateChoiceMonogram: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 16,
+    lineHeight: 19,
+    letterSpacing: 0.7,
+  },
   choiceIconSelected: {
     borderColor: "rgba(192,57,43,0.25)",
     backgroundColor: "#FBE4E1",
@@ -2328,9 +2467,25 @@ const styles = StyleSheet.create({
     width: 52,
     height: 39,
   },
-  choiceImageDisabled: { opacity: 0.36 },
+  choiceImageDisabled: { opacity: 0.5 },
   speciesChoiceCopy: {
     alignItems: "flex-start",
+  },
+  riverChoiceImageStage: {
+    width: 92,
+    height: 52,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: "rgba(15,99,176,0.14)",
+    borderRadius: 9,
+    backgroundColor: "#EDF5F8",
+  },
+  riverChoiceImage: {
+    width: 86,
+    height: 48,
   },
   noChoiceState: {
     alignItems: "center",

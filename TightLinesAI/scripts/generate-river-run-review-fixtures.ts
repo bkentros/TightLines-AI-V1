@@ -997,7 +997,7 @@ function snapshotScenario(input: {
           "River Run is not a wading, boating, floating, or personal-safety rating.",
       },
       engineVersion: "river-run-v1.5.3-review",
-      configVersion: "2026-08-05.4-review",
+      configVersion: "2026-08-05.5-review",
     },
   };
 }

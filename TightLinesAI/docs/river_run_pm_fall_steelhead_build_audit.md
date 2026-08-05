@@ -2,8 +2,8 @@
 
 **Status:** implementation complete; public audit gate disabled\
 **Engine version:** `river-run-v1.5.3`\
-**Configuration version:** `2026-08-05.4`\
-**Copy version:** `river-run-copy-v19`\
+**Configuration version:** `2026-08-05.5`\
+**Copy version:** `river-run-copy-v20`\
 **Movement branch:** `fall_entry_cooling` / `fall-entry-cooling-v1`
 
 ## Product decision

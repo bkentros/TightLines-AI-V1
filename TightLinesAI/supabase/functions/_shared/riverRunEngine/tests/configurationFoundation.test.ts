@@ -16,7 +16,7 @@ Deno.test("PM configuration document binds both implemented fall movement branch
   );
   assertEquals(
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion,
-    "2026-08-05.4",
+    "2026-08-05.5",
   );
 });
 

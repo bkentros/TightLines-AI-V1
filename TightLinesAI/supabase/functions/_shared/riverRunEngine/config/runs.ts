@@ -15,6 +15,7 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     start: "08-15",
     beginningEnd: "08-23",
     buildingEstablishedStart: "09-01",
+    buildingBroadStart: "09-10",
     peakStart: "09-15",
     peak: "09-20",
     peakEnd: "09-30",
@@ -152,7 +153,7 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       "Late-window fish can remain, but fresh movement usually depends on conditions.",
   },
   researchNotes:
-    "Beta launch hypothesis for PM Fall Chinook. Run Stage begins its pre-run watch July 1, adds nearby-water staging context July 28, starts the river window August 15, uses explicit stage boundaries through an October 27 main-run end, retains a November 8 historical-presence tail, and uses late post-run copy through November 10 before switching to true-offseason guidance November 11. The September 20 peak reference, expanded peak stage, later main-run end, late post-run copy boundary, and presence curve require PM replay and live-season acceptance before runtime public release. Run Timing retains its separately audited final checkpoint five days after the peak reference.",
+    "Beta launch hypothesis for PM Fall Chinook. Run Stage begins its pre-run watch July 1, adds nearby-water staging context July 28, starts the river window August 15, distinguishes early established distribution beginning September 1 from broadly established distribution beginning September 10, reaches the September 20 peak reference, and continues through an October 27 main-run end. It retains a November 8 historical-presence tail and uses late post-run copy through November 10 before switching to true-offseason guidance November 11. The location transition does not alter the historical-presence curve or Run Timing checkpoints. Run Timing retains its separately audited final checkpoint five days after the peak reference.",
   sourceNotes:
     "Sources: Michigan DNR Chinook species profile https://www.michigan.gov/dnr/education/michigan-species/fish-species/chinook-salmon ; Michigan DNR 2011 Pere Marquette River Angler Survey https://www.michigan.gov/-/media/Project/Websites/dnr/Documents/Fisheries/Creel-Archive/PereMarquetteRiver-CreelReport-2011.pdf ; Michigan DNR marked/tagged fish staging context https://www.michigan.gov/dnr/things-to-do/fishing/marked-and-tagged-fish ; USGS 04122500 https://waterdata.usgs.gov/monitoring-location/USGS-04122500/ ; PMTU stations https://www.pmtu.org/ . Public visibility remains runtime-gated pending PM calibration acceptance.",
   publicAudit: {

@@ -31,7 +31,7 @@ Deno.test("PM Chinook strong and broad Migration Stage copy remains stable", () 
 
   assertEquals(
     building.headline,
-    "Chinook salmon are spreading across much more of the river.",
+    "Chinook salmon are becoming established through more of the river.",
   );
   assertEquals(
     peak.detail,

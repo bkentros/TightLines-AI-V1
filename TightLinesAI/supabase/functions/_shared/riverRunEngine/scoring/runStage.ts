@@ -73,7 +73,7 @@ export function resolveRunStage(
   return {
     stage,
     stagingContext,
-    broadBuildingContext: false,
+    broadBuildingContext,
     winterHoldingContext: false,
     window,
     label: stageLabel(stage, latePostRunContext),
@@ -81,6 +81,7 @@ export function resolveRunStage(
       stage,
       stagingContext,
       establishedBuildingContext,
+      broadBuildingContext,
       latePostRunContext,
       anglerSpeciesName(run.species),
       opportunity,
@@ -89,6 +90,7 @@ export function resolveRunStage(
       stage,
       stagingContext,
       establishedBuildingContext,
+      broadBuildingContext,
       latePostRunContext,
       opportunity,
     ),
@@ -267,7 +269,10 @@ export function stageForDate(localDate: string, window: DateWindow): RunStage {
   if (compareLocalDates(localDate, window.beginningEndDate) <= 0) {
     return "beginning";
   }
-  if (compareLocalDates(localDate, window.peakStartDate) < 0) {
+  const peakStageStartDate = window.buildingBroadStartDate
+    ? window.peakDate
+    : window.peakStartDate;
+  if (compareLocalDates(localDate, peakStageStartDate) < 0) {
     return "building";
   }
   if (compareLocalDates(localDate, window.peakEndDate) <= 0) return "peak";
@@ -301,6 +306,7 @@ function whereToStartCopy(
   stage: RunStage,
   stagingContext: boolean,
   establishedBuildingContext: boolean,
+  broadBuildingContext: boolean,
   latePostRunContext: boolean,
   opportunity: RunOpportunityCopyContext,
 ): string {
@@ -317,8 +323,15 @@ function whereToStartCopy(
           ? "The first dependable lower-river holding water."
           : "Lower to middle river, where travel water feeds dependable holding holes.";
       }
+      if (broadBuildingContext) {
+        return opportunity.distributionScope === "broad"
+          ? "Lower and middle river remain the first choices; upper holding water is also firmly in play wherever passage is open."
+          : opportunity.distributionScope === "sectional"
+          ? "Lower and middle holding sections first, with established upstream sections also in play."
+          : "The river's most dependable established holding holes.";
+      }
       return opportunity.distributionScope === "broad"
-        ? "Middle and upper holding water, with lower travel lanes for newer arrivals."
+        ? "Lower and middle river first; some earlier fish may already have reached upper holding water."
         : opportunity.distributionScope === "sectional"
         ? "Established middle-river holding sections, with lower lanes for newer arrivals."
         : "The river's most dependable established holding holes.";
@@ -353,6 +366,7 @@ function stageCopy(
   stage: RunStage,
   stagingContext: boolean,
   establishedBuildingContext: boolean,
+  broadBuildingContext: boolean,
   latePostRunContext: boolean,
   species: string,
   opportunity: RunOpportunityCopyContext,
@@ -383,7 +397,11 @@ function stageCopy(
       };
     case "building":
       if (establishedBuildingContext) {
-        return establishedBuildingCopy(species, opportunity);
+        return establishedBuildingCopy(
+          species,
+          opportunity,
+          broadBuildingContext,
+        );
       }
       return {
         headline: `More ${species} are beginning to move into the river.`,
@@ -468,17 +486,27 @@ function earlyBuildingDetail(
 function establishedBuildingCopy(
   species: string,
   opportunity: RunOpportunityCopyContext,
+  broadBuildingContext: boolean,
 ): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   if (
     opportunity.strength === "strong" &&
     opportunity.distributionScope === "broad"
   ) {
+    if (broadBuildingContext) {
+      return {
+        headline: `${species} can now be found throughout the accessible river.`,
+        detail:
+          `Earlier waves have had time to reach upper holding water while later ${species} may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.`,
+        tip:
+          "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
+      };
+    }
     return {
-      headline: `${species} are spreading across much more of the river.`,
+      headline: `${species} are becoming established through more of the river.`,
       detail:
-        `Earlier waves have had time to travel well upstream while later ${species} may continue to enter. Fish can now be spread from lower travel lanes into upper holding water wherever passage is open.`,
+        `More ${species} are settling into lower- and middle-river holding water, which should still contain the most dependable concentrations. Some earlier fish may already have reached upper holding water wherever passage is open, but the upper river should remain a secondary starting choice at this stage.`,
       tip:
-        "Begin in established middle-river holding water, then work upstream through deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
+        "Begin in dependable lower- or middle-river holding water and cover its deep holes, outside bends, and current breaks. Move into upper sections after those primary areas have been checked or direct fish activity supports the move.",
     };
   }
   const headline = opportunity.strength === "limited"
