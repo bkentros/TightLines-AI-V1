@@ -1,6 +1,7 @@
 import { Ionicons } from "@expo/vector-icons";
-import { useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { StatusBar } from "expo-status-bar";
+import { useEffect } from "react";
 import { Pressable, ScrollView, StyleSheet, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 
@@ -23,6 +24,7 @@ import {
   paperShadows,
   paperSpacing,
 } from "../lib/theme";
+import { useLocationStore } from "../store/locationStore";
 
 type IconName = keyof typeof Ionicons.glyphMap;
 type FeatureRoute =
@@ -131,10 +133,55 @@ const FEATURE_GUIDES: FeatureGuide[] = [
 
 export default function FeatureGuideScreen() {
   const router = useRouter();
+  const params = useLocalSearchParams<{
+    lat?: string;
+    lon?: string;
+    location_label?: string;
+  }>();
+  const { savedLocation, useCustom, load: loadLocationPreferences } =
+    useLocationStore();
 
-  const openFeature = (route: FeatureRoute) => {
+  useEffect(() => {
+    void loadLocationPreferences();
+  }, [loadLocationPreferences]);
+
+  const paramLat = Number(params.lat);
+  const paramLon = Number(params.lon);
+  const activeLocation = Number.isFinite(paramLat) && Number.isFinite(paramLon)
+    ? {
+      lat: paramLat,
+      lon: paramLon,
+      label: params.location_label ?? "Selected location",
+    }
+    : useCustom && savedLocation
+    ? savedLocation
+    : null;
+
+  const openFeature = (feature: FeatureGuide) => {
     hapticImpact(ImpactFeedbackStyle.Light);
-    router.push(route);
+    if (feature.module === "todays-bite" && activeLocation) {
+      router.push({
+        pathname: "/how-fishing",
+        params: {
+          lat: String(activeLocation.lat),
+          lon: String(activeLocation.lon),
+          location_label: activeLocation.label,
+        },
+      });
+      return;
+    }
+    if (feature.module === "tackle-box" && activeLocation) {
+      router.push({
+        pathname: "/recommender",
+        params: {
+          latitude: String(activeLocation.lat),
+          longitude: String(activeLocation.lon),
+          location_label: activeLocation.label,
+        },
+      });
+      return;
+    }
+    router.push(feature.route);
   };
 
   return (
@@ -144,7 +191,7 @@ export default function FeatureGuideScreen() {
         <PaperNavHeader
           eyebrow="FINFINDR · FIELD GUIDE"
           eyebrowColor={paper.dashboardBlueLight}
-          title="CHOOSE YOUR READ"
+          title="GETTING STARTED"
           onBack={() => router.back()}
         />
 
@@ -165,8 +212,8 @@ export default function FeatureGuideScreen() {
               <Text style={styles.heroPillText}>FOUR TOOLS · FOUR JOBS</Text>
             </View>
             <Text style={styles.heroTitle} allowFontScaling={false}>
-              MATCH THE TOOL.{"\n"}
-              <Text style={styles.heroTitleAccent}>FISH WITH PURPOSE.</Text>
+              START WITH THE QUESTION.{"\n"}
+              <Text style={styles.heroTitleAccent}>FINFINDR HANDLES THE REST.</Text>
             </Text>
             <Text style={styles.heroBody}>
               Each FinFindr feature answers a different question. Start with
@@ -195,7 +242,7 @@ export default function FeatureGuideScreen() {
             </SectionEyebrow>
             <Text style={styles.guideTitle}>What each feature is for.</Text>
             <Text style={styles.guideSubtitle}>
-              A quick guide to choosing the right read—without the engine-room
+              A quick guide to getting started—without the engine-room
               details.
             </Text>
           </View>
@@ -204,7 +251,7 @@ export default function FeatureGuideScreen() {
             <FeatureCard
               key={feature.module}
               feature={feature}
-              onOpen={() => openFeature(feature.route)}
+              onOpen={() => openFeature(feature)}
             />
           ))}
 

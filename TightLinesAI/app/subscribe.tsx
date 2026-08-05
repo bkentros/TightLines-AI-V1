@@ -19,8 +19,15 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { Ionicons } from '@expo/vector-icons';
-import { paper, paperFonts, paperSpacing } from '../lib/theme';
-import { PaperNavHeader, TopographicLines } from '../components/paper';
+import { paper, paperFonts, paperShadows, paperSpacing } from '../lib/theme';
+import {
+  CornerMarkSet,
+  IntelligenceModuleEmblem,
+  PaperNavHeader,
+  SectionEyebrow,
+  TopographicLines,
+  type IntelligenceModuleId,
+} from '../components/paper';
 import { AuthFooterStamp } from '../components/paper/auth';
 import { CreatorReferralBanner } from '../components/CreatorReferralBanner';
 import {
@@ -44,24 +51,44 @@ import { useRevenueCatStore } from '../store/revenueCatStore';
 import { showAnglerUnlockedCelebration, showSubscriptionNotice } from '../store/subscriptionCelebrationStore';
 
 const ANGLER_FEATURES: Array<{
-  icon: keyof typeof Ionicons.glyphMap;
+  module: IntelligenceModuleId;
   title: string;
   copy: string;
+  iconBg: [string, string];
+  accent: string;
+  iconColor: string;
 }> = [
   {
-    icon: 'analytics-outline',
-    title: 'Bite reports',
+    module: 'todays-bite',
+    title: "Today's Bite",
     copy: 'Full reports for today plus the next 6 days, including score, drivers, windows, and context.',
+    iconBg: ['#E5F2DD', '#C5E0B5'],
+    accent: '#3D955A',
+    iconColor: '#1F6B38',
   },
   {
-    icon: 'fish-outline',
+    module: 'river-run',
+    title: 'River Migration',
+    copy: 'Audited migration reads for supported rivers, seasons, and species—including stage, movement, fishability, and presence.',
+    iconBg: ['#FBE4E1', '#F3C2BC'],
+    accent: paper.red,
+    iconColor: '#9A2B20',
+  },
+  {
+    module: 'tackle-box',
     title: 'Tackle Box',
     copy: 'Condition-matched lure and fly picks tuned to species, water type, clarity, and the day.',
+    iconBg: ['#FBF1D9', '#F4DFA4'],
+    accent: '#C99B2D',
+    iconColor: '#8A6A1A',
   },
   {
-    icon: 'scan-outline',
+    module: 'water-read',
     title: 'Water Read',
     copy: 'Structure intelligence for supported waters, built to highlight higher-percentage zones.',
+    iconBg: ['#E8F2FA', '#C8DFF2'],
+    accent: paper.dashboardBlue,
+    iconColor: '#0A4A87',
   },
 ];
 
@@ -158,8 +185,8 @@ export default function SubscribeScreen() {
       </>
     );
   const heroCopy = hasAngler
-    ? 'Your App Store subscription is connected. Full bite reports, tactical tackle direction, and supported-water structure reads are unlocked.'
-    : 'Angler opens full bite reports, tactical tackle direction, and structure intelligence for supported waters.';
+    ? "Your App Store subscription is connected. Today's Bite, River Migration, Tackle Box, and Water Read are unlocked."
+    : "One membership unlocks Today's Bite, River Migration, Tackle Box, and Water Read.";
 
   const handleRestore = async () => {
     hapticImpact(ImpactFeedbackStyle.Light);
@@ -222,6 +249,12 @@ export default function SubscribeScreen() {
               color={paper.dashboardBlueLight}
               count={6}
             />
+            <CornerMarkSet
+              color={paper.bandFair}
+              size={16}
+              thickness={2}
+              inset={11}
+            />
             <View style={styles.brandLockup}>
               <View style={styles.logoBadge}>
                 <Image
@@ -238,6 +271,12 @@ export default function SubscribeScreen() {
             <Text style={styles.pageEyebrow}>FINFINDR · ANGLER</Text>
             <Text style={styles.title}>{heroTitle}</Text>
             <Text style={styles.lede}>{heroCopy}</Text>
+            <View style={styles.heroMembershipStamp}>
+              <Ionicons name="sparkles" size={12} color={paper.bandFair} />
+              <Text style={styles.heroMembershipStampText}>
+                FOUR INTELLIGENCE TOOLS · ONE MEMBERSHIP
+              </Text>
+            </View>
           </View>
 
           {!hasAngler && creatorReferral ? (
@@ -264,17 +303,32 @@ export default function SubscribeScreen() {
             </View>
           ) : null}
 
-          <Text style={styles.sectionLabel}>
-            {hasAngler ? 'Included with Angler' : 'What Angler unlocks'}
-          </Text>
+          <SectionEyebrow
+            dashes={false}
+            align="left"
+            color={paper.redDk}
+            size={9.5}
+            tracking={2}
+            style={styles.featureSectionEyebrow}
+          >
+            {hasAngler ? 'INCLUDED WITH ANGLER' : 'WHAT ANGLER UNLOCKS'}
+          </SectionEyebrow>
           <View style={styles.featureList}>
             {ANGLER_FEATURES.map((feature) => (
               <View key={feature.title} style={styles.featureItem}>
-                <View style={styles.featureIcon}>
-                  <Ionicons name={feature.icon} size={14} color={paper.dashboardBlue} />
-                </View>
+                <View style={[styles.featureAccentRail, { backgroundColor: feature.accent }]} />
+                <IntelligenceModuleEmblem
+                  module={feature.module}
+                  iconBg={feature.iconBg}
+                  iconBorder={feature.accent}
+                  iconColor={feature.iconColor}
+                  size={42}
+                  animate={false}
+                />
                 <View style={styles.featureBody}>
-                  <Text style={styles.featureTitle}>{feature.title}</Text>
+                  <Text style={[styles.featureTitle, { color: feature.accent }]}>
+                    {feature.title}
+                  </Text>
                   <Text style={styles.featureCopy}>{feature.copy}</Text>
                 </View>
                 <View style={styles.featureCheck}>
@@ -330,11 +384,24 @@ export default function SubscribeScreen() {
           {error ? <Text style={styles.errorText}>{error}</Text> : null}
 
           <View style={styles.managementCard}>
-            <Text style={styles.managementTitle}>Subscription management</Text>
+            <TopographicLines
+              style={StyleSheet.absoluteFill}
+              color={paper.dashboardBlue}
+              count={4}
+            />
+            <View style={styles.managementHeader}>
+              <View style={styles.managementIcon}>
+                <Ionicons name="card-outline" size={16} color={paper.dashboardBlue} />
+              </View>
+              <View style={styles.managementHeaderCopy}>
+                <Text style={styles.managementEyebrow}>ACCOUNT CONTROLS</Text>
+                <Text style={styles.managementTitle}>Subscription management</Text>
+              </View>
+            </View>
             <Text style={styles.managementCopy}>
               Purchases and cancellations are handled by the App Store. Restore
-              Purchases reconnects an active App Store subscription from the Apple ID
-              currently signed into the App Store.
+              Purchases reconnects an active subscription from the Apple ID currently
+              signed into the App Store.
             </Text>
             <Pressable
               style={({ pressed }) => [
@@ -478,6 +545,25 @@ const styles = StyleSheet.create({
     lineHeight: 22,
     marginTop: paperSpacing.sm,
   },
+  heroMembershipStamp: {
+    alignSelf: 'center',
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 6,
+    marginTop: 15,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
+    borderWidth: 1,
+    borderColor: 'rgba(231,193,88,0.3)',
+    borderRadius: 999,
+    backgroundColor: 'rgba(231,193,88,0.08)',
+  },
+  heroMembershipStampText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.1,
+    color: paper.bandFair,
+  },
   statusPanel: {
     flexDirection: 'row',
     alignItems: 'flex-start',
@@ -516,47 +602,43 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     opacity: 0.74,
   },
-  sectionLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    color: paper.dashboardBlue,
-    letterSpacing: 2,
-    textTransform: 'uppercase',
-    marginBottom: 8,
+  featureSectionEyebrow: {
+    marginBottom: 9,
   },
   featureList: {
     gap: 8,
     marginBottom: paperSpacing.lg,
   },
   featureItem: {
+    position: 'relative',
+    overflow: 'hidden',
     flexDirection: 'row',
-    alignItems: 'flex-start',
-    gap: 10,
-    paddingVertical: 10,
-    paddingHorizontal: paperSpacing.md,
-    borderRadius: 8,
-    borderWidth: 1.25,
-    borderColor: 'rgba(61,168,95,0.30)',
-    backgroundColor: paper.dashboardWhite,
-  },
-  featureIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
-    borderWidth: 1,
-    borderColor: 'rgba(61,168,95,0.34)',
-    backgroundColor: 'rgba(61,168,95,0.14)',
     alignItems: 'center',
-    justifyContent: 'center',
+    gap: 11,
+    minHeight: 78,
+    paddingVertical: 11,
+    paddingLeft: paperSpacing.md,
+    paddingRight: 11,
+    borderRadius: 10,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    backgroundColor: paper.dashboardWhite,
+    ...paperShadows.hard,
+  },
+  featureAccentRail: {
+    position: 'absolute',
+    top: 0,
+    bottom: 0,
+    left: 0,
+    width: 4,
   },
   featureBody: {
     flex: 1,
   },
   featureTitle: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    letterSpacing: 1.6,
-    color: paper.dashboardInk,
+    fontSize: 9.5,
+    letterSpacing: 1.4,
     textTransform: 'uppercase',
     marginBottom: 4,
   },
@@ -663,19 +745,46 @@ const styles = StyleSheet.create({
     marginBottom: paperSpacing.md,
   },
   managementCard: {
+    position: 'relative',
+    overflow: 'hidden',
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    borderRadius: 8,
-    padding: paperSpacing.md,
+    borderRadius: 10,
+    padding: 14,
     gap: paperSpacing.sm,
+    ...paperShadows.hard,
+  },
+  managementHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+  },
+  managementIcon: {
+    width: 36,
+    height: 36,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.22)',
+    borderRadius: 18,
+    backgroundColor: '#EAF3FA',
+  },
+  managementHeaderCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  managementEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.3,
+    color: paper.dashboardBlue,
   },
   managementTitle: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 11,
-    color: paper.dashboardBlue,
-    letterSpacing: 2,
-    textTransform: 'uppercase',
+    marginTop: 2,
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 19,
+    color: paper.dashboardInk,
   },
   managementCopy: {
     fontFamily: paperFonts.body,

@@ -749,8 +749,17 @@ export default function HomeScreen() {
 
   const handleHowItWorksPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Light);
-    router.push("/how-it-works");
-  }, [router]);
+    router.push({
+      pathname: "/how-it-works",
+      params: coords
+        ? {
+          lat: String(coords.lat),
+          lon: String(coords.lon),
+          location_label: locationLabel,
+        }
+        : undefined,
+    });
+  }, [coords, locationLabel, router]);
 
   const handleSettingsPress = useCallback(() => {
     hapticImpact(ImpactFeedbackStyle.Light);
@@ -1669,6 +1678,40 @@ export default function HomeScreen() {
               <Text style={styles.modulesCount}>4 / 4</Text>
             </View>
 
+            <Pressable
+              style={({ pressed }) => [
+                styles.howWorksCta,
+                pressed && styles.howWorksCtaPressed,
+              ]}
+              onPress={handleHowItWorksPress}
+              accessibilityRole="button"
+              accessibilityLabel="Open How to Get Started"
+            >
+              <View style={styles.howWorksLeft}>
+                <View style={styles.howWorksIconTile}>
+                  <Ionicons
+                    name="compass-outline"
+                    size={18}
+                    color="#FFFFFF"
+                  />
+                </View>
+                <View style={styles.howWorksTextCol}>
+                  <Text style={styles.howWorksEyebrow}>NEW TO FINFINDR?</Text>
+                  <Text style={styles.howWorksTitle}>How to get started</Text>
+                  <Text style={styles.howWorksSubtitle} numberOfLines={2}>
+                    Match your fishing question to the right feature.
+                  </Text>
+                </View>
+              </View>
+              <View style={styles.howWorksArrowTile}>
+                <Ionicons
+                  name="arrow-forward"
+                  size={16}
+                  color={paper.dashboardInk}
+                />
+              </View>
+            </Pressable>
+
             <ModuleRow
               code="01"
               title="River Migration"
@@ -1715,37 +1758,6 @@ export default function HomeScreen() {
               iconColor="#0A4A87"
               onPress={handleWaterReadPress}
             />
-            <Pressable
-              style={({ pressed }) => [
-                styles.howWorksCta,
-                pressed && { opacity: 0.86 },
-              ]}
-              onPress={handleHowItWorksPress}
-              accessibilityRole="button"
-              accessibilityLabel="Open FinFindr Feature Guide"
-            >
-              <View style={styles.howWorksLeft}>
-                <View style={styles.howWorksIconTile}>
-                  <Ionicons
-                    name="information-circle-outline"
-                    size={15}
-                    color={paper.dashboardBlue}
-                  />
-                </View>
-                <View style={styles.howWorksTextCol}>
-                  <Text style={styles.howWorksEyebrow}>FIELD GUIDE</Text>
-                  <Text style={styles.howWorksTitle}>
-                    Choose the right read
-                  </Text>
-                </View>
-              </View>
-              <Ionicons
-                name="chevron-forward"
-                size={15}
-                color={paper.dashboardInk}
-                style={{ opacity: 0.62 }}
-              />
-            </Pressable>
           </View>
 
           {/* ─── Footer ────────────────────────────────────────────────────── */}
@@ -2812,13 +2824,20 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-between",
-    paddingHorizontal: 12,
-    paddingVertical: 10,
-    backgroundColor: "#FAFAF7",
+    gap: 12,
+    minHeight: 82,
+    paddingHorizontal: 14,
+    paddingVertical: 13,
+    backgroundColor: paper.dashboardInk,
     borderWidth: 1,
-    borderColor: "rgba(10,27,46,0.10)",
-    borderRadius: 8,
-    marginBottom: 14,
+    borderColor: "rgba(192,57,43,0.55)",
+    borderRadius: 10,
+    marginBottom: 10,
+    ...paperShadows.hard,
+  },
+  howWorksCtaPressed: {
+    backgroundColor: "#132C46",
+    opacity: 0.94,
   },
   howWorksLeft: {
     flexDirection: "row",
@@ -2827,27 +2846,44 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   howWorksIconTile: {
-    width: 31,
-    height: 31,
-    borderRadius: 15.5,
-    backgroundColor: "rgba(42,110,150,0.10)",
+    width: 42,
+    height: 42,
+    borderRadius: 21,
+    backgroundColor: paper.red,
     borderWidth: 1,
-    borderColor: "rgba(42,110,150,0.18)",
+    borderColor: "rgba(255,255,255,0.22)",
     justifyContent: "center",
     alignItems: "center",
   },
   howWorksTextCol: { flex: 1 },
   howWorksEyebrow: {
     fontFamily: MONO_BOLD,
-    fontSize: 8,
-    letterSpacing: 1.6,
-    color: paper.dashboardBlue,
-    marginBottom: 2,
+    fontSize: 8.5,
+    letterSpacing: 1.7,
+    color: paper.bandFair,
+    marginBottom: 3,
   },
   howWorksTitle: {
-    fontFamily: SANS_SEMI,
-    fontSize: 13,
-    color: paper.dashboardInk,
+    fontFamily: SERIF_SEMI,
+    fontSize: 18,
+    lineHeight: 21,
+    color: "#FFFFFF",
+  },
+  howWorksSubtitle: {
+    marginTop: 3,
+    fontFamily: SANS_MEDIUM,
+    fontSize: 10.5,
+    lineHeight: 15,
+    color: "rgba(255,255,255,0.68)",
+  },
+  howWorksArrowTile: {
+    width: 34,
+    height: 34,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 17,
+    backgroundColor: "#FFFFFF",
   },
 
   // metric grid

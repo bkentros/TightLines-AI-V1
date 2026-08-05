@@ -18,7 +18,19 @@ import { useRouter } from 'expo-router';
 import { StatusBar } from 'expo-status-bar';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
-import { paper, paperFonts, paperSpacing } from '../../lib/theme';
+import {
+  paper,
+  paperFonts,
+  paperRadius,
+  paperShadows,
+  paperSpacing,
+} from '../../lib/theme';
+import {
+  CornerMarkSet,
+  PaperNavHeader,
+  SectionEyebrow,
+  TopographicLines,
+} from '../../components/paper';
 import { useAuthStore } from '../../store/authStore';
 import { useDevTestingStore } from '../../store/devTestingStore';
 import { IPHONE_LAYOUT_PREVIEW_PRESETS } from '../../lib/iphoneLayoutPreview';
@@ -455,15 +467,23 @@ export default function SettingsScreen() {
     <View style={styles.root}>
       <StatusBar style="light" />
       <SafeAreaView style={styles.safeTop} edges={['top']}>
-        <View style={styles.header}>
-          <View style={styles.headerIcon}>
-            <Ionicons name="settings-outline" size={18} color="#FFFFFF" />
-          </View>
-          <View style={styles.headerCopy}>
-            <Text style={styles.headerEyebrow}>FINFINDR · ACCOUNT</Text>
-            <Text style={styles.headerTitle}>Settings</Text>
-          </View>
-        </View>
+        <PaperNavHeader
+          eyebrow="FINFINDR · YOUR ACCOUNT"
+          eyebrowColor={paper.bandFair}
+          title="SETTINGS"
+          right={
+            <View style={styles.headerTierPill}>
+              <Ionicons
+                name={effectiveTier === 'free' ? 'person-outline' : 'ribbon-outline'}
+                size={11}
+                color="#FFFFFF"
+              />
+              <Text style={styles.headerTierText}>
+                {effectiveTier === 'free' ? 'FREE' : 'ANGLER'}
+              </Text>
+            </View>
+          }
+        />
       </SafeAreaView>
       <SafeAreaView style={styles.safeBody} edges={['bottom']}>
         <KeyboardAvoidingView
@@ -475,7 +495,11 @@ export default function SettingsScreen() {
             keyboardShouldPersistTaps="handled"
             showsVerticalScrollIndicator={false}
           >
-            <Text style={styles.subtitle}>Account basics, membership, support, and device data.</Text>
+            <SettingsHero
+              username={profile.username}
+              homeRegion={buildHomeRegion() || 'Not set'}
+              tier={effectiveTier}
+            />
 
             {notice ? (
               <NoticeCard
@@ -487,7 +511,13 @@ export default function SettingsScreen() {
             ) : null}
 
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>ACCOUNT</Text>
+              <SettingsSectionHeading
+                code="01"
+                icon="person-outline"
+                title="Account & membership"
+                subtitle="Your identity and FinFindr access."
+                color={paper.red}
+              />
               <View style={styles.summaryList}>
                 <SettingsSummaryRow
                   icon="mail-outline"
@@ -546,18 +576,10 @@ export default function SettingsScreen() {
                     </Pressable>
                   </View>
                 ) : null}
-                <SettingsSummaryRow
-                  icon="card-outline"
-                  title="Membership"
-                  value={effectiveTier.replace('_', ' ')}
-                  detail="Current account tier"
-                />
               </View>
-              <PrimaryAction
-                label="Manage membership"
-                icon="card-outline"
+              <MembershipSettingsCard
+                tier={effectiveTier}
                 onPress={() => router.push('/subscribe')}
-                variant="secondary"
               />
               {creatorPortalAccess?.portalEligible ? (
                 <PrimaryAction
@@ -578,7 +600,14 @@ export default function SettingsScreen() {
 
             <View style={styles.section}>
               <View style={styles.sectionLabelRow}>
-                <Text style={styles.sectionLabel}>HOME WATER PROFILE</Text>
+                <SettingsSectionHeading
+                  code="02"
+                  icon="navigate-outline"
+                  title="Home water profile"
+                  subtitle="The home base attached to your account."
+                  color={paper.dashboardBlue}
+                  compact
+                />
                 <Pressable
                   style={({ pressed }) => [
                     styles.smallAction,
@@ -669,10 +698,13 @@ export default function SettingsScreen() {
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>CONTACT & FEEDBACK</Text>
-              <Text style={styles.sectionHint}>
-                Send support requests, bug reports, or feature ideas with account context attached.
-              </Text>
+              <SettingsSectionHeading
+                code="03"
+                icon="chatbubble-ellipses-outline"
+                title="Contact & feedback"
+                subtitle="Reach the FinFindr team with account context attached."
+                color={paper.bandPrime}
+              />
               <View style={styles.contactList}>
                 <ContactRow
                   icon="chatbubble-ellipses-outline"
@@ -696,10 +728,13 @@ export default function SettingsScreen() {
             </View>
 
             <View style={styles.section}>
-              <Text style={styles.sectionLabel}>LEGAL & SAFETY</Text>
-              <Text style={styles.sectionHint}>
-                Terms, privacy, support, and fishing-condition safety notes for review and launch.
-              </Text>
+              <SettingsSectionHeading
+                code="04"
+                icon="shield-checkmark-outline"
+                title="Legal & safety"
+                subtitle="The boundaries that protect your account and time on the water."
+                color="#68757E"
+              />
               <View style={styles.contactList}>
                 <ContactRow
                   icon="document-text-outline"
@@ -730,7 +765,13 @@ export default function SettingsScreen() {
 
             {canSeeTestingTools ? (
               <View style={styles.section}>
-                <Text style={styles.sectionLabel}>DEVICE STORAGE</Text>
+                <SettingsSectionHeading
+                  code="05"
+                  icon="phone-portrait-outline"
+                  title="Device storage"
+                  subtitle="Private testing controls for this phone."
+                  color={paper.dashboardBlue}
+                />
                 <Text style={styles.sectionHint}>
                   Clears saved Daily Read, forecast, live conditions, and Tackle Box data on this device.
                 </Text>
@@ -746,7 +787,13 @@ export default function SettingsScreen() {
 
             {canSeeTestingTools && (
               <View style={styles.section}>
-                <Text style={styles.sectionLabel}>ADMIN TOOLS</Text>
+                <SettingsSectionHeading
+                  code="06"
+                  icon="construct-outline"
+                  title="Admin tools"
+                  subtitle="Internal diagnostics and release checks."
+                  color={paper.bandFair}
+                />
                 <Text style={styles.sectionHint}>
                   Analytics: {analyticsDiag.statusLabel}
                 </Text>
@@ -882,6 +929,141 @@ export default function SettingsScreen() {
         </KeyboardAvoidingView>
       </SafeAreaView>
     </View>
+  );
+}
+
+function SettingsHero({
+  username,
+  homeRegion,
+  tier,
+}: {
+  username: string;
+  homeRegion: string;
+  tier: string;
+}) {
+  const tierLabel = tier === 'free' ? 'Free' : 'Angler';
+  return (
+    <View style={styles.settingsHero}>
+      <TopographicLines
+        style={StyleSheet.absoluteFill}
+        color={paper.dashboardBlue}
+        count={7}
+      />
+      <CornerMarkSet color={paper.red} size={15} thickness={2} inset={11} />
+      <View style={styles.settingsHeroIcon}>
+        <Ionicons name="settings-outline" size={21} color="#FFFFFF" />
+      </View>
+      <SectionEyebrow color={paper.redDk} size={9} tracking={2.1}>
+        YOUR FINFINDR
+      </SectionEyebrow>
+      <Text style={styles.settingsHeroTitle} allowFontScaling={false}>
+        BUILT AROUND{`\n`}
+        <Text style={styles.settingsHeroAccent}>YOUR WATER.</Text>
+      </Text>
+      <Text style={styles.settingsHeroBody}>
+        Keep your account, home base, membership, and support details in one
+        dependable place.
+      </Text>
+      <View style={styles.settingsHeroMeta}>
+        <SettingsHeroMeta label="ANGLER" value={`@${username}`} />
+        <View style={styles.settingsHeroRule} />
+        <SettingsHeroMeta label="HOME" value={homeRegion} />
+        <View style={styles.settingsHeroRule} />
+        <SettingsHeroMeta label="ACCESS" value={tierLabel} />
+      </View>
+    </View>
+  );
+}
+
+function SettingsHeroMeta({ label, value }: { label: string; value: string }) {
+  return (
+    <View style={styles.settingsHeroMetaItem}>
+      <Text style={styles.settingsHeroMetaLabel}>{label}</Text>
+      <Text style={styles.settingsHeroMetaValue} numberOfLines={1}>
+        {value}
+      </Text>
+    </View>
+  );
+}
+
+function SettingsSectionHeading({
+  code,
+  icon,
+  title,
+  subtitle,
+  color,
+  compact = false,
+}: {
+  code: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  title: string;
+  subtitle: string;
+  color: string;
+  compact?: boolean;
+}) {
+  return (
+    <View style={[styles.sectionHeading, compact && styles.sectionHeadingCompact]}>
+      <View style={[styles.sectionHeadingIcon, { backgroundColor: `${color}16`, borderColor: `${color}38` }]}>
+        <Ionicons name={icon} size={15} color={color} />
+      </View>
+      <View style={styles.sectionHeadingCopy}>
+        <Text style={[styles.sectionHeadingCode, { color }]}>
+          {code} · ACCOUNT FIELD NOTE
+        </Text>
+        <Text style={styles.sectionHeadingTitle}>{title}</Text>
+        {!compact ? (
+          <Text style={styles.sectionHeadingSubtitle}>{subtitle}</Text>
+        ) : null}
+      </View>
+    </View>
+  );
+}
+
+function MembershipSettingsCard({
+  tier,
+  onPress,
+}: {
+  tier: string;
+  onPress: () => void;
+}) {
+  const active = tier !== 'free';
+  return (
+    <Pressable
+      style={({ pressed }) => [
+        styles.membershipCard,
+        pressed && styles.membershipCardPressed,
+      ]}
+      onPress={onPress}
+      accessibilityRole="button"
+      accessibilityLabel="Manage membership"
+    >
+      <TopographicLines
+        style={StyleSheet.absoluteFill}
+        color={paper.dashboardBlueLight}
+        count={5}
+      />
+      <View style={styles.membershipCardIcon}>
+        <Ionicons
+          name={active ? 'ribbon' : 'ribbon-outline'}
+          size={18}
+          color={paper.bandFair}
+        />
+      </View>
+      <View style={styles.membershipCardCopy}>
+        <Text style={styles.membershipCardEyebrow}>
+          {active ? 'ANGLER · ACTIVE' : 'ANGLER MEMBERSHIP'}
+        </Text>
+        <Text style={styles.membershipCardTitle}>Manage membership</Text>
+        <Text style={styles.membershipCardBody} numberOfLines={2}>
+          {active
+            ? 'Review included features, restore purchases, or manage billing.'
+            : 'See the fishing intelligence included with Angler.'}
+        </Text>
+      </View>
+      <View style={styles.membershipCardArrow}>
+        <Ionicons name="arrow-forward" size={15} color={paper.dashboardInk} />
+      </View>
+    </Pressable>
   );
 }
 
@@ -1035,45 +1217,24 @@ const styles = StyleSheet.create({
   safeTop: { backgroundColor: paper.dashboardInk },
   safeBody: { flex: 1, backgroundColor: paper.dashboardCream },
   loadingSafe: { flex: 1, backgroundColor: paper.dashboardCream },
-  header: {
-    minHeight: 84,
+  headerTierPill: {
+    minWidth: 62,
+    minHeight: 30,
     flexDirection: 'row',
     alignItems: 'center',
-    gap: paperSpacing.sm,
-    paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.sm,
-    paddingBottom: paperSpacing.md,
-    backgroundColor: paper.dashboardInk,
-    borderBottomWidth: 1,
-    borderBottomColor: 'rgba(255,255,255,0.08)',
-  },
-  headerIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 21,
-    alignItems: 'center',
     justifyContent: 'center',
-    backgroundColor: 'rgba(255,255,255,0.08)',
+    gap: 5,
+    paddingHorizontal: 8,
     borderWidth: 1,
-    borderColor: 'rgba(255,255,255,0.14)',
+    borderColor: 'rgba(255,255,255,0.16)',
+    borderRadius: 999,
+    backgroundColor: 'rgba(255,255,255,0.08)',
   },
-  headerCopy: {
-    flex: 1,
-    minWidth: 0,
-  },
-  headerEyebrow: {
+  headerTierText: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10,
-    letterSpacing: 2.4,
-    color: paper.bandFair,
-  },
-  headerTitle: {
-    marginTop: 2,
-    fontFamily: paperFonts.display,
-    fontSize: 32,
+    fontSize: 7.5,
+    letterSpacing: 1,
     color: '#FFFFFF',
-    fontWeight: '700',
-    letterSpacing: 0,
   },
   kav: { flex: 1, backgroundColor: paper.dashboardCream },
   scroll: {
@@ -1099,21 +1260,93 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     opacity: 0.6,
   },
-  subtitle: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 14,
+  settingsHero: {
+    position: 'relative',
+    overflow: 'hidden',
+    alignItems: 'center',
+    paddingHorizontal: 20,
+    paddingTop: 22,
+    paddingBottom: 0,
+    borderWidth: 1,
+    borderColor: 'rgba(42,110,150,0.2)',
+    borderRadius: paperRadius.card,
+    backgroundColor: '#EAF3F7',
+    ...paperShadows.hard,
+  },
+  settingsHeroIcon: {
+    width: 42,
+    height: 42,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: 10,
+    borderWidth: 1,
+    borderColor: 'rgba(255,255,255,0.22)',
+    borderRadius: 21,
+    backgroundColor: paper.dashboardInk,
+  },
+  settingsHeroTitle: {
+    marginTop: 9,
+    fontFamily: paperFonts.display,
+    fontSize: 30,
+    lineHeight: 33,
+    textAlign: 'center',
     color: paper.dashboardInk,
-    opacity: 0.72,
-    lineHeight: 20,
-    marginBottom: paperSpacing.sm,
+  },
+  settingsHeroAccent: {
+    color: paper.red,
+  },
+  settingsHeroBody: {
+    maxWidth: 380,
+    marginTop: 9,
+    marginBottom: 18,
+    fontFamily: paperFonts.body,
+    fontSize: 13,
+    lineHeight: 19,
+    textAlign: 'center',
+    color: paper.dashboardMuted,
+  },
+  settingsHeroMeta: {
+    width: '100%',
+    minHeight: 59,
+    flexDirection: 'row',
+    alignItems: 'stretch',
+    borderTopWidth: 1,
+    borderTopColor: 'rgba(42,110,150,0.18)',
+  },
+  settingsHeroMetaItem: {
+    flex: 1,
+    minWidth: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 3,
+    paddingHorizontal: 5,
+  },
+  settingsHeroRule: {
+    width: 1,
+    backgroundColor: 'rgba(42,110,150,0.18)',
+  },
+  settingsHeroMetaLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.2,
+    color: paper.dashboardBlue,
+  },
+  settingsHeroMetaValue: {
+    maxWidth: '100%',
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10.5,
+    color: paper.dashboardInk,
   },
   section: {
+    position: 'relative',
+    overflow: 'hidden',
     backgroundColor: paper.dashboardWhite,
-    borderRadius: 10,
+    borderRadius: paperRadius.card,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
-    padding: paperSpacing.sm + 2,
-    gap: paperSpacing.xs + 2,
+    padding: 14,
+    gap: 10,
+    ...paperShadows.hard,
   },
   sectionLabelRow: {
     flexDirection: 'row',
@@ -1121,11 +1354,49 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between',
     gap: paperSpacing.sm,
   },
-  sectionLabel: {
+  sectionHeading: {
+    flex: 1,
+    minWidth: 0,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 10,
+    paddingBottom: 2,
+  },
+  sectionHeadingCompact: {
+    paddingBottom: 0,
+  },
+  sectionHeadingIcon: {
+    width: 36,
+    height: 36,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderRadius: 18,
+  },
+  sectionHeadingCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  sectionHeadingCode: {
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 10.5,
-    color: paper.dashboardBlue,
-    letterSpacing: 2,
+    fontSize: 7.5,
+    lineHeight: 10,
+    letterSpacing: 1.1,
+  },
+  sectionHeadingTitle: {
+    marginTop: 2,
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 18,
+    lineHeight: 22,
+    color: paper.dashboardInk,
+  },
+  sectionHeadingSubtitle: {
+    marginTop: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 11.5,
+    lineHeight: 16,
+    color: paper.dashboardMuted,
   },
   sectionHint: {
     fontFamily: paperFonts.displayItalic,
@@ -1139,6 +1410,68 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardLine,
     borderRadius: 10,
     overflow: 'hidden',
+  },
+  membershipCard: {
+    position: 'relative',
+    overflow: 'hidden',
+    minHeight: 86,
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 11,
+    paddingHorizontal: 13,
+    paddingVertical: 12,
+    borderWidth: 1,
+    borderColor: 'rgba(231,193,88,0.42)',
+    borderRadius: 10,
+    backgroundColor: paper.dashboardInk,
+  },
+  membershipCardPressed: {
+    backgroundColor: '#132C46',
+    opacity: 0.94,
+  },
+  membershipCardIcon: {
+    width: 38,
+    height: 38,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderWidth: 1,
+    borderColor: 'rgba(231,193,88,0.35)',
+    borderRadius: 19,
+    backgroundColor: 'rgba(231,193,88,0.1)',
+  },
+  membershipCardCopy: {
+    flex: 1,
+    minWidth: 0,
+  },
+  membershipCardEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 1.2,
+    color: paper.bandFair,
+  },
+  membershipCardTitle: {
+    marginTop: 2,
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 18,
+    lineHeight: 21,
+    color: '#FFFFFF',
+  },
+  membershipCardBody: {
+    marginTop: 3,
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 15,
+    color: 'rgba(255,255,255,0.68)',
+  },
+  membershipCardArrow: {
+    width: 30,
+    height: 30,
+    flexShrink: 0,
+    alignItems: 'center',
+    justifyContent: 'center',
+    borderRadius: 15,
+    backgroundColor: '#FFFFFF',
   },
   summaryRow: {
     minHeight: 54,

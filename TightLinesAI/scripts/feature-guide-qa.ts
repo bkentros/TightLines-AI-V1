@@ -8,14 +8,32 @@ const home = readFileSync(`${projectRoot}app/(tabs)/index.tsx`, "utf8");
 
 assert.match(
   home,
-  /<Text style=\{styles\.howWorksEyebrow\}>FIELD GUIDE<\/Text>[\s\S]*?<Text style=\{styles\.howWorksTitle\}>\s*Choose the right read/,
-  "The home entry point must frame this page as a feature-selection guide",
+  /<Text style=\{styles\.howWorksEyebrow\}>NEW TO FINFINDR\?<\/Text>[\s\S]*?<Text style=\{styles\.howWorksTitle\}>How to get started<\/Text>/,
+  "The home entry point must clearly invite new users to get started",
 );
 
 assert.match(
   guide,
-  /title="CHOOSE YOUR READ"/,
-  "The page title must emphasize choosing a feature, not engine transparency",
+  /title="GETTING STARTED"/,
+  "The page title must frame the guide around getting started",
+);
+
+assert.match(
+  home,
+  /<View style=\{styles\.modulesHeader\}>[\s\S]*?<Pressable[\s\S]*?styles\.howWorksCta[\s\S]*?How to get started[\s\S]*?<ModuleRow[\s\S]*?title="River Migration"/,
+  "The getting-started guide must appear before the first intelligence module",
+);
+
+assert.match(
+  home,
+  /pathname: "\/how-it-works"[\s\S]*?lat: String\(coords\.lat\)[\s\S]*?lon: String\(coords\.lon\)[\s\S]*?location_label: locationLabel/,
+  "Home must carry its resolved location into the getting-started guide",
+);
+
+assert.match(
+  guide,
+  /feature\.module === "todays-bite" && activeLocation[\s\S]*?pathname: "\/how-fishing"[\s\S]*?lat: String\(activeLocation\.lat\)[\s\S]*?lon: String\(activeLocation\.lon\)[\s\S]*?location_label: activeLocation\.label/,
+  "Today's Bite must inherit the known homepage location",
 );
 
 assert.match(
