@@ -28,7 +28,7 @@ Deno.test("every primitive uses the single canonical copy template", () => {
     }),
   ];
 
-  assertEquals(RIVER_RUN_COPY_VERSION, "river-run-copy-v10");
+  assertEquals(RIVER_RUN_COPY_VERSION, "river-run-copy-v19");
   for (const display of displays) {
     assertEquals(display.copyVersion, RIVER_RUN_COPY_VERSION);
     assertEquals("copyVariant" in display, false);
@@ -51,13 +51,13 @@ Deno.test("canonical copy stays stable for identical primitive inputs", () => {
   );
 });
 
-Deno.test("Run Stage and Fish In River name the selected species", () => {
+Deno.test("Migration Stage and Fish In River name the selected species", () => {
   const names: Record<RiverRunSpecies, string> = {
     chinook_salmon: "Chinook salmon",
     coho_salmon: "Coho salmon",
-    steelhead: "steelhead",
+    steelhead: "Steelhead",
     skamania: "Skamania steelhead",
-    lake_run_brown_trout: "lake-run brown trout",
+    lake_run_brown_trout: "migratory brown trout",
     atlantic_salmon: "Atlantic salmon",
   };
   for (const [species, name] of Object.entries(names)) {

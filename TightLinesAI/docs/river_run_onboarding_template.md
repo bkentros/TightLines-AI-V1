@@ -57,9 +57,17 @@ temperature-dependent output is unavailable.
 
 Research and enter:
 
-- Species, season, run type, and implemented movement engine.
+- Species, season, run type, implemented movement engine, and an explicit
+  shared species-biology profile. Reuse an existing biology profile only when
+  species, regional life history, movement response, and migration-temperature
+  defaults genuinely match. River timing, presence, and hydraulics remain
+  separate configuration.
 - `stagingStart`, river `start`, `peak`, `end`, and `lateEnd`.
 - Historical-presence maximum from 1–10.
+- Expected seasonal distribution scope: `concentrated`, `sectional`, or
+  `broad`. This is researched independently from the maximum because a smaller
+  run may still occupy several reaches, while another run may concentrate in a
+  limited set of dependable areas.
 - Versioned presence curve anchors and supporting evidence.
 - A versioned Push block: paired absolute/relative 24-hour hydraulic response
   thresholds, low/high/severe-high values, three rain thresholds, the
@@ -83,7 +91,13 @@ Research and enter:
   boundaries, conservative caps, reach/season applicability, evidence, and
   source notes. Seasonal percentiles calibrate and contextualize these
   thresholds but never replace them.
-- Staging, pre-run, peak, and ending copy hints.
+- Confirm every configured primitive label maps to the correct qualitative
+  meter stop, including unavailable/waiting states. Confirm Fish In River uses
+  an absolute public 0–100 seasonal presence index, places the current marker
+  at the numeric index, visibly marks and masks above the river/species ceiling,
+  and always displays the configured historical run-strength tier: Limited for
+  maximum 1–3, Moderate for 4–7, or Strong for 8–10. Relative presence states
+  must say `for this run`.
 - Research/source notes.
 
 Staging context must never raise Fish In River before the river start.
@@ -112,6 +126,8 @@ Staging context must never raise Fish In River before the river start.
      tempered to Typical.
    - Confirm the first tapering date returns `Timing complete` and stops later
      timing reclassification.
+   - Confirm dates before `stagingStart` and after `postRunLateCopyEnd` return
+     `Not monitoring yet`, not `Evaluating` or a stale completed read.
 5. Replay representative dry, cooling, rain-before-rise, fishable-rise,
    high-water, stale, missing, primary-temp, and fallback-temp cases. Prove
    Strong requires a measured positive hydraulic response, rain loses credit
@@ -121,6 +137,9 @@ Staging context must never raise Fish In River before the river start.
    history. Verify every Fishability band, cap, score label, and copy branch,
    including Strong Push plus Tough/Poor Fishability.
 7. Review scores, labels, copy, reason codes, and interpretation together.
+   Confirm Run Stage, Run Timing, Push, and Fish In River all expose neutral
+   offseason placeholders; Fishability remains current but explicitly
+   conditional on migratory fish being present.
 8. Publish atomically; the previous revision becomes archived.
 9. Deploy hidden and observe live transitions before public enablement.
 
@@ -131,6 +150,10 @@ A new combination is not complete until:
 - Every primitive has deterministic unavailable/insufficient behavior.
 - No primitive contradicts another without an interpretation note.
 - Lower Fish In River caps cannot reach a stronger river's maximum.
+- Presence, stage, and interpretation copy uses the ceiling-derived opportunity
+  tier (`limited` 1–3, `moderate` 4–7, `strong` 8–10) and the separately
+  researched distribution scope; lower tiers never inherit signature-run
+  abundance wording.
 - Unsupported movement engines fail closed.
 - Provider provenance appears in stored/API output.
 - Conditions Suggest has five-year coverage for all five cumulative checkpoints

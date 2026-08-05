@@ -7,6 +7,7 @@ export type DateWindow = {
   startDate: string;
   beginningEndDate: string;
   buildingEstablishedStartDate: string;
+  buildingBroadStartDate?: string;
   peakStartDate: string;
   peakDate: string;
   peakEndDate: string;
@@ -85,8 +86,11 @@ function buildWindowCandidate(
     beginningEnd,
     run.runWindow.buildingEstablishedStart,
   );
+  const buildingBroadStart = run.runWindow.buildingBroadStart
+    ? dateOnOrAfter(buildingEstablishedStart, run.runWindow.buildingBroadStart)
+    : null;
   const peakStart = dateOnOrAfter(
-    buildingEstablishedStart,
+    buildingBroadStart ?? buildingEstablishedStart,
     run.runWindow.peakStart,
   );
   const peak = dateOnOrAfter(peakStart, run.runWindow.peak);
@@ -109,6 +113,9 @@ function buildWindowCandidate(
   const buildingEstablishedStartDate = toLocalDateString(
     buildingEstablishedStart,
   );
+  const buildingBroadStartDate = buildingBroadStart
+    ? toLocalDateString(buildingBroadStart)
+    : undefined;
   const peakStartDate = toLocalDateString(peakStart);
   const peakDate = toLocalDateString(peak);
   const peakEndDate = toLocalDateString(peakEnd);
@@ -124,6 +131,7 @@ function buildWindowCandidate(
     startDate,
     beginningEndDate,
     buildingEstablishedStartDate,
+    buildingBroadStartDate,
     peakStartDate,
     peakDate,
     peakEndDate,

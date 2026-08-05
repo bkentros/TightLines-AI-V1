@@ -3,6 +3,8 @@ const RIVER_RUN_SPECIES_IMAGES: Record<
   ReturnType<typeof require>
 > = {
   chinook_salmon: require("../assets/images/fish/chinook_salmon.png"),
+  coho_salmon: require("../assets/images/fish/coho_salmon.png"),
+  steelhead: require("../assets/images/fish/steelhead.png"),
 };
 
 export function getRiverRunSpeciesImage(

@@ -32,7 +32,7 @@ async function riverRunGet<TResponse>(
   options: { requireAuth?: boolean } = {},
 ): Promise<TResponse> {
   if (!supabaseUrl || !supabaseAnonKey) {
-    throw new Error("Missing Supabase configuration for River Run.");
+    throw new Error("Missing Supabase configuration for River Migration.");
   }
 
   const url = new URL(`${supabaseUrl}/functions/v1/river-run/${path}`);
@@ -88,7 +88,7 @@ async function riverRunGet<TResponse>(
         duration_ms: Date.now() - startedAt,
         reason: "timeout",
       });
-      throw new Error("River Run request timed out. Please try again.");
+      throw new Error("River Migration request timed out. Please try again.");
     }
     if (!failureTracked) {
       captureAnalytics("river_run_request_failed", {
@@ -124,5 +124,5 @@ function readErrorMessage(parsed: unknown, status: number): string {
       return body.error;
     }
   }
-  return `River Run request failed with status ${status}.`;
+  return `River Migration request failed with status ${status}.`;
 }

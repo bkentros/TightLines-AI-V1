@@ -186,7 +186,7 @@ export function storageError(
 ): RiverRunStorageError | null {
   if (!error) return null;
   return {
-    message: error.message ?? "River Run storage operation failed.",
+    message: error.message ?? "River Migration storage operation failed.",
     code: error.code,
     details: error.details,
   };

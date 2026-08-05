@@ -28,6 +28,18 @@ export const MOVEMENT_ENGINE_DEFINITIONS: Record<
     description:
       "Fall movement engine for runs where suitable cooling and a measured river response can support movement.",
   },
+  fall_entry_cooling: {
+    movementEngineId: "fall_entry_cooling",
+    version: "fall-entry-cooling-v1",
+    implemented: true,
+    supportedSeasons: ["fall"],
+    supportedRunTypes: ["fall_entry"],
+    temperatureDirection: "cooling",
+    rainActsAsPrecursor: true,
+    gaugeResponseRequiredForStrongPush: true,
+    description:
+      "Fall-entry movement branch for fish that enter on cooling water, remain through winter, and require a cold-holding threshold rather than a spawning-season exit.",
+  },
   spring_warming: {
     movementEngineId: "spring_warming",
     version: "unimplemented",

@@ -1,10 +1,10 @@
 import {
   fetchUsgsDailyFlowBaselineObservations,
   getPrimaryHydraulicSource,
-  PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   resolveAdminOverrideBand,
   resolveFlowTrendSignal,
+  RIVER_RUN_RUN_PROFILES,
   scoreFishability,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 
@@ -24,15 +24,20 @@ type ReplayRow = {
 };
 
 const river = PERE_MARQUETTE_RIVER_PROFILE;
-const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+const runId = argumentValue("--run-id") ?? "pere_marquette_fall_chinook";
+const run = RIVER_RUN_RUN_PROFILES.find((candidate) =>
+  candidate.runId === runId && candidate.riverId === river.riverId
+);
+if (!run) throw new Error(`Unknown Pere Marquette run ID: ${runId}`);
 const gauge = getPrimaryHydraulicSource(river);
 const startYear = 2016;
 const endYear = 2025;
+const replayStartDate = `${startYear}-${run.runWindow.start}`;
 const flowObservations = await fetchUsgsDailyFlowBaselineObservations({
   fetchFn: fetch,
   riverId: river.riverId,
   siteId: gauge.siteId,
-  startDate: `${startYear}-08-14`,
+  startDate: addDays(replayStartDate, -1),
   endDate: `${endYear}-${run.runWindow.end}`,
 });
 const flowByDate = new Map(
@@ -121,6 +126,10 @@ const invariants = {
 const failedInvariants = Object.entries(invariants).filter(([, count]) =>
   count > 0
 );
+const expectedActiveDays =
+  activeDayCount(run.runWindow.start, run.runWindow.end) *
+  (endYear - startYear + 1);
+const minimumUsableReplayDays = Math.floor(expectedActiveDays * 0.9);
 const report = {
   riverId: river.riverId,
   runId: run.runId,
@@ -131,6 +140,8 @@ const report = {
   method:
     "Daily-resolution mechanical replay using approved USGS Scottville daily mean discharge and the same paired 24-hour flow-change thresholds as runtime. Runtime uses near-real-time observations; replay validates band behavior, caps, copy, and rule interactions rather than fishing success or safety.",
   usableReplayDays: rows.length,
+  expectedActiveDays,
+  minimumUsableReplayDays,
   labelCounts: counts(rows.map((row) => row.label)),
   bandCounts: counts(rows.map((row) => row.band)),
   flowSignalCounts: counts(rows.map((row) => row.flowSignal)),
@@ -156,12 +167,32 @@ const report = {
   ).slice(0, 12),
 };
 console.log(JSON.stringify(report, null, 2));
-if (rows.length < 650 || failedInvariants.length > 0) Deno.exit(1);
+if (rows.length < minimumUsableReplayDays || failedInvariants.length > 0) {
+  Deno.exit(1);
+}
 
 function addDays(localDate: string, days: number): string {
   const date = new Date(`${localDate}T12:00:00.000Z`);
   date.setUTCDate(date.getUTCDate() + days);
   return date.toISOString().slice(0, 10);
+}
+
+function activeDayCount(startMonthDay: string, endMonthDay: string): number {
+  const start = `2024-${startMonthDay}`;
+  const directEnd = `2024-${endMonthDay}`;
+  const end = directEnd >= start ? directEnd : `2025-${endMonthDay}`;
+  return Math.round(
+    (new Date(`${end}T12:00:00.000Z`).getTime() -
+      new Date(`${start}T12:00:00.000Z`).getTime()) /
+      86_400_000,
+  ) + 1;
+}
+
+function argumentValue(flag: string): string | null {
+  const inline = Deno.args.find((arg) => arg.startsWith(`${flag}=`));
+  if (inline) return inline.slice(flag.length + 1) || null;
+  const index = Deno.args.indexOf(flag);
+  return index >= 0 ? Deno.args[index + 1] ?? null : null;
 }
 
 function counts(values: string[]): Record<string, number> {

@@ -30,6 +30,18 @@ const catalog: RiverRunCatalogResponse = {
               season: "fall",
             },
             {
+              runId: "pm_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+            },
+            {
+              runId: "pm_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+            },
+            {
               runId: "pm_spring_steelhead",
               displayName: "Spring Steelhead",
               species: "steelhead",
@@ -76,21 +88,70 @@ const catalog: RiverRunCatalogResponse = {
 
 assert.deepEqual(
   riverRunStateChoices(catalog).map((choice) => choice.id),
-  ["MI", "WI"],
+  ["MI", "NY", "WI", "OH"],
+);
+assert.equal(
+  riverRunStateChoices(catalog).find((choice) => choice.id === "NY")?.disabled,
+  true,
+);
+assert.equal(
+  riverRunStateChoices(catalog).find((choice) => choice.id === "WI")?.disabled,
+  undefined,
+  "A future presentation row must become selectable when catalog support exists",
 );
 assert.deepEqual(
   riverRunSeasonChoices(catalog, "MI").map((choice) => choice.id),
-  ["fall", "spring"],
+  ["fall", "winter", "spring", "summer"],
+);
+assert.equal(
+  riverRunSeasonChoices(catalog, "MI").find((choice) =>
+    choice.id === "winter"
+  )?.disabled,
+  true,
 );
 assert.deepEqual(
   riverRunSpeciesChoices(catalog, "MI", "fall").map((choice) => choice.id),
-  ["chinook_salmon"],
+  ["chinook_salmon", "coho_salmon", "steelhead", "atlantic_salmon"],
 );
+assert.equal(
+  riverRunSpeciesChoices(catalog, "MI", "fall").find((choice) =>
+    choice.id === "atlantic_salmon"
+  )?.disabled,
+  true,
+);
+const michiganFallRiverIds = [
+  "pere_marquette",
+  "betsie",
+  "big_manistee",
+  "muskegon",
+  "grand",
+  "platte",
+  "white",
+  "au_sable",
+];
 assert.deepEqual(
   riverRunRiverChoices(catalog, "MI", "fall", "chinook_salmon").map(
     (choice) => choice.id,
   ),
-  ["pere_marquette", "betsie"],
+  michiganFallRiverIds,
+);
+for (const species of ["coho_salmon", "steelhead"]) {
+  assert.deepEqual(
+    riverRunRiverChoices(catalog, "MI", "fall", species).map((choice) =>
+      choice.id
+    ),
+    michiganFallRiverIds,
+  );
+}
+assert.deepEqual(
+  riverRunRiverChoices(catalog, "MI", "fall", "atlantic_salmon"),
+  [{
+    id: "au_sable",
+    label: "Au Sable River",
+    subtitle: "Coming later",
+    disabled: true,
+  }],
+  "Atlantic Salmon must only advertise the Au Sable among planned rivers",
 );
 assert.deepEqual(
   riverRunRiverChoices(catalog, "WI", "fall", "coho_salmon").map(
@@ -99,6 +160,8 @@ assert.deepEqual(
   ["root"],
 );
 assert.equal(formatRiverRunSpecies("chinook_salmon"), "Chinook Salmon");
+assert.equal(formatRiverRunSpecies("coho_salmon"), "Coho Salmon");
+assert.equal(formatRiverRunSpecies("steelhead"), "Steelhead");
 
 const target = resolveRiverRunTarget(catalog, {
   stateCode: "MI",
@@ -116,12 +179,54 @@ assert.equal(
   }),
   null,
 );
+assert.equal(
+  resolveRiverRunTarget(catalog, {
+    stateCode: "MI",
+    season: "fall",
+    species: "steelhead",
+    riverId: "muskegon",
+  }),
+  null,
+  "A disabled presentation-only river must never resolve as supported",
+);
 
 const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const riverRunScreen = readFileSync(
   `${projectRoot}app/river-run.tsx`,
   "utf8",
 );
+assert.match(
+  riverRunScreen,
+  /disabled=\{disabled\}[\s\S]*?accessibilityState=\{\{ checked: selected, disabled \}\}/,
+  "Future catalog choices must be disabled visually and accessibly",
+);
+assert.match(
+  riverRunScreen,
+  /choice\.id === "steelhead"[\s\S]*?speciesChoiceImageSteelhead/,
+  "Steelhead must use its normalized compact selector-image sizing",
+);
+const riverRunVisual = readFileSync(
+  `${projectRoot}components/river-run/RiverRunVisual.tsx`,
+  "utf8",
+);
+const anglerFacingFeatureSources = [
+  riverRunScreen,
+  riverRunVisual,
+  readFileSync(`${projectRoot}app/(auth)/welcome.tsx`, "utf8"),
+  readFileSync(`${projectRoot}app/(tabs)/index.tsx`, "utf8"),
+  readFileSync(`${projectRoot}app/module-icons-preview.tsx`, "utf8"),
+  readFileSync(`${projectRoot}lib/riverRunCatalogSelection.ts`, "utf8"),
+];
+for (const source of anglerFacingFeatureSources) {
+  assert.equal(
+    /\b(?:River Run|Run Stage|Run Timing|Pre-run|Post-run|Waiting for run|Run complete|Audited river run|Daily run score)\b/i
+      .test(
+        source,
+      ),
+    false,
+    "Angler-facing feature copy must use river or migration language, not run jargon",
+  );
+}
 const detailCopyRender = riverRunScreen.match(
   /<PrimitiveDetailCopy value=\{primitive\.detail\} \/>/,
 );
@@ -178,12 +283,55 @@ assert.equal(
     riverRunScreen,
   ),
   false,
-  "River Run must keep internal scores off the public primitive cards",
+  "River Run must not restore generic primitive scores on public cards",
+);
+assert.match(
+  riverRunScreen,
+  /styles\.primitiveHeaderState[\s\S]*?\{visual\.stateLabel\}/,
+  "Fish In River must render its clarified within-run state wording",
+);
+assert.match(
+  riverRunVisual,
+  /model\.kind === "fish_in_river"[\s\S]*?PRESENCE INDEX[\s\S]*?\{model\.score\}[\s\S]*?\/100/,
+  "Fish In River must always identify and display its public presence index",
+);
+assert.match(
+  riverRunVisual,
+  /styles\.presenceIndexValue[\s\S]*?color: model\.accent[\s\S]*?\{model\.score\}[\s\S]*?styles\.presenceIndexMaximum[\s\S]*?\/100/,
+  "Only the Fish In River index value must inherit its absolute meter color",
+);
+assert.match(
+  riverRunVisual,
+  /HISTORICAL MIGRATION STRENGTH[\s\S]*?model\.historicalRunStrength[\s\S]*?RIVER \/ SPECIES CEILING[\s\S]*?model\.riverMaximum/,
+  "Fish In River must emphasize configured historical strength and ceiling",
+);
+assert.match(
+  riverRunVisual,
+  /model\.kind === "fish_in_river" && ceilingPercent < 100[\s\S]*?presenceAboveCeiling/,
+  "Fish In River must visibly mask the scale above a run's configured ceiling",
+);
+assert.match(
+  riverRunScreen,
+  /<Text style=\{styles\.resultHeroMetaLabel\}>DATA<\/Text>[\s\S]*?snapshot\?\.dataQuality\.label/,
+  "River Run must keep the top-level data-quality status visible",
+);
+assert.equal(
+  /function EvidenceSection|DATA BEHIND THIS READ|MEASURED INPUTS|Gauge reading|Gauge source|Temp source|Weather source/
+    .test(
+      riverRunScreen,
+    ),
+  false,
+  "River Run must not expose the removed evidence dropdown or raw source metadata",
+);
+assert.equal(
+  /snapshot\.safety\.gaugeBasis/.test(riverRunScreen),
+  false,
+  "River Run must not render gauge-basis metadata in the public safety card",
 );
 assert.match(
   riverRunScreen,
   /function formatPreviousTimingRead[\s\S]*?Previous timing read:[\s\S]*?previousTimingLabel[\s\S]*?formatLocalDate\(timing\.previousCheckpointDate\)/,
-  "Run Timing must display the dated previous checkpoint read",
+  "Migration Timing must display the dated previous checkpoint read",
 );
 assert.match(
   riverRunScreen,
@@ -197,8 +345,13 @@ assert.equal(
 );
 assert.match(
   riverRunScreen,
-  /function formatLastSupportivePush[\s\S]*?Last supportive signal this run/,
+  /function formatLastSupportivePush[\s\S]*?Last supportive signal this season/,
   "Push history must retain the last supportive signal as secondary context",
+);
+assert.match(
+  riverRunScreen,
+  /primitive\.whereToStart[\s\S]*?WHERE TO START[\s\S]*?primitive\.whereToStart/,
+  "Migration Stage must render one prominent Where To Start line",
 );
 const detailFlowStyle = riverRunScreen.match(
   /primitiveDetailTextFlow:\s*\{([\s\S]*?)\n  \},/,
@@ -219,16 +372,39 @@ assert.equal(
   "Why This Read bullet rows must not restore the native flex text-row bug",
 );
 
-const chinookPath = `${projectRoot}assets/images/fish/chinook_salmon.png`;
-assert(existsSync(chinookPath), "Missing River Run Chinook image");
-const png = readFileSync(chinookPath);
-assert.equal(png.subarray(1, 4).toString("ascii"), "PNG");
-assert.equal(
-  png[25],
-  6,
-  "Chinook image must be an RGBA PNG with transparency",
+for (const species of ["chinook_salmon", "coho_salmon", "steelhead"] as const) {
+  const imagePath = `${projectRoot}assets/images/fish/${species}.png`;
+  assert(existsSync(imagePath), `Missing River Run ${species} image`);
+  const png = readFileSync(imagePath);
+  assert.equal(png.subarray(1, 4).toString("ascii"), "PNG");
+  assert.equal(
+    png[25],
+    6,
+    `${species} image must be an RGBA PNG with transparency`,
+  );
+}
+const speciesImageRegistry = readFileSync(
+  `${projectRoot}lib/riverRunSpeciesImages.ts`,
+  "utf8",
+);
+assert.match(speciesImageRegistry, /coho_salmon\.png/);
+assert.match(speciesImageRegistry, /steelhead\.png/);
+assert.match(
+  riverRunScreen,
+  /selectedSpecies === "coho_salmon"[\s\S]*?RIVER_RUN_COHO_REVIEW_GROUPS[\s\S]*?selectedSpecies === "steelhead"[\s\S]*?RIVER_RUN_STEELHEAD_REVIEW_GROUPS[\s\S]*?: RIVER_RUN_REVIEW_GROUPS/,
+  "Development review must select species-correct Coho fixtures",
+);
+assert.match(
+  riverRunScreen,
+  /runId: "pere_marquette_fall_coho"[\s\S]*?species: "coho_salmon"/,
+  "Development catalog must expose the hidden Coho run for acceptance only",
+);
+assert.match(
+  riverRunScreen,
+  /runId: "pere_marquette_fall_steelhead"[\s\S]*?species: "steelhead"/,
+  "Development catalog must expose hidden Fall Steelhead for acceptance only",
 );
 
 console.log(
-  "River Run UI QA passed: catalog order, downstream filtering, target resolution, unclipped detail copy, dated Push history without scores, and Chinook alpha asset.",
+  "River Run UI QA passed: simplified data status, catalog filtering, species-correct review routing, and Chinook/Coho/Steelhead alpha assets.",
 );

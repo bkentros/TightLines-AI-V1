@@ -13,7 +13,9 @@ export function getPrimaryHydraulicSource(
     source.role === "primary"
   );
   if (!primary) {
-    throw new Error("River Run river config has no primary hydraulic source.");
+    throw new Error(
+      "River Migration river config has no primary hydraulic source.",
+    );
   }
   return primary;
 }

@@ -75,6 +75,7 @@ if (expectPublic && firstTarget) {
       "Typical",
       "Delayed",
       "Insufficient evidence",
+      "Not monitoring yet",
       "Evaluating",
       "Timing complete",
     ].includes(

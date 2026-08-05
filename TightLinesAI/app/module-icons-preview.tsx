@@ -3,20 +3,20 @@
  * Open in the dev client: /module-icons-preview
  */
 
-import { Ionicons } from '@expo/vector-icons';
-import { useRouter } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import { Ionicons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
 
-import { PaperNavHeader } from '../components/paper/PaperNavHeader';
+import { PaperNavHeader } from "../components/paper/PaperNavHeader";
 import {
   IntelligenceModuleEmblem,
   IntelligenceModuleIcon,
   type IntelligenceModuleIconVariant,
   type IntelligenceModuleId,
-} from '../components/paper/IntelligenceModuleIcons';
-import { paper, paperFonts, paperSpacing } from '../lib/theme';
+} from "../components/paper/IntelligenceModuleIcons";
+import { paper, paperFonts, paperSpacing } from "../lib/theme";
 
 type ModuleSpec = {
   id: IntelligenceModuleId;
@@ -27,75 +27,75 @@ type ModuleSpec = {
   iconBg: [string, string];
   iconBorder: string;
   iconColor: string;
-  legacyIcon: React.ComponentProps<typeof Ionicons>['name'];
+  legacyIcon: React.ComponentProps<typeof Ionicons>["name"];
 };
 
 const MODULES: ModuleSpec[] = [
   {
-    id: 'water-read',
-    code: '01',
-    title: 'Water Read',
-    tag: 'POLYGON',
-    desc: 'Most lakes: structure + potential hotspots',
-    iconBg: ['#E8F2FA', '#C8DFF2'],
-    iconBorder: '#0F63B0',
-    iconColor: '#0A4A87',
-    legacyIcon: 'layers-outline',
+    id: "water-read",
+    code: "01",
+    title: "Water Read",
+    tag: "POLYGON",
+    desc: "Most lakes: structure + potential hotspots",
+    iconBg: ["#E8F2FA", "#C8DFF2"],
+    iconBorder: "#0F63B0",
+    iconColor: "#0A4A87",
+    legacyIcon: "layers-outline",
   },
   {
-    id: 'tackle-box',
-    code: '02',
-    title: 'Tackle Box',
-    tag: 'RECOMMENDER',
+    id: "tackle-box",
+    code: "02",
+    title: "Tackle Box",
+    tag: "RECOMMENDER",
     desc: "Tuned picks for today's conditions & species",
-    iconBg: ['#FBF1D9', '#F4DFA4'],
-    iconBorder: '#C99B2D',
-    iconColor: '#8A6A1A',
-    legacyIcon: 'fish-outline',
+    iconBg: ["#FBF1D9", "#F4DFA4"],
+    iconBorder: "#C99B2D",
+    iconColor: "#8A6A1A",
+    legacyIcon: "fish-outline",
   },
   {
-    id: 'todays-bite',
-    code: '03',
+    id: "todays-bite",
+    code: "03",
     title: "Today's Bite",
-    tag: 'CONDITIONS',
-    desc: 'Full breakdown · windows · limiting factors',
-    iconBg: ['#E5F2DD', '#C5E0B5'],
-    iconBorder: '#3DA85F',
-    iconColor: '#1F6B38',
-    legacyIcon: 'sparkles-outline',
+    tag: "CONDITIONS",
+    desc: "Full breakdown · windows · limiting factors",
+    iconBg: ["#E5F2DD", "#C5E0B5"],
+    iconBorder: "#3DA85F",
+    iconColor: "#1F6B38",
+    legacyIcon: "sparkles-outline",
   },
   {
-    id: 'river-run',
-    code: '04',
-    title: 'River Run',
-    tag: 'MIGRATION',
-    desc: 'Daily run score, strength & fishability for Great Lakes rivers',
-    iconBg: ['#FBE4E1', '#F3C2BC'],
-    iconBorder: '#C0392B',
-    iconColor: '#9A2B20',
-    legacyIcon: 'fish-outline',
+    id: "river-run",
+    code: "04",
+    title: "River Migration",
+    tag: "MIGRATION",
+    desc: "Daily river outlook, strength & fishability for Great Lakes species",
+    iconBg: ["#FBE4E1", "#F3C2BC"],
+    iconBorder: "#C0392B",
+    iconColor: "#9A2B20",
+    legacyIcon: "fish-outline",
   },
 ];
 
 const VARIANTS: {
-  key: IntelligenceModuleIconVariant | 'ionicons';
+  key: IntelligenceModuleIconVariant | "ionicons";
   label: string;
   blurb: string;
 }[] = [
   {
-    key: 'ionicons',
-    label: 'Original',
-    blurb: 'Ionicons outline — stock system glyphs',
+    key: "ionicons",
+    label: "Original",
+    blurb: "Ionicons outline — stock system glyphs",
   },
   {
-    key: 'legacy',
-    label: 'First pass',
-    blurb: 'Thin custom SVG — too small / incomplete',
+    key: "legacy",
+    label: "First pass",
+    blurb: "Thin custom SVG — too small / incomplete",
   },
   {
-    key: 'premium',
-    label: 'Premium',
-    blurb: 'Bold filled emblems — current default on Home',
+    key: "premium",
+    label: "Premium",
+    blurb: "Bold filled emblems — current default on Home",
   },
 ];
 
@@ -103,7 +103,7 @@ export default function ModuleIconsPreviewScreen() {
   const router = useRouter();
 
   return (
-    <SafeAreaView style={styles.safe} edges={['top']}>
+    <SafeAreaView style={styles.safe} edges={["top"]}>
       <StatusBar style="light" />
       <View style={styles.screen}>
         <PaperNavHeader
@@ -139,40 +139,44 @@ export default function ModuleIconsPreviewScreen() {
               <View style={styles.variantGrid}>
                 {VARIANTS.map((variant) => (
                   <View key={variant.key} style={styles.variantCard}>
-                    {variant.key === 'premium' ? (
-                      <IntelligenceModuleEmblem
-                        module={module.id}
-                        iconBg={module.iconBg}
-                        iconBorder={module.iconBorder}
-                        iconColor={module.iconColor}
-                        size={56}
-                      />
-                    ) : (
-                      <View
-                        style={[
-                          styles.iconTile,
-                          {
-                            backgroundColor: module.iconBg[1],
-                            borderColor: `${module.iconBorder}60`,
-                          },
-                        ]}
-                      >
-                        {variant.key === 'ionicons' ? (
-                          <Ionicons
-                            name={module.legacyIcon}
-                            size={22}
-                            color={module.iconColor}
-                          />
-                        ) : (
-                          <IntelligenceModuleIcon
-                            module={module.id}
-                            variant="legacy"
-                            size={30}
-                            color={module.iconColor}
-                          />
-                        )}
-                      </View>
-                    )}
+                    {variant.key === "premium"
+                      ? (
+                        <IntelligenceModuleEmblem
+                          module={module.id}
+                          iconBg={module.iconBg}
+                          iconBorder={module.iconBorder}
+                          iconColor={module.iconColor}
+                          size={56}
+                        />
+                      )
+                      : (
+                        <View
+                          style={[
+                            styles.iconTile,
+                            {
+                              backgroundColor: module.iconBg[1],
+                              borderColor: `${module.iconBorder}60`,
+                            },
+                          ]}
+                        >
+                          {variant.key === "ionicons"
+                            ? (
+                              <Ionicons
+                                name={module.legacyIcon}
+                                size={22}
+                                color={module.iconColor}
+                              />
+                            )
+                            : (
+                              <IntelligenceModuleIcon
+                                module={module.id}
+                                variant="legacy"
+                                size={30}
+                                color={module.iconColor}
+                              />
+                            )}
+                        </View>
+                      )}
                     <Text style={styles.variantLabel}>{variant.label}</Text>
                     <Text style={styles.variantBlurb}>{variant.blurb}</Text>
                   </View>
@@ -216,7 +220,7 @@ function PreviewRow({ module }: { module: ModuleSpec }) {
           name="arrow-up"
           size={16}
           color={paper.dashboardInk}
-          style={{ transform: [{ rotate: '45deg' }], opacity: 0.62 }}
+          style={{ transform: [{ rotate: "45deg" }], opacity: 0.62 }}
         />
       </View>
     </View>
@@ -239,18 +243,18 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   scrollContent: {
-    width: '100%',
+    width: "100%",
     maxWidth: 520,
-    alignSelf: 'center',
+    alignSelf: "center",
     paddingHorizontal: paperSpacing.lg,
     paddingTop: paperSpacing.lg,
     paddingBottom: paperSpacing.xxl,
   },
   introCard: {
-    backgroundColor: '#E4F1F7',
+    backgroundColor: "#E4F1F7",
     borderRadius: 10,
     borderWidth: 1,
-    borderColor: 'rgba(42,110,150,0.18)',
+    borderColor: "rgba(42,110,150,0.18)",
     padding: paperSpacing.lg,
     marginBottom: paperSpacing.section,
   },
@@ -271,14 +275,14 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.body,
     fontSize: 14,
     lineHeight: 21,
-    color: 'rgba(10,27,46,0.72)',
+    color: "rgba(10,27,46,0.72)",
   },
   moduleBlock: {
     marginBottom: paperSpacing.section,
   },
   moduleHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
     marginBottom: 12,
   },
@@ -286,7 +290,7 @@ const styles = StyleSheet.create({
     fontFamily: MONO_BOLD,
     fontSize: 9,
     letterSpacing: 1,
-    color: '#AAA',
+    color: "#AAA",
   },
   moduleTitle: {
     fontFamily: SERIF_SEMI,
@@ -297,32 +301,32 @@ const styles = StyleSheet.create({
     fontFamily: MONO_BOLD,
     fontSize: 8,
     letterSpacing: 1.2,
-    color: '#888',
+    color: "#888",
   },
   variantGrid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    flexWrap: "wrap",
     gap: 10,
     marginBottom: 14,
   },
   variantCard: {
-    width: '31%',
+    width: "31%",
     minWidth: 100,
     flexGrow: 1,
-    backgroundColor: '#FFFFFF',
+    backgroundColor: "#FFFFFF",
     borderRadius: 8,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     padding: 12,
-    alignItems: 'center',
+    alignItems: "center",
   },
   iconTile: {
     width: 56,
     height: 56,
     borderRadius: 10,
     borderWidth: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
+    justifyContent: "center",
+    alignItems: "center",
     marginBottom: 10,
   },
   variantLabel: {
@@ -330,14 +334,14 @@ const styles = StyleSheet.create({
     fontSize: 13,
     color: paper.dashboardInk,
     marginBottom: 4,
-    textAlign: 'center',
+    textAlign: "center",
   },
   variantBlurb: {
     fontFamily: paperFonts.body,
     fontSize: 11,
     lineHeight: 16,
-    color: 'rgba(10,27,46,0.62)',
-    textAlign: 'center',
+    color: "rgba(10,27,46,0.62)",
+    textAlign: "center",
   },
   previewRow: {
     marginTop: 4,
@@ -346,13 +350,13 @@ const styles = StyleSheet.create({
     fontFamily: MONO_BOLD,
     fontSize: 8,
     letterSpacing: 1.6,
-    color: '#888',
+    color: "#888",
     marginBottom: 8,
   },
   moduleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    backgroundColor: '#FFFFFF',
+    flexDirection: "row",
+    alignItems: "center",
+    backgroundColor: "#FFFFFF",
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 8,
@@ -363,15 +367,15 @@ const styles = StyleSheet.create({
     fontFamily: MONO_BOLD,
     fontSize: 9,
     letterSpacing: 1,
-    color: '#AAA',
+    color: "#AAA",
   },
   rowTextCol: {
     flex: 1,
   },
   rowTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
     gap: 8,
     marginBottom: 2,
   },
@@ -384,19 +388,19 @@ const styles = StyleSheet.create({
     fontFamily: MONO_BOLD,
     fontSize: 8,
     letterSpacing: 1.2,
-    color: '#888',
+    color: "#888",
   },
   rowDesc: {
     fontFamily: paperFonts.body,
     fontSize: 12,
-    color: 'rgba(10,27,46,0.62)',
+    color: "rgba(10,27,46,0.62)",
   },
   footerStamp: {
-    textAlign: 'center',
+    textAlign: "center",
     fontFamily: MONO_BOLD,
     fontSize: 9,
     letterSpacing: 2.4,
-    color: 'rgba(10,27,46,0.34)',
+    color: "rgba(10,27,46,0.34)",
     marginTop: paperSpacing.md,
   },
 });

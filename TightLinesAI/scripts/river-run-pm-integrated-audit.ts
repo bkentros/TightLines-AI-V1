@@ -7,7 +7,6 @@ import {
   type NormalizedTemperatureBaselineObservation,
   parseMonitorMyWatershedTemperature,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
-  PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   resolveAdminOverrideBand,
   resolveConditionsSuggestCheckpoints,
@@ -15,6 +14,7 @@ import {
   resolveRainSignal,
   resolveRunStage,
   resolveTemperatureTrendSignal,
+  RIVER_RUN_RUN_PROFILES,
   type RiverRunDailySnapshot,
   type RiverRunReasonCode,
   scoreConditionsSuggest,
@@ -24,19 +24,24 @@ import {
 type AuditRow = {
   localDate: string;
   runStage: string;
+  broadBuildingContext: boolean;
   conditionsSuggest: string;
   push: string;
   pushScore: number | null | undefined;
   fishability: string;
   fishabilityScore: number | null | undefined;
-  fishInRiver: number;
+  fishInRiver: number | null;
   dataQuality: string;
   interpretationCodes: RiverRunReasonCode[];
   copy: string;
 };
 
 const river = PERE_MARQUETTE_RIVER_PROFILE;
-const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+const runId = argumentValue("--run-id") ?? "pere_marquette_fall_chinook";
+const run = RIVER_RUN_RUN_PROFILES.find((candidate) =>
+  candidate.runId === runId && candidate.riverId === river.riverId
+);
+if (!run) throw new Error(`Unknown Pere Marquette run ID: ${runId}`);
 const gauge = getPrimaryHydraulicSource(river);
 const pushTemperatureSource = river.waterTemperatureSources.find((source) =>
   source.sourceId === run.waterTemperature.sourcePriority[0]
@@ -55,12 +60,14 @@ if (
 
 const startYear = 2021;
 const endYear = 2025;
+const replayStartDate = `${startYear}-${run.runWindow.stagingStart}`;
+const replayEndDate = `${endYear}-${run.runWindow.lateEnd}`;
 const flowObservations = await fetchUsgsDailyFlowBaselineObservations({
   fetchFn: fetch,
   riverId: river.riverId,
   siteId: gauge.siteId,
-  startDate: `${startYear}-07-27`,
-  endDate: `${endYear}-11-08`,
+  startDate: addDays(replayStartDate, -3),
+  endDate: replayEndDate,
 });
 const flowByDate = new Map(
   flowObservations.map((observation) => [
@@ -76,8 +83,8 @@ const rainByDate = await fetchDailyRain({
   lat: weatherPoint.lat,
   lon: weatherPoint.lon,
   timezone: river.timezone,
-  startDate: `${startYear}-07-25`,
-  endDate: `${endYear}-11-08`,
+  startDate: addDays(replayStartDate, -3),
+  endDate: replayEndDate,
 });
 
 const checkpointDefinitions = resolveConditionsSuggestCheckpoints(
@@ -102,6 +109,8 @@ const conditionsBaselines = generateConditionsSuggestBaselineRows({
   minimumUsableYears: run.conditionsSuggest.minimumUsableYears,
   coolEnoughPercentileCap: run.conditionsSuggest.coolEnoughPercentileCap,
   tooWarmF: run.push.temperature.tooWarmF,
+  gaugeWeight: run.conditionsSuggest.gaugeWeight,
+  waterTemperatureWeight: run.conditionsSuggest.waterTemperatureWeight,
   sourceNotes: "Integrated PM all-primitive audit baseline.",
 });
 
@@ -292,12 +301,13 @@ for (let year = startYear; year <= endYear; year++) {
     rows.push({
       localDate,
       runStage: refresh.runStage.label,
+      broadBuildingContext: refresh.runStage.broadBuildingContext === true,
       conditionsSuggest: refresh.conditionsSuggest.label,
       push: refresh.push.label,
       pushScore: refresh.push.score,
       fishability: refresh.fishability.label,
       fishabilityScore: refresh.fishability.score,
-      fishInRiver: refresh.fishInRiver.score!,
+      fishInRiver: refresh.fishInRiver.score ?? null,
       dataQuality: refresh.dataQuality.label,
       interpretationCodes: refresh.interpretationNote?.reasonCodes ?? [],
       copy,
@@ -315,28 +325,37 @@ const invariants = {
       )
     ).length,
   preRunActivePush:
-    rows.filter((row) => row.runStage === "Pre-run" && row.pushScore != null)
+    rows.filter((row) =>
+      row.runStage === "Before migration" && row.pushScore != null
+    )
       .length,
   postRunActivePush:
-    rows.filter((row) => row.runStage === "Post-run" && row.pushScore != null)
+    rows.filter((row) =>
+      row.runStage === "After migration" && row.pushScore != null
+    )
       .length,
   postRunUnderwayCopy:
     rows.filter((row) =>
-      row.runStage === "Post-run" && /well underway/i.test(row.copy)
+      row.runStage === "After migration" && /well underway/i.test(row.copy)
     ).length,
   postRunResidualWithoutExplanation:
     rows.filter((row) =>
-      row.runStage === "Post-run" && row.fishInRiver > 0 &&
+      row.runStage === "After migration" &&
+      typeof row.fishInRiver === "number" && row.fishInRiver > 0 &&
       !row.interpretationCodes.includes("post_run_residual_presence")
     ).length,
 };
 const failedInvariants = Object.entries(invariants).filter(([, count]) =>
   count > 0
 );
+const expectedRows = activeDayCount(
+  run.runWindow.stagingStart,
+  run.runWindow.lateEnd,
+) * (endYear - startYear + 1);
 const report = {
   riverId: river.riverId,
   runId: run.runId,
-  auditVersion: "pm-all-primitives-v1",
+  auditVersion: `pm-${run.species}-all-primitives-v1`,
   configVersion: PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion,
   replayYears: `${startYear}-${endYear}`,
   replayWindow:
@@ -344,6 +363,7 @@ const report = {
   method:
     "Daily-resolution integrated mechanical replay. Conditions Suggest uses cumulative Scottville plus M-37 history; Push uses Scottville, Maple measured water, and Baldwin-point modeled precipitation; Fishability uses Scottville only; Run Stage and Fish In River use configured calendar history. Historical baselines include the replay years, so this audits deterministic interactions and copy rather than out-of-sample fish-return accuracy.",
   rowCount: rows.length,
+  expectedRows,
   conditionsBaselineRows: conditionsBaselines.length,
   labelCounts: {
     runStage: counts(rows.map((row) => row.runStage)),
@@ -361,7 +381,7 @@ const report = {
 };
 console.log(JSON.stringify(report, null, 2));
 if (
-  rows.length < 490 || conditionsBaselines.length !== 5 ||
+  rows.length !== expectedRows || conditionsBaselines.length !== 5 ||
   failedInvariants.length > 0
 ) {
   Deno.exit(1);
@@ -469,9 +489,19 @@ function allExpectedCodes(row: AuditRow): RiverRunReasonCode[] {
   ) {
     codes.push("peak_presence_weak_push");
   }
+  if (row.runStage === "Peak" && row.conditionsSuggest === "Delayed") {
+    codes.push("peak_delayed_conditions");
+  }
+  if (
+    row.runStage === "Building" && row.broadBuildingContext &&
+    row.conditionsSuggest === "Delayed"
+  ) {
+    codes.push("broad_building_delayed_conditions");
+  }
   if (
     typeof row.fishabilityScore === "number" &&
-    row.fishabilityScore >= 70 && row.fishInRiver <= 3
+    row.fishabilityScore >= 70 &&
+    typeof row.fishInRiver === "number" && row.fishInRiver <= 3
   ) {
     codes.push("good_fishability_low_presence");
   }
@@ -481,7 +511,10 @@ function allExpectedCodes(row: AuditRow): RiverRunReasonCode[] {
   ) {
     codes.push("delayed_conditions_strong_push");
   }
-  if (row.runStage === "Post-run" && row.fishInRiver > 0) {
+  if (
+    row.runStage === "After migration" &&
+    typeof row.fishInRiver === "number" && row.fishInRiver > 0
+  ) {
     codes.push("post_run_residual_presence");
   }
   return codes;
@@ -548,4 +581,22 @@ function addDays(localDate: string, days: number): string {
   const date = new Date(`${localDate}T12:00:00.000Z`);
   date.setUTCDate(date.getUTCDate() + days);
   return date.toISOString().slice(0, 10);
+}
+
+function activeDayCount(startMonthDay: string, endMonthDay: string): number {
+  const start = `2024-${startMonthDay}`;
+  const directEnd = `2024-${endMonthDay}`;
+  const end = directEnd >= start ? directEnd : `2025-${endMonthDay}`;
+  return Math.round(
+    (new Date(`${end}T12:00:00.000Z`).getTime() -
+      new Date(`${start}T12:00:00.000Z`).getTime()) /
+      86_400_000,
+  ) + 1;
+}
+
+function argumentValue(flag: string): string | null {
+  const inline = Deno.args.find((arg) => arg.startsWith(`${flag}=`));
+  if (inline) return inline.slice(flag.length + 1) || null;
+  const index = Deno.args.indexOf(flag);
+  return index >= 0 ? Deno.args[index + 1] ?? null : null;
 }

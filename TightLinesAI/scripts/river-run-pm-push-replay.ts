@@ -3,11 +3,11 @@ import {
   fetchUsgsDailyFlowBaselineObservations,
   getPrimaryHydraulicSource,
   parseMonitorMyWatershedTemperature,
-  PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   resolveFlowTrendSignal,
   resolveRainSignal,
   resolveTemperatureTrendSignal,
+  RIVER_RUN_RUN_PROFILES,
   scorePush,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 
@@ -21,7 +21,7 @@ type ReplayRow = {
   rainSignal: string;
   score: number;
   label: string;
-  priorBandLabel: string;
+  referenceBandLabel: string;
   rainModifier: number;
   rainRole: string;
   temperatureState: string;
@@ -33,7 +33,11 @@ type ReplayRow = {
 };
 
 const river = PERE_MARQUETTE_RIVER_PROFILE;
-const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+const runId = argumentValue("--run-id") ?? "pere_marquette_fall_chinook";
+const run = RIVER_RUN_RUN_PROFILES.find((candidate) =>
+  candidate.runId === runId && candidate.riverId === river.riverId
+);
+if (!run) throw new Error(`Unknown Pere Marquette run ID: ${runId}`);
 const gauge = getPrimaryHydraulicSource(river);
 const temperatureSource = river.waterTemperatureSources.find((source) =>
   source.sourceId === run.waterTemperature.sourcePriority[0]
@@ -49,12 +53,14 @@ if (!temperatureSource || !weatherPoint) {
 
 const startYear = 2021;
 const endYear = 2025;
+const replayStartDate = `${startYear}-${run.runWindow.start}`;
+const replayEndDate = `${endYear}-${run.runWindow.end}`;
 const flowObservations = await fetchUsgsDailyFlowBaselineObservations({
   fetchFn: fetch,
   riverId: river.riverId,
   siteId: gauge.siteId,
-  startDate: `${startYear}-07-24`,
-  endDate: `${endYear}-11-08`,
+  startDate: addDays(replayStartDate, -8),
+  endDate: replayEndDate,
 });
 const flowByDate = new Map(
   flowObservations.map((observation) => [
@@ -100,8 +106,8 @@ const rainByDate = await fetchDailyRain({
   lat: weatherPoint.lat,
   lon: weatherPoint.lon,
   timezone: river.timezone,
-  startDate: `${startYear}-07-24`,
-  endDate: `${endYear}-11-08`,
+  startDate: addDays(replayStartDate, -8),
+  endDate: replayEndDate,
 });
 
 const rows: ReplayRow[] = [];
@@ -170,14 +176,16 @@ for (let year = startYear; year <= endYear; year++) {
       flowReasonCodes: flowTrend.reasonCodes,
       temperatureReasonCodes: temperatureTrend.reasonCodes,
     });
-    const priorBandResult = scorePush({
+    const referenceBandResult = scorePush({
       movementEngineId: run.movementEngineId,
       rules: {
         ...run.push,
-        version: "pm-fall-chinook-push-v4-band-comparison",
+        version: `${run.runId}-expanded-supportive-comparison`,
         temperature: {
           ...run.push.temperature,
-          supportiveMaxF: 67,
+          supportiveMaxF: run.species === "steelhead"
+            ? run.push.temperature.tooWarmF
+            : 67,
         },
       },
       gaugeFreshness: "fresh",
@@ -207,7 +215,7 @@ for (let year = startYear; year <= endYear; year++) {
       rainSignal: rain.rawSignal,
       score: result.score,
       label: result.label,
-      priorBandLabel: priorBandResult.label,
+      referenceBandLabel: referenceBandResult.label,
       rainModifier: result.components.rainModifier,
       rainRole: result.components.rainRole,
       temperatureState: result.components.temperatureState,
@@ -268,6 +276,10 @@ const invariants = {
 const failedInvariants = Object.entries(invariants).filter(([, count]) =>
   count > 0
 );
+const expectedActiveDays =
+  activeDayCount(run.runWindow.start, run.runWindow.end) *
+  (endYear - startYear + 1);
+const minimumUsableReplayDays = Math.floor(expectedActiveDays * 0.8);
 const report = {
   riverId: river.riverId,
   runId: run.runId,
@@ -276,10 +288,12 @@ const report = {
   method:
     "Daily-resolution mechanical replay using Scottville daily mean discharge, Maple Leaf daily median measured water temperature, and Baldwin-point modeled daily precipitation. Runtime uses near-real-time inputs; this replay validates rule interactions, not fish-return accuracy.",
   usableReplayDays: rows.length,
+  expectedActiveDays,
+  minimumUsableReplayDays,
   labelCounts: counts(rows.map((row) => row.label)),
-  labelTransitionsFromSupportiveThrough67F: counts(
-    rows.filter((row) => row.priorBandLabel !== row.label).map((row) =>
-      `${row.priorBandLabel} -> ${row.label}`
+  labelTransitionsFromExpandedSupportiveReference: counts(
+    rows.filter((row) => row.referenceBandLabel !== row.label).map((row) =>
+      `${row.referenceBandLabel} -> ${row.label}`
     ),
   ),
   flowSignalCounts: counts(rows.map((row) => row.flowSignal)),
@@ -297,7 +311,9 @@ const report = {
   ).slice(0, 12),
 };
 console.log(JSON.stringify(report, null, 2));
-if (rows.length < 300 || failedInvariants.length > 0) Deno.exit(1);
+if (rows.length < minimumUsableReplayDays || failedInvariants.length > 0) {
+  Deno.exit(1);
+}
 
 async function fetchDailyRain(input: {
   lat: number;
@@ -361,6 +377,24 @@ function addDays(localDate: string, days: number): string {
   const date = new Date(`${localDate}T12:00:00.000Z`);
   date.setUTCDate(date.getUTCDate() + days);
   return date.toISOString().slice(0, 10);
+}
+
+function activeDayCount(startMonthDay: string, endMonthDay: string): number {
+  const start = `2024-${startMonthDay}`;
+  const directEnd = `2024-${endMonthDay}`;
+  const end = directEnd >= start ? directEnd : `2025-${endMonthDay}`;
+  return Math.round(
+    (new Date(`${end}T12:00:00.000Z`).getTime() -
+      new Date(`${start}T12:00:00.000Z`).getTime()) /
+      86_400_000,
+  ) + 1;
+}
+
+function argumentValue(flag: string): string | null {
+  const inline = Deno.args.find((arg) => arg.startsWith(`${flag}=`));
+  if (inline) return inline.slice(flag.length + 1) || null;
+  const index = Deno.args.indexOf(flag);
+  return index >= 0 ? Deno.args[index + 1] ?? null : null;
 }
 
 function counts(values: string[]): Record<string, number> {

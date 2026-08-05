@@ -8,6 +8,11 @@ import type {
 import { RIVER_RUN_COPY_VERSION } from "../copy/version.ts";
 import { anglerSpeciesName } from "../copy/species.ts";
 import {
+  resolveRunOpportunityCopyContext,
+  type RunOpportunityCopyContext,
+  type RunOpportunityStrength,
+} from "../copy/opportunity.ts";
+import {
   addDays,
   clamp,
   compareLocalDates,
@@ -27,31 +32,70 @@ export type FishInRiverResult = PrimitiveDisplay & {
   stage: RunStage;
   maximum: 100;
   riverCeiling: number;
+  historicalRunStrength: RunOpportunityStrength;
   curveFraction: number;
   curveDirection: FishInRiverCurveDirection;
+  winterHoldingContext: boolean;
+  handoffScore?: number;
 };
 
 export function scoreFishInRiver(
   run: Pick<
     RiverRunProfile,
-    "runWindow" | "historicalPresence" | "species"
+    "runWindow" | "historicalPresence" | "species" | "runType" | "handoff"
   >,
   localDate: string,
 ): FishInRiverResult {
   const window = resolveActiveRunWindow(run, localDate);
   const stage = stageForDate(localDate, window);
+  const opportunity = resolveRunOpportunityCopyContext(
+    run.historicalPresence,
+  );
+  const riverCeiling = run.historicalPresence.maximum * 10;
+  const winterHoldingContext = run.runType === "fall_entry" && !!run.handoff &&
+    stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
+  if (winterHoldingContext) {
+    const handoffScore = Math.round(
+      riverCeiling * run.handoff!.retainedPresenceFraction,
+    );
+    return {
+      score: handoffScore,
+      stage,
+      maximum: 100,
+      riverCeiling,
+      historicalRunStrength: opportunity.strength,
+      curveFraction: run.handoff!.retainedPresenceFraction,
+      curveDirection: "outside",
+      winterHoldingContext: true,
+      handoffScore,
+      label: "Winter holding",
+      headline:
+        `Steelhead remain strongly present as the fishery shifts into winter holding.`,
+      detail:
+        `Fall entry finished at ${handoffScore}/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.`,
+      tip:
+        `Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat ${handoffScore}/100 as retained seasonal presence—not proof that fish are active today.`,
+      reasonCodes: [
+        stageReasonCode(stage),
+        "historical_presence_curve",
+        "fish_presence_winter_handoff",
+      ],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   const curveFraction = historicalPresenceFraction({
     localDate,
     startDate: window.startDate,
     lateEndDate: window.lateEndDate,
     historicalPresence: run.historicalPresence,
   });
-  const riverCeiling = run.historicalPresence.maximum * 10;
   const roundedScore = Math.round(curveFraction * riverCeiling);
   const score = curveFraction > 0
     ? clamp(Math.max(1, roundedScore), 0, riverCeiling)
     : 0;
-  const label = fishInRiverLabel(score, curveFraction, stage);
+  const offseason = compareLocalDates(localDate, window.preRunStartDate) < 0 ||
+    compareLocalDates(localDate, window.postRunLateCopyEndDate) > 0;
+  const label = fishInRiverLabel(score, curveFraction, stage, offseason);
   const curveDirection = resolveCurveDirection({
     run,
     localDate,
@@ -65,8 +109,10 @@ export function scoreFishInRiver(
     stage,
     maximum: 100,
     riverCeiling,
+    historicalRunStrength: opportunity.strength,
     curveFraction,
     curveDirection,
+    winterHoldingContext: false,
     label,
     ...fishInRiverCopy({
       label,
@@ -75,6 +121,8 @@ export function scoreFishInRiver(
       direction: curveDirection,
       fractionOfRiverMaximum: curveFraction,
       species: anglerSpeciesName(run.species),
+      opportunity,
+      fallEntry: run.runType === "fall_entry",
     }),
     reasonCodes: [
       stageReasonCode(stage),
@@ -131,9 +179,11 @@ function fishInRiverLabel(
   score: number,
   fractionOfRiverMaximum: number,
   stage: RunStage,
+  offseason: boolean,
 ): string {
+  if (offseason) return "Offseason";
   if (score === 0) {
-    return stage === "pre_run" ? "Not expected yet" : "Run complete";
+    return stage === "pre_run" ? "Not expected yet" : "Migration complete";
   }
   if (fractionOfRiverMaximum <= 0.2) return "Low presence";
   if (fractionOfRiverMaximum <= 0.4) return "Limited presence";
@@ -149,6 +199,8 @@ function fishInRiverCopy(input: {
   direction: FishInRiverCurveDirection;
   fractionOfRiverMaximum: number;
   species: string;
+  opportunity: RunOpportunityCopyContext;
+  fallEntry: boolean;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   const {
     label,
@@ -157,24 +209,57 @@ function fishInRiverCopy(input: {
     direction,
     fractionOfRiverMaximum,
     species,
+    opportunity,
+    fallEntry,
   } = input;
+  if (label === "Offseason") {
+    return {
+      headline: `${species} are outside their river migration season.`,
+      detail:
+        `A dependable seasonal presence of ${species} is not expected in the river right now.`,
+      tip:
+        "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+    };
+  }
   if (score === 0 && stage === "pre_run") {
     return {
-      headline:
-        `Meaningful numbers of ${species} are not expected in the river yet.`,
+      headline: opportunity.strength === "strong"
+        ? `${species} are not expected in meaningful numbers yet.`
+        : opportunity.strength === "moderate"
+        ? `A dependable presence of ${species} is not expected in the river yet.`
+        : `Even a limited dependable presence of ${species} is not expected in the river yet.`,
       detail:
-        `Most ${species} are likely still in the lake or gathering near the harbor and river mouth. Any fish farther upstream would be early exceptions.`,
+        `Most ${species} are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.`,
       tip:
-        "Keep the trip at the harbor, river mouth, and first lake-to-river transition water. Do not spend the day searching inland river sections before dependable presence begins.",
+        "Treat this as no dependable in-river opportunity yet. Use Migration Stage for the nearest worthwhile water, and do not interpret an isolated early fish as dependable presence.",
     };
   }
   if (score === 0) {
+    const dependableOpportunity = opportunity.strength === "strong" &&
+        opportunity.distributionScope === "broad"
+      ? "a consistent river-wide opportunity"
+      : opportunity.strength === "limited"
+      ? "even a limited dependable opportunity"
+      : "a consistent opportunity through the river's dependable sections";
     return {
-      headline: "The season no longer supports a dependable in-river run.",
+      headline:
+        "The season no longer supports a dependable in-river migration.",
       detail:
-        `A few ${species} may remain, but their presence is likely isolated rather than part of a consistent river-wide opportunity.`,
+        `A few ${species} may remain, but their presence is likely isolated rather than part of ${dependableOpportunity}.`,
       tip:
         "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed.",
+    };
+  }
+
+  if (fallEntry && (direction === "falling" || stage === "ending")) {
+    return {
+      headline: fractionOfRiverMaximum >= 0.9
+        ? `${species} remain near their strongest fall presence as winter holding approaches.`
+        : `${species} presence remains high as the fall fishery shifts toward winter holding.`,
+      detail:
+        "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
+      tip:
+        "Treat the retained presence as strong, then use Migration Stage for likely distribution and the live primitives for current fishing decisions.",
     };
   }
 
@@ -184,9 +269,20 @@ function fishInRiverCopy(input: {
       direction,
       fractionOfRiverMaximum,
       species,
+      opportunity,
     ),
-    detail: presenceDetail(label, direction, fractionOfRiverMaximum),
-    tip: presenceTip(label, direction, fractionOfRiverMaximum),
+    detail: presenceDetail(
+      label,
+      direction,
+      fractionOfRiverMaximum,
+      opportunity,
+    ),
+    tip: presenceTip(
+      label,
+      direction,
+      fractionOfRiverMaximum,
+      opportunity,
+    ),
   };
 }
 
@@ -229,22 +325,35 @@ function presenceHeadline(
   direction: FishInRiverCurveDirection,
   fractionOfRiverMaximum: number,
   species: string,
+  opportunity: RunOpportunityCopyContext,
 ): string {
+  if (
+    opportunity.strength !== "strong" ||
+    opportunity.distributionScope !== "broad"
+  ) {
+    return scaledPresenceHeadline(
+      label,
+      direction,
+      fractionOfRiverMaximum,
+      species,
+      opportunity,
+    );
+  }
   if (direction === "rising") {
     if (label === "Low presence") {
-      return `A small number of ${species} may be in the river, and the run is still building.`;
+      return `A small number of ${species} may be in the river, and seasonal presence is still building.`;
     }
     if (label === "Limited presence") {
-      return `Some ${species} are likely in the river, but the run is still developing.`;
+      return `Some ${species} are likely in the river, but seasonal presence is still developing.`;
     }
     if (label === "Moderate presence") {
-      return `A meaningful number of ${species} are likely in the river, with the run still building.`;
+      return `A meaningful number of ${species} are likely in the river, with seasonal presence still building.`;
     }
-    return `${species} are likely spread through more of the river as the run builds toward its strongest point.`;
+    return `${species} are likely spread through more of the river as seasonal presence builds toward its strongest point.`;
   }
   if (direction === "falling") {
     if (label === "Peak presence") {
-      return `Seasonal timing still supports ${species} being near their strongest in-river presence, even if the run may be just beyond its usual peak.`;
+      return `Seasonal timing still supports ${species} being near their strongest in-river presence, even if the migration may be just beyond its usual peak.`;
     }
     if (label === "High presence") {
       if (fractionOfRiverMaximum >= 0.8) {
@@ -267,11 +376,26 @@ function presenceDetail(
   label: string,
   direction: FishInRiverCurveDirection,
   fractionOfRiverMaximum: number,
+  opportunity: RunOpportunityCopyContext,
 ): string {
+  if (
+    opportunity.strength !== "strong" ||
+    opportunity.distributionScope !== "broad"
+  ) {
+    return scaledPresenceDetail(
+      label,
+      direction,
+      fractionOfRiverMaximum,
+      opportunity,
+    );
+  }
   const level = label.toLowerCase();
   if (direction === "rising") {
     if (fractionOfRiverMaximum >= 0.8) {
-      return "The run is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.";
+      return "The migration is approaching its strongest seasonal point, and fish are likely distributed through more of the river. This is a seasonal estimate, not a live fish count.";
+    }
+    if (label === "High presence") {
+      return "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.";
     }
     return `This part of the season usually brings ${level}, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.`;
   }
@@ -280,12 +404,15 @@ function presenceDetail(
       return "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.";
     }
     if (label === "High presence" && fractionOfRiverMaximum >= 0.8) {
-      return "This part of the season can still support strong in-river presence, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.";
+      return "Seasonal presence remains elevated relative to the rest of the season, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.";
+    }
+    if (label === "High presence") {
+      return "Seasonal presence is usually elevated relative to the rest of the season, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.";
     }
     if (label === "Limited presence") {
       return "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.";
     }
-    return `This part of the season usually supports ${level}, while fresh arrivals often become less consistent later in the run. This is a seasonal estimate, not a live fish count.`;
+    return `This part of the season usually supports ${level}, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.`;
   }
   return `This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.`;
 }
@@ -294,35 +421,197 @@ function presenceTip(
   label: string,
   direction: FishInRiverCurveDirection,
   fractionOfRiverMaximum: number,
+  opportunity: RunOpportunityCopyContext,
 ): string {
   if (direction === "rising") {
     if (label === "Low presence") {
-      return "Stay in the lower river. Fish the first travel lane entering a deep bend or resting pocket, and do not skip upstream in search of numbers that have not developed yet.";
+      return "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.";
     }
     if (label === "Limited presence") {
-      return "Begin on lower-river travel lanes and the first dependable holding holes. Move into the middle river only after those entry routes have been covered.";
+      return "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.";
     }
     if (label === "Moderate presence") {
-      return "Start in middle-river holding water and keep moving between established holes. If Push is Possible or stronger, make lower travel lanes the next stop.";
+      return "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.";
     }
-    return "Fish established holding water throughout the accessible river. Begin with substantial deep holes, and reserve lower travel lanes for a supportive Push read.";
+    return `${
+      risingHighContext(opportunity)
+    } Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.`;
   }
   if (direction === "falling") {
-    if (label === "High presence" && fractionOfRiverMaximum >= 0.8) {
-      return "Work established middle- and upper-river holes thoroughly, beginning with the deepest bends and resting water. Add lower travel lanes only when Push is Possible or stronger.";
-    }
     if (label === "Peak presence" || label === "High presence") {
-      return "Begin in established middle- and upper-river holding water and fish each hole thoroughly. If Push is Possible or stronger, finish with lower travel lanes for a late fresh wave.";
+      const remainingContext = fractionOfRiverMaximum >= 0.8
+        ? "Seasonal presence is still near its high point"
+        : "A meaningful seasonal presence may remain";
+      return `Plan around fish already likely to be in the river. ${remainingContext}, but use Push—not this card—to judge whether a fresh wave is supported.`;
     }
     if (label === "Moderate presence") {
-      return "Concentrate on the deepest established holes and slower current edges. Make fast travel water a brief final check rather than the center of the trip.";
+      return "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.";
     }
     if (label === "Limited presence") {
-      return "Cover a short list of the best established holes from head to tail, then move on. Check lower travel lanes only when Push is Possible or stronger.";
+      return "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.";
     }
-    return "Fish only the most durable deep holding water and slow edges. Treat broad river coverage and fast travel lanes as secondary unless Push supports fresh movement.";
+    return "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.";
   }
-  return "Start with substantial deep holding water across the accessible river and fish each hole from head to tail. If Push is Possible or stronger, finish on lower travel lanes, and leave spawning fish undisturbed.";
+  return peakPresenceTip(opportunity);
+}
+
+function risingHighContext(
+  opportunity: RunOpportunityCopyContext,
+): string {
+  switch (opportunity.strength) {
+    case "strong":
+      return "Treat this as one of the stronger parts of a strong river season.";
+    case "moderate":
+      return "Treat this as one of the stronger parts of this river's moderate seasonal opportunity.";
+    case "limited":
+      return "Treat this as one of the better parts of the season, while remembering that this river's overall opportunity remains limited.";
+  }
+}
+
+function peakPresenceTip(
+  opportunity: RunOpportunityCopyContext,
+): string {
+  switch (opportunity.strength) {
+    case "strong":
+      return "Plan for the strongest seasonal presence this river usually offers, while remembering that the estimate cannot confirm fish at any specific spot. Use Migration Stage for the starting section and Fishability for workable water.";
+    case "moderate":
+      return "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Use Migration Stage for the starting section and Fishability for workable water.";
+    case "limited":
+      return "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Use Migration Stage for the starting section and Fishability for workable water.";
+  }
+}
+
+function scaledPresenceHeadline(
+  label: string,
+  direction: FishInRiverCurveDirection,
+  fractionOfRiverMaximum: number,
+  species: string,
+  opportunity: RunOpportunityCopyContext,
+): string {
+  const limited = opportunity.strength === "limited";
+  const strong = opportunity.strength === "strong";
+  if (direction === "rising") {
+    if (label === "Low presence") {
+      return limited
+        ? `A few ${species} may be in the river, and this limited seasonal presence is still building.`
+        : `A small number of ${species} may be in the river, and seasonal presence is still building.`;
+    }
+    if (label === "Limited presence") {
+      return limited
+        ? `A small number of ${species} are likely in the river, with this limited seasonal presence still developing.`
+        : `Some ${species} are likely in the river, but seasonal presence is still developing.`;
+    }
+    if (label === "Moderate presence") {
+      return limited
+        ? `A smaller number of ${species} are likely in the river, with this limited seasonal presence still building toward its high point.`
+        : strong
+        ? `A meaningful number of ${species} are likely in the river, with seasonal presence still building.`
+        : `A meaningful seasonal presence of ${species} is likely in the river and still building.`;
+    }
+    return limited
+      ? `${species} are likely filling more of the river's dependable holding water as seasonal presence builds toward its strongest point.`
+      : strong
+      ? `${species} are likely spread through more dependable water as seasonal presence builds toward its strongest point.`
+      : `${species} are likely present through more dependable river sections as seasonal presence builds toward its strongest point.`;
+  }
+  if (direction === "falling") {
+    if (label === "Peak presence") {
+      return `Seasonal timing still supports ${species} being near their strongest in-river presence, even if the migration may be just beyond its usual peak.`;
+    }
+    if (label === "High presence") {
+      if (fractionOfRiverMaximum >= 0.8) {
+        return limited
+          ? `Seasonal timing still supports this limited ${species} presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.`
+          : strong
+          ? `Seasonal timing still supports strong ${species} presence through the river's dependable water, even as the usual peak window may be easing.`
+          : `Seasonal timing still supports meaningful ${species} presence through dependable river sections, even as the usual peak window may be easing.`;
+      }
+      return limited
+        ? `Seasonal timing still supports a smaller number of ${species} in the river's dependable holding water, although fresh arrivals may be less consistent than near peak.`
+        : strong
+        ? `Seasonal timing still supports ${species} being well established through the river's dependable water, although fresh arrivals may be less consistent than near peak.`
+        : `Seasonal timing still supports ${species} through dependable river sections, although fresh arrivals may be less consistent than near peak.`;
+    }
+    if (label === "Moderate presence") {
+      return limited
+        ? `Seasonal timing still supports a smaller number of ${species}, especially in the river's most dependable holding water.`
+        : `Seasonal timing still supports meaningful ${species} presence, especially in established holding water.`;
+    }
+    if (label === "Limited presence") {
+      return limited
+        ? `Seasonal timing still supports a few ${species} in the river's most dependable holding water, but this limited opportunity is thinning.`
+        : `Seasonal timing still supports some ${species} in established holding water, but they are less likely to occupy every dependable section.`;
+    }
+    return limited
+      ? `A few ${species} may still be in the river, with this limited seasonal presence increasingly scattered.`
+      : `Some ${species} may still be in the river, with seasonal presence more likely to be scattered.`;
+  }
+  return limited
+    ? `${species} are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.`
+    : `${species} are likely near their highest seasonal presence in the river.`;
+}
+
+function scaledPresenceDetail(
+  label: string,
+  direction: FishInRiverCurveDirection,
+  fractionOfRiverMaximum: number,
+  opportunity: RunOpportunityCopyContext,
+): string {
+  const level = label.toLowerCase();
+  const limited = opportunity.strength === "limited";
+  const strong = opportunity.strength === "strong";
+  const distribution = opportunity.distributionScope === "broad"
+    ? "through a broad part of the accessible river"
+    : opportunity.distributionScope === "sectional"
+    ? "through several dependable river sections"
+    : "within a smaller set of dependable holding areas";
+  if (direction === "rising") {
+    if (fractionOfRiverMaximum >= 0.8) {
+      return limited
+        ? `The migration is approaching its strongest seasonal point, but its limited opportunity is most likely ${distribution}. This is a seasonal estimate, not a live fish count.`
+        : `The migration is approaching its strongest seasonal point, and fish are likely distributed ${distribution}. This is a seasonal estimate, not a live fish count.`;
+    }
+    const entry = limited
+      ? "a smaller number of fish expected to enter and occupy its most dependable water"
+      : `more fish expected to enter and become established ${distribution}`;
+    if (label === "High presence") {
+      return `Seasonal presence is usually elevated relative to the rest of the season, with ${entry}. This is a seasonal estimate, not a live fish count.`;
+    }
+    return `This part of the season usually brings ${level}, with ${entry}. This is a seasonal estimate, not a live fish count.`;
+  }
+  if (direction === "falling") {
+    if (label === "Peak presence") {
+      const scale = limited
+        ? "the limited seasonal opportunity remains near its high point"
+        : strong
+        ? `the seasonal pattern still supports strong in-river presence ${distribution}`
+        : `the seasonal pattern still supports fish ${distribution}`;
+      return `This point in the season may sit just beyond the usual peak while ${scale}. This is a seasonal estimate, not a live fish count.`;
+    }
+    if (label === "High presence" && fractionOfRiverMaximum >= 0.8) {
+      const absoluteContext = limited
+        ? "The overall seasonal opportunity remains limited"
+        : `Fish are still likely established ${distribution}`;
+      return `Seasonal presence remains elevated relative to the rest of the season. ${absoluteContext}, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.`;
+    }
+    if (label === "High presence") {
+      const absoluteContext = limited
+        ? "The overall seasonal opportunity remains limited"
+        : `Fish are still likely established ${distribution}`;
+      return `Seasonal presence is usually elevated relative to the rest of the season. ${absoluteContext}, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.`;
+    }
+    if (label === "Limited presence") {
+      return `This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.`;
+    }
+    const scale = limited
+      ? "within this river's limited seasonal opportunity"
+      : distribution;
+    return `This part of the season usually supports ${level} ${scale}, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.`;
+  }
+  const scale = limited
+    ? "Even at that high point, the overall seasonal opportunity remains limited."
+    : `Fish are most likely distributed ${distribution}.`;
+  return `This is the part of the season when in-river presence is usually strongest. ${scale} The read does not place fish in a specific pool or confirm a live count.`;
 }
 
 function stageReasonCode(stage: RunStage): RiverRunReasonCode {

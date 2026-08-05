@@ -19,55 +19,48 @@
  *    enough vertical breathing room to read at a glance.
  */
 
-import { useEffect, useRef, useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Animated,
   Easing,
-  View,
-  Text,
-  StyleSheet,
   Platform,
   ScrollView,
-} from 'react-native';
-import { SafeAreaView } from 'react-native-safe-area-context';
-import * as Crypto from 'expo-crypto';
-import { useRouter } from 'expo-router';
-import * as AppleAuthentication from 'expo-apple-authentication';
+  StyleSheet,
+  Text,
+  View,
+} from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import * as Crypto from "expo-crypto";
+import { useRouter } from "expo-router";
+import * as AppleAuthentication from "expo-apple-authentication";
+import { paper, paperFonts, paperSpacing } from "../../lib/theme";
 import {
-  paper,
-  paperFonts,
-  paperSpacing,
-} from '../../lib/theme';
-import {
-  signInWithApple,
-  reportAppleSignInFailureIfStillSignedOut,
   getAppleSignInFailureNotice,
   isAppleEmailAccountConflict,
-} from '../../lib/auth';
-import { useAuthStore } from '../../store/authStore';
-import { supabase } from '../../lib/supabase';
-import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
-import { authScopeStageSize } from '../../lib/responsiveAuth';
-import {
-  BrandScopeStage,
-  TopographicLines,
-} from '../../components/paper';
+  reportAppleSignInFailureIfStillSignedOut,
+  signInWithApple,
+} from "../../lib/auth";
+import { useAuthStore } from "../../store/authStore";
+import { supabase } from "../../lib/supabase";
+import { useAuthScrollLayout } from "../../hooks/useAuthScrollLayout";
+import { authScopeStageSize } from "../../lib/responsiveAuth";
+import { BrandScopeStage, TopographicLines } from "../../components/paper";
 import {
   IntelligenceModuleEmblem,
   type IntelligenceModuleId,
-} from '../../components/paper/IntelligenceModuleIcons';
+} from "../../components/paper/IntelligenceModuleIcons";
 import {
-  AuthFooterStamp,
-  AuthPrimaryButton,
   AuthDivider,
+  AuthFooterStamp,
   AuthNotice,
+  AuthPrimaryButton,
   AuthTextLink,
-} from '../../components/paper/auth';
+} from "../../components/paper/auth";
 
 type Notice = {
   title: string;
   message?: string;
-  tone?: 'info' | 'success' | 'error';
+  tone?: "info" | "success" | "error";
   actionLabel?: string;
   onAction?: () => void;
 };
@@ -84,44 +77,44 @@ const FEATURES: {
   comingSoon?: boolean;
 }[] = [
   {
-    numeral: 'I',
-    moduleId: 'water-read',
-    title: 'Water Read',
-    tag: 'POLYGON',
-    blurb: 'Structure zones for supported lakes.',
-    iconBg: ['#E8F2FA', '#C8DFF2'],
-    iconBorder: '#0F63B0',
-    iconColor: '#0A4A87',
+    numeral: "I",
+    moduleId: "water-read",
+    title: "Water Read",
+    tag: "POLYGON",
+    blurb: "Structure zones for supported lakes.",
+    iconBg: ["#E8F2FA", "#C8DFF2"],
+    iconBorder: "#0F63B0",
+    iconColor: "#0A4A87",
   },
   {
-    numeral: 'II',
-    moduleId: 'tackle-box',
-    title: 'Tackle Box',
-    tag: 'RECOMMENDER',
-    blurb: 'Lures and flies ranked for conditions.',
-    iconBg: ['#FBF1D9', '#F4DFA4'],
-    iconBorder: '#C99B2D',
-    iconColor: '#8A6A1A',
+    numeral: "II",
+    moduleId: "tackle-box",
+    title: "Tackle Box",
+    tag: "RECOMMENDER",
+    blurb: "Lures and flies ranked for conditions.",
+    iconBg: ["#FBF1D9", "#F4DFA4"],
+    iconBorder: "#C99B2D",
+    iconColor: "#8A6A1A",
   },
   {
-    numeral: 'III',
-    moduleId: 'todays-bite',
+    numeral: "III",
+    moduleId: "todays-bite",
     title: "Today's Bite",
-    tag: 'CONDITIONS',
-    blurb: 'Score, windows, and go/no-go guidance.',
-    iconBg: ['#E5F2DD', '#C5E0B5'],
-    iconBorder: '#3DA85F',
-    iconColor: '#1F6B38',
+    tag: "CONDITIONS",
+    blurb: "Score, windows, and go/no-go guidance.",
+    iconBg: ["#E5F2DD", "#C5E0B5"],
+    iconBorder: "#3DA85F",
+    iconColor: "#1F6B38",
   },
   {
-    numeral: 'IV',
-    moduleId: 'river-run',
-    title: 'River Run',
-    tag: 'MIGRATION',
-    blurb: 'Run timing & strength for Great Lakes migratory species.',
-    iconBg: ['#FBE4E1', '#F3C2BC'],
-    iconBorder: '#C0392B',
-    iconColor: '#9A2B20',
+    numeral: "IV",
+    moduleId: "river-run",
+    title: "River Migration",
+    tag: "MIGRATION",
+    blurb: "River timing & strength for Great Lakes migratory species.",
+    iconBg: ["#FBE4E1", "#F3C2BC"],
+    iconBorder: "#C0392B",
+    iconColor: "#9A2B20",
   },
 ];
 
@@ -130,7 +123,7 @@ export default function WelcomeScreen() {
   const { fetchProfile, setSession } = useAuthStore();
   const [notice, setNotice] = useState<Notice | null>(null);
   const { contentContainerStyle: scrollLayout, layoutTier } =
-    useAuthScrollLayout('spread');
+    useAuthScrollLayout("spread");
   const scopeStage = authScopeStageSize(layoutTier);
 
   // Live pulse on the eyebrow dot — same anatomy used everywhere in the
@@ -206,7 +199,7 @@ export default function WelcomeScreen() {
         });
 
         if (!credential.identityToken) {
-          throw new Error('Apple Sign-In: no identity token returned');
+          throw new Error("Apple Sign-In: no identity token returned");
         }
 
         const { data, error } = await signInWithApple(
@@ -222,15 +215,15 @@ export default function WelcomeScreen() {
         }
       } catch (err: unknown) {
         await reportAppleSignInFailureIfStillSignedOut(err, (failure) => {
-          const notice = getAppleSignInFailureNotice(failure, 'welcome');
+          const notice = getAppleSignInFailureNotice(failure, "welcome");
           setNotice({
             ...notice,
-            tone: 'error',
+            tone: "error",
             ...(isAppleEmailAccountConflict(failure)
               ? {
-                  actionLabel: 'Sign in with email',
-                  onAction: () => router.push('/(auth)/sign-in'),
-                }
+                actionLabel: "Sign in with email",
+                onAction: () => router.push("/(auth)/sign-in"),
+              }
               : {}),
           });
         });
@@ -244,13 +237,13 @@ export default function WelcomeScreen() {
   // as a freshly pressed "issue."
   const today = new Date();
   const editionMonth = today
-    .toLocaleString('en-US', { month: 'short' })
+    .toLocaleString("en-US", { month: "short" })
     .toUpperCase();
   const editionYear = today.getFullYear();
 
   return (
     <View style={styles.root}>
-      <SafeAreaView style={styles.safe} edges={['top', 'bottom']}>
+      <SafeAreaView style={styles.safe} edges={["top", "bottom"]}>
         <ScrollView
           style={styles.scroll}
           contentContainerStyle={[styles.container, scrollLayout]}
@@ -280,7 +273,7 @@ export default function WelcomeScreen() {
                         outputRange: [-140, 520],
                       }),
                     },
-                    { skewX: '-18deg' },
+                    { skewX: "-18deg" },
                   ],
                 },
               ]}
@@ -300,9 +293,11 @@ export default function WelcomeScreen() {
               <View style={styles.issueRubricRule} />
             </View>
 
-            {/* Scope-target stage — 4 corner crosshairs, scan beam,
+            {
+              /* Scope-target stage — 4 corner crosshairs, scan beam,
                 sonar pings, breathing emblem. Shared with onboarding
-                step-1 via the BrandScopeStage primitive. */}
+                step-1 via the BrandScopeStage primitive. */
+            }
             <BrandScopeStage
               size={scopeStage.stage}
               emblemSize={scopeStage.emblem}
@@ -337,15 +332,17 @@ export default function WelcomeScreen() {
             </Text>
           </View>
 
-          {notice ? (
-            <AuthNotice
-              title={notice.title}
-              message={notice.message}
-              tone={notice.tone}
-              actionLabel={notice.actionLabel}
-              onAction={notice.onAction}
-            />
-          ) : null}
+          {notice
+            ? (
+              <AuthNotice
+                title={notice.title}
+                message={notice.message}
+                tone={notice.tone}
+                actionLabel={notice.actionLabel}
+                onAction={notice.onAction}
+              />
+            )
+            : null}
 
           {/* ─── Field-guide entries — I · II · III ────────────────────── */}
           <View style={styles.valuePropsBlock}>
@@ -370,48 +367,50 @@ export default function WelcomeScreen() {
                     { borderLeftWidth: 3, borderLeftColor: item.iconBorder },
                   ]}
                 >
-                  {item.comingSoon ? (
-                    <View
-                      style={[
-                        styles.valueModuleSoonBadge,
-                        {
-                          backgroundColor: `${item.iconBorder}16`,
-                          borderColor: `${item.iconBorder}59`,
-                        },
-                      ]}
-                      pointerEvents="none"
-                    >
-                      <Text
+                  {item.comingSoon
+                    ? (
+                      <View
                         style={[
-                          styles.valueModuleSoonText,
-                          { color: item.iconBorder },
+                          styles.valueModuleSoonBadge,
+                          {
+                            backgroundColor: `${item.iconBorder}16`,
+                            borderColor: `${item.iconBorder}59`,
+                          },
                         ]}
+                        pointerEvents="none"
                       >
-                        SOON
-                      </Text>
-                    </View>
-                  ) : (
-                    <View style={styles.valueModuleDots}>
-                      <View
-                        style={[
-                          styles.valueModuleDot,
-                          { backgroundColor: item.iconBorder, opacity: 0.5 },
-                        ]}
-                      />
-                      <View
-                        style={[
-                          styles.valueModuleDot,
-                          { backgroundColor: item.iconBorder, opacity: 0.7 },
-                        ]}
-                      />
-                      <View
-                        style={[
-                          styles.valueModuleDot,
-                          { backgroundColor: item.iconBorder },
-                        ]}
-                      />
-                    </View>
-                  )}
+                        <Text
+                          style={[
+                            styles.valueModuleSoonText,
+                            { color: item.iconBorder },
+                          ]}
+                        >
+                          SOON
+                        </Text>
+                      </View>
+                    )
+                    : (
+                      <View style={styles.valueModuleDots}>
+                        <View
+                          style={[
+                            styles.valueModuleDot,
+                            { backgroundColor: item.iconBorder, opacity: 0.5 },
+                          ]}
+                        />
+                        <View
+                          style={[
+                            styles.valueModuleDot,
+                            { backgroundColor: item.iconBorder, opacity: 0.7 },
+                          ]}
+                        />
+                        <View
+                          style={[
+                            styles.valueModuleDot,
+                            { backgroundColor: item.iconBorder },
+                          ]}
+                        />
+                      </View>
+                    )}
                   <View
                     style={[
                       styles.valueModuleMain,
@@ -474,26 +473,24 @@ export default function WelcomeScreen() {
           <View style={styles.actions}>
             <AuthPrimaryButton
               label="Create account"
-              onPress={() => router.push('/(auth)/sign-up')}
+              onPress={() => router.push("/(auth)/sign-up")}
             />
 
             <AuthTextLink
               leadText="Already have an account?"
               linkText="Sign in"
-              onPress={() => router.push('/(auth)/sign-in')}
+              onPress={() => router.push("/(auth)/sign-in")}
             />
 
-            {Platform.OS === 'ios' && (
+            {Platform.OS === "ios" && (
               <>
                 <AuthDivider />
 
                 <AppleAuthentication.AppleAuthenticationButton
-                  buttonType={
-                    AppleAuthentication.AppleAuthenticationButtonType.SIGN_IN
-                  }
-                  buttonStyle={
-                    AppleAuthentication.AppleAuthenticationButtonStyle.BLACK
-                  }
+                  buttonType={AppleAuthentication.AppleAuthenticationButtonType
+                    .SIGN_IN}
+                  buttonStyle={AppleAuthentication
+                    .AppleAuthenticationButtonStyle.BLACK}
                   cornerRadius={12}
                   style={styles.appleBtn}
                   onPress={handleAppleSignIn}
@@ -521,9 +518,9 @@ const styles = StyleSheet.create({
   safe: { flex: 1 },
   scroll: { flex: 1 },
   container: {
-    width: '100%',
+    width: "100%",
     maxWidth: 520,
-    alignSelf: 'center',
+    alignSelf: "center",
     paddingHorizontal: paperSpacing.lg,
     paddingBottom: paperSpacing.md,
     paddingTop: paperSpacing.md + 6,
@@ -532,22 +529,22 @@ const styles = StyleSheet.create({
 
   // ── Hero / issue cover ────────────────────────────────────────────────
   hero: {
-    position: 'relative',
+    position: "relative",
     paddingVertical: paperSpacing.sm,
     paddingHorizontal: paperSpacing.md,
-    alignItems: 'center',
+    alignItems: "center",
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1.5,
     borderColor: paper.dashboardInk,
     borderRadius: 12,
-    overflow: 'hidden',
+    overflow: "hidden",
     shadowColor: paper.dashboardInk,
     shadowOpacity: 0.08,
     shadowRadius: 12,
     shadowOffset: { width: 0, height: 5 },
   },
   heroTopo: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
@@ -555,19 +552,19 @@ const styles = StyleSheet.create({
     opacity: 0.32,
   },
   heroSheen: {
-    position: 'absolute',
+    position: "absolute",
     top: -20,
     bottom: -20,
     width: 64,
-    backgroundColor: 'rgba(255,255,255,0.55)',
+    backgroundColor: "rgba(255,255,255,0.55)",
     zIndex: 2,
   },
 
   issueRubricRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
-    alignSelf: 'stretch',
+    alignSelf: "stretch",
     paddingHorizontal: 4,
     marginBottom: 4,
     zIndex: 1,
@@ -593,8 +590,8 @@ const styles = StyleSheet.create({
   },
 
   liveRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
     marginTop: 2,
     zIndex: 1,
@@ -602,11 +599,11 @@ const styles = StyleSheet.create({
   livePulseWrap: {
     width: 10,
     height: 10,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
   },
   livePulseRing: {
-    position: 'absolute',
+    position: "absolute",
     width: 10,
     height: 10,
     borderRadius: 5,
@@ -632,7 +629,7 @@ const styles = StyleSheet.create({
     fontSize: 30,
     color: paper.dashboardInk,
     letterSpacing: -0.5,
-    fontWeight: '700',
+    fontWeight: "700",
     lineHeight: 34,
     marginTop: 4,
     zIndex: 1,
@@ -654,7 +651,7 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     opacity: 0.78,
     marginTop: 6,
-    textAlign: 'center',
+    textAlign: "center",
     zIndex: 1,
   },
   taglineItalic: {
@@ -667,8 +664,8 @@ const styles = StyleSheet.create({
     gap: 7,
   },
   valuePropsHeader: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 8,
     paddingHorizontal: 2,
   },
@@ -696,20 +693,20 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   valueModule: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 10,
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 8,
     padding: 10,
-    position: 'relative',
+    position: "relative",
   },
   valueModuleMain: {
     flex: 1,
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
     gap: 10,
   },
   valueModuleMainSoon: {
@@ -719,7 +716,7 @@ const styles = StyleSheet.create({
     paddingRight: 50,
   },
   valueModuleSoonBadge: {
-    position: 'absolute',
+    position: "absolute",
     top: 8,
     right: 8,
     paddingHorizontal: 7,
@@ -734,10 +731,10 @@ const styles = StyleSheet.create({
     letterSpacing: 1,
   },
   valueModuleDots: {
-    position: 'absolute',
+    position: "absolute",
     top: 6,
     right: 6,
-    flexDirection: 'row',
+    flexDirection: "row",
     gap: 1.5,
   },
   valueModuleDot: {
@@ -756,9 +753,9 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   valueModuleTitleRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    flexWrap: 'wrap',
+    flexDirection: "row",
+    alignItems: "center",
+    flexWrap: "wrap",
     gap: 8,
     marginBottom: 2,
   },
@@ -766,7 +763,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.display,
     fontSize: 15,
     color: paper.dashboardInk,
-    fontWeight: '600',
+    fontWeight: "600",
   },
   valueModuleTag: {
     fontFamily: paperFonts.metaMonoBold,
@@ -786,16 +783,16 @@ const styles = StyleSheet.create({
   actions: {
     gap: paperSpacing.xs + 2,
   },
-  appleBtn: { height: 48, width: '100%' },
+  appleBtn: { height: 48, width: "100%" },
 
   // ── Footer ────────────────────────────────────────────────────────────
   footerCol: {
     gap: 2,
   },
   footerRow: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
     borderTopWidth: 1.5,
     borderTopColor: paper.dashboardInk,
     paddingTop: paperSpacing.xs + 2,

@@ -233,10 +233,12 @@ export default function HomeScreen() {
   const lastAutoRefreshAtRef = useRef(0);
   const profileHomeSeedAttemptRef = useRef<string | null>(null);
   const [locationPrefsLoaded, setLocationPrefsLoaded] = useState(false);
-  const [gpsCoords, setGpsCoords] = useState<{
-    lat: number;
-    lon: number;
-  } | null>(null);
+  const [gpsCoords, setGpsCoords] = useState<
+    {
+      lat: number;
+      lon: number;
+    } | null
+  >(null);
   const [gpsLocationLabel, setGpsLocationLabel] = useState<string | null>(null);
   const [gpsRegionLabel, setGpsRegionLabel] = useState<string | null>(null);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
@@ -283,14 +285,12 @@ export default function HomeScreen() {
     gpsCoords?.lon,
   ]);
 
-  const locationLabel =
-    useCustom && savedLocation
-      ? savedLocation.label
-      : (gpsLocationLabel ?? "Current location");
+  const locationLabel = useCustom && savedLocation
+    ? savedLocation.label
+    : (gpsLocationLabel ?? "Current location");
 
   const gpsLabel = gpsLocationLabel ?? "Current location";
-  const envMatchesCoords =
-    coords != null &&
+  const envMatchesCoords = coords != null &&
     envData != null &&
     envLastCoords != null &&
     Math.abs(envLastCoords.lat - coords.lat) < 0.01 &&
@@ -320,8 +320,9 @@ export default function HomeScreen() {
         if (cancelled || !geo) return;
         const city = geo.city ?? geo.subregion ?? geo.district;
         const region = geo.region ?? "";
-        const label =
-          city && region ? `${city}, ${region}` : (city ?? region ?? null);
+        const label = city && region
+          ? `${city}, ${region}`
+          : (city ?? region ?? null);
         if (!cancelled) {
           setGpsLocationLabel(label);
           setGpsRegionLabel(region || null);
@@ -450,13 +451,13 @@ export default function HomeScreen() {
     }
     const contexts = howFishingMultiContexts(locationCoastalEligible);
     const inMemory = getCurrentMultiRebuild(lat, lon, reportCacheOwnerKey);
-    const hasAllInMemory =
-      inMemory != null && contexts.every((ctx) => inMemory[ctx] != null);
+    const hasAllInMemory = inMemory != null &&
+      contexts.every((ctx) => inMemory[ctx] != null);
     const source = hasAllInMemory
       ? inMemory!
       : await getCachedMultiRebuild(lat, lon, contexts, reportCacheOwnerKey, {
-          allowLimited: true,
-        });
+        allowLimited: true,
+      });
     if (req !== cacheMeanRequestSeq.current) return;
     if (!source) {
       setCachedMeanRaw(null);
@@ -585,11 +586,10 @@ export default function HomeScreen() {
           reportCacheOwnerKey,
         );
         if (inMemory && contexts.every((ctx) => inMemory[ctx] != null)) {
-          const meanRaw =
-            contexts.reduce(
-              (sum, ctx) => sum + inMemory[ctx]!.report.score,
-              0,
-            ) / contexts.length;
+          const meanRaw = contexts.reduce(
+            (sum, ctx) => sum + inMemory[ctx]!.report.score,
+            0,
+          ) / contexts.length;
           const v = Math.round(meanRaw) / 10;
           setCachedScore(Number.isInteger(v) ? v.toFixed(0) : v.toFixed(1));
         }
@@ -606,8 +606,7 @@ export default function HomeScreen() {
 
   useEffect(() => {
     const subscription = AppState.addEventListener("change", (nextAppState) => {
-      const wasBackgrounded =
-        appStateRef.current === "background" ||
+      const wasBackgrounded = appStateRef.current === "background" ||
         appStateRef.current === "inactive";
       if (wasBackgrounded && nextAppState === "active") {
         refreshLiveConditions();
@@ -685,8 +684,9 @@ export default function HomeScreen() {
         if (geo) {
           const city = geo.city ?? geo.subregion ?? geo.district;
           const region = geo.region ?? "";
-          label =
-            city && region ? `${city}, ${region}` : (city ?? region ?? label);
+          label = city && region
+            ? `${city}, ${region}`
+            : (city ?? region ?? label);
         }
       } catch {
         /* keep default label */
@@ -785,27 +785,27 @@ export default function HomeScreen() {
     [locationCoastalEligible],
   );
 
-  const heroScore =
-    cachedMeanRaw != null ? formatScoreDisplay(cachedMeanRaw) : cachedScore;
+  const heroScore = cachedMeanRaw != null
+    ? formatScoreDisplay(cachedMeanRaw)
+    : cachedScore;
   const hasReport = cachedMeanRaw != null;
-  const heroScore10 =
-    cachedMeanRaw != null ? roundedScore10FromRaw(cachedMeanRaw) : null;
+  const heroScore10 = cachedMeanRaw != null
+    ? roundedScore10FromRaw(cachedMeanRaw)
+    : null;
   const heroBand = heroScore10 != null ? paperBandForScore(heroScore10) : null;
   const heroBandStyle = heroBand ? dashboardBandColor[heroBand] : null;
 
   const forecastDisplayDays = (
     forecastDays?.filter((d) => d.day_offset > 0) ?? []
   ).slice(0, FORECAST_DAYS_SHOWN);
-  const lockedForecastSeedDate =
-    forecastDisplayDays[0]?.date ??
+  const lockedForecastSeedDate = forecastDisplayDays[0]?.date ??
     forecastDays?.find((d) => d.day_offset === 0)?.date ??
     "";
-  const freeForecastPreviewDay =
-    forecastDisplayDays.find(
-      (d) =>
-        canViewForecastScore(effectiveTier, d.day_offset) &&
-        d.day_offset === FREE_FORECAST_PREVIEW_DAY_OFFSET,
-    ) ?? null;
+  const freeForecastPreviewDay = forecastDisplayDays.find(
+    (d) =>
+      canViewForecastScore(effectiveTier, d.day_offset) &&
+      d.day_offset === FREE_FORECAST_PREVIEW_DAY_OFFSET,
+  ) ?? null;
   const lockedForecastPlaceholders = useMemo(
     () =>
       buildLockedForecastPlaceholders(
@@ -820,13 +820,13 @@ export default function HomeScreen() {
       ? forecastDisplayDays
       : Array.from({ length: FORECAST_DAYS_SHOWN }).map(() => null)
     : freeForecastPreviewDay
-      ? [freeForecastPreviewDay, ...lockedForecastPlaceholders].slice(
-          0,
-          FORECAST_DAYS_SHOWN,
-        )
-      : lockedForecastPlaceholders.length > 0
-        ? lockedForecastPlaceholders.slice(0, FORECAST_DAYS_SHOWN)
-        : Array.from({ length: FORECAST_DAYS_SHOWN }).map(() => null);
+    ? [freeForecastPreviewDay, ...lockedForecastPlaceholders].slice(
+      0,
+      FORECAST_DAYS_SHOWN,
+    )
+    : lockedForecastPlaceholders.length > 0
+    ? lockedForecastPlaceholders.slice(0, FORECAST_DAYS_SHOWN)
+    : Array.from({ length: FORECAST_DAYS_SHOWN }).map(() => null);
 
   // ── Live wall-clock + greeting ────────────────────────────────────────────
   const [now, setNow] = useState(() => new Date());
@@ -867,16 +867,14 @@ export default function HomeScreen() {
       ),
     [envData?.weather?.cloud_cover, envData?.weather?.precipitation],
   );
-  const windCardinal =
-    envData?.weather?.wind_direction != null
-      ? cardinal8(envData.weather.wind_direction)
-      : null;
+  const windCardinal = envData?.weather?.wind_direction != null
+    ? cardinal8(envData.weather.wind_direction)
+    : null;
   const windMph = envData?.weather?.wind_speed;
   const humidityPct = envData?.weather?.humidity;
-  const pressureInches =
-    envData?.weather?.pressure != null
-      ? (envData.weather.pressure / 33.8639).toFixed(1)
-      : null;
+  const pressureInches = envData?.weather?.pressure != null
+    ? (envData.weather.pressure / 33.8639).toFixed(1)
+    : null;
   const pressureTrendLabel = pressureTrendDisplay(
     envData?.weather?.pressure_trend,
   );
@@ -1155,26 +1153,28 @@ export default function HomeScreen() {
 
             <View style={styles.headlineWaitingRow}>
               <View style={styles.headlineWaitingText}>
-                {hasReport && heroBandStyle ? (
-                  <>
-                    <Text style={styles.headlineWaiting}>
-                      {verdictLeading(heroBand!)}
-                    </Text>
-                    <Text style={styles.headlineWaitingItalic}>
-                      <Text style={{ color: heroBandStyle.verdictColor }}>
-                        {heroBandStyle.verdict}
+                {hasReport && heroBandStyle
+                  ? (
+                    <>
+                      <Text style={styles.headlineWaiting}>
+                        {verdictLeading(heroBand!)}
                       </Text>
-                      <Text style={styles.headlineWaitingDot}>.</Text>
-                    </Text>
-                  </>
-                ) : (
-                  <>
-                    <Text style={styles.headlineWaiting}>The water is</Text>
-                    <Text style={styles.headlineWaitingItalic}>
-                      waiting<Text style={styles.headlineWaitingDot}>.</Text>
-                    </Text>
-                  </>
-                )}
+                      <Text style={styles.headlineWaitingItalic}>
+                        <Text style={{ color: heroBandStyle.verdictColor }}>
+                          {heroBandStyle.verdict}
+                        </Text>
+                        <Text style={styles.headlineWaitingDot}>.</Text>
+                      </Text>
+                    </>
+                  )
+                  : (
+                    <>
+                      <Text style={styles.headlineWaiting}>The water is</Text>
+                      <Text style={styles.headlineWaitingItalic}>
+                        waiting<Text style={styles.headlineWaitingDot}>.</Text>
+                      </Text>
+                    </>
+                  )}
               </View>
               <View pointerEvents="none" style={styles.headlinePines}>
                 <MistyPinesView />
@@ -1421,9 +1421,9 @@ export default function HomeScreen() {
                 <MetricCell
                   icon="water-outline"
                   label="HUMIDITY"
-                  value={
-                    humidityPct != null ? String(Math.round(humidityPct)) : "—"
-                  }
+                  value={humidityPct != null
+                    ? String(Math.round(humidityPct))
+                    : "—"}
                   unit="%"
                   sub={humidityDisplay(envData?.weather?.humidity)}
                   divider
@@ -1431,11 +1431,9 @@ export default function HomeScreen() {
                 <MetricCell
                   icon="thermometer-outline"
                   label="TODAY"
-                  value={
-                    todayHi != null && todayLo != null
-                      ? `${Math.round(todayHi)}/${Math.round(todayLo)}`
-                      : "—"
-                  }
+                  value={todayHi != null && todayLo != null
+                    ? `${Math.round(todayHi)}/${Math.round(todayLo)}`
+                    : "—"}
                   unit="°F"
                   sub="HI / LO"
                   divider
@@ -1466,10 +1464,12 @@ export default function HomeScreen() {
                   {refreshing
                     ? "Checking live conditions..."
                     : agoSeconds == null
-                      ? "Live conditions ready · hourly updates"
-                      : `Checked ${formatAgo(
-                          agoSeconds,
-                        ).toLowerCase()} · hourly updates`}
+                    ? "Live conditions ready · hourly updates"
+                    : `Checked ${
+                      formatAgo(
+                        agoSeconds,
+                      ).toLowerCase()
+                    } · hourly updates`}
                 </Text>
               </View>
             </View>
@@ -1574,11 +1574,9 @@ export default function HomeScreen() {
                       styles.forecastTile,
                       pressed && { opacity: 0.85 },
                     ]}
-                    accessibilityLabel={
-                      isFreePreview
-                        ? "Unlock forecast day report"
-                        : "Open forecast day report"
-                    }
+                    accessibilityLabel={isFreePreview
+                      ? "Unlock forecast day report"
+                      : "Open forecast day report"}
                   >
                     {isFirst && (
                       <Text style={styles.forecastTileTomorrow}>TOMORROW</Text>
@@ -1705,7 +1703,7 @@ export default function HomeScreen() {
             />
             <ModuleRow
               code="04"
-              title="River Run"
+              title="River Migration"
               tag="MIGRATION"
               desc="Stage, historical conditions, push, fishability & seasonal presence for Great Lakes runs"
               moduleId="river-run"
@@ -1805,8 +1803,8 @@ export default function HomeScreen() {
                 {savedLocation && useCustom
                   ? regionStamp(savedLocation.label)
                   : gpsRegionLabel
-                    ? regionStamp(gpsRegionLabel)
-                    : ""}
+                  ? regionStamp(gpsRegionLabel)
+                  : ""}
               </Text>
             </View>
           </View>
@@ -1816,9 +1814,9 @@ export default function HomeScreen() {
       {/* Modals */}
       <LocationPickerModal
         visible={showLocationPicker}
-        currentLabel={
-          useCustom && savedLocation ? savedLocation.label : gpsLabel
-        }
+        currentLabel={useCustom && savedLocation
+          ? savedLocation.label
+          : gpsLabel}
         isUsingCustom={useCustom && savedLocation != null}
         savedLocation={savedLocation}
         onSelect={handleLocationSelect}
@@ -2251,24 +2249,22 @@ function deriveConditionsSubline(
 ): string | null {
   if (cloudCover == null && precip == null) return null;
   const cloud = cloudCover ?? 0;
-  const sky =
-    cloud >= 80
-      ? "Overcast"
-      : cloud >= 50
-        ? "Mostly cloudy"
-        : cloud >= 25
-          ? "Partly cloudy"
-          : "Clear skies";
+  const sky = cloud >= 80
+    ? "Overcast"
+    : cloud >= 50
+    ? "Mostly cloudy"
+    : cloud >= 25
+    ? "Partly cloudy"
+    : "Clear skies";
   const precipMm = precip ?? 0;
   if (precipMm <= 0) return sky;
-  const wet =
-    precipMm < 0.5
-      ? "Light drizzle"
-      : precipMm < 2
-        ? "Light rain"
-        : precipMm < 6
-          ? "Steady rain"
-          : "Heavy rain";
+  const wet = precipMm < 0.5
+    ? "Light drizzle"
+    : precipMm < 2
+    ? "Light rain"
+    : precipMm < 6
+    ? "Steady rain"
+    : "Heavy rain";
   return `${sky} · ${wet}`;
 }
 

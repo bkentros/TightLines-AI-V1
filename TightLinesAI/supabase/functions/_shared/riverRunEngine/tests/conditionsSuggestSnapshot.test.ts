@@ -160,7 +160,7 @@ Deno.test("Conditions Suggest exposes five cumulative checkpoint dates", () => {
   );
 });
 
-Deno.test("Run Timing stays plain and conservative before its first read", () => {
+Deno.test("Migration Timing stays plain and conservative before its first read", () => {
   const beforeStaging = scoreConditionsSuggest({
     localDate: "2026-07-20",
     run,
@@ -174,8 +174,9 @@ Deno.test("Run Timing stays plain and conservative before its first read", () =>
     baselines: [],
   });
 
-  assertEquals(beforeStaging.label, "Evaluating");
-  assert(beforeStaging.detail.includes("run has not developed enough"));
+  assertEquals(beforeStaging.label, "Not monitoring yet");
+  assert(beforeStaging.detail.includes("observation window is not active"));
+  assert(beforeStaging.reasonCodes.includes("conditions_monitoring_inactive"));
   assertEquals(beforeStaging.detail.includes("July 28, 2026"), false);
   assertEquals(duringStaging.label, "Evaluating");
   assert(duringStaging.headline.includes("still taking shape"));
@@ -200,7 +201,7 @@ Deno.test("river-start checkpoint uses every completed date from staging", () =>
   assertEquals(result.sourceDates.includes(target.checkpointDate), false);
 });
 
-Deno.test("Run Timing accepts every configured PM condition slot", () => {
+Deno.test("Migration Timing accepts every configured PM condition slot", () => {
   const target = checkpoint("river_start");
   const evidenceByDate = cumulativeEvidence(target, "ahead");
   for (const localDate of Object.keys(evidenceByDate)) {
@@ -334,7 +335,7 @@ Deno.test("Conditions Suggest follows the main run end rather than the historica
   });
 
   assertEquals(result.label, "Timing complete");
-  assert(result.headline.includes("Run Timing read is complete"));
+  assert(result.headline.includes("Migration Timing read is complete"));
   assert(result.tip.includes("remaining established holding water"));
   assertEquals(result.headline.includes("well underway"), false);
 });
@@ -432,7 +433,7 @@ Deno.test("cool-enough plateau prevents indefinitely rewarding lower means", () 
   );
 });
 
-Deno.test("Run Timing rewards an earlier drop toward 62F independently of Push bands", () => {
+Deno.test("Migration Timing rewards an earlier drop toward 62F independently of Push bands", () => {
   const target = checkpoint("river_start");
   const slowerCooling = cumulativeEvidence(target, "typical");
   const fasterCooling = cumulativeEvidence(target, "typical");

@@ -31,6 +31,7 @@ type VisualPrimitive = RiverRunPrimitiveDisplay & {
   stage?: string;
   timingLabel?: string | null;
   curveDirection?: string;
+  historicalRunStrength?: "limited" | "moderate" | "strong";
 };
 
 const ART_HEIGHT = 76;
@@ -63,6 +64,15 @@ export function RiverRunVisual({
   const entrance = useRef(new Animated.Value(0)).current;
   const rawId = useId();
   const uid = rawId.replace(/[^a-zA-Z0-9]/g, "");
+  const ceilingPercent = Math.max(
+    0,
+    Math.min(100, (model.ceilingPosition ?? 1) * 100),
+  );
+  const presenceAccessibility = model.kind === "fish_in_river"
+    ? ` Seasonal presence index ${
+      model.score ?? 0
+    } out of 100. Historical migration strength on this river ${model.historicalRunStrength}. River and species ceiling ${model.riverMaximum} out of 100.`
+    : "";
 
   useEffect(() => {
     if (reduceMotion) {
@@ -154,7 +164,10 @@ export function RiverRunVisual({
 
   const markerTranslate = position.interpolate({
     inputRange: [0, 1],
-    outputRange: [0, Math.max(0, panelWidth - 26 - MARKER_SIZE)],
+    outputRange: [
+      -MARKER_SIZE / 2,
+      Math.max(-MARKER_SIZE / 2, panelWidth - 26 - MARKER_SIZE / 2),
+    ],
   });
   const shimmerTranslate = shimmer.interpolate({
     inputRange: [0, 1],
@@ -193,7 +206,7 @@ export function RiverRunVisual({
       onLayout={(event) => setPanelWidth(event.nativeEvent.layout.width)}
       accessible
       accessibilityRole="image"
-      accessibilityLabel={`${model.artLabel}. ${model.stateLabel}. ${model.stateNote}.`}
+      accessibilityLabel={`${model.artLabel}. ${model.stateLabel}. ${model.stateNote}.${presenceAccessibility}`}
     >
       <View style={styles.panel} pointerEvents="none">
         <VisualBackground uid={uid} accent={model.accent} />
@@ -213,6 +226,24 @@ export function RiverRunVisual({
               <Text style={styles.artLabel}>{model.artLabel}</Text>
             </View>
           </View>
+          {model.kind === "fish_in_river"
+            ? (
+              <View style={styles.presenceIndexBadge}>
+                <Text style={styles.presenceIndexLabel}>PRESENCE INDEX</Text>
+                <View style={styles.presenceIndexValueRow}>
+                  <Text
+                    style={[
+                      styles.presenceIndexValue,
+                      { color: model.accent },
+                    ]}
+                  >
+                    {model.score}
+                  </Text>
+                  <Text style={styles.presenceIndexMaximum}>/100</Text>
+                </View>
+              </View>
+            )
+            : null}
         </View>
 
         <View style={styles.artStage}>
@@ -233,6 +264,30 @@ export function RiverRunVisual({
           </Text>
         </View>
 
+        {model.kind === "fish_in_river"
+          ? (
+            <View style={styles.presenceContextRow}>
+              <View style={styles.presenceContextItem}>
+                <Text style={styles.presenceContextLabel}>
+                  HISTORICAL MIGRATION STRENGTH
+                </Text>
+                <Text style={styles.presenceContextValue}>
+                  {model.historicalRunStrength?.toUpperCase()}
+                </Text>
+              </View>
+              <View style={styles.presenceContextDivider} />
+              <View style={styles.presenceContextItem}>
+                <Text style={styles.presenceContextLabel}>
+                  RIVER / SPECIES CEILING
+                </Text>
+                <Text style={styles.presenceContextValue}>
+                  {model.riverMaximum} / 100
+                </Text>
+              </View>
+            </View>
+          )
+          : null}
+
         <View style={styles.meterRegion}>
           <View style={styles.track}>
             {model.stops.map((stop, index) => {
@@ -252,6 +307,33 @@ export function RiverRunVisual({
                 />
               );
             })}
+            {model.kind === "fish_in_river" && ceilingPercent < 100
+              ? (
+                <View
+                  style={[
+                    styles.presenceAboveCeiling,
+                    { left: `${ceilingPercent}%` },
+                  ]}
+                />
+              )
+              : null}
+            {model.kind === "fish_in_river"
+              ? (
+                <View
+                  style={[
+                    styles.presenceCeilingMarker,
+                    {
+                      left: `${
+                        Math.max(
+                          0.5,
+                          Math.min(99.5, ceilingPercent),
+                        )
+                      }%`,
+                    },
+                  ]}
+                />
+              )
+              : null}
             {model.selectedIndex != null && !model.specialState
               ? (
                 <Animated.View
@@ -298,22 +380,52 @@ export function RiverRunVisual({
                 </View>
               )}
           </View>
-          <View style={styles.stopLabels}>
-            {model.stops.map((stop, index) => (
-              <Text
-                key={`${model.kind}-${stop.label}-label`}
-                style={[
-                  styles.stopLabel,
-                  index === model.selectedIndex && styles.stopLabelSelected,
-                ]}
-                numberOfLines={2}
-                adjustsFontSizeToFit
-                minimumFontScale={0.72}
-              >
-                {stop.shortLabel}
-              </Text>
-            ))}
-          </View>
+          {model.ticks
+            ? (
+              <View style={styles.meterTicks}>
+                {model.ticks.map((tick, index) => {
+                  const first = index === 0;
+                  const last = index === model.ticks!.length - 1;
+                  return (
+                    <Text
+                      key={`${model.kind}-${tick.label}-tick`}
+                      style={[
+                        styles.meterTick,
+                        {
+                          left: `${tick.position * 100}%`,
+                          marginLeft: first ? 0 : last ? -32 : -16,
+                          textAlign: first ? "left" : last ? "right" : "center",
+                        },
+                        index === (model.selectedIndex ?? -2) + 1 &&
+                        styles.stopLabelSelected,
+                      ]}
+                      numberOfLines={1}
+                    >
+                      {tick.label}
+                    </Text>
+                  );
+                })}
+              </View>
+            )
+            : (
+              <View style={styles.stopLabels}>
+                {model.stops.map((stop, index) => (
+                  <Text
+                    key={`${model.kind}-${stop.label}-label`}
+                    style={[
+                      styles.stopLabel,
+                      index === model.selectedIndex &&
+                      styles.stopLabelSelected,
+                    ]}
+                    numberOfLines={2}
+                    adjustsFontSizeToFit
+                    minimumFontScale={0.72}
+                  >
+                    {stop.shortLabel}
+                  </Text>
+                ))}
+              </View>
+            )}
         </View>
 
         <Animated.View
@@ -741,9 +853,8 @@ function PresenceArt({
   pulse: Animated.Value;
   driftY: Animated.AnimatedInterpolation<number>;
 }) {
-  const maximum = Math.max(1, model.riverMaximum ?? 100);
   const ratio = typeof model.score === "number"
-    ? Math.max(0, Math.min(1, model.score / maximum))
+    ? Math.max(0, Math.min(1, model.score / 100))
     : 0;
   const visibleFish = Math.round(ratio * 8);
   const directionIcon = model.direction === "rising"
@@ -890,6 +1001,38 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: 8,
   },
+  presenceIndexBadge: {
+    minWidth: 76,
+    alignItems: "flex-end",
+    justifyContent: "center",
+    paddingHorizontal: 8,
+    paddingVertical: 5,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.24)",
+    borderRadius: 9,
+    backgroundColor: "rgba(2,10,18,0.46)",
+  },
+  presenceIndexLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.8,
+    letterSpacing: 0.65,
+    color: "rgba(255,255,255,0.58)",
+  },
+  presenceIndexValueRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+  presenceIndexValue: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 19,
+    lineHeight: 21,
+    color: "#FFFFFF",
+  },
+  presenceIndexMaximum: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    color: "rgba(255,255,255,0.58)",
+  },
   identity: {
     minWidth: 0,
     flex: 1,
@@ -962,6 +1105,40 @@ const styles = StyleSheet.create({
     letterSpacing: 0.75,
     color: "rgba(255,255,255,0.66)",
   },
+  presenceContextRow: {
+    zIndex: 5,
+    flexDirection: "row",
+    alignItems: "stretch",
+    marginBottom: 9,
+    paddingHorizontal: 9,
+    paddingVertical: 7,
+    borderWidth: 1,
+    borderColor: "rgba(255,255,255,0.14)",
+    borderRadius: 8,
+    backgroundColor: "rgba(2,10,18,0.38)",
+  },
+  presenceContextItem: {
+    minWidth: 0,
+    flex: 1,
+    gap: 2,
+  },
+  presenceContextDivider: {
+    width: 1,
+    marginHorizontal: 9,
+    backgroundColor: "rgba(255,255,255,0.14)",
+  },
+  presenceContextLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.6,
+    letterSpacing: 0.6,
+    color: "rgba(255,255,255,0.52)",
+  },
+  presenceContextValue: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 11,
+    letterSpacing: 0.35,
+    color: "#FFFFFF",
+  },
   meterRegion: { zIndex: 5 },
   track: {
     position: "relative",
@@ -982,6 +1159,23 @@ const styles = StyleSheet.create({
     shadowColor: "#FFFFFF",
     shadowOpacity: 0.62,
     shadowRadius: 6,
+  },
+  presenceAboveCeiling: {
+    position: "absolute",
+    top: 2,
+    right: 2,
+    bottom: 2,
+    borderRadius: 999,
+    backgroundColor: "rgba(2,10,18,0.76)",
+  },
+  presenceCeilingMarker: {
+    position: "absolute",
+    top: -4,
+    bottom: -4,
+    width: 2,
+    marginLeft: -1,
+    borderRadius: 1,
+    backgroundColor: "rgba(255,255,255,0.9)",
   },
   markerHalo: {
     position: "absolute",
@@ -1045,6 +1239,20 @@ const styles = StyleSheet.create({
     color: "rgba(255,255,255,0.43)",
   },
   stopLabelSelected: { color: "#FFFFFF" },
+  meterTicks: {
+    position: "relative",
+    height: 16,
+    marginTop: 8,
+  },
+  meterTick: {
+    position: "absolute",
+    width: 32,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 5.8,
+    lineHeight: 7,
+    letterSpacing: 0.15,
+    color: "rgba(255,255,255,0.43)",
+  },
   shimmer: {
     position: "absolute",
     top: -60,

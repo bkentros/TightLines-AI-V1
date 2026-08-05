@@ -59,6 +59,7 @@ Deno.test("integrated PM copy matrix explains every simultaneous disagreement", 
       "Typical",
       "Delayed",
       "Insufficient evidence",
+      "Not monitoring yet",
       "Evaluating",
       "Timing complete",
     ]),
@@ -72,8 +73,9 @@ Deno.test("integrated PM copy matrix explains every simultaneous disagreement", 
       "Strong",
       "Very strong",
       "Unavailable",
-      "Waiting for run",
-      "Run complete",
+      "Waiting for migration",
+      "Migration complete",
+      "Offseason",
     ]),
   );
   assertEquals(
@@ -160,7 +162,7 @@ Deno.test("integrated PM copy matrix explains every simultaneous disagreement", 
     }
   }
 
-  assertEquals(combinations, 129_024);
+  assertEquals(combinations, 193_536);
   assert(multiFindingCombinations > 0);
 });
 
@@ -190,9 +192,9 @@ Deno.test("integrated PM season boundaries cannot retain an active Push", () => 
   });
 
   assertEquals(before.score, null);
-  assertEquals(before.label, "Waiting for run");
+  assertEquals(before.label, "Waiting for migration");
   assertEquals(after.score, null);
-  assertEquals(after.label, "Run complete");
+  assertEquals(after.label, "Migration complete");
 });
 
 Deno.test("integrated historical presence honors lower river-specific caps", () => {
@@ -237,6 +239,12 @@ function expectedInterpretationCodes(input: {
     codes.push("peak_presence_weak_push");
   }
   if (
+    input.runStage === "peak" &&
+    input.conditionsSuggestLabel === "Delayed"
+  ) {
+    codes.push("peak_delayed_conditions");
+  }
+  if (
     isAtLeast(input.fishability, 70) &&
     presenceFraction(input.fishInRiver) <= 0.3
   ) {
@@ -270,6 +278,7 @@ function stageVariants(): Array<{
     "2026-10-05",
     "2026-10-22",
     "2026-10-28",
+    "2026-11-11",
   ].map((localDate) => {
     const display = resolveRunStage(run, localDate);
     return { stage: display.stage, display };
@@ -282,6 +291,7 @@ function conditionsVariants(): ReturnType<typeof scoreConditionsSuggest>[] {
     conditionsFor("typical"),
     conditionsFor("delayed"),
     conditionsFor("insufficient"),
+    conditionsFor("inactive"),
     conditionsFor("evaluating"),
     conditionsFor("complete"),
   ];
@@ -293,9 +303,18 @@ function conditionsFor(
     | "typical"
     | "delayed"
     | "insufficient"
+    | "inactive"
     | "evaluating"
     | "complete",
 ): ReturnType<typeof scoreConditionsSuggest> {
+  if (kind === "inactive") {
+    return scoreConditionsSuggest({
+      localDate: "2026-07-20",
+      run,
+      evidenceByDate: {},
+      baselines: [],
+    });
+  }
   if (kind === "evaluating") {
     return scoreConditionsSuggest({
       localDate: "2026-08-01",
@@ -456,6 +475,7 @@ function pushVariants(): PrimitiveDisplay[] {
     }),
     scorePush({ ...base, trackingState: "not_started" }),
     scorePush({ ...base, trackingState: "complete" }),
+    scorePush({ ...base, trackingState: "offseason" }),
   ];
 }
 
@@ -517,7 +537,7 @@ function auditDisplay(display: PrimitiveDisplay): void {
   assert(display.detail.trim().length > 0);
   assert(display.tip.trim().length > 0);
   assert(
-    /^(?:Begin|Start|Fish|Keep|Skip|Leave|Do not|Stop|Choose|Stay|Concentrate|Target|Work|Check|Cover)\b/
+    /^(?:Begin|Start|Fish|Keep|Skip|Leave|Do not|Stop|Choose|Stay|Concentrate|Target|Work|Check|Cover|Plan|Treat)\b/
       .test(
         display.tip.trim(),
       ),

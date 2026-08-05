@@ -23,6 +23,7 @@ export type RunType =
 
 export type MovementEngineId =
   | "fall_cooling"
+  | "fall_entry_cooling"
   | "spring_warming"
   | "winter_thaw"
   | "summer_cooling"
@@ -84,6 +85,7 @@ export type PrimitiveDisplay = {
   label: string;
   score?: number | null;
   headline: string;
+  whereToStart?: string;
   detail: string;
   tip: string;
   reasonCodes: RiverRunReasonCode[];
@@ -219,6 +221,7 @@ export type RiverProfile = {
 
 export type HistoricalPresenceConfig = {
   maximum: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+  distributionScope: "concentrated" | "sectional" | "broad";
   curveVersion: string;
   evidenceNotes: string;
   sourceNotes: string;
@@ -226,6 +229,33 @@ export type HistoricalPresenceConfig = {
     dayOffsetFromStart: number;
     fractionOfMaximum: number;
   }>;
+};
+
+export type SpeciesBiologyProfile = {
+  biologyProfileId: string;
+  species: RiverRunSpecies;
+  commonName: string;
+  scientificName: string;
+  region: RiverRunRegion;
+  movementEngineId: MovementEngineId;
+  migrationPurpose: "spawning" | "pre_spawn_overwintering";
+  semelparous: boolean;
+  adultMigrationTemperature: {
+    coldHoldingF?: number;
+    supportiveMinF: number;
+    preferredMinF?: number;
+    supportiveMaxF: number;
+    tooWarmF: number;
+    migrationBarrierF: number;
+  };
+  environmentalResponse: {
+    risingFlow: "supportive_within_fishable_bounds";
+    precipitation: "precursor_only";
+    strongSignalRequiresMeasuredGaugeResponse: true;
+    peakFloodIsAutomaticallyPositive: false;
+  };
+  evidenceNotes: string;
+  sourceNotes: string;
 };
 
 export type PushRules = {
@@ -256,7 +286,9 @@ export type PushRules = {
   };
   temperature: {
     suitabilityLabel: string;
+    coldHoldingF?: number;
     supportiveMinF: number;
+    preferredMinF?: number;
     supportiveMaxF: number;
     tooWarmF: number;
     migrationBarrierF: number;
@@ -269,6 +301,7 @@ export type PushRules = {
     migrationBarrier: number;
     severeHighFlow: number;
     outsideExtendedWindow: number;
+    coldHolding?: number;
   };
   evidenceNotes: string;
   sourceNotes: string;
@@ -277,6 +310,7 @@ export type PushRules = {
 export type RiverRunProfile = {
   runId: string;
   riverId: string;
+  biologyProfileId: string;
 
   displayName: string;
   species: RiverRunSpecies;
@@ -290,6 +324,8 @@ export type RiverRunProfile = {
     start: string;
     beginningEnd: string;
     buildingEstablishedStart: string;
+    /** Optional later-building boundary for species that broaden substantially before peak. */
+    buildingBroadStart?: string;
     peakStart: string;
     peak: string;
     peakEnd: string;
@@ -297,6 +333,18 @@ export type RiverRunProfile = {
     end: string;
     lateEnd: string;
     postRunLateCopyEnd: string;
+  };
+
+  /**
+   * Optional handoff into a separately scored seasonal experience. The
+   * current migration primitives stop at `runWindow.end`; they do not pretend
+   * to score the destination season with the wrong model.
+   */
+  handoff?: {
+    type: "winter_holding";
+    start: string;
+    destinationRunType: "holding";
+    retainedPresenceFraction: number;
   };
 
   historicalPresence: HistoricalPresenceConfig;
@@ -321,6 +369,8 @@ export type RiverRunProfile = {
     aheadPercentile: number;
     delayedPercentile: number;
     coolEnoughPercentileCap: number;
+    gaugeWeight?: number;
+    waterTemperatureWeight?: number;
   };
 
   userCopyHints?: {
@@ -354,6 +404,7 @@ export type RiverRunConfigurationDocument = {
   configVersion: string;
   movementEngineVersion: string;
   river: RiverProfile;
+  biologyProfiles: SpeciesBiologyProfile[];
   runs: AuditedRiverRunProfile[];
 };
 

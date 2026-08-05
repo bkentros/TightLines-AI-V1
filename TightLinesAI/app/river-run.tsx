@@ -46,7 +46,9 @@ import type {
   RiverRunSnapshotResponse,
 } from "../lib/riverRunContracts";
 import {
+  RIVER_RUN_COHO_REVIEW_GROUPS,
   RIVER_RUN_REVIEW_GROUPS,
+  RIVER_RUN_STEELHEAD_REVIEW_GROUPS,
   type RiverRunReviewGroup,
   type RiverRunReviewScenario,
 } from "../lib/riverRunReviewFixtures";
@@ -81,14 +83,14 @@ const PRIMITIVE_TABS: PrimitiveTabDefinition[] = [
     id: "run_stage",
     index: "01",
     tabTitle: "STAGE",
-    cardTitle: "Run Stage",
+    cardTitle: "Migration Stage",
     icon: "calendar-outline",
   },
   {
     id: "run_timing",
     index: "02",
     tabTitle: "TIMING",
-    cardTitle: "Run Timing",
+    cardTitle: "Migration Timing",
     icon: "speedometer-outline",
   },
   {
@@ -125,6 +127,8 @@ const REVIEW_GROUP_TAB: Partial<Record<string, PrimitiveTabId>> = {
 const RIVER_RUN_REVIEW_ENABLED = __DEV__ &&
   process.env.EXPO_PUBLIC_RIVER_RUN_REVIEW_MODE === "true";
 const CHINOOK_IMAGE = getRiverRunSpeciesImage("chinook_salmon");
+const COHO_IMAGE = getRiverRunSpeciesImage("coho_salmon");
+const STEELHEAD_IMAGE = getRiverRunSpeciesImage("steelhead");
 const RIVER_RUN_TAB_BLUE = "#1B4B68";
 
 const REVIEW_CATALOG: RiverRunCatalogResponse = {
@@ -147,6 +151,22 @@ const REVIEW_CATALOG: RiverRunCatalogResponse = {
               runType: "fall_spawn",
               supportStatus: "beta",
             },
+            {
+              runId: "pere_marquette_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "pere_marquette_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+              runType: "fall_entry",
+              supportStatus: "beta",
+            },
           ],
         },
       ],
@@ -167,29 +187,29 @@ const STEP_CONFIG: Record<
   1: {
     label: "STATE",
     eyebrow: "CHOOSE A REGION",
-    question: "Where is the run?",
-    caption: "Select a state with a fully audited River Run.",
+    question: "Which state?",
+    caption: "Michigan is available now. Planned regions are marked below.",
     icon: "map-outline",
   },
   2: {
-    label: "RUN TYPE",
+    label: "SEASON",
     eyebrow: "CHOOSE A SEASON",
-    question: "Which run are you following?",
-    caption: "Select the seasonal migration you want FinFindr to read.",
+    question: "Which migration season are you following?",
+    caption: "Fall is available now. Planned seasons are marked below.",
     icon: "calendar-outline",
   },
   3: {
     label: "SPECIES",
     eyebrow: "CHOOSE A SPECIES",
     question: "What is moving?",
-    caption: "Select the migratory species you want to follow.",
+    caption: "Choose an available species. Planned additions stay visible.",
     icon: "fish-outline",
   },
   4: {
     label: "RIVER",
     eyebrow: "CHOOSE A RIVER",
     question: "Which river should we read?",
-    caption: "Only audited rivers with complete data coverage appear here.",
+    caption: "Rivers are filtered by species. Planned coverage is marked.",
     icon: "water-outline",
   },
 };
@@ -228,11 +248,17 @@ export default function RiverRunScreen() {
   const resultScrollRef = useRef<ScrollView>(null);
   const primitiveTabsYRef = useRef(0);
 
+  const reviewGroups = selectedSpecies === "coho_salmon"
+    ? RIVER_RUN_COHO_REVIEW_GROUPS
+    : selectedSpecies === "steelhead"
+    ? RIVER_RUN_STEELHEAD_REVIEW_GROUPS
+    : RIVER_RUN_REVIEW_GROUPS;
+
   const reviewGroup = useMemo(
     () =>
-      RIVER_RUN_REVIEW_GROUPS.find((group) => group.id === reviewGroupId) ??
-        RIVER_RUN_REVIEW_GROUPS[0],
-    [reviewGroupId],
+      reviewGroups.find((group) => group.id === reviewGroupId) ??
+        reviewGroups[0],
+    [reviewGroupId, reviewGroups],
   );
   const reviewScenario = useMemo(
     () =>
@@ -248,7 +274,9 @@ export default function RiverRunScreen() {
       setCatalog(await fetchRiverRunCatalog());
     } catch (error) {
       setCatalogError(
-        error instanceof Error ? error.message : "River Run failed to load.",
+        error instanceof Error
+          ? error.message
+          : "River Migration failed to load.",
       );
     } finally {
       if (!isRefresh) setLoadingCatalog(false);
@@ -339,7 +367,7 @@ export default function RiverRunScreen() {
         setSnapshotError(
           error instanceof Error
             ? error.message
-            : "River Run snapshot failed to load.",
+            : "River Migration snapshot failed to load.",
         );
       }
     } finally {
@@ -415,9 +443,12 @@ export default function RiverRunScreen() {
     ? selectedSpecies
     : selectedRiverId;
   const canContinue = currentSelection !== null &&
-    currentChoices.some((choice) => choice.id === currentSelection);
+    currentChoices.some((choice) =>
+      choice.id === currentSelection && !choice.disabled
+    );
 
   const selectChoice = useCallback((choice: RiverRunChoice) => {
+    if (choice.disabled) return;
     hapticSelection();
     if (wizardStep === 1) {
       setSelectedState(choice.id);
@@ -481,7 +512,7 @@ export default function RiverRunScreen() {
     ? `${
       formatRiverRunSeason(resultSeason).toUpperCase()
     } ${navSpecies.toUpperCase()}`
-    : "RIVER RUN";
+    : "RIVER MIGRATION";
 
   return (
     <SafeAreaView style={styles.safeRoot} edges={["top"]}>
@@ -493,8 +524,24 @@ export default function RiverRunScreen() {
           </View>
         )
         : null}
+      {COHO_IMAGE
+        ? (
+          <View pointerEvents="none" style={styles.preloadImage}>
+            <Image source={COHO_IMAGE} style={styles.preloadImageAsset} />
+          </View>
+        )
+        : null}
+      {STEELHEAD_IMAGE
+        ? (
+          <View pointerEvents="none" style={styles.preloadImage}>
+            <Image source={STEELHEAD_IMAGE} style={styles.preloadImageAsset} />
+          </View>
+        )
+        : null}
       <PaperNavHeader
-        eyebrow={screenState === "result" ? "FINFINDR · RIVER RUN" : "FINFINDR"}
+        eyebrow={screenState === "result"
+          ? "FINFINDR · RIVER MIGRATION"
+          : "FINFINDR"}
         title={navTitle}
         onBack={handleBack}
         backLabel={screenState === "result" ? "SETUP" : "BACK"}
@@ -552,6 +599,7 @@ export default function RiverRunScreen() {
               {RIVER_RUN_REVIEW_ENABLED
                 ? (
                   <ReviewControl
+                    groups={reviewGroups}
                     reviewMode={reviewMode}
                     activeGroup={reviewGroup}
                     activeScenario={reviewScenario}
@@ -601,23 +649,23 @@ export default function RiverRunScreen() {
                       activePrimitive={activePrimitive}
                     />
                     <FeedbackCard
-                      featureName="River Run Coverage"
+                      featureName="River Migration Coverage"
                       topic="feature"
                       variant="request"
-                      eyebrow="EXPAND RIVER RUN"
+                      eyebrow="EXPAND RIVER MIGRATION"
                       title="What should we add next?"
-                      body="Request a state, river, run type, or species. Your requests help decide where FinFindr expands next."
+                      body="Request a state, river, migration season, or species. Your requests help decide where FinFindr expands next."
                       actionLabel="REQUEST COVERAGE"
                       profile={profile}
                       user={user}
                       contextLines={[
-                        "Request category: River Run coverage",
+                        "Request category: River Migration coverage",
                         `Current state: ${
                           selectedTarget?.state.displayName ??
                             selectedTarget?.state.state ??
                             "unknown"
                         }`,
-                        `Current run type: ${
+                        `Current migration season: ${
                           formatRiverRunSeason(resultSeason)
                         }`,
                         `Current species: ${
@@ -634,7 +682,7 @@ export default function RiverRunScreen() {
                   <MessageState
                     icon="water-outline"
                     title="No current read"
-                    body="FinFindr could not find a completed River Run snapshot for this selection."
+                    body="FinFindr could not find a completed River Migration snapshot for this selection."
                     actionLabel="BACK TO SETUP"
                     onAction={returnToSetup}
                   />
@@ -656,7 +704,7 @@ function HeaderEditButton({ onPress }: { onPress: () => void }) {
       onPress={onPress}
       hitSlop={10}
       accessibilityRole="button"
-      accessibilityLabel="Edit River Run selection"
+      accessibilityLabel="Edit River Migration selection"
     >
       <Ionicons name="options-outline" size={13} color="#FFFFFF" />
       <Text style={styles.headerEditText}>EDIT</Text>
@@ -697,14 +745,14 @@ function SetupView({
       showsVerticalScrollIndicator={false}
     >
       <View style={styles.setupHero}>
-        <SectionEyebrow color={paper.red}>RIVER RUN SETUP</SectionEyebrow>
+        <SectionEyebrow color={paper.red}>RIVER MIGRATION SETUP</SectionEyebrow>
         <Text style={styles.setupHeroTitle} allowFontScaling={false}>
           FOLLOW THE{"\n"}
           <Text style={styles.setupHeroAccent}>MIGRATION.</Text>
         </Text>
         <Text style={styles.setupHeroSubtitle}>
-          Choose an audited run and FinFindr will assemble today&apos;s measured
-          river read.
+          Choose an audited migration and FinFindr will assemble today&apos;s
+          measured river read.
         </Text>
       </View>
 
@@ -717,7 +765,7 @@ function SetupView({
               color={paper.redDk}
             />
             <Text style={styles.fixtureNoticeText}>
-              REVIEW BUILD · LOCAL FIXTURES · NO LIVE RIVER RUN REQUESTS
+              REVIEW BUILD · LOCAL FIXTURES · NO LIVE RIVER MIGRATION REQUESTS
             </Text>
           </View>
         )
@@ -726,12 +774,12 @@ function SetupView({
       <WizardProgress current={step} />
 
       {loading
-        ? <LoadingState label="Loading supported River Runs" compact />
+        ? <LoadingState label="Loading supported river migrations" compact />
         : error
         ? (
           <MessageState
             icon="warning-outline"
-            title="River Run is unavailable"
+            title="River Migration is unavailable"
             body={error}
             actionLabel="TRY AGAIN"
             onAction={onRetry}
@@ -780,8 +828,8 @@ function SetupView({
                     No audited options yet
                   </Text>
                   <Text style={styles.noChoiceBody}>
-                    FinFindr only shows combinations with completed River Run
-                    configuration and evidence coverage.
+                    FinFindr only shows combinations with completed river
+                    migration configuration and evidence coverage.
                   </Text>
                 </View>
               )}
@@ -824,7 +872,7 @@ function SetupView({
                   !canContinue && styles.primaryButtonTextDisabled,
                 ]}
               >
-                {step === 4 ? "VIEW RIVER RUN" : "CONTINUE"}
+                {step === 4 ? "VIEW RIVER MIGRATION" : "CONTINUE"}
               </Text>
               <Ionicons
                 name="arrow-forward"
@@ -837,8 +885,8 @@ function SetupView({
         : null}
 
       <Text style={styles.setupDisclaimer}>
-        Only runs backed by dependable local water data and seasonal evidence
-        appear here.
+        Available reads are backed by dependable local water data and seasonal
+        evidence. Planned choices cannot be selected.
       </Text>
     </ScrollView>
   );
@@ -903,6 +951,7 @@ function ChoiceCard({
   onPress: () => void;
 }) {
   const speciesImage = step === 3 ? getRiverRunSpeciesImage(choice.id) : null;
+  const disabled = choice.disabled === true;
   const icon = step === 1
     ? "map"
     : step === 2
@@ -914,13 +963,15 @@ function ChoiceCard({
     <Pressable
       style={({ pressed }) => [
         styles.choiceCard,
-        speciesImage && styles.speciesChoiceCard,
+        step === 3 && styles.speciesChoiceCard,
+        disabled && styles.choiceCardDisabled,
         selected && styles.choiceCardSelected,
-        pressed && { opacity: 0.88 },
+        pressed && !disabled && { opacity: 0.88 },
       ]}
       onPress={onPress}
+      disabled={disabled}
       accessibilityRole="radio"
-      accessibilityState={{ checked: selected }}
+      accessibilityState={{ checked: selected, disabled }}
     >
       {speciesImage
         ? (
@@ -932,33 +983,54 @@ function ChoiceCard({
             />
             <Image
               source={speciesImage}
-              style={styles.speciesChoiceImage}
+              style={[
+                styles.speciesChoiceImage,
+                choice.id === "steelhead" &&
+                  styles.speciesChoiceImageSteelhead,
+                disabled && styles.choiceImageDisabled,
+              ]}
               resizeMode="contain"
             />
+          </View>
+        )
+        : step === 3
+        ? (
+          <View style={styles.speciesChoiceImageStage}>
+            <TopographicLines
+              style={StyleSheet.absoluteFill}
+              color={paper.dashboardBlue}
+              count={4}
+            />
+            <Ionicons name="fish" size={24} color={paper.dashboardMuted} />
           </View>
         )
         : (
           <View
             style={[
               styles.choiceIcon,
+              disabled && styles.choiceIconDisabled,
               selected && styles.choiceIconSelected,
             ]}
           >
             <Ionicons
               name={icon}
               size={22}
-              color={selected ? paper.redDk : paper.dashboardBlue}
+              color={disabled
+                ? paper.dashboardMuted
+                : selected
+                ? paper.redDk
+                : paper.dashboardBlue}
             />
           </View>
         )}
       <View
         style={[
           styles.choiceCopy,
-          speciesImage && styles.speciesChoiceCopy,
+          step === 3 && styles.speciesChoiceCopy,
         ]}
       >
         <Text
-          style={styles.choiceTitle}
+          style={[styles.choiceTitle, disabled && styles.choiceTextDisabled]}
           numberOfLines={2}
           adjustsFontSizeToFit
           minimumFontScale={0.84}
@@ -966,13 +1038,23 @@ function ChoiceCard({
           {choice.label}
         </Text>
         {choice.subtitle
-          ? <Text style={styles.choiceSubtitle}>{choice.subtitle}</Text>
+          ? (
+            <Text
+              style={[
+                styles.choiceSubtitle,
+                disabled && styles.choiceSubtitleDisabled,
+              ]}
+            >
+              {choice.subtitle}
+            </Text>
+          )
           : null}
       </View>
       <View
         style={[
           styles.choiceCheck,
-          speciesImage && styles.speciesChoiceCheck,
+          step === 3 && styles.speciesChoiceCheck,
+          disabled && styles.choiceCheckDisabled,
           selected && styles.choiceCheckSelected,
         ]}
       >
@@ -1009,8 +1091,8 @@ function ResultHero({
         {formatRiverRunSpecies(species).toUpperCase()}
       </Text>
       <Text style={styles.resultHeroSubtitle}>
-        Today&apos;s measured read of movement, river conditions, fishability,
-        and seasonal presence.
+        Today&apos;s read of movement, river conditions, fishability, and seasonal
+        presence.
       </Text>
       {speciesImage
         ? (
@@ -1032,7 +1114,7 @@ function ResultHero({
         </View>
         <View style={styles.resultHeroMetaRule} />
         <View style={styles.resultHeroMetaItem}>
-          <Text style={styles.resultHeroMetaLabel}>EVIDENCE</Text>
+          <Text style={styles.resultHeroMetaLabel}>DATA</Text>
           <Text style={styles.resultHeroMetaValue}>
             {snapshot?.dataQuality.label ?? "Review"}
           </Text>
@@ -1043,6 +1125,7 @@ function ResultHero({
 }
 
 function ReviewControl({
+  groups,
   reviewMode,
   activeGroup,
   activeScenario,
@@ -1050,6 +1133,7 @@ function ReviewControl({
   onGroupChange,
   onScenarioChange,
 }: {
+  groups: RiverRunReviewGroup[];
   reviewMode: boolean;
   activeGroup?: RiverRunReviewGroup;
   activeScenario?: RiverRunReviewScenario;
@@ -1081,10 +1165,10 @@ function ReviewControl({
           </Text>
           <Text style={styles.reviewSummaryTitle} numberOfLines={1}>
             {reviewMode
-              ? `${activeGroup?.label ?? "River Run"} · ${
+              ? `${activeGroup?.label ?? "River Migration"} · ${
                 activeScenario?.label ?? "State"
               }`
-              : "Current-date River Run response"}
+              : "Current-date River Migration response"}
           </Text>
         </View>
         <Ionicons
@@ -1098,7 +1182,8 @@ function ReviewControl({
         ? (
           <View style={styles.reviewExpanded}>
             <Text style={styles.reviewHelp}>
-              Fixtures stay on this phone and make no River Run API request.
+              Fixtures stay on this phone and make no River Migration API
+              request.
             </Text>
             <ReviewChipRow>
               <ReviewChip
@@ -1119,7 +1204,7 @@ function ReviewControl({
                     PRIMITIVE OR TEST AREA
                   </Text>
                   <ReviewChipRow>
-                    {RIVER_RUN_REVIEW_GROUPS.map((group) => (
+                    {groups.map((group) => (
                       <ReviewChip
                         key={group.id}
                         label={group.label}
@@ -1374,8 +1459,6 @@ function SnapshotView({
         )
         : null}
 
-      <EvidenceSection snapshot={snapshot} />
-
       <View style={styles.safetyCard}>
         <View style={styles.safetyHeading}>
           <View style={styles.safetyIcon}>
@@ -1394,7 +1477,6 @@ function SnapshotView({
           {snapshot.safety.regulationReminder}
         </Text>
         <View style={styles.safetyRule} />
-        <Text style={styles.safetySub}>{snapshot.safety.gaugeBasis}</Text>
         <Text style={styles.safetySub}>
           {snapshot.safety.activityDisclaimer}
         </Text>
@@ -1507,7 +1589,7 @@ function PrimitiveSection({
               adjustsFontSizeToFit
               minimumFontScale={0.7}
             >
-              {primitive.label}
+              {visual.stateLabel}
             </Text>
           </View>
           <View style={styles.primitiveNoScore}>
@@ -1521,6 +1603,26 @@ function PrimitiveSection({
           ? (
             <View style={styles.primitiveResult}>
               <Text style={styles.primitiveHeadline}>{primitive.headline}</Text>
+            </View>
+          )
+          : null}
+
+        {primitive.whereToStart
+          ? (
+            <View style={styles.primitiveLocation}>
+              <View style={styles.primitiveLocationHeading}>
+                <Ionicons
+                  name="navigate-outline"
+                  size={14}
+                  color={paper.dashboardBlue}
+                />
+                <Text style={styles.primitiveLocationLabel}>
+                  WHERE TO START
+                </Text>
+              </View>
+              <Text style={styles.primitiveLocationText}>
+                {primitive.whereToStart}
+              </Text>
             </View>
           )
           : null}
@@ -1665,130 +1767,6 @@ function EditorialNote({
   );
 }
 
-function EvidenceSection({
-  snapshot,
-}: {
-  snapshot: RiverRunSnapshotResponse;
-}) {
-  const [expanded, setExpanded] = useState(false);
-  return (
-    <View style={styles.evidenceCard}>
-      <Pressable
-        style={({ pressed }) => [
-          styles.evidenceSummary,
-          pressed && { opacity: 0.84 },
-        ]}
-        onPress={() => {
-          hapticSelection();
-          setExpanded((current) => !current);
-        }}
-        accessibilityRole="button"
-        accessibilityState={{ expanded }}
-      >
-        <View style={styles.evidenceSummaryIcon}>
-          <Ionicons
-            name="analytics-outline"
-            size={19}
-            color={paper.dashboardBlue}
-          />
-        </View>
-        <View style={styles.evidenceSummaryCopy}>
-          <Text style={styles.cardEyebrow}>DATA BEHIND THIS READ</Text>
-          <Text style={styles.evidenceTitle}>
-            {snapshot.dataQuality.label} evidence
-          </Text>
-          <Text style={styles.evidenceMeta}>
-            {formatLocalDate(snapshot.localDate)} · {snapshot.refreshSlot}
-          </Text>
-        </View>
-        <View style={styles.evidenceAction}>
-          <Text style={styles.evidenceActionText}>
-            {expanded ? "HIDE" : "VIEW"}
-          </Text>
-          <Ionicons
-            name={expanded ? "chevron-up" : "chevron-down"}
-            size={15}
-            color={paper.dashboardInk}
-          />
-        </View>
-      </Pressable>
-
-      {expanded
-        ? (
-          <View style={styles.evidenceExpanded}>
-            <Text style={styles.evidenceGroupTitle}>FRESHNESS</Text>
-            <View style={styles.metaGrid}>
-              <MetaItem
-                label="Gauge"
-                value={formatMeta(snapshot.freshness.gauge)}
-              />
-              <MetaItem
-                label="Weather"
-                value={formatMeta(snapshot.freshness.weather)}
-              />
-              <MetaItem
-                label="Water temp"
-                value={formatMeta(snapshot.freshness.waterTemperature)}
-              />
-              <MetaItem
-                label="Next refresh"
-                value={formatLocalDateTime(snapshot.nextConditionRefreshAt)}
-              />
-            </View>
-
-            <Text style={styles.evidenceGroupTitle}>MEASURED INPUTS</Text>
-            <View style={styles.metaGrid}>
-              <MetaItem
-                label="Gauge reading"
-                value={formatGaugeReading(snapshot)}
-              />
-              <MetaItem
-                label="River band"
-                value={formatMeta(snapshot.gauge?.band ?? undefined)}
-              />
-              <MetaItem
-                label="24h trend"
-                value={formatMeta(snapshot.gauge?.trend ?? undefined)}
-              />
-              <MetaItem
-                label="Rain estimate · 48h"
-                value={formatRain(snapshot.weather?.rain48hIn)}
-              />
-              <MetaItem
-                label="Water temp"
-                value={formatWaterTemperature(snapshot)}
-              />
-              <MetaItem
-                label="Temp source"
-                value={formatWaterTemperatureSource(snapshot)}
-              />
-              <MetaItem
-                label="Gauge source"
-                value={snapshot.gauge?.provider && snapshot.gauge?.siteId
-                  ? `${snapshot.gauge.provider} ${snapshot.gauge.siteId}`
-                  : "Unknown"}
-              />
-              <MetaItem
-                label="Weather source"
-                value={formatWeatherSource(snapshot)}
-              />
-            </View>
-          </View>
-        )
-        : null}
-    </View>
-  );
-}
-
-function MetaItem({ label, value }: { label: string; value: string }) {
-  return (
-    <View style={styles.metaItem}>
-      <Text style={styles.metaLabel}>{label}</Text>
-      <Text style={styles.metaValue}>{value}</Text>
-    </View>
-  );
-}
-
 function LoadingState({
   label,
   compact = false,
@@ -1844,15 +1822,6 @@ function MessageState({
         : null}
     </View>
   );
-}
-
-function formatMeta(value: string | undefined): string {
-  return value ? value.replaceAll("_", " ") : "Unknown";
-}
-
-function formatLocalDateTime(value: string): string {
-  if (!value) return "Unknown";
-  return value.replace("T", " ").slice(0, 16);
 }
 
 function PushHistoryDropdown({
@@ -1965,11 +1934,11 @@ function formatLastSupportivePush(
     return `${
       history.status === "active_now"
         ? "Supportive signal today"
-        : "Last supportive signal this run"
+        : "Last supportive signal this season"
     }: ${signal.label} · ${formatLocalDate(signal.localDate)}`;
   }
   if (history.status === "none_recorded") {
-    return "No Possible-or-stronger signal has been recorded this run.";
+    return "No Possible-or-stronger signal has been recorded this season.";
   }
   if (history.status === "unavailable") {
     return "The last-supportive-signal lookup is temporarily unavailable.";
@@ -2056,49 +2025,6 @@ function formatLocalDate(value: string): string {
   return `${months[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
 }
 
-function formatGaugeReading(snapshot: RiverRunSnapshotResponse): string {
-  const value = snapshot.gauge?.value;
-  if (typeof value !== "number") return "Unavailable";
-  const metric = snapshot.gauge?.primaryMetric;
-  const unit = metric === "flow_cfs"
-    ? "cfs"
-    : metric === "gage_height_ft"
-    ? "ft"
-    : "";
-  return `${Math.round(value * 10) / 10}${unit ? ` ${unit}` : ""}`;
-}
-
-function formatWaterTemperature(
-  snapshot: RiverRunSnapshotResponse,
-): string {
-  const value = snapshot.waterTemperature?.waterTempF;
-  const trend = formatMeta(snapshot.waterTemperature?.trend);
-  if (typeof value !== "number" || !Number.isFinite(value)) return trend;
-  return `${value.toFixed(1)}°F · ${trend}`;
-}
-
-function formatWaterTemperatureSource(
-  snapshot: RiverRunSnapshotResponse,
-): string {
-  const source = snapshot.waterTemperature;
-  if (!source?.sourceId) return "Unavailable";
-  return `${source.provider ?? "Measured"} · ${source.sourceId}${
-    source.isUpstreamFallback ? " (upstream)" : ""
-  }`;
-}
-
-function formatRain(value: number | null | undefined): string {
-  return typeof value === "number" ? `${value.toFixed(2)} in` : "Unavailable";
-}
-
-function formatWeatherSource(snapshot: RiverRunSnapshotResponse): string {
-  const weather = snapshot.weather;
-  if (!weather?.provider) return "Unavailable";
-  return weather.evidenceType === "modeled_grid"
-    ? `${weather.provider} · modeled grid`
-    : weather.provider;
-}
-
 const styles = StyleSheet.create({
   safeRoot: {
     flex: 1,
@@ -2124,9 +2050,9 @@ const styles = StyleSheet.create({
     maxWidth: 540,
     alignSelf: "center",
     paddingHorizontal: 18,
-    paddingTop: 22,
-    paddingBottom: 64,
-    gap: 16,
+    paddingTop: 16,
+    paddingBottom: 48,
+    gap: 12,
   },
   resultContent: {
     width: "100%",
@@ -2205,12 +2131,12 @@ const styles = StyleSheet.create({
   progressTile: {
     flex: 1,
     minWidth: 0,
-    minHeight: 70,
+    minHeight: 58,
     alignItems: "center",
     justifyContent: "center",
-    gap: 6,
+    gap: 4,
     paddingHorizontal: 4,
-    paddingVertical: 9,
+    paddingVertical: 6,
     backgroundColor: paper.dashboardWhite,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
@@ -2226,9 +2152,9 @@ const styles = StyleSheet.create({
     borderColor: paper.dashboardInk,
   },
   progressIcon: {
-    width: 28,
-    height: 28,
-    borderRadius: 14,
+    width: 25,
+    height: 25,
+    borderRadius: 13,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
@@ -2255,8 +2181,8 @@ const styles = StyleSheet.create({
     position: "relative",
     overflow: "hidden",
     paddingHorizontal: 16,
-    paddingVertical: 22,
-    gap: 18,
+    paddingVertical: 16,
+    gap: 13,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: paperRadius.card,
@@ -2291,13 +2217,14 @@ const styles = StyleSheet.create({
     textAlign: "center",
     color: paper.dashboardMuted,
   },
-  choiceStack: { gap: 12 },
+  choiceStack: { gap: 8 },
   choiceCard: {
-    minHeight: 92,
+    minHeight: 68,
     flexDirection: "row",
     alignItems: "center",
-    gap: 13,
-    padding: 13,
+    gap: 11,
+    paddingHorizontal: 11,
+    paddingVertical: 8,
     borderWidth: 1,
     borderColor: paper.dashboardLine,
     borderRadius: 10,
@@ -2309,10 +2236,16 @@ const styles = StyleSheet.create({
     backgroundColor: "#FFF7F4",
     ...paperShadows.lift,
   },
+  choiceCardDisabled: {
+    borderColor: "#D8DADA",
+    backgroundColor: "#F1F2F1",
+    shadowOpacity: 0,
+    elevation: 0,
+  },
   choiceIcon: {
-    width: 52,
-    height: 52,
-    borderRadius: 12,
+    width: 44,
+    height: 44,
+    borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
@@ -2323,6 +2256,10 @@ const styles = StyleSheet.create({
     borderColor: "rgba(192,57,43,0.25)",
     backgroundColor: "#FBE4E1",
   },
+  choiceIconDisabled: {
+    borderColor: "#D2D5D5",
+    backgroundColor: "#E5E7E7",
+  },
   choiceCopy: {
     minWidth: 0,
     flex: 1,
@@ -2330,15 +2267,23 @@ const styles = StyleSheet.create({
   },
   choiceTitle: {
     fontFamily: paperFonts.displaySemiBold,
-    fontSize: 20,
-    lineHeight: 24,
+    fontSize: 18,
+    lineHeight: 22,
     color: paper.dashboardInk,
   },
   choiceSubtitle: {
     fontFamily: paperFonts.bodyMedium,
     fontSize: 12,
-    lineHeight: 17,
+    lineHeight: 16,
     color: paper.dashboardMuted,
+  },
+  choiceTextDisabled: { color: "#777D80" },
+  choiceSubtitleDisabled: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.1,
+    textTransform: "uppercase",
+    color: "#8B9092",
   },
   choiceCheck: {
     width: 25,
@@ -2354,39 +2299,38 @@ const styles = StyleSheet.create({
     borderColor: paper.red,
     backgroundColor: paper.red,
   },
+  choiceCheckDisabled: {
+    borderColor: "#D2D5D5",
+    backgroundColor: "#E5E7E7",
+  },
   speciesChoiceCheck: {
-    position: "absolute",
-    top: 10,
-    right: 10,
-    zIndex: 2,
-    backgroundColor: "rgba(255,255,255,0.94)",
+    backgroundColor: paper.dashboardCream,
   },
   speciesChoiceCard: {
-    minHeight: 230,
-    flexDirection: "column",
-    padding: 0,
-    gap: 0,
-    overflow: "hidden",
+    minHeight: 72,
   },
   speciesChoiceImageStage: {
-    width: "100%",
-    height: 165,
+    width: 92,
+    height: 56,
     alignItems: "center",
     justifyContent: "center",
     overflow: "hidden",
-    borderBottomWidth: 1,
-    borderBottomColor: paper.dashboardLine,
-    backgroundColor: paper.dashboardWhite,
+    borderWidth: 1,
+    borderColor: "rgba(15,99,176,0.16)",
+    borderRadius: 9,
+    backgroundColor: "rgba(234,243,250,0.52)",
   },
   speciesChoiceImage: {
-    width: "94%",
-    height: "94%",
+    width: 72,
+    height: 52,
   },
+  speciesChoiceImageSteelhead: {
+    width: 52,
+    height: 39,
+  },
+  choiceImageDisabled: { opacity: 0.36 },
   speciesChoiceCopy: {
-    width: "100%",
-    alignItems: "center",
-    paddingHorizontal: 16,
-    paddingVertical: 12,
+    alignItems: "flex-start",
   },
   noChoiceState: {
     alignItems: "center",
@@ -2847,6 +2791,33 @@ const styles = StyleSheet.create({
     lineHeight: 23,
     color: paper.dashboardInk,
   },
+  primitiveLocation: {
+    marginTop: 13,
+    gap: 5,
+    paddingHorizontal: 12,
+    paddingVertical: 11,
+    borderWidth: 1,
+    borderColor: "rgba(15,99,176,0.18)",
+    borderRadius: 8,
+    backgroundColor: "#EEF6FB",
+  },
+  primitiveLocationHeading: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 7,
+  },
+  primitiveLocationLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8,
+    letterSpacing: 1.35,
+    color: paper.dashboardBlue,
+  },
+  primitiveLocationText: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 13,
+    lineHeight: 19,
+    color: paper.dashboardInk,
+  },
   primitiveContext: {
     flexDirection: "row",
     alignItems: "flex-start",
@@ -3065,102 +3036,6 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.body,
     fontSize: 13.5,
     lineHeight: 20,
-    color: paper.dashboardInk,
-  },
-  evidenceCard: {
-    overflow: "hidden",
-    borderWidth: 1,
-    borderColor: paper.dashboardLine,
-    borderRadius: 11,
-    backgroundColor: paper.dashboardWhite,
-    ...paperShadows.hard,
-  },
-  evidenceSummary: {
-    minHeight: 82,
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 12,
-    padding: 15,
-  },
-  evidenceSummaryIcon: {
-    width: 42,
-    height: 42,
-    borderRadius: 11,
-    alignItems: "center",
-    justifyContent: "center",
-    borderWidth: 1,
-    borderColor: "rgba(15,99,176,0.2)",
-    backgroundColor: "#EAF3FA",
-  },
-  evidenceSummaryCopy: {
-    minWidth: 0,
-    flex: 1,
-    gap: 2,
-  },
-  evidenceTitle: {
-    fontFamily: paperFonts.displaySemiBold,
-    fontSize: 19,
-    color: paper.dashboardInk,
-  },
-  evidenceMeta: {
-    fontFamily: paperFonts.bodyMedium,
-    fontSize: 11.5,
-    color: paper.dashboardMuted,
-  },
-  evidenceAction: {
-    flexDirection: "row",
-    alignItems: "center",
-    gap: 4,
-  },
-  evidenceActionText: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 1,
-    color: paper.dashboardInk,
-  },
-  evidenceExpanded: {
-    gap: 11,
-    paddingHorizontal: 14,
-    paddingTop: 14,
-    paddingBottom: 15,
-    borderTopWidth: 1,
-    borderTopColor: paper.dashboardLine,
-    backgroundColor: "#FAFAF8",
-  },
-  evidenceGroupTitle: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8.5,
-    letterSpacing: 1.5,
-    color: paper.dashboardBlue,
-  },
-  metaGrid: {
-    flexDirection: "row",
-    flexWrap: "wrap",
-    gap: 9,
-  },
-  metaItem: {
-    width: "47%",
-    minWidth: 135,
-    flexGrow: 1,
-    padding: 11,
-    borderWidth: 1,
-    borderColor: paper.dashboardHair,
-    borderRadius: 7,
-    backgroundColor: paper.dashboardWhite,
-  },
-  metaLabel: {
-    fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 1,
-    textTransform: "uppercase",
-    color: paper.dashboardMuted,
-  },
-  metaValue: {
-    marginTop: 5,
-    fontFamily: paperFonts.bodySemiBold,
-    fontSize: 12,
-    lineHeight: 17,
-    textTransform: "capitalize",
     color: paper.dashboardInk,
   },
   safetyCard: {

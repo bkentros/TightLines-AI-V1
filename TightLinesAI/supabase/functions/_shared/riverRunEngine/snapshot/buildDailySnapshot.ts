@@ -43,6 +43,8 @@ export function buildDailySnapshot(input: {
     | "runId"
     | "displayName"
     | "species"
+    | "runType"
+    | "handoff"
     | "runWindow"
     | "historicalPresence"
     | "conditionsSuggest"

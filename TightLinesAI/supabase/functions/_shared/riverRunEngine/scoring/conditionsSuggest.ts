@@ -23,6 +23,7 @@ export type ConditionsTimingLabel =
 
 export type ConditionsSuggestLabel =
   | ConditionsTimingLabel
+  | "Not monitoring yet"
   | "Evaluating"
   | "Timing complete";
 
@@ -85,8 +86,8 @@ type CheckpointScore = ConditionsSuggestResult & {
   candidateLabel: ConditionsTimingLabel;
 };
 
-const GAUGE_WEIGHT = 0.6;
-const WATER_TEMPERATURE_WEIGHT = 0.4;
+const DEFAULT_GAUGE_WEIGHT = 0.6;
+const DEFAULT_WATER_TEMPERATURE_WEIGHT = 0.4;
 
 export function scoreConditionsSuggest(input: {
   localDate: string;
@@ -95,6 +96,7 @@ export function scoreConditionsSuggest(input: {
     | "runWindow"
     | "conditionsSuggest"
     | "push"
+    | "handoff"
   >;
   evidenceByDate: ConditionsSuggestEvidenceByDate;
   baselines?: RiverRunConditionsSuggestBaseline[] | null;
@@ -103,6 +105,20 @@ export function scoreConditionsSuggest(input: {
     input.run,
     input.localDate,
   );
+  const monitoringInactive = compareLocalDates(
+        input.localDate,
+        checkpointState.window.stagingStartDate,
+      ) < 0 ||
+    compareLocalDates(
+        input.localDate,
+        checkpointState.window.postRunLateCopyEndDate,
+      ) > 0;
+  if (monitoringInactive) {
+    return inactiveResult({
+      observationStartDate: checkpointState.window.stagingStartDate,
+      nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
+    });
+  }
   if (!checkpointState.activeCheckpoint) {
     return awaitingResult({
       observationStarted: checkpointState.observationStarted,
@@ -160,7 +176,41 @@ export function scoreConditionsSuggest(input: {
     checkpointResult: activeResult,
     mainRunWindowPassed:
       compareLocalDates(input.localDate, checkpointState.window.endDate) > 0,
+    winterHoldingHandoff:
+      !!input.run.handoff &&
+      compareLocalDates(input.localDate, checkpointState.window.endDate) > 0,
   });
+}
+
+function inactiveResult(input: {
+  observationStartDate: string;
+  nextCheckpointDate?: string;
+}): ConditionsSuggestResult {
+  return {
+    label: "Not monitoring yet",
+    timingLabel: null,
+    candidateLabel: null,
+    observationStartDate: input.observationStartDate,
+    nextCheckpointDate: input.nextCheckpointDate,
+    completedCheckpointCount: 0,
+    currentIndex: null,
+    currentPercentile: null,
+    gaugeResponsePercentile: null,
+    waterTemperaturePercentile: null,
+    usableDays: 0,
+    expectedDays: 0,
+    coveragePercent: 0,
+    historicalYears: 0,
+    sourceDates: [],
+    sourceRefreshSlots: {},
+    headline: "Migration Timing is not active right now.",
+    detail:
+      "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
+    tip:
+      "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+    reasonCodes: ["conditions_monitoring_inactive"],
+    copyVersion: RIVER_RUN_COPY_VERSION,
+  };
 }
 
 function scoreCheckpoint(input: {
@@ -288,8 +338,11 @@ function scoreCheckpoint(input: {
     );
   }
   const currentIndex = round1(
-    gaugeResponsePercentile * GAUGE_WEIGHT +
-      waterTemperaturePercentile * WATER_TEMPERATURE_WEIGHT,
+    gaugeResponsePercentile *
+        (input.run.conditionsSuggest.gaugeWeight ?? DEFAULT_GAUGE_WEIGHT) +
+      waterTemperaturePercentile *
+        (input.run.conditionsSuggest.waterTemperatureWeight ??
+          DEFAULT_WATER_TEMPERATURE_WEIGHT),
   );
   const currentPercentile = percentileRank(
     currentIndex,
@@ -619,26 +672,28 @@ function conditionsCopy(input: {
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   if (input.oppositeCheckpointTempered) {
     return {
-      headline: "The run still appears to be moving at a normal seasonal pace.",
+      headline:
+        "The migration still appears to be moving at a normal seasonal pace.",
       detail:
         "Recent river and temperature signals changed direction, but the season as a whole does not support a clear early or late call.",
       tip:
-        "Fish the normal river section for the current Run Stage. Begin in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
+        "Fish the normal river section for the current Migration Stage. Begin in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
     };
   }
   if (input.signalsStronglyMixed) {
     return {
-      headline: "The run still appears to be moving at a normal seasonal pace.",
+      headline:
+        "The migration still appears to be moving at a normal seasonal pace.",
       detail:
         "River levels and water temperature are pointing in different directions, so neither supports a clear early or late read.",
       tip:
-        "Keep the normal distribution plan for the current Run Stage. Start in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
+        "Keep the normal distribution plan for the current Migration Stage. Start in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
     };
   }
   switch (input.label) {
     case "Ahead":
       return {
-        headline: "The run appears to be developing earlier than usual.",
+        headline: "The migration appears to be developing earlier than usual.",
         detail:
           "The river has risen and cooled faster than it normally does by this point in the season.",
         tip:
@@ -647,15 +702,15 @@ function conditionsCopy(input: {
     case "Typical":
       return {
         headline:
-          "The run appears to be progressing at a normal seasonal pace.",
+          "The migration appears to be progressing at a normal seasonal pace.",
         detail:
           "River rises and cooling are close to what is usually seen by this point in the season.",
         tip:
-          "Fish the core river section identified by Run Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+          "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
       };
     case "Delayed":
       return {
-        headline: "The run appears to be developing later than usual.",
+        headline: "The migration appears to be developing later than usual.",
         detail:
           "The river has risen and cooled more slowly than it normally does by this point in the season.",
         tip:
@@ -687,14 +742,14 @@ function awaitingResult(input: {
     sourceDates: [],
     sourceRefreshSlots: {},
     headline: input.observationStarted
-      ? "Run Timing is still taking shape."
+      ? "Migration Timing is still taking shape."
       : "It is too early for a dependable timing read.",
     detail: input.observationStarted
       ? "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature."
-      : "The run has not developed enough to compare its pace with a typical season.",
+      : "The migration has not developed enough to compare its pace with a typical season.",
     tip: input.observationStarted
-      ? "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Run Stage advances or direct fish activity supports it."
-      : "Keep the trip in the lake, harbor, and river-mouth zone. Do not use Run Timing to justify an inland river trip before a dependable seasonal pattern exists.",
+      ? "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it."
+      : "Keep the trip in the lake, harbor, and river-mouth zone. Do not use Migration Timing to justify an inland river trip before a dependable seasonal pattern exists.",
     reasonCodes: ["conditions_checkpoint_evaluating"],
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
@@ -703,27 +758,36 @@ function awaitingResult(input: {
 function completeResult(input: {
   checkpointResult: CheckpointScore;
   mainRunWindowPassed: boolean;
+  winterHoldingHandoff: boolean;
 }): ConditionsSuggestResult {
   const timingLabel = input.checkpointResult.timingLabel;
-  const finalDetail = timingLabel === "Insufficient evidence"
+  const finalDetail = input.winterHoldingHandoff
+    ? timingLabel === "Insufficient evidence"
+      ? "There was not enough reliable season-long river and temperature information to make an early, normal, or late call. Steelhead presence has now shifted into winter holding, where current activity matters more than fall timing."
+      : `Earlier in the season, the migration was moving ${
+        timingPhrase(timingLabel)
+      }. Fall entry has now shifted into winter holding, where current activity matters more than an early-or-late call.`
+    : timingLabel === "Insufficient evidence"
     ? "There was not enough reliable season-long river and temperature information to make an early, normal, or late call."
     : input.mainRunWindowPassed
-    ? `Earlier in the season, the run was moving ${
+    ? `Earlier in the season, the migration was moving ${
       timingPhrase(timingLabel)
-    }. Now that the main run has passed, any remaining opportunity matters more than an early-or-late call.`
-    : `Earlier in the season, the run was moving ${
+    }. Now that the main migration has passed, any remaining opportunity matters more than an early-or-late call.`
+    : `Earlier in the season, the migration was moving ${
       timingPhrase(timingLabel)
-    }. Now that the run is well underway, current movement and river conditions matter more than an early-or-late call.`;
+    }. Now that the migration is well underway, current movement and river conditions matter more than an early-or-late call.`;
   return {
     ...input.checkpointResult,
     label: "Timing complete",
     headline: input.mainRunWindowPassed
-      ? "This season's Run Timing read is complete."
+      ? "This season's Migration Timing read is complete."
       : "The early-season timing read is complete.",
     detail: finalDetail,
-    tip: input.mainRunWindowPassed
-      ? "Stop planning around whether the run was early or late. Fish only the remaining established holding water supported by Fish In River, and treat scattered late fish as exceptions."
-      : "Stop shifting river sections based on early-or-late timing. Begin in established holding water for the current Run Stage; if Push is Possible or stronger, make lower travel lanes the next stop.",
+    tip: input.winterHoldingHandoff
+      ? "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation."
+      : input.mainRunWindowPassed
+      ? "Stop planning around whether the migration was early or late. Fish only the remaining established holding water supported by Fish In River, and treat scattered late fish as exceptions."
+      : "Stop shifting river sections based on early-or-late timing. Begin in established holding water for the current Migration Stage; if Push is Possible or stronger, make lower travel lanes the next stop.",
     reasonCodes: [
       ...new Set([
         ...input.checkpointResult.reasonCodes,
@@ -790,9 +854,10 @@ function insufficientCopy(
   reason?: RiverRunReasonCode,
 ): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   const base = {
-    headline: "There is not enough reliable information for a Run Timing call.",
+    headline:
+      "There is not enough reliable information for a Migration Timing call.",
     tip:
-      "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Run Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+      "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
   };
   switch (reason) {
     case "conditions_baseline_missing":
@@ -800,7 +865,7 @@ function insufficientCopy(
       return {
         ...base,
         detail:
-          "There are not enough dependable past seasons to judge whether this run is early, normal, or late.",
+          "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
       };
     case "conditions_baseline_version_mismatch":
     case "conditions_baseline_window_mismatch":

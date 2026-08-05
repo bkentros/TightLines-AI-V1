@@ -7,10 +7,10 @@ import {
   getPrimaryHydraulicSource,
   getRunTemperatureSources,
   type NormalizedBaselineObservation,
-  PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   resolveActiveRunWindow,
   resolveConditionsSuggestCheckpoints,
+  RIVER_RUN_RUN_PROFILES,
   validateRiverProfile,
   validateRunProfile,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
@@ -29,6 +29,7 @@ type Args = {
   outObservationsJson?: string;
   outBaselinesJson?: string;
   outBaselinesSql?: string;
+  runId?: string;
 };
 
 const args = parseArgs(Deno.args);
@@ -44,7 +45,11 @@ if (args.fetchUsgs && (!args.start || !args.end)) {
 const baselineVersion = args.baselineVersion ?? "pm-launch-audit";
 const auditYear = args.year ?? new Date().getUTCFullYear();
 const river = PERE_MARQUETTE_RIVER_PROFILE;
-const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+const runId = args.runId ?? "pere_marquette_fall_chinook";
+const run = RIVER_RUN_RUN_PROFILES.find((candidate) =>
+  candidate.runId === runId && candidate.riverId === river.riverId
+);
+if (!run) throw new Error(`Unknown Pere Marquette run ID: ${runId}`);
 const hydraulicSource = getPrimaryHydraulicSource(river);
 const metric = hydraulicSource.primaryMetric;
 
@@ -67,8 +72,8 @@ const generatedBaselines = generateGaugeBaselineRows({
   metric,
   baselineVersion,
   sourceNotes: args.fetchUsgs
-    ? `PM Fall Chinook USGS daily mean discharge ${args.start} through ${args.end} via Water Data OGC API; plus-or-minus 14 canonical-day rolling percentiles.`
-    : "PM Fall Chinook normalized local audit observations; plus-or-minus 14 canonical-day rolling percentiles.",
+    ? `PM ${run.displayName} USGS daily mean discharge ${args.start} through ${args.end} via Water Data OGC API; plus-or-minus 14 canonical-day rolling percentiles.`
+    : `PM ${run.displayName} normalized local audit observations; plus-or-minus 14 canonical-day rolling percentiles.`,
 });
 
 const runWindow = resolveActiveRunWindow(
@@ -91,6 +96,7 @@ const requiredConditionCheckpointIds = resolveConditionsSuggestCheckpoints(
 const conditionsSeed = await inspectConditionsSuggestSeed(
   requiredConditionCheckpointIds,
   run.conditionsSuggest.baselineVersion,
+  run.runId,
 );
 const conditionsTemperatureSource = getRunTemperatureSources(river, run).find(
   (source) => source.sourceId === run.conditionsSuggest.temperatureSourceId,
@@ -209,6 +215,7 @@ console.log(JSON.stringify(report, null, 2));
 async function inspectConditionsSuggestSeed(
   requiredCheckpointIds: string[],
   expectedBaselineVersion: string,
+  expectedRunId: string,
 ): Promise<{
   repositorySeedPresent: boolean;
   generatedRowCount: number;
@@ -216,13 +223,20 @@ async function inspectConditionsSuggestSeed(
   missingCheckpoints: string[];
 }> {
   const seedUrl = new URL(
-    "../supabase/migrations/20260729130100_seed_river_run_pm_conditions_suggest_baselines_v3.sql",
+    expectedRunId === "pere_marquette_fall_steelhead"
+      ? "../supabase/migrations/20260805130000_seed_river_run_pm_fall_steelhead_conditions_v2.sql"
+      : expectedRunId === "pere_marquette_fall_coho"
+      ? "../supabase/migrations/20260803130000_seed_river_run_pm_fall_coho_conditions_v1.sql"
+      : "../supabase/migrations/20260729130100_seed_river_run_pm_conditions_suggest_baselines_v3.sql",
     import.meta.url,
   );
   try {
     const sql = await Deno.readTextFile(seedUrl);
-    const pattern =
-      /^\s{2}\('pere_marquette', 'pere_marquette_fall_chinook', '(river_start|building_start|building_established|peak_start|peak_complete)', \d+, \d+, '([^']+)'/gm;
+    const escapedRunId = expectedRunId.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const pattern = new RegExp(
+      `^\\s{2}\\('pere_marquette', '${escapedRunId}', '(river_start|building_start|building_established|peak_start|peak_complete)', \\d+, \\d+, '([^']+)'`,
+      "gm",
+    );
     const seededCheckpoints = new Set(
       [...sql.matchAll(pattern)]
         .filter((match) => match[2] === expectedBaselineVersion)
@@ -278,6 +292,7 @@ function parseArgs(values: string[]): Args {
     if (flag === "--out-observations-json") parsed.outObservationsJson = next;
     if (flag === "--out-baselines-json") parsed.outBaselinesJson = next;
     if (flag === "--out-baselines-sql") parsed.outBaselinesSql = next;
+    if (flag === "--run-id") parsed.runId = next;
   }
   return parsed;
 }

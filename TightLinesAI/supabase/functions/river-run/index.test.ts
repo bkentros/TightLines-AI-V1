@@ -1045,7 +1045,7 @@ Deno.test("Push history is honest when no supportive condition has been recorded
   );
 });
 
-Deno.test("Push and supportive history wait for the river run", async () => {
+Deno.test("Push and supportive history wait for the migration", async () => {
   const client = new MockClient();
   client.rows.river_run_daily_progression_snapshots = [dailyRow("2026-08-10")];
   client.rows.river_run_condition_refreshes = [conditionRow("2026-08-10")];
@@ -1064,8 +1064,8 @@ Deno.test("Push and supportive history wait for the river run", async () => {
   const body = await json(response);
 
   assertEquals(body.push.score, null);
-  assertEquals(body.push.label, "Waiting for run");
-  assert(body.push.headline.includes("river run has not started"));
+  assertEquals(body.push.label, "Waiting for migration");
+  assert(body.push.headline.includes("have not started entering the river"));
   assertEquals(body.push.headline.includes("August 15, 2026"), false);
   assertEquals(body.pushHistory.status, "not_started");
   assertEquals(body.pushHistory.lastSupportiveConditions, undefined);
@@ -1151,7 +1151,7 @@ Deno.test("Push and supportive history stop after the configured run end", async
   const body = await json(response);
 
   assertEquals(body.push.score, null);
-  assertEquals(body.push.label, "Run complete");
+  assertEquals(body.push.label, "Migration complete");
   assertEquals(body.pushHistory.status, "complete");
   assertEquals(body.pushHistory.lastSupportiveConditions, undefined);
   assertEquals(body.pushHistory.recentDailyReadsStatus, "available");

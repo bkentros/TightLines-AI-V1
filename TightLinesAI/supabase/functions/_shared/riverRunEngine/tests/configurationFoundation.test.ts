@@ -4,18 +4,19 @@ import {
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
+  RIVER_RUN_SPECIES_BIOLOGY_PROFILES,
   validateConfigurationRevision,
   validateRunProfile,
 } from "../index.ts";
 
-Deno.test("PM configuration document binds the published config to fall-cooling v2", () => {
+Deno.test("PM configuration document binds both implemented fall movement branches", () => {
   assertEquals(
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT.movementEngineVersion,
-    "fall-cooling-v2",
+    "fall-cooling-v2+fall-entry-cooling-v1",
   );
   assertEquals(
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion,
-    "2026-08-02.1",
+    "2026-08-05.4",
   );
 });
 
@@ -50,6 +51,7 @@ Deno.test("future river documents use the same schema without engine exceptions"
   const document = createRiverRunConfigurationDocument({
     configVersion: "future-draft-v1",
     river,
+    biologyProfiles: RIVER_RUN_SPECIES_BIOLOGY_PROFILES,
     runs: [run],
   });
   assertEquals(document.schemaVersion, "river-run-config-v1");

@@ -13,6 +13,13 @@ export type RiverRunMeterStop = {
   color: string;
 };
 
+export type RiverRunMeterTick = {
+  label: string;
+  position: number;
+};
+
+export type RiverRunHistoricalStrength = "Limited" | "Moderate" | "Strong";
+
 export type RiverRunVisualModel = {
   kind: RiverRunVisualKind;
   kicker: string;
@@ -24,6 +31,7 @@ export type RiverRunVisualModel = {
     | "water-outline"
     | "fish-outline";
   stops: RiverRunMeterStop[];
+  ticks?: RiverRunMeterTick[];
   selectedIndex: number | null;
   position: number;
   stateLabel: string;
@@ -31,6 +39,8 @@ export type RiverRunVisualModel = {
   specialState?: "waiting" | "complete" | "unavailable";
   direction?: "rising" | "near_peak" | "falling" | "outside";
   riverMaximum?: number;
+  ceilingPosition?: number;
+  historicalRunStrength?: RiverRunHistoricalStrength;
   score?: number | null;
   accent: string;
 };
@@ -52,13 +62,13 @@ const FISHABILITY_FIVE: RiverRunMeterStop[] = [
 ];
 
 const RUN_STAGE_SEVEN: RiverRunMeterStop[] = [
-  { label: "Pre-run", shortLabel: "PRE", color: "#76899B" },
+  { label: "Before migration", shortLabel: "BEFORE", color: "#76899B" },
   { label: "Beginning", shortLabel: "BEGIN", color: "#3E7C98" },
   { label: "Building", shortLabel: "BUILD", color: "#339493" },
   { label: "Peak", shortLabel: "PEAK", color: "#3DA85F" },
   { label: "Tapering", shortLabel: "TAPER", color: "#91A75B" },
   { label: "Ending", shortLabel: "END", color: "#C08B45" },
-  { label: "Post-run", shortLabel: "POST", color: "#85756A" },
+  { label: "After migration", shortLabel: "AFTER", color: "#85756A" },
 ];
 
 const RUN_TIMING_THREE: RiverRunMeterStop[] = [
@@ -67,13 +77,21 @@ const RUN_TIMING_THREE: RiverRunMeterStop[] = [
   { label: "Ahead", shortLabel: "AHEAD", color: "#3DA85F" },
 ];
 
-const PRESENCE_SIX: RiverRunMeterStop[] = [
-  { label: "Outside", shortLabel: "OUT", color: "#B83A32" },
-  { label: "Low", shortLabel: "LOW", color: "#D94B3A" },
-  { label: "Limited", shortLabel: "LIMITED", color: "#E89647" },
-  { label: "Moderate", shortLabel: "MOD", color: "#E8C547" },
-  { label: "High", shortLabel: "HIGH", color: "#7CC36A" },
-  { label: "Peak", shortLabel: "PEAK", color: "#3DA85F" },
+const PRESENCE_INDEX_FIVE: RiverRunMeterStop[] = [
+  { label: "0–20", shortLabel: "0–20", color: "#D94B3A" },
+  { label: "20–40", shortLabel: "20–40", color: "#E89647" },
+  { label: "40–60", shortLabel: "40–60", color: "#E8C547" },
+  { label: "60–80", shortLabel: "60–80", color: "#7CC36A" },
+  { label: "80–100", shortLabel: "80–100", color: "#3DA85F" },
+];
+
+const PRESENCE_INDEX_TICKS: RiverRunMeterTick[] = [
+  { label: "0", position: 0 },
+  { label: "20", position: 0.2 },
+  { label: "40", position: 0.4 },
+  { label: "60", position: 0.6 },
+  { label: "80", position: 0.8 },
+  { label: "100", position: 1 },
 ];
 
 export function resolveRiverRunVisualModel(input: {
@@ -82,6 +100,8 @@ export function resolveRiverRunVisualModel(input: {
     stage?: string;
     timingLabel?: string | null;
     curveDirection?: string;
+    handoffScore?: number;
+    historicalRunStrength?: "limited" | "moderate" | "strong";
   };
 }): RiverRunVisualModel {
   switch (input.kind) {
@@ -103,17 +123,17 @@ export function formatRiverRunTabStatus(
   primitive: RiverRunPrimitiveDisplay & { timingLabel?: string | null },
 ): string {
   if (kind === "run_timing" && primitive.label === "Timing complete") {
-    const finalTiming = primitive.timingLabel;
-    return finalTiming && ["Ahead", "Typical", "Delayed"].includes(finalTiming)
-      ? finalTiming.toUpperCase()
-      : "COMPLETE";
+    return "COMPLETE";
   }
   return primitive.label
+    .replace("Not monitoring yet", "Not active")
     .replace("Not expected yet", "Waiting")
-    .replace("Run complete", "Complete")
+    .replace("Before migration", "Before")
+    .replace("After migration", "After")
+    .replace("Migration complete", "Complete")
     .replace(" presence", "")
     .replace("No clear push", "No clear")
-    .replace("Waiting for run", "Waiting")
+    .replace("Waiting for migration", "Waiting")
     .replace("Insufficient evidence", "No read")
     .toUpperCase();
 }
@@ -134,15 +154,22 @@ function runStageModel(
     ],
     normalize(stage),
   );
+  const offseason = primitive.label === "Offseason";
+  const winterHolding = primitive.label === "Winter holding";
   return baseModel({
     kind: "run_stage",
     kicker: "SEASON POSITION",
     artLabel: "MIGRATION WINDOW",
     icon: "calendar-outline",
     stops: RUN_STAGE_SEVEN,
-    selectedIndex,
+    selectedIndex: offseason ? null : selectedIndex,
     stateLabel: primitive.label,
-    stateNote: stageNote(selectedIndex),
+    stateNote: winterHolding
+      ? "FALL ENTRY COMPLETE · WINTER HOLDING ACTIVE"
+      : offseason
+      ? "MIGRATION WINDOW INACTIVE"
+      : stageNote(selectedIndex),
+    specialState: offseason || winterHolding ? "complete" : undefined,
   });
 }
 
@@ -156,22 +183,25 @@ function runTimingModel(
     ["delayed", "typical", "ahead"],
     normalize(timingLabel ?? ""),
   );
-  const specialState = primitive.label === "Evaluating"
+  const specialState = primitive.label === "Not monitoring yet" ||
+      primitive.label === "Evaluating"
     ? "waiting"
     : primitive.label === "Insufficient evidence"
     ? "unavailable"
     : primitive.label === "Timing complete"
     ? "complete"
     : undefined;
-  return baseModel({
+  const model = baseModel({
     kind: "run_timing",
     kicker: "SEASON PACE",
-    artLabel: "RUN TIMING",
+    artLabel: "MIGRATION TIMING",
     icon: "speedometer-outline",
     stops: RUN_TIMING_THREE,
     selectedIndex,
     stateLabel: primitive.label,
-    stateNote: specialState === "waiting"
+    stateNote: primitive.label === "Not monitoring yet"
+      ? "SEASONAL MONITORING WINDOW INACTIVE"
+      : specialState === "waiting"
       ? "SEASON PACE IS STILL DEVELOPING"
       : specialState === "unavailable"
       ? "NOT ENOUGH DATA FOR A TIMING CALL"
@@ -179,9 +209,10 @@ function runTimingModel(
       ? timingLabel
         ? `FINAL READ · ${timingLabel.toUpperCase()}`
         : "FINAL TIMING READ"
-      : "PACE OF THIS RUN SO FAR",
+      : "PACE OF THIS MIGRATION SO FAR",
     specialState,
   });
+  return specialState === "complete" ? { ...model, accent: "#8B98A5" } : model;
 }
 
 function pushModel(
@@ -191,9 +222,11 @@ function pushModel(
     ["weak", "no_clear_push", "possible", "strong", "very_strong"],
     normalize(primitive.label),
   );
-  const specialState = primitive.label === "Waiting for run"
+  const specialState = primitive.label === "Waiting for migration"
     ? "waiting"
-    : primitive.label === "Run complete"
+    : primitive.label === "Migration complete" ||
+        primitive.label === "Winter holding" ||
+        primitive.label === "Offseason"
     ? "complete"
     : primitive.label === "Unavailable"
     ? "unavailable"
@@ -206,10 +239,14 @@ function pushModel(
     stops: QUALITY_FIVE,
     selectedIndex,
     stateLabel: primitive.label,
-    stateNote: specialState === "waiting"
-      ? "THE RUN HAS NOT STARTED"
+    stateNote: primitive.label === "Offseason"
+      ? "FRESH-MOVEMENT WINDOW INACTIVE"
+      : primitive.label === "Winter holding"
+      ? "FALL-ENTRY SIGNAL COMPLETE · WINTER READ REQUIRED"
+      : specialState === "waiting"
+      ? "FISH HAVE NOT STARTED ENTERING"
       : specialState === "complete"
-      ? "THE RUN IS COMPLETE"
+      ? "THE MIGRATION IS COMPLETE"
       : specialState === "unavailable"
       ? "WAITING FOR REQUIRED WATER DATA"
       : "FRESH-WAVE POTENTIAL TODAY",
@@ -245,43 +282,58 @@ function fishabilityModel(
 }
 
 function fishInRiverModel(
-  primitive: RiverRunPrimitiveDisplay & { curveDirection?: string },
+  primitive: RiverRunPrimitiveDisplay & {
+    curveDirection?: string;
+    historicalRunStrength?: "limited" | "moderate" | "strong";
+    handoffScore?: number;
+  },
 ): RiverRunVisualModel {
-  const normalizedLabel = normalize(primitive.label);
-  const selectedIndex = normalizedLabel === "run_complete" ? 0 : indexFor(
-    [
-      "not_expected_yet",
-      "low_presence",
-      "limited_presence",
-      "moderate_presence",
-      "high_presence",
-      "peak_presence",
-    ],
-    normalizedLabel,
-  );
   const direction = normalizeDirection(primitive.curveDirection);
-  const riverCeiling = typeof primitive.riverCeiling === "number"
-    ? primitive.riverCeiling
-    : 100;
-  return baseModel({
+  const riverCeiling = clampScore(primitive.riverCeiling ?? 100);
+  const winterHolding = primitive.label === "Winter holding";
+  const score = clampScore(
+    typeof primitive.score === "number"
+      ? primitive.score
+      : winterHolding && typeof primitive.handoffScore === "number"
+      ? primitive.handoffScore
+      : 0,
+  );
+  const selectedIndex = Math.min(
+    PRESENCE_INDEX_FIVE.length - 1,
+    Math.max(0, Math.ceil(score / 20) - 1),
+  );
+  const model = baseModel({
     kind: "fish_in_river",
     kicker: "SEASONAL PRESENCE",
     artLabel: "FISH IN RIVER",
     icon: "fish-outline",
-    stops: PRESENCE_SIX,
+    stops: PRESENCE_INDEX_FIVE,
+    ticks: PRESENCE_INDEX_TICKS,
     selectedIndex,
-    stateLabel: primitive.label,
-    stateNote: direction === "rising"
+    stateLabel: formatPresenceStateLabel(primitive.label),
+    stateNote: winterHolding
+      ? `FALL PRESENCE HANDOFF · ${score} · WINTER READ REQUIRED`
+      : direction === "rising"
       ? "SEASONAL PRESENCE IS BUILDING"
       : direction === "falling"
       ? "SEASONAL PRESENCE IS DECLINING"
       : direction === "near_peak"
       ? "AT OR NEAR THE SEASONAL HIGH"
-      : "OUTSIDE THE MAIN RUN",
+      : "OUTSIDE THE MAIN MIGRATION",
     direction,
     riverMaximum: riverCeiling,
-    score: primitive.score,
+    ceilingPosition: riverCeiling / 100,
+    historicalRunStrength: primitive.historicalRunStrength
+      ? capitalizeStrength(primitive.historicalRunStrength)
+      : historicalRunStrength(riverCeiling),
+    score: winterHolding ? score : primitive.score,
+    specialState: winterHolding ? "complete" : undefined,
   });
+  return {
+    ...model,
+    position: score / 100,
+    accent: score === 0 ? "#76899B" : model.accent,
+  };
 }
 
 function baseModel(
@@ -314,6 +366,33 @@ function normalize(value: string): string {
     .replace(/^_|_$/g, "");
 }
 
+function clampScore(value: number): number {
+  return Math.max(0, Math.min(100, Math.round(value)));
+}
+
+function historicalRunStrength(
+  riverCeiling: number,
+): RiverRunHistoricalStrength {
+  const configuredMaximum = riverCeiling / 10;
+  if (configuredMaximum <= 3) return "Limited";
+  if (configuredMaximum <= 7) return "Moderate";
+  return "Strong";
+}
+
+function capitalizeStrength(
+  strength: "limited" | "moderate" | "strong",
+): RiverRunHistoricalStrength {
+  return `${strength[0].toUpperCase()}${
+    strength.slice(1)
+  }` as RiverRunHistoricalStrength;
+}
+
+function formatPresenceStateLabel(label: string): string {
+  return label.endsWith(" presence")
+    ? `${label.slice(0, -" presence".length)} for this river`
+    : label;
+}
+
 function normalizeDirection(
   value?: string,
 ): RiverRunVisualModel["direction"] {
@@ -331,19 +410,19 @@ function normalizeDirection(
 function stageNote(index: number | null): string {
   switch (index) {
     case 0:
-      return "THE RIVER RUN HAS NOT STARTED";
+      return "FISH HAVE NOT STARTED ENTERING";
     case 1:
-      return "THE FIRST PART OF THE RUN";
+      return "THE FIRST FISH ARE ENTERING";
     case 2:
-      return "THE RUN IS GAINING MOMENTUM";
+      return "MORE FISH ARE MOVING INTO THE RIVER";
     case 3:
-      return "THE STRONGEST PART OF THE RUN";
+      return "THE STRONGEST PART OF THE SEASON";
     case 4:
       return "FISH REMAIN · FRESH ARRIVALS EASING";
     case 5:
-      return "THE RUN IS WINDING DOWN";
+      return "THE MIGRATION IS WINDING DOWN";
     case 6:
-      return "MAIN RUN WINDOW COMPLETE";
+      return "MAIN MIGRATION WINDOW COMPLETE";
     default:
       return "CURRENT SEASON POSITION";
   }

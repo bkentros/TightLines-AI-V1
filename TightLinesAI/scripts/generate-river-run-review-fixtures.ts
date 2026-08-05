@@ -1,11 +1,14 @@
 import {
   addDays,
+  type AuditedRiverRunProfile,
   canonicalBaselineDay,
   type ConditionsSuggestCheckpoint,
   type ConditionsSuggestEvidence,
   type ConditionsSuggestEvidenceByDate,
   daysBetween,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+  PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
+  PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
   type PrimitiveDisplay,
   resolveActiveRunWindow,
   resolveConditionsSuggestCheckpoints,
@@ -40,20 +43,59 @@ type Group = {
   scenarios: Scenario[];
 };
 
-const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+const requestedRunId = argumentValue("--run-id") ??
+  "pere_marquette_fall_chinook";
+const run: AuditedRiverRunProfile = requestedRunId ===
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.runId
+  ? PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE
+  : requestedRunId === PERE_MARQUETTE_FALL_COHO_RUN_PROFILE.runId
+  ? PERE_MARQUETTE_FALL_COHO_RUN_PROFILE
+  : requestedRunId === PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE.runId
+  ? PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE
+  : (() => {
+    throw new Error(`Unsupported review run ID: ${requestedRunId}`);
+  })();
+const moderateCopyRun: typeof run = {
+  ...run,
+  runId: "qa_moderate_opportunity",
+  displayName: "QA Moderate Opportunity",
+  historicalPresence: {
+    ...run.historicalPresence,
+    maximum: 6,
+    distributionScope: "sectional",
+  },
+};
+const limitedCopyRun: typeof run = {
+  ...run,
+  runId: "qa_limited_opportunity",
+  displayName: "QA Limited Opportunity",
+  historicalPresence: {
+    ...run.historicalPresence,
+    maximum: 3,
+    distributionScope: "concentrated",
+  },
+};
 const reviewWindow = resolveActiveRunWindow(run, "2026-09-20");
-const reviewBaseDate = addDays(
-  reviewWindow.buildingEstablishedStartDate,
-  4,
-);
+const reviewBaseDate = reviewWindow.buildingEstablishedStartDate;
 const checkpoints = resolveConditionsSuggestCheckpoints(
   run,
   reviewWindow.peakDate,
 );
+const cohoReview = run.species === "coho_salmon";
+const steelheadReview = run.species === "steelhead";
 const outputPath = new URL(
-  "../lib/riverRunReviewFixtures.generated.ts",
+  steelheadReview
+    ? "../lib/riverRunSteelheadReviewFixtures.generated.ts"
+    : cohoReview
+    ? "../lib/riverRunCohoReviewFixtures.generated.ts"
+    : "../lib/riverRunReviewFixtures.generated.ts",
   import.meta.url,
 );
+const exportName = cohoReview
+  ? "RIVER_RUN_COHO_REVIEW_GROUPS"
+  : steelheadReview
+  ? "RIVER_RUN_STEELHEAD_REVIEW_GROUPS"
+  : "RIVER_RUN_REVIEW_GROUPS";
 
 const groups: Group[] = [
   runStageGroup(),
@@ -61,6 +103,7 @@ const groups: Group[] = [
   pushGroup(),
   fishabilityGroup(),
   fishInRiverGroup(),
+  opportunityCopyGroup(),
   combinedGroup(),
   evidenceGroup(),
 ];
@@ -98,7 +141,7 @@ const BASE_SNAPSHOT = ${
 
 const GROUP_SEEDS = ${JSON.stringify(compactGroups, null, 2)} as const;
 
-export const RIVER_RUN_REVIEW_GROUPS: RiverRunReviewGroup[] = GROUP_SEEDS.map(
+export const ${exportName}: RiverRunReviewGroup[] = GROUP_SEEDS.map(
   (group) => ({
     id: group.id,
     label: group.label,
@@ -126,15 +169,22 @@ if (Deno.args.includes("--check")) {
   console.log(
     `River Run review fixtures match production copy (${
       scenarioCount(groups)
-    } scenarios).`,
+    } ${run.displayName} scenarios).`,
   );
 } else {
   await Deno.writeTextFile(outputPath, generated);
   console.log(
     `Generated ${
       scenarioCount(groups)
-    } River Run review scenarios from production scoring code.`,
+    } ${run.displayName} review scenarios from production scoring code.`,
   );
+}
+
+function argumentValue(flag: string): string | null {
+  const inline = Deno.args.find((arg) => arg.startsWith(`${flag}=`));
+  if (inline) return inline.slice(flag.length + 1) || null;
+  const index = Deno.args.indexOf(flag);
+  return index >= 0 ? Deno.args[index + 1] ?? null : null;
 }
 
 function runStageGroup(): Group {
@@ -142,7 +192,9 @@ function runStageGroup(): Group {
     [
       "offseason",
       "True offseason",
-      addDays(reviewWindow.postRunLateCopyEndDate, 1),
+      run.handoff
+        ? addDays(reviewWindow.preRunStartDate, -1)
+        : addDays(reviewWindow.postRunLateCopyEndDate, 1),
     ],
     [
       "before_staging",
@@ -154,21 +206,30 @@ function runStageGroup(): Group {
     [
       "building_early",
       "Building — early",
-      addDays(reviewWindow.beginningEndDate, 2),
+      addDays(reviewWindow.beginningEndDate, 1),
     ],
     ["building_established", "Building — established", reviewBaseDate],
+    ...(reviewWindow.buildingBroadStartDate
+      ? [
+        [
+          "building_broad",
+          "Building — broadly established",
+          reviewWindow.buildingBroadStartDate,
+        ] as const,
+      ]
+      : []),
     ["peak", "Peak", reviewWindow.peakDate],
-    ["tapering", "Tapering", addDays(reviewWindow.peakEndDate, 5)],
-    ["ending", "Ending", addDays(reviewWindow.taperingEndDate, 4)],
+    ["tapering", "Tapering", addDays(reviewWindow.peakEndDate, 1)],
+    ["ending", "Ending", addDays(reviewWindow.taperingEndDate, 1)],
     [
       "post",
-      "Post-run after the main window",
+      "After the main migration window",
       addDays(reviewWindow.endDate, 1),
     ],
   ] as const;
   return {
     id: "run_stage",
-    label: "Run Stage",
+    label: "Migration Stage",
     scenarios: states.map(([id, label, localDate]) =>
       snapshotScenario({
         id: `stage_${id}`,
@@ -292,7 +353,7 @@ function conditionsGroup(): Group {
   const insufficient = insufficientConditionCases(target);
   return {
     id: "conditions",
-    label: "Run Timing",
+    label: "Migration Timing",
     scenarios: [...basic, ...insufficient].map((item) =>
       snapshotScenario({
         id: `conditions_${item.id}`,
@@ -306,7 +367,7 @@ function conditionsGroup(): Group {
 
 function pushGroup(): Group {
   const base = {
-    movementEngineId: "fall_cooling" as const,
+    movementEngineId: run.movementEngineId,
     rules: run.push,
     gaugeFreshness: "fresh" as const,
     rainSignal: "light_rain" as const,
@@ -316,7 +377,8 @@ function pushGroup(): Group {
     hydraulicPercentChange24h: 0,
     temperatureSignal: "neutral" as const,
     temperatureSourceType: "same_gauge" as const,
-    waterTempF: 60,
+    waterTempF: (run.push.temperature.supportiveMinF +
+      run.push.temperature.supportiveMaxF) / 2,
     trackingState: "active" as const,
     trackingStartDate: reviewWindow.startDate,
     trackingEndDate: reviewWindow.endDate,
@@ -330,7 +392,7 @@ function pushGroup(): Group {
       hydraulicAbsoluteChange24h: -40,
       hydraulicPercentChange24h: -7.4,
       temperatureSignal: "strong_warming",
-      waterTempF: 69,
+      waterTempF: run.push.temperature.tooWarmF + 1,
     }],
     ["no_clear", "No clear push · steady", {}],
     ["possible", "Possible · early response", {
@@ -340,7 +402,7 @@ function pushGroup(): Group {
       hydraulicAbsoluteChange24h: 25,
       hydraulicPercentChange24h: 4.3,
       temperatureSignal: "cooling",
-      waterTempF: 62,
+      waterTempF: run.push.temperature.supportiveMaxF,
     }],
     ["strong", "Strong · meaningful rise", {
       rainSignal: "strong_rain",
@@ -349,7 +411,8 @@ function pushGroup(): Group {
       hydraulicAbsoluteChange24h: 70,
       hydraulicPercentChange24h: 11.1,
       temperatureSignal: "cooling",
-      waterTempF: 59,
+      waterTempF: (run.push.temperature.supportiveMinF +
+        run.push.temperature.supportiveMaxF) / 2,
     }],
     ["very_strong", "Very strong · sharp rise", {
       rainSignal: "heavy_rain",
@@ -358,7 +421,7 @@ function pushGroup(): Group {
       hydraulicAbsoluteChange24h: 130,
       hydraulicPercentChange24h: 19.4,
       temperatureSignal: "strong_cooling",
-      waterTempF: 57,
+      waterTempF: run.push.temperature.supportiveMaxF - 1,
     }],
     ["rain_precursor", "Rain · early precursor", {
       rainSignal: "heavy_rain",
@@ -387,7 +450,8 @@ function pushGroup(): Group {
       currentHydraulicValue: 700,
       hydraulicAbsoluteChange24h: 70,
       hydraulicPercentChange24h: 11.1,
-      waterTempF: 67.5,
+      waterTempF: (run.push.temperature.supportiveMaxF +
+        run.push.temperature.tooWarmF) / 2,
       temperatureSignal: "cooling",
     }],
     ["temperature_too_warm", "Temperature · too warm", {
@@ -395,7 +459,8 @@ function pushGroup(): Group {
       currentHydraulicValue: 700,
       hydraulicAbsoluteChange24h: 70,
       hydraulicPercentChange24h: 11.1,
-      waterTempF: 69,
+      waterTempF: (run.push.temperature.tooWarmF +
+        run.push.temperature.migrationBarrierF) / 2,
       temperatureSignal: "cooling",
     }],
     ["temperature_barrier", "Temperature · warm barrier", {
@@ -403,7 +468,7 @@ function pushGroup(): Group {
       currentHydraulicValue: 800,
       hydraulicAbsoluteChange24h: 130,
       hydraulicPercentChange24h: 19.4,
-      waterTempF: 70,
+      waterTempF: run.push.temperature.migrationBarrierF,
       temperatureSignal: "strong_cooling",
     }],
     ["temperature_plateau", "Temperature · cool plateau", {
@@ -411,7 +476,26 @@ function pushGroup(): Group {
       currentHydraulicValue: 700,
       hydraulicAbsoluteChange24h: 70,
       hydraulicPercentChange24h: 11.1,
-      waterTempF: 48,
+      waterTempF: run.push.temperature.supportiveMinF - 2,
+      temperatureSignal: "strong_cooling",
+    }],
+    ["temperature_cold_active", "Temperature · cold but active", {
+      flowSignal: "meaningful_rise",
+      currentHydraulicValue: 700,
+      hydraulicAbsoluteChange24h: 70,
+      hydraulicPercentChange24h: 11.1,
+      waterTempF: run.push.temperature.preferredMinF != null
+        ? run.push.temperature.preferredMinF - 2
+        : run.push.temperature.supportiveMinF - 2,
+      temperatureSignal: "neutral",
+    }],
+    ["temperature_cold_holding", "Temperature · cold holding", {
+      flowSignal: "meaningful_rise",
+      currentHydraulicValue: 700,
+      hydraulicAbsoluteChange24h: 70,
+      hydraulicPercentChange24h: 11.1,
+      waterTempF: run.push.temperature.coldHoldingF ??
+        run.push.temperature.supportiveMinF - 4,
       temperatureSignal: "strong_cooling",
     }],
     ["upstream_no_credit", "Temperature · upstream fallback", {
@@ -458,14 +542,18 @@ function pushGroup(): Group {
     ["unavailable_engine", "Unavailable · run type", {
       movementEngineId: "spring_warming",
     }],
-    ["not_started", "Waiting for run", {
+    ["not_started", "Waiting for migration", {
       trackingState: "not_started",
       localDate: addDays(reviewWindow.stagingStartDate, 4),
+    }],
+    ["offseason", "Offseason", {
+      trackingState: "offseason",
+      localDate: addDays(reviewWindow.postRunLateCopyEndDate, 1),
     }],
     ["first_day", "History · first run day", {
       localDate: reviewWindow.startDate,
     }],
-    ["complete", "Run complete", {
+    ["complete", "Migration complete", {
       trackingState: "complete",
       localDate: addDays(reviewWindow.endDate, 1),
     }],
@@ -474,7 +562,10 @@ function pushGroup(): Group {
   return {
     id: "push",
     label: "Push",
-    scenarios: cases.map(([id, label, overrides]) => {
+    scenarios: cases.filter(([id]) =>
+      run.species === "steelhead" ||
+      !["temperature_cold_active", "temperature_cold_holding"].includes(id)
+    ).map(([id, label, overrides]) => {
       const input = { ...base, ...overrides };
       return snapshotScenario({
         id: `push_${id}`,
@@ -592,13 +683,13 @@ function fishabilityGroup(): Group {
 function fishInRiverGroup(): Group {
   const byBranch = new Map<string, string>();
   for (
-    let localDate = addDays(reviewWindow.stagingStartDate, -8);
-    localDate <= reviewWindow.postRunLateCopyEndDate;
+    let localDate = addDays(reviewWindow.preRunStartDate, -1);
+    localDate <= addDays(reviewWindow.postRunLateCopyEndDate, 1);
     localDate = addDays(localDate, 1)
   ) {
     const result = scoreFishInRiver(run, localDate);
     const phase = result.score === 0
-      ? result.stage
+      ? `${result.stage}:${result.label}`
       : result.label === "High presence" && result.curveFraction >= 0.8
       ? `${result.label}:${result.curveDirection}:upper_shoulder`
       : `${result.label}:${result.curveDirection}`;
@@ -620,18 +711,61 @@ function fishInRiverGroup(): Group {
     historicalPresence: {
       ...run.historicalPresence,
       maximum: 6 as const,
+      distributionScope: "sectional" as const,
     },
   };
   const result = scoreFishInRiver(cappedRun, reviewWindow.peakDate);
   scenarios.push(snapshotScenario({
-    id: "fish_in_river_lower_cap",
-    label: "QA only · hypothetical lower-strength river ceiling · 60 / 100",
+    id: "fish_in_river_moderate_cap",
+    label: "QA only · moderate sectional run · 60 / 100",
     localDate: reviewWindow.peakDate,
     fishInRiver: result,
   }));
   return {
     id: "fish_in_river",
     label: "Fish In River",
+    scenarios,
+  };
+}
+
+function opportunityCopyGroup(): Group {
+  const stageDates = [
+    ["building", "Building", reviewBaseDate],
+    ["peak", "Peak", reviewWindow.peakDate],
+    ["tapering", "Tapering", addDays(reviewWindow.peakEndDate, 5)],
+    ["ending", "Ending", addDays(reviewWindow.taperingEndDate, 4)],
+  ] as const;
+  const presenceDates = [
+    ["rising", "Presence · rising", addDays(reviewWindow.peakStartDate, -1)],
+    ["peak", "Presence · peak", reviewWindow.peakDate],
+    ["falling", "Presence · falling", addDays(reviewWindow.peakEndDate, 2)],
+  ] as const;
+  const profiles = [
+    ["moderate", "Moderate / sectional", moderateCopyRun],
+    ["limited", "Limited / concentrated", limitedCopyRun],
+  ] as const;
+  const scenarios: Scenario[] = [];
+  for (const [tierId, tierLabel, profile] of profiles) {
+    for (const [stateId, stateLabel, localDate] of stageDates) {
+      scenarios.push(snapshotScenario({
+        id: `opportunity_${tierId}_stage_${stateId}`,
+        label: `${tierLabel} · Stage · ${stateLabel}`,
+        localDate,
+        profile,
+      }));
+    }
+    for (const [stateId, stateLabel, localDate] of presenceDates) {
+      scenarios.push(snapshotScenario({
+        id: `opportunity_${tierId}_presence_${stateId}`,
+        label: `${tierLabel} · ${stateLabel}`,
+        localDate,
+        profile,
+      }));
+    }
+  }
+  return {
+    id: "opportunity_copy",
+    label: "Opportunity Copy Tiers",
     scenarios,
   };
 }
@@ -712,14 +846,18 @@ function snapshotScenario(input: {
   fishInRiver?: RiverRunFishInRiver;
   dataQuality?: RiverRunSnapshotResponse["dataQuality"];
   missingSources?: boolean;
+  profile?: typeof run;
 }): Scenario {
   const localDate = input.localDate ?? reviewBaseDate;
-  const runStage = resolveRunStage(run, localDate) as RiverRunStage;
+  const profile = input.profile ?? run;
+  const runStage = resolveRunStage(profile, localDate) as RiverRunStage;
   const fishInRiver = input.fishInRiver ??
-    scoreFishInRiver(run, localDate) as RiverRunFishInRiver;
+    scoreFishInRiver(profile, localDate) as RiverRunFishInRiver;
   const conditionsSuggest = input.conditionsSuggest ??
     typicalConditionResultForDate(localDate);
-  const trackingState = reviewTrackingState(localDate);
+  const trackingState = runStage.label === "Offseason"
+    ? "offseason"
+    : reviewTrackingState(localDate);
   const push = input.push ?? scorePush({
     ...basePushInput(),
     localDate,
@@ -731,14 +869,15 @@ function snapshotScenario(input: {
   }) as RiverRunFishability;
   const interpretationNote = resolveInterpretationNote({
     runStage: runStage.stage as ReturnType<typeof resolveRunStage>["stage"],
+    broadBuildingContext: runStage.broadBuildingContext,
     conditionsSuggestLabel: conditionsSuggest.label,
     push: push as PrimitiveDisplay,
     fishability: fishability as PrimitiveDisplay,
     fishInRiver: fishInRiver as PrimitiveDisplay,
   });
-  const inactive = trackingState === "not_started"
+  const inactive = localDate < reviewWindow.startDate
     ? "not_started"
-    : trackingState === "complete"
+    : localDate > reviewWindow.endDate
     ? "complete"
     : push.score != null && push.score >= 50
     ? "active_now"
@@ -755,7 +894,7 @@ function snapshotScenario(input: {
     note: "Canonical production copy",
     snapshot: {
       riverId: "pere_marquette",
-      runId: run.runId,
+      runId: profile.runId,
       localDate,
       timezone: "America/Detroit",
       progressionSnapshotAt: `${localDate}T12:00:00.000Z`,
@@ -857,8 +996,8 @@ function snapshotScenario(input: {
         activityDisclaimer:
           "River Run is not a wading, boating, floating, or personal-safety rating.",
       },
-      engineVersion: "river-run-v1.4.1-review",
-      configVersion: "2026-08-02.1-review",
+      engineVersion: "river-run-v1.5.3-review",
+      configVersion: "2026-08-05.4-review",
     },
   };
 }
@@ -1085,7 +1224,7 @@ function fishabilityResult(
 
 function basePushInput() {
   return {
-    movementEngineId: "fall_cooling" as const,
+    movementEngineId: run.movementEngineId,
     rules: run.push,
     gaugeFreshness: "fresh" as const,
     rainSignal: "light_rain" as const,
@@ -1095,7 +1234,8 @@ function basePushInput() {
     hydraulicPercentChange24h: 0,
     temperatureSignal: "neutral" as const,
     temperatureSourceType: "same_gauge" as const,
-    waterTempF: 60,
+    waterTempF: (run.push.temperature.supportiveMinF +
+      run.push.temperature.supportiveMaxF) / 2,
     trackingState: "active" as const,
     trackingStartDate: reviewWindow.startDate,
     trackingEndDate: reviewWindow.endDate,
@@ -1231,13 +1371,14 @@ function cumulativeEvidence(
   const result: ConditionsSuggestEvidenceByDate = {};
   for (let index = 0; index < count; index += 1) {
     const localDate = addDays(target.observationStartDate, index);
+    const progress = count <= 1 ? 1 : index / (count - 1);
     const gaugeValue = kind === "ahead"
-      ? 400 + index * 60
+      ? 300 + progress * 900
       : kind === "delayed"
       ? 500
       : 500 + index * 20;
     const waterTempF = kind === "ahead"
-      ? 65 - index
+      ? 70 - progress * 20
       : kind === "delayed"
       ? 70
       : 64 - index * 0.4;

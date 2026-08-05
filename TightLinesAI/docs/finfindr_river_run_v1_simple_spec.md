@@ -33,13 +33,13 @@ implementation gaps and must not be treated as accepted behavior.
 
 River Run answers five independent questions:
 
-| Primitive          | User question                                                                                                                                            | Output                                                                              | Refresh           |
-| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------- | ----------------- |
-| Run Stage          | Where is this researched run on its calendar?                                                                                                            | Stage label                                                                         | Daily             |
-| Conditions Suggest | At five early-season checkpoints, do cumulative completed conditions suggest earlier, typical, or delayed timing compared with this river/run's history? | Evaluating; Ahead, Typical, Delayed, or Insufficient evidence; then Timing complete | Stage checkpoint  |
-| Push               | Do current and recent conditions support a fresh movement event for this river/run/species?                                                              | Internal 0–100 score; public label and qualitative meter, or Unavailable            | Condition refresh |
-| Fishability        | Is the primary gauged reach currently in a fishable river shape?                                                                                         | Internal 0–100 score; public label and qualitative meter, or Unavailable            | Condition refresh |
-| Fish In River      | What historical seasonal-presence level is reasonable for this date on this river/run/species?                                                           | Internal 0–100 score limited by a river-specific ceiling; public label and meter    | Daily             |
+| Primitive          | User question                                                                                                                                            | Output                                                                                                                               | Refresh           |
+| ------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ | ----------------- |
+| Run Stage          | Where is this researched run on its calendar?                                                                                                            | Stage label                                                                                                                          | Daily             |
+| Conditions Suggest | At five early-season checkpoints, do cumulative completed conditions suggest earlier, typical, or delayed timing compared with this river/run's history? | Evaluating; Ahead, Typical, Delayed, or Insufficient evidence; then Timing complete                                                  | Stage checkpoint  |
+| Push               | Do current and recent conditions support a fresh movement event for this river/run/species?                                                              | Internal 0–100 score; public label and qualitative meter, or Unavailable                                                             | Condition refresh |
+| Fishability        | Is the primary gauged reach currently in a fishable river shape?                                                                                         | Internal 0–100 score; public label and qualitative meter, or Unavailable                                                             | Condition refresh |
+| Fish In River      | What historical seasonal-presence level is reasonable for this date on this river/run/species?                                                           | Public 0–100 seasonal presence index limited by a river/species ceiling, relative within-run state, and historical run-strength tier | Daily             |
 
 River Run must not produce:
 
@@ -73,11 +73,15 @@ Rules:
 - Run Stage and Conditions Suggest do not require a numeric score.
 - Push and Fishability return `score: null` when required current evidence is
   unavailable.
-- Fish In River returns an internal integer from `0` through `100`. Its public
-  meter and label hide the number, while the configured 1–10 historical-presence
-  maximum is converted to a river-specific ceiling in ten-point increments.
-- All numeric primitive scores remain internal because they rank deterministic
-  states rather than expressing calibrated probabilities or measurements.
+- Fish In River returns an integer from `0` through `100` as a public seasonal
+  presence index. The configured 1–10 historical-presence maximum is converted
+  to a river/species ceiling in ten-point increments and is displayed beside the
+  index and the configured historical run-strength tier.
+- Push and Fishability numeric scores remain internal because they rank
+  deterministic states rather than expressing calibrated probabilities or
+  measurements. Fish In River is the sole numeric-display exception, and its UI
+  must state that the index is historical seasonal presence, not a fish count or
+  catch probability.
 - Headline, detail, tip, label, score, and reason codes must describe the same
   determination.
 - A scoring-rule change is incomplete until its copy and copy tests change in
@@ -406,6 +410,7 @@ type RiverRunProfile = {
 
   historicalPresence: {
     maximum: 1 | 2 | 3 | 4 | 5 | 6 | 7 | 8 | 9 | 10;
+    distributionScope: "concentrated" | "sectional" | "broad";
     curveVersion: string;
     evidenceNotes: string;
     sourceNotes: string;
@@ -641,6 +646,7 @@ Weather, gauges, Push, Fishability, and Conditions Suggest never change it.
 Stages:
 
 ```txt
+Offseason
 Pre-run
 Beginning
 Building
@@ -653,7 +659,7 @@ Post-run
 Date segmentation is explicit river/run configuration:
 
 ```txt
-Post-run: before preRunStart
+Offseason: before preRunStart
 Pre-run: preRunStart through the day before start
 Beginning: start through beginningEnd
 Building: after beginningEnd through the day before peakStart
@@ -664,7 +670,7 @@ Tapering: after peakEnd through taperingEnd
 Ending: after taperingEnd through end
 Post-run: after end
   Late-run copy: after end through postRunLateCopyEnd
-  Offseason copy: after postRunLateCopyEnd through the day before the next preRunStart
+Offseason: after postRunLateCopyEnd through the day before the next preRunStart
 ```
 
 `lateEnd` controls the historical Fish In River tail. `postRunLateCopyEnd`
@@ -694,6 +700,7 @@ Question:
 Labels:
 
 ```txt
+Not monitoring yet
 Evaluating
 Ahead
 Typical
@@ -728,14 +735,18 @@ Beginning with the second checkpoint, the result also carries the immediately
 previous checkpoint's public timing label and date. The app displays that past
 read as context; it does not expose the next configured checkpoint date.
 
-Before the river-start checkpoint the label is `Evaluating`; no early timing
-claim is made. At `peak_complete`, Conditions Suggest stops classifying timing
-and displays `Timing complete`. Through the configured main run end it explains
-that the run is well underway by calendar timing. After the main run end it says
-the run window has passed and that Conditions Suggest and Push are complete. The
-last checkpoint's result remains available separately as `timingLabel` for audit
-and interpretation. Conditions Suggest does not restart or drift during
-tapering, ending, or post-run.
+Before `stagingStart`, the label is `Not monitoring yet`. From `stagingStart`
+through the day before the river-start checkpoint, the label is `Evaluating`; no
+early timing claim is made. At `peak_complete`, Conditions Suggest stops
+classifying timing and displays `Timing complete`. Through the configured main
+run end it explains that the run is well underway by calendar timing. After the
+main run end it says the run window has passed and that Conditions Suggest and
+Push are complete. The last checkpoint's result remains available separately as
+`timingLabel` for audit and interpretation. After `postRunLateCopyEnd`, the
+public label returns to `Not monitoring yet`; the completed read remains
+historical audit data rather than an apparently live primitive. Conditions
+Suggest does not restart or drift during tapering, ending, or the short post-run
+context window.
 
 #### Evidence
 
@@ -1091,6 +1102,7 @@ Each river/run/species config owns:
 - Researched start, peak, and end dates
 - A documented historical presence curve
 - A historical-presence maximum from 1 through 10
+- A separately researched distribution scope: concentrated, sectional, or broad
 - Evidence and source notes
 
 Examples:
@@ -1111,6 +1123,12 @@ riverCeiling = historicalPresence.maximum * 10
 fishInRiverScore = round(curveFraction * riverCeiling)
 fishInRiverScore = clamp(fishInRiverScore, 0, riverCeiling)
 ```
+
+The same maximum also selects the absolute-opportunity copy tier: 1–3 is
+Limited, 4–7 is Moderate, and 8–10 is Strong. These tiers change only calibrated
+abundance wording; the primitive's state, structure, and meaning remain the
+same. Distribution wording comes from `distributionScope`, not from the maximum,
+so strength and spatial spread cannot be accidentally conflated.
 
 Default curve shape may be generated from Run Stage dates, but its anchors must
 be stored/versioned and accepted:
@@ -1142,9 +1160,23 @@ river-specific ceiling:
 |          61–<90% | High presence     |
 |          90–100% | Peak presence     |
 
-The public UI displays a qualitative meter and label without a numeric score.
-The independently audited river ceiling still prevents a lower-strength
-river/run from reaching an overstated meter position.
+The public UI displays the numeric seasonal presence index on one stable 0–100
+scale. The marker uses the absolute index position, and a visible ceiling marker
+and masked remainder show how much of that scale this river/run/species can
+reach. The configured tier is always named as `Historical run strength`: Limited
+for maximum 1–3, Moderate for 4–7, and Strong for 8–10. Relative labels must
+read `Low for this run`, `Limited for this run`, `Moderate for this run`,
+`High for this run`, or `Peak for this run` so they cannot be mistaken for an
+absolute abundance comparison. PM Fall Coho therefore displays Moderate with a
+60/100 ceiling, while PM Fall Chinook displays Strong with a 100/100 ceiling.
+
+Meter colors use fixed absolute-index bands, with each displayed scale value as
+the upper boundary: 0 is gray, 1–20 red, 21–40 orange, 41–60 yellow, 61–80 light
+green, and 81–100 green. Thus a 36/100 `High for this river` read is orange,
+while 55/100 and 60/100 `Peak for this river` reads are yellow. High-presence
+detail copy must say that presence is elevated relative to the rest of that
+season; `increased presence` is prohibited because it would incorrectly imply a
+rising direction on the falling side of the curve.
 
 ---
 
@@ -1157,11 +1189,25 @@ Copy is deterministic and versioned. No runtime LLM writes primitive copy.
 For every reachable state:
 
 - **Headline:** directly answers only that primitive's question.
-- **Detail:** names the evidence and relevant time window.
-- **Tip:** leads with a concrete first action and, when supported, identifies
-  the river section, water type, and order of approach without promising fish or
-  safety.
+- **Why This Read:** explains the evidence, seasonal pattern, or limitation that
+  produced that primitive's state. It must not bury a separate primitive's
+  conclusion.
+- **Guide's Read:** translates that one state into plain, concrete direction. It
+  may hand off to another named primitive, but it must not silently take
+  ownership of that primitive's question.
+- **Where To Start:** belongs only to Migration Stage and identifies the most
+  reasonable broad river area for that point in the migration. Other primitives
+  may adjust how that starting plan is used, but they do not create a competing
+  baseline location.
 - **Reason codes:** identify the exact branch and limitations.
+
+| Primitive        | Owns                                                                 | Why This Read always explains                                     | Guide's Read always does                                                        |
+| ---------------- | -------------------------------------------------------------------- | ----------------------------------------------------------------- | ------------------------------------------------------------------------------- |
+| Migration Stage  | Calendar phase, broad river progression, and baseline starting area  | Why fish are expected at that phase and distribution              | Applies the stated starting area and gives an orderly coverage plan             |
+| Migration Timing | Whether seasonal development is ahead, typical, or delayed           | How cumulative river and temperature patterns compare with normal | Adjusts the Migration Stage plan earlier, normally, or later                    |
+| Push             | Near-term support for fresh fish entering or moving                  | How current river response, water temperature, and rain shape it  | Prioritizes fresh travel water or established fish without claiming movement    |
+| Fishability      | How workable the current flow and trend should be for presentation   | How river level, direction, and freshness affect fishable water   | Chooses workable current, presentation style, and access restraint              |
+| Fish In River    | Likely seasonal presence, river-specific ceiling, and rise/fall path | Why the calendar supports that relative presence and its limits   | Sets opportunity, confidence, and effort expectations without prescribing place |
 
 Copy must:
 
@@ -1169,11 +1215,11 @@ Copy must:
   evidence.
 - Mention stale, missing, partial, or adjusted-reference evidence when it
   affects the result.
-- Use “Conditions suggest…” for all Conditions Suggest conclusions.
-- Describe Run Stage as calendar timing.
+- Use plain early, normal, or late language for Migration Timing conclusions.
+- Describe Migration Stage as calendar timing and broad river progression.
 - Describe Fish In River as historical seasonal presence.
 - Describe Push as movement-trigger conditions, not observed movement.
-- Describe Fishability as the primary gauged reach, not the entire river.
+- Describe Fishability as current flow workability, not fish presence or safety.
 - Make every available Fishability detail state that it describes how the flow
   should fish if migratory fish are present, not how many fish are present.
 - Give Guide's Read a clear priority. Do not hand the decision back to the user
@@ -1491,7 +1537,10 @@ The rollout must remain paused at the public-enable step until items 1–7 pass.
   Typical.
 - The first tapering date returns Timing complete, retains the final
   `timingLabel`, and uses well-underway calendar copy.
-- Evaluating and Timing complete do not falsely degrade overall data quality.
+- Before staging and after the short post-run context window, Run Timing returns
+  Not monitoring yet rather than implying that evidence collection is active.
+- Not monitoring yet, Evaluating, and Timing complete do not falsely degrade
+  overall data quality.
 - Every output begins with or naturally includes “Conditions suggest.”
 
 ### 11.4 Push
@@ -1528,8 +1577,12 @@ The rollout must remain paused at the public-enable step until items 1–7 pass.
 - Run Stage dates and the presence curve use the same active run year.
 - Weather/gauge inputs never change Fish In River.
 - Copy always identifies the value as historical seasonal presence.
-- Public output hides the internal numeric score and uses the corresponding
-  qualitative meter position and label.
+- Public output shows the Fish In River score only, explicitly labeled as a
+  seasonal presence index on an absolute 0–100 meter.
+- Public output always shows the river/species ceiling and derived historical
+  run-strength tier, and masks the unreachable portion above the ceiling.
+- Relative presence states include `for this run`; Push and Fishability numeric
+  scores remain hidden.
 
 ### 11.7 Cross-Primitive And Copy
 

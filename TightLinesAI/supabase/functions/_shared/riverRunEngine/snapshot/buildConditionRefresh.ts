@@ -123,12 +123,13 @@ export function buildConditionRefresh(input: {
 }): RiverRunConditionRefresh {
   const trackingStartDate = input.dailySnapshot.runStage.window.startDate;
   const trackingEndDate = input.dailySnapshot.runStage.window.endDate;
-  const trackingState =
-    compareLocalDates(input.localDate, trackingStartDate) < 0
-      ? "not_started"
-      : compareLocalDates(input.localDate, trackingEndDate) > 0
-      ? "complete"
-      : "active";
+  const trackingState = input.dailySnapshot.runStage.label === "Offseason"
+    ? "offseason"
+    : compareLocalDates(input.localDate, trackingStartDate) < 0
+    ? "not_started"
+    : compareLocalDates(input.localDate, trackingEndDate) > 0
+    ? "complete"
+    : "active";
   const push = scorePush({
     movementEngineId: input.movementEngineId,
     rules: input.pushRules,
@@ -181,6 +182,7 @@ export function buildConditionRefresh(input: {
   });
   const interpretationNote = resolveInterpretationNote({
     runStage: input.dailySnapshot.runStage.stage,
+    broadBuildingContext: input.dailySnapshot.runStage.broadBuildingContext,
     conditionsSuggestLabel: input.dailySnapshot.conditionsSuggest.label,
     push,
     fishability,

@@ -13,6 +13,7 @@ import type {
   RunType,
   RunValidationResult,
   Season,
+  SpeciesBiologyProfile,
   SupportStatus,
   VisibleRiverRunCatalog,
 } from "./types.ts";
@@ -45,6 +46,7 @@ const RUN_TYPES: readonly RunType[] = [
 ];
 const MOVEMENT_ENGINES: readonly MovementEngineId[] = [
   "fall_cooling",
+  "fall_entry_cooling",
   "spring_warming",
   "winter_thaw",
   "summer_cooling",
@@ -554,6 +556,11 @@ export function validateRunProfile(
   if (!hasText(run.riverId)) {
     issues.push(issue("riverId", "Run river ID is required."));
   }
+  if (!hasText(run.biologyProfileId)) {
+    issues.push(
+      issue("biologyProfileId", "Run biology profile ID is required."),
+    );
+  }
   if (river && run.riverId !== river.riverId) {
     issues.push(
       issue(
@@ -723,7 +730,8 @@ function validatePushRules(
     rules.caps.migrationBarrier > 49 ||
     rules.caps.severeHighFlow > 49 ||
     rules.caps.noGaugeResponse > 69 ||
-    rules.caps.outsideExtendedWindow > 69
+    rules.caps.outsideExtendedWindow > 69 ||
+    (rules.caps.coldHolding != null && rules.caps.coldHolding > 49)
   ) {
     issues.push(
       issue(
@@ -806,17 +814,65 @@ function validateRunDates(
   if (values.some((value) => value === null)) return;
   const parsed = values as number[];
   const offsets = parsed.map((value) => forwardDistance(parsed[0], value));
-  const datesProgress = offsets.every((offset, index) =>
-    index === 0 || offset > offsets[index - 1]
-  );
+  const datesProgress = offsets.every((offset, index) => {
+    if (index === 0) return true;
+    const sameDayPeakStart = fields[index - 1] === "peakStart" &&
+      fields[index] === "peak" && offset === offsets[index - 1];
+    return sameDayPeakStart || offset > offsets[index - 1];
+  });
   if (!datesProgress || offsets.at(-1)! > 366) {
     issues.push(
       issue(
         "runWindow",
-        "Run Stage dates must progress from preRunStart through lateEnd, including cross-year runs.",
+        "Run Stage dates must progress from preRunStart through lateEnd, including cross-year runs. peakStart and peak may share a date.",
         "config_date_order_invalid",
       ),
     );
+  }
+  if (run.runWindow.buildingBroadStart != null) {
+    const broadStart = parseMonthDay(run.runWindow.buildingBroadStart);
+    const establishedIndex = fields.indexOf("buildingEstablishedStart");
+    const peakStartIndex = fields.indexOf("peakStart");
+    const broadOffset = broadStart == null
+      ? null
+      : forwardDistance(parsed[0], broadStart);
+    if (
+      broadOffset == null ||
+      broadOffset <= offsets[establishedIndex] ||
+      broadOffset >= offsets[peakStartIndex]
+    ) {
+      issues.push(
+        issue(
+          "runWindow.buildingBroadStart",
+          "buildingBroadStart must be MM-DD after buildingEstablishedStart and before peakStart.",
+          broadStart == null
+            ? "config_date_invalid"
+            : "config_date_order_invalid",
+        ),
+      );
+    }
+  }
+  if (run.handoff) {
+    const handoffStart = parseMonthDay(run.handoff.start);
+    const end = parseMonthDay(run.runWindow.end);
+    if (
+      run.runType !== "fall_entry" ||
+      run.handoff.type !== "winter_holding" ||
+      run.handoff.destinationRunType !== "holding" ||
+      handoffStart === null || end === null ||
+      forwardDistance(end, handoffStart) !== 1 ||
+      !hasNumber(run.handoff.retainedPresenceFraction) ||
+      run.handoff.retainedPresenceFraction <= 0 ||
+      run.handoff.retainedPresenceFraction > 1
+    ) {
+      issues.push(
+        issue(
+          "handoff",
+          "A fall-entry handoff must begin the day after the migration window ends and retain a documented presence fraction from 0 through 1.",
+          "config_invalid_value",
+        ),
+      );
+    }
   }
 }
 
@@ -837,6 +893,43 @@ function validateHistoricalPresence(
       ),
     );
     return;
+  }
+  if (run.handoff) {
+    const finalAnchor = Array.isArray(presence.anchors)
+      ? presence.anchors.at(-1)
+      : undefined;
+    const start = parseMonthDay(run.runWindow.start);
+    const end = parseMonthDay(run.runWindow.end);
+    if (
+      !finalAnchor || start === null || end === null ||
+      finalAnchor.dayOffsetFromStart !== forwardDistance(start, end) ||
+      Math.abs(
+          finalAnchor.fractionOfMaximum -
+            run.handoff.retainedPresenceFraction,
+        ) > 0.0001
+    ) {
+      issues.push(
+        issue(
+          "historicalPresence.anchors",
+          "The final fall-entry presence anchor must land on the final migration day and match the documented handoff fraction.",
+          "config_invalid_value",
+        ),
+      );
+    }
+  }
+  if (
+    !includes(
+      ["concentrated", "sectional", "broad"] as const,
+      presence.distributionScope,
+    )
+  ) {
+    issues.push(
+      issue(
+        "historicalPresence.distributionScope",
+        "Historical presence distribution must be concentrated, sectional, or broad.",
+        "config_invalid_value",
+      ),
+    );
   }
   if (
     !hasText(presence.curveVersion) || !hasText(presence.evidenceNotes) ||
@@ -1128,6 +1221,22 @@ function validateConditionsSuggestPolicy(
       ),
     );
   }
+  const gaugeWeight = policy.gaugeWeight ?? 0.6;
+  const temperatureWeight = policy.waterTemperatureWeight ?? 0.4;
+  if (
+    !hasNumber(gaugeWeight) || !hasNumber(temperatureWeight) ||
+    gaugeWeight < 0 || gaugeWeight > 1 ||
+    temperatureWeight < 0 || temperatureWeight > 1 ||
+    Math.abs(gaugeWeight + temperatureWeight - 1) > 0.0001
+  ) {
+    issues.push(
+      issue(
+        "conditionsSuggest",
+        "Run Timing gauge and water-temperature weights must each be from 0 through 1 and sum to 1.",
+        "config_invalid_value",
+      ),
+    );
+  }
   if (
     !Number.isInteger(policy.minimumUsableYears) ||
     policy.minimumUsableYears < 5
@@ -1213,23 +1322,6 @@ function validateAuditFields(
   run: RiverRunProfile,
   issues: RiverRunValidationIssue[],
 ): void {
-  const requiredCopyHints = [
-    ["userCopyHints.stagingTip", run.userCopyHints?.stagingTip],
-    ["userCopyHints.preRunTip", run.userCopyHints?.preRunTip],
-    ["userCopyHints.peakTip", run.userCopyHints?.peakTip],
-    ["userCopyHints.endingTip", run.userCopyHints?.endingTip],
-  ] as const;
-  for (const [field, value] of requiredCopyHints) {
-    if (!hasText(value)) {
-      issues.push(
-        issue(
-          field,
-          "Audited launch copy hint is required.",
-          "audit_field_missing",
-        ),
-      );
-    }
-  }
   if (!hasText(run.researchNotes) || !hasText(run.sourceNotes)) {
     issues.push(
       issue(
@@ -1239,6 +1331,98 @@ function validateAuditFields(
       ),
     );
   }
+}
+
+export function validateSpeciesBiologyProfile(
+  profile: SpeciesBiologyProfile,
+): RiverRunValidationIssue[] {
+  const issues: RiverRunValidationIssue[] = [];
+  if (
+    !hasText(profile?.biologyProfileId) ||
+    !includes(SPECIES, profile?.species) ||
+    !hasText(profile?.commonName) ||
+    !hasText(profile?.scientificName) ||
+    profile?.region !== "great_lakes" ||
+    !includes(MOVEMENT_ENGINES, profile?.movementEngineId) ||
+    !["spawning", "pre_spawn_overwintering"].includes(
+      profile?.migrationPurpose,
+    ) ||
+    typeof profile?.semelparous !== "boolean" ||
+    !hasText(profile?.evidenceNotes) ||
+    !hasText(profile?.sourceNotes)
+  ) {
+    issues.push(
+      issue(
+        "biologyProfile",
+        "Species biology requires identity, taxonomy, region, engine, life-history, evidence, and source notes.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  const temperature = profile?.adultMigrationTemperature;
+  if (
+    !temperature ||
+    !hasNumber(temperature.supportiveMinF) ||
+    !hasNumber(temperature.supportiveMaxF) ||
+    !hasNumber(temperature.tooWarmF) ||
+    !hasNumber(temperature.migrationBarrierF) ||
+    temperature.supportiveMinF < 32 ||
+    temperature.migrationBarrierF > 85 ||
+    !(temperature.supportiveMinF < temperature.supportiveMaxF &&
+      temperature.supportiveMaxF < temperature.tooWarmF &&
+      temperature.tooWarmF < temperature.migrationBarrierF)
+  ) {
+    issues.push(
+      issue(
+        "biologyProfile.adultMigrationTemperature",
+        "Biology migration temperatures must progress from supportive minimum through migration barrier.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
+    temperature?.coldHoldingF != null &&
+    (!hasNumber(temperature.coldHoldingF) ||
+      temperature.coldHoldingF >= temperature.supportiveMinF)
+  ) {
+    issues.push(
+      issue(
+        "biologyProfile.adultMigrationTemperature.coldHoldingF",
+        "A cold-holding threshold must be below the supportive migration minimum.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
+    temperature?.preferredMinF != null &&
+    (!hasNumber(temperature.preferredMinF) ||
+      temperature.preferredMinF < temperature.supportiveMinF ||
+      temperature.preferredMinF > temperature.supportiveMaxF)
+  ) {
+    issues.push(
+      issue(
+        "biologyProfile.adultMigrationTemperature.preferredMinF",
+        "A preferred migration minimum must sit inside the supportive range.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  const response = profile?.environmentalResponse;
+  if (
+    response?.risingFlow !== "supportive_within_fishable_bounds" ||
+    response?.precipitation !== "precursor_only" ||
+    response?.strongSignalRequiresMeasuredGaugeResponse !== true ||
+    response?.peakFloodIsAutomaticallyPositive !== false
+  ) {
+    issues.push(
+      issue(
+        "biologyProfile.environmentalResponse",
+        "Fall biology must keep rising flow bounded, rain precursor-only, and strong signals tied to measured gauge response.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  return issues;
 }
 
 function validatePublicAuditGate(
@@ -1252,7 +1436,7 @@ function validatePublicAuditGate(
     issues.push(
       issue(
         "publicAudit.isEnabled",
-        "Public audit gate is disabled for this run.",
+        "Public audit gate is disabled for this migration.",
         "audit_gate_disabled",
       ),
     );
@@ -1290,8 +1474,100 @@ export function validateConfigurationRevision(
     return issues;
   }
   issues.push(...validateRiverProfile(revision.document.river).issues);
+  const biologyProfiles = revision.document.biologyProfiles ?? [];
+  if (biologyProfiles.length === 0) {
+    issues.push(
+      issue(
+        "document.biologyProfiles",
+        "Configuration documents require shared species biology profiles.",
+        "config_required_field_missing",
+      ),
+    );
+  }
+  const biologyById = new Map<string, SpeciesBiologyProfile>();
+  for (const [index, profile] of biologyProfiles.entries()) {
+    const profileIssues = validateSpeciesBiologyProfile(profile);
+    issues.push(...profileIssues.map((item) => ({
+      ...item,
+      field: `biologyProfiles[${index}].${item.field}`,
+    })));
+    if (biologyById.has(profile.biologyProfileId)) {
+      issues.push(
+        issue(
+          `biologyProfiles[${index}].biologyProfileId`,
+          "Biology profile IDs must be unique within a configuration document.",
+          "config_invalid_value",
+        ),
+      );
+    }
+    biologyById.set(profile.biologyProfileId, profile);
+  }
   for (const run of revision.document.runs) {
-    issues.push(...validateRunProfile(run, revision.document.river).issues);
+    const runIssues = validateRunProfile(run, revision.document.river).issues;
+    // Audit-gate failures are visibility decisions, not malformed
+    // configuration. A published document may safely carry hidden runs while
+    // already accepted runs remain visible.
+    issues.push(
+      ...runIssues.filter((item) => item.code !== "audit_gate_disabled"),
+    );
+    const biology = biologyById.get(run.biologyProfileId);
+    if (!biology) {
+      issues.push(
+        issue(
+          `runs.${run.runId}.biologyProfileId`,
+          "Run references a biology profile that is not present in the document.",
+          "config_source_reference_missing",
+        ),
+      );
+      continue;
+    }
+    if (
+      biology.species !== run.species ||
+      biology.movementEngineId !== run.movementEngineId
+    ) {
+      issues.push(
+        issue(
+          `runs.${run.runId}.biologyProfileId`,
+          "Run species and movement engine must match its shared biology profile.",
+          "config_invalid_value",
+        ),
+      );
+    }
+    const expectedPurpose = run.runType === "fall_entry"
+      ? "pre_spawn_overwintering"
+      : "spawning";
+    if (biology.migrationPurpose !== expectedPurpose) {
+      issues.push(
+        issue(
+          `runs.${run.runId}.biologyProfileId`,
+          "Run type must match the migration purpose in its shared biology profile.",
+          "config_invalid_value",
+        ),
+      );
+    }
+    const expectedTemperature = biology.adultMigrationTemperature;
+    const configuredTemperature = run.push.temperature;
+    if (
+      configuredTemperature.supportiveMinF !==
+        expectedTemperature.supportiveMinF ||
+      configuredTemperature.supportiveMaxF !==
+        expectedTemperature.supportiveMaxF ||
+      configuredTemperature.tooWarmF !== expectedTemperature.tooWarmF ||
+      configuredTemperature.migrationBarrierF !==
+        expectedTemperature.migrationBarrierF ||
+      configuredTemperature.coldHoldingF !==
+        expectedTemperature.coldHoldingF ||
+      configuredTemperature.preferredMinF !==
+        expectedTemperature.preferredMinF
+    ) {
+      issues.push(
+        issue(
+          `runs.${run.runId}.push.temperature`,
+          "Run migration temperatures must match its shared biology profile.",
+          "config_invalid_value",
+        ),
+      );
+    }
   }
   return issues;
 }

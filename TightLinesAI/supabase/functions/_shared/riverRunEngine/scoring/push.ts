@@ -17,7 +17,9 @@ export type PushTemperatureState =
   | "transitional_warm"
   | "too_warm"
   | "migration_barrier"
-  | "cool_plateau";
+  | "cool_plateau"
+  | "cold_active"
+  | "cold_holding";
 export type PushRainRole =
   | "precursor"
   | "partial_precursor"
@@ -26,7 +28,11 @@ export type PushRainRole =
   | "dry"
   | "neutral"
   | "missing";
-export type PushTrackingState = "not_started" | "active" | "complete";
+export type PushTrackingState =
+  | "offseason"
+  | "not_started"
+  | "active"
+  | "complete";
 
 export type PushScoreComponents = {
   hydraulicBase: number;
@@ -100,7 +106,10 @@ export function scorePush(input: PushScoreInput): PushScoreResult {
       rules: input.rules,
     });
   }
-  if (input.movementEngineId !== "fall_cooling") {
+  if (
+    input.movementEngineId !== "fall_cooling" &&
+    input.movementEngineId !== "fall_entry_cooling"
+  ) {
     return unavailableResult({
       reason: "engine",
       reasonCodes: [gaugeReasonCode(input.gaugeFreshness)],
@@ -115,6 +124,7 @@ export function scorePush(input: PushScoreInput): PushScoreResult {
   const temperatureState = resolveTemperatureState(
     input.waterTempF,
     input.rules,
+    input.movementEngineId,
   );
   const hydraulicBase = hydraulicBaseScore(input.flowSignal);
   const hydraulicAdjustment = hydraulicStateAdjustment(
@@ -167,6 +177,14 @@ export function scorePush(input: PushScoreInput): PushScoreResult {
       appliedCaps,
     );
     reasonCodes.add("push_temperature_barrier_cap");
+  }
+  if (temperatureState === "cold_holding") {
+    score = applyCap(
+      score,
+      input.rules.caps.coldHolding ?? 49,
+      appliedCaps,
+    );
+    reasonCodes.add("push_cold_holding_cap");
   }
   if (hydraulicState === "severe_high") {
     score = applyCap(
@@ -252,6 +270,7 @@ function resolveHydraulicState(
 function resolveTemperatureState(
   waterTempF: number,
   rules: PushRules,
+  movementEngineId: MovementEngineId = "fall_cooling",
 ): PushTemperatureState {
   if (waterTempF >= rules.temperature.migrationBarrierF) {
     return "migration_barrier";
@@ -259,6 +278,20 @@ function resolveTemperatureState(
   if (waterTempF > rules.temperature.tooWarmF) return "too_warm";
   if (waterTempF > rules.temperature.supportiveMaxF) {
     return "transitional_warm";
+  }
+  if (movementEngineId === "fall_entry_cooling") {
+    if (
+      rules.temperature.coldHoldingF != null &&
+      waterTempF <= rules.temperature.coldHoldingF
+    ) {
+      return "cold_holding";
+    }
+    if (
+      rules.temperature.preferredMinF != null &&
+      waterTempF < rules.temperature.preferredMinF
+    ) {
+      return "cold_active";
+    }
   }
   if (waterTempF < rules.temperature.supportiveMinF) return "cool_plateau";
   return "supportive";
@@ -303,6 +336,18 @@ function resolveTemperatureModifier(input: {
       break;
     case "cool_plateau":
       modifier = 0;
+      break;
+    case "cold_active":
+      modifier = trendModifier(input.trend, {
+        strongCooling: -6,
+        cooling: -3,
+        neutral: 1,
+        warming: 2,
+        strongWarming: 0,
+      });
+      break;
+    case "cold_holding":
+      modifier = -15;
       break;
   }
   if (modifier <= 0 || input.positiveSignalCap == null) return modifier;
@@ -409,15 +454,34 @@ function pushCopy(input: {
 function inactiveTrackingResult(
   input: PushScoreInput,
 ): PushScoreResult {
-  if (input.trackingState === "not_started") {
+  if (input.trackingState === "offseason") {
     return {
       score: null,
-      label: "Waiting for run",
-      headline: "The river run has not started, so there is no Push read yet.",
+      label: "Offseason",
+      headline: "Push is not active outside the river migration season.",
       detail:
-        "Push is meant to spot water conditions that may help fish enter or move during the active run. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
+        "Rain, river level, and water temperature can still change, but they do not provide a useful fresh-arrival signal for this species right now.",
       tip:
-        "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
+        "Do not use Push to plan for this species outside its migration season. Follow an active species instead, or return when early monitoring begins.",
+      reasonCodes: ["push_tracking_offseason"],
+      rulesVersion: input.rules.version,
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (input.trackingState === "not_started") {
+    const fallEntry = input.movementEngineId === "fall_entry_cooling";
+    return {
+      score: null,
+      label: "Waiting for migration",
+      headline: fallEntry
+        ? "Dependable fall entry has not started, so Push is not active yet."
+        : "Fish have not started entering the river, so there is no Push read yet.",
+      detail: fallEntry
+        ? "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read."
+        : "Push is meant to spot water conditions that may help fish enter or move during the active migration. Before that, most opportunity should remain in the lake, harbor, or river-mouth transition.",
+      tip: fallEntry
+        ? "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event."
+        : "Keep the trip in the lake, harbor, and river-mouth zone. Do not move inland just because rain or cooling resembles an in-season movement event.",
       reasonCodes: ["push_tracking_not_started"],
       rulesVersion: input.rules.version,
       copyVersion: RIVER_RUN_COPY_VERSION,
@@ -425,12 +489,16 @@ function inactiveTrackingResult(
   }
   return {
     score: null,
-    label: "Run complete",
+    label: input.movementEngineId === "fall_entry_cooling"
+      ? "Winter holding"
+      : "Migration complete",
     headline: "The season's fresh-movement read is complete.",
-    detail:
-      "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
-    tip:
-      "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
+    detail: input.movementEngineId === "fall_entry_cooling"
+      ? "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read."
+      : "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+    tip: input.movementEngineId === "fall_entry_cooling"
+      ? "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river."
+      : "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
     reasonCodes: ["push_tracking_complete"],
     rulesVersion: input.rules.version,
     copyVersion: RIVER_RUN_COPY_VERSION,
@@ -447,6 +515,9 @@ function pushHeadline(
   }
   if (components.temperatureState === "migration_barrier") {
     return "The river is rising, but warm water prevents a dependable fresh-movement read.";
+  }
+  if (components.temperatureState === "cold_holding") {
+    return "Steelhead may remain in the river, but water is cold enough to limit a dependable fresh-movement signal.";
   }
   if (
     components.hydraulicState === "high" &&
@@ -520,6 +591,10 @@ function temperatureCopy(
       return "Water temperature is warm enough to seriously limit confidence in fresh movement.";
     case "cool_plateau":
       return "Water is already plenty cool for migration, so more cooling does not strengthen the read by itself.";
+    case "cold_active":
+      return "Water is cold enough for steelhead movement, but additional cooling increasingly favors slower holding behavior.";
+    case "cold_holding":
+      return "Water is at or below the cold-holding threshold, so active upstream movement is less likely even though steelhead may remain in the river.";
   }
 }
 
@@ -593,6 +668,9 @@ function pushTip(
   ) {
     return "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.";
   }
+  if (components.temperatureState === "cold_holding") {
+    return "Do not chase a new wave from this signal. Treat the fish as wintering steelhead and base the day on temperature-driven activity and controlled presentations in dependable holding water.";
+  }
   if (input.flowSignal === "unknown" || input.gaugeFreshness === "stale") {
     return "Do not relocate the trip around this Push read. Begin in established holding water, verify the river at the first access, and add travel lanes only after confirming workable conditions.";
   }
@@ -608,7 +686,7 @@ function pushTip(
     case "Very strong":
       return "Start low and fish softer travel lanes, newly formed inside seams, and the first resting water above them. Skip any lane Fishability says is too fast or difficult to control.";
     default:
-      return "Begin with the travel and holding water appropriate to Run Stage, and keep the presentation inside the flow Fishability identifies as workable. Do not treat this signal as proof fish entered.";
+      return "Begin with the travel and holding water appropriate to Migration Stage, and keep the presentation inside the flow Fishability identifies as workable. Do not treat this signal as proof fish entered.";
   }
 }
 
@@ -626,7 +704,7 @@ function unavailableResult(input: {
       detail:
         "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
       tip:
-        "Do not chase a fresh wave from this read. Fish established holding water for the current Run Stage and check again after the next temperature update.",
+        "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
       reasonCodes: [...new Set(input.reasonCodes)],
       rulesVersion: input.rules.version,
       copyVersion: RIVER_RUN_COPY_VERSION,
@@ -639,9 +717,9 @@ function unavailableResult(input: {
       headline:
         "This species and season do not have a dependable Push read yet.",
       detail:
-        "Different migrations respond to water and weather in different ways, so another run's movement pattern would give a misleading result.",
+        "Different migrations respond to water and weather in different ways, so another species' movement pattern would give a misleading result.",
       tip:
-        "Fish the river section and holding water identified by Run Stage and Fish In River. Do not apply another species' rain-and-temperature pattern to this migration.",
+        "Fish the river section and holding water identified by Migration Stage and Fish In River. Do not apply another species' rain-and-temperature pattern to this migration.",
       reasonCodes: [...new Set(input.reasonCodes)],
       rulesVersion: input.rules.version,
       copyVersion: RIVER_RUN_COPY_VERSION,
@@ -690,6 +768,10 @@ function temperatureStateReasonCode(
       return "push_temperature_migration_barrier";
     case "cool_plateau":
       return "push_temperature_cool_plateau";
+    case "cold_active":
+      return "push_temperature_cold_active";
+    case "cold_holding":
+      return "push_temperature_cold_holding";
   }
 }
 

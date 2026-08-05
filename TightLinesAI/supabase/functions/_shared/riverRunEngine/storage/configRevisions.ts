@@ -69,7 +69,7 @@ export async function upsertDraftConfiguration(
       data: null,
       found: false,
       error: {
-        message: "River Run configuration validation failed.",
+        message: "River Migration configuration validation failed.",
         details: issues,
       },
     };

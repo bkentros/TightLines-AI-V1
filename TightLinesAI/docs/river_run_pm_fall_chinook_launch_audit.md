@@ -1,6 +1,6 @@
 # River Run PM Fall Chinook Foundation Audit
 
-**Audit version:** 2026-08-02.1
+**Audit version:** 2026-08-03.1
 
 **Release conclusion:** Foundation accepted locally; public release is not
 accepted.
@@ -17,8 +17,10 @@ accepted.
 - End / late end: October 27 / November 8
 - True offseason copy begins: November 11
 - Historical-presence maximum: `10`
+- Ceiling-derived opportunity tier: `strong`
+- Researched distribution scope: `broad`
 - Presence curve: `pm-fall-chinook-presence-v2`
-- Canonical copy version: `river-run-copy-v10`
+- Canonical copy version: `river-run-copy-v15`
 
 Staging context never increases Fish In River. Fish In River remains `0` before
 August 15 and is displayed as `current / maximum`.
@@ -27,6 +29,13 @@ The accepted PM presence curve now keeps a near-peak shoulder through September
 30, reaches `70 / 100` on October 9, `25 / 100` on October 25, and `0 / 100` on
 November 8. Falling copy describes a possible position beyond the usual seasonal
 peak without claiming that the current year's run has peaked or declined.
+
+Copy v11 derives absolute-opportunity wording from the existing 1–10 ceiling:
+1–3 is Limited, 4–7 is Moderate, and 8–10 is Strong. Spatial wording uses the
+separately researched `concentrated`, `sectional`, or `broad` distribution
+scope. This prevents a lower-ceiling run from inheriting signature-run phrases
+such as “Good numbers” or “river-wide opportunity.” PM Fall Chinook remains
+Strong/Broad, and its accepted production sentences are unchanged.
 
 Peak Presence is now reserved for at least `90%` of the configured river
 ceiling. From `61%` through less than `90%`, the label is High Presence; its

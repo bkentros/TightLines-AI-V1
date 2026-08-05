@@ -55,7 +55,7 @@ import {
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
 
-const ENGINE_VERSION = "river-run-v1.4.1";
+const ENGINE_VERSION = "river-run-v1.5.3";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },

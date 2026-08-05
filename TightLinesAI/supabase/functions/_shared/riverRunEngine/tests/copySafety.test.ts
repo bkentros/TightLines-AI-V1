@@ -79,6 +79,7 @@ const bannedPhrases = [
   /\bhistorical\b/i,
   /\bcfs\b/i,
   /\bvisibility\b/i,
+  /\brun\b/i,
   /\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}\b/i,
   /\b20\d{2}-\d{2}-\d{2}\b/,
 ] as const;
@@ -89,9 +90,18 @@ function conditionsFor(
     | "typical"
     | "delayed"
     | "insufficient"
+    | "inactive"
     | "evaluating"
     | "complete",
 ) {
+  if (kind === "inactive") {
+    return scoreConditionsSuggest({
+      localDate: "2026-07-20",
+      run,
+      evidenceByDate: {},
+      baselines: [],
+    });
+  }
   if (kind === "evaluating") {
     return scoreConditionsSuggest({
       localDate: "2026-08-01",
@@ -197,6 +207,7 @@ function text(display: PrimitiveDisplay): string {
   return [
     display.label,
     display.headline,
+    display.whereToStart ?? "",
     display.detail,
     display.tip,
   ].join(" ");
@@ -282,6 +293,7 @@ function pushDisplays(): PrimitiveDisplay[] {
     }),
     pushForCopy({ trackingState: "not_started" }),
     pushForCopy({ trackingState: "complete" }),
+    pushForCopy({ trackingState: "offseason" }),
   ];
 }
 
@@ -319,11 +331,13 @@ function fishabilityDisplays(): PrimitiveDisplay[] {
 
 function fishInRiverDisplays(): PrimitiveDisplay[] {
   return [
+    scoreFishInRiver(run, "2026-06-30"),
     scoreFishInRiver(run, "2026-08-01"),
     scoreFishInRiver(run, "2026-08-15"),
     scoreFishInRiver(run, "2026-08-25"),
     scoreFishInRiver(run, "2026-09-05"),
     scoreFishInRiver(run, "2026-09-20"),
+    scoreFishInRiver(run, "2026-11-10"),
   ];
 }
 
@@ -337,12 +351,14 @@ Deno.test("primitive copy is complete for every reachable label", () => {
     resolveRunStage(run, "2026-10-01"),
     resolveRunStage(run, "2026-10-22"),
     resolveRunStage(run, "2026-11-05"),
+    resolveRunStage(run, "2026-11-11"),
   ];
   const conditions = [
     conditionsFor("ahead"),
     conditionsFor("typical"),
     conditionsFor("delayed"),
     conditionsFor("insufficient"),
+    conditionsFor("inactive"),
     conditionsFor("evaluating"),
     conditionsFor("complete"),
   ];
@@ -357,13 +373,14 @@ Deno.test("primitive copy is complete for every reachable label", () => {
   assertEquals(
     new Set(runStages.map((item) => item.label)),
     new Set([
-      "Pre-run",
+      "Before migration",
       "Beginning",
       "Building",
       "Peak",
       "Tapering",
       "Ending",
-      "Post-run",
+      "After migration",
+      "Offseason",
     ]),
   );
   assertEquals(
@@ -373,6 +390,7 @@ Deno.test("primitive copy is complete for every reachable label", () => {
       "Typical",
       "Delayed",
       "Insufficient evidence",
+      "Not monitoring yet",
       "Evaluating",
       "Timing complete",
     ]),
@@ -386,8 +404,9 @@ Deno.test("primitive copy is complete for every reachable label", () => {
       "Strong",
       "Very strong",
       "Unavailable",
-      "Waiting for run",
-      "Run complete",
+      "Waiting for migration",
+      "Migration complete",
+      "Offseason",
     ]),
   );
   assertEquals(
@@ -409,6 +428,8 @@ Deno.test("primitive copy is complete for every reachable label", () => {
       "Limited presence",
       "Moderate presence",
       "Peak presence",
+      "Migration complete",
+      "Offseason",
     ]),
   );
 
@@ -426,7 +447,7 @@ Deno.test("primitive copy stays dimension-specific", () => {
     ]
   ) {
     assertDimensionCopy(
-      "Run Stage",
+      "Migration Stage",
       display,
       /river run|season|fish/i,
       [
@@ -444,7 +465,7 @@ Deno.test("primitive copy stays dimension-specific", () => {
     ]
   ) {
     assertDimensionCopy(
-      "Run Timing",
+      "Migration Timing",
       display,
       /run|seasonal pace|usual/i,
       [
@@ -566,7 +587,7 @@ Deno.test("representative mixed reads remain composition-safe", () => {
       ],
     },
     {
-      name: "Pre-run + Insufficient evidence",
+      name: "Before migration + Insufficient evidence",
       runStage: "pre_run",
       conditionsSuggestLabel: "Insufficient evidence",
       push: possiblePush(),
@@ -589,6 +610,18 @@ Deno.test("representative mixed reads remain composition-safe", () => {
       fishability: goodFishability(),
       fishInRiver: scoreFishInRiver(run, "2026-09-20"),
       expectedNotes: ["peak_presence_weak_push"],
+    },
+    {
+      name: "Peak + Delayed + Weak Push",
+      runStage: "peak",
+      conditionsSuggestLabel: "Delayed",
+      push: weakPush(),
+      fishability: goodFishability(),
+      fishInRiver: scoreFishInRiver(run, "2026-09-20"),
+      expectedNotes: [
+        "peak_presence_weak_push",
+        "peak_delayed_conditions",
+      ],
     },
     {
       name: "Peak presence + Poor Fishability",
@@ -638,7 +671,7 @@ Deno.test("representative mixed reads remain composition-safe", () => {
       ],
     },
     {
-      name: "Post-run + residual historical presence",
+      name: "After migration + residual historical presence",
       runStage: "post_run",
       conditionsSuggestLabel: "Timing complete",
       push: pushForCopy({ trackingState: "complete" }),

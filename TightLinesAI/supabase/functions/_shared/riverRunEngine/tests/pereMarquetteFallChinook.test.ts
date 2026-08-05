@@ -105,6 +105,8 @@ const REQUIRED_REASON_CODES = [
   "strong_push_low_fishability",
   "delayed_conditions_strong_push",
   "beginning_ahead_conditions",
+  "broad_building_delayed_conditions",
+  "peak_delayed_conditions",
   "post_run_residual_presence",
 ] as const;
 

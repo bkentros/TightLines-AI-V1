@@ -106,7 +106,7 @@ Deno.test("staging guidance allows rare early river fish without claiming a run"
   );
 });
 
-Deno.test("Post-run copy separates the late tail from the offseason", () => {
+Deno.test("After-migration copy separates the late tail from the offseason", () => {
   const lateTail = resolveRunStage(pmRun, "2026-10-28");
   const lastLateCopyDay = resolveRunStage(pmRun, "2026-11-10");
   const offseason = resolveRunStage(pmRun, "2026-11-11");
@@ -114,9 +114,12 @@ Deno.test("Post-run copy separates the late tail from the offseason", () => {
   assertEquals(lateTail.stage, "post_run");
   assertEquals(lastLateCopyDay.stage, "post_run");
   assertEquals(offseason.stage, "post_run");
+  assertEquals(lateTail.label, "After migration");
+  assertEquals(lastLateCopyDay.label, "After migration");
+  assertEquals(offseason.label, "Offseason");
   assert(lateTail.detail.includes("A few fish may remain"));
   assert(lastLateCopyDay.detail.includes("A few fish may remain"));
-  assert(offseason.headline.includes("outside their river-run season"));
+  assert(offseason.headline.includes("outside their river migration season"));
   assertEquals(offseason.detail.includes("A few fish may remain"), false);
 });
 
@@ -226,12 +229,12 @@ Deno.test("PM Fish In River keeps a post-peak shoulder and later October tail", 
       "usual peak window may be easing",
     ),
   );
-  assert(belowSecondFallingThreshold.tip.startsWith("Work established"));
+  assert(belowSecondFallingThreshold.tip.startsWith("Plan around fish"));
   assertEquals(october8.score, 73);
   assertEquals(october15.score, 53);
   assertEquals(october23.score, 31);
   assertEquals(october23.label, "Limited presence");
-  assert(october23.tip.startsWith("Cover a short list"));
+  assert(october23.tip.startsWith("Treat this as a lower-odds"));
   assertEquals(november3.score, 9);
   assertEquals(november7.score, 2);
   assertEquals(november8.score, 0);
@@ -534,16 +537,20 @@ Deno.test("unknown flow trend fails conservatively", () => {
 });
 
 Deno.test("Push tracking uses useful seasonal copy without exposing dates", () => {
+  const offseason = pushWith({ trackingState: "offseason" });
   const before = pushWith({ trackingState: "not_started" });
   const after = pushWith({ trackingState: "complete" });
 
+  assertEquals(offseason.score, null);
+  assertEquals(offseason.label, "Offseason");
+  assert(offseason.reasonCodes.includes("push_tracking_offseason"));
   assertEquals(before.score, null);
-  assertEquals(before.label, "Waiting for run");
-  assert(before.headline.includes("river run has not started"));
+  assertEquals(before.label, "Waiting for migration");
+  assert(before.headline.includes("have not started entering the river"));
   assertEquals(before.headline.includes("August 15, 2026"), false);
   assert(before.reasonCodes.includes("push_tracking_not_started"));
   assertEquals(after.score, null);
-  assertEquals(after.label, "Run complete");
+  assertEquals(after.label, "Migration complete");
   assert(after.detail.includes("no longer provide a dependable read"));
   assertEquals(after.detail.includes("October 20, 2026"), false);
   assert(after.reasonCodes.includes("push_tracking_complete"));

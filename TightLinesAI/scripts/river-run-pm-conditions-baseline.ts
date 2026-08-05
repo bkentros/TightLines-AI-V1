@@ -6,14 +6,20 @@ import {
   getPrimaryHydraulicSource,
   type NormalizedTemperatureBaselineObservation,
   parseMonitorMyWatershedTemperature,
-  PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   resolveConditionsSuggestCheckpoints,
+  RIVER_RUN_RUN_PROFILES,
   summarizeConditionsSuggestHistoricalReplay,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 
 const river = PERE_MARQUETTE_RIVER_PROFILE;
-const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
+const runId = argumentValue("--run-id") ?? "pere_marquette_fall_chinook";
+const run = RIVER_RUN_RUN_PROFILES.find((candidate) =>
+  candidate.runId === runId && candidate.riverId === river.riverId
+);
+if (!run) {
+  throw new Error(`Unknown Pere Marquette run ID: ${runId}`);
+}
 const gauge = getPrimaryHydraulicSource(river);
 const temperatureSource = river.waterTemperatureSources.find((source) =>
   source.sourceId === run.conditionsSuggest.temperatureSourceId
@@ -70,7 +76,7 @@ const checkpointDefinitions = resolveConditionsSuggestCheckpoints(
   checkpointMonthDay: checkpoint.checkpointDate.slice(5),
 }));
 const sourceNotes =
-  `PM Fall Chinook cumulative Conditions Suggest checkpoints: USGS ${gauge.siteId} daily mean ${gauge.primaryMetric} and PMTU/Monitor My Watershed ${temperatureSource.siteId} result ${temperatureSource.seriesId}, ${startYear}-${endYear}; staging start through each completed checkpoint; 60% gauge response and 40% measured-water pattern.`;
+  `PM ${run.displayName} cumulative Conditions Suggest checkpoints: USGS ${gauge.siteId} daily mean ${gauge.primaryMetric} and PMTU/Monitor My Watershed ${temperatureSource.siteId} result ${temperatureSource.seriesId}, ${startYear}-${endYear}; staging start through each completed checkpoint; ${Math.round((run.conditionsSuggest.gaugeWeight ?? 0.6) * 100)}% gauge response and ${Math.round((run.conditionsSuggest.waterTemperatureWeight ?? 0.4) * 100)}% measured-water pattern.`;
 const rows = generateConditionsSuggestBaselineRows({
   gaugeObservations,
   temperatureObservations,
@@ -85,6 +91,8 @@ const rows = generateConditionsSuggestBaselineRows({
   minimumUsableYears: run.conditionsSuggest.minimumUsableYears,
   coolEnoughPercentileCap: run.conditionsSuggest.coolEnoughPercentileCap,
   tooWarmF: run.push.temperature.tooWarmF,
+  gaugeWeight: run.conditionsSuggest.gaugeWeight,
+  waterTemperatureWeight: run.conditionsSuggest.waterTemperatureWeight,
   sourceNotes,
 });
 const missingCheckpoints = checkpointDefinitions.filter((checkpoint) =>
@@ -141,4 +149,11 @@ function localDateInTimezone(iso: string, timezone: string): string {
     parts.map((part) => [part.type, part.value]),
   );
   return `${value.year}-${value.month}-${value.day}`;
+}
+
+function argumentValue(flag: string): string | null {
+  const inline = Deno.args.find((arg) => arg.startsWith(`${flag}=`));
+  if (inline) return inline.slice(flag.length + 1) || null;
+  const index = Deno.args.indexOf(flag);
+  return index >= 0 ? Deno.args[index + 1] ?? null : null;
 }

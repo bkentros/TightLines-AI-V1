@@ -1,10 +1,10 @@
 # River Run PM Integrated Primitive Audit
 
-**Audit version:** 2026-08-02.1
+**Audit version:** 2026-08-03.1
 
 **Engine version:** `river-run-v1.4.1`
 
-**Configuration version:** `2026-08-02.1`
+**Configuration version:** `2026-08-03.1`
 
 **Release conclusion:** Integrated engine and product-owner copy audit accepted
 locally; hidden-production and release-build gates remain open.
@@ -187,5 +187,6 @@ npm run audit:river-run:pm-integrated
 npm run qa:water-reader-typecheck
 ```
 
-Local result: `170` tests passed, `0` failed; `88` production-derived review
-scenarios passed semantic/UI QA; TypeScript typecheck passed.
+Local result: `177` tests passed, `0` failed; `102` production-derived review
+scenarios passed semantic/UI QA, including explicit Moderate/Sectional and
+Limited/Concentrated copy states; TypeScript typecheck passed.

@@ -4,15 +4,17 @@ import { RIVER_RUN_REVIEW_GROUPS } from "../lib/riverRunReviewFixtures";
 
 const expectedLabels: Record<string, Set<string>> = {
   run_stage: new Set([
-    "Pre-run",
+    "Offseason",
+    "Before migration",
     "Beginning",
     "Building",
     "Peak",
     "Tapering",
     "Ending",
-    "Post-run",
+    "After migration",
   ]),
   conditions: new Set([
+    "Not monitoring yet",
     "Evaluating",
     "Ahead",
     "Typical",
@@ -21,14 +23,15 @@ const expectedLabels: Record<string, Set<string>> = {
     "Timing complete",
   ]),
   push: new Set([
+    "Offseason",
     "Weak",
     "No clear push",
     "Possible",
     "Strong",
     "Very strong",
     "Unavailable",
-    "Waiting for run",
-    "Run complete",
+    "Waiting for migration",
+    "Migration complete",
   ]),
   fishability: new Set([
     "Poor",
@@ -114,11 +117,12 @@ const prohibitedCopy = [
   /\bhistorical\b/i,
   /\bcfs\b/i,
   /\bvisibility\b/i,
+  /\brun\b/i,
   /\b(?:January|February|March|April|May|June|July|August|September|October|November|December)\s+\d{1,2}\b/i,
   /\b20\d{2}-\d{2}-\d{2}\b/,
 ] as const;
 const directiveGuideLead =
-  /^(?:Begin|Start|Fish|Keep|Skip|Leave|Do not|Stop|Choose|Stay|Concentrate|Target|Work|Check|Cover)\b/;
+  /^(?:Begin|Start|Fish|Keep|Skip|Leave|Do not|Stop|Choose|Stay|Concentrate|Target|Work|Check|Cover|Plan|Treat)\b/;
 const ambiguousGuideCopy = [
   /\blet\b.+\bdecide\b/i,
   /should be practical/i,
@@ -183,19 +187,46 @@ for (const group of RIVER_RUN_REVIEW_GROUPS) {
         false,
         `${scenario.id} has suppressed Why This Read copy`,
       );
-      assert.equal(primitive.copyVersion, "river-run-copy-v10");
+      assert.equal(primitive.copyVersion, "river-run-copy-v19");
       assert.equal("copyVariant" in primitive, false);
       const copy = [
         primitive.label,
         primitive.headline,
         primitive.detail,
         primitive.tip,
+        primitive.whereToStart ?? "",
       ].join(" ");
       for (const pattern of prohibitedCopy) {
         assert.equal(
           pattern.test(copy),
           false,
           `${scenario.id} contains prohibited copy ${pattern}: ${copy}`,
+        );
+      }
+      if (primitive === snapshot.runStage) {
+        assert(
+          primitive.whereToStart?.trim().length,
+          `${scenario.id} Migration Stage must include Where to Start guidance`,
+        );
+        assert(
+          /[.!?]$/.test(primitive.whereToStart.trim()),
+          `${scenario.id} has incomplete Where to Start copy: ${primitive.whereToStart}`,
+        );
+      } else {
+        assert.equal(
+          primitive.whereToStart,
+          undefined,
+          `${scenario.id} must keep Where to Start owned by Migration Stage`,
+        );
+      }
+      if (primitive === snapshot.fishInRiver) {
+        assert.equal(
+          /river mouth|lower[- ]river|middle[- ]river|upper[- ]river|travel lanes?|holding water|\bholes?\b|\bbends?\b|current edges?/i
+            .test(
+              primitive.tip,
+            ),
+          false,
+          `${scenario.id} Fish In River Guide's Read must set expectations, not prescribe a location: ${primitive.tip}`,
         );
       }
     }
@@ -255,7 +286,7 @@ assert.equal(timingPostRun.snapshot.runStage.stage, "post_run");
 assert.equal(timingPostRun.snapshot.conditionsSuggest.label, "Timing complete");
 assert.match(
   timingPostRun.snapshot.conditionsSuggest.detail,
-  /main run has passed/,
+  /main migration has passed/,
 );
 
 const pushScenarios =
@@ -308,14 +339,18 @@ for (const group of RIVER_RUN_REVIEW_GROUPS) {
     if (snapshot.localDate < startDate) {
       assert.equal(
         snapshot.push.label,
-        "Waiting for run",
+        snapshot.runStage.label === "Offseason"
+          ? "Offseason"
+          : "Waiting for migration",
         `${scenario.id} cannot show an active Push before the run`,
       );
       assert.equal(snapshot.pushHistory?.status, "not_started");
     } else if (snapshot.localDate > endDate) {
       assert.equal(
         snapshot.push.label,
-        "Run complete",
+        snapshot.runStage.label === "Offseason"
+          ? "Offseason"
+          : "Migration complete",
         `${scenario.id} cannot show an active Push after the main run`,
       );
       assert.equal(snapshot.pushHistory?.status, "complete");

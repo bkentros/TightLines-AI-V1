@@ -8,6 +8,7 @@ export type RiverRunPrimitiveDisplay = {
   riverCeiling?: number;
   label: string;
   headline?: string;
+  whereToStart?: string;
   detail?: string;
   tip?: string;
   reasonCodes?: string[];
@@ -49,6 +50,7 @@ export type RiverRunConditionsTimingLabel =
 
 export type RiverRunConditionsSuggestLabel =
   | RiverRunConditionsTimingLabel
+  | "Not monitoring yet"
   | "Evaluating"
   | "Timing complete";
 
@@ -92,11 +94,16 @@ export type RiverRunConditionsSuggest =
 
 export type RiverRunStage = RiverRunPrimitiveDisplay & {
   stage?: string;
+  broadBuildingContext?: boolean;
+  winterHoldingContext?: boolean;
 };
 
 export type RiverRunFishInRiver = RiverRunPrimitiveDisplay & {
+  historicalRunStrength?: "limited" | "moderate" | "strong";
   curveFraction?: number;
   curveDirection?: "rising" | "near_peak" | "falling" | "outside";
+  winterHoldingContext?: boolean;
+  handoffScore?: number;
 };
 
 export type RiverRunPush = RiverRunPrimitiveDisplay & {
@@ -112,7 +119,9 @@ export type RiverRunPush = RiverRunPrimitiveDisplay & {
       | "transitional_warm"
       | "too_warm"
       | "migration_barrier"
-      | "cool_plateau";
+      | "cool_plateau"
+      | "cold_active"
+      | "cold_holding";
     rainRole?:
       | "precursor"
       | "partial_precursor"

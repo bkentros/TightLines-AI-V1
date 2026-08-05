@@ -51,11 +51,15 @@ export function generateConditionsSuggestBaselineRows(input: {
   minimumUsableYears?: number;
   coolEnoughPercentileCap?: number;
   tooWarmF?: number;
+  gaugeWeight?: number;
+  waterTemperatureWeight?: number;
   sourceNotes?: string | null;
 }): RiverRunConditionsSuggestBaseline[] {
   const minimumCoveragePercent = input.minimumCoveragePercent ?? 0.8;
   const minimumUsableYears = input.minimumUsableYears ?? 5;
   const coolEnoughPercentileCap = input.coolEnoughPercentileCap ?? 75;
+  const gaugeWeight = input.gaugeWeight ?? 0.6;
+  const waterTemperatureWeight = input.waterTemperatureWeight ?? 0.4;
   const gaugeByDate = collapseGaugeValues(input.gaugeObservations, input);
   const temperatureByDate = collapseTemperatureValues(
     input.temperatureObservations,
@@ -171,8 +175,8 @@ export function generateConditionsSuggestBaselineRows(input: {
           gaugeResponsePercentile,
           waterTemperaturePercentile,
           evidenceIndex: round1(
-            gaugeResponsePercentile * 0.6 +
-              waterTemperaturePercentile * 0.4,
+            gaugeResponsePercentile * gaugeWeight +
+              waterTemperaturePercentile * waterTemperatureWeight,
           ),
         };
       });
