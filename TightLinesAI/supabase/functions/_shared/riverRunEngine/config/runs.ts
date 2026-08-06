@@ -18,6 +18,7 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
+      activity: { status: "available" },
     },
     runWindow: {
       preRunStart: "07-01",
@@ -52,6 +53,32 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
         { dayOffsetFromStart: 71, fractionOfMaximum: 0.25 },
         { dayOffsetFromStart: 85, fractionOfMaximum: 0 },
       ],
+    },
+    activity: {
+      version: "pm-fall-chinook-activity-v4",
+      profile: "chinook_fall_reaction",
+      weights: {
+        light: 0.6,
+        waterTemperature: 0.15,
+        riverBehavior: 0.15,
+        weather: 0.1,
+      },
+      temperature: {
+        coldF: 45,
+        preferredMinF: 50,
+        preferredMaxF: 62,
+        warmF: 68,
+        barrierF: 70,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 59,
+        ending: 49,
+      },
+      evidenceNotes:
+        "PM Chinook Activity is a conditional responsiveness outlook, not catch probability. Actual versus clear-sky light is the dominant continuous block input, with cloud cover only as fallback context. Temperature retains three biological states while changing smoothly near their boundaries. Scottville flow position and precipitation also change continuously inside their accepted ranges. Missing inputs are omitted and reweighted, then receive one combined data-confidence reduction rather than stacked penalties so weather-only rivers can remain useful without fabricating gauges. Warm water, extreme flow, and late biology reduce scores proportionally instead of collapsing unlike days onto identical ceiling values. When weather, measured temperature, and river data are all present, complete-input scores below 30 receive a smooth 20-30 conditional-response floor because the outlook applies to a living Chinook already present rather than representing catch probability. Early lake-fresh fish retain partial responsiveness in tolerable warmth, while late biological deterioration still constrains favorable conditions.",
     },
     push: {
       version: "pm-fall-chinook-push-v5",
@@ -593,6 +620,344 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
     },
   };
 
+const MUSKEGON_SHARED_FISHABILITY = {
+  version: "muskegon-croton-tailwater-fishability-v1",
+  metric: "flow_cfs" as const,
+  sourceLabel: "Croton tailwater",
+  tooLow: { max: 900 },
+  lowFishable: { min: 900, max: 1200 },
+  ideal: { min: 1200, max: 2000 },
+  highFishable: { min: 2000, max: 3000 },
+  blownOut: { min: 5000 },
+  caps: {
+    staleGauge: 55,
+    unknownTrend: 69,
+    veryLow: 45,
+    blownOut: 24,
+    sharpRiseHigh: 40,
+  },
+  evidenceNotes:
+    "These bands describe the regulated Croton tailwater only. In 2007–2025 Aug 15–Dec 24 daily values, approximate percentiles were p5 927, p10 1,010, p25 1,160, median 1,410, p75 1,850, p90 2,310, p95 3,010, and p99 3,990 CFS. The 3,000–5,000 interval is very high/difficult; 5,000+ is reserved for exceptional water. A gauge label never certifies downstream conditions or safety.",
+  sourceNotes:
+    "USGS 04121970 daily discharge, 2007–2025; USGS station metadata identifying completely regulated flow; Michigan DNR description of the large, swift Croton-to-Newaygo reach.",
+};
+
+const MUSKEGON_SHARED_PUSH = {
+  version: "muskegon-croton-push-v1",
+  hydraulic: {
+    metric: "flow_cfs" as const,
+    sourceLabel: "Croton tailwater",
+    lowValue: 900,
+    highValue: 3000,
+    severeHighValue: 5000,
+    rising24h: { absolute: 70, percent: 5 },
+    meaningfulRise24h: { absolute: 150, percent: 10 },
+    sharpRise24h: { absolute: 310, percent: 20 },
+  },
+  rain: { meaningful48hIn: 0.35, strong48hIn: 0.75, heavy48hIn: 1.5 },
+  temperature: {
+    suitabilityLabel: "Muskegon fall migration",
+    coldHoldingF: 43,
+    supportiveMinF: 45,
+    preferredMinF: 50,
+    supportiveMaxF: 64,
+    tooWarmF: 68,
+    migrationBarrierF: 72,
+  },
+  caps: {
+    staleGauge: 55,
+    unknownTrend: 49,
+    noGaugeResponse: 69,
+    tooWarm: 69,
+    migrationBarrier: 49,
+    severeHighFlow: 49,
+    outsideExtendedWindow: 69,
+    coldHolding: 49,
+  },
+  evidenceNotes:
+    "Croton positive daily rises during the 2007–2025 Aug 15–Dec 24 audit were approximately p50 70 CFS/4.7%, p75 150/10.7%, and p90 310/20.4%. Rain remains precursor-only: Strong requires a meaningful measured rise and Very Strong requires a sharp measured rise.",
+  sourceNotes:
+    "USGS 04121970 daily discharge and measured water temperature. No upstream gauge, reservoir series, or air temperature is blended into the scored signal.",
+};
+
+export const MUSKEGON_FALL_CHINOOK_RUN_PROFILE: AuditedObservedRiverRunProfile =
+  {
+    ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE,
+    runId: "muskegon_fall_chinook",
+    riverId: "muskegon",
+    biologyProfileId: "muskegon_chinook_v1",
+    runStageCopyStrategy: "muskegon_croton_tailwater",
+    runWindow: {
+      preRunStart: "07-15",
+      stagingStart: "08-10",
+      start: "08-20",
+      beginningEnd: "09-04",
+      buildingEstablishedStart: "09-05",
+      buildingBroadStart: "09-15",
+      peakStart: "09-25",
+      peak: "10-01",
+      peakEnd: "10-12",
+      taperingEnd: "10-25",
+      end: "11-05",
+      lateEnd: "11-12",
+      postRunLateCopyEnd: "11-14",
+    },
+    historicalPresence: {
+      maximum: 9,
+      distributionScope: "broad",
+      curveVersion: "muskegon-fall-chinook-presence-v1",
+      evidenceNotes:
+        "The DNR describes very good September–October Chinook fishing from Muskegon Lake to Croton Dam. This 9/10 curve models a major broad opportunity without equating seasonal context to abundance.",
+      sourceNotes:
+        "Michigan DNR Central Lake Michigan Management Unit; DNR Muskegon River Angler Survey 1985–2005; current DNR stocking and species material.",
+      anchors: [
+        { dayOffsetFromStart: 0, fractionOfMaximum: .06 },
+        { dayOffsetFromStart: 7, fractionOfMaximum: .14 },
+        { dayOffsetFromStart: 16, fractionOfMaximum: .3 },
+        { dayOffsetFromStart: 26, fractionOfMaximum: .55 },
+        { dayOffsetFromStart: 36, fractionOfMaximum: .82 },
+        { dayOffsetFromStart: 42, fractionOfMaximum: 1 },
+        { dayOffsetFromStart: 53, fractionOfMaximum: .92 },
+        { dayOffsetFromStart: 66, fractionOfMaximum: .55 },
+        { dayOffsetFromStart: 77, fractionOfMaximum: .2 },
+        { dayOffsetFromStart: 84, fractionOfMaximum: 0 },
+      ],
+    },
+    push: {
+      ...MUSKEGON_SHARED_PUSH,
+      temperature: {
+        suitabilityLabel: "Muskegon adult fall Chinook migration",
+        coldHoldingF: 43,
+        supportiveMinF: 45,
+        preferredMinF: 50,
+        supportiveMaxF: 64,
+        tooWarmF: 68,
+        migrationBarrierF: 72,
+      },
+    },
+    fishabilityBands: MUSKEGON_SHARED_FISHABILITY,
+    baselineCoverage: {
+      metric: "flow_cfs",
+      version: "muskegon-fall-chinook-flow-baseline-v1",
+      hasPercentileBaselines: true,
+      coveredWindowPercent: 1,
+      minimumHistoryYears: 19,
+      sourceNotes:
+        "USGS 04121970 provides the complete fixed lifecycle and a 2007–2025 common discharge/temperature replay.",
+    },
+    waterTemperature: {
+      sourcePriority: ["muskegon_croton_temperature"],
+      upstreamFallbackPositiveSignalCap: 0,
+      notes:
+        "Use only same-gauge measured Croton-tailwater water temperature. Air temperature and upstream readings cannot substitute.",
+    },
+    conditionsSuggest: {
+      baselineVersion: "muskegon-fall-chinook-conditions-v1",
+      temperatureSourceId: "muskegon_croton_temperature",
+      finalCheckpointDaysAfterPeak: 5,
+      minimumUsableYears: 10,
+      minimumCoveragePercent: .8,
+      aheadPercentile: 75,
+      delayedPercentile: 25,
+      coolEnoughPercentileCap: 75,
+      gaugeWeight: .55,
+      waterTemperatureWeight: .45,
+    },
+    userCopyHints: {
+      stagingTip: "Check Muskegon Lake, the channel, and lakeward river first.",
+      preRunTip: "Lake staging does not prove inland occupation.",
+      peakTip:
+        "Compare fresh lower-corridor travel water with accumulated fish below Croton.",
+      endingTip:
+        "Use deep established water and require measured response before inferring fresh movement.",
+    },
+    researchNotes:
+      "Muskegon Fall Chinook v1: lakeward staging precedes an August 20 river opening, broad September build, October 1 reference maximum, and conservative November tail.",
+    sourceNotes:
+      "USGS 04121970; Michigan DNR Central Lake Michigan Management Unit; DNR Muskegon River Angler Survey; DNR Chinook profile. Croton Dam is an absolute upstream boundary.",
+    publicAudit: {
+      isEnabled: true,
+      auditVersion: "muskegon-fall-chinook-build-v1",
+      notes: "Enabled for owner audit after configuration and source review.",
+    },
+  };
+
+export const MUSKEGON_FALL_COHO_RUN_PROFILE: AuditedObservedRiverRunProfile = {
+  ...MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
+  runId: "muskegon_fall_coho",
+  biologyProfileId: "great_lakes_coho_v1",
+  displayName: "Fall Coho",
+  species: "coho_salmon",
+  runWindow: {
+    preRunStart: "08-20",
+    stagingStart: "09-05",
+    start: "09-15",
+    beginningEnd: "09-30",
+    buildingEstablishedStart: "10-01",
+    buildingBroadStart: "10-12",
+    peakStart: "10-20",
+    peak: "10-25",
+    peakEnd: "11-05",
+    taperingEnd: "11-15",
+    end: "11-30",
+    lateEnd: "12-07",
+    postRunLateCopyEnd: "12-09",
+  },
+  historicalPresence: {
+    maximum: 3,
+    distributionScope: "sectional",
+    curveVersion: "muskegon-fall-coho-presence-v1",
+    evidenceNotes:
+      "Coho support a recognizable but limited and sectional Muskegon opportunity. The 3/10 ceiling prevents nearby Lake Michigan strength or Chinook prominence from being misrepresented as a strong river-wide Coho run.",
+    sourceNotes:
+      "Michigan DNR Coho profile, Muskegon creel archives, stocking records, and Central Lake Michigan Management Unit context.",
+    anchors: [
+      { dayOffsetFromStart: 0, fractionOfMaximum: .08 },
+      { dayOffsetFromStart: 10, fractionOfMaximum: .2 },
+      { dayOffsetFromStart: 16, fractionOfMaximum: .35 },
+      { dayOffsetFromStart: 27, fractionOfMaximum: .6 },
+      { dayOffsetFromStart: 35, fractionOfMaximum: .85 },
+      { dayOffsetFromStart: 40, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 51, fractionOfMaximum: .9 },
+      { dayOffsetFromStart: 61, fractionOfMaximum: .6 },
+      { dayOffsetFromStart: 76, fractionOfMaximum: .25 },
+      { dayOffsetFromStart: 83, fractionOfMaximum: 0 },
+    ],
+  },
+  push: {
+    ...MUSKEGON_SHARED_PUSH,
+    version: "muskegon-fall-coho-push-v1",
+    temperature: {
+      suitabilityLabel: "Muskegon adult fall Coho migration",
+      supportiveMinF: 50,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+  },
+  baselineCoverage: {
+    metric: "flow_cfs",
+    version: "muskegon-fall-coho-flow-baseline-v1",
+    hasPercentileBaselines: true,
+    coveredWindowPercent: 1,
+    minimumHistoryYears: 19,
+    sourceNotes:
+      "USGS 04121970 common measured discharge/temperature history, 2007–2025.",
+  },
+  conditionsSuggest: {
+    ...MUSKEGON_FALL_CHINOOK_RUN_PROFILE.conditionsSuggest,
+    baselineVersion: "muskegon-fall-coho-conditions-v1",
+  },
+  researchNotes:
+    "Muskegon Coho is deliberately later, weaker, and more sectional than Chinook; October 25 is a moderate seasonal reference, not a count forecast.",
+  sourceNotes:
+    "Michigan DNR Coho profile, Muskegon creel archive and stocking context; USGS 04121970. Evidence supports inclusion but with substantial strength uncertainty.",
+  publicAudit: {
+    isEnabled: true,
+    auditVersion: "muskegon-fall-coho-build-v1",
+    notes:
+      "Enabled for owner audit with a deliberately conservative 3/10 ceiling.",
+  },
+};
+
+export const MUSKEGON_FALL_STEELHEAD_RUN_PROFILE:
+  AuditedObservedRiverRunProfile = {
+    ...MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
+    runId: "muskegon_fall_steelhead",
+    biologyProfileId: "great_lakes_steelhead_fall_entry_v1",
+    displayName: "Fall Steelhead",
+    species: "steelhead",
+    runType: "fall_entry",
+    movementEngineId: "fall_entry_cooling",
+    runWindow: {
+      preRunStart: "08-20",
+      stagingStart: "09-10",
+      start: "09-25",
+      beginningEnd: "10-10",
+      buildingEstablishedStart: "10-15",
+      buildingBroadStart: "11-01",
+      peakStart: "11-10",
+      peak: "11-15",
+      peakEnd: "12-05",
+      taperingEnd: "12-19",
+      end: "12-22",
+      lateEnd: "12-23",
+      postRunLateCopyEnd: "12-24",
+    },
+    handoff: {
+      type: "winter_holding",
+      start: "12-23",
+      destinationRunType: "holding",
+      retainedPresenceFraction: .89,
+    },
+    historicalPresence: {
+      maximum: 9,
+      distributionScope: "broad",
+      curveVersion: "muskegon-fall-steelhead-presence-v1",
+      evidenceNotes:
+        "DNR calls the lower Muskegon one of Michigan's best and most consistent steelhead fisheries, with excellent fishing from late October through June. Fall entry reaches 9/10 and retains 80/100 at the winter handoff rather than erasing fish below Croton.",
+      sourceNotes:
+        "Michigan DNR Muskegon River Angler Survey 1985–2005; Central Lake Michigan Management Unit; 2022–2023 creel survey; DNR Steelhead profile.",
+      anchors: [
+        { dayOffsetFromStart: 0, fractionOfMaximum: .05 },
+        { dayOffsetFromStart: 10, fractionOfMaximum: .15 },
+        { dayOffsetFromStart: 20, fractionOfMaximum: .35 },
+        { dayOffsetFromStart: 37, fractionOfMaximum: .65 },
+        { dayOffsetFromStart: 47, fractionOfMaximum: .85 },
+        { dayOffsetFromStart: 51, fractionOfMaximum: 1 },
+        { dayOffsetFromStart: 71, fractionOfMaximum: 1 },
+        { dayOffsetFromStart: 81, fractionOfMaximum: .94 },
+        { dayOffsetFromStart: 88, fractionOfMaximum: .89 },
+      ],
+    },
+    push: {
+      ...MUSKEGON_SHARED_PUSH,
+      version: "muskegon-fall-steelhead-push-v1",
+      temperature: {
+        suitabilityLabel: "Muskegon adult fall Steelhead entry",
+        coldHoldingF: 39,
+        supportiveMinF: 40,
+        preferredMinF: 46,
+        supportiveMaxF: 52,
+        tooWarmF: 60,
+        migrationBarrierF: 70,
+      },
+    },
+    baselineCoverage: {
+      metric: "flow_cfs",
+      version: "muskegon-fall-steelhead-flow-baseline-v1",
+      hasPercentileBaselines: true,
+      coveredWindowPercent: 1,
+      minimumHistoryYears: 19,
+      sourceNotes:
+        "USGS 04121970 common measured discharge/temperature history, 2007–2025.",
+    },
+    conditionsSuggest: {
+      ...MUSKEGON_FALL_CHINOOK_RUN_PROFILE.conditionsSuggest,
+      baselineVersion: "muskegon-fall-steelhead-conditions-v1",
+      gaugeWeight: .4,
+      waterTemperatureWeight: .6,
+    },
+    userCopyHints: {
+      stagingTip:
+        "Check Muskegon Lake and the lakeward lower river for fresh fall entry.",
+      preRunTip: "An isolated early fish does not prove the fall run is ahead.",
+      peakTip:
+        "Compare fresh lower travel water with established Croton-to-Newaygo holding water.",
+      endingTip:
+        "Shift to deep speed-controlled winter holding water below Croton.",
+    },
+    researchNotes:
+      "Muskegon Fall Steelhead v1 models September entry, a strong late-October/November build, and an explicit December 23 winter-holding handoff retaining 80/100 seasonal presence.",
+    sourceNotes:
+      "Michigan DNR Muskegon River Angler Survey; 2022–2023 creel survey; DNR Steelhead profile; USGS 04121970. Cold holding caps movement only and never deletes fish already present.",
+    publicAudit: {
+      isEnabled: true,
+      auditVersion: "muskegon-fall-steelhead-build-v1",
+      notes: "Enabled for owner audit with explicit winter retention.",
+    },
+  };
+
 export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   runId: "betsie_fall_chinook",
   riverId: "betsie",
@@ -1109,6 +1474,9 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE,
   BIG_MANISTEE_FALL_COHO_RUN_PROFILE,
   BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE,
+  MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
+  MUSKEGON_FALL_COHO_RUN_PROFILE,
+  MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
   BETSIE_FALL_CHINOOK_RUN_PROFILE,
   BETSIE_FALL_COHO_RUN_PROFILE,
   BETSIE_FALL_STEELHEAD_RUN_PROFILE,

@@ -63,6 +63,15 @@ export const BIG_MANISTEE_CHINOOK_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
     "Michigan DNR Chinook profile https://www.michigan.gov/dnr/education/michigan-species/fish-species/chinook-salmon ; Michigan DNR Manistee River below Tippy Dam report https://www.dnr.state.mi.us/publications/pdfs/DNRFishLibrary/StatusoftheFisheryResourceReports/0088_2004_ManisteeRiver.pdf ; EPA Region 10 salmonid temperature review https://nepis.epa.gov/Exe/ZyPURL.cgi?Dockey=P100T9NB.TXT ; Big Manistee guide observations https://manisteeriverlodge.com/fishingreport/2024-archived-fishing-report/ . Wellston-specific values remain beta until replay and owner acceptance.",
 };
 
+export const MUSKEGON_CHINOOK_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
+  ...BIG_MANISTEE_CHINOOK_BIOLOGY_PROFILE,
+  biologyProfileId: "muskegon_chinook_v1",
+  evidenceNotes:
+    "Muskegon adult Chinook can enter during warm late-summer tailwater, while cooling through the 60s and 50s improves active-movement context. These thresholds describe Croton-tailwater movement conditions, not abundance.",
+  sourceNotes:
+    "Michigan DNR Chinook profile and Muskegon River fishery descriptions; USGS 04121970 measured-water record; EPA salmonid temperature review.",
+};
+
 export const GREAT_LAKES_COHO_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
   biologyProfileId: "great_lakes_coho_v1",
   species: "coho_salmon",

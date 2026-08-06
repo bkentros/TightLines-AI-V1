@@ -42,6 +42,7 @@
     "replay:river-run:big-manistee-coho-push": "deno run --allow-net=api.waterdata.usgs.gov,archive-api.open-meteo.com scripts/river-run-big-manistee-push-replay.ts --run-id big_manistee_fall_coho",
     "replay:river-run:big-manistee-steelhead-push": "deno run --allow-net=api.waterdata.usgs.gov,archive-api.open-meteo.com scripts/river-run-big-manistee-push-replay.ts --run-id big_manistee_fall_steelhead",
     "replay:river-run:pm-fishability": "deno run --allow-net=api.waterdata.usgs.gov scripts/river-run-pm-fishability-replay.ts",
+    "replay:river-run:pm-chinook-activity": "deno run --allow-read --allow-write --allow-net=api.waterdata.usgs.gov,monitormywatershed.org,archive-api.open-meteo.com scripts/river-run-pm-chinook-activity-replay.ts --write",
     "replay:river-run:big-manistee-fishability": "deno run --allow-net=api.waterdata.usgs.gov scripts/river-run-big-manistee-fishability-replay.ts",
     "audit:river-run:pm-integrated": "deno run --allow-net=api.waterdata.usgs.gov,monitormywatershed.org,archive-api.open-meteo.com scripts/river-run-pm-integrated-audit.ts",
     "generate:river-run:review-fixtures": "deno run --allow-read --allow-write scripts/generate-river-run-review-fixtures.ts",

@@ -49,8 +49,8 @@ import {
   RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS,
   RIVER_RUN_BETSIE_REVIEW_GROUPS,
   RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS,
-  RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS,
   RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS,
+  RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS,
   RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS,
   RIVER_RUN_COHO_REVIEW_GROUPS,
   RIVER_RUN_REVIEW_GROUPS,
@@ -119,8 +119,15 @@ const PRIMITIVE_TABS: PrimitiveTabDefinition[] = [
     icon: "water-outline",
   },
   {
-    id: "fish_in_river",
+    id: "activity",
     index: "05",
+    tabTitle: "ACTIVITY",
+    cardTitle: "Activity Outlook",
+    icon: "flash-outline",
+  },
+  {
+    id: "fish_in_river",
+    index: "06",
     tabTitle: "PRESENCE",
     cardTitle: "Fish In River",
     icon: "fish-outline",
@@ -133,6 +140,7 @@ const REVIEW_GROUP_TAB: Partial<Record<string, PrimitiveTabId>> = {
   push: "push",
   fishability: "fishability",
   fish_in_river: "fish_in_river",
+  activity: "activity",
 };
 
 const RIVER_RUN_REVIEW_ENABLED = __DEV__ &&
@@ -288,6 +296,38 @@ const REVIEW_CATALOG: RiverRunCatalogResponse = {
             },
             {
               runId: "big_manistee_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+              runType: "fall_entry",
+              supportStatus: "beta",
+            },
+          ],
+        },
+        {
+          riverId: "muskegon",
+          displayName: "Muskegon River",
+          state: "MI",
+          timezone: "America/Detroit",
+          runs: [
+            {
+              runId: "muskegon_fall_chinook",
+              displayName: "Fall Chinook",
+              species: "chinook_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "muskegon_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "muskegon_fall_steelhead",
               displayName: "Fall Steelhead",
               species: "steelhead",
               season: "fall",
@@ -1367,8 +1407,8 @@ function ResultHero({
         {formatRiverRunSpecies(species).toUpperCase()}
       </Text>
       <Text style={styles.resultHeroSubtitle}>
-        Today&apos;s read of movement, river conditions, fishability, and
-        seasonal presence.
+        Today&apos;s read of movement, activity, river conditions, fishability,
+        and seasonal presence.
       </Text>
       {speciesImage
         ? (
@@ -1598,7 +1638,7 @@ function PrimitiveTabBar({
             </Text>
           </View>
           <Text style={styles.primitiveTabPosition}>
-            {String(activeIndex + 1).padStart(2, "0")} / 05
+            {String(activeIndex + 1).padStart(2, "0")} / 06
           </Text>
         </View>
         <View style={styles.primitiveTabRow}>
@@ -1724,6 +1764,8 @@ function SnapshotView({
             : undefined}
           contextContent={tab.id === "push"
             ? <PushHistoryDropdown history={snapshot.pushHistory} />
+            : tab.id === "activity" && snapshot.activity
+            ? <ActivityBreakdown activity={snapshot.activity} />
             : undefined}
         />
       </ActivePrimitivePanel>
@@ -1818,9 +1860,109 @@ function primitiveForTab(
       return snapshot.push;
     case "fishability":
       return snapshot.fishability;
+    case "activity":
+      return snapshot.activity ?? {
+        score: null,
+        label: "Unavailable",
+        headline: "Activity Outlook is not configured for this species yet.",
+        detail:
+          "This first production slice is limited to Pere Marquette Fall Chinook.",
+      };
     case "fish_in_river":
       return snapshot.fishInRiver;
   }
+}
+
+function ActivityBreakdown(
+  { activity }: { activity: NonNullable<RiverRunSnapshotResponse["activity"]> },
+) {
+  return (
+    <View style={styles.activityBreakdown}>
+      <View style={styles.activityMetaRow}>
+        <Text style={styles.activityMeta}>
+          {activity.targetDayLabel.toUpperCase()} ·{" "}
+          {formatLocalDate(activity.targetDate)}
+        </Text>
+        <Text style={styles.activityMeta}>
+          {activity.confidence.toUpperCase()} DATA
+        </Text>
+      </View>
+      {activity.blocks.map((block) => (
+        <View
+          key={block.id}
+          style={[
+            styles.activityBlock,
+            {
+              borderColor: `${activityBlockColor(block.score)}66`,
+              backgroundColor: `${activityBlockColor(block.score)}0D`,
+            },
+          ]}
+          accessible
+          accessibilityLabel={`${block.label}. ${block.score} out of 100. ${block.activityLabel}.`}
+        >
+          <View style={styles.activityBlockHeading}>
+            <View style={styles.activityBlockIdentity}>
+              <View
+                style={[
+                  styles.activityBlockDot,
+                  { backgroundColor: activityBlockColor(block.score) },
+                ]}
+              />
+              <View>
+                <Text style={styles.activityBlockTime}>{block.label}</Text>
+                <Text
+                  style={[
+                    styles.activityBlockLabel,
+                    { color: activityBlockColor(block.score) },
+                  ]}
+                >
+                  {block.activityLabel.toUpperCase()}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.activityBlockScoreRow}>
+              <Text
+                style={[
+                  styles.activityBlockScore,
+                  { color: activityBlockColor(block.score) },
+                ]}
+              >
+                {block.score}
+              </Text>
+              <Text style={styles.activityBlockMaximum}>/100</Text>
+            </View>
+          </View>
+          <View style={styles.activityTrack}>
+            <View
+              style={[
+                styles.activityFill,
+                {
+                  width: `${block.score}%`,
+                  backgroundColor: activityBlockColor(block.score),
+                },
+              ]}
+            />
+          </View>
+          <View style={styles.activityScaleLabels}>
+            <Text style={styles.activityScaleLabel}>LOW</Text>
+            <Text style={styles.activityScaleLabel}>HIGH</Text>
+          </View>
+        </View>
+      ))}
+    </View>
+  );
+}
+
+function activityBlockColor(score: number): string {
+  return score >= 80
+    ? "#2F8F55"
+    : score >= 60
+    ? "#65A653"
+    : score >= 40
+    ? "#C49A24"
+    : score >= 20
+    ? "#D97835"
+    : "#C94A42";
 }
 
 function PrimitiveSection({
@@ -3700,6 +3842,84 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.displaySemiBold,
     fontSize: 19,
     color: paper.dashboardInk,
+  },
+  activityBreakdown: { gap: 10, paddingTop: 4 },
+  activityMetaRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    gap: 10,
+  },
+  activityMeta: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardBlue,
+    letterSpacing: 0.7,
+  },
+  activityBlock: {
+    gap: 9,
+    paddingHorizontal: 13,
+    paddingVertical: 12,
+    borderRadius: 11,
+    borderWidth: 1,
+  },
+  activityBlockHeading: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
+  },
+  activityBlockTime: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 16,
+    color: paper.dashboardInk,
+  },
+  activityBlockIdentity: {
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 10,
+  },
+  activityBlockDot: {
+    width: 10,
+    height: 10,
+    borderRadius: 5,
+  },
+  activityBlockLabel: {
+    marginTop: 2,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 0.8,
+  },
+  activityBlockScoreRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+  activityBlockScore: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 25,
+    lineHeight: 28,
+  },
+  activityBlockMaximum: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardMuted,
+    marginLeft: 2,
+  },
+  activityTrack: {
+    height: 9,
+    overflow: "hidden",
+    borderRadius: 5,
+    backgroundColor: "rgba(27,75,104,0.12)",
+  },
+  activityFill: { height: 9, borderRadius: 5 },
+  activityScaleLabels: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: -4,
+  },
+  activityScaleLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    letterSpacing: 0.7,
+    color: paper.dashboardMuted,
   },
   safetyBody: {
     fontFamily: paperFonts.bodyMedium,

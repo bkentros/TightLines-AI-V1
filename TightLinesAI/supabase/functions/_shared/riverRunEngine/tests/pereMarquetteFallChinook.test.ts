@@ -176,7 +176,7 @@ Deno.test("PM river config is structurally valid", () => {
 Deno.test("PM refresh cadence is four-hourly in season and daily outside it", () => {
   assertEquals(
     PERE_MARQUETTE_RIVER_PROFILE.conditionRefreshSchedule.activeSlots,
-    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "21:00"],
   );
   assertEquals(
     PERE_MARQUETTE_RIVER_PROFILE.conditionRefreshSchedule.inactiveSlots,
@@ -243,7 +243,10 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
     "2026-08-26",
   );
-  assertMatch(earlyBuilding.whereToStart ?? "", /lower migratory river around Scottville/i);
+  assertMatch(
+    earlyBuilding.whereToStart ?? "",
+    /lower migratory river around Scottville/i,
+  );
   assertMatch(earlyBuilding.whereToStart ?? "", /Walhalla/i);
 
   const earlyEstablished = resolveRunStage(
@@ -252,7 +255,10 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
   );
   assertEquals(earlyEstablished.stage, "building");
   assertEquals(earlyEstablished.broadBuildingContext, false);
-  assertMatch(earlyEstablished.whereToStart ?? "", /Scottville toward Walhalla/i);
+  assertMatch(
+    earlyEstablished.whereToStart ?? "",
+    /Scottville toward Walhalla/i,
+  );
   assertMatch(earlyEstablished.whereToStart ?? "", /Branch.*Baldwin.*M-37/i);
   assert(/upper holding water/i.test(earlyEstablished.detail));
   assert(/secondary starting choice/i.test(earlyEstablished.detail));
@@ -268,7 +274,10 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
       broadlyEstablished.whereToStart ?? "",
       /Scottville through Walhalla and Branch/i,
     );
-    assertMatch(broadlyEstablished.whereToStart ?? "", /upper river toward Baldwin and M-37/i);
+    assertMatch(
+      broadlyEstablished.whereToStart ?? "",
+      /upper river toward Baldwin and M-37/i,
+    );
     assert(/lower, middle, and upper sections are all in play/i.test(
       broadlyEstablished.detail,
     ));
@@ -298,7 +307,10 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
     "2026-10-19",
   );
-  assertMatch(ending.whereToStart ?? "", /Walhalla through Branch toward Baldwin\/M-37/i);
+  assertMatch(
+    ending.whereToStart ?? "",
+    /Walhalla through Branch toward Baldwin\/M-37/i,
+  );
 
   const residual = resolveRunStage(
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,

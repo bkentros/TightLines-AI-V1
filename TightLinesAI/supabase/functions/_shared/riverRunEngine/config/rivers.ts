@@ -102,10 +102,11 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
       "12:00",
       "16:00",
       "20:00",
+      "21:00",
     ],
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "PM condition evidence refreshes every four hours from the configured staging start through the historical-presence tail so Fishability remains current anywhere the feature still describes a seasonal opportunity. Push still starts and stops on its separate main-run window. The protected server job runs 17 minutes after the hour so the newest USGS and PMTU transmissions have time to arrive. Outside that seasonal window, the river refreshes once daily.",
+      "PM condition evidence refreshes every four hours from the configured staging start through the historical-presence tail, with a final 21:00 local rollover that publishes tomorrow's Activity Outlook. Push still starts and stops on its separate main-run window. The protected server job runs 17 minutes after the hour so the newest USGS and PMTU transmissions have time to arrive. Outside that seasonal window, the river refreshes once daily.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },
@@ -306,7 +307,7 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
         description:
           "Special artificial-lure/terminal-gear regulations apply during the August 1 through November 15 window; check the current Michigan regulations and Fisheries Orders.",
       },
-      noTippyDistanceClosureConfigured: true,
+      noUnverifiedDistanceClosureConfigured: true,
       accessAndSafetyNotes:
         "Do not invent a Tippy-specific distance closure. Follow current DNR closure notices, Consumers Energy safety information, signs, booms, and posted boundaries; methods can change by reach and season.",
       sourceNotes:
@@ -332,8 +333,160 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
     "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
 };
 
+export const MUSKEGON_RIVER_PROFILE: RiverProfile = {
+  riverId: "muskegon",
+  displayName: "Muskegon River",
+  state: "MI",
+  region: "great_lakes",
+  timezone: "America/Detroit",
+  mouthLat: 43.2473,
+  mouthLon: -86.3312,
+  hydraulicSources: [{
+    sourceId: "muskegon_croton_usgs",
+    provider: "USGS",
+    siteId: "04121970",
+    name: "Muskegon River near Croton, MI — below Croton Dam",
+    role: "primary",
+    primaryMetric: "flow_cfs",
+    availableMetrics: ["flow_cfs", "gage_height_ft"],
+    historyYearsAvailable: 30,
+    maxAgeHours: 6,
+    reachQuality: "good",
+    reachNotes:
+      "Official USGS station on the right bank 75 feet below Croton Drive and about 1,000 feet below Croton Dam. Flow is completely regulated by the dam. It represents the Croton tailwater, not the entire river to Muskegon Lake.",
+  }],
+  waterTemperatureSources: [{
+    sourceId: "muskegon_croton_temperature",
+    provider: "USGS",
+    siteId: "04121970",
+    name: "Muskegon River near Croton, MI — measured water temperature",
+    role: "primary",
+    priority: 1,
+    sourceType: "same_gauge",
+    maxAgeHours: 6,
+    smoothingWindowHours: 3,
+    minValidF: 30,
+    maxValidF: 85,
+    maxRateChangeFPerHour: 3,
+    maxPeerDifferenceF: 5,
+    reachNotes:
+      "USGS parameter 00010 at the same below-Croton station as discharge. It is measured tailwater temperature; air temperature and upstream reservoir readings are not substitutes.",
+    attribution:
+      "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+  }],
+  weatherPoints: [{
+    weatherPointId: "muskegon_croton_weather",
+    lat: 43.4347,
+    lon: -85.6653,
+    role: "primary",
+  }],
+  foundation: {
+    version: "muskegon-foundation-v1",
+    corridorLengthMiles: 42,
+    upstreamTerminus:
+      "Croton Dam; hard upstream barrier and migratory-fishery terminus",
+    downstreamTerminus:
+      "Muskegon Lake approach; Muskegon Lake and the Lake Michigan channel are separate staging context",
+    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
+    reaches: [
+      {
+        reachId: "muskegon_croton_tailwater",
+        displayName: "Croton tailwater",
+        order: 1,
+        role: "tailwater",
+        gaugeRepresented: true,
+        notes:
+          "Immediately below Croton Dam. The USGS gauge directly represents this regulated tailwater only.",
+        sourceNotes:
+          "USGS 04121970 station metadata; Michigan DNR Central Lake Michigan Management Unit access and fishery description.",
+      },
+      {
+        reachId: "muskegon_croton_to_newaygo",
+        displayName: "Croton-to-Newaygo corridor",
+        order: 2,
+        role: "middle",
+        gaugeRepresented: false,
+        notes:
+          "Shallower swift big-river corridor with mixed sand, cobble, and boulder. Public geography does not imply permission at every bank or parcel.",
+        sourceNotes:
+          "Michigan DNR Central Lake Michigan Management Unit; 2022–2023 Muskegon River creel survey Site 151.",
+      },
+      {
+        reachId: "muskegon_newaygo_to_m120",
+        displayName: "Newaygo-to-M-120 lower migratory corridor",
+        order: 3,
+        role: "lower",
+        gaugeRepresented: false,
+        notes:
+          "Deeper lower corridor generally better suited to boats; submerged wood and reach-specific access require caution.",
+        sourceNotes:
+          "Michigan DNR Central Lake Michigan Management Unit; 2022–2023 Muskegon River creel survey Site 152.",
+      },
+      {
+        reachId: "muskegon_lake_context",
+        displayName: "Lower river, Muskegon Lake, and channel context",
+        order: 4,
+        role: "mouth_context",
+        gaugeRepresented: false,
+        notes:
+          "Lakeward staging and entry context is not interchangeable with the Croton tailwater gauge.",
+        sourceNotes:
+          "Michigan DNR Central Lake Michigan Management Unit fishing-water descriptions.",
+      },
+    ],
+    primaryGaugeReachId: "muskegon_croton_tailwater",
+    contextualGaugeSiteIds: ["04122000"],
+    weatherStrategy: {
+      mode: "single_point",
+      primaryWeatherPointId: "muskegon_croton_weather",
+      basinRepresentation:
+        "Modeled precipitation at the Croton scored reach is precursor context only and never substitutes for measured discharge response.",
+      sourceNotes:
+        "Open-Meteo point-weather adapter aligned with the primary scored reach.",
+    },
+    regulation: {
+      version: "michigan-fo-200.25-current-review-required",
+      legalReach:
+        "Muskegon River downstream from Croton Dam; rules vary by designated reach and must be checked in current Michigan regulations",
+      waterType: "type_3",
+      yearRoundTroutSalmon: true,
+      rainbowTroutPossessionLimit:
+        "Check the current Michigan Fishing Regulations and Fisheries Order FO-200 before fishing; limits and gear rules may change by reach and season.",
+      specialArtificialLureWindow: {
+        start: "08-01",
+        end: "11-15",
+        description:
+          "Do not infer a special gear rule from another river. Check the current Muskegon reach listing and posted notices.",
+      },
+      noUnverifiedDistanceClosureConfigured: true,
+      accessAndSafetyNotes:
+        "Named reaches describe geography, not access permission. Use established public access, respect private land, posted closures, dam warnings, swift current, submerged wood, and current regulations.",
+      sourceNotes:
+        "Michigan DNR FO-200 and current fishing regulations; DNR Central Lake Michigan Management Unit; Consumers Energy Croton recreation and dam-safety information.",
+    },
+    evidenceNotes:
+      "Research completed August 6, 2026. Croton Dam is the hard upstream migration boundary. USGS 04121970 is about 1,000 feet below the dam and has discharge from 1995 and measured water temperature supporting a common 2007–2025 audit. It must never be extrapolated as direct measurement of the Newaygo, lower-river, Muskegon Lake, or channel reaches.",
+  },
+  conditionRefreshSchedule: {
+    activeSlots: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    inactiveSlots: ["00:00"],
+    evidenceNotes:
+      "USGS 04121970 provides near-real-time discharge and measured water temperature. Six active daily refreshes preserve the regulated tailwater response during supported run windows.",
+  },
+  conditionDataCapabilities: {
+    hydraulics: { status: "available" },
+    waterTemperature: { status: "available" },
+  },
+  supportStatus: "beta",
+  gaugeLimitationCopy:
+    "Based on USGS 04121970 immediately below Croton Dam. It represents the regulated Croton tailwater; flow, temperature, access, and safety can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+  regulationReminderCopy:
+    "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
+};
+
 export const RIVER_RUN_RIVER_PROFILES: RiverProfile[] = [
   PERE_MARQUETTE_RIVER_PROFILE,
   BETSIE_RIVER_PROFILE,
   BIG_MANISTEE_RIVER_PROFILE,
+  MUSKEGON_RIVER_PROFILE,
 ];

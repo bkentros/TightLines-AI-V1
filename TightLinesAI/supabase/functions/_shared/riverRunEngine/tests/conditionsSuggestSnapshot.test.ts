@@ -221,7 +221,7 @@ Deno.test("Migration Timing accepts every configured PM condition slot", () => {
   });
 
   assertEquals(result.label, "Ahead");
-  assertEquals(result.sourceRefreshSlots[target.cutoffDate], "20:00");
+  assertEquals(result.sourceRefreshSlots[target.cutoffDate], "21:00");
 });
 
 Deno.test("checkpoint verdict cannot drift between checkpoint dates", () => {

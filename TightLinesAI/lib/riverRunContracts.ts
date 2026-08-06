@@ -144,6 +144,24 @@ export type RiverRunFishability = RiverRunPrimitiveDisplay & {
   };
 };
 
+export type RiverRunActivity = RiverRunPrimitiveDisplay & {
+  rulesVersion?: string;
+  targetDate: string;
+  targetDayLabel: "Today" | "Tomorrow";
+  confidence: "Full" | "Moderate" | "Limited";
+  conditionalPresence: boolean;
+  blocks: Array<{
+    id: string;
+    label: string;
+    score: number;
+    activityLabel: string;
+    positiveDriver: string;
+    limitingFactor: string;
+    cloudCoverPct: number | null;
+    precipitationIn: number | null;
+  }>;
+};
+
 export type RiverRunGauge = {
   provider?: string;
   siteId?: string;
@@ -164,6 +182,7 @@ export type RiverRunWeather = {
   rain48hIn?: number | null;
   rain72hIn?: number | null;
   forecastDaily?: unknown[];
+  hourlyActivityWeather?: unknown[];
 };
 
 export type RiverRunWaterTemperature = {
@@ -252,6 +271,7 @@ export type RiverRunSnapshotResponse = {
   push: RiverRunPush;
   pushHistory: RiverRunPushHistory;
   fishability: RiverRunFishability;
+  activity?: RiverRunActivity | null;
   fishInRiver: RiverRunFishInRiver;
   gauge?: RiverRunGauge | null;
   weather?: RiverRunWeather | null;

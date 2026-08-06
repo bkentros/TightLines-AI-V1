@@ -17,6 +17,13 @@ export type RiverRunEnvironmentSnapshot = {
     precip_7day_daily?: number[];
   } | Record<string, unknown>;
   hourly_precipitation_in?: Array<{ time_utc: string; value: number | null }>;
+  hourly_activity_weather?: Array<{
+    time_local: string;
+    cloud_cover_pct: number | null;
+    shortwave_w_m2: number | null;
+    clear_sky_shortwave_w_m2: number | null;
+    precipitation_in: number | null;
+  }>;
   forecast_daily?: Array<Record<string, unknown>>;
 };
 
@@ -26,6 +33,9 @@ export type NormalizedWeatherSnapshot = {
   rainTotals: RainTotals;
   rainSignal: RainSignalResult;
   forecastDaily?: Array<Record<string, unknown>>;
+  hourlyActivityWeather: NonNullable<
+    RiverRunEnvironmentSnapshot["hourly_activity_weather"]
+  >;
   reasonCodes: RiverRunReasonCode[];
 };
 
@@ -43,7 +53,8 @@ export async function fetchRiverRunWeatherSnapshot(input: {
   const params = new URLSearchParams({
     latitude: String(input.lat),
     longitude: String(input.lon),
-    hourly: "precipitation",
+    hourly:
+      "precipitation,cloud_cover,shortwave_radiation,shortwave_radiation_clear_sky",
     daily: "precipitation_probability_max",
     precipitation_unit: "inch",
     timezone: "auto",
@@ -56,7 +67,13 @@ export async function fetchRiverRunWeatherSnapshot(input: {
   );
   if (!response.ok) return null;
   const payload = await response.json() as {
-    hourly?: { time?: string[]; precipitation?: Array<number | null> };
+    hourly?: {
+      time?: string[];
+      precipitation?: Array<number | null>;
+      cloud_cover?: Array<number | null>;
+      shortwave_radiation?: Array<number | null>;
+      shortwave_radiation_clear_sky?: Array<number | null>;
+    };
     daily?: {
       time?: string[];
       precipitation_probability_max?: Array<number | null>;
@@ -87,6 +104,17 @@ export async function fetchRiverRunWeatherSnapshot(input: {
       value: typeof hourlyPrecip[index] === "number"
         ? hourlyPrecip[index]
         : null,
+    })),
+    hourly_activity_weather: hourlyTimes.map((time, index) => ({
+      time_local: time,
+      cloud_cover_pct: numberOrNull(payload.hourly?.cloud_cover?.[index]),
+      shortwave_w_m2: numberOrNull(
+        payload.hourly?.shortwave_radiation?.[index],
+      ),
+      clear_sky_shortwave_w_m2: numberOrNull(
+        payload.hourly?.shortwave_radiation_clear_sky?.[index],
+      ),
+      precipitation_in: numberOrNull(hourlyPrecip[index]),
     })),
     forecast_daily: dailyTimes.map((date, index) => ({
       date,
@@ -122,6 +150,7 @@ export function normalizeWeatherSnapshot(input: {
     rainTotals,
     rainSignal,
     forecastDaily: input.snapshot?.forecast_daily,
+    hourlyActivityWeather: input.snapshot?.hourly_activity_weather ?? [],
     reasonCodes,
   };
 }
@@ -215,6 +244,10 @@ function normalizeIso(value: unknown): string | null {
 
 function round3(value: number): number {
   return Math.round(value * 1000) / 1000;
+}
+
+function numberOrNull(value: unknown): number | null {
+  return typeof value === "number" && Number.isFinite(value) ? value : null;
 }
 
 function dedupeReasonCodes(codes: RiverRunReasonCode[]): RiverRunReasonCode[] {

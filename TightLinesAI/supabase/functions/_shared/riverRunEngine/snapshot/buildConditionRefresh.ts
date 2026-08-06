@@ -1,4 +1,5 @@
 import type {
+  ActivityRules,
   FishabilityBands,
   FlowBand,
   GaugeFreshness,
@@ -14,6 +15,10 @@ import type {
   WeatherFreshness,
 } from "../types.ts";
 import { scoreFishability } from "../scoring/fishability.ts";
+import {
+  type ActivityWeatherHour,
+  scoreActivity,
+} from "../scoring/activity.ts";
 import { type PushScoreResult, scorePush } from "../scoring/push.ts";
 import type { RefreshSlot } from "./refreshSlots.ts";
 import type { RiverRunDailySnapshot } from "./buildDailySnapshot.ts";
@@ -45,6 +50,7 @@ export type ConditionRefreshMetrics = {
     rain48hIn?: number | null;
     rain72hIn?: number | null;
     forecastDaily?: Array<Record<string, unknown>>;
+    hourlyActivityWeather?: ActivityWeatherHour[];
   };
   waterTemperature?: {
     provider?: string;
@@ -78,6 +84,7 @@ export type RiverRunConditionRefresh = {
   refreshSlot: RefreshSlot;
   push: PushScoreResult;
   fishability: ReturnType<typeof scoreFishability>;
+  activity: ReturnType<typeof scoreActivity> | null;
   runStage: RiverRunDailySnapshot["runStage"];
   conditionsSuggest: RiverRunDailySnapshot["conditionsSuggest"];
   fishInRiver: RiverRunDailySnapshot["fishInRiver"];
@@ -104,6 +111,10 @@ export function buildConditionRefresh(input: {
   primitiveCapabilities?: RiverRunPrimitiveCapabilities;
   pushRules?: PushRules;
   fishabilityBands?: FishabilityBands;
+  activityRules?: ActivityRules;
+  activityTargetDate?: string;
+  activityTargetStage?: RiverRunDailySnapshot["runStage"]["stage"];
+  activityStaging?: boolean;
   gaugeFreshness: GaugeFreshness;
   weatherFreshness: WeatherFreshness;
   waterTemperatureFreshness: GaugeFreshness;
@@ -171,13 +182,31 @@ export function buildConditionRefresh(input: {
       rules: requireFishabilityBands(input.fishabilityBands),
       gaugeFreshness: input.gaugeFreshness,
       flowBand: input.flowBand,
-      flowSignal: input.flowSignal,
       currentHydraulicValue: input.currentHydraulicValue,
+      flowSignal: input.flowSignal,
       hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
       hydraulicPercentChange24h: input.hydraulicPercentChange24h,
       flowReasonCodes: input.flowReasonCodes,
       localDate: input.localDate,
     });
+  const activity = input.activityRules && input.activityTargetDate
+    ? scoreActivity({
+      rules: input.activityRules,
+      requestDate: input.localDate,
+      runStage: input.activityTargetStage ?? input.dailySnapshot.runStage.stage,
+      staging: input.activityStaging ?? false,
+      targetDate: input.activityTargetDate,
+      waterTempF: input.waterTempF,
+      temperatureTrend: input.temperatureSignal,
+      gaugeFreshness: input.gaugeFreshness,
+      weatherFreshness: input.weatherFreshness,
+      flowBand: input.flowBand,
+      currentHydraulicValue: input.currentHydraulicValue,
+      fishabilityBands: input.fishabilityBands,
+      flowSignal: input.flowSignal,
+      hourlyWeather: input.sourceMetrics.weather?.hourlyActivityWeather ?? [],
+    })
+    : null;
   const dataQuality = resolveDataQuality({
     gaugeFreshness: input.gaugeFreshness,
     weatherFreshness: input.weatherFreshness,
@@ -219,6 +248,7 @@ export function buildConditionRefresh(input: {
     refreshSlot: input.refreshSlot,
     push,
     fishability,
+    activity,
     runStage: input.dailySnapshot.runStage,
     conditionsSuggest: input.dailySnapshot.conditionsSuggest,
     fishInRiver: input.dailySnapshot.fishInRiver,

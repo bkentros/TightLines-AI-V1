@@ -7,20 +7,41 @@ import {
   fetchUsgsDailyFlowBaselineObservations,
   generateConditionsSuggestBaselineRows,
   getPrimaryHydraulicSource,
+  MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
+  MUSKEGON_FALL_COHO_RUN_PROFILE,
+  MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
+  MUSKEGON_RIVER_PROFILE,
   type NormalizedTemperatureBaselineObservation,
   resolveConditionsSuggestCheckpoints,
   summarizeConditionsSuggestHistoricalReplay,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 
-const river = BIG_MANISTEE_RIVER_PROFILE;
+const requestedRiver = argumentValue("--river") ?? "big_manistee";
+const river = requestedRiver === "muskegon"
+  ? MUSKEGON_RIVER_PROFILE
+  : BIG_MANISTEE_RIVER_PROFILE;
 const requestedRunId = argumentValue("--run-id") ??
-  "big_manistee_fall_chinook";
+  (requestedRiver === "muskegon"
+    ? "muskegon_fall_chinook"
+    : "big_manistee_fall_chinook");
 if (
+  requestedRiver === "big_manistee" &&
   requestedRunId !== "big_manistee_fall_chinook" &&
   requestedRunId !== "big_manistee_fall_coho" &&
   requestedRunId !== "big_manistee_fall_steelhead"
 ) throw new Error(`Unsupported Big Manistee baseline run: ${requestedRunId}`);
-const run = requestedRunId === "big_manistee_fall_steelhead"
+if (
+  requestedRiver === "muskegon" &&
+  !["muskegon_fall_chinook", "muskegon_fall_coho", "muskegon_fall_steelhead"]
+    .includes(requestedRunId)
+) throw new Error(`Unsupported Muskegon baseline run: ${requestedRunId}`);
+const run = requestedRunId === "muskegon_fall_steelhead"
+  ? MUSKEGON_FALL_STEELHEAD_RUN_PROFILE
+  : requestedRunId === "muskegon_fall_coho"
+  ? MUSKEGON_FALL_COHO_RUN_PROFILE
+  : requestedRunId === "muskegon_fall_chinook"
+  ? MUSKEGON_FALL_CHINOOK_RUN_PROFILE
+  : requestedRunId === "big_manistee_fall_steelhead"
   ? BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE
   : requestedRunId === "big_manistee_fall_coho"
   ? BIG_MANISTEE_FALL_COHO_RUN_PROFILE
@@ -62,7 +83,7 @@ const checkpoints = resolveConditionsSuggestCheckpoints(
   checkpointMonthDay: checkpoint.checkpointDate.slice(5),
 }));
 const sourceNotes =
-  `Big Manistee ${run.displayName} cumulative Migration Timing checkpoints: USGS ${gauge.siteId} daily mean discharge and measured water temperature, ${startYear}-${endYear}; staging start through each completed checkpoint; ${
+  `${river.displayName} ${run.displayName} cumulative Migration Timing checkpoints: USGS ${gauge.siteId} daily mean discharge and measured water temperature, ${startYear}-${endYear}; staging start through each completed checkpoint; ${
     Math.round(conditionsRules.gaugeWeight * 100)
   }% regulated-tailwater response and ${
     Math.round(conditionsRules.waterTemperatureWeight * 100)

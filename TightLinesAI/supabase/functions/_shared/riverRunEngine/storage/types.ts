@@ -172,6 +172,7 @@ export type RiverRunConditionRefreshRow = {
   condition_refresh_at: string;
   push: RiverRunConditionRefresh["push"];
   fishability: RiverRunConditionRefresh["fishability"];
+  activity: RiverRunConditionRefresh["activity"];
   source_metrics: RiverRunConditionRefresh["sourceMetrics"];
   freshness: RiverRunConditionRefresh["freshness"];
   data_quality: RiverRunConditionRefresh["dataQuality"];

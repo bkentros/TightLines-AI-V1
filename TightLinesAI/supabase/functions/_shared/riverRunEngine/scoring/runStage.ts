@@ -52,7 +52,10 @@ export function resolveRunStage(
     run.runType === "fall_entry" &&
     run.runStageCopyStrategy !== "betsie_homestead"
   ) {
-    const copy = run.runStageCopyStrategy === "big_manistee_tailwater"
+    const regulatedTailwaterCopy =
+      run.runStageCopyStrategy === "big_manistee_tailwater" ||
+      run.runStageCopyStrategy === "muskegon_croton_tailwater";
+    const baseCopy = regulatedTailwaterCopy
       ? bigManisteeFallEntryStageCopy({
         stage,
         stagingContext,
@@ -69,6 +72,9 @@ export function resolveRunStage(
         winterHoldingContext,
         species: anglerSpeciesName(run.species),
       });
+    const copy = run.runStageCopyStrategy === "muskegon_croton_tailwater"
+      ? muskegonizeCopy(baseCopy)
+      : baseCopy;
     const whereToStart = run.runStageCopyStrategy === "pere_marquette"
       ? pereMarquetteFallEntryWhereToStartCopy({
         stage,
@@ -77,14 +83,16 @@ export function resolveRunStage(
         broadBuildingContext,
         winterHoldingContext,
       })
-      : run.runStageCopyStrategy === "big_manistee_tailwater"
-      ? bigManisteeFallEntryWhereToStartCopy({
-        stage,
-        stagingContext,
-        establishedBuildingContext,
-        broadBuildingContext,
-        winterHoldingContext,
-      })
+      : regulatedTailwaterCopy
+      ? (run.runStageCopyStrategy === "muskegon_croton_tailwater"
+        ? muskegonizeText
+        : (value: string) => value)(bigManisteeFallEntryWhereToStartCopy({
+          stage,
+          stagingContext,
+          establishedBuildingContext,
+          broadBuildingContext,
+          winterHoldingContext,
+        }))
       : copy.whereToStart;
     return {
       stage,
@@ -125,6 +133,37 @@ export function resolveRunStage(
         species: anglerSpeciesName(run.species),
         opportunity,
       }),
+      reasonCodes: [
+        stageReasonCode(stage),
+        ...(stage === "post_run" && !latePostRunContext
+          ? ["stage_offseason" as const]
+          : []),
+        ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
+      ],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (run.runStageCopyStrategy === "muskegon_croton_tailwater") {
+    return {
+      stage,
+      stagingContext,
+      broadBuildingContext,
+      winterHoldingContext: false,
+      window,
+      label: stageLabel(stage, latePostRunContext),
+      ...muskegonizeCopy(
+        bigManisteeTailwaterStageCopy({
+          stage,
+          localDate,
+          window,
+          stagingContext,
+          establishedBuildingContext,
+          broadBuildingContext,
+          latePostRunContext,
+          species: anglerSpeciesName(run.species),
+          opportunity,
+        }),
+      ),
       reasonCodes: [
         stageReasonCode(stage),
         ...(stage === "post_run" && !latePostRunContext
@@ -208,6 +247,42 @@ export function resolveRunStage(
       ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
     ],
     copyVersion: RIVER_RUN_COPY_VERSION,
+  };
+}
+
+function muskegonizeText(value: string): string {
+  return value
+    .replaceAll("Big Manistee", "Muskegon")
+    .replaceAll("Manistee Lake", "Muskegon Lake")
+    .replaceAll("Wellston", "Croton")
+    .replaceAll("Tippy-to-High Bridge", "Croton-to-Newaygo")
+    .replaceAll("High Bridge-Bear Creek", "Newaygo-to-M-120")
+    .replaceAll("below Tippy Dam", "below Croton Dam")
+    .replaceAll("below Tippy", "below Croton")
+    .replaceAll("Tippy tailwater", "Croton tailwater")
+    .replaceAll("Tippy-tailwater", "Croton-tailwater")
+    .replaceAll("Tippy", "Croton")
+    .replaceAll("High Bridge", "Newaygo")
+    .replaceAll("Bear Creek", "M-120")
+    .replaceAll("toward M-55", "toward Muskegon Lake")
+    .replaceAll("through M-55", "toward Muskegon Lake")
+    .replaceAll("M-55 water", "lower-river water")
+    .replaceAll("25-mile", "42-mile");
+}
+
+function muskegonizeCopy<
+  T extends Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> & {
+    whereToStart?: string;
+  },
+>(copy: T): T {
+  return {
+    ...copy,
+    headline: muskegonizeText(copy.headline),
+    detail: muskegonizeText(copy.detail),
+    tip: muskegonizeText(copy.tip),
+    ...(copy.whereToStart
+      ? { whereToStart: muskegonizeText(copy.whereToStart) }
+      : {}),
   };
 }
 

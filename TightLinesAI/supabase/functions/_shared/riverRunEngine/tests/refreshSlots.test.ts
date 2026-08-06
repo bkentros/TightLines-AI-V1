@@ -11,10 +11,10 @@ const run = PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE;
 const schedule = PERE_MARQUETTE_RIVER_PROFILE.conditionRefreshSchedule;
 const timezone = PERE_MARQUETTE_RIVER_PROFILE.timezone;
 
-Deno.test("PM resolves four-hour active-season condition slots", () => {
+Deno.test("PM resolves four-hour slots plus the Activity rollover", () => {
   assertEquals(
     refreshSlotsForDate({ localDate: "2026-09-20", run, schedule }),
-    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "21:00"],
   );
   assertEquals(
     resolveLatestRefreshSlot({
@@ -40,6 +40,16 @@ Deno.test("PM resolves four-hour active-season condition slots", () => {
       localDateTime: "2026-09-20T16:00:00",
       timezone,
     },
+  );
+  assertEquals(
+    resolveLatestRefreshSlot({
+      localDate: "2026-09-20",
+      localTime: "21:01",
+      timezone,
+      run,
+      schedule,
+    }),
+    { localDate: "2026-09-20", refreshSlot: "21:00" },
   );
 });
 
@@ -82,19 +92,19 @@ Deno.test("PM active cadence begins at staging and covers the presence tail", ()
   );
   assertEquals(
     refreshSlotsForDate({ localDate: "2026-07-28", run, schedule }),
-    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "21:00"],
   );
   assertEquals(
     refreshSlotsForDate({ localDate: "2026-10-27", run, schedule }),
-    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "21:00"],
   );
   assertEquals(
     refreshSlotsForDate({ localDate: "2026-10-28", run, schedule }),
-    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "21:00"],
   );
   assertEquals(
     refreshSlotsForDate({ localDate: "2026-11-08", run, schedule }),
-    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00", "21:00"],
   );
   assertEquals(
     refreshSlotsForDate({ localDate: "2026-11-09", run, schedule }),

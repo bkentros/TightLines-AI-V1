@@ -1,0 +1,965 @@
+{
+  "runId": "pere_marquette_fall_chinook",
+  "rulesVersion": "pm-fall-chinook-activity-v4",
+  "replayYears": "2021-2025",
+  "method": "Historical mechanical replay using each four-hour block's Open-Meteo cloud cover, shortwave radiation, and precipitation; daily median PMTU Maple measured temperature; and USGS Scottville daily mean discharge. This validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 520,
+  "usableDays": 486,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 26,
+    "temperatureHistory": 32,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 24,
+    "p10": 38,
+    "median": 67,
+    "p90": 87,
+    "max": 96,
+    "mean": 62.26
+  },
+  "blockScore": {
+    "min": 23,
+    "p10": 34,
+    "median": 58,
+    "p90": 87,
+    "max": 97,
+    "mean": 59.8
+  },
+  "uniqueDayScores": 68,
+  "uniqueBlockScores": 75,
+  "mostCommonDayScores": [
+    {
+      "score": 72,
+      "count": 18
+    },
+    {
+      "score": 40,
+      "count": 16
+    },
+    {
+      "score": 74,
+      "count": 16
+    },
+    {
+      "score": 43,
+      "count": 15
+    },
+    {
+      "score": 89,
+      "count": 14
+    },
+    {
+      "score": 42,
+      "count": 13
+    },
+    {
+      "score": 44,
+      "count": 13
+    },
+    {
+      "score": 68,
+      "count": 13
+    },
+    {
+      "score": 79,
+      "count": 13
+    },
+    {
+      "score": 45,
+      "count": 12
+    }
+  ],
+  "mostCommonBlockScores": [
+    {
+      "score": 45,
+      "count": 61
+    },
+    {
+      "score": 53,
+      "count": 54
+    },
+    {
+      "score": 44,
+      "count": 52
+    },
+    {
+      "score": 46,
+      "count": 44
+    },
+    {
+      "score": 69,
+      "count": 43
+    },
+    {
+      "score": 72,
+      "count": 43
+    },
+    {
+      "score": 88,
+      "count": 43
+    },
+    {
+      "score": 54,
+      "count": 41
+    },
+    {
+      "score": 29,
+      "count": 40
+    },
+    {
+      "score": 71,
+      "count": 40
+    }
+  ],
+  "dayLabels": {
+    "Active": 176,
+    "Highly active": 103,
+    "Moderate": 143,
+    "Reserved": 64
+  },
+  "blockLabels": {
+    "Active": 546,
+    "Highly active": 386,
+    "Moderate": 675,
+    "Reserved": 337
+  },
+  "daysAtLeast90": 23,
+  "blocksAtLeast90": 109,
+  "daysSingleDigit": 0,
+  "blocksSingleDigit": 0,
+  "dayLabelsByStage": {
+    "beginning": {
+      "Active": 24,
+      "Highly active": 14
+    },
+    "building": {
+      "Active": 88,
+      "Highly active": 42,
+      "Reserved": 2
+    },
+    "ending": {
+      "Moderate": 29,
+      "Reserved": 16
+    },
+    "peak": {
+      "Active": 24,
+      "Highly active": 27
+    },
+    "post_run": {
+      "Moderate": 33,
+      "Reserved": 27
+    },
+    "pre_run": {
+      "Active": 40,
+      "Highly active": 20,
+      "Reserved": 12
+    },
+    "tapering": {
+      "Moderate": 81,
+      "Reserved": 7
+    }
+  },
+  "stages": {
+    "beginning": 38,
+    "building": 132,
+    "ending": 45,
+    "peak": 51,
+    "post_run": 60,
+    "pre_run": 72,
+    "tapering": 88
+  },
+  "bestBlocks": {
+    "05-09": 258,
+    "09-13": 58,
+    "13-17": 62,
+    "17-21": 108
+  },
+  "confidence": {
+    "Full": 486
+  },
+  "blockSpread": {
+    "min": 0,
+    "p10": 3,
+    "median": 13,
+    "p90": 25,
+    "max": 37,
+    "mean": 13.46
+  },
+  "daysWithSpreadAtLeast10": 312,
+  "daysWithSpreadAtLeast20": 109,
+  "cloudyNoonAmongOtherwiseSunnyDays": 1,
+  "isolatedCloudCounterfactual": {
+    "description": "Only 9 AM–1 PM changes from bright/dry to fully cloudy with light precipitation; temperature and river inputs remain identical.",
+    "baselineScores": [
+      78,
+      62,
+      61,
+      77
+    ],
+    "changedScores": [
+      78,
+      89,
+      61,
+      77
+    ],
+    "targetBlockDelta": 27,
+    "unchangedBlockDeltas": [
+      0,
+      0,
+      0
+    ],
+    "targetBecomesBestBlock": true
+  },
+  "correlations": {
+    "blockCloudToScore": 0.28,
+    "dailyTemperatureToScore": 0.61,
+    "dailyFlowToScore": -0.15
+  },
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperCapBroken": 0,
+    "endingCapBroken": 0,
+    "prohibitedClaims": 0,
+    "isolatedWeatherLeakedIntoOtherBlocks": 0,
+    "isolatedCloudFailedToImproveTargetBlock": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2022-07-28",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 73,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 65.7,
+      "flowCfs": 598,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 37,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0.14
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-08-04",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 74,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 64.8,
+      "flowCfs": 521,
+      "flowBand": "normal_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 36,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 46,
+          "precipitationIn": 0.02
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-09-13",
+      "stage": "building",
+      "staging": false,
+      "score": 72,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 59.3,
+      "flowCfs": 364,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "warming",
+      "blockSpread": 36,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 42,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-08-22",
+      "stage": "beginning",
+      "staging": false,
+      "score": 77,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 59.5,
+      "flowCfs": 483,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "blockSpread": 35,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 89,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 49,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-08-28",
+      "stage": "building",
+      "staging": false,
+      "score": 73,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 59.7,
+      "flowCfs": 389,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 35,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0.09
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 63,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 12,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-09-25",
+      "stage": "peak",
+      "staging": false,
+      "score": 78,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 57.6,
+      "flowCfs": 583,
+      "flowBand": "ideal",
+      "flowSignal": "sharp_rise",
+      "temperatureSignal": "cooling",
+      "blockSpread": 33,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 92,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0.01
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2021-08-25",
+      "stage": "building",
+      "staging": false,
+      "score": 80,
+      "label": "Highly active",
+      "confidence": "Full",
+      "waterTempF": 65.8,
+      "flowCfs": 580,
+      "flowBand": "ideal",
+      "flowSignal": "rising",
+      "temperatureSignal": "neutral",
+      "blockSpread": 32,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 90,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 34,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 93,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2023-09-23",
+      "stage": "peak",
+      "staging": false,
+      "score": 74,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 60.1,
+      "flowCfs": 428,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "warming",
+      "blockSpread": 32,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2023-09-24",
+      "stage": "peak",
+      "staging": false,
+      "score": 81,
+      "label": "Highly active",
+      "confidence": "Full",
+      "waterTempF": 59.7,
+      "flowCfs": 430,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 32,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 60,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-09-27",
+      "stage": "peak",
+      "staging": false,
+      "score": 72,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 59,
+      "flowCfs": 380,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 32,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 49,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 24,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-08-18",
+      "stage": "beginning",
+      "staging": false,
+      "score": 76,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 63.3,
+      "flowCfs": 548,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "warming",
+      "blockSpread": 31,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 89,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 91,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 8,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 18,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-09-19",
+      "stage": "building",
+      "staging": false,
+      "score": 74,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 60.5,
+      "flowCfs": 401,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 31,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 90,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 11,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 64,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

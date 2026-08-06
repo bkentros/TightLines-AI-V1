@@ -2,6 +2,7 @@ import {
   BIG_MANISTEE_RIVER_PROFILE as river,
   fetchUsgsDailyFlowBaselineObservations,
   getPrimaryHydraulicSource,
+  MUSKEGON_RIVER_PROFILE,
   resolveFlowTrendSignal,
   resolveRainSignal,
   resolveTemperatureTrendSignal,
@@ -10,14 +11,17 @@ import {
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 
 const runId = argumentValue("--run-id") ?? "big_manistee_fall_chinook";
+const selectedRiver = runId.startsWith("muskegon_")
+  ? MUSKEGON_RIVER_PROFILE
+  : river;
 const run = RIVER_RUN_RUN_PROFILES.find((candidate) =>
-  candidate.riverId === river.riverId && candidate.runId === runId
+  candidate.riverId === selectedRiver.riverId && candidate.runId === runId
 );
-if (!run) throw new Error(`Unknown Big Manistee run: ${runId}`);
-if (!run.push) throw new Error(`Big Manistee run lacks Push rules: ${runId}`);
+if (!run) throw new Error(`Unknown regulated-tailwater run: ${runId}`);
+if (!run.push) throw new Error(`Run lacks Push rules: ${runId}`);
 const pushRules = run.push;
-const gauge = getPrimaryHydraulicSource(river);
-const weatherPoint = river.weatherPoints.find((point) =>
+const gauge = getPrimaryHydraulicSource(selectedRiver);
+const weatherPoint = selectedRiver.weatherPoints.find((point) =>
   point.role === "primary"
 );
 if (!weatherPoint) throw new Error("Big Manistee weather point is missing.");
@@ -27,7 +31,7 @@ const replayStartDate = `${startYear}-${run.runWindow.start}`;
 const replayEndDate = `${endYear}-${run.runWindow.end}`;
 const flow = await fetchUsgsDailyFlowBaselineObservations({
   fetchFn: fetch,
-  riverId: river.riverId,
+  riverId: selectedRiver.riverId,
   siteId: gauge.siteId,
   startDate: addDays(replayStartDate, -3),
   endDate: replayEndDate,
@@ -40,7 +44,7 @@ const tempByDate = await fetchDailyTemperature(
 const rainByDate = await fetchDailyRain({
   lat: weatherPoint.lat,
   lon: weatherPoint.lon,
-  timezone: river.timezone,
+  timezone: selectedRiver.timezone,
   startDate: addDays(replayStartDate, -3),
   endDate: replayEndDate,
 });
@@ -176,13 +180,13 @@ const expectedDays = activeDayCount(run.runWindow.start, run.runWindow.end) *
   (endYear - startYear + 1);
 console.log(JSON.stringify(
   {
-    riverId: river.riverId,
+    riverId: selectedRiver.riverId,
     runId: run.runId,
     gaugeSiteId: gauge.siteId,
     replayYears: `${startYear}-${endYear}`,
     replayWindow: `${run.runWindow.start} through ${run.runWindow.end}`,
     method:
-      "Daily replay using USGS Wellston daily mean discharge, USGS Wellston measured daily mean water temperature, and modeled daily precipitation at the configured Wellston weather point.",
+      `Daily replay using USGS ${gauge.siteId} daily mean discharge and measured water temperature plus modeled precipitation at the configured ${selectedRiver.displayName} weather point.`,
     expectedDays,
     usableDays,
     coveragePercent: Math.round(usableDays / expectedDays * 10000) / 100,

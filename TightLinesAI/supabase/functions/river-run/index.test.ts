@@ -1759,6 +1759,11 @@ Deno.test("live weather fallback success normalizes precipitation and lows", asy
                   .toISOString(),
             ),
             precipitation: Array.from({ length: 72 }, () => 0.01),
+            cloud_cover: Array.from({ length: 72 }, () => 75),
+            shortwave_radiation: Array.from(
+              { length: 72 },
+              (_, index) => index % 24 >= 10 && index % 24 <= 16 ? 350 : 80,
+            ),
           },
           daily: {
             time: ["2026-09-17", "2026-09-18", "2026-09-19", "2026-09-20"],
@@ -1774,9 +1779,12 @@ Deno.test("live weather fallback success normalizes precipitation and lows", asy
 
   assertEquals(body.freshness.weather, "fresh");
   assertEquals(body.weather.rain72hIn, 0.72);
+  assertEquals(body.activity.blocks.length, 4);
+  assertEquals(body.activity.targetDayLabel, "Today");
+  assertEquals(body.activity.confidence, "Moderate");
   assertEquals(
     body.secondaryNote,
-    "Forecast data is informational only and does not change scores.",
+    "Forecast weather informs Activity Outlook only; Push and Fishability remain observation-led.",
   );
 });
 

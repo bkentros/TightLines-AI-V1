@@ -117,13 +117,41 @@ export type RiverRunPrimitiveCapabilities = {
   migrationTiming: PrimitiveCapability;
   push: PrimitiveCapability;
   fishability: PrimitiveCapability;
+  activity?: PrimitiveCapability;
+};
+
+export type ActivityRules = {
+  version: string;
+  profile: "chinook_fall_reaction" | "coho_fall_reaction" | "steelhead_feeding";
+  weights: {
+    light: number;
+    waterTemperature: number;
+    riverBehavior: number;
+    weather: number;
+  };
+  temperature: {
+    coldF: number;
+    preferredMinF: number;
+    preferredMaxF: number;
+    warmF: number;
+    barrierF: number;
+  };
+  caps: {
+    noMeasuredRiverData: number;
+    noWaterTemperature: number;
+    tomorrow: number;
+    lateRun: number;
+    ending: number;
+  };
+  evidenceNotes: string;
 };
 
 export type RunStageCopyStrategy =
   | "default"
   | "pere_marquette"
   | "betsie_homestead"
-  | "big_manistee_tailwater";
+  | "big_manistee_tailwater"
+  | "muskegon_croton_tailwater";
 
 export type DataQuality = {
   label: "Fresh" | "Partial" | "Stale" | "Limited";
@@ -218,7 +246,7 @@ export type WeatherPointConfig = {
   basinWeight?: number;
 };
 
-export type BigManisteeTargetSpecies = Extract<
+export type MigratoryRiverTargetSpecies = Extract<
   RiverRunSpecies,
   "chinook_salmon" | "coho_salmon" | "steelhead"
 >;
@@ -244,7 +272,7 @@ export type RiverFoundationRegulation = {
     end: string;
     description: string;
   };
-  noTippyDistanceClosureConfigured: true;
+  noUnverifiedDistanceClosureConfigured: true;
   accessAndSafetyNotes: string;
   sourceNotes: string;
 };
@@ -254,7 +282,7 @@ export type RiverFoundationConfig = {
   corridorLengthMiles: number;
   upstreamTerminus: string;
   downstreamTerminus: string;
-  targetSpecies: BigManisteeTargetSpecies[];
+  targetSpecies: MigratoryRiverTargetSpecies[];
   reaches: RiverFoundationReach[];
   primaryGaugeReachId: string;
   contextualGaugeSiteIds: string[];
@@ -441,6 +469,8 @@ export type RiverRunProfile = {
   };
 
   historicalPresence: HistoricalPresenceConfig;
+
+  activity?: ActivityRules;
 
   push?: PushRules;
 

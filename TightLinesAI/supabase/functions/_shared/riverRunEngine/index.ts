@@ -17,6 +17,7 @@ export * from "./metrics/flow.ts";
 export * from "./metrics/temperature.ts";
 export * from "./scoring/runStage.ts";
 export * from "./scoring/fishInRiver.ts";
+export * from "./scoring/activity.ts";
 export * from "./scoring/push.ts";
 export * from "./scoring/fishability.ts";
 export * from "./scoring/conditionsSuggest.ts";

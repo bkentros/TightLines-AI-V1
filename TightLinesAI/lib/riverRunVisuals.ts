@@ -5,6 +5,7 @@ export type RiverRunVisualKind =
   | "run_timing"
   | "push"
   | "fishability"
+  | "activity"
   | "fish_in_river";
 
 export type RiverRunMeterStop = {
@@ -29,6 +30,7 @@ export type RiverRunVisualModel = {
     | "speedometer-outline"
     | "pulse-outline"
     | "water-outline"
+    | "flash-outline"
     | "fish-outline";
   stops: RiverRunMeterStop[];
   ticks?: RiverRunMeterTick[];
@@ -85,6 +87,14 @@ const PRESENCE_INDEX_FIVE: RiverRunMeterStop[] = [
   { label: "80–100", shortLabel: "80–100", color: "#3DA85F" },
 ];
 
+const ACTIVITY_FIVE: RiverRunMeterStop[] = [
+  { label: "Inactive", shortLabel: "INACTIVE", color: "#D94B3A" },
+  { label: "Reserved", shortLabel: "RESERVED", color: "#E89647" },
+  { label: "Moderate", shortLabel: "MODERATE", color: "#E8C547" },
+  { label: "Active", shortLabel: "ACTIVE", color: "#7CC36A" },
+  { label: "Highly active", shortLabel: "HIGH", color: "#3DA85F" },
+];
+
 const PRESENCE_INDEX_TICKS: RiverRunMeterTick[] = [
   { label: "0", position: 0 },
   { label: "20", position: 0.2 },
@@ -113,6 +123,8 @@ export function resolveRiverRunVisualModel(input: {
       return pushModel(input.primitive);
     case "fishability":
       return fishabilityModel(input.primitive);
+    case "activity":
+      return activityModel(input.primitive);
     case "fish_in_river":
       return fishInRiverModel(input.primitive);
   }
@@ -156,7 +168,7 @@ function runStageModel(
   );
   const offseason = primitive.label === "Offseason";
   const winterHolding = primitive.label === "Winter holding";
-  return baseModel({
+  const model = baseModel({
     kind: "run_stage",
     kicker: "SEASON POSITION",
     artLabel: "MIGRATION WINDOW",
@@ -171,6 +183,7 @@ function runStageModel(
       : stageNote(selectedIndex),
     specialState: offseason || winterHolding ? "complete" : undefined,
   });
+  return model;
 }
 
 function runTimingModel(
@@ -279,6 +292,27 @@ function fishabilityModel(
     specialState,
     score: primitive.score,
   });
+}
+
+function activityModel(
+  primitive: RiverRunPrimitiveDisplay,
+): RiverRunVisualModel {
+  const score = clampScore(primitive.score ?? 0);
+  const model = baseModel({
+    kind: "activity",
+    kicker: "CONDITIONAL RESPONSIVENESS",
+    artLabel: "ACTIVITY OUTLOOK",
+    icon: "flash-outline",
+    stops: ACTIVITY_FIVE,
+    selectedIndex: primitive.score == null
+      ? null
+      : Math.min(4, Math.floor(score / 20)),
+    stateLabel: primitive.label,
+    stateNote: "IF FISH ARE PRESENT · NOT CATCH PROBABILITY",
+    specialState: primitive.score == null ? "unavailable" : undefined,
+    score,
+  });
+  return { ...model, position: score / 100 };
 }
 
 function fishInRiverModel(

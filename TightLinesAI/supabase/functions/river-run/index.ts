@@ -36,6 +36,7 @@ import {
   resolveConditionsSuggestCheckpointState,
   resolveLatestRefreshSlot,
   resolveNextConditionRefresh,
+  resolveRunStage,
   resolveWaterTemperatureRead,
   RIVER_RUN_RIVER_PROFILES,
   RIVER_RUN_RUN_PROFILES,
@@ -57,7 +58,7 @@ import {
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
 
-const ENGINE_VERSION = "river-run-v1.5.3";
+const ENGINE_VERSION = "river-run-v1.9.0";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -944,6 +945,18 @@ async function readOrBuildConditionRefresh(input: {
     conditionsWaterTemperature,
     weather,
   });
+  const activityTargetDate = input.refreshSlot >= "21:00"
+    ? addDays(input.localDate, 1)
+    : input.localDate;
+  const activityTargetStage = resolveRunStage(observedRun, activityTargetDate);
+  const activityActive = compareLocalDates(
+        activityTargetDate,
+        activityTargetStage.window.stagingStartDate,
+      ) >= 0 &&
+    compareLocalDates(
+        activityTargetDate,
+        activityTargetStage.window.lateEndDate,
+      ) <= 0;
   const built = buildConditionRefresh({
     dailySnapshot: input.dailySnapshot,
     localDate: input.localDate,
@@ -952,6 +965,17 @@ async function readOrBuildConditionRefresh(input: {
     primitiveCapabilities: observedRun.primitiveCapabilities,
     pushRules: observedRun.push,
     fishabilityBands: observedRun.fishabilityBands,
+    activityRules: activityActive ? observedRun.activity : undefined,
+    activityTargetDate: activityActive ? activityTargetDate : undefined,
+    activityTargetStage: activityTargetStage.stage,
+    activityStaging: compareLocalDates(
+          activityTargetDate,
+          activityTargetStage.window.stagingStartDate,
+        ) >= 0 &&
+      compareLocalDates(
+          activityTargetDate,
+          activityTargetStage.window.startDate,
+        ) < 0,
     ...conditionInputs,
     engineVersion: input.engineVersion,
     configVersion: input.configVersion,
@@ -1080,6 +1104,7 @@ function shapeSnapshotResponse(input: {
     push: input.condition.push,
     pushHistory: input.pushHistory,
     fishability: input.condition.fishability,
+    activity: input.condition.activity,
     fishInRiver: input.dailySnapshot.fishInRiver,
     gauge: input.condition.sourceMetrics.gauge,
     weather: input.condition.sourceMetrics.weather,
@@ -1090,7 +1115,7 @@ function shapeSnapshotResponse(input: {
     dataQuality: input.condition.dataQuality,
     interpretationNote: input.condition.interpretationNote,
     secondaryNote: input.condition.sourceMetrics.weather?.forecastDaily?.length
-      ? "Forecast data is informational only and does not change scores."
+      ? "Forecast weather informs Activity Outlook only; Push and Fishability remain observation-led."
       : undefined,
     safety: {
       regulationReminder: input.river.regulationReminderCopy ??

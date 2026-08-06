@@ -17,12 +17,14 @@ import {
   resolveInterpretationNote,
   resolveRunStage,
   type RiverRunConditionsSuggestBaseline,
+  scoreActivity,
   scoreConditionsSuggest,
   scoreFishability,
   scoreFishInRiver,
   scorePush,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 import type {
+  RiverRunActivity,
   RiverRunConditionsSuggest,
   RiverRunFishability,
   RiverRunFishInRiver,
@@ -103,11 +105,195 @@ const groups: Group[] = [
   conditionsGroup(),
   pushGroup(),
   fishabilityGroup(),
+  ...(run.activity ? [activityGroup()] : []),
   fishInRiverGroup(),
   opportunityCopyGroup(),
   combinedGroup(),
   evidenceGroup(),
 ];
+
+function activityGroup(): Group {
+  const cases: Array<{
+    id: string;
+    label: string;
+    date: string;
+    temp: number | null;
+    cloud: number | null;
+    radiation?: number;
+    precip?: number;
+    tomorrow?: boolean;
+    gaugeFreshness?: Parameters<typeof scoreActivity>[0]["gaugeFreshness"];
+    weatherFreshness?: Parameters<typeof scoreActivity>[0]["weatherFreshness"];
+    flowBand?: Parameters<typeof scoreActivity>[0]["flowBand"];
+    flowSignal?: Parameters<typeof scoreActivity>[0]["flowSignal"];
+    temperatureTrend?: Parameters<typeof scoreActivity>[0]["temperatureTrend"];
+  }> = [
+    {
+      id: "staging",
+      label: "Staging · conditional early fish",
+      date: "2026-08-01",
+      temp: 66,
+      cloud: 80,
+    },
+    {
+      id: "beginning_warm",
+      label: "Beginning · lake-fresh warm tolerance",
+      date: "2026-08-16",
+      temp: 66,
+      cloud: 75,
+    },
+    {
+      id: "building_high",
+      label: "Building · highly active",
+      date: "2026-09-10",
+      temp: 58,
+      cloud: 100,
+      radiation: 180,
+      flowSignal: "meaningful_rise" as const,
+    },
+    {
+      id: "peak_active",
+      label: "Peak · active",
+      date: "2026-09-20",
+      temp: 57,
+      cloud: 75,
+    },
+    {
+      id: "moderate",
+      label: "Building · moderate mixed window",
+      date: "2026-09-10",
+      temp: 66,
+      cloud: 15,
+      radiation: 720,
+      flowBand: "very_high" as const,
+      temperatureTrend: "strong_warming" as const,
+    },
+    {
+      id: "reserved",
+      label: "Peak · reserved warm and high",
+      date: "2026-09-20",
+      temp: 69,
+      cloud: 5,
+      radiation: 800,
+      flowBand: "very_high" as const,
+      flowSignal: "falling" as const,
+    },
+    {
+      id: "severe_floor",
+      label: "Peak · reserved severe-condition floor",
+      date: "2026-09-20",
+      temp: 71,
+      cloud: 0,
+      radiation: 850,
+      flowBand: "blown_out" as const,
+      flowSignal: "sharp_rise" as const,
+      precip: 0.3,
+    },
+    {
+      id: "tapering",
+      label: "Tapering · biological cap",
+      date: "2026-10-10",
+      temp: 54,
+      cloud: 95,
+    },
+    {
+      id: "ending",
+      label: "Ending · vitality uncertainty cap",
+      date: "2026-10-25",
+      temp: 52,
+      cloud: 95,
+    },
+    {
+      id: "tomorrow",
+      label: "Tomorrow · after 9 PM",
+      date: "2026-09-10",
+      temp: 58,
+      cloud: 85,
+      tomorrow: true,
+    },
+    {
+      id: "moderate_no_temp",
+      label: "Moderate data · no measured temperature",
+      date: "2026-09-10",
+      temp: null,
+      cloud: 80,
+    },
+    {
+      id: "limited_weather_only",
+      label: "Limited · weather only",
+      date: "2026-09-10",
+      temp: null,
+      cloud: 80,
+      gaugeFreshness: "missing" as const,
+    },
+    {
+      id: "limited_no_weather",
+      label: "Limited · river data only",
+      date: "2026-09-10",
+      temp: 58,
+      cloud: null,
+      weatherFreshness: "missing" as const,
+    },
+  ];
+  return {
+    id: "activity",
+    label: "Activity Outlook",
+    scenarios: cases.map(
+      (item) => {
+        const targetDate = item.tomorrow ? addDays(item.date, 1) : item.date;
+        const stage = resolveRunStage(run, targetDate);
+        return snapshotScenario({
+          id: `activity_${item.id}`,
+          label: item.label,
+          localDate: item.date,
+          activity: scoreActivity({
+            rules: run.activity!,
+            requestDate: item.date,
+            targetDate,
+            runStage: stage.stage,
+            staging: targetDate >= stage.window.stagingStartDate &&
+              targetDate < stage.window.startDate,
+            waterTempF: item.temp,
+            temperatureTrend: item.temperatureTrend ?? "cooling",
+            gaugeFreshness: item.gaugeFreshness ?? "fresh",
+            weatherFreshness: item.weatherFreshness ?? "fresh",
+            flowBand: item.gaugeFreshness === "missing"
+              ? undefined
+              : item.flowBand ?? "ideal",
+            currentHydraulicValue: item.gaugeFreshness === "missing"
+              ? null
+              : 625,
+            fishabilityBands: run.fishabilityBands,
+            flowSignal: item.flowSignal ?? "stable",
+            hourlyWeather: item.cloud == null ? [] : activityWeather(
+              targetDate,
+              item.cloud,
+              item.radiation,
+              item.precip,
+            ),
+          }) as RiverRunActivity,
+        });
+      },
+    ),
+  };
+}
+
+function activityWeather(
+  localDate: string,
+  cloud: number,
+  radiation = 420,
+  precip = 0.01,
+) {
+  return Array.from({ length: 24 }, (_, hour) => ({
+    time_local: `${localDate}T${String(hour).padStart(2, "0")}:00`,
+    cloud_cover_pct: cloud,
+    shortwave_w_m2: hour >= 10 && hour <= 16
+      ? radiation
+      : Math.min(90, radiation),
+    clear_sky_shortwave_w_m2: hour >= 10 && hour <= 16 ? 760 : 180,
+    precipitation_in: hour === 7 ? precip : 0,
+  }));
+}
 const baseSnapshot = snapshotScenario({
   id: "generated_base",
   label: "Generated base",
@@ -853,6 +1039,7 @@ function snapshotScenario(input: {
   push?: RiverRunPush;
   fishability?: RiverRunFishability;
   fishInRiver?: RiverRunFishInRiver;
+  activity?: RiverRunActivity;
   dataQuality?: RiverRunSnapshotResponse["dataQuality"];
   missingSources?: boolean;
   profile?: typeof run;
@@ -935,6 +1122,7 @@ function snapshotScenario(input: {
           : {}),
       },
       fishability,
+      activity: input.activity ?? null,
       fishInRiver,
       gauge: input.missingSources ? null : {
         provider: "USGS",
@@ -1005,7 +1193,7 @@ function snapshotScenario(input: {
         activityDisclaimer:
           "River Run is not a wading, boating, floating, or personal-safety rating.",
       },
-      engineVersion: "river-run-v1.5.3-review",
+      engineVersion: "river-run-v1.9.0-review",
       configVersion:
         `${PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion}-review`,
     },

@@ -134,6 +134,7 @@ export function assembleConditionInputs(input: {
         rain48hIn: input.weather.rainTotals.rain48hIn,
         rain72hIn: input.weather.rainTotals.rain72hIn,
         forecastDaily: input.weather.forecastDaily,
+        hourlyActivityWeather: input.weather.hourlyActivityWeather,
       },
       waterTemperature: measuredTemperature
         ? {

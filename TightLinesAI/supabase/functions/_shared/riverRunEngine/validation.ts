@@ -397,7 +397,7 @@ function validateRiverFoundation(
     !hasText(regulation.specialArtificialLureWindow?.start) ||
     !hasText(regulation.specialArtificialLureWindow?.end) ||
     !hasText(regulation.specialArtificialLureWindow?.description) ||
-    regulation.noTippyDistanceClosureConfigured !== true ||
+    regulation.noUnverifiedDistanceClosureConfigured !== true ||
     !hasText(regulation.accessAndSafetyNotes) ||
     !hasText(regulation.sourceNotes)
   ) {
@@ -845,6 +845,8 @@ export function validateRunProfile(
     run.primitiveCapabilities?.fishability.status === "available";
   const timingAvailable =
     run.primitiveCapabilities?.migrationTiming.status === "available";
+  const activityAvailable =
+    run.primitiveCapabilities?.activity?.status === "available";
   if (
     new Set([pushAvailable, fishabilityAvailable, timingAvailable]).size > 1
   ) {
@@ -904,6 +906,8 @@ export function validateRunProfile(
       issues,
     );
   }
+  if (activityAvailable) validateActivityRules(run, issues);
+  else validateUnsupportedField(run.activity, "activity", issues);
   validateAuditFields(run, issues);
   validatePublicAuditGate(run, visibilityIssues);
 
@@ -918,6 +922,61 @@ export function validateRunProfile(
     publicVisible,
     issues: [...issues, ...visibilityIssues],
   };
+}
+
+function validateActivityRules(
+  run: RiverRunProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  const rules = run.activity;
+  if (!rules) {
+    issues.push(
+      issue(
+        "activity",
+        "Available Activity Outlook requires species rules.",
+        "config_required_field_missing",
+      ),
+    );
+    return;
+  }
+  const weights = Object.values(rules.weights);
+  const total = weights.reduce((sum, value) => sum + value, 0);
+  if (
+    weights.some((value) => !Number.isFinite(value) || value < 0) ||
+    Math.abs(total - 1) > 0.0001
+  ) {
+    issues.push(
+      issue(
+        "activity.weights",
+        "Activity component weights must be non-negative and sum to 1.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  const temperatures = rules.temperature;
+  if (
+    !(temperatures.coldF < temperatures.preferredMinF &&
+      temperatures.preferredMinF < temperatures.preferredMaxF &&
+      temperatures.preferredMaxF < temperatures.warmF &&
+      temperatures.warmF < temperatures.barrierF)
+  ) {
+    issues.push(
+      issue(
+        "activity.temperature",
+        "Activity temperature thresholds must be strictly ordered.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (!hasText(rules.version) || !hasText(rules.evidenceNotes)) {
+    issues.push(
+      issue(
+        "activity",
+        "Activity rules require versioned evidence notes.",
+        "audit_notes_missing",
+      ),
+    );
+  }
 }
 
 function validatePrimitiveCapabilities(
