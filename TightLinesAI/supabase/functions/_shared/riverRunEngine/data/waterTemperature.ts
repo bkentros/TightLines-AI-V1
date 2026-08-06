@@ -17,6 +17,9 @@ export type NormalizedWaterTemperatureObservation = {
   seriesId?: string;
   observedAt: string;
   waterTempF: number;
+  approvalStatus?: string;
+  qualifier?: string;
+  timeSeriesId?: string;
   source: "monitor_my_watershed_csv" | "usgs_continuous_values";
 };
 
@@ -130,7 +133,7 @@ export function parseUsgsWaterTemperature(input: {
       rejectedObservationCount++;
       continue;
     }
-    observations.push({
+    const observation: NormalizedWaterTemperatureObservation = {
       sourceId: input.source.sourceId,
       provider: input.source.provider,
       siteId: input.source.siteId,
@@ -138,7 +141,14 @@ export function parseUsgsWaterTemperature(input: {
       observedAt,
       waterTempF: waterTempF + (input.source.adjustmentF ?? 0),
       source: "usgs_continuous_values",
-    });
+    };
+    const approvalStatus = String(properties.approval_status ?? "").trim();
+    if (approvalStatus) observation.approvalStatus = approvalStatus;
+    const qualifier = String(properties.qualifier ?? "").trim();
+    if (qualifier) observation.qualifier = qualifier;
+    const timeSeriesId = String(properties.time_series_id ?? "").trim();
+    if (timeSeriesId) observation.timeSeriesId = timeSeriesId;
+    observations.push(observation);
   }
   return filterTemperatureObservations({
     observations,

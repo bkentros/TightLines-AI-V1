@@ -213,7 +213,9 @@ export function generateConditionsSuggestBaselineRows(input: {
 
 export function summarizeConditionsSuggestHistoricalReplay(input: {
   rows: RiverRunConditionsSuggestBaseline[];
-  run: Pick<RiverRunProfile, "conditionsSuggest">;
+  run: Pick<RiverRunProfile, "conditionsSuggest"> & {
+    conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
+  };
 }): ConditionsSuggestHistoricalReplaySummary {
   const candidateCounts = labelCounts();
   const finalLabelCounts = labelCounts();

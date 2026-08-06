@@ -20,6 +20,7 @@ export * from "./scoring/fishInRiver.ts";
 export * from "./scoring/push.ts";
 export * from "./scoring/fishability.ts";
 export * from "./scoring/conditionsSuggest.ts";
+export * from "./scoring/unavailablePrimitives.ts";
 export * from "./copy/interpretation.ts";
 export * from "./snapshot/dataQuality.ts";
 export * from "./snapshot/refreshSlots.ts";

@@ -40,11 +40,11 @@ const BASE_SNAPSHOT = {
     "headline": "Coho salmon are becoming established through more dependable river sections.",
     "detail": "Earlier arrivals have had time to move upstream while later Coho salmon may continue to enter. Fish may now be distributed through a broad part of the accessible river, wherever passage is open.",
     "tip": "Begin in a dependable middle-river section, then work through its deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-    "whereToStart": "Lower and middle river first; some earlier fish may already have reached upper holding water.",
+    "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
     "reasonCodes": [
       "stage_building"
     ],
-    "copyVersion": "river-run-copy-v20"
+    "copyVersion": "river-run-copy-v27"
   },
   "conditionsSuggest": {
     "label": "Ahead",
@@ -154,7 +154,7 @@ const BASE_SNAPSHOT = {
       "conditions_checkpoint_building_established",
       "conditions_ahead"
     ],
-    "copyVersion": "river-run-copy-v20",
+    "copyVersion": "river-run-copy-v27",
     "previousCheckpointId": "building_start",
     "previousCheckpointDate": "2026-09-21",
     "previousTimingLabel": "Typical"
@@ -183,7 +183,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-fall-coho-push-v1",
-    "copyVersion": "river-run-copy-v20"
+    "copyVersion": "river-run-copy-v27"
   },
   "pushHistory": {
     "status": "none_recorded",
@@ -259,7 +259,7 @@ const BASE_SNAPSHOT = {
       "appliedCaps": []
     },
     "rulesVersion": "pm-scottville-fishability-v2",
-    "copyVersion": "river-run-copy-v20"
+    "copyVersion": "river-run-copy-v27"
   },
   "fishInRiver": {
     "score": 30,
@@ -278,7 +278,7 @@ const BASE_SNAPSHOT = {
       "stage_building",
       "historical_presence_curve"
     ],
-    "copyVersion": "river-run-copy-v20"
+    "copyVersion": "river-run-copy-v27"
   },
   "gauge": {
     "provider": "USGS",
@@ -341,7 +341,7 @@ const BASE_SNAPSHOT = {
     "activityDisclaimer": "River Run is not a wading, boating, floating, or personal-safety rating."
   },
   "engineVersion": "river-run-v1.5.3-review",
-  "configVersion": "2026-08-05.6-review"
+  "configVersion": "2026-08-05.8-review"
 } as unknown as RiverRunSnapshotResponse;
 
 const GROUP_SEEDS = [
@@ -351,7 +351,7 @@ const GROUP_SEEDS = [
     "scenarios": [
       {
         "id": "stage_offseason",
-        "label": "True offseason",
+        "label": "True offseason after late copy",
         "note": "Canonical production copy",
         "snapshotOverride": {
           "localDate": "2027-01-03",
@@ -385,12 +385,12 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon are outside their river migration season.",
             "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
             "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return to this read as the next migration approaches.",
-            "whereToStart": "No dependable river location for this species right now.",
+            "whereToStart": "No dependable Pere Marquette River location for this species right now.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -414,7 +414,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "push": {
             "score": null,
@@ -426,7 +426,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "complete",
@@ -503,7 +503,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -552,18 +552,18 @@ const GROUP_SEEDS = [
         "label": "Before staging",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-08-24",
-          "progressionSnapshotAt": "2026-08-24T12:00:00.000Z",
-          "conditionRefreshAt": "2026-08-24T20:00:00.000Z",
-          "progressionExpiresAt": "2026-08-24T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-08-24T22:00:00.000Z",
+          "localDate": "2026-08-15",
+          "progressionSnapshotAt": "2026-08-15T12:00:00.000Z",
+          "conditionRefreshAt": "2026-08-15T20:00:00.000Z",
+          "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
             "window": {
-              "snapshotDate": "2026-08-24",
+              "snapshotDate": "2026-08-15",
               "preRunStartDate": "2026-08-15",
               "stagingStartDate": "2026-08-25",
               "startDate": "2026-09-01",
@@ -583,11 +583,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon have not started entering the river yet.",
             "detail": "Most Coho salmon are still expected to be in the lake, so a dependable river presence is unlikely right now.",
             "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not spend the day searching inland river water before the seasonal migration begins.",
-            "whereToStart": "Lake, harbor, and river mouth—not inland river sections.",
+            "whereToStart": "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -612,7 +612,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "push": {
             "score": null,
@@ -624,14 +624,14 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "not_started",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
-            "throughDate": "2026-08-24",
+            "throughDate": "2026-08-15",
             "recentDailyReadsStatus": "available",
             "recentDailyReads": []
           },
@@ -647,18 +647,18 @@ const GROUP_SEEDS = [
             "label": "Not expected yet",
             "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
             "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Use Migration Stage for the nearest worthwhile water, and do not interpret an isolated early fish as dependable presence.",
+            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
             "siteId": "04122500",
             "primaryMetric": "flow_cfs",
-            "observedAt": "2026-08-24T19:45:00.000Z",
+            "observedAt": "2026-08-15T19:45:00.000Z",
             "value": 600,
             "band": "ideal",
             "trend": "stable",
@@ -670,7 +670,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_maple_leaf",
             "siteId": "PMTU-MapleLeaf",
             "seriesId": "4939",
-            "observedAt": "2026-08-24T19:30:00.000Z",
+            "observedAt": "2026-08-15T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -681,7 +681,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_m37",
             "siteId": "PMTU-M37",
             "seriesId": "3201",
-            "observedAt": "2026-08-24T19:30:00.000Z",
+            "observedAt": "2026-08-15T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -701,18 +701,18 @@ const GROUP_SEEDS = [
         "label": "Staging period",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-08-29",
-          "progressionSnapshotAt": "2026-08-29T12:00:00.000Z",
-          "conditionRefreshAt": "2026-08-29T20:00:00.000Z",
-          "progressionExpiresAt": "2026-08-29T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-08-29T22:00:00.000Z",
+          "localDate": "2026-08-25",
+          "progressionSnapshotAt": "2026-08-25T12:00:00.000Z",
+          "conditionRefreshAt": "2026-08-25T20:00:00.000Z",
+          "progressionExpiresAt": "2026-08-25T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-08-25T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
             "window": {
-              "snapshotDate": "2026-08-29",
+              "snapshotDate": "2026-08-25",
               "preRunStartDate": "2026-08-15",
               "stagingStartDate": "2026-08-25",
               "startDate": "2026-09-01",
@@ -732,12 +732,12 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon may be gathering near the river mouth, and a few early fish could be in the river.",
             "detail": "Most Coho salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but a dependable opportunity in the river has not developed yet.",
             "tip": "Fish the harbor and river mouth first, then make one deliberate check of the first deep lower-river travel lane. Skip a middle- or upper-river trip until fish become dependable in the river.",
-            "whereToStart": "Harbor, river mouth, and the first deep lower-river travel lane.",
+            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth at the east end of the lake, and one deliberate check of the first deep travel lane in the lower migratory river.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -762,7 +762,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "push": {
             "score": null,
@@ -774,14 +774,14 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "not_started",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
-            "throughDate": "2026-08-29",
+            "throughDate": "2026-08-25",
             "recentDailyReadsStatus": "available",
             "recentDailyReads": []
           },
@@ -797,18 +797,18 @@ const GROUP_SEEDS = [
             "label": "Not expected yet",
             "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
             "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Use Migration Stage for the nearest worthwhile water, and do not interpret an isolated early fish as dependable presence.",
+            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
             "siteId": "04122500",
             "primaryMetric": "flow_cfs",
-            "observedAt": "2026-08-29T19:45:00.000Z",
+            "observedAt": "2026-08-25T19:45:00.000Z",
             "value": 600,
             "band": "ideal",
             "trend": "stable",
@@ -820,7 +820,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_maple_leaf",
             "siteId": "PMTU-MapleLeaf",
             "seriesId": "4939",
-            "observedAt": "2026-08-29T19:30:00.000Z",
+            "observedAt": "2026-08-25T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -831,7 +831,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_m37",
             "siteId": "PMTU-M37",
             "seriesId": "3201",
-            "observedAt": "2026-08-29T19:30:00.000Z",
+            "observedAt": "2026-08-25T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -882,11 +882,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -936,7 +936,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -964,7 +964,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -1044,11 +1044,11 @@ const GROUP_SEEDS = [
             "headline": "More Coho salmon are beginning to move into the river.",
             "detail": "Additional Coho salmon are typically entering and beginning to spread upstream, although arrivals can still come in uneven waves.",
             "tip": "Start where lower-river travel water enters the first dependable holding holes. Cover those holes from head to tail, then continue into the middle river instead of waiting in one lower-river spot.",
-            "whereToStart": "Lower to middle river, where travel water feeds dependable holding holes.",
+            "whereToStart": "Lower migratory river around Scottville, then the first substantial holding holes entering the middle river toward Walhalla.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -1138,7 +1138,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Delayed"
@@ -1218,7 +1218,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -1266,18 +1266,18 @@ const GROUP_SEEDS = [
         "label": "Peak",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-10-20",
-          "progressionSnapshotAt": "2026-10-20T12:00:00.000Z",
-          "conditionRefreshAt": "2026-10-20T20:00:00.000Z",
-          "progressionExpiresAt": "2026-10-20T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-10-20T22:00:00.000Z",
+          "localDate": "2026-10-10",
+          "progressionSnapshotAt": "2026-10-10T12:00:00.000Z",
+          "conditionRefreshAt": "2026-10-10T20:00:00.000Z",
+          "progressionExpiresAt": "2026-10-10T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-10-10T22:00:00.000Z",
           "runStage": {
             "stage": "peak",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
             "window": {
-              "snapshotDate": "2026-10-20",
+              "snapshotDate": "2026-10-10",
               "preRunStartDate": "2026-08-15",
               "stagingStartDate": "2026-08-25",
               "startDate": "2026-09-01",
@@ -1297,11 +1297,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -1429,7 +1429,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -1439,53 +1439,53 @@ const GROUP_SEEDS = [
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-09-01",
             "trackingEndDate": "2026-11-30",
-            "throughDate": "2026-10-20",
+            "throughDate": "2026-10-10",
             "recentDailyReadsStatus": "available",
             "recentDailyReads": [
               {
-                "localDate": "2026-10-19",
+                "localDate": "2026-10-09",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-10-18",
+                "localDate": "2026-10-08",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-10-17",
+                "localDate": "2026-10-07",
                 "status": "supportive_window",
                 "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-10-17T23:59:00.000Z",
+                "conditionRefreshAt": "2026-10-07T23:59:00.000Z",
                 "score": 63,
                 "label": "Possible"
               },
               {
-                "localDate": "2026-10-16",
+                "localDate": "2026-10-06",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-10-15",
+                "localDate": "2026-10-05",
                 "status": "supportive_window",
                 "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-10-15T23:59:00.000Z",
+                "conditionRefreshAt": "2026-10-05T23:59:00.000Z",
                 "score": 81,
                 "label": "Strong"
               },
               {
-                "localDate": "2026-10-14",
+                "localDate": "2026-10-04",
                 "status": "supportive_window",
                 "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-10-14T23:59:00.000Z",
+                "conditionRefreshAt": "2026-10-04T23:59:00.000Z",
                 "score": 63,
                 "label": "Possible"
               },
               {
-                "localDate": "2026-10-13",
+                "localDate": "2026-10-03",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
@@ -1493,29 +1493,29 @@ const GROUP_SEEDS = [
             ]
           },
           "fishInRiver": {
-            "score": 60,
+            "score": 44,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 60,
             "historicalRunStrength": "moderate",
-            "curveFraction": 1,
-            "curveDirection": "near_peak",
+            "curveFraction": 0.7368421052631579,
+            "curveDirection": "rising",
             "winterHoldingContext": false,
-            "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Use Migration Stage for the starting section and Fishability for workable water.",
+            "label": "High presence",
+            "headline": "Coho salmon are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
+            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
             "siteId": "04122500",
             "primaryMetric": "flow_cfs",
-            "observedAt": "2026-10-20T19:45:00.000Z",
+            "observedAt": "2026-10-10T19:45:00.000Z",
             "value": 600,
             "band": "ideal",
             "trend": "stable",
@@ -1527,7 +1527,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_maple_leaf",
             "siteId": "PMTU-MapleLeaf",
             "seriesId": "4939",
-            "observedAt": "2026-10-20T19:30:00.000Z",
+            "observedAt": "2026-10-10T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -1538,7 +1538,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_m37",
             "siteId": "PMTU-M37",
             "seriesId": "3201",
-            "observedAt": "2026-10-20T19:30:00.000Z",
+            "observedAt": "2026-10-10T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -1589,11 +1589,11 @@ const GROUP_SEEDS = [
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Coho salmon may still be present across a broad part of the accessible river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
             "tip": "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water; check lower lanes only for a fresh movement signal.",
+            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -1753,7 +1753,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -1828,12 +1828,12 @@ const GROUP_SEEDS = [
             "label": "High presence",
             "headline": "Seasonal timing still supports meaningful Coho salmon presence through dependable river sections, even as the usual peak window may be easing.",
             "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through a broad part of the accessible river, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -1906,11 +1906,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon can still provide a worthwhile late-season opportunity across a broad part of the accessible river.",
             "detail": "Some fish can still be present, but those fish may have been in the system for a while and fresh arrivals tend to be less dependable.",
             "tip": "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
-            "whereToStart": "Deep established holding water and slow current edges—not fast travel lanes.",
+            "whereToStart": "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2070,7 +2070,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -2150,7 +2150,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -2223,11 +2223,11 @@ const GROUP_SEEDS = [
             "headline": "The main Coho salmon migration is over.",
             "detail": "A few fish may remain, but the season no longer supports a dependable opportunity across a broad part of the river.",
             "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting section; any remaining fish are likely isolated in deep established holding water.",
+            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -2387,7 +2387,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -2402,7 +2402,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "complete",
@@ -2479,7 +2479,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -2565,11 +2565,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon have not started entering the river yet.",
             "detail": "Most Coho salmon are still expected to be in the lake, so a dependable river presence is unlikely right now.",
             "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not spend the day searching inland river water before the seasonal migration begins.",
-            "whereToStart": "Lake, harbor, and river mouth—not inland river sections.",
+            "whereToStart": "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -2594,7 +2594,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "push": {
             "score": null,
@@ -2606,7 +2606,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2629,12 +2629,12 @@ const GROUP_SEEDS = [
             "label": "Not expected yet",
             "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
             "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Use Migration Stage for the nearest worthwhile water, and do not interpret an isolated early fish as dependable presence.",
+            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -2714,12 +2714,12 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon may be gathering near the river mouth, and a few early fish could be in the river.",
             "detail": "Most Coho salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but a dependable opportunity in the river has not developed yet.",
             "tip": "Fish the harbor and river mouth first, then make one deliberate check of the first deep lower-river travel lane. Skip a middle- or upper-river trip until fish become dependable in the river.",
-            "whereToStart": "Harbor, river mouth, and the first deep lower-river travel lane.",
+            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth at the east end of the lake, and one deliberate check of the first deep travel lane in the lower migratory river.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -2744,7 +2744,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "push": {
             "score": null,
@@ -2756,7 +2756,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "not_started",
@@ -2779,12 +2779,12 @@ const GROUP_SEEDS = [
             "label": "Not expected yet",
             "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
             "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Use Migration Stage for the nearest worthwhile water, and do not interpret an isolated early fish as dependable presence.",
+            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -2864,11 +2864,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -2918,7 +2918,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -2946,7 +2946,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -3027,11 +3027,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3081,7 +3081,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3109,7 +3109,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -3189,11 +3189,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3243,7 +3243,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3271,7 +3271,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -3351,11 +3351,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -3406,7 +3406,7 @@ const GROUP_SEEDS = [
               "conditions_typical",
               "conditions_signals_mixed"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -3434,7 +3434,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -3514,11 +3514,11 @@ const GROUP_SEEDS = [
             "headline": "More Coho salmon are beginning to move into the river.",
             "detail": "Additional Coho salmon are typically entering and beginning to spread upstream, although arrivals can still come in uneven waves.",
             "tip": "Start where lower-river travel water enters the first dependable holding holes. Cover those holes from head to tail, then continue into the middle river instead of waiting in one lower-river spot.",
-            "whereToStart": "Lower to middle river, where travel water feeds dependable holding holes.",
+            "whereToStart": "Lower migratory river around Scottville, then the first substantial holding holes entering the middle river toward Walhalla.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -3608,7 +3608,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Typical"
@@ -3688,7 +3688,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -3761,11 +3761,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -3925,7 +3925,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -4000,12 +4000,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
             "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through a broad part of the accessible river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -4085,11 +4085,11 @@ const GROUP_SEEDS = [
             "headline": "The main Coho salmon migration is over.",
             "detail": "A few fish may remain, but the season no longer supports a dependable opportunity across a broad part of the river.",
             "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting section; any remaining fish are likely isolated in deep established holding water.",
+            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4249,7 +4249,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -4264,7 +4264,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "complete",
@@ -4341,7 +4341,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -4421,11 +4421,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -4581,7 +4581,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_complete",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Insufficient evidence"
@@ -4656,12 +4656,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
             "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through a broad part of the accessible river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -4741,11 +4741,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -4791,7 +4791,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -4819,7 +4819,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -4899,11 +4899,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -4954,7 +4954,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -4982,7 +4982,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -5062,11 +5062,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5117,7 +5117,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5145,7 +5145,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -5225,11 +5225,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5280,7 +5280,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5308,7 +5308,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -5388,11 +5388,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5443,7 +5443,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5471,7 +5471,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -5551,11 +5551,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5606,7 +5606,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5634,7 +5634,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -5714,11 +5714,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5769,7 +5769,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5797,7 +5797,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -5877,11 +5877,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Insufficient evidence",
@@ -5929,7 +5929,7 @@ const GROUP_SEEDS = [
               "conditions_insufficient",
               "conditions_checkpoint_river_start"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -5957,7 +5957,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -6037,7 +6037,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -6075,7 +6075,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6172,7 +6172,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6269,7 +6269,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6367,7 +6367,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6464,7 +6464,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6561,7 +6561,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -6594,7 +6594,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -6626,7 +6626,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6724,7 +6724,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6824,7 +6824,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -6856,7 +6856,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -6953,7 +6953,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7052,7 +7052,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -7087,7 +7087,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -7187,7 +7187,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -7206,7 +7206,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -7226,7 +7226,7 @@ const GROUP_SEEDS = [
               "temperature_unavailable"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -7245,7 +7245,7 @@ const GROUP_SEEDS = [
               "gauge_fresh"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -7285,12 +7285,12 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon may be gathering near the river mouth, and a few early fish could be in the river.",
             "detail": "Most Coho salmon are still expected near the lake, harbor, or river mouth. The earliest arrivals can occasionally slip into the lower river, but a dependable opportunity in the river has not developed yet.",
             "tip": "Fish the harbor and river mouth first, then make one deliberate check of the first deep lower-river travel lane. Skip a middle- or upper-river trip until fish become dependable in the river.",
-            "whereToStart": "Harbor, river mouth, and the first deep lower-river travel lane.",
+            "whereToStart": "Ludington harbor, Pere Marquette Lake, the river mouth at the east end of the lake, and one deliberate check of the first deep travel lane in the lower migratory river.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Evaluating",
@@ -7315,7 +7315,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_checkpoint_evaluating"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "push": {
             "score": null,
@@ -7327,7 +7327,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "not_started",
@@ -7350,12 +7350,12 @@ const GROUP_SEEDS = [
             "label": "Not expected yet",
             "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
             "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Use Migration Stage for the nearest worthwhile water, and do not interpret an isolated early fish as dependable presence.",
+            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -7435,12 +7435,12 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon are outside their river migration season.",
             "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
             "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return to this read as the next migration approaches.",
-            "whereToStart": "No dependable river location for this species right now.",
+            "whereToStart": "No dependable Pere Marquette River location for this species right now.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -7464,7 +7464,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "push": {
             "score": null,
@@ -7476,7 +7476,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "complete",
@@ -7553,7 +7553,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -7633,11 +7633,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -7687,7 +7687,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -7715,7 +7715,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -7795,11 +7795,11 @@ const GROUP_SEEDS = [
             "headline": "The main Coho salmon migration is over.",
             "detail": "A few fish may remain, but the season no longer supports a dependable opportunity across a broad part of the river.",
             "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting section; any remaining fish are likely isolated in deep established holding water.",
+            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -7959,7 +7959,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -7974,7 +7974,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "complete",
@@ -8051,7 +8051,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -8123,7 +8123,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8148,7 +8148,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8173,7 +8173,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8204,7 +8204,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8229,7 +8229,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8255,7 +8255,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8280,7 +8280,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8305,7 +8305,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8330,7 +8330,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8358,7 +8358,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8386,7 +8386,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8414,7 +8414,7 @@ const GROUP_SEEDS = [
               ]
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8433,7 +8433,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -8453,7 +8453,7 @@ const GROUP_SEEDS = [
               "baseline_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       }
@@ -8499,12 +8499,12 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon are outside their river migration season.",
             "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
             "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return to this read as the next migration approaches.",
-            "whereToStart": "No dependable river location for this species right now.",
+            "whereToStart": "No dependable Pere Marquette River location for this species right now.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8529,7 +8529,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "push": {
             "score": null,
@@ -8541,7 +8541,7 @@ const GROUP_SEEDS = [
               "push_tracking_offseason"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "not_started",
@@ -8569,7 +8569,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -8649,11 +8649,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon have not started entering the river yet.",
             "detail": "Most Coho salmon are still expected to be in the lake, so a dependable river presence is unlikely right now.",
             "tip": "Keep the trip in the lake, harbor, and river-mouth zone. Do not spend the day searching inland river water before the seasonal migration begins.",
-            "whereToStart": "Lake, harbor, and river mouth—not inland river sections.",
+            "whereToStart": "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Not monitoring yet",
@@ -8678,7 +8678,7 @@ const GROUP_SEEDS = [
             "reasonCodes": [
               "conditions_monitoring_inactive"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "push": {
             "score": null,
@@ -8690,7 +8690,7 @@ const GROUP_SEEDS = [
               "push_tracking_not_started"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "not_started",
@@ -8713,12 +8713,12 @@ const GROUP_SEEDS = [
             "label": "Not expected yet",
             "headline": "A dependable presence of Coho salmon is not expected in the river yet.",
             "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Use Migration Stage for the nearest worthwhile water, and do not interpret an isolated early fish as dependable presence.",
+            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -8798,11 +8798,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -8852,7 +8852,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -8880,7 +8880,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -8960,11 +8960,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -9014,7 +9014,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9091,7 +9091,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -9171,11 +9171,11 @@ const GROUP_SEEDS = [
             "headline": "More Coho salmon are beginning to move into the river.",
             "detail": "Additional Coho salmon are typically entering and beginning to spread upstream, although arrivals can still come in uneven waves.",
             "tip": "Start where lower-river travel water enters the first dependable holding holes. Cover those holes from head to tail, then continue into the middle river instead of waiting in one lower-river spot.",
-            "whereToStart": "Lower to middle river, where travel water feeds dependable holding holes.",
+            "whereToStart": "Lower migratory river around Scottville, then the first substantial holding holes entering the middle river toward Walhalla.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Typical",
@@ -9265,7 +9265,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_building_start",
               "conditions_typical"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "river_start",
             "previousCheckpointDate": "2026-09-01",
             "previousTimingLabel": "Delayed"
@@ -9345,7 +9345,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -9418,11 +9418,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon are becoming established through more dependable river sections.",
             "detail": "Earlier arrivals have had time to move upstream while later Coho salmon may continue to enter. Fish may now be distributed through a broad part of the accessible river, wherever passage is open.",
             "tip": "Begin in a dependable middle-river section, then work through its deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-            "whereToStart": "Lower and middle river first; some earlier fish may already have reached upper holding water.",
+            "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -9499,7 +9499,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -9572,11 +9572,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -9704,7 +9704,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -9784,7 +9784,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -9864,11 +9864,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -9996,7 +9996,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -10076,7 +10076,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -10156,11 +10156,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10288,7 +10288,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -10363,12 +10363,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
             "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Use Migration Stage for the starting section and Fishability for workable water.",
+            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -10448,11 +10448,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -10580,7 +10580,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -10655,12 +10655,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
             "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports fish through a broad part of the accessible river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -10740,11 +10740,11 @@ const GROUP_SEEDS = [
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Coho salmon may still be present across a broad part of the accessible river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
             "tip": "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water; check lower lanes only for a fresh movement signal.",
+            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -10904,7 +10904,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -10979,12 +10979,12 @@ const GROUP_SEEDS = [
             "label": "High presence",
             "headline": "Seasonal timing still supports meaningful Coho salmon presence through dependable river sections, even as the usual peak window may be easing.",
             "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through a broad part of the accessible river, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -11057,11 +11057,11 @@ const GROUP_SEEDS = [
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Coho salmon may still be present across a broad part of the accessible river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
             "tip": "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water; check lower lanes only for a fresh movement signal.",
+            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11221,7 +11221,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -11296,12 +11296,12 @@ const GROUP_SEEDS = [
             "label": "High presence",
             "headline": "Seasonal timing still supports Coho salmon through dependable river sections, although fresh arrivals may be less consistent than near peak.",
             "detail": "Seasonal presence is usually elevated relative to the rest of the season. Fish are still likely established through a broad part of the accessible river, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -11374,11 +11374,11 @@ const GROUP_SEEDS = [
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Coho salmon may still be present across a broad part of the accessible river. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
             "tip": "Begin with established middle- and upper-river holding water, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "Established middle- and upper-river holding water; check lower lanes only for a fresh movement signal.",
+            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11538,7 +11538,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -11618,7 +11618,7 @@ const GROUP_SEEDS = [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -11691,11 +11691,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon can still provide a worthwhile late-season opportunity across a broad part of the accessible river.",
             "detail": "Some fish can still be present, but those fish may have been in the system for a while and fresh arrivals tend to be less dependable.",
             "tip": "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
-            "whereToStart": "Deep established holding water and slow current edges—not fast travel lanes.",
+            "whereToStart": "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -11855,7 +11855,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -11935,7 +11935,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -12008,11 +12008,11 @@ const GROUP_SEEDS = [
             "headline": "The main Coho salmon migration is over.",
             "detail": "A few fish may remain, but the season no longer supports a dependable opportunity across a broad part of the river.",
             "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting section; any remaining fish are likely isolated in deep established holding water.",
+            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -12172,7 +12172,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -12187,7 +12187,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "complete",
@@ -12264,7 +12264,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -12345,11 +12345,11 @@ const GROUP_SEEDS = [
             "headline": "The main Coho salmon migration is over.",
             "detail": "A few fish may remain, but the season no longer supports a dependable opportunity across a broad part of the river.",
             "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
-            "whereToStart": "No dependable starting section; any remaining fish are likely isolated in deep established holding water.",
+            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -12509,7 +12509,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -12524,7 +12524,7 @@ const GROUP_SEEDS = [
               "push_tracking_complete"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "complete",
@@ -12601,7 +12601,7 @@ const GROUP_SEEDS = [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -12681,11 +12681,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -12813,7 +12813,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -12888,12 +12888,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
             "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Use Migration Stage for the starting section and Fishability for workable water.",
+            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -12975,11 +12975,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon are becoming established through more dependable river sections.",
             "detail": "Earlier arrivals have had time to move upstream while later Coho salmon may continue to enter. Fish may now be distributed through several dependable river sections, wherever passage is open.",
             "tip": "Begin in a dependable middle-river section, then work through its deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-            "whereToStart": "Established middle-river holding sections, with lower lanes for newer arrivals.",
+            "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "fishInRiver": {
             "score": 30,
@@ -12998,7 +12998,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -13039,11 +13039,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through several dependable river sections, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Several dependable river sections, wherever passage remains open.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -13171,7 +13171,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -13246,12 +13246,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
             "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Use Migration Stage for the starting section and Fishability for workable water.",
+            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -13332,11 +13332,11 @@ const GROUP_SEEDS = [
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Coho salmon may still be present through the river's dependable sections. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
             "tip": "Begin in the river's established holding sections, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "The river's established holding sections and deepest slower edges.",
+            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -13496,7 +13496,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -13571,12 +13571,12 @@ const GROUP_SEEDS = [
             "label": "High presence",
             "headline": "Seasonal timing still supports meaningful Coho salmon presence through dependable river sections, even as the usual peak window may be easing.",
             "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -13650,11 +13650,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon can still provide a worthwhile late-season opportunity in dependable river sections.",
             "detail": "Some fish can still be present, but those fish may have been in the system for a while and fresh arrivals tend to be less dependable.",
             "tip": "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
-            "whereToStart": "Deep established holding water and slow current edges—not fast travel lanes.",
+            "whereToStart": "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -13814,7 +13814,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -13894,7 +13894,7 @@ const GROUP_SEEDS = [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -13968,11 +13968,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon are becoming established through more dependable river sections.",
             "detail": "Earlier arrivals have had time to move upstream while later Coho salmon may continue to enter. Fish may now be distributed through several dependable river sections, wherever passage is open.",
             "tip": "Begin in a dependable middle-river section, then work through its deep holes, outside bends, and current breaks. If Push is Possible or stronger, finish with a deliberate lower-river travel-lane check.",
-            "whereToStart": "Established middle-river holding sections, with lower lanes for newer arrivals.",
+            "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -14049,7 +14049,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -14123,11 +14123,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through several dependable river sections, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Several dependable river sections, wherever passage remains open.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -14255,7 +14255,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -14330,12 +14330,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
             "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through several dependable river sections. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Use Migration Stage for the starting section and Fishability for workable water.",
+            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -14416,11 +14416,11 @@ const GROUP_SEEDS = [
             "headline": "This can remain a productive part of the Coho salmon season, even as fresh arrivals typically become less consistent.",
             "detail": "Coho salmon may still be present through the river's dependable sections. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
             "tip": "Begin in the river's established holding sections, especially deep holes and slower edges. If Push is Possible or stronger, finish with lower travel lanes for a fresh late wave.",
-            "whereToStart": "The river's established holding sections and deepest slower edges.",
+            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -14580,7 +14580,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -14655,12 +14655,12 @@ const GROUP_SEEDS = [
             "label": "High presence",
             "headline": "Seasonal timing still supports meaningful Coho salmon presence through dependable river sections, even as the usual peak window may be easing.",
             "detail": "Seasonal presence remains elevated relative to the rest of the season. Fish are still likely established through several dependable river sections, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -14729,11 +14729,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon are becoming established within the river's most dependable sections.",
             "detail": "Earlier arrivals have had time to move upstream while later Coho salmon may continue to enter. A smaller number of fish may now be distributed within a smaller set of dependable holding areas, wherever passage is open.",
             "tip": "Begin in the river's most dependable established holding water and cover each deep hole, outside bend, and current break carefully. If Push is Possible or stronger, finish with one deliberate lower-river travel-lane check.",
-            "whereToStart": "The river's most dependable established holding holes.",
+            "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "fishInRiver": {
             "score": 15,
@@ -14747,12 +14747,12 @@ const GROUP_SEEDS = [
             "label": "Moderate presence",
             "headline": "A smaller number of Coho salmon are likely in the river, with this limited seasonal presence still building toward its high point.",
             "detail": "This part of the season usually brings moderate presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "tip": "Plan for an improving but still limited river opportunity. Stay mobile, and require direct fish activity before slowing down.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           }
         }
       },
@@ -14793,11 +14793,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the best river opportunity of the Coho salmon season, although the overall seasonal presence remains limited.",
             "detail": "Earlier waves have had time to move, so a smaller number of Coho salmon may now be distributed within the river's most dependable holding and spawning areas, except above dams or other barriers.",
             "tip": "Choose one of the river's most dependable holding sections and fish every substantial hole from its head through the inside seam and tail. Move carefully between deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "The river's most dependable holding and spawning areas.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -14925,7 +14925,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -15000,12 +15000,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Coho salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
             "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Use Migration Stage for the starting section and Fishability for workable water.",
+            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -15086,11 +15086,11 @@ const GROUP_SEEDS = [
             "headline": "This can still offer a limited Coho salmon opportunity, even as fresh arrivals typically become less consistent.",
             "detail": "A smaller number of Coho salmon may still be concentrated in the river's most dependable holding water. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
             "tip": "Begin in the river's most dependable deep holes and slower holding edges. If Push is Possible or stronger, finish with one lower travel-lane check for a fresh late arrival.",
-            "whereToStart": "The most dependable deep holding holes and slower edges.",
+            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15250,7 +15250,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -15325,12 +15325,12 @@ const GROUP_SEEDS = [
             "label": "High presence",
             "headline": "Seasonal timing still supports this limited Coho salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
             "detail": "Seasonal presence remains elevated relative to the rest of the season. The overall seasonal opportunity remains limited, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -15404,11 +15404,11 @@ const GROUP_SEEDS = [
             "headline": "A limited late-season Coho salmon opportunity may remain in the most dependable holding water.",
             "detail": "A smaller number of fish can still be present, but those fish may have been in the system for a while and fresh arrivals tend to be less dependable.",
             "tip": "Skip fast travel lanes. Work the deepest established holes and slow current edges, and leave actively spawning fish and shallow gravel alone.",
-            "whereToStart": "Deep established holding water and slow current edges—not fast travel lanes.",
+            "whereToStart": "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -15568,7 +15568,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -15643,12 +15643,12 @@ const GROUP_SEEDS = [
             "label": "Moderate presence",
             "headline": "Seasonal timing still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
             "detail": "This part of the season usually supports moderate presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "tip": "Plan for a thinning, limited river opportunity. Expect substantial searching, and require direct fish activity before committing more time.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -15722,11 +15722,11 @@ const GROUP_SEEDS = [
             "headline": "Coho salmon are becoming established within the river's most dependable sections.",
             "detail": "Earlier arrivals have had time to move upstream while later Coho salmon may continue to enter. A smaller number of fish may now be distributed within a smaller set of dependable holding areas, wherever passage is open.",
             "tip": "Begin in the river's most dependable established holding water and cover each deep hole, outside bend, and current break carefully. If Push is Possible or stronger, finish with one deliberate lower-river travel-lane check.",
-            "whereToStart": "The river's most dependable established holding holes.",
+            "whereToStart": "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -15803,7 +15803,7 @@ const GROUP_SEEDS = [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -15877,11 +15877,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the best river opportunity of the Coho salmon season, although the overall seasonal presence remains limited.",
             "detail": "Earlier waves have had time to move, so a smaller number of Coho salmon may now be distributed within the river's most dependable holding and spawning areas, except above dams or other barriers.",
             "tip": "Choose one of the river's most dependable holding sections and fish every substantial hole from its head through the inside seam and tail. Move carefully between deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "The river's most dependable holding and spawning areas.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16009,7 +16009,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -16084,12 +16084,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Coho salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
             "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Use Migration Stage for the starting section and Fishability for workable water.",
+            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -16170,11 +16170,11 @@ const GROUP_SEEDS = [
             "headline": "This can still offer a limited Coho salmon opportunity, even as fresh arrivals typically become less consistent.",
             "detail": "A smaller number of Coho salmon may still be concentrated in the river's most dependable holding water. At this point in the seasonal pattern, the balance often shifts from new arrivals toward fish already holding or spawning.",
             "tip": "Begin in the river's most dependable deep holes and slower holding edges. If Push is Possible or stronger, finish with one lower travel-lane check for a fresh late arrival.",
-            "whereToStart": "The most dependable deep holding holes and slower edges.",
+            "whereToStart": "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Timing complete",
@@ -16334,7 +16334,7 @@ const GROUP_SEEDS = [
               "conditions_ahead",
               "conditions_timing_complete"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "peak_start",
             "previousCheckpointDate": "2026-10-10",
             "previousTimingLabel": "Ahead"
@@ -16409,12 +16409,12 @@ const GROUP_SEEDS = [
             "label": "High presence",
             "headline": "Seasonal timing still supports this limited Coho salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
             "detail": "Seasonal presence remains elevated relative to the rest of the season. The overall seasonal opportunity remains limited, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but use Push—not this card—to judge whether a fresh wave is supported.",
+            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -16485,7 +16485,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -16568,7 +16568,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "interpretationNote": {
             "headline": "Fresh movement looks possible, but the river may be difficult to fish.",
@@ -16615,11 +16615,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Ahead",
@@ -16747,7 +16747,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_ahead"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Ahead"
@@ -16777,7 +16777,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -16849,12 +16849,12 @@ const GROUP_SEEDS = [
             "label": "Peak presence",
             "headline": "Coho salmon are likely near their highest seasonal presence in the river.",
             "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Use Migration Stage for the starting section and Fishability for workable water.",
+            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -16934,11 +16934,11 @@ const GROUP_SEEDS = [
             "headline": "The first Coho salmon are beginning to enter the river.",
             "detail": "Fresh Coho salmon may be entering the river, but the developing opportunity can still be scattered and inconsistent this early.",
             "tip": "Begin in the lower river. Fish the first deep bends and short resting pockets off the main travel lane, then move upstream only after the lower section has been covered.",
-            "whereToStart": "Lower river: the first deep bends and resting pockets beside the main travel lane.",
+            "whereToStart": "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -16988,7 +16988,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_river_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "none_recorded",
@@ -17015,7 +17015,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "fishInRiver": {
             "score": 6,
@@ -17034,7 +17034,7 @@ const GROUP_SEEDS = [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -17114,11 +17114,11 @@ const GROUP_SEEDS = [
             "headline": "This is typically the strongest and most dependable river opportunity of the Coho salmon season.",
             "detail": "Earlier waves have had time to move, so Coho salmon may now be distributed through a broad part of the accessible river, except above dams or other barriers.",
             "tip": "Choose a dependable river section and fish every substantial hole from its head through the inside seam and tail. Move section by section through deep bends and resting pockets, and leave fish on shallow spawning gravel alone.",
-            "whereToStart": "Across a broad part of the accessible river, though concentrations may be uneven.",
+            "whereToStart": "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "conditionsSuggest": {
             "label": "Delayed",
@@ -17246,7 +17246,7 @@ const GROUP_SEEDS = [
               "conditions_checkpoint_peak_start",
               "conditions_delayed"
             ],
-            "copyVersion": "river-run-copy-v20",
+            "copyVersion": "river-run-copy-v27",
             "previousCheckpointId": "building_established",
             "previousCheckpointDate": "2026-10-01",
             "previousTimingLabel": "Delayed"
@@ -17274,7 +17274,7 @@ const GROUP_SEEDS = [
               "appliedCaps": []
             },
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "pushHistory": {
             "status": "active_now",
@@ -17358,7 +17358,7 @@ const GROUP_SEEDS = [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": {
             "provider": "USGS",
@@ -17430,7 +17430,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-fall-coho-push-v1",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "fishability": {
             "score": null,
@@ -17442,7 +17442,7 @@ const GROUP_SEEDS = [
               "gauge_missing"
             ],
             "rulesVersion": "pm-scottville-fishability-v2",
-            "copyVersion": "river-run-copy-v20"
+            "copyVersion": "river-run-copy-v27"
           },
           "gauge": null,
           "weather": null,

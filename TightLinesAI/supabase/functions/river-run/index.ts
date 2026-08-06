@@ -24,6 +24,7 @@ import {
   type NormalizedWaterTemperatureObservation,
   normalizeGaugeRead,
   normalizeWeatherSnapshot,
+  type ObservedConditionRunProfile,
   parseMonitorMyWatershedTemperature,
   parseUsgsInstantaneousValues,
   parseUsgsWaterTemperature,
@@ -43,6 +44,7 @@ import {
   type RiverRunFetch,
   type RiverRunProfile,
   type RiverRunReasonCode,
+  staticConfigurationVersionForRun,
   type StoredConditionRefresh,
   type StoredDailySnapshot,
   type SupabaseLikeClient,
@@ -165,7 +167,7 @@ async function resolveRuntimeCatalog(
     configVersionByRun: new Map(
       staticRuns.map((run) => [
         run.runId,
-        deps.configVersion ?? CONFIG_VERSION,
+        deps.configVersion ?? staticConfigurationVersionForRun(run.runId),
       ]),
     ),
   };
@@ -383,6 +385,19 @@ async function resolvePushHistoryContext(input: {
     trackingEndDate,
     throughDate,
   };
+
+  if (
+    input.condition.push.reasonCodes.includes(
+      "primitive_push_unavailable_for_river",
+    )
+  ) {
+    return {
+      ...base,
+      status: "unavailable",
+      recentDailyReadsStatus: "unavailable",
+      recentDailyReads: [],
+    };
+  }
 
   if (!afterTrackingStart) {
     return {
@@ -741,31 +756,38 @@ async function readOrBuildDailySnapshot(input: {
   throwOnStorageError("read daily snapshot", cached.error);
   if (cached.data) return cached.data;
 
-  const [conditionsEvidenceByDate, conditionsBaselinesResult] = await Promise
-    .all([
+  const timingCapability = input.run.primitiveCapabilities.migrationTiming;
+  let conditionsEvidenceByDate: ConditionsSuggestEvidenceByDate = {};
+  let conditionsBaselines = null;
+  if (timingCapability.status === "available") {
+    const observedRun = requireObservedRun(input.run);
+    const [evidence, baselinesResult] = await Promise.all([
       readConditionsSuggestEvidence(
         input.client,
-        input.run,
+        observedRun,
         input.localDate,
         input.engineVersion,
         input.configVersion,
       ),
       readConditionsSuggestBaselines(input.client, {
-        riverId: input.run.riverId,
-        runId: input.run.runId,
-        baselineVersion: input.run.conditionsSuggest.baselineVersion,
+        riverId: observedRun.riverId,
+        runId: observedRun.runId,
+        baselineVersion: observedRun.conditionsSuggest.baselineVersion,
       }),
     ]);
-  throwOnStorageError(
-    "read Conditions Suggest baselines",
-    conditionsBaselinesResult.error,
-  );
+    throwOnStorageError(
+      "read Conditions Suggest baselines",
+      baselinesResult.error,
+    );
+    conditionsEvidenceByDate = evidence;
+    conditionsBaselines = baselinesResult.data;
+  }
   const built = buildDailySnapshot({
     river: input.river,
     run: input.run,
     localDate: input.localDate,
     conditionsEvidenceByDate,
-    conditionsBaselines: conditionsBaselinesResult.data,
+    conditionsBaselines,
     engineVersion: input.engineVersion,
     configVersion: input.configVersion,
   });
@@ -807,6 +829,44 @@ async function readOrBuildConditionRefresh(input: {
   throwOnStorageError("read condition refresh", cached.error);
   if (cached.data) return cached.data;
 
+  const allCurrentPrimitivesUnavailable =
+    input.run.primitiveCapabilities.push.status === "unavailable" &&
+    input.run.primitiveCapabilities.fishability.status === "unavailable";
+  if (allCurrentPrimitivesUnavailable) {
+    const built = buildConditionRefresh({
+      dailySnapshot: input.dailySnapshot,
+      localDate: input.localDate,
+      refreshSlot: input.refreshSlot,
+      movementEngineId: input.run.movementEngineId,
+      primitiveCapabilities: input.run.primitiveCapabilities,
+      gaugeFreshness: "missing",
+      weatherFreshness: "missing",
+      waterTemperatureFreshness: "missing",
+      conditionsWaterTemperatureFreshness: "missing",
+      currentHydraulicValue: null,
+      hydraulicAbsoluteChange24h: null,
+      hydraulicPercentChange24h: null,
+      rainSignal: "missing_rain_data",
+      flowSignal: "unknown",
+      temperatureSignal: "neutral_missing",
+      temperatureSourceType: "unavailable",
+      waterTempF: null,
+      missingNonGaugeInputCount: 2,
+      rainReasonCodes: ["rain_missing"],
+      flowReasonCodes: ["gauge_missing", "flow_trend_unknown"],
+      temperatureReasonCodes: [
+        "temperature_unavailable",
+        "temperature_neutral_missing",
+      ],
+      sourceMetrics: {},
+      engineVersion: input.engineVersion,
+      configVersion: input.configVersion,
+    });
+    return await storeConditionRefresh(input, built);
+  }
+
+  const observedRun = requireObservedRun(input.run);
+
   const boundedFetch = withTimeoutFetch(input.fetchFn, PROVIDER_TIMEOUT_MS);
   const primaryHydraulicSource = getPrimaryHydraulicSource(input.river);
   const gaugeObservations = input.gaugeObservations ??
@@ -822,17 +882,20 @@ async function readOrBuildConditionRefresh(input: {
     refreshAtUtc: input.refreshAtUtc,
     maxAgeHours: primaryHydraulicSource.maxAgeHours,
     riseThresholds: {
-      rising24hAbsolute: input.run.push.hydraulic.rising24h.absolute,
-      rising24hPercent: input.run.push.hydraulic.rising24h.percent,
+      rising24hAbsolute: observedRun.push.hydraulic.rising24h.absolute,
+      rising24hPercent: observedRun.push.hydraulic.rising24h.percent,
       meaningfulRise24hAbsolute:
-        input.run.push.hydraulic.meaningfulRise24h.absolute,
+        observedRun.push.hydraulic.meaningfulRise24h.absolute,
       meaningfulRise24hPercent:
-        input.run.push.hydraulic.meaningfulRise24h.percent,
-      sharpRise24hAbsolute: input.run.push.hydraulic.sharpRise24h.absolute,
-      sharpRise24hPercent: input.run.push.hydraulic.sharpRise24h.percent,
+        observedRun.push.hydraulic.meaningfulRise24h.percent,
+      sharpRise24hAbsolute: observedRun.push.hydraulic.sharpRise24h.absolute,
+      sharpRise24hPercent: observedRun.push.hydraulic.sharpRise24h.percent,
     },
   });
-  const temperatureSources = getRunTemperatureSources(input.river, input.run);
+  const temperatureSources = getRunTemperatureSources(
+    input.river,
+    observedRun,
+  );
   const temperaturePayload = input.waterTemperatureObservationsBySource
     ? {
       observationsBySource: input.waterTemperatureObservationsBySource,
@@ -845,17 +908,17 @@ async function readOrBuildConditionRefresh(input: {
     });
   const waterTemperature = resolveWaterTemperatureRead({
     sources: temperatureSources,
-    sourcePriority: input.run.waterTemperature.sourcePriority,
+    sourcePriority: observedRun.waterTemperature.sourcePriority,
     observationsBySource: temperaturePayload.observationsBySource,
     rejectedBySource: temperaturePayload.rejectedBySource,
     refreshAtUtc: input.refreshAtUtc,
   });
   const conditionsTemperatureSources = temperatureSources.filter((source) =>
-    source.sourceId === input.run.conditionsSuggest.temperatureSourceId
+    source.sourceId === observedRun.conditionsSuggest.temperatureSourceId
   );
   const conditionsWaterTemperature = resolveWaterTemperatureRead({
     sources: conditionsTemperatureSources,
-    sourcePriority: [input.run.conditionsSuggest.temperatureSourceId],
+    sourcePriority: [observedRun.conditionsSuggest.temperatureSourceId],
     observationsBySource: temperaturePayload.observationsBySource,
     rejectedBySource: temperaturePayload.rejectedBySource,
     refreshAtUtc: input.refreshAtUtc,
@@ -873,7 +936,7 @@ async function readOrBuildConditionRefresh(input: {
   });
   const conditionInputs = assembleConditionInputs({
     river: input.river,
-    run: input.run,
+    run: observedRun,
     refreshAtUtc: input.refreshAtUtc,
     localDate: input.localDate,
     gauge,
@@ -886,12 +949,23 @@ async function readOrBuildConditionRefresh(input: {
     localDate: input.localDate,
     refreshSlot: input.refreshSlot,
     movementEngineId: input.run.movementEngineId,
-    pushRules: input.run.push,
-    fishabilityBands: input.run.fishabilityBands,
+    primitiveCapabilities: observedRun.primitiveCapabilities,
+    pushRules: observedRun.push,
+    fishabilityBands: observedRun.fishabilityBands,
     ...conditionInputs,
     engineVersion: input.engineVersion,
     configVersion: input.configVersion,
   });
+  return await storeConditionRefresh(input, built);
+}
+
+async function storeConditionRefresh(
+  input: {
+    client: SupabaseLikeClient;
+    refreshAtUtc: string;
+  },
+  built: RiverRunConditionRefresh,
+): Promise<StoredConditionRefresh> {
   const stored: StoredConditionRefresh = {
     ...built,
     conditionRefreshAt: input.refreshAtUtc,
@@ -901,9 +975,26 @@ async function readOrBuildConditionRefresh(input: {
   return upserted.data ?? stored;
 }
 
+function requireObservedRun(
+  run: RiverRunProfile,
+): ObservedConditionRunProfile {
+  if (
+    run.primitiveCapabilities.migrationTiming.status !== "available" ||
+    run.primitiveCapabilities.push.status !== "available" ||
+    run.primitiveCapabilities.fishability.status !== "available" ||
+    !run.push || !run.fishabilityBands || !run.baselineCoverage ||
+    !run.waterTemperature || !run.conditionsSuggest
+  ) {
+    throw new Error(
+      "Observed River Migration runtime requires all condition calibrations.",
+    );
+  }
+  return run as ObservedConditionRunProfile;
+}
+
 async function readConditionsSuggestEvidence(
   client: SupabaseLikeClient,
-  run: RiverRunProfile,
+  run: ObservedConditionRunProfile,
   localDate: string,
   engineVersion: string,
   configVersion: string,
@@ -1002,7 +1093,8 @@ function shapeSnapshotResponse(input: {
       ? "Forecast data is informational only and does not change scores."
       : undefined,
     safety: {
-      regulationReminder: "Check current local regulations before fishing.",
+      regulationReminder: input.river.regulationReminderCopy ??
+        "Check current local regulations before fishing.",
       gaugeBasis: input.river.gaugeLimitationCopy,
       activityDisclaimer:
         "Fishability describes fishing conditions, not wading or boating safety.",

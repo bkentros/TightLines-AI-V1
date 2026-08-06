@@ -42,7 +42,12 @@ export type FishInRiverResult = PrimitiveDisplay & {
 export function scoreFishInRiver(
   run: Pick<
     RiverRunProfile,
-    "runWindow" | "historicalPresence" | "species" | "runType" | "handoff"
+    | "runWindow"
+    | "historicalPresence"
+    | "species"
+    | "runType"
+    | "handoff"
+    | "runStageCopyStrategy"
   >,
   localDate: string,
 ): FishInRiverResult {
@@ -58,6 +63,7 @@ export function scoreFishInRiver(
     const handoffScore = Math.round(
       riverCeiling * run.handoff!.retainedPresenceFraction,
     );
+    const betsieHandoff = run.runStageCopyStrategy === "betsie_homestead";
     return {
       score: handoffScore,
       stage,
@@ -69,12 +75,15 @@ export function scoreFishInRiver(
       winterHoldingContext: true,
       handoffScore,
       label: "Winter holding",
-      headline:
-        `Steelhead remain strongly present as the fishery shifts into winter holding.`,
-      detail:
-        `Fall entry finished at ${handoffScore}/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.`,
-      tip:
-        `Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat ${handoffScore}/100 as retained seasonal presence—not proof that fish are active today.`,
+      headline: betsieHandoff
+        ? "Steelhead remain strongly present as the Betsie shifts into winter holding."
+        : "Steelhead remain strongly present as the fishery shifts into winter holding.",
+      detail: betsieHandoff
+        ? `Fall entry finished at ${handoffScore}/100. That retained-presence reference is not a live activity score; the Betsie has no accepted water-temperature or flow sensor for judging today's feeding activity.`
+        : `Fall entry finished at ${handoffScore}/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.`,
+      tip: betsieHandoff
+        ? `Treat ${handoffScore}/100 as retained seasonal presence—not proof that fish are active today. Verify conditions directly and use controlled presentations in deep holding water outside the signed Homestead closure.`
+        : `Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat ${handoffScore}/100 as retained seasonal presence—not proof that fish are active today.`,
       reasonCodes: [
         stageReasonCode(stage),
         "historical_presence_curve",
@@ -231,7 +240,7 @@ function fishInRiverCopy(input: {
       detail:
         `Most ${species} are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.`,
       tip:
-        "Treat this as no dependable in-river opportunity yet. Use Migration Stage for the nearest worthwhile water, and do not interpret an isolated early fish as dependable presence.",
+        "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
     };
   }
   if (score === 0) {
@@ -259,7 +268,7 @@ function fishInRiverCopy(input: {
       detail:
         "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
       tip:
-        "Treat the retained presence as strong, then use Migration Stage for likely distribution and the live primitives for current fishing decisions.",
+        "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
     };
   }
 
@@ -431,6 +440,9 @@ function presenceTip(
       return "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.";
     }
     if (label === "Moderate presence") {
+      if (opportunity.strength === "limited") {
+        return "Plan for an improving but still limited river opportunity. Stay mobile, and require direct fish activity before slowing down.";
+      }
       return "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.";
     }
     return `${
@@ -439,12 +451,18 @@ function presenceTip(
   }
   if (direction === "falling") {
     if (label === "Peak presence" || label === "High presence") {
+      if (opportunity.strength === "limited") {
+        return "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.";
+      }
       const remainingContext = fractionOfRiverMaximum >= 0.8
         ? "Seasonal presence is still near its high point"
         : "A meaningful seasonal presence may remain";
-      return `Plan around fish already likely to be in the river. ${remainingContext}, but use Push—not this card—to judge whether a fresh wave is supported.`;
+      return `Plan around fish already likely to be in the river. ${remainingContext}, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.`;
     }
     if (label === "Moderate presence") {
+      if (opportunity.strength === "limited") {
+        return "Plan for a thinning, limited river opportunity. Expect substantial searching, and require direct fish activity before committing more time.";
+      }
       return "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.";
     }
     if (label === "Limited presence") {
@@ -473,11 +491,11 @@ function peakPresenceTip(
 ): string {
   switch (opportunity.strength) {
     case "strong":
-      return "Plan for the strongest seasonal presence this river usually offers, while remembering that the estimate cannot confirm fish at any specific spot. Use Migration Stage for the starting section and Fishability for workable water.";
+      return "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.";
     case "moderate":
-      return "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Use Migration Stage for the starting section and Fishability for workable water.";
+      return "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.";
     case "limited":
-      return "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Use Migration Stage for the starting section and Fishability for workable water.";
+      return "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.";
   }
 }
 

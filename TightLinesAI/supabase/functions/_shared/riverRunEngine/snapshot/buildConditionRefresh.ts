@@ -8,6 +8,7 @@ import type {
   RawRainSignal,
   RawTemperatureTrendSignal,
   RiverMetric,
+  RiverRunPrimitiveCapabilities,
   RiverRunReasonCode,
   TemperatureSourceType,
   WeatherFreshness,
@@ -19,6 +20,10 @@ import type { RiverRunDailySnapshot } from "./buildDailySnapshot.ts";
 import { resolveDataQuality } from "./dataQuality.ts";
 import { resolveInterpretationNote } from "../copy/interpretation.ts";
 import { compareLocalDates } from "../metrics/dateWindow.ts";
+import {
+  unavailableFishability,
+  unavailablePush,
+} from "../scoring/unavailablePrimitives.ts";
 
 export type ConditionRefreshMetrics = {
   gauge?: {
@@ -96,8 +101,9 @@ export function buildConditionRefresh(input: {
   localDate: string;
   refreshSlot: RefreshSlot;
   movementEngineId: MovementEngineId;
-  pushRules: PushRules;
-  fishabilityBands: FishabilityBands;
+  primitiveCapabilities?: RiverRunPrimitiveCapabilities;
+  pushRules?: PushRules;
+  fishabilityBands?: FishabilityBands;
   gaugeFreshness: GaugeFreshness;
   weatherFreshness: WeatherFreshness;
   waterTemperatureFreshness: GaugeFreshness;
@@ -130,38 +136,48 @@ export function buildConditionRefresh(input: {
     : compareLocalDates(input.localDate, trackingEndDate) > 0
     ? "complete"
     : "active";
-  const push = scorePush({
-    movementEngineId: input.movementEngineId,
-    rules: input.pushRules,
-    gaugeFreshness: input.gaugeFreshness,
-    rainSignal: input.rainSignal,
-    flowSignal: input.flowSignal,
-    temperatureSignal: input.temperatureSignal,
-    temperatureSourceType: input.temperatureSourceType,
-    temperaturePositiveSignalCap: input.temperaturePositiveSignalCap,
-    currentHydraulicValue: input.currentHydraulicValue,
-    hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
-    hydraulicPercentChange24h: input.hydraulicPercentChange24h,
-    waterTempF: input.waterTempF,
-    trackingState,
-    trackingStartDate,
-    trackingEndDate,
-    rainReasonCodes: input.rainReasonCodes,
-    flowReasonCodes: input.flowReasonCodes,
-    temperatureReasonCodes: input.temperatureReasonCodes,
-    localDate: input.localDate,
-  });
-  const fishability = scoreFishability({
-    rules: input.fishabilityBands,
-    gaugeFreshness: input.gaugeFreshness,
-    flowBand: input.flowBand,
-    flowSignal: input.flowSignal,
-    currentHydraulicValue: input.currentHydraulicValue,
-    hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
-    hydraulicPercentChange24h: input.hydraulicPercentChange24h,
-    flowReasonCodes: input.flowReasonCodes,
-    localDate: input.localDate,
-  });
+  const pushCapability = input.primitiveCapabilities?.push ?? {
+    status: "available" as const,
+  };
+  const fishabilityCapability = input.primitiveCapabilities?.fishability ?? {
+    status: "available" as const,
+  };
+  const push = pushCapability.status === "unavailable"
+    ? unavailablePush(pushCapability.reason)
+    : scorePush({
+      movementEngineId: input.movementEngineId,
+      rules: requirePushRules(input.pushRules),
+      gaugeFreshness: input.gaugeFreshness,
+      rainSignal: input.rainSignal,
+      flowSignal: input.flowSignal,
+      temperatureSignal: input.temperatureSignal,
+      temperatureSourceType: input.temperatureSourceType,
+      temperaturePositiveSignalCap: input.temperaturePositiveSignalCap,
+      currentHydraulicValue: input.currentHydraulicValue,
+      hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
+      hydraulicPercentChange24h: input.hydraulicPercentChange24h,
+      waterTempF: input.waterTempF,
+      trackingState,
+      trackingStartDate,
+      trackingEndDate,
+      rainReasonCodes: input.rainReasonCodes,
+      flowReasonCodes: input.flowReasonCodes,
+      temperatureReasonCodes: input.temperatureReasonCodes,
+      localDate: input.localDate,
+    });
+  const fishability = fishabilityCapability.status === "unavailable"
+    ? unavailableFishability(fishabilityCapability.reason)
+    : scoreFishability({
+      rules: requireFishabilityBands(input.fishabilityBands),
+      gaugeFreshness: input.gaugeFreshness,
+      flowBand: input.flowBand,
+      flowSignal: input.flowSignal,
+      currentHydraulicValue: input.currentHydraulicValue,
+      hydraulicAbsoluteChange24h: input.hydraulicAbsoluteChange24h,
+      hydraulicPercentChange24h: input.hydraulicPercentChange24h,
+      flowReasonCodes: input.flowReasonCodes,
+      localDate: input.localDate,
+    });
   const dataQuality = resolveDataQuality({
     gaugeFreshness: input.gaugeFreshness,
     weatherFreshness: input.weatherFreshness,
@@ -222,6 +238,24 @@ export function buildConditionRefresh(input: {
     engineVersion: input.engineVersion,
     configVersion: input.configVersion,
   };
+}
+
+function requirePushRules(rules?: PushRules): PushRules {
+  if (!rules) {
+    throw new Error("Available Push requires calibrated Push rules.");
+  }
+  return rules;
+}
+
+function requireFishabilityBands(
+  bands?: FishabilityBands,
+): FishabilityBands {
+  if (!bands) {
+    throw new Error(
+      "Available Fishability requires calibrated Fishability bands.",
+    );
+  }
+  return bands;
 }
 
 function dedupeReasonCodes(codes: RiverRunReasonCode[]): RiverRunReasonCode[] {

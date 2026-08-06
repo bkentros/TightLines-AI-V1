@@ -1,11 +1,12 @@
 import {
   addDays,
-  type AuditedRiverRunProfile,
+  type AuditedObservedRiverRunProfile,
   canonicalBaselineDay,
   type ConditionsSuggestCheckpoint,
   type ConditionsSuggestEvidence,
   type ConditionsSuggestEvidenceByDate,
   daysBetween,
+  PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
   PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
@@ -45,7 +46,7 @@ type Group = {
 
 const requestedRunId = argumentValue("--run-id") ??
   "pere_marquette_fall_chinook";
-const run: AuditedRiverRunProfile = requestedRunId ===
+const run: AuditedObservedRiverRunProfile = requestedRunId ===
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.runId
   ? PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE
   : requestedRunId === PERE_MARQUETTE_FALL_COHO_RUN_PROFILE.runId
@@ -191,7 +192,9 @@ function runStageGroup(): Group {
   const states = [
     [
       "offseason",
-      "True offseason",
+      run.handoff
+        ? "True offseason before annual watch"
+        : "True offseason after late copy",
       run.handoff
         ? addDays(reviewWindow.preRunStartDate, -1)
         : addDays(reviewWindow.postRunLateCopyEndDate, 1),
@@ -199,9 +202,9 @@ function runStageGroup(): Group {
     [
       "before_staging",
       "Before staging",
-      addDays(reviewWindow.preRunStartDate, 9),
+      reviewWindow.preRunStartDate,
     ],
-    ["staging", "Staging period", addDays(reviewWindow.stagingStartDate, 4)],
+    ["staging", "Staging period", reviewWindow.stagingStartDate],
     ["beginning", "Beginning", reviewWindow.startDate],
     [
       "building_early",
@@ -218,7 +221,13 @@ function runStageGroup(): Group {
         ] as const,
       ]
       : []),
-    ["peak", "Peak", reviewWindow.peakDate],
+    [
+      "peak",
+      "Peak",
+      reviewWindow.buildingBroadStartDate
+        ? reviewWindow.peakDate
+        : reviewWindow.peakStartDate,
+    ],
     ["tapering", "Tapering", addDays(reviewWindow.peakEndDate, 1)],
     ["ending", "Ending", addDays(reviewWindow.taperingEndDate, 1)],
     [
@@ -997,7 +1006,8 @@ function snapshotScenario(input: {
           "River Run is not a wading, boating, floating, or personal-safety rating.",
       },
       engineVersion: "river-run-v1.5.3-review",
-      configVersion: "2026-08-05.6-review",
+      configVersion:
+        `${PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion}-review`,
     },
   };
 }

@@ -60,6 +60,18 @@ const catalog: RiverRunCatalogResponse = {
               species: "chinook_salmon",
               season: "fall",
             },
+            {
+              runId: "betsie_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+            },
+            {
+              runId: "betsie_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+            },
           ],
         },
       ],
@@ -104,9 +116,8 @@ assert.deepEqual(
   ["fall", "winter", "spring", "summer"],
 );
 assert.equal(
-  riverRunSeasonChoices(catalog, "MI").find((choice) =>
-    choice.id === "winter"
-  )?.disabled,
+  riverRunSeasonChoices(catalog, "MI").find((choice) => choice.id === "winter")
+    ?.disabled,
   true,
 );
 assert.deepEqual(
@@ -171,6 +182,20 @@ const target = resolveRiverRunTarget(catalog, {
   riverId: "betsie",
 });
 assert.equal(target?.run.runId, "betsie_fall_chinook");
+const betsieCohoTarget = resolveRiverRunTarget(catalog, {
+  stateCode: "MI",
+  season: "fall",
+  species: "coho_salmon",
+  riverId: "betsie",
+});
+assert.equal(betsieCohoTarget?.run.runId, "betsie_fall_coho");
+const betsieSteelheadTarget = resolveRiverRunTarget(catalog, {
+  stateCode: "MI",
+  season: "fall",
+  species: "steelhead",
+  riverId: "betsie",
+});
+assert.equal(betsieSteelheadTarget?.run.runId, "betsie_fall_steelhead");
 assert.equal(
   resolveRiverRunTarget(catalog, {
     stateCode: "MI",
@@ -195,6 +220,16 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const riverRunScreen = readFileSync(
   `${projectRoot}app/river-run.tsx`,
   "utf8",
+);
+assert.match(
+  riverRunScreen,
+  /selectedRiverId === "betsie" &&[\s\S]*?selectedSpecies === "steelhead"[\s\S]*?RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS/,
+  "Betsie Steelhead must use its own production-derived review fixture catalog",
+);
+assert.match(
+  riverRunScreen,
+  /selectedRiverId === "betsie" &&[\s\S]*?selectedSpecies === "coho_salmon"[\s\S]*?RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS/,
+  "Betsie Coho must use its own production-derived review fixture catalog",
 );
 const homeScreen = readFileSync(`${projectRoot}app/(tabs)/index.tsx`, "utf8");
 const welcomeScreen = readFileSync(
@@ -259,9 +294,14 @@ const riverRunVisual = readFileSync(
   `${projectRoot}components/river-run/RiverRunVisual.tsx`,
   "utf8",
 );
+const riverRunFishingGuides = readFileSync(
+  `${projectRoot}lib/riverRunFishingGuides.ts`,
+  "utf8",
+);
 const anglerFacingFeatureSources = [
   riverRunScreen,
   riverRunVisual,
+  riverRunFishingGuides,
   welcomeScreen,
   homeScreen,
   readFileSync(`${projectRoot}app/module-icons-preview.tsx`, "utf8"),
@@ -342,18 +382,28 @@ assert.match(
 );
 assert.match(
   riverRunVisual,
-  /model\.kind === "fish_in_river"[\s\S]*?PRESENCE INDEX[\s\S]*?\{model\.score\}[\s\S]*?\/100/,
-  "Fish In River must always identify and display its public presence index",
+  /model\.kind === "fish_in_river"[\s\S]*?RIVER CEILING[\s\S]*?\{model\.riverMaximum\}[\s\S]*?\/100/,
+  "Fish In River must put the river ceiling in the top-right badge",
 );
 assert.match(
   riverRunVisual,
-  /styles\.presenceIndexValue[\s\S]*?color: model\.accent[\s\S]*?\{model\.score\}[\s\S]*?styles\.presenceIndexMaximum[\s\S]*?\/100/,
-  "Only the Fish In River index value must inherit its absolute meter color",
+  /HISTORICAL MIGRATION STRENGTH[\s\S]*?historicalStrengthColor[\s\S]*?model\.historicalRunStrength[\s\S]*?PRESENCE INDEX[\s\S]*?presenceIndexScore[\s\S]*?color: model\.accent[\s\S]*?\{model\.score\}[\s\S]*?presenceIndexMaximum[\s\S]*?>\/100</,
+  "Fish In River must color only the presence score and keep /100 separate",
 );
 assert.match(
   riverRunVisual,
-  /HISTORICAL MIGRATION STRENGTH[\s\S]*?model\.historicalRunStrength[\s\S]*?RIVER \/ SPECIES CEILING[\s\S]*?model\.riverMaximum/,
-  "Fish In River must emphasize configured historical strength and ceiling",
+  /presenceIndexScore:\s*\{[\s\S]*?fontSize:\s*13[\s\S]*?presenceIndexMaximum:\s*\{[\s\S]*?fontSize:\s*10[\s\S]*?color:\s*"#FFFFFF"/,
+  "The colored presence score must be larger than the white /100 maximum",
+);
+assert.match(
+  riverRunVisual,
+  /function historicalStrengthColor[\s\S]*?case "strong":[\s\S]*?#48CF78[\s\S]*?case "moderate":[\s\S]*?#F2C94C[\s\S]*?case "limited":[\s\S]*?case "weak":[\s\S]*?#F06A61/,
+  "Historical migration strength must be green, yellow, or red by tier",
+);
+assert.match(
+  riverRunScreen,
+  /function PrimitiveGuideReadCopy[\s\S]*?flexWrap:[\s\S]*?primitiveTipWord/,
+  "Guide's Read must use measured word-flow layout instead of a clipping-prone monolithic Text node",
 );
 assert.match(
   riverRunVisual,
@@ -373,15 +423,55 @@ assert.equal(
   false,
   "River Run must not expose the removed evidence dropdown or raw source metadata",
 );
-assert.equal(
-  /snapshot\.safety\.gaugeBasis/.test(riverRunScreen),
-  false,
-  "River Run must not render gauge-basis metadata in the public safety card",
+assert.match(
+  riverRunScreen,
+  /function GaugeForecastDropdown[\s\S]*?GAUGE & FORECAST CONTEXT[\s\S]*?snapshot\.safety\.gaugeBasis[\s\S]*?snapshot\.secondaryNote/,
+  "Gauge basis and forecast notes must live together in a dedicated dropdown",
+);
+assert.match(
+  riverRunScreen,
+  /function ResultDropdown[\s\S]*?useState\(false\)[\s\S]*?accessibilityState=\{\{ expanded \}\}[\s\S]*?chevron-up[\s\S]*?chevron-down/,
+  "Result information dropdowns must be collapsed by default and accessible",
+);
+assert.match(
+  riverRunScreen,
+  /<FishingMethodsDropdown species=\{species\} \/>/,
+  "Every generated River Run read must include its species-specific fishing guide",
+);
+assert.match(
+  riverRunFishingGuides,
+  /PACIFIC_SALMON_GUIDE[\s\S]*?Float or centerpin eggs[\s\S]*?ThunderSticks[\s\S]*?Bottom-drift or chuck-and-duck[\s\S]*?Beads[\s\S]*?Swinging flies/,
+  "The salmon guide must include the complete reaction-presentation method set",
+);
+assert.match(
+  riverRunFishingGuides,
+  /species === "chinook_salmon" \|\| species === "coho_salmon"[\s\S]*?return PACIFIC_SALMON_GUIDE/,
+  "Chinook and Coho must share the salmon guide",
+);
+assert.match(
+  riverRunFishingGuides,
+  /STEELHEAD_GUIDE[\s\S]*?continue to feed[\s\S]*?Float or centerpin presentations[\s\S]*?Indicator nymphing[\s\S]*?Swinging flies[\s\S]*?Stripping flies[\s\S]*?Spinners, spoons and plugs[\s\S]*?Bottom drifting/,
+  "Steelhead must have a feeding-aware, species-specific method guide",
+);
+assert.match(
+  riverRunFishingGuides,
+  /flies-only or artificial-lures-only[\s\S]*?bait, bead, hook, weight[\s\S]*?Never snag/,
+  "Fishing methods must carry a prominent reach-specific regulation and anti-snagging warning",
 );
 assert.match(
   riverRunScreen,
   /function formatPreviousTimingRead[\s\S]*?Previous timing read:[\s\S]*?previousTimingLabel[\s\S]*?formatLocalDate\(timing\.previousCheckpointDate\)/,
   "Migration Timing must display the dated previous checkpoint read",
+);
+assert.match(
+  riverRunScreen,
+  /function reviewScenarioDateCopy[\s\S]*?AUDIT ONLY[\s\S]*?State begins[\s\S]*?Push states are driven by live conditions[\s\S]*?Fishability states are driven by live flow/,
+  "Review mode must expose effective or fixture dates without adding them to live cards",
+);
+assert.match(
+  riverRunScreen,
+  /label=\{`\$\{scenario\.label\} · \$\{[\s\S]*?formatLocalDate\(scenario\.snapshot\.localDate\)/,
+  "Every review-state chip must expose its audit date",
 );
 assert.match(
   riverRunScreen,
@@ -458,13 +548,20 @@ const riverChoiceImageRegistry = readFileSync(
   `${projectRoot}lib/riverRunChoiceImages.ts`,
   "utf8",
 );
-for (const riverId of ["pere_marquette", "betsie", "white"]) {
+for (const riverId of ["pere_marquette", "white"]) {
   assert.match(
     riverChoiceImageRegistry,
     new RegExp(`${riverId}: "medium"`),
   );
 }
-for (const riverId of ["big_manistee", "muskegon", "grand", "platte", "au_sable"]) {
+assert.match(
+  riverChoiceImageRegistry,
+  /betsie: "small"/,
+  "Betsie should use the small-river artwork in recognition of its short below-Homestead corridor",
+);
+for (
+  const riverId of ["big_manistee", "muskegon", "grand", "platte", "au_sable"]
+) {
   assert.match(
     riverChoiceImageRegistry,
     new RegExp(`${riverId}: "large"`),
@@ -488,7 +585,8 @@ assert.match(
   "River choices must resolve their size-specific illustrations",
 );
 assert.doesNotMatch(
-  riverRunScreen.match(/style=\{\[styles\.choiceTitle[\s\S]*?<\/Text>/)?.[0] ?? "",
+  riverRunScreen.match(/style=\{\[styles\.choiceTitle[\s\S]*?<\/Text>/)?.[0] ??
+    "",
   /adjustsFontSizeToFit/,
   "Choice titles must not auto-shrink the enabled Michigan row",
 );

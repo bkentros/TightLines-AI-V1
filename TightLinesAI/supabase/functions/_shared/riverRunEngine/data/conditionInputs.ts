@@ -1,12 +1,12 @@
 import type { RiverRunConditionRefresh } from "../snapshot/buildConditionRefresh.ts";
 import type {
   FlowBand,
+  ObservedConditionRunProfile,
   RawFlowTrendSignal,
   RawRainSignal,
   RawTemperatureTrendSignal,
   RiverMetric,
   RiverProfile,
-  RiverRunProfile,
   RiverRunReasonCode,
   TemperatureSourceType,
 } from "../types.ts";
@@ -48,7 +48,7 @@ export type RiverRunConditionInputs = {
 
 export function assembleConditionInputs(input: {
   river: RiverProfile;
-  run: RiverRunProfile;
+  run: ObservedConditionRunProfile;
   refreshAtUtc: string;
   localDate: string;
   gauge: NormalizedGaugeRead;
@@ -179,7 +179,7 @@ export function assembleConditionInputs(input: {
 }
 
 function resolveConditionFlowBand(input: {
-  run: RiverRunProfile;
+  run: ObservedConditionRunProfile;
   metric: RiverMetric;
   value: number | null;
 }): { band: FlowBand } | null {

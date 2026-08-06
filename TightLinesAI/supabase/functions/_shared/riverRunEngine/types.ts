@@ -92,6 +92,39 @@ export type PrimitiveDisplay = {
   copyVersion?: string;
 };
 
+export type RiverConditionDataCapability =
+  | { status: "available" }
+  | {
+    status: "unavailable";
+    notes: string;
+  };
+
+export type PrimitiveUnavailableReason =
+  | "no_accepted_hydraulic_source"
+  | "no_accepted_water_temperature_source"
+  | "no_accepted_hydraulic_or_water_temperature_source"
+  | "no_accepted_historical_baseline";
+
+export type PrimitiveCapability =
+  | { status: "available" }
+  | {
+    status: "unavailable";
+    reason: PrimitiveUnavailableReason;
+    notes: string;
+  };
+
+export type RiverRunPrimitiveCapabilities = {
+  migrationTiming: PrimitiveCapability;
+  push: PrimitiveCapability;
+  fishability: PrimitiveCapability;
+};
+
+export type RunStageCopyStrategy =
+  | "default"
+  | "pere_marquette"
+  | "betsie_homestead"
+  | "big_manistee_tailwater";
+
 export type DataQuality = {
   label: "Fresh" | "Partial" | "Stale" | "Limited";
   reasonCodes: RiverRunReasonCode[];
@@ -185,6 +218,56 @@ export type WeatherPointConfig = {
   basinWeight?: number;
 };
 
+export type BigManisteeTargetSpecies = Extract<
+  RiverRunSpecies,
+  "chinook_salmon" | "coho_salmon" | "steelhead"
+>;
+
+export type RiverFoundationReach = {
+  reachId: string;
+  displayName: string;
+  order: number;
+  role: "tailwater" | "middle" | "lower" | "mouth_context";
+  gaugeRepresented: boolean;
+  notes: string;
+  sourceNotes: string;
+};
+
+export type RiverFoundationRegulation = {
+  version: string;
+  legalReach: string;
+  waterType: "type_3";
+  yearRoundTroutSalmon: boolean;
+  rainbowTroutPossessionLimit: string;
+  specialArtificialLureWindow: {
+    start: string;
+    end: string;
+    description: string;
+  };
+  noTippyDistanceClosureConfigured: true;
+  accessAndSafetyNotes: string;
+  sourceNotes: string;
+};
+
+export type RiverFoundationConfig = {
+  version: string;
+  corridorLengthMiles: number;
+  upstreamTerminus: string;
+  downstreamTerminus: string;
+  targetSpecies: BigManisteeTargetSpecies[];
+  reaches: RiverFoundationReach[];
+  primaryGaugeReachId: string;
+  contextualGaugeSiteIds: string[];
+  weatherStrategy: {
+    mode: "single_point";
+    primaryWeatherPointId: string;
+    basinRepresentation: string;
+    sourceNotes: string;
+  };
+  regulation: RiverFoundationRegulation;
+  evidenceNotes: string;
+};
+
 export type ConditionRefreshSchedule = {
   /**
    * Local observation slots used from stagingStart through the historical
@@ -213,10 +296,17 @@ export type RiverProfile = {
   hydraulicSources: HydraulicSourceConfig[];
   waterTemperatureSources: WaterTemperatureSourceConfig[];
   weatherPoints: WeatherPointConfig[];
+  foundation?: RiverFoundationConfig;
   conditionRefreshSchedule: ConditionRefreshSchedule;
+
+  conditionDataCapabilities: {
+    hydraulics: RiverConditionDataCapability;
+    waterTemperature: RiverConditionDataCapability;
+  };
 
   supportStatus: SupportStatus;
   gaugeLimitationCopy: string;
+  regulationReminderCopy?: string;
 };
 
 export type HistoricalPresenceConfig = {
@@ -318,6 +408,9 @@ export type RiverRunProfile = {
   runType: RunType;
   movementEngineId: MovementEngineId;
 
+  primitiveCapabilities: RiverRunPrimitiveCapabilities;
+  runStageCopyStrategy?: RunStageCopyStrategy;
+
   runWindow: {
     preRunStart: string;
     stagingStart: string;
@@ -349,18 +442,18 @@ export type RiverRunProfile = {
 
   historicalPresence: HistoricalPresenceConfig;
 
-  push: PushRules;
+  push?: PushRules;
 
-  fishabilityBands: FishabilityBands;
-  baselineCoverage: BaselineCoverage;
+  fishabilityBands?: FishabilityBands;
+  baselineCoverage?: BaselineCoverage;
 
-  waterTemperature: {
+  waterTemperature?: {
     sourcePriority: string[];
     upstreamFallbackPositiveSignalCap: 0 | 1;
     notes: string;
   };
 
-  conditionsSuggest: {
+  conditionsSuggest?: {
     baselineVersion: string;
     temperatureSourceId: string;
     finalCheckpointDaysAfterPeak: number;
@@ -391,6 +484,23 @@ export type PublicAuditGate = {
 };
 
 export type AuditedRiverRunProfile = RiverRunProfile & {
+  publicAudit: PublicAuditGate;
+};
+
+export type ObservedConditionRunProfile = RiverRunProfile & {
+  primitiveCapabilities: {
+    migrationTiming: { status: "available" };
+    push: { status: "available" };
+    fishability: { status: "available" };
+  };
+  push: PushRules;
+  fishabilityBands: FishabilityBands;
+  baselineCoverage: BaselineCoverage;
+  waterTemperature: NonNullable<RiverRunProfile["waterTemperature"]>;
+  conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
+};
+
+export type AuditedObservedRiverRunProfile = ObservedConditionRunProfile & {
   publicAudit: PublicAuditGate;
 };
 

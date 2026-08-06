@@ -69,9 +69,9 @@ export function RiverRunVisual({
     Math.min(100, (model.ceilingPosition ?? 1) * 100),
   );
   const presenceAccessibility = model.kind === "fish_in_river"
-    ? ` Seasonal presence index ${
+    ? ` River and species ceiling ${model.riverMaximum} out of 100. Historical migration strength on this river ${model.historicalRunStrength}. Seasonal presence index ${
       model.score ?? 0
-    } out of 100. Historical migration strength on this river ${model.historicalRunStrength}. River and species ceiling ${model.riverMaximum} out of 100.`
+    } out of 100.`
     : "";
 
   useEffect(() => {
@@ -228,18 +228,13 @@ export function RiverRunVisual({
           </View>
           {model.kind === "fish_in_river"
             ? (
-              <View style={styles.presenceIndexBadge}>
-                <Text style={styles.presenceIndexLabel}>PRESENCE INDEX</Text>
-                <View style={styles.presenceIndexValueRow}>
-                  <Text
-                    style={[
-                      styles.presenceIndexValue,
-                      { color: model.accent },
-                    ]}
-                  >
-                    {model.score}
+              <View style={styles.riverCeilingBadge}>
+                <Text style={styles.riverCeilingLabel}>RIVER CEILING</Text>
+                <View style={styles.riverCeilingValueRow}>
+                  <Text style={styles.riverCeilingValue}>
+                    {model.riverMaximum}
                   </Text>
-                  <Text style={styles.presenceIndexMaximum}>/100</Text>
+                  <Text style={styles.riverCeilingMaximum}>/100</Text>
                 </View>
               </View>
             )
@@ -271,18 +266,35 @@ export function RiverRunVisual({
                 <Text style={styles.presenceContextLabel}>
                   HISTORICAL MIGRATION STRENGTH
                 </Text>
-                <Text style={styles.presenceContextValue}>
+                <Text
+                  style={[
+                    styles.presenceContextValue,
+                    {
+                      color: historicalStrengthColor(
+                        model.historicalRunStrength,
+                      ),
+                    },
+                  ]}
+                >
                   {model.historicalRunStrength?.toUpperCase()}
                 </Text>
               </View>
               <View style={styles.presenceContextDivider} />
               <View style={styles.presenceContextItem}>
                 <Text style={styles.presenceContextLabel}>
-                  RIVER / SPECIES CEILING
+                  PRESENCE INDEX
                 </Text>
-                <Text style={styles.presenceContextValue}>
-                  {model.riverMaximum} / 100
-                </Text>
+                <View style={styles.presenceIndexValueRow}>
+                  <Text
+                    style={[
+                      styles.presenceIndexScore,
+                      { color: model.accent },
+                    ]}
+                  >
+                    {model.score}
+                  </Text>
+                  <Text style={styles.presenceIndexMaximum}>/100</Text>
+                </View>
               </View>
             </View>
           )
@@ -957,6 +969,22 @@ function directionLabel(
   }
 }
 
+function historicalStrengthColor(
+  strength?: RiverRunVisualModel["historicalRunStrength"],
+): string {
+  switch (strength?.toLowerCase()) {
+    case "strong":
+      return "#48CF78";
+    case "moderate":
+      return "#F2C94C";
+    case "limited":
+    case "weak":
+      return "#F06A61";
+    default:
+      return "#FFFFFF";
+  }
+}
+
 function specialStateIcon(
   state?: RiverRunVisualModel["specialState"],
 ): keyof typeof Ionicons.glyphMap {
@@ -1001,7 +1029,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     gap: 8,
   },
-  presenceIndexBadge: {
+  riverCeilingBadge: {
     minWidth: 76,
     alignItems: "flex-end",
     justifyContent: "center",
@@ -1012,23 +1040,23 @@ const styles = StyleSheet.create({
     borderRadius: 9,
     backgroundColor: "rgba(2,10,18,0.46)",
   },
-  presenceIndexLabel: {
+  riverCeilingLabel: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 5.8,
     letterSpacing: 0.65,
     color: "rgba(255,255,255,0.58)",
   },
-  presenceIndexValueRow: {
+  riverCeilingValueRow: {
     flexDirection: "row",
     alignItems: "baseline",
   },
-  presenceIndexValue: {
+  riverCeilingValue: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 19,
     lineHeight: 21,
     color: "#FFFFFF",
   },
-  presenceIndexMaximum: {
+  riverCeilingMaximum: {
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 7,
     color: "rgba(255,255,255,0.58)",
@@ -1137,6 +1165,23 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.bodyBold,
     fontSize: 11,
     letterSpacing: 0.35,
+    color: "#FFFFFF",
+  },
+  presenceIndexValueRow: {
+    flexDirection: "row",
+    alignItems: "baseline",
+  },
+  presenceIndexScore: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13,
+    lineHeight: 16,
+    letterSpacing: 0.25,
+  },
+  presenceIndexMaximum: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 10,
+    lineHeight: 14,
+    letterSpacing: 0.25,
     color: "#FFFFFF",
   },
   meterRegion: { zIndex: 5 },

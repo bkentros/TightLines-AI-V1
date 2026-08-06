@@ -1,11 +1,16 @@
-import { assert, assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals, assertMatch } from "jsr:@std/assert";
 import {
   handleRiverRunRequest as handleRiverRunRequestBase,
   type RiverRunHandlerDeps,
 } from "./index.ts";
 import {
   addDays,
+  type AuditedObservedRiverRunProfile,
   type AuditedRiverRunProfile,
+  BETSIE_FALL_CHINOOK_RUN_PROFILE,
+  BETSIE_FALL_COHO_RUN_PROFILE,
+  BETSIE_FALL_STEELHEAD_RUN_PROFILE,
+  BETSIE_RIVER_PROFILE,
   buildConditionRefresh,
   buildDailySnapshot,
   type NormalizedGaugeObservation,
@@ -269,14 +274,29 @@ class MockClient implements SupabaseLikeClient {
   }
 }
 
-const enabledRun: AuditedRiverRunProfile = {
+const enabledRun: AuditedObservedRiverRunProfile = {
   ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   publicAudit: { isEnabled: true },
 };
 
-const disabledRun: AuditedRiverRunProfile = {
+const disabledRun: AuditedObservedRiverRunProfile = {
   ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   publicAudit: { isEnabled: false },
+};
+
+const enabledBetsieRun: AuditedRiverRunProfile = {
+  ...BETSIE_FALL_CHINOOK_RUN_PROFILE,
+  publicAudit: { isEnabled: true },
+};
+
+const enabledBetsieCohoRun: AuditedRiverRunProfile = {
+  ...BETSIE_FALL_COHO_RUN_PROFILE,
+  publicAudit: { isEnabled: true },
+};
+
+const enabledBetsieSteelheadRun: AuditedRiverRunProfile = {
+  ...BETSIE_FALL_STEELHEAD_RUN_PROFILE,
+  publicAudit: { isEnabled: true },
 };
 
 const gaugeObservation: NormalizedGaugeObservation = {
@@ -647,6 +667,122 @@ Deno.test("visible snapshot with valid token returns 200", async () => {
     },
   );
   assertEquals(response.status, 200);
+});
+
+Deno.test("Betsie snapshot stays seasonal-only and never calls live providers", async () => {
+  let providerCalls = 0;
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=betsie&runId=betsie_fall_chinook&localDate=2026-09-15&localTime=16:30&refreshAtUtc=2026-09-15T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => new MockClient(),
+      rivers: [BETSIE_RIVER_PROFILE],
+      runs: [enabledBetsieRun],
+      fetchFn: async () => {
+        providerCalls += 1;
+        throw new Error(
+          "Betsie seasonal-only runtime must not fetch providers",
+        );
+      },
+      now: new Date("2026-09-15T20:30:00.000Z"),
+      engineVersion: "test-engine",
+      configVersion: "test-betsie-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(providerCalls, 0);
+  assertEquals(body.runStage.label, "Peak");
+  assertEquals(body.fishInRiver.score, 100);
+  assertEquals(body.conditionsSuggest.label, "Unavailable");
+  assertEquals(body.conditionsSuggest.score, null);
+  assertEquals(body.push.label, "Unavailable");
+  assertEquals(body.push.score, null);
+  assertEquals(body.fishability.label, "Unavailable");
+  assertEquals(body.fishability.score, null);
+  assertEquals(body.pushHistory.status, "unavailable");
+  assertEquals(body.pushHistory.recentDailyReadsStatus, "unavailable");
+  assertEquals(body.gauge, undefined);
+  assertEquals(body.weather, undefined);
+  assertEquals(body.waterTemperature, undefined);
+  assertEquals(body.conditionsWaterTemperature, undefined);
+  assertMatch(body.safety.regulationReminder, /300 feet/i);
+});
+
+Deno.test("Betsie Coho snapshot stays seasonal-only and honors its limited ceiling", async () => {
+  let providerCalls = 0;
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=betsie&runId=betsie_fall_coho&localDate=2026-10-15&localTime=16:30&refreshAtUtc=2026-10-15T20:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => new MockClient(),
+      rivers: [BETSIE_RIVER_PROFILE],
+      runs: [enabledBetsieCohoRun],
+      fetchFn: async () => {
+        providerCalls += 1;
+        throw new Error(
+          "Betsie seasonal-only runtime must not fetch providers",
+        );
+      },
+      now: new Date("2026-10-15T20:30:00.000Z"),
+      engineVersion: "test-engine",
+      configVersion: "test-betsie-coho-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(providerCalls, 0);
+  assertEquals(body.runStage.label, "Peak");
+  assertEquals(body.fishInRiver.score, 30);
+  assertEquals(body.fishInRiver.riverCeiling, 30);
+  assertEquals(body.fishInRiver.historicalRunStrength, "limited");
+  assertEquals(body.conditionsSuggest.label, "Unavailable");
+  assertEquals(body.push.label, "Unavailable");
+  assertEquals(body.fishability.label, "Unavailable");
+  assertEquals(body.gauge, undefined);
+  assertEquals(body.waterTemperature, undefined);
+  assertMatch(body.safety.regulationReminder, /300 feet/i);
+});
+
+Deno.test("Betsie Steelhead snapshot stays seasonal-only and honors its 70-point ceiling", async () => {
+  let providerCalls = 0;
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=betsie&runId=betsie_fall_steelhead&localDate=2026-11-10&localTime=16:30&refreshAtUtc=2026-11-10T21:30:00.000Z",
+    ),
+    {
+      createAdminClient: () => new MockClient(),
+      rivers: [BETSIE_RIVER_PROFILE],
+      runs: [enabledBetsieSteelheadRun],
+      fetchFn: async () => {
+        providerCalls += 1;
+        throw new Error(
+          "Betsie seasonal-only runtime must not fetch providers",
+        );
+      },
+      now: new Date("2026-11-10T21:30:00.000Z"),
+      engineVersion: "test-engine",
+      configVersion: "test-betsie-steelhead-config",
+    },
+  );
+  const body = await json(response);
+
+  assertEquals(response.status, 200);
+  assertEquals(providerCalls, 0);
+  assertEquals(body.runStage.label, "Peak");
+  assertEquals(body.fishInRiver.score, 70);
+  assertEquals(body.fishInRiver.riverCeiling, 70);
+  assertEquals(body.fishInRiver.historicalRunStrength, "moderate");
+  assertEquals(body.conditionsSuggest.label, "Unavailable");
+  assertEquals(body.push.label, "Unavailable");
+  assertEquals(body.fishability.label, "Unavailable");
+  assertEquals(body.gauge, undefined);
+  assertEquals(body.waterTemperature, undefined);
+  assertMatch(body.safety.regulationReminder, /300 feet/i);
 });
 
 Deno.test("snapshot exposes selected measured-water value and provenance", async () => {

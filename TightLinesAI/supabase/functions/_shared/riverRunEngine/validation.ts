@@ -186,10 +186,49 @@ export function validateRiverProfile(
       issue("gaugeLimitationCopy", "Gauge limitation copy is required."),
     );
   }
+  if (
+    river.regulationReminderCopy != null &&
+    !hasText(river.regulationReminderCopy)
+  ) {
+    issues.push(
+      issue(
+        "regulationReminderCopy",
+        "River-specific regulation copy cannot be empty.",
+        "config_invalid_value",
+      ),
+    );
+  }
+
+  const conditionCapabilities = river.conditionDataCapabilities;
+  for (const field of ["hydraulics", "waterTemperature"] as const) {
+    const capability = conditionCapabilities?.[field];
+    if (
+      !capability || !["available", "unavailable"].includes(capability.status)
+    ) {
+      issues.push(
+        issue(
+          `conditionDataCapabilities.${field}`,
+          "River condition-data capability must be explicit.",
+          "config_invalid_value",
+        ),
+      );
+    } else if (
+      capability.status === "unavailable" && !hasText(capability.notes)
+    ) {
+      issues.push(
+        issue(
+          `conditionDataCapabilities.${field}.notes`,
+          "Unavailable river data requires an evidence note.",
+          "audit_notes_missing",
+        ),
+      );
+    }
+  }
 
   validateHydraulicSources(river, issues);
   validateTemperatureSources(river, issues);
   validateWeatherPoints(river, issues);
+  validateRiverFoundation(river, issues);
   validateConditionRefreshSchedule(river, issues);
 
   const valid = issues.every((item) => item.severity !== "error");
@@ -200,6 +239,183 @@ export function validateRiverProfile(
     publicVisible: valid,
     issues,
   };
+}
+
+function validateRiverFoundation(
+  river: RiverProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  const foundation = river.foundation;
+  if (foundation == null) return;
+
+  if (!hasText(foundation.version)) {
+    issues.push(
+      issue("foundation.version", "River foundation version is required."),
+    );
+  }
+  if (
+    !hasNumber(foundation.corridorLengthMiles) ||
+    foundation.corridorLengthMiles <= 0
+  ) {
+    issues.push(issue(
+      "foundation.corridorLengthMiles",
+      "River foundation corridor length must be positive.",
+      "config_invalid_value",
+    ));
+  }
+  if (!hasText(foundation.upstreamTerminus)) {
+    issues.push(
+      issue(
+        "foundation.upstreamTerminus",
+        "River foundation upstream terminus is required.",
+      ),
+    );
+  }
+  if (!hasText(foundation.downstreamTerminus)) {
+    issues.push(
+      issue(
+        "foundation.downstreamTerminus",
+        "River foundation downstream terminus is required.",
+      ),
+    );
+  }
+  const targetSpecies = foundation.targetSpecies;
+  const allowedSpecies = [
+    "chinook_salmon",
+    "coho_salmon",
+    "steelhead",
+  ] as const;
+  if (
+    !Array.isArray(targetSpecies) ||
+    targetSpecies.length === 0 ||
+    new Set(targetSpecies).size !== targetSpecies.length ||
+    targetSpecies.some((species) => !allowedSpecies.includes(species))
+  ) {
+    issues.push(issue(
+      "foundation.targetSpecies",
+      "River foundation target species must be unique and limited to the approved migratory scope.",
+      "config_invalid_value",
+    ));
+  }
+
+  const reaches = foundation.reaches;
+  if (!Array.isArray(reaches) || reaches.length === 0) {
+    issues.push(issue(
+      "foundation.reaches",
+      "River foundation requires at least one researched reach.",
+      "config_invalid_value",
+    ));
+  } else {
+    const reachIds = new Set<string>();
+    const represented = [] as string[];
+    reaches.forEach((reach, index) => {
+      const field = `foundation.reaches[${index}]`;
+      if (!hasText(reach.reachId) || reachIds.has(reach.reachId)) {
+        issues.push(
+          issue(
+            `${field}.reachId`,
+            "Foundation reach IDs must be present and unique.",
+            "config_invalid_value",
+          ),
+        );
+      }
+      reachIds.add(reach.reachId);
+      if (
+        !hasText(reach.displayName) || !hasText(reach.notes) ||
+        !hasText(reach.sourceNotes)
+      ) {
+        issues.push(
+          issue(
+            field,
+            "Foundation reaches require display, research, and source notes.",
+            "audit_notes_missing",
+          ),
+        );
+      }
+      if (!Number.isInteger(reach.order) || reach.order < 1) {
+        issues.push(
+          issue(
+            `${field}.order`,
+            "Foundation reach order must be a positive integer.",
+            "config_invalid_value",
+          ),
+        );
+      }
+      if (reach.gaugeRepresented) represented.push(reach.reachId);
+    });
+    if (
+      represented.length !== 1 ||
+      represented[0] !== foundation.primaryGaugeReachId
+    ) {
+      issues.push(issue(
+        "foundation.primaryGaugeReachId",
+        "Exactly one foundation reach must be represented by the primary gauge.",
+        "config_source_invalid",
+      ));
+    }
+  }
+
+  if (
+    !Array.isArray(foundation.contextualGaugeSiteIds) ||
+    foundation.contextualGaugeSiteIds.length === 0 ||
+    new Set(foundation.contextualGaugeSiteIds).size !==
+      foundation.contextualGaugeSiteIds.length
+  ) {
+    issues.push(issue(
+      "foundation.contextualGaugeSiteIds",
+      "Contextual gauge site IDs must be present and unique.",
+      "config_source_invalid",
+    ));
+  }
+
+  const weatherStrategy = foundation.weatherStrategy;
+  const weatherPoint = river.weatherPoints.find((point) =>
+    point.weatherPointId === weatherStrategy?.primaryWeatherPointId
+  );
+  if (
+    weatherStrategy?.mode !== "single_point" ||
+    !weatherPoint ||
+    weatherPoint.role !== "primary" ||
+    !hasText(weatherStrategy.basinRepresentation) ||
+    !hasText(weatherStrategy.sourceNotes)
+  ) {
+    issues.push(issue(
+      "foundation.weatherStrategy",
+      "Foundation weather strategy must identify the configured primary point and evidence notes.",
+      "config_source_invalid",
+    ));
+  }
+
+  const regulation = foundation.regulation;
+  if (
+    !regulation ||
+    !hasText(regulation.version) ||
+    !hasText(regulation.legalReach) ||
+    regulation.waterType !== "type_3" ||
+    regulation.yearRoundTroutSalmon !== true ||
+    !hasText(regulation.rainbowTroutPossessionLimit) ||
+    !hasText(regulation.specialArtificialLureWindow?.start) ||
+    !hasText(regulation.specialArtificialLureWindow?.end) ||
+    !hasText(regulation.specialArtificialLureWindow?.description) ||
+    regulation.noTippyDistanceClosureConfigured !== true ||
+    !hasText(regulation.accessAndSafetyNotes) ||
+    !hasText(regulation.sourceNotes)
+  ) {
+    issues.push(issue(
+      "foundation.regulation",
+      "Foundation regulation settings require current legal boundaries, rules, and source notes.",
+      "config_source_invalid",
+    ));
+  }
+  if (!hasText(foundation.evidenceNotes)) {
+    issues.push(
+      issue(
+        "foundation.evidenceNotes",
+        "River foundation evidence notes are required.",
+        "audit_notes_missing",
+      ),
+    );
+  }
 }
 
 function validateConditionRefreshSchedule(
@@ -278,6 +494,22 @@ function validateHydraulicSources(
   river: RiverProfile,
   issues: RiverRunValidationIssue[],
 ): void {
+  const capability = river.conditionDataCapabilities?.hydraulics;
+  if (capability?.status === "unavailable") {
+    if (
+      !Array.isArray(river.hydraulicSources) ||
+      river.hydraulicSources.length > 0
+    ) {
+      issues.push(
+        issue(
+          "hydraulicSources",
+          "A river marked without accepted hydraulics must not carry placeholder hydraulic sources.",
+          "config_source_invalid",
+        ),
+      );
+    }
+    return;
+  }
   if (
     !Array.isArray(river.hydraulicSources) ||
     river.hydraulicSources.length === 0
@@ -387,6 +619,22 @@ function validateTemperatureSources(
   river: RiverProfile,
   issues: RiverRunValidationIssue[],
 ): void {
+  const capability = river.conditionDataCapabilities?.waterTemperature;
+  if (capability?.status === "unavailable") {
+    if (
+      !Array.isArray(river.waterTemperatureSources) ||
+      river.waterTemperatureSources.length > 0
+    ) {
+      issues.push(
+        issue(
+          "waterTemperatureSources",
+          "A river marked without accepted measured water temperature must not carry placeholder temperature sources.",
+          "temperature_source_invalid",
+        ),
+      );
+    }
+    return;
+  }
   const ids = new Set<string>();
   const priorities = new Set<number>();
   for (
@@ -591,10 +839,71 @@ export function validateRunProfile(
   validateMovementEngine(run, issues);
   validateRunDates(run, issues);
   validateHistoricalPresence(run, issues);
-  validatePushRules(run, river, issues);
-  validateFishabilityBasis(run, river, issues);
-  validateRunTemperaturePolicy(run, river, issues);
-  validateConditionsSuggestPolicy(run, river, issues);
+  validatePrimitiveCapabilities(run, issues);
+  const pushAvailable = run.primitiveCapabilities?.push.status === "available";
+  const fishabilityAvailable =
+    run.primitiveCapabilities?.fishability.status === "available";
+  const timingAvailable =
+    run.primitiveCapabilities?.migrationTiming.status === "available";
+  if (
+    new Set([pushAvailable, fishabilityAvailable, timingAvailable]).size > 1
+  ) {
+    issues.push(
+      issue(
+        "primitiveCapabilities",
+        "Mixed observed and seasonal-only primitive capability profiles are not implemented yet.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (river) {
+    if (
+      (pushAvailable || fishabilityAvailable || timingAvailable) &&
+      river.conditionDataCapabilities.hydraulics.status !== "available"
+    ) {
+      issues.push(
+        issue(
+          "primitiveCapabilities",
+          "Observed primitives require an accepted river hydraulic source.",
+          "config_source_reference_missing",
+        ),
+      );
+    }
+    if (
+      (pushAvailable || timingAvailable) &&
+      river.conditionDataCapabilities.waterTemperature.status !== "available"
+    ) {
+      issues.push(
+        issue(
+          "primitiveCapabilities",
+          "Push and Migration Timing require accepted measured water temperature.",
+          "config_source_reference_missing",
+        ),
+      );
+    }
+  }
+  if (pushAvailable || timingAvailable) {
+    validatePushRules(run, river, issues);
+    validateRunTemperaturePolicy(run, river, issues);
+  } else {
+    validateUnsupportedField(run.push, "push", issues);
+    validateUnsupportedField(run.waterTemperature, "waterTemperature", issues);
+  }
+  if (fishabilityAvailable) {
+    validateFishabilityBasis(run, river, issues);
+  } else {
+    validateUnsupportedField(run.fishabilityBands, "fishabilityBands", issues);
+    validateUnsupportedField(run.baselineCoverage, "baselineCoverage", issues);
+  }
+  if (timingAvailable) {
+    validateConditionsSuggestPolicy(run, river, issues);
+  } else {
+    validateUnsupportedField(
+      run.conditionsSuggest,
+      "conditionsSuggest",
+      issues,
+    );
+  }
   validateAuditFields(run, issues);
   validatePublicAuditGate(run, visibilityIssues);
 
@@ -609,6 +918,63 @@ export function validateRunProfile(
     publicVisible,
     issues: [...issues, ...visibilityIssues],
   };
+}
+
+function validatePrimitiveCapabilities(
+  run: RiverRunProfile,
+  issues: RiverRunValidationIssue[],
+): void {
+  const allowedReasons = new Set([
+    "no_accepted_hydraulic_source",
+    "no_accepted_water_temperature_source",
+    "no_accepted_hydraulic_or_water_temperature_source",
+    "no_accepted_historical_baseline",
+  ]);
+  for (
+    const field of ["migrationTiming", "push", "fishability"] as const
+  ) {
+    const capability = run.primitiveCapabilities?.[field];
+    if (
+      !capability || !["available", "unavailable"].includes(capability.status)
+    ) {
+      issues.push(
+        issue(
+          `primitiveCapabilities.${field}`,
+          "Primitive capability must be explicit.",
+          "config_invalid_value",
+        ),
+      );
+      continue;
+    }
+    if (
+      capability.status === "unavailable" &&
+      (!allowedReasons.has(capability.reason) || !hasText(capability.notes))
+    ) {
+      issues.push(
+        issue(
+          `primitiveCapabilities.${field}`,
+          "Unavailable primitives require a supported reason and evidence note.",
+          "audit_notes_missing",
+        ),
+      );
+    }
+  }
+}
+
+function validateUnsupportedField(
+  value: unknown,
+  field: string,
+  issues: RiverRunValidationIssue[],
+): void {
+  if (value != null) {
+    issues.push(
+      issue(
+        field,
+        "Unavailable primitives must omit calibration fields rather than carry placeholder values.",
+        "config_invalid_value",
+      ),
+    );
+  }
 }
 
 function validatePushRules(
@@ -1292,7 +1658,7 @@ function validateConditionsSuggestPolicy(
   }
   if (
     !hasText(policy.temperatureSourceId) ||
-    !run.waterTemperature.sourcePriority.includes(policy.temperatureSourceId)
+    !run.waterTemperature?.sourcePriority.includes(policy.temperatureSourceId)
   ) {
     issues.push(
       issue(
@@ -1546,19 +1912,21 @@ export function validateConfigurationRevision(
       );
     }
     const expectedTemperature = biology.adultMigrationTemperature;
-    const configuredTemperature = run.push.temperature;
+    const configuredTemperature = run.push?.temperature;
     if (
-      configuredTemperature.supportiveMinF !==
-        expectedTemperature.supportiveMinF ||
-      configuredTemperature.supportiveMaxF !==
-        expectedTemperature.supportiveMaxF ||
-      configuredTemperature.tooWarmF !== expectedTemperature.tooWarmF ||
-      configuredTemperature.migrationBarrierF !==
-        expectedTemperature.migrationBarrierF ||
-      configuredTemperature.coldHoldingF !==
-        expectedTemperature.coldHoldingF ||
-      configuredTemperature.preferredMinF !==
-        expectedTemperature.preferredMinF
+      configuredTemperature && (
+        configuredTemperature.supportiveMinF !==
+          expectedTemperature.supportiveMinF ||
+        configuredTemperature.supportiveMaxF !==
+          expectedTemperature.supportiveMaxF ||
+        configuredTemperature.tooWarmF !== expectedTemperature.tooWarmF ||
+        configuredTemperature.migrationBarrierF !==
+          expectedTemperature.migrationBarrierF ||
+        configuredTemperature.coldHoldingF !==
+          expectedTemperature.coldHoldingF ||
+        configuredTemperature.preferredMinF !==
+          expectedTemperature.preferredMinF
+      )
     ) {
       issues.push(
         issue(

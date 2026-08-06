@@ -1,0 +1,321 @@
+import { assert, assertEquals, assertMatch } from "jsr:@std/assert";
+import {
+  addDays,
+  BIG_MANISTEE_CONFIGURATION_DOCUMENT,
+  BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE,
+  BIG_MANISTEE_RIVER_PROFILE,
+  listVisibleRiverRuns,
+  resolveFlowBand,
+  resolveRunStage,
+  scoreFishability,
+  scoreFishInRiver,
+  scorePush,
+  validateConfigurationRevision,
+  validateRunProfile,
+} from "../index.ts";
+
+const run = BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE;
+
+Deno.test("Big Manistee Fall Chinook is valid and selectable for owner audit", () => {
+  const result = validateRunProfile(run, BIG_MANISTEE_RIVER_PROFILE);
+  assertEquals(result.valid, true);
+  assertEquals(result.publicVisible, true);
+  assertEquals(run.publicAudit.isEnabled, true);
+
+  const catalog = listVisibleRiverRuns(
+    [BIG_MANISTEE_RIVER_PROFILE],
+    [run],
+  );
+  assertEquals(catalog[0]?.rivers[0]?.riverId, "big_manistee");
+  assertEquals(
+    catalog[0]?.rivers[0]?.runs[0]?.runId,
+    "big_manistee_fall_chinook",
+  );
+});
+
+Deno.test("Big Manistee configuration revision binds its river-specific biology", () => {
+  const issues = validateConfigurationRevision({
+    configKey: "big_manistee",
+    revision: 1,
+    status: "draft",
+    document: BIG_MANISTEE_CONFIGURATION_DOCUMENT,
+    evidenceNotes:
+      "Big Manistee Fall Chinook owner-audit implementation build.",
+  });
+  assertEquals(issues, []);
+  assertEquals(
+    BIG_MANISTEE_CONFIGURATION_DOCUMENT.runs.map((item) => item.runId),
+    [
+      "big_manistee_fall_chinook",
+      "big_manistee_fall_coho",
+      "big_manistee_fall_steelhead",
+    ],
+  );
+  assertEquals(
+    BIG_MANISTEE_CONFIGURATION_DOCUMENT.biologyProfiles.find((profile) =>
+      profile.biologyProfileId === "big_manistee_chinook_v1"
+    )?.adultMigrationTemperature,
+    {
+      coldHoldingF: 43,
+      supportiveMinF: 45,
+      preferredMinF: 50,
+      supportiveMaxF: 64,
+      tooWarmF: 68,
+      migrationBarrierF: 72,
+    },
+  );
+});
+
+Deno.test("Big Manistee calendar and presence curve are independent of PM dates", () => {
+  assertEquals(run.runWindow.start, "08-15");
+  assertEquals(run.runWindow.peak, "09-30");
+  assertEquals(run.runWindow.end, "10-31");
+  assertEquals(run.runWindow.lateEnd, "11-10");
+  const expected = new Map([
+    ["2026-08-15", 8],
+    ["2026-08-20", 14],
+    ["2026-08-25", 20],
+    ["2026-09-01", 30],
+    ["2026-09-10", 55],
+    ["2026-09-30", 100],
+    ["2026-10-10", 95],
+    ["2026-10-31", 38],
+    ["2026-11-10", 0],
+  ]);
+  for (const [localDate, expectedScore] of expected) {
+    assertEquals(scoreFishInRiver(run, localDate).score, expectedScore);
+  }
+});
+
+Deno.test("Big Manistee stage copy names the tailwater and never borrows PM geography", () => {
+  const staging = resolveRunStage(run, "2026-08-01");
+  assertMatch(staging.whereToStart ?? "", /Manistee Lake/i);
+  assertMatch(staging.whereToStart ?? "", /lower migratory river/i);
+
+  const beginning = resolveRunStage(run, "2026-08-15");
+  assertMatch(beginning.whereToStart ?? "", /Tippy.?tailwater/i);
+  assertMatch(beginning.detail, /Wellston/i);
+
+  const peak = resolveRunStage(run, "2026-09-30");
+  assertEquals(peak.stage, "peak");
+  assertMatch(peak.whereToStart ?? "", /High Bridge/i);
+  assertMatch(peak.whereToStart ?? "", /Bear Creek/i);
+
+  for (
+    const localDate of [
+      "2026-08-01",
+      "2026-08-15",
+      "2026-09-10",
+      "2026-09-30",
+      "2026-10-20",
+      "2026-11-01",
+    ]
+  ) {
+    const display = resolveRunStage(run, localDate);
+    const copy = [
+      display.headline,
+      display.whereToStart,
+      display.detail,
+      display.tip,
+    ].join(" ");
+    assertEquals(
+      /Scottville|Walhalla|Baldwin|Pere Marquette/i.test(copy),
+      false,
+    );
+  }
+});
+
+Deno.test("Big Manistee stage copy changes across every researched Chinook subphase", () => {
+  const dates = [
+    "2026-08-15",
+    "2026-08-22",
+    "2026-09-01",
+    "2026-09-10",
+    "2026-09-20",
+    "2026-09-30",
+    "2026-10-06",
+    "2026-10-11",
+    "2026-10-16",
+    "2026-10-21",
+    "2026-10-27",
+    "2026-11-01",
+  ];
+  const copyStates = dates.map((date) => {
+    const state = resolveRunStage(run, date);
+    return [state.headline, state.whereToStart, state.detail, state.tip].join("|");
+  });
+  assertEquals(new Set(copyStates).size, copyStates.length);
+  assertMatch(resolveRunStage(run, "2026-08-22").whereToStart ?? "", /Bear Creek/i);
+  assertMatch(resolveRunStage(run, "2026-09-20").headline, /strongest seasonal window/i);
+  assertMatch(resolveRunStage(run, "2026-10-06").detail, /spawning/i);
+  assertMatch(resolveRunStage(run, "2026-10-27").headline, /residual/i);
+});
+
+Deno.test("Big Manistee bands and Push use the larger regulated-tailwater scale", () => {
+  assertEquals(
+    resolveFlowBand({
+      metric: "flow_cfs",
+      value: 1050,
+      fishabilityBands: run.fishabilityBands,
+    })?.band,
+    "very_low",
+  );
+  assertEquals(
+    resolveFlowBand({
+      metric: "flow_cfs",
+      value: 1650,
+      fishabilityBands: run.fishabilityBands,
+    })?.band,
+    "ideal",
+  );
+  assertEquals(
+    resolveFlowBand({
+      metric: "flow_cfs",
+      value: 2800,
+      fishabilityBands: run.fishabilityBands,
+    })?.band,
+    "very_high",
+  );
+
+  const push = scorePush({
+    movementEngineId: run.movementEngineId,
+    rules: run.push,
+    gaugeFreshness: "fresh",
+    flowSignal: "meaningful_rise",
+    currentHydraulicValue: 1650,
+    hydraulicAbsoluteChange24h: 100,
+    hydraulicPercentChange24h: 7,
+    rainSignal: "meaningful_rain",
+    temperatureSignal: "cooling",
+    temperatureSourceType: "same_gauge",
+    waterTempF: 61,
+    trackingState: "active",
+    trackingStartDate: "2026-08-15",
+    trackingEndDate: "2026-11-10",
+    localDate: "2026-09-30",
+  });
+  assert(push.score !== null);
+  assertEquals(push.components?.hydraulicState, "normal");
+  assertEquals(push.components?.temperatureState, "supportive");
+  assertEquals(push.components?.rainRole, "absorbed_by_gauge");
+
+  const warmEntry = scorePush({
+    movementEngineId: run.movementEngineId,
+    rules: run.push,
+    gaugeFreshness: "fresh",
+    flowSignal: "stable",
+    currentHydraulicValue: 1500,
+    hydraulicAbsoluteChange24h: 0,
+    hydraulicPercentChange24h: 0,
+    rainSignal: "dry",
+    temperatureSignal: "neutral",
+    temperatureSourceType: "same_gauge",
+    waterTempF: 67,
+    trackingState: "active",
+    trackingStartDate: "2026-08-15",
+    trackingEndDate: "2026-11-10",
+    localDate: "2026-08-15",
+  });
+  assertEquals(warmEntry.components?.temperatureState, "transitional_warm");
+
+  const barrier = scorePush({
+    movementEngineId: run.movementEngineId,
+    rules: run.push,
+    gaugeFreshness: "fresh",
+    flowSignal: "meaningful_rise",
+    currentHydraulicValue: 1650,
+    hydraulicAbsoluteChange24h: 100,
+    hydraulicPercentChange24h: 7,
+    rainSignal: "meaningful_rain",
+    temperatureSignal: "cooling",
+    temperatureSourceType: "same_gauge",
+    waterTempF: 73,
+    trackingState: "active",
+    trackingStartDate: "2026-08-15",
+    trackingEndDate: "2026-11-10",
+    localDate: "2026-08-15",
+  });
+  assertEquals(barrier.components?.temperatureState, "migration_barrier");
+  assert(barrier.components?.appliedCaps.includes(49));
+});
+
+Deno.test("Big Manistee Chinook lifecycle replay has complete river-specific copy", () => {
+  const stages = new Set<string>();
+  for (
+    let localDate = "2026-07-01";
+    localDate <= "2026-11-12";
+    localDate = addDays(localDate, 1)
+  ) {
+    const display = resolveRunStage(run, localDate);
+    stages.add(display.stage);
+    const copy = [
+      display.label,
+      display.headline,
+      display.whereToStart,
+      display.detail,
+      display.tip,
+    ].join(" ");
+    assert(copy.trim().length > 0);
+    assertEquals(
+      /Scottville|Walhalla|Baldwin|Pere Marquette/i.test(copy),
+      false,
+    );
+  }
+  assertEquals(
+    [...stages],
+    [
+      "pre_run",
+      "beginning",
+      "building",
+      "peak",
+      "tapering",
+      "ending",
+      "post_run",
+    ],
+  );
+});
+
+Deno.test("Big Manistee flow boundaries remain deterministic at every configured edge", () => {
+  const expectedBands: Array<[number, string]> = [
+    [1099, "very_low"],
+    [1100, "low"],
+    [1399, "low"],
+    [1400, "ideal"],
+    [1900, "ideal"],
+    [1901, "high_fishable"],
+    [2500, "high_fishable"],
+    [2501, "very_high"],
+    [3499, "very_high"],
+    [3500, "blown_out"],
+  ];
+  for (const [value, expectedBand] of expectedBands) {
+    assertEquals(
+      resolveFlowBand({
+        metric: "flow_cfs",
+        value,
+        fishabilityBands: run.fishabilityBands,
+      })?.band,
+      expectedBand,
+    );
+  }
+
+  const ideal = scoreFishability({
+    rules: run.fishabilityBands,
+    gaugeFreshness: "fresh",
+    flowBand: "ideal",
+    flowSignal: "stable",
+    currentHydraulicValue: 1650,
+  });
+  assertEquals(ideal.score, 93);
+  assertEquals(ideal.rulesVersion, "big-manistee-tailwater-fishability-v1");
+
+  const blownOut = scoreFishability({
+    rules: run.fishabilityBands,
+    gaugeFreshness: "fresh",
+    flowBand: "blown_out",
+    flowSignal: "stable",
+    currentHydraulicValue: 3600,
+  });
+  assertEquals(blownOut.score, 20);
+  assertEquals(run.fishabilityBands.caps.blownOut, 24);
+});

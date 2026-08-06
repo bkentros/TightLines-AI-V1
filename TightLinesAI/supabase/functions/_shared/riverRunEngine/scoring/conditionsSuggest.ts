@@ -1,6 +1,7 @@
 import type {
   GaugeFreshness,
   PrimitiveDisplay,
+  PushRules,
   RiverMetric,
   RiverRunProfile,
   RiverRunReasonCode,
@@ -25,7 +26,8 @@ export type ConditionsSuggestLabel =
   | ConditionsTimingLabel
   | "Not monitoring yet"
   | "Evaluating"
-  | "Timing complete";
+  | "Timing complete"
+  | "Unavailable";
 
 export type ConditionsSuggestEvidence = {
   gaugeFreshness: GaugeFreshness;
@@ -91,13 +93,18 @@ const DEFAULT_WATER_TEMPERATURE_WEIGHT = 0.4;
 
 export function scoreConditionsSuggest(input: {
   localDate: string;
-  run: Pick<
-    RiverRunProfile,
-    | "runWindow"
-    | "conditionsSuggest"
-    | "push"
-    | "handoff"
-  >;
+  run:
+    & Pick<
+      RiverRunProfile,
+      | "runWindow"
+      | "conditionsSuggest"
+      | "push"
+      | "handoff"
+    >
+    & {
+      conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
+      push: PushRules;
+    };
   evidenceByDate: ConditionsSuggestEvidenceByDate;
   baselines?: RiverRunConditionsSuggestBaseline[] | null;
 }): ConditionsSuggestResult {
@@ -176,8 +183,7 @@ export function scoreConditionsSuggest(input: {
     checkpointResult: activeResult,
     mainRunWindowPassed:
       compareLocalDates(input.localDate, checkpointState.window.endDate) > 0,
-    winterHoldingHandoff:
-      !!input.run.handoff &&
+    winterHoldingHandoff: !!input.run.handoff &&
       compareLocalDates(input.localDate, checkpointState.window.endDate) > 0,
   });
 }
@@ -214,10 +220,15 @@ function inactiveResult(input: {
 }
 
 function scoreCheckpoint(input: {
-  run: Pick<
-    RiverRunProfile,
-    "conditionsSuggest" | "push"
-  >;
+  run:
+    & Pick<
+      RiverRunProfile,
+      "conditionsSuggest" | "push"
+    >
+    & {
+      conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
+      push: PushRules;
+    };
   checkpoint: ConditionsSuggestCheckpoint;
   baseline: RiverRunConditionsSuggestBaseline | null;
   evidenceByDate: ConditionsSuggestEvidenceByDate;
@@ -501,7 +512,9 @@ export function resolveConditionsCandidateLabel(input: {
 }
 
 function resolveEvidenceGate(input: {
-  run: Pick<RiverRunProfile, "conditionsSuggest">;
+  run: Pick<RiverRunProfile, "conditionsSuggest"> & {
+    conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
+  };
   checkpoint: ConditionsSuggestCheckpoint;
   baseline: RiverRunConditionsSuggestBaseline | null;
   selected: Array<{

@@ -6,6 +6,7 @@ import {
   type RunOpportunityCopyContext,
 } from "../copy/opportunity.ts";
 import {
+  addDays,
   compareLocalDates,
   type DateWindow,
   resolveActiveRunWindow,
@@ -22,7 +23,12 @@ export type RunStageResult = PrimitiveDisplay & {
 export function resolveRunStage(
   run: Pick<
     RiverRunProfile,
-    "runWindow" | "historicalPresence" | "species" | "runType" | "handoff"
+    | "runWindow"
+    | "historicalPresence"
+    | "species"
+    | "runType"
+    | "handoff"
+    | "runStageCopyStrategy"
   >,
   localDate: string,
 ): RunStageResult {
@@ -42,15 +48,44 @@ export function resolveRunStage(
     stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
 
   const opportunity = resolveRunOpportunityCopyContext(run.historicalPresence);
-  if (run.runType === "fall_entry") {
-    const copy = fallEntryStageCopy({
-      stage,
-      stagingContext,
-      establishedBuildingContext,
-      broadBuildingContext,
-      winterHoldingContext,
-      species: anglerSpeciesName(run.species),
-    });
+  if (
+    run.runType === "fall_entry" &&
+    run.runStageCopyStrategy !== "betsie_homestead"
+  ) {
+    const copy = run.runStageCopyStrategy === "big_manistee_tailwater"
+      ? bigManisteeFallEntryStageCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        winterHoldingContext,
+        species: anglerSpeciesName(run.species),
+      })
+      : fallEntryStageCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        winterHoldingContext,
+        species: anglerSpeciesName(run.species),
+      });
+    const whereToStart = run.runStageCopyStrategy === "pere_marquette"
+      ? pereMarquetteFallEntryWhereToStartCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        winterHoldingContext,
+      })
+      : run.runStageCopyStrategy === "big_manistee_tailwater"
+      ? bigManisteeFallEntryWhereToStartCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        winterHoldingContext,
+      })
+      : copy.whereToStart;
     return {
       stage,
       stagingContext,
@@ -59,12 +94,75 @@ export function resolveRunStage(
       window,
       label: fallEntryStageLabel(stage, winterHoldingContext),
       ...copy,
+      whereToStart,
       reasonCodes: [
         stageReasonCode(stage),
         ...(winterHoldingContext ? ["stage_winter_holding" as const] : []),
         ...(stage === "post_run" && !winterHoldingContext
           ? ["stage_offseason" as const]
           : []),
+        ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
+      ],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (run.runStageCopyStrategy === "big_manistee_tailwater") {
+    return {
+      stage,
+      stagingContext,
+      broadBuildingContext,
+      winterHoldingContext: false,
+      window,
+      label: stageLabel(stage, latePostRunContext),
+      ...bigManisteeTailwaterStageCopy({
+        stage,
+        localDate,
+        window,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+        species: anglerSpeciesName(run.species),
+        opportunity,
+      }),
+      reasonCodes: [
+        stageReasonCode(stage),
+        ...(stage === "post_run" && !latePostRunContext
+          ? ["stage_offseason" as const]
+          : []),
+        ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
+      ],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  if (run.runStageCopyStrategy === "betsie_homestead") {
+    return {
+      stage,
+      stagingContext,
+      broadBuildingContext,
+      winterHoldingContext,
+      window,
+      label: run.runType === "fall_entry"
+        ? fallEntryStageLabel(stage, winterHoldingContext)
+        : stageLabel(stage, latePostRunContext),
+      ...betsieHomesteadStageCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+        species: anglerSpeciesName(run.species),
+        opportunity,
+        fallEntry: run.runType === "fall_entry",
+        winterHoldingContext,
+      }),
+      reasonCodes: [
+        stageReasonCode(stage),
+        ...(stage === "post_run" && !latePostRunContext &&
+            !winterHoldingContext
+          ? ["stage_offseason" as const]
+          : []),
+        ...(winterHoldingContext ? ["stage_winter_holding" as const] : []),
         ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
       ],
       copyVersion: RIVER_RUN_COPY_VERSION,
@@ -86,14 +184,22 @@ export function resolveRunStage(
       anglerSpeciesName(run.species),
       opportunity,
     ),
-    whereToStart: whereToStartCopy(
-      stage,
-      stagingContext,
-      establishedBuildingContext,
-      broadBuildingContext,
-      latePostRunContext,
-      opportunity,
-    ),
+    whereToStart: run.runStageCopyStrategy === "pere_marquette"
+      ? pereMarquetteWhereToStartCopy(
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+      )
+      : whereToStartCopy(
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+        opportunity,
+      ),
     reasonCodes: [
       stageReasonCode(stage),
       ...(stage === "post_run" && !latePostRunContext
@@ -103,6 +209,743 @@ export function resolveRunStage(
     ],
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
+}
+
+function bigManisteeTailwaterStageCopy(input: {
+  stage: RunStage;
+  localDate: string;
+  window: DateWindow;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+}): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  const strong = input.opportunity.strength === "strong";
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? {
+          headline:
+            `${input.species} may be staging in Lake Michigan, Manistee Lake, and near the river mouth.`,
+          whereToStart:
+            "Manistee Lake, the harbor, the river mouth, and the first deep travel water in the lower migratory river toward M-55.",
+          detail:
+            `Early ${input.species} can begin checking the Big Manistee, but the Wellston gauge and Tippy tailwater should not be treated as proof that the entire lower corridor is occupied.`,
+          tip:
+            "Use the lake-to-river transition for staging context. Treat an early river fish as real evidence, not as a reason to claim broad river presence.",
+        }
+        : {
+          headline:
+            `${input.species} have not begun their dependable Big Manistee river run.`,
+          whereToStart:
+            "Lake Michigan, Manistee Lake, the harbor, and the river mouth.",
+          detail:
+            `The fixed seasonal calendar has not reached dependable ${input.species} river presence yet.`,
+          tip:
+            "Keep staging context separate from river presence until the river window opens.",
+        };
+    case "beginning":
+      if (
+        compareLocalDates(
+          input.localDate,
+          addDays(input.window.startDate, 7),
+        ) >= 0
+      ) {
+        return {
+          headline:
+            `${input.species} are accumulating through more of the Big Manistee below Tippy Dam.`,
+          whereToStart:
+            "Check the Tippy tailwater and Tippy-to-High Bridge reach first; if fish are scattered there, compare the High Bridge-Bear Creek middle corridor and lower migratory river for newer arrivals.",
+          detail:
+            "Earlier fish can already be established in tailwater holding areas while newer fish continue moving through the lower and middle migratory corridor. Numbers can still be uneven between sections.",
+          tip:
+            "Treat Tippy, High Bridge, and Bear Creek as different checks—not one uniform gauge reach—and let direct fish activity decide where to slow down.",
+        };
+      }
+      return {
+        headline:
+          `The first ${input.species} are beginning to enter the Big Manistee below Tippy Dam.`,
+        whereToStart:
+          "Make a quick Tippy-tailwater check. If it is empty or sparse, compare the High Bridge-Bear Creek middle corridor with the lower migratory river toward M-55, where newer fish are more likely still traveling.",
+        detail:
+          "The dam concentrates migrants, but early fish are not necessarily distributed through the full 25-mile corridor. Wellston describes the tailwater and upper corridor only.",
+        tip:
+          "Start near the tailwater, then cover deep travel and holding water downstream rather than assuming every reach is equally populated.",
+      };
+    case "building":
+      if (compareLocalDates(input.localDate, input.window.peakStartDate) >= 0) {
+        return {
+          headline:
+            `${input.species} are moving into the Big Manistee's strongest seasonal window.`,
+          whereToStart:
+            "Start in the Tippy-to-High Bridge reach for accumulated fish, then compare the High Bridge-Bear Creek middle corridor and lower-river bends toward M-55 for fresher arrivals.",
+          detail:
+            "Multiple waves have had time to spread through the corridor, and the tailwater reach is building toward its heaviest-use period. Reach-to-reach clarity and fish freshness can still differ sharply.",
+          tip:
+            "Use Wellston to judge the tailwater response, but compare several sections before assuming the most crowded water holds the freshest fish.",
+        };
+      }
+      if (input.broadBuildingContext) {
+        const sectional = input.opportunity.distributionScope === "sectional";
+        return {
+          headline: strong
+            ? `${input.species} are becoming established through the Big Manistee migratory corridor.`
+            : `The Big Manistee ${input.species} opportunity is broadening through the migratory corridor.`,
+          whereToStart: sectional
+            ? "Sample select Tippy-to-High Bridge pools, the High Bridge-Bear Creek middle corridor, and one or two substantial lower-river bends toward M-55."
+            : "Fish the Tippy-to-High Bridge pools and runs first, then sample the High Bridge-Bear Creek middle corridor and major lower-river bends toward M-55.",
+          detail: sectional
+            ? "More than one migratory reach is now plausible, but this remains sectional opportunity—not evidence that fish occupy every reach or good-looking hole. Wellston directly measures only the regulated tailwater."
+            : "Multiple arrival waves can now occupy the tailwater, middle reaches, and lower corridor, but Wellston still measures only the regulated tailwater and cannot certify downstream conditions.",
+          tip:
+            "Use the gauge for the Tippy tailwater. Treat lower-river clarity, access, and holding water as separate reach questions.",
+        };
+      }
+      if (input.establishedBuildingContext) {
+        return {
+          headline:
+            `More ${input.species} are becoming established below Tippy Dam.`,
+          whereToStart:
+            "Begin in the Tippy tailwater, then compare the Tippy-to-High Bridge reach with deeper bends in the High Bridge-Bear Creek middle corridor before committing to one section.",
+          detail:
+            "Earlier fish can be established near the dam while newer arrivals remain distributed farther downstream. The river is not a single uniform gauge reach.",
+          tip:
+            "Work substantial holding water and current breaks section by section. Do not turn a Wellston reading into a claim about the lower river.",
+        };
+      }
+      return {
+        headline:
+          `More ${input.species} are entering the Big Manistee below Tippy Dam.`,
+        whereToStart:
+          "The first tailwater pools and current breaks below Tippy, followed by deeper bends in the Tippy-to-High Bridge reach.",
+        detail:
+          "Presence is growing beyond isolated early fish, but concentrations can still vary sharply between the tailwater, middle river, and lower corridor.",
+        tip:
+          "Cover water until direct fish activity gives you a reason to slow down.",
+      };
+    case "peak":
+      if (
+        compareLocalDates(input.localDate, addDays(input.window.peakDate, 6)) >=
+          0
+      ) {
+        return {
+          headline:
+            `The Big Manistee remains near peak ${input.species} presence as the run begins shifting toward a late-season mix.`,
+          whereToStart:
+            "Work the deeper pools below Tippy, High Bridge bends, and the Bear Creek junction; visit lower-river travel holes only when fresh movement is evident.",
+          detail:
+            "Strong numbers can remain through the system, but the mix increasingly includes fish that have held for days or begun spawning alongside later arrivals.",
+          tip:
+            "Prioritize deep holding water connected to current, look for genuinely fresh fish, and leave visible fish on shallow spawning gravel undisturbed.",
+        };
+      }
+      return {
+        headline: strong
+          ? `This is typically the strongest Big Manistee ${input.species} opportunity.`
+          : `This is typically the strongest part of the Big Manistee ${input.species} window.`,
+        whereToStart:
+          "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and major lower-river holes toward M-55.",
+        detail: strong
+          ? "The fall run can be broad and powerful here, but fish concentrations, clarity, access, and presentation conditions still change by reach."
+          : "This is the best seasonal chance to find fish in more than one migratory reach, but the opportunity remains sectional and concentrations can change sharply from one access or hole to the next.",
+        tip:
+          "Use Wellston for the regulated tailwater response, then make lower-river decisions from local water conditions rather than extrapolation.",
+      };
+    case "tapering":
+      if (
+        compareLocalDates(
+          input.localDate,
+          addDays(input.window.peakEndDate, 6),
+        ) >= 0
+      ) {
+        return {
+          headline:
+            `The Big Manistee ${input.species} run is entering its late taper.`,
+          whereToStart:
+            "Target the deepest pools below Tippy, slower inside bends near High Bridge, and current seams around Bear Creek; go lower only on a fresh response.",
+          detail:
+            "Fish can remain numerous in selected holding and spawning reaches, but fresh silver arrivals are becoming the exception and river-wide distribution is less dependable.",
+          tip:
+            "Fish selected deep water carefully, avoid shallow spawning fish, and do not let one late arrival stand in for a broad new wave.",
+        };
+      }
+      return {
+        headline:
+          `The Big Manistee can remain productive for ${input.species}, although fresh arrivals are becoming less consistent.`,
+        whereToStart:
+          "Begin with shaded pools below Tippy and the slower edges of High Bridge bends, then check Bear Creek for late moving fish.",
+        detail:
+          "Older fish may remain while new movement becomes more dependent on cooling water and a measured hydraulic response.",
+        tip:
+          "Prioritize established holding water and do not treat rain alone as a confirmed push.",
+      };
+    case "ending":
+      if (
+        compareLocalDates(
+          input.localDate,
+          addDays(input.window.taperingEndDate, 6),
+        ) >= 0
+      ) {
+        return {
+          headline:
+            `Only a residual late ${input.species} opportunity remains in the Big Manistee.`,
+          whereToStart:
+            "Limit the search to the deepest Tippy-area pools, High Bridge inside bends, and one or two proven Bear Creek-area holes.",
+          detail:
+            "Most remaining fish have been in the system for some time. A genuinely fresh fish is possible, but no longer represents a dependable new migration wave.",
+          tip:
+            "Keep expectations narrow, leave spawning or visibly deteriorated fish alone, and shift effort when direct evidence is absent.",
+        };
+      }
+      return {
+        headline: `The main Big Manistee ${input.species} run is winding down.`,
+        whereToStart:
+          "The deepest pools below Tippy and High Bridge, especially soft edges beside the main current; skip broad exploratory water.",
+        detail:
+          "Residual fish can remain, but active movement and fresh distribution are becoming less dependable.",
+        tip:
+          "Require a measured rise and suitable water before giving late movement strong weight.",
+      };
+    case "post_run":
+      return input.latePostRunContext
+        ? {
+          headline:
+            `A few late ${input.species} may remain in established Big Manistee holding water.`,
+          whereToStart:
+            "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Tippy or near High Bridge.",
+          detail:
+            "The seasonal presence tail is not a live abundance estimate and does not imply a fresh river push.",
+          tip: "Do not convert residual presence into a new-run signal.",
+        }
+        : {
+          headline:
+            `The Big Manistee ${input.species} run is outside its researched window.`,
+          whereToStart:
+            "No dependable Big Manistee location for this fall migration model right now.",
+          detail:
+            "This fall-spawn profile has ended; another seasonal experience must supply any later species guidance.",
+          tip: "Do not use this profile to score a different season.",
+        };
+  }
+}
+
+function pereMarquetteWhereToStartCopy(
+  stage: RunStage,
+  stagingContext: boolean,
+  establishedBuildingContext: boolean,
+  broadBuildingContext: boolean,
+  latePostRunContext: boolean,
+): string {
+  switch (stage) {
+    case "pre_run":
+      return stagingContext
+        ? "Ludington harbor, Pere Marquette Lake, the river mouth at the east end of the lake, and one deliberate check of the first deep travel lane in the lower migratory river."
+        : "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.";
+    case "beginning":
+      return "Lower migratory river from Pere Marquette Lake toward Scottville: first deep bends, resting pockets, and current breaks beside the main travel lane.";
+    case "building":
+      if (!establishedBuildingContext) {
+        return "Lower migratory river around Scottville, then the first substantial holding holes entering the middle river toward Walhalla.";
+      }
+      if (broadBuildingContext) {
+        return "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.";
+      }
+      return "Middle-river holding water from Scottville toward Walhalla first; earlier fish may already have reached Branch and the upper river toward Baldwin and M-37.";
+    case "peak":
+      return "Compare the lower river near Scottville, middle river through Walhalla and Branch, and upper river toward Baldwin and M-37, prioritizing substantial holding water connected to productive current.";
+    case "tapering":
+      return "Established middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37; add Scottville-area lower-river travel lanes only on a credible fresh-movement signal.";
+    case "ending":
+      return "The deepest middle- and upper-river holes and slower current edges from Walhalla through Branch toward Baldwin/M-37—not fast lower-river travel lanes.";
+    case "post_run":
+      return latePostRunContext
+        ? "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37."
+        : "No dependable Pere Marquette River location for this species right now.";
+  }
+}
+
+function pereMarquetteFallEntryWhereToStartCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  winterHoldingContext: boolean;
+}): string {
+  if (input.winterHoldingContext) {
+    return "Deep, slow middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby current and an easy feeding lane.";
+  }
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? "Ludington harbor, Pere Marquette Lake, the river mouth, and one deliberate check of the first deep travel lane in the lower migratory river toward Scottville."
+        : "Lake Michigan off Ludington, Ludington harbor, and Pere Marquette Lake—not the inland river yet.";
+    case "beginning":
+      return "Lower migratory river from Pere Marquette Lake toward Scottville: travel lanes feeding the first deep bends, resting pockets, and current breaks.";
+    case "building":
+      if (input.broadBuildingContext) {
+        return "Middle-river holding water from Scottville through Walhalla and Branch, plus the upper river toward Baldwin/M-37; add lower-river travel lanes when Push supports fresh arrivals.";
+      }
+      return input.establishedBuildingContext
+        ? "Lower- and middle-river holding water from Scottville through Walhalla and Branch first; sample the upper river toward Baldwin/M-37 when direct activity supports it."
+        : "Lower river around Scottville into the first substantial middle-river holding holes toward Walhalla.";
+    case "peak":
+      return "Compare substantial holding water in the middle river from Scottville through Walhalla and Branch with the upper river toward Baldwin/M-37; add lower travel lanes on a fresh Push.";
+    case "tapering":
+      return "Established middle- and upper-river holes from Walhalla and Branch toward Baldwin/M-37, especially deeper bends and slower edges beside productive current.";
+    case "ending":
+      return "Deep, speed-controlled middle- and upper-river holding water from Walhalla and Branch toward Baldwin/M-37, with nearby feeding current.";
+    case "post_run":
+      return "No dependable PM fall-entry location; use the active winter or spring Steelhead experience instead.";
+  }
+}
+
+function bigManisteeFallEntryWhereToStartCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  winterHoldingContext: boolean;
+}): string {
+  if (input.winterHoldingContext) {
+    return "Deep, speed-controlled holding water in the Tippy-to-High Bridge reach and High Bridge-Bear Creek middle corridor, with nearby feeding current; compare lower-river wintering holes when access and local conditions support them.";
+  }
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? "Manistee Lake, the river mouth, and lower migratory river toward M-55 for new fall entrants; treat a Tippy-tailwater Skamania check as separate summer-run context."
+        : "Manistee Lake, the harbor, and the river mouth for fall-entry context; summer-run Steelhead may already hold near Tippy, but they do not confirm the winter-run fall build.";
+    case "beginning":
+      return "Lower migratory river toward M-55 first, then substantial travel-and-resting water through the High Bridge-Bear Creek middle corridor; check Tippy only after those fresh-entry sections.";
+    case "building":
+      if (input.broadBuildingContext) {
+        return "Compare substantial holding water in the Tippy-to-High Bridge reach and High Bridge-Bear Creek middle corridor, then add lower-river travel lanes when Push supports fresh arrivals.";
+      }
+      return input.establishedBuildingContext
+        ? "High Bridge-Bear Creek middle-corridor holding water first, then compare the Tippy-to-High Bridge reach and lower migratory river for accumulated versus fresher fish."
+        : "Lower-river travel water toward M-55 into the first substantial High Bridge-Bear Creek resting holes.";
+    case "peak":
+      return "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and substantial lower-river holes toward M-55; use Push to separate fresh travel water from established holding fish.";
+    case "tapering":
+      return "Established Tippy-to-High Bridge and High Bridge-Bear Creek holding water, especially deeper bends and slower edges; add lower travel lanes only on a credible fresh Push.";
+    case "ending":
+      return "Deep, speed-controlled holding water from the Tippy tailwater through High Bridge and Bear Creek, with nearby current and an efficient feeding lane.";
+    case "post_run":
+      return "No active fall-entry starting reach; use the winter Steelhead read for deep holding water and current activity instead.";
+  }
+}
+
+function bigManisteeFallEntryStageCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  winterHoldingContext: boolean;
+  species: string;
+}): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  const whereToStart = bigManisteeFallEntryWhereToStartCopy(input);
+  if (input.winterHoldingContext) {
+    return {
+      headline:
+        `${input.species} have transitioned from fall entry into winter holding throughout the Big Manistee corridor.`,
+      whereToStart,
+      detail:
+        "The fish have not left the river. Colder water shifts the useful question from upstream entry toward daily activity, feeding position, and efficient winter holding water.",
+      tip:
+        "Use the winter Steelhead read for current activity and presentation guidance; 70/100 is retained seasonal presence, not a live movement score.",
+    };
+  }
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? {
+          headline:
+            `${input.species} fall entry is approaching, while separate summer-run fish may already be holding below Tippy.`,
+          whereToStart,
+          detail:
+            "A Skamania already near the tailwater is not evidence that the winter-run fall migration is ahead. New fall entrants are more appropriately evaluated from Manistee Lake into the lower migratory corridor.",
+          tip:
+            "Keep summer-run and fall-entry evidence separate. Treat an isolated fish as context until the seasonal curve and measured conditions support a broader build.",
+        }
+        : {
+          headline:
+            `${input.species} winter-run fall entry has not started yet.`,
+          whereToStart,
+          detail:
+            "Summer-run Steelhead can make the Big Manistee a real fishery before this model begins, but dependable winter-run fall entry is not expected yet.",
+          tip:
+            "Do not turn a tailwater Skamania encounter into an early winter-run signal. Return as the September monitoring window develops.",
+        };
+    case "beginning":
+      return {
+        headline:
+          `The first winter-run ${input.species} are beginning to enter and move through the Big Manistee.`,
+        whereToStart,
+        detail:
+          "Fresh fish can be scattered from the lower migratory river into middle-corridor resting water, while some earlier arrivals or summer-run fish may already be nearer Tippy.",
+        tip:
+          "Cover lakeward travel lanes and substantial resting holes before assuming the tailwater holds the freshest fish.",
+      };
+    case "building":
+      if (input.broadBuildingContext) {
+        return {
+          headline:
+            `${input.species} are broadly established through the Big Manistee migratory corridor.`,
+          whereToStart,
+          detail:
+            "Multiple entry periods have given fish time to occupy the tailwater, middle corridor, and substantial lower-river water, although Wellston directly measures only the Tippy reach.",
+          tip:
+            "Compare at least two named reaches and use direct fish activity to choose where to slow down; use Wellston only for the regulated tailwater response.",
+        };
+      }
+      return input.establishedBuildingContext
+        ? {
+          headline:
+            `${input.species} are becoming dependably established across more of the Big Manistee.`,
+          whereToStart,
+          detail:
+            "Earlier arrivals can be established from High Bridge toward Tippy while newer fish continue entering below Bear Creek and toward M-55. Concentrations and freshness can differ sharply by reach.",
+          tip:
+            "Compare middle-corridor holding water with one tailwater and one lower-river check instead of treating the entire system as one gauge reach.",
+        }
+        : {
+          headline:
+            `More ${input.species} are entering and spreading through the Big Manistee.`,
+          whereToStart,
+          detail:
+            "Presence is building beyond isolated early fish, but the lakeward and middle migratory reaches remain the better places to evaluate fresh entry before committing to Tippy.",
+          tip:
+            "Follow travel water into the first substantial resting holes and remain mobile until direct activity provides a reason to settle into one reach.",
+        };
+    case "peak":
+      return {
+        headline:
+          `This is typically the strongest and most dependable Big Manistee fall ${input.species} opportunity.`,
+        whereToStart,
+        detail:
+          "Repeated entry periods have produced broad corridor presence, but fresh fish, established holders, water clarity, and access can still differ materially between Tippy, High Bridge, Bear Creek, and M-55 water.",
+        tip:
+          "Use Push to decide whether to emphasize lower travel lanes or established tailwater and middle-corridor holes, then verify the choice with direct fish activity.",
+      };
+    case "tapering":
+      return {
+        headline:
+          `${input.species} presence remains high as the Big Manistee shifts toward winter holding.`,
+        whereToStart,
+        detail:
+          "Many fish remain in the corridor, but colder water increasingly favors established holding positions over continuous upstream travel. Fresh arrivals can still occur without defining the whole fishery.",
+        tip:
+          "Begin with efficient holding water and add lower-river travel lanes only when measured flow and temperature support a credible new movement period.",
+      };
+    case "ending":
+      return {
+        headline:
+          `${input.species} remain strongly present as fall entry hands off to winter holding.`,
+        whereToStart,
+        detail:
+          "The migration phase is ending, not the fishery. Retained fish increasingly favor deep water where they can hold near feeding current without spending excessive energy.",
+        tip:
+          "Prioritize depth, controlled speed, and nearby feeding lanes. Use Push only as a secondary fresh-arrival check as the winter read approaches.",
+      };
+    case "post_run":
+      return {
+        headline:
+          `${input.species} are outside the Big Manistee fall-entry model.`,
+        whereToStart,
+        detail:
+          "This profile no longer evaluates fall migration. Steelhead can remain throughout winter, but their activity requires a holding-focused seasonal read.",
+        tip:
+          "Use the active winter Steelhead experience instead of extending fall-entry guidance beyond its researched endpoint.",
+      };
+  }
+}
+
+function betsieHomesteadStageCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+  fallEntry: boolean;
+  winterHoldingContext: boolean;
+}): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  if (input.fallEntry) return betsieHomesteadFallEntryStageCopy(input);
+  const legalHomesteadApproach =
+    "legal Homestead-approach holding water, always outside the signed dam closure";
+  const limited = input.opportunity.strength === "limited";
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? {
+          headline:
+            `${input.species} may be staging in Betsie Lake and near the river mouth.`,
+          whereToStart:
+            "Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
+          detail:
+            `An occasional early ${input.species} can enter the short river corridor and may even reach Homestead, but that is still an exception—not evidence of dependable river numbers.`,
+          tip:
+            "Keep most effort near the lake-to-river transition. Do not build the trip around Homestead or assume the downstream holes have filled in yet.",
+        }
+        : {
+          headline:
+            `${input.species} have not started entering the Betsie yet.`,
+          whereToStart: "Lake Michigan, Frankfort harbor, and Betsie Lake.",
+          detail:
+            `Dependable ${input.species} presence is not expected in the short river corridor below Homestead this early.`,
+          tip:
+            "Keep the trip in lake and harbor water until the seasonal staging window begins.",
+        };
+    case "beginning":
+      return {
+        headline:
+          `The first ${input.species} are beginning to enter the Betsie's below-Homestead corridor.`,
+        whereToStart:
+          "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
+        detail:
+          `Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.`,
+        tip:
+          "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+      };
+    case "building":
+      if (input.broadBuildingContext) {
+        return {
+          headline:
+            `${input.species} are becoming established throughout the below-Homestead corridor.`,
+          whereToStart:
+            `Substantial corridor holes from the lakeward end through ${legalHomesteadApproach}.`,
+          detail:
+            `The Betsie's migratory ${input.species} water is short, so fish can occupy the full corridor quickly. Homestead is the upstream limit; the deepest legal water below it remains the dependable plan.`,
+          tip:
+            "Work the substantial holes below Homestead section by section. Do not translate PM-scale section distances onto this short corridor.",
+        };
+      }
+      if (input.establishedBuildingContext) {
+        return {
+          headline: limited
+            ? `${input.species} are becoming more established in select below-Homestead water.`
+            : `${input.species} are becoming dependably established below Homestead.`,
+          whereToStart: limited
+            ? `Select substantial corridor holes, including ${legalHomesteadApproach}.`
+            : `Substantial corridor holes from the lakeward end through ${legalHomesteadApproach}.`,
+          detail: input.species === "Chinook salmon"
+            ? "By late August, fish reaching the Homestead end of the short corridor is realistic. Newer arrivals can remain closer to Betsie Lake while earlier fish collect in legal holding water downstream of the structure."
+            : "By late September, Coho reaching the Homestead end of the short corridor is realistic. Newer arrivals can remain closer to Betsie Lake while earlier fish occupy select legal holding water downstream of the structure.",
+          tip: limited
+            ? "Begin with select deep downstream holes, stay mobile until direct fish activity gives you a reason to slow down, and remain outside the signed 300-foot closure."
+            : "Begin with the deepest downstream holes, then work toward Homestead without entering the signed 300-foot closure.",
+        };
+      }
+      return {
+        headline:
+          `More ${input.species} are entering the short corridor below Homestead.`,
+        whereToStart:
+          "Start with substantial holes nearest the lake-to-river transition, then work hole by hole toward the legal Homestead approach.",
+        detail:
+          "Presence is growing beyond isolated early fish, but concentrations can still be uneven from hole to hole.",
+        tip:
+          "Cover the deeper holes instead of waiting at one access. Homestead can hold early fish, but it should not yet be treated as the only dependable destination.",
+      };
+    case "peak":
+      return {
+        headline: limited
+          ? `This is typically the strongest part of the Betsie's limited ${input.species} opportunity.`
+          : `This is typically the strongest and most dependable Betsie River ${input.species} opportunity.`,
+        whereToStart: limited
+          ? `Select substantial corridor holes from the lakeward end through ${legalHomesteadApproach}.`
+          : `Substantial corridor holes from the lakeward end through ${legalHomesteadApproach}.`,
+        detail: limited
+          ? "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole."
+          : "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
+        tip: limited
+          ? "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone."
+          : "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+      };
+    case "tapering":
+      return {
+        headline: limited
+          ? `The Betsie's limited ${input.species} opportunity can persist, although fresh arrivals are becoming less consistent.`
+          : `The Betsie can remain productive for ${input.species}, although fresh arrivals are becoming less consistent.`,
+        whereToStart: limited
+          ? "Select proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead."
+          : "Proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
+        detail: limited
+          ? "A few fish may remain in select below-Homestead corridor water, but the limited opportunity is shifting from new arrivals toward fish already holding or spawning."
+          : "Fish may remain distributed through the below-Homestead corridor, but the balance is shifting from new arrivals toward fish already holding or spawning.",
+        tip:
+          "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+      };
+    case "ending":
+      return {
+        headline: limited
+          ? `A few ${input.species} may still provide a late opportunity below Homestead.`
+          : `${input.species} can still provide a worthwhile late opportunity below Homestead.`,
+        whereToStart:
+          "The deepest proven corridor holes and slow current edges, including legal water short of Homestead.",
+        detail:
+          "Remaining fish have often been in the system for a while, and fresh silver arrivals are no longer dependable.",
+        tip:
+          "Skip fast travel water. Fish deep holes carefully and leave actively spawning or visibly deteriorated fish alone.",
+      };
+    case "post_run":
+      return input.latePostRunContext
+        ? {
+          headline: `The main Betsie ${input.species} migration is over.`,
+          whereToStart:
+            "No dependable starting location; any remaining fish are likely isolated in deep established water.",
+          detail:
+            `A few fish may remain below Homestead, but the seasonal pattern no longer supports a dependable ${input.species} opportunity.`,
+          tip:
+            "Do not chase scattered holdovers between accesses. Shift to another seasonal species and leave spawning fish undisturbed.",
+        }
+        : {
+          headline:
+            `${input.species} are outside their Betsie River migration season.`,
+          whereToStart:
+            "No dependable Betsie River location for this species right now.",
+          detail:
+            `A dependable seasonal ${input.species} presence is not expected in the river corridor.`,
+          tip:
+            "Target a species with an active seasonal window and return as the next migration approaches.",
+        };
+  }
+}
+
+function betsieHomesteadFallEntryStageCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  winterHoldingContext: boolean;
+  species: string;
+}): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  if (input.winterHoldingContext) {
+    return {
+      headline:
+        `${input.species} have transitioned from fall entry into winter holding in the Betsie.`,
+      whereToStart:
+        "Deep, slow corridor holes with nearby current and an easy feeding lane, always outside the signed Homestead closure.",
+      detail:
+        "The fish have not simply left the river. The seasonal migration model has ended, while retained Steelhead can remain distributed through the below-Homestead corridor for winter.",
+      tip:
+        "Treat 61/100 as retained seasonal presence, not a live activity score. Verify current conditions directly, use controlled cold-water presentations, and follow the signed 100-foot Homestead closure.",
+    };
+  }
+
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? {
+          headline:
+            `${input.species} may be gathering around Betsie Lake and beginning to enter the river.`,
+          whereToStart:
+            "Frankfort harbor, Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
+          detail:
+            "An occasional early fish is possible, but dependable fall presence has not developed throughout the corridor.",
+          tip:
+            "Keep most effort near the lake-to-river transition and treat an isolated fish as an exception—not proof that the system has filled in.",
+        }
+        : {
+          headline: `${input.species} fall entry has not started yet.`,
+          whereToStart: "Lake Michigan, Frankfort harbor, and Betsie Lake.",
+          detail:
+            "A dependable fall Steelhead presence is not expected in the Betsie River this early.",
+          tip:
+            "Do not build an inland-river trip around Steelhead yet. Return as the seasonal entry window approaches.",
+        };
+    case "beginning":
+      return {
+        headline:
+          `The first ${input.species} are beginning to enter the Betsie's below-Homestead corridor.`,
+        whereToStart:
+          "Begin at the lake-to-river transition, then cover travel lanes feeding the first substantial corridor holes toward Homestead—not the structure itself.",
+        detail:
+          "Fresh fish may be scattered through the short corridor, from the lake transition to legal holding water downstream of Homestead.",
+        tip:
+          "Cover travel water and resting holes from downstream toward Homestead, always outside the signed 300-foot closure.",
+      };
+    case "building":
+      if (input.broadBuildingContext) {
+        return {
+          headline:
+            `${input.species} are broadly established through the accessible Betsie system.`,
+          whereToStart:
+            "Substantial corridor holes from the lakeward end through the legal Homestead approach, always outside the signed closure.",
+          detail:
+            "Multiple entry periods have given Steelhead time to occupy the full short migratory corridor between Betsie Lake and Homestead.",
+          tip:
+            "Cover deep holes, bends and current breaks rather than waiting at the structure. Stay outside the signed closure and use direct fish activity to choose a section.",
+        };
+      }
+      if (input.establishedBuildingContext) {
+        return {
+          headline:
+            `${input.species} are becoming established across more of the Betsie.`,
+          whereToStart:
+            "Substantial holes from the lakeward travel water through legal holding water short of the Homestead closure.",
+          detail:
+            "Earlier arrivals have had time to pass the structure while newer fish continue entering from Betsie Lake, so concentrations can differ sharply between holes.",
+          tip:
+            "Cover each substantial below-Homestead hole and let direct fish activity determine where to slow down.",
+        };
+      }
+      return {
+        headline:
+          `More ${input.species} are entering and spreading through the Betsie.`,
+        whereToStart:
+          "Travel water nearest the lake-to-river transition where current feeds the first substantial holes and resting pockets.",
+        detail:
+          "Presence is growing beyond isolated early fish, although arrivals and concentrations can still be uneven from hole to hole.",
+        tip:
+          "Stay mobile through the short corridor and remain outside the signed 300-foot closure instead of waiting near the dam.",
+      };
+    case "peak":
+      return {
+        headline:
+          `This is typically the strongest Betsie fall ${input.species} opportunity.`,
+        whereToStart:
+          "Substantial corridor holes from the lakeward end through the legal Homestead approach, always outside the signed closure.",
+        detail:
+          "Multiple entry periods have given Steelhead time to spread through the accessible system, while dependable concentrations can still form in deep corridor holes.",
+        tip:
+          "Cover each substantial hole from head through seams and tail, stay outside the signed closure, and let direct fish activity determine where to slow down.",
+      };
+    case "tapering":
+      return {
+        headline:
+          `${input.species} presence remains high as the Betsie shifts toward winter holding.`,
+        whereToStart:
+          "Proven corridor holes, especially slower edges beside productive current and legal holding water short of Homestead.",
+        detail:
+          "Steelhead remain broadly available, but the seasonal emphasis is shifting from new upstream entry toward fish already holding in the river.",
+        tip:
+          "Prioritize efficient holding water, verify conditions directly, and remain outside the signed Homestead closure.",
+      };
+    case "ending":
+      return {
+        headline:
+          `${input.species} remain strongly present as fall entry hands off to winter holding.`,
+        whereToStart:
+          "Deep, slower corridor holes with nearby current, including legal water short of Homestead.",
+        detail:
+          "The migration phase is ending—not the in-river fishery. Many fall-entering Steelhead can remain in the Betsie through winter before spawning in spring.",
+        tip:
+          "Slow the presentation as water cools, verify current conditions directly, and follow the signed Homestead closure rather than treating the structure as a fishing target.",
+      };
+    case "post_run":
+      return {
+        headline:
+          `${input.species} have transitioned from fall entry into winter holding in the Betsie.`,
+        whereToStart:
+          "Deep, slow corridor holes with nearby feeding current, always outside the signed Homestead closure.",
+        detail:
+          "Steelhead can remain in the river, but the fall-entry model is no longer the right tool for judging their daily activity.",
+        tip:
+          "Verify current conditions directly and use a controlled winter presentation; no live Betsie activity or fishability primitive is available.",
+      };
+  }
 }
 
 function fallEntryStageLabel(
@@ -494,7 +1337,8 @@ function establishedBuildingCopy(
   ) {
     if (broadBuildingContext) {
       return {
-        headline: `${species} can now be found throughout the accessible river.`,
+        headline:
+          `${species} can now be found throughout the accessible river.`,
         detail:
           `Earlier waves have had time to reach upper holding water while later ${species} may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.`,
         tip:
@@ -502,7 +1346,8 @@ function establishedBuildingCopy(
       };
     }
     return {
-      headline: `${species} are becoming established through more of the river.`,
+      headline:
+        `${species} are becoming established through more of the river.`,
       detail:
         `More ${species} are settling into lower- and middle-river holding water, which should still contain the most dependable concentrations. Some earlier fish may already have reached upper holding water wherever passage is open, but the upper river should remain a secondary starting choice at this stage.`,
       tip:

@@ -52,7 +52,8 @@ export type RiverRunConditionsSuggestLabel =
   | RiverRunConditionsTimingLabel
   | "Not monitoring yet"
   | "Evaluating"
-  | "Timing complete";
+  | "Timing complete"
+  | "Unavailable";
 
 export type RiverRunConditionsCheckpointId =
   | "river_start"

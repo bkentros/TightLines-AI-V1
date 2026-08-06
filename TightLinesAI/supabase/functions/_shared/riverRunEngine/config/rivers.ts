@@ -107,11 +107,233 @@ export const PERE_MARQUETTE_RIVER_PROFILE: RiverProfile = {
     evidenceNotes:
       "PM condition evidence refreshes every four hours from the configured staging start through the historical-presence tail so Fishability remains current anywhere the feature still describes a seasonal opportunity. Push still starts and stops on its separate main-run window. The protected server job runs 17 minutes after the hour so the newest USGS and PMTU transmissions have time to arrive. Outside that seasonal window, the river refreshes once daily.",
   },
+  conditionDataCapabilities: {
+    hydraulics: { status: "available" },
+    waterTemperature: { status: "available" },
+  },
   supportStatus: "beta",
   gaugeLimitationCopy:
     "Based on the USGS gauge at Scottville. Conditions can vary by reach.",
 };
 
+export const BETSIE_RIVER_PROFILE: RiverProfile = {
+  riverId: "betsie",
+  displayName: "Betsie River",
+  state: "MI",
+  region: "great_lakes",
+  timezone: "America/Detroit",
+  mouthLat: 44.6291652,
+  mouthLon: -86.2459287,
+  hydraulicSources: [],
+  waterTemperatureSources: [],
+  weatherPoints: [
+    {
+      weatherPointId: "betsie_homestead_weather_context",
+      lat: 44.596362,
+      lon: -86.079163,
+      role: "primary",
+    },
+  ],
+  conditionRefreshSchedule: {
+    activeSlots: ["00:00"],
+    inactiveSlots: ["00:00"],
+    evidenceNotes:
+      "Betsie migratory runs launch as seasonal-only reads. Run Stage and Fish In River are deterministic daily primitives; no intra-day condition refresh is justified until an accepted live hydraulic and measured-water-temperature source represents the below-Homestead corridor.",
+  },
+  conditionDataCapabilities: {
+    hydraulics: {
+      status: "unavailable",
+      notes:
+        "No accepted live gauge is located at or below Homestead Dam and representative of the core migratory-fishing corridor. Remote or differently situated readings are not substituted.",
+    },
+    waterTemperature: {
+      status: "unavailable",
+      notes:
+        "No accepted live measured-water-temperature source represents the below-Homestead migratory-fishing corridor. Air temperature is explicitly prohibited as a substitute.",
+    },
+  },
+  supportStatus: "beta",
+  gaugeLimitationCopy:
+    "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+  regulationReminderCopy:
+    "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+};
+
+export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
+  riverId: "big_manistee",
+  displayName: "Big Manistee River",
+  state: "MI",
+  region: "great_lakes",
+  timezone: "America/Detroit",
+  // USGS Manistee Lake context location; the condition engine uses the
+  // Wellston/Tippy weather point below rather than this fallback coordinate.
+  mouthLat: 44.2438918469541,
+  mouthLon: -86.3034192845299,
+  hydraulicSources: [
+    {
+      sourceId: "big_manistee_wellston_usgs",
+      provider: "USGS",
+      siteId: "04125550",
+      name: "Manistee River near Wellston, MI — below Tippy Dam",
+      role: "primary",
+      primaryMetric: "flow_cfs",
+      availableMetrics: ["flow_cfs", "gage_height_ft"],
+      historyYearsAvailable: 29,
+      maxAgeHours: 6,
+      reachQuality: "good",
+      reachNotes:
+        "Official USGS station approximately 700 feet below Tippy Dam. It represents the Tippy tailwater and upper migratory corridor, not the full lower river. Discharge is the scored hydraulic metric; gage height remains context.",
+    },
+    {
+      sourceId: "big_manistee_sherman_usgs_context",
+      provider: "USGS",
+      siteId: "04124000",
+      name: "Manistee River near Sherman, MI — upstream context",
+      role: "upstream_context",
+      primaryMetric: "flow_cfs",
+      availableMetrics: ["flow_cfs"],
+      historyYearsAvailable: 29,
+      maxAgeHours: 24,
+      reachQuality: "acceptable",
+      reachNotes:
+        "Upstream contextual gauge above the Tippy reservoir system. It is never blended with Wellston and is not used as the primary migratory-reach signal.",
+    },
+  ],
+  waterTemperatureSources: [
+    {
+      sourceId: "big_manistee_wellston_temperature",
+      provider: "USGS",
+      siteId: "04125550",
+      name: "Manistee River near Wellston, MI — measured water temperature",
+      role: "primary",
+      priority: 1,
+      sourceType: "same_gauge",
+      maxAgeHours: 6,
+      smoothingWindowHours: 3,
+      minValidF: 30,
+      maxValidF: 85,
+      maxRateChangeFPerHour: 3,
+      maxPeerDifferenceF: 5,
+      reachNotes:
+        "USGS parameter 00010 at the same below-Tippy station as the primary discharge. It is the primary measured-water signal for the gauged tailwater reach; air temperature is not substituted.",
+      attribution:
+        "U.S. Geological Survey Water Data for the Nation; continuous and daily values are provisional and subject to revision.",
+    },
+  ],
+  weatherPoints: [
+    {
+      weatherPointId: "big_manistee_wellston_weather",
+      lat: 44.259444593202346,
+      lon: -85.94162479609616,
+      role: "primary",
+    },
+  ],
+  foundation: {
+    version: "big-manistee-foundation-v1",
+    corridorLengthMiles: 25,
+    upstreamTerminus:
+      "Tippy Dam; upstream obstruction and migratory-fishery terminus",
+    downstreamTerminus:
+      "Railroad bridge below M-55 / Manistee Lake approach; mouth and harbor are separate context",
+    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
+    reaches: [
+      {
+        reachId: "big_manistee_tippy_tailwater",
+        displayName: "Tippy tailwater to High Bridge",
+        order: 1,
+        role: "tailwater",
+        gaugeRepresented: true,
+        notes:
+          "Cold, high-gradient upper migratory reach. Wellston is the only primary gauge and should constrain Fishability copy to this tailwater/upper-corridor segment.",
+        sourceNotes:
+          "Michigan DNR Tippy Dam Recreation Area General Management Plan; USGS 04125550 metadata and EGLE hydrologic report identifying the station approximately 700 feet below Tippy Dam.",
+      },
+      {
+        reachId: "big_manistee_high_bridge_to_bear_creek",
+        displayName: "High Bridge to Bear Creek",
+        order: 2,
+        role: "middle",
+        gaugeRepresented: false,
+        notes:
+          "Middle corridor with distinct access and tributary context. Do not describe it as directly measured by Wellston.",
+        sourceNotes:
+          "Michigan DNR 2022–2023 Manistee River creel-survey segmentation and Tippy Dam management plan.",
+      },
+      {
+        reachId: "big_manistee_bear_creek_to_m55",
+        displayName: "Bear Creek to the railroad bridge below M-55",
+        order: 3,
+        role: "lower",
+        gaugeRepresented: false,
+        notes:
+          "Lower migratory corridor toward Manistee Lake. Tributary, temperature, access, and hydraulic conditions can differ materially from the Tippy tailwater.",
+        sourceNotes:
+          "Michigan DNR 2022–2023 Manistee River creel-survey segmentation; Michigan DNR Type 3 legal boundary in FO-200.25.",
+      },
+      {
+        reachId: "big_manistee_manistee_lake_harbor",
+        displayName: "Manistee Lake, mouth, and harbor context",
+        order: 4,
+        role: "mouth_context",
+        gaugeRepresented: false,
+        notes:
+          "Terminal lake/harbor context is not interchangeable with the freshwater tailwater gauge and must not receive Wellston-specific Fishability claims.",
+        sourceNotes:
+          "U.S. Fish and Wildlife Service Manistee River recreational corridor description; USGS Manistee Lake monitoring-location context.",
+      },
+    ],
+    primaryGaugeReachId: "big_manistee_tippy_tailwater",
+    contextualGaugeSiteIds: ["04124000", "04123500"],
+    weatherStrategy: {
+      mode: "single_point",
+      primaryWeatherPointId: "big_manistee_wellston_weather",
+      basinRepresentation:
+        "Modeled Open-Meteo precipitation at the Wellston/Tippy target reach. It is contextual precursor evidence, not a rain-gauge observation and not a substitute for measured tailwater response.",
+      sourceNotes:
+        "Open-Meteo point-weather adapter; point selected to align precipitation context with the audited primary reach. A future multi-point basin weighting extension requires separate replay validation.",
+    },
+    regulation: {
+      version: "michigan-fo-200.25-2025-effective-2026-regulations",
+      legalReach:
+        "Manistee River from Tippy Dam downstream to the railroad bridge below M-55 (T21N, R16W, S6)",
+      waterType: "type_3",
+      yearRoundTroutSalmon: true,
+      rainbowTroutPossessionLimit:
+        "Daily possession limit may include no more than one Rainbow Trout year-round on this reach.",
+      specialArtificialLureWindow: {
+        start: "08-01",
+        end: "11-15",
+        description:
+          "Special artificial-lure/terminal-gear regulations apply during the August 1 through November 15 window; check the current Michigan regulations and Fisheries Orders.",
+      },
+      noTippyDistanceClosureConfigured: true,
+      accessAndSafetyNotes:
+        "Do not invent a Tippy-specific distance closure. Follow current DNR closure notices, Consumers Energy safety information, signs, booms, and posted boundaries; methods can change by reach and season.",
+      sourceNotes:
+        "Michigan DNR FO-200.25, 2026 Michigan Fishing Regulations, current Tippy Dam Recreation Area page, and Consumers Energy dam-safety information.",
+    },
+    evidenceNotes:
+      "Foundation research completed August 5, 2026. Sources include USGS 04125550 continuous/daily metadata and values, USGS 04124000 and 04123500 contextual metadata, Michigan DNR FO-200.25 and 2026 regulations, Michigan DNR Tippy Dam management material, the DNR 2022–2023 creel survey, U.S. Fish and Wildlife Service Manistee River corridor material, and Michigan EGLE hydrologic analysis. Wellston is completely regulated by Tippy and represents the tailwater/upper corridor only. No species timing, strength, presence curve, hydraulic threshold, or Fishability band is configured here.",
+  },
+  conditionRefreshSchedule: {
+    activeSlots: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    inactiveSlots: ["00:00"],
+    evidenceNotes:
+      "The observed Wellston discharge and measured-water-temperature feeds are available at approximately 15-minute cadence. Use the PM refresh pattern as the operational blueprint, while the six-slot cadence remains river-level infrastructure rather than species timing. Freshness, provisional status, and shared source gaps must be preserved.",
+  },
+  conditionDataCapabilities: {
+    hydraulics: { status: "available" },
+    waterTemperature: { status: "available" },
+  },
+  supportStatus: "beta",
+  gaugeLimitationCopy:
+    "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+  regulationReminderCopy:
+    "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+};
+
 export const RIVER_RUN_RIVER_PROFILES: RiverProfile[] = [
   PERE_MARQUETTE_RIVER_PROFILE,
+  BETSIE_RIVER_PROFILE,
+  BIG_MANISTEE_RIVER_PROFILE,
 ];

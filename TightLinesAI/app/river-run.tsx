@@ -46,6 +46,12 @@ import type {
   RiverRunSnapshotResponse,
 } from "../lib/riverRunContracts";
 import {
+  RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS,
+  RIVER_RUN_BETSIE_REVIEW_GROUPS,
+  RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS,
+  RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS,
+  RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS,
+  RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS,
   RIVER_RUN_COHO_REVIEW_GROUPS,
   RIVER_RUN_REVIEW_GROUPS,
   RIVER_RUN_STEELHEAD_REVIEW_GROUPS,
@@ -59,6 +65,10 @@ import {
 } from "../lib/riverRunVisuals";
 import { getRiverRunSpeciesImage } from "../lib/riverRunSpeciesImages";
 import { getRiverRunRiverImage } from "../lib/riverRunChoiceImages";
+import {
+  RIVER_RUN_REGULATION_REMINDER,
+  riverRunFishingGuideForSpecies,
+} from "../lib/riverRunFishingGuides";
 import {
   hapticImpact,
   hapticSelection,
@@ -132,6 +142,7 @@ const COHO_IMAGE = getRiverRunSpeciesImage("coho_salmon");
 const STEELHEAD_IMAGE = getRiverRunSpeciesImage("steelhead");
 const ATLANTIC_IMAGE = getRiverRunSpeciesImage("atlantic_salmon");
 const RIVER_RUN_TAB_BLUE = "#1B4B68";
+const BIG_MANISTEE_RIVER_ID = "big_manistee";
 
 type ChoiceIconTheme = {
   background: string;
@@ -213,6 +224,70 @@ const REVIEW_CATALOG: RiverRunCatalogResponse = {
             },
             {
               runId: "pere_marquette_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+              runType: "fall_entry",
+              supportStatus: "beta",
+            },
+          ],
+        },
+        {
+          riverId: "betsie",
+          displayName: "Betsie River",
+          state: "MI",
+          timezone: "America/Detroit",
+          runs: [
+            {
+              runId: "betsie_fall_chinook",
+              displayName: "Fall Chinook",
+              species: "chinook_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "betsie_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "betsie_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+              runType: "fall_entry",
+              supportStatus: "beta",
+            },
+          ],
+        },
+        {
+          riverId: "big_manistee",
+          displayName: "Big Manistee River",
+          state: "MI",
+          timezone: "America/Detroit",
+          runs: [
+            {
+              runId: "big_manistee_fall_chinook",
+              displayName: "Fall Chinook",
+              species: "chinook_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "big_manistee_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "big_manistee_fall_steelhead",
               displayName: "Fall Steelhead",
               species: "steelhead",
               season: "fall",
@@ -310,7 +385,22 @@ export default function RiverRunScreen() {
   const resultScrollRef = useRef<ScrollView>(null);
   const primitiveTabsYRef = useRef(0);
 
-  const reviewGroups = selectedSpecies === "coho_salmon"
+  const reviewGroups = selectedRiverId === "betsie" &&
+      selectedSpecies === "steelhead"
+    ? RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS
+    : selectedRiverId === "betsie" && selectedSpecies === "coho_salmon"
+    ? RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS
+    : selectedRiverId === "betsie"
+    ? RIVER_RUN_BETSIE_REVIEW_GROUPS
+    : selectedRiverId === BIG_MANISTEE_RIVER_ID &&
+        selectedSpecies === "coho_salmon"
+    ? RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS
+    : selectedRiverId === BIG_MANISTEE_RIVER_ID &&
+        selectedSpecies === "steelhead"
+    ? RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS
+    : selectedRiverId === BIG_MANISTEE_RIVER_ID
+    ? RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS
+    : selectedSpecies === "coho_salmon"
     ? RIVER_RUN_COHO_REVIEW_GROUPS
     : selectedSpecies === "steelhead"
     ? RIVER_RUN_STEELHEAD_REVIEW_GROUPS
@@ -741,6 +831,7 @@ export default function RiverRunScreen() {
                     <SnapshotView
                       snapshot={resultSnapshot}
                       activePrimitive={activePrimitive}
+                      species={resultSpecies}
                     />
                     <FeedbackCard
                       featureName="River Migration Coverage"
@@ -1158,7 +1249,7 @@ function ChoiceCard({
                 styles.speciesChoiceImage,
                 (choice.id === "steelhead" ||
                   choice.id === "atlantic_salmon") &&
-                  styles.speciesChoiceImageSteelhead,
+                styles.speciesChoiceImageSteelhead,
                 disabled && styles.choiceImageDisabled,
               ]}
               resizeMode="contain"
@@ -1276,8 +1367,8 @@ function ResultHero({
         {formatRiverRunSpecies(species).toUpperCase()}
       </Text>
       <Text style={styles.resultHeroSubtitle}>
-        Today&apos;s read of movement, river conditions, fishability, and seasonal
-        presence.
+        Today&apos;s read of movement, river conditions, fishability, and
+        seasonal presence.
       </Text>
       {speciesImage
         ? (
@@ -1352,6 +1443,10 @@ function ReviewControl({
             {reviewMode
               ? `${activeGroup?.label ?? "River Migration"} · ${
                 activeScenario?.label ?? "State"
+              } · ${
+                activeScenario
+                  ? formatLocalDate(activeScenario.snapshot.localDate)
+                  : "Date unavailable"
               }`
               : "Current-date River Migration response"}
           </Text>
@@ -1403,7 +1498,9 @@ function ReviewControl({
                     {(activeGroup?.scenarios ?? []).map((scenario) => (
                       <ReviewChip
                         key={scenario.id}
-                        label={scenario.label}
+                        label={`${scenario.label} · ${
+                          formatLocalDate(scenario.snapshot.localDate)
+                        }`}
                         active={scenario.id === activeScenario?.id}
                         onPress={() => onScenarioChange(scenario)}
                       />
@@ -1413,6 +1510,16 @@ function ReviewControl({
                     ? (
                       <Text style={styles.reviewHelp}>
                         {activeScenario.note}
+                      </Text>
+                    )
+                    : null}
+                  {activeScenario
+                    ? (
+                      <Text style={styles.reviewHelp}>
+                        {reviewScenarioDateCopy(
+                          activeGroup?.id,
+                          activeScenario,
+                        )}
                       </Text>
                     )
                     : null}
@@ -1595,9 +1702,11 @@ function PrimitiveTabBar({
 function SnapshotView({
   snapshot,
   activePrimitive,
+  species,
 }: {
   snapshot: RiverRunSnapshotResponse;
   activePrimitive: PrimitiveTabId;
+  species: string;
 }) {
   const tab = PRIMITIVE_TABS.find((item) => item.id === activePrimitive) ??
     PRIMITIVE_TABS[0];
@@ -1632,17 +1741,9 @@ function SnapshotView({
         )
         : null}
 
-      {snapshot.secondaryNote
-        ? (
-          <EditorialNote
-            eyebrow="FORECAST NOTE"
-            body={snapshot.secondaryNote}
-            icon="telescope-outline"
-            tint="#EAF3FA"
-            accent={paper.dashboardBlue}
-          />
-        )
-        : null}
+      <GaugeForecastDropdown snapshot={snapshot} />
+
+      <FishingMethodsDropdown species={species} />
 
       <View style={styles.safetyCard}>
         <View style={styles.safetyHeading}>
@@ -1845,7 +1946,7 @@ function PrimitiveSection({
           ? (
             <View style={styles.primitiveTip}>
               <Text style={styles.primitiveTipLabel}>GUIDE&apos;S READ</Text>
-              <Text style={styles.primitiveTipText}>{primitive.tip}</Text>
+              <PrimitiveGuideReadCopy value={primitive.tip} />
             </View>
           )
           : null}
@@ -1885,6 +1986,29 @@ function PrimitiveDetailWordFlow({ value }: { value: string }) {
         <Text
           key={`${wordIndex}:${word}`}
           style={styles.primitiveDetailWord}
+          accessible={false}
+        >
+          {word}
+        </Text>
+      ))}
+    </View>
+  );
+}
+
+function PrimitiveGuideReadCopy({ value }: { value: string }) {
+  const words = value.trim().split(/\s+/);
+  return (
+    <View
+      key={value}
+      style={styles.primitiveTipTextFlow}
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={value}
+    >
+      {words.map((word, wordIndex) => (
+        <Text
+          key={`${wordIndex}:${word}`}
+          style={styles.primitiveTipWord}
           accessible={false}
         >
           {word}
@@ -1949,6 +2073,128 @@ function EditorialNote({
         {body ? <Text style={styles.editorialNoteBody}>{body}</Text> : null}
       </View>
     </View>
+  );
+}
+
+function ResultDropdown({
+  eyebrow,
+  title,
+  summary,
+  icon,
+  accent,
+  children,
+}: {
+  eyebrow: string;
+  title: string;
+  summary: string;
+  icon: keyof typeof Ionicons.glyphMap;
+  accent: string;
+  children: ReactNode;
+}) {
+  const [expanded, setExpanded] = useState(false);
+  return (
+    <View style={styles.resultDropdownCard}>
+      <Pressable
+        style={({ pressed }) => [
+          styles.resultDropdownSummary,
+          pressed && { opacity: 0.82 },
+        ]}
+        onPress={() => {
+          hapticSelection();
+          setExpanded((current) => !current);
+        }}
+        accessibilityRole="button"
+        accessibilityState={{ expanded }}
+        accessibilityLabel={`${title}. ${summary}. ${
+          expanded ? "Collapse" : "Expand"
+        }.`}
+      >
+        <View style={[styles.resultDropdownIcon, { borderColor: accent }]}>
+          <Ionicons name={icon} size={18} color={accent} />
+        </View>
+        <View style={styles.resultDropdownHeadingCopy}>
+          <Text style={[styles.cardEyebrow, { color: accent }]}>{eyebrow}</Text>
+          <Text style={styles.resultDropdownTitle}>{title}</Text>
+          <Text style={styles.resultDropdownSummaryText}>{summary}</Text>
+        </View>
+        <Ionicons
+          name={expanded ? "chevron-up" : "chevron-down"}
+          size={18}
+          color={accent}
+        />
+      </Pressable>
+      {expanded
+        ? <View style={styles.resultDropdownExpanded}>{children}</View>
+        : null}
+    </View>
+  );
+}
+
+function GaugeForecastDropdown({
+  snapshot,
+}: {
+  snapshot: RiverRunSnapshotResponse;
+}) {
+  return (
+    <ResultDropdown
+      eyebrow="GAUGE & FORECAST CONTEXT"
+      title="How this read uses river data"
+      summary="Open for gauge limits and forecast context."
+      icon="telescope-outline"
+      accent={paper.dashboardBlue}
+    >
+      <View style={styles.resultDropdownSection}>
+        <Text style={styles.resultDropdownSectionLabel}>GAUGE BASIS</Text>
+        <Text style={styles.resultDropdownBody}>
+          {snapshot.safety.gaugeBasis}
+        </Text>
+      </View>
+      {snapshot.secondaryNote
+        ? (
+          <View style={styles.resultDropdownSection}>
+            <Text style={styles.resultDropdownSectionLabel}>FORECAST NOTE</Text>
+            <Text style={styles.resultDropdownBody}>
+              {snapshot.secondaryNote}
+            </Text>
+          </View>
+        )
+        : null}
+    </ResultDropdown>
+  );
+}
+
+function FishingMethodsDropdown({ species }: { species: string }) {
+  const guide = riverRunFishingGuideForSpecies(species);
+  return (
+    <ResultDropdown
+      eyebrow="WAYS TO FISH THIS RUN"
+      title={guide.title}
+      summary="Methods, bite behavior and regulation reminder."
+      icon="fish-outline"
+      accent="#207B53"
+    >
+      <View style={styles.fishingBehaviorNote}>
+        <Text style={styles.resultDropdownSectionLabel}>HOW THEY TAKE</Text>
+        <Text style={styles.resultDropdownBody}>{guide.biteContext}</Text>
+      </View>
+      <View style={styles.fishingMethodList}>
+        {guide.methods.map((method) => (
+          <View key={method.title} style={styles.fishingMethodRow}>
+            <View style={styles.fishingMethodDot} />
+            <View style={styles.fishingMethodCopy}>
+              <Text style={styles.fishingMethodTitle}>{method.title}</Text>
+              <Text style={styles.resultDropdownBody}>{method.detail}</Text>
+            </View>
+          </View>
+        ))}
+      </View>
+      <View style={styles.fishingRegulationBox}>
+        <Ionicons name="warning-outline" size={17} color={paper.redDk} />
+        <Text style={styles.fishingRegulationText}>
+          {RIVER_RUN_REGULATION_REMINDER}
+        </Text>
+      </View>
+    </ResultDropdown>
   );
 }
 
@@ -2208,6 +2454,42 @@ function formatLocalDate(value: string): string {
     "Dec",
   ];
   return `${months[Number(match[2]) - 1]} ${Number(match[3])}, ${match[1]}`;
+}
+
+function reviewScenarioDateCopy(
+  groupId: string | undefined,
+  scenario: RiverRunReviewScenario,
+): string {
+  const date = formatLocalDate(scenario.snapshot.localDate);
+  switch (groupId) {
+    case "run_stage":
+      if (
+        scenario.snapshot.runId === "pere_marquette_fall_steelhead" &&
+        scenario.id === "stage_offseason"
+      ) {
+        return `AUDIT ONLY · Representative offseason review date: ${date}.`;
+      }
+      return `AUDIT ONLY · State begins ${date}.`;
+    case "conditions":
+      if (scenario.snapshot.conditionsSuggest.label === "Unavailable") {
+        return `AUDIT ONLY · Unavailable for this river at every date; fixture date: ${date}.`;
+      }
+      return `AUDIT ONLY · Checkpoint or review date: ${date}.`;
+    case "push":
+      if (scenario.snapshot.push.label === "Unavailable") {
+        return `AUDIT ONLY · Unavailable for this river at every date; fixture date: ${date}.`;
+      }
+      return `AUDIT ONLY · Condition example dated ${date}; Push states are driven by live conditions, not a fixed calendar date.`;
+    case "fishability":
+      if (scenario.snapshot.fishability.label === "Unavailable") {
+        return `AUDIT ONLY · Unavailable for this river at every date; fixture date: ${date}.`;
+      }
+      return `AUDIT ONLY · Condition example dated ${date}; Fishability states are driven by live flow, not a fixed calendar date.`;
+    case "fish_in_river":
+      return `AUDIT ONLY · Seasonal curve date: ${date}; the value can change daily between configured anchors.`;
+    default:
+      return `AUDIT ONLY · Review fixture date: ${date}.`;
+  }
 }
 
 function currentDeviceLocalDate(date = new Date()): string {
@@ -3210,7 +3492,15 @@ const styles = StyleSheet.create({
     letterSpacing: 1.5,
     color: paper.redDk,
   },
-  primitiveTipText: {
+  primitiveTipTextFlow: {
+    alignSelf: "stretch",
+    flexDirection: "row",
+    flexWrap: "wrap",
+    columnGap: 3.5,
+    rowGap: 0,
+    paddingBottom: 2,
+  },
+  primitiveTipWord: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 14,
     lineHeight: 21,
@@ -3263,6 +3553,121 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.body,
     fontSize: 13.5,
     lineHeight: 20,
+    color: paper.dashboardInk,
+  },
+  resultDropdownCard: {
+    overflow: "hidden",
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    borderRadius: 11,
+    backgroundColor: "#F7FAFC",
+  },
+  resultDropdownSummary: {
+    minHeight: 82,
+    flexDirection: "row",
+    alignItems: "center",
+    gap: 11,
+    padding: 14,
+  },
+  resultDropdownIcon: {
+    width: 38,
+    height: 38,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderRadius: 19,
+    backgroundColor: "#FFFFFF",
+  },
+  resultDropdownHeadingCopy: {
+    minWidth: 0,
+    flex: 1,
+    gap: 3,
+  },
+  resultDropdownTitle: {
+    fontFamily: paperFonts.displaySemiBold,
+    fontSize: 18,
+    lineHeight: 22,
+    color: paper.dashboardInk,
+  },
+  resultDropdownSummaryText: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: paper.dashboardMuted,
+  },
+  resultDropdownExpanded: {
+    gap: 14,
+    paddingHorizontal: 14,
+    paddingTop: 14,
+    paddingBottom: 16,
+    borderTopWidth: 1,
+    borderTopColor: paper.dashboardLine,
+    backgroundColor: "#FFFFFF",
+  },
+  resultDropdownSection: {
+    gap: 5,
+  },
+  resultDropdownSectionLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 1.35,
+    color: paper.dashboardBlue,
+  },
+  resultDropdownBody: {
+    fontFamily: paperFonts.body,
+    fontSize: 13.5,
+    lineHeight: 20,
+    color: paper.dashboardInk,
+  },
+  fishingBehaviorNote: {
+    gap: 5,
+    padding: 12,
+    borderRadius: 8,
+    backgroundColor: "#EDF7F1",
+  },
+  fishingMethodList: {
+    gap: 13,
+  },
+  fishingMethodRow: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 9,
+  },
+  fishingMethodDot: {
+    width: 7,
+    height: 7,
+    marginTop: 7,
+    borderRadius: 4,
+    backgroundColor: "#207B53",
+  },
+  fishingMethodCopy: {
+    minWidth: 0,
+    flex: 1,
+    gap: 2,
+  },
+  fishingMethodTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 14,
+    lineHeight: 20,
+    color: paper.dashboardInk,
+  },
+  fishingRegulationBox: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 9,
+    padding: 12,
+    borderWidth: 1,
+    borderColor: "rgba(192,57,43,0.18)",
+    borderRadius: 8,
+    backgroundColor: "#FAECE8",
+  },
+  fishingRegulationText: {
+    minWidth: 0,
+    flex: 1,
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 12.5,
+    lineHeight: 18,
     color: paper.dashboardInk,
   },
   safetyCard: {

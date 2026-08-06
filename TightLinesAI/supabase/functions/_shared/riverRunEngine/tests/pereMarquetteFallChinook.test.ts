@@ -1,14 +1,14 @@
-import { assert, assertEquals } from "jsr:@std/assert";
+import { assert, assertEquals, assertMatch } from "jsr:@std/assert";
 import {
   listVisibleRiverRuns,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   type PrimitiveDisplay,
-  RIVER_RUN_REASON_CODES,
   resolveRunStage,
-  scoreFishInRiver,
+  RIVER_RUN_REASON_CODES,
   type RiverProfile,
   type RiverRunProfile,
+  scoreFishInRiver,
   validateRiverProfile,
   validateRunProfile,
 } from "../index.ts";
@@ -216,13 +216,44 @@ Deno.test("PM Fall Chinook run is structurally valid", () => {
 });
 
 Deno.test("PM Fall Chinook location guidance broadens without changing presence", () => {
+  const beforeStaging = resolveRunStage(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-07-01",
+  );
+  assertMatch(beforeStaging.whereToStart ?? "", /Lake Michigan off Ludington/i);
+  assertMatch(beforeStaging.whereToStart ?? "", /Pere Marquette Lake/i);
+
+  const staging = resolveRunStage(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-07-28",
+  );
+  assertMatch(staging.whereToStart ?? "", /Ludington harbor/i);
+  assertMatch(staging.whereToStart ?? "", /east end of the lake/i);
+
+  const beginning = resolveRunStage(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-08-15",
+  );
+  assertMatch(
+    beginning.whereToStart ?? "",
+    /Pere Marquette Lake toward Scottville/i,
+  );
+
+  const earlyBuilding = resolveRunStage(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-08-26",
+  );
+  assertMatch(earlyBuilding.whereToStart ?? "", /lower migratory river around Scottville/i);
+  assertMatch(earlyBuilding.whereToStart ?? "", /Walhalla/i);
+
   const earlyEstablished = resolveRunStage(
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
     "2026-09-01",
   );
   assertEquals(earlyEstablished.stage, "building");
   assertEquals(earlyEstablished.broadBuildingContext, false);
-  assert(/lower and middle river first/i.test(earlyEstablished.whereToStart ?? ""));
+  assertMatch(earlyEstablished.whereToStart ?? "", /Scottville toward Walhalla/i);
+  assertMatch(earlyEstablished.whereToStart ?? "", /Branch.*Baldwin.*M-37/i);
   assert(/upper holding water/i.test(earlyEstablished.detail));
   assert(/secondary starting choice/i.test(earlyEstablished.detail));
 
@@ -233,9 +264,11 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
     );
     assertEquals(broadlyEstablished.stage, "building");
     assertEquals(broadlyEstablished.broadBuildingContext, true);
-    assert(/lower and middle river remain the first choices/i.test(
+    assertMatch(
       broadlyEstablished.whereToStart ?? "",
-    ));
+      /Scottville through Walhalla and Branch/i,
+    );
+    assertMatch(broadlyEstablished.whereToStart ?? "", /upper river toward Baldwin and M-37/i);
     assert(/lower, middle, and upper sections are all in play/i.test(
       broadlyEstablished.detail,
     ));
@@ -247,6 +280,33 @@ Deno.test("PM Fall Chinook location guidance broadens without changing presence"
   const peak = resolveRunStage(
     PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
     "2026-09-20",
+  );
+  assertMatch(
+    peak.whereToStart ?? "",
+    /lower river near Scottville.*middle river through Walhalla and Branch/i,
+  );
+  assertMatch(peak.whereToStart ?? "", /upper river toward Baldwin and M-37/i);
+
+  const tapering = resolveRunStage(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-10-01",
+  );
+  assertMatch(tapering.whereToStart ?? "", /Walhalla and Branch/i);
+  assertMatch(tapering.whereToStart ?? "", /Baldwin\/M-37/i);
+
+  const ending = resolveRunStage(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-10-19",
+  );
+  assertMatch(ending.whereToStart ?? "", /Walhalla through Branch toward Baldwin\/M-37/i);
+
+  const residual = resolveRunStage(
+    PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
+    "2026-10-28",
+  );
+  assertMatch(
+    residual.whereToStart ?? "",
+    /Walhalla and Branch toward Baldwin\/M-37/i,
   );
   assertEquals(peak.stage, "peak");
   assertEquals(peak.broadBuildingContext, false);

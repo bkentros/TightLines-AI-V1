@@ -1,4 +1,5 @@
 import type {
+  PushRules,
   RiverProfile,
   RiverRunProfile,
   RiverRunReasonCode,
@@ -13,6 +14,7 @@ import {
   type ConditionsSuggestResult,
   scoreConditionsSuggest,
 } from "../scoring/conditionsSuggest.ts";
+import { unavailableMigrationTiming } from "../scoring/unavailablePrimitives.ts";
 import type { RiverRunConditionsSuggestBaseline } from "../storage/types.ts";
 
 export type RiverRunDailySnapshot = {
@@ -47,6 +49,8 @@ export function buildDailySnapshot(input: {
     | "handoff"
     | "runWindow"
     | "historicalPresence"
+    | "primitiveCapabilities"
+    | "runStageCopyStrategy"
     | "conditionsSuggest"
     | "push"
   >;
@@ -58,12 +62,15 @@ export function buildDailySnapshot(input: {
 }): RiverRunDailySnapshot {
   const runStage = resolveRunStage(input.run, input.localDate);
   const fishInRiver = scoreFishInRiver(input.run, input.localDate);
-  const conditionsSuggest = scoreConditionsSuggest({
-    localDate: input.localDate,
-    run: input.run,
-    evidenceByDate: input.conditionsEvidenceByDate,
-    baselines: input.conditionsBaselines,
-  });
+  const timingCapability = input.run.primitiveCapabilities.migrationTiming;
+  const conditionsSuggest = timingCapability.status === "unavailable"
+    ? unavailableMigrationTiming(timingCapability.reason)
+    : scoreConditionsSuggest({
+      localDate: input.localDate,
+      run: requireTimingConfiguration(input.run),
+      evidenceByDate: input.conditionsEvidenceByDate,
+      baselines: input.conditionsBaselines,
+    });
   const evidenceSummaries = conditionsSuggest.sourceDates.map((sourceDate) => {
     const refreshSlot = conditionsSuggest.sourceRefreshSlots[sourceDate];
     const refresh = refreshSlot
@@ -97,6 +104,36 @@ export function buildDailySnapshot(input: {
     engineVersion: input.engineVersion,
     configVersion: input.configVersion,
   };
+}
+
+function requireTimingConfiguration(
+  run: Pick<
+    RiverRunProfile,
+    "runWindow" | "conditionsSuggest" | "push" | "handoff"
+  >,
+):
+  & Pick<
+    RiverRunProfile,
+    "runWindow" | "conditionsSuggest" | "push" | "handoff"
+  >
+  & {
+    conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
+    push: PushRules;
+  } {
+  if (!run.conditionsSuggest || !run.push) {
+    throw new Error(
+      "Available Migration Timing requires timing and Push configuration.",
+    );
+  }
+  return run as
+    & Pick<
+      RiverRunProfile,
+      "runWindow" | "conditionsSuggest" | "push" | "handoff"
+    >
+    & {
+      conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
+      push: PushRules;
+    };
 }
 
 function dedupeReasonCodes(codes: RiverRunReasonCode[]): RiverRunReasonCode[] {

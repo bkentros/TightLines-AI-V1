@@ -33,7 +33,9 @@ export function getPrimaryWeatherPoint(
 
 export function getRunTemperatureSources(
   river: Pick<RiverProfile, "waterTemperatureSources">,
-  run: Pick<RiverRunProfile, "waterTemperature">,
+  run: Pick<RiverRunProfile, "waterTemperature"> & {
+    waterTemperature: NonNullable<RiverRunProfile["waterTemperature"]>;
+  },
 ): WaterTemperatureSourceConfig[] {
   return run.waterTemperature.sourcePriority.flatMap((sourceId) => {
     const source = river.waterTemperatureSources.find((candidate) =>

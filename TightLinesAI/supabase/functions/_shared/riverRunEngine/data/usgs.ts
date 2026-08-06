@@ -23,6 +23,9 @@ export type NormalizedGaugeObservation = {
   observedAt: string;
   flow_cfs?: number;
   gage_height_ft?: number;
+  approvalStatus?: string;
+  qualifier?: string;
+  timeSeriesId?: string;
   source: "usgs_continuous_values";
 };
 
@@ -156,6 +159,12 @@ function parseModernUsgsContinuousValues(
       source: "usgs_continuous_values" as const,
     };
     observation[metric] = value;
+    const approvalStatus = String(properties.approval_status ?? "").trim();
+    if (approvalStatus) observation.approvalStatus = approvalStatus;
+    const qualifier = String(properties.qualifier ?? "").trim();
+    if (qualifier) observation.qualifier = qualifier;
+    const timeSeriesId = String(properties.time_series_id ?? "").trim();
+    if (timeSeriesId) observation.timeSeriesId = timeSeriesId;
     byTimestamp.set(observedAt, observation);
   }
   return [...byTimestamp.values()].toSorted((a, b) =>

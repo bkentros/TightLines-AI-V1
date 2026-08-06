@@ -11,7 +11,7 @@ const RIVER_SIZE_IMAGES: Record<
 
 const RIVER_SIZE_BY_ID: Record<string, RiverRunRiverSize> = {
   pere_marquette: "medium",
-  betsie: "medium",
+  betsie: "small",
   white: "medium",
   big_manistee: "large",
   muskegon: "large",

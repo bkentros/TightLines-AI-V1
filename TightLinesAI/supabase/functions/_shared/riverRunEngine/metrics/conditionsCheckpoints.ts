@@ -32,7 +32,9 @@ export type ConditionsSuggestCheckpointState = {
 };
 
 export function resolveConditionsSuggestCheckpoints(
-  run: Pick<RiverRunProfile, "runWindow" | "conditionsSuggest">,
+  run: Pick<RiverRunProfile, "runWindow" | "conditionsSuggest"> & {
+    conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
+  },
   localDate: string,
 ): ConditionsSuggestCheckpoint[] {
   const window = resolveActiveRunWindow(run, localDate);
@@ -86,7 +88,9 @@ export function resolveConditionsSuggestCheckpoints(
 }
 
 export function resolveConditionsSuggestCheckpointState(
-  run: Pick<RiverRunProfile, "runWindow" | "conditionsSuggest">,
+  run: Pick<RiverRunProfile, "runWindow" | "conditionsSuggest"> & {
+    conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
+  },
   localDate: string,
 ): ConditionsSuggestCheckpointState {
   const window = resolveActiveRunWindow(run, localDate);
