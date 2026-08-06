@@ -69,9 +69,12 @@ export function scoreActivity(input: {
   flowSignal: RawFlowTrendSignal;
   hourlyWeather: ActivityWeatherHour[];
 }): ActivityResult {
+  const species = activitySpecies(input.rules.profile);
+  const weatherOnly = input.rules.dataMode === "weather_only";
   const tomorrow = input.targetDate !== input.requestDate;
-  const hasTemperature = typeof input.waterTempF === "number";
-  const hasRiver = input.gaugeFreshness === "fresh" && Boolean(input.flowBand);
+  const hasTemperature = !weatherOnly && typeof input.waterTempF === "number";
+  const hasRiver = !weatherOnly && input.gaugeFreshness === "fresh" &&
+    Boolean(input.flowBand);
   const targetWeather = input.hourlyWeather.filter((hour) =>
     hour.time_local.startsWith(input.targetDate)
   );
@@ -91,6 +94,9 @@ export function scoreActivity(input: {
     });
     const cloud = average(hours.map((hour) => hour.cloud_cover_pct));
     const precipitation = sum(hours.map((hour) => hour.precipitation_in));
+    const wetHours = hours.filter((hour) =>
+      (hour.precipitation_in ?? 0) > 0
+    ).length;
     const light = lightScore(block, hours);
     const temperature = temperatureScore(
       input.rules,
@@ -99,13 +105,14 @@ export function scoreActivity(input: {
       input.temperatureTrend,
     );
     const river = riverScore(
+      input.rules.profile,
       input.flowBand,
       input.flowSignal,
       hasRiver,
       input.currentHydraulicValue,
       input.fishabilityBands,
     );
-    const weather = weatherScore(precipitation);
+    const weather = weatherScore(precipitation, wetHours, weatherOnly);
     const weighted = weightedScore(input.rules, {
       light,
       temperature,
@@ -118,13 +125,20 @@ export function scoreActivity(input: {
       weather: hasWeather,
     });
     let score = Math.round(weighted);
-    const dataCeilings = [
-      ...(!hasTemperature ? [input.rules.caps.noWaterTemperature] : []),
-      ...(!hasRiver ? [input.rules.caps.noMeasuredRiverData] : []),
-      ...(confidence === "Limited" ? [69] : []),
-    ];
-    if (dataCeilings.length) {
-      score = proportionalCeiling(score, Math.min(...dataCeilings));
+    if (weatherOnly) {
+      score = Math.min(
+        score,
+        input.rules.caps.weatherOnlyMaximum ?? 95,
+      );
+    } else {
+      const dataCeilings = [
+        ...(!hasTemperature ? [input.rules.caps.noWaterTemperature] : []),
+        ...(!hasRiver ? [input.rules.caps.noMeasuredRiverData] : []),
+        ...(confidence === "Limited" ? [69] : []),
+      ];
+      if (dataCeilings.length) {
+        score = proportionalCeiling(score, Math.min(...dataCeilings));
+      }
     }
     if (
       input.waterTempF != null &&
@@ -141,17 +155,35 @@ export function scoreActivity(input: {
       score = proportionalCeiling(score, 19);
     }
     if (tomorrow) {
-      score = proportionalCeiling(score, input.rules.caps.tomorrow);
+      score = weatherOnly
+        ? Math.min(score, input.rules.caps.tomorrow)
+        : proportionalCeiling(score, input.rules.caps.tomorrow);
     }
-    if (input.runStage === "tapering") {
-      score = proportionalCeiling(score, input.rules.caps.lateRun);
+    const floorStrength = salmonFloorStrength(
+      input.rules,
+      input.runStage,
+      input.targetDate,
+    );
+    const floorInputsComplete = weatherOnly
+      ? hasWeather
+      : hasWeather && hasTemperature && hasRiver;
+    if (
+      floorStrength > 0 && floorInputsComplete &&
+      input.rules.profile === "chinook_fall_reaction" && score < 30
+    ) {
+      score = blendScore(score, conditionalChinookFloor(score), floorStrength);
+    } else if (
+      floorStrength > 0 && floorInputsComplete &&
+      input.rules.profile === "coho_fall_reaction" && score < 25
+    ) {
+      score = blendScore(score, conditionalCohoFloor(score), floorStrength);
     }
-    if (input.runStage === "ending" || input.runStage === "post_run") {
-      score = proportionalCeiling(score, input.rules.caps.ending);
-    }
-    if (hasWeather && hasTemperature && hasRiver && score < 30) {
-      score = conditionalChinookFloor(score);
-    }
+    score = applySalmonLifecycleAdjustment(
+      input.rules,
+      input.runStage,
+      input.targetDate,
+      score,
+    );
     const drivers = [
       {
         value: weightedImpact(light, input.rules.weights.light),
@@ -167,7 +199,7 @@ export function scoreActivity(input: {
         ),
         available: hasTemperature,
         text: temperature >= 70
-          ? "The measured water temperature is favorable for Chinook."
+          ? `The measured water temperature is favorable for ${species}.`
           : "The measured water temperature remains usable.",
       },
       {
@@ -179,7 +211,7 @@ export function scoreActivity(input: {
       },
       {
         value: weightedImpact(weather, input.rules.weights.weather),
-        available: hasWeather,
+        available: hasWeather && precipitation != null && precipitation > 0,
         text: precipitation && precipitation > 0
           ? "Light rain adds some cover."
           : "Rain is not affecting this window.",
@@ -217,14 +249,14 @@ export function scoreActivity(input: {
           ? "Heavier precipitation can unsettle presentation."
           : "Rain adds little extra cover.",
       },
-      ...(!hasTemperature
+      ...(!hasTemperature && !weatherOnly
         ? [{
           value: -2,
           available: true,
           text: "Measured water temperature is unavailable.",
         }]
         : []),
-      ...(!hasRiver
+      ...(!hasRiver && !weatherOnly
         ? [{
           value: -1,
           available: true,
@@ -258,17 +290,21 @@ export function scoreActivity(input: {
   const score = Math.round(
     averageScore * 0.5 + sorted[0].score * 0.25 + sorted[1].score * 0.25,
   );
-  const late = input.runStage === "tapering" || input.runStage === "ending" ||
-    input.runStage === "post_run";
+  const late = input.rules.profile !== "steelhead_feeding" &&
+    (input.runStage === "tapering" || input.runStage === "ending" ||
+      input.runStage === "post_run");
   const conditionalPresence = input.staging;
   const label = activityLabel(score);
   const copy = activityCopy({
+    profile: input.rules.profile,
+    scopeCopy: input.rules.scopeCopy,
     label,
     stage: input.runStage,
     conditionalPresence,
     tomorrow,
     confidence,
     bestBlock: sorted[0],
+    weatherOnly,
   });
   return {
     score,
@@ -284,6 +320,7 @@ export function scoreActivity(input: {
         ? "activity_conditional_presence"
         : "activity_run_present",
       ...(late ? ["activity_late_biology_cap"] : []),
+      ...(weatherOnly ? ["activity_weather_only"] : []),
       ...(input.waterTempF != null &&
           input.waterTempF >= input.rules.temperature.barrierF
         ? ["activity_temperature_barrier_cap"]
@@ -303,34 +340,43 @@ export function scoreActivity(input: {
 }
 
 function activityCopy(input: {
+  profile: ActivityRules["profile"];
+  scopeCopy?: string;
   label: string;
   stage: RunStage;
   conditionalPresence: boolean;
   tomorrow: boolean;
   confidence: ActivityConfidence;
   bestBlock: ActivityBlock;
+  weatherOnly: boolean;
 }) {
+  const species = activitySpecies(input.profile);
   const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
-  const confidence = input.confidence === "Full"
+  const confidence = input.weatherOnly
+    ? "This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited."
+    : input.confidence === "Full"
     ? "This read uses a current river level, measured water temperature, and the hourly weather outlook."
     : input.confidence === "Moderate"
     ? "One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative."
     : "Several important readings are unavailable, so treat this as a limited outlook.";
-  const lifecycle = input.conditionalPresence
-    ? "Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered."
-    : input.stage === "beginning"
-    ? "Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential."
-    : input.stage === "building"
-    ? "More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present."
-    : input.stage === "peak"
-    ? "Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance."
-    : input.stage === "tapering"
-    ? "Freshness and individual condition are becoming less consistent. This score applies only to living Chinook still capable of responding; it cannot judge the condition of an individual fish."
-    : input.stage === "ending" || input.stage === "post_run"
-    ? "Many late-run Chinook may be spawning, spent, dying, or already gone. This score applies only to a living fish still capable of reacting; favorable weather cannot reverse that decline."
-    : "The score describes conditions for a Chinook already present, not the number of fish in the river.";
-  const interpretation = input.label === "Highly active"
-    ? "Conditions strongly favor a response from Chinook that are present and capable of reacting."
+  const lifecycle = lifecycleCopy(
+    input.profile,
+    input.stage,
+    input.conditionalPresence,
+  );
+  const scope = input.scopeCopy ? ` ${input.scopeCopy}` : "";
+  const interpretation = input.weatherOnly
+    ? input.label === "Highly active"
+      ? `The evaluated weather strongly favors a response from ${species} that are present and capable of reacting, but unmeasured river conditions may change the actual response.`
+      : input.label === "Active"
+      ? "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it."
+      : input.label === "Moderate"
+      ? "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown."
+      : input.label === "Reserved"
+      ? "The evaluated weather provides limited support for responsiveness, and unknown river conditions add uncertainty."
+      : "The evaluated weather provides little support for an aggressive response, without determining the underlying river conditions."
+    : input.label === "Highly active"
+    ? `Conditions strongly favor a response from ${species} that are present and capable of reacting.`
     : input.label === "Active"
     ? "Conditions favor a meaningful reaction opportunity."
     : input.label === "Moderate"
@@ -339,18 +385,42 @@ function activityCopy(input: {
     ? "Fish may respond selectively, with important environmental limitations."
     : "Conditions provide little environmental support for an aggressive response.";
   const bestWindow =
-    `The strongest window is ${input.bestBlock.label}: ${input.bestBlock.positiveDriver}`;
-  const tip = input.stage === "tapering"
-    ? "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    `The strongest window is ${input.bestBlock.label}: ${input.bestBlock.positiveDriver} The main limitation: ${input.bestBlock.limitingFactor}`;
+  const tip = input.weatherOnly
+    ? weatherOnlyTip(input.profile, input.stage, input.bestBlock.label)
+    : input.profile === "steelhead_feeding"
+    ? steelheadTip(input.stage, input.bestBlock.label)
+    : input.stage === "tapering"
+    ? `Compare the four time windows, but treat every difference as conditional on finding a living ${species} still capable of responding.`
     : input.stage === "ending" || input.stage === "post_run"
-    ? "No late-run window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting."
+    ? `No late-season window should be treated as broadly favorable; use the block scores only for a living ${species} that is still capable of reacting.`
     : `Start with ${input.bestBlock.label}. If the sky changes from the forecast, favor the darkest practical window.`;
   return {
-    headline:
-      `${day} Chinook activity outlook is ${input.label.toLowerCase()}.`,
-    detail: `${interpretation} ${bestWindow} ${lifecycle} ${confidence}`,
+    headline: input.weatherOnly
+      ? `${day} weather-only ${species} activity outlook is ${input.label.toLowerCase()} with Limited confidence.`
+      : `${day} ${species} activity outlook is ${input.label.toLowerCase()}.`,
+    detail:
+      `${interpretation} ${bestWindow} ${lifecycle}${scope} ${confidence}`,
     tip,
   };
+}
+
+function weatherOnlyTip(
+  profile: ActivityRules["profile"],
+  stage: RunStage,
+  bestBlockLabel: string,
+): string {
+  const species = activitySpecies(profile);
+  if (
+    profile === "steelhead_feeding" &&
+    (stage === "tapering" || stage === "ending" || stage === "post_run")
+  ) {
+    return `Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating ${bestBlockLabel} as favorable.`;
+  }
+  if (stage === "tapering" || stage === "ending" || stage === "post_run") {
+    return `Use the four blocks only to compare weather support for a living ${species} of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.`;
+  }
+  return `Start with ${bestBlockLabel} only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.`;
 }
 
 function weightedScore(
@@ -420,22 +490,71 @@ function temperatureScore(
   trend: RawTemperatureTrendSignal,
 ): number {
   if (temp == null) return 50;
+  if (rules.profile === "steelhead_feeding") {
+    let score = temp < rules.temperature.preferredMinF
+      ? interpolateClamped(
+        temp,
+        rules.temperature.coldF - 5,
+        rules.temperature.preferredMinF,
+        18,
+        82,
+      )
+      : temp < 48
+      ? interpolateClamped(
+        temp,
+        rules.temperature.preferredMinF,
+        48,
+        82,
+        95,
+      )
+      : temp <= 54
+      ? 95
+      : temp <= rules.temperature.preferredMaxF
+      ? interpolateClamped(
+        temp,
+        54,
+        rules.temperature.preferredMaxF,
+        95,
+        82,
+      )
+      : temp < rules.temperature.warmF
+      ? interpolateClamped(
+        temp,
+        rules.temperature.preferredMaxF,
+        rules.temperature.warmF,
+        82,
+        38,
+      )
+      : temp < rules.temperature.barrierF
+      ? interpolateClamped(
+        temp,
+        rules.temperature.warmF,
+        rules.temperature.barrierF,
+        28,
+        8,
+      )
+      : 5;
+    if (trend === "cooling" || trend === "strong_cooling") score += 3;
+    if (trend === "strong_warming") score -= 4;
+    return clamp(score);
+  }
+  const optimal = rules.profile === "coho_fall_reaction" ? 84 : 95;
   let score = temp < rules.temperature.preferredMinF
     ? interpolateClamped(
       temp,
       rules.temperature.coldF - 5,
       rules.temperature.preferredMinF,
       18,
-      95,
+      optimal,
     )
     : temp <= rules.temperature.preferredMaxF
-    ? 95
+    ? optimal
     : temp < rules.temperature.warmF
     ? interpolateClamped(
       temp,
       rules.temperature.preferredMaxF,
       rules.temperature.warmF,
-      95,
+      optimal,
       stage === "beginning" ? 48 : 38,
     )
     : temp < rules.temperature.barrierF
@@ -453,6 +572,7 @@ function temperatureScore(
 }
 
 function riverScore(
+  profile: ActivityRules["profile"],
   band: FlowBand | undefined,
   signal: RawFlowTrendSignal,
   available: boolean,
@@ -471,15 +591,33 @@ function riverScore(
       very_high: 30,
       blown_out: 8,
     } as Record<string, number>)[band] ?? 55;
-  if (signal === "rising" || signal === "meaningful_rise") score += 5;
+  if (
+    profile !== "steelhead_feeding" &&
+    (signal === "rising" || signal === "meaningful_rise")
+  ) score += 5;
   if (signal === "sharp_rise" || signal === "falling") score -= 8;
   return clamp(score);
 }
 
-function weatherScore(precip: number | null): number {
+function weatherScore(
+  precip: number | null,
+  wetHours = 0,
+  weatherOnly = false,
+): number {
   if (precip == null) return 50;
-  if (precip <= 0.04) return interpolateClamped(precip, 0, 0.04, 55, 90);
-  if (precip <= 0.12) return interpolateClamped(precip, 0.04, 0.12, 90, 68);
+  const sustainedBonus = weatherOnly && precip > 0 && precip <= 0.12
+    ? Math.min(6, Math.max(0, wetHours - 1) * 2)
+    : 0;
+  if (precip <= 0.04) {
+    return clamp(
+      interpolateClamped(precip, 0, 0.04, 55, 90) + sustainedBonus,
+    );
+  }
+  if (precip <= 0.12) {
+    return clamp(
+      interpolateClamped(precip, 0.04, 0.12, 90, 68) + sustainedBonus,
+    );
+  }
   if (precip <= 0.25) return interpolateClamped(precip, 0.12, 0.25, 68, 40);
   return interpolateClamped(precip, 0.25, 0.6, 40, 12);
 }
@@ -552,8 +690,178 @@ function proportionalCeiling(score: number, ceiling: number): number {
   return Math.round(score * ceiling / 100);
 }
 
+function salmonFloorStrength(
+  rules: ActivityRules,
+  stage: RunStage,
+  targetDate: string,
+): number {
+  if (rules.profile === "steelhead_feeding") return 0;
+  const ramp = rules.caps.lifecycleRamp;
+  if (!ramp) {
+    return stage === "tapering" || stage === "ending" || stage === "post_run"
+      ? 0
+      : 1;
+  }
+  if (stage === "ending" || stage === "post_run") return 0;
+  if (stage !== "tapering") return 1;
+  return 1 - calendarProgress(targetDate, ramp.peakEnd, ramp.taperingEnd);
+}
+
+function applySalmonLifecycleAdjustment(
+  rules: ActivityRules,
+  stage: RunStage,
+  targetDate: string,
+  score: number,
+): number {
+  if (rules.profile === "steelhead_feeding") return score;
+  const penalty = rules.caps.taperingPenalty;
+  const ramp = rules.caps.lifecycleRamp;
+  if (ramp && penalty != null) {
+    const tapered = Math.max(0, score - penalty);
+    if (stage === "tapering") {
+      const progress = calendarProgress(
+        targetDate,
+        ramp.peakEnd,
+        ramp.taperingEnd,
+      );
+      return blendScore(score, tapered, progress);
+    }
+    if (stage === "ending") {
+      const ending = proportionalCeiling(score, rules.caps.ending);
+      const progress = calendarProgress(
+        targetDate,
+        ramp.taperingEnd,
+        ramp.endingEnd,
+      );
+      return blendScore(tapered, ending, progress);
+    }
+    if (stage === "post_run") {
+      const ending = proportionalCeiling(score, rules.caps.ending);
+      const progress = calendarProgress(
+        targetDate,
+        ramp.taperingEnd,
+        ramp.endingEnd,
+      );
+      return blendScore(tapered, ending, progress);
+    }
+    return score;
+  }
+  if (stage === "tapering") {
+    return penalty == null
+      ? proportionalCeiling(score, rules.caps.lateRun)
+      : Math.max(0, score - penalty);
+  }
+  return stage === "ending" || stage === "post_run"
+    ? proportionalCeiling(score, rules.caps.ending)
+    : score;
+}
+
+function blendScore(from: number, to: number, progress: number): number {
+  return Math.round(from + (to - from) * Math.max(0, Math.min(1, progress)));
+}
+
+function calendarProgress(
+  targetDate: string,
+  startMonthDay: string,
+  endMonthDay: string,
+): number {
+  const year = Number(targetDate.slice(0, 4));
+  const target = Date.parse(`${targetDate}T00:00:00Z`);
+  const start = Date.parse(`${year}-${startMonthDay}T00:00:00Z`);
+  let end = Date.parse(`${year}-${endMonthDay}T00:00:00Z`);
+  if (end < start) end = Date.parse(`${year + 1}-${endMonthDay}T00:00:00Z`);
+  let adjustedTarget = target;
+  if (adjustedTarget < start && end > Date.parse(`${year}-12-31T00:00:00Z`)) {
+    adjustedTarget = Date.parse(`${year + 1}-${targetDate.slice(5)}T00:00:00Z`);
+  }
+  return Math.max(0, Math.min(1, (adjustedTarget - start) / (end - start)));
+}
+
 function conditionalChinookFloor(score: number): number {
   return Math.round(20 + Math.max(0, score) / 3);
+}
+
+function conditionalCohoFloor(score: number): number {
+  return Math.round(15 + Math.max(0, score) * 0.4);
+}
+
+function activitySpecies(profile: ActivityRules["profile"]): string {
+  return profile === "coho_fall_reaction"
+    ? "Coho"
+    : profile === "steelhead_feeding"
+    ? "Steelhead"
+    : "Chinook";
+}
+
+function lifecycleCopy(
+  profile: ActivityRules["profile"],
+  stage: RunStage,
+  conditionalPresence: boolean,
+): string {
+  const species = activitySpecies(profile);
+  if (conditionalPresence) {
+    return `Dependable river presence has not begun. The score applies only to a sparse early ${species} that may already have entered.`;
+  }
+  if (profile === "coho_fall_reaction") {
+    if (stage === "beginning") {
+      return "Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river.";
+    }
+    if (stage === "building") {
+      return "More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance.";
+    }
+    if (stage === "peak") {
+      return "Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance.";
+    }
+    if (stage === "tapering") {
+      return "This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive.";
+    }
+    if (stage === "ending" || stage === "post_run") {
+      return "This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all.";
+    }
+    return "The score describes conditions for a Coho already present, not the number of fish in the river.";
+  }
+  if (profile === "steelhead_feeding") {
+    if (stage === "beginning") {
+      return "Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement.";
+    }
+    if (stage === "building") {
+      return "Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads.";
+    }
+    if (stage === "peak") {
+      return "Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present.";
+    }
+    if (stage === "tapering") {
+      return "As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions.";
+    }
+    if (stage === "ending") {
+      return "These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline.";
+    }
+    if (stage === "post_run") {
+      return "Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness.";
+    }
+    return "The score describes feeding or aggressive responsiveness for a Steelhead already present, not the number of fish in the river.";
+  }
+  if (profile === "chinook_fall_reaction") {
+    return stage === "beginning"
+      ? "Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential."
+      : stage === "building"
+      ? "More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present."
+      : stage === "peak"
+      ? "Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance."
+      : stage === "tapering"
+      ? "This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive."
+      : stage === "ending" || stage === "post_run"
+      ? "This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all."
+      : "The score describes conditions for a Chinook already present, not the number of fish in the river.";
+  }
+  return `The score describes conditions for a ${species} already present, not the number of fish in the river.`;
+}
+
+function steelheadTip(stage: RunStage, bestBlockLabel: string): string {
+  if (stage === "tapering" || stage === "ending" || stage === "post_run") {
+    return `Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.`;
+  }
+  return `Start with ${bestBlockLabel}. If conditions change, favor the window that best combines workable light with measured water temperature.`;
 }
 
 function interpolateClamped(

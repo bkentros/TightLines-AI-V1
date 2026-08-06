@@ -3,7 +3,7 @@
 **Status:** implementation and local verification complete; public audit gate
 disabled\
 **Engine version:** `river-run-v1.5.3`\
-**Configuration version:** `2026-08-05-betsie.6`\
+**Configuration version:** `2026-08-06-betsie-weather-activity.3`\
 **Copy version:** `river-run-copy-v26`\
 **Movement branch:** `fall_cooling` / seasonal progression only
 
@@ -51,9 +51,31 @@ not the result of paired adult counts.
 | Migration Timing | Unavailable | No accepted historical hydraulic and measured-water baseline   |
 | Push             | Unavailable | No representative live gauge or measured water temperature     |
 | Fishability      | Unavailable | No representative live gauge or defensible Betsie bands        |
+| Activity Outlook | Available   | Limited-confidence four-hour weather-only Coho responsiveness  |
 
 Air temperature is never substituted for measured water temperature. The runtime
-does not call live gauge, weather, or temperature providers for this run.
+bypasses gauge and temperature providers but reads hourly weather for Activity.
+
+## Weather-only Activity
+
+Betsie Coho assigns 70% to effective light and 30% to precipitation context,
+giving cover slightly more influence than in the Chinook calibration while
+keeping light dominant. Scores can reach 95 for the evaluated weather variables
+and 90 for tomorrow. Every headline says `weather-only` and `Limited
+confidence`; detail copy states that river level, clarity, and measured water
+temperature are unknown and that Betsie Coho opportunity remains sectional.
+
+The Coho floor begins fading after October 31 while the 15-point lifecycle
+deduction grows through November 15. Ending and the sparse tail then blend
+continuously into the 42% residual constraint through December 26.
+
+The 2007–2025 replay contains all 2,451 expected dates. Daily scores range
+28–95 with a 69 median and 67 distinct values; four-hour blocks range 20–95
+with 76 distinct values. Peak-stage weather scores have an 82 median, while the
+identical-condition lifecycle audit declines from 84 on October 31 to 35 on
+December 26 with no adjacent-day change above one point. All audit invariants
+are zero, including weather-only disclosure, 95-point enforcement, species
+copy, prohibited river inference, and lifecycle continuity.
 
 ## Calendar
 
@@ -131,5 +153,6 @@ Select Michigan → Fall → Coho Salmon → Betsie River. Review August 27, Sep
 26, October 15, October 31, November 15, November 25, December 10, and December
 26, plus each unavailable primitive.
 
-Public visibility remains disabled under `betsie-fall-coho-owner-audit-v1`. No
+Public visibility remains disabled under
+`betsie-fall-coho-weather-activity-audit-v1`. No
 deployment or database publication is performed by this build.

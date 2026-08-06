@@ -136,10 +136,18 @@ export const BETSIE_RIVER_PROFILE: RiverProfile = {
     },
   ],
   conditionRefreshSchedule: {
-    activeSlots: ["00:00"],
+    activeSlots: [
+      "00:00",
+      "04:00",
+      "08:00",
+      "12:00",
+      "16:00",
+      "20:00",
+      "21:00",
+    ],
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "Betsie migratory runs launch as seasonal-only reads. Run Stage and Fish In River are deterministic daily primitives; no intra-day condition refresh is justified until an accepted live hydraulic and measured-water-temperature source represents the below-Homestead corridor.",
+      "Run Stage and Fish In River remain deterministic daily primitives. Active-season refreshes support the explicitly weather-only Activity model using four-hour light, cloud, and precipitation windows; they do not imply a live hydraulic or measured-water-temperature observation.",
   },
   conditionDataCapabilities: {
     hydraulics: {
@@ -155,7 +163,7 @@ export const BETSIE_RIVER_PROFILE: RiverProfile = {
   },
   supportStatus: "beta",
   gaugeLimitationCopy:
-    "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+    "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
   regulationReminderCopy:
     "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
 };
@@ -317,10 +325,18 @@ export const BIG_MANISTEE_RIVER_PROFILE: RiverProfile = {
       "Foundation research completed August 5, 2026. Sources include USGS 04125550 continuous/daily metadata and values, USGS 04124000 and 04123500 contextual metadata, Michigan DNR FO-200.25 and 2026 regulations, Michigan DNR Tippy Dam management material, the DNR 2022–2023 creel survey, U.S. Fish and Wildlife Service Manistee River corridor material, and Michigan EGLE hydrologic analysis. Wellston is completely regulated by Tippy and represents the tailwater/upper corridor only. No species timing, strength, presence curve, hydraulic threshold, or Fishability band is configured here.",
   },
   conditionRefreshSchedule: {
-    activeSlots: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    activeSlots: [
+      "00:00",
+      "04:00",
+      "08:00",
+      "12:00",
+      "16:00",
+      "20:00",
+      "21:00",
+    ],
     inactiveSlots: ["00:00"],
     evidenceNotes:
-      "The observed Wellston discharge and measured-water-temperature feeds are available at approximately 15-minute cadence. Use the PM refresh pattern as the operational blueprint, while the six-slot cadence remains river-level infrastructure rather than species timing. Freshness, provisional status, and shared source gaps must be preserved.",
+      "The observed Wellston discharge and measured-water-temperature feeds are available at approximately 15-minute cadence. Six four-hour condition slots plus the 21:00 Activity rollover provide current reads and the next-day outlook without changing species timing. Freshness, provisional status, and shared source gaps must be preserved.",
   },
   conditionDataCapabilities: {
     hydraulics: { status: "available" },

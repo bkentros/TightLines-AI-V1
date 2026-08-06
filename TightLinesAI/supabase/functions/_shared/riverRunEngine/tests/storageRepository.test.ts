@@ -475,7 +475,7 @@ Deno.test("draft configuration upsert validates and uses immutable revision key"
     client.upserts[0].options?.onConflict,
     "config_key,revision",
   );
-  assertEquals(result.data?.document.configVersion, "2026-08-07.12");
+  assertEquals(result.data?.document.configVersion, "2026-08-07.16");
 });
 
 Deno.test("published configuration read filters by key and published status", async () => {

@@ -35,6 +35,18 @@ Deno.test("Big Manistee foundation validates with Chinook and Coho selectable", 
 });
 
 Deno.test("Big Manistee foundation binds Wellston primary reach and source pair", () => {
+  assertEquals(
+    BIG_MANISTEE_RIVER_PROFILE.conditionRefreshSchedule.activeSlots,
+    [
+      "00:00",
+      "04:00",
+      "08:00",
+      "12:00",
+      "16:00",
+      "20:00",
+      "21:00",
+    ],
+  );
   const foundation = BIG_MANISTEE_RIVER_PROFILE.foundation!;
   const primaryHydraulic = BIG_MANISTEE_RIVER_PROFILE.hydraulicSources.find(
     (source) => source.role === "primary",
@@ -55,7 +67,7 @@ Deno.test("Big Manistee foundation binds Wellston primary reach and source pair"
   assert(!foundation.contextualGaugeSiteIds.includes("04125550"));
 });
 
-Deno.test("Big Manistee foundation document binds selectable Chinook and Coho", () => {
+Deno.test("Big Manistee foundation document binds all selectable fall runs", () => {
   const issues = validateConfigurationRevision({
     configKey: "big_manistee",
     revision: 1,
@@ -76,7 +88,7 @@ Deno.test("Big Manistee foundation document binds selectable Chinook and Coho", 
   );
   assert(
     BIG_MANISTEE_CONFIGURATION_DOCUMENT.configVersion.includes(
-      "big-manistee-fall-steelhead",
+      "big-manistee-steelhead-activity",
     ),
   );
 });

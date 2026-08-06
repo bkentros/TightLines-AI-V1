@@ -10,13 +10,14 @@ import {
   PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
   resolveActiveRunWindow,
   resolveRunStage,
+  scoreActivity,
   scoreFishInRiver,
   validateRunProfile,
 } from "../index.ts";
 
 const run = BETSIE_FALL_COHO_RUN_PROFILE;
 
-Deno.test("Betsie Fall Coho is valid, limited, sectional, seasonal-only, and owner-gated", () => {
+Deno.test("Betsie Fall Coho is valid, limited, sectional, weather-only, and owner-gated", () => {
   const result = validateRunProfile(run, BETSIE_RIVER_PROFILE);
   assertEquals(result.valid, true);
   assertEquals(result.publicVisible, false);
@@ -26,6 +27,67 @@ Deno.test("Betsie Fall Coho is valid, limited, sectional, seasonal-only, and own
   assertEquals("push" in run, false);
   assertEquals("fishabilityBands" in run, false);
   assertEquals("conditionsSuggest" in run, false);
+  assertEquals(run.primitiveCapabilities.activity, { status: "available" });
+  assertEquals(run.activity?.dataMode, "weather_only");
+});
+
+Deno.test("Betsie Coho Activity is species-specific and continuously lifecycle-adjusted", () => {
+  assertEquals(run.activity?.version, "betsie-fall-coho-weather-activity-v1");
+  assertEquals(run.activity?.profile, "coho_fall_reaction");
+  assertEquals(run.activity?.weights, {
+    light: 0.7,
+    waterTemperature: 0,
+    riverBehavior: 0,
+    weather: 0.3,
+  });
+  assertEquals(run.activity?.caps.weatherOnlyMaximum, 95);
+  assertEquals(run.activity?.caps.tomorrow, 90);
+  assertEquals(run.activity?.caps.lifecycleRamp, {
+    peakEnd: "10-31",
+    taperingEnd: "11-15",
+    endingEnd: "12-26",
+  });
+
+  const scoreFor = (date: string) => {
+    const stage = resolveRunStage(run, date);
+    return scoreActivity({
+      rules: run.activity!,
+      requestDate: date,
+      targetDate: date,
+      runStage: stage.stage,
+      staging: stage.stagingContext,
+      waterTempF: null,
+      temperatureTrend: "neutral_missing",
+      gaugeFreshness: "missing",
+      weatherFreshness: "fresh",
+      flowSignal: "unknown",
+      hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+        time_local: `${date}T${String(hour).padStart(2, "0")}:00`,
+        cloud_cover_pct: 95,
+        shortwave_w_m2: hour >= 7 && hour < 19 ? 70 : 0,
+        clear_sky_shortwave_w_m2: hour >= 7 && hour < 19 ? 600 : 0,
+        precipitation_in: hour >= 9 && hour < 13 ? 0.005 : 0,
+      })),
+    });
+  };
+  const dates = [
+    "2026-10-31",
+    "2026-11-01",
+    "2026-11-15",
+    "2026-11-25",
+    "2026-12-26",
+  ];
+  const results = dates.map(scoreFor);
+  for (const [index, result] of results.entries()) {
+    assertEquals(result.confidence, "Limited", dates[index]);
+    assertEquals(result.reasonCodes.includes("activity_weather_only"), true);
+    assertMatch(result.headline, /weather-only Coho activity outlook/i);
+    assertMatch(result.headline, /Limited confidence/i);
+    assertMatch(result.detail, /sectional/i);
+    assertEquals(/Chinook|Steelhead/i.test(JSON.stringify(result)), false);
+    if (index) assert(result.score! <= results[index - 1].score!, dates[index]);
+  }
+  assert(results[0].score! > results.at(-1)!.score!);
 });
 
 Deno.test("Betsie document binds all implemented species to explicit biology profiles", () => {

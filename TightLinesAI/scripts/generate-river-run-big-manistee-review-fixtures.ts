@@ -89,6 +89,51 @@ const stageDates = steelhead
     ["post_run", "Late tail", "2026-11-01"],
   ] as const;
 
+const activityFixture = steelhead
+  ? {
+    staging: "2026-09-01",
+    beginning: "2026-09-20",
+    building: "2026-11-01",
+    peak: "2026-11-15",
+    tapering: "2026-12-05",
+    ending: "2026-12-20",
+    postRun: "2026-12-23",
+    beginningWarmF: 58,
+    buildingHighF: 50,
+    moderateF: 42,
+    warmF: 64,
+    barrierF: 68,
+  }
+  : coho
+  ? {
+    staging: "2026-09-01",
+    beginning: "2026-09-20",
+    building: "2026-10-10",
+    peak: "2026-10-20",
+    tapering: "2026-11-05",
+    ending: "2026-11-20",
+    postRun: "2026-12-01",
+    beginningWarmF: 62.5,
+    buildingHighF: 56,
+    moderateF: 63,
+    warmF: 64,
+    barrierF: 68,
+  }
+  : {
+    staging: "2026-08-01",
+    beginning: "2026-08-22",
+    building: "2026-09-10",
+    peak: "2026-09-30",
+    tapering: "2026-10-16",
+    ending: "2026-10-27",
+    postRun: "2026-11-01",
+    beginningWarmF: 66.5,
+    buildingHighF: 61,
+    moderateF: 67,
+    warmF: 68,
+    barrierF: 72,
+  };
+
 const presenceDates = distinctPresenceDates();
 
 const groups: RiverRunReviewGroup[] = [
@@ -343,6 +388,139 @@ const groups: RiverRunReviewGroup[] = [
       ),
     ],
   },
+  ...(run.activity
+    ? [{
+      id: "activity",
+      label: "Activity Outlook",
+      scenarios: [
+        scenario(
+          "activity_staging",
+          "Staging · conditional early fish",
+          activityFixture.staging,
+          { waterTempF: 69, cloudCoverPct: 85 },
+        ),
+        scenario(
+          "activity_beginning_warm",
+          "Beginning · warm but reactive",
+          activityFixture.beginning,
+          {
+            waterTempF: activityFixture.beginningWarmF,
+            cloudCoverPct: 100,
+            precipitationIn: 0.02,
+          },
+        ),
+        scenario(
+          "activity_building_high",
+          "Building · highly active",
+          activityFixture.building,
+          {
+            waterTempF: activityFixture.buildingHighF,
+            cloudCoverPct: 100,
+            shortwaveWm2: 100,
+            precipitationIn: 0.02,
+          },
+        ),
+        scenario(
+          "activity_peak_active",
+          "Peak · active",
+          activityFixture.peak,
+          {
+            waterTempF: 58,
+            cloudCoverPct: 65,
+          },
+        ),
+        scenario(
+          "activity_moderate",
+          "Building · moderate mixed window",
+          activityFixture.building,
+          {
+            waterTempF: activityFixture.moderateF,
+            cloudCoverPct: 0,
+            shortwaveWm2: 760,
+            currentHydraulicValue: 2800,
+            flowBand: "very_high",
+            temperatureSignal: "strong_warming",
+          },
+        ),
+        scenario(
+          "activity_warm_constraint",
+          `Warm constraint · ${activityFixture.warmF}°F`,
+          activityFixture.beginning,
+          {
+            waterTempF: activityFixture.warmF,
+            cloudCoverPct: 100,
+            precipitationIn: 0.02,
+          },
+        ),
+        scenario(
+          "activity_barrier",
+          `Warm barrier · ${activityFixture.barrierF}°F`,
+          activityFixture.beginning,
+          {
+            waterTempF: activityFixture.barrierF,
+            cloudCoverPct: 100,
+            precipitationIn: 0.02,
+          },
+        ),
+        scenario(
+          "activity_blown_out",
+          "Blown out · 3,600 CFS",
+          activityFixture.peak,
+          {
+            currentHydraulicValue: 3600,
+            flowBand: "blown_out",
+            cloudCoverPct: 100,
+          },
+        ),
+        scenario(
+          "activity_tapering",
+          steelhead
+            ? "Late fall · cold-water response"
+            : "Tapering · biological constraint",
+          activityFixture.tapering,
+          { waterTempF: 52, cloudCoverPct: 100, precipitationIn: 0.02 },
+        ),
+        scenario(
+          "activity_ending",
+          steelhead
+            ? "Holding transition · fish remain alive"
+            : "Ending · residual living fish",
+          activityFixture.ending,
+          { waterTempF: 50, cloudCoverPct: 100, precipitationIn: 0.02 },
+        ),
+        scenario(
+          "activity_post_run",
+          steelhead
+            ? "Winter holding · current responsiveness"
+            : "Late tail · residual living fish",
+          activityFixture.postRun,
+          { waterTempF: 48, cloudCoverPct: 100, precipitationIn: 0.02 },
+        ),
+        scenario(
+          "activity_missing_temperature",
+          "Limited · missing measured temperature",
+          activityFixture.peak,
+          {
+            waterTempF: null,
+            waterTemperatureFreshness: "missing",
+            temperatureSourceType: "unavailable",
+            cloudCoverPct: 75,
+          },
+        ),
+        scenario(
+          "activity_missing_river",
+          "Limited · missing river measurement",
+          activityFixture.peak,
+          {
+            gaugeFreshness: "missing",
+            currentHydraulicValue: null,
+            flowSignal: "unknown",
+            cloudCoverPct: 75,
+          },
+        ),
+      ],
+    }]
+    : []),
   {
     id: "fish_in_river",
     label: "Fish In River",
@@ -518,6 +696,7 @@ function scenario(
     },
     push: condition.push,
     fishability: condition.fishability,
+    activity: condition.activity,
     fishInRiver: condition.fishInRiver,
     gauge: condition.sourceMetrics.gauge ?? null,
     weather: condition.sourceMetrics.weather ?? null,
@@ -687,6 +866,9 @@ type ConditionInput = {
     | "high_fishable"
     | "very_high"
     | "blown_out";
+  cloudCoverPct: number;
+  shortwaveWm2?: number;
+  precipitationIn: number;
 };
 
 function buildCondition(
@@ -705,6 +887,8 @@ function buildCondition(
     gaugeFreshness: "fresh",
     waterTemperatureFreshness: "fresh",
     temperatureSourceType: "same_gauge",
+    cloudCoverPct: 60,
+    precipitationIn: 0,
     ...overrides,
   };
   const flowBand = input.flowBand ??
@@ -713,6 +897,9 @@ function buildCondition(
       value: input.currentHydraulicValue,
       fishabilityBands: run.fishabilityBands,
     })?.band);
+  const activityActive = run.activity &&
+    localDate >= daily.runStage.window.stagingStartDate &&
+    localDate <= daily.runStage.window.lateEndDate;
   return buildConditionRefresh({
     dailySnapshot: daily,
     localDate,
@@ -721,6 +908,10 @@ function buildCondition(
     primitiveCapabilities: run.primitiveCapabilities,
     pushRules: run.push,
     fishabilityBands: run.fishabilityBands,
+    activityRules: activityActive ? run.activity : undefined,
+    activityTargetDate: activityActive ? localDate : undefined,
+    activityTargetStage: daily.runStage.stage,
+    activityStaging: daily.runStage.stagingContext,
     gaugeFreshness: input.gaugeFreshness,
     weatherFreshness: "fresh",
     waterTemperatureFreshness: input.waterTemperatureFreshness,
@@ -756,6 +947,15 @@ function buildCondition(
         rain24hIn: input.rainSignal === "dry" ? 0 : 0.2,
         rain48hIn: input.rainSignal === "dry" ? 0 : 0.35,
         rain72hIn: input.rainSignal === "dry" ? 0 : 0.5,
+        hourlyActivityWeather: Array.from({ length: 24 }, (_, hour) => ({
+          time_local: `${localDate}T${String(hour).padStart(2, "0")}:00`,
+          cloud_cover_pct: input.cloudCoverPct,
+          shortwave_w_m2: input.shortwaveWm2 ??
+            ((hour >= 8 && hour <= 18 ? 650 : 120) *
+              (1 - input.cloudCoverPct / 100 * 0.82)),
+          clear_sky_shortwave_w_m2: hour >= 8 && hour <= 18 ? 650 : 120,
+          precipitation_in: input.precipitationIn,
+        })),
       },
       ...(input.waterTempF == null ? {} : {
         waterTemperature: {

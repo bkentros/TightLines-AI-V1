@@ -339,7 +339,7 @@ const BASE_SNAPSHOT = {
     "activityDisclaimer": "River Run is not a wading, boating, floating, or personal-safety rating."
   },
   "engineVersion": "river-run-v1.9.0-review",
-  "configVersion": "2026-08-07.12-review"
+  "configVersion": "2026-08-07.16-review"
 } as unknown as RiverRunSnapshotResponse;
 
 const GROUP_SEEDS = [
@@ -8944,18 +8944,18 @@ const GROUP_SEEDS = [
         "label": "Staging · conditional early fish",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-08-01",
-          "progressionSnapshotAt": "2026-08-01T12:00:00.000Z",
-          "conditionRefreshAt": "2026-08-01T20:00:00.000Z",
-          "progressionExpiresAt": "2026-08-01T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-08-01T22:00:00.000Z",
+          "localDate": "2026-07-28",
+          "progressionSnapshotAt": "2026-07-28T12:00:00.000Z",
+          "conditionRefreshAt": "2026-07-28T20:00:00.000Z",
+          "progressionExpiresAt": "2026-07-28T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-07-28T22:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
             "window": {
-              "snapshotDate": "2026-08-01",
+              "snapshotDate": "2026-07-28",
               "preRunStartDate": "2026-07-01",
               "stagingStartDate": "2026-07-28",
               "startDate": "2026-08-15",
@@ -9025,7 +9025,7 @@ const GROUP_SEEDS = [
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-08-15",
             "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-08-01",
+            "throughDate": "2026-07-28",
             "recentDailyReadsStatus": "available",
             "recentDailyReads": []
           },
@@ -9034,15 +9034,15 @@ const GROUP_SEEDS = [
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
               "activity_conditional_presence"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-08-01",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-07-28",
             "targetDayLabel": "Today",
             "confidence": "Full",
             "conditionalPresence": true,
@@ -9112,7 +9112,7 @@ const GROUP_SEEDS = [
             "provider": "USGS",
             "siteId": "04122500",
             "primaryMetric": "flow_cfs",
-            "observedAt": "2026-08-01T19:45:00.000Z",
+            "observedAt": "2026-07-28T19:45:00.000Z",
             "value": 600,
             "band": "ideal",
             "trend": "stable",
@@ -9124,7 +9124,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_maple_leaf",
             "siteId": "PMTU-MapleLeaf",
             "seriesId": "4939",
-            "observedAt": "2026-08-01T19:30:00.000Z",
+            "observedAt": "2026-07-28T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -9135,7 +9135,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_m37",
             "siteId": "PMTU-M37",
             "seriesId": "3201",
-            "observedAt": "2026-08-01T19:30:00.000Z",
+            "observedAt": "2026-07-28T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -9152,21 +9152,21 @@ const GROUP_SEEDS = [
       },
       {
         "id": "activity_beginning_warm",
-        "label": "Beginning · lake-fresh warm tolerance",
+        "label": "Beginning · warm-water constraint",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-08-16",
-          "progressionSnapshotAt": "2026-08-16T12:00:00.000Z",
-          "conditionRefreshAt": "2026-08-16T20:00:00.000Z",
-          "progressionExpiresAt": "2026-08-16T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-08-16T22:00:00.000Z",
+          "localDate": "2026-08-15",
+          "progressionSnapshotAt": "2026-08-15T12:00:00.000Z",
+          "conditionRefreshAt": "2026-08-15T20:00:00.000Z",
+          "progressionExpiresAt": "2026-08-15T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-08-15T22:00:00.000Z",
           "runStage": {
             "stage": "beginning",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
             "window": {
-              "snapshotDate": "2026-08-16",
+              "snapshotDate": "2026-08-15",
               "preRunStartDate": "2026-07-01",
               "stagingStartDate": "2026-07-28",
               "startDate": "2026-08-15",
@@ -9270,31 +9270,24 @@ const GROUP_SEEDS = [
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-08-15",
             "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-08-16",
+            "throughDate": "2026-08-15",
             "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-08-15",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              }
-            ]
+            "recentDailyReads": []
           },
           "activity": {
             "score": 75,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
               "activity_run_present"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-08-16",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-08-15",
             "targetDayLabel": "Today",
             "confidence": "Full",
             "conditionalPresence": false,
@@ -9342,12 +9335,12 @@ const GROUP_SEEDS = [
             ]
           },
           "fishInRiver": {
-            "score": 12,
+            "score": 10,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.12142857142857143,
+            "curveFraction": 0.1,
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
@@ -9364,7 +9357,7 @@ const GROUP_SEEDS = [
             "provider": "USGS",
             "siteId": "04122500",
             "primaryMetric": "flow_cfs",
-            "observedAt": "2026-08-16T19:45:00.000Z",
+            "observedAt": "2026-08-15T19:45:00.000Z",
             "value": 600,
             "band": "ideal",
             "trend": "stable",
@@ -9376,7 +9369,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_maple_leaf",
             "siteId": "PMTU-MapleLeaf",
             "seriesId": "4939",
-            "observedAt": "2026-08-16T19:30:00.000Z",
+            "observedAt": "2026-08-15T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -9387,7 +9380,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_m37",
             "siteId": "PMTU-M37",
             "seriesId": "3201",
-            "observedAt": "2026-08-16T19:30:00.000Z",
+            "observedAt": "2026-08-15T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -9407,116 +9400,20 @@ const GROUP_SEEDS = [
         "label": "Building · highly active",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-09-10",
-          "progressionSnapshotAt": "2026-09-10T12:00:00.000Z",
-          "conditionRefreshAt": "2026-09-10T20:00:00.000Z",
-          "progressionExpiresAt": "2026-09-10T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-09-10T22:00:00.000Z",
-          "runStage": {
-            "stage": "building",
-            "stagingContext": false,
-            "broadBuildingContext": true,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-09-10",
-              "preRunStartDate": "2026-07-01",
-              "stagingStartDate": "2026-07-28",
-              "startDate": "2026-08-15",
-              "beginningEndDate": "2026-08-23",
-              "buildingEstablishedStartDate": "2026-09-01",
-              "buildingBroadStartDate": "2026-09-10",
-              "peakStartDate": "2026-09-15",
-              "peakDate": "2026-09-20",
-              "peakEndDate": "2026-09-30",
-              "taperingEndDate": "2026-10-18",
-              "endDate": "2026-10-27",
-              "lateEndDate": "2026-11-08",
-              "postRunLateCopyEndDate": "2026-11-10",
-              "startToPeakDays": 36,
-              "peakToEndDays": 37
-            },
-            "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
-            "reasonCodes": [
-              "stage_building"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "pushHistory": {
-            "status": "none_recorded",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-08-15",
-            "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-09-10",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-09-09",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-08",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-07",
-                "status": "supportive_window",
-                "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-09-07T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-06",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-05",
-                "status": "supportive_window",
-                "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-09-05T23:59:00.000Z",
-                "score": 81,
-                "label": "Strong"
-              },
-              {
-                "localDate": "2026-09-04",
-                "status": "supportive_window",
-                "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-09-04T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-03",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              }
-            ]
-          },
           "activity": {
             "score": 83,
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
               "activity_run_present"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-09-10",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-09-01",
             "targetDayLabel": "Today",
             "confidence": "Full",
             "conditionalPresence": false,
@@ -9562,58 +9459,6 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ]
-          },
-          "fishInRiver": {
-            "score": 69,
-            "stage": "building",
-            "maximum": 100,
-            "riverCeiling": 100,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.6875,
-            "curveDirection": "rising",
-            "winterHoldingContext": false,
-            "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
-            "reasonCodes": [
-              "stage_building",
-              "historical_presence_curve"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-09-10T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
           }
         }
       },
@@ -9860,14 +9705,14 @@ const GROUP_SEEDS = [
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Chinook activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
               "activity_run_present"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
             "targetDate": "2026-09-20",
             "targetDayLabel": "Today",
             "confidence": "Full",
@@ -9981,116 +9826,20 @@ const GROUP_SEEDS = [
         "label": "Building · moderate mixed window",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-09-10",
-          "progressionSnapshotAt": "2026-09-10T12:00:00.000Z",
-          "conditionRefreshAt": "2026-09-10T20:00:00.000Z",
-          "progressionExpiresAt": "2026-09-10T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-09-10T22:00:00.000Z",
-          "runStage": {
-            "stage": "building",
-            "stagingContext": false,
-            "broadBuildingContext": true,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-09-10",
-              "preRunStartDate": "2026-07-01",
-              "stagingStartDate": "2026-07-28",
-              "startDate": "2026-08-15",
-              "beginningEndDate": "2026-08-23",
-              "buildingEstablishedStartDate": "2026-09-01",
-              "buildingBroadStartDate": "2026-09-10",
-              "peakStartDate": "2026-09-15",
-              "peakDate": "2026-09-20",
-              "peakEndDate": "2026-09-30",
-              "taperingEndDate": "2026-10-18",
-              "endDate": "2026-10-27",
-              "lateEndDate": "2026-11-08",
-              "postRunLateCopyEndDate": "2026-11-10",
-              "startToPeakDays": 36,
-              "peakToEndDays": 37
-            },
-            "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
-            "reasonCodes": [
-              "stage_building"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "pushHistory": {
-            "status": "none_recorded",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-08-15",
-            "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-09-10",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-09-09",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-08",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-07",
-                "status": "supportive_window",
-                "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-09-07T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-06",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-05",
-                "status": "supportive_window",
-                "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-09-05T23:59:00.000Z",
-                "score": 81,
-                "label": "Strong"
-              },
-              {
-                "localDate": "2026-09-04",
-                "status": "supportive_window",
-                "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-09-04T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-03",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              }
-            ]
-          },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
               "activity_run_present"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-09-10",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-09-01",
             "targetDayLabel": "Today",
             "confidence": "Full",
             "conditionalPresence": false,
@@ -10136,58 +9885,6 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ]
-          },
-          "fishInRiver": {
-            "score": 69,
-            "stage": "building",
-            "maximum": 100,
-            "riverCeiling": 100,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.6875,
-            "curveDirection": "rising",
-            "winterHoldingContext": false,
-            "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
-            "reasonCodes": [
-              "stage_building",
-              "historical_presence_curve"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-09-10T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
           }
         }
       },
@@ -10434,7 +10131,7 @@ const GROUP_SEEDS = [
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_full",
@@ -10442,7 +10139,7 @@ const GROUP_SEEDS = [
               "activity_run_present",
               "activity_warm_water_cap"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
             "targetDate": "2026-09-20",
             "targetDayLabel": "Today",
             "confidence": "Full",
@@ -10794,7 +10491,7 @@ const GROUP_SEEDS = [
             "maximum": 100,
             "label": "Reserved",
             "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_full",
@@ -10803,7 +10500,7 @@ const GROUP_SEEDS = [
               "activity_temperature_barrier_cap",
               "activity_blown_out_cap"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
             "targetDate": "2026-09-20",
             "targetDayLabel": "Today",
             "confidence": "Full",
@@ -10917,18 +10614,18 @@ const GROUP_SEEDS = [
         "label": "Tapering · biological cap",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-10-10",
-          "progressionSnapshotAt": "2026-10-10T12:00:00.000Z",
-          "conditionRefreshAt": "2026-10-10T20:00:00.000Z",
-          "progressionExpiresAt": "2026-10-10T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-10-10T22:00:00.000Z",
+          "localDate": "2026-10-01",
+          "progressionSnapshotAt": "2026-10-01T12:00:00.000Z",
+          "conditionRefreshAt": "2026-10-01T20:00:00.000Z",
+          "progressionExpiresAt": "2026-10-01T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-10-01T22:00:00.000Z",
           "runStage": {
             "stage": "tapering",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
             "window": {
-              "snapshotDate": "2026-10-10",
+              "snapshotDate": "2026-10-01",
               "preRunStartDate": "2026-07-01",
               "stagingStartDate": "2026-07-28",
               "startDate": "2026-08-15",
@@ -11119,53 +10816,53 @@ const GROUP_SEEDS = [
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-08-15",
             "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-10-10",
+            "throughDate": "2026-10-01",
             "recentDailyReadsStatus": "available",
             "recentDailyReads": [
               {
-                "localDate": "2026-10-09",
+                "localDate": "2026-09-30",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-10-08",
+                "localDate": "2026-09-29",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-10-07",
+                "localDate": "2026-09-28",
                 "status": "supportive_window",
                 "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-10-07T23:59:00.000Z",
+                "conditionRefreshAt": "2026-09-28T23:59:00.000Z",
                 "score": 63,
                 "label": "Possible"
               },
               {
-                "localDate": "2026-10-06",
+                "localDate": "2026-09-27",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-10-05",
+                "localDate": "2026-09-26",
                 "status": "supportive_window",
                 "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-10-05T23:59:00.000Z",
+                "conditionRefreshAt": "2026-09-26T23:59:00.000Z",
                 "score": 81,
                 "label": "Strong"
               },
               {
-                "localDate": "2026-10-04",
+                "localDate": "2026-09-25",
                 "status": "supportive_window",
                 "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-10-04T23:59:00.000Z",
+                "conditionRefreshAt": "2026-09-25T23:59:00.000Z",
                 "score": 63,
                 "label": "Possible"
               },
               {
-                "localDate": "2026-10-03",
+                "localDate": "2026-09-24",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
@@ -11173,11 +10870,11 @@ const GROUP_SEEDS = [
             ]
           },
           "activity": {
-            "score": 47,
+            "score": 79,
             "maximum": 100,
-            "label": "Moderate",
-            "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Freshness and individual condition are becoming less consistent. This score applies only to living Chinook still capable of responding; it cannot judge the condition of an individual fish. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "label": "Active",
+            "headline": "Today’s Chinook activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
             "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding.",
             "reasonCodes": [
               "activity_confidence_full",
@@ -11185,8 +10882,8 @@ const GROUP_SEEDS = [
               "activity_run_present",
               "activity_late_biology_cap"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-10-10",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-10-01",
             "targetDayLabel": "Today",
             "confidence": "Full",
             "conditionalPresence": false,
@@ -11194,8 +10891,8 @@ const GROUP_SEEDS = [
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 50,
-                "activityLabel": "Moderate",
+                "score": 83,
+                "activityLabel": "Highly active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
@@ -11204,8 +10901,8 @@ const GROUP_SEEDS = [
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 42,
-                "activityLabel": "Moderate",
+                "score": 70,
+                "activityLabel": "Active",
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
@@ -11214,8 +10911,8 @@ const GROUP_SEEDS = [
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 41,
-                "activityLabel": "Moderate",
+                "score": 68,
+                "activityLabel": "Active",
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
@@ -11224,8 +10921,8 @@ const GROUP_SEEDS = [
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 48,
-                "activityLabel": "Moderate",
+                "score": 81,
+                "activityLabel": "Highly active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
@@ -11234,18 +10931,18 @@ const GROUP_SEEDS = [
             ]
           },
           "fishInRiver": {
-            "score": 67,
+            "score": 92,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.671875,
+            "curveFraction": 0.9222222222222222,
             "curveDirection": "falling",
             "winterHoldingContext": false,
-            "label": "High presence",
-            "headline": "Seasonal timing still supports Chinook salmon being well distributed, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "label": "Peak presence",
+            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
+            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
+            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
@@ -11256,7 +10953,7 @@ const GROUP_SEEDS = [
             "provider": "USGS",
             "siteId": "04122500",
             "primaryMetric": "flow_cfs",
-            "observedAt": "2026-10-10T19:45:00.000Z",
+            "observedAt": "2026-10-01T19:45:00.000Z",
             "value": 600,
             "band": "ideal",
             "trend": "stable",
@@ -11268,7 +10965,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_maple_leaf",
             "siteId": "PMTU-MapleLeaf",
             "seriesId": "4939",
-            "observedAt": "2026-10-10T19:30:00.000Z",
+            "observedAt": "2026-10-01T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -11279,7 +10976,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_m37",
             "siteId": "PMTU-M37",
             "seriesId": "3201",
-            "observedAt": "2026-10-10T19:30:00.000Z",
+            "observedAt": "2026-10-01T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -11292,18 +10989,18 @@ const GROUP_SEEDS = [
         "label": "Ending · vitality uncertainty cap",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-10-25",
-          "progressionSnapshotAt": "2026-10-25T12:00:00.000Z",
-          "conditionRefreshAt": "2026-10-25T20:00:00.000Z",
-          "progressionExpiresAt": "2026-10-25T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-10-25T22:00:00.000Z",
+          "localDate": "2026-10-19",
+          "progressionSnapshotAt": "2026-10-19T12:00:00.000Z",
+          "conditionRefreshAt": "2026-10-19T20:00:00.000Z",
+          "progressionExpiresAt": "2026-10-19T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-10-19T22:00:00.000Z",
           "runStage": {
             "stage": "ending",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
             "window": {
-              "snapshotDate": "2026-10-25",
+              "snapshotDate": "2026-10-19",
               "preRunStartDate": "2026-07-01",
               "stagingStartDate": "2026-07-28",
               "startDate": "2026-08-15",
@@ -11494,53 +11191,53 @@ const GROUP_SEEDS = [
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-08-15",
             "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-10-25",
+            "throughDate": "2026-10-19",
             "recentDailyReadsStatus": "available",
             "recentDailyReads": [
               {
-                "localDate": "2026-10-24",
+                "localDate": "2026-10-18",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-10-23",
+                "localDate": "2026-10-17",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-10-22",
+                "localDate": "2026-10-16",
                 "status": "supportive_window",
                 "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-10-22T23:59:00.000Z",
+                "conditionRefreshAt": "2026-10-16T23:59:00.000Z",
                 "score": 63,
                 "label": "Possible"
               },
               {
-                "localDate": "2026-10-21",
+                "localDate": "2026-10-15",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-10-20",
+                "localDate": "2026-10-14",
                 "status": "supportive_window",
                 "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-10-20T23:59:00.000Z",
+                "conditionRefreshAt": "2026-10-14T23:59:00.000Z",
                 "score": 81,
                 "label": "Strong"
               },
               {
-                "localDate": "2026-10-19",
+                "localDate": "2026-10-13",
                 "status": "supportive_window",
                 "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-10-19T23:59:00.000Z",
+                "conditionRefreshAt": "2026-10-13T23:59:00.000Z",
                 "score": 63,
                 "label": "Possible"
               },
               {
-                "localDate": "2026-10-18",
+                "localDate": "2026-10-12",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
@@ -11548,20 +11245,20 @@ const GROUP_SEEDS = [
             ]
           },
           "activity": {
-            "score": 39,
+            "score": 62,
             "maximum": 100,
-            "label": "Reserved",
-            "headline": "Today’s Chinook activity outlook is reserved.",
-            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. Many late-run Chinook may be spawning, spent, dying, or already gone. This score applies only to a living fish still capable of reacting; favorable weather cannot reverse that decline. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
-            "tip": "No late-run window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "label": "Active",
+            "headline": "Today’s Chinook activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
             "reasonCodes": [
               "activity_confidence_full",
               "activity_today",
               "activity_run_present",
               "activity_late_biology_cap"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-10-25",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-10-19",
             "targetDayLabel": "Today",
             "confidence": "Full",
             "conditionalPresence": false,
@@ -11569,8 +11266,8 @@ const GROUP_SEEDS = [
               {
                 "id": "05-09",
                 "label": "5–9 AM",
-                "score": 41,
-                "activityLabel": "Moderate",
+                "score": 66,
+                "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
@@ -11579,8 +11276,8 @@ const GROUP_SEEDS = [
               {
                 "id": "09-13",
                 "label": "9 AM–1 PM",
-                "score": 35,
-                "activityLabel": "Reserved",
+                "score": 54,
+                "activityLabel": "Moderate",
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
@@ -11589,8 +11286,8 @@ const GROUP_SEEDS = [
               {
                 "id": "13-17",
                 "label": "1–5 PM",
-                "score": 34,
-                "activityLabel": "Reserved",
+                "score": 52,
+                "activityLabel": "Moderate",
                 "positiveDriver": "The measured water temperature is favorable for Chinook.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
@@ -11599,8 +11296,8 @@ const GROUP_SEEDS = [
               {
                 "id": "17-21",
                 "label": "5–9 PM",
-                "score": 40,
-                "activityLabel": "Moderate",
+                "score": 64,
+                "activityLabel": "Active",
                 "positiveDriver": "Clouds or lower light make this window more favorable.",
                 "limitingFactor": "Rain adds little extra cover.",
                 "cloudCoverPct": 95,
@@ -11609,18 +11306,18 @@ const GROUP_SEEDS = [
             ]
           },
           "fishInRiver": {
-            "score": 25,
+            "score": 42,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 100,
             "historicalRunStrength": "strong",
-            "curveFraction": 0.25,
+            "curveFraction": 0.41874999999999996,
             "curveDirection": "falling",
             "winterHoldingContext": false,
-            "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to be spread throughout the river.",
-            "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "label": "Moderate presence",
+            "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
+            "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
+            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
@@ -11631,7 +11328,7 @@ const GROUP_SEEDS = [
             "provider": "USGS",
             "siteId": "04122500",
             "primaryMetric": "flow_cfs",
-            "observedAt": "2026-10-25T19:45:00.000Z",
+            "observedAt": "2026-10-19T19:45:00.000Z",
             "value": 600,
             "band": "ideal",
             "trend": "stable",
@@ -11643,7 +11340,7 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_maple_leaf",
             "siteId": "PMTU-MapleLeaf",
             "seriesId": "4939",
-            "observedAt": "2026-10-25T19:30:00.000Z",
+            "observedAt": "2026-10-19T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
@@ -11654,38 +11351,31 @@ const GROUP_SEEDS = [
             "sourceId": "pmtu_m37",
             "siteId": "PMTU-M37",
             "seriesId": "3201",
-            "observedAt": "2026-10-25T19:30:00.000Z",
+            "observedAt": "2026-10-19T19:30:00.000Z",
             "waterTempF": 60,
             "trend": "steady",
             "sourceType": "same_gauge",
             "attribution": "Measured water temperature"
-          },
-          "interpretationNote": {
-            "headline": "The river should fish well, but seasonal fish presence is still low.",
-            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.",
-            "reasonCodes": [
-              "good_fishability_low_presence"
-            ]
           }
         }
       },
       {
-        "id": "activity_tomorrow",
-        "label": "Tomorrow · after 9 PM",
+        "id": "activity_post_run",
+        "label": "Post-run · spawning and deterioration",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-09-10",
-          "progressionSnapshotAt": "2026-09-10T12:00:00.000Z",
-          "conditionRefreshAt": "2026-09-10T20:00:00.000Z",
-          "progressionExpiresAt": "2026-09-10T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-09-10T22:00:00.000Z",
+          "localDate": "2026-10-28",
+          "progressionSnapshotAt": "2026-10-28T12:00:00.000Z",
+          "conditionRefreshAt": "2026-10-28T20:00:00.000Z",
+          "progressionExpiresAt": "2026-10-28T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-10-28T22:00:00.000Z",
           "runStage": {
-            "stage": "building",
+            "stage": "post_run",
             "stagingContext": false,
-            "broadBuildingContext": true,
+            "broadBuildingContext": false,
             "winterHoldingContext": false,
             "window": {
-              "snapshotDate": "2026-09-10",
+              "snapshotDate": "2026-10-28",
               "preRunStartDate": "2026-07-01",
               "stagingStartDate": "2026-07-28",
               "startDate": "2026-08-15",
@@ -11702,68 +11392,239 @@ const GROUP_SEEDS = [
               "startToPeakDays": 36,
               "peakToEndDays": 37
             },
-            "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
+            "label": "After migration",
+            "headline": "The main Chinook salmon migration is over.",
+            "detail": "A few fish may remain, but the season no longer supports a dependable river-wide opportunity.",
+            "tip": "Do not chase scattered holdovers from access to access. Shift to another seasonal species and leave any actively spawning fish undisturbed.",
+            "whereToStart": "No dependable starting reach; any remaining fish are likely isolated in deep middle- or upper-river holding water from Walhalla and Branch toward Baldwin/M-37.",
             "reasonCodes": [
-              "stage_building"
+              "stage_post_run"
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "conditionsSuggest": {
+            "label": "Timing complete",
+            "timingLabel": "Ahead",
+            "candidateLabel": "Ahead",
+            "checkpointId": "peak_complete",
+            "checkpointDate": "2026-09-26",
+            "cutoffDate": "2026-09-25",
+            "observationStartDate": "2026-07-28",
+            "completedCheckpointCount": 5,
+            "currentIndex": 95,
+            "currentPercentile": 100,
+            "gaugeResponsePercentile": 100,
+            "waterTemperaturePercentile": 87.5,
+            "usableDays": 60,
+            "expectedDays": 60,
+            "coveragePercent": 1,
+            "historicalYears": 5,
+            "baselineVersion": "pm-fall-chinook-conditions-v3",
+            "gaugeSiteId": "04122500",
+            "temperatureSourceId": "pm_m37_temperature",
+            "sourceDates": [
+              "2026-07-28",
+              "2026-07-29",
+              "2026-07-30",
+              "2026-07-31",
+              "2026-08-01",
+              "2026-08-02",
+              "2026-08-03",
+              "2026-08-04",
+              "2026-08-05",
+              "2026-08-06",
+              "2026-08-07",
+              "2026-08-08",
+              "2026-08-09",
+              "2026-08-10",
+              "2026-08-11",
+              "2026-08-12",
+              "2026-08-13",
+              "2026-08-14",
+              "2026-08-15",
+              "2026-08-16",
+              "2026-08-17",
+              "2026-08-18",
+              "2026-08-19",
+              "2026-08-20",
+              "2026-08-21",
+              "2026-08-22",
+              "2026-08-23",
+              "2026-08-24",
+              "2026-08-25",
+              "2026-08-26",
+              "2026-08-27",
+              "2026-08-28",
+              "2026-08-29",
+              "2026-08-30",
+              "2026-08-31",
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25"
+            ],
+            "sourceRefreshSlots": {
+              "2026-07-28": "16:00",
+              "2026-07-29": "16:00",
+              "2026-07-30": "16:00",
+              "2026-07-31": "16:00",
+              "2026-08-01": "16:00",
+              "2026-08-02": "16:00",
+              "2026-08-03": "16:00",
+              "2026-08-04": "16:00",
+              "2026-08-05": "16:00",
+              "2026-08-06": "16:00",
+              "2026-08-07": "16:00",
+              "2026-08-08": "16:00",
+              "2026-08-09": "16:00",
+              "2026-08-10": "16:00",
+              "2026-08-11": "16:00",
+              "2026-08-12": "16:00",
+              "2026-08-13": "16:00",
+              "2026-08-14": "16:00",
+              "2026-08-15": "16:00",
+              "2026-08-16": "16:00",
+              "2026-08-17": "16:00",
+              "2026-08-18": "16:00",
+              "2026-08-19": "16:00",
+              "2026-08-20": "16:00",
+              "2026-08-21": "16:00",
+              "2026-08-22": "16:00",
+              "2026-08-23": "16:00",
+              "2026-08-24": "16:00",
+              "2026-08-25": "16:00",
+              "2026-08-26": "16:00",
+              "2026-08-27": "16:00",
+              "2026-08-28": "16:00",
+              "2026-08-29": "16:00",
+              "2026-08-30": "16:00",
+              "2026-08-31": "16:00",
+              "2026-09-01": "16:00",
+              "2026-09-02": "16:00",
+              "2026-09-03": "16:00",
+              "2026-09-04": "16:00",
+              "2026-09-05": "16:00",
+              "2026-09-06": "16:00",
+              "2026-09-07": "16:00",
+              "2026-09-08": "16:00",
+              "2026-09-09": "16:00",
+              "2026-09-10": "16:00",
+              "2026-09-11": "16:00",
+              "2026-09-12": "16:00",
+              "2026-09-13": "16:00",
+              "2026-09-14": "16:00",
+              "2026-09-15": "16:00",
+              "2026-09-16": "16:00",
+              "2026-09-17": "16:00",
+              "2026-09-18": "16:00",
+              "2026-09-19": "16:00",
+              "2026-09-20": "16:00",
+              "2026-09-21": "16:00",
+              "2026-09-22": "16:00",
+              "2026-09-23": "16:00",
+              "2026-09-24": "16:00",
+              "2026-09-25": "16:00"
+            },
+            "headline": "This season's Migration Timing read is complete.",
+            "detail": "Earlier in the season, the migration was moving earlier than usual. Now that the main migration has passed, any remaining opportunity matters more than an early-or-late call.",
+            "tip": "Stop planning around whether the migration was early or late. Fish only the remaining established holding water supported by Fish In River, and treat scattered late fish as exceptions.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "temperature_measured",
+              "conditions_checkpoint_peak_complete",
+              "conditions_ahead",
+              "conditions_timing_complete"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "peak_start",
+            "previousCheckpointDate": "2026-09-15",
+            "previousTimingLabel": "Ahead"
+          },
+          "push": {
+            "score": null,
+            "label": "Migration complete",
+            "headline": "The season's fresh-movement read is complete.",
+            "detail": "At this point in the season, current rain, river level, and water temperature no longer provide a dependable read on fresh arrivals.",
+            "tip": "Stop searching lower travel lanes for a new wave. Fish only established late-season holding water supported by Fish In River, or shift to another seasonal species.",
+            "reasonCodes": [
+              "push_tracking_complete"
+            ],
+            "rulesVersion": "pm-fall-chinook-push-v5",
+            "copyVersion": "river-run-copy-v27"
+          },
           "pushHistory": {
-            "status": "none_recorded",
+            "status": "complete",
             "minimumSupportiveScore": 50,
             "trackingStartDate": "2026-08-15",
             "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-09-10",
+            "throughDate": "2026-10-27",
             "recentDailyReadsStatus": "available",
             "recentDailyReads": [
               {
-                "localDate": "2026-09-09",
+                "localDate": "2026-10-27",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-09-08",
+                "localDate": "2026-10-26",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-09-07",
+                "localDate": "2026-10-25",
                 "status": "supportive_window",
                 "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-09-07T23:59:00.000Z",
+                "conditionRefreshAt": "2026-10-25T23:59:00.000Z",
                 "score": 63,
                 "label": "Possible"
               },
               {
-                "localDate": "2026-09-06",
+                "localDate": "2026-10-24",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
               },
               {
-                "localDate": "2026-09-05",
+                "localDate": "2026-10-23",
                 "status": "supportive_window",
                 "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-09-05T23:59:00.000Z",
+                "conditionRefreshAt": "2026-10-23T23:59:00.000Z",
                 "score": 81,
                 "label": "Strong"
               },
               {
-                "localDate": "2026-09-04",
+                "localDate": "2026-10-22",
                 "status": "supportive_window",
                 "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-09-04T23:59:00.000Z",
+                "conditionRefreshAt": "2026-10-22T23:59:00.000Z",
                 "score": 63,
                 "label": "Possible"
               },
               {
-                "localDate": "2026-09-03",
+                "localDate": "2026-10-21",
                 "status": "no_supportive_window",
                 "score": null,
                 "label": "No supportive window"
@@ -11771,19 +11632,147 @@ const GROUP_SEEDS = [
             ]
           },
           "activity": {
+            "score": 38,
+            "maximum": 100,
+            "label": "Reserved",
+            "headline": "Today’s Chinook activity outlook is reserved.",
+            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "No late-season window should be treated as broadly favorable; use the block scores only for a living Chinook that is still capable of reacting.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present",
+              "activity_late_biology_cap"
+            ],
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-10-28",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 40,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0.01
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 33,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 33,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 20,
+            "stage": "post_run",
+            "maximum": 100,
+            "riverCeiling": 100,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.19642857142857142,
+            "curveDirection": "falling",
+            "winterHoldingContext": false,
+            "label": "Low presence",
+            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
+            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "reasonCodes": [
+              "stage_post_run",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04122500",
+            "primaryMetric": "flow_cfs",
+            "observedAt": "2026-10-28T19:45:00.000Z",
+            "value": 600,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "waterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_maple_leaf",
+            "siteId": "PMTU-MapleLeaf",
+            "seriesId": "4939",
+            "observedAt": "2026-10-28T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "conditionsWaterTemperature": {
+            "provider": "MONITOR_MY_WATERSHED",
+            "sourceId": "pmtu_m37",
+            "siteId": "PMTU-M37",
+            "seriesId": "3201",
+            "observedAt": "2026-10-28T19:30:00.000Z",
+            "waterTempF": 60,
+            "trend": "steady",
+            "sourceType": "same_gauge",
+            "attribution": "Measured water temperature"
+          },
+          "interpretationNote": {
+            "headline": "Today's reads are pointing to different parts of the picture.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Begin in the deepest established holding water and skip broad searches through fast travel lanes as seasonal presence thins.\n\nLate fish can linger after the dependable migration has ended. If you pursue them, fish only the deepest established holding water, keep the trip short, and leave actively spawning fish undisturbed.",
+            "reasonCodes": [
+              "good_fishability_low_presence",
+              "post_run_residual_presence"
+            ]
+          }
+        }
+      },
+      {
+        "id": "activity_tomorrow",
+        "label": "Tomorrow · after 9 PM",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "activity": {
             "score": 63,
             "maximum": 100,
             "label": "Active",
             "headline": "Tomorrow’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_tomorrow",
               "activity_run_present"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-09-11",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-09-02",
             "targetDayLabel": "Tomorrow",
             "confidence": "Moderate",
             "conditionalPresence": false,
@@ -11829,58 +11818,6 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ]
-          },
-          "fishInRiver": {
-            "score": 69,
-            "stage": "building",
-            "maximum": 100,
-            "riverCeiling": 100,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.6875,
-            "curveDirection": "rising",
-            "winterHoldingContext": false,
-            "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
-            "reasonCodes": [
-              "stage_building",
-              "historical_presence_curve"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-09-10T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
           }
         }
       },
@@ -11889,116 +11826,20 @@ const GROUP_SEEDS = [
         "label": "Moderate data · no measured temperature",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-09-10",
-          "progressionSnapshotAt": "2026-09-10T12:00:00.000Z",
-          "conditionRefreshAt": "2026-09-10T20:00:00.000Z",
-          "progressionExpiresAt": "2026-09-10T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-09-10T22:00:00.000Z",
-          "runStage": {
-            "stage": "building",
-            "stagingContext": false,
-            "broadBuildingContext": true,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-09-10",
-              "preRunStartDate": "2026-07-01",
-              "stagingStartDate": "2026-07-28",
-              "startDate": "2026-08-15",
-              "beginningEndDate": "2026-08-23",
-              "buildingEstablishedStartDate": "2026-09-01",
-              "buildingBroadStartDate": "2026-09-10",
-              "peakStartDate": "2026-09-15",
-              "peakDate": "2026-09-20",
-              "peakEndDate": "2026-09-30",
-              "taperingEndDate": "2026-10-18",
-              "endDate": "2026-10-27",
-              "lateEndDate": "2026-11-08",
-              "postRunLateCopyEndDate": "2026-11-10",
-              "startToPeakDays": 36,
-              "peakToEndDays": 37
-            },
-            "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
-            "reasonCodes": [
-              "stage_building"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "pushHistory": {
-            "status": "none_recorded",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-08-15",
-            "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-09-10",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-09-09",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-08",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-07",
-                "status": "supportive_window",
-                "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-09-07T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-06",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-05",
-                "status": "supportive_window",
-                "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-09-05T23:59:00.000Z",
-                "score": 81,
-                "label": "Strong"
-              },
-              {
-                "localDate": "2026-09-04",
-                "status": "supportive_window",
-                "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-09-04T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-03",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              }
-            ]
-          },
           "activity": {
             "score": 53,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_moderate",
               "activity_today",
               "activity_run_present"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-09-10",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-09-01",
             "targetDayLabel": "Today",
             "confidence": "Moderate",
             "conditionalPresence": false,
@@ -12044,58 +11885,6 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ]
-          },
-          "fishInRiver": {
-            "score": 69,
-            "stage": "building",
-            "maximum": 100,
-            "riverCeiling": 100,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.6875,
-            "curveDirection": "rising",
-            "winterHoldingContext": false,
-            "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
-            "reasonCodes": [
-              "stage_building",
-              "historical_presence_curve"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-09-10T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
           }
         }
       },
@@ -12104,116 +11893,20 @@ const GROUP_SEEDS = [
         "label": "Limited · weather only",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-09-10",
-          "progressionSnapshotAt": "2026-09-10T12:00:00.000Z",
-          "conditionRefreshAt": "2026-09-10T20:00:00.000Z",
-          "progressionExpiresAt": "2026-09-10T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-09-10T22:00:00.000Z",
-          "runStage": {
-            "stage": "building",
-            "stagingContext": false,
-            "broadBuildingContext": true,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-09-10",
-              "preRunStartDate": "2026-07-01",
-              "stagingStartDate": "2026-07-28",
-              "startDate": "2026-08-15",
-              "beginningEndDate": "2026-08-23",
-              "buildingEstablishedStartDate": "2026-09-01",
-              "buildingBroadStartDate": "2026-09-10",
-              "peakStartDate": "2026-09-15",
-              "peakDate": "2026-09-20",
-              "peakEndDate": "2026-09-30",
-              "taperingEndDate": "2026-10-18",
-              "endDate": "2026-10-27",
-              "lateEndDate": "2026-11-08",
-              "postRunLateCopyEndDate": "2026-11-10",
-              "startToPeakDays": 36,
-              "peakToEndDays": 37
-            },
-            "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
-            "reasonCodes": [
-              "stage_building"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "pushHistory": {
-            "status": "none_recorded",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-08-15",
-            "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-09-10",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-09-09",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-08",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-07",
-                "status": "supportive_window",
-                "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-09-07T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-06",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-05",
-                "status": "supportive_window",
-                "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-09-05T23:59:00.000Z",
-                "score": 81,
-                "label": "Strong"
-              },
-              {
-                "localDate": "2026-09-04",
-                "status": "supportive_window",
-                "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-09-04T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-03",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              }
-            ]
-          },
           "activity": {
             "score": 50,
             "maximum": 100,
             "label": "Moderate",
             "headline": "Today’s Chinook activity outlook is moderate.",
-            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Several important readings are unavailable, so treat this as a limited outlook.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Several important readings are unavailable, so treat this as a limited outlook.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
               "activity_run_present"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-09-10",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-09-01",
             "targetDayLabel": "Today",
             "confidence": "Limited",
             "conditionalPresence": false,
@@ -12259,58 +11952,6 @@ const GROUP_SEEDS = [
                 "precipitationIn": 0
               }
             ]
-          },
-          "fishInRiver": {
-            "score": 69,
-            "stage": "building",
-            "maximum": 100,
-            "riverCeiling": 100,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.6875,
-            "curveDirection": "rising",
-            "winterHoldingContext": false,
-            "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
-            "reasonCodes": [
-              "stage_building",
-              "historical_presence_curve"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-09-10T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
           }
         }
       },
@@ -12319,116 +11960,20 @@ const GROUP_SEEDS = [
         "label": "Limited · river data only",
         "note": "Canonical production copy",
         "snapshotOverride": {
-          "localDate": "2026-09-10",
-          "progressionSnapshotAt": "2026-09-10T12:00:00.000Z",
-          "conditionRefreshAt": "2026-09-10T20:00:00.000Z",
-          "progressionExpiresAt": "2026-09-10T23:59:59.000Z",
-          "nextConditionRefreshAt": "2026-09-10T22:00:00.000Z",
-          "runStage": {
-            "stage": "building",
-            "stagingContext": false,
-            "broadBuildingContext": true,
-            "winterHoldingContext": false,
-            "window": {
-              "snapshotDate": "2026-09-10",
-              "preRunStartDate": "2026-07-01",
-              "stagingStartDate": "2026-07-28",
-              "startDate": "2026-08-15",
-              "beginningEndDate": "2026-08-23",
-              "buildingEstablishedStartDate": "2026-09-01",
-              "buildingBroadStartDate": "2026-09-10",
-              "peakStartDate": "2026-09-15",
-              "peakDate": "2026-09-20",
-              "peakEndDate": "2026-09-30",
-              "taperingEndDate": "2026-10-18",
-              "endDate": "2026-10-27",
-              "lateEndDate": "2026-11-08",
-              "postRunLateCopyEndDate": "2026-11-10",
-              "startToPeakDays": 36,
-              "peakToEndDays": 37
-            },
-            "label": "Building",
-            "headline": "Chinook salmon can now be found throughout the accessible river.",
-            "detail": "Earlier waves have had time to reach upper holding water while later Chinook salmon may still be entering below. Lower, middle, and upper sections are all in play wherever passage is open; the most dependable concentrations may still be in the lower and middle river, while upper water can now hold meaningful numbers too.",
-            "tip": "Start with dependable lower- or middle-river holding water, then cover established upper holes, outside bends, and current breaks. Use Push to decide whether fresh lower-river travel lanes deserve extra time.",
-            "whereToStart": "Middle-river holding water from Scottville through Walhalla and Branch, with the upper river toward Baldwin and M-37 firmly in play.",
-            "reasonCodes": [
-              "stage_building"
-            ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "pushHistory": {
-            "status": "none_recorded",
-            "minimumSupportiveScore": 50,
-            "trackingStartDate": "2026-08-15",
-            "trackingEndDate": "2026-10-27",
-            "throughDate": "2026-09-10",
-            "recentDailyReadsStatus": "available",
-            "recentDailyReads": [
-              {
-                "localDate": "2026-09-09",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-08",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-07",
-                "status": "supportive_window",
-                "refreshSlot": "08:00",
-                "conditionRefreshAt": "2026-09-07T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-06",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              },
-              {
-                "localDate": "2026-09-05",
-                "status": "supportive_window",
-                "refreshSlot": "20:00",
-                "conditionRefreshAt": "2026-09-05T23:59:00.000Z",
-                "score": 81,
-                "label": "Strong"
-              },
-              {
-                "localDate": "2026-09-04",
-                "status": "supportive_window",
-                "refreshSlot": "16:00",
-                "conditionRefreshAt": "2026-09-04T23:59:00.000Z",
-                "score": 63,
-                "label": "Possible"
-              },
-              {
-                "localDate": "2026-09-03",
-                "status": "no_supportive_window",
-                "score": null,
-                "label": "No supportive window"
-              }
-            ]
-          },
           "activity": {
             "score": 66,
             "maximum": 100,
             "label": "Active",
             "headline": "Today’s Chinook activity outlook is active.",
-            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Several important readings are unavailable, so treat this as a limited outlook.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Chinook. The main limitation: Hourly light and weather data are unavailable. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Several important readings are unavailable, so treat this as a limited outlook.",
             "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
               "activity_run_present"
             ],
-            "rulesVersion": "pm-fall-chinook-activity-v4",
-            "targetDate": "2026-09-10",
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-09-01",
             "targetDayLabel": "Today",
             "confidence": "Limited",
             "conditionalPresence": false,
@@ -12474,58 +12019,75 @@ const GROUP_SEEDS = [
                 "precipitationIn": null
               }
             ]
-          },
-          "fishInRiver": {
-            "score": 69,
-            "stage": "building",
+          }
+        }
+      },
+      {
+        "id": "activity_limited_inactive",
+        "label": "Limited · inactive severe conditions",
+        "note": "Canonical production copy",
+        "snapshotOverride": {
+          "activity": {
+            "score": 3,
             "maximum": 100,
-            "riverCeiling": 100,
-            "historicalRunStrength": "strong",
-            "curveFraction": 0.6875,
-            "curveDirection": "rising",
-            "winterHoldingContext": false,
-            "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "label": "Inactive",
+            "headline": "Today’s Chinook activity outlook is inactive.",
+            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: The river level and its recent change are favorable. The main limitation: Water temperature limits responsiveness. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. Several important readings are unavailable, so treat this as a limited outlook.",
+            "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window.",
             "reasonCodes": [
-              "stage_building",
-              "historical_presence_curve"
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_warm_water_cap",
+              "activity_blown_out_cap"
             ],
-            "copyVersion": "river-run-copy-v27"
-          },
-          "gauge": {
-            "provider": "USGS",
-            "siteId": "04122500",
-            "primaryMetric": "flow_cfs",
-            "observedAt": "2026-09-10T19:45:00.000Z",
-            "value": 600,
-            "band": "ideal",
-            "trend": "stable",
-            "absoluteChange24h": 0,
-            "percentChange24h": 0
-          },
-          "waterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_maple_leaf",
-            "siteId": "PMTU-MapleLeaf",
-            "seriesId": "4939",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
-          },
-          "conditionsWaterTemperature": {
-            "provider": "MONITOR_MY_WATERSHED",
-            "sourceId": "pmtu_m37",
-            "siteId": "PMTU-M37",
-            "seriesId": "3201",
-            "observedAt": "2026-09-10T19:30:00.000Z",
-            "waterTempF": 60,
-            "trend": "steady",
-            "sourceType": "same_gauge",
-            "attribution": "Measured water temperature"
+            "rulesVersion": "pm-fall-chinook-activity-v7",
+            "targetDate": "2026-09-01",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 3,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": null,
+                "precipitationIn": null
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 3,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": null,
+                "precipitationIn": null
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 3,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": null,
+                "precipitationIn": null
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 3,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": null,
+                "precipitationIn": null
+              }
+            ]
           }
         }
       }

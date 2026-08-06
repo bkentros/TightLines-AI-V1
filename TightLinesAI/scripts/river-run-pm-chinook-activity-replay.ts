@@ -192,14 +192,15 @@ const invariants = {
     rows.filter((row) =>
       row.waterTempF >= 70 && row.blocks.some((block) => block.score >= 30)
     ).length,
-  taperCapBroken:
-    rows.filter((row) =>
-      row.stage === "tapering" && row.blocks.some((block) => block.score > 59)
-    ).length,
+  taperingPenaltyMisconfigured: run.activity.caps.taperingPenalty === 15
+    ? 0
+    : 1,
   endingCapBroken:
     rows.filter((row) =>
       ["ending", "post_run"].includes(row.stage) &&
-      row.blocks.some((block) => block.score > 49)
+      row.blocks.some((block) =>
+        block.score > lifecycleMaximum(row.date, row.stage)
+      )
     ).length,
   prohibitedClaims:
     rows.filter((row) =>
@@ -212,6 +213,24 @@ const invariants = {
   isolatedCloudFailedToImproveTargetBlock:
     isolatedCloudTest.targetBlockDelta <= 0 ? 1 : 0,
 };
+
+function lifecycleMaximum(date: string, stage: string): number {
+  if (stage === "post_run") return run.activity!.caps.ending;
+  const ramp = run.activity!.caps.lifecycleRamp;
+  const penalty = run.activity!.caps.taperingPenalty ?? 0;
+  if (!ramp) return run.activity!.caps.ending;
+  const year = Number(date.slice(0, 4));
+  const start = Date.parse(`${year}-${ramp.taperingEnd}T00:00:00Z`);
+  const end = Date.parse(`${year}-${ramp.endingEnd}T00:00:00Z`);
+  const progress = Math.max(
+    0,
+    Math.min(1, (Date.parse(`${date}T00:00:00Z`) - start) / (end - start)),
+  );
+  return Math.round(
+    (100 - penalty) +
+      (run.activity!.caps.ending - (100 - penalty)) * progress,
+  );
+}
 const reviewRows = stratifiedReview(rows, 100);
 const report = {
   runId: run.runId,

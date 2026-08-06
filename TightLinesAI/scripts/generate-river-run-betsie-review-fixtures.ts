@@ -162,6 +162,13 @@ const groups = [
       ),
     ],
   },
+  ...(run.activity
+    ? [{
+      id: "activity",
+      label: "Activity Outlook",
+      scenarios: activityScenarios(),
+    }]
+    : []),
   {
     id: "fish_in_river",
     label: "Fish In River",
@@ -170,6 +177,172 @@ const groups = [
     ),
   },
 ];
+
+function activityScenarios() {
+  if (steelhead) {
+    return [
+      scenario("activity_staging", "Staging · conditional fish", "2026-08-27", {
+        cloud: 85,
+        rainPerWetHour: 0.005,
+        wetHours: 4,
+      }),
+      scenario(
+        "activity_beginning_bright",
+        "Beginning · bright and dry",
+        "2026-09-15",
+        { cloud: 5 },
+      ),
+      scenario(
+        "activity_building_cloudy",
+        "Building · dark and dry",
+        "2026-10-27",
+        { cloud: 95 },
+      ),
+      scenario(
+        "activity_peak_light_rain",
+        "Peak · sustained light rain",
+        "2026-11-10",
+        { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+      ),
+      scenario("activity_peak_heavy_rain", "Peak · heavy rain", "2026-11-10", {
+        cloud: 95,
+        rainPerWetHour: 0.1,
+        wetHours: 4,
+      }),
+      scenario(
+        "activity_late_fall",
+        "Late fall · fish remain alive",
+        "2026-11-30",
+        { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+      ),
+      scenario(
+        "activity_holding_transition",
+        "Holding transition · fish remain alive",
+        "2026-12-15",
+        { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+      ),
+      scenario(
+        "activity_fall_end",
+        "Fall-entry end · current responsiveness",
+        "2026-12-17",
+        { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+      ),
+      scenario(
+        "activity_winter_holding",
+        "Winter holding · current responsiveness",
+        "2026-12-18",
+        { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+      ),
+    ];
+  }
+  if (coho) {
+    return [
+      scenario("activity_staging", "Staging · conditional fish", "2026-08-20", {
+        cloud: 85,
+        rainPerWetHour: 0.005,
+        wetHours: 4,
+      }),
+      scenario(
+        "activity_beginning_bright",
+        "Beginning · bright and dry",
+        "2026-08-27",
+        { cloud: 5 },
+      ),
+      scenario(
+        "activity_building_cloudy",
+        "Building · dark and dry",
+        "2026-09-26",
+        { cloud: 95 },
+      ),
+      scenario(
+        "activity_peak_light_rain",
+        "Peak · sustained light rain",
+        "2026-10-15",
+        { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+      ),
+      scenario("activity_peak_heavy_rain", "Peak · heavy rain", "2026-10-15", {
+        cloud: 95,
+        rainPerWetHour: 0.1,
+        wetHours: 4,
+      }),
+      scenario("activity_taper_start", "Tapering · first day", "2026-11-01", {
+        cloud: 95,
+        rainPerWetHour: 0.005,
+        wetHours: 4,
+      }),
+      scenario("activity_taper_end", "Tapering · final day", "2026-11-15", {
+        cloud: 95,
+        rainPerWetHour: 0.005,
+        wetHours: 4,
+      }),
+      scenario("activity_ending", "Ending · lifecycle adjusted", "2026-11-25", {
+        cloud: 95,
+        rainPerWetHour: 0.005,
+        wetHours: 4,
+      }),
+      scenario(
+        "activity_late_tail",
+        "Late tail · residual fish",
+        "2026-12-26",
+        { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+      ),
+    ];
+  }
+  return [
+    scenario(
+      "activity_staging",
+      "Staging · conditional fish",
+      "2026-07-28",
+      { cloud: 85, rainPerWetHour: 0.005, wetHours: 4 },
+    ),
+    scenario(
+      "activity_beginning_bright",
+      "Beginning · bright and dry",
+      "2026-08-10",
+      { cloud: 5 },
+    ),
+    scenario(
+      "activity_building_cloudy",
+      "Building · dark and dry",
+      "2026-09-05",
+      { cloud: 95 },
+    ),
+    scenario(
+      "activity_peak_light_rain",
+      "Peak · sustained light rain",
+      "2026-09-15",
+      { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+    ),
+    scenario(
+      "activity_peak_heavy_rain",
+      "Peak · heavy rain",
+      "2026-09-15",
+      { cloud: 95, rainPerWetHour: 0.1, wetHours: 4 },
+    ),
+    scenario("activity_taper_start", "Tapering · first day", "2026-09-26", {
+      cloud: 95,
+      rainPerWetHour: 0.005,
+      wetHours: 4,
+    }),
+    scenario("activity_taper_end", "Tapering · final day", "2026-10-13", {
+      cloud: 95,
+      rainPerWetHour: 0.005,
+      wetHours: 4,
+    }),
+    scenario(
+      "activity_ending",
+      "Ending · lifecycle adjusted",
+      "2026-10-22",
+      { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+    ),
+    scenario(
+      "activity_late_tail",
+      "Late tail · residual fish",
+      "2026-10-23",
+      { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
+    ),
+  ];
+}
 
 const outputPath = new URL(
   steelhead
@@ -213,7 +386,18 @@ if (Deno.args.includes("--check")) {
   );
 }
 
-function scenario(id: string, label: string, localDate: string) {
+type ActivityFixture = {
+  cloud: number;
+  rainPerWetHour?: number;
+  wetHours?: number;
+};
+
+function scenario(
+  id: string,
+  label: string,
+  localDate: string,
+  activityFixture?: ActivityFixture,
+) {
   const daily = buildDailySnapshot({
     river: BETSIE_RIVER_PROFILE,
     run,
@@ -223,7 +407,11 @@ function scenario(id: string, label: string, localDate: string) {
     engineVersion: "river-run-v1.5.3-review",
     configVersion,
   });
-  const condition = buildUnavailableCondition(daily, localDate);
+  const condition = buildUnavailableCondition(
+    daily,
+    localDate,
+    activityFixture,
+  );
   const snapshot: RiverRunSnapshotResponse = {
     riverId: run.riverId,
     runId: run.runId,
@@ -247,6 +435,7 @@ function scenario(id: string, label: string, localDate: string) {
       recentDailyReads: [],
     },
     fishability: condition.fishability,
+    activity: condition.activity,
     fishInRiver: condition.fishInRiver,
     gauge: null,
     weather: null,
@@ -278,15 +467,25 @@ function scenario(id: string, label: string, localDate: string) {
 function buildUnavailableCondition(
   daily: ReturnType<typeof buildDailySnapshot>,
   localDate: string,
+  activityFixture?: ActivityFixture,
 ): RiverRunConditionRefresh {
+  const activityActive = Boolean(
+    run.activity && localDate >= daily.runStage.window.stagingStartDate &&
+      localDate <= daily.runStage.window.lateEndDate,
+  );
+  const fixture = activityFixture ?? { cloud: 60 };
   return buildConditionRefresh({
     dailySnapshot: daily,
     localDate,
     refreshSlot: "00:00",
     movementEngineId: run.movementEngineId,
     primitiveCapabilities: run.primitiveCapabilities,
+    activityRules: activityActive ? run.activity : undefined,
+    activityTargetDate: activityActive ? localDate : undefined,
+    activityTargetStage: daily.runStage.stage,
+    activityStaging: daily.runStage.stagingContext,
     gaugeFreshness: "missing",
-    weatherFreshness: "missing",
+    weatherFreshness: activityActive ? "fresh" : "missing",
     waterTemperatureFreshness: "missing",
     conditionsWaterTemperatureFreshness: "missing",
     currentHydraulicValue: null,
@@ -305,6 +504,30 @@ function buildUnavailableCondition(
       "temperature_neutral_missing",
     ],
     sourceMetrics: {
+      ...(activityActive
+        ? {
+          weather: {
+            provider: "OPEN_METEO" as const,
+            evidenceType: "modeled_grid" as const,
+            weatherPointId: "betsie_homestead_weather_context",
+            rain24hIn: 0,
+            rain48hIn: 0,
+            rain72hIn: 0,
+            hourlyActivityWeather: Array.from({ length: 24 }, (_, hour) => {
+              const wet = hour >= 9 &&
+                hour < 9 + Math.min(4, fixture.wetHours ?? 0);
+              const clear = hour >= 5 && hour < 21 ? 650 : 0;
+              return {
+                time_local: `${localDate}T${String(hour).padStart(2, "0")}:00`,
+                cloud_cover_pct: fixture.cloud,
+                shortwave_w_m2: clear * (1 - fixture.cloud / 100 * 0.88),
+                clear_sky_shortwave_w_m2: clear,
+                precipitation_in: wet ? fixture.rainPerWetHour ?? 0 : 0,
+              };
+            }),
+          },
+        }
+        : {}),
       waterTemperature: {
         sourceType: "unavailable",
         trend: "neutral_missing",

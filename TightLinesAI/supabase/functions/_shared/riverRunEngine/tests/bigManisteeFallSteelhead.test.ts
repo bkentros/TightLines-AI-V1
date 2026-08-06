@@ -5,6 +5,7 @@ import {
   BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE,
   BIG_MANISTEE_RIVER_PROFILE,
   resolveRunStage,
+  scoreActivity,
   scoreFishInRiver,
   scorePush,
   validateRunProfile,
@@ -26,6 +27,75 @@ Deno.test("Big Manistee Fall Steelhead is a valid visible 8/10 broad run", () =>
       "big_manistee_fall_steelhead",
     ],
   );
+});
+
+Deno.test("Big Manistee Steelhead Activity is river-scoped and has no salmon taper", () => {
+  assertEquals(run.primitiveCapabilities.activity?.status, "available");
+  assertEquals(
+    run.activity?.version,
+    "big-manistee-fall-steelhead-activity-v1",
+  );
+  assertEquals(run.activity?.profile, "steelhead_feeding");
+  assertEquals(run.activity?.weights, {
+    light: 0.25,
+    waterTemperature: 0.5,
+    riverBehavior: 0.15,
+    weather: 0.1,
+  });
+  assertEquals(run.activity?.temperature, {
+    coldF: 39,
+    preferredMinF: 44,
+    preferredMaxF: 56,
+    warmF: 64,
+    barrierF: 68,
+  });
+  assertEquals(run.activity?.caps.lateRun, 100);
+  assertEquals(run.activity?.caps.ending, 100);
+  assertEquals(run.activity?.caps.taperingPenalty, undefined);
+  assertEquals(run.activity?.caps.lifecycleRamp, undefined);
+
+  const scoreFor = (runStage: "peak" | "tapering" | "ending" | "post_run") =>
+    scoreActivity({
+      rules: run.activity!,
+      requestDate: "2026-12-20",
+      targetDate: "2026-12-20",
+      runStage,
+      staging: false,
+      waterTempF: 50,
+      temperatureTrend: "neutral",
+      gaugeFreshness: "fresh",
+      weatherFreshness: "fresh",
+      flowBand: "ideal",
+      currentHydraulicValue: 1650,
+      fishabilityBands: run.fishabilityBands,
+      flowSignal: "stable",
+      hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+        time_local: `2026-12-20T${String(hour).padStart(2, "0")}:00`,
+        cloud_cover_pct: 80,
+        shortwave_w_m2: hour >= 8 && hour < 17 ? 120 : 0,
+        clear_sky_shortwave_w_m2: hour >= 8 && hour < 17 ? 500 : 0,
+        precipitation_in: 0,
+      })),
+    });
+  const peak = scoreFor("peak");
+  for (const stage of ["tapering", "ending", "post_run"] as const) {
+    const result = scoreFor(stage);
+    assertEquals(result.score, peak.score, stage);
+    assertEquals(
+      result.blocks.map((block) => block.score),
+      peak.blocks.map((block) => block.score),
+      stage,
+    );
+    assertEquals(
+      result.reasonCodes.includes("activity_late_biology_cap"),
+      false,
+    );
+    assertEquals(
+      /spent|dying|deteriorat|mortality/i.test(JSON.stringify(result)),
+      false,
+    );
+    assertMatch(result.detail, /Wellston\/Tippy tailwater/i);
+  }
 });
 
 Deno.test("Big Manistee Steelhead peaks November 15 and retains 70 into winter", () => {

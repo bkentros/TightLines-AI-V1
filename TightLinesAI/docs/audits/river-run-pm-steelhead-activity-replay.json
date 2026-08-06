@@ -1,0 +1,1040 @@
+{
+  "runId": "pere_marquette_fall_steelhead",
+  "rulesVersion": "pm-fall-steelhead-activity-v2",
+  "replayYears": "2021-2025",
+  "method": "Historical mechanical replay using each four-hour block's Open-Meteo cloud cover, shortwave radiation, and precipitation; daily median PMTU Maple measured temperature; and USGS Scottville daily mean discharge. This validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 570,
+  "usableDays": 515,
+  "missing": {
+    "flow": 20,
+    "priorFlow": 19,
+    "temperature": 26,
+    "temperatureHistory": 31,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 17,
+    "p10": 60,
+    "median": 76,
+    "p90": 90,
+    "max": 95,
+    "mean": 74.93
+  },
+  "blockScore": {
+    "min": 15,
+    "p10": 59,
+    "median": 75,
+    "p90": 89,
+    "max": 97,
+    "mean": 73.77
+  },
+  "uniqueDayScores": 49,
+  "uniqueBlockScores": 61,
+  "mostCommonDayScores": [
+    {
+      "score": 89,
+      "count": 21
+    },
+    {
+      "score": 90,
+      "count": 21
+    },
+    {
+      "score": 67,
+      "count": 20
+    },
+    {
+      "score": 79,
+      "count": 20
+    },
+    {
+      "score": 81,
+      "count": 19
+    },
+    {
+      "score": 68,
+      "count": 18
+    },
+    {
+      "score": 71,
+      "count": 16
+    },
+    {
+      "score": 76,
+      "count": 16
+    },
+    {
+      "score": 78,
+      "count": 16
+    },
+    {
+      "score": 83,
+      "count": 16
+    }
+  ],
+  "mostCommonBlockScores": [
+    {
+      "score": 69,
+      "count": 81
+    },
+    {
+      "score": 77,
+      "count": 76
+    },
+    {
+      "score": 76,
+      "count": 75
+    },
+    {
+      "score": 70,
+      "count": 71
+    },
+    {
+      "score": 79,
+      "count": 67
+    },
+    {
+      "score": 68,
+      "count": 66
+    },
+    {
+      "score": 73,
+      "count": 64
+    },
+    {
+      "score": 84,
+      "count": 64
+    },
+    {
+      "score": 87,
+      "count": 61
+    },
+    {
+      "score": 71,
+      "count": 57
+    }
+  ],
+  "dayLabels": {
+    "Active": 269,
+    "Highly active": 202,
+    "Inactive": 3,
+    "Moderate": 37,
+    "Reserved": 4
+  },
+  "blockLabels": {
+    "Active": 1103,
+    "Highly active": 719,
+    "Inactive": 14,
+    "Moderate": 210,
+    "Reserved": 14
+  },
+  "daysAtLeast90": 55,
+  "blocksAtLeast90": 187,
+  "lowerTail": {
+    "daysBelow20": 3,
+    "blocksBelow20": 14,
+    "daysBelow30": 7,
+    "blocksBelow30": 28
+  },
+  "dayLabelsByStage": {
+    "beginning": {
+      "Active": 57,
+      "Highly active": 40,
+      "Moderate": 2
+    },
+    "building": {
+      "Active": 34,
+      "Highly active": 141
+    },
+    "ending": {
+      "Active": 6
+    },
+    "peak": {
+      "Active": 69,
+      "Highly active": 17,
+      "Moderate": 10
+    },
+    "post_run": {
+      "Active": 2
+    },
+    "pre_run": {
+      "Active": 67,
+      "Highly active": 2,
+      "Inactive": 3,
+      "Moderate": 18,
+      "Reserved": 4
+    },
+    "tapering": {
+      "Active": 34,
+      "Highly active": 2,
+      "Moderate": 7
+    }
+  },
+  "temperatureBands": {
+    "below36F": {
+      "days": 9,
+      "scores": {
+        "min": 55,
+        "p10": 57,
+        "median": 58,
+        "p90": 60,
+        "max": 60,
+        "mean": 58.22
+      },
+      "labels": {
+        "Active": 2,
+        "Moderate": 7
+      }
+    },
+    "from36To43F": {
+      "days": 145,
+      "scores": {
+        "min": 48,
+        "p10": 61,
+        "median": 70,
+        "p90": 81,
+        "max": 87,
+        "mean": 70.57
+      },
+      "labels": {
+        "Active": 115,
+        "Highly active": 20,
+        "Moderate": 10
+      }
+    },
+    "from44To56F": {
+      "days": 209,
+      "scores": {
+        "min": 72,
+        "p10": 79,
+        "median": 86,
+        "p90": 91,
+        "max": 95,
+        "mean": 85.43
+      },
+      "labels": {
+        "Active": 33,
+        "Highly active": 176
+      }
+    },
+    "above56F": {
+      "days": 152,
+      "scores": {
+        "min": 17,
+        "p10": 56,
+        "median": 67,
+        "p90": 76,
+        "max": 87,
+        "mean": 65.63
+      },
+      "labels": {
+        "Active": 119,
+        "Highly active": 6,
+        "Inactive": 3,
+        "Moderate": 20,
+        "Reserved": 4
+      }
+    }
+  },
+  "stages": {
+    "beginning": 99,
+    "building": 175,
+    "ending": 6,
+    "peak": 96,
+    "post_run": 2,
+    "pre_run": 94,
+    "tapering": 43
+  },
+  "bestBlocks": {
+    "05-09": 266,
+    "09-13": 67,
+    "13-17": 85,
+    "17-21": 97
+  },
+  "confidence": {
+    "Full": 515
+  },
+  "blockSpread": {
+    "min": 0,
+    "p10": 2,
+    "median": 6,
+    "p90": 11,
+    "max": 16,
+    "mean": 6.21
+  },
+  "daysWithSpreadAtLeast10": 92,
+  "daysWithSpreadAtLeast20": 0,
+  "cloudyNoonAmongOtherwiseSunnyDays": 0,
+  "isolatedCloudCounterfactual": {
+    "description": "Only 9 AM–1 PM changes from bright/dry to fully cloudy with light precipitation; temperature and river inputs remain identical.",
+    "baselineScores": [
+      80,
+      73,
+      73,
+      79
+    ],
+    "changedScores": [
+      80,
+      85,
+      73,
+      79
+    ],
+    "targetBlockDelta": 12,
+    "unchangedBlockDeltas": [
+      0,
+      0,
+      0
+    ],
+    "targetBecomesBestBlock": true
+  },
+  "correlations": {
+    "blockCloudToScore": 0.31,
+    "dailyTemperatureToScore": -0.14,
+    "dailyFlowToScore": 0.13
+  },
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperCapBroken": 0,
+    "endingCapBroken": 0,
+    "prohibitedClaims": 0,
+    "salmonMortalityCopy": 0,
+    "isolatedWeatherLeakedIntoOtherBlocks": 0,
+    "isolatedCloudFailedToImproveTargetBlock": 0
+  },
+  "reviewSampleSize": 93,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 6,
+    "peak": 20,
+    "post_run": 2,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2024-10-04",
+      "stage": "beginning",
+      "staging": false,
+      "score": 88,
+      "label": "Highly active",
+      "confidence": "Full",
+      "waterTempF": 54.1,
+      "flowCfs": 510,
+      "flowBand": "normal_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "blockSpread": 16,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 93,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 80,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 27,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2025-09-13",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 62,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 59.3,
+      "flowCfs": 364,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "warming",
+      "blockSpread": 15,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 42,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2021-09-04",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 75,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 60.4,
+      "flowCfs": 622,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "blockSpread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 87,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 41,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.13
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.06
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2021-11-06",
+      "stage": "building",
+      "staging": false,
+      "score": 79,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 43.9,
+      "flowCfs": 607,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 36,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2022-10-11",
+      "stage": "building",
+      "staging": false,
+      "score": 84,
+      "label": "Highly active",
+      "confidence": "Full",
+      "waterTempF": 48.6,
+      "flowCfs": 505,
+      "flowBand": "normal_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2022-10-20",
+      "stage": "building",
+      "staging": false,
+      "score": 82,
+      "label": "Highly active",
+      "confidence": "Full",
+      "waterTempF": 45.1,
+      "flowCfs": 939,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 14,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0.08
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 39,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 46,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 9 AM–1 PM: The measured water temperature is favorable for Steelhead. The main limitation: The river level or its recent change is less favorable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 9 AM–1 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2022-10-21",
+      "stage": "building",
+      "staging": false,
+      "score": 77,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 45.1,
+      "flowCfs": 907,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 24,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2023-09-23",
+      "stage": "beginning",
+      "staging": false,
+      "score": 63,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 60.1,
+      "flowCfs": 428,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "warming",
+      "blockSpread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2023-11-06",
+      "stage": "building",
+      "staging": false,
+      "score": 87,
+      "label": "Highly active",
+      "confidence": "Full",
+      "waterTempF": 46.3,
+      "flowCfs": 512,
+      "flowBand": "normal_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "warming",
+      "blockSpread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.05
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.14
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 38,
+          "precipitationIn": 0.01
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2024-09-25",
+      "stage": "beginning",
+      "staging": false,
+      "score": 75,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 57.6,
+      "flowCfs": 583,
+      "flowBand": "ideal",
+      "flowSignal": "sharp_rise",
+      "temperatureSignal": "cooling",
+      "blockSpread": 14,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0.01
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2024-10-15",
+      "stage": "building",
+      "staging": false,
+      "score": 89,
+      "label": "Highly active",
+      "confidence": "Full",
+      "waterTempF": 48,
+      "flowCfs": 509,
+      "flowBand": "normal_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "blockSpread": 14,
+      "bestBlock": "13-17",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 71,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 22,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 93,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0.02
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 54,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 1–5 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 1–5 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    },
+    {
+      "date": "2024-11-02",
+      "stage": "building",
+      "staging": false,
+      "score": 86,
+      "label": "Highly active",
+      "confidence": "Full",
+      "waterTempF": 48.6,
+      "flowCfs": 491,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "strong_cooling",
+      "blockSpread": 14,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 5,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 58,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Steelhead activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If conditions change, favor the window that best combines workable light with measured water temperature."
+    }
+  ]
+}

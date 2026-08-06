@@ -120,6 +120,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "post_run",
@@ -156,7 +157,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-14T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -207,7 +378,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -321,6 +492,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -357,7 +529,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -408,7 +750,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -523,6 +865,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_conditional_presence"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-01",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": true,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -559,7 +961,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-01T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -610,7 +1182,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -759,6 +1331,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-15",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 4,
             "stage": "beginning",
@@ -795,7 +1427,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -847,7 +1649,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -996,6 +1798,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-20",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 8,
             "stage": "beginning",
@@ -1032,7 +1894,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-20T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -1084,7 +2116,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -1233,6 +2265,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-10-01",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 16,
             "stage": "beginning",
@@ -1269,7 +2361,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-10-01T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-01T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -1321,7 +2583,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -1499,6 +2761,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-10-11",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 30,
             "stage": "building",
@@ -1535,7 +2857,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-10-11T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-11T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -1581,7 +3073,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -1763,6 +3255,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-10-15",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 36,
             "stage": "building",
@@ -1799,7 +3351,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-10-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -1845,7 +3567,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -2027,6 +3749,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-01",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 60,
             "stage": "building",
@@ -2063,7 +3845,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-01T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -2109,7 +4061,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -2322,6 +4274,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-15",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 80,
             "stage": "peak",
@@ -2358,7 +4370,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -2410,7 +4592,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -2629,6 +4811,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-25",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 80,
             "stage": "peak",
@@ -2665,7 +4907,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-25T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-25T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -2717,7 +5129,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -2936,6 +5348,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Cooling late-fall water can make Steelhead more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-05",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 79,
             "stage": "tapering",
@@ -2972,7 +5444,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-05T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -3018,7 +5660,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -3237,6 +5879,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-20",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 71,
             "stage": "ending",
@@ -3273,7 +5975,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-20T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -3319,7 +6191,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -3524,6 +6396,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-23",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 70,
             "stage": "post_run",
@@ -3562,7 +6494,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-23T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -3614,7 +6716,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       }
     ]
@@ -3735,6 +6837,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "post_run",
@@ -3771,7 +6874,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-07-24T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-07-24T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -3822,7 +7095,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -3937,6 +7210,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "post_run",
@@ -3973,7 +7247,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-05T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-05T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -4024,7 +7468,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -4138,6 +7582,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -4174,7 +7619,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -4225,7 +7840,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -4339,6 +7954,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -4375,7 +7991,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -4426,7 +8212,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -4540,6 +8326,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -4576,7 +8363,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -4627,7 +8584,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -4741,6 +8698,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -4777,7 +8735,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -4828,7 +8956,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -4996,6 +9124,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-10-06",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 23,
             "stage": "beginning",
@@ -5032,7 +9220,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-10-06T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-06T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -5084,7 +9442,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       }
     ]
@@ -5239,6 +9597,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -5275,7 +9693,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -5327,7 +9915,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -5476,6 +10064,67 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 7,
+            "maximum": 100,
+            "label": "Inactive",
+            "headline": "Today’s Steelhead activity outlook is inactive.",
+            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present",
+              "activity_temperature_barrier_cap"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 7,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 6,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 6,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 7,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -5512,7 +10161,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -5564,7 +10383,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -5712,6 +10531,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 64,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 66,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 65,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -5748,7 +10627,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -5800,7 +10849,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -5948,6 +10997,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 67,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 69,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 64,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 64,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 68,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -5984,7 +11093,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -6036,7 +11315,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -6183,6 +11462,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 73,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 75,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 70,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 70,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -6219,7 +11558,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -6265,7 +11774,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -6414,6 +11923,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 67,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 69,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 64,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 64,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 68,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -6450,7 +12019,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -6502,7 +12241,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -6655,6 +12394,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 67,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 69,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 64,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 64,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 68,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -6691,7 +12490,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -6737,7 +12706,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -6890,6 +12859,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 50,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 51,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 47,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 47,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 50,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -6926,7 +12955,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -6972,7 +13171,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -7124,6 +13323,67 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 12,
+            "maximum": 100,
+            "label": "Inactive",
+            "headline": "Today’s Steelhead activity outlook is inactive.",
+            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present",
+              "activity_blown_out_cap"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 12,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 11,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 11,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 12,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -7160,7 +13420,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -7206,7 +13636,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -7334,6 +13764,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 42,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -7360,7 +13850,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -7406,7 +14066,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -7541,6 +14201,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 53,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 55,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 49,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 48,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 55,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -7577,7 +14297,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": null,
           "conditionsWaterTemperature": null,
@@ -7612,7 +14502,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -7726,6 +14616,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -7762,7 +14653,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -7813,7 +14874,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -7927,6 +14988,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -7963,7 +15025,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -8014,7 +15246,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -8128,6 +15360,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -8164,7 +15397,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -8215,7 +15618,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -8365,6 +15768,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 57,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 59,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 54,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 54,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 58,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -8401,7 +15864,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -8447,7 +16080,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       }
     ]
@@ -8602,6 +16235,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 60,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 57,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 56,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -8638,7 +16331,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -8684,7 +16547,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -8835,6 +16698,67 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 10,
+            "maximum": 100,
+            "label": "Inactive",
+            "headline": "Today’s Steelhead activity outlook is inactive.",
+            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present",
+              "activity_blown_out_cap"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 10,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 10,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 10,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 10,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -8871,7 +16795,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -8917,7 +17011,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -9065,6 +17159,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -9101,7 +17255,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -9153,7 +17477,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -9304,6 +17628,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 60,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 57,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 56,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -9340,7 +17724,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -9386,7 +17940,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -9539,6 +18093,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -9575,7 +18189,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -9621,7 +18405,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -9774,6 +18558,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 42,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -9810,7 +18654,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -9856,7 +18870,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -9984,6 +18998,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 42,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -10010,7 +19084,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -10056,7 +19300,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -10205,6 +19449,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -10241,7 +19545,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -10293,7 +19767,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -10442,6 +19916,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 61,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 58,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 58,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -10478,7 +20012,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -10530,7 +20234,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -10679,6 +20383,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 58,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 59,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 55,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 54,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 59,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -10715,7 +20479,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -10761,7 +20695,6471 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      }
+    ]
+  },
+  {
+    "id": "activity",
+    "label": "Activity Outlook",
+    "scenarios": [
+      {
+        "id": "activity_staging",
+        "label": "Staging · conditional early fish",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-09-01",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-09-01T12:00:00.000Z",
+          "conditionRefreshAt": "2026-09-01T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-09-01T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-09-02T05:00:00.000Z",
+          "runStage": {
+            "stage": "pre_run",
+            "stagingContext": true,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-09-01",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Before migration",
+            "headline": "Steelhead fall entry is approaching, while separate summer-run fish may already be holding below Tippy.",
+            "whereToStart": "Manistee Lake, the river mouth, and lower migratory river toward M-55 for new fall entrants; treat a Tippy-tailwater Skamania check as separate summer-run context.",
+            "detail": "A Skamania already near the tailwater is not evidence that the winter-run fall migration is ahead. New fall entrants are more appropriately evaluated from Manistee Lake into the lower migratory corridor.",
+            "tip": "Keep summer-run and fall-entry evidence separate. Treat an isolated fish as context until the seasonal curve and measured conditions support a broader build.",
+            "reasonCodes": [
+              "stage_pre_run",
+              "stage_pre_run_staging"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Evaluating",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-09-15",
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is still taking shape.",
+            "detail": "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature.",
+            "tip": "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it.",
+            "reasonCodes": [
+              "conditions_checkpoint_evaluating"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-09-01",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": null,
+            "label": "Waiting for migration",
+            "headline": "Dependable fall entry has not started, so Push is not active yet.",
+            "detail": "An occasional early steelhead is possible, but Push is reserved for the expected entry window, when rain, river level, and water temperature can provide a responsible fresh-movement read.",
+            "tip": "Keep most effort near the lake, harbor, and river-mouth transition. Do not move inland just because rain or cooling resembles an in-season movement event.",
+            "reasonCodes": [
+              "push_tracking_not_started"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 8,
+            "maximum": 100,
+            "label": "Inactive",
+            "headline": "Today’s Steelhead activity outlook is inactive.",
+            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_conditional_presence",
+              "activity_temperature_barrier_cap"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-01",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": true,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 8,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 85,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 8,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 85,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 8,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 85,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 8,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 85,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 0,
+            "stage": "pre_run",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0,
+            "curveDirection": "outside",
+            "winterHoldingContext": false,
+            "label": "Not expected yet",
+            "headline": "Steelhead are not expected in meaningful numbers yet.",
+            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
+            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "reasonCodes": [
+              "stage_pre_run",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-09-01T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-01T00:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T01:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T02:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T03:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T04:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T05:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T06:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T07:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T08:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T09:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T10:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T11:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T12:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T13:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T14:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T15:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T16:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T17:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T18:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 196.95000000000002,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T19:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T20:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T21:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T22:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-01T23:00",
+                "cloud_cover_pct": 85,
+                "shortwave_w_m2": 36.36000000000001,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-09-01T15:00:00.000Z",
+            "waterTempF": 69,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-09-01T15:00:00.000Z",
+            "waterTempF": 69,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Fresh",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "data_quality_fresh"
+            ]
+          },
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_beginning_warm",
+        "label": "Beginning · warm but reactive",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-09-20",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-09-20T12:00:00.000Z",
+          "conditionRefreshAt": "2026-09-20T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-09-20T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
+          "runStage": {
+            "stage": "beginning",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-09-20",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Beginning",
+            "headline": "The first winter-run Steelhead are beginning to enter and move through the Big Manistee.",
+            "whereToStart": "Lower migratory river toward M-55 first, then substantial travel-and-resting water through the High Bridge-Bear Creek middle corridor; check Tippy only after those fresh-entry sections.",
+            "detail": "Fresh fish can be scattered from the lower migratory river into middle-corridor resting water, while some earlier arrivals or summer-run fish may already be nearer Tippy.",
+            "tip": "Cover lakeward travel lanes and substantial resting holes before assuming the tailwater holds the freshest fish.",
+            "reasonCodes": [
+              "stage_beginning"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Insufficient evidence",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "river_start",
+            "checkpointDate": "2026-09-15",
+            "cutoffDate": "2026-09-14",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-10-11",
+            "completedCheckpointCount": 1,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 14,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "There is not enough reliable information for a Migration Timing call.",
+            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_river_start"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-09-20",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": 27,
+            "label": "No clear push",
+            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
+            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context",
+              "push_temperature_transitional",
+              "dry_72h",
+              "push_no_gauge_response_cap"
+            ],
+            "components": {
+              "hydraulicBase": 35,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": -3,
+              "rainModifier": -5,
+              "hydraulicState": "normal",
+              "temperatureState": "transitional_warm",
+              "rainRole": "dry",
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 81,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s Steelhead activity outlook is highly active.",
+            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-20",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 79,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 79,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 8,
+            "stage": "beginning",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.1,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "Low presence",
+            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
+            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "reasonCodes": [
+              "stage_beginning",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-09-20T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-20T00:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T01:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T02:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T03:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T04:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T05:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T06:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T07:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T08:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T09:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T10:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T11:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T12:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T13:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T14:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T15:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T16:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T17:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T18:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T19:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T20:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T21:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T22:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T23:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-09-20T15:00:00.000Z",
+            "waterTempF": 58,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-09-20T15:00:00.000Z",
+            "waterTempF": 58,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_building_high",
+        "label": "Building · highly active",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-11-01",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-11-01T12:00:00.000Z",
+          "conditionRefreshAt": "2026-11-01T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-11-01T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
+          "runStage": {
+            "stage": "building",
+            "stagingContext": false,
+            "broadBuildingContext": true,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-11-01",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Building",
+            "headline": "Steelhead are broadly established through the Big Manistee migratory corridor.",
+            "whereToStart": "Compare substantial holding water in the Tippy-to-High Bridge reach and High Bridge-Bear Creek middle corridor, then add lower-river travel lanes when Push supports fresh arrivals.",
+            "detail": "Multiple entry periods have given fish time to occupy the tailwater, middle corridor, and substantial lower-river water, although Wellston directly measures only the Tippy reach.",
+            "tip": "Compare at least two named reaches and use direct fish activity to choose where to slow down; use Wellston only for the regulated tailwater response.",
+            "reasonCodes": [
+              "stage_building"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Insufficient evidence",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "building_established",
+            "checkpointDate": "2026-10-15",
+            "cutoffDate": "2026-10-14",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-11-15",
+            "completedCheckpointCount": 3,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 44,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "There is not enough reliable information for a Migration Timing call.",
+            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_building_established"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "building_start",
+            "previousCheckpointDate": "2026-10-11",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-11-01",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": 30,
+            "label": "No clear push",
+            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
+            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context",
+              "push_temperature_supportive",
+              "dry_72h",
+              "push_no_gauge_response_cap"
+            ],
+            "components": {
+              "hydraulicBase": 35,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": -5,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "dry",
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 91,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s Steelhead activity outlook is highly active.",
+            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 9 AM–1 PM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 9 AM–1 PM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-01",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 89,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 91,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 91,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 90,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 60,
+            "stage": "building",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.75,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "High presence",
+            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
+            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "reasonCodes": [
+              "stage_building",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-11-01T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-01T00:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T01:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T02:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T03:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T04:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T05:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T06:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T07:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T08:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T09:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T10:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T11:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T12:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T13:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T14:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T15:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T16:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T17:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T18:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T19:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T20:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T21:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T22:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-11-01T23:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 100,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-01T15:00:00.000Z",
+            "waterTempF": 50,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-01T15:00:00.000Z",
+            "waterTempF": 50,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_peak_active",
+        "label": "Peak · active",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-11-15",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-11-15T12:00:00.000Z",
+          "conditionRefreshAt": "2026-11-15T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-11-15T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
+          "runStage": {
+            "stage": "peak",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-11-15",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Peak",
+            "headline": "This is typically the strongest and most dependable Big Manistee fall Steelhead opportunity.",
+            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and substantial lower-river holes toward M-55; use Push to separate fresh travel water from established holding fish.",
+            "detail": "Repeated entry periods have produced broad corridor presence, but fresh fish, established holders, water clarity, and access can still differ materially between Tippy, High Bridge, Bear Creek, and M-55 water.",
+            "tip": "Use Push to decide whether to emphasize lower travel lanes or established tailwater and middle-corridor holes, then verify the choice with direct fish activity.",
+            "reasonCodes": [
+              "stage_peak"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Insufficient evidence",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "peak_start",
+            "checkpointDate": "2026-11-15",
+            "cutoffDate": "2026-11-14",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-11-21",
+            "completedCheckpointCount": 4,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 75,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "There is not enough reliable information for a Migration Timing call.",
+            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_peak_start"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "building_established",
+            "previousCheckpointDate": "2026-10-15",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-11-15",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": 27,
+            "label": "No clear push",
+            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water is on the warm side for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
+            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context",
+              "push_temperature_transitional",
+              "dry_72h",
+              "push_no_gauge_response_cap"
+            ],
+            "components": {
+              "hydraulicBase": 35,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": -3,
+              "rainModifier": -5,
+              "hydraulicState": "normal",
+              "temperatureState": "transitional_warm",
+              "rainRole": "dry",
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 74,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-15",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 76,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 65,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 71,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 65,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 71,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 65,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 75,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 65,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 80,
+            "stage": "peak",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 1,
+            "curveDirection": "near_peak",
+            "winterHoldingContext": false,
+            "label": "Peak presence",
+            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
+            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
+            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "reasonCodes": [
+              "stage_peak",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-11-15T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-15T00:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T01:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T02:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T03:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T04:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T05:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T06:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T07:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T08:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T09:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T10:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T11:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T12:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T13:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T14:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T15:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T16:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T17:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T18:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 303.54999999999995,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T19:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T20:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T21:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T22:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T23:00",
+                "cloud_cover_pct": 65,
+                "shortwave_w_m2": 56.04,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-15T15:00:00.000Z",
+            "waterTempF": 58,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-15T15:00:00.000Z",
+            "waterTempF": 58,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": {
+            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
+            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
+            "reasonCodes": [
+              "peak_presence_weak_push"
+            ]
+          },
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_moderate",
+        "label": "Building · moderate mixed window",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-11-01",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-11-01T12:00:00.000Z",
+          "conditionRefreshAt": "2026-11-01T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-11-01T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
+          "runStage": {
+            "stage": "building",
+            "stagingContext": false,
+            "broadBuildingContext": true,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-11-01",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Building",
+            "headline": "Steelhead are broadly established through the Big Manistee migratory corridor.",
+            "whereToStart": "Compare substantial holding water in the Tippy-to-High Bridge reach and High Bridge-Bear Creek middle corridor, then add lower-river travel lanes when Push supports fresh arrivals.",
+            "detail": "Multiple entry periods have given fish time to occupy the tailwater, middle corridor, and substantial lower-river water, although Wellston directly measures only the Tippy reach.",
+            "tip": "Compare at least two named reaches and use direct fish activity to choose where to slow down; use Wellston only for the regulated tailwater response.",
+            "reasonCodes": [
+              "stage_building"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Insufficient evidence",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "building_established",
+            "checkpointDate": "2026-10-15",
+            "cutoffDate": "2026-10-14",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-11-15",
+            "completedCheckpointCount": 3,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 44,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "There is not enough reliable information for a Migration Timing call.",
+            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_building_established"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "building_start",
+            "previousCheckpointDate": "2026-10-11",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-11-01",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": 25,
+            "label": "No clear push",
+            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
+            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is already high. Water is cold enough for steelhead movement, but additional cooling increasingly favors slower holding behavior. Recent weather estimates indicate very little rain around the river.",
+            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_high_flow_context",
+              "push_temperature_cold_active",
+              "dry_72h",
+              "push_no_gauge_response_cap"
+            ],
+            "components": {
+              "hydraulicBase": 35,
+              "hydraulicAdjustment": -5,
+              "temperatureModifier": 0,
+              "rainModifier": -5,
+              "hydraulicState": "high",
+              "temperatureState": "cold_active",
+              "rainRole": "dry",
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 45,
+            "label": "Tough",
+            "headline": "The river is running very high, leaving fewer practical places to fish effectively.",
+            "detail": "Very high flow is reducing access and the amount of water where a presentation can be controlled. The river is not climbing quickly, but practical fishing water remains compressed into the slowest edges. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Fish only bank-side soft pockets, protected inside turns, and current breaks. Make short controlled presentations and skip every main-channel lane.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "very_high_flow_band"
+            ],
+            "components": {
+              "bandBase": 40,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 60,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature remains usable. The main limitation: The river level or its recent change is less favorable. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-01",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature remains usable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 56,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The measured water temperature remains usable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 55,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The measured water temperature remains usable.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature remains usable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 60,
+            "stage": "building",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.75,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "High presence",
+            "headline": "Steelhead are likely spread through more of the river as seasonal presence builds toward its strongest point.",
+            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "reasonCodes": [
+              "stage_building",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-11-01T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 2800,
+            "band": "very_high",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-01T00:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T01:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T02:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T03:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T04:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T05:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T06:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T07:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T08:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T09:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T10:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T11:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T12:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T13:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T14:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T15:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T16:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T17:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T18:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T19:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T20:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T21:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T22:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-01T23:00",
+                "cloud_cover_pct": 0,
+                "shortwave_w_m2": 760,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-01T15:00:00.000Z",
+            "waterTempF": 42,
+            "trend": "strong_warming",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-01T15:00:00.000Z",
+            "waterTempF": 42,
+            "trend": "strong_warming",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_warm_constraint",
+        "label": "Warm constraint · 64°F",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-09-20",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-09-20T12:00:00.000Z",
+          "conditionRefreshAt": "2026-09-20T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-09-20T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
+          "runStage": {
+            "stage": "beginning",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-09-20",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Beginning",
+            "headline": "The first winter-run Steelhead are beginning to enter and move through the Big Manistee.",
+            "whereToStart": "Lower migratory river toward M-55 first, then substantial travel-and-resting water through the High Bridge-Bear Creek middle corridor; check Tippy only after those fresh-entry sections.",
+            "detail": "Fresh fish can be scattered from the lower migratory river into middle-corridor resting water, while some earlier arrivals or summer-run fish may already be nearer Tippy.",
+            "tip": "Cover lakeward travel lanes and substantial resting holes before assuming the tailwater holds the freshest fish.",
+            "reasonCodes": [
+              "stage_beginning"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Insufficient evidence",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "river_start",
+            "checkpointDate": "2026-09-15",
+            "cutoffDate": "2026-09-14",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-10-11",
+            "completedCheckpointCount": 1,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 14,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "There is not enough reliable information for a Migration Timing call.",
+            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_river_start"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-09-20",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": 18,
+            "label": "Weak",
+            "headline": "Today's water shows little support for a fresh wave of fish.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
+            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context",
+              "push_temperature_too_warm",
+              "dry_72h",
+              "push_no_gauge_response_cap",
+              "temperature_too_warm_cap"
+            ],
+            "components": {
+              "hydraulicBase": 35,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": -12,
+              "rainModifier": -5,
+              "hydraulicState": "normal",
+              "temperatureState": "too_warm",
+              "rainRole": "dry",
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 23,
+            "maximum": 100,
+            "label": "Reserved",
+            "headline": "Today’s Steelhead activity outlook is reserved.",
+            "detail": "Fish may respond selectively, with important environmental limitations. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present",
+              "activity_warm_water_cap"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-20",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 23,
+                "activityLabel": "Reserved",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 22,
+                "activityLabel": "Reserved",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 22,
+                "activityLabel": "Reserved",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 23,
+                "activityLabel": "Reserved",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 8,
+            "stage": "beginning",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.1,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "Low presence",
+            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
+            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "reasonCodes": [
+              "stage_beginning",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-09-20T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-20T00:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T01:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T02:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T03:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T04:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T05:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T06:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T07:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T08:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T09:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T10:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T11:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T12:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T13:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T14:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T15:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T16:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T17:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T18:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T19:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T20:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T21:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T22:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T23:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-09-20T15:00:00.000Z",
+            "waterTempF": 64,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-09-20T15:00:00.000Z",
+            "waterTempF": 64,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_barrier",
+        "label": "Warm barrier · 68°F",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-09-20",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-09-20T12:00:00.000Z",
+          "conditionRefreshAt": "2026-09-20T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-09-20T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-09-21T05:00:00.000Z",
+          "runStage": {
+            "stage": "beginning",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-09-20",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Beginning",
+            "headline": "The first winter-run Steelhead are beginning to enter and move through the Big Manistee.",
+            "whereToStart": "Lower migratory river toward M-55 first, then substantial travel-and-resting water through the High Bridge-Bear Creek middle corridor; check Tippy only after those fresh-entry sections.",
+            "detail": "Fresh fish can be scattered from the lower migratory river into middle-corridor resting water, while some earlier arrivals or summer-run fish may already be nearer Tippy.",
+            "tip": "Cover lakeward travel lanes and substantial resting holes before assuming the tailwater holds the freshest fish.",
+            "reasonCodes": [
+              "stage_beginning"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Insufficient evidence",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "river_start",
+            "checkpointDate": "2026-09-15",
+            "cutoffDate": "2026-09-14",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-10-11",
+            "completedCheckpointCount": 1,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 14,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "There is not enough reliable information for a Migration Timing call.",
+            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_river_start"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-09-20",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": 18,
+            "label": "Weak",
+            "headline": "Today's water shows little support for a fresh wave of fish.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
+            "tip": "Do not build the day around new arrivals while the river remains warm. Start in established holding water at first or last light and leave lower travel lanes secondary.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context",
+              "push_temperature_too_warm",
+              "dry_72h",
+              "push_no_gauge_response_cap",
+              "temperature_too_warm_cap"
+            ],
+            "components": {
+              "hydraulicBase": 35,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": -12,
+              "rainModifier": -5,
+              "hydraulicState": "normal",
+              "temperatureState": "too_warm",
+              "rainRole": "dry",
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 9,
+            "maximum": 100,
+            "label": "Inactive",
+            "headline": "Today’s Steelhead activity outlook is inactive.",
+            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present",
+              "activity_temperature_barrier_cap"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-20",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 9,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 9,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 9,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 9,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 8,
+            "stage": "beginning",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.1,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "Low presence",
+            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
+            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "reasonCodes": [
+              "stage_beginning",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-09-20T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-20T00:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T01:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T02:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T03:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T04:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T05:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T06:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T07:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T08:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T09:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T10:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T11:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T12:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T13:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T14:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T15:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T16:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T17:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T18:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T19:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T20:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T21:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T22:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-09-20T23:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-09-20T15:00:00.000Z",
+            "waterTempF": 68,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-09-20T15:00:00.000Z",
+            "waterTempF": 68,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": {
+            "headline": "The river should fish well, but seasonal fish presence is still low.",
+            "detail": "Good flow makes presentations easier, but it does not put fish in the river. Stay low, fish the first travel lane entering deep resting water, make one complete pass, and move instead of waiting for numbers that have not developed.",
+            "reasonCodes": [
+              "good_fishability_low_presence"
+            ]
+          },
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_blown_out",
+        "label": "Blown out · 3,600 CFS",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-11-15",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-11-15T12:00:00.000Z",
+          "conditionRefreshAt": "2026-11-15T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-11-15T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
+          "runStage": {
+            "stage": "peak",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-11-15",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Peak",
+            "headline": "This is typically the strongest and most dependable Big Manistee fall Steelhead opportunity.",
+            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and substantial lower-river holes toward M-55; use Push to separate fresh travel water from established holding fish.",
+            "detail": "Repeated entry periods have produced broad corridor presence, but fresh fish, established holders, water clarity, and access can still differ materially between Tippy, High Bridge, Bear Creek, and M-55 water.",
+            "tip": "Use Push to decide whether to emphasize lower travel lanes or established tailwater and middle-corridor holes, then verify the choice with direct fish activity.",
+            "reasonCodes": [
+              "stage_peak"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Insufficient evidence",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "peak_start",
+            "checkpointDate": "2026-11-15",
+            "cutoffDate": "2026-11-14",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-11-21",
+            "completedCheckpointCount": 4,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 75,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "There is not enough reliable information for a Migration Timing call.",
+            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_peak_start"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "building_established",
+            "previousCheckpointDate": "2026-10-15",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-11-15",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": 13,
+            "label": "Weak",
+            "headline": "The river is rising hard, but extreme flow makes this an unreliable fresh-movement read.",
+            "detail": "The river is holding steady with no meaningful rise yet. Overall flow is extremely high. Water temperature remains too warm to support a strong Push and is relatively steady. Recent weather estimates indicate very little rain around the river.",
+            "tip": "Do not chase movement in the main channel. If Fishability remains usable, fish only protected margins, inside turns, and soft current with short controlled presentations.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_severe_high_flow_context",
+              "push_temperature_too_warm",
+              "dry_72h",
+              "push_no_gauge_response_cap",
+              "temperature_too_warm_cap",
+              "push_severe_high_flow_cap"
+            ],
+            "components": {
+              "hydraulicBase": 35,
+              "hydraulicAdjustment": -5,
+              "temperatureModifier": -12,
+              "rainModifier": -5,
+              "hydraulicState": "severe_high",
+              "temperatureState": "too_warm",
+              "rainRole": "dry",
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 20,
+            "label": "Poor",
+            "headline": "The river is too high and unsettled for a dependable fishing recommendation.",
+            "detail": "Excessive flow is overwhelming normal holding water and making access and presentation unreliable. The river is not climbing quickly, but it must fall substantially before normal holding lanes and presentation control return. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Choose a lower-water day for the better fishing opportunity. If you fish now, stay tight to protected banks, slow inside turns, and the downstream side of major current breaks; keep presentations short and leave the main flow alone.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "blown_out_flow_band",
+              "fishability_blown_out_cap"
+            ],
+            "components": {
+              "bandBase": 15,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 11,
+            "maximum": 100,
+            "label": "Inactive",
+            "headline": "Today’s Steelhead activity outlook is inactive.",
+            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present",
+              "activity_blown_out_cap"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-15",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 11,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 11,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 11,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 11,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 80,
+            "stage": "peak",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 1,
+            "curveDirection": "near_peak",
+            "winterHoldingContext": false,
+            "label": "Peak presence",
+            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
+            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
+            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "reasonCodes": [
+              "stage_peak",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-11-15T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 3600,
+            "band": "blown_out",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-15T00:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T01:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T02:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T03:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T04:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T05:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T06:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T07:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T08:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T09:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T10:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T11:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T12:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T13:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T14:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T15:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T16:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T17:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T18:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T19:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T20:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T21:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T22:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T23:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-15T15:00:00.000Z",
+            "waterTempF": 61,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-15T15:00:00.000Z",
+            "waterTempF": 61,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": {
+            "headline": "Seasonal presence is near peak, but today's water does not point to a fresh wave.",
+            "detail": "Many fish may already be in the river even when rain, river level, and temperature show little support for new movement. Start in established deep holes, fish each one from head to tail, and leave lower entry lanes secondary.",
+            "reasonCodes": [
+              "peak_presence_weak_push"
+            ]
+          },
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_tapering",
+        "label": "Late fall · cold-water response",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-12-05",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-12-05T12:00:00.000Z",
+          "conditionRefreshAt": "2026-12-05T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-12-05T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-06T05:00:00.000Z",
+          "runStage": {
+            "stage": "tapering",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-12-05",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Late fall",
+            "headline": "Steelhead presence remains high as the Big Manistee shifts toward winter holding.",
+            "whereToStart": "Established Tippy-to-High Bridge and High Bridge-Bear Creek holding water, especially deeper bends and slower edges; add lower travel lanes only on a credible fresh Push.",
+            "detail": "Many fish remain in the corridor, but colder water increasingly favors established holding positions over continuous upstream travel. Fresh arrivals can still occur without defining the whole fishery.",
+            "tip": "Begin with efficient holding water and add lower-river travel lanes only when measured flow and temperature support a credible new movement period.",
+            "reasonCodes": [
+              "stage_tapering"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Timing complete",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "peak_complete",
+            "checkpointDate": "2026-11-21",
+            "cutoffDate": "2026-11-20",
+            "observationStartDate": "2026-09-01",
+            "completedCheckpointCount": 5,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 81,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14",
+              "2026-11-15",
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19",
+              "2026-11-20"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "The early-season timing read is complete.",
+            "tip": "Stop shifting river sections based on early-or-late timing. Begin in established holding water for the current Migration Stage; if Push is Possible or stronger, make lower travel lanes the next stop.",
+            "detail": "There was not enough reliable season-long river and temperature information to make an early, normal, or late call.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_peak_complete",
+              "conditions_timing_complete"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "peak_start",
+            "previousCheckpointDate": "2026-11-15",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-12-05",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": 30,
+            "label": "No clear push",
+            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
+            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context",
+              "push_temperature_supportive",
+              "dry_72h",
+              "push_no_gauge_response_cap"
+            ],
+            "components": {
+              "hydraulicBase": 35,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": -5,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "dry",
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 93,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s Steelhead activity outlook is highly active.",
+            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Cooling late-fall water can make Steelhead more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-05",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 93,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 91,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 91,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 93,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 79,
+            "stage": "tapering",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.9933333333333333,
+            "curveDirection": "falling",
+            "winterHoldingContext": false,
+            "label": "Peak presence",
+            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
+            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
+            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "reasonCodes": [
+              "stage_tapering",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-12-05T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-05T00:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T01:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T02:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T03:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T04:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T05:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T06:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T07:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T08:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T09:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T10:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T11:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T12:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T13:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T14:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T15:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T16:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T17:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T18:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T19:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T20:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T21:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T22:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-05T23:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-12-05T15:00:00.000Z",
+            "waterTempF": 52,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-12-05T15:00:00.000Z",
+            "waterTempF": 52,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_ending",
+        "label": "Holding transition · fish remain alive",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-12-20",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-12-20T12:00:00.000Z",
+          "conditionRefreshAt": "2026-12-20T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-12-20T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-21T05:00:00.000Z",
+          "runStage": {
+            "stage": "ending",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-12-20",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Holding transition",
+            "headline": "Steelhead remain strongly present as fall entry hands off to winter holding.",
+            "whereToStart": "Deep, speed-controlled holding water from the Tippy tailwater through High Bridge and Bear Creek, with nearby current and an efficient feeding lane.",
+            "detail": "The migration phase is ending, not the fishery. Retained fish increasingly favor deep water where they can hold near feeding current without spending excessive energy.",
+            "tip": "Prioritize depth, controlled speed, and nearby feeding lanes. Use Push only as a secondary fresh-arrival check as the winter read approaches.",
+            "reasonCodes": [
+              "stage_ending"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Timing complete",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "peak_complete",
+            "checkpointDate": "2026-11-21",
+            "cutoffDate": "2026-11-20",
+            "observationStartDate": "2026-09-01",
+            "completedCheckpointCount": 5,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 81,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14",
+              "2026-11-15",
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19",
+              "2026-11-20"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "The early-season timing read is complete.",
+            "tip": "Stop shifting river sections based on early-or-late timing. Begin in established holding water for the current Migration Stage; if Push is Possible or stronger, make lower travel lanes the next stop.",
+            "detail": "There was not enough reliable season-long river and temperature information to make an early, normal, or late call.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_peak_complete",
+              "conditions_timing_complete"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "peak_start",
+            "previousCheckpointDate": "2026-11-15",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-12-20",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": 30,
+            "label": "No clear push",
+            "headline": "Today's water does not show a clear signal for a fresh wave of fish.",
+            "detail": "The river is holding steady with no meaningful rise yet. Water temperature is favorable for fall migration and is relatively steady. Recent weather estimates indicate very little rain around the river.",
+            "tip": "Fish established holding water from the head through the inside seam and tail. Do not spend the day racing between lower travel lanes for a wave the water does not support.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "push_normal_flow_context",
+              "push_temperature_supportive",
+              "dry_72h",
+              "push_no_gauge_response_cap"
+            ],
+            "components": {
+              "hydraulicBase": 35,
+              "hydraulicAdjustment": 0,
+              "temperatureModifier": 0,
+              "rainModifier": -5,
+              "hydraulicState": "normal",
+              "temperatureState": "supportive",
+              "rainRole": "dry",
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 93,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s Steelhead activity outlook is highly active.",
+            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-20",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 93,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 91,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 91,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 93,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 71,
+            "stage": "ending",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.8916666666666667,
+            "curveDirection": "falling",
+            "winterHoldingContext": false,
+            "label": "High presence",
+            "headline": "Steelhead presence remains high as the fall fishery shifts toward winter holding.",
+            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
+            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "reasonCodes": [
+              "stage_ending",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-12-20T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-20T00:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T01:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T02:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T03:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T04:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T05:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T06:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T07:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T08:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T09:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T10:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T11:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T12:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T13:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T14:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T15:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T16:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T17:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T18:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T19:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T20:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T21:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T22:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-20T23:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-12-20T15:00:00.000Z",
+            "waterTempF": 50,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-12-20T15:00:00.000Z",
+            "waterTempF": 50,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_post_run",
+        "label": "Winter holding · current responsiveness",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-12-23",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-12-23T12:00:00.000Z",
+          "conditionRefreshAt": "2026-12-23T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-12-23T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-24T05:00:00.000Z",
+          "runStage": {
+            "stage": "post_run",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": true,
+            "window": {
+              "snapshotDate": "2026-12-23",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Winter holding",
+            "headline": "Steelhead have transitioned from fall entry into winter holding throughout the Big Manistee corridor.",
+            "whereToStart": "Deep, speed-controlled holding water in the Tippy-to-High Bridge reach and High Bridge-Bear Creek middle corridor, with nearby feeding current; compare lower-river wintering holes when access and local conditions support them.",
+            "detail": "The fish have not left the river. Colder water shifts the useful question from upstream entry toward daily activity, feeding position, and efficient winter holding water.",
+            "tip": "Use the winter Steelhead read for current activity and presentation guidance; 70/100 is retained seasonal presence, not a live movement score.",
+            "reasonCodes": [
+              "stage_post_run",
+              "stage_winter_holding"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Timing complete",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "peak_complete",
+            "checkpointDate": "2026-11-21",
+            "cutoffDate": "2026-11-20",
+            "observationStartDate": "2026-09-01",
+            "completedCheckpointCount": 5,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 81,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14",
+              "2026-11-15",
+              "2026-11-16",
+              "2026-11-17",
+              "2026-11-18",
+              "2026-11-19",
+              "2026-11-20"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "This season's Migration Timing read is complete.",
+            "tip": "Stop planning around whether fall entry was early or late. Use the winter fishery read to judge current activity and presentation.",
+            "detail": "There was not enough reliable season-long river and temperature information to make an early, normal, or late call. Steelhead presence has now shifted into winter holding, where current activity matters more than fall timing.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_peak_complete",
+              "conditions_timing_complete"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "peak_start",
+            "previousCheckpointDate": "2026-11-15",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-12-23",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": null,
+            "label": "Winter holding",
+            "headline": "The season's fresh-movement read is complete.",
+            "detail": "Steelhead may remain in the river, but the fall-entry signal has handed off to winter holding. Winter activity requires a different water-temperature and feeding read.",
+            "tip": "Use the winter fishery read for activity and presentation decisions. Do not treat a muted Push as evidence that steelhead left the river.",
+            "reasonCodes": [
+              "push_tracking_complete"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 93,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s Steelhead activity outlook is highly active.",
+            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-23",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 93,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 91,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 91,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 93,
+                "activityLabel": "Highly active",
+                "positiveDriver": "The measured water temperature is favorable for Steelhead.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0.08
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 70,
+            "stage": "post_run",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.875,
+            "curveDirection": "outside",
+            "winterHoldingContext": true,
+            "handoffScore": 70,
+            "label": "Winter holding",
+            "headline": "Steelhead remain strongly present as the fishery shifts into winter holding.",
+            "detail": "Fall entry finished at 70/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.",
+            "tip": "Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat 70/100 as retained seasonal presence—not proof that fish are active today.",
+            "reasonCodes": [
+              "stage_post_run",
+              "historical_presence_curve",
+              "fish_presence_winter_handoff"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-12-23T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-23T00:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T01:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T02:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T03:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T04:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T05:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T06:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T07:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T08:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T09:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T10:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T11:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T12:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T13:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T14:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T15:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T16:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T17:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T18:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 117.00000000000003,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T19:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T20:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T21:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T22:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              },
+              {
+                "time_local": "2026-12-23T23:00",
+                "cloud_cover_pct": 100,
+                "shortwave_w_m2": 21.600000000000005,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0.02
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-12-23T15:00:00.000Z",
+            "waterTempF": 48,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-12-23T15:00:00.000Z",
+            "waterTempF": 48,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": {
+            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
+            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
+            "reasonCodes": [
+              "winter_holding_read_required"
+            ]
+          },
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_missing_temperature",
+        "label": "Limited · missing measured temperature",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-11-15",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-11-15T12:00:00.000Z",
+          "conditionRefreshAt": "2026-11-15T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-11-15T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
+          "runStage": {
+            "stage": "peak",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-11-15",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Peak",
+            "headline": "This is typically the strongest and most dependable Big Manistee fall Steelhead opportunity.",
+            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and substantial lower-river holes toward M-55; use Push to separate fresh travel water from established holding fish.",
+            "detail": "Repeated entry periods have produced broad corridor presence, but fresh fish, established holders, water clarity, and access can still differ materially between Tippy, High Bridge, Bear Creek, and M-55 water.",
+            "tip": "Use Push to decide whether to emphasize lower travel lanes or established tailwater and middle-corridor holes, then verify the choice with direct fish activity.",
+            "reasonCodes": [
+              "stage_peak"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Insufficient evidence",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "peak_start",
+            "checkpointDate": "2026-11-15",
+            "cutoffDate": "2026-11-14",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-11-21",
+            "completedCheckpointCount": 4,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 75,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "There is not enough reliable information for a Migration Timing call.",
+            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_peak_start"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "building_established",
+            "previousCheckpointDate": "2026-10-15",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-11-15",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "There is no dependable Push read without a current water temperature.",
+            "detail": "Water temperature is a critical part of judging whether today's conditions support fresh movement, and that reading is missing.",
+            "tip": "Do not chase a fresh wave from this read. Fish established holding water for the current Migration Stage and check again after the next temperature update.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "temperature_unavailable"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": 93,
+            "label": "Excellent",
+            "headline": "The river is in an excellent range for covering water and presenting effectively.",
+            "detail": "Flow offers the broadest mix of depth, current breaks, and controllable presentation water. The steady flow should keep depth, current breaks, and presentation speed consistent across the river. Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.",
+            "tip": "Begin on the primary travel lane feeding deep holding water. Work each hole from its head through the inside seam and tail, then keep moving until fish establish a pattern.",
+            "reasonCodes": [
+              "gauge_fresh",
+              "ideal_flow_band"
+            ],
+            "components": {
+              "bandBase": 88,
+              "trendModifier": 5,
+              "appliedCaps": []
+            },
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 55,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-15",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 57,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 75,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 51,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 75,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 50,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 75,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 56,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 75,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 80,
+            "stage": "peak",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 1,
+            "curveDirection": "near_peak",
+            "winterHoldingContext": false,
+            "label": "Peak presence",
+            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
+            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
+            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "reasonCodes": [
+              "stage_peak",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": {
+            "provider": "USGS",
+            "siteId": "04125550",
+            "observedAt": "2026-11-15T15:00:00.000Z",
+            "primaryMetric": "flow_cfs",
+            "value": 1650,
+            "band": "ideal",
+            "trend": "stable",
+            "absoluteChange24h": 0,
+            "percentChange24h": 0
+          },
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-15T00:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T01:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T02:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T03:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T04:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T05:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T06:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T07:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T08:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T09:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T10:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T11:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T12:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T13:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T14:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T15:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T16:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T17:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T18:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T19:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T20:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T21:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T22:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T23:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
+          },
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "fresh",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_fresh",
+              "weather_fresh",
+              "temperature_unavailable",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
+        }
+      },
+      {
+        "id": "activity_missing_river",
+        "label": "Limited · missing river measurement",
+        "note": "Canonical Big Manistee Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "big_manistee",
+          "runId": "big_manistee_fall_steelhead",
+          "localDate": "2026-11-15",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-11-15T12:00:00.000Z",
+          "conditionRefreshAt": "2026-11-15T12:00:00.000Z",
+          "refreshSlot": "16:00",
+          "progressionExpiresAt": "2026-11-15T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
+          "runStage": {
+            "stage": "peak",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-11-15",
+              "preRunStartDate": "2026-08-15",
+              "stagingStartDate": "2026-09-01",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-10",
+              "buildingEstablishedStartDate": "2026-10-15",
+              "buildingBroadStartDate": "2026-11-01",
+              "peakStartDate": "2026-11-15",
+              "peakDate": "2026-11-15",
+              "peakEndDate": "2026-12-04",
+              "taperingEndDate": "2026-12-19",
+              "endDate": "2026-12-22",
+              "lateEndDate": "2026-12-23",
+              "postRunLateCopyEndDate": "2026-12-24",
+              "startToPeakDays": 61,
+              "peakToEndDays": 37
+            },
+            "label": "Peak",
+            "headline": "This is typically the strongest and most dependable Big Manistee fall Steelhead opportunity.",
+            "whereToStart": "Compare the Tippy tailwater, Tippy-to-High Bridge reach, High Bridge-Bear Creek middle corridor, and substantial lower-river holes toward M-55; use Push to separate fresh travel water from established holding fish.",
+            "detail": "Repeated entry periods have produced broad corridor presence, but fresh fish, established holders, water clarity, and access can still differ materially between Tippy, High Bridge, Bear Creek, and M-55 water.",
+            "tip": "Use Push to decide whether to emphasize lower travel lanes or established tailwater and middle-corridor holes, then verify the choice with direct fish activity.",
+            "reasonCodes": [
+              "stage_peak"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "label": "Insufficient evidence",
+            "timingLabel": "Insufficient evidence",
+            "candidateLabel": "Insufficient evidence",
+            "checkpointId": "peak_start",
+            "checkpointDate": "2026-11-15",
+            "cutoffDate": "2026-11-14",
+            "observationStartDate": "2026-09-01",
+            "nextCheckpointDate": "2026-11-21",
+            "completedCheckpointCount": 4,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 75,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [
+              "2026-09-01",
+              "2026-09-02",
+              "2026-09-03",
+              "2026-09-04",
+              "2026-09-05",
+              "2026-09-06",
+              "2026-09-07",
+              "2026-09-08",
+              "2026-09-09",
+              "2026-09-10",
+              "2026-09-11",
+              "2026-09-12",
+              "2026-09-13",
+              "2026-09-14",
+              "2026-09-15",
+              "2026-09-16",
+              "2026-09-17",
+              "2026-09-18",
+              "2026-09-19",
+              "2026-09-20",
+              "2026-09-21",
+              "2026-09-22",
+              "2026-09-23",
+              "2026-09-24",
+              "2026-09-25",
+              "2026-09-26",
+              "2026-09-27",
+              "2026-09-28",
+              "2026-09-29",
+              "2026-09-30",
+              "2026-10-01",
+              "2026-10-02",
+              "2026-10-03",
+              "2026-10-04",
+              "2026-10-05",
+              "2026-10-06",
+              "2026-10-07",
+              "2026-10-08",
+              "2026-10-09",
+              "2026-10-10",
+              "2026-10-11",
+              "2026-10-12",
+              "2026-10-13",
+              "2026-10-14",
+              "2026-10-15",
+              "2026-10-16",
+              "2026-10-17",
+              "2026-10-18",
+              "2026-10-19",
+              "2026-10-20",
+              "2026-10-21",
+              "2026-10-22",
+              "2026-10-23",
+              "2026-10-24",
+              "2026-10-25",
+              "2026-10-26",
+              "2026-10-27",
+              "2026-10-28",
+              "2026-10-29",
+              "2026-10-30",
+              "2026-10-31",
+              "2026-11-01",
+              "2026-11-02",
+              "2026-11-03",
+              "2026-11-04",
+              "2026-11-05",
+              "2026-11-06",
+              "2026-11-07",
+              "2026-11-08",
+              "2026-11-09",
+              "2026-11-10",
+              "2026-11-11",
+              "2026-11-12",
+              "2026-11-13",
+              "2026-11-14"
+            ],
+            "sourceRefreshSlots": {},
+            "headline": "There is not enough reliable information for a Migration Timing call.",
+            "tip": "Do not move farther upstream or stay lower based on this timing read. Fish the section identified by Migration Stage and begin in its most established holding water; change sections only when direct fish activity or a dependable later read supports it.",
+            "detail": "There are not enough dependable past seasons to judge whether this migration is early, normal, or late.",
+            "reasonCodes": [
+              "conditions_baseline_missing",
+              "conditions_insufficient",
+              "conditions_checkpoint_peak_start"
+            ],
+            "copyVersion": "river-run-copy-v27",
+            "previousCheckpointId": "building_established",
+            "previousCheckpointDate": "2026-10-15",
+            "previousTimingLabel": "Insufficient evidence"
+          },
+          "pushHistory": {
+            "status": "none_recorded",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-22",
+            "throughDate": "2026-11-15",
+            "recentDailyReadsStatus": "available",
+            "recentDailyReads": []
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "There is no dependable Push read without a current river level.",
+            "detail": "The river's response is the most important part of a Push, and the latest level is missing or too old to use.",
+            "tip": "Begin in established holding water and keep lower travel lanes secondary. Check again after the next river update; do not chase recent rain as proof of a fresh wave.",
+            "reasonCodes": [
+              "gauge_missing"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-push-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "There is no dependable Fishability read right now.",
+            "detail": "A recent river-level reading is missing, so current flow and direction cannot be judged responsibly.",
+            "tip": "Do not plan from the last known level. Check again after the next update, and verify the river at the first access before choosing where or how to fish.",
+            "reasonCodes": [
+              "gauge_missing"
+            ],
+            "rulesVersion": "big-manistee-tailwater-fishability-v1",
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 43,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-15",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 75,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 41,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 75,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 41,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 75,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 75,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 80,
+            "stage": "peak",
+            "maximum": 100,
+            "riverCeiling": 80,
+            "historicalRunStrength": "strong",
+            "curveFraction": 1,
+            "curveDirection": "near_peak",
+            "winterHoldingContext": false,
+            "label": "Peak presence",
+            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
+            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
+            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "reasonCodes": [
+              "stage_peak",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": {
+            "provider": "OPEN_METEO",
+            "evidenceType": "modeled_grid",
+            "weatherPointId": "big_manistee_wellston_weather",
+            "rain24hIn": 0,
+            "rain48hIn": 0,
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-15T00:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T01:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T02:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T03:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T04:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T05:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T06:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T07:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T08:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T09:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T10:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T11:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T12:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T13:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T14:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T15:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T16:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T17:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T18:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 250.25,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T19:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T20:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T21:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T22:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T23:00",
+                "cloud_cover_pct": 75,
+                "shortwave_w_m2": 46.2,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
+          },
+          "waterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-15T15:00:00.000Z",
+            "waterTempF": 61,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "conditionsWaterTemperature": {
+            "provider": "USGS",
+            "sourceId": "big_manistee_wellston_temperature",
+            "siteId": "04125550",
+            "observedAt": "2026-11-15T15:00:00.000Z",
+            "waterTempF": 61,
+            "trend": "neutral",
+            "sourceType": "same_gauge",
+            "attribution": "U.S. Geological Survey Water Data for the Nation."
+          },
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "fresh",
+            "conditionsWaterTemperature": "fresh",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "conditions_limited_source_days",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
+          "safety": {
+            "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
+            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       }
     ]
@@ -10882,6 +27280,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "post_run",
@@ -10918,7 +27317,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-14T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-14T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -10969,7 +27538,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -11083,6 +27652,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -11119,7 +27689,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -11170,7 +27910,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -11319,6 +28059,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-15",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 4,
             "stage": "beginning",
@@ -11355,7 +28155,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -11407,7 +28377,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -11556,6 +28526,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-10-02",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 17,
             "stage": "beginning",
@@ -11592,7 +28622,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-10-02T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-02T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -11644,7 +28844,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -11822,6 +29022,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-10-13",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 33,
             "stage": "building",
@@ -11858,7 +29118,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-10-13T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-13T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -11904,7 +29334,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -12086,6 +29516,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-10-26",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 50,
             "stage": "building",
@@ -12122,7 +29612,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-10-26T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-10-26T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -12168,7 +29828,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -12350,6 +30010,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-04",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 64,
             "stage": "building",
@@ -12386,7 +30106,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-04T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-04T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -12432,7 +30322,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -12614,6 +30504,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-10",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 72,
             "stage": "building",
@@ -12650,7 +30600,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-10T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-10T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -12696,7 +30816,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -12909,6 +31029,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-11-15",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 80,
             "stage": "peak",
@@ -12945,7 +31125,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-11-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-11-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -12997,7 +31347,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -13216,6 +31566,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Cooling late-fall water can make Steelhead more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-05",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 79,
             "stage": "tapering",
@@ -13252,7 +31662,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-05T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-05T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -13298,7 +31878,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -13517,6 +32097,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-20",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 71,
             "stage": "ending",
@@ -13553,7 +32193,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-20T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-20T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -13599,7 +32409,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -13804,6 +32614,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-12-23",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 70,
             "stage": "post_run",
@@ -13842,7 +32712,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-12-23T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-12-23T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -13894,7 +32934,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       }
     ]
@@ -14047,6 +33087,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 65,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: The measured water temperature remains usable. The main limitation: The river level or its recent change is less favorable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 66,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature remains usable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature remains usable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature remains usable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 66,
+                "activityLabel": "Active",
+                "positiveDriver": "The measured water temperature remains usable.",
+                "limitingFactor": "The river level or its recent change is less favorable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -14083,7 +33183,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0.2,
             "rain48hIn": 0.35,
-            "rain72hIn": 0.5
+            "rain72hIn": 0.5,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -14135,7 +33405,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -14284,6 +33554,67 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 7,
+            "maximum": 100,
+            "label": "Inactive",
+            "headline": "Today’s Steelhead activity outlook is inactive.",
+            "detail": "Conditions provide little environmental support for an aggressive response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present",
+              "activity_temperature_barrier_cap"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 7,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 6,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 6,
+                "activityLabel": "Inactive",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 7,
+                "activityLabel": "Inactive",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Water temperature limits responsiveness.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -14320,7 +33651,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -14372,7 +33873,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -14507,6 +34008,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 53,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-20",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 55,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 49,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 48,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 55,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 8,
             "stage": "beginning",
@@ -14543,7 +34104,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-20T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-20T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": null,
           "conditionsWaterTemperature": null,
@@ -14578,7 +34309,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -14692,6 +34423,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -14728,7 +34460,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-08-15T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-08-15T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -14779,7 +34681,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       }
     ]
@@ -14934,6 +34836,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 66,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s Steelhead activity outlook is active.",
+            "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_full",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Full",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 63,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 62,
+                "activityLabel": "Active",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -14970,7 +34932,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -15022,7 +35154,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -15175,6 +35307,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 42,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -15211,7 +35403,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -15257,7 +35619,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -15385,6 +35747,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 42,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Current river behavior is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 39,
+                "activityLabel": "Reserved",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 43,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Current river behavior is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -15411,7 +35833,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": {
             "provider": "USGS",
@@ -15457,7 +36049,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       },
       {
@@ -15592,6 +36184,66 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "rulesVersion": "big-manistee-tailwater-fishability-v1",
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 53,
+            "maximum": 100,
+            "label": "Moderate",
+            "headline": "Today’s Steelhead activity outlook is moderate.",
+            "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Measured water temperature is unavailable. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor. One important reading is unavailable or comes from tomorrow’s forecast, so the outlook is kept conservative.",
+            "tip": "Start with 5–9 AM. If conditions change, favor the window that best combines workable light with measured water temperature.",
+            "reasonCodes": [
+              "activity_confidence_moderate",
+              "activity_today",
+              "activity_run_present"
+            ],
+            "rulesVersion": "big-manistee-fall-steelhead-activity-v1",
+            "targetDate": "2026-09-30",
+            "targetDayLabel": "Today",
+            "confidence": "Moderate",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 55,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 49,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 48,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The river level and its recent change are favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 55,
+                "activityLabel": "Moderate",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Measured water temperature is unavailable.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 15,
             "stage": "beginning",
@@ -15628,7 +36280,177 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "weatherPointId": "big_manistee_wellston_weather",
             "rain24hIn": 0,
             "rain48hIn": 0,
-            "rain72hIn": 0
+            "rain72hIn": 0,
+            "hourlyActivityWeather": [
+              {
+                "time_local": "2026-09-30T00:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T01:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T02:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T03:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T04:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T05:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T06:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T07:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T08:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T09:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T10:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T11:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T12:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T13:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T14:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T15:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T16:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T17:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T18:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 330.2,
+                "clear_sky_shortwave_w_m2": 650,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T19:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T20:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T21:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T22:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              },
+              {
+                "time_local": "2026-09-30T23:00",
+                "cloud_cover_pct": 60,
+                "shortwave_w_m2": 60.96,
+                "clear_sky_shortwave_w_m2": 120,
+                "precipitation_in": 0
+              }
+            ]
           },
           "waterTemperature": null,
           "conditionsWaterTemperature": null,
@@ -15663,7 +36485,7 @@ export const RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-big-manistee-fall-steelhead.2"
+          "configVersion": "2026-08-06-big-manistee-steelhead-activity.1"
         }
       }
     ]

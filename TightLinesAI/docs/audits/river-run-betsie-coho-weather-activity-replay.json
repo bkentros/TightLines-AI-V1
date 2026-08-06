@@ -1,0 +1,267 @@
+{
+  "runId": "betsie_fall_coho",
+  "rulesVersion": "betsie-fall-coho-weather-activity-v1",
+  "replayYears": "2007-2025",
+  "method": "Historical mechanical Betsie coho weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at the Homestead weather point. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 2451,
+  "usableDays": 2451,
+  "missingWeatherDays": 0,
+  "dayScore": {
+    "min": 28,
+    "p10": 46,
+    "median": 69,
+    "p90": 87,
+    "max": 95,
+    "mean": 68.34
+  },
+  "blockScore": {
+    "min": 20,
+    "p10": 43,
+    "median": 67,
+    "p90": 87,
+    "max": 95,
+    "mean": 65.54
+  },
+  "uniqueDayScores": 67,
+  "uniqueBlockScores": 76,
+  "dayLabels": {
+    "Active": 1163,
+    "Highly active": 695,
+    "Moderate": 497,
+    "Reserved": 96
+  },
+  "byStage": {
+    "beginning": {
+      "days": 380,
+      "scores": {
+        "min": 62,
+        "p10": 62,
+        "median": 73,
+        "p90": 89,
+        "max": 95,
+        "mean": 74.12
+      },
+      "labels": {
+        "Active": 243,
+        "Highly active": 137
+      }
+    },
+    "building": {
+      "days": 361,
+      "scores": {
+        "min": 62,
+        "p10": 62,
+        "median": 74,
+        "p90": 88,
+        "max": 95,
+        "mean": 75.06
+      },
+      "labels": {
+        "Active": 229,
+        "Highly active": 132
+      }
+    },
+    "ending": {
+      "days": 190,
+      "scores": {
+        "min": 42,
+        "p10": 52,
+        "median": 65,
+        "p90": 72,
+        "max": 78,
+        "mean": 64.1
+      },
+      "labels": {
+        "Active": 154,
+        "Moderate": 36
+      }
+    },
+    "peak": {
+      "days": 513,
+      "scores": {
+        "min": 62,
+        "p10": 64,
+        "median": 82,
+        "p90": 91,
+        "max": 95,
+        "mean": 79.49
+      },
+      "labels": {
+        "Active": 222,
+        "Highly active": 291
+      }
+    },
+    "post_run": {
+      "days": 589,
+      "scores": {
+        "min": 28,
+        "p10": 38,
+        "median": 48,
+        "p90": 60,
+        "max": 69,
+        "mean": 48.61
+      },
+      "labels": {
+        "Active": 70,
+        "Moderate": 423,
+        "Reserved": 96
+      }
+    },
+    "pre_run": {
+      "days": 133,
+      "scores": {
+        "min": 61,
+        "p10": 62,
+        "median": 76,
+        "p90": 89,
+        "max": 94,
+        "mean": 75.23
+      },
+      "labels": {
+        "Active": 82,
+        "Highly active": 51
+      }
+    },
+    "tapering": {
+      "days": 285,
+      "scores": {
+        "min": 47,
+        "p10": 58,
+        "median": 74,
+        "p90": 84,
+        "max": 91,
+        "mean": 72.45
+      },
+      "labels": {
+        "Active": 163,
+        "Highly active": 84,
+        "Moderate": 38
+      }
+    }
+  },
+  "precipitationDays": {
+    "dry": {
+      "days": 1336,
+      "scores": {
+        "min": 28,
+        "p10": 44,
+        "median": 65,
+        "p90": 82,
+        "max": 88,
+        "mean": 64.58
+      }
+    },
+    "traceToLight": {
+      "days": 774,
+      "scores": {
+        "min": 33,
+        "p10": 47,
+        "median": 74,
+        "p90": 89,
+        "max": 95,
+        "mean": 70.63
+      }
+    },
+    "moderateToHeavy": {
+      "days": 341,
+      "scores": {
+        "min": 36,
+        "p10": 54,
+        "median": 83,
+        "p90": 92,
+        "max": 95,
+        "mean": 77.88
+      }
+    }
+  },
+  "bestBlocks": {
+    "05-09": 1133,
+    "09-13": 369,
+    "13-17": 408,
+    "17-21": 541
+  },
+  "spread": {
+    "min": 0,
+    "p10": 3,
+    "median": 15,
+    "p90": 29,
+    "max": 49,
+    "mean": 15.64
+  },
+  "daysWithSpreadAtLeast10": 1636,
+  "lifecycleContinuity": {
+    "startDate": "2026-10-31",
+    "endDate": "2026-12-26",
+    "scores": [
+      84,
+      83,
+      82,
+      81,
+      80,
+      79,
+      78,
+      77,
+      76,
+      75,
+      74,
+      73,
+      72,
+      71,
+      70,
+      69,
+      68,
+      67,
+      66,
+      66,
+      65,
+      64,
+      63,
+      62,
+      61,
+      60,
+      60,
+      59,
+      58,
+      57,
+      56,
+      55,
+      54,
+      54,
+      53,
+      52,
+      51,
+      50,
+      50,
+      49,
+      48,
+      47,
+      47,
+      46,
+      45,
+      44,
+      44,
+      43,
+      42,
+      41,
+      40,
+      39,
+      38,
+      38,
+      37,
+      36,
+      35
+    ],
+    "maximumAdjacentDelta": 1
+  },
+  "invariants": {
+    "incompleteBlocks": 0,
+    "scoreAboveWeatherOnlyCeiling": 0,
+    "dailyOutsideBlockRange": 0,
+    "incompleteCopy": 0,
+    "missingWeatherOnlyDisclosure": 0,
+    "inferredRiverCondition": 0,
+    "prohibitedClaims": 0,
+    "lifecycleCalendarCliff": 0,
+    "lifecycleNotDeclining": 0
+  }
+}

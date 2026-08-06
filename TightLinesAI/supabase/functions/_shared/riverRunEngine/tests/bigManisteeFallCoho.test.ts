@@ -5,6 +5,7 @@ import {
   BIG_MANISTEE_FALL_COHO_RUN_PROFILE,
   BIG_MANISTEE_RIVER_PROFILE,
   resolveRunStage,
+  scoreActivity,
   scoreFishInRiver,
   scorePush,
   validateRunProfile,
@@ -81,6 +82,72 @@ Deno.test("Big Manistee Coho shares river hydraulics but retains Coho biology", 
   assertEquals(push.components?.temperatureState, "supportive");
 });
 
+Deno.test("Big Manistee Coho Activity is river-scoped and continuously tapers", () => {
+  assertEquals(run.primitiveCapabilities.activity?.status, "available");
+  assertEquals(run.activity?.version, "big-manistee-fall-coho-activity-v2");
+  assertEquals(run.activity?.weights, {
+    light: 0.5,
+    waterTemperature: 0.25,
+    riverBehavior: 0.15,
+    weather: 0.1,
+  });
+  assertEquals(run.activity?.temperature, {
+    coldF: 40,
+    preferredMinF: 45,
+    preferredMaxF: 60,
+    warmF: 64,
+    barrierF: 68,
+  });
+  assertEquals(run.activity?.caps.lifecycleRamp, {
+    peakEnd: "10-31",
+    taperingEnd: "11-10",
+    endingEnd: "11-30",
+  });
+
+  const scoreFor = (
+    date: string,
+    runStage: "peak" | "tapering" | "ending" | "post_run",
+  ) =>
+    scoreActivity({
+      rules: run.activity!,
+      requestDate: date,
+      targetDate: date,
+      runStage,
+      staging: false,
+      waterTempF: 54,
+      temperatureTrend: "neutral",
+      gaugeFreshness: "fresh",
+      weatherFreshness: "fresh",
+      flowBand: "ideal",
+      currentHydraulicValue: 1650,
+      fishabilityBands: run.fishabilityBands,
+      flowSignal: "stable",
+      hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+        time_local: `${date}T${String(hour).padStart(2, "0")}:00`,
+        cloud_cover_pct: 85,
+        shortwave_w_m2: hour >= 8 && hour <= 18 ? 140 : 20,
+        clear_sky_shortwave_w_m2: hour >= 8 && hour <= 18 ? 620 : 100,
+        precipitation_in: 0,
+      })),
+    });
+  const reads = [
+    scoreFor("2026-10-31", "peak"),
+    scoreFor("2026-11-01", "tapering"),
+    scoreFor("2026-11-10", "tapering"),
+    scoreFor("2026-11-11", "ending"),
+    scoreFor("2026-11-30", "ending"),
+    scoreFor("2026-12-01", "post_run"),
+  ];
+  const scores = reads.map((read) => read.blocks[0].score);
+  assert(scores[0] - scores[1] <= 2);
+  assertEquals(scores[0] - scores[2], 15);
+  assert(scores[2] - scores[3] <= 3);
+  assert(scores[4] - scores[5] <= 1);
+  assertMatch(reads[1].detail, /Coho/i);
+  assertMatch(reads[1].detail, /Wellston\/Tippy tailwater/i);
+  assertEquals(/Chinook|Pere Marquette/i.test(reads[1].detail), false);
+});
+
 Deno.test("Big Manistee Coho copy gives novice-safe named migratory reaches", () => {
   const dates = [
     "2026-09-01",
@@ -98,17 +165,28 @@ Deno.test("Big Manistee Coho copy gives novice-safe named migratory reaches", ()
   ];
   const states = dates.map((date) => resolveRunStage(run, date));
   assertEquals(
-    new Set(states.map((state) => [
-      state.headline,
-      state.whereToStart,
-      state.detail,
-      state.tip,
-    ].join("|"))).size,
+    new Set(states.map((state) =>
+      [
+        state.headline,
+        state.whereToStart,
+        state.detail,
+        state.tip,
+      ].join("|")
+    )).size,
     dates.length,
   );
-  assertMatch(resolveRunStage(run, "2026-09-10").whereToStart ?? "", /Tippy-tailwater/i);
-  assertMatch(resolveRunStage(run, "2026-09-20").whereToStart ?? "", /middle corridor/i);
-  assertMatch(resolveRunStage(run, "2026-10-20").whereToStart ?? "", /toward M-55/i);
+  assertMatch(
+    resolveRunStage(run, "2026-09-10").whereToStart ?? "",
+    /Tippy-tailwater/i,
+  );
+  assertMatch(
+    resolveRunStage(run, "2026-09-20").whereToStart ?? "",
+    /middle corridor/i,
+  );
+  assertMatch(
+    resolveRunStage(run, "2026-10-20").whereToStart ?? "",
+    /toward M-55/i,
+  );
   for (const state of states) {
     const copy = JSON.stringify(state);
     assertEquals(/Scottville|Walhalla|Pere Marquette/i.test(copy), false);

@@ -7,6 +7,7 @@ import {
   listVisibleRiverRuns,
   resolveFlowBand,
   resolveRunStage,
+  scoreActivity,
   scoreFishability,
   scoreFishInRiver,
   scorePush,
@@ -31,6 +32,130 @@ Deno.test("Big Manistee Fall Chinook is valid and selectable for owner audit", (
     catalog[0]?.rivers[0]?.runs[0]?.runId,
     "big_manistee_fall_chinook",
   );
+});
+
+Deno.test("Big Manistee Chinook Activity is enabled with independent tailwater calibration", () => {
+  assertEquals(run.primitiveCapabilities.activity, { status: "available" });
+  assertEquals(run.activity?.version, "big-manistee-fall-chinook-activity-v4");
+  assertEquals(run.activity?.weights, {
+    light: 0.55,
+    waterTemperature: 0.2,
+    riverBehavior: 0.15,
+    weather: 0.1,
+  });
+  assertEquals(run.activity?.temperature, {
+    coldF: 43,
+    preferredMinF: 48,
+    preferredMaxF: 62,
+    warmF: 68,
+    barrierF: 72,
+  });
+
+  const date = "2026-09-30";
+  const result = scoreActivity({
+    rules: run.activity!,
+    requestDate: date,
+    targetDate: date,
+    runStage: "peak",
+    staging: false,
+    waterTempF: 58,
+    temperatureTrend: "cooling",
+    gaugeFreshness: "fresh",
+    weatherFreshness: "fresh",
+    flowBand: "ideal",
+    currentHydraulicValue: 1650,
+    fishabilityBands: run.fishabilityBands,
+    flowSignal: "stable",
+    hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+      time_local: `${date}T${String(hour).padStart(2, "0")}:00`,
+      cloud_cover_pct: 80,
+      shortwave_w_m2: hour >= 8 && hour <= 18 ? 140 : 0,
+      clear_sky_shortwave_w_m2: hour >= 8 && hour <= 18 ? 600 : 0,
+      precipitation_in: 0,
+    })),
+  });
+  assertEquals(result.blocks.length, 4);
+  assertMatch(result.detail, /Wellston\/Tippy tailwater/i);
+  assertMatch(result.detail, /farther downstream/i);
+  assertEquals(/Scottville|Pere Marquette/i.test(result.detail), false);
+});
+
+Deno.test("Big Manistee lifecycle ramps the floor and penalty without stage-boundary cliffs", () => {
+  const date = "2026-10-20";
+  const common = {
+    rules: run.activity!,
+    requestDate: date,
+    targetDate: date,
+    staging: false,
+    waterTempF: 55,
+    temperatureTrend: "neutral" as const,
+    gaugeFreshness: "fresh" as const,
+    weatherFreshness: "fresh" as const,
+    flowBand: "ideal" as const,
+    currentHydraulicValue: 1650,
+    fishabilityBands: run.fishabilityBands,
+    flowSignal: "stable" as const,
+    hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+      time_local: `${date}T${String(hour).padStart(2, "0")}:00`,
+      cloud_cover_pct: 75,
+      shortwave_w_m2: hour >= 8 && hour <= 18 ? 180 : 30,
+      clear_sky_shortwave_w_m2: hour >= 8 && hour <= 18 ? 650 : 120,
+      precipitation_in: 0,
+    })),
+  };
+  const peak = scoreActivity({ ...common, runStage: "peak" });
+  const tapering = scoreActivity({ ...common, runStage: "tapering" });
+  assertEquals(
+    tapering.blocks.map((block, index) =>
+      peak.blocks[index].score - block.score
+    ),
+    [15, 15, 15, 15],
+  );
+
+  const endingLow = scoreActivity({
+    ...common,
+    requestDate: "2026-10-31",
+    targetDate: "2026-10-31",
+    runStage: "ending",
+    waterTempF: 72,
+    flowBand: "blown_out",
+    currentHydraulicValue: 3600,
+    hourlyWeather: common.hourlyWeather.map((hour) => ({
+      ...hour,
+      time_local: hour.time_local.replace(date, "2026-10-31"),
+    })),
+  });
+  assert(endingLow.blocks.every((block) => block.score < 20));
+  assertEquals(
+    endingLow.reasonCodes.includes("activity_late_biology_cap"),
+    true,
+  );
+
+  const scoreFor = (
+    targetDate: string,
+    runStage: "peak" | "tapering" | "ending",
+  ) =>
+    scoreActivity({
+      ...common,
+      requestDate: targetDate,
+      targetDate,
+      runStage,
+      hourlyWeather: common.hourlyWeather.map((hour) => ({
+        ...hour,
+        time_local: hour.time_local.replace(date, targetDate),
+      })),
+    }).blocks[0].score;
+  const boundaryScores = [
+    scoreFor("2026-10-10", "peak"),
+    scoreFor("2026-10-11", "tapering"),
+    scoreFor("2026-10-20", "tapering"),
+    scoreFor("2026-10-21", "ending"),
+    scoreFor("2026-10-31", "ending"),
+  ];
+  assert(boundaryScores[0] - boundaryScores[1] <= 2);
+  assert(boundaryScores[2] - boundaryScores[3] <= 4);
+  assertEquals(boundaryScores[0] - boundaryScores[2], 15);
+  assert(boundaryScores[4] < boundaryScores[3]);
 });
 
 Deno.test("Big Manistee configuration revision binds its river-specific biology", () => {
@@ -142,11 +267,19 @@ Deno.test("Big Manistee stage copy changes across every researched Chinook subph
   ];
   const copyStates = dates.map((date) => {
     const state = resolveRunStage(run, date);
-    return [state.headline, state.whereToStart, state.detail, state.tip].join("|");
+    return [state.headline, state.whereToStart, state.detail, state.tip].join(
+      "|",
+    );
   });
   assertEquals(new Set(copyStates).size, copyStates.length);
-  assertMatch(resolveRunStage(run, "2026-08-22").whereToStart ?? "", /Bear Creek/i);
-  assertMatch(resolveRunStage(run, "2026-09-20").headline, /strongest seasonal window/i);
+  assertMatch(
+    resolveRunStage(run, "2026-08-22").whereToStart ?? "",
+    /Bear Creek/i,
+  );
+  assertMatch(
+    resolveRunStage(run, "2026-09-20").headline,
+    /strongest seasonal window/i,
+  );
   assertMatch(resolveRunStage(run, "2026-10-06").detail, /spawning/i);
   assertMatch(resolveRunStage(run, "2026-10-27").headline, /residual/i);
 });

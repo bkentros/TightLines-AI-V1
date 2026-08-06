@@ -1,4 +1,4 @@
-# Activity Outlook v4 — Pere Marquette Fall Chinook
+# Activity Outlook v6 — Pere Marquette Fall Chinook
 
 Activity Outlook estimates the environmental responsiveness of Chinook already
 present in the river. It is not fish abundance, catch probability, or a safety
@@ -15,8 +15,8 @@ rating.
 - Daily rollup is 50% four-block average, 25% best block, and 25% second-best
 - Full, Moderate, and Limited data-confidence states
 - Staging copy is explicitly conditional on an early fish being present
-- Tapering and ending caps prevent favorable weather from overstating late-run
-  Chinook vitality
+- Continuously increasing Tapering and Ending reductions prevent favorable
+  weather from overstating late-run Chinook vitality without calendar cliffs
 - Copy composes four independently audited dimensions: Activity band, Chinook
   lifecycle, data confidence, and Today/Tomorrow target
 
@@ -49,14 +49,16 @@ fabricated.
 
 Temperature, precipitation, and the river's position inside its accepted flow
 ranges change smoothly rather than jumping only at category boundaries. Warm
-water, extreme flow, tapering, and ending reductions are proportional, so
-different underlying days no longer pile up at exactly 39, 19, 59, or 49.
+water and extreme flow use proportional reductions. Across Tapering, the
+lifecycle deduction grows continuously from 0 to 15 points; across Ending it
+blends continuously into the 49% residual constraint.
 
-When hourly weather, measured temperature, and current river data are all
-present, underlying scores below 30 are smoothly compressed into the 20–30
-range. This preserves ordering without presenting a living Chinook that is
-already present as having virtually no possibility of responding. Limited-data
-reads do not receive this floor.
+Through Peak, when hourly weather, measured temperature, and current river data
+are all present, underlying scores below 30 are smoothly compressed into the
+20–30 range. Across Tapering that floor fades continuously to zero while the
+lifecycle deduction grows. Ending and residual output receive no floor, when
+very low activity can accurately reflect spawning deterioration. Limited-data
+reads also receive no floor.
 
 ## Owner-review coverage
 
@@ -81,7 +83,9 @@ and that unavailable inputs cannot be selected as positive drivers.
 An Activity score can be high while Fish In River is low. The UI therefore says
 “if fish are present” and keeps Fish In River independent. Early Chinook receive
 partial warm-water tolerance because lake-fresh arrivals may remain responsive;
-70°F and warmer still receives a strong biological penalty. Late-run condition
-cannot be inferred from environmental data, so lifecycle caps and explicit copy
-remain mandatory. Late copy states that the score applies only to a living fish
-still capable of responding and cannot reverse or diagnose biological decline.
+70°F and warmer still receives a strong biological penalty. Individual late-run
+condition cannot be inferred from environmental data, so lifecycle adjustment
+and explicit copy remain mandatory. Late output represents expected
+responsiveness for a fish of unknown condition at that point in the run. A
+newly arrived or fresher fish may be more active than the score, while a
+spawning, spent, or dying fish may be less active or unresponsive.

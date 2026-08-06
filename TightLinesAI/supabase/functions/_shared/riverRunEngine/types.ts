@@ -123,6 +123,10 @@ export type RiverRunPrimitiveCapabilities = {
 export type ActivityRules = {
   version: string;
   profile: "chinook_fall_reaction" | "coho_fall_reaction" | "steelhead_feeding";
+  /** Defaults to observed_river. Weather-only rules never infer river state. */
+  dataMode?: "observed_river" | "weather_only";
+  /** Optional river/reach limitation appended to every Activity explanation. */
+  scopeCopy?: string;
   weights: {
     light: number;
     waterTemperature: number;
@@ -142,6 +146,16 @@ export type ActivityRules = {
     tomorrow: number;
     lateRun: number;
     ending: number;
+    /** True upper bound for weather-only scoring; unlike data ceilings, it is not a multiplier. */
+    weatherOnlyMaximum?: number;
+    /** Optional point deduction used instead of the proportional taper ceiling. */
+    taperingPenalty?: number;
+    /** Optional calendar ramp that removes stage-boundary score discontinuities. */
+    lifecycleRamp?: {
+      peakEnd: string;
+      taperingEnd: string;
+      endingEnd: string;
+    };
   };
   evidenceNotes: string;
 };

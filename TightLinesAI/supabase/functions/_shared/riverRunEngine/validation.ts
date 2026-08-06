@@ -953,6 +953,20 @@ function validateActivityRules(
       ),
     );
   }
+  if (
+    rules.dataMode === "weather_only" &&
+    (rules.weights.waterTemperature !== 0 ||
+      rules.weights.riverBehavior !== 0 ||
+      rules.weights.light <= 0 || rules.weights.weather <= 0)
+  ) {
+    issues.push(
+      issue(
+        "activity.weights",
+        "Weather-only Activity must assign zero weight to water temperature and river behavior and positive weight to light and weather.",
+        "config_invalid_value",
+      ),
+    );
+  }
   const temperatures = rules.temperature;
   if (
     !(temperatures.coldF < temperatures.preferredMinF &&
@@ -976,6 +990,60 @@ function validateActivityRules(
         "audit_notes_missing",
       ),
     );
+  }
+  if (rules.scopeCopy !== undefined && !hasText(rules.scopeCopy)) {
+    issues.push(
+      issue(
+        "activity.scopeCopy",
+        "Configured Activity reach scope copy cannot be empty.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
+    rules.caps.taperingPenalty !== undefined &&
+    (!Number.isFinite(rules.caps.taperingPenalty) ||
+      rules.caps.taperingPenalty < 0 || rules.caps.taperingPenalty > 100)
+  ) {
+    issues.push(
+      issue(
+        "activity.caps.taperingPenalty",
+        "Activity tapering penalty must be between 0 and 100 points.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
+    rules.dataMode === "weather_only" &&
+    (rules.caps.weatherOnlyMaximum === undefined ||
+      !Number.isFinite(rules.caps.weatherOnlyMaximum) ||
+      rules.caps.weatherOnlyMaximum < 1 ||
+      rules.caps.weatherOnlyMaximum > 100)
+  ) {
+    issues.push(
+      issue(
+        "activity.caps.weatherOnlyMaximum",
+        "Weather-only Activity requires a maximum between 1 and 100.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (rules.caps.lifecycleRamp) {
+    const ramp = rules.caps.lifecycleRamp;
+    const validMonthDay = /^\d{2}-\d{2}$/;
+    if (
+      !validMonthDay.test(ramp.peakEnd) ||
+      !validMonthDay.test(ramp.taperingEnd) ||
+      !validMonthDay.test(ramp.endingEnd)
+    ) {
+      issues.push(
+        issue(
+          "activity.caps.lifecycleRamp",
+          "Activity lifecycle ramp dates must use MM-DD format.",
+          "config_invalid_value",
+        ),
+      );
+    }
   }
 }
 

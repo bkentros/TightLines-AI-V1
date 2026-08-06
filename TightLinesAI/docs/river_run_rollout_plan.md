@@ -733,6 +733,28 @@ Candidate PM combinations, not yet approved:
 - Fall steelhead entry
 - Spring steelhead
 
+Current Activity Outlook expansion status (August 2026):
+
+- [x] PM Fall Chinook Activity, including continuous post-Peak floor and
+      lifecycle interpolation.
+- [x] Big Manistee Fall Chinook Activity, independently calibrated to Wellston.
+- [x] Big Manistee Fall Coho Activity, including continuous November tapering
+      and ending interpolation.
+- [x] PM Fall Coho Activity back-half interpolation, using PM-specific dates and
+      a dedicated replay/acceptance audit.
+- [x] PM Fall Steelhead Activity without a salmon floor or mortality taper.
+- [x] Big Manistee Steelhead Activity, calibrated to the Wellston/Tippy
+      tailwater and audited without a salmon floor or mortality taper.
+- [x] Ungauged-river weather-only Activity engine foundation: four-hour
+      effective light plus in-block precipitation, Limited confidence, no air
+      temperature substitution, and no inferred river state.
+- [x] Betsie Chinook weather-only Activity calibration and 2007–2025 replay,
+      including the continuous salmon floor/lifecycle transition.
+- [x] Betsie Coho weather-only Activity calibration and 2007–2025 replay,
+      including sectional copy and continuous lifecycle interpolation.
+- [x] Betsie Steelhead weather-only Activity calibration and 2007–2025 replay,
+      with no floor, lifecycle deduction, or mortality taper.
+
 No candidate becomes a config shortcut. A shared river or gauge does not prove
 shared run timing, presence maximum, temperature response, movement behavior,
 Fishability thresholds, or copy.

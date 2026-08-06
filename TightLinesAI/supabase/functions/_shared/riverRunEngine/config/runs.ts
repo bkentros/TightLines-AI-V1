@@ -55,7 +55,7 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
       ],
     },
     activity: {
-      version: "pm-fall-chinook-activity-v4",
+      version: "pm-fall-chinook-activity-v7",
       profile: "chinook_fall_reaction",
       weights: {
         light: 0.6,
@@ -76,9 +76,15 @@ export const PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE:
         tomorrow: 79,
         lateRun: 59,
         ending: 49,
+        taperingPenalty: 15,
+        lifecycleRamp: {
+          peakEnd: "09-30",
+          taperingEnd: "10-18",
+          endingEnd: "10-27",
+        },
       },
       evidenceNotes:
-        "PM Chinook Activity is a conditional responsiveness outlook, not catch probability. Actual versus clear-sky light is the dominant continuous block input, with cloud cover only as fallback context. Temperature retains three biological states while changing smoothly near their boundaries. Scottville flow position and precipitation also change continuously inside their accepted ranges. Missing inputs are omitted and reweighted, then receive one combined data-confidence reduction rather than stacked penalties so weather-only rivers can remain useful without fabricating gauges. Warm water, extreme flow, and late biology reduce scores proportionally instead of collapsing unlike days onto identical ceiling values. When weather, measured temperature, and river data are all present, complete-input scores below 30 receive a smooth 20-30 conditional-response floor because the outlook applies to a living Chinook already present rather than representing catch probability. Early lake-fresh fish retain partial responsiveness in tolerable warmth, while late biological deterioration still constrains favorable conditions.",
+        "PM Chinook Activity is a conditional responsiveness outlook, not catch probability. Actual versus clear-sky light is the dominant continuous block input, with cloud cover only as fallback context. Temperature retains three biological states while changing smoothly near their boundaries. Scottville flow position and precipitation also change continuously inside their accepted ranges. Missing inputs are omitted and reweighted, then receive one combined data-confidence reduction rather than stacked penalties so weather-only rivers can remain useful without fabricating gauges. Warm water and extreme flow reduce scores proportionally. After Peak, the complete-input floor fades continuously while a lifecycle deduction grows from 0 to 15 points through October 18; Ending then blends into the 49% residual constraint through October 27. This avoids artificial calendar cliffs while preserving genuinely low late response. Early lake-fresh fish retain partial responsiveness in tolerable warmth, while late biological deterioration still constrains favorable conditions.",
     },
     push: {
       version: "pm-fall-chinook-push-v5",
@@ -216,6 +222,7 @@ export const BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE:
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
+      activity: { status: "available" },
     },
     runWindow: {
       preRunStart: "07-01",
@@ -252,6 +259,40 @@ export const BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE:
         { dayOffsetFromStart: 77, fractionOfMaximum: 0.38 },
         { dayOffsetFromStart: 87, fractionOfMaximum: 0 },
       ],
+    },
+    activity: {
+      version: "big-manistee-fall-chinook-activity-v4",
+      profile: "chinook_fall_reaction",
+      scopeCopy:
+        "The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ farther downstream.",
+      weights: {
+        light: 0.55,
+        waterTemperature: 0.2,
+        riverBehavior: 0.15,
+        weather: 0.1,
+      },
+      temperature: {
+        coldF: 43,
+        preferredMinF: 48,
+        preferredMaxF: 62,
+        warmF: 68,
+        barrierF: 72,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 100,
+        ending: 46,
+        taperingPenalty: 15,
+        lifecycleRamp: {
+          peakEnd: "10-10",
+          taperingEnd: "10-20",
+          endingEnd: "10-31",
+        },
+      },
+      evidenceNotes:
+        "Big Manistee Fall Chinook Activity reuses the shared Chinook responsiveness engine while calibrating its inputs to the regulated Wellston/Tippy tailwater. Effective light remains dominant because Chinook are photosensitive, measured Wellston temperature carries more weight than in the Pere Marquette calibration because Tippy creates a distinct and continuously measured tailwater regime, accepted Wellston fishability bands describe current presentation shape without duplicating Push movement credit, and precipitation remains restrained cover context. The broader 48-62F favorable response band, 68F warm constraint, and 72F barrier preserve Great Lakes Chinook biology while acknowledging that the historical Wellston record commonly remains warm during early entry. After Peak, the complete-input floor fades out and the lifecycle penalty rises continuously each day: the taper deduction moves from 0 to 15 points through October 20, then blends into the 46% ending constraint through October 31. The residual tail holds that ending constraint. This avoids artificial stage-boundary cliffs while allowing a fresher October fish to retain strong response potential and genuinely inactive deteriorating fish to remain very low. All copy explicitly limits measured conditions to the Tippy tailwater rather than claiming the full 25-mile corridor.",
     },
     push: {
       version: "big-manistee-fall-chinook-push-v1",
@@ -369,7 +410,7 @@ export const BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE:
       isEnabled: true,
       auditVersion: "big-manistee-fall-chinook-research-build-v1",
       notes:
-        "Research, implementation, replay, and owner-audit build are complete. Public visibility is enabled so the app can load the Big Manistee Fall Chinook profile; Coho and Steelhead remain intentionally absent until their ordered phases.",
+        "Research, implementation, replay, and owner-audit build are complete. Public visibility is enabled for Big Manistee Fall Chinook. Coho is now independently implemented through Activity; Steelhead Activity remains the next ordered phase.",
     },
   };
 
@@ -388,6 +429,7 @@ export const BIG_MANISTEE_FALL_COHO_RUN_PROFILE:
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
+      activity: { status: "available" },
     },
     runWindow: {
       preRunStart: "08-20",
@@ -425,6 +467,40 @@ export const BIG_MANISTEE_FALL_COHO_RUN_PROFILE:
         { dayOffsetFromStart: 81, fractionOfMaximum: 0.2 },
         { dayOffsetFromStart: 91, fractionOfMaximum: 0 },
       ],
+    },
+    activity: {
+      version: "big-manistee-fall-coho-activity-v2",
+      profile: "coho_fall_reaction",
+      scopeCopy:
+        "The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ through the middle and lower migratory river.",
+      weights: {
+        light: 0.5,
+        waterTemperature: 0.25,
+        riverBehavior: 0.15,
+        weather: 0.1,
+      },
+      temperature: {
+        coldF: 40,
+        preferredMinF: 45,
+        preferredMaxF: 60,
+        warmF: 64,
+        barrierF: 68,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 100,
+        ending: 42,
+        taperingPenalty: 15,
+        lifecycleRamp: {
+          peakEnd: "10-31",
+          taperingEnd: "11-10",
+          endingEnd: "11-30",
+        },
+      },
+      evidenceNotes:
+        "Big Manistee Coho Activity is a conditional responsiveness outlook for a Coho already present, not abundance or catch probability. The evidence-supported adult Coho response band remains 45-60F because species physiology does not change by river, while every live input is independently bound to the regulated Wellston/Tippy tailwater: measured USGS 04125550 temperature, accepted Big Manistee flow-shape bands, and the Wellston weather point. Effective light remains the leading block input, measured water temperature carries 25%, river behavior 15%, and precipitation 10%. After the October 31 Peak shoulder, the complete-input 15-25 floor fades continuously while the lifecycle deduction grows from 0 to 15 points through November 10. Ending then blends into the 42% residual constraint through November 30. This preserves fresher-fish response without calendar cliffs and permits genuinely low activity as semelparous fish deteriorate. Copy explicitly limits the measurement claim to the Tippy tailwater and separates response from the run's lower, sectional abundance.",
     },
     push: {
       ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push,
@@ -483,9 +559,9 @@ export const BIG_MANISTEE_FALL_COHO_RUN_PROFILE:
       "Primary evidence: Michigan DNR Coho species profile; DNR Manistee River below Tippy Status Report 2004-4; DNR 2022-2023 below-Tippy creel survey; DNR Tippy Dam plan; USGS 04125550 discharge and measured-water-temperature histories; U.S. Fish and Wildlife Service Manistee recreational corridor. The profile uses named migratory reaches so novice anglers are never directed ambiguously above Tippy Dam.",
     publicAudit: {
       isEnabled: true,
-      auditVersion: "big-manistee-fall-coho-research-build-v1",
+      auditVersion: "big-manistee-fall-coho-activity-audit-v1",
       notes:
-        "Research and implementation are complete for owner audit. Public visibility is enabled for direct app review of the 50-point ceiling, October 20 peak, sectional reach copy, shared hydraulics, and Coho-specific timing baseline.",
+        "Research, river-specific Activity implementation, 2007-2025 replay, and owner acceptance coverage are complete. Public visibility supports direct app review of the 50-point presence ceiling, October 20 peak, sectional reach copy, shared hydraulics, Coho-specific timing, and continuously interpolated late Activity lifecycle.",
     },
   };
 
@@ -504,6 +580,7 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
+      activity: { status: "available" },
     },
     runWindow: {
       preRunStart: "08-15",
@@ -549,6 +626,34 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
         { dayOffsetFromStart: 95, fractionOfMaximum: 0.9 },
         { dayOffsetFromStart: 98, fractionOfMaximum: 0.875 },
       ],
+    },
+    activity: {
+      version: "big-manistee-fall-steelhead-activity-v1",
+      profile: "steelhead_feeding",
+      weights: {
+        light: 0.25,
+        waterTemperature: 0.5,
+        riverBehavior: 0.15,
+        weather: 0.1,
+      },
+      temperature: {
+        coldF: 39,
+        preferredMinF: 44,
+        preferredMaxF: 56,
+        warmF: 64,
+        barrierF: 68,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 100,
+        ending: 100,
+      },
+      scopeCopy:
+        "River measurements describe the Wellston/Tippy tailwater; conditions can differ farther downstream through the long migratory corridor.",
+      evidenceNotes:
+        "Big Manistee Fall Steelhead Activity describes feeding and aggressive responsiveness for fish already present, not migration, abundance, or catch probability. It reuses the audited Steelhead response model while binding every river input to the Big Manistee: same-gauge USGS 04125550 measured water temperature, accepted Wellston flow-shape bands, and the Wellston weather point. Measured temperature leads at 50%, with 44-56F favorable and 48-54F the apex; light carries 25%, river behavior 15%, and weather 10%. This regulated tailwater can retain favorable thermal conditions differently from the Pere Marquette, but the adult Steelhead biological response thresholds remain species-specific rather than invented per river. Steelhead receive no salmon conditional floor, lifecycle deduction, late ceiling, or ending constraint. Late-fall and holding-transition scores respond only to measured temperature, hydraulics, light, weather, and data confidence because these fish remain alive and overwinter in the river.",
     },
     push: {
       ...BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE.push,
@@ -614,9 +719,9 @@ export const BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE:
       "Primary evidence: Michigan DNR Manistee River below Tippy Status Report 2004-4; DNR 2022-2023 creel survey; DNR Steelhead profile; DNR Tippy Dam plan; USFWS Manistee River profile; USGS 04125550 discharge and measured-water-temperature history. Implementation reuses validated river hydraulics while keeping Steelhead timing, thermal response, presence, and winter handoff species-specific.",
     publicAudit: {
       isEnabled: true,
-      auditVersion: "big-manistee-fall-steelhead-research-build-v1",
+      auditVersion: "big-manistee-fall-steelhead-activity-audit-v1",
       notes:
-        "Implementation is enabled for owner review of the 80-point November 15 ceiling, 70-point December handoff, named-reach copy, shared Wellston hydraulics, and Steelhead-specific timing. The separately requested quantitative post-build primitive audit is intentionally deferred.",
+        "Research, river-specific Activity implementation, historical replay, and owner acceptance coverage are complete. Public visibility supports direct app review of Steelhead feeding responsiveness, the 80-point November 15 presence ceiling, 70-point December handoff, named-reach copy, shared Wellston hydraulics, and the absence of any salmon mortality taper.",
     },
   };
 
@@ -986,6 +1091,7 @@ export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       notes:
         "No accepted live gauge represents the short below-Homestead fishing corridor, so Betsie hydraulic bands cannot be responsibly calibrated.",
     },
+    activity: { status: "available" },
   },
   runStageCopyStrategy: "betsie_homestead",
   runWindow: {
@@ -1022,6 +1128,42 @@ export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
       { dayOffsetFromStart: 85, fractionOfMaximum: 0 },
     ],
   },
+  activity: {
+    version: "betsie-fall-chinook-weather-activity-v1",
+    profile: "chinook_fall_reaction",
+    dataMode: "weather_only",
+    scopeCopy:
+      "This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature.",
+    weights: {
+      light: 0.75,
+      waterTemperature: 0,
+      riverBehavior: 0,
+      weather: 0.25,
+    },
+    temperature: {
+      coldF: 45,
+      preferredMinF: 50,
+      preferredMaxF: 62,
+      warmF: 68,
+      barrierF: 70,
+    },
+    caps: {
+      noMeasuredRiverData: 69,
+      noWaterTemperature: 69,
+      tomorrow: 90,
+      lateRun: 59,
+      ending: 49,
+      weatherOnlyMaximum: 95,
+      taperingPenalty: 15,
+      lifecycleRamp: {
+        peakEnd: "09-25",
+        taperingEnd: "10-13",
+        endingEnd: "11-03",
+      },
+    },
+    evidenceNotes:
+      "Betsie Fall Chinook Activity is an explicitly weather-only responsiveness outlook for a fish already present, not a river-condition, movement, abundance, fishability, or catch-probability estimate. Each fixed four-hour block uses its own actual-versus-clear-sky light, cloud fallback, total precipitation, and wet-hour duration from the Homestead weather point. Effective light carries 75% and precipitation context 25%; measured water temperature and river behavior carry zero because no accepted sources represent the corridor. The score retains the native range of the variables the model actually evaluates, with a true upper bound of 95 rather than a proportional missing-data reduction; tomorrow is bounded at 90. Confidence remains Limited and copy states exactly which river variables are unknown. The salmon opportunity floor is permitted only from complete hourly weather and fades continuously after the September 25 Peak shoulder; a 15-point lifecycle deduction grows through October 13, then blends continuously into the 49% residual constraint across Ending and the sparse tail through November 3. Air temperature and preceding-block rain are excluded, and precipitation never implies that the river rose or changed clarity.",
+  },
   userCopyHints: {
     stagingTip:
       "Use Betsie Lake, the mouth, and the first deep below-Homestead hole; an early fish at Homestead is possible but exceptional.",
@@ -1038,9 +1180,9 @@ export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     "River-specific evidence includes Michigan DNR Betsie fishery surveys and regulations, DNR Homestead infrastructure and access material, Betsie Lake staging documentation, the Great Lakes Fishery Trust/USGS naturalized Chinook study at Homestead, current DNR fishing reports, and explicit owner field experience. The 2026 regulations close fishing within 300 feet of Homestead from August 1 through November 15; public copy must never direct anglers into that closure. Push, Fishability, and Migration Timing intentionally have no calibration blocks because their required sources are unavailable.",
   publicAudit: {
     isEnabled: false,
-    auditVersion: "betsie-fall-chinook-owner-audit-v1",
+    auditVersion: "betsie-fall-chinook-weather-activity-audit-v1",
     notes:
-      "Research and implementation are complete for owner audit. Public visibility remains disabled until configuration, device copy, seasonal boundary, Homestead geography, and unavailable-state acceptance are explicitly approved.",
+      "Research and weather-only Activity implementation are enabled for owner audit. Public visibility remains disabled until historical weather replay, score/copy inspection, configuration, device copy, seasonal boundary, Homestead geography, and unavailable-state acceptance are explicitly approved.",
   },
 };
 
@@ -1072,6 +1214,7 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       notes:
         "No accepted live gauge represents the short below-Homestead fishing corridor, so Betsie hydraulic bands cannot be responsibly calibrated.",
     },
+    activity: { status: "available" },
   },
   runStageCopyStrategy: "betsie_homestead",
   runWindow: {
@@ -1109,6 +1252,42 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
       { dayOffsetFromStart: 121, fractionOfMaximum: 0 },
     ],
   },
+  activity: {
+    version: "betsie-fall-coho-weather-activity-v1",
+    profile: "coho_fall_reaction",
+    dataMode: "weather_only",
+    scopeCopy:
+      "This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional.",
+    weights: {
+      light: 0.7,
+      waterTemperature: 0,
+      riverBehavior: 0,
+      weather: 0.3,
+    },
+    temperature: {
+      coldF: 40,
+      preferredMinF: 45,
+      preferredMaxF: 60,
+      warmF: 64,
+      barrierF: 68,
+    },
+    caps: {
+      noMeasuredRiverData: 69,
+      noWaterTemperature: 69,
+      tomorrow: 90,
+      lateRun: 59,
+      ending: 42,
+      weatherOnlyMaximum: 95,
+      taperingPenalty: 15,
+      lifecycleRamp: {
+        peakEnd: "10-31",
+        taperingEnd: "11-15",
+        endingEnd: "12-26",
+      },
+    },
+    evidenceNotes:
+      "Betsie Fall Coho Activity is an explicitly weather-only responsiveness outlook for a Coho already present, not a river-condition, movement, abundance, fishability, or catch-probability estimate. Each fixed four-hour block uses its own actual-versus-clear-sky light, cloud fallback, total precipitation, and wet-hour duration from the Homestead weather point. Effective light carries 70% and precipitation context 30%, giving Coho slightly more weather-cover influence than Betsie Chinook while keeping light dominant; measured water temperature and river behavior carry zero. The evaluated weather variables retain their native range with a true upper bound of 95 and tomorrow bounded at 90. Confidence is always Limited, and copy states that the already-limited Betsie Coho opportunity remains sectional. The Coho floor fades continuously after October 31 while a 15-point lifecycle deduction grows through November 15; Ending and the sparse tail then blend continuously into the 42% residual constraint through December 26. Air temperature and preceding-block rain are excluded, and precipitation never implies a river rise or clarity change.",
+  },
   userCopyHints: {
     stagingTip:
       "Use Lake Michigan, Frankfort harbor, Betsie Lake, the river mouth, and one deliberate check of the first deep below-Homestead hole.",
@@ -1125,9 +1304,9 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     "River-specific evidence includes Michigan DNR Betsie fishery surveys, the 2010 full-river creel estimate, current DNR fishing-water listings, Homestead access and regulation material, and explicit owner acceptance of the 3/10 ceiling and five-day PM lead. The 2026 regulations close fishing within 300 feet of Homestead from August 1 through November 15 and within 100 feet for the rest of the year. Push, Fishability, and Migration Timing intentionally have no calibration blocks because their required sources remain unavailable.",
   publicAudit: {
     isEnabled: false,
-    auditVersion: "betsie-fall-coho-owner-audit-v1",
+    auditVersion: "betsie-fall-coho-weather-activity-audit-v1",
     notes:
-      "Research and implementation are complete for owner audit. Public visibility remains disabled until the 30-point ceiling, exact calendar, limited/sectional copy, Homestead geography, and unavailable-state behavior are explicitly approved.",
+      "Research and weather-only Activity implementation are enabled for owner audit. Public visibility remains disabled until historical weather replay, the 30-point presence ceiling, exact calendar, Limited/Sectional copy, Homestead geography, and unavailable-state behavior are explicitly approved.",
   },
 };
 
@@ -1159,6 +1338,7 @@ export const BETSIE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       notes:
         "No accepted live gauge represents the short below-Homestead fishing corridor, so Betsie hydraulic bands cannot be responsibly calibrated.",
     },
+    activity: { status: "available" },
   },
   runStageCopyStrategy: "betsie_homestead",
   runWindow: {
@@ -1203,6 +1383,36 @@ export const BETSIE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       { dayOffsetFromStart: 93, fractionOfMaximum: 0.875 },
     ],
   },
+  activity: {
+    version: "betsie-fall-steelhead-weather-activity-v1",
+    profile: "steelhead_feeding",
+    dataMode: "weather_only",
+    scopeCopy:
+      "This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature.",
+    weights: {
+      light: 0.7,
+      waterTemperature: 0,
+      riverBehavior: 0,
+      weather: 0.3,
+    },
+    temperature: {
+      coldF: 39,
+      preferredMinF: 44,
+      preferredMaxF: 56,
+      warmF: 64,
+      barrierF: 68,
+    },
+    caps: {
+      noMeasuredRiverData: 69,
+      noWaterTemperature: 69,
+      tomorrow: 90,
+      lateRun: 100,
+      ending: 100,
+      weatherOnlyMaximum: 95,
+    },
+    evidenceNotes:
+      "Betsie Fall Steelhead Activity is an explicitly weather-only feeding and aggressive-responsiveness outlook for a Steelhead already present, not a river-condition, movement, abundance, fishability, or catch-probability estimate. Each fixed four-hour block uses its own actual-versus-clear-sky light, cloud fallback, total precipitation, and wet-hour duration from the Homestead weather point. Effective light carries 70% and precipitation context 30%, matching the natural reweighting of the shared Steelhead model's observable weather components while measured water temperature and river behavior remain zero. The evaluated weather variables retain their native range with a true upper bound of 95 and tomorrow bounded at 90. Confidence is always Limited. Steelhead receive no salmon floor, lifecycle deduction, tapering ceiling, ending constraint, or mortality copy; identical weather produces identical Activity scores across Peak, Late fall, Holding transition, and Winter holding. Air temperature and preceding-block rain are excluded, and precipitation never implies a river rise or clarity change.",
+  },
   userCopyHints: {
     stagingTip:
       "Use Frankfort harbor, Betsie Lake, the river mouth, and one deliberate check of the first deep below-Homestead travel water.",
@@ -1219,9 +1429,9 @@ export const BETSIE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
     "River-specific evidence includes Michigan DNR Betsie Survey 2004-3, current DNR Better Fishing Waters, DNR Homestead access material, the DNR Steelhead species profile, current Homestead closure regulations, and explicit owner calibration. Fishing is closed within 300 feet of Homestead from August 1 through November 15 and within 100 feet from November 16 through July 31. Push, Fishability, and Migration Timing intentionally have no calibration blocks because their required sources remain unavailable.",
   publicAudit: {
     isEnabled: false,
-    auditVersion: "betsie-fall-steelhead-owner-audit-v1",
+    auditVersion: "betsie-fall-steelhead-weather-activity-audit-v1",
     notes:
-      "Research and implementation are complete for owner audit. Public visibility remains disabled until the 70-point ceiling, exact calendar, 61-point winter handoff, Homestead geography, and unavailable-state behavior are explicitly approved.",
+      "Research and weather-only Activity implementation are enabled for owner audit. Public visibility remains disabled until historical weather replay, the 70-point presence ceiling, exact calendar, 61-point winter handoff, Homestead geography, and unavailable-state behavior are explicitly approved.",
   },
 };
 
@@ -1240,6 +1450,7 @@ export const PERE_MARQUETTE_FALL_COHO_RUN_PROFILE:
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
+      activity: { status: "available" },
     },
     runWindow: {
       preRunStart: "08-15",
@@ -1275,6 +1486,38 @@ export const PERE_MARQUETTE_FALL_COHO_RUN_PROFILE:
         { dayOffsetFromStart: 117, fractionOfMaximum: 0.08 },
         { dayOffsetFromStart: 121, fractionOfMaximum: 0 },
       ],
+    },
+    activity: {
+      version: "pm-fall-coho-activity-v4",
+      profile: "coho_fall_reaction",
+      weights: {
+        light: 0.5,
+        waterTemperature: 0.25,
+        riverBehavior: 0.15,
+        weather: 0.1,
+      },
+      temperature: {
+        coldF: 40,
+        preferredMinF: 45,
+        preferredMaxF: 60,
+        warmF: 64,
+        barrierF: 68,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 56,
+        ending: 42,
+        taperingPenalty: 15,
+        lifecycleRamp: {
+          peakEnd: "11-05",
+          taperingEnd: "11-20",
+          endingEnd: "11-30",
+        },
+      },
+      evidenceNotes:
+        "PM Coho Activity is a conditional responsiveness outlook for fish already present. Effective light remains the leading block-level input, but measured water temperature carries more influence than in the Chinook profile because adult Coho migration and spawning behavior are strongly temperature-linked. Favorable Coho temperature tops out below a perfect component score so seasonally suitable water cannot make exceptional reads routine by itself. The preferred 45-60F band covers authoritative adult spawning guidance; response declines above 60F, with 64F marking a strong warm constraint and 68F a conservative barrier for favorable Activity language. Scottville flow position describes current river shape, while a restrained precipitation component adds cover without standing in for a later measured flow response. Through Peak, a Coho-specific 15-25 lower-tail compression applies only with complete inputs. From November 6-20 that floor fades continuously while a lifecycle deduction grows from 0 to 15 points. From November 21-30 the deduction blends into the 42% residual constraint, preventing stage-boundary cliffs while preserving genuinely low response for deteriorating semelparous fish.",
     },
     push: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.push,
@@ -1354,6 +1597,7 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
+      activity: { status: "available" },
     },
     runWindow: {
       preRunStart: "08-15",
@@ -1396,6 +1640,32 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
         { dayOffsetFromStart: 90, fractionOfMaximum: 0.9 },
         { dayOffsetFromStart: 93, fractionOfMaximum: 0.875 },
       ],
+    },
+    activity: {
+      version: "pm-fall-steelhead-activity-v2",
+      profile: "steelhead_feeding",
+      weights: {
+        light: 0.25,
+        waterTemperature: 0.5,
+        riverBehavior: 0.15,
+        weather: 0.1,
+      },
+      temperature: {
+        coldF: 39,
+        preferredMinF: 44,
+        preferredMaxF: 56,
+        warmF: 64,
+        barrierF: 68,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 100,
+        ending: 100,
+      },
+      evidenceNotes:
+        "PM Fall Steelhead Activity describes feeding and aggressive responsiveness for fish already present, not migration, abundance, catch probability, or the future winter-holding read. Measured temperature leads the profile because rainbow-trout feeding intensity changes strongly with temperature and PM adult Steelhead telemetry independently shows temperature-led behavior. Effective light remains meaningful for choosing among four-hour windows but is deliberately much lower than either salmon profile, so dark skies cannot erase cold-water metabolic restraint. Scottville flow position describes presentation shape without re-awarding a measured migration response, and precipitation remains restrained cover context. The 44-56F preferred band represents favorable fall feeding calibration, with a narrower 48-54F apex that can support an exceptional result only when river, light, and weather conditions also align. Responsiveness declines continuously and more sharply below 44F toward the approximately 39F cold-holding transition, and also declines above 56F toward unusually warm fall water. Steelhead receive no salmon conditional floor and no tapering or ending mortality reduction: low scores can honestly represent cold, warm, or extreme-flow responsiveness while fish remain alive, and December copy transitions toward winter holding rather than spawning deterioration.",
     },
     push: {
       ...PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE.push,
@@ -1461,9 +1731,9 @@ export const PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE:
       "Sources include Michigan DNR steelhead biology and Great Lakes tributary timing, Michigan DNR Pere Marquette fishery/angler-survey material, Pere Marquette and broader Great Lakes telemetry, USGS 04122500 Scottville, and PMTU measured-water stations. PM hydraulics and providers are shared; biology, timing, retained presence, temperature response, condition weights, and winter handoff are steelhead-specific. The full local acceptance pass and explicit owner release approval are complete.",
     publicAudit: {
       isEnabled: true,
-      auditVersion: "pm-fall-steelhead-acceptance-v1",
+      auditVersion: "pm-fall-steelhead-activity-audit-v1",
       notes:
-        "Local build audit passed: 419 Push dates, 921 Fishability dates, 570 integrated snapshots, five timing baselines, and 103 Steelhead review scenarios produced zero safety, copy, boundary, meter, or cross-primitive violations. The owner explicitly approved public visibility after device review.",
+        "The accepted fall-entry foundation remains public while Steelhead Activity is in owner review. Local Activity audit passed 515 complete historical days, 2,060 four-hour blocks, 118 review scenarios, every lifecycle and confidence state, the 70-point winter handoff, copy safety, and visual contracts with zero scoring or copy invariant failures.",
     },
   };
 

@@ -12,6 +12,7 @@ const targets = {
   conditions: ["run_timing", "conditionsSuggest"],
   push: ["push", "push"],
   fishability: ["fishability", "fishability"],
+  activity: ["activity", "activity"],
   fish_in_river: ["fish_in_river", "fishInRiver"],
 } as const;
 
@@ -34,6 +35,39 @@ for (const group of RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS) {
     assert.equal(snapshot.fishability.label, "Unavailable");
     assert.equal(snapshot.pushHistory.status, "unavailable");
     assert.match(snapshot.safety.regulationReminder, /Homestead/i);
+    if (group.id === "activity") {
+      assert(snapshot.activity, scenario.id);
+      assert.equal(snapshot.activity.confidence, "Limited");
+      assert.equal(
+        snapshot.activity.rulesVersion,
+        "betsie-fall-steelhead-weather-activity-v1",
+      );
+      assert(snapshot.activity.blocks.every((block) => block.score <= 95));
+      assert(snapshot.activity.reasonCodes.includes("activity_weather_only"));
+      assert.equal(
+        snapshot.activity.reasonCodes.includes("activity_late_biology_cap"),
+        false,
+      );
+      assert.match(snapshot.activity.headline, /weather-only Steelhead/i);
+      assert.match(snapshot.activity.headline, /Limited confidence/i);
+      assert.match(snapshot.activity.detail, /evaluated weather/i);
+      assert.match(snapshot.activity.tip, /weather[- ]support/i);
+      assert.match(
+        snapshot.activity.tip,
+        /verify actual water temperature, level, clarity/i,
+      );
+      assert.match(
+        snapshot.activity.detail,
+        /River level, clarity, and measured water temperature are unknown/i,
+      );
+      assert.equal(
+        /Chinook|Coho|spent|dying|deteriorat|mortality|favorable measured water temperature|river level remains workable/i
+          .test(
+            JSON.stringify(snapshot.activity),
+          ),
+        false,
+      );
+    }
 
     const publicCopy = JSON.stringify(snapshot);
     assert.equal(/\bChinook\b|\bCoho\b/i.test(publicCopy), false, scenario.id);
@@ -88,7 +122,7 @@ for (const group of RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS) {
   }
 }
 
-assert.equal(scenarioCount, 25);
+assert.equal(scenarioCount, 34);
 const byId = new Map(
   RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS.flatMap((group) =>
     group.scenarios.map((scenario) => [scenario.id, scenario] as const)
@@ -106,6 +140,15 @@ const winter = byId.get("stage_winter_holding")?.snapshot.runStage;
 assert(winter);
 assert.equal(winter.winterHoldingContext, true);
 assert.match(winter.tip ?? "", /61\/100/i);
+
+const unchangedLateScores = [
+  "activity_peak_light_rain",
+  "activity_late_fall",
+  "activity_holding_transition",
+  "activity_fall_end",
+  "activity_winter_holding",
+].map((id) => byId.get(id)?.snapshot.activity?.score);
+assert(unchangedLateScores.every((score) => score === unchangedLateScores[0]));
 
 const expectedPresence = new Map([
   ["presence_before", 0],
@@ -132,5 +175,5 @@ assert(
 );
 
 console.log(
-  `Betsie Fall Steelhead acceptance QA passed: ${scenarioCount} production-derived scenarios, exact five-day PM lead, 70-point Moderate/Broad ceiling, 61-point winter handoff, Homestead copy, unavailable live primitives, stripping-flies guidance, and visual contracts.`,
+  `Betsie Fall Steelhead acceptance QA passed: ${scenarioCount} production-derived scenarios, weather-only Activity with no salmon taper, exact five-day PM lead, 70-point Moderate/Broad presence ceiling, 61-point winter handoff, Homestead copy, unavailable hydraulic primitives, stripping-flies guidance, and visual contracts.`,
 );

@@ -10,13 +10,14 @@ import {
   PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
   resolveActiveRunWindow,
   resolveRunStage,
+  scoreActivity,
   scoreFishInRiver,
   validateRunProfile,
 } from "../index.ts";
 
 const run = BETSIE_FALL_STEELHEAD_RUN_PROFILE;
 
-Deno.test("Betsie Fall Steelhead is valid, moderate, broad, seasonal-only, and owner-gated", () => {
+Deno.test("Betsie Fall Steelhead is valid, moderate, broad, weather-only, and owner-gated", () => {
   const result = validateRunProfile(run, BETSIE_RIVER_PROFILE);
   assertEquals(result.valid, true);
   assertEquals(result.publicVisible, false);
@@ -27,6 +28,78 @@ Deno.test("Betsie Fall Steelhead is valid, moderate, broad, seasonal-only, and o
   assertEquals("push" in run, false);
   assertEquals("fishabilityBands" in run, false);
   assertEquals("conditionsSuggest" in run, false);
+  assertEquals(run.primitiveCapabilities.activity, { status: "available" });
+  assertEquals(run.activity?.dataMode, "weather_only");
+});
+
+Deno.test("Betsie Steelhead Activity has no floor, taper, or mortality semantics", () => {
+  assertEquals(
+    run.activity?.version,
+    "betsie-fall-steelhead-weather-activity-v1",
+  );
+  assertEquals(run.activity?.profile, "steelhead_feeding");
+  assertEquals(run.activity?.weights, {
+    light: 0.7,
+    waterTemperature: 0,
+    riverBehavior: 0,
+    weather: 0.3,
+  });
+  assertEquals(run.activity?.caps.weatherOnlyMaximum, 95);
+  assertEquals(run.activity?.caps.tomorrow, 90);
+  assertEquals(run.activity?.caps.lateRun, 100);
+  assertEquals(run.activity?.caps.ending, 100);
+  assertEquals(run.activity?.caps.taperingPenalty, undefined);
+  assertEquals(run.activity?.caps.lifecycleRamp, undefined);
+
+  const scoreFor = (date: string) => {
+    const stage = resolveRunStage(run, date);
+    return scoreActivity({
+      rules: run.activity!,
+      requestDate: date,
+      targetDate: date,
+      runStage: stage.stage,
+      staging: false,
+      waterTempF: null,
+      temperatureTrend: "neutral_missing",
+      gaugeFreshness: "missing",
+      weatherFreshness: "fresh",
+      flowSignal: "unknown",
+      hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+        time_local: `${date}T${String(hour).padStart(2, "0")}:00`,
+        cloud_cover_pct: 95,
+        shortwave_w_m2: hour >= 7 && hour < 19 ? 70 : 0,
+        clear_sky_shortwave_w_m2: hour >= 7 && hour < 19 ? 600 : 0,
+        precipitation_in: hour >= 9 && hour < 13 ? 0.005 : 0,
+      })),
+    });
+  };
+  const dates = ["2026-11-29", "2026-11-30", "2026-12-15", "2026-12-18"];
+  const results = dates.map(scoreFor);
+  assert(results.every((result) => result.score === results[0].score));
+  for (const [index, result] of results.entries()) {
+    assertEquals(result.confidence, "Limited", dates[index]);
+    assertEquals(result.reasonCodes.includes("activity_weather_only"), true);
+    assertEquals(
+      result.reasonCodes.includes("activity_late_biology_cap"),
+      false,
+    );
+    assertMatch(result.headline, /weather-only Steelhead activity outlook/i);
+    assertMatch(result.headline, /Limited confidence/i);
+    assertMatch(result.detail, /evaluated weather/i);
+    if (index === 0) {
+      assertMatch(result.tip, /strongest weather-supported window/i);
+    } else {
+      assertMatch(result.tip, /only to compare weather support/i);
+      assertMatch(result.tip, /remain alive/i);
+    }
+    assertMatch(result.tip, /verify actual water temperature, level, clarity/i);
+    assertEquals(
+      /Chinook|Coho|spent|dying|deteriorat|mortality/i.test(
+        JSON.stringify(result),
+      ),
+      false,
+    );
+  }
 });
 
 Deno.test("every Betsie Steelhead calendar and handoff boundary is exactly five days ahead of PM", () => {

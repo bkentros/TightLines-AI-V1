@@ -1,0 +1,210 @@
+{
+  "runId": "betsie_fall_steelhead",
+  "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+  "replayYears": "2007-2025",
+  "method": "Historical mechanical Betsie steelhead weather-only replay using each four-hour block's Open-Meteo shortwave radiation, clear-sky radiation, cloud cover, precipitation total, and wet-hour duration at the Homestead weather point. No air temperature, river level, clarity, or water temperature is inferred. This validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 2166,
+  "usableDays": 2166,
+  "missingWeatherDays": 0,
+  "dayScore": {
+    "min": 62,
+    "p10": 63,
+    "median": 82,
+    "p90": 91,
+    "max": 95,
+    "mean": 79.51
+  },
+  "blockScore": {
+    "min": 44,
+    "p10": 53,
+    "median": 81,
+    "p90": 92,
+    "max": 95,
+    "mean": 76.5
+  },
+  "uniqueDayScores": 34,
+  "uniqueBlockScores": 52,
+  "dayLabels": {
+    "Active": 918,
+    "Highly active": 1248
+  },
+  "byStage": {
+    "beginning": {
+      "days": 399,
+      "scores": {
+        "min": 62,
+        "p10": 62,
+        "median": 75,
+        "p90": 88,
+        "max": 95,
+        "mean": 75.16
+      },
+      "labels": {
+        "Active": 251,
+        "Highly active": 148
+      }
+    },
+    "building": {
+      "days": 665,
+      "scores": {
+        "min": 62,
+        "p10": 64,
+        "median": 82,
+        "p90": 91,
+        "max": 95,
+        "mean": 79.49
+      },
+      "labels": {
+        "Active": 289,
+        "Highly active": 376
+      }
+    },
+    "ending": {
+      "days": 57,
+      "scores": {
+        "min": 62,
+        "p10": 83,
+        "median": 87,
+        "p90": 94,
+        "max": 95,
+        "mean": 86.82
+      },
+      "labels": {
+        "Active": 5,
+        "Highly active": 52
+      }
+    },
+    "peak": {
+      "days": 380,
+      "scores": {
+        "min": 62,
+        "p10": 69,
+        "median": 85,
+        "p90": 93,
+        "max": 95,
+        "mean": 83.35
+      },
+      "labels": {
+        "Active": 92,
+        "Highly active": 288
+      }
+    },
+    "post_run": {
+      "days": 19,
+      "scores": {
+        "min": 69,
+        "p10": 77,
+        "median": 86,
+        "p90": 93,
+        "max": 95,
+        "mean": 85.79
+      },
+      "labels": {
+        "Active": 3,
+        "Highly active": 16
+      }
+    },
+    "pre_run": {
+      "days": 361,
+      "scores": {
+        "min": 62,
+        "p10": 62,
+        "median": 73,
+        "p90": 89,
+        "max": 95,
+        "mean": 74.14
+      },
+      "labels": {
+        "Active": 230,
+        "Highly active": 131
+      }
+    },
+    "tapering": {
+      "days": 285,
+      "scores": {
+        "min": 62,
+        "p10": 74,
+        "median": 87,
+        "p90": 93,
+        "max": 95,
+        "mean": 85.45
+      },
+      "labels": {
+        "Active": 48,
+        "Highly active": 237
+      }
+    }
+  },
+  "precipitationDays": {
+    "dry": {
+      "days": 1169,
+      "scores": {
+        "min": 62,
+        "p10": 62,
+        "median": 74,
+        "p90": 86,
+        "max": 88,
+        "mean": 74.03
+      }
+    },
+    "traceToLight": {
+      "days": 689,
+      "scores": {
+        "min": 63,
+        "p10": 75,
+        "median": 87,
+        "p90": 93,
+        "max": 95,
+        "mean": 84.95
+      }
+    },
+    "moderateToHeavy": {
+      "days": 308,
+      "scores": {
+        "min": 67,
+        "p10": 81,
+        "median": 90,
+        "p90": 94,
+        "max": 95,
+        "mean": 88.15
+      }
+    }
+  },
+  "bestBlocks": {
+    "05-09": 986,
+    "09-13": 322,
+    "13-17": 362,
+    "17-21": 496
+  },
+  "spread": {
+    "min": 0,
+    "p10": 4,
+    "median": 17,
+    "p90": 30,
+    "max": 47,
+    "mean": 16.88
+  },
+  "daysWithSpreadAtLeast10": 1549,
+  "lifecycleContinuity": {
+    "startDate": "2026-11-29",
+    "endDate": "2026-12-18",
+    "scores": [
+      84,
+      84,
+      84,
+      84
+    ],
+    "maximumAdjacentDelta": 0
+  },
+  "invariants": {
+    "incompleteBlocks": 0,
+    "scoreAboveWeatherOnlyCeiling": 0,
+    "dailyOutsideBlockRange": 0,
+    "incompleteCopy": 0,
+    "missingWeatherOnlyDisclosure": 0,
+    "inferredRiverCondition": 0,
+    "prohibitedClaims": 0,
+    "lifecycleCalendarCliff": 0,
+    "lifecycleNotDeclining": 0
+  }
+}

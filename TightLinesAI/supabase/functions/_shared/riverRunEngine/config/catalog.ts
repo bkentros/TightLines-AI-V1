@@ -37,7 +37,7 @@ import type {
 export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-07.12",
+    configVersion: "2026-08-07.16",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,
@@ -53,7 +53,7 @@ export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
 
 export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-05-betsie.6",
+  configVersion: "2026-08-06-betsie-weather-activity.3",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
@@ -75,7 +75,7 @@ export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
 export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
   RiverRunConfigurationDocument = {
     schemaVersion: "river-run-config-v1",
-    configVersion: "2026-08-06-big-manistee-fall-steelhead.2",
+    configVersion: "2026-08-06-big-manistee-steelhead-activity.1",
     movementEngineVersion: [
       getMovementEngineDefinition("fall_cooling").version,
       getMovementEngineDefinition("fall_entry_cooling").version,

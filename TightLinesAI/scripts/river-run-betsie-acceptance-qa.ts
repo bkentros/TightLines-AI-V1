@@ -11,6 +11,7 @@ const targets = {
   conditions: ["run_timing", "conditionsSuggest"],
   push: ["push", "push"],
   fishability: ["fishability", "fishability"],
+  activity: ["activity", "activity"],
   fish_in_river: ["fish_in_river", "fishInRiver"],
 } as const;
 
@@ -34,6 +35,34 @@ for (const group of RIVER_RUN_BETSIE_REVIEW_GROUPS) {
     assert.equal(snapshot.pushHistory.status, "unavailable");
     assert.equal(snapshot.pushHistory.recentDailyReadsStatus, "unavailable");
     assert.match(snapshot.safety.regulationReminder, /300 feet of Homestead/i);
+    if (group.id === "activity") {
+      assert(snapshot.activity, scenario.id);
+      assert.equal(snapshot.activity.confidence, "Limited");
+      assert.equal(
+        snapshot.activity.rulesVersion,
+        "betsie-fall-chinook-weather-activity-v1",
+      );
+      assert(snapshot.activity.blocks.every((block) => block.score <= 95));
+      assert(snapshot.activity.reasonCodes.includes("activity_weather_only"));
+      assert.match(snapshot.activity.headline, /weather-only Chinook/i);
+      assert.match(snapshot.activity.headline, /Limited confidence/i);
+      assert.match(snapshot.activity.detail, /evaluated weather/i);
+      assert.match(snapshot.activity.tip, /weather[- ]support/i);
+      assert.match(
+        snapshot.activity.tip,
+        /Verify actual water temperature, level, clarity/i,
+      );
+      assert.match(snapshot.activity.detail, /weather-only/i);
+      assert.match(
+        snapshot.activity.detail,
+        /River level, clarity, and measured water temperature are unknown/i,
+      );
+      assert.equal(
+        /favorable measured water temperature|river level remains workable/i
+          .test(JSON.stringify(snapshot.activity)),
+        false,
+      );
+    }
 
     const stageCopy = [
       snapshot.runStage.headline,
@@ -88,7 +117,7 @@ for (const group of RIVER_RUN_BETSIE_REVIEW_GROUPS) {
   }
 }
 
-assert.equal(scenarioCount, 23);
+assert.equal(scenarioCount, 32);
 
 const byId = new Map(
   RIVER_RUN_BETSIE_REVIEW_GROUPS.flatMap((group) =>
@@ -126,5 +155,5 @@ for (const [id, expected] of expectedPresence) {
 }
 
 console.log(
-  `Betsie Fall Chinook acceptance QA passed: ${scenarioCount} production-derived scenarios, Homestead geography, exact seasonal anchors, capability-safe Guide's Reads, unavailable live primitives, and visual contracts.`,
+  `Betsie Fall Chinook acceptance QA passed: ${scenarioCount} production-derived scenarios, weather-only Activity, continuous lifecycle adjustment, Homestead geography, exact seasonal anchors, capability-safe Guide's Reads, unavailable hydraulic primitives, and visual contracts.`,
 );

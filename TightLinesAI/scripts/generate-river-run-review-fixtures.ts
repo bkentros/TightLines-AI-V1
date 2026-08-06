@@ -113,6 +113,7 @@ const groups: Group[] = [
 ];
 
 function activityGroup(): Group {
+  const steelhead = run.activity?.profile === "steelhead_feeding";
   const cases: Array<{
     id: string;
     label: string;
@@ -131,21 +132,23 @@ function activityGroup(): Group {
     {
       id: "staging",
       label: "Staging · conditional early fish",
-      date: "2026-08-01",
+      date: reviewWindow.stagingStartDate,
       temp: 66,
       cloud: 80,
     },
     {
       id: "beginning_warm",
-      label: "Beginning · lake-fresh warm tolerance",
-      date: "2026-08-16",
+      label: steelhead
+        ? "Beginning · temperature response"
+        : "Beginning · warm-water constraint",
+      date: reviewWindow.startDate,
       temp: 66,
       cloud: 75,
     },
     {
       id: "building_high",
       label: "Building · highly active",
-      date: "2026-09-10",
+      date: reviewBaseDate,
       temp: 58,
       cloud: 100,
       radiation: 180,
@@ -154,14 +157,14 @@ function activityGroup(): Group {
     {
       id: "peak_active",
       label: "Peak · active",
-      date: "2026-09-20",
+      date: reviewWindow.peakDate,
       temp: 57,
       cloud: 75,
     },
     {
       id: "moderate",
       label: "Building · moderate mixed window",
-      date: "2026-09-10",
+      date: reviewBaseDate,
       temp: 66,
       cloud: 15,
       radiation: 720,
@@ -171,7 +174,7 @@ function activityGroup(): Group {
     {
       id: "reserved",
       label: "Peak · reserved warm and high",
-      date: "2026-09-20",
+      date: reviewWindow.peakDate,
       temp: 69,
       cloud: 5,
       radiation: 800,
@@ -180,8 +183,10 @@ function activityGroup(): Group {
     },
     {
       id: "severe_floor",
-      label: "Peak · reserved severe-condition floor",
-      date: "2026-09-20",
+      label: steelhead
+        ? "Peak · severe conditions without salmon floor"
+        : "Peak · reserved severe-condition floor",
+      date: reviewWindow.peakDate,
       temp: 71,
       cloud: 0,
       radiation: 850,
@@ -191,22 +196,35 @@ function activityGroup(): Group {
     },
     {
       id: "tapering",
-      label: "Tapering · biological cap",
-      date: "2026-10-10",
+      label: steelhead
+        ? "Late fall · cold-water response"
+        : "Tapering · biological cap",
+      date: addDays(reviewWindow.peakEndDate, 1),
       temp: 54,
       cloud: 95,
     },
     {
       id: "ending",
-      label: "Ending · vitality uncertainty cap",
-      date: "2026-10-25",
+      label: steelhead
+        ? "Holding transition · living fish"
+        : "Ending · vitality uncertainty cap",
+      date: addDays(reviewWindow.taperingEndDate, 1),
       temp: 52,
+      cloud: 95,
+    },
+    {
+      id: "post_run",
+      label: steelhead
+        ? "Post-run · winter holding handoff"
+        : "Post-run · spawning and deterioration",
+      date: addDays(reviewWindow.endDate, 1),
+      temp: 48,
       cloud: 95,
     },
     {
       id: "tomorrow",
       label: "Tomorrow · after 9 PM",
-      date: "2026-09-10",
+      date: reviewBaseDate,
       temp: 58,
       cloud: 85,
       tomorrow: true,
@@ -214,14 +232,14 @@ function activityGroup(): Group {
     {
       id: "moderate_no_temp",
       label: "Moderate data · no measured temperature",
-      date: "2026-09-10",
+      date: reviewBaseDate,
       temp: null,
       cloud: 80,
     },
     {
       id: "limited_weather_only",
       label: "Limited · weather only",
-      date: "2026-09-10",
+      date: reviewBaseDate,
       temp: null,
       cloud: 80,
       gaugeFreshness: "missing" as const,
@@ -229,10 +247,21 @@ function activityGroup(): Group {
     {
       id: "limited_no_weather",
       label: "Limited · river data only",
-      date: "2026-09-10",
+      date: reviewBaseDate,
       temp: 58,
       cloud: null,
       weatherFreshness: "missing" as const,
+    },
+    {
+      id: "limited_inactive",
+      label: "Limited · inactive severe conditions",
+      date: reviewBaseDate,
+      temp: 69,
+      cloud: null,
+      weatherFreshness: "missing" as const,
+      flowBand: "blown_out" as const,
+      flowSignal: "sharp_rise" as const,
+      temperatureTrend: "strong_warming" as const,
     },
   ];
   return {

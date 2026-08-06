@@ -1,7 +1,7 @@
 # Big Manistee Fall Steelhead — Owner Build Audit
 
 **Run:** `big_manistee_fall_steelhead`
-**Configuration:** `2026-08-06-big-manistee-fall-steelhead.2`
+**Configuration:** `2026-08-06-big-manistee-steelhead-activity.1`
 **Status:** Enabled for owner review
 
 ## Implemented position
@@ -39,6 +39,7 @@ November and retains meaningful December catch.
 | Migration Timing | Five cumulative Steelhead checkpoints using Wellston flow and measured water |
 | Push | Shared Wellston hydraulics with Steelhead-specific temperature and cold-holding behavior |
 | Fishability | Shared accepted Wellston CFS bands, limited to the regulated Tippy tailwater |
+| Activity Outlook | Temperature-led feeding/aggression response using Wellston water, river shape, light, and weather; no salmon mortality taper |
 
 Steelhead gives measured water temperature 60% of the Migration Timing weight
 and regulated-tailwater response 40%. Push treats 46–52F as core fall-entry
@@ -46,6 +47,24 @@ water, 40–45F as movement-capable but increasingly holding-oriented, and about
 39F or colder as a cold-holding state that caps active movement without erasing
 in-river presence. Rain remains precursor-only and is absorbed after measured
 discharge responds.
+
+Activity gives measured water temperature 50% of the score, effective light
+25%, river behavior 15%, and weather 10%. The favorable response band is
+44–56F, with the exceptional apex limited to 48–54F when the other conditions
+also align. The measured inputs are explicitly scoped to the Wellston/Tippy
+tailwater. Steelhead receive no salmon floor, lifecycle deduction, tapering
+ceiling, ending constraint, or mortality copy: colder late-fall scores reflect
+current metabolic responsiveness while the fish remain alive and transition
+into winter holding.
+
+The 2007–2025 historical mechanical replay produced 2,141 usable days from
+2,166 expected dates. Daily scores ranged from 6–95 and four-hour blocks from
+5–97, with 69 distinct daily scores and 80 distinct block scores. The preferred
+44–56F band produced an 87 median daily score and a 95 maximum; 64–68F water
+fell to a 19 median, while 68F and warmer fell to an 8 median. All replay
+invariants were zero, including warm/barrier enforcement, copy completeness,
+tailwater scope, prohibited geography, salmon mortality language, and any
+stage-driven late-season penalty.
 
 ## Where to start
 
@@ -73,9 +92,12 @@ speed-controlled holding water with nearby feeding current.
 
 ## Verification and deferred work
 
-The owner-review build contains 66 production-derived scenarios plus focused
-calendar, presence, handoff, source-sharing, thermal, reach-copy, catalog, UI,
-and type checks.
+The owner-review build contains 79 production-derived scenarios, including
+Activity coverage, plus
+focused calendar, presence, handoff, source-sharing, thermal, reach-copy,
+catalog, UI, and type checks. Activity acceptance explicitly rejects salmon
+mortality language and verifies that late stages do not apply a hidden score
+penalty.
 
 The quantitative post-build Big Manistee primitive audit is complete. Its
 Steelhead Push window and first Migration Timing checkpoint were rerun after the

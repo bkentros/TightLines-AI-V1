@@ -11,6 +11,7 @@ const targets = {
   conditions: ["run_timing", "conditionsSuggest"],
   push: ["push", "push"],
   fishability: ["fishability", "fishability"],
+  activity: ["activity", "activity"],
   fish_in_river: ["fish_in_river", "fishInRiver"],
 } as const;
 
@@ -30,6 +31,36 @@ for (const group of RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS) {
     assert.equal(snapshot.fishability.label, "Unavailable");
     assert.equal(snapshot.pushHistory.status, "unavailable");
     assert.match(snapshot.safety.regulationReminder, /300 feet of Homestead/i);
+    if (group.id === "activity") {
+      assert(snapshot.activity, scenario.id);
+      assert.equal(snapshot.activity.confidence, "Limited");
+      assert.equal(
+        snapshot.activity.rulesVersion,
+        "betsie-fall-coho-weather-activity-v1",
+      );
+      assert(snapshot.activity.blocks.every((block) => block.score <= 95));
+      assert(snapshot.activity.reasonCodes.includes("activity_weather_only"));
+      assert.match(snapshot.activity.headline, /weather-only Coho/i);
+      assert.match(snapshot.activity.headline, /Limited confidence/i);
+      assert.match(snapshot.activity.detail, /evaluated weather/i);
+      assert.match(snapshot.activity.tip, /weather[- ]support/i);
+      assert.match(
+        snapshot.activity.tip,
+        /Verify actual water temperature, level, clarity/i,
+      );
+      assert.match(snapshot.activity.detail, /sectional/i);
+      assert.match(
+        snapshot.activity.detail,
+        /River level, clarity, and measured water temperature are unknown/i,
+      );
+      assert.equal(
+        /Chinook|Steelhead|favorable measured water temperature|river level remains workable/i
+          .test(
+            JSON.stringify(snapshot.activity),
+          ),
+        false,
+      );
+    }
 
     const publicCopy = JSON.stringify(snapshot);
     assert.equal(/\bChinook\b/i.test(publicCopy), false, scenario.id);
@@ -89,7 +120,7 @@ for (const group of RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS) {
   }
 }
 
-assert.equal(scenarioCount, 23);
+assert.equal(scenarioCount, 32);
 const byId = new Map(
   RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS.flatMap((group) =>
     group.scenarios.map((scenario) => [scenario.id, scenario] as const)
@@ -125,5 +156,5 @@ for (const [id, expected] of expectedPresence) {
 }
 
 console.log(
-  `Betsie Fall Coho acceptance QA passed: ${scenarioCount} production-derived scenarios, exact five-day PM lead, 30-point Limited/Sectional ceiling, species-safe Homestead copy, unavailable live primitives, and visual contracts.`,
+  `Betsie Fall Coho acceptance QA passed: ${scenarioCount} production-derived scenarios, weather-only Activity with continuous lifecycle adjustment, exact five-day PM lead, 30-point Limited/Sectional presence ceiling, species-safe Homestead copy, unavailable hydraulic primitives, and visual contracts.`,
 );

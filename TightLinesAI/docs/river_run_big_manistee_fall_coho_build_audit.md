@@ -1,7 +1,7 @@
 # Big Manistee Fall Coho — Owner Build Audit
 
 **Run:** `big_manistee_fall_coho`
-**Configuration:** `2026-08-06-big-manistee-fall-coho.1`
+**Configuration:** `2026-08-06-big-manistee-steelhead-activity.1`
 **Status:** Enabled for owner audit
 
 ## Accepted research position
@@ -30,6 +30,7 @@ Chinook-scale abundance.
 | Migration Timing | Five cumulative Coho checkpoints built from 2007–2025 Wellston history |
 | Push | Shared regulated-tailwater hydraulic response plus Coho-specific 50–62F supportive band |
 | Fishability | Shared Wellston CFS bands, explicitly limited to the Tippy tailwater |
+| Activity | Four-block, Wellston-scoped Coho responsiveness with continuous late lifecycle |
 
 The generated historical timing series contains all five required checkpoints:
 17 usable years at river start and 19 at the remaining checkpoints. Its replay
@@ -39,6 +40,36 @@ with no candidate-agreement violations.
 Precipitation remains precursor evidence. Once discharge responds, the gauge
 absorbs the rain signal so rain and flow are not double-counted as independent
 movement events.
+
+## Activity Outlook
+
+Activity estimates the conditional responsiveness of a Coho already present;
+it is not abundance, migration timing, fishability, or catch probability. The
+Big Manistee profile retains the evidence-supported adult Coho 45–60°F response
+band while binding every live measurement to the Wellston/Tippy tailwater.
+
+| Component | Weight |
+|---|---:|
+| Effective light | 50% |
+| Measured Wellston water temperature | 25% |
+| Wellston river behavior | 15% |
+| Precipitation context | 10% |
+
+The complete-input 15–25 Coho floor remains fully active through October 31.
+From November 1–10 it fades continuously to zero while the lifecycle deduction
+grows from 0 to 15 points. From November 11–30 that deduction blends daily into
+the stronger 42% ending constraint. The December residual tail holds 42% with
+no floor. This prevents calendar-boundary cliffs while allowing very low reads
+for deteriorating semelparous fish. Late output represents a fish of unknown
+condition: a newly arrived or fresher fish may be more active than the score,
+while a spawning or spent fish may be less active.
+
+The 2007–2025 mechanical replay contains 1,901 usable days out of 1,919
+expected. Daily min/p10/median/p90/max is 4/25/67/88/93; block range is 4–96.
+Tapering has a 75 median and 90 maximum. Ending has a 50 median and 76 maximum
+while the constraint transitions, with no Highly active days. Every residual
+day is Reserved, with a 32 median and 37 maximum. All scoring, copy, geography,
+warm-water, barrier, rollup, and lifecycle invariants are zero.
 
 ## Where to start
 
@@ -65,12 +96,13 @@ river” and generic “lower river” wording where necessary.
 
 ## Verification
 
-- 71 production-derived Coho owner-review scenarios
-- 71 regenerated Chinook scenarios after reach-copy changes
+- 84 production-derived Coho owner-review scenarios, including every Activity
+  lifecycle, constraint, missing-input, and reach-scope state
+- 84 regenerated Chinook scenarios and 66 Steelhead scenarios after the shared
+  configuration revision
 - Deterministic daily presence assertions, including 46–50 from October 16–20
 - Species-correct temperature, timing-baseline, catalog, endpoint, and UI wiring
 - No Pere Marquette geography or naked “upper river” language in audited Big
   Manistee Migration Stage copy
 
-Public visibility is intentionally enabled so the owner can audit the complete
-profile in the app before final product acceptance.
+Public visibility is enabled so the complete profile can be audited in the app.

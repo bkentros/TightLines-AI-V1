@@ -110,6 +110,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": null,
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -150,14 +151,14 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -263,6 +264,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_conditional_presence",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-08-27",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": true,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -288,7 +350,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -297,20 +359,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -415,6 +477,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-09-15",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 7,
             "stage": "beginning",
@@ -440,7 +563,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -449,20 +572,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -567,6 +690,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-10-06",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 26,
             "stage": "building",
@@ -592,7 +776,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -601,20 +785,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -719,6 +903,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-10-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 32,
             "stage": "building",
@@ -744,7 +989,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -753,20 +998,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -871,6 +1116,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-10-27",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 53,
             "stage": "building",
@@ -896,7 +1202,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -905,20 +1211,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -1023,6 +1329,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 70,
             "stage": "peak",
@@ -1048,7 +1415,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -1057,20 +1424,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -1175,6 +1542,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 5–9 AM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-30",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 69,
             "stage": "tapering",
@@ -1200,7 +1628,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -1209,20 +1637,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -1327,6 +1755,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 5–9 AM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-12-15",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 62,
             "stage": "ending",
@@ -1352,7 +1841,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -1361,20 +1850,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -1480,6 +1969,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 5–9 AM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-12-18",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 61,
             "stage": "post_run",
@@ -1507,7 +2057,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -1516,7 +2066,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
@@ -1528,14 +2078,14 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "winter_holding_read_required"
             ]
           },
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       }
     ]
@@ -1646,6 +2196,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 70,
             "stage": "peak",
@@ -1671,7 +2282,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -1680,20 +2291,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       }
     ]
@@ -1804,6 +2415,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 70,
             "stage": "peak",
@@ -1829,7 +2501,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -1838,20 +2510,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       }
     ]
@@ -1962,6 +2634,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 70,
             "stage": "peak",
@@ -1987,7 +2720,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -1996,20 +2729,1953 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
+        }
+      }
+    ]
+  },
+  {
+    "id": "activity",
+    "label": "Activity Outlook",
+    "scenarios": [
+      {
+        "id": "activity_staging",
+        "label": "Staging · conditional fish",
+        "note": "Canonical Betsie Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_steelhead",
+          "localDate": "2026-08-27",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-08-27T12:00:00.000Z",
+          "conditionRefreshAt": "2026-08-27T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-08-27T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-08-28T05:00:00.000Z",
+          "runStage": {
+            "stage": "pre_run",
+            "stagingContext": true,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-08-27",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-27",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-05",
+              "buildingEstablishedStartDate": "2026-10-10",
+              "buildingBroadStartDate": "2026-10-27",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-10",
+              "peakEndDate": "2026-11-29",
+              "taperingEndDate": "2026-12-14",
+              "endDate": "2026-12-17",
+              "lateEndDate": "2026-12-18",
+              "postRunLateCopyEndDate": "2026-12-19",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Before migration",
+            "headline": "Steelhead may be gathering around Betsie Lake and beginning to enter the river.",
+            "whereToStart": "Frankfort harbor, Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
+            "detail": "An occasional early fish is possible, but dependable fall presence has not developed throughout the corridor.",
+            "tip": "Keep most effort near the lake-to-river transition and treat an isolated fish as an exception—not proof that the system has filled in.",
+            "reasonCodes": [
+              "stage_pre_run",
+              "stage_pre_run_staging"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-17",
+            "throughDate": "2026-08-27",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
+            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 78,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_conditional_presence",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-08-27",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": true,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 79,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 85,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 79,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 85,
+                "precipitationIn": 0.02
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 71,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 85,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 78,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 85,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 0,
+            "stage": "pre_run",
+            "maximum": 100,
+            "riverCeiling": 70,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 0,
+            "curveDirection": "outside",
+            "winterHoldingContext": false,
+            "label": "Not expected yet",
+            "headline": "A dependable presence of Steelhead is not expected in the river yet.",
+            "detail": "Most Steelhead are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
+            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "reasonCodes": [
+              "stage_pre_run",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
+        }
+      },
+      {
+        "id": "activity_beginning_bright",
+        "label": "Beginning · bright and dry",
+        "note": "Canonical Betsie Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_steelhead",
+          "localDate": "2026-09-15",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-09-15T12:00:00.000Z",
+          "conditionRefreshAt": "2026-09-15T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-09-15T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
+          "runStage": {
+            "stage": "beginning",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-09-15",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-27",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-05",
+              "buildingEstablishedStartDate": "2026-10-10",
+              "buildingBroadStartDate": "2026-10-27",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-10",
+              "peakEndDate": "2026-11-29",
+              "taperingEndDate": "2026-12-14",
+              "endDate": "2026-12-17",
+              "lateEndDate": "2026-12-18",
+              "postRunLateCopyEndDate": "2026-12-19",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Beginning",
+            "headline": "The first Steelhead are beginning to enter the Betsie's below-Homestead corridor.",
+            "whereToStart": "Begin at the lake-to-river transition, then cover travel lanes feeding the first substantial corridor holes toward Homestead—not the structure itself.",
+            "detail": "Fresh fish may be scattered through the short corridor, from the lake transition to legal holding water downstream of Homestead.",
+            "tip": "Cover travel water and resting holes from downstream toward Homestead, always outside the signed 300-foot closure.",
+            "reasonCodes": [
+              "stage_beginning"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-17",
+            "throughDate": "2026-09-15",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
+            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 62,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-09-15",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 67,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 5,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 49,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 5,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 47,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 5,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 66,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 5,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 7,
+            "stage": "beginning",
+            "maximum": 100,
+            "riverCeiling": 70,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 0.1,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "Low presence",
+            "headline": "A small number of Steelhead may be in the river, and seasonal presence is still building.",
+            "detail": "This part of the season usually brings low presence, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "reasonCodes": [
+              "stage_beginning",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
+        }
+      },
+      {
+        "id": "activity_building_cloudy",
+        "label": "Building · dark and dry",
+        "note": "Canonical Betsie Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_steelhead",
+          "localDate": "2026-10-27",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-10-27T12:00:00.000Z",
+          "conditionRefreshAt": "2026-10-27T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-10-27T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-10-28T05:00:00.000Z",
+          "runStage": {
+            "stage": "building",
+            "stagingContext": false,
+            "broadBuildingContext": true,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-10-27",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-27",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-05",
+              "buildingEstablishedStartDate": "2026-10-10",
+              "buildingBroadStartDate": "2026-10-27",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-10",
+              "peakEndDate": "2026-11-29",
+              "taperingEndDate": "2026-12-14",
+              "endDate": "2026-12-17",
+              "lateEndDate": "2026-12-18",
+              "postRunLateCopyEndDate": "2026-12-19",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Building",
+            "headline": "Steelhead are broadly established through the accessible Betsie system.",
+            "whereToStart": "Substantial corridor holes from the lakeward end through the legal Homestead approach, always outside the signed closure.",
+            "detail": "Multiple entry periods have given Steelhead time to occupy the full short migratory corridor between Betsie Lake and Homestead.",
+            "tip": "Cover deep holes, bends and current breaks rather than waiting at the structure. Stay outside the signed closure and use direct fish activity to choose a section.",
+            "reasonCodes": [
+              "stage_building"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-17",
+            "throughDate": "2026-10-27",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
+            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 80,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s weather-only Steelhead activity outlook is highly active with Limited confidence.",
+            "detail": "The evaluated weather strongly favors a response from Steelhead that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-10-27",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 77,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 76,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 53,
+            "stage": "building",
+            "maximum": 100,
+            "riverCeiling": 70,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 0.75,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "High presence",
+            "headline": "Steelhead are likely present through more dependable river sections as seasonal presence builds toward its strongest point.",
+            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and become established through a broad part of the accessible river. This is a seasonal estimate, not a live fish count.",
+            "tip": "Treat this as one of the stronger parts of this river's moderate seasonal opportunity. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "reasonCodes": [
+              "stage_building",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
+        }
+      },
+      {
+        "id": "activity_peak_light_rain",
+        "label": "Peak · sustained light rain",
+        "note": "Canonical Betsie Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_steelhead",
+          "localDate": "2026-11-10",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-11-10T12:00:00.000Z",
+          "conditionRefreshAt": "2026-11-10T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-11-10T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-11-11T05:00:00.000Z",
+          "runStage": {
+            "stage": "peak",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-11-10",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-27",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-05",
+              "buildingEstablishedStartDate": "2026-10-10",
+              "buildingBroadStartDate": "2026-10-27",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-10",
+              "peakEndDate": "2026-11-29",
+              "taperingEndDate": "2026-12-14",
+              "endDate": "2026-12-17",
+              "lateEndDate": "2026-12-18",
+              "postRunLateCopyEndDate": "2026-12-19",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Peak",
+            "headline": "This is typically the strongest Betsie fall Steelhead opportunity.",
+            "whereToStart": "Substantial corridor holes from the lakeward end through the legal Homestead approach, always outside the signed closure.",
+            "detail": "Multiple entry periods have given Steelhead time to spread through the accessible system, while dependable concentrations can still form in deep corridor holes.",
+            "tip": "Cover each substantial hole from head through seams and tail, stay outside the signed closure, and let direct fish activity determine where to slow down.",
+            "reasonCodes": [
+              "stage_peak"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-17",
+            "throughDate": "2026-11-10",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
+            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 82,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s weather-only Steelhead activity outlook is highly active with Limited confidence.",
+            "detail": "The evaluated weather strongly favors a response from Steelhead that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 9 AM–1 PM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 84,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0.02
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 76,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 70,
+            "stage": "peak",
+            "maximum": 100,
+            "riverCeiling": 70,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 1,
+            "curveDirection": "near_peak",
+            "winterHoldingContext": false,
+            "label": "Peak presence",
+            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
+            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count.",
+            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "reasonCodes": [
+              "stage_peak",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
+        }
+      },
+      {
+        "id": "activity_peak_heavy_rain",
+        "label": "Peak · heavy rain",
+        "note": "Canonical Betsie Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_steelhead",
+          "localDate": "2026-11-10",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-11-10T12:00:00.000Z",
+          "conditionRefreshAt": "2026-11-10T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-11-10T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-11-11T05:00:00.000Z",
+          "runStage": {
+            "stage": "peak",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-11-10",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-27",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-05",
+              "buildingEstablishedStartDate": "2026-10-10",
+              "buildingBroadStartDate": "2026-10-27",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-10",
+              "peakEndDate": "2026-11-29",
+              "taperingEndDate": "2026-12-14",
+              "endDate": "2026-12-17",
+              "lateEndDate": "2026-12-18",
+              "postRunLateCopyEndDate": "2026-12-19",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Peak",
+            "headline": "This is typically the strongest Betsie fall Steelhead opportunity.",
+            "whereToStart": "Substantial corridor holes from the lakeward end through the legal Homestead approach, always outside the signed closure.",
+            "detail": "Multiple entry periods have given Steelhead time to spread through the accessible system, while dependable concentrations can still form in deep corridor holes.",
+            "tip": "Cover each substantial hole from head through seams and tail, stay outside the signed closure, and let direct fish activity determine where to slow down.",
+            "reasonCodes": [
+              "stage_peak"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-17",
+            "throughDate": "2026-11-10",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
+            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 79,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 68,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Heavier precipitation can unsettle presentation.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0.4
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 76,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 70,
+            "stage": "peak",
+            "maximum": 100,
+            "riverCeiling": 70,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 1,
+            "curveDirection": "near_peak",
+            "winterHoldingContext": false,
+            "label": "Peak presence",
+            "headline": "Steelhead are likely near their highest seasonal presence in the river.",
+            "detail": "This is the part of the season when in-river presence is usually strongest. Fish are most likely distributed through a broad part of the accessible river. The read does not place fish in a specific pool or confirm a live count.",
+            "tip": "Plan for a dependable but potentially uneven river opportunity near its seasonal high point. Confirm fish activity before committing the full day.",
+            "reasonCodes": [
+              "stage_peak",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
+        }
+      },
+      {
+        "id": "activity_late_fall",
+        "label": "Late fall · fish remain alive",
+        "note": "Canonical Betsie Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_steelhead",
+          "localDate": "2026-11-30",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-11-30T12:00:00.000Z",
+          "conditionRefreshAt": "2026-11-30T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-11-30T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-01T05:00:00.000Z",
+          "runStage": {
+            "stage": "tapering",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-11-30",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-27",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-05",
+              "buildingEstablishedStartDate": "2026-10-10",
+              "buildingBroadStartDate": "2026-10-27",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-10",
+              "peakEndDate": "2026-11-29",
+              "taperingEndDate": "2026-12-14",
+              "endDate": "2026-12-17",
+              "lateEndDate": "2026-12-18",
+              "postRunLateCopyEndDate": "2026-12-19",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Late fall",
+            "headline": "Steelhead presence remains high as the Betsie shifts toward winter holding.",
+            "whereToStart": "Proven corridor holes, especially slower edges beside productive current and legal holding water short of Homestead.",
+            "detail": "Steelhead remain broadly available, but the seasonal emphasis is shifting from new upstream entry toward fish already holding in the river.",
+            "tip": "Prioritize efficient holding water, verify conditions directly, and remain outside the signed Homestead closure.",
+            "reasonCodes": [
+              "stage_tapering"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-17",
+            "throughDate": "2026-11-30",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
+            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 82,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s weather-only Steelhead activity outlook is highly active with Limited confidence.",
+            "detail": "The evaluated weather strongly favors a response from Steelhead that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 9 AM–1 PM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-30",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 84,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0.02
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 76,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 69,
+            "stage": "tapering",
+            "maximum": 100,
+            "riverCeiling": 70,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 0.99,
+            "curveDirection": "falling",
+            "winterHoldingContext": false,
+            "label": "Peak presence",
+            "headline": "Steelhead remain near their strongest fall presence as winter holding approaches.",
+            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
+            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "reasonCodes": [
+              "stage_tapering",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
+        }
+      },
+      {
+        "id": "activity_holding_transition",
+        "label": "Holding transition · fish remain alive",
+        "note": "Canonical Betsie Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_steelhead",
+          "localDate": "2026-12-15",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-12-15T12:00:00.000Z",
+          "conditionRefreshAt": "2026-12-15T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-12-15T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-16T05:00:00.000Z",
+          "runStage": {
+            "stage": "ending",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-12-15",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-27",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-05",
+              "buildingEstablishedStartDate": "2026-10-10",
+              "buildingBroadStartDate": "2026-10-27",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-10",
+              "peakEndDate": "2026-11-29",
+              "taperingEndDate": "2026-12-14",
+              "endDate": "2026-12-17",
+              "lateEndDate": "2026-12-18",
+              "postRunLateCopyEndDate": "2026-12-19",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Holding transition",
+            "headline": "Steelhead remain strongly present as fall entry hands off to winter holding.",
+            "whereToStart": "Deep, slower corridor holes with nearby current, including legal water short of Homestead.",
+            "detail": "The migration phase is ending—not the in-river fishery. Many fall-entering Steelhead can remain in the Betsie through winter before spawning in spring.",
+            "tip": "Slow the presentation as water cools, verify current conditions directly, and follow the signed Homestead closure rather than treating the structure as a fishing target.",
+            "reasonCodes": [
+              "stage_ending"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-17",
+            "throughDate": "2026-12-15",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
+            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 82,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s weather-only Steelhead activity outlook is highly active with Limited confidence.",
+            "detail": "The evaluated weather strongly favors a response from Steelhead that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 9 AM–1 PM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-12-15",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 84,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0.02
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 76,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 62,
+            "stage": "ending",
+            "maximum": 100,
+            "riverCeiling": 70,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 0.8916666666666667,
+            "curveDirection": "falling",
+            "winterHoldingContext": false,
+            "label": "High presence",
+            "headline": "Steelhead presence remains high as the fall fishery shifts toward winter holding.",
+            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
+            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "reasonCodes": [
+              "stage_ending",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
+        }
+      },
+      {
+        "id": "activity_fall_end",
+        "label": "Fall-entry end · current responsiveness",
+        "note": "Canonical Betsie Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_steelhead",
+          "localDate": "2026-12-17",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-12-17T12:00:00.000Z",
+          "conditionRefreshAt": "2026-12-17T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-12-17T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-18T05:00:00.000Z",
+          "runStage": {
+            "stage": "ending",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-12-17",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-27",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-05",
+              "buildingEstablishedStartDate": "2026-10-10",
+              "buildingBroadStartDate": "2026-10-27",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-10",
+              "peakEndDate": "2026-11-29",
+              "taperingEndDate": "2026-12-14",
+              "endDate": "2026-12-17",
+              "lateEndDate": "2026-12-18",
+              "postRunLateCopyEndDate": "2026-12-19",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Holding transition",
+            "headline": "Steelhead remain strongly present as fall entry hands off to winter holding.",
+            "whereToStart": "Deep, slower corridor holes with nearby current, including legal water short of Homestead.",
+            "detail": "The migration phase is ending—not the in-river fishery. Many fall-entering Steelhead can remain in the Betsie through winter before spawning in spring.",
+            "tip": "Slow the presentation as water cools, verify current conditions directly, and follow the signed Homestead closure rather than treating the structure as a fishing target.",
+            "reasonCodes": [
+              "stage_ending"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-17",
+            "throughDate": "2026-12-17",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
+            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 82,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s weather-only Steelhead activity outlook is highly active with Limited confidence.",
+            "detail": "The evaluated weather strongly favors a response from Steelhead that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 9 AM–1 PM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-12-17",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 84,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0.02
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 76,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 61,
+            "stage": "ending",
+            "maximum": 100,
+            "riverCeiling": 70,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 0.875,
+            "curveDirection": "falling",
+            "winterHoldingContext": false,
+            "label": "High presence",
+            "headline": "Steelhead presence remains high as the fall fishery shifts toward winter holding.",
+            "detail": "The slight decline reflects fewer fresh arrivals—not fish simply leaving the river. This is a seasonal opportunity estimate, not a live fish count.",
+            "tip": "Treat the retained presence as strong, but expect the fishery to be shifting away from fresh fall entry. Verify current river conditions before choosing a presentation.",
+            "reasonCodes": [
+              "stage_ending",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
+        }
+      },
+      {
+        "id": "activity_winter_holding",
+        "label": "Winter holding · current responsiveness",
+        "note": "Canonical Betsie Fall Steelhead production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_steelhead",
+          "localDate": "2026-12-18",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-12-18T12:00:00.000Z",
+          "conditionRefreshAt": "2026-12-18T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-12-18T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-12-19T05:00:00.000Z",
+          "runStage": {
+            "stage": "post_run",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": true,
+            "window": {
+              "snapshotDate": "2026-12-18",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-27",
+              "startDate": "2026-09-15",
+              "beginningEndDate": "2026-10-05",
+              "buildingEstablishedStartDate": "2026-10-10",
+              "buildingBroadStartDate": "2026-10-27",
+              "peakStartDate": "2026-11-10",
+              "peakDate": "2026-11-10",
+              "peakEndDate": "2026-11-29",
+              "taperingEndDate": "2026-12-14",
+              "endDate": "2026-12-17",
+              "lateEndDate": "2026-12-18",
+              "postRunLateCopyEndDate": "2026-12-19",
+              "startToPeakDays": 56,
+              "peakToEndDays": 37
+            },
+            "label": "Winter holding",
+            "headline": "Steelhead have transitioned from fall entry into winter holding in the Betsie.",
+            "whereToStart": "Deep, slow corridor holes with nearby current and an easy feeding lane, always outside the signed Homestead closure.",
+            "detail": "The fish have not simply left the river. The seasonal migration model has ended, while retained Steelhead can remain distributed through the below-Homestead corridor for winter.",
+            "tip": "Treat 61/100 as retained seasonal presence, not a live activity score. Verify current conditions directly, use controlled cold-water presentations, and follow the signed 100-foot Homestead closure.",
+            "reasonCodes": [
+              "stage_post_run",
+              "stage_winter_holding"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
+            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-09-15",
+            "trackingEndDate": "2026-12-17",
+            "throughDate": "2026-12-18",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for this river.",
+            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
+            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "activity": {
+            "score": 82,
+            "maximum": 100,
+            "label": "Highly active",
+            "headline": "Today’s weather-only Steelhead activity outlook is highly active with Limited confidence.",
+            "detail": "The evaluated weather strongly favors a response from Steelhead that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 9 AM–1 PM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-12-18",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 84,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0.02
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 76,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 81,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 95,
+                "precipitationIn": 0
+              }
+            ]
+          },
+          "fishInRiver": {
+            "score": 61,
+            "stage": "post_run",
+            "maximum": 100,
+            "riverCeiling": 70,
+            "historicalRunStrength": "moderate",
+            "curveFraction": 0.875,
+            "curveDirection": "outside",
+            "winterHoldingContext": true,
+            "handoffScore": 61,
+            "label": "Winter holding",
+            "headline": "Steelhead remain strongly present as the Betsie shifts into winter holding.",
+            "detail": "Fall entry finished at 61/100. That retained-presence reference is not a live activity score; the Betsie has no accepted water-temperature or flow sensor for judging today's feeding activity.",
+            "tip": "Treat 61/100 as retained seasonal presence—not proof that fish are active today. Verify conditions directly and use controlled presentations in deep holding water outside the signed Homestead closure.",
+            "reasonCodes": [
+              "stage_post_run",
+              "historical_presence_curve",
+              "fish_presence_winter_handoff"
+            ],
+            "copyVersion": "river-run-copy-v27"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": {
+            "headline": "Steelhead are still in the river, but winter conditions now control the day.",
+            "detail": "The fall-entry period ended with strong retained presence. Use the winter fishery read to judge activity and presentation; Push and Migration Timing are intentionally complete because they answer the wrong question now.",
+            "reasonCodes": [
+              "winter_holding_read_required"
+            ]
+          },
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       }
     ]
@@ -2121,6 +4787,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Steelhead that may already have entered. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_conditional_presence",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-09-14",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": true,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 0,
             "stage": "pre_run",
@@ -2146,7 +4873,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -2155,20 +4882,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -2273,6 +5000,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-09-15",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 7,
             "stage": "beginning",
@@ -2298,7 +5086,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -2307,20 +5095,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -2425,6 +5213,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-09-26",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 14,
             "stage": "beginning",
@@ -2450,7 +5299,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -2459,20 +5308,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -2577,6 +5426,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early fall Steelhead are entering with energy reserves intact. This score describes feeding or aggressive responsiveness for fish already in the river, not fresh movement. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-10-05",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 25,
             "stage": "beginning",
@@ -2602,7 +5512,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -2611,20 +5521,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -2729,6 +5639,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-10-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 32,
             "stage": "building",
@@ -2754,7 +5725,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -2763,20 +5734,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -2881,6 +5852,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead are becoming more established through the river. The score describes feeding or aggressive responsiveness, while movement and abundance remain separate reads. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-10-27",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 53,
             "stage": "building",
@@ -2906,7 +5938,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -2915,20 +5947,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -3033,6 +6065,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 70,
             "stage": "peak",
@@ -3058,7 +6151,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -3067,20 +6160,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -3185,6 +6278,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad fall presence can make Steelhead easier to locate, but this score measures feeding or aggressive responsiveness rather than how many fish are present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-29",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 70,
             "stage": "peak",
@@ -3210,7 +6364,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -3219,20 +6373,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -3337,6 +6491,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 5–9 AM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-11-30",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 69,
             "stage": "tapering",
@@ -3362,7 +6577,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -3371,20 +6586,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -3489,6 +6704,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 5–9 AM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-12-14",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 63,
             "stage": "tapering",
@@ -3514,7 +6790,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -3523,20 +6799,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -3641,6 +6917,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. These Steelhead remain alive in the river as they transition into winter holding. Their responsiveness follows measured water temperature and current conditions rather than a terminal biological decline. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 5–9 AM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-12-17",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 61,
             "stage": "ending",
@@ -3666,7 +7003,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -3675,20 +7012,20 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
           },
           "interpretationNote": null,
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       },
       {
@@ -3794,6 +7131,67 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             ],
             "copyVersion": "river-run-copy-v27"
           },
+          "activity": {
+            "score": 70,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Steelhead activity outlook is active with Limited confidence.",
+            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Steelhead remain alive in winter holding after the fall-entry period. Use the dedicated winter read when available; this score only describes current responsiveness. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
+            "tip": "Use the four blocks only to compare weather support. These Steelhead remain alive through the winter transition; verify actual water temperature, level, clarity, and safe access before treating 5–9 AM as favorable.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-steelhead-weather-activity-v1",
+            "targetDate": "2026-12-18",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 74,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 61,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 60,
+                "activityLabel": "Active",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 73,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 60,
+                "precipitationIn": 0
+              }
+            ]
+          },
           "fishInRiver": {
             "score": 61,
             "stage": "post_run",
@@ -3821,7 +7219,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "conditionsWaterTemperature": null,
           "freshness": {
             "gauge": "missing",
-            "weather": "missing",
+            "weather": "fresh",
             "waterTemperature": "missing",
             "conditionsWaterTemperature": "missing",
             "conditionsSuggestDaysUsable": 0
@@ -3830,7 +7228,7 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Limited",
             "reasonCodes": [
               "gauge_missing",
-              "weather_missing",
+              "weather_fresh",
               "temperature_unavailable",
               "data_quality_limited"
             ]
@@ -3842,14 +7240,14 @@ export const RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "winter_holding_read_required"
             ]
           },
-          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable; Run Stage and Fish In River remain seasonal context.",
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
             "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-05-betsie.6"
+          "configVersion": "2026-08-06-betsie-weather-activity.3"
         }
       }
     ]

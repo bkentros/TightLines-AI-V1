@@ -8,6 +8,7 @@ import {
   buildDailySnapshot,
   listVisibleRiverRuns,
   resolveRunStage,
+  scoreActivity,
   scoreFishInRiver,
   staticConfigurationVersionForRun,
   validateConfigurationRevision,
@@ -31,7 +32,7 @@ Deno.test("Betsie river is valid with explicitly unavailable condition sources",
   assertMatch(BETSIE_RIVER_PROFILE.regulationReminderCopy ?? "", /100 feet/i);
 });
 
-Deno.test("Betsie Fall Chinook is valid, seasonal-only, and owner-gated", () => {
+Deno.test("Betsie Fall Chinook is valid, weather-only, and owner-gated", () => {
   const result = validateRunProfile(run, BETSIE_RIVER_PROFILE);
   assertEquals(result.valid, true);
   assertEquals(result.publicVisible, false);
@@ -44,6 +45,81 @@ Deno.test("Betsie Fall Chinook is valid, seasonal-only, and owner-gated", () => 
   assertEquals("baselineCoverage" in run, false);
   assertEquals("waterTemperature" in run, false);
   assertEquals("conditionsSuggest" in run, false);
+  assertEquals(run.primitiveCapabilities.activity, { status: "available" });
+  assertEquals(run.activity?.dataMode, "weather_only");
+});
+
+Deno.test("Betsie Chinook Activity is capped weather context with continuous lifecycle adjustment", () => {
+  assertEquals(
+    run.activity?.version,
+    "betsie-fall-chinook-weather-activity-v1",
+  );
+  assertEquals(run.activity?.weights, {
+    light: 0.75,
+    waterTemperature: 0,
+    riverBehavior: 0,
+    weather: 0.25,
+  });
+  assertEquals(run.activity?.caps.lifecycleRamp, {
+    peakEnd: "09-25",
+    taperingEnd: "10-13",
+    endingEnd: "11-03",
+  });
+  assertEquals(run.activity?.caps.weatherOnlyMaximum, 95);
+  assertEquals(run.activity?.caps.tomorrow, 90);
+  const scoreFor = (
+    date: string,
+    stage: "peak" | "tapering" | "ending" | "post_run",
+  ) =>
+    scoreActivity({
+      rules: run.activity!,
+      requestDate: date,
+      targetDate: date,
+      runStage: stage,
+      staging: false,
+      waterTempF: 55,
+      temperatureTrend: "cooling",
+      gaugeFreshness: "fresh",
+      weatherFreshness: "fresh",
+      flowBand: "ideal",
+      currentHydraulicValue: 1500,
+      flowSignal: "meaningful_rise",
+      hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+        time_local: `${date}T${String(hour).padStart(2, "0")}:00`,
+        cloud_cover_pct: 90,
+        shortwave_w_m2: hour >= 7 && hour < 19 ? 90 : 0,
+        clear_sky_shortwave_w_m2: hour >= 7 && hour < 19 ? 600 : 0,
+        precipitation_in: hour >= 9 && hour < 13 ? 0.005 : 0,
+      })),
+    });
+  const peak = scoreFor("2026-09-25", "peak");
+  const taperStart = scoreFor("2026-09-26", "tapering");
+  const taperEnd = scoreFor("2026-10-13", "tapering");
+  const ending = scoreFor("2026-10-22", "ending");
+  const post = scoreFor("2026-10-23", "post_run");
+  const tailEnd = scoreFor("2026-11-03", "post_run");
+  assert(peak.score !== null && peak.score <= 95);
+  assert(taperStart.score !== null && taperStart.score <= peak.score);
+  assert(taperEnd.score !== null && taperEnd.score < taperStart.score!);
+  assert(ending.score !== null && ending.score < taperEnd.score!);
+  assert(post.score !== null && post.score <= ending.score!);
+  assert(tailEnd.score !== null && tailEnd.score < post.score!);
+  for (const result of [peak, taperStart, taperEnd, ending, post, tailEnd]) {
+    assertEquals(result.confidence, "Limited");
+    assertEquals(result.reasonCodes.includes("activity_weather_only"), true);
+    assertMatch(result.headline, /weather-only Chinook activity outlook/i);
+    assertMatch(result.headline, /Limited confidence/i);
+    assertMatch(
+      result.detail,
+      /River level, clarity, and measured water temperature are unknown/i,
+    );
+    assertEquals(
+      /favorable measured water temperature|river level remains workable/i.test(
+        JSON.stringify(result),
+      ),
+      false,
+    );
+  }
 });
 
 Deno.test("Betsie configuration revision is internally valid and versioned separately", () => {

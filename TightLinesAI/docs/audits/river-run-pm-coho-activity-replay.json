@@ -1,0 +1,973 @@
+{
+  "runId": "pere_marquette_fall_coho",
+  "rulesVersion": "pm-fall-coho-activity-v4",
+  "replayYears": "2021-2025",
+  "method": "Historical mechanical replay using each four-hour block's Open-Meteo cloud cover, shortwave radiation, and precipitation; daily median PMTU Maple measured temperature; and USGS Scottville daily mean discharge. This validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 645,
+  "usableDays": 567,
+  "missing": {
+    "flow": 24,
+    "priorFlow": 23,
+    "temperature": 44,
+    "temperatureHistory": 48,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 19,
+    "p10": 32,
+    "median": 72,
+    "p90": 88,
+    "max": 93,
+    "mean": 65.83
+  },
+  "blockScore": {
+    "min": 18,
+    "p10": 32,
+    "median": 69,
+    "p90": 88,
+    "max": 95,
+    "mean": 63.89
+  },
+  "uniqueDayScores": 70,
+  "uniqueBlockScores": 78,
+  "mostCommonDayScores": [
+    {
+      "score": 71,
+      "count": 27
+    },
+    {
+      "score": 32,
+      "count": 22
+    },
+    {
+      "score": 73,
+      "count": 22
+    },
+    {
+      "score": 72,
+      "count": 21
+    },
+    {
+      "score": 34,
+      "count": 20
+    },
+    {
+      "score": 84,
+      "count": 20
+    },
+    {
+      "score": 82,
+      "count": 19
+    },
+    {
+      "score": 74,
+      "count": 18
+    },
+    {
+      "score": 89,
+      "count": 18
+    },
+    {
+      "score": 76,
+      "count": 16
+    }
+  ],
+  "mostCommonBlockScores": [
+    {
+      "score": 34,
+      "count": 84
+    },
+    {
+      "score": 76,
+      "count": 66
+    },
+    {
+      "score": 32,
+      "count": 65
+    },
+    {
+      "score": 75,
+      "count": 64
+    },
+    {
+      "score": 86,
+      "count": 60
+    },
+    {
+      "score": 77,
+      "count": 58
+    },
+    {
+      "score": 88,
+      "count": 56
+    },
+    {
+      "score": 87,
+      "count": 54
+    },
+    {
+      "score": 74,
+      "count": 53
+    },
+    {
+      "score": 91,
+      "count": 51
+    }
+  ],
+  "dayLabels": {
+    "Active": 231,
+    "Highly active": 178,
+    "Inactive": 1,
+    "Moderate": 36,
+    "Reserved": 121
+  },
+  "blockLabels": {
+    "Active": 867,
+    "Highly active": 621,
+    "Inactive": 9,
+    "Moderate": 276,
+    "Reserved": 495
+  },
+  "daysAtLeast90": 29,
+  "blocksAtLeast90": 140,
+  "lowerTail": {
+    "daysBelow20": 1,
+    "blocksBelow20": 9,
+    "daysBelow30": 35,
+    "blocksBelow30": 162
+  },
+  "dayLabelsByStage": {
+    "beginning": {
+      "Active": 66,
+      "Highly active": 26,
+      "Reserved": 7
+    },
+    "building": {
+      "Active": 51,
+      "Highly active": 38
+    },
+    "ending": {
+      "Active": 7,
+      "Moderate": 29,
+      "Reserved": 12
+    },
+    "peak": {
+      "Active": 45,
+      "Highly active": 90
+    },
+    "post_run": {
+      "Reserved": 88
+    },
+    "pre_run": {
+      "Active": 18,
+      "Inactive": 1,
+      "Reserved": 14
+    },
+    "tapering": {
+      "Active": 44,
+      "Highly active": 24,
+      "Moderate": 7
+    }
+  },
+  "stages": {
+    "beginning": 99,
+    "building": 89,
+    "ending": 48,
+    "peak": 135,
+    "post_run": 88,
+    "pre_run": 33,
+    "tapering": 75
+  },
+  "bestBlocks": {
+    "05-09": 295,
+    "09-13": 82,
+    "13-17": 73,
+    "17-21": 117
+  },
+  "confidence": {
+    "Full": 567
+  },
+  "blockSpread": {
+    "min": 0,
+    "p10": 1,
+    "median": 10,
+    "p90": 22,
+    "max": 30,
+    "mean": 10.64
+  },
+  "daysWithSpreadAtLeast10": 304,
+  "daysWithSpreadAtLeast20": 80,
+  "cloudyNoonAmongOtherwiseSunnyDays": 0,
+  "isolatedCloudCounterfactual": {
+    "description": "Only 9 AM–1 PM changes from bright/dry to fully cloudy with light precipitation; temperature and river inputs remain identical.",
+    "baselineScores": [
+      78,
+      65,
+      63,
+      77
+    ],
+    "changedScores": [
+      78,
+      87,
+      63,
+      77
+    ],
+    "targetBlockDelta": 22,
+    "unchangedBlockDeltas": [
+      0,
+      0,
+      0
+    ],
+    "targetBecomesBestBlock": true
+  },
+  "correlations": {
+    "blockCloudToScore": 0.11,
+    "dailyTemperatureToScore": 0.4,
+    "dailyFlowToScore": -0.23
+  },
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "prohibitedClaims": 0,
+    "isolatedWeatherLeakedIntoOtherBlocks": 0,
+    "isolatedCloudFailedToImproveTargetBlock": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2024-10-04",
+      "stage": "building",
+      "staging": false,
+      "score": 82,
+      "label": "Highly active",
+      "confidence": "Full",
+      "waterTempF": 54.1,
+      "flowCfs": 510,
+      "flowBand": "normal_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "blockSpread": 30,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 80,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 27,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-09-13",
+      "stage": "beginning",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 59.3,
+      "flowCfs": 364,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "warming",
+      "blockSpread": 30,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 42,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2021-11-06",
+      "stage": "tapering",
+      "staging": false,
+      "score": 76,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 43.9,
+      "flowCfs": 607,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 29,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 36,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 73,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2025-08-28",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 72,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 59.7,
+      "flowCfs": 389,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 29,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0.09
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 63,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 12,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-07",
+      "stage": "building",
+      "staging": false,
+      "score": 76,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 59,
+      "flowCfs": 366,
+      "flowBand": "very_low",
+      "flowSignal": "rising",
+      "temperatureSignal": "neutral",
+      "blockSpread": 29,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 92,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 7,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-10-11",
+      "stage": "peak",
+      "staging": false,
+      "score": 76,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 48.6,
+      "flowCfs": 505,
+      "flowBand": "normal_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 28,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 6,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-10-21",
+      "stage": "peak",
+      "staging": false,
+      "score": 74,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 45.1,
+      "flowCfs": 907,
+      "flowBand": "high_fishable",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 24,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2024-09-25",
+      "stage": "building",
+      "staging": false,
+      "score": 78,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 57.6,
+      "flowCfs": 583,
+      "flowBand": "ideal",
+      "flowSignal": "sharp_rise",
+      "temperatureSignal": "cooling",
+      "blockSpread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 89,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 30,
+          "precipitationIn": 0.01
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-15",
+      "stage": "peak",
+      "staging": false,
+      "score": 70,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 53.6,
+      "flowCfs": 370,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "warming",
+      "blockSpread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 56,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-11-03",
+      "stage": "peak",
+      "staging": false,
+      "score": 74,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 46,
+      "flowCfs": 446,
+      "flowBand": "low",
+      "flowSignal": "rising",
+      "temperatureSignal": "neutral",
+      "blockSpread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 93,
+          "precipitationIn": 0.11
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 29,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2023-09-23",
+      "stage": "building",
+      "staging": false,
+      "score": 73,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 60.1,
+      "flowCfs": 428,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "warming",
+      "blockSpread": 27,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2023-09-24",
+      "stage": "building",
+      "staging": false,
+      "score": 79,
+      "label": "Active",
+      "confidence": "Full",
+      "waterTempF": 59.7,
+      "flowCfs": 430,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "blockSpread": 27,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 60,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 99,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

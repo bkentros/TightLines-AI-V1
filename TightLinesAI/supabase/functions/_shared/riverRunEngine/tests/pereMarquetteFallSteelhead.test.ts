@@ -28,7 +28,7 @@ Deno.test("PM Fall Steelhead is a valid public fall-entry configuration capped a
   assertEquals(run.movementEngineId, "fall_entry_cooling");
   assertEquals(
     run.publicAudit?.auditVersion,
-    "pm-fall-steelhead-acceptance-v1",
+    "pm-fall-steelhead-activity-audit-v1",
   );
   assertEquals(result.issues, []);
 });
@@ -109,14 +109,23 @@ Deno.test("PM Fall Steelhead stages include late-September entry and December wi
     assertEquals(resolveRunStage(run, localDate).label, label, localDate);
   }
   const established = resolveRunStage(run, "2026-10-15");
-  assertMatch(established.whereToStart ?? "", /Scottville through Walhalla and Branch/i);
+  assertMatch(
+    established.whereToStart ?? "",
+    /Scottville through Walhalla and Branch/i,
+  );
   assertMatch(established.whereToStart ?? "", /Baldwin\/M-37/i);
   assertMatch(established.detail, /lower, middle, and upper/i);
   assertMatch(established.detail, /dependable concentrations/i);
   const broadlyEstablished = resolveRunStage(run, "2026-11-01");
   assertMatch(broadlyEstablished.headline, /broadly established/i);
-  assertMatch(broadlyEstablished.whereToStart ?? "", /middle-river holding water/i);
-  assertMatch(broadlyEstablished.whereToStart ?? "", /upper river toward Baldwin\/M-37/i);
+  assertMatch(
+    broadlyEstablished.whereToStart ?? "",
+    /middle-river holding water/i,
+  );
+  assertMatch(
+    broadlyEstablished.whereToStart ?? "",
+    /upper river toward Baldwin\/M-37/i,
+  );
   assertMatch(
     broadlyEstablished.detail,
     /upper river is now a primary option/i,

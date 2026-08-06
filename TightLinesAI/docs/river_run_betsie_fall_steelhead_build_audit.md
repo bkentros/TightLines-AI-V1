@@ -1,9 +1,9 @@
 # Betsie Fall Steelhead — Owner Build Audit
 
 **Status:** implemented, owner-gated, not publicly released\
-**Configuration version:** `2026-08-05-betsie.6`\
+**Configuration version:** `2026-08-06-betsie-weather-activity.3`\
 **Copy version:** `river-run-copy-v26`\
-**Review catalog:** 25 production-derived scenarios
+**Review catalog:** 34 production-derived scenarios
 
 ## Accepted model
 
@@ -77,6 +77,30 @@ Migration Timing, Push, and Fishability remain unavailable. No accepted live
 flow gauge or measured-water-temperature source represents the below-Homestead
 corridor, and air temperature is not substituted.
 
+## Weather-only Activity
+
+Betsie Steelhead Activity assigns 70% to effective light and 30% to in-block
+precipitation context. Scores can reach 95 for those evaluated weather
+variables and 90 for tomorrow. Every headline says `weather-only` and `Limited
+confidence`; the detail identifies river level, clarity, and measured water
+temperature as unknown.
+
+Steelhead receive no conditional floor, lifecycle deduction, late-fall ceiling,
+ending constraint, or mortality copy. Identical weather must produce the same
+score at Peak, Late fall, Holding transition, the fall-entry endpoint, and the
+winter-holding handoff. Seasonal copy can explain the transition toward winter
+holding, but the calendar cannot lower Activity.
+
+The 2007–2025 replay contains all 2,166 expected dates. Daily scores range
+62–95 with an 82 median and 34 distinct values; four-hour blocks range 44–95
+with 52 distinct values. The high distribution is expected for a model limited
+to the darker and cloudier weather variables common during the Steelhead
+calendar; it does not claim favorable water temperature or river condition.
+The identical-weather stage audit returns `84, 84, 84, 84` at Peak, Late fall,
+Holding transition, and Winter holding. All audit invariants are zero, including
+weather-only disclosure, the 95-point bound, prohibited river inference,
+mortality-language exclusion, and stage invariance.
+
 The current regulation reminder preserves the seasonal Homestead closures: 300
 feet from August 1 through November 15 and 100 feet from November 16 through
 July 31. Anglers are directed to current regulations and signed boundaries.
@@ -91,13 +115,13 @@ regulation and anti-snagging warning.
 
 ## Mechanical acceptance
 
-- 25 production-derived Betsie Steelhead scenarios cover ten Migration Stage
-  states, all three unavailable sensor-driven primitives, and twelve exact
-  presence/handoff reads.
+- 34 production-derived Betsie Steelhead scenarios cover ten Migration Stage
+  states, weather-only Activity, all three unavailable hydraulic primitives,
+  and twelve exact presence/handoff reads.
 - Engine tests prove every calendar and handoff boundary is exactly five days
   ahead of PM.
-- Endpoint proof verifies the seasonal-only snapshot never calls a live
-  provider.
+- Endpoint proof verifies Activity reads weather without calling gauge or
+  measured-temperature providers.
 - Copy checks reject salmon leakage, PM-scale geography, spawning-salmon advice,
   unavailable-primitive recommendations, and a nonexistent winter-read link.
 - UI QA requires stripping flies in the shared Steelhead dropdown.

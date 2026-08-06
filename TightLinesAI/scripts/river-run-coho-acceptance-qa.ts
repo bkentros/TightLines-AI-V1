@@ -45,6 +45,13 @@ const expectedLabels: Record<string, Set<string>> = {
     "Excellent",
     "Unavailable",
   ]),
+  activity: new Set([
+    "Inactive",
+    "Reserved",
+    "Moderate",
+    "Active",
+    "Highly active",
+  ]),
   fish_in_river: new Set([
     "Offseason",
     "Not expected yet",
@@ -62,6 +69,7 @@ const targets = {
   conditions: ["run_timing", "conditionsSuggest"],
   push: ["push", "push"],
   fishability: ["fishability", "fishability"],
+  activity: ["activity", "activity"],
   fish_in_river: ["fish_in_river", "fishInRiver"],
 } as const;
 
@@ -86,6 +94,7 @@ for (const group of RIVER_RUN_COHO_REVIEW_GROUPS) {
       scenario.snapshot.conditionsSuggest,
       scenario.snapshot.push,
       scenario.snapshot.fishability,
+      scenario.snapshot.activity,
       scenario.snapshot.fishInRiver,
       scenario.snapshot.interpretationNote,
     ].flatMap((primitive) =>
@@ -121,7 +130,7 @@ for (const group of RIVER_RUN_COHO_REVIEW_GROUPS) {
     );
   }
 }
-assert.equal(scenarioCount, 104);
+assert.equal(scenarioCount, 119);
 
 for (const [groupId, labels] of Object.entries(expectedLabels)) {
   const group = RIVER_RUN_COHO_REVIEW_GROUPS.find((item) =>
