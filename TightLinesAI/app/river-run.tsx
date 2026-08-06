@@ -1876,15 +1876,54 @@ function primitiveForTab(
 function ActivityBreakdown(
   { activity }: { activity: NonNullable<RiverRunSnapshotResponse["activity"]> },
 ) {
+  const weatherOnly = activity.reasonCodes?.includes("activity_weather_only") ??
+    false;
   return (
     <View style={styles.activityBreakdown}>
+      {weatherOnly
+        ? (
+          <View
+            style={styles.activityWeatherOnlyNotice}
+            accessible
+            accessibilityRole="text"
+            accessibilityLabel="Limited for this river. Weather-only activity. No live river metrics. Weather inputs only; no measured water temperature, river level, or clarity."
+          >
+            <View style={styles.activityWeatherOnlyIcon}>
+              <Ionicons
+                name="cloud-outline"
+                size={18}
+                color="#A85220"
+              />
+            </View>
+            <View style={styles.activityWeatherOnlyCopy}>
+              <Text style={styles.activityWeatherOnlyEyebrow}>
+                WEATHER-ONLY ACTIVITY
+              </Text>
+              <Text style={styles.activityWeatherOnlyTitle}>
+                Limited for this river
+              </Text>
+              <Text
+                style={styles.activityWeatherOnlyBody}
+                numberOfLines={2}
+                adjustsFontSizeToFit
+                minimumFontScale={0.9}
+              >
+                No live river metrics—weather inputs only; no measured water
+                temperature, level, or clarity.
+              </Text>
+            </View>
+          </View>
+        )
+        : null}
       <View style={styles.activityMetaRow}>
         <Text style={styles.activityMeta}>
           {activity.targetDayLabel.toUpperCase()} ·{" "}
           {formatLocalDate(activity.targetDate)}
         </Text>
         <Text style={styles.activityMeta}>
-          {activity.confidence.toUpperCase()} DATA
+          {weatherOnly
+            ? "LIMITED · WEATHER ONLY"
+            : `${activity.confidence.toUpperCase()} DATA`}
         </Text>
       </View>
       {activity.blocks.map((block) => (
@@ -1980,12 +2019,19 @@ function PrimitiveSection({
   contextLine?: string;
   contextContent?: ReactNode;
 }) {
+  const [detailExpanded, setDetailExpanded] = useState(false);
   const unavailable = primitive.score === null ||
     primitive.label === "Unavailable";
+  const detailPointCount = primitive.detail
+    ? splitPrimitiveDetail(primitive.detail).length
+    : 0;
   const visual = resolveRiverRunVisualModel({
     kind: visualKind,
     primitive,
   });
+  useEffect(() => {
+    setDetailExpanded(false);
+  }, [primitive.detail, visualKind]);
   return (
     <View style={styles.primitiveFrame}>
       <View
@@ -2030,7 +2076,7 @@ function PrimitiveSection({
         {primitive.headline
           ? (
             <View style={styles.primitiveResult}>
-              <Text style={styles.primitiveHeadline}>{primitive.headline}</Text>
+              <PrimitiveHeadlineCopy value={primitive.headline} />
             </View>
           )
           : null}
@@ -2071,15 +2117,41 @@ function PrimitiveSection({
         {primitive.detail
           ? (
             <View style={styles.primitiveDetail}>
-              <View style={styles.primitiveDetailHeading}>
+              <Pressable
+                style={({ pressed }) => [
+                  styles.primitiveDetailHeading,
+                  pressed && styles.primitiveDetailHeadingPressed,
+                ]}
+                onPress={() => {
+                  hapticSelection();
+                  setDetailExpanded((current) => !current);
+                }}
+                accessibilityRole="button"
+                accessibilityState={{ expanded: detailExpanded }}
+                accessibilityLabel={`Why this read. ${detailPointCount} ${
+                  detailPointCount === 1 ? "point" : "points"
+                }. ${detailExpanded ? "Collapse" : "Expand"}.`}
+                hitSlop={6}
+              >
                 <Ionicons
                   name="reader-outline"
-                  size={14}
+                  size={17}
                   color={paper.dashboardBlue}
                 />
                 <Text style={styles.primitiveDetailLabel}>WHY THIS READ</Text>
-              </View>
-              <PrimitiveDetailCopy value={primitive.detail} />
+                <Text style={styles.primitiveDetailCount}>
+                  {detailPointCount}{" "}
+                  {detailPointCount === 1 ? "POINT" : "POINTS"}
+                </Text>
+                <Ionicons
+                  name={detailExpanded ? "chevron-up" : "chevron-down"}
+                  size={15}
+                  color={paper.dashboardBlue}
+                />
+              </Pressable>
+              {detailExpanded
+                ? <PrimitiveDetailCopy value={primitive.detail} />
+                : null}
             </View>
           )
           : null}
@@ -2093,6 +2165,28 @@ function PrimitiveSection({
           )
           : null}
       </View>
+    </View>
+  );
+}
+
+function PrimitiveHeadlineCopy({ value }: { value: string }) {
+  const words = value.trim().split(/\s+/);
+  return (
+    <View
+      style={styles.primitiveHeadlineFlow}
+      accessible
+      accessibilityRole="text"
+      accessibilityLabel={value}
+    >
+      {words.map((word, wordIndex) => (
+        <Text
+          key={`${wordIndex}:${word}`}
+          style={styles.primitiveHeadlineWord}
+          accessible={false}
+        >
+          {word}
+        </Text>
+      ))}
     </View>
   );
 }
@@ -3433,10 +3527,20 @@ const styles = StyleSheet.create({
   },
   unavailable: { color: paper.dashboardMuted },
   primitiveResult: {
+    alignSelf: "stretch",
+    minWidth: 0,
     marginTop: 17,
     paddingBottom: 1,
   },
-  primitiveHeadline: {
+  primitiveHeadlineFlow: {
+    alignSelf: "stretch",
+    minWidth: 0,
+    flexDirection: "row",
+    flexWrap: "wrap",
+    columnGap: 4,
+    rowGap: 0,
+  },
+  primitiveHeadlineWord: {
     fontFamily: paperFonts.bodyBold,
     fontSize: 16,
     lineHeight: 23,
@@ -3577,15 +3681,28 @@ const styles = StyleSheet.create({
     backgroundColor: "#F2F6F8",
   },
   primitiveDetailHeading: {
+    minHeight: 30,
     flexDirection: "row",
     alignItems: "center",
     gap: 7,
   },
+  primitiveDetailHeadingPressed: {
+    opacity: 0.72,
+  },
   primitiveDetailLabel: {
+    minWidth: 0,
+    flex: 1,
     fontFamily: paperFonts.metaMonoBold,
-    fontSize: 8,
-    letterSpacing: 1.35,
+    fontSize: 10.5,
+    letterSpacing: 1.45,
     color: paper.dashboardBlue,
+  },
+  primitiveDetailCount: {
+    flexShrink: 0,
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    letterSpacing: 0.9,
+    color: paper.dashboardMuted,
   },
   primitiveDetailList: {
     alignSelf: "stretch",
@@ -3844,6 +3961,49 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
   activityBreakdown: { gap: 10, paddingTop: 4 },
+  activityWeatherOnlyNotice: {
+    flexDirection: "row",
+    alignItems: "flex-start",
+    gap: 8,
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    borderWidth: 1,
+    borderColor: "rgba(197,103,43,0.42)",
+    borderRadius: 10,
+    backgroundColor: "#FFF3E8",
+  },
+  activityWeatherOnlyIcon: {
+    width: 26,
+    height: 26,
+    flexShrink: 0,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 13,
+    backgroundColor: "rgba(216,120,53,0.14)",
+  },
+  activityWeatherOnlyCopy: {
+    minWidth: 0,
+    flex: 1,
+    gap: 1,
+  },
+  activityWeatherOnlyEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    letterSpacing: 1,
+    color: "#A85220",
+  },
+  activityWeatherOnlyTitle: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 13,
+    lineHeight: 17,
+    color: paper.dashboardInk,
+  },
+  activityWeatherOnlyBody: {
+    fontFamily: paperFonts.bodySemiBold,
+    fontSize: 10.5,
+    lineHeight: 14,
+    color: "#6F5548",
+  },
   activityMetaRow: {
     flexDirection: "row",
     justifyContent: "space-between",

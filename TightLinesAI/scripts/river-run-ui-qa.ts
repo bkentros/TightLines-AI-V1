@@ -406,6 +406,21 @@ assert.match(
   "Guide's Read must use measured word-flow layout instead of a clipping-prone monolithic Text node",
 );
 assert.match(
+  riverRunScreen,
+  /const \[detailExpanded, setDetailExpanded\] = useState\(false\)[\s\S]*?accessibilityState=\{\{ expanded: detailExpanded \}\}[\s\S]*?WHY THIS READ[\s\S]*?detailExpanded[\s\S]*?<PrimitiveDetailCopy/,
+  "Why This Read must be an accessible collapsed-by-default disclosure while Guide's Read remains visible",
+);
+assert.match(
+  riverRunScreen,
+  /activity\.reasonCodes\?\.includes\("activity_weather_only"\)[\s\S]*?WEATHER-ONLY ACTIVITY[\s\S]*?Limited for this river[\s\S]*?No live river metrics[\s\S]*?no measured water[\s\S]*?temperature, level, or clarity/,
+  "Weather-only Activity must visibly distinguish ungauged rivers from live river-metric outlooks",
+);
+assert.match(
+  riverRunScreen,
+  /function PrimitiveHeadlineCopy[\s\S]*?primitiveHeadlineFlow:[\s\S]*?flexWrap:\s*"wrap"[\s\S]*?primitiveHeadlineWord/,
+  "Every primitive headline must use measured word-flow layout instead of a clipping-prone monolithic Text node",
+);
+assert.match(
   riverRunVisual,
   /model\.kind === "fish_in_river" && ceilingPercent < 100[\s\S]*?presenceAboveCeiling/,
   "Fish In River must visibly mask the scale above a run's configured ceiling",
