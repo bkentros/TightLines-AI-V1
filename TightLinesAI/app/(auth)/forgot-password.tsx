@@ -429,7 +429,7 @@ function CornerBracket({
       pointerEvents="none"
       style={[
         beaconStyles.corner,
-        isTop ? { top: 6 } : { bottom: 6 },
+        isTop ? { top: 6 } : { bottom: 24 },
         isLeft ? { left: 6 } : { right: 6 },
       ]}
     >
@@ -637,6 +637,7 @@ const styles = StyleSheet.create({
 
   form: {
     gap: paperSpacing.md,
+    marginTop: paperSpacing.md,
   },
   actions: {
     gap: paperSpacing.sm,
