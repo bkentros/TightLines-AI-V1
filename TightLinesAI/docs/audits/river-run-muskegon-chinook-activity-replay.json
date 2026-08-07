@@ -1,0 +1,1103 @@
+{
+  "runId": "muskegon_fall_chinook",
+  "rulesVersion": "muskegon-fall-chinook-activity-v2",
+  "replayYears": "2007-2025",
+  "method": "Historical mechanical chinook replay using Muskegon River near Croton, MI — below Croton Dam USGS 04121970 daily mean discharge and measured water temperature plus each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to the Croton tailwater and validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1805,
+  "usableDays": 1764,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 21,
+    "temperatureHistory": 33,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 0,
+    "p10": 25,
+    "median": 43,
+    "p90": 84,
+    "max": 95,
+    "mean": 50.76
+  },
+  "blockScore": {
+    "min": 0,
+    "p10": 25,
+    "median": 42,
+    "p90": 84,
+    "max": 98,
+    "mean": 49.31
+  },
+  "uniqueDayScores": 77,
+  "uniqueBlockScores": 82,
+  "dayLabels": {
+    "Active": 450,
+    "Highly active": 295,
+    "Inactive": 4,
+    "Moderate": 201,
+    "Reserved": 814
+  },
+  "blockLabels": {
+    "Active": 1567,
+    "Highly active": 1077,
+    "Inactive": 16,
+    "Moderate": 1074,
+    "Reserved": 3322
+  },
+  "daysAtLeast90": 54,
+  "blocksAtLeast90": 225,
+  "byStage": {
+    "beginning": {
+      "days": 299,
+      "scores": {
+        "min": 23,
+        "p10": 24,
+        "median": 28,
+        "p90": 30,
+        "max": 74,
+        "mean": 27.85
+      },
+      "labels": {
+        "Active": 6,
+        "Reserved": 293
+      }
+    },
+    "building": {
+      "days": 483,
+      "scores": {
+        "min": 23,
+        "p10": 28,
+        "median": 57,
+        "p90": 82,
+        "max": 92,
+        "mean": 51.29
+      },
+      "labels": {
+        "Active": 166,
+        "Highly active": 70,
+        "Moderate": 6,
+        "Reserved": 241
+      }
+    },
+    "ending": {
+      "days": 201,
+      "scores": {
+        "min": 1,
+        "p10": 39,
+        "median": 51,
+        "p90": 68,
+        "max": 78,
+        "mean": 52.09
+      },
+      "labels": {
+        "Active": 55,
+        "Inactive": 2,
+        "Moderate": 123,
+        "Reserved": 21
+      }
+    },
+    "peak": {
+      "days": 214,
+      "scores": {
+        "min": 25,
+        "p10": 65,
+        "median": 80,
+        "p90": 90,
+        "max": 95,
+        "mean": 78.42
+      },
+      "labels": {
+        "Active": 92,
+        "Highly active": 112,
+        "Moderate": 6,
+        "Reserved": 4
+      }
+    },
+    "post_run": {
+      "days": 133,
+      "scores": {
+        "min": 32,
+        "p10": 34,
+        "median": 39,
+        "p90": 43,
+        "max": 45,
+        "mean": 38.92
+      },
+      "labels": {
+        "Moderate": 62,
+        "Reserved": 71
+      }
+    },
+    "pre_run": {
+      "days": 187,
+      "scores": {
+        "min": 23,
+        "p10": 24,
+        "median": 27,
+        "p90": 30,
+        "max": 78,
+        "mean": 27.1
+      },
+      "labels": {
+        "Active": 3,
+        "Reserved": 184
+      }
+    },
+    "tapering": {
+      "days": 247,
+      "scores": {
+        "min": 0,
+        "p10": 65,
+        "median": 79,
+        "p90": 88,
+        "max": 94,
+        "mean": 76.67
+      },
+      "labels": {
+        "Active": 128,
+        "Highly active": 113,
+        "Inactive": 2,
+        "Moderate": 4
+      }
+    }
+  },
+  "backHalf": {
+    "peakShoulder": {
+      "window": "10-09..10-12",
+      "days": 74,
+      "scores": {
+        "min": 58,
+        "p10": 70,
+        "median": 82,
+        "p90": 90,
+        "max": 95,
+        "mean": 80.85
+      },
+      "labels": {
+        "Active": 29,
+        "Highly active": 44,
+        "Moderate": 1
+      },
+      "maximumBlock": 97
+    },
+    "taperingEarly": {
+      "window": "10-13..10-16",
+      "days": 76,
+      "scores": {
+        "min": 57,
+        "p10": 72,
+        "median": 85,
+        "p90": 90,
+        "max": 94,
+        "mean": 82.55
+      },
+      "labels": {
+        "Active": 24,
+        "Highly active": 51,
+        "Moderate": 1
+      },
+      "maximumBlock": 97
+    },
+    "taperingLate": {
+      "window": "10-22..10-25",
+      "days": 76,
+      "scores": {
+        "min": 0,
+        "p10": 61,
+        "median": 73,
+        "p90": 80,
+        "max": 84,
+        "mean": 70.26
+      },
+      "labels": {
+        "Active": 60,
+        "Highly active": 12,
+        "Inactive": 2,
+        "Moderate": 2
+      },
+      "maximumBlock": 85
+    },
+    "endingEarly": {
+      "window": "10-26..10-29",
+      "days": 72,
+      "scores": {
+        "min": 1,
+        "p10": 51,
+        "median": 64,
+        "p90": 73,
+        "max": 78,
+        "mean": 62.33
+      },
+      "labels": {
+        "Active": 46,
+        "Inactive": 1,
+        "Moderate": 25
+      },
+      "maximumBlock": 79
+    },
+    "endingLate": {
+      "window": "11-02..11-05",
+      "days": 75,
+      "scores": {
+        "min": 32,
+        "p10": 36,
+        "median": 42,
+        "p90": 50,
+        "max": 53,
+        "mean": 42.23
+      },
+      "labels": {
+        "Moderate": 54,
+        "Reserved": 21
+      },
+      "maximumBlock": 54
+    },
+    "residualTail": {
+      "window": "11-06..11-12",
+      "days": 133,
+      "scores": {
+        "min": 32,
+        "p10": 34,
+        "median": 39,
+        "p90": 43,
+        "max": 45,
+        "mean": 38.92
+      },
+      "labels": {
+        "Moderate": 62,
+        "Reserved": 71
+      },
+      "maximumBlock": 45
+    }
+  },
+  "byTemperature": {
+    "below48F": {
+      "days": 25,
+      "scores": {
+        "min": 32,
+        "p10": 34,
+        "median": 39,
+        "p90": 41,
+        "max": 43,
+        "mean": 38.04
+      },
+      "labels": {
+        "Moderate": 9,
+        "Reserved": 16
+      }
+    },
+    "from48To62F": {
+      "days": 616,
+      "scores": {
+        "min": 0,
+        "p10": 38,
+        "median": 67,
+        "p90": 87,
+        "max": 95,
+        "mean": 62.88
+      },
+      "labels": {
+        "Active": 204,
+        "Highly active": 153,
+        "Inactive": 4,
+        "Moderate": 179,
+        "Reserved": 76
+      }
+    },
+    "from62To68F": {
+      "days": 403,
+      "scores": {
+        "min": 25,
+        "p10": 63,
+        "median": 75,
+        "p90": 87,
+        "max": 95,
+        "mean": 74.79
+      },
+      "labels": {
+        "Active": 246,
+        "Highly active": 142,
+        "Moderate": 13,
+        "Reserved": 2
+      }
+    },
+    "from68To72F": {
+      "days": 522,
+      "scores": {
+        "min": 26,
+        "p10": 27,
+        "median": 29,
+        "p90": 30,
+        "max": 32,
+        "mean": 28.65
+      },
+      "labels": {
+        "Reserved": 522
+      }
+    },
+    "atLeast72F": {
+      "days": 198,
+      "scores": {
+        "min": 23,
+        "p10": 23,
+        "median": 24,
+        "p90": 25,
+        "max": 25,
+        "mean": 24.02
+      },
+      "labels": {
+        "Reserved": 198
+      }
+    }
+  },
+  "bestBlocks": {
+    "05-09": 1011,
+    "09-13": 204,
+    "13-17": 249,
+    "17-21": 300
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 4,
+    "p90": 19,
+    "max": 33,
+    "mean": 7.74
+  },
+  "daysWithSpreadAtLeast10": 606,
+  "daysWithSpreadAtLeast20": 160,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2012-10-04",
+      "stage": "peak",
+      "staging": false,
+      "score": 82,
+      "label": "Highly active",
+      "waterTempF": 62.6,
+      "flowCfs": 1030,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 33,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 87,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 56,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 58,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-10-23",
+      "stage": "tapering",
+      "staging": false,
+      "score": 70,
+      "label": "Active",
+      "waterTempF": 58.46,
+      "flowCfs": 1420,
+      "flowBand": "ideal",
+      "flowSignal": "meaningful_rise",
+      "temperatureSignal": "cooling",
+      "spread": 33,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0.04
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.04
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2022-10-20",
+      "stage": "tapering",
+      "staging": false,
+      "score": 80,
+      "label": "Highly active",
+      "waterTempF": 53.06,
+      "flowCfs": 1500,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "spread": 33,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 70,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 25,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2023-08-17",
+      "stage": "pre_run",
+      "staging": true,
+      "score": 78,
+      "label": "Active",
+      "waterTempF": 67.46,
+      "flowCfs": 1900,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "spread": 33,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.06
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Heavier precipitation can unsettle presentation.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.28
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 71,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 36,
+          "precipitationIn": 0.02
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-15",
+      "stage": "tapering",
+      "staging": false,
+      "score": 65,
+      "label": "Active",
+      "waterTempF": 63.5,
+      "flowCfs": 697,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 33,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 42,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2017-09-11",
+      "stage": "building",
+      "staging": false,
+      "score": 70,
+      "label": "Active",
+      "waterTempF": 66.74,
+      "flowCfs": 1340,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 32,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 54,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2010-09-22",
+      "stage": "building",
+      "staging": false,
+      "score": 75,
+      "label": "Active",
+      "waterTempF": 66.38,
+      "flowCfs": 1710,
+      "flowBand": "ideal",
+      "flowSignal": "meaningful_rise",
+      "temperatureSignal": "neutral",
+      "spread": 31,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 86,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 53,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 10,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 47,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2011-10-16",
+      "stage": "tapering",
+      "staging": false,
+      "score": 81,
+      "label": "Highly active",
+      "waterTempF": 58.64,
+      "flowCfs": 1480,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "spread": 31,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 92,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.06
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0.01
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 29,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 33,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2013-10-12",
+      "stage": "peak",
+      "staging": false,
+      "score": 81,
+      "label": "Highly active",
+      "waterTempF": 62.78,
+      "flowCfs": 1340,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 31,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 69,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 93,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0.03
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Chinook that are present and capable of reacting. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-10-21",
+      "stage": "tapering",
+      "staging": false,
+      "score": 70,
+      "label": "Active",
+      "waterTempF": 52.88,
+      "flowCfs": 1440,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 31,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 83,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 57,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 52,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2023-10-24",
+      "stage": "tapering",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "waterTempF": 55.4,
+      "flowCfs": 1120,
+      "flowBand": "low",
+      "flowSignal": "rising",
+      "temperatureSignal": "neutral",
+      "spread": 31,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 76,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 46,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Chinook.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 48,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Chinook still capable of responding."
+    },
+    {
+      "date": "2024-10-04",
+      "stage": "peak",
+      "staging": false,
+      "score": 73,
+      "label": "Active",
+      "waterTempF": 66.74,
+      "flowCfs": 1000,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 31,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 79,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 48,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 20,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Chinook activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

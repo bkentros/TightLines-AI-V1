@@ -828,6 +828,40 @@ export const MUSKEGON_FALL_CHINOOK_RUN_PROFILE: AuditedObservedRiverRunProfile =
         { dayOffsetFromStart: 84, fractionOfMaximum: 0 },
       ],
     },
+    activity: {
+      version: "muskegon-fall-chinook-activity-v2",
+      profile: "chinook_fall_reaction",
+      scopeCopy:
+        "The measured conditions represent the regulated Croton tailwater immediately below Croton Dam; water temperature, clarity, tributary influence, and presentation conditions can differ through Newaygo, the lower river, Muskegon Lake, and the channel.",
+      weights: {
+        light: .55,
+        waterTemperature: .2,
+        riverBehavior: .15,
+        weather: .1,
+      },
+      temperature: {
+        coldF: 43,
+        preferredMinF: 48,
+        preferredMaxF: 62,
+        warmF: 68,
+        barrierF: 72,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 100,
+        ending: 46,
+        taperingPenalty: 15,
+        lifecycleRamp: {
+          peakEnd: "10-12",
+          taperingEnd: "10-25",
+          endingEnd: "11-05",
+        },
+      },
+      evidenceNotes:
+        "Muskegon Fall Chinook Activity is a conditional responsiveness outlook for a Chinook already present, never abundance, catch probability, or fresh movement. Effective light leads the model, while same-station measured Croton water temperature receives 20% because Croton Dam creates a regulated thermal and hydraulic regime with a continuous 2007-2025 common record. The 55/20/15/10 component balance and 48-62F favorable response band share defensible adult Chinook response assumptions with the other large regulated Lake Michigan tailwater; Muskegon remains independent through its Croton observations, hydraulic bands, calendar, scope, and replay. Croton flow position describes presentation shape only and precipitation remains restrained cover context. The 68F warm constraint and 72F barrier avoid treating warm early entry as absence without calling thermally stressed fish broadly responsive. After the October 12 Peak shoulder, the complete-input response floor fades continuously while a 15-point lifecycle deduction grows through October 25. Ending then blends continuously into a 46% residual constraint through November 5, which remains through the sparse November 12 tail. This permits an individual living fish to outperform the expected read while preventing favorable weather from overstating the typical responsiveness of spawning, deteriorating, or spent salmon. Every measurement claim is limited to the Croton tailwater and must not be extrapolated as direct measurement of the 42-mile corridor.",
+    },
     push: {
       ...MUSKEGON_SHARED_PUSH,
       temperature: {
@@ -893,6 +927,44 @@ export const MUSKEGON_FALL_COHO_RUN_PROFILE: AuditedObservedRiverRunProfile = {
   biologyProfileId: "great_lakes_coho_v1",
   displayName: "Fall Coho",
   species: "coho_salmon",
+  primitiveCapabilities: {
+    ...MUSKEGON_FALL_CHINOOK_RUN_PROFILE.primitiveCapabilities,
+    activity: { status: "available" },
+  },
+  activity: {
+    version: "muskegon-fall-coho-activity-v1",
+    profile: "coho_fall_reaction",
+    scopeCopy:
+      "The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel.",
+    weights: {
+      light: 0.5,
+      waterTemperature: 0.25,
+      riverBehavior: 0.15,
+      weather: 0.1,
+    },
+    temperature: {
+      coldF: 40,
+      preferredMinF: 45,
+      preferredMaxF: 60,
+      warmF: 64,
+      barrierF: 68,
+    },
+    caps: {
+      noMeasuredRiverData: 69,
+      noWaterTemperature: 69,
+      tomorrow: 79,
+      lateRun: 100,
+      ending: 42,
+      taperingPenalty: 15,
+      lifecycleRamp: {
+        peakEnd: "11-05",
+        taperingEnd: "11-15",
+        endingEnd: "11-30",
+      },
+    },
+    evidenceNotes:
+      "Muskegon Fall Coho Activity describes how responsive a Coho already in the river may be; it does not estimate abundance, fresh movement, or catch probability. The adult Coho response model remains species-specific at 50% effective light, 25% measured water temperature, 15% Croton river behavior, and 10% precipitation context. The 45-60F preferred response band, 64F warm constraint, and 68F barrier follow the accepted Great Lakes Coho biology used on other rivers, while all observations and hydraulic bands are independently bound to USGS 04121970 at Croton. After the November 5 Peak shoulder, the complete-input response floor fades and a 15-point lifecycle deduction grows continuously through November 15. Ending then blends into a 42% ceiling through November 30 and keeps that constraint through the sparse December 7 tail. This allows a later bright fish to respond well without letting favorable weather overstate the typical activity of spawning, deteriorating, or spent Coho. The Croton reading must not be treated as a measurement of the full river to Muskegon Lake.",
+  },
   runWindow: {
     preRunStart: "08-20",
     stagingStart: "09-05",
@@ -974,6 +1046,38 @@ export const MUSKEGON_FALL_STEELHEAD_RUN_PROFILE:
     species: "steelhead",
     runType: "fall_entry",
     movementEngineId: "fall_entry_cooling",
+    primitiveCapabilities: {
+      ...MUSKEGON_FALL_CHINOOK_RUN_PROFILE.primitiveCapabilities,
+      activity: { status: "available" },
+    },
+    activity: {
+      version: "muskegon-fall-steelhead-activity-v1",
+      profile: "steelhead_feeding",
+      scopeCopy:
+        "The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel.",
+      weights: {
+        light: .25,
+        waterTemperature: .5,
+        riverBehavior: .15,
+        weather: .1,
+      },
+      temperature: {
+        coldF: 39,
+        preferredMinF: 44,
+        preferredMaxF: 56,
+        warmF: 64,
+        barrierF: 68,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 100,
+        ending: 100,
+      },
+      evidenceNotes:
+        "Muskegon Fall Steelhead Activity describes feeding and aggressive responsiveness for a living Steelhead already in the river, not abundance, fresh movement, or catch probability. Measured Croton water temperature leads at 50%, effective light carries 25%, Croton river behavior 15%, and precipitation context 10%. The 44-56F favorable response range, with the strongest response centered near 48-54F, follows the accepted Great Lakes Steelhead feeding model; 39F marks a shift toward slower cold-water holding rather than fish leaving the river. Every river observation is independently bound to USGS 04121970 and the accepted Croton flow-shape bands. Steelhead receive no salmon response floor, spawning deterioration penalty, lifecycle ramp, late ceiling, or ending constraint. The same environmental inputs produce the same responsiveness at Peak, Tapering, Ending, and the December winter-holding handoff because these fish remain alive, can feed through winter, and may spawn in spring. The Croton reading must not be treated as a measurement of the full river to Muskegon Lake.",
+    },
     runWindow: {
       preRunStart: "08-20",
       stagingStart: "09-10",

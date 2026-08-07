@@ -55,7 +55,16 @@ export function resolveRunStage(
     const regulatedTailwaterCopy =
       run.runStageCopyStrategy === "big_manistee_tailwater" ||
       run.runStageCopyStrategy === "muskegon_croton_tailwater";
-    const baseCopy = regulatedTailwaterCopy
+    const baseCopy = run.runStageCopyStrategy === "muskegon_croton_tailwater"
+      ? muskegonFallEntryStageCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        winterHoldingContext,
+        species: anglerSpeciesName(run.species),
+      })
+      : regulatedTailwaterCopy
       ? bigManisteeFallEntryStageCopy({
         stage,
         stagingContext,
@@ -72,9 +81,7 @@ export function resolveRunStage(
         winterHoldingContext,
         species: anglerSpeciesName(run.species),
       });
-    const copy = run.runStageCopyStrategy === "muskegon_croton_tailwater"
-      ? muskegonizeCopy(baseCopy)
-      : baseCopy;
+    const copy = baseCopy;
     const whereToStart = run.runStageCopyStrategy === "pere_marquette"
       ? pereMarquetteFallEntryWhereToStartCopy({
         stage,
@@ -84,15 +91,21 @@ export function resolveRunStage(
         winterHoldingContext,
       })
       : regulatedTailwaterCopy
-      ? (run.runStageCopyStrategy === "muskegon_croton_tailwater"
-        ? muskegonizeText
-        : (value: string) => value)(bigManisteeFallEntryWhereToStartCopy({
+      ? run.runStageCopyStrategy === "muskegon_croton_tailwater"
+        ? muskegonFallEntryWhereToStartCopy({
           stage,
           stagingContext,
           establishedBuildingContext,
           broadBuildingContext,
           winterHoldingContext,
-        }))
+        })
+        : bigManisteeFallEntryWhereToStartCopy({
+          stage,
+          stagingContext,
+          establishedBuildingContext,
+          broadBuildingContext,
+          winterHoldingContext,
+        })
       : copy.whereToStart;
     return {
       stage,
@@ -151,19 +164,17 @@ export function resolveRunStage(
       winterHoldingContext: false,
       window,
       label: stageLabel(stage, latePostRunContext),
-      ...muskegonizeCopy(
-        bigManisteeTailwaterStageCopy({
-          stage,
-          localDate,
-          window,
-          stagingContext,
-          establishedBuildingContext,
-          broadBuildingContext,
-          latePostRunContext,
-          species: anglerSpeciesName(run.species),
-          opportunity,
-        }),
-      ),
+      ...muskegonCrotonStageCopy({
+        stage,
+        localDate,
+        window,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+        species: anglerSpeciesName(run.species),
+        opportunity,
+      }),
       reasonCodes: [
         stageReasonCode(stage),
         ...(stage === "post_run" && !latePostRunContext
@@ -250,40 +261,145 @@ export function resolveRunStage(
   };
 }
 
-function muskegonizeText(value: string): string {
-  return value
-    .replaceAll("Big Manistee", "Muskegon")
-    .replaceAll("Manistee Lake", "Muskegon Lake")
-    .replaceAll("Wellston", "Croton")
-    .replaceAll("Tippy-to-High Bridge", "Croton-to-Newaygo")
-    .replaceAll("High Bridge-Bear Creek", "Newaygo-to-M-120")
-    .replaceAll("below Tippy Dam", "below Croton Dam")
-    .replaceAll("below Tippy", "below Croton")
-    .replaceAll("Tippy tailwater", "Croton tailwater")
-    .replaceAll("Tippy-tailwater", "Croton-tailwater")
-    .replaceAll("Tippy", "Croton")
-    .replaceAll("High Bridge", "Newaygo")
-    .replaceAll("Bear Creek", "M-120")
-    .replaceAll("toward M-55", "toward Muskegon Lake")
-    .replaceAll("through M-55", "toward Muskegon Lake")
-    .replaceAll("M-55 water", "lower-river water")
-    .replaceAll("25-mile", "42-mile");
-}
-
-function muskegonizeCopy<
-  T extends Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> & {
-    whereToStart?: string;
-  },
->(copy: T): T {
-  return {
-    ...copy,
-    headline: muskegonizeText(copy.headline),
-    detail: muskegonizeText(copy.detail),
-    tip: muskegonizeText(copy.tip),
-    ...(copy.whereToStart
-      ? { whereToStart: muskegonizeText(copy.whereToStart) }
-      : {}),
-  };
+function muskegonCrotonStageCopy(input: {
+  stage: RunStage;
+  localDate: string;
+  window: DateWindow;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+}): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  const limited = input.opportunity.strength === "limited";
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? {
+          headline:
+            `${input.species} may be staging in Muskegon Lake, the channel, and near the river mouth.`,
+          whereToStart:
+            "Muskegon Lake, the Lake Michigan channel, the river mouth, and one quick check of deep lower-river water below M-120.",
+          detail:
+            `An early ${input.species} can enter the lower Muskegon, but that does not mean fish are spread through Newaygo or up to Croton Dam.`,
+          tip:
+            "Stay closer to the lake. One early river fish does not mean the whole river has fish yet.",
+        }
+        : {
+          headline:
+            `${input.species} have not started their main Muskegon River run.`,
+          whereToStart:
+            "Lake Michigan, the Muskegon channel, Muskegon Lake, and the river mouth—not the inland river yet.",
+          detail:
+            `It is still too early to expect ${input.species} between Muskegon Lake and Croton Dam.`,
+          tip:
+            "Keep the trip in lake, channel, and mouth water until staging begins.",
+        };
+    case "beginning":
+      return {
+        headline:
+          `The first ${input.species} are starting to enter the Muskegon River.`,
+        whereToStart:
+          "Start in the deep lower river from Muskegon Lake toward M-120, then sample Newaygo-to-M-120 travel lanes before making a selective Croton-tailwater check.",
+        detail:
+          "New fish can be scattered across more than forty river miles. A few may already be near Croton, but the lower and middle river are the better places to start.",
+        tip:
+          "Check deep bends, wood edges, and resting spots in two parts of the river before heading straight to the dam.",
+      };
+    case "building":
+      if (input.broadBuildingContext) {
+        return {
+          headline: limited
+            ? `${input.species} are established in several Muskegon River sections.`
+            : `${input.species} are broadly established below Croton Dam.`,
+          whereToStart:
+            "Compare Croton-tailwater pools, the Croton-to-Newaygo corridor, Newaygo-to-M-120 holding water, and major lower-river bends toward Muskegon Lake.",
+          detail: limited
+            ? "Fish may be using several sections, but this is still a smaller run and many good-looking spots may be empty. The Croton gauge only measures water near the dam."
+            : "Fish from several waves can be spread through the river, but the Croton gauge only measures water near the dam. Fish numbers can be very different downstream.",
+          tip:
+            "Check the upper, middle, and lower river. Let what you see on the water—not just the Croton gauge—tell you where to stay.",
+        };
+      }
+      return input.establishedBuildingContext
+        ? {
+          headline: limited
+            ? `${input.species} are becoming established in select Muskegon River reaches.`
+            : `${input.species} are becoming dependably established through more of the Muskegon River.`,
+          whereToStart:
+            "Begin with Croton-to-Newaygo pools and runs, then compare deeper Newaygo-to-M-120 bends with lower-river travel water below M-120.",
+          detail:
+            "Earlier fish can hold below Croton while newer fish move through the lower river. What you find in one section may not match the rest of the river.",
+          tip:
+            "Check upper-river holding water and at least one middle or lower section before settling in for the day.",
+        }
+        : {
+          headline:
+            `More ${input.species} are entering and spreading through the Muskegon River.`,
+          whereToStart:
+            "Follow lower-river travel water below M-120 into the bigger resting holes between M-120 and Newaygo, then check the Croton-to-Newaygo section.",
+          detail:
+            "More than a few early fish are in the river now, but they may still be spread unevenly through the lower and middle sections.",
+          tip:
+            "Keep moving between sections until you find signs that fish are using the water.",
+        };
+    case "peak":
+      return {
+        headline:
+          `This is typically the strongest Muskegon River ${input.species} opportunity.`,
+        whereToStart:
+          "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends and wood, and major lower-river holes toward Muskegon Lake.",
+        detail:
+          "Fish can be spread through the river now, but water clarity, access, and how the fish act can still be very different from one section to another.",
+        tip:
+          "The Croton gauge tells you what is happening near the dam. Check the middle and lower river yourself because conditions can be different downstream.",
+      };
+    case "tapering":
+      return {
+        headline:
+          `The Muskegon ${input.species} run is tapering, with established fish still present below Croton.`,
+        whereToStart:
+          "Start with deep Croton-to-Newaygo pools, slower bends near Newaygo, and known holding water around M-120. Check the lower river when there are signs of later fish coming in.",
+        detail:
+          "October can still hold fish, but more of them have been in the river for a while, are spawning, or are starting to wear down. Do not expect a fresh wave everywhere.",
+        tip:
+          "Fish the deeper holding water, leave fish on shallow spawning gravel alone, and remember that one bright fish does not mean a fresh wave came in.",
+      };
+    case "ending":
+      return {
+        headline:
+          `Only a small late Muskegon ${input.species} opportunity remains.`,
+        whereToStart:
+          "Limit the search to proven deep pools below Croton, slower inside bends near Newaygo, and one or two substantial M-120-area holes.",
+        detail:
+          "Most fish left in the river have been there for a while. A late bright fish is still possible, but a steady new wave is no longer expected.",
+        tip:
+          "Keep expectations low, leave spawning or worn-out fish alone, and move on if you are not seeing signs of fish.",
+      };
+    case "post_run":
+      return input.latePostRunContext
+        ? {
+          headline:
+            `A few late ${input.species} may remain in established Muskegon River holding water.`,
+          whereToStart:
+            "There is no dependable starting reach; if you still go, make one careful check of a proven deep pool below Croton, near Newaygo, or around M-120.",
+          detail:
+            "A few late fish may remain, but that does not mean a fresh wave or good numbers are in the river.",
+          tip:
+            "A few leftover fish do not mean a new wave has entered the river.",
+        }
+        : {
+          headline:
+            `The Muskegon ${input.species} run is outside its researched window.`,
+          whereToStart:
+            "No dependable Muskegon River location for this fall migration model right now.",
+          detail:
+            "The fall run is over for this read. Use the read for the current season instead.",
+          tip:
+            "This fall read is finished. Use the read for the current season instead.",
+        };
+  }
 }
 
 function bigManisteeTailwaterStageCopy(input: {
@@ -732,6 +848,145 @@ function bigManisteeFallEntryStageCopy(input: {
           "This profile no longer evaluates fall migration. Steelhead can remain throughout winter, but their activity requires a holding-focused seasonal read.",
         tip:
           "Use the active winter Steelhead experience instead of extending fall-entry guidance beyond its researched endpoint.",
+      };
+  }
+}
+
+function muskegonFallEntryWhereToStartCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  winterHoldingContext: boolean;
+}): string {
+  if (input.winterHoldingContext) {
+    return "Deep, speed-controlled holding water below Croton, through the Croton-to-Newaygo corridor, and in substantial Newaygo-to-M-120 bends; compare lower-river wintering holes only when local conditions support them.";
+  }
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? "Muskegon Lake, the channel, and deep lower-river travel water below M-120 for new fall entrants; do not treat a fish already near Croton as proof of a broad new entry."
+        : "Muskegon Lake, the Lake Michigan channel, and the river mouth for fall-entry context—not the inland corridor yet.";
+    case "beginning":
+      return "Deep lower-river travel water from Muskegon Lake toward M-120 first, then substantial Newaygo-to-M-120 resting water; check Croton only after those fresh-entry reaches.";
+    case "building":
+      if (input.broadBuildingContext) {
+        return "Compare Croton-to-Newaygo holding water, Newaygo-to-M-120 bends, and lower-river travel lanes below M-120; use Push to decide whether lakeward water deserves extra time.";
+      }
+      return input.establishedBuildingContext
+        ? "Newaygo-to-M-120 holding water first, then compare Croton-to-Newaygo pools with the deep lower river for accumulated versus newer fish."
+        : "Lower-river travel water below M-120 into the first substantial Newaygo-area resting holes.";
+    case "peak":
+      return "Compare the Croton tailwater, Croton-to-Newaygo pools, Newaygo-to-M-120 bends, and substantial lower-river holes toward Muskegon Lake.";
+    case "tapering":
+      return "Established Croton-to-Newaygo and Newaygo-to-M-120 holding water, especially deep bends and controlled-speed edges; add lower travel lanes only on credible fresh-entry evidence.";
+    case "ending":
+      return "Deep, speed-controlled holding water below Croton, around Newaygo, and in substantial M-120-area bends with nearby feeding current.";
+    case "post_run":
+      return "No active fall-entry starting reach; use the winter Steelhead read for current holding-water guidance instead.";
+  }
+}
+
+function muskegonFallEntryStageCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  winterHoldingContext: boolean;
+  species: string;
+}): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  const whereToStart = muskegonFallEntryWhereToStartCopy(input);
+  if (input.winterHoldingContext) {
+    return {
+      headline:
+        `${input.species} have transitioned from fall entry into winter holding below Croton Dam.`,
+      whereToStart,
+      detail:
+        "The fish have not left the river. Colder water shifts the useful question from entry toward daily activity, feeding position, and efficient holding water across the long corridor.",
+      tip:
+        "Use the winter Steelhead read to see how active the fish may be. Fish staying in the river does not mean new fish are moving in.",
+    };
+  }
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? {
+          headline:
+            `${input.species} fall entry is approaching the Muskegon River.`,
+          whereToStart,
+          detail:
+            "New entrants are most honestly evaluated from Muskegon Lake through the lower river. An isolated fish farther upstream does not establish a corridor-wide fall build.",
+          tip:
+            "One fish is just one fish. Wait for the season and river conditions to point to a wider run.",
+        }
+        : {
+          headline: `${input.species} fall entry has not started yet.`,
+          whereToStart,
+          detail:
+            "Dependable fall entry is not expected through the Muskegon Lake-to-Croton corridor yet.",
+          tip:
+            "Check again when fish begin staging near the lake and river mouth.",
+        };
+    case "beginning":
+      return {
+        headline:
+          `The first fall ${input.species} are entering the Muskegon's long migratory corridor.`,
+        whereToStart,
+        detail:
+          "New fish can be scattered from the lower river into middle-corridor resting water while earlier arrivals may already be nearer Croton.",
+        tip:
+          "Check lower-river travel lanes and good resting holes before assuming the newest fish are up by Croton.",
+      };
+    case "building":
+      return {
+        headline: input.broadBuildingContext
+          ? `${input.species} are broadly established below Croton Dam.`
+          : `${input.species} are becoming established through more of the Muskegon River.`,
+        whereToStart,
+        detail: input.broadBuildingContext
+          ? "Multiple entry periods can place fish in upper, middle, and lower reaches, although Croton directly measures only the tailwater."
+          : "Earlier arrivals can hold nearer Croton while newer fish continue entering below M-120; freshness and concentrations can differ sharply by reach.",
+        tip:
+          "Check at least two sections of river, then stay where you find the best signs of fish.",
+      };
+    case "peak":
+      return {
+        headline:
+          `This is typically the strongest Muskegon fall ${input.species} entry opportunity.`,
+        whereToStart,
+        detail:
+          "Repeated entry periods support broad corridor presence, but fresh fish, established holders, clarity, and access still differ from Croton to Muskegon Lake.",
+        tip:
+          "Use Push to choose between lower travel water and upper holding water, then make sure the water you find matches the read.",
+      };
+    case "tapering":
+      return {
+        headline:
+          `${input.species} remain well established as fall entry slows.`,
+        whereToStart,
+        detail:
+          "Many fish remain, but colder water increasingly favors efficient holding positions over continuous upstream travel.",
+        tip:
+          "Start in slower holding water. Check lower travel lanes when the river shows signs that new fish may be moving.",
+      };
+    case "ending":
+      return {
+        headline:
+          `${input.species} remain in the Muskegon as fall entry hands off to winter holding.`,
+        whereToStart,
+        detail:
+          "The migration phase is ending, not the fishery. Retained fish increasingly use deep water beside efficient feeding current.",
+        tip:
+          "Look for deep water, softer current, and an easy feeding lane nearby.",
+      };
+    case "post_run":
+      return {
+        headline: `${input.species} are outside the Muskegon fall-entry model.`,
+        whereToStart,
+        detail:
+          "This profile no longer evaluates fall migration; winter activity requires a holding-focused seasonal read.",
+        tip:
+          "The fall-entry read is finished. Use the winter Steelhead read instead.",
       };
   }
 }

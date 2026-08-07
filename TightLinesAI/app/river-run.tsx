@@ -53,6 +53,9 @@ import {
   RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS,
   RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS,
   RIVER_RUN_COHO_REVIEW_GROUPS,
+  RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS,
+  RIVER_RUN_MUSKEGON_REVIEW_GROUPS,
+  RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS,
   RIVER_RUN_REVIEW_GROUPS,
   RIVER_RUN_STEELHEAD_REVIEW_GROUPS,
   type RiverRunReviewGroup,
@@ -440,6 +443,14 @@ export default function RiverRunScreen() {
     ? RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS
     : selectedRiverId === BIG_MANISTEE_RIVER_ID
     ? RIVER_RUN_BIG_MANISTEE_REVIEW_GROUPS
+    : selectedRiverId === "muskegon" && selectedSpecies === "steelhead"
+    ? RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS
+    : selectedRiverId === "muskegon" && selectedSpecies === "coho_salmon"
+    ? RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS
+    : selectedRiverId === "muskegon" && selectedSpecies === "chinook_salmon"
+    ? RIVER_RUN_MUSKEGON_REVIEW_GROUPS
+    : selectedRiverId === "muskegon"
+    ? []
     : selectedSpecies === "coho_salmon"
     ? RIVER_RUN_COHO_REVIEW_GROUPS
     : selectedSpecies === "steelhead"
@@ -713,7 +724,13 @@ export default function RiverRunScreen() {
     });
   }, []);
 
-  const resultSnapshot = reviewMode ? reviewScenario?.snapshot : snapshot;
+  const reviewSnapshot = reviewScenario?.snapshot;
+  const reviewSnapshotMatchesSelection = !!reviewSnapshot && !!selectedTarget &&
+    reviewSnapshot.riverId === selectedTarget.river.riverId &&
+    reviewSnapshot.runId === selectedTarget.run.runId;
+  const resultSnapshot = reviewMode
+    ? reviewSnapshotMatchesSelection ? reviewSnapshot : undefined
+    : snapshot;
   const primitiveTabStickyIndex = RIVER_RUN_REVIEW_ENABLED ? 2 : 1;
   const resultSeason = selectedTarget?.run.season ?? selectedSeason ?? "fall";
   const resultSpecies = selectedTarget?.run.species ??

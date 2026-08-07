@@ -6,6 +6,10 @@ import {
   BIG_MANISTEE_RIVER_PROFILE as river,
   fetchUsgsDailyFlowBaselineObservations,
   getPrimaryHydraulicSource,
+  MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
+  MUSKEGON_FALL_COHO_RUN_PROFILE,
+  MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
+  MUSKEGON_RIVER_PROFILE,
   resolveAdminOverrideBand,
   resolveFlowTrendSignal,
   resolveRunStage,
@@ -41,34 +45,47 @@ const requestedRunId = argumentValue("--run-id") ??
 if (
   requestedRunId !== "big_manistee_fall_chinook" &&
   requestedRunId !== "big_manistee_fall_coho" &&
-  requestedRunId !== "big_manistee_fall_steelhead"
+  requestedRunId !== "big_manistee_fall_steelhead" &&
+  requestedRunId !== "muskegon_fall_chinook" &&
+  requestedRunId !== "muskegon_fall_coho" &&
+  requestedRunId !== "muskegon_fall_steelhead"
 ) {
   throw new Error(
     `Unsupported Big Manistee Activity replay: ${requestedRunId}`,
   );
 }
-const run = requestedRunId === "big_manistee_fall_steelhead"
+const isMuskegon = requestedRunId.startsWith("muskegon_");
+const selectedRiver = isMuskegon ? MUSKEGON_RIVER_PROFILE : river;
+const run = isMuskegon
+  ? requestedRunId === "muskegon_fall_steelhead"
+    ? MUSKEGON_FALL_STEELHEAD_RUN_PROFILE
+    : requestedRunId === "muskegon_fall_coho"
+    ? MUSKEGON_FALL_COHO_RUN_PROFILE
+    : MUSKEGON_FALL_CHINOOK_RUN_PROFILE
+  : requestedRunId === "big_manistee_fall_steelhead"
   ? BIG_MANISTEE_FALL_STEELHEAD_RUN_PROFILE
   : requestedRunId === "big_manistee_fall_coho"
   ? BIG_MANISTEE_FALL_COHO_RUN_PROFILE
   : BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE;
-const speciesSlug = requestedRunId === "big_manistee_fall_steelhead"
+const speciesSlug = requestedRunId.endsWith("_steelhead")
   ? "steelhead"
-  : requestedRunId === "big_manistee_fall_coho"
+  : requestedRunId.endsWith("_coho")
   ? "coho"
   : "chinook";
 
 if (!run.activity || !run.push || !run.fishabilityBands) {
   throw new Error(
-    `Big Manistee ${speciesSlug} Activity rules are unavailable.`,
+    `${selectedRiver.displayName} ${speciesSlug} Activity rules are unavailable.`,
   );
 }
-const gauge = getPrimaryHydraulicSource(river);
-const weatherPoint = river.weatherPoints.find((point) =>
+const gauge = getPrimaryHydraulicSource(selectedRiver);
+const weatherPoint = selectedRiver.weatherPoints.find((point) =>
   point.role === "primary"
 );
 if (!weatherPoint) {
-  throw new Error("Big Manistee primary weather point missing.");
+  throw new Error(
+    `${selectedRiver.displayName} primary weather point missing.`,
+  );
 }
 
 const startYear = Number(argumentValue("--start-year") ?? 2007);
@@ -78,7 +95,7 @@ const lastDate = `${endYear}-${run.runWindow.lateEnd}`;
 const [flowByDate, temperatureByDate, weatherByDate] = await Promise.all([
   fetchUsgsDailyFlowBaselineObservations({
     fetchFn: fetch,
-    riverId: river.riverId,
+    riverId: selectedRiver.riverId,
     siteId: gauge.siteId,
     startDate: addDays(firstDate, -4),
     endDate: lastDate,
@@ -185,12 +202,18 @@ const invariants = {
       !/strongest window/i.test(row.detail)
     ).length,
   missingTailwaterScope:
-    rows.filter((row) => !/Wellston\/Tippy tailwater/i.test(row.detail)).length,
+    rows.filter((row) =>
+      isMuskegon
+        ? !/Croton tailwater/i.test(row.detail)
+        : !/Wellston\/Tippy tailwater/i.test(row.detail)
+    ).length,
   prohibitedGeography:
     rows.filter((row) =>
-      /Scottville|Pere Marquette|Walhalla|Baldwin/i.test(
-        `${row.headline} ${row.detail} ${row.tip}`,
-      )
+      (isMuskegon
+        ? /Tippy|Wellston|Scottville|Pere Marquette|Walhalla|Baldwin/i
+        : /Scottville|Pere Marquette|Walhalla|Baldwin/i).test(
+          `${row.headline} ${row.detail} ${row.tip}`,
+        )
     ).length,
   dailyOutsideBlockRange: rows.filter((row) => {
     const values = row.blocks.map((block) => block.score);
@@ -211,7 +234,8 @@ const invariants = {
         run.activity.caps.lateRun === 100
       ? 0
       : 1)
-    : run.activity.caps.taperingPenalty === 15
+    : typeof run.activity.caps.taperingPenalty === "number" &&
+        run.activity.caps.taperingPenalty > 0
     ? 0
     : 1,
   endingCapBroken: speciesSlug === "steelhead"
@@ -296,7 +320,9 @@ const report = {
   rulesVersion: run.activity.version,
   replayYears: `${startYear}-${endYear}`,
   method:
-    `Historical mechanical ${speciesSlug} replay using Wellston USGS 04125550 daily mean discharge and measured water temperature plus each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to the Tippy tailwater and validates scoring behavior and copy, not catch rates.`,
+    `Historical mechanical ${speciesSlug} replay using ${gauge.name} USGS ${gauge.siteId} daily mean discharge and measured water temperature plus each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to the ${
+      isMuskegon ? "Croton" : "Tippy"
+    } tailwater and validates scoring behavior and copy, not catch rates.`,
   expectedDays:
     activeDayCount(run.runWindow.stagingStart, run.runWindow.lateEnd) *
     (endYear - startYear + 1),
@@ -323,6 +349,7 @@ const report = {
       ),
     }]),
   ),
+  backHalf: backHalfSummary(rows),
   byTemperature: temperatureBands(rows),
   bestBlocks: counts(rows.map((row) => row.bestBlock)),
   spread: summary(rows.map((row) => row.spread)),
@@ -337,11 +364,15 @@ const report = {
 if (Deno.args.includes("--write")) {
   await Deno.mkdir("docs/audits", { recursive: true });
   await Deno.writeTextFile(
-    `docs/audits/river-run-big-manistee-${speciesSlug}-activity-replay.json`,
+    `docs/audits/river-run-${
+      isMuskegon ? "muskegon" : "big-manistee"
+    }-${speciesSlug}-activity-replay.json`,
     `${JSON.stringify(report, null, 2)}\n`,
   );
   await Deno.writeTextFile(
-    `docs/audits/river-run-big-manistee-${speciesSlug}-activity-review-100.csv`,
+    `docs/audits/river-run-${
+      isMuskegon ? "muskegon" : "big-manistee"
+    }-${speciesSlug}-activity-review-100.csv`,
     reviewCsv(reviewRows),
   );
 }
@@ -394,7 +425,7 @@ async function fetchHourlyWeather(): Promise<
       hourly:
         "precipitation,cloud_cover,shortwave_radiation,shortwave_radiation_clear_sky",
       precipitation_unit: "inch",
-      timezone: river.timezone,
+      timezone: selectedRiver.timezone,
     });
     const response = await fetch(
       `https://archive-api.open-meteo.com/v1/archive?${params}`,
@@ -483,6 +514,43 @@ function temperatureBands(input: Row[]) {
         days: selected.length,
         scores: summary(selected.map((row) => row.score)),
         labels: counts(selected.map((row) => row.label)),
+      }];
+    }),
+  );
+}
+function backHalfSummary(input: Row[]) {
+  const peakEnd = run.activity!.caps.lifecycleRamp?.peakEnd;
+  const taperEnd = run.activity!.caps.lifecycleRamp?.taperingEnd;
+  const endingEnd = run.activity!.caps.lifecycleRamp?.endingEnd;
+  if (!peakEnd || !taperEnd || !endingEnd) return {};
+  const day = (monthDay: string, offset: number) =>
+    addDays(`2024-${monthDay}`, offset).slice(5);
+  const monthDay = (row: Row) => row.date.slice(5);
+  const slices = {
+    peakShoulder: [day(peakEnd, -3), peakEnd],
+    taperingEarly: [day(peakEnd, 1), day(peakEnd, 4)],
+    taperingLate: [day(taperEnd, -3), taperEnd],
+    endingEarly: [day(taperEnd, 1), day(taperEnd, 4)],
+    endingLate: [day(endingEnd, -3), endingEnd],
+    residualTail: [day(endingEnd, 1), run.runWindow.lateEnd],
+  };
+  return Object.fromEntries(
+    Object.entries(slices).map(([name, range]) => {
+      const selected = input.filter((row) =>
+        monthDay(row) >= range[0] && monthDay(row) <= range[1]
+      );
+      return [name, {
+        window: `${range[0]}..${range[1]}`,
+        days: selected.length,
+        scores: summary(selected.map((row) => row.score)),
+        labels: counts(selected.map((row) => row.label)),
+        maximumBlock: selected.length
+          ? Math.max(
+            ...selected.flatMap((row) =>
+              row.blocks.map((block) => block.score)
+            ),
+          )
+          : null,
       }];
     }),
   );

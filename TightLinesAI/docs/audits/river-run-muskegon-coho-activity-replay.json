@@ -1,0 +1,1103 @@
+{
+  "runId": "muskegon_fall_coho",
+  "rulesVersion": "muskegon-fall-coho-activity-v1",
+  "replayYears": "2007-2025",
+  "method": "Historical mechanical coho replay using Muskegon River near Croton, MI — below Croton Dam USGS 04121970 daily mean discharge and measured water temperature plus each four-hour block's Open-Meteo radiation, cloud cover, and precipitation. The read is scoped to the Croton tailwater and validates scoring behavior and copy, not catch rates.",
+  "expectedDays": 1786,
+  "usableDays": 1753,
+  "missing": {
+    "flow": 0,
+    "priorFlow": 0,
+    "temperature": 18,
+    "temperatureHistory": 27,
+    "weather": 0
+  },
+  "dayScore": {
+    "min": 3,
+    "p10": 20,
+    "median": 57,
+    "p90": 86,
+    "max": 94,
+    "mean": 53.45
+  },
+  "blockScore": {
+    "min": 3,
+    "p10": 20,
+    "median": 54,
+    "p90": 86,
+    "max": 95,
+    "mean": 52.11
+  },
+  "uniqueDayScores": 80,
+  "uniqueBlockScores": 81,
+  "dayLabels": {
+    "Active": 447,
+    "Highly active": 402,
+    "Inactive": 153,
+    "Moderate": 166,
+    "Reserved": 585
+  },
+  "blockLabels": {
+    "Active": 1733,
+    "Highly active": 1452,
+    "Inactive": 641,
+    "Moderate": 833,
+    "Reserved": 2353
+  },
+  "daysAtLeast90": 88,
+  "blocksAtLeast90": 387,
+  "byStage": {
+    "beginning": {
+      "days": 294,
+      "scores": {
+        "min": 18,
+        "p10": 19,
+        "median": 24,
+        "p90": 30,
+        "max": 84,
+        "mean": 27.38
+      },
+      "labels": {
+        "Active": 16,
+        "Highly active": 7,
+        "Inactive": 65,
+        "Moderate": 2,
+        "Reserved": 204
+      }
+    },
+    "building": {
+      "days": 442,
+      "scores": {
+        "min": 17,
+        "p10": 26,
+        "median": 78,
+        "p90": 89,
+        "max": 94,
+        "mean": 69.86
+      },
+      "labels": {
+        "Active": 158,
+        "Highly active": 198,
+        "Inactive": 3,
+        "Moderate": 6,
+        "Reserved": 77
+      }
+    },
+    "ending": {
+      "days": 285,
+      "scores": {
+        "min": 3,
+        "p10": 36,
+        "median": 51,
+        "p90": 66,
+        "max": 74,
+        "mean": 50.08
+      },
+      "labels": {
+        "Active": 68,
+        "Inactive": 2,
+        "Moderate": 153,
+        "Reserved": 62
+      }
+    },
+    "peak": {
+      "days": 220,
+      "scores": {
+        "min": 21,
+        "p10": 73,
+        "median": 83,
+        "p90": 91,
+        "max": 94,
+        "mean": 81.41
+      },
+      "labels": {
+        "Active": 75,
+        "Highly active": 142,
+        "Reserved": 3
+      }
+    },
+    "post_run": {
+      "days": 133,
+      "scores": {
+        "min": 26,
+        "p10": 29,
+        "median": 34,
+        "p90": 36,
+        "max": 38,
+        "mean": 33.21
+      },
+      "labels": {
+        "Reserved": 133
+      }
+    },
+    "pre_run": {
+      "days": 189,
+      "scores": {
+        "min": 19,
+        "p10": 19,
+        "median": 20,
+        "p90": 25,
+        "max": 29,
+        "mean": 20.93
+      },
+      "labels": {
+        "Inactive": 83,
+        "Reserved": 106
+      }
+    },
+    "tapering": {
+      "days": 190,
+      "scores": {
+        "min": 56,
+        "p10": 66,
+        "median": 75,
+        "p90": 84,
+        "max": 91,
+        "mean": 74.77
+      },
+      "labels": {
+        "Active": 130,
+        "Highly active": 55,
+        "Moderate": 5
+      }
+    }
+  },
+  "backHalf": {
+    "peakShoulder": {
+      "window": "11-02..11-05",
+      "days": 75,
+      "scores": {
+        "min": 68,
+        "p10": 73,
+        "median": 80,
+        "p90": 91,
+        "max": 93,
+        "mean": 81.03
+      },
+      "labels": {
+        "Active": 35,
+        "Highly active": 40
+      },
+      "maximumBlock": 95
+    },
+    "taperingEarly": {
+      "window": "11-06..11-09",
+      "days": 76,
+      "scores": {
+        "min": 65,
+        "p10": 68,
+        "median": 79,
+        "p90": 87,
+        "max": 91,
+        "mean": 78.3
+      },
+      "labels": {
+        "Active": 40,
+        "Highly active": 36
+      },
+      "maximumBlock": 92
+    },
+    "taperingLate": {
+      "window": "11-12..11-15",
+      "days": 76,
+      "scores": {
+        "min": 56,
+        "p10": 62,
+        "median": 72,
+        "p90": 79,
+        "max": 82,
+        "mean": 70.79
+      },
+      "labels": {
+        "Active": 66,
+        "Highly active": 5,
+        "Moderate": 5
+      },
+      "maximumBlock": 83
+    },
+    "endingEarly": {
+      "window": "11-16..11-19",
+      "days": 76,
+      "scores": {
+        "min": 46,
+        "p10": 56,
+        "median": 65,
+        "p90": 71,
+        "max": 74,
+        "mean": 63.59
+      },
+      "labels": {
+        "Active": 56,
+        "Moderate": 20
+      },
+      "maximumBlock": 75
+    },
+    "endingLate": {
+      "window": "11-27..11-30",
+      "days": 76,
+      "scores": {
+        "min": 5,
+        "p10": 31,
+        "median": 36,
+        "p90": 44,
+        "max": 45,
+        "mean": 36.46
+      },
+      "labels": {
+        "Inactive": 1,
+        "Moderate": 21,
+        "Reserved": 54
+      },
+      "maximumBlock": 46
+    },
+    "residualTail": {
+      "window": "12-01..12-07",
+      "days": 133,
+      "scores": {
+        "min": 26,
+        "p10": 29,
+        "median": 34,
+        "p90": 36,
+        "max": 38,
+        "mean": 33.21
+      },
+      "labels": {
+        "Reserved": 133
+      },
+      "maximumBlock": 39
+    }
+  },
+  "byTemperature": {
+    "below45F": {
+      "days": 303,
+      "scores": {
+        "min": 3,
+        "p10": 31,
+        "median": 36,
+        "p90": 57,
+        "max": 78,
+        "mean": 40.83
+      },
+      "labels": {
+        "Active": 25,
+        "Inactive": 2,
+        "Moderate": 91,
+        "Reserved": 185
+      }
+    },
+    "from45To60F": {
+      "days": 718,
+      "scores": {
+        "min": 21,
+        "p10": 58,
+        "median": 78,
+        "p90": 90,
+        "max": 94,
+        "mean": 75.72
+      },
+      "labels": {
+        "Active": 314,
+        "Highly active": 323,
+        "Moderate": 67,
+        "Reserved": 14
+      }
+    },
+    "from60To64F": {
+      "days": 196,
+      "scores": {
+        "min": 20,
+        "p10": 63,
+        "median": 76,
+        "p90": 85,
+        "max": 91,
+        "mean": 75.15
+      },
+      "labels": {
+        "Active": 108,
+        "Highly active": 79,
+        "Moderate": 8,
+        "Reserved": 1
+      }
+    },
+    "from64To68F": {
+      "days": 293,
+      "scores": {
+        "min": 17,
+        "p10": 23,
+        "median": 25,
+        "p90": 29,
+        "max": 31,
+        "mean": 25.61
+      },
+      "labels": {
+        "Inactive": 1,
+        "Reserved": 292
+      }
+    },
+    "atLeast68F": {
+      "days": 243,
+      "scores": {
+        "min": 18,
+        "p10": 19,
+        "median": 19,
+        "p90": 20,
+        "max": 21,
+        "mean": 19.4
+      },
+      "labels": {
+        "Inactive": 150,
+        "Reserved": 93
+      }
+    }
+  },
+  "bestBlocks": {
+    "05-09": 923,
+    "09-13": 235,
+    "13-17": 288,
+    "17-21": 307
+  },
+  "spread": {
+    "min": 0,
+    "p10": 1,
+    "median": 5,
+    "p90": 18,
+    "max": 32,
+    "mean": 7.36
+  },
+  "daysWithSpreadAtLeast10": 573,
+  "daysWithSpreadAtLeast20": 145,
+  "invariants": {
+    "incompleteBlocks": 0,
+    "incompleteCopy": 0,
+    "missingTailwaterScope": 0,
+    "prohibitedGeography": 0,
+    "dailyOutsideBlockRange": 0,
+    "warmCapBroken": 0,
+    "barrierCapBroken": 0,
+    "taperingPenaltyMisconfigured": 0,
+    "endingCapBroken": 0,
+    "lateOptimism": 0,
+    "steelheadMortalityLanguage": 0,
+    "steelheadLateStagePenalty": 0
+  },
+  "reviewSampleSize": 100,
+  "reviewSampleByStage": {
+    "beginning": 15,
+    "building": 20,
+    "ending": 8,
+    "peak": 20,
+    "post_run": 7,
+    "pre_run": 15,
+    "tapering": 15
+  },
+  "widestSpreadDays": [
+    {
+      "date": "2025-11-03",
+      "stage": "peak",
+      "staging": false,
+      "score": 71,
+      "label": "Active",
+      "waterTempF": 53.6,
+      "flowCfs": 816,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 32,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.06
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 59,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 29,
+          "precipitationIn": 0.01
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 53,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 4,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 67,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 2,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2022-10-20",
+      "stage": "building",
+      "staging": false,
+      "score": 87,
+      "label": "Highly active",
+      "waterTempF": 53.06,
+      "flowCfs": 1500,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "spread": 31,
+      "bestBlock": "09-13",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 95,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 95,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 64,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 15,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 25,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 9 AM–1 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2012-10-04",
+      "stage": "building",
+      "staging": false,
+      "score": 73,
+      "label": "Active",
+      "waterTempF": 62.6,
+      "flowCfs": 1030,
+      "flowBand": "low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 30,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 87,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 56,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 51,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The current river level remains workable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 17,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 81,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.04
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-10-23",
+      "stage": "building",
+      "staging": false,
+      "score": 82,
+      "label": "Highly active",
+      "waterTempF": 58.46,
+      "flowCfs": 1420,
+      "flowBand": "ideal",
+      "flowSignal": "meaningful_rise",
+      "temperatureSignal": "cooling",
+      "spread": 30,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 65,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0.04
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 95,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.04
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2025-10-15",
+      "stage": "building",
+      "staging": false,
+      "score": 59,
+      "label": "Moderate",
+      "waterTempF": 63.5,
+      "flowCfs": 697,
+      "flowBand": "very_low",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 30,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 72,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0.02
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 50,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The available light is workable in this window.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 42,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 42,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The measured water temperature remains usable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 3,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "The river level or its recent change is less favorable.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is moderate.",
+      "detail": "Some useful factors are present, but the response window is mixed. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: The river level or its recent change is less favorable. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2013-10-12",
+      "stage": "building",
+      "staging": false,
+      "score": 73,
+      "label": "Active",
+      "waterTempF": 62.78,
+      "flowCfs": 1340,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 29,
+      "bestBlock": "17-21",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 68,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 55,
+          "activityLabel": "Moderate",
+          "positiveDriver": "The river level and its recent change are favorable.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 1,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 69,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 69,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 84,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Water temperature limits responsiveness.",
+          "cloudCoverPct": 96,
+          "precipitationIn": 0.03
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 PM: Clouds or lower light make this window more favorable. The main limitation: Water temperature limits responsiveness. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 PM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2016-11-06",
+      "stage": "tapering",
+      "staging": false,
+      "score": 83,
+      "label": "Highly active",
+      "waterTempF": 54.14,
+      "flowCfs": 1540,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 29,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 85,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 89,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 61,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2011-10-16",
+      "stage": "building",
+      "staging": false,
+      "score": 84,
+      "label": "Highly active",
+      "waterTempF": 58.64,
+      "flowCfs": 1480,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "cooling",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 94,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0.06
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 76,
+          "precipitationIn": 0.01
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 29,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 78,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 33,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2014-10-28",
+      "stage": "peak",
+      "staging": false,
+      "score": 86,
+      "label": "Highly active",
+      "waterTempF": 53.6,
+      "flowCfs": 1600,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 91,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 97,
+          "precipitationIn": 0.01
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 63,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 12,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 82,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 61,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2021-11-06",
+      "stage": "tapering",
+      "staging": false,
+      "score": 79,
+      "label": "Active",
+      "waterTempF": 51.44,
+      "flowCfs": 1950,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 70,
+          "precipitationIn": 0.01
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 74,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Compare the four time windows, but treat every difference as conditional on finding a living Coho still capable of responding."
+    },
+    {
+      "date": "2022-10-21",
+      "stage": "building",
+      "staging": false,
+      "score": 78,
+      "label": "Active",
+      "waterTempF": 52.88,
+      "flowCfs": 1440,
+      "flowBand": "ideal",
+      "flowSignal": "stable",
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 90,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 98,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 66,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 26,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 62,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 75,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 0,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is active.",
+      "detail": "Conditions favor a meaningful reaction opportunity. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    },
+    {
+      "date": "2023-10-24",
+      "stage": "building",
+      "staging": false,
+      "score": 83,
+      "label": "Highly active",
+      "waterTempF": 55.4,
+      "flowCfs": 1120,
+      "flowBand": "low",
+      "flowSignal": "rising",
+      "temperatureSignal": "neutral",
+      "spread": 28,
+      "bestBlock": "05-09",
+      "blocks": [
+        {
+          "id": "05-09",
+          "label": "5–9 AM",
+          "score": 88,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "09-13",
+          "label": "9 AM–1 PM",
+          "score": 87,
+          "activityLabel": "Highly active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 100,
+          "precipitationIn": 0
+        },
+        {
+          "id": "13-17",
+          "label": "1–5 PM",
+          "score": 60,
+          "activityLabel": "Active",
+          "positiveDriver": "The measured water temperature is favorable for Coho.",
+          "limitingFactor": "Brighter conditions are the main limitation.",
+          "cloudCoverPct": 9,
+          "precipitationIn": 0
+        },
+        {
+          "id": "17-21",
+          "label": "5–9 PM",
+          "score": 77,
+          "activityLabel": "Active",
+          "positiveDriver": "Clouds or lower light make this window more favorable.",
+          "limitingFactor": "Rain adds little extra cover.",
+          "cloudCoverPct": 48,
+          "precipitationIn": 0
+        }
+      ],
+      "headline": "Today’s Coho activity outlook is highly active.",
+      "detail": "Conditions strongly favor a response from Coho that are present and capable of reacting. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. The measured conditions represent the Croton tailwater immediately below Croton Dam. Water temperature, clarity, and fishing conditions can be different through Newaygo, the lower river, Muskegon Lake, and the channel. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+      "tip": "Start with 5–9 AM. If the sky changes from the forecast, favor the darkest practical window."
+    }
+  ]
+}

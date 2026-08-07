@@ -11,6 +11,9 @@ import {
   riverRunStateChoices,
 } from "../lib/riverRunCatalogSelection";
 import type { RiverRunCatalogResponse } from "../lib/riverRunContracts";
+import { RIVER_RUN_MUSKEGON_REVIEW_GROUPS } from "../lib/riverRunMuskegonReviewFixtures.generated";
+import { RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS } from "../lib/riverRunMuskegonCohoReviewFixtures.generated";
+import { RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS } from "../lib/riverRunMuskegonSteelheadReviewFixtures.generated";
 
 const catalog: RiverRunCatalogResponse = {
   states: [
@@ -226,6 +229,84 @@ assert.match(
   /selectedRiverId === "betsie" &&[\s\S]*?selectedSpecies === "steelhead"[\s\S]*?RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS/,
   "Betsie Steelhead must use its own production-derived review fixture catalog",
 );
+assert.match(
+  riverRunScreen,
+  /selectedRiverId === "muskegon" && selectedSpecies === "chinook_salmon"[\s\S]*?RIVER_RUN_MUSKEGON_REVIEW_GROUPS/,
+  "Muskegon Chinook must use its own production-derived review fixtures",
+);
+assert.match(
+  riverRunScreen,
+  /selectedRiverId === "muskegon" && selectedSpecies === "coho_salmon"[\s\S]*?RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS/,
+  "Muskegon Coho must use its own production-derived review fixtures",
+);
+assert.match(
+  riverRunScreen,
+  /selectedRiverId === "muskegon" && selectedSpecies === "steelhead"[\s\S]*?RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS/,
+  "Muskegon Steelhead must use its own production-derived review fixtures",
+);
+assert.match(
+  riverRunScreen,
+  /reviewSnapshot\.riverId === selectedTarget\.river\.riverId[\s\S]*?reviewSnapshot\.runId === selectedTarget\.run\.runId/,
+  "Review snapshots must match both the selected river and run before rendering",
+);
+for (const group of RIVER_RUN_MUSKEGON_REVIEW_GROUPS) {
+  for (const scenario of group.scenarios) {
+    assert.equal(scenario.snapshot.riverId, "muskegon", scenario.id);
+    assert.equal(scenario.snapshot.runId, "muskegon_fall_chinook", scenario.id);
+    const copy = JSON.stringify(scenario.snapshot);
+    assert.doesNotMatch(
+      copy,
+      /Pere Marquette|Big Manistee|Tippy|Wellston|High Bridge|Bear Creek|M-55|Scottville|Walhalla|Homestead/i,
+      scenario.id,
+    );
+  }
+}
+for (const group of RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS) {
+  for (const scenario of group.scenarios) {
+    assert.equal(scenario.snapshot.riverId, "muskegon", scenario.id);
+    assert.equal(scenario.snapshot.runId, "muskegon_fall_coho", scenario.id);
+    const copy = JSON.stringify(scenario.snapshot);
+    assert.doesNotMatch(
+      copy,
+      /Pere Marquette|Big Manistee|Tippy|Wellston|High Bridge|Bear Creek|M-55|Scottville|Walhalla|Homestead/i,
+      scenario.id,
+    );
+  }
+}
+for (const group of RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS) {
+  for (const scenario of group.scenarios) {
+    assert.equal(scenario.snapshot.riverId, "muskegon", scenario.id);
+    assert.equal(
+      scenario.snapshot.runId,
+      "muskegon_fall_steelhead",
+      scenario.id,
+    );
+    const copy = JSON.stringify(scenario.snapshot);
+    assert.doesNotMatch(
+      copy,
+      /Pere Marquette|Big Manistee|Tippy|Wellston|High Bridge|Bear Creek|M-55|Scottville|Walhalla|Homestead/i,
+      scenario.id,
+    );
+    if (group.id === "activity") {
+      assert.doesNotMatch(
+        copy,
+        /spent|dying|deteriorat|mortality/i,
+        scenario.id,
+      );
+    }
+  }
+}
+const muskegonStage = RIVER_RUN_MUSKEGON_REVIEW_GROUPS.find((group) =>
+  group.id === "run_stage"
+);
+assert.ok(muskegonStage);
+for (const scenario of muskegonStage.scenarios) {
+  assert.match(
+    scenario.snapshot.runStage.whereToStart ?? "",
+    /Muskegon Lake|M-120|Newaygo|Croton|no dependable/i,
+    `${scenario.id} must give Muskegon-specific starting guidance`,
+  );
+}
 assert.match(
   riverRunScreen,
   /selectedRiverId === "betsie" &&[\s\S]*?selectedSpecies === "coho_salmon"[\s\S]*?RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS/,

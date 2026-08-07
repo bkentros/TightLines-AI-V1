@@ -103,7 +103,8 @@ export type PrimitiveUnavailableReason =
   | "no_accepted_hydraulic_source"
   | "no_accepted_water_temperature_source"
   | "no_accepted_hydraulic_or_water_temperature_source"
-  | "no_accepted_historical_baseline";
+  | "no_accepted_historical_baseline"
+  | "no_accepted_activity_calibration";
 
 export type PrimitiveCapability =
   | { status: "available" }

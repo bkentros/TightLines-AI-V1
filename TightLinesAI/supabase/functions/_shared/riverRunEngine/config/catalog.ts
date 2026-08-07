@@ -96,7 +96,7 @@ export const BIG_MANISTEE_CONFIGURATION_DOCUMENT:
 
 export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-06-muskegon.1",
+  configVersion: "2026-08-06-muskegon-steelhead-activity.1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,
