@@ -28,6 +28,7 @@ import {
 } from "../components/paper";
 import { RiverRunVisual } from "../components/river-run/RiverRunVisual";
 import { FeedbackCard } from "../components/FeedbackCard";
+import { SubscribePrompt } from "../components/SubscribePrompt";
 import { fetchRiverRunCatalog, fetchRiverRunSnapshot } from "../lib/riverRun";
 import {
   formatRiverRunSeason,
@@ -78,6 +79,10 @@ import {
   ImpactFeedbackStyle,
 } from "../lib/safeHaptics";
 import { paper, paperFonts, paperRadius, paperShadows } from "../lib/theme";
+import {
+  canGenerateRiverRunReport,
+  getEffectiveTier,
+} from "../lib/subscription";
 import { useAuthStore } from "../store/authStore";
 
 type WizardStep = 1 | 2 | 3 | 4;
@@ -397,6 +402,9 @@ const STEP_CONFIG: Record<
 export default function RiverRunScreen() {
   const router = useRouter();
   const { profile, user } = useAuthStore();
+  const effectiveTier = getEffectiveTier(profile, user?.email);
+  const canGenerateReport = canGenerateRiverRunReport(effectiveTier);
+  const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
   const [screenState, setScreenState] = useState<ScreenState>("setup");
   const [wizardStep, setWizardStep] = useState<WizardStep>(1);
   const [reviewMode, setReviewMode] = useState(RIVER_RUN_REVIEW_ENABLED);
@@ -692,6 +700,15 @@ export default function RiverRunScreen() {
     }
   }, [wizardStep]);
 
+  const openSelectedReport = useCallback(() => {
+    hapticImpact(ImpactFeedbackStyle.Medium);
+    setActivePrimitive("run_stage");
+    setSnapshot(null);
+    setSnapshotError(null);
+    setScreenState("result");
+    if (!reviewMode) setLoadingSnapshot(true);
+  }, [reviewMode]);
+
   const handleContinue = useCallback(() => {
     if (!canContinue) return;
     if (wizardStep < 4) {
@@ -699,13 +716,13 @@ export default function RiverRunScreen() {
       setWizardStep((wizardStep + 1) as WizardStep);
       return;
     }
-    hapticImpact(ImpactFeedbackStyle.Medium);
-    setActivePrimitive("run_stage");
-    setSnapshot(null);
-    setSnapshotError(null);
-    setScreenState("result");
-    if (!reviewMode) setLoadingSnapshot(true);
-  }, [canContinue, reviewMode, wizardStep]);
+    if (!reviewMode && !canGenerateReport) {
+      hapticSelection();
+      setShowSubscribePrompt(true);
+      return;
+    }
+    openSelectedReport();
+  }, [canContinue, canGenerateReport, openSelectedReport, reviewMode, wizardStep]);
 
   const handleModeChange = useCallback((nextReviewMode: boolean) => {
     if (nextReviewMode === reviewMode) return;
@@ -933,6 +950,14 @@ export default function RiverRunScreen() {
             </ScrollView>
           )}
       </View>
+      <SubscribePrompt
+        visible={showSubscribePrompt}
+        onDismiss={() => setShowSubscribePrompt(false)}
+        onUnlocked={() => {
+          setShowSubscribePrompt(false);
+          openSelectedReport();
+        }}
+      />
     </SafeAreaView>
   );
 }

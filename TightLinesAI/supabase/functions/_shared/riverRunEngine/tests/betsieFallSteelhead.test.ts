@@ -17,10 +17,10 @@ import {
 
 const run = BETSIE_FALL_STEELHEAD_RUN_PROFILE;
 
-Deno.test("Betsie Fall Steelhead is valid, moderate, broad, weather-only, and owner-gated", () => {
+Deno.test("Betsie Fall Steelhead is valid, moderate, broad, weather-only, and public", () => {
   const result = validateRunProfile(run, BETSIE_RIVER_PROFILE);
   assertEquals(result.valid, true);
-  assertEquals(result.publicVisible, false);
+  assertEquals(result.publicVisible, true);
   assertEquals(run.historicalPresence.maximum, 7);
   assertEquals(run.historicalPresence.distributionScope, "broad");
   assertEquals(run.runType, "fall_entry");
@@ -258,11 +258,7 @@ Deno.test("Betsie Steelhead snapshots keep every sensor-dependent primitive unav
   assertMatch(refresh.push.tip, /not substitute air temperature/i);
 });
 
-Deno.test("Betsie Steelhead remains absent from the public catalog before owner acceptance", () => {
-  assertEquals(listVisibleRiverRuns([BETSIE_RIVER_PROFILE], [run]), []);
-  assert(
-    validateRunProfile(run, BETSIE_RIVER_PROFILE).issues.some((issue) =>
-      issue.code === "audit_gate_disabled"
-    ),
-  );
+Deno.test("Betsie Steelhead appears in the public catalog", () => {
+  const visible = listVisibleRiverRuns([BETSIE_RIVER_PROFILE], [run]);
+  assertEquals(visible[0].rivers[0].runs[0].runId, run.runId);
 });

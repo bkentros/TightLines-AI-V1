@@ -103,7 +103,7 @@ const catalog: RiverRunCatalogResponse = {
 
 assert.deepEqual(
   riverRunStateChoices(catalog).map((choice) => choice.id),
-  ["MI", "NY", "WI", "OH"],
+  ["MI", "IN", "NY", "WI", "OH"],
 );
 assert.equal(
   riverRunStateChoices(catalog).find((choice) => choice.id === "NY")?.disabled,
@@ -149,14 +149,25 @@ assert.deepEqual(
   ),
   michiganFallRiverIds,
 );
-for (const species of ["coho_salmon", "steelhead"]) {
-  assert.deepEqual(
-    riverRunRiverChoices(catalog, "MI", "fall", species).map((choice) =>
-      choice.id
-    ),
-    michiganFallRiverIds,
-  );
-}
+assert.equal(
+  riverRunRiverChoices(catalog, "MI", "fall", "steelhead").find((choice) =>
+    choice.id === "st_joseph"
+  )?.disabled,
+  true,
+  "St. Joseph must remain visible but disabled until its public audit gate opens",
+);
+assert.deepEqual(
+  riverRunRiverChoices(catalog, "MI", "fall", "coho_salmon").map((choice) =>
+    choice.id
+  ),
+  michiganFallRiverIds,
+);
+assert.deepEqual(
+  riverRunRiverChoices(catalog, "MI", "fall", "steelhead").map((choice) =>
+    choice.id
+  ),
+  [...michiganFallRiverIds.slice(0, 4), "st_joseph", ...michiganFallRiverIds.slice(4)],
+);
 assert.deepEqual(
   riverRunRiverChoices(catalog, "MI", "fall", "atlantic_salmon"),
   [{
@@ -228,6 +239,11 @@ assert.match(
   riverRunScreen,
   /selectedRiverId === "betsie" &&[\s\S]*?selectedSpecies === "steelhead"[\s\S]*?RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS/,
   "Betsie Steelhead must use its own production-derived review fixture catalog",
+);
+assert.match(
+  riverRunScreen,
+  /!reviewMode && !canGenerateReport[\s\S]*?setShowSubscribePrompt\(true\)/,
+  "Free users must reach the paywall only when they try to generate a report",
 );
 assert.match(
   riverRunScreen,

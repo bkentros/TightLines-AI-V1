@@ -57,6 +57,7 @@ import {
   checkUserRateLimit,
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
+import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 
 const ENGINE_VERSION = "river-run-v1.9.0";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
@@ -320,6 +321,35 @@ export async function handleRiverRunRequest(
   const client = deps.createAdminClient?.() ?? createDefaultAdminClient();
   const auth = await authenticateSnapshotRequest(req, client);
   if (auth instanceof Response) return auth;
+  const { data: profile, error: profileError } = await client
+    .from("profiles")
+    .select("subscription_tier")
+    .eq("id", auth.userId)
+    .maybeSingle();
+  if (profileError) {
+    console.error("[river-run] subscription profile read failed", {
+      userId: auth.userId,
+      message: profileError.message,
+    });
+    return jsonError(
+      "River Run access is temporarily unavailable.",
+      "subscription_check_unavailable",
+      503,
+    );
+  }
+  const tier = resolveServerSubscriptionTier(
+    typeof profile?.subscription_tier === "string"
+      ? profile.subscription_tier
+      : null,
+    auth.email,
+  );
+  if (tier === "free") {
+    return jsonError(
+      "Subscribe to use River Migration reports.",
+      "subscription_required",
+      403,
+    );
+  }
   const rateLimit = await checkUserRateLimit(client, {
     userId: auth.userId,
     feature: "river_run_snapshot",
@@ -712,7 +742,7 @@ async function readOrBuildSnapshot(input: {
 async function authenticateSnapshotRequest(
   req: Request,
   client: SupabaseLikeClient,
-): Promise<{ userId: string } | Response> {
+): Promise<{ userId: string; email: string | null } | Response> {
   const userToken = req.headers.get("x-user-token");
   const authHeader = req.headers.get("Authorization");
   const token = userToken ??
@@ -728,7 +758,7 @@ async function authenticateSnapshotRequest(
       getUser?: (
         token: string,
       ) => Promise<{
-        data: { user: { id?: string } | null };
+          data: { user: { id?: string; email?: string | null } | null };
         error: unknown;
       }>;
     };
@@ -742,7 +772,7 @@ async function authenticateSnapshotRequest(
     return jsonError("Unauthorized.", "unauthorized", 401);
   }
 
-  return { userId: user.id };
+  return { userId: user.id, email: user.email ?? null };
 }
 
 function createDefaultAdminClient(): SupabaseLikeClient {

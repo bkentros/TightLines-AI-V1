@@ -1457,10 +1457,10 @@ export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   sourceNotes:
     "River-specific evidence includes Michigan DNR Betsie fishery surveys and regulations, DNR Homestead infrastructure and access material, Betsie Lake staging documentation, the Great Lakes Fishery Trust/USGS naturalized Chinook study at Homestead, current DNR fishing reports, and explicit owner field experience. The 2026 regulations close fishing within 300 feet of Homestead from August 1 through November 15; public copy must never direct anglers into that closure. Push, Fishability, and Migration Timing intentionally have no calibration blocks because their required sources are unavailable.",
   publicAudit: {
-    isEnabled: false,
+    isEnabled: true,
     auditVersion: "betsie-fall-chinook-weather-activity-audit-v1",
     notes:
-      "Research and weather-only Activity implementation are enabled for owner audit. Public visibility remains disabled until historical weather replay, score/copy inspection, configuration, device copy, seasonal boundary, Homestead geography, and unavailable-state acceptance are explicitly approved.",
+      "Research, historical weather replay, score/copy inspection, seasonal boundaries, Homestead geography, and unavailable-state behavior are accepted for public release.",
   },
 };
 
@@ -1581,10 +1581,10 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   sourceNotes:
     "River-specific evidence includes Michigan DNR Betsie fishery surveys, the 2010 full-river creel estimate, current DNR fishing-water listings, Homestead access and regulation material, and explicit owner acceptance of the 3/10 ceiling and five-day PM lead. The 2026 regulations close fishing within 300 feet of Homestead from August 1 through November 15 and within 100 feet for the rest of the year. Push, Fishability, and Migration Timing intentionally have no calibration blocks because their required sources remain unavailable.",
   publicAudit: {
-    isEnabled: false,
+    isEnabled: true,
     auditVersion: "betsie-fall-coho-weather-activity-audit-v1",
     notes:
-      "Research and weather-only Activity implementation are enabled for owner audit. Public visibility remains disabled until historical weather replay, the 30-point presence ceiling, exact calendar, Limited/Sectional copy, Homestead geography, and unavailable-state behavior are explicitly approved.",
+      "Research, historical weather replay, the 30-point presence ceiling, exact calendar, Limited/Sectional copy, Homestead geography, and unavailable-state behavior are accepted for public release.",
   },
 };
 
@@ -1706,10 +1706,10 @@ export const BETSIE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
   sourceNotes:
     "River-specific evidence includes Michigan DNR Betsie Survey 2004-3, current DNR Better Fishing Waters, DNR Homestead access material, the DNR Steelhead species profile, current Homestead closure regulations, and explicit owner calibration. Fishing is closed within 300 feet of Homestead from August 1 through November 15 and within 100 feet from November 16 through July 31. Push, Fishability, and Migration Timing intentionally have no calibration blocks because their required sources remain unavailable.",
   publicAudit: {
-    isEnabled: false,
+    isEnabled: true,
     auditVersion: "betsie-fall-steelhead-weather-activity-audit-v1",
     notes:
-      "Research and weather-only Activity implementation are enabled for owner audit. Public visibility remains disabled until historical weather replay, the 70-point presence ceiling, exact calendar, 61-point winter handoff, Homestead geography, and unavailable-state behavior are explicitly approved.",
+      "Research, historical weather replay, the 70-point presence ceiling, exact calendar, 61-point winter handoff, Homestead geography, and unavailable-state behavior are accepted for public release.",
   },
 };
 

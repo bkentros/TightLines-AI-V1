@@ -17,11 +17,11 @@ import {
 
 const run = BETSIE_FALL_COHO_RUN_PROFILE;
 
-Deno.test("Betsie Fall Coho is valid, limited, sectional, weather-only, and owner-gated", () => {
+Deno.test("Betsie Fall Coho is valid, limited, sectional, weather-only, and public", () => {
   const result = validateRunProfile(run, BETSIE_RIVER_PROFILE);
   assertEquals(result.valid, true);
-  assertEquals(result.publicVisible, false);
-  assertEquals(run.publicAudit.isEnabled, false);
+  assertEquals(result.publicVisible, true);
+  assertEquals(run.publicAudit.isEnabled, true);
   assertEquals(run.historicalPresence.maximum, 3);
   assertEquals(run.historicalPresence.distributionScope, "sectional");
   assertEquals("push" in run, false);
@@ -237,12 +237,7 @@ Deno.test("Betsie Coho snapshots keep all sensor-dependent primitives unavailabl
   assertMatch(refresh.push.tip, /not substitute air temperature/i);
 });
 
-Deno.test("Betsie Coho remains absent from the public catalog before owner acceptance", () => {
+Deno.test("Betsie Coho appears in the public catalog", () => {
   const visible = listVisibleRiverRuns([BETSIE_RIVER_PROFILE], [run]);
-  assertEquals(visible, []);
-  assert(
-    validateRunProfile(run, BETSIE_RIVER_PROFILE).issues.some((issue) =>
-      issue.code === "audit_gate_disabled"
-    ),
-  );
+  assertEquals(visible[0].rivers[0].runs[0].runId, run.runId);
 });

@@ -48,6 +48,7 @@ const MICHIGAN_RIVER_PRESENTATION: RiverRunChoice[] = [
   { id: "betsie", label: "Betsie River" },
   { id: "big_manistee", label: "Big Manistee River" },
   { id: "muskegon", label: "Muskegon River" },
+  { id: "st_joseph", label: "St. Joseph River" },
   { id: "grand", label: "Grand River" },
   { id: "platte", label: "Platte River" },
   { id: "white", label: "White River" },
@@ -55,8 +56,12 @@ const MICHIGAN_RIVER_PRESENTATION: RiverRunChoice[] = [
 ];
 
 const MICHIGAN_FUTURE_RIVER_IDS_BY_SPECIES: Record<string, string[]> = {
-  chinook_salmon: MICHIGAN_RIVER_PRESENTATION.map((river) => river.id),
-  coho_salmon: MICHIGAN_RIVER_PRESENTATION.map((river) => river.id),
+  chinook_salmon: MICHIGAN_RIVER_PRESENTATION
+    .filter((river) => river.id !== "st_joseph")
+    .map((river) => river.id),
+  coho_salmon: MICHIGAN_RIVER_PRESENTATION
+    .filter((river) => river.id !== "st_joseph")
+    .map((river) => river.id),
   steelhead: MICHIGAN_RIVER_PRESENTATION.map((river) => river.id),
   atlantic_salmon: ["au_sable"],
 };
@@ -174,6 +179,11 @@ export function riverRunRiverChoices(
       label: river.displayName,
       subtitle: "Audited river migration",
     }));
+  if (stateCode === "IN" && season === "fall" && species === "steelhead") {
+    return mergeWithPresentation(supportedChoices, [
+      { id: "st_joseph", label: "St. Joseph River" },
+    ]);
+  }
   if (stateCode !== "MI" || season !== "fall") return supportedChoices;
   const futureRiverIds = MICHIGAN_FUTURE_RIVER_IDS_BY_SPECIES[species] ?? [];
   const futureChoices = MICHIGAN_RIVER_PRESENTATION.filter((river) =>

@@ -230,18 +230,26 @@ class MockClient implements SupabaseLikeClient {
   constructor(
     private readonly options: {
       validToken?: string;
+      subscriptionTier?: "free" | "angler" | "master_angler";
       rateLimitAllowed?: boolean;
       historyReadError?: boolean;
       recentHistoryReadError?: boolean;
     } = {},
   ) {
+    this.rows.profiles = [{
+      id: "user-1",
+      subscription_tier: options.subscriptionTier ?? "angler",
+    }];
     this.historyReadError = options.historyReadError === true;
     this.recentHistoryReadError = options.recentHistoryReadError === true;
     this.auth = {
       getUser: (token: string) =>
         Promise.resolve(
           token === (this.options.validToken ?? "valid-token")
-            ? { data: { user: { id: "user-1" } }, error: null }
+            ? {
+              data: { user: { id: "user-1", email: "angler@example.com" } },
+              error: null,
+            }
             : { data: { user: null }, error: { message: "invalid token" } },
         ),
     };
@@ -664,6 +672,39 @@ Deno.test("visible snapshot with valid token returns 200", async () => {
       weatherSnapshot: envData,
       engineVersion: "test-engine",
       configVersion: "test-config",
+    },
+  );
+  assertEquals(response.status, 200);
+});
+
+Deno.test("visible snapshot requires an active subscriber", async () => {
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ subscriptionTier: "free" }),
+      runs: [enabledRun],
+    },
+  );
+  assertEquals(response.status, 403);
+  assertEquals((await json(response)).error, "subscription_required");
+});
+
+Deno.test("visible snapshot accepts Master Angler access", async () => {
+  const response = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=betsie&runId=betsie_fall_chinook",
+    ),
+    {
+      createAdminClient: () =>
+        new MockClient({ subscriptionTier: "master_angler" }),
+      rivers: [BETSIE_RIVER_PROFILE],
+      runs: [enabledBetsieRun],
+      now: new Date("2026-09-15T20:30:00.000Z"),
+      engineVersion: "test-engine",
+      configVersion: "test-betsie-config",
     },
   );
   assertEquals(response.status, 200);

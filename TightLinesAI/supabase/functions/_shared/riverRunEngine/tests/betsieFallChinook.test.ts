@@ -32,14 +32,14 @@ Deno.test("Betsie river is valid with explicitly unavailable condition sources",
   assertMatch(BETSIE_RIVER_PROFILE.regulationReminderCopy ?? "", /100 feet/i);
 });
 
-Deno.test("Betsie Fall Chinook is valid, weather-only, and owner-gated", () => {
+Deno.test("Betsie Fall Chinook is valid, weather-only, and public", () => {
   const result = validateRunProfile(run, BETSIE_RIVER_PROFILE);
   assertEquals(result.valid, true);
-  assertEquals(result.publicVisible, false);
+  assertEquals(result.publicVisible, true);
   assert(
-    result.issues.some((issue) => issue.code === "audit_gate_disabled"),
+    !result.issues.some((issue) => issue.code === "audit_gate_disabled"),
   );
-  assertEquals(run.publicAudit.isEnabled, false);
+  assertEquals(run.publicAudit.isEnabled, true);
   assertEquals("push" in run, false);
   assertEquals("fishabilityBands" in run, false);
   assertEquals("baselineCoverage" in run, false);
@@ -313,10 +313,10 @@ Deno.test("unavailable Betsie primitives reject placeholder PM calibrations", ()
   );
 });
 
-Deno.test("Betsie remains absent from the public catalog before owner acceptance", () => {
+Deno.test("Betsie Chinook appears in the public catalog", () => {
   const visible = listVisibleRiverRuns(
     [BETSIE_RIVER_PROFILE],
     [BETSIE_FALL_CHINOOK_RUN_PROFILE],
   );
-  assertEquals(visible, []);
+  assertEquals(visible[0].rivers[0].runs[0].runId, run.runId);
 });

@@ -56,6 +56,11 @@ export function canGenerateForecastReport(tier: SubscriptionTier): boolean {
   return canUseAIFeatures(tier);
 }
 
+/** River Migration setup is public, but generating a live report is Angler-only. */
+export function canGenerateRiverRunReport(tier: SubscriptionTier): boolean {
+  return canUseAIFeatures(tier);
+}
+
 /** New Tackle Box session — Angler or unused free trial. */
 export function canGenerateRecommenderReport(
   tier: SubscriptionTier,
