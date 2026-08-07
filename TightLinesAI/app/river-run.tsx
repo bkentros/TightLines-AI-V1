@@ -562,6 +562,7 @@ export default function RiverRunScreen() {
       const next = await fetchRiverRunSnapshot({
         riverId: selectedTarget.river.riverId,
         runId: selectedTarget.run.runId,
+        presentationState: selectedTarget.state.state,
       });
       if (requestId === snapshotRequestRef.current) setSnapshot(next);
     } catch (error) {

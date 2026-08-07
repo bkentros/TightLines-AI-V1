@@ -131,6 +131,37 @@ export function validateRiverProfile(
   if (!hasText(river.displayName)) {
     issues.push(issue("displayName", "River display name is required."));
   }
+  if (river.presentationContexts != null) {
+    const presentationStates = new Set<GreatLakesState>();
+    if (river.presentationContexts.length === 0) {
+      issues.push(issue(
+        "presentationContexts",
+        "River presentation contexts cannot be empty when configured.",
+        "config_invalid_value",
+      ));
+    }
+    river.presentationContexts.forEach((context, index) => {
+      const field = `presentationContexts[${index}]`;
+      if (
+        !includes(STATES, context.state) ||
+        presentationStates.has(context.state)
+      ) {
+        issues.push(issue(
+          `${field}.state`,
+          "Presentation states must be supported and unique.",
+          "config_invalid_value",
+        ));
+      }
+      presentationStates.add(context.state);
+      if (!hasText(context.regulationReminderCopy)) {
+        issues.push(issue(
+          `${field}.regulationReminderCopy`,
+          "Every state presentation requires regulation reminder copy.",
+          "audit_notes_missing",
+        ));
+      }
+    });
+  }
   if (!includes(STATES, river.state)) {
     issues.push(
       issue("state", "River state is not supported.", "config_invalid_value"),
@@ -299,6 +330,7 @@ function validateRiverFoundation(
   }
 
   const reaches = foundation.reaches;
+  const reachIds = new Set<string>();
   if (!Array.isArray(reaches) || reaches.length === 0) {
     issues.push(issue(
       "foundation.reaches",
@@ -306,7 +338,6 @@ function validateRiverFoundation(
       "config_invalid_value",
     ));
   } else {
-    const reachIds = new Set<string>();
     const represented = [] as string[];
     reaches.forEach((reach, index) => {
       const field = `foundation.reaches[${index}]`;
@@ -355,6 +386,72 @@ function validateRiverFoundation(
     }
   }
 
+  if (foundation.locations != null) {
+    const locationIds = new Set<string>();
+    let impassableBarrierCount = 0;
+    foundation.locations.forEach((location, index) => {
+      const field = `foundation.locations[${index}]`;
+      if (
+        !hasText(location.locationId) || locationIds.has(location.locationId)
+      ) {
+        issues.push(issue(
+          `${field}.locationId`,
+          "Foundation location IDs must be present and unique.",
+          "config_invalid_value",
+        ));
+      }
+      locationIds.add(location.locationId);
+      if (
+        !hasText(location.officialName) ||
+        !hasText(location.coordinateSource) ||
+        !hasText(location.restrictionNotes) ||
+        !hasText(location.sourceNotes)
+      ) {
+        issues.push(issue(
+          field,
+          "Foundation locations require official names, coordinate sources, restrictions, and source notes.",
+          "audit_notes_missing",
+        ));
+      }
+      if (
+        !includes(STATES, location.state) ||
+        !isValidLat(location.latitude) ||
+        !isValidLon(location.longitude) ||
+        !["verified", "provisional"].includes(location.coordinateStatus) ||
+        !reachIds.has(location.reachId)
+      ) {
+        issues.push(issue(
+          field,
+          "Foundation locations require a supported state, valid coordinates, and an existing reach.",
+          "config_invalid_value",
+        ));
+      }
+      if (
+        location.kind === "barrier" && location.fishPassage === "impassable"
+      ) {
+        impassableBarrierCount++;
+      }
+      if (
+        (location.publicAccess !== "verified" ||
+          location.coordinateStatus !== "verified") &&
+        location.beginnerSuitable
+      ) {
+        issues.push(issue(
+          `${field}.beginnerSuitable`,
+          "Only verified public access may be beginner-facing.",
+          "config_invalid_value",
+        ));
+      }
+    });
+    if (impassableBarrierCount !== 1) {
+      issues.push(issue(
+        "foundation.locations",
+        "A supported migratory corridor requires exactly one configured impassable barrier.",
+        "config_invalid_value",
+      ));
+    }
+  }
+
   if (
     !Array.isArray(foundation.contextualGaugeSiteIds) ||
     foundation.contextualGaugeSiteIds.length === 0 ||
@@ -388,22 +485,53 @@ function validateRiverFoundation(
 
   const regulation = foundation.regulation;
   if (
-    !regulation ||
-    !hasText(regulation.version) ||
-    !hasText(regulation.legalReach) ||
-    regulation.waterType !== "type_3" ||
-    regulation.yearRoundTroutSalmon !== true ||
-    !hasText(regulation.rainbowTroutPossessionLimit) ||
-    !hasText(regulation.specialArtificialLureWindow?.start) ||
-    !hasText(regulation.specialArtificialLureWindow?.end) ||
-    !hasText(regulation.specialArtificialLureWindow?.description) ||
-    regulation.noUnverifiedDistanceClosureConfigured !== true ||
-    !hasText(regulation.accessAndSafetyNotes) ||
-    !hasText(regulation.sourceNotes)
+    regulation && (
+      !hasText(regulation.version) ||
+      !hasText(regulation.legalReach) ||
+      regulation.waterType !== "type_3" ||
+      regulation.yearRoundTroutSalmon !== true ||
+      !hasText(regulation.rainbowTroutPossessionLimit) ||
+      !hasText(regulation.specialArtificialLureWindow?.start) ||
+      !hasText(regulation.specialArtificialLureWindow?.end) ||
+      !hasText(regulation.specialArtificialLureWindow?.description) ||
+      regulation.noUnverifiedDistanceClosureConfigured !== true ||
+      !hasText(regulation.accessAndSafetyNotes) ||
+      !hasText(regulation.sourceNotes)
+    )
   ) {
     issues.push(issue(
       "foundation.regulation",
       "Foundation regulation settings require current legal boundaries, rules, and source notes.",
+      "config_source_invalid",
+    ));
+  }
+  const stateRegulations = foundation.stateRegulations;
+  if (stateRegulations != null) {
+    const regulationStates = new Set<GreatLakesState>();
+    stateRegulations.forEach((stateRegulation, index) => {
+      const field = `foundation.stateRegulations[${index}]`;
+      if (
+        !includes(STATES, stateRegulation.state) ||
+        regulationStates.has(stateRegulation.state) ||
+        !hasText(stateRegulation.version) ||
+        !hasText(stateRegulation.jurisdiction) ||
+        !hasText(stateRegulation.reminderCopy) ||
+        !hasText(stateRegulation.accessAndSafetyNotes) ||
+        !hasText(stateRegulation.sourceNotes)
+      ) {
+        issues.push(issue(
+          field,
+          "State regulations require a unique state, jurisdiction, safety copy, and official source notes.",
+          "config_source_invalid",
+        ));
+      }
+      regulationStates.add(stateRegulation.state);
+    });
+  }
+  if (!regulation && (!stateRegulations || stateRegulations.length === 0)) {
+    issues.push(issue(
+      "foundation.regulation",
+      "Foundation regulation settings require either one legacy block or state-scoped regulation blocks.",
       "config_source_invalid",
     ));
   }
@@ -1056,6 +1184,7 @@ function validatePrimitiveCapabilities(
     "no_accepted_water_temperature_source",
     "no_accepted_hydraulic_or_water_temperature_source",
     "no_accepted_historical_baseline",
+    "no_accepted_activity_calibration",
   ]);
   for (
     const field of ["migrationTiming", "push", "fishability"] as const
@@ -2088,16 +2217,21 @@ export function listVisibleRiverRuns(
         supportStatus: river.supportStatus,
       }));
     if (visibleRuns.length === 0) continue;
-    const stateEntry = visibleRivers.get(river.state) ?? {
-      state: river.state,
-      rivers: [],
-    };
-    stateEntry.rivers.push({
-      riverId: river.riverId,
-      displayName: river.displayName,
-      runs: visibleRuns,
-    });
-    visibleRivers.set(river.state, stateEntry);
+    const placements = river.presentationContexts?.length
+      ? river.presentationContexts
+      : [{ state: river.state, displayName: river.displayName }];
+    for (const placement of placements) {
+      const stateEntry = visibleRivers.get(placement.state) ?? {
+        state: placement.state,
+        rivers: [],
+      };
+      stateEntry.rivers.push({
+        riverId: river.riverId,
+        displayName: placement.displayName ?? river.displayName,
+        runs: visibleRuns,
+      });
+      visibleRivers.set(placement.state, stateEntry);
+    }
   }
   return [...visibleRivers.values()];
 }

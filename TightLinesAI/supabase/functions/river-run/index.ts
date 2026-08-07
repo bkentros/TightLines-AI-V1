@@ -272,6 +272,8 @@ export async function handleRiverRunRequest(
 
   const riverId = url.searchParams.get("riverId") ?? "";
   const runId = url.searchParams.get("runId") ?? "";
+  const requestedPresentationState =
+    url.searchParams.get("presentationState")?.trim().toUpperCase() ?? "";
   const river = rivers.find((item) => item.riverId === riverId);
   const run = runs.find((item) =>
     item.runId === runId && item.riverId === riverId
@@ -284,6 +286,19 @@ export async function handleRiverRunRequest(
       "River Run profile not found.",
       "river_run_not_found",
       404,
+    );
+  }
+  const presentation = resolveSnapshotPresentation(
+    river,
+    requestedPresentationState,
+  );
+  if (!presentation) {
+    return jsonError(
+      requestedPresentationState
+        ? "River Run is not available for the requested state presentation."
+        : "A state presentation is required for this River Run.",
+      "river_run_presentation_not_found",
+      400,
     );
   }
   if (!publicEnabled) {
@@ -347,6 +362,7 @@ export async function handleRiverRunRequest(
       run,
       timing,
       pushHistory,
+      presentation,
     }));
   } catch (error) {
     console.error("[river-run] snapshot failed", {
@@ -1072,6 +1088,12 @@ function shapeSnapshotResponse(input: {
   condition: StoredConditionRefresh;
   river: RiverProfile;
   run: RiverRunProfile;
+  presentation: {
+    state: string;
+    displayName?: string;
+    defaultReachId?: string;
+    regulationReminderCopy: string;
+  };
   pushHistory: PushHistoryContext;
   timing: {
     localDate: string;
@@ -1090,6 +1112,7 @@ function shapeSnapshotResponse(input: {
   return {
     riverId: input.dailySnapshot.riverId,
     runId: input.dailySnapshot.runId,
+    presentation: input.presentation,
     localDate: input.dailySnapshot.localDate,
     timezone: input.dailySnapshot.timezone,
     progressionSnapshotAt: input.dailySnapshot.progressionSnapshotAt,
@@ -1118,14 +1141,35 @@ function shapeSnapshotResponse(input: {
       ? "Forecast weather informs Activity Outlook only; Push and Fishability remain observation-led."
       : undefined,
     safety: {
-      regulationReminder: input.river.regulationReminderCopy ??
-        "Check current local regulations before fishing.",
+      regulationReminder: input.presentation.regulationReminderCopy,
       gaugeBasis: input.river.gaugeLimitationCopy,
       activityDisclaimer:
         "Fishability describes fishing conditions, not wading or boating safety.",
     },
     engineVersion: input.condition.engineVersion,
     configVersion: input.condition.configVersion,
+  };
+}
+
+function resolveSnapshotPresentation(
+  river: RiverProfile,
+  requestedState: string,
+): {
+  state: string;
+  displayName?: string;
+  defaultReachId?: string;
+  regulationReminderCopy: string;
+} | null {
+  const contexts = river.presentationContexts;
+  if (contexts?.length) {
+    if (!requestedState) return null;
+    return contexts.find((context) => context.state === requestedState) ?? null;
+  }
+  if (requestedState && requestedState !== river.state) return null;
+  return {
+    state: river.state,
+    regulationReminderCopy: river.regulationReminderCopy ??
+      "Check current local regulations before fishing.",
   };
 }
 

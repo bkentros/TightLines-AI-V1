@@ -4,6 +4,7 @@ import {
   BIG_MANISTEE_RIVER_PROFILE,
   MUSKEGON_RIVER_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
+  ST_JOSEPH_RIVER_PROFILE,
 } from "./rivers.ts";
 import {
   BETSIE_FALL_CHINOOK_RUN_PROFILE,
@@ -18,6 +19,7 @@ import {
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_FALL_COHO_RUN_PROFILE,
   PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
+  ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE,
 } from "./runs.ts";
 import {
   BIG_MANISTEE_CHINOOK_BIOLOGY_PROFILE,
@@ -114,12 +116,23 @@ export const MUSKEGON_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   ],
 };
 
+export const ST_JOSEPH_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
+  schemaVersion: "river-run-config-v1",
+  configVersion: "2026-08-07-st-joseph-steelhead-foundation.1",
+  movementEngineVersion:
+    getMovementEngineDefinition("fall_entry_cooling").version,
+  river: ST_JOSEPH_RIVER_PROFILE,
+  biologyProfiles: [GREAT_LAKES_STEELHEAD_FALL_ENTRY_BIOLOGY_PROFILE],
+  runs: [ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE],
+};
+
 export const RIVER_RUN_CONFIGURATION_DOCUMENTS:
   RiverRunConfigurationDocument[] = [
     PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
     BETSIE_CONFIGURATION_DOCUMENT,
     BIG_MANISTEE_CONFIGURATION_DOCUMENT,
     MUSKEGON_CONFIGURATION_DOCUMENT,
+    ST_JOSEPH_CONFIGURATION_DOCUMENT,
   ];
 
 export function staticConfigurationVersionForRun(runId: string): string {

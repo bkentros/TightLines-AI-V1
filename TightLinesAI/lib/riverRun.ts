@@ -12,6 +12,7 @@ const CLIENT_TIMEOUT_MS = 15_000;
 type RiverRunSnapshotParams = {
   riverId: string;
   runId: string;
+  presentationState: string;
 };
 
 export async function fetchRiverRunCatalog(): Promise<RiverRunCatalogResponse> {

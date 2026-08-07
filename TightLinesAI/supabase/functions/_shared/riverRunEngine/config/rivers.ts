@@ -500,9 +500,389 @@ export const MUSKEGON_RIVER_PROFILE: RiverProfile = {
     "Croton Dam is the hard upstream migration boundary. Fish only legal water below the dam, use established public access, respect private land and posted closures, and check current Michigan regulations and dam-safety notices.",
 };
 
+export const ST_JOSEPH_RIVER_PROFILE: RiverProfile = {
+  riverId: "st_joseph",
+  displayName: "St. Joseph River",
+  state: "MI",
+  presentationContexts: [
+    {
+      state: "MI",
+      defaultReachId: "st_joseph_lower_michigan",
+      regulationReminderCopy:
+        "Use current Michigan regulations and posted notices in Michigan water. Fish ladders, dam safety zones, access rules, and legal methods can change; an Indiana selection does not describe this reach.",
+    },
+    {
+      state: "IN",
+      defaultReachId: "st_joseph_indiana",
+      regulationReminderCopy:
+        "Use current Indiana regulations and posted notices in Indiana water. No fishing is allowed within 100 feet of a fish-ladder entrance or exit; a Michigan selection does not describe this reach.",
+    },
+  ],
+  region: "great_lakes",
+  timezone: "America/Detroit",
+  mouthLat: 42.1149,
+  mouthLon: -86.4935,
+  hydraulicSources: [
+    {
+      sourceId: "st_joseph_niles_usgs",
+      provider: "USGS",
+      siteId: "04101500",
+      name: "St. Joseph River at Niles, MI",
+      role: "primary",
+      primaryMetric: "flow_cfs",
+      availableMetrics: ["flow_cfs", "gage_height_ft"],
+      historyYearsAvailable: 95,
+      maxAgeHours: 6,
+      reachQuality: "good",
+      reachNotes:
+        "Official USGS mainstem station about one mile downstream of the French Paper/Niles hydroelectric project. Discharge is the sole scored hydraulic metric. It represents the Niles reach, not the harbor, lower river, every dam tailwater, South Bend, Mishawaka, or Twin Branch.",
+    },
+    {
+      sourceId: "st_joseph_mottville_usgs_context",
+      provider: "USGS",
+      siteId: "04101000",
+      name: "St. Joseph River at Mottville, MI — upstream context",
+      role: "upstream_context",
+      primaryMetric: "flow_cfs",
+      availableMetrics: ["flow_cfs", "gage_height_ft"],
+      historyYearsAvailable: 80,
+      maxAgeHours: 24,
+      reachQuality: "acceptable",
+      reachNotes:
+        "Context above the supported Lake Michigan migratory corridor and above Twin Branch. It is never blended into St. Joseph scoring and cannot describe angling conditions below Twin Branch.",
+    },
+  ],
+  waterTemperatureSources: [
+    {
+      sourceId: "st_joseph_niles_temperature",
+      provider: "USGS",
+      siteId: "04101500",
+      name: "St. Joseph River at Niles, MI — measured water temperature",
+      role: "primary",
+      priority: 1,
+      sourceType: "same_gauge",
+      maxAgeHours: 6,
+      smoothingWindowHours: 3,
+      minValidF: 32,
+      maxValidF: 85,
+      maxRateChangeFPerHour: 3,
+      maxPeerDifferenceF: 5,
+      reachNotes:
+        "USGS parameter 00010 at the same Niles station as primary discharge. It is the measured-water signal for the Niles reach and must not be described as direct measurement of Indiana or the lower river.",
+      attribution:
+        "U.S. Geological Survey Water Data for the Nation; continuous and daily values may be provisional and subject to revision.",
+    },
+  ],
+  weatherPoints: [
+    {
+      weatherPointId: "st_joseph_niles_weather",
+      lat: 41.8292138,
+      lon: -86.2597325,
+      role: "primary",
+    },
+  ],
+  foundation: {
+    version: "st-joseph-foundation-v1",
+    corridorLengthMiles: 63,
+    upstreamTerminus:
+      "Base of Twin Branch Dam in Mishawaka; first impassable mainstem barrier",
+    downstreamTerminus:
+      "Lake Michigan at the St. Joseph harbor and river mouth",
+    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
+    reaches: [
+      {
+        reachId: "st_joseph_harbor_mouth",
+        displayName: "Lake Michigan staging water, harbor, and river mouth",
+        order: 1,
+        role: "harbor",
+        gaugeRepresented: false,
+        notes:
+          "Lakeward staging and entry context. Niles flow and temperature do not directly measure this water.",
+        sourceNotes:
+          "Michigan DNR St. Joseph River Assessment and USGS/National Map mouth context.",
+      },
+      {
+        reachId: "st_joseph_lower_michigan",
+        displayName: "Lower river to Berrien Springs",
+        order: 2,
+        role: "lower",
+        gaugeRepresented: false,
+        notes:
+          "Lower Michigan entry corridor through Benton Harbor and St. Joseph to the first passable dam at Berrien Springs.",
+        sourceNotes:
+          "Michigan DNR St. Joseph River Assessment; FERC French Paper environmental assessment river-mile sequence.",
+      },
+      {
+        reachId: "st_joseph_middle_michigan",
+        displayName: "Berrien Springs through Buchanan",
+        order: 3,
+        role: "middle",
+        gaugeRepresented: false,
+        notes:
+          "Fish can continue through the Berrien Springs and Buchanan passage facilities; neither is the run-ending barrier.",
+        sourceNotes:
+          "Indiana DNR South Bend Fish Ladder program; FERC project sequence at river miles 24.6 and 35.2.",
+      },
+      {
+        reachId: "st_joseph_niles",
+        displayName: "Niles and the primary-gauge reach",
+        order: 4,
+        role: "middle",
+        gaugeRepresented: true,
+        notes:
+          "The primary USGS flow and measured-temperature station represents this mainstem reach below the French Paper/Niles passage facility.",
+        sourceNotes:
+          "USGS 04101500 station inventory; FERC French Paper Project No. 10624 environmental assessment.",
+      },
+      {
+        reachId: "st_joseph_indiana",
+        displayName: "South Bend through Mishawaka",
+        order: 5,
+        role: "upper",
+        gaugeRepresented: false,
+        notes:
+          "Indiana corridor through the passable Seitz Park and Central Park facilities. Conditions are not directly measured by the Niles gauge.",
+        sourceNotes:
+          "Indiana DNR South Bend Fish Ladder program; City of Mishawaka Central Park information.",
+      },
+      {
+        reachId: "st_joseph_twin_branch",
+        displayName: "Legal water below Twin Branch Dam",
+        order: 6,
+        role: "tailwater",
+        gaugeRepresented: false,
+        notes:
+          "Final supported reach. The model and all upstream guidance stop at the base of Twin Branch Dam.",
+        sourceNotes:
+          "Indiana DNR South Bend Fish Ladder program and Bodine State Fish Hatchery corridor description.",
+      },
+    ],
+    locations: [
+      {
+        locationId: "st_joseph_mouth",
+        officialName: "St. Joseph River mouth",
+        state: "MI",
+        latitude: 42.1149,
+        longitude: -86.4935,
+        coordinateSource: "USGS National Map river-mouth context",
+        coordinateStatus: "provisional",
+        riverMile: 0,
+        reachId: "st_joseph_harbor_mouth",
+        kind: "landmark",
+        fishPassage: "not_applicable",
+        publicAccess: "unknown",
+        fishingSuitability: { bank: "unknown", wading: "no", boat: "unknown" },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "Landmark only until individual harbor access, navigation, and seasonal rules are verified.",
+        sourceNotes: "Michigan DNR St. Joseph River Assessment.",
+      },
+      {
+        locationId: "st_joseph_berrien_springs_ladder",
+        officialName: "Berrien Springs Dam fish ladder",
+        aliases: ["Berrien Springs Dam"],
+        state: "MI",
+        latitude: 41.945,
+        longitude: -86.32833333,
+        coordinateSource: "Michigan EGLE Database of Michigan Regulated Dams",
+        coordinateStatus: "verified",
+        riverMile: 24.6,
+        reachId: "st_joseph_lower_michigan",
+        kind: "fish_ladder",
+        fishPassage: "passable",
+        publicAccess: "restricted",
+        fishingSuitability: { bank: "unknown", wading: "no", boat: "no" },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "The ladder is fish passage, not a fishing destination. Verify current posted closures and dam safety boundaries before using nearby legal water.",
+        sourceNotes:
+          "Indiana DNR ladder sequence; Michigan EGLE dam coordinates; FERC river mile 24.6.",
+      },
+      {
+        locationId: "st_joseph_buchanan_ladder",
+        officialName: "Buchanan Dam fish ladder",
+        aliases: ["Buchanan Dam"],
+        state: "MI",
+        latitude: 41.83909,
+        longitude: -86.35126,
+        coordinateSource:
+          "Michigan Great Lakes Water Trails, Michigan Coastal Zone Management-funded location record",
+        coordinateStatus: "verified",
+        riverMile: 35.2,
+        reachId: "st_joseph_middle_michigan",
+        kind: "fish_ladder",
+        fishPassage: "passable",
+        publicAccess: "restricted",
+        fishingSuitability: { bank: "unknown", wading: "no", boat: "no" },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "Do not direct anglers into the ladder or a posted dam safety zone. Nearby access requires separate verification.",
+        sourceNotes:
+          "Indiana DNR ladder sequence; FERC river mile 35.2; Michigan Great Lakes Water Trails coordinate record.",
+      },
+      {
+        locationId: "st_joseph_french_paper_ladder",
+        officialName: "French Paper Hydroelectric Project fish ladder",
+        aliases: ["Niles Dam fish ladder", "French Paper Project Dam"],
+        state: "MI",
+        latitude: 41.817653,
+        longitude: -86.259103,
+        coordinateSource:
+          "FERC Project No. 10624 environmental assessment project-location reference",
+        coordinateStatus: "verified",
+        riverMile: 44.5,
+        reachId: "st_joseph_niles",
+        kind: "fish_ladder",
+        fishPassage: "passable",
+        publicAccess: "restricted",
+        fishingSuitability: { bank: "unknown", wading: "no", boat: "no" },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "This is the mainstem Niles passage facility, not the separate Dowagiac River structure also called Niles Dam. Follow posted project restrictions.",
+        sourceNotes:
+          "FERC Project No. 10624 at river mile 44.5; Indiana DNR calls the passage facility Niles.",
+      },
+      {
+        locationId: "st_joseph_niles_gauge",
+        officialName: "USGS 04101500 St. Joseph River at Niles, MI",
+        state: "MI",
+        latitude: 41.8292138,
+        longitude: -86.2597325,
+        coordinateSource: "USGS station inventory, NAD83 service metadata",
+        coordinateStatus: "verified",
+        reachId: "st_joseph_niles",
+        kind: "gauge",
+        fishPassage: "not_applicable",
+        publicAccess: "not_public",
+        fishingSuitability: { bank: "no", wading: "no", boat: "no" },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "Monitoring location only; it is not configured as public fishing access.",
+        sourceNotes:
+          "USGS station 04101500 inventory and Water Services metadata.",
+      },
+      {
+        locationId: "st_joseph_south_bend_ladder",
+        officialName: "South Bend Fish Ladder at Seitz Park",
+        aliases: ["South Bend Dam fish ladder", "Seitz Park fish ladder"],
+        state: "IN",
+        latitude: 41.6783,
+        longitude: -86.2462,
+        coordinateSource: "City of South Bend Seitz Park project mapping",
+        coordinateStatus: "provisional",
+        riverMile: 58.2,
+        reachId: "st_joseph_indiana",
+        kind: "fish_ladder",
+        fishPassage: "passable",
+        publicAccess: "verified",
+        fishingSuitability: { bank: "no", wading: "no", boat: "no" },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "The public may view the ladder, but Indiana prohibits fishing within 100 feet of its entrance and exit.",
+        sourceNotes:
+          "Indiana DNR South Bend Fish Ladder page; FERC South Bend Dam river mile 58.2; coordinate awaits final municipal GIS confirmation.",
+      },
+      {
+        locationId: "st_joseph_mishawaka_ladder",
+        officialName: "Mishawaka fish ladder at Central Park",
+        aliases: ["Central Park fish ladder", "Mishawaka Dam fish ladder"],
+        state: "IN",
+        latitude: 41.6631,
+        longitude: -86.1773,
+        coordinateSource: "City of Mishawaka Central Park mapping",
+        coordinateStatus: "provisional",
+        riverMile: 62.2,
+        reachId: "st_joseph_indiana",
+        kind: "fish_ladder",
+        fishPassage: "passable",
+        publicAccess: "verified",
+        fishingSuitability: { bank: "limited", wading: "no", boat: "no" },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "Central Park has public river-wall fishing, but Indiana prohibits fishing within 100 feet of the ladder entrance and exit. Posted boundaries control.",
+        sourceNotes:
+          "Indiana DNR ladder page; City of Mishawaka Central Park page; FERC calls this the Elkhart Dam at river mile 62.2.",
+      },
+      {
+        locationId: "st_joseph_twin_branch_barrier",
+        officialName: "Twin Branch Dam",
+        state: "IN",
+        latitude: 41.66574,
+        longitude: -86.13267,
+        coordinateSource: "City of Mishawaka Twin Branch Park mapping",
+        coordinateStatus: "provisional",
+        riverMile: 65.7,
+        reachId: "st_joseph_twin_branch",
+        kind: "barrier",
+        fishPassage: "impassable",
+        publicAccess: "restricted",
+        fishingSuitability: { bank: "unknown", wading: "no", boat: "no" },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "Hard upstream limit. Never direct anglers above the dam or into posted safety zones; nearby legal access requires separate verification.",
+        sourceNotes:
+          "Indiana DNR defines the base of Twin Branch as the 63-mile upstream limit; FERC places it at river mile 65.7. Coordinate awaits final utility or municipal GIS confirmation.",
+      },
+    ],
+    primaryGaugeReachId: "st_joseph_niles",
+    contextualGaugeSiteIds: ["04101000"],
+    weatherStrategy: {
+      mode: "single_point",
+      primaryWeatherPointId: "st_joseph_niles_weather",
+      basinRepresentation:
+        "Modeled point weather at Niles supplies restrained local context. It is not basin-wide observed rainfall and cannot substitute for measured mainstem response.",
+      sourceNotes:
+        "Open-Meteo point-weather adapter aligned with the primary Niles gauge reach.",
+    },
+    stateRegulations: [
+      {
+        state: "MI",
+        version: "michigan-current-official-review-required-before-release",
+        jurisdiction:
+          "Michigan water from Lake Michigan to the Indiana state line",
+        reminderCopy:
+          "Check the current Michigan Fishing Regulations, Fisheries Orders, posted dam restrictions, and access notices before fishing.",
+        accessAndSafetyNotes:
+          "Named structures are not automatic public access. Do not enter fish ladders, posted safety zones, private property, or water beyond personal boating or wading ability.",
+        sourceNotes:
+          "Michigan DNR current fishing regulations and Michigan DNR St. Joseph River Assessment; final release requires a same-season official review.",
+      },
+      {
+        state: "IN",
+        version: "indiana-current-official-review-required-before-release",
+        jurisdiction: "Indiana St. Joseph River below Twin Branch Dam",
+        reminderCopy:
+          "Check the current Indiana Fishing Guide and posted notices. No fishing is allowed within 100 feet of a fish-ladder entrance or exit.",
+        accessAndSafetyNotes:
+          "Use verified public access, respect private land, and stay outside posted dam and ladder boundaries. Twin Branch is the upstream endpoint.",
+        sourceNotes:
+          "Indiana DNR South Bend Fish Ladder page and current Indiana Fishing Guide; final release requires a same-season official review.",
+      },
+    ],
+    evidenceNotes:
+      "Draft canonical foundation researched August 2026. The five intermediate dams have fish passage and are not biological endpoints. Twin Branch is the only configured impassable upstream barrier. Coordinates marked provisional cannot drive beginner-facing access guidance until final official GIS verification.",
+  },
+  conditionRefreshSchedule: {
+    activeSlots: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],
+    inactiveSlots: ["00:00"],
+    evidenceNotes:
+      "USGS 04101500 reports near-real-time discharge and same-station measured water temperature. Six active daily refreshes reuse the regulated-river schedule while species windows remain unconfigured.",
+  },
+  conditionDataCapabilities: {
+    hydraulics: { status: "available" },
+    waterTemperature: { status: "available" },
+  },
+  supportStatus: "beta",
+  gaugeLimitationCopy:
+    "Based on the USGS gauge at Niles. It describes the Niles reach; the harbor, lower river, individual dam tailwaters, South Bend, Mishawaka, and Twin Branch may look different.",
+  regulationReminderCopy:
+    "Select Michigan or Indiana for the correct jurisdiction. Always verify current official regulations, public access, posted closures, and dam safety boundaries.",
+};
+
 export const RIVER_RUN_RIVER_PROFILES: RiverProfile[] = [
   PERE_MARQUETTE_RIVER_PROFILE,
   BETSIE_RIVER_PROFILE,
   BIG_MANISTEE_RIVER_PROFILE,
   MUSKEGON_RIVER_PROFILE,
+  ST_JOSEPH_RIVER_PROFILE,
 ];

@@ -1167,6 +1167,180 @@ export const MUSKEGON_FALL_STEELHEAD_RUN_PROFILE:
     },
   };
 
+const ST_JOSEPH_SHARED_FISHABILITY = {
+  version: "st-joseph-niles-fishability-v1",
+  metric: "flow_cfs" as const,
+  sourceLabel: "Niles mainstem reach",
+  tooLow: { max: 1300 },
+  lowFishable: { min: 1300, max: 1800 },
+  ideal: { min: 1800, max: 3200 },
+  highFishable: { min: 3200, max: 5100 },
+  blownOut: { min: 7000 },
+  caps: {
+    staleGauge: 55,
+    unknownTrend: 69,
+    veryLow: 45,
+    blownOut: 24,
+    sharpRiseHigh: 40,
+  },
+  evidenceNotes:
+    "These absolute bands describe the large mainstem at USGS 04101500 in the Niles reach only. For August 15-December 24 in the fixed 2012-2025 audit, daily discharge was approximately p5 1,330, p10 1,520, p25 1,818, median 2,300, p75 3,160, p90 4,473, p95 5,090, and p99 6,633 CFS. The 5,100-7,000 interval remains very high/difficult; 7,000+ is an exceptional mainstem state. Bands describe fishing shape, never wading, boating, dam-tailwater safety, or conditions in another reach.",
+  sourceNotes:
+    "USGS 04101500 approved/provisional daily mean discharge, fixed 2012-2025 audit window. Niles is not extrapolated as a direct measurement of the harbor, lower Michigan river, individual dam tailwaters, South Bend, Mishawaka, or Twin Branch.",
+};
+
+const ST_JOSEPH_SHARED_PUSH = {
+  version: "st-joseph-niles-push-v1",
+  hydraulic: {
+    metric: "flow_cfs" as const,
+    sourceLabel: "Niles mainstem reach",
+    lowValue: 1300,
+    highValue: 5100,
+    severeHighValue: 7000,
+    rising24h: { absolute: 120, percent: 5 },
+    meaningfulRise24h: { absolute: 240, percent: 11 },
+    sharpRise24h: { absolute: 450, percent: 19 },
+  },
+  rain: { meaningful48hIn: .35, strong48hIn: .75, heavy48hIn: 1.5 },
+  temperature: {
+    suitabilityLabel: "St. Joseph adult fall Steelhead entry",
+    coldHoldingF: 39,
+    supportiveMinF: 40,
+    preferredMinF: 46,
+    supportiveMaxF: 52,
+    tooWarmF: 60,
+    migrationBarrierF: 70,
+  },
+  caps: {
+    staleGauge: 55,
+    unknownTrend: 49,
+    noGaugeResponse: 69,
+    tooWarm: 69,
+    migrationBarrier: 49,
+    severeHighFlow: 49,
+    outsideExtendedWindow: 69,
+    coldHolding: 49,
+  },
+  evidenceNotes:
+    "In the fixed 2012-2025 August 15-December 24 Niles audit, positive daily changes were approximately p50 130 CFS/5.4%, p75 230/11.1%, and p90 430/18.7%. Rounded production thresholds require both absolute and relative response. Rain is precursor context only: Strong requires a measured meaningful mainstem rise and Very Strong requires a sharp measured rise. Steelhead temperature remains species-specific; cold holding limits new-movement confidence without deleting fish already present.",
+  sourceNotes:
+    "USGS 04101500 daily discharge and same-station measured water temperature; Indiana DNR Skamania and Little Manistee Steelhead timing. No Mottville value, reservoir series, air temperature, or ladder count is blended into the live score.",
+};
+
+export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
+  AuditedObservedRiverRunProfile = {
+    runId: "st_joseph_fall_steelhead",
+    riverId: "st_joseph",
+    biologyProfileId: "great_lakes_steelhead_fall_entry_v1",
+    displayName: "Fall Steelhead",
+    species: "steelhead",
+    season: "fall",
+    runType: "fall_entry",
+    movementEngineId: "fall_entry_cooling",
+    runStageCopyStrategy: "st_joseph_corridor",
+    primitiveCapabilities: {
+      migrationTiming: { status: "available" },
+      push: { status: "available" },
+      fishability: { status: "available" },
+      activity: {
+        status: "unavailable",
+        reason: "no_accepted_activity_calibration",
+        notes:
+          "Activity is intentionally withheld until a dedicated Niles-reach Steelhead responsiveness replay and copy audit are accepted.",
+      },
+    },
+    runWindow: {
+      preRunStart: "08-01",
+      stagingStart: "09-10",
+      start: "09-25",
+      beginningEnd: "10-10",
+      buildingEstablishedStart: "10-15",
+      buildingBroadStart: "11-01",
+      peakStart: "11-10",
+      peak: "11-15",
+      peakEnd: "12-05",
+      taperingEnd: "12-19",
+      end: "12-22",
+      lateEnd: "12-23",
+      postRunLateCopyEnd: "12-24",
+    },
+    handoff: {
+      type: "winter_holding",
+      start: "12-23",
+      destinationRunType: "holding",
+      retainedPresenceFraction: .9,
+    },
+    historicalPresence: {
+      maximum: 9,
+      distributionScope: "broad",
+      curveVersion: "st-joseph-fall-steelhead-presence-v1",
+      evidenceNotes:
+        "The St. Joseph is a major interstate, hatchery-supported Steelhead fishery with five passage facilities and 63 accessible miles. The curve acknowledges summer-run Skamania already present by mid-August, then models the added Little Manistee winter-run entry beginning in October. It reaches a conservative 9/10 fall opportunity reference November 15 and retains 81/100 at the winter handoff; this is not a ladder-count forecast or live abundance estimate.",
+      sourceNotes:
+        "Indiana DNR Bodine State Fish Hatchery and Lake Michigan fishing guidance; Indiana DNR South Bend ladder program and historical counts since 2011; Michigan DNR St. Joseph River Assessment and Steelhead management material. Annual passage varies, so evidence supports 9/10 rather than an automatic 10/10.",
+      anchors: [
+        { dayOffsetFromStart: 0, fractionOfMaximum: .08 },
+        { dayOffsetFromStart: 10, fractionOfMaximum: .18 },
+        { dayOffsetFromStart: 20, fractionOfMaximum: .38 },
+        { dayOffsetFromStart: 37, fractionOfMaximum: .68 },
+        { dayOffsetFromStart: 47, fractionOfMaximum: .88 },
+        { dayOffsetFromStart: 51, fractionOfMaximum: 1 },
+        { dayOffsetFromStart: 71, fractionOfMaximum: 1 },
+        { dayOffsetFromStart: 81, fractionOfMaximum: .96 },
+        { dayOffsetFromStart: 88, fractionOfMaximum: .9 },
+      ],
+    },
+    push: ST_JOSEPH_SHARED_PUSH,
+    fishabilityBands: ST_JOSEPH_SHARED_FISHABILITY,
+    baselineCoverage: {
+      metric: "flow_cfs",
+      version: "st-joseph-fall-steelhead-flow-baseline-v1",
+      hasPercentileBaselines: true,
+      coveredWindowPercent: 1,
+      minimumHistoryYears: 13,
+      sourceNotes:
+        "USGS 04101500 supplies complete discharge coverage for the fixed 2012-2025 lifecycle audit. Same-station temperature supplies 13-14 usable seasons across the five checkpoints; incomplete days remain missing rather than imputed.",
+    },
+    waterTemperature: {
+      sourcePriority: ["st_joseph_niles_temperature"],
+      upstreamFallbackPositiveSignalCap: 0,
+      notes:
+        "Use only same-station measured Niles water temperature. Fall entry is strongest around 46-52F, remains plausible at 40-45F, and shifts toward holding around 39F or colder. Air temperature and Mottville cannot substitute.",
+    },
+    conditionsSuggest: {
+      baselineVersion: "st-joseph-fall-steelhead-conditions-v1",
+      temperatureSourceId: "st_joseph_niles_temperature",
+      finalCheckpointDaysAfterPeak: 5,
+      minimumUsableYears: 10,
+      minimumCoveragePercent: .8,
+      aheadPercentile: 75,
+      delayedPercentile: 25,
+      coolEnoughPercentileCap: 75,
+      gaugeWeight: .4,
+      waterTemperatureWeight: .6,
+    },
+    userCopyHints: {
+      stagingTip:
+        "Treat summer-run Skamania already in the river separately from the later winter-run fall build.",
+      preRunTip:
+        "An August or early-September Skamania is real, but does not prove the October winter-run entry is early.",
+      peakTip:
+        "Compare the lower Michigan corridor, Niles reach, and legal Indiana water below Twin Branch without treating Niles measurements as river-wide observations.",
+      endingTip:
+        "Shift toward deep, speed-controlled holding water and treat December 23 as a winter handoff, not fish leaving the river.",
+    },
+    researchNotes:
+      "St. Joseph Fall Steelhead v1 explicitly treats established summer-run Skamania as pre-run context rather than counting them as the winter-run fall build. The scored entry begins September 25, becomes established in October, broadens through the five-ladder corridor in November, reaches a 90/100 seasonal reference November 15, and retains 81/100 into winter holding on December 23.",
+    sourceNotes:
+      "Primary evidence: Indiana DNR South Bend Fish Ladder, Bodine State Fish Hatchery, and Lake Michigan fishing guidance; Michigan DNR St. Joseph River Assessment and Steelhead management presentations; USGS 04101500 discharge and same-station water temperature. Hydraulics are Niles-specific; Activity remains unavailable pending its own calibration.",
+    publicAudit: {
+      isEnabled: false,
+      auditVersion: "st-joseph-fall-steelhead-foundation-v1",
+      notes:
+        "Implementation is owner-gated while historical Migration Timing rows, primitive replay, copy safety, and app review are completed. Activity is explicitly outside this acceptance pass.",
+    },
+  };
+
 export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   runId: "betsie_fall_chinook",
   riverId: "betsie",
@@ -1851,6 +2025,7 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
   MUSKEGON_FALL_COHO_RUN_PROFILE,
   MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
+  ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE,
   BETSIE_FALL_CHINOOK_RUN_PROFILE,
   BETSIE_FALL_COHO_RUN_PROFILE,
   BETSIE_FALL_STEELHEAD_RUN_PROFILE,

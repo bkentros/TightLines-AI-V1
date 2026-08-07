@@ -166,7 +166,8 @@ export type RunStageCopyStrategy =
   | "pere_marquette"
   | "betsie_homestead"
   | "big_manistee_tailwater"
-  | "muskegon_croton_tailwater";
+  | "muskegon_croton_tailwater"
+  | "st_joseph_corridor";
 
 export type DataQuality = {
   label: "Fresh" | "Partial" | "Stale" | "Limited";
@@ -270,9 +271,48 @@ export type RiverFoundationReach = {
   reachId: string;
   displayName: string;
   order: number;
-  role: "tailwater" | "middle" | "lower" | "mouth_context";
+  role:
+    | "tailwater"
+    | "upper"
+    | "middle"
+    | "lower"
+    | "harbor"
+    | "mouth_context";
   gaugeRepresented: boolean;
   notes: string;
+  sourceNotes: string;
+};
+
+export type RiverFoundationLocation = {
+  locationId: string;
+  officialName: string;
+  aliases?: string[];
+  state: GreatLakesState;
+  latitude: number;
+  longitude: number;
+  coordinateSource: string;
+  coordinateStatus: "verified" | "provisional";
+  riverMile?: number;
+  reachId: string;
+  kind: "access" | "landmark" | "dam" | "fish_ladder" | "gauge" | "barrier";
+  fishPassage: "passable" | "impassable" | "not_applicable";
+  publicAccess: "verified" | "restricted" | "not_public" | "unknown";
+  fishingSuitability: {
+    bank: "yes" | "limited" | "no" | "unknown";
+    wading: "yes" | "limited" | "no" | "unknown";
+    boat: "yes" | "limited" | "no" | "unknown";
+  };
+  beginnerSuitable: boolean;
+  restrictionNotes: string;
+  sourceNotes: string;
+};
+
+export type RiverFoundationStateRegulation = {
+  state: GreatLakesState;
+  version: string;
+  jurisdiction: string;
+  reminderCopy: string;
+  accessAndSafetyNotes: string;
   sourceNotes: string;
 };
 
@@ -299,6 +339,7 @@ export type RiverFoundationConfig = {
   downstreamTerminus: string;
   targetSpecies: MigratoryRiverTargetSpecies[];
   reaches: RiverFoundationReach[];
+  locations?: RiverFoundationLocation[];
   primaryGaugeReachId: string;
   contextualGaugeSiteIds: string[];
   weatherStrategy: {
@@ -307,7 +348,8 @@ export type RiverFoundationConfig = {
     basinRepresentation: string;
     sourceNotes: string;
   };
-  regulation: RiverFoundationRegulation;
+  regulation?: RiverFoundationRegulation;
+  stateRegulations?: RiverFoundationStateRegulation[];
   evidenceNotes: string;
 };
 
@@ -330,6 +372,17 @@ export type ConditionRefreshSchedule = {
 export type RiverProfile = {
   riverId: string;
   displayName: string;
+  /**
+   * Optional catalog/presentation placements for one canonical hydrologic
+   * river. Scoring, baselines, and run identity remain attached to riverId;
+   * these entries only select state-scoped access and regulation context.
+   */
+  presentationContexts?: Array<{
+    state: GreatLakesState;
+    displayName?: string;
+    defaultReachId?: string;
+    regulationReminderCopy: string;
+  }>;
   state: GreatLakesState;
   region: RiverRunRegion;
   timezone: string;

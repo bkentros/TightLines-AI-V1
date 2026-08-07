@@ -259,6 +259,12 @@ export type RiverRunPushHistory = {
 export type RiverRunSnapshotResponse = {
   riverId: string;
   runId: string;
+  presentation?: {
+    state: string;
+    displayName?: string;
+    defaultReachId?: string;
+    regulationReminderCopy: string;
+  };
   localDate: string;
   timezone: string;
   progressionSnapshotAt: string;

@@ -23,6 +23,7 @@ const COMING_LATER_SUBTITLE = "Coming later";
 
 const STATE_PRESENTATION: RiverRunChoice[] = [
   { id: "MI", label: "Michigan" },
+  { id: "IN", label: "Indiana" },
   { id: "NY", label: "New York" },
   { id: "WI", label: "Wisconsin" },
   { id: "OH", label: "Ohio" },

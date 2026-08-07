@@ -1,13 +1,66 @@
 import { assert, assertEquals } from "jsr:@std/assert";
 import {
   createRiverRunConfigurationDocument,
+  listVisibleRiverRuns,
   PERE_MARQUETTE_CONFIGURATION_DOCUMENT,
   PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE,
   PERE_MARQUETTE_RIVER_PROFILE,
   RIVER_RUN_SPECIES_BIOLOGY_PROFILES,
   validateConfigurationRevision,
+  validateRiverProfile,
   validateRunProfile,
 } from "../index.ts";
+
+Deno.test("one canonical river can appear in two state catalogs", () => {
+  const river = {
+    ...PERE_MARQUETTE_RIVER_PROFILE,
+    presentationContexts: [
+      {
+        state: "MI" as const,
+        regulationReminderCopy: "Check current Michigan regulations.",
+      },
+      {
+        state: "IN" as const,
+        regulationReminderCopy: "Check current Indiana regulations.",
+      },
+    ],
+  };
+  const catalog = listVisibleRiverRuns(
+    [river],
+    [PERE_MARQUETTE_FALL_CHINOOK_RUN_PROFILE],
+  );
+
+  assertEquals(catalog.map((entry) => entry.state), ["MI", "IN"]);
+  assertEquals(
+    catalog.map((entry) => entry.rivers[0].riverId),
+    ["pere_marquette", "pere_marquette"],
+  );
+  assertEquals(
+    catalog.map((entry) => entry.rivers[0].runs[0].runId),
+    ["pere_marquette_fall_chinook", "pere_marquette_fall_chinook"],
+  );
+});
+
+Deno.test("state presentation contexts require unique states and regulation copy", () => {
+  const result = validateRiverProfile({
+    ...PERE_MARQUETTE_RIVER_PROFILE,
+    presentationContexts: [
+      {
+        state: "MI" as const,
+        regulationReminderCopy: "Check current Michigan regulations.",
+      },
+      { state: "MI" as const, regulationReminderCopy: "" },
+    ],
+  });
+
+  assertEquals(result.valid, false);
+  assert(result.issues.some((item) => item.field.endsWith(".state")));
+  assert(
+    result.issues.some((item) =>
+      item.field.endsWith(".regulationReminderCopy")
+    ),
+  );
+});
 
 Deno.test("PM configuration document binds both implemented fall movement branches", () => {
   assertEquals(

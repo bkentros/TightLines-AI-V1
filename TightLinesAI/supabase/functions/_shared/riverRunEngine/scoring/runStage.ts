@@ -55,7 +55,17 @@ export function resolveRunStage(
     const regulatedTailwaterCopy =
       run.runStageCopyStrategy === "big_manistee_tailwater" ||
       run.runStageCopyStrategy === "muskegon_croton_tailwater";
-    const baseCopy = run.runStageCopyStrategy === "muskegon_croton_tailwater"
+    const stJosephCorridor = run.runStageCopyStrategy === "st_joseph_corridor";
+    const baseCopy = stJosephCorridor
+      ? stJosephFallEntryStageCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        winterHoldingContext,
+        species: anglerSpeciesName(run.species),
+      })
+      : run.runStageCopyStrategy === "muskegon_croton_tailwater"
       ? muskegonFallEntryStageCopy({
         stage,
         stagingContext,
@@ -82,7 +92,15 @@ export function resolveRunStage(
         species: anglerSpeciesName(run.species),
       });
     const copy = baseCopy;
-    const whereToStart = run.runStageCopyStrategy === "pere_marquette"
+    const whereToStart = stJosephCorridor
+      ? stJosephFallEntryWhereToStartCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        winterHoldingContext,
+      })
+      : run.runStageCopyStrategy === "pere_marquette"
       ? pereMarquetteFallEntryWhereToStartCopy({
         stage,
         stagingContext,
@@ -1432,6 +1450,81 @@ function fallEntryStageCopy(input: {
           "Use the active seasonal steelhead experience rather than applying fall-entry guidance outside its window.",
       };
   }
+}
+
+function stJosephFallEntryWhereToStartCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  winterHoldingContext: boolean;
+}): string {
+  if (input.winterHoldingContext) {
+    return "Deep, speed-controlled legal holding water from the lower Michigan corridor through Niles and into Indiana below Twin Branch, always outside posted dam and fish-ladder restrictions.";
+  }
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? "The St. Joseph harbor and river mouth, plus one deliberate lower-Michigan travel-water check; Skamania may already be inland, but that is separate from the winter-run build."
+        : "Lake Michigan off St. Joseph, the harbor, and the river mouth for new-entry context; do not infer an inland fall build yet.";
+    case "beginning":
+      return "Lower Michigan travel and holding water toward Berrien Springs, while recognizing that summer-run Skamania may already be distributed farther upstream through open passage.";
+    case "building":
+      return input.broadBuildingContext
+        ? "Compare legal holding water in the lower Michigan corridor, the Niles reach, and South Bend-Mishawaka below Twin Branch; stay outside every posted ladder and dam boundary."
+        : input.establishedBuildingContext
+        ? "Begin with the Niles reach and substantial lower-Michigan holding water, then compare legal Indiana reaches for accumulated fish."
+        : "Lower Michigan travel water through the first substantial Berrien Springs and Buchanan-area holding reaches, outside all dam and ladder restrictions.";
+    case "peak":
+      return "Compare substantial legal holding water below Berrien Springs, through Buchanan and Niles, and in South Bend-Mishawaka below Twin Branch; use the Niles gauge only for the Niles reach.";
+    case "tapering":
+      return "Established deep holding water from the Michigan corridor through legal Indiana water below Twin Branch; add lower travel lanes only when Niles Push supports fresh movement.";
+    case "ending":
+      return "Deep, speed-controlled holding water with adjacent feeding current below Twin Branch, outside the 100-foot Indiana ladder restrictions and all posted dam boundaries.";
+    case "post_run":
+      return "No active fall-entry starting reach; use a dedicated winter Steelhead read when available rather than extending this fall model.";
+  }
+}
+
+function stJosephFallEntryStageCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  winterHoldingContext: boolean;
+  species: string;
+}): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  const base = fallEntryStageCopy(input);
+  const whereToStart = stJosephFallEntryWhereToStartCopy(input);
+  if (input.winterHoldingContext) {
+    return {
+      ...base,
+      headline:
+        `${input.species} remain broadly present as St. Joseph fall entry hands off to winter holding.`,
+      whereToStart,
+      detail:
+        "The fish have not left the 63-mile accessible corridor. Colder water changes the useful question from new entry to holding position; Activity remains unavailable until its separate Niles calibration is accepted.",
+      tip:
+        "Treat retained presence as seasonal context, not proof of feeding activity, and verify local water and access before choosing a reach.",
+    };
+  }
+  if (input.stage === "pre_run") {
+    return {
+      ...base,
+      headline: input.stagingContext
+        ? "Summer-run Skamania can already be present, while the later winter-run Steelhead build is still ahead."
+        : "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
+      whereToStart,
+      detail:
+        "This combined fall read separates fish already in the system from the Little Manistee winter-run component that normally begins entering around October.",
+    };
+  }
+  return {
+    ...base,
+    whereToStart,
+    detail:
+      `${base.detail} Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.`,
+  };
 }
 
 export function stageForDate(localDate: string, window: DateWindow): RunStage {
