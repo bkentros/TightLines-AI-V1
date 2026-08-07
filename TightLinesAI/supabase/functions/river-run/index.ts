@@ -61,7 +61,7 @@ import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
-const ENGINE_VERSION = "river-run-v1.9.1";
+const ENGINE_VERSION = "river-run-v1.9.2";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },
@@ -885,14 +885,53 @@ async function readOrBuildConditionRefresh(input: {
     input.run.primitiveCapabilities.push.status === "unavailable" &&
     input.run.primitiveCapabilities.fishability.status === "unavailable";
   if (allCurrentPrimitivesUnavailable) {
+    const activityTargetDate = input.refreshSlot >= "21:00"
+      ? addDays(input.localDate, 1)
+      : input.localDate;
+    const activityTargetStage = resolveRunStage(input.run, activityTargetDate);
+    const activityActive =
+      input.run.primitiveCapabilities.activity?.status === "available" &&
+      compareLocalDates(
+          activityTargetDate,
+          activityTargetStage.window.stagingStartDate,
+        ) >= 0 &&
+      compareLocalDates(
+          activityTargetDate,
+          activityTargetStage.window.lateEndDate,
+        ) <= 0;
+    const boundedFetch = withTimeoutFetch(input.fetchFn, PROVIDER_TIMEOUT_MS);
+    const weatherSnapshot = activityActive
+      ? input.weatherSnapshot ?? await fetchLiveWeatherOrNull({
+        fetchFn: boundedFetch,
+        river: input.river,
+        refreshAtUtc: input.refreshAtUtc,
+      })
+      : null;
+    const weather = normalizeWeatherSnapshot({
+      snapshot: weatherSnapshot,
+      refreshAtUtc: input.refreshAtUtc,
+      localDate: input.localDate,
+    });
+    const primaryWeatherPoint = getPrimaryWeatherPoint(input.river);
     const built = buildConditionRefresh({
       dailySnapshot: input.dailySnapshot,
       localDate: input.localDate,
       refreshSlot: input.refreshSlot,
       movementEngineId: input.run.movementEngineId,
       primitiveCapabilities: input.run.primitiveCapabilities,
+      activityRules: activityActive ? input.run.activity : undefined,
+      activityTargetDate: activityActive ? activityTargetDate : undefined,
+      activityTargetStage: activityTargetStage.stage,
+      activityStaging: compareLocalDates(
+            activityTargetDate,
+            activityTargetStage.window.stagingStartDate,
+          ) >= 0 &&
+        compareLocalDates(
+            activityTargetDate,
+            activityTargetStage.window.startDate,
+          ) < 0,
       gaugeFreshness: "missing",
-      weatherFreshness: "missing",
+      weatherFreshness: weather.weatherFreshness,
       waterTemperatureFreshness: "missing",
       conditionsWaterTemperatureFreshness: "missing",
       currentHydraulicValue: null,
@@ -910,7 +949,18 @@ async function readOrBuildConditionRefresh(input: {
         "temperature_unavailable",
         "temperature_neutral_missing",
       ],
-      sourceMetrics: {},
+      sourceMetrics: {
+        weather: {
+          provider: "OPEN_METEO",
+          evidenceType: "modeled_grid",
+          weatherPointId: primaryWeatherPoint.weatherPointId,
+          rain24hIn: weather.rainTotals.rain24hIn,
+          rain48hIn: weather.rainTotals.rain48hIn,
+          rain72hIn: weather.rainTotals.rain72hIn,
+          forecastDaily: weather.forecastDaily,
+          hourlyActivityWeather: weather.hourlyActivityWeather,
+        },
+      },
       engineVersion: input.engineVersion,
       configVersion: input.configVersion,
     });
