@@ -1906,10 +1906,12 @@ function primitiveForTab(
     case "activity":
       return snapshot.activity ?? {
         score: null,
-        label: "Unavailable",
-        headline: "Activity Outlook is not configured for this species yet.",
+        label: "Not monitoring yet",
+        headline: "Daily activity monitoring has not started yet.",
         detail:
-          "This first production slice is limited to Pere Marquette Fall Chinook.",
+          "Activity Outlook is configured for this migration and will begin during its seasonal staging window.",
+        tip:
+          "Check back as the migration approaches. Migration Stage will show when early staging and river entry become realistic.",
       };
     case "fish_in_river":
       return snapshot.fishInRiver;

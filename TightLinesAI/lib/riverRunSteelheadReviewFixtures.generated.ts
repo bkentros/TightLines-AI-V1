@@ -11536,7 +11536,7 @@ const GROUP_SEEDS = [
             "maximum": 100,
             "label": "Highly active",
             "headline": "Today’s Steelhead activity outlook is highly active.",
-            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. Cooling late-fall water can make Steelhead more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
+            "detail": "Conditions strongly favor a response from Steelhead that are present and capable of reacting. The strongest window is 5–9 AM: The measured water temperature is favorable for Steelhead. The main limitation: Rain adds little extra cover. As late fall progresses, Steelhead often become more selective and less willing to move far for a presentation. The fish remain alive and are transitioning toward winter holding; actual responsiveness still depends strongly on water temperature and river conditions. This read uses a current river level, measured water temperature, and the hourly weather outlook.",
             "tip": "Compare the four time windows, but expect a shorter response in cold water and keep the result separate from the winter holding outlook.",
             "reasonCodes": [
               "activity_confidence_full",

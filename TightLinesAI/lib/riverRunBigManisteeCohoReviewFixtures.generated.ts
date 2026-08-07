@@ -11,7 +11,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_offseason",
         "label": "True offseason",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -373,7 +373,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -383,7 +383,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_before_staging",
         "label": "Before staging",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -745,7 +745,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -755,7 +755,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_staging",
         "label": "Staging",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -1177,7 +1177,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -1187,7 +1187,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_beginning_initial",
         "label": "Beginning · initial entry",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -1638,7 +1638,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -1648,7 +1648,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_beginning_accumulating",
         "label": "Beginning · accumulating",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -2099,7 +2099,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -2109,7 +2109,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_building_established",
         "label": "Building · established",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -2578,7 +2578,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -2588,7 +2588,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_building_late",
         "label": "Building · late",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -3057,7 +3057,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -3067,7 +3067,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_peak_approach",
         "label": "Peak · approach",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -3550,7 +3550,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -3560,7 +3560,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_peak_core",
         "label": "Peak · core",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -4049,7 +4049,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -4059,7 +4059,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_peak_shoulder",
         "label": "Peak · shoulder",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -4559,7 +4559,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -4569,7 +4569,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_tapering_early",
         "label": "Tapering · early",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -5064,7 +5064,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -5074,7 +5074,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_tapering_late",
         "label": "Tapering · late",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -5569,7 +5569,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -5579,7 +5579,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_ending",
         "label": "Ending",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -6074,7 +6074,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -6084,7 +6084,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_ending_residual",
         "label": "Ending · residual",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -6579,7 +6579,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -6589,7 +6589,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "stage_post_run",
         "label": "Late tail",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -7077,7 +7077,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -7093,7 +7093,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "timing_before",
         "label": "Before evidence collection",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -7456,7 +7456,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -7466,7 +7466,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "timing_collecting",
         "label": "Collecting first read",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -7829,7 +7829,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -7839,7 +7839,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "timing_ahead",
         "label": "Ahead",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -8202,7 +8202,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -8212,7 +8212,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "timing_typical",
         "label": "Typical",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -8575,7 +8575,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -8585,7 +8585,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "timing_delayed",
         "label": "Delayed",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -8948,7 +8948,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -8958,7 +8958,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "timing_insufficient",
         "label": "Insufficient · no historical baseline",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -9321,7 +9321,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -9331,7 +9331,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "timing_complete",
         "label": "Timing complete · run underway",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -9835,7 +9835,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -9851,7 +9851,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_stable",
         "label": "Stable · 1,650 CFS · 61°F",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -10296,7 +10296,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -10306,7 +10306,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_weak",
         "label": "Weak · warm, dry, falling",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -10753,7 +10753,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -10763,7 +10763,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_rising",
         "label": "Possible · early rise",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -11207,7 +11207,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -11217,7 +11217,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_meaningful_rise",
         "label": "Meaningful rise · 1,650 CFS · cooling",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -11661,7 +11661,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -11671,7 +11671,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_sharp",
         "label": "Very strong · sharp rise",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -12115,7 +12115,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -12125,7 +12125,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_rain_precursor",
         "label": "Rain · precursor only",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -12570,7 +12570,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -12580,7 +12580,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_unknown",
         "label": "Gauge trend · unresolved",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -13029,7 +13029,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -13039,7 +13039,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_stale",
         "label": "Gauge · stale cap",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -13489,7 +13489,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -13499,7 +13499,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_severe_high",
         "label": "Gauge · severe high cap",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -13949,7 +13949,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -13959,7 +13959,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_missing_gauge",
         "label": "Unavailable · gauge",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -14374,7 +14374,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -14384,7 +14384,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_missing_temperature",
         "label": "Unavailable · water temperature",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -14799,7 +14799,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -14809,7 +14809,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_warm_entry",
         "label": "Warm early entry · 1,500 CFS · 67°F",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -15172,7 +15172,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -15182,7 +15182,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_too_warm",
         "label": "Too warm · 70°F",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -15545,7 +15545,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -15555,7 +15555,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "push_barrier",
         "label": "Migration barrier · 1,650 CFS · 73°F",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -15918,7 +15918,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -15928,7 +15928,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_very_low",
         "label": "Very low · 1,050 CFS",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -16374,7 +16374,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -16390,7 +16390,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_low",
         "label": "Low · 1,200 CFS",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -16835,7 +16835,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -16845,7 +16845,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_blown",
         "label": "Blown out · 3,600 CFS",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -17293,7 +17293,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -17303,7 +17303,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_rising",
         "label": "Trend · early rise",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -17747,7 +17747,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -17757,7 +17757,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_sharp_high",
         "label": "Trend · sharp rise into high water",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -18210,7 +18210,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -18220,7 +18220,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_unknown",
         "label": "Trend · unresolved",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -18669,7 +18669,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -18679,7 +18679,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_stale",
         "label": "Gauge · stale",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -19128,7 +19128,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -19138,7 +19138,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_missing",
         "label": "Unavailable · gauge",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -19553,7 +19553,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -19563,7 +19563,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_ideal",
         "label": "Ideal · 1,650 CFS",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -20008,7 +20008,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -20018,7 +20018,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_high",
         "label": "High · 2,300 CFS",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -20463,7 +20463,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -20473,7 +20473,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "fishability_very_high",
         "label": "Very high · 2,800 CFS",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -20918,7 +20918,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -20934,7 +20934,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_staging",
         "label": "Staging · conditional early fish",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -21357,7 +21357,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -21367,7 +21367,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_beginning_warm",
         "label": "Beginning · warm but reactive",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -21818,7 +21818,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -21828,7 +21828,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_building_high",
         "label": "Building · highly active",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -22297,7 +22297,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -22307,7 +22307,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_peak_active",
         "label": "Peak · active",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -22796,7 +22796,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -22806,7 +22806,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_moderate",
         "label": "Building · moderate mixed window",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -23275,7 +23275,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -23285,7 +23285,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_warm_constraint",
         "label": "Warm constraint · 64°F",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -23737,7 +23737,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -23747,7 +23747,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_barrier",
         "label": "Warm barrier · 68°F",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -24199,7 +24199,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -24209,7 +24209,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_blown_out",
         "label": "Blown out · 3,600 CFS",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -24701,7 +24701,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -24711,7 +24711,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_tapering",
         "label": "Tapering · biological constraint",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -25206,7 +25206,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -25216,7 +25216,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_ending",
         "label": "Ending · residual living fish",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -25711,7 +25711,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -25721,7 +25721,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_post_run",
         "label": "Late tail · residual living fish",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -26209,7 +26209,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -26219,7 +26219,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_missing_temperature",
         "label": "Limited · missing measured temperature",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -26672,7 +26672,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -26682,7 +26682,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "activity_missing_river",
         "label": "Limited · missing river measurement",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -27135,7 +27135,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -27151,7 +27151,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_post_run_offseason",
         "label": "0 / 100 · Offseason · outside",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -27514,7 +27514,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -27524,7 +27524,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_pre_run_not_expected_yet",
         "label": "0 / 100 · Not expected yet · outside",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -27886,7 +27886,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -27896,7 +27896,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_low_presence_rising",
         "label": "5 / 100 · Low presence · rising",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -28347,7 +28347,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -28357,7 +28357,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_limited_presence_rising",
         "label": "11 / 100 · Limited presence · rising",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -28808,7 +28808,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -28818,7 +28818,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_moderate_presence_rising",
         "label": "21 / 100 · Moderate presence · rising",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -29287,7 +29287,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -29297,7 +29297,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_high_presence_rising",
         "label": "31 / 100 · High presence · rising",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -29766,7 +29766,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -29776,7 +29776,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_high_presence_rising_upper_shoulder",
         "label": "40 / 100 · High presence · rising",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -30245,7 +30245,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -30255,7 +30255,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_peak_presence_rising",
         "label": "45 / 100 · Peak presence · rising",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -30738,7 +30738,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -30748,7 +30748,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_peak_presence_near_peak",
         "label": "50 / 100 · Peak presence · near_peak",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -31237,7 +31237,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -31247,7 +31247,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_peak_presence_falling",
         "label": "50 / 100 · Peak presence · falling",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -31736,7 +31736,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -31746,7 +31746,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_high_presence_falling_upper_shoulder",
         "label": "44 / 100 · High presence · falling",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -32241,7 +32241,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -32251,7 +32251,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_high_presence_falling",
         "label": "39 / 100 · High presence · falling",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -32746,7 +32746,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -32756,7 +32756,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_moderate_presence_falling",
         "label": "30 / 100 · Moderate presence · falling",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -33251,7 +33251,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -33261,7 +33261,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_limited_presence_falling",
         "label": "20 / 100 · Limited presence · falling",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -33756,7 +33756,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -33766,7 +33766,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_low_presence_falling",
         "label": "10 / 100 · Low presence · falling",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -34267,7 +34267,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -34277,7 +34277,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "presence_post_run_migration_complete",
         "label": "0 / 100 · Migration complete · falling",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -34764,7 +34764,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -34780,7 +34780,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "combined_strong_tough",
         "label": "Strong movement + tough fishing shape",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -35230,7 +35230,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -35240,7 +35240,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "combined_peak_weak",
         "label": "Peak presence + weak movement",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -35687,7 +35687,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -35697,7 +35697,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "combined_fresh_missing_temp",
         "label": "Fresh gauge + unavailable temperature",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -36118,7 +36118,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -36128,7 +36128,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "combined_good_low_presence",
         "label": "Good shape + low seasonal presence",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -36491,7 +36491,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -36507,7 +36507,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "evidence_fresh",
         "label": "Fresh Wellston source pair",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -36952,7 +36952,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -36962,7 +36962,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "evidence_stale_gauge",
         "label": "Limited · stale gauge",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -37411,7 +37411,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -37421,7 +37421,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "evidence_missing_gauge",
         "label": "Limited · missing gauge",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -37836,7 +37836,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
@@ -37846,7 +37846,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
       {
         "id": "evidence_missing_temperature",
         "label": "Limited · missing measured water",
-        "note": "Canonical Big Manistee Fall Coho production copy · owner audit",
+        "note": "Canonical Big Manistee River Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "big_manistee",
           "runId": "big_manistee_fall_coho",
@@ -38261,7 +38261,7 @@ export const RIVER_RUN_BIG_MANISTEE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = 
           "secondaryNote": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
           "safety": {
             "regulationReminder": "The Big Manistee below Tippy is a Type 3 reach extending to the railroad bridge below M-55, with a year-round one-Rainbow-Trout limit and special artificial-lure rules during the August 1–November 15 window. Follow current Michigan regulations, DNR closure notices, dam-safety information, and posted boundaries. Fishing methods can change by reach and season.",
-            "gaugeBasis": "Wellston represents the Tippy tailwater and upper migratory corridor; downstream conditions can differ.",
+            "gaugeBasis": "Based on USGS 04125550 approximately 700 feet below Tippy Dam. It best represents the Tippy tailwater and upper migratory corridor; flow, temperature, access, and fishability can differ downstream through High Bridge, Bear Creek, the lower river, and Manistee Lake.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",

@@ -59,7 +59,9 @@ import {
 } from "../_shared/rateLimit.ts";
 import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
 
-const ENGINE_VERSION = "river-run-v1.9.0";
+// Bump whenever response semantics change so hourly refresh rows built by an
+// older deployment cannot mask the corrected live behavior.
+const ENGINE_VERSION = "river-run-v1.9.1";
 const CONFIG_VERSION = PERE_MARQUETTE_CONFIGURATION_DOCUMENT.configVersion;
 const RIVER_RUN_SNAPSHOT_RATE_LIMITS = [
   { windowSeconds: 60, maxRequests: 60 },

@@ -1284,14 +1284,12 @@ function betsieHomesteadFallEntryStageCopy(input: {
       };
     case "post_run":
       return {
-        headline:
-          `${input.species} have transitioned from fall entry into winter holding in the Betsie.`,
-        whereToStart:
-          "Deep, slow corridor holes with nearby feeding current, always outside the signed Homestead closure.",
+        headline: `${input.species} fall entry has not started yet.`,
+        whereToStart: "Lake Michigan, Frankfort harbor, and Betsie Lake.",
         detail:
-          "Steelhead can remain in the river, but the fall-entry model is no longer the right tool for judging their daily activity.",
+          "A dependable fall Steelhead presence is not expected in the Betsie River this early.",
         tip:
-          "Verify current conditions directly and use a controlled winter presentation; no live Betsie activity or fishability primitive is available.",
+          "Do not build an inland-river trip around Steelhead yet. Return as the seasonal entry window approaches.",
       };
   }
 }

@@ -15,6 +15,7 @@ const RIVER_SIZE_BY_ID: Record<string, RiverRunRiverSize> = {
   white: "medium",
   big_manistee: "large",
   muskegon: "large",
+  st_joseph: "large",
   grand: "large",
   platte: "large",
   au_sable: "large",

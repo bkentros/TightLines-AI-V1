@@ -672,13 +672,25 @@ assert.match(
   "Betsie should use the small-river artwork in recognition of its short below-Homestead corridor",
 );
 for (
-  const riverId of ["big_manistee", "muskegon", "grand", "platte", "au_sable"]
+  const riverId of [
+    "big_manistee",
+    "muskegon",
+    "st_joseph",
+    "grand",
+    "platte",
+    "au_sable",
+  ]
 ) {
   assert.match(
     riverChoiceImageRegistry,
     new RegExp(`${riverId}: "large"`),
   );
 }
+assert.doesNotMatch(
+  riverRunScreen,
+  /Activity Outlook is not configured|first production slice is limited/,
+  "Live River Run must not expose stale review-era Activity fallback copy",
+);
 assert.match(
   riverRunScreen,
   /function StateChoiceIcon[\s\S]*?<TopographicLines[\s\S]*?\{stateCode\}/,

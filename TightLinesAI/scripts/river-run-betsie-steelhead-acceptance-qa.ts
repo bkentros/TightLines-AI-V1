@@ -6,6 +6,10 @@ import {
   type RiverRunVisualKind,
 } from "../lib/riverRunVisuals";
 import { riverRunFishingGuideForSpecies } from "../lib/riverRunFishingGuides";
+import {
+  BETSIE_FALL_STEELHEAD_RUN_PROFILE,
+  resolveRunStage,
+} from "../supabase/functions/_shared/riverRunEngine/index";
 
 const targets = {
   run_stage: ["run_stage", "runStage"],
@@ -140,6 +144,18 @@ const winter = byId.get("stage_winter_holding")?.snapshot.runStage;
 assert(winter);
 assert.equal(winter.winterHoldingContext, true);
 assert.match(winter.tip ?? "", /61\/100/i);
+
+const preseason = resolveRunStage(
+  BETSIE_FALL_STEELHEAD_RUN_PROFILE,
+  "2026-08-07",
+);
+assert.equal(preseason.winterHoldingContext, false);
+assert.match(preseason.headline, /fall entry has not started yet/i);
+assert.equal(
+  /winter holding|have transitioned/i.test(JSON.stringify(preseason)),
+  false,
+  "Pre-season Betsie Steelhead copy must not describe winter holding",
+);
 
 const unchangedLateScores = [
   "activity_peak_light_rain",

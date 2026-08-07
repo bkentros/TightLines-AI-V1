@@ -377,7 +377,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -749,7 +749,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -1181,7 +1181,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -1643,7 +1643,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -2105,7 +2105,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -2580,7 +2580,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -3055,7 +3055,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -3549,7 +3549,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -4049,7 +4049,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -4560,7 +4560,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -5066,7 +5066,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -5572,7 +5572,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -6078,7 +6078,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -6590,7 +6590,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -7089,7 +7089,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       }
     ]
@@ -7468,7 +7468,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -7841,7 +7841,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -8214,7 +8214,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -8587,7 +8587,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -8960,7 +8960,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -9333,7 +9333,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -9839,7 +9839,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       }
     ]
@@ -10301,7 +10301,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -10759,7 +10759,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -11214,7 +11214,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -11669,7 +11669,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -12124,7 +12124,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -12580,7 +12580,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -13040,7 +13040,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -13501,7 +13501,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -13962,7 +13962,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -14388,7 +14388,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -14814,7 +14814,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -15187,7 +15187,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -15560,7 +15560,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -15933,7 +15933,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -16390,7 +16390,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       }
     ]
@@ -16852,7 +16852,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -17311,7 +17311,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -17766,7 +17766,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -18230,7 +18230,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -18690,7 +18690,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -19150,7 +19150,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -19576,7 +19576,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -20032,7 +20032,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -20488,7 +20488,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -20944,7 +20944,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       }
     ]
@@ -21383,7 +21383,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -21845,7 +21845,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -22320,7 +22320,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -22820,7 +22820,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -23295,7 +23295,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -23758,7 +23758,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -24221,7 +24221,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -24724,7 +24724,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -25230,7 +25230,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -25736,7 +25736,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -26235,7 +26235,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -26699,7 +26699,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -27163,7 +27163,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       }
     ]
@@ -27542,7 +27542,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -27914,7 +27914,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -28376,7 +28376,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -28838,7 +28838,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -29313,7 +29313,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -29788,7 +29788,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -30263,7 +30263,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -30757,7 +30757,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -31257,7 +31257,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -31757,7 +31757,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -32263,7 +32263,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -32769,7 +32769,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -33275,7 +33275,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -33781,7 +33781,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -34280,7 +34280,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -34778,7 +34778,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       }
     ]
@@ -35245,7 +35245,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -35703,7 +35703,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -36135,7 +36135,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -36508,7 +36508,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       }
     ]
@@ -36989,7 +36989,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -37449,7 +37449,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -37875,7 +37875,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       },
       {
@@ -38301,7 +38301,7 @@ export const RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-muskegon-coho-activity.1"
+          "configVersion": "2026-08-06-muskegon-steelhead-activity.1"
         }
       }
     ]
