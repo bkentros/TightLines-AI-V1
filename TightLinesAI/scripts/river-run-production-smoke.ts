@@ -1,7 +1,8 @@
 type JsonObject = Record<string, unknown>;
 
 const supabaseUrl = requiredEnv("SUPABASE_URL").replace(/\/+$/, "");
-const anonKey = requiredEnv("SUPABASE_ANON_KEY");
+const anonKey = Deno.env.get("EXPO_PUBLIC_SUPABASE_ANON_KEY")?.trim() ||
+  requiredEnv("SUPABASE_ANON_KEY");
 const internalKey = requiredEnv("RIVER_RUN_INTERNAL_KEY");
 const userToken = Deno.env.get("RIVER_RUN_USER_ACCESS_TOKEN")?.trim() || null;
 const freeUserToken = Deno.env.get("RIVER_RUN_FREE_USER_ACCESS_TOKEN")?.trim() ||

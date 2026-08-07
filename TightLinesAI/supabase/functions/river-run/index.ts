@@ -753,7 +753,7 @@ async function authenticateSnapshotRequest(
     return jsonError("Missing authentication token.", "unauthorized", 401);
   }
 
-  const getUser = (client as {
+  const authClient = (client as {
     auth?: {
       getUser?: (
         token: string,
@@ -762,12 +762,15 @@ async function authenticateSnapshotRequest(
         error: unknown;
       }>;
     };
-  }).auth?.getUser;
-  if (typeof getUser !== "function") {
+  }).auth;
+  if (!authClient || typeof authClient.getUser !== "function") {
     return jsonError("Unauthorized.", "unauthorized", 401);
   }
 
-  const { data: { user }, error } = await getUser(token);
+  // Keep the Supabase AuthClient receiver bound. Extracting getUser into a
+  // standalone function works in simple mocks but throws in production because
+  // the SDK method reads client state through `this`.
+  const { data: { user }, error } = await authClient.getUser(token);
   if (error || !user?.id) {
     return jsonError("Unauthorized.", "unauthorized", 401);
   }
