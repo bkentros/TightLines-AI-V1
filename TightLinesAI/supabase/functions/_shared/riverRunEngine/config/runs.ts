@@ -265,6 +265,8 @@ export const BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE:
       profile: "chinook_fall_reaction",
       scopeCopy:
         "The measured conditions represent the Wellston/Tippy tailwater; water temperature, clarity, and presentation conditions can differ farther downstream.",
+      earlySeasonScopeCopy:
+        "This early-season score should not be applied unchanged to the lower river. If you independently verify cooler water farther downstream, Chinook responsiveness there may be higher than this Wellston-based score.",
       weights: {
         light: 0.55,
         waterTemperature: 0.2,

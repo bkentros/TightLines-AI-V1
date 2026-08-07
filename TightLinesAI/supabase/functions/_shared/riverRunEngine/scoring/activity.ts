@@ -298,6 +298,7 @@ export function scoreActivity(input: {
   const copy = activityCopy({
     profile: input.rules.profile,
     scopeCopy: input.rules.scopeCopy,
+    earlySeasonScopeCopy: input.rules.earlySeasonScopeCopy,
     label,
     stage: input.runStage,
     conditionalPresence,
@@ -342,6 +343,7 @@ export function scoreActivity(input: {
 function activityCopy(input: {
   profile: ActivityRules["profile"];
   scopeCopy?: string;
+  earlySeasonScopeCopy?: string;
   label: string;
   stage: RunStage;
   conditionalPresence: boolean;
@@ -365,6 +367,10 @@ function activityCopy(input: {
     input.conditionalPresence,
   );
   const scope = input.scopeCopy ? ` ${input.scopeCopy}` : "";
+  const earlySeasonScope = input.earlySeasonScopeCopy &&
+      ["pre_run", "beginning", "building"].includes(input.stage)
+    ? ` ${input.earlySeasonScopeCopy}`
+    : "";
   const interpretation = input.weatherOnly
     ? input.label === "Highly active"
       ? `The evaluated weather strongly favors a response from ${species} that are present and capable of reacting, but unmeasured river conditions may change the actual response.`
@@ -400,7 +406,7 @@ function activityCopy(input: {
       ? `${day} weather-only ${species} activity outlook is ${input.label.toLowerCase()} with Limited confidence.`
       : `${day} ${species} activity outlook is ${input.label.toLowerCase()}.`,
     detail:
-      `${interpretation} ${bestWindow} ${lifecycle}${scope} ${confidence}`,
+      `${interpretation} ${bestWindow} ${lifecycle}${scope}${earlySeasonScope} ${confidence}`,
     tip,
   };
 }

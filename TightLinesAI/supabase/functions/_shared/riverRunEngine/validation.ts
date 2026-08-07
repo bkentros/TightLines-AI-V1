@@ -1129,6 +1129,18 @@ function validateActivityRules(
     );
   }
   if (
+    rules.earlySeasonScopeCopy !== undefined &&
+    !hasText(rules.earlySeasonScopeCopy)
+  ) {
+    issues.push(
+      issue(
+        "activity.earlySeasonScopeCopy",
+        "Configured early-season Activity reach copy cannot be empty.",
+        "config_invalid_value",
+      ),
+    );
+  }
+  if (
     rules.caps.taperingPenalty !== undefined &&
     (!Number.isFinite(rules.caps.taperingPenalty) ||
       rules.caps.taperingPenalty < 0 || rules.caps.taperingPenalty > 100)

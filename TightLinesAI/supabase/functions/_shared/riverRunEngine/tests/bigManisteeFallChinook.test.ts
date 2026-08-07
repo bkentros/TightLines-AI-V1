@@ -80,6 +80,41 @@ Deno.test("Big Manistee Chinook Activity is enabled with independent tailwater c
   assertEquals(/Scottville|Pere Marquette/i.test(result.detail), false);
 });
 
+Deno.test("Big Manistee Chinook Activity limits early warm-water reads to the measured reach", () => {
+  const scoreForStage = (stage: "pre_run" | "beginning" | "building" | "peak") =>
+    scoreActivity({
+      rules: run.activity!,
+      requestDate: "2026-08-20",
+      targetDate: "2026-08-20",
+      runStage: stage,
+      staging: stage === "pre_run",
+      waterTempF: 70,
+      temperatureTrend: "neutral",
+      gaugeFreshness: "fresh",
+      weatherFreshness: "fresh",
+      flowBand: "ideal",
+      currentHydraulicValue: 1650,
+      fishabilityBands: run.fishabilityBands,
+      flowSignal: "stable",
+      hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+        time_local: `2026-08-20T${String(hour).padStart(2, "0")}:00`,
+        cloud_cover_pct: 50,
+        shortwave_w_m2: hour >= 8 && hour <= 18 ? 200 : 0,
+        clear_sky_shortwave_w_m2: hour >= 8 && hour <= 18 ? 600 : 0,
+        precipitation_in: 0,
+      })),
+    });
+  for (const stage of ["pre_run", "beginning", "building"] as const) {
+    const result = scoreForStage(stage);
+    assertMatch(result.detail, /independently verify cooler water/i);
+    assertMatch(result.detail, /responsiveness there may be higher/i);
+  }
+  assertEquals(
+    /independently verify cooler water/i.test(scoreForStage("peak").detail),
+    false,
+  );
+});
+
 Deno.test("Big Manistee lifecycle ramps the floor and penalty without stage-boundary cliffs", () => {
   const date = "2026-10-20";
   const common = {

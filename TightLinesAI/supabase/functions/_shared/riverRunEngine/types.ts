@@ -128,6 +128,8 @@ export type ActivityRules = {
   dataMode?: "observed_river" | "weather_only";
   /** Optional river/reach limitation appended to every Activity explanation. */
   scopeCopy?: string;
+  /** Optional reach guidance shown only during pre-run, beginning, and building. */
+  earlySeasonScopeCopy?: string;
   weights: {
     light: number;
     waterTemperature: number;
