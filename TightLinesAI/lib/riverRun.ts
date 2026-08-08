@@ -15,6 +15,17 @@ type RiverRunSnapshotParams = {
   presentationState: string;
 };
 
+export class RiverRunRequestError extends Error {
+  constructor(
+    message: string,
+    readonly code: string | null,
+    readonly status: number,
+  ) {
+    super(message);
+    this.name = "RiverRunRequestError";
+  }
+}
+
 export async function fetchRiverRunCatalog(): Promise<RiverRunCatalogResponse> {
   return riverRunGet<RiverRunCatalogResponse>("rivers");
 }
@@ -72,7 +83,11 @@ async function riverRunGet<TResponse>(
         duration_ms: Date.now() - startedAt,
       });
       failureTracked = true;
-      throw new Error(readErrorMessage(parsed, response.status));
+      throw new RiverRunRequestError(
+        readErrorMessage(parsed, response.status),
+        readErrorCode(parsed),
+        response.status,
+      );
     }
 
     captureAnalytics("river_run_request_succeeded", {
@@ -103,6 +118,12 @@ async function riverRunGet<TResponse>(
   } finally {
     clearTimeout(timer);
   }
+}
+
+function readErrorCode(parsed: unknown): string | null {
+  if (!parsed || typeof parsed !== "object") return null;
+  const code = (parsed as { error?: unknown }).error;
+  return typeof code === "string" && code.length > 0 ? code : null;
 }
 
 function parseJsonOrText(text: string): unknown {

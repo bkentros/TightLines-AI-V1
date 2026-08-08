@@ -242,8 +242,13 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /!reviewMode && !canGenerateReport[\s\S]*?setShowSubscribePrompt\(true\)/,
-  "Free users must reach the paywall only when they try to generate a report",
+  /canAttemptRiverRunReport\([\s\S]*?!reviewMode && !canAttemptReport[\s\S]*?setShowSubscribePrompt\(true\)/,
+  "Free users must spend or replay their River Migration trial only when they try to generate a report",
+);
+assert.match(
+  riverRunScreen,
+  /error instanceof RiverRunRequestError[\s\S]*?error\.code === "subscription_required"[\s\S]*?setShowSubscribePrompt\(true\)/,
+  "An expired same-combination refresh must transition from the server response to the paywall",
 );
 assert.match(
   riverRunScreen,

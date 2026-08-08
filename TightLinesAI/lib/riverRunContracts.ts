@@ -290,4 +290,5 @@ export type RiverRunSnapshotResponse = {
   safety: RiverRunSafety;
   engineVersion: string;
   configVersion: string;
+  accessTier?: "angler" | "free_trial";
 };

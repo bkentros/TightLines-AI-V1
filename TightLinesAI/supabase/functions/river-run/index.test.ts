@@ -31,6 +31,7 @@ class MockQuery {
   orderAscending = true;
   limitCount: number | null = null;
   private upsertedRow: Record<string, unknown> | null = null;
+  private updatedValues: Record<string, unknown> | null = null;
 
   constructor(
     private readonly client: MockClient,
@@ -52,6 +53,11 @@ class MockQuery {
     return this;
   }
 
+  update(values: Record<string, unknown>): MockQuery {
+    this.updatedValues = values;
+    return this;
+  }
+
   eq(column: string, value: unknown): MockQuery {
     this.filters[column] = value;
     this.client.filters.push({
@@ -61,6 +67,10 @@ class MockQuery {
       op: "eq",
     });
     return this;
+  }
+
+  is(column: string, value: unknown): MockQuery {
+    return this.eq(column, value);
   }
 
   gte(column: string, value: unknown): MockQuery {
@@ -111,8 +121,12 @@ class MockQuery {
         error: { message: "history offline" },
       });
     }
+    const matched = this.matchingRows()[0] ?? null;
+    if (matched && this.updatedValues) {
+      Object.assign(matched, this.updatedValues);
+    }
     return Promise.resolve({
-      data: this.upsertedRow ?? this.matchingRows()[0] ?? null,
+      data: this.upsertedRow ?? matched,
       error: null,
     });
   }
@@ -234,11 +248,39 @@ class MockClient implements SupabaseLikeClient {
       rateLimitAllowed?: boolean;
       historyReadError?: boolean;
       recentHistoryReadError?: boolean;
+      freeRiverRunTrial?: Partial<{
+        usedAt: string | null;
+        riverId: string | null;
+        runId: string | null;
+        presentationState: string | null;
+        localDate: string | null;
+        refreshSlot: string | null;
+        engineVersion: string | null;
+        configVersion: string | null;
+      }>;
     } = {},
   ) {
     this.rows.profiles = [{
       id: "user-1",
       subscription_tier: options.subscriptionTier ?? "angler",
+      free_recommender_trial_used_at: null,
+      free_water_read_trial_used_at: null,
+      free_today_bite_full_used_at: null,
+      free_river_run_trial_used_at:
+        options.freeRiverRunTrial?.usedAt ?? null,
+      free_river_run_trial_river_id:
+        options.freeRiverRunTrial?.riverId ?? null,
+      free_river_run_trial_run_id: options.freeRiverRunTrial?.runId ?? null,
+      free_river_run_trial_presentation_state:
+        options.freeRiverRunTrial?.presentationState ?? null,
+      free_river_run_trial_local_date:
+        options.freeRiverRunTrial?.localDate ?? null,
+      free_river_run_trial_refresh_slot:
+        options.freeRiverRunTrial?.refreshSlot ?? null,
+      free_river_run_trial_engine_version:
+        options.freeRiverRunTrial?.engineVersion ?? null,
+      free_river_run_trial_config_version:
+        options.freeRiverRunTrial?.configVersion ?? null,
     }];
     this.historyReadError = options.historyReadError === true;
     this.recentHistoryReadError = options.recentHistoryReadError === true;
@@ -677,15 +719,65 @@ Deno.test("visible snapshot with valid token returns 200", async () => {
   assertEquals(response.status, 200);
 });
 
-Deno.test("visible snapshot requires an active subscriber", async () => {
+Deno.test("free user gets one lifetime snapshot and same-refresh replay only", async () => {
+  const client = new MockClient({ subscriptionTier: "free" });
+  const path =
+    "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-15&localTime=16:30&refreshAtUtc=2026-08-15T20:30:00.000Z";
+  const deps = {
+    createAdminClient: () => client,
+    runs: [enabledRun],
+    gaugeObservations: [gaugeObservation],
+    weatherSnapshot: envData,
+    engineVersion: "free-trial-engine",
+    configVersion: "free-trial-config",
+  };
+
+  const first = await handleRiverRunRequest(request(path), deps);
+  assertEquals(first.status, 200);
+  assertEquals((await json(first)).accessTier, "free_trial");
+  const claimed = client.rows.profiles[0];
+  assertEquals(claimed.free_river_run_trial_river_id, "pere_marquette");
+  assertEquals(claimed.free_river_run_trial_run_id, "pere_marquette_fall_chinook");
+  assertEquals(claimed.free_river_run_trial_local_date, "2026-08-15");
+  assertEquals(claimed.free_river_run_trial_refresh_slot, "16:00");
+
+  const replay = await handleRiverRunRequest(request(path), deps);
+  assertEquals(replay.status, 200);
+  assertEquals((await json(replay)).accessTier, "free_trial");
+
+  const nextRefresh = await handleRiverRunRequest(
+    request(
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-15&localTime=20:30&refreshAtUtc=2026-08-16T00:30:00.000Z",
+    ),
+    deps,
+  );
+  assertEquals(nextRefresh.status, 403);
+  assertEquals((await json(nextRefresh)).error, "subscription_required");
+});
+
+Deno.test("spent free River Migration trial blocks every other combination", async () => {
   const response = await handleRiverRunRequest(
     request(
-      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook",
+      "/snapshot?riverId=pere_marquette&runId=pere_marquette_fall_chinook&localDate=2026-08-15&localTime=16:30&refreshAtUtc=2026-08-15T20:30:00.000Z",
     ),
     {
       createAdminClient: () =>
-        new MockClient({ subscriptionTier: "free" }),
+        new MockClient({
+          subscriptionTier: "free",
+          freeRiverRunTrial: {
+            usedAt: "2026-08-15T19:00:00.000Z",
+            riverId: "betsie",
+            runId: "betsie_fall_chinook",
+            presentationState: "MI",
+            localDate: "2026-08-15",
+            refreshSlot: "16:00",
+            engineVersion: "free-trial-engine",
+            configVersion: "free-trial-config",
+          },
+        }),
       runs: [enabledRun],
+      engineVersion: "free-trial-engine",
+      configVersion: "free-trial-config",
     },
   );
   assertEquals(response.status, 403);
@@ -710,7 +802,7 @@ Deno.test("visible snapshot accepts Master Angler access", async () => {
   assertEquals(response.status, 200);
 });
 
-Deno.test("Betsie snapshot stays seasonal-only and never calls live providers", async () => {
+Deno.test("Betsie snapshot fetches only weather for its seasonal Activity", async () => {
   let providerCalls = 0;
   const response = await handleRiverRunRequest(
     request(
@@ -723,7 +815,7 @@ Deno.test("Betsie snapshot stays seasonal-only and never calls live providers", 
       fetchFn: async () => {
         providerCalls += 1;
         throw new Error(
-          "Betsie seasonal-only runtime must not fetch providers",
+          "weather offline",
         );
       },
       now: new Date("2026-09-15T20:30:00.000Z"),
@@ -734,7 +826,7 @@ Deno.test("Betsie snapshot stays seasonal-only and never calls live providers", 
   const body = await json(response);
 
   assertEquals(response.status, 200);
-  assertEquals(providerCalls, 0);
+  assertEquals(providerCalls, 1);
   assertEquals(body.runStage.label, "Peak");
   assertEquals(body.fishInRiver.score, 100);
   assertEquals(body.conditionsSuggest.label, "Unavailable");
@@ -746,13 +838,13 @@ Deno.test("Betsie snapshot stays seasonal-only and never calls live providers", 
   assertEquals(body.pushHistory.status, "unavailable");
   assertEquals(body.pushHistory.recentDailyReadsStatus, "unavailable");
   assertEquals(body.gauge, undefined);
-  assertEquals(body.weather, undefined);
+  assertEquals(body.weather.provider, "OPEN_METEO");
   assertEquals(body.waterTemperature, undefined);
   assertEquals(body.conditionsWaterTemperature, undefined);
   assertMatch(body.safety.regulationReminder, /300 feet/i);
 });
 
-Deno.test("Betsie Coho snapshot stays seasonal-only and honors its limited ceiling", async () => {
+Deno.test("Betsie Coho snapshot uses weather-only Activity and honors its limited ceiling", async () => {
   let providerCalls = 0;
   const response = await handleRiverRunRequest(
     request(
@@ -765,7 +857,7 @@ Deno.test("Betsie Coho snapshot stays seasonal-only and honors its limited ceili
       fetchFn: async () => {
         providerCalls += 1;
         throw new Error(
-          "Betsie seasonal-only runtime must not fetch providers",
+          "weather offline",
         );
       },
       now: new Date("2026-10-15T20:30:00.000Z"),
@@ -776,7 +868,7 @@ Deno.test("Betsie Coho snapshot stays seasonal-only and honors its limited ceili
   const body = await json(response);
 
   assertEquals(response.status, 200);
-  assertEquals(providerCalls, 0);
+  assertEquals(providerCalls, 1);
   assertEquals(body.runStage.label, "Peak");
   assertEquals(body.fishInRiver.score, 30);
   assertEquals(body.fishInRiver.riverCeiling, 30);
@@ -785,11 +877,12 @@ Deno.test("Betsie Coho snapshot stays seasonal-only and honors its limited ceili
   assertEquals(body.push.label, "Unavailable");
   assertEquals(body.fishability.label, "Unavailable");
   assertEquals(body.gauge, undefined);
+  assertEquals(body.weather.provider, "OPEN_METEO");
   assertEquals(body.waterTemperature, undefined);
   assertMatch(body.safety.regulationReminder, /300 feet/i);
 });
 
-Deno.test("Betsie Steelhead snapshot stays seasonal-only and honors its 70-point ceiling", async () => {
+Deno.test("Betsie Steelhead snapshot uses weather-only Activity and honors its 70-point ceiling", async () => {
   let providerCalls = 0;
   const response = await handleRiverRunRequest(
     request(
@@ -802,7 +895,7 @@ Deno.test("Betsie Steelhead snapshot stays seasonal-only and honors its 70-point
       fetchFn: async () => {
         providerCalls += 1;
         throw new Error(
-          "Betsie seasonal-only runtime must not fetch providers",
+          "weather offline",
         );
       },
       now: new Date("2026-11-10T21:30:00.000Z"),
@@ -813,7 +906,7 @@ Deno.test("Betsie Steelhead snapshot stays seasonal-only and honors its 70-point
   const body = await json(response);
 
   assertEquals(response.status, 200);
-  assertEquals(providerCalls, 0);
+  assertEquals(providerCalls, 1);
   assertEquals(body.runStage.label, "Peak");
   assertEquals(body.fishInRiver.score, 70);
   assertEquals(body.fishInRiver.riverCeiling, 70);
@@ -822,6 +915,7 @@ Deno.test("Betsie Steelhead snapshot stays seasonal-only and honors its 70-point
   assertEquals(body.push.label, "Unavailable");
   assertEquals(body.fishability.label, "Unavailable");
   assertEquals(body.gauge, undefined);
+  assertEquals(body.weather.provider, "OPEN_METEO");
   assertEquals(body.waterTemperature, undefined);
   assertMatch(body.safety.regulationReminder, /300 feet/i);
 });

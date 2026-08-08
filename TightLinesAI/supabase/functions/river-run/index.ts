@@ -58,6 +58,11 @@ import {
   rateLimitExceededResponse,
 } from "../_shared/rateLimit.ts";
 import { resolveServerSubscriptionTier } from "../_shared/appAccess.ts";
+import {
+  FREE_TRIAL_PROFILE_SELECT,
+  type FreeTrialProfileRow,
+  freeRiverRunTrialAvailable,
+} from "../_shared/freeTrialAccess.ts";
 
 // Bump whenever response semantics change so hourly refresh rows built by an
 // older deployment cannot mask the corrected live behavior.
@@ -323,11 +328,13 @@ export async function handleRiverRunRequest(
   const client = deps.createAdminClient?.() ?? createDefaultAdminClient();
   const auth = await authenticateSnapshotRequest(req, client);
   if (auth instanceof Response) return auth;
-  const { data: profile, error: profileError } = await client
+  const profileResult = await client
     .from("profiles")
-    .select("subscription_tier")
+    .select(FREE_TRIAL_PROFILE_SELECT)
     .eq("id", auth.userId)
     .maybeSingle();
+  const profile = profileResult.data as FreeTrialProfileRow | null;
+  const profileError = profileResult.error;
   if (profileError) {
     console.error("[river-run] subscription profile read failed", {
       userId: auth.userId,
@@ -345,9 +352,29 @@ export async function handleRiverRunRequest(
       : null,
     auth.email,
   );
-  if (tier === "free") {
+  const timing = resolveRequestTiming(
+    url,
+    river,
+    run,
+    deps.now ?? new Date(),
+    deps.allowTestOverrides === true,
+  );
+  const freeTrialKey: FreeRiverRunTrialKey = {
+    riverId,
+    runId,
+    presentationState: presentation.state,
+    localDate: timing.localDate,
+    refreshSlot: timing.refreshSlot,
+    engineVersion,
+    configVersion,
+  };
+  const freeTrialUnused = freeRiverRunTrialAvailable(profile);
+  if (
+    tier === "free" && !freeTrialUnused &&
+    !freeRiverRunTrialMatches(profile, freeTrialKey)
+  ) {
     return jsonError(
-      "Subscribe to use River Migration reports.",
+      "Your free River Migration read has already expired. Subscribe for current reports.",
       "subscription_required",
       403,
     );
@@ -361,13 +388,6 @@ export async function handleRiverRunRequest(
     return rateLimitExceededResponse(rateLimit, corsHeaders());
   }
   try {
-    const timing = resolveRequestTiming(
-      url,
-      river,
-      run,
-      deps.now ?? new Date(),
-      deps.allowTestOverrides === true,
-    );
     const result = await readOrBuildSnapshot({
       client,
       river,
@@ -388,14 +408,31 @@ export async function handleRiverRunRequest(
       engineVersion,
       configVersion,
     });
-    return jsonResponse(shapeSnapshotResponse({
+    if (tier === "free" && freeTrialUnused) {
+      const claimed = await claimFreeRiverRunTrial(
+        client,
+        auth.userId,
+        freeTrialKey,
+      );
+      if (!claimed) {
+        return jsonError(
+          "Your free River Migration read has already been used. Subscribe for current reports.",
+          "subscription_required",
+          403,
+        );
+      }
+    }
+    return jsonResponse({
+      ...shapeSnapshotResponse({
       ...result,
       river,
       run,
       timing,
       pushHistory,
       presentation,
-    }));
+      }),
+      accessTier: tier === "free" ? "free_trial" : "angler",
+    });
   } catch (error) {
     console.error("[river-run] snapshot failed", {
       riverId,
@@ -778,6 +815,78 @@ async function authenticateSnapshotRequest(
   }
 
   return { userId: user.id, email: user.email ?? null };
+}
+
+type FreeRiverRunTrialKey = {
+  riverId: string;
+  runId: string;
+  presentationState: string;
+  localDate: string;
+  refreshSlot: RefreshSlot;
+  engineVersion: string;
+  configVersion: string;
+};
+
+function freeRiverRunTrialMatches(
+  profile: FreeTrialProfileRow | null | undefined,
+  key: FreeRiverRunTrialKey,
+): boolean {
+  return profile?.free_river_run_trial_used_at != null &&
+    profile.free_river_run_trial_river_id === key.riverId &&
+    profile.free_river_run_trial_run_id === key.runId &&
+    profile.free_river_run_trial_presentation_state ===
+      key.presentationState &&
+    profile.free_river_run_trial_local_date === key.localDate &&
+    profile.free_river_run_trial_refresh_slot === key.refreshSlot &&
+    profile.free_river_run_trial_engine_version === key.engineVersion &&
+    profile.free_river_run_trial_config_version === key.configVersion;
+}
+
+async function claimFreeRiverRunTrial(
+  client: SupabaseLikeClient,
+  userId: string,
+  key: FreeRiverRunTrialKey,
+): Promise<boolean> {
+  const markedAt = new Date().toISOString();
+  const { data, error } = await (client as any)
+    .from("profiles")
+    .update({
+      free_river_run_trial_used_at: markedAt,
+      free_river_run_trial_river_id: key.riverId,
+      free_river_run_trial_run_id: key.runId,
+      free_river_run_trial_presentation_state: key.presentationState,
+      free_river_run_trial_local_date: key.localDate,
+      free_river_run_trial_refresh_slot: key.refreshSlot,
+      free_river_run_trial_engine_version: key.engineVersion,
+      free_river_run_trial_config_version: key.configVersion,
+    })
+    .eq("id", userId)
+    .is("free_river_run_trial_used_at", null)
+    .select(FREE_TRIAL_PROFILE_SELECT)
+    .maybeSingle();
+  if (error) {
+    throw new Error(`claim_free_river_run_trial_failed:${error.message}`);
+  }
+  if (data && freeRiverRunTrialMatches(data as FreeTrialProfileRow, key)) {
+    return true;
+  }
+
+  // A concurrent first request may have won the claim. Permit only if it won
+  // with this exact report and refresh identity; every other race fails closed.
+  const { data: current, error: readError } = await (client as any)
+    .from("profiles")
+    .select(FREE_TRIAL_PROFILE_SELECT)
+    .eq("id", userId)
+    .maybeSingle();
+  if (readError) {
+    throw new Error(
+      `claim_free_river_run_trial_verify_failed:${readError.message}`,
+    );
+  }
+  return freeRiverRunTrialMatches(
+    current as FreeTrialProfileRow | null,
+    key,
+  );
 }
 
 function createDefaultAdminClient(): SupabaseLikeClient {

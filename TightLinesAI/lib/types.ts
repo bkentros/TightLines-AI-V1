@@ -21,6 +21,15 @@ export interface UserProfile {
   free_water_read_trial_used_at?: string | null;
   /** Server-set after the one full Today's Bite report; later today reads are limited. */
   free_today_bite_full_used_at?: string | null;
+  /** Server-owned lifetime River Migration trial and its one replayable refresh. */
+  free_river_run_trial_used_at?: string | null;
+  free_river_run_trial_river_id?: string | null;
+  free_river_run_trial_run_id?: string | null;
+  free_river_run_trial_presentation_state?: string | null;
+  free_river_run_trial_local_date?: string | null;
+  free_river_run_trial_refresh_slot?: string | null;
+  free_river_run_trial_engine_version?: string | null;
+  free_river_run_trial_config_version?: string | null;
   onboarding_complete: boolean;
   avatar_url: string | null;
   created_at: string;

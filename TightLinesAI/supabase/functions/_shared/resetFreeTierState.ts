@@ -27,6 +27,14 @@ export async function resetFreeTierStateForUser(
       free_recommender_trial_used_at: null,
       free_water_read_trial_used_at: null,
       free_today_bite_full_used_at: null,
+      free_river_run_trial_used_at: null,
+      free_river_run_trial_river_id: null,
+      free_river_run_trial_run_id: null,
+      free_river_run_trial_presentation_state: null,
+      free_river_run_trial_local_date: null,
+      free_river_run_trial_refresh_slot: null,
+      free_river_run_trial_engine_version: null,
+      free_river_run_trial_config_version: null,
     })
     .eq("id", userId);
 

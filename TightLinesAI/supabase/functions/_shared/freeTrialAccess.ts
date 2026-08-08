@@ -1,13 +1,21 @@
 import type { SupabaseClient } from "https://esm.sh/@supabase/supabase-js@2.49.1";
 
 export const FREE_TRIAL_PROFILE_SELECT =
-  "subscription_tier, free_recommender_trial_used_at, free_water_read_trial_used_at, free_today_bite_full_used_at";
+  "subscription_tier, free_recommender_trial_used_at, free_water_read_trial_used_at, free_today_bite_full_used_at, free_river_run_trial_used_at, free_river_run_trial_river_id, free_river_run_trial_run_id, free_river_run_trial_presentation_state, free_river_run_trial_local_date, free_river_run_trial_refresh_slot, free_river_run_trial_engine_version, free_river_run_trial_config_version";
 
 export type FreeTrialProfileRow = {
   subscription_tier: string | null;
   free_recommender_trial_used_at: string | null;
   free_water_read_trial_used_at: string | null;
   free_today_bite_full_used_at: string | null;
+  free_river_run_trial_used_at?: string | null;
+  free_river_run_trial_river_id?: string | null;
+  free_river_run_trial_run_id?: string | null;
+  free_river_run_trial_presentation_state?: string | null;
+  free_river_run_trial_local_date?: string | null;
+  free_river_run_trial_refresh_slot?: string | null;
+  free_river_run_trial_engine_version?: string | null;
+  free_river_run_trial_config_version?: string | null;
 };
 
 export function freeRecommenderTrialAvailable(
@@ -26,6 +34,12 @@ export function freeTodayBiteFullTrialAvailable(
   profile: FreeTrialProfileRow | null | undefined,
 ): boolean {
   return profile?.free_today_bite_full_used_at == null;
+}
+
+export function freeRiverRunTrialAvailable(
+  profile: FreeTrialProfileRow | null | undefined,
+): boolean {
+  return profile?.free_river_run_trial_used_at == null;
 }
 
 export async function markFreeRecommenderTrialUsed(

@@ -9,6 +9,7 @@ import type { UserProfile } from './types';
 import { hasComplimentaryAnglerAccess } from './adminAccess';
 import {
   freeRecommenderTrialAvailable,
+  freeRiverRunTrialAvailable,
   freeTodayBiteFullTrialAvailable,
   freeWaterReadTrialAvailable,
 } from './freeTrialAccess';
@@ -56,9 +57,36 @@ export function canGenerateForecastReport(tier: SubscriptionTier): boolean {
   return canUseAIFeatures(tier);
 }
 
-/** River Migration setup is public, but generating a live report is Angler-only. */
-export function canGenerateRiverRunReport(tier: SubscriptionTier): boolean {
-  return canUseAIFeatures(tier);
+/** First River Migration claim — Angler or an unused lifetime free trial. */
+export function canGenerateRiverRunReport(
+  tier: SubscriptionTier,
+  profile?: UserProfile | null,
+): boolean {
+  if (canUseAIFeatures(tier)) return true;
+  // Never assume an unused lifetime allowance before the profile hydrates.
+  if (!profile) return false;
+  return freeRiverRunTrialAvailable(profile);
+}
+
+/**
+ * A spent free account may ask the server to replay only its claimed combo.
+ * The server remains authoritative for whether that combo's refresh is current.
+ */
+export function canAttemptRiverRunReport(
+  tier: SubscriptionTier,
+  profile: UserProfile | null | undefined,
+  target: {
+    riverId: string;
+    runId: string;
+    presentationState: string;
+  } | null,
+): boolean {
+  if (canGenerateRiverRunReport(tier, profile)) return true;
+  if (!target || !profile) return false;
+  return profile.free_river_run_trial_river_id === target.riverId &&
+    profile.free_river_run_trial_run_id === target.runId &&
+    profile.free_river_run_trial_presentation_state ===
+      target.presentationState;
 }
 
 /** New Tackle Box session — Angler or unused free trial. */

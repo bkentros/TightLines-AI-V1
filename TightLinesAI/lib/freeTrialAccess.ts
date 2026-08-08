@@ -17,3 +17,9 @@ export function freeTodayBiteFullTrialAvailable(
 ): boolean {
   return profile?.free_today_bite_full_used_at == null;
 }
+
+export function freeRiverRunTrialAvailable(
+  profile: UserProfile | null | undefined,
+): boolean {
+  return profile?.free_river_run_trial_used_at == null;
+}

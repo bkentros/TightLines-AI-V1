@@ -29,7 +29,11 @@ import {
 import { RiverRunVisual } from "../components/river-run/RiverRunVisual";
 import { FeedbackCard } from "../components/FeedbackCard";
 import { SubscribePrompt } from "../components/SubscribePrompt";
-import { fetchRiverRunCatalog, fetchRiverRunSnapshot } from "../lib/riverRun";
+import {
+  fetchRiverRunCatalog,
+  fetchRiverRunSnapshot,
+  RiverRunRequestError,
+} from "../lib/riverRun";
 import {
   formatRiverRunSeason,
   formatRiverRunSpecies,
@@ -80,7 +84,7 @@ import {
 } from "../lib/safeHaptics";
 import { paper, paperFonts, paperRadius, paperShadows } from "../lib/theme";
 import {
-  canGenerateRiverRunReport,
+  canAttemptRiverRunReport,
   getEffectiveTier,
 } from "../lib/subscription";
 import { useAuthStore } from "../store/authStore";
@@ -401,9 +405,8 @@ const STEP_CONFIG: Record<
 
 export default function RiverRunScreen() {
   const router = useRouter();
-  const { profile, user } = useAuthStore();
+  const { profile, user, fetchProfile } = useAuthStore();
   const effectiveTier = getEffectiveTier(profile, user?.email);
-  const canGenerateReport = canGenerateRiverRunReport(effectiveTier);
   const [showSubscribePrompt, setShowSubscribePrompt] = useState(false);
   const [screenState, setScreenState] = useState<ScreenState>("setup");
   const [wizardStep, setWizardStep] = useState<WizardStep>(1);
@@ -572,10 +575,26 @@ export default function RiverRunScreen() {
         runId: selectedTarget.run.runId,
         presentationState: selectedTarget.state.state,
       });
-      if (requestId === snapshotRequestRef.current) setSnapshot(next);
+      if (requestId === snapshotRequestRef.current) {
+        setSnapshot(next);
+        if (next.accessTier === "free_trial" && user?.id) {
+          void fetchProfile(user.id);
+        }
+      }
     } catch (error) {
       if (requestId === snapshotRequestRef.current) {
         setSnapshot(null);
+        if (
+          error instanceof RiverRunRequestError &&
+          error.code === "subscription_required"
+        ) {
+          setSnapshotError(null);
+          setScreenState("setup");
+          setWizardStep(1);
+          setShowSubscribePrompt(true);
+          if (user?.id) void fetchProfile(user.id);
+          return;
+        }
         setSnapshotError(
           error instanceof Error
             ? error.message
@@ -587,7 +606,7 @@ export default function RiverRunScreen() {
         setLoadingSnapshot(false);
       }
     }
-  }, [reviewMode, screenState, selectedTarget]);
+  }, [fetchProfile, reviewMode, screenState, selectedTarget, user?.id]);
 
   useFocusEffect(
     useCallback(() => {
@@ -716,13 +735,32 @@ export default function RiverRunScreen() {
       setWizardStep((wizardStep + 1) as WizardStep);
       return;
     }
-    if (!reviewMode && !canGenerateReport) {
+    const canAttemptReport = canAttemptRiverRunReport(
+      effectiveTier,
+      profile,
+      selectedTarget
+        ? {
+          riverId: selectedTarget.river.riverId,
+          runId: selectedTarget.run.runId,
+          presentationState: selectedTarget.state.state,
+        }
+        : null,
+    );
+    if (!reviewMode && !canAttemptReport) {
       hapticSelection();
       setShowSubscribePrompt(true);
       return;
     }
     openSelectedReport();
-  }, [canContinue, canGenerateReport, openSelectedReport, reviewMode, wizardStep]);
+  }, [
+    canContinue,
+    effectiveTier,
+    openSelectedReport,
+    profile,
+    reviewMode,
+    selectedTarget,
+    wizardStep,
+  ]);
 
   const handleModeChange = useCallback((nextReviewMode: boolean) => {
     if (nextReviewMode === reviewMode) return;
