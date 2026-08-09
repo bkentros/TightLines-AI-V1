@@ -523,6 +523,7 @@ export default function SettingsScreen() {
           <ScrollView
             contentContainerStyle={styles.scroll}
             keyboardShouldPersistTaps="handled"
+            keyboardDismissMode="interactive"
             showsVerticalScrollIndicator={false}
           >
             <SettingsHero
@@ -1657,9 +1658,9 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
   locationFields: {
-    flexDirection: 'row',
-    gap: paperSpacing.xs + 2,
-    alignItems: 'center',
+    flexDirection: 'column',
+    gap: paperSpacing.sm,
+    alignItems: 'stretch',
   },
   statePickerPlaceholder: { opacity: 0.55 },
   stateList: {

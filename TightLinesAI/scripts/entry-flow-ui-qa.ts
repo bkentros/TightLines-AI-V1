@@ -66,8 +66,8 @@ assert.match(
 );
 assert.match(
   verifiedCity,
-  /searchUsCities[\s\S]*?onSelect[\s\S]*?SELECT A VERIFIED CITY/,
-  'The shared city field must use the bundled city search and explicit selection',
+  /searchUsCities[\s\S]*?onSelect[\s\S]*?const showResults = !verified[\s\S]*?SELECT A VERIFIED CITY/,
+  'The shared city field must use city search, explicit selection, and scroll-persistent results',
 );
 
 console.log(

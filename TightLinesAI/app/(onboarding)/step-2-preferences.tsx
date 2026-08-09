@@ -1370,17 +1370,16 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
   },
   locationFieldsRow: {
-    flexDirection: 'row',
+    flexDirection: 'column',
     alignItems: 'flex-start',
-    gap: paperSpacing.sm,
+    gap: paperSpacing.md,
   },
   locationFieldState: {
-    width: 112,
+    width: '100%',
     gap: 5,
   },
   locationFieldCity: {
-    flex: 1,
-    minWidth: 0,
+    width: '100%',
     gap: 5,
   },
   miniFieldLabel: {

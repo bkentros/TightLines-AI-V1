@@ -52,7 +52,7 @@ export function VerifiedCityInput({
 
   useEffect(() => {
     const trimmed = value.trim();
-    if (!focused || verified || trimmed.length < MIN_QUERY_LENGTH) {
+    if (verified || trimmed.length < MIN_QUERY_LENGTH) {
       setResults([]);
       setLoading(false);
       setSearched(false);
@@ -70,7 +70,7 @@ export function VerifiedCityInput({
           const inState = stateCode
             ? matches.filter((match) => match.label.endsWith(`, ${stateCode}`))
             : matches;
-          setResults(inState.slice(0, 6));
+          setResults(inState.slice(0, 4));
           setSearched(true);
         })
         .catch((error: unknown) => {
@@ -88,7 +88,7 @@ export function VerifiedCityInput({
       clearTimeout(timer);
       controller.abort();
     };
-  }, [focused, stateCode, value, verified]);
+  }, [stateCode, value, verified]);
 
   const choose = (place: PlaceResult) => {
     const parsed = splitPlaceLabel(place.label);
@@ -99,9 +99,10 @@ export function VerifiedCityInput({
     setFocused(false);
   };
 
-  const showResults = focused && !verified && results.length > 0;
-  const showEmpty = focused && !verified && searched && !loading &&
+  const showResults = !verified && results.length > 0;
+  const showEmpty = !verified && searched && !loading &&
     value.trim().length >= MIN_QUERY_LENGTH && results.length === 0;
+  const showHint = focused && !verified && value.trim().length < MIN_QUERY_LENGTH;
 
   return (
     <View style={styles.root}>
@@ -116,9 +117,7 @@ export function VerifiedCityInput({
           value={value}
           onChangeText={onChangeText}
           onFocus={() => setFocused(true)}
-          onBlur={() => {
-            setTimeout(() => setFocused(false), 120);
-          }}
+          onBlur={() => setFocused(false)}
           placeholder={placeholder}
           placeholderTextColor={paper.dashboardInk + '70'}
           autoCorrect={false}
@@ -129,6 +128,13 @@ export function VerifiedCityInput({
         />
         {loading ? <ActivityIndicator size="small" color={paper.dashboardBlue} /> : null}
       </View>
+
+      {showHint ? (
+        <View style={styles.hintRow}>
+          <Ionicons name="information-circle-outline" size={13} color={paper.dashboardBlue} />
+          <Text style={styles.hintText}>Type at least two letters, then tap a verified match.</Text>
+        </View>
+      ) : null}
 
       {showResults ? (
         <View style={styles.results}>
@@ -160,7 +166,7 @@ export function VerifiedCityInput({
 }
 
 const styles = StyleSheet.create({
-  root: { position: 'relative' },
+  root: { position: 'relative', flex: 1, minWidth: 0 },
   inputShell: {
     minHeight: 50,
     flexDirection: 'row',
@@ -241,6 +247,19 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.body,
     fontSize: 10.5,
     lineHeight: 15,
+    color: paper.dashboardMuted,
+  },
+  hintRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 5,
+    marginTop: 7,
+  },
+  hintText: {
+    flex: 1,
+    fontFamily: paperFonts.body,
+    fontSize: 10.5,
+    lineHeight: 14,
     color: paper.dashboardMuted,
   },
 });
