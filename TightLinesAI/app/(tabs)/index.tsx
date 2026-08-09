@@ -2042,16 +2042,15 @@ function BiteCtaWaveView() {
 }
 
 /**
- * FinFindr brand emblem rendered from the bundled PNG asset.
- * The logo file has a transparent background so it sits cleanly on the
- * dark navy header without a visible white block.
+ * Dashboard-only FinFindr brand emblem. Other app surfaces intentionally
+ * retain their existing branding until the wider logo rollout is approved.
  */
 function FinFindrEmblemView() {
   return (
     <Image
-      source={require("../../assets/images/finfindr-logo.png")}
-      style={{ width: 36, height: 47 }}
-      resizeMode="contain"
+      source={require("../../assets/images/finfindr-dashboard-logo.png")}
+      style={styles.navLogo}
+      resizeMode="cover"
     />
   );
 }
@@ -2374,16 +2373,21 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
 
   // ─── Nav bar (dark navy strip) ───────────────────────────────────────────
-  safeNav: { backgroundColor: paper.dashboardInk },
+  safeNav: { backgroundColor: "#011842" },
   navBar: {
     height: 66,
     paddingHorizontal: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: paper.dashboardInk,
+    backgroundColor: "#011842",
   },
   navBarLeft: { flexDirection: "row", alignItems: "center", gap: 8 },
+  navLogo: {
+    width: 44,
+    height: 44,
+    borderRadius: 11,
+  },
   navWordmarkRow: { flexDirection: "row", alignItems: "baseline" },
   navWordmark: {
     fontFamily: SERIF_BOLD,
