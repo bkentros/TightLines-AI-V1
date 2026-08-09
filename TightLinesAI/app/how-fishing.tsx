@@ -1354,7 +1354,7 @@ function TopLevelHeader({
 
       <View style={headerStyles.brand}>
         <Image
-          source={require("../assets/images/finfindr-logo.png")}
+          source={require("../assets/images/finfindr-dashboard-logo-transparent.png")}
           style={headerStyles.logo}
           resizeMode="contain"
         />
@@ -1408,8 +1408,8 @@ const headerStyles = StyleSheet.create({
     gap: 8,
   },
   logo: {
-    width: 34,
-    height: 38,
+    width: 36,
+    height: 36,
   },
   titleWrap: {
     flex: 1,

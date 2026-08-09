@@ -1022,7 +1022,7 @@ export default function WaterReaderScreen() {
 
           <View style={styles.navBrand}>
             <Image
-              source={require('../assets/images/finfindr-logo.png')}
+              source={require('../assets/images/finfindr-dashboard-logo-transparent.png')}
               style={styles.navLogo as ImageStyle}
               resizeMode="contain"
             />
@@ -1723,7 +1723,7 @@ function WaterReadIdlePreview() {
               {/* FinFindr brand chip — smaller version of WaterReadEditionStamp. */}
               <View style={styles.idleBrandChip} pointerEvents="none">
                 <Image
-                  source={require('../assets/images/finfindr-logo.png')}
+                  source={require('../assets/images/finfindr-dashboard-logo.png')}
                   style={styles.idleBrandLogo as ImageStyle}
                   resizeMode="contain"
                 />
@@ -2091,8 +2091,8 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   navLogo: {
-    width: 34,
-    height: 38,
+    width: 36,
+    height: 36,
   },
   navTitleWrap: {
     flex: 1,
@@ -2872,8 +2872,7 @@ const styles = StyleSheet.create({
   },
   idleBrandLogo: {
     width: 11,
-    height: 13,
-    backgroundColor: paper.dashboardInk,
+    height: 11,
     borderRadius: 3,
   },
   idleBrandText: {

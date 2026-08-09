@@ -186,7 +186,7 @@ export default function SubscribeScreen() {
             <View style={styles.brandLockup}>
               <View style={styles.logoBadge}>
                 <Image
-                  source={require('../assets/images/finfindr-logo.png')}
+                  source={require('../assets/images/finfindr-dashboard-logo-transparent.png')}
                   style={styles.logo}
                   resizeMode="contain"
                 />

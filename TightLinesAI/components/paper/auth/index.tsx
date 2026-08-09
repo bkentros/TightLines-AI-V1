@@ -79,7 +79,7 @@ export function AuthBrandRibbon() {
     <View style={styles.ribbon}>
       <View style={styles.ribbonLeft}>
         <Image
-          source={require('../../../assets/images/finfindr-logo.png')}
+          source={require('../../../assets/images/finfindr-dashboard-logo.png')}
           style={styles.ribbonEmblem}
           resizeMode="contain"
         />
@@ -476,8 +476,9 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   ribbonEmblem: {
-    width: 28,
-    height: 36,
+    width: 32,
+    height: 32,
+    borderRadius: 8,
   },
   ribbonLockup: {
     alignItems: 'flex-start',

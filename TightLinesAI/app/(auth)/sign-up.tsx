@@ -416,7 +416,7 @@ export default function SignUpScreen() {
 
               <View style={styles.heroLockup}>
                 <Image
-                  source={require('../../assets/images/finfindr-logo.png')}
+                  source={require('../../assets/images/finfindr-dashboard-logo.png')}
                   style={styles.heroEmblem}
                   resizeMode="contain"
                 />
@@ -847,8 +847,9 @@ const styles = StyleSheet.create({
     zIndex: 1,
   },
   heroEmblem: {
-    width: 50,
-    height: 64,
+    width: 52,
+    height: 52,
+    borderRadius: 13,
   },
   heroLockupText: {
     flex: 1,

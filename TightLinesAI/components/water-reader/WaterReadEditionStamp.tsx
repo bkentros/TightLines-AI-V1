@@ -24,7 +24,7 @@ export function WaterReadEditionStamp() {
       accessibilityElementsHidden
     >
       <Image
-        source={require('../../assets/images/finfindr-logo.png')}
+        source={require('../../assets/images/finfindr-dashboard-logo.png')}
         style={styles.logo}
         resizeMode="contain"
       />
@@ -58,9 +58,8 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-start',
   },
   logo: {
-    width: 18,
-    height: 22,
-    backgroundColor: paper.dashboardInk,
+    width: 20,
+    height: 20,
     borderRadius: 5,
   },
   wordmark: {

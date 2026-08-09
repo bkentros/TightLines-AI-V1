@@ -12,8 +12,8 @@
  *   - Cardinal ticks: 4 short hairline bars at N · E · S · W, just outside
  *     the outermost halo ring. Reinforces the "field guide" voice without
  *     drawing attention away from the brand mark.
- *   - Emblem: the bundled `finfindr-logo.png` rendered with `resizeMode='contain'`
- *     so the pin shape stays crisp at any size.
+ *   - Emblem: the bundled blue three-fish logo tile, rounded proportionally
+ *     so it reads cleanly on white and cream entry surfaces.
  *   - Breath animation (opt-in via `breath`): native-driver scale loop between
  *     1.0 and 1.045, 2.8s round-trip — reads as a slow inhale/exhale and gives
  *     the brand mark life without being distracting.
@@ -122,9 +122,9 @@ export function BrandEmblem({
         }}
       >
         <Image
-          source={require('../../assets/images/finfindr-logo.png')}
-          style={[{ width: size, height: size }, imageStyle]}
-          resizeMode="contain"
+          source={require('../../assets/images/finfindr-dashboard-logo.png')}
+          style={[{ width: size, height: size, borderRadius: size * 0.235 }, imageStyle]}
+          resizeMode="cover"
         />
       </Animated.View>
     </View>

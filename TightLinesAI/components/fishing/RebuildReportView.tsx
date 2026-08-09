@@ -1070,7 +1070,7 @@ function AnglerUpgradeModal({
             <View style={styles.upgradeHeaderLeft}>
               <View style={styles.upgradeHeaderLogoBadge}>
                 <Image
-                  source={require("../../assets/images/finfindr-logo.png")}
+                  source={require("../../assets/images/finfindr-dashboard-logo-transparent.png")}
                   style={styles.upgradeHeaderLogo}
                   resizeMode="contain"
                 />
