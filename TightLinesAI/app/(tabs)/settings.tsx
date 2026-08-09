@@ -682,6 +682,35 @@ export default function SettingsScreen() {
                   />
                 </Pressable>
 
+                {showStateList && (
+                  <View style={styles.stateList}>
+                    <ScrollView style={styles.stateScroll} nestedScrollEnabled>
+                      {US_STATES.map((state) => (
+                        <Pressable
+                          key={state}
+                          style={[styles.stateOption, homeState === state && styles.stateOptionActive]}
+                          onPress={() => {
+                            hapticSelection();
+                            setHomeState(state);
+                            setHomeCity('');
+                            setHomeCityVerified(false);
+                            setShowStateList(false);
+                          }}
+                        >
+                          <Text
+                            style={[
+                              styles.stateOptionText,
+                              homeState === state && styles.stateOptionTextActive,
+                            ]}
+                          >
+                            {state}
+                          </Text>
+                        </Pressable>
+                      ))}
+                    </ScrollView>
+                  </View>
+                )}
+
                 <VerifiedCityInput
                   value={homeCity}
                   stateCode={homeState}
@@ -698,35 +727,6 @@ export default function SettingsScreen() {
                   placeholder={homeState ? `Search in ${homeState}` : 'Search for a city'}
                 />
               </View>
-
-              {showStateList && (
-                <View style={styles.stateList}>
-                  <ScrollView style={styles.stateScroll} nestedScrollEnabled>
-                    {US_STATES.map((state) => (
-                      <Pressable
-                        key={state}
-                        style={[styles.stateOption, homeState === state && styles.stateOptionActive]}
-                        onPress={() => {
-                          hapticSelection();
-                          setHomeState(state);
-                          setHomeCity('');
-                          setHomeCityVerified(false);
-                          setShowStateList(false);
-                        }}
-                      >
-                        <Text
-                          style={[
-                            styles.stateOptionText,
-                            homeState === state && styles.stateOptionTextActive,
-                          ]}
-                        >
-                          {state}
-                        </Text>
-                      </Pressable>
-                    ))}
-                  </ScrollView>
-                </View>
-              )}
 
               <PrimaryAction
                 label="Save location"

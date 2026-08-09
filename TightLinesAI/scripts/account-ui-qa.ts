@@ -25,6 +25,11 @@ assert.match(
 );
 assert.match(
   settings,
+  /style=\{styles\.statePicker\}[\s\S]*?showStateList &&[\s\S]*?style=\{styles\.stateList\}[\s\S]*?<VerifiedCityInput/,
+  "Settings state options must render directly below the state picker and before city search",
+);
+assert.match(
+  settings,
   /Choose a verified city[\s\S]*?<VerifiedCityInput[\s\S]*?homeCityVerified/,
   "Settings must reject unresolved city text and use the verified city selector",
 );

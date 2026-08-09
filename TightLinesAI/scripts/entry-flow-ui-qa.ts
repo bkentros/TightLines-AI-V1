@@ -61,6 +61,11 @@ assert.match(
 );
 assert.match(
   onboarding,
+  /style=\{styles\.statePicker\}[\s\S]*?showStateList &&[\s\S]*?style=\{styles\.stateList\}[\s\S]*?<VerifiedCityInput/,
+  'Onboarding state options must render directly below the state picker and before city search',
+);
+assert.match(
+  onboarding,
   /Choose a verified city[\s\S]*?<VerifiedCityInput[\s\S]*?homeCityVerified/,
   'Onboarding must require a selected city-index result when the optional city is populated',
 );

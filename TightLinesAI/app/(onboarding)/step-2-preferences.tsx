@@ -682,6 +682,38 @@ export default function OnboardingStep2() {
                       color={paper.dashboardInk}
                     />
                   </Pressable>
+                  {showStateList && (
+                    <View style={styles.stateList}>
+                      <ScrollView
+                        style={styles.stateScroll}
+                        nestedScrollEnabled
+                        showsVerticalScrollIndicator={false}
+                      >
+                        {US_STATES.map((state) => (
+                          <Pressable
+                            key={state}
+                            style={[styles.stateOption, homeState === state && styles.stateOptionActive]}
+                            onPress={() => {
+                              hapticSelection();
+                              setHomeState(state);
+                              setHomeCity('');
+                              setHomeCityVerified(false);
+                              setShowStateList(false);
+                            }}
+                          >
+                            <Text
+                              style={[
+                                styles.stateOptionText,
+                                homeState === state && styles.stateOptionTextActive,
+                              ]}
+                            >
+                              {state}
+                            </Text>
+                          </Pressable>
+                        ))}
+                      </ScrollView>
+                    </View>
+                  )}
                 </View>
 
                 <View style={styles.locationFieldCity}>
@@ -703,39 +735,6 @@ export default function OnboardingStep2() {
                   />
                 </View>
               </View>
-
-              {showStateList && (
-                <View style={styles.stateList}>
-                  <ScrollView
-                    style={styles.stateScroll}
-                    nestedScrollEnabled
-                    showsVerticalScrollIndicator={false}
-                  >
-                    {US_STATES.map((state) => (
-                      <Pressable
-                        key={state}
-                        style={[styles.stateOption, homeState === state && styles.stateOptionActive]}
-                        onPress={() => {
-                          hapticSelection();
-                          setHomeState(state);
-                          setHomeCity('');
-                          setHomeCityVerified(false);
-                          setShowStateList(false);
-                        }}
-                      >
-                        <Text
-                          style={[
-                            styles.stateOptionText,
-                            homeState === state && styles.stateOptionTextActive,
-                          ]}
-                        >
-                          {state}
-                        </Text>
-                      </Pressable>
-                    ))}
-                  </ScrollView>
-                </View>
-              )}
 
               </SetupPanel>
             </View>
