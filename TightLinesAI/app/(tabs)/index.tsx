@@ -2048,7 +2048,7 @@ function BiteCtaWaveView() {
 function FinFindrEmblemView() {
   return (
     <Image
-      source={require("../../assets/images/finfindr-dashboard-logo.png")}
+      source={require("../../assets/images/finfindr-dashboard-logo-transparent.png")}
       style={styles.navLogo}
       resizeMode="cover"
     />
