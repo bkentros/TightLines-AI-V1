@@ -12,6 +12,7 @@ const signUp = read('app/(auth)/sign-up.tsx');
 const verify = read('app/(auth)/verify-email.tsx');
 const onboarding = read('app/(onboarding)/step-2-preferences.tsx');
 const locationPicker = read('components/LocationPickerModal.tsx');
+const verifiedCity = read('components/VerifiedCityInput.tsx');
 
 assert.match(
   home,
@@ -57,6 +58,16 @@ assert.match(
   onboarding,
   /HANDLE[\s\S]*?STATE[\s\S]*?CITY · OPT\.[\s\S]*?STATE · REQUIRED[\s\S]*?CITY · OPTIONAL/,
   'Onboarding must make required and optional details explicit',
+);
+assert.match(
+  onboarding,
+  /Choose a verified city[\s\S]*?<VerifiedCityInput[\s\S]*?homeCityVerified/,
+  'Onboarding must require a selected city-index result when the optional city is populated',
+);
+assert.match(
+  verifiedCity,
+  /searchUsCities[\s\S]*?onSelect[\s\S]*?SELECT A VERIFIED CITY/,
+  'The shared city field must use the bundled city search and explicit selection',
 );
 
 console.log(

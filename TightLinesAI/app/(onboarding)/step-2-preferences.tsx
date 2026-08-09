@@ -35,6 +35,7 @@ import {
 } from '../../lib/usernameAvailability';
 import type { UserProfile } from '../../lib/types';
 import { useAuthScrollLayout } from '../../hooks/useAuthScrollLayout';
+import { VerifiedCityInput } from '../../components/VerifiedCityInput';
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -84,6 +85,7 @@ export default function OnboardingStep2() {
   const [username, setUsername] = useState('');
   const [homeState, setHomeState] = useState('');
   const [homeCity, setHomeCity] = useState('');
+  const [homeCityVerified, setHomeCityVerified] = useState(false);
   const [showStateList, setShowStateList] = useState(false);
   const [loading, setLoading] = useState(false);
   const [locationLoading, setLocationLoading] = useState(false);
@@ -236,7 +238,10 @@ export default function OnboardingStep2() {
           const stateAbbr = STATE_NAME_TO_ABBR[geo.region] ?? geo.region;
           if (US_STATES.includes(stateAbbr)) setHomeState(stateAbbr);
         }
-        if (geo.city) setHomeCity(geo.city);
+        if (geo.city) {
+          setHomeCity(geo.city);
+          setHomeCityVerified(true);
+        }
       }
     } catch {
       Alert.alert(
@@ -278,6 +283,13 @@ export default function OnboardingStep2() {
     }
     if (!homeState) {
       Alert.alert('Home state required', 'Select the state where you fish most.');
+      return;
+    }
+    if (homeCity.trim() && !homeCityVerified) {
+      Alert.alert(
+        'Choose a verified city',
+        'Select your city from the suggestions, or clear the optional city field.',
+      );
       return;
     }
 
@@ -540,12 +552,12 @@ export default function OnboardingStep2() {
                       </Text>
                     </View>
                   </View>
-                  <View style={[styles.setupMapItem, !!homeCity.trim() && styles.setupMapItemOptional]}>
+                  <View style={[styles.setupMapItem, homeCityVerified && styles.setupMapItemOptional]}>
                     <Text style={styles.setupMapLabel}>CITY · OPT.</Text>
                     <View style={styles.setupMapStatusRow}>
-                      <View style={[styles.setupMapDot, !!homeCity.trim() && styles.setupMapDotOptional]} />
+                      <View style={[styles.setupMapDot, homeCityVerified && styles.setupMapDotOptional]} />
                       <Text style={styles.setupMapMeta}>
-                        {homeCity.trim() ? 'ADDED' : 'OPTIONAL'}
+                        {homeCityVerified ? 'VERIFIED' : 'OPTIONAL'}
                       </Text>
                     </View>
                   </View>
@@ -674,15 +686,20 @@ export default function OnboardingStep2() {
 
                 <View style={styles.locationFieldCity}>
                   <Text style={styles.miniFieldLabel}>CITY · OPTIONAL</Text>
-                  <TextInput
-                    style={styles.input}
+                  <VerifiedCityInput
                     value={homeCity}
-                    onChangeText={setHomeCity}
-                    placeholder="Your city"
-                    placeholderTextColor={paper.dashboardInk + '70'}
-                    autoCorrect={false}
-                    returnKeyType="done"
-                    maxLength={60}
+                    stateCode={homeState}
+                    verified={homeCityVerified}
+                    onChangeText={(next) => {
+                      setHomeCity(next);
+                      setHomeCityVerified(false);
+                    }}
+                    onSelect={(city, stateCode) => {
+                      setHomeCity(city);
+                      setHomeState(stateCode);
+                      setHomeCityVerified(true);
+                    }}
+                    placeholder={homeState ? `Search in ${homeState}` : 'Search for a city'}
                   />
                 </View>
               </View>
@@ -701,6 +718,8 @@ export default function OnboardingStep2() {
                         onPress={() => {
                           hapticSelection();
                           setHomeState(state);
+                          setHomeCity('');
+                          setHomeCityVerified(false);
                           setShowStateList(false);
                         }}
                       >

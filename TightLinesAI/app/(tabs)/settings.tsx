@@ -51,6 +51,8 @@ import {
   openStoreSubscriptionManagement,
   storeSubscriptionManagementLabel,
 } from '../../lib/legalLinks';
+import { VerifiedCityInput } from '../../components/VerifiedCityInput';
+import { searchUsCities } from '../../lib/locationSearch';
 
 const US_STATES = [
   'AL','AK','AZ','AR','CA','CO','CT','DE','FL','GA',
@@ -90,6 +92,7 @@ export default function SettingsScreen() {
 
   const [homeState, setHomeState] = useState('');
   const [homeCity, setHomeCity] = useState('');
+  const [homeCityVerified, setHomeCityVerified] = useState(false);
   const [usernameDraft, setUsernameDraft] = useState('');
   const [editingUsername, setEditingUsername] = useState(false);
   const [showStateList, setShowStateList] = useState(false);
@@ -118,10 +121,26 @@ export default function SettingsScreen() {
 
   useEffect(() => {
     if (!profile) return;
-    setHomeState(profile.home_state ?? '');
-    setHomeCity(profile.home_city ?? '');
+    const state = profile.home_state ?? '';
+    const city = profile.home_city ?? '';
+    setHomeState(state);
+    setHomeCity(city);
+    setHomeCityVerified(false);
     setUsernameDraft(profile.username ?? '');
-  }, [profile?.id, profile?.username]);
+    if (state && city) {
+      let cancelled = false;
+      void searchUsCities(`${city}, ${state}`).then((matches) => {
+        if (cancelled) return;
+        const exact = `${city}, ${state}`.toLowerCase();
+        setHomeCityVerified(matches.some((match) => match.label.toLowerCase() === exact));
+      }).catch(() => {
+        if (!cancelled) setHomeCityVerified(false);
+      });
+      return () => {
+        cancelled = true;
+      };
+    }
+  }, [profile?.home_city, profile?.home_state, profile?.id, profile?.username]);
 
   useEffect(() => {
     if (canSeeTestingTools) loadDevTesting();
@@ -192,7 +211,10 @@ export default function SettingsScreen() {
       if (geo) {
         const stateAbbr = STATE_NAME_TO_ABBR[geo.region ?? ''] ?? geo.region;
         if (stateAbbr && US_STATES.includes(stateAbbr)) setHomeState(stateAbbr);
-        if (geo.city) setHomeCity(geo.city);
+        if (geo.city) {
+          setHomeCity(geo.city);
+          setHomeCityVerified(true);
+        }
       }
     } catch {
       setNotice({
@@ -208,6 +230,14 @@ export default function SettingsScreen() {
   const handleSaveLocation = async () => {
     if (!user) return;
     setNotice(null);
+    if (homeCity.trim() && !homeCityVerified) {
+      setNotice({
+        title: 'Choose a verified city',
+        message: 'Select your city from the suggestions, or clear the optional city field.',
+        tone: 'error',
+      });
+      return;
+    }
     hapticImpact(ImpactFeedbackStyle.Medium);
     setSaving(true);
     try {
@@ -651,14 +681,20 @@ export default function SettingsScreen() {
                   />
                 </Pressable>
 
-                <TextInput
-                  style={styles.input}
+                <VerifiedCityInput
                   value={homeCity}
-                  onChangeText={setHomeCity}
-                  placeholder="City (optional)"
-                  placeholderTextColor={paper.dashboardInk + '70'}
-                  autoCorrect={false}
-                  maxLength={60}
+                  stateCode={homeState}
+                  verified={homeCityVerified}
+                  onChangeText={(next) => {
+                    setHomeCity(next);
+                    setHomeCityVerified(false);
+                  }}
+                  onSelect={(city, stateCode) => {
+                    setHomeCity(city);
+                    setHomeState(stateCode);
+                    setHomeCityVerified(true);
+                  }}
+                  placeholder={homeState ? `Search in ${homeState}` : 'Search for a city'}
                 />
               </View>
 
@@ -672,6 +708,8 @@ export default function SettingsScreen() {
                         onPress={() => {
                           hapticSelection();
                           setHomeState(state);
+                          setHomeCity('');
+                          setHomeCityVerified(false);
                           setShowStateList(false);
                         }}
                       >

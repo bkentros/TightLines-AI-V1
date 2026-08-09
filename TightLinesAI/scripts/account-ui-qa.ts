@@ -25,6 +25,11 @@ assert.match(
 );
 assert.match(
   settings,
+  /Choose a verified city[\s\S]*?<VerifiedCityInput[\s\S]*?homeCityVerified/,
+  "Settings must reject unresolved city text and use the verified city selector",
+);
+assert.match(
+  settings,
   /function SettingsSectionHeading[\s\S]*?ACCOUNT FIELD NOTE/,
   "Settings sections must use structured field-note headings",
 );
