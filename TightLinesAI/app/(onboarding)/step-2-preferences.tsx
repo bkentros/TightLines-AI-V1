@@ -115,6 +115,7 @@ export default function OnboardingStep2() {
 
   // Slow premium light sheen sweeping across the hero cover.
   const heroSheen = useRef(new Animated.Value(0)).current;
+  const heroOrbit = useRef(new Animated.Value(0)).current;
   useEffect(() => {
     const loop = Animated.loop(
       Animated.sequence([
@@ -136,6 +137,19 @@ export default function OnboardingStep2() {
     loop.start();
     return () => loop.stop();
   }, [heroSheen]);
+
+  useEffect(() => {
+    const loop = Animated.loop(
+      Animated.timing(heroOrbit, {
+        toValue: 1,
+        duration: 14000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    );
+    loop.start();
+    return () => loop.stop();
+  }, [heroOrbit]);
 
   // Real-time username availability — debounced supabase check that
   // tells the user immediately if the handle they typed is already
@@ -412,6 +426,11 @@ export default function OnboardingStep2() {
             keyboardDismissMode="on-drag"
           >
             <View style={styles.heroPanel}>
+              <View pointerEvents="none" style={styles.heroWaterContours}>
+                <View style={[styles.heroWaterContour, styles.heroWaterContourOne]} />
+                <View style={[styles.heroWaterContour, styles.heroWaterContourTwo]} />
+                <View style={[styles.heroWaterContour, styles.heroWaterContourThree]} />
+              </View>
               <TopographicLines
                 style={styles.heroTopo}
                 color={paper.dashboardInk}
@@ -441,9 +460,22 @@ export default function OnboardingStep2() {
 
               <View style={styles.heroTopRow}>
                 <View style={styles.heroLogoStage}>
-                  <View style={styles.heroLogoOrbit} />
-                  <View style={[styles.heroLogoSpark, styles.heroLogoSparkTop]} />
-                  <View style={[styles.heroLogoSpark, styles.heroLogoSparkBottom]} />
+                  <Animated.View
+                    style={[
+                      styles.heroLogoOrbit,
+                      {
+                        transform: [{
+                          rotate: heroOrbit.interpolate({
+                            inputRange: [0, 1],
+                            outputRange: ['0deg', '360deg'],
+                          }),
+                        }],
+                      },
+                    ]}
+                  >
+                    <View style={[styles.heroLogoSpark, styles.heroLogoSparkTop]} />
+                    <View style={[styles.heroLogoSpark, styles.heroLogoSparkBottom]} />
+                  </Animated.View>
                   <Image
                     source={require('../../assets/images/finfindr-dashboard-logo-transparent.png')}
                     style={styles.heroLogo}
@@ -477,6 +509,12 @@ export default function OnboardingStep2() {
             </View>
 
             <View style={styles.setupCard}>
+              <TopographicLines
+                style={styles.setupTopo}
+                color={paper.dashboardBlue}
+                count={3}
+              />
+              <View style={styles.setupAccentRail} />
               <View style={styles.setupIntro}>
                 <Text style={styles.setupEyebrow}>MAKE FINFINDR YOURS</Text>
                 <Text style={styles.setupTitle}>Two quick details.</Text>
@@ -484,22 +522,38 @@ export default function OnboardingStep2() {
                   You can update both later from your account.
                 </Text>
                 <View style={styles.setupMap}>
-                  <View style={styles.setupMapItem}>
+                  <View style={[styles.setupMapItem, usernameFieldGood && styles.setupMapItemDone]}>
                     <Text style={styles.setupMapLabel}>HANDLE</Text>
-                    <Text style={styles.setupMapMeta}>REQUIRED</Text>
+                    <View style={styles.setupMapStatusRow}>
+                      <View style={[styles.setupMapDot, usernameFieldGood && styles.setupMapDotDone]} />
+                      <Text style={[styles.setupMapMeta, usernameFieldGood && styles.setupMapMetaDone]}>
+                        {usernameFieldGood ? 'READY' : 'REQUIRED'}
+                      </Text>
+                    </View>
                   </View>
-                  <View style={styles.setupMapItem}>
+                  <View style={[styles.setupMapItem, !!homeState && styles.setupMapItemDone]}>
                     <Text style={styles.setupMapLabel}>STATE</Text>
-                    <Text style={styles.setupMapMeta}>REQUIRED</Text>
+                    <View style={styles.setupMapStatusRow}>
+                      <View style={[styles.setupMapDot, !!homeState && styles.setupMapDotDone]} />
+                      <Text style={[styles.setupMapMeta, !!homeState && styles.setupMapMetaDone]}>
+                        {homeState ? 'READY' : 'REQUIRED'}
+                      </Text>
+                    </View>
                   </View>
-                  <View style={styles.setupMapItem}>
+                  <View style={[styles.setupMapItem, !!homeCity.trim() && styles.setupMapItemOptional]}>
                     <Text style={styles.setupMapLabel}>CITY · OPT.</Text>
-                    <Text style={styles.setupMapMeta}>OPTIONAL</Text>
+                    <View style={styles.setupMapStatusRow}>
+                      <View style={[styles.setupMapDot, !!homeCity.trim() && styles.setupMapDotOptional]} />
+                      <Text style={styles.setupMapMeta}>
+                        {homeCity.trim() ? 'ADDED' : 'OPTIONAL'}
+                      </Text>
+                    </View>
                   </View>
                 </View>
               </View>
 
               <SetupPanel
+                number="01"
                 icon="at-outline"
                 label="CHOOSE YOUR HANDLE"
                 hint="The name shown on your fishing logs and account."
@@ -570,6 +624,7 @@ export default function OnboardingStep2() {
               <View style={styles.setupDivider} />
 
               <SetupPanel
+                number="02"
                 icon="location-outline"
                 label="SET YOUR HOME WATER"
                 hint="Your state sets the region. A city makes your first local read even more precise."
@@ -669,7 +724,9 @@ export default function OnboardingStep2() {
             {/* Single-page setup meter — fills as required details are entered. */}
             <View style={styles.meter}>
               <View style={styles.meterRow}>
-                <Text style={styles.meterLabel}>REQUIRED DETAILS</Text>
+                <Text style={styles.meterLabel}>
+                  {completionFraction === 1 ? 'PROFILE READY' : 'REQUIRED DETAILS'}
+                </Text>
                 <Text
                   style={[
                     styles.meterCount,
@@ -757,12 +814,14 @@ function HeroBenefit({
 }
 
 function SetupPanel({
+  number,
   icon,
   label,
   hint,
   action,
   children,
 }: {
+  number: string;
   icon: keyof typeof Ionicons.glyphMap;
   label: string;
   hint?: string;
@@ -776,7 +835,10 @@ function SetupPanel({
           <View style={styles.sectionIcon}>
             <Ionicons name={icon} size={16} color={paper.dashboardBlue} />
           </View>
-          <Text style={styles.sectionLabel}>{label}</Text>
+          <View style={styles.sectionLabelWrap}>
+            <Text style={styles.sectionNumber}>STATION {number}</Text>
+            <Text style={styles.sectionLabel}>{label}</Text>
+          </View>
         </View>
         {action}
       </View>
@@ -838,6 +900,40 @@ const styles = StyleSheet.create({
     width: 64,
     backgroundColor: 'rgba(124,184,218,0.32)',
     zIndex: 2,
+  },
+  heroWaterContours: {
+    position: 'absolute',
+    right: -58,
+    bottom: -68,
+    width: 230,
+    height: 180,
+    opacity: 0.18,
+  },
+  heroWaterContour: {
+    position: 'absolute',
+    borderWidth: 1,
+    borderColor: paper.dashboardBlueLight,
+  },
+  heroWaterContourOne: {
+    width: 210,
+    height: 132,
+    right: 0,
+    bottom: 0,
+    borderRadius: 105,
+  },
+  heroWaterContourTwo: {
+    width: 172,
+    height: 105,
+    right: 18,
+    bottom: 16,
+    borderRadius: 86,
+  },
+  heroWaterContourThree: {
+    width: 132,
+    height: 78,
+    right: 38,
+    bottom: 32,
+    borderRadius: 66,
   },
   heroTopRow: {
     minHeight: 72,
@@ -1037,6 +1133,8 @@ const styles = StyleSheet.create({
     opacity: 0.72,
   },
   setupCard: {
+    position: 'relative',
+    overflow: 'hidden',
     backgroundColor: paper.dashboardWhite,
     borderRadius: 20,
     borderWidth: 1,
@@ -1049,8 +1147,27 @@ const styles = StyleSheet.create({
     shadowRadius: 16,
     shadowOffset: { width: 0, height: 7 },
   },
+  setupTopo: {
+    position: 'absolute',
+    top: -20,
+    right: -90,
+    width: 260,
+    height: 180,
+    opacity: 0.055,
+  },
+  setupAccentRail: {
+    position: 'absolute',
+    top: 22,
+    left: 0,
+    width: 3,
+    height: 54,
+    borderTopRightRadius: 3,
+    borderBottomRightRadius: 3,
+    backgroundColor: paper.dashboardBlue,
+  },
   setupIntro: {
     marginBottom: paperSpacing.lg,
+    zIndex: 1,
   },
   setupEyebrow: {
     fontFamily: paperFonts.metaMonoBold,
@@ -1084,6 +1201,16 @@ const styles = StyleSheet.create({
     backgroundColor: '#F2F7FA',
     paddingHorizontal: 8,
     paddingVertical: 7,
+    borderWidth: 1,
+    borderColor: 'transparent',
+  },
+  setupMapItemDone: {
+    backgroundColor: '#F0F8F3',
+    borderColor: 'rgba(61,149,90,0.18)',
+  },
+  setupMapItemOptional: {
+    backgroundColor: '#EFF7FB',
+    borderColor: 'rgba(42,110,150,0.16)',
   },
   setupMapLabel: {
     fontFamily: paperFonts.metaMonoBold,
@@ -1097,6 +1224,27 @@ const styles = StyleSheet.create({
     color: paper.dashboardBlue,
     letterSpacing: 0.8,
     marginTop: 2,
+  },
+  setupMapStatusRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+    marginTop: 3,
+  },
+  setupMapDot: {
+    width: 4,
+    height: 4,
+    borderRadius: 2,
+    backgroundColor: paper.dashboardBlueLight,
+  },
+  setupMapDotDone: {
+    backgroundColor: paper.bandPrime,
+  },
+  setupMapDotOptional: {
+    backgroundColor: paper.dashboardBlue,
+  },
+  setupMapMetaDone: {
+    color: paper.bandPrime,
   },
   setupDivider: {
     height: StyleSheet.hairlineWidth,
@@ -1140,6 +1288,7 @@ const styles = StyleSheet.create({
   },
   setupPanel: {
     marginBottom: paperSpacing.lg,
+    zIndex: 1,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -1169,6 +1318,18 @@ const styles = StyleSheet.create({
     color: paper.dashboardInk,
     letterSpacing: 2.2,
     fontWeight: '700',
+  },
+  sectionLabelWrap: {
+    flex: 1,
+    minWidth: 0,
+  },
+  sectionNumber: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7,
+    color: paper.dashboardBlue,
+    letterSpacing: 1.3,
+    opacity: 0.68,
+    marginBottom: 2,
   },
   sectionHint: {
     fontFamily: paperFonts.body,
