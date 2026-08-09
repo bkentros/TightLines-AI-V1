@@ -9,6 +9,7 @@ import {
   Alert,
   Animated,
   Easing,
+  Image,
   KeyboardAvoidingView,
   Platform,
   Pressable,
@@ -23,7 +24,7 @@ import { useRouter } from 'expo-router';
 import { Ionicons } from '@expo/vector-icons';
 import * as Location from 'expo-location';
 import { paper, paperFonts, paperSpacing } from '../../lib/theme';
-import { BrandEmblem, PaperNavHeader, TopographicLines } from '../../components/paper';
+import { PaperNavHeader, TopographicLines } from '../../components/paper';
 import { hapticImpact, ImpactFeedbackStyle, hapticSelection } from '../../lib/safeHaptics';
 import { useAuthStore } from '../../store/authStore';
 import { supabase } from '../../lib/supabase';
@@ -438,57 +439,71 @@ export default function OnboardingStep2() {
                 ]}
               />
 
-              <View style={styles.heroRubricRow}>
-                <View style={styles.heroRubricRule} />
-                <Text style={styles.heroRubricText}>FIELD GUIDE · NO. 001</Text>
-                <View style={styles.heroRubricRule} />
-              </View>
-
-              <View style={styles.heroMasthead}>
-                <View style={styles.heroSealWrap}>
-                  <View style={styles.heroSealRing} />
-                  <BrandEmblem size={46} />
-                  <View style={[styles.heroSealDot, styles.heroSealDotTop]} />
-                  <View style={[styles.heroSealDot, styles.heroSealDotRight]} />
-                  <View style={[styles.heroSealDot, styles.heroSealDotBottom]} />
-                  <View style={[styles.heroSealDot, styles.heroSealDotLeft]} />
+              <View style={styles.heroTopRow}>
+                <View style={styles.heroLogoStage}>
+                  <View style={styles.heroLogoOrbit} />
+                  <View style={[styles.heroLogoSpark, styles.heroLogoSparkTop]} />
+                  <View style={[styles.heroLogoSpark, styles.heroLogoSparkBottom]} />
+                  <Image
+                    source={require('../../assets/images/finfindr-dashboard-logo-transparent.png')}
+                    style={styles.heroLogo}
+                    resizeMode="contain"
+                  />
                 </View>
-                <View style={styles.heroCopy}>
-                  <View style={styles.heroEyebrowRow}>
-                    <View style={styles.heroPulseWrap}>
-                      <View style={styles.heroPulseRing} />
-                      <Animated.View
-                        style={[styles.heroPulseDot, { opacity: livePulse }]}
-                      />
-                    </View>
-                    <Text style={styles.heroEyebrowText}>PROFILE · STEP 1 / 1</Text>
+                <View style={styles.heroWelcomePill}>
+                  <View style={styles.heroPulseWrap}>
+                    <View style={styles.heroPulseRing} />
+                    <Animated.View
+                      style={[styles.heroPulseDot, { opacity: livePulse }]}
+                    />
                   </View>
-                  <Text style={styles.heroTitle} allowFontScaling={false}>
-                    Set your{' '}
-                    <Text style={styles.heroTitleAccent}>home base.</Text>
-                  </Text>
-                  <View style={styles.heroRule} />
+                  <Text style={styles.heroWelcomeText}>WELCOME ABOARD</Text>
                 </View>
               </View>
 
+              <Text style={styles.heroTitle} allowFontScaling={false}>
+                Let&apos;s find your{`\n`}
+                <Text style={styles.heroTitleAccent}>home water.</Text>
+              </Text>
               <Text style={styles.heroLede}>
-                Add two details so FinFindr can open with your identity and local context ready.
+                Tell us where you fish and what to call you. FinFindr will open tuned to your local conditions.
               </Text>
 
-              <View style={styles.heroIndexRow}>
-                <HeroIndexItem numeral="01" label="HANDLE" />
-                <View style={styles.heroIndexDivider} />
-                <HeroIndexItem numeral="02" label="STATE" />
-                <View style={styles.heroIndexDivider} />
-                <HeroIndexItem numeral="03" label="CITY · OPT." />
+              <View style={styles.heroBenefitsRow}>
+                <HeroBenefit icon="navigate-outline" label="LOCAL READS" />
+                <HeroBenefit icon="book-outline" label="YOUR LOG" />
+                <HeroBenefit icon="sparkles-outline" label="READY TO FISH" />
               </View>
             </View>
 
-            <SetupPanel
-              icon="at-outline"
-              label="YOUR HANDLE"
-              hint="This is the name shown on your fishing logs and account."
-            >
+            <View style={styles.setupCard}>
+              <View style={styles.setupIntro}>
+                <Text style={styles.setupEyebrow}>MAKE FINFINDR YOURS</Text>
+                <Text style={styles.setupTitle}>Two quick details.</Text>
+                <Text style={styles.setupIntroCopy}>
+                  You can update both later from your account.
+                </Text>
+                <View style={styles.setupMap}>
+                  <View style={styles.setupMapItem}>
+                    <Text style={styles.setupMapLabel}>HANDLE</Text>
+                    <Text style={styles.setupMapMeta}>REQUIRED</Text>
+                  </View>
+                  <View style={styles.setupMapItem}>
+                    <Text style={styles.setupMapLabel}>STATE</Text>
+                    <Text style={styles.setupMapMeta}>REQUIRED</Text>
+                  </View>
+                  <View style={styles.setupMapItem}>
+                    <Text style={styles.setupMapLabel}>CITY · OPT.</Text>
+                    <Text style={styles.setupMapMeta}>OPTIONAL</Text>
+                  </View>
+                </View>
+              </View>
+
+              <SetupPanel
+                icon="at-outline"
+                label="CHOOSE YOUR HANDLE"
+                hint="The name shown on your fishing logs and account."
+              >
               <View
                 style={[
                   styles.usernameField,
@@ -550,33 +565,35 @@ export default function OnboardingStep2() {
                   Available — we&apos;ll claim it when you finish.
                 </Text>
               )}
-            </SetupPanel>
+              </SetupPanel>
 
-            <SetupPanel
-              icon="location-outline"
-              label="HOME LOCATION"
-              hint="Your state sets the region. Adding a city gives your first local read a closer starting point."
-              action={
-                <Pressable
-                  style={({ pressed }) => [
-                    styles.locAutoBtn,
-                    pressed && styles.locAutoBtnPressed,
-                    locationLoading && styles.btnDisabled,
-                  ]}
-                  onPress={autoFillLocation}
-                  disabled={locationLoading}
-                >
-                  {locationLoading ? (
-                    <ActivityIndicator size="small" color={paper.dashboardBlue} />
-                  ) : (
-                    <Ionicons name="location-outline" size={13} color={paper.dashboardBlue} />
-                  )}
-                  <Text style={styles.locAutoBtnText}>
-                    {locationLoading ? 'FINDING...' : 'USE LOCATION'}
-                  </Text>
-                </Pressable>
-              }
-            >
+              <View style={styles.setupDivider} />
+
+              <SetupPanel
+                icon="location-outline"
+                label="SET YOUR HOME WATER"
+                hint="Your state sets the region. A city makes your first local read even more precise."
+                action={
+                  <Pressable
+                    style={({ pressed }) => [
+                      styles.locAutoBtn,
+                      pressed && styles.locAutoBtnPressed,
+                      locationLoading && styles.btnDisabled,
+                    ]}
+                    onPress={autoFillLocation}
+                    disabled={locationLoading}
+                  >
+                    {locationLoading ? (
+                      <ActivityIndicator size="small" color={paper.dashboardBlue} />
+                    ) : (
+                      <Ionicons name="navigate-outline" size={13} color={paper.dashboardBlue} />
+                    )}
+                    <Text style={styles.locAutoBtnText}>
+                      {locationLoading ? 'FINDING...' : 'FIND ME'}
+                    </Text>
+                  </Pressable>
+                }
+              >
               <View style={styles.locationFieldsRow}>
                 <View style={styles.locationFieldState}>
                   <Text style={styles.miniFieldLabel}>STATE · REQUIRED</Text>
@@ -646,7 +663,8 @@ export default function OnboardingStep2() {
                 </View>
               )}
 
-            </SetupPanel>
+              </SetupPanel>
+            </View>
 
             {/* Single-page setup meter — fills as required details are entered. */}
             <View style={styles.meter}>
@@ -712,7 +730,10 @@ export default function OnboardingStep2() {
               )}
             </Pressable>
 
-            <Text style={styles.footnote}>— PROFILE SETUP —</Text>
+            <View style={styles.privacyNote}>
+              <Ionicons name="shield-checkmark-outline" size={13} color={paper.dashboardMuted} />
+              <Text style={styles.footnote}>YOUR LOCATION STAYS PRIVATE</Text>
+            </View>
           </ScrollView>
         </KeyboardAvoidingView>
       </View>
@@ -720,18 +741,17 @@ export default function OnboardingStep2() {
   );
 }
 
-function HeroIndexItem({ numeral, label }: { numeral: string; label: string }) {
+function HeroBenefit({
+  icon,
+  label,
+}: {
+  icon: keyof typeof Ionicons.glyphMap;
+  label: string;
+}) {
   return (
-    <View style={styles.heroIndexItem}>
-      <Text style={styles.heroIndexNumeral}>{numeral}</Text>
-      <Text
-        style={styles.heroIndexLabel}
-        numberOfLines={1}
-        adjustsFontSizeToFit
-        minimumFontScale={0.8}
-      >
-        {label}
-      </Text>
+    <View style={styles.heroBenefit}>
+      <Ionicons name={icon} size={13} color={paper.dashboardBlueLight} />
+      <Text style={styles.heroBenefitLabel}>{label}</Text>
     </View>
   );
 }
@@ -785,25 +805,23 @@ const styles = StyleSheet.create({
     maxWidth: 520,
     alignSelf: 'center',
     paddingHorizontal: paperSpacing.lg,
-    paddingTop: paperSpacing.lg,
+    paddingTop: paperSpacing.md,
     paddingBottom: paperSpacing.xxl,
   },
   heroPanel: {
     position: 'relative',
     alignItems: 'stretch',
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 12,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
-    paddingHorizontal: paperSpacing.md + 2,
-    paddingTop: paperSpacing.sm + 2,
-    paddingBottom: paperSpacing.sm + 2,
-    marginBottom: paperSpacing.md,
+    backgroundColor: paper.dashboardInk,
+    borderRadius: 24,
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.md,
+    paddingBottom: paperSpacing.lg,
+    marginBottom: paperSpacing.lg,
     overflow: 'hidden',
     shadowColor: paper.dashboardInk,
-    shadowOpacity: 0.08,
-    shadowRadius: 12,
-    shadowOffset: { width: 0, height: 5 },
+    shadowOpacity: 0.2,
+    shadowRadius: 18,
+    shadowOffset: { width: 0, height: 9 },
   },
   heroTopo: {
     position: 'absolute',
@@ -811,15 +829,72 @@ const styles = StyleSheet.create({
     left: 0,
     right: 0,
     bottom: 0,
-    opacity: 0.3,
+    opacity: 0.11,
   },
   heroSheen: {
     position: 'absolute',
     top: -20,
     bottom: -20,
     width: 64,
-    backgroundColor: 'rgba(255,255,255,0.55)',
+    backgroundColor: 'rgba(124,184,218,0.32)',
     zIndex: 2,
+  },
+  heroTopRow: {
+    minHeight: 72,
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    justifyContent: 'space-between',
+    marginBottom: paperSpacing.sm,
+    zIndex: 3,
+  },
+  heroLogoStage: {
+    width: 72,
+    height: 72,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroLogoOrbit: {
+    position: 'absolute',
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    borderWidth: 1,
+    borderStyle: 'dashed',
+    borderColor: 'rgba(124,184,218,0.38)',
+  },
+  heroLogo: {
+    width: 58,
+    height: 58,
+  },
+  heroLogoSpark: {
+    position: 'absolute',
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: paper.dashboardBlueLight,
+    borderWidth: 1,
+    borderColor: paper.dashboardInk,
+    zIndex: 2,
+  },
+  heroLogoSparkTop: { top: 0, left: 34 },
+  heroLogoSparkBottom: { right: 2, bottom: 13 },
+  heroWelcomePill: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 7,
+    borderRadius: 999,
+    borderWidth: 1,
+    borderColor: 'rgba(124,184,218,0.28)',
+    backgroundColor: 'rgba(255,255,255,0.06)',
+    paddingHorizontal: 10,
+    paddingVertical: 7,
+    marginTop: 4,
+  },
+  heroWelcomeText: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9,
+    color: paper.dashboardBlueLight,
+    letterSpacing: 1.7,
   },
   heroRubricRow: {
     flexDirection: 'row',
@@ -899,14 +974,14 @@ const styles = StyleSheet.create({
     height: 9,
     borderRadius: 4.5,
     borderWidth: 1,
-    borderColor: paper.dashboardBlue,
-    opacity: 0.45,
+    borderColor: paper.dashboardBlueLight,
+    opacity: 0.5,
   },
   heroPulseDot: {
     width: 4.5,
     height: 4.5,
     borderRadius: 2.25,
-    backgroundColor: paper.dashboardBlue,
+    backgroundColor: paper.dashboardBlueLight,
   },
   heroEyebrowText: {
     fontFamily: paperFonts.metaMonoBold,
@@ -916,33 +991,118 @@ const styles = StyleSheet.create({
   },
   heroTitle: {
     fontFamily: paperFonts.display,
-    fontSize: 28,
-    color: paper.dashboardInk,
+    fontSize: 33,
+    color: paper.dashboardWhite,
     fontWeight: '700',
-    letterSpacing: -0.3,
-    lineHeight: 30,
+    letterSpacing: -0.6,
+    lineHeight: 36,
     textAlign: 'left',
     zIndex: 1,
   },
   heroTitleAccent: {
-    color: paper.bandPrime,
-  },
-  heroRule: {
-    width: 36,
-    height: 2.5,
-    backgroundColor: paper.dashboardBlue,
-    borderRadius: 1,
-    marginTop: 8,
+    color: paper.dashboardBlueLight,
+    fontFamily: paperFonts.displayItalic,
   },
   heroLede: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 13.5,
-    color: paper.dashboardInk,
+    fontFamily: paperFonts.body,
+    fontSize: 13,
+    color: paper.dashboardWhite,
     opacity: 0.72,
-    lineHeight: 18,
+    lineHeight: 19,
     textAlign: 'left',
-    marginTop: paperSpacing.xs + 2,
+    marginTop: paperSpacing.sm,
     zIndex: 1,
+  },
+  heroBenefitsRow: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginTop: paperSpacing.lg,
+    paddingTop: paperSpacing.md,
+    borderTopWidth: StyleSheet.hairlineWidth,
+    borderTopColor: 'rgba(255,255,255,0.16)',
+    zIndex: 1,
+  },
+  heroBenefit: {
+    flex: 1,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 5,
+  },
+  heroBenefitLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 7.5,
+    color: paper.dashboardWhite,
+    letterSpacing: 0.8,
+    opacity: 0.72,
+  },
+  setupCard: {
+    backgroundColor: paper.dashboardWhite,
+    borderRadius: 20,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
+    paddingHorizontal: paperSpacing.lg,
+    paddingTop: paperSpacing.lg,
+    paddingBottom: paperSpacing.sm,
+    shadowColor: paper.dashboardInk,
+    shadowOpacity: 0.08,
+    shadowRadius: 16,
+    shadowOffset: { width: 0, height: 7 },
+  },
+  setupIntro: {
+    marginBottom: paperSpacing.lg,
+  },
+  setupEyebrow: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 9.5,
+    color: paper.dashboardBlue,
+    letterSpacing: 2,
+    marginBottom: 5,
+  },
+  setupTitle: {
+    fontFamily: paperFonts.display,
+    fontSize: 27,
+    lineHeight: 31,
+    fontWeight: '700',
+    color: paper.dashboardInk,
+  },
+  setupIntroCopy: {
+    fontFamily: paperFonts.body,
+    fontSize: 12.5,
+    lineHeight: 18,
+    color: paper.dashboardMuted,
+    marginTop: 4,
+  },
+  setupMap: {
+    flexDirection: 'row',
+    gap: 7,
+    marginTop: paperSpacing.md,
+  },
+  setupMapItem: {
+    flex: 1,
+    borderRadius: 10,
+    backgroundColor: '#F2F7FA',
+    paddingHorizontal: 8,
+    paddingVertical: 7,
+  },
+  setupMapLabel: {
+    fontFamily: paperFonts.metaMonoBold,
+    fontSize: 8.5,
+    color: paper.dashboardInk,
+    letterSpacing: 1,
+  },
+  setupMapMeta: {
+    fontFamily: paperFonts.bodyBold,
+    fontSize: 7,
+    color: paper.dashboardBlue,
+    letterSpacing: 0.8,
+    marginTop: 2,
+  },
+  setupDivider: {
+    height: StyleSheet.hairlineWidth,
+    backgroundColor: paper.dashboardLine,
+    marginHorizontal: -paperSpacing.lg,
+    marginBottom: paperSpacing.lg,
   },
   heroIndexRow: {
     flexDirection: 'row',
@@ -979,16 +1139,7 @@ const styles = StyleSheet.create({
     opacity: 0.2,
   },
   setupPanel: {
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
-    padding: paperSpacing.md,
-    marginBottom: paperSpacing.md,
-    shadowColor: paper.dashboardInk,
-    shadowOpacity: 0.08,
-    shadowRadius: 10,
-    shadowOffset: { width: 0, height: 5 },
+    marginBottom: paperSpacing.lg,
   },
   sectionHeader: {
     flexDirection: 'row',
@@ -1005,33 +1156,33 @@ const styles = StyleSheet.create({
     gap: paperSpacing.sm,
   },
   sectionIcon: {
-    width: 30,
-    height: 30,
-    borderRadius: 15,
+    width: 34,
+    height: 34,
+    borderRadius: 10,
     backgroundColor: paper.dashboardBlueSky,
     alignItems: 'center',
     justifyContent: 'center',
   },
   sectionLabel: {
     fontFamily: paperFonts.bodyBold,
-    fontSize: 10.5,
+    fontSize: 10,
     color: paper.dashboardInk,
     letterSpacing: 2.2,
     fontWeight: '700',
   },
   sectionHint: {
-    fontFamily: paperFonts.displayItalic,
-    fontSize: 12.5,
+    fontFamily: paperFonts.body,
+    fontSize: 12,
     color: paper.dashboardInk,
-    opacity: 0.65,
+    opacity: 0.62,
     lineHeight: 18,
     marginBottom: paperSpacing.md,
   },
   input: {
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    backgroundColor: '#F7F9FA',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 2,
     fontFamily: paperFonts.body,
@@ -1063,10 +1214,10 @@ const styles = StyleSheet.create({
   usernameField: {
     flexDirection: 'row',
     alignItems: 'center',
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    backgroundColor: '#F7F9FA',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
   },
   usernameAt: {
@@ -1129,10 +1280,10 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    backgroundColor: paper.dashboardWhite,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    backgroundColor: '#F7F9FA',
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     paddingHorizontal: paperSpacing.md,
     paddingVertical: paperSpacing.md - 2,
   },
@@ -1144,9 +1295,9 @@ const styles = StyleSheet.create({
   statePickerPlaceholder: { opacity: 0.55 },
   stateList: {
     marginTop: paperSpacing.sm,
-    borderRadius: 8,
-    borderWidth: 1.5,
-    borderColor: paper.dashboardInk,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: paper.dashboardLine,
     backgroundColor: paper.dashboardWhite,
     overflow: 'hidden',
   },
@@ -1170,11 +1321,10 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     gap: paperSpacing.sm,
-    backgroundColor: paper.dashboardBlue,
-    borderWidth: 2,
-    borderColor: paper.dashboardInk,
-    borderRadius: 8,
-    paddingVertical: paperSpacing.md,
+    backgroundColor: paper.dashboardInk,
+    borderWidth: 0,
+    borderRadius: 14,
+    paddingVertical: paperSpacing.md + 2,
     marginTop: paperSpacing.sm,
     shadowColor: paper.dashboardInk,
     shadowOpacity: 0.18,
@@ -1182,18 +1332,17 @@ const styles = StyleSheet.create({
     shadowOffset: { width: 0, height: 4 },
   },
   ctaReady: {
-    backgroundColor: paper.bandPrime,
-    borderColor: paper.bandPrime,
-    shadowColor: paper.bandPrime,
-    shadowOpacity: 0.3,
-    shadowRadius: 10,
+    backgroundColor: paper.dashboardBlue,
+    shadowColor: paper.dashboardBlue,
+    shadowOpacity: 0.28,
+    shadowRadius: 12,
   },
-  ctaPressed: { backgroundColor: paper.dashboardBlue },
+  ctaPressed: { opacity: 0.82 },
   btnDisabled: { opacity: 0.55 },
 
   // Completion meter ──────────────────────────────────────────────────────
   meter: {
-    marginTop: paperSpacing.md,
+    marginTop: paperSpacing.lg,
     paddingHorizontal: 2,
     gap: 6,
   },
@@ -1206,7 +1355,7 @@ const styles = StyleSheet.create({
     fontFamily: paperFonts.metaMonoBold,
     fontSize: 11,
     color: paper.dashboardInk,
-    letterSpacing: 2.4,
+    letterSpacing: 1.8,
     opacity: 0.6,
   },
   meterCount: {
@@ -1237,13 +1386,19 @@ const styles = StyleSheet.create({
     letterSpacing: 2.8,
   },
   footnote: {
-    marginTop: paperSpacing.md,
     fontFamily: paperFonts.bodyBold,
-    fontSize: 11,
+    fontSize: 9,
     color: paper.dashboardInk,
-    opacity: 0.55,
-    letterSpacing: 2.2,
+    opacity: 0.48,
+    letterSpacing: 1.5,
     textAlign: 'center',
+  },
+  privacyNote: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    gap: 6,
+    marginTop: paperSpacing.md,
   },
   stepPill: {
     paddingHorizontal: 9,
