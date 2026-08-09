@@ -37,6 +37,9 @@ assertOk(catalog, "catalog");
 const firstTarget = readFirstTarget(catalog.body);
 const catalogTargets = readCatalogTargets(catalog.body);
 const expectedPublicTargets = [
+  "IN:st_joseph:st_joseph_fall_chinook",
+  "IN:st_joseph:st_joseph_fall_coho",
+  "IN:st_joseph:st_joseph_fall_steelhead",
   "MI:betsie:betsie_fall_chinook",
   "MI:betsie:betsie_fall_coho",
   "MI:betsie:betsie_fall_steelhead",
@@ -49,6 +52,9 @@ const expectedPublicTargets = [
   "MI:pere_marquette:pere_marquette_fall_chinook",
   "MI:pere_marquette:pere_marquette_fall_coho",
   "MI:pere_marquette:pere_marquette_fall_steelhead",
+  "MI:st_joseph:st_joseph_fall_chinook",
+  "MI:st_joseph:st_joseph_fall_coho",
+  "MI:st_joseph:st_joseph_fall_steelhead",
 ];
 if (expectPublic && !firstTarget) {
   throw new Error("River Run was expected to be public, but catalog is empty.");
@@ -64,9 +70,6 @@ if (expectPublic) {
     expectedPublicTargets,
     "public River Run catalog",
   );
-  if (catalogTargets.some((target) => target.includes(":st_joseph:"))) {
-    throw new Error("St. Joseph is public before its audit gate is accepted.");
-  }
 }
 
 let snapshotStatus: number | null = null;

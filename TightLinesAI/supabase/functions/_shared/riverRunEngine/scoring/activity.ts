@@ -367,6 +367,7 @@ function activityCopy(input: {
     input.conditionalPresence,
   );
   const scope = input.scopeCopy ? ` ${input.scopeCopy}` : "";
+  const nilesScoped = input.scopeCopy?.includes("mainstem at Niles") ?? false;
   const earlySeasonScope = input.earlySeasonScopeCopy &&
       ["pre_run", "beginning", "building"].includes(input.stage)
     ? ` ${input.earlySeasonScopeCopy}`
@@ -392,7 +393,7 @@ function activityCopy(input: {
     : "Conditions provide little environmental support for an aggressive response.";
   const bestWindow =
     `The strongest window is ${input.bestBlock.label}: ${input.bestBlock.positiveDriver} The main limitation: ${input.bestBlock.limitingFactor}`;
-  const tip = input.weatherOnly
+  const baseTip = input.weatherOnly
     ? weatherOnlyTip(input.profile, input.stage, input.bestBlock.label)
     : input.profile === "steelhead_feeding"
     ? steelheadTip(input.stage, input.bestBlock.label)
@@ -401,6 +402,9 @@ function activityCopy(input: {
     : input.stage === "ending" || input.stage === "post_run"
     ? `No late-season window should be treated as broadly favorable; use the block scores only for a living ${species} that is still capable of reacting.`
     : `Start with ${input.bestBlock.label}. If the sky changes from the forecast, favor the darkest practical window.`;
+  const tip = nilesScoped
+    ? `${baseTip} Apply this response window at Niles; verify temperature, clarity, flow shape, and legal access again before carrying it to another St. Joseph section.`
+    : baseTip;
   return {
     headline: input.weatherOnly
       ? `${day} weather-only ${species} activity outlook is ${input.label.toLowerCase()} with Limited confidence.`

@@ -145,6 +145,44 @@ export function resolveRunStage(
       copyVersion: RIVER_RUN_COPY_VERSION,
     };
   }
+  if (run.runStageCopyStrategy === "st_joseph_corridor") {
+    const species = anglerSpeciesName(run.species);
+    const copy = stJosephFallSpawnStageCopy({
+      stage,
+      stagingContext,
+      establishedBuildingContext,
+      broadBuildingContext,
+      latePostRunContext,
+      species,
+      opportunity,
+    });
+    return {
+      stage,
+      stagingContext,
+      broadBuildingContext,
+      winterHoldingContext: false,
+      window,
+      label: stageLabel(stage, latePostRunContext),
+      ...copy,
+      whereToStart: stJosephFallSpawnWhereToStartCopy({
+        stage,
+        stagingContext,
+        establishedBuildingContext,
+        broadBuildingContext,
+        latePostRunContext,
+        species,
+        opportunity,
+      }),
+      reasonCodes: [
+        stageReasonCode(stage),
+        ...(stage === "post_run" && !latePostRunContext
+          ? ["stage_offseason" as const]
+          : []),
+        ...(stagingContext ? ["stage_pre_run_staging" as const] : []),
+      ],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
   if (run.runStageCopyStrategy === "big_manistee_tailwater") {
     return {
       stage,
@@ -277,6 +315,168 @@ export function resolveRunStage(
     ],
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
+}
+
+function stJosephFallSpawnWhereToStartCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+}): string {
+  const limited = input.opportunity.strength === "limited";
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? "Start with the St. Joseph harbor, river mouth, and deep lower Michigan travel water; do not assume fish have passed Niles or reached South Bend."
+        : "Keep the search in Lake Michigan, the harbor, and river-mouth water until river staging begins.";
+    case "beginning":
+      return limited
+        ? "Start in deep lower-Michigan travel and holding water below Berrien Springs; make Niles a selective second check and do not chase this smaller Chinook return across the full corridor."
+        : "Start in deep lower-Michigan travel water below Berrien Springs, then compare legal holding water around Buchanan and Niles before making a selective Indiana check.";
+    case "building":
+      if (input.broadBuildingContext) {
+        return limited
+          ? "Prioritize proven lower-Michigan and Niles holding water; use South Bend or Mishawaka only as selective passage checks, always away from posted ladder and dam boundaries."
+          : "Compare lower-Michigan holding water, Buchanan and Niles, then legal South Bend-Mishawaka water below Twin Branch; never infer every section from the Niles gauge.";
+      }
+      return input.establishedBuildingContext
+        ? limited
+          ? "Work proven Berrien Springs-to-Niles holding water first, then make one legal South Bend passage check rather than assuming broad corridor occupation."
+          : "Compare Berrien Springs-to-Niles holding water with legal South Bend travel and resting reaches; expect uneven passage between sections."
+        : "Follow lower-river travel lanes toward Berrien Springs and Buchanan, then sample Niles before considering Indiana water.";
+    case "peak":
+      return limited
+        ? "Start with proven lower-Michigan and Niles holding water, then make one selective South Bend or Mishawaka check below Twin Branch; this smaller Chinook run is not a reason to cover all 63 miles."
+        : "Compare Berrien Springs, Buchanan, and Niles holding water with legal South Bend-Mishawaka water below Twin Branch; stay outside every posted dam and ladder boundary.";
+    case "tapering":
+      return "Prioritize established holding and spawning water near Niles, South Bend, and Mishawaka while checking the lower river only for a late fresh wave.";
+    case "ending":
+      return "Focus on proven deep holding water near Niles, South Bend, or Mishawaka; treat fresh lower-river entry as secondary and leave shallow spawning fish alone.";
+    case "post_run":
+      return input.latePostRunContext
+        ? "Make only a selective check of established late holding water below Twin Branch; the main migration window has ended."
+        : `Shift to an in-season species and do not plan a St. Joseph ${input.species} migration trip from this inactive calendar.`;
+  }
+}
+
+function stJosephFallSpawnStageCopy(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  latePostRunContext: boolean;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+}): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
+  const base = stageCopy(
+    input.stage,
+    input.stagingContext,
+    input.establishedBuildingContext,
+    input.broadBuildingContext,
+    input.latePostRunContext,
+    input.species,
+    input.opportunity,
+  );
+  const limited = input.opportunity.strength === "limited";
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? {
+          ...base,
+          headline:
+            `${input.species} may be staging around the St. Joseph harbor and mouth, but dependable inland passage has not begun.`,
+          detail: limited
+            ? `A few early ${input.species} can enter lower Michigan water, but this smaller run should not be projected through Niles, South Bend, or Mishawaka from one fish near the mouth.`
+            : `An early ${input.species} can enter lower Michigan water, but harbor activity does not prove passage through Berrien Springs, Niles, or the Indiana ladders.`,
+          tip:
+            "Fish the harbor-to-river transition and one deep lower-river travel lane. Skip an inland corridor run until Migration Stage and Fish In River show dependable entry.",
+        }
+        : {
+          ...base,
+          headline:
+            `${input.species} have not begun their dependable St. Joseph River migration.`,
+          detail:
+            "The seasonal calendar still points to Lake Michigan, the harbor, and the river mouth—not an established inland opportunity.",
+          tip:
+            "Keep the trip lakeward and return when staging monitoring begins. Do not let rain or one isolated river fish turn into a corridor-wide claim.",
+        };
+    case "beginning":
+      return {
+        ...base,
+        headline: limited
+          ? `The first ${input.species} are entering the St. Joseph, but the opportunity remains small and sectional.`
+          : `The first ${input.species} are entering the St. Joseph and beginning to move beyond the lower river.`,
+        detail: limited
+          ? "Lower Michigan travel and holding water is the most defensible first look. Passage through the five ladders can occur, but Niles or Indiana fish should be treated as selective opportunities—not broad distribution."
+          : "New fish should still be weighted toward lower Michigan travel water, while earlier arrivals may already be using Buchanan, Niles, and selective Indiana resting water.",
+        tip:
+          "Cover a lower-Michigan travel-and-holding sequence first. Move upriver only after direct fish activity, local observations, or established passage supports the change.",
+      };
+    case "building":
+      return {
+        ...base,
+        headline: limited
+          ? `${input.species} are established in select St. Joseph sections, but this remains a limited run.`
+          : input.broadBuildingContext
+          ? `${input.species} are now established through multiple sections of the interstate St. Joseph corridor.`
+          : `${input.species} are becoming established from lower Michigan water toward Niles and Indiana.`,
+        detail: limited
+          ? "Earlier fish can be holding from lower Michigan through Niles, with some passage into South Bend and Mishawaka. Empty water between fish remains normal for this smaller Chinook return."
+          : "Earlier arrivals have had time to pass Berrien Springs, Buchanan, and Niles while newer fish continue entering below. Distribution can be broad without being even between Michigan and Indiana sections.",
+        tip: limited
+          ? "Pick one proven Michigan or Niles holding section and fish it thoroughly before making one legal Indiana check. Do not run every ladder looking for scattered Chinook."
+          : "Compare one Michigan section with one Indiana section, working deep travel lanes, current breaks, and resting water away from every ladder safety zone.",
+      };
+    case "peak":
+      return {
+        ...base,
+        headline: limited
+          ? `This is the best St. Joseph ${input.species} window, but it remains a selective 3-of-10 opportunity.`
+          : `This is typically the strongest St. Joseph ${input.species} window across the five-ladder corridor.`,
+        detail: limited
+          ? "The calendar supports the best chance of finding Chinook in proven lower-Michigan, Niles, or selective Indiana holding water. It does not imply strong or uniform occupation of the full corridor."
+          : "Multiple waves have had time to spread from the lower river through Berrien Springs, Buchanan, Niles, South Bend, and Mishawaka, but each section still needs to be checked independently.",
+        tip:
+          "Choose a proven section and cover deep holding water from head to tail. Change sections only after a clean search, and leave shallow spawning fish undisturbed.",
+      };
+    case "tapering":
+      return {
+        ...base,
+        detail:
+          "Fresh passage is becoming less dependable, so established Niles, South Bend, and Mishawaka holding or spawning water matters more than racing the lower river for a new wave.",
+        tip:
+          "Start in proven deep holding water, check lower travel lanes only when Push supports new movement, and leave fish on shallow gravel alone.",
+      };
+    case "ending":
+      return {
+        ...base,
+        detail:
+          "Most remaining fish have been in the system for some time. A fresh fish is possible, but the guide-level plan is a short, selective holding-water search—not a corridor-wide run.",
+        tip:
+          "Fish one or two proven deep holding areas, avoid shallow spawning fish, and stop searching if direct signs are absent.",
+      };
+    case "post_run":
+      return input.latePostRunContext
+        ? {
+          ...base,
+          detail:
+            "A few late fish may remain below Twin Branch, but the main migration no longer supports a dependable St. Joseph trip.",
+          tip:
+            "Make only a selective established-water check, or shift to an active species. Do not chase isolated holdovers from ladder to ladder.",
+        }
+        : {
+          ...base,
+          headline:
+            `${input.species} are outside their St. Joseph River migration season.`,
+          detail:
+            "This fall migration read is inactive and should not be used to recommend a harbor, Michigan, Niles, or Indiana starting reach.",
+          tip:
+            "Choose a species with an active St. Joseph seasonal window and return to this read when early monitoring begins.",
+        };
+  }
 }
 
 function muskegonCrotonStageCopy(input: {
@@ -1494,6 +1694,7 @@ function stJosephFallEntryStageCopy(input: {
 }): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
   const base = fallEntryStageCopy(input);
   const whereToStart = stJosephFallEntryWhereToStartCopy(input);
+  const tip = stJosephFallEntryTip(input);
   if (input.winterHoldingContext) {
     return {
       ...base,
@@ -1501,9 +1702,8 @@ function stJosephFallEntryStageCopy(input: {
         `${input.species} remain broadly present as St. Joseph fall entry hands off to winter holding.`,
       whereToStart,
       detail:
-        "The fish have not left the 63-mile accessible corridor. Colder water changes the useful question from new entry to holding position; Activity remains unavailable until its separate Niles calibration is accepted.",
-      tip:
-        "Treat retained presence as seasonal context, not proof of feeding activity, and verify local water and access before choosing a reach.",
+        "The fish have not left the 63-mile accessible corridor. Colder water changes the useful question from new entry to holding position; Activity describes likely responsiveness at Niles, not river-wide movement.",
+      tip,
     };
   }
   if (input.stage === "pre_run") {
@@ -1514,7 +1714,8 @@ function stJosephFallEntryStageCopy(input: {
         : "The modeled St. Joseph fall-entry build has not started, although summer-run Skamania are a separate possibility.",
       whereToStart,
       detail:
-        "This combined fall read separates fish already in the system from the Little Manistee winter-run component that normally begins entering around October.",
+        "This fall read separates summer-run Steelhead already in the St. Joseph system from the later winter-run component that normally begins building in fall.",
+      tip,
     };
   }
   return {
@@ -1522,7 +1723,40 @@ function stJosephFallEntryStageCopy(input: {
     whereToStart,
     detail:
       `${base.detail} Five passage facilities allow distribution from the lower river through South Bend and Mishawaka, but Twin Branch is the hard upstream limit and Niles measurements are reach-specific.`,
+    tip,
   };
+}
+
+function stJosephFallEntryTip(input: {
+  stage: RunStage;
+  stagingContext: boolean;
+  establishedBuildingContext: boolean;
+  broadBuildingContext: boolean;
+  winterHoldingContext: boolean;
+}): string {
+  if (input.winterHoldingContext) {
+    return "Choose one deep, speed-controlled Michigan or Indiana holding reach, verify its water directly, and treat Activity as a Niles response read—not proof that Steelhead are feeding everywhere.";
+  }
+  switch (input.stage) {
+    case "pre_run":
+      return input.stagingContext
+        ? "Separate summer-run Skamania from the later winter-run build. Check direct local reports before going inland, and do not use one Skamania as proof of a new fall wave."
+        : "Keep new-entry effort around Lake Michigan, the St. Joseph harbor, and the mouth. Use direct local evidence—not this inactive fall calendar—if targeting Skamania already inland.";
+    case "beginning":
+      return "Cover lower-Michigan travel lanes and their first deep resting water before moving toward Niles. Treat inland Skamania separately from evidence of a new winter-run wave.";
+    case "building":
+      return input.broadBuildingContext
+        ? "Compare one legal Michigan holding section with South Bend or Mishawaka, then let direct fish activity decide where to stay; remain outside every posted ladder and dam boundary."
+        : "Begin in substantial lower-Michigan or Niles holding water, then compare legal Indiana water only after a clean search; use Push to decide whether lower travel lanes deserve extra time.";
+    case "peak":
+      return "Choose a substantial legal holding section below Berrien Springs, near Buchanan or Niles, or in South Bend-Mishawaka and cover it completely before changing reaches.";
+    case "tapering":
+      return "Start in deep established holding water and slow the presentation as temperature falls. Add lower travel lanes only when Niles Push supports fresh movement.";
+    case "ending":
+      return "Prioritize deep, speed-controlled holding water below Twin Branch and use Activity for responsiveness. Do not interpret a muted Push as fish leaving the river.";
+    case "post_run":
+      return "Use an active winter Steelhead read when available. Do not extend this fall-entry calendar into a winter or spring recommendation.";
+  }
 }
 
 export function stageForDate(localDate: string, window: DateWindow): RunStage {

@@ -62,6 +62,9 @@ import {
   RIVER_RUN_MUSKEGON_REVIEW_GROUPS,
   RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS,
   RIVER_RUN_REVIEW_GROUPS,
+  RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS,
+  RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS,
+  RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS,
   RIVER_RUN_STEELHEAD_REVIEW_GROUPS,
   type RiverRunReviewGroup,
   type RiverRunReviewScenario,
@@ -73,6 +76,7 @@ import {
 } from "../lib/riverRunVisuals";
 import { getRiverRunSpeciesImage } from "../lib/riverRunSpeciesImages";
 import { getRiverRunRiverImage } from "../lib/riverRunChoiceImages";
+import { splitRiverRunDetailPoints } from "../lib/riverRunCopyFormatting";
 import {
   RIVER_RUN_REGULATION_REMINDER,
   riverRunFishingGuideForSpecies,
@@ -155,8 +159,10 @@ const REVIEW_GROUP_TAB: Partial<Record<string, PrimitiveTabId>> = {
   activity: "activity",
 };
 
-const RIVER_RUN_REVIEW_ENABLED = __DEV__ &&
-  process.env.EXPO_PUBLIC_RIVER_RUN_REVIEW_MODE === "true";
+// Generated review fixtures are compiled with development builds, so the
+// reviewer should always be reachable in development. Production builds keep
+// this entire surface disabled through __DEV__.
+const RIVER_RUN_REVIEW_ENABLED = __DEV__;
 const CHINOOK_IMAGE = getRiverRunSpeciesImage("chinook_salmon");
 const COHO_IMAGE = getRiverRunSpeciesImage("coho_salmon");
 const STEELHEAD_IMAGE = getRiverRunSpeciesImage("steelhead");
@@ -185,6 +191,10 @@ const STATE_ICON_THEMES: Record<string, ChoiceIconTheme> = {
   OH: {
     background: "#FFF1E3",
     foreground: "#CF955C",
+  },
+  IN: {
+    background: "#FFF3DF",
+    foreground: "#B77A2F",
   },
 };
 
@@ -348,6 +358,76 @@ const REVIEW_CATALOG: RiverRunCatalogResponse = {
             },
           ],
         },
+        {
+          riverId: "st_joseph",
+          displayName: "St. Joseph River",
+          state: "MI",
+          timezone: "America/Detroit",
+          runs: [
+            {
+              runId: "st_joseph_fall_chinook",
+              displayName: "Fall Chinook",
+              species: "chinook_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "st_joseph_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "st_joseph_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+              runType: "fall_entry",
+              supportStatus: "beta",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      state: "IN",
+      displayName: "Indiana",
+      rivers: [
+        {
+          riverId: "st_joseph",
+          displayName: "St. Joseph River",
+          state: "IN",
+          timezone: "America/Detroit",
+          runs: [
+            {
+              runId: "st_joseph_fall_chinook",
+              displayName: "Fall Chinook",
+              species: "chinook_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "st_joseph_fall_coho",
+              displayName: "Fall Coho",
+              species: "coho_salmon",
+              season: "fall",
+              runType: "fall_spawn",
+              supportStatus: "beta",
+            },
+            {
+              runId: "st_joseph_fall_steelhead",
+              displayName: "Fall Steelhead",
+              species: "steelhead",
+              season: "fall",
+              runType: "fall_entry",
+              supportStatus: "beta",
+            },
+          ],
+        },
       ],
     },
   ],
@@ -369,7 +449,7 @@ const STEP_CONFIG: Record<
     label: "STATE",
     eyebrow: "CHOOSE A REGION",
     question: "Which state?",
-    caption: "Michigan is available now. Planned regions are marked below.",
+    caption: "Choose an available state. Planned regions are marked below.",
     icon: "map-outline",
     requestTitle: "Need another state?",
     requestAction: "Request a state",
@@ -461,6 +541,14 @@ export default function RiverRunScreen() {
     : selectedRiverId === "muskegon" && selectedSpecies === "chinook_salmon"
     ? RIVER_RUN_MUSKEGON_REVIEW_GROUPS
     : selectedRiverId === "muskegon"
+    ? []
+    : selectedRiverId === "st_joseph" && selectedSpecies === "steelhead"
+    ? RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS
+    : selectedRiverId === "st_joseph" && selectedSpecies === "coho_salmon"
+    ? RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS
+    : selectedRiverId === "st_joseph" && selectedSpecies === "chinook_salmon"
+    ? RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS
+    : selectedRiverId === "st_joseph"
     ? []
     : selectedSpecies === "coho_salmon"
     ? RIVER_RUN_COHO_REVIEW_GROUPS
@@ -2106,7 +2194,7 @@ function PrimitiveSection({
   const unavailable = primitive.score === null ||
     primitive.label === "Unavailable";
   const detailPointCount = primitive.detail
-    ? splitPrimitiveDetail(primitive.detail).length
+    ? splitRiverRunDetailPoints(primitive.detail).length
     : 0;
   const visual = resolveRiverRunVisualModel({
     kind: visualKind,
@@ -2275,7 +2363,7 @@ function PrimitiveHeadlineCopy({ value }: { value: string }) {
 }
 
 function PrimitiveDetailCopy({ value }: { value: string }) {
-  const detailLines = splitPrimitiveDetail(value);
+  const detailLines = splitRiverRunDetailPoints(value);
   return (
     <View
       style={styles.primitiveDetailList}
@@ -2335,13 +2423,6 @@ function PrimitiveGuideReadCopy({ value }: { value: string }) {
       ))}
     </View>
   );
-}
-
-function splitPrimitiveDetail(value: string): string[] {
-  const sentences = value.match(/[^.!?]+[.!?]+|[^.!?]+$/g);
-  return (sentences ?? [value])
-    .map((sentence) => sentence.trim())
-    .filter(Boolean);
 }
 
 function useReduceMotionPreference(): boolean {

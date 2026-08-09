@@ -100,6 +100,7 @@ export function scoreConditionsSuggest(input: {
       | "conditionsSuggest"
       | "push"
       | "handoff"
+      | "runStageCopyStrategy"
     >
     & {
       conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
@@ -124,6 +125,7 @@ export function scoreConditionsSuggest(input: {
     return inactiveResult({
       observationStartDate: checkpointState.window.stagingStartDate,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
+      stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
     });
   }
   if (!checkpointState.activeCheckpoint) {
@@ -131,6 +133,7 @@ export function scoreConditionsSuggest(input: {
       observationStarted: checkpointState.observationStarted,
       observationStartDate: checkpointState.window.stagingStartDate,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
+      stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
     });
   }
 
@@ -176,6 +179,7 @@ export function scoreConditionsSuggest(input: {
       observationStarted: checkpointState.observationStarted,
       observationStartDate: checkpointState.window.stagingStartDate,
       nextCheckpointDate: checkpointState.nextCheckpoint?.checkpointDate,
+      stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
     });
   }
   if (!checkpointState.complete) return activeResult;
@@ -191,6 +195,7 @@ export function scoreConditionsSuggest(input: {
 function inactiveResult(input: {
   observationStartDate: string;
   nextCheckpointDate?: string;
+  stJoseph: boolean;
 }): ConditionsSuggestResult {
   return {
     label: "Not monitoring yet",
@@ -212,8 +217,9 @@ function inactiveResult(input: {
     headline: "Migration Timing is not active right now.",
     detail:
       "Timing monitoring begins before the expected river entry, but that seasonal observation window is not active yet.",
-    tip:
-      "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
+    tip: input.stJoseph
+      ? "Check Migration Stage for the active St. Joseph species and section. Return to this read when Niles monitoring begins; do not use offseason water changes to justify a corridor trip."
+      : "Check Migration Stage for the current seasonal position and return to Migration Timing when early monitoring begins.",
     reasonCodes: ["conditions_monitoring_inactive"],
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
@@ -223,7 +229,7 @@ function scoreCheckpoint(input: {
   run:
     & Pick<
       RiverRunProfile,
-      "conditionsSuggest" | "push"
+      "conditionsSuggest" | "push" | "runStageCopyStrategy"
     >
     & {
       conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
@@ -418,6 +424,7 @@ function scoreCheckpoint(input: {
       label: timingLabel,
       signalsStronglyMixed,
       oppositeCheckpointTempered,
+      stJoseph: input.run.runStageCopyStrategy === "st_joseph_corridor",
     }),
     reasonCodes: [...reasonCodes],
     copyVersion: RIVER_RUN_COPY_VERSION,
@@ -682,6 +689,7 @@ function conditionsCopy(input: {
   label: Exclude<ConditionsTimingLabel, "Insufficient evidence">;
   signalsStronglyMixed: boolean;
   oppositeCheckpointTempered: boolean;
+  stJoseph: boolean;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   if (input.oppositeCheckpointTempered) {
     return {
@@ -689,8 +697,9 @@ function conditionsCopy(input: {
         "The migration still appears to be moving at a normal seasonal pace.",
       detail:
         "Recent river and temperature signals changed direction, but the season as a whole does not support a clear early or late call.",
-      tip:
-        "Fish the normal river section for the current Migration Stage. Begin in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
+      tip: input.stJoseph
+        ? stJosephTimingTip("typical")
+        : "Fish the normal river section for the current Migration Stage. Begin in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
     };
   }
   if (input.signalsStronglyMixed) {
@@ -699,8 +708,9 @@ function conditionsCopy(input: {
         "The migration still appears to be moving at a normal seasonal pace.",
       detail:
         "River levels and water temperature are pointing in different directions, so neither supports a clear early or late read.",
-      tip:
-        "Keep the normal distribution plan for the current Migration Stage. Start in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
+      tip: input.stJoseph
+        ? stJosephTimingTip("typical")
+        : "Keep the normal distribution plan for the current Migration Stage. Start in established holding water; if Push is Possible or stronger, make lower travel lanes the next stop.",
     };
   }
   switch (input.label) {
@@ -709,8 +719,9 @@ function conditionsCopy(input: {
         headline: "The migration appears to be developing earlier than usual.",
         detail:
           "The river has risen and cooled faster than it normally does by this point in the season.",
-        tip:
-          "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
+        tip: input.stJoseph
+          ? stJosephTimingTip("ahead")
+          : "Start one accessible river section farther upstream than you normally would for this date and prioritize established holding water. If Push is Possible or stronger, finish with lower travel lanes.",
       };
     case "Typical":
       return {
@@ -718,16 +729,18 @@ function conditionsCopy(input: {
           "The migration appears to be progressing at a normal seasonal pace.",
         detail:
           "River rises and cooling are close to what is usually seen by this point in the season.",
-        tip:
-          "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
+        tip: input.stJoseph
+          ? stJosephTimingTip("typical")
+          : "Fish the core river section identified by Migration Stage. Begin where a travel lane feeds established holding water, then adjust presentation—not seasonal location—using Fishability.",
       };
     case "Delayed":
       return {
         headline: "The migration appears to be developing later than usual.",
         detail:
           "The river has risen and cooled more slowly than it normally does by this point in the season.",
-        tip:
-          "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
+        tip: input.stJoseph
+          ? stJosephTimingTip("delayed")
+          : "Start in the lower river and fish the first deep holding water connected to lake-entry travel lanes. Do not assume the middle and upper river have filled in yet.",
       };
   }
 }
@@ -736,6 +749,7 @@ function awaitingResult(input: {
   observationStarted: boolean;
   observationStartDate: string;
   nextCheckpointDate?: string;
+  stJoseph: boolean;
 }): ConditionsSuggestResult {
   return {
     label: "Evaluating",
@@ -760,12 +774,28 @@ function awaitingResult(input: {
     detail: input.observationStarted
       ? "The early river and temperature pattern is still developing, so an Ahead, Typical, or Delayed call would be premature."
       : "The migration has not developed enough to compare its pace with a typical season.",
-    tip: input.observationStarted
+    tip: input.stJoseph
+      ? input.observationStarted
+        ? "Keep the trip around the St. Joseph harbor, mouth, and earliest lower-Michigan holding water. Move toward Berrien Springs or Niles only when Migration Stage or direct fish activity supports it."
+        : "Keep the trip in Lake Michigan, the St. Joseph harbor, and river-mouth water. Do not use an incomplete Niles timing read to justify an inland corridor trip."
+      : input.observationStarted
       ? "Keep the trip centered on the river mouth and earliest lower-river holding water. Move inland only when Migration Stage advances or direct fish activity supports it."
       : "Keep the trip in the lake, harbor, and river-mouth zone. Do not use Migration Timing to justify an inland river trip before a dependable seasonal pattern exists.",
     reasonCodes: ["conditions_checkpoint_evaluating"],
     copyVersion: RIVER_RUN_COPY_VERSION,
   };
+}
+
+function stJosephTimingTip(
+  state: "ahead" | "typical" | "delayed",
+): string {
+  if (state === "ahead") {
+    return "Start one legal section upriver from the normal Migration Stage plan—Buchanan or Niles before South Bend-Mishawaka—and still check lower-Michigan travel water when Push supports fresh entry.";
+  }
+  if (state === "delayed") {
+    return "Stay in the St. Joseph harbor-to-Berrien Springs corridor and its first deep holding water. Do not assume Niles or Indiana has filled in from a delayed Niles timing pattern.";
+  }
+  return "Use the section named by Migration Stage. Compare established Niles-area holding water with lower travel lanes only when Push supports it; verify Indiana sections independently.";
 }
 
 function completeResult(input: {

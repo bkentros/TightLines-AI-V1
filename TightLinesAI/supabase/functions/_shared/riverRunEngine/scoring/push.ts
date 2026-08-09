@@ -437,6 +437,8 @@ function pushCopy(input: {
   input: PushScoreInput;
   components: PushScoreComponents;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  const nilesScoped = input.input.rules.hydraulic.sourceLabel ===
+    "Niles mainstem reach";
   const detail = [
     hydraulicCopy(input.input),
     temperatureCopy(input.input, input.components.temperatureState),
@@ -444,10 +446,15 @@ function pushCopy(input: {
     rainCopy(input.components.rainRole),
     capCopy(input.input),
   ].filter(Boolean).join(" ");
+  const tip = pushTip(input.label, input.input, input.components);
   return {
     headline: pushHeadline(input.label, input.input, input.components),
-    detail,
-    tip: pushTip(input.label, input.input, input.components),
+    detail: nilesScoped
+      ? `${detail} This Push describes fresh-movement support at Niles only; it does not prove a new wave at the harbor, Berrien Springs, South Bend, Mishawaka, or Twin Branch.`
+      : detail,
+    tip: nilesScoped
+      ? `${tip} Use the Niles signal to choose between Niles-area holding water and a lower-Michigan travel-water check; verify Indiana movement directly.`
+      : tip,
   };
 }
 

@@ -72,6 +72,15 @@ export const MUSKEGON_CHINOOK_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
     "Michigan DNR Chinook profile and Muskegon River fishery descriptions; USGS 04121970 measured-water record; EPA salmonid temperature review.",
 };
 
+export const ST_JOSEPH_CHINOOK_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
+  ...BIG_MANISTEE_CHINOOK_BIOLOGY_PROFILE,
+  biologyProfileId: "st_joseph_chinook_v1",
+  evidenceNotes:
+    "St. Joseph adult Chinook enter a large, warm interstate mainstem from late August. Cooling improves active movement, but the river-specific profile preserves plausible entry through the mid-60s and distinguishes the 68F warm constraint from the 72F migration barrier. These thresholds describe movement conditions at Niles, not abundance or passage through every ladder.",
+  sourceNotes:
+    "Indiana DNR Lake Michigan fall Chinook guidance; USGS 04101500 Niles measured-water archive; Michigan DNR Chinook biology; EPA salmonid temperature review. The profile is St. Joseph-specific and remains owner-gated pending live review.",
+};
+
 export const GREAT_LAKES_COHO_BIOLOGY_PROFILE: SpeciesBiologyProfile = {
   biologyProfileId: "great_lakes_coho_v1",
   species: "coho_salmon",

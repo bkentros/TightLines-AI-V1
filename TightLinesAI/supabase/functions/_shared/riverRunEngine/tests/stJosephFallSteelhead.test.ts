@@ -5,6 +5,7 @@ import {
   listVisibleRiverRuns,
   resolveFlowBand,
   resolveRunStage,
+  scoreActivity,
   scoreFishInRiver,
   scorePush,
   ST_JOSEPH_CONFIGURATION_DOCUMENT,
@@ -14,9 +15,9 @@ import {
   validateRunProfile,
 } from "../index.ts";
 
-Deno.test("St. Joseph Fall Steelhead is valid, owner-gated, and excludes Activity", () => {
+Deno.test("St. Joseph Fall Steelhead is public in both states and includes calibrated Activity", () => {
   assertEquals(validateRunProfile(run, river).valid, true);
-  assertEquals(validateRunProfile(run, river).publicVisible, false);
+  assertEquals(validateRunProfile(run, river).publicVisible, true);
   assertEquals(
     validateConfigurationRevision({
       configKey: "st_joseph",
@@ -30,20 +31,19 @@ Deno.test("St. Joseph Fall Steelhead is valid, owner-gated, and excludes Activit
   assertEquals(run.primitiveCapabilities.migrationTiming.status, "available");
   assertEquals(run.primitiveCapabilities.push.status, "available");
   assertEquals(run.primitiveCapabilities.fishability.status, "available");
-  assertEquals(run.primitiveCapabilities.activity, {
-    status: "unavailable",
-    reason: "no_accepted_activity_calibration",
-    notes:
-      "Activity is intentionally withheld until a dedicated Niles-reach Steelhead responsiveness replay and copy audit are accepted.",
-  });
-  assertEquals(run.activity, undefined);
-  assertEquals(listVisibleRiverRuns([river], [run]), []);
+  assertEquals(run.primitiveCapabilities.activity, { status: "available" });
+  assertEquals(run.activity?.version, "st-joseph-fall-steelhead-activity-v1");
+  assertEquals(
+    listVisibleRiverRuns([river], [run]).map((entry) => entry.state),
+    ["MI", "IN"],
+  );
 });
 
 Deno.test("St. Joseph Steelhead separates Skamania presence from winter-run fall entry", () => {
   const early = resolveRunStage(run, "2026-08-10");
   assertMatch(early.headline, /Skamania/i);
-  assertMatch(early.detail, /Little Manistee winter-run/i);
+  assertMatch(early.detail, /later winter-run/i);
+  assertEquals(/Manistee/i.test(early.detail), false);
   assertMatch(early.whereToStart ?? "", /harbor/i);
 
   const building = resolveRunStage(run, "2026-10-15");
@@ -56,7 +56,7 @@ Deno.test("St. Joseph Steelhead separates Skamania presence from winter-run fall
   const winter = resolveRunStage(run, "2026-12-23");
   assertEquals(winter.label, "Winter holding");
   assertMatch(winter.detail, /have not left/i);
-  assertMatch(winter.detail, /Activity remains unavailable/i);
+  assertMatch(winter.detail, /responsiveness at Niles/i);
 });
 
 Deno.test("St. Joseph Steelhead presence is 9/10 and hands 81 into winter", () => {
@@ -138,7 +138,7 @@ Deno.test("St. Joseph Push requires measured Niles response and retains cold fis
   assertEquals(cold.components?.temperatureState, "cold_holding");
 });
 
-Deno.test("St. Joseph snapshots expose five primitives and keep Activity unavailable", () => {
+Deno.test("St. Joseph snapshot keeps Activity explicit when measurements are missing", () => {
   const daily = buildDailySnapshot({
     river,
     run,
@@ -156,6 +156,9 @@ Deno.test("St. Joseph snapshots expose five primitives and keep Activity unavail
     primitiveCapabilities: run.primitiveCapabilities,
     pushRules: run.push,
     fishabilityBands: run.fishabilityBands,
+    activityRules: run.activity,
+    activityTargetDate: "2026-11-15",
+    activityTargetStage: "peak",
     gaugeFreshness: "missing",
     weatherFreshness: "missing",
     waterTemperatureFreshness: "missing",
@@ -177,7 +180,63 @@ Deno.test("St. Joseph snapshots expose five primitives and keep Activity unavail
   assertEquals(daily.conditionsSuggest.label, "Insufficient evidence");
   assertEquals(condition.push.label, "Unavailable");
   assertEquals(condition.fishability.label, "Unavailable");
-  assertEquals(condition.activity, null);
+  assertEquals(condition.activity?.label, "Inactive");
+});
+
+Deno.test("St. Joseph Steelhead Activity is temperature-led, Niles-scoped, and has no salmon taper", () => {
+  assertEquals(run.activity?.profile, "steelhead_feeding");
+  assertEquals(run.activity?.weights, {
+    light: .25,
+    waterTemperature: .5,
+    riverBehavior: .15,
+    weather: .1,
+  });
+  assertEquals(run.activity?.temperature, {
+    coldF: 39,
+    preferredMinF: 44,
+    preferredMaxF: 56,
+    warmF: 64,
+    barrierF: 68,
+  });
+  assertEquals(run.activity?.caps.lateRun, 100);
+  assertEquals(run.activity?.caps.ending, 100);
+  assertEquals(run.activity?.caps.taperingPenalty, undefined);
+  assertEquals(run.activity?.caps.lifecycleRamp, undefined);
+
+  const stages = ["peak", "tapering", "ending", "post_run"] as const;
+  const results = stages.map((stage) => activityAt("2026-12-20", stage));
+  for (const result of results.slice(1)) {
+    assertEquals(
+      result.blocks.map((block) => block.score),
+      results[0].blocks.map((block) => block.score),
+    );
+  }
+  const copy = JSON.stringify(results[2]);
+  assertMatch(copy, /mainstem at Niles/i);
+  assertMatch(copy, /South Bend/i);
+  assertMatch(copy, /Twin Branch/i);
+  assertEquals(
+    /spent|dying|deteriorat|mortality|Chinook|Coho/i.test(copy),
+    false,
+  );
+  assertEquals(
+    /Tippy|Wellston|Croton|Scottville|Pere Marquette/i.test(copy),
+    false,
+  );
+});
+
+Deno.test("St. Joseph Activity does not award a second fresh-movement bonus", () => {
+  const stable = activityAt("2026-11-15", "peak", "stable");
+  const sharp = activityAt("2026-11-15", "peak", "sharp_rise");
+  assert(
+    sharp.blocks.every((block, index) =>
+      block.score <= stable.blocks[index].score
+    ),
+  );
+  assertEquals(
+    JSON.stringify(sharp).includes("fresh movement"),
+    false,
+  );
 });
 
 Deno.test("St. Joseph copy never leaks another river or crosses Twin Branch", () => {
@@ -194,7 +253,7 @@ Deno.test("St. Joseph copy never leaks another river or crosses Twin Branch", ()
   ) {
     const copy = JSON.stringify(resolveRunStage(run, date));
     assertEquals(
-      /Tippy|Wellston|Croton|Newaygo|Scottville|Walhalla|Pere Marquette|Homestead/i
+      /Little Manistee|Tippy|Wellston|Croton|Newaygo|Scottville|Walhalla|Pere Marquette|Homestead/i
         .test(copy),
       false,
       date,
@@ -202,3 +261,32 @@ Deno.test("St. Joseph copy never leaks another river or crosses Twin Branch", ()
     assertEquals(/above Twin Branch/i.test(copy), false, date);
   }
 });
+
+function activityAt(
+  date: string,
+  runStage: "peak" | "tapering" | "ending" | "post_run",
+  flowSignal: "stable" | "sharp_rise" = "stable",
+) {
+  return scoreActivity({
+    rules: run.activity!,
+    requestDate: date,
+    targetDate: date,
+    runStage,
+    staging: false,
+    waterTempF: 50,
+    temperatureTrend: "neutral",
+    gaugeFreshness: "fresh",
+    weatherFreshness: "fresh",
+    flowBand: "ideal",
+    currentHydraulicValue: 2400,
+    fishabilityBands: run.fishabilityBands,
+    flowSignal,
+    hourlyWeather: Array.from({ length: 24 }, (_, hour) => ({
+      time_local: `${date}T${String(hour).padStart(2, "0")}:00`,
+      cloud_cover_pct: 75,
+      shortwave_w_m2: hour >= 8 && hour <= 18 ? 180 : 30,
+      clear_sky_shortwave_w_m2: hour >= 8 && hour <= 18 ? 650 : 120,
+      precipitation_in: 0,
+    })),
+  });
+}

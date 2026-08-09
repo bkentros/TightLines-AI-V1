@@ -109,12 +109,20 @@ export function buildDailySnapshot(input: {
 function requireTimingConfiguration(
   run: Pick<
     RiverRunProfile,
-    "runWindow" | "conditionsSuggest" | "push" | "handoff"
+    | "runWindow"
+    | "conditionsSuggest"
+    | "push"
+    | "handoff"
+    | "runStageCopyStrategy"
   >,
 ):
   & Pick<
     RiverRunProfile,
-    "runWindow" | "conditionsSuggest" | "push" | "handoff"
+    | "runWindow"
+    | "conditionsSuggest"
+    | "push"
+    | "handoff"
+    | "runStageCopyStrategy"
   >
   & {
     conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;
@@ -128,7 +136,11 @@ function requireTimingConfiguration(
   return run as
     & Pick<
       RiverRunProfile,
-      "runWindow" | "conditionsSuggest" | "push" | "handoff"
+      | "runWindow"
+      | "conditionsSuggest"
+      | "push"
+      | "handoff"
+      | "runStageCopyStrategy"
     >
     & {
       conditionsSuggest: NonNullable<RiverRunProfile["conditionsSuggest"]>;

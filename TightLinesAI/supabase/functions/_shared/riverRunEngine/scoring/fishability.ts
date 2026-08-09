@@ -94,6 +94,7 @@ export function scoreFishability(
       flowBand: input.flowBand,
       flowSignal: input.flowSignal,
       gaugeFreshness: input.gaugeFreshness,
+      sourceLabel: input.rules.sourceLabel,
     }),
     reasonCodes: [...reasonCodes],
     components,
@@ -150,7 +151,17 @@ function fishabilityCopy(input: {
   flowBand: FlowBand;
   flowSignal: RawFlowTrendSignal;
   gaugeFreshness: GaugeFreshness;
+  sourceLabel: string;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  const nilesScoped = input.sourceLabel === "Niles mainstem reach";
+  const scopeDetail = nilesScoped
+    ? " This flow shape applies to the Niles mainstem reach only; verify the harbor, lower Michigan river, individual tailwaters, and Indiana water directly."
+    : "";
+  const baseTip = fishabilityTip(
+    input.flowBand,
+    input.flowSignal,
+    input.gaugeFreshness,
+  );
   return {
     headline: fishabilityHeadline(
       input.flowBand,
@@ -159,12 +170,10 @@ function fishabilityCopy(input: {
     ),
     detail: `${flowBandMeaning(input.flowBand)} ${
       trendMeaning(input.flowSignal, input.flowBand, input.gaugeFreshness)
-    } Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.`,
-    tip: fishabilityTip(
-      input.flowBand,
-      input.flowSignal,
-      input.gaugeFreshness,
-    ),
+    } Fishability describes how this flow should fish if migratory fish are present; it does not estimate how many fish are in the river.${scopeDetail}`,
+    tip: nilesScoped
+      ? `${baseTip} Apply this recommendation at Niles; recheck water shape and safe access before carrying it to another St. Joseph section.`
+      : baseTip,
   };
 }
 

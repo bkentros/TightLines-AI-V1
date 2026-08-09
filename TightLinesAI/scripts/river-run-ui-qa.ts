@@ -166,7 +166,11 @@ assert.deepEqual(
   riverRunRiverChoices(catalog, "MI", "fall", "steelhead").map((choice) =>
     choice.id
   ),
-  [...michiganFallRiverIds.slice(0, 4), "st_joseph", ...michiganFallRiverIds.slice(4)],
+  [
+    ...michiganFallRiverIds.slice(0, 4),
+    "st_joseph",
+    ...michiganFallRiverIds.slice(4),
+  ],
 );
 assert.deepEqual(
   riverRunRiverChoices(catalog, "MI", "fall", "atlantic_salmon"),
@@ -234,6 +238,22 @@ const projectRoot = fileURLToPath(new URL("../", import.meta.url));
 const riverRunScreen = readFileSync(
   `${projectRoot}app/river-run.tsx`,
   "utf8",
+);
+
+assert.match(
+  riverRunScreen,
+  /const RIVER_RUN_REVIEW_ENABLED = __DEV__;/,
+  "Generated fixture review must be reachable in every development build",
+);
+assert.match(
+  riverRunScreen,
+  /state: "MI"[\s\S]*?riverId: "st_joseph"[\s\S]*?st_joseph_fall_chinook[\s\S]*?st_joseph_fall_coho[\s\S]*?st_joseph_fall_steelhead/,
+  "Michigan review catalog must enable all three St. Joseph reports",
+);
+assert.match(
+  riverRunScreen,
+  /state: "IN"[\s\S]*?riverId: "st_joseph"[\s\S]*?st_joseph_fall_chinook[\s\S]*?st_joseph_fall_coho[\s\S]*?st_joseph_fall_steelhead/,
+  "Indiana review catalog must enable all three St. Joseph reports",
 );
 assert.match(
   riverRunScreen,
@@ -435,7 +455,7 @@ assert.match(
 );
 assert.match(
   riverRunScreen,
-  /function PrimitiveDetailCopy\(\{ value \}: \{ value: string \}\)[\s\S]*?splitPrimitiveDetail\(value\)[\s\S]*?detailLines\.map\(\(line, lineIndex\) => \([\s\S]*?<View style=\{styles\.primitiveDetailBullet\} \/>[\s\S]*?<PrimitiveDetailWordFlow value=\{line\} \/>/,
+  /function PrimitiveDetailCopy\(\{ value \}: \{ value: string \}\)[\s\S]*?splitRiverRunDetailPoints\(value\)[\s\S]*?detailLines\.map\(\(line, lineIndex\) => \([\s\S]*?<View style=\{styles\.primitiveDetailBullet\} \/>[\s\S]*?<PrimitiveDetailWordFlow value=\{line\} \/>/,
   "Why This Read must render each sentence as a safe bullet row",
 );
 const detailCardStyle = riverRunScreen.match(

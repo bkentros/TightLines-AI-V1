@@ -4,6 +4,8 @@ import {
   type NormalizedBaselineObservation,
   type NormalizedTemperatureBaselineObservation,
   resolveConditionsSuggestCheckpoints,
+  ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE,
+  ST_JOSEPH_FALL_COHO_RUN_PROFILE,
   ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE as run,
   ST_JOSEPH_RIVER_PROFILE as river,
   summarizeConditionsSuggestHistoricalReplay,
@@ -11,6 +13,11 @@ import {
 
 const START_YEAR = 2012;
 const END_YEAR = 2025;
+const selectedRun = {
+  st_joseph_fall_chinook: ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE,
+  st_joseph_fall_coho: ST_JOSEPH_FALL_COHO_RUN_PROFILE,
+  st_joseph_fall_steelhead: run,
+}[argumentValue("--run-id") ?? "st_joseph_fall_steelhead"] ?? run;
 const inputPath = argumentValue("--input-json");
 const payload = inputPath
   ? JSON.parse(await Deno.readTextFile(inputPath))
@@ -19,8 +26,8 @@ const { gaugeObservations, temperatureObservations } = parseWaterServicesDaily(
   payload,
 );
 const checkpoints = resolveConditionsSuggestCheckpoints(
-  run,
-  `2026-${run.runWindow.peak}`,
+  selectedRun,
+  `2026-${selectedRun.runWindow.peak}`,
 ).map((checkpoint) => ({
   checkpointId: checkpoint.checkpointId,
   observationStartMonthDay: checkpoint.observationStartDate.slice(5),
@@ -30,20 +37,24 @@ const rows = generateConditionsSuggestBaselineRows({
   gaugeObservations,
   temperatureObservations,
   riverId: river.riverId,
-  runId: run.runId,
+  runId: selectedRun.runId,
   gaugeMetric: "flow_cfs",
   gaugeSiteId: "04101500",
   temperatureSourceId: "st_joseph_niles_temperature",
-  baselineVersion: run.conditionsSuggest.baselineVersion,
+  baselineVersion: selectedRun.conditionsSuggest.baselineVersion,
   checkpoints,
-  minimumCoveragePercent: run.conditionsSuggest.minimumCoveragePercent,
-  minimumUsableYears: run.conditionsSuggest.minimumUsableYears,
-  coolEnoughPercentileCap: run.conditionsSuggest.coolEnoughPercentileCap,
-  tooWarmF: run.push.temperature.tooWarmF,
-  gaugeWeight: run.conditionsSuggest.gaugeWeight!,
-  waterTemperatureWeight: run.conditionsSuggest.waterTemperatureWeight!,
-  sourceNotes:
-    "St. Joseph Fall Steelhead cumulative Migration Timing checkpoints: USGS 04101500 daily mean discharge and same-station measured water temperature, fixed 2012-2025 archive; staging start through each completed checkpoint; 40% Niles hydraulic pattern and 60% measured-water cooling pattern. Missing temperature days are not imputed, Mottville is excluded, and the result describes timing at the Niles reach rather than ladder passage or river-wide abundance.",
+  minimumCoveragePercent: selectedRun.conditionsSuggest.minimumCoveragePercent,
+  minimumUsableYears: selectedRun.conditionsSuggest.minimumUsableYears,
+  coolEnoughPercentileCap:
+    selectedRun.conditionsSuggest.coolEnoughPercentileCap,
+  tooWarmF: selectedRun.push.temperature.tooWarmF,
+  gaugeWeight: selectedRun.conditionsSuggest.gaugeWeight!,
+  waterTemperatureWeight: selectedRun.conditionsSuggest.waterTemperatureWeight!,
+  sourceNotes: selectedRun.runId === "st_joseph_fall_chinook"
+    ? "St. Joseph Fall Chinook cumulative Migration Timing checkpoints: USGS 04101500 daily mean discharge and same-station measured water temperature, fixed 2012-2025 archive; staging start through each completed checkpoint; 55% Niles hydraulic pattern and 45% measured-water cooling pattern. Missing temperature days are not imputed, Mottville is excluded, and the result describes timing at the Niles reach rather than ladder passage or river-wide abundance."
+    : selectedRun.runId === "st_joseph_fall_coho"
+    ? "St. Joseph Fall Coho cumulative Migration Timing checkpoints: USGS 04101500 daily mean discharge and same-station measured water temperature, fixed 2012-2025 archive; staging start through each completed checkpoint; 55% Niles hydraulic pattern and 45% measured-water cooling pattern. Missing temperature days are not imputed, Mottville is excluded, and the result describes timing at the Niles reach rather than ladder passage or river-wide abundance."
+    : "St. Joseph Fall Steelhead cumulative Migration Timing checkpoints: USGS 04101500 daily mean discharge and same-station measured water temperature, fixed 2012-2025 archive; staging start through each completed checkpoint; 40% Niles hydraulic pattern and 60% measured-water cooling pattern. Missing temperature days are not imputed, Mottville is excluded, and the result describes timing at the Niles reach rather than ladder passage or river-wide abundance.",
 });
 
 const calibrationGaugeObservations = gaugeObservations.filter((item) =>
@@ -55,7 +66,7 @@ const positiveChanges = consecutivePositiveChanges(
 );
 const report = {
   riverId: river.riverId,
-  runId: run.runId,
+  runId: selectedRun.runId,
   auditWindow: `${START_YEAR}-${END_YEAR}`,
   gaugeObservationCount: gaugeObservations.length,
   temperatureObservationCount: temperatureObservations.length,
@@ -69,7 +80,10 @@ const report = {
   distinctYearsByCheckpoint: Object.fromEntries(
     rows.map((row) => [row.checkpointId, row.distinctYears]),
   ),
-  historicalReplay: summarizeConditionsSuggestHistoricalReplay({ rows, run }),
+  historicalReplay: summarizeConditionsSuggestHistoricalReplay({
+    rows,
+    run: selectedRun,
+  }),
 };
 
 const outputPath = argumentValue("--out-sql");

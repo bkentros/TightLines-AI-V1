@@ -64,6 +64,7 @@ export function scoreFishInRiver(
       riverCeiling * run.handoff!.retainedPresenceFraction,
     );
     const betsieHandoff = run.runStageCopyStrategy === "betsie_homestead";
+    const stJosephHandoff = run.runStageCopyStrategy === "st_joseph_corridor";
     return {
       score: handoffScore,
       stage,
@@ -77,12 +78,18 @@ export function scoreFishInRiver(
       label: "Winter holding",
       headline: betsieHandoff
         ? "Steelhead remain strongly present as the Betsie shifts into winter holding."
+        : stJosephHandoff
+        ? "Steelhead remain strongly present through the St. Joseph corridor as fall entry shifts into winter holding."
         : "Steelhead remain strongly present as the fishery shifts into winter holding.",
       detail: betsieHandoff
         ? `Fall entry finished at ${handoffScore}/100. That retained-presence reference is not a live activity score; the Betsie has no accepted water-temperature or flow sensor for judging today's feeding activity.`
+        : stJosephHandoff
+        ? `Fall entry finished at ${handoffScore}/100. That retained-presence reference applies across the accessible season, not equally to every reach; current Niles Activity is a response read for Niles only.`
         : `Fall entry finished at ${handoffScore}/100. That retained-presence reference stays visible, but it is not a winter activity score; winter opportunity depends on water temperature, feeding activity, and presentation.`,
       tip: betsieHandoff
         ? `Treat ${handoffScore}/100 as retained seasonal presence—not proof that fish are active today. Verify conditions directly and use controlled presentations in deep holding water outside the signed Homestead closure.`
+        : stJosephHandoff
+        ? `Treat ${handoffScore}/100 as retained seasonal presence—not proof of activity in every section. Start in deep, speed-controlled legal holding water near Niles, South Bend, or Mishawaka and verify that reach directly.`
         : `Open the Winter Holding read for current activity, likely holding water, and presentation guidance. Treat ${handoffScore}/100 as retained seasonal presence—not proof that fish are active today.`,
       reasonCodes: [
         stageReasonCode(stage),
@@ -113,6 +120,26 @@ export function scoreFishInRiver(
     curveFraction,
   });
 
+  const copy = fishInRiverCopy({
+    label,
+    score,
+    stage,
+    direction: curveDirection,
+    fractionOfRiverMaximum: curveFraction,
+    species: anglerSpeciesName(run.species),
+    opportunity,
+    fallEntry: run.runType === "fall_entry",
+  });
+  const scopedCopy = run.runStageCopyStrategy === "st_joseph_corridor" &&
+      label !== "Offseason"
+    ? {
+      ...copy,
+      detail:
+        `${copy.detail} This seasonal presence applies to the accessible St. Joseph corridor as a whole; it does not claim equal fish numbers at the harbor, Niles, South Bend, Mishawaka, or Twin Branch.`,
+      tip:
+        `${copy.tip} Use Migration Stage to choose the specific St. Joseph section, then verify that water directly.`,
+    }
+    : copy;
   return {
     score,
     stage,
@@ -123,16 +150,7 @@ export function scoreFishInRiver(
     curveDirection,
     winterHoldingContext: false,
     label,
-    ...fishInRiverCopy({
-      label,
-      score,
-      stage,
-      direction: curveDirection,
-      fractionOfRiverMaximum: curveFraction,
-      species: anglerSpeciesName(run.species),
-      opportunity,
-      fallEntry: run.runType === "fall_entry",
-    }),
+    ...scopedCopy,
     reasonCodes: [
       stageReasonCode(stage),
       "historical_presence_curve",

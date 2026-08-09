@@ -1226,7 +1226,311 @@ const ST_JOSEPH_SHARED_PUSH = {
   evidenceNotes:
     "In the fixed 2012-2025 August 15-December 24 Niles audit, positive daily changes were approximately p50 130 CFS/5.4%, p75 230/11.1%, and p90 430/18.7%. Rounded production thresholds require both absolute and relative response. Rain is precursor context only: Strong requires a measured meaningful mainstem rise and Very Strong requires a sharp measured rise. Steelhead temperature remains species-specific; cold holding limits new-movement confidence without deleting fish already present.",
   sourceNotes:
-    "USGS 04101500 daily discharge and same-station measured water temperature; Indiana DNR Skamania and Little Manistee Steelhead timing. No Mottville value, reservoir series, air temperature, or ladder count is blended into the live score.",
+    "USGS 04101500 daily discharge and same-station measured water temperature; Indiana DNR summer-run Skamania and winter-run Steelhead timing. No Mottville value, reservoir series, air temperature, or ladder count is blended into the live score.",
+};
+
+export const ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE:
+  AuditedObservedRiverRunProfile = {
+    runId: "st_joseph_fall_chinook",
+    riverId: "st_joseph",
+    biologyProfileId: "st_joseph_chinook_v1",
+    displayName: "Fall Chinook",
+    species: "chinook_salmon",
+    season: "fall",
+    runType: "fall_spawn",
+    movementEngineId: "fall_cooling",
+    runStageCopyStrategy: "st_joseph_corridor",
+    primitiveCapabilities: {
+      migrationTiming: { status: "available" },
+      push: { status: "available" },
+      fishability: { status: "available" },
+      activity: { status: "available" },
+    },
+    runWindow: {
+      preRunStart: "08-01",
+      stagingStart: "08-15",
+      start: "09-01",
+      beginningEnd: "09-10",
+      buildingEstablishedStart: "09-15",
+      buildingBroadStart: "09-20",
+      peakStart: "09-22",
+      peak: "09-25",
+      peakEnd: "10-05",
+      taperingEnd: "10-20",
+      end: "11-01",
+      lateEnd: "11-08",
+      postRunLateCopyEnd: "11-10",
+    },
+    historicalPresence: {
+      maximum: 3,
+      distributionScope: "sectional",
+      curveVersion: "st-joseph-fall-chinook-presence-v1",
+      evidenceNotes:
+        "The St. Joseph supports a real but comparatively small Chinook return. The 3/10 ceiling represents selective lower-river and ladder-corridor opportunity rather than a broadly abundant signature run: late-August entry, a September build, a late-September reference high, and a fading October tail. It is a relative opportunity reference, not a passage forecast.",
+      sourceNotes:
+        "Indiana DNR places Chinook and Coho tributary spawning from late August to early November. Federal 2008-2018 records document 3,028 Chinook passing all five St. Joseph ladders to South Bend, compared with 19,136 Coho and 108,210 Steelhead. The roughly 275-Chinook annual passage average supports a limited 3/10 sectional calibration and requires copy that never implies equal occupation across the interstate corridor.",
+      anchors: [
+        { dayOffsetFromStart: 0, fractionOfMaximum: .1 },
+        { dayOffsetFromStart: 4, fractionOfMaximum: .25 },
+        { dayOffsetFromStart: 14, fractionOfMaximum: .55 },
+        { dayOffsetFromStart: 24, fractionOfMaximum: 1 },
+        { dayOffsetFromStart: 34, fractionOfMaximum: .9 },
+        { dayOffsetFromStart: 49, fractionOfMaximum: .55 },
+        { dayOffsetFromStart: 61, fractionOfMaximum: .2 },
+        { dayOffsetFromStart: 68, fractionOfMaximum: 0 },
+      ],
+    },
+    activity: {
+      version: "st-joseph-fall-chinook-activity-v1",
+      profile: "chinook_fall_reaction",
+      scopeCopy:
+        "Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach.",
+      earlySeasonScopeCopy:
+        "This smaller Chinook return is often sectional; a favorable Niles response window does not prove equal fish presence through the five-ladder corridor.",
+      weights: {
+        light: .6,
+        waterTemperature: .15,
+        riverBehavior: .15,
+        weather: .1,
+      },
+      temperature: {
+        coldF: 43,
+        preferredMinF: 48,
+        preferredMaxF: 62,
+        warmF: 72,
+        barrierF: 76,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 100,
+        ending: 49,
+        taperingPenalty: 15,
+        lifecycleRamp: {
+          peakEnd: "10-05",
+          taperingEnd: "10-20",
+          endingEnd: "11-01",
+        },
+      },
+      evidenceNotes:
+        "St. Joseph Chinook Activity describes conditional responsiveness for a Chinook already present, never abundance, fresh entry, ladder passage, or catch probability. Effective light leads at 60%, same-station measured Niles water temperature carries 15%, Niles river behavior 15%, and local weather 10%. The preferred response band remains 48-62F. The St. Joseph is officially classified as a warmwater system, and historical ladder monitoring documented September as Niles' highest Chinook-passage month. Its fish-present response model therefore uses a river-specific 72F strong constraint and 76F response barrier while retaining a steep warm-side penalty. This is deliberately distinct from Push's stricter 68F warm constraint and 72F fresh-migration barrier: water can limit new upstream movement without proving a holding adult is nearly nonresponsive. Niles flow position describes presentation shape only, and a rising flow receives no duplicated fresh-movement bonus because that belongs to Push. After the October 5 Peak shoulder, the complete-input response floor fades continuously while a 15-point lifecycle deduction grows through October 20. Ending then blends continuously into a 49% residual constraint through November 1 and retains that constraint through the sparse November 8 tail. Every measurement claim is limited to Niles and cannot be extrapolated as direct measurement of the interstate corridor.",
+    },
+    push: {
+      ...ST_JOSEPH_SHARED_PUSH,
+      version: "st-joseph-fall-chinook-push-v1",
+      temperature: {
+        suitabilityLabel: "St. Joseph adult fall Chinook migration",
+        coldHoldingF: 43,
+        supportiveMinF: 45,
+        preferredMinF: 50,
+        supportiveMaxF: 64,
+        tooWarmF: 68,
+        migrationBarrierF: 72,
+      },
+      evidenceNotes:
+        "Chinook reuses the audited Niles hydraulic response because USGS 04101500 measures the same mainstem reach independent of species. Its migration-temperature calibration remains Chinook-specific: 45-49F is cold but active, 50-64F is preferred/supportive, 68F is too warm, and 72F is migration-limiting. Rain remains precursor-only; strong movement language requires a measured Niles rise.",
+      sourceNotes:
+        "USGS 04101500 daily discharge and same-station measured water temperature; Indiana DNR Lake Michigan Chinook timing; Michigan DNR Great Lakes Chinook biology. Mottville, reservoir levels, air temperature, and ladder counts are excluded from the live score.",
+    },
+    fishabilityBands: ST_JOSEPH_SHARED_FISHABILITY,
+    baselineCoverage: {
+      metric: "flow_cfs",
+      version: "st-joseph-fall-chinook-flow-baseline-v1",
+      hasPercentileBaselines: true,
+      coveredWindowPercent: 1,
+      minimumHistoryYears: 13,
+      sourceNotes:
+        "USGS 04101500 supplies complete discharge coverage for the fixed 2012-2025 Chinook lifecycle audit. Same-station temperature remains missing when not observed and is never imputed.",
+    },
+    waterTemperature: {
+      sourcePriority: ["st_joseph_niles_temperature"],
+      upstreamFallbackPositiveSignalCap: 0,
+      notes:
+        "Use only same-station measured Niles water temperature. Chinook migration remains plausible in warm early-entry water but is constrained at 68F and migration-limiting at 72F. Air temperature and Mottville cannot substitute.",
+    },
+    conditionsSuggest: {
+      baselineVersion: "st-joseph-fall-chinook-conditions-v1",
+      temperatureSourceId: "st_joseph_niles_temperature",
+      finalCheckpointDaysAfterPeak: 5,
+      minimumUsableYears: 10,
+      minimumCoveragePercent: .8,
+      aheadPercentile: 75,
+      delayedPercentile: 25,
+      coolEnoughPercentileCap: 75,
+      gaugeWeight: .55,
+      waterTemperatureWeight: .45,
+    },
+    userCopyHints: {
+      stagingTip:
+        "Start with Lake Michigan, the harbor, river mouth, and deep lower Michigan water; staging does not prove passage through the ladder corridor.",
+      preRunTip:
+        "An isolated August Chinook does not mean this smaller St. Joseph run is established inland.",
+      peakTip:
+        "Prioritize lower Michigan and Niles holding water, then use South Bend and Mishawaka as selective passage checks rather than assuming broad corridor occupation.",
+      endingTip:
+        "Concentrate on established holding water, seek genuinely fresh fish, and leave spawning or deteriorated fish alone.",
+    },
+    researchNotes:
+      "St. Joseph Fall Chinook starts staging monitoring August 15 and opens conservative Niles-scoped river presence September 1, three days before the first Niles Chinook recorded in the 1993 ladder study. It builds through September, centers a limited 3/10 sectional reference on September 25, ends the main migration November 1, and reaches zero November 8. Activity uses Niles-specific observations, warm-mainstem Chinook response biology, sectional early-season copy, and a continuously interpolated late lifecycle.",
+    sourceNotes:
+      "Primary evidence: Indiana DNR Lake Michigan fall guidance; FERC St. Joseph five-ladder passage records; Michigan DNR St. Joseph ladder research and Chinook biology; USGS 04101500 discharge and same-station temperature. Niles hydraulics are shared by reach; Chinook timing, presence, temperature response, Migration Timing, and copy are independently calibrated.",
+    publicAudit: {
+      isEnabled: true,
+      auditVersion: "st-joseph-fall-chinook-activity-audit-v1",
+      notes:
+        "Released after the complete six-primitives implementation, Niles-specific Chinook Activity calibration, 2021-2025 replay of 413 usable days and 1,652 four-hour blocks, thermal and hydraulic boundary coverage, continuous lifecycle decay, Push-isolation checks, staging/sectional copy, corridor audit, and current Michigan and Indiana regulation review completed with zero invariant violations. The accepted warm-mainstem calibration starts Niles-scoped presence September 1 and produces a 65/61 official-window median, 29/29 Beginning, 68/61 Building, 77/73 Peak, 74/72 Tapering, and 52/49 Ending. Beginning remains thermally conservative when Niles exceeds the 76F fish-present response barrier.",
+    },
+  };
+
+export const ST_JOSEPH_FALL_COHO_RUN_PROFILE: AuditedObservedRiverRunProfile = {
+  runId: "st_joseph_fall_coho",
+  riverId: "st_joseph",
+  biologyProfileId: "great_lakes_coho_v1",
+  displayName: "Fall Coho",
+  species: "coho_salmon",
+  season: "fall",
+  runType: "fall_spawn",
+  movementEngineId: "fall_cooling",
+  runStageCopyStrategy: "st_joseph_corridor",
+  primitiveCapabilities: {
+    migrationTiming: { status: "available" },
+    push: { status: "available" },
+    fishability: { status: "available" },
+    activity: { status: "available" },
+  },
+  runWindow: {
+    preRunStart: "08-10",
+    stagingStart: "08-20",
+    start: "09-01",
+    beginningEnd: "09-30",
+    buildingEstablishedStart: "10-01",
+    buildingBroadStart: "10-02",
+    peakStart: "10-10",
+    peak: "10-10",
+    peakEnd: "10-31",
+    taperingEnd: "11-15",
+    end: "11-25",
+    lateEnd: "12-05",
+    postRunLateCopyEnd: "12-07",
+  },
+  historicalPresence: {
+    maximum: 7,
+    distributionScope: "broad",
+    curveVersion: "st-joseph-fall-coho-presence-v1",
+    evidenceNotes:
+      "The St. Joseph supports a strong, hatchery-supported Coho run across a five-ladder interstate corridor. The 7/10 ceiling represents dependable but uneven sectional-to-broad opportunity: first September entry, establishment around the October transition, an October high, and a declining November tail. It is a relative opportunity reference, not a ladder-count forecast.",
+    sourceNotes:
+      "Indiana DNR places St. Joseph Coho migration from September through November with an October peak and supports the run through Bodine Hatchery stocking. Federal passage records document at least 19,136 Coho passing all five ladders to South Bend from 2008-2018, while historical ladder work found roughly one-third of Berrien-passing Coho reached South Bend. These records support a broad but nonuniform 7/10 opportunity rather than treating every reach as equally occupied.",
+    anchors: [
+      { dayOffsetFromStart: 0, fractionOfMaximum: .1 },
+      { dayOffsetFromStart: 14, fractionOfMaximum: .25 },
+      { dayOffsetFromStart: 19, fractionOfMaximum: .4 },
+      { dayOffsetFromStart: 30, fractionOfMaximum: .7 },
+      { dayOffsetFromStart: 39, fractionOfMaximum: 1 },
+      { dayOffsetFromStart: 60, fractionOfMaximum: .88 },
+      { dayOffsetFromStart: 75, fractionOfMaximum: .55 },
+      { dayOffsetFromStart: 85, fractionOfMaximum: .3 },
+      { dayOffsetFromStart: 95, fractionOfMaximum: 0 },
+    ],
+  },
+  activity: {
+    version: "st-joseph-fall-coho-activity-v1",
+    profile: "coho_fall_reaction",
+    scopeCopy:
+      "Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, and presentation conditions can differ in the harbor and lower Michigan river, at individual ladder tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach.",
+    weights: {
+      light: .5,
+      waterTemperature: .25,
+      riverBehavior: .15,
+      weather: .1,
+    },
+    temperature: {
+      coldF: 40,
+      preferredMinF: 45,
+      preferredMaxF: 60,
+      warmF: 68,
+      barrierF: 72,
+    },
+    caps: {
+      noMeasuredRiverData: 69,
+      noWaterTemperature: 69,
+      tomorrow: 79,
+      lateRun: 100,
+      ending: 42,
+      taperingPenalty: 15,
+      lifecycleRamp: {
+        peakEnd: "10-31",
+        taperingEnd: "11-15",
+        endingEnd: "11-25",
+      },
+    },
+    evidenceNotes:
+      "St. Joseph Coho Activity describes the conditional responsiveness of a Coho already present, never abundance, fresh entry, ladder passage, or catch probability. The accepted Great Lakes Coho biological model is retained: effective light leads at 50%, same-station measured water temperature carries 25%, Niles river behavior 15%, and local weather 10%. The preferred adult response band remains 45-60F. The large, warm St. Joseph mainstem uses a river-specific 68F strong warm constraint and 72F response barrier for responsiveness of fish already present. This is deliberately distinct from Push's stricter 70F fresh-migration barrier: water can limit new upstream movement without proving an adult Coho already holding in the river is nearly nonresponsive. Every river input is independently bound to the Niles reach. After the October 31 Peak shoulder, the complete-input lower-tail floor fades continuously and a 0-15 point lifecycle deduction grows through November 15; Ending then blends continuously into the 42% residual constraint through November 25. This permits genuinely low late-season response without a calendar cliff and separates Activity from the run's 7/10 abundance ceiling. A rising Niles flow changes presentation modestly but earns no fresh-movement bonus in Activity because that belongs to Push.",
+  },
+  push: {
+    ...ST_JOSEPH_SHARED_PUSH,
+    version: "st-joseph-fall-coho-push-v1",
+    temperature: {
+      suitabilityLabel: "St. Joseph adult fall Coho migration",
+      supportiveMinF: 50,
+      supportiveMaxF: 62,
+      tooWarmF: 68,
+      migrationBarrierF: 70,
+    },
+    evidenceNotes:
+      "Coho reuses the audited Niles hydraulic response because the gauge measures the same mainstem reach regardless of species. Its migration temperature is independently calibrated: 50-62F is supportive, 68F is too warm, and 70F is migration-limiting. Rain is precursor context only; strong movement language still requires a measured Niles rise.",
+    sourceNotes:
+      "USGS 04101500 daily discharge and same-station measured water temperature; Indiana DNR Coho timing and Bodine stocking; Michigan DNR Great Lakes Coho biology. Mottville, reservoir levels, air temperature, and ladder counts are not blended into the live score.",
+  },
+  fishabilityBands: ST_JOSEPH_SHARED_FISHABILITY,
+  baselineCoverage: {
+    metric: "flow_cfs",
+    version: "st-joseph-fall-coho-flow-baseline-v1",
+    hasPercentileBaselines: true,
+    coveredWindowPercent: 1,
+    minimumHistoryYears: 13,
+    sourceNotes:
+      "USGS 04101500 supplies complete discharge coverage for the fixed 2012-2025 Coho lifecycle audit. Same-station temperature remains missing when not observed and is never imputed from air temperature or another station.",
+  },
+  waterTemperature: {
+    sourcePriority: ["st_joseph_niles_temperature"],
+    upstreamFallbackPositiveSignalCap: 0,
+    notes:
+      "Use only same-station measured Niles water temperature. Adult Coho migration is supported from 50-62F, constrained near 68F, and migration-limiting at 70F. Air temperature and Mottville cannot substitute.",
+  },
+  conditionsSuggest: {
+    baselineVersion: "st-joseph-fall-coho-conditions-v1",
+    temperatureSourceId: "st_joseph_niles_temperature",
+    finalCheckpointDaysAfterPeak: 5,
+    minimumUsableYears: 10,
+    minimumCoveragePercent: .8,
+    aheadPercentile: 75,
+    delayedPercentile: 25,
+    coolEnoughPercentileCap: 75,
+    gaugeWeight: .55,
+    waterTemperatureWeight: .45,
+  },
+  userCopyHints: {
+    stagingTip:
+      "Start with Lake Michigan, the harbor, and the lower river; staging fish do not prove broad passage through the ladder corridor.",
+    preRunTip:
+      "An isolated August Coho does not mean the September river migration is established.",
+    peakTip:
+      "Compare the lower Michigan river, Niles, South Bend, and Mishawaka reaches without treating the Niles gauge as a corridor-wide observation.",
+    endingTip:
+      "Late Coho can remain in established holding and spawning water, but fresh entry becomes progressively less dependable through November.",
+  },
+  researchNotes:
+    "St. Joseph Fall Coho foundation v1 begins the pre-run watch August 10 and staging monitoring August 20. Dependable but early river presence starts September 1; September remains Beginning because the Niles archive is overwhelmingly warm and variable despite real passage. The run becomes established and broadens October 1, then Peak begins and centers on October 10. The researched 7/10 ceiling and December 5 zero point are conservative relative-opportunity calibration. Activity uses shared Great Lakes Coho response biology with Niles-specific warm-side constraints, observations, and an independently dated lifecycle ramp.",
+  sourceNotes:
+    "Primary evidence: Indiana DNR South Bend Fish Ladder, Bodine State Fish Hatchery, and Lake Michigan Coho guidance; FERC St. Joseph passage records; Michigan DNR St. Joseph ladder research and Coho biology; USGS 04101500 discharge and same-station temperature. Hydraulics are river/reach-specific and shared with Steelhead; timing, presence, temperature response, and Migration Timing are Coho-specific.",
+  publicAudit: {
+    isEnabled: true,
+    auditVersion: "st-joseph-fall-coho-activity-audit-v1",
+    notes:
+      "Released after the complete six-primitives implementation, Niles-specific Coho Activity calibration, 2021-2025 replay of 523 usable days and 2,092 four-hour blocks, thermal and hydraulic boundary coverage, continuous lifecycle decay, Push-isolation checks, corridor-copy audit, and current Michigan and Indiana regulation review completed with zero invariant violations. The accepted Activity replay produces a 64/59 official-window median, 69/64 Building median, and 79/78 Peak median. Staging monitoring begins August 20; September is Beginning rather than established Building.",
+  },
 };
 
 export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
@@ -1244,12 +1548,7 @@ export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
       migrationTiming: { status: "available" },
       push: { status: "available" },
       fishability: { status: "available" },
-      activity: {
-        status: "unavailable",
-        reason: "no_accepted_activity_calibration",
-        notes:
-          "Activity is intentionally withheld until a dedicated Niles-reach Steelhead responsiveness replay and copy audit are accepted.",
-      },
+      activity: { status: "available" },
     },
     runWindow: {
       preRunStart: "08-01",
@@ -1277,7 +1576,7 @@ export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
       distributionScope: "broad",
       curveVersion: "st-joseph-fall-steelhead-presence-v1",
       evidenceNotes:
-        "The St. Joseph is a major interstate, hatchery-supported Steelhead fishery with five passage facilities and 63 accessible miles. The curve acknowledges summer-run Skamania already present by mid-August, then models the added Little Manistee winter-run entry beginning in October. It reaches a conservative 9/10 fall opportunity reference November 15 and retains 81/100 at the winter handoff; this is not a ladder-count forecast or live abundance estimate.",
+        "The St. Joseph is a major interstate, hatchery-supported Steelhead fishery with five passage facilities and 63 accessible miles. The curve acknowledges summer-run Skamania already present by mid-August, then models the added winter-run entry beginning in October. It reaches a conservative 9/10 fall opportunity reference November 15 and retains 81/100 at the winter handoff; this is not a ladder-count forecast or live abundance estimate.",
       sourceNotes:
         "Indiana DNR Bodine State Fish Hatchery and Lake Michigan fishing guidance; Indiana DNR South Bend ladder program and historical counts since 2011; Michigan DNR St. Joseph River Assessment and Steelhead management material. Annual passage varies, so evidence supports 9/10 rather than an automatic 10/10.",
       anchors: [
@@ -1291,6 +1590,34 @@ export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
         { dayOffsetFromStart: 81, fractionOfMaximum: .96 },
         { dayOffsetFromStart: 88, fractionOfMaximum: .9 },
       ],
+    },
+    activity: {
+      version: "st-joseph-fall-steelhead-activity-v1",
+      profile: "steelhead_feeding",
+      scopeCopy:
+        "Measured river conditions describe the St. Joseph mainstem at Niles. Water temperature, clarity, hydraulic shape, access, and fishing conditions can differ in the harbor and lower Michigan river, at individual dam tailwaters, and through South Bend, Mishawaka, and the Twin Branch reach.",
+      weights: {
+        light: .25,
+        waterTemperature: .5,
+        riverBehavior: .15,
+        weather: .1,
+      },
+      temperature: {
+        coldF: 39,
+        preferredMinF: 44,
+        preferredMaxF: 56,
+        warmF: 64,
+        barrierF: 68,
+      },
+      caps: {
+        noMeasuredRiverData: 69,
+        noWaterTemperature: 69,
+        tomorrow: 79,
+        lateRun: 100,
+        ending: 100,
+      },
+      evidenceNotes:
+        "St. Joseph Fall Steelhead Activity describes feeding and aggressive responsiveness for a living Steelhead already present, never abundance, fresh entry, ladder passage, or catch probability. It reuses the accepted Great Lakes Steelhead biological response model: same-station measured water temperature leads at 50%, effective light carries 25%, Niles river behavior 15%, and local weather context 10%. The favorable response range is 44-56F with the strongest thermal response centered near 48-54F; 39F marks slower cold-water holding rather than fish leaving the river. River behavior is independently bound to USGS 04101500 and the accepted Niles flow-shape bands. Steelhead receive no salmon response floor, spawning deterioration penalty, lifecycle ramp, late ceiling, or ending cap. Identical observed conditions therefore retain identical responsiveness across Peak, Tapering, Ending, and the December winter-holding handoff. Activity must not duplicate Push: a rising Niles flow can change presentation shape modestly, but receives no fresh-migration bonus here. Every measurement claim is limited to the Niles mainstem reach and cannot be extrapolated as direct measurement of the interstate corridor.",
     },
     push: ST_JOSEPH_SHARED_PUSH,
     fishabilityBands: ST_JOSEPH_SHARED_FISHABILITY,
@@ -1334,12 +1661,12 @@ export const ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE:
     researchNotes:
       "St. Joseph Fall Steelhead v1 explicitly treats established summer-run Skamania as pre-run context rather than counting them as the winter-run fall build. The scored entry begins September 25, becomes established in October, broadens through the five-ladder corridor in November, reaches a 90/100 seasonal reference November 15, and retains 81/100 into winter holding on December 23.",
     sourceNotes:
-      "Primary evidence: Indiana DNR South Bend Fish Ladder, Bodine State Fish Hatchery, and Lake Michigan fishing guidance; Michigan DNR St. Joseph River Assessment and Steelhead management presentations; USGS 04101500 discharge and same-station water temperature. Hydraulics are Niles-specific; Activity remains unavailable pending its own calibration.",
+      "Primary evidence: Indiana DNR South Bend Fish Ladder, Bodine State Fish Hatchery, and Lake Michigan fishing guidance; Michigan DNR St. Joseph River Assessment and Steelhead management presentations; USGS 04101500 discharge and same-station water temperature. Steelhead response biology is shared with accepted Great Lakes profiles while Activity observations, hydraulic bands, weather point, scope, and replay remain Niles-specific.",
     publicAudit: {
-      isEnabled: false,
-      auditVersion: "st-joseph-fall-steelhead-foundation-v1",
+      isEnabled: true,
+      auditVersion: "st-joseph-fall-steelhead-activity-audit-v1",
       notes:
-        "Implementation is owner-gated while historical Migration Timing rows, primitive replay, copy safety, and app review are completed. Activity is explicitly outside this acceptance pass.",
+        "Released after research, Niles-specific Activity implementation, 2021-2025 historical replay, thermal and hydraulic boundary coverage, lifecycle invariance, Push-isolation checks, copy-safety tests, and current Michigan and Indiana regulation review completed successfully.",
     },
   };
 
@@ -2027,6 +2354,8 @@ export const RIVER_RUN_RUN_PROFILES: AuditedRiverRunProfile[] = [
   MUSKEGON_FALL_CHINOOK_RUN_PROFILE,
   MUSKEGON_FALL_COHO_RUN_PROFILE,
   MUSKEGON_FALL_STEELHEAD_RUN_PROFILE,
+  ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE,
+  ST_JOSEPH_FALL_COHO_RUN_PROFILE,
   ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE,
   BETSIE_FALL_CHINOOK_RUN_PROFILE,
   BETSIE_FALL_COHO_RUN_PROFILE,

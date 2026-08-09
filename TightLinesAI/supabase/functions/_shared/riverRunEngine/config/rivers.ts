@@ -837,7 +837,7 @@ export const ST_JOSEPH_RIVER_PROFILE: RiverProfile = {
     stateRegulations: [
       {
         state: "MI",
-        version: "michigan-current-official-review-required-before-release",
+        version: "michigan-2026-reviewed-2026-08-09",
         jurisdiction:
           "Michigan water from Lake Michigan to the Indiana state line",
         reminderCopy:
@@ -845,22 +845,22 @@ export const ST_JOSEPH_RIVER_PROFILE: RiverProfile = {
         accessAndSafetyNotes:
           "Named structures are not automatic public access. Do not enter fish ladders, posted safety zones, private property, or water beyond personal boating or wading ability.",
         sourceNotes:
-          "Michigan DNR current fishing regulations and Michigan DNR St. Joseph River Assessment; final release requires a same-season official review.",
+          "Michigan DNR 2026 Fishing Regulations and Michigan DNR St. Joseph River Assessment; release review completed August 9, 2026. Recheck current official rules each season.",
       },
       {
         state: "IN",
-        version: "indiana-current-official-review-required-before-release",
+        version: "indiana-2026-2027-reviewed-2026-08-09",
         jurisdiction: "Indiana St. Joseph River below Twin Branch Dam",
         reminderCopy:
           "Check the current Indiana Fishing Guide and posted notices. No fishing is allowed within 100 feet of a fish-ladder entrance or exit.",
         accessAndSafetyNotes:
           "Use verified public access, respect private land, and stay outside posted dam and ladder boundaries. Twin Branch is the upstream endpoint.",
         sourceNotes:
-          "Indiana DNR South Bend Fish Ladder page and current Indiana Fishing Guide; final release requires a same-season official review.",
+          "Indiana DNR 2026-2027 Fishing Guide and South Bend Fish Ladder page; release review completed August 9, 2026. Recheck current official rules each season.",
       },
     ],
     evidenceNotes:
-      "Draft canonical foundation researched August 2026. The five intermediate dams have fish passage and are not biological endpoints. Twin Branch is the only configured impassable upstream barrier. Coordinates marked provisional cannot drive beginner-facing access guidance until final official GIS verification.",
+      "Canonical foundation researched and release-reviewed August 2026. The five intermediate dams have fish passage and are not biological endpoints. Twin Branch is the only configured impassable upstream barrier. Coordinates marked provisional cannot drive beginner-facing access guidance until final official GIS verification.",
   },
   conditionRefreshSchedule: {
     activeSlots: ["00:00", "04:00", "08:00", "12:00", "16:00", "20:00"],

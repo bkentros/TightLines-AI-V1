@@ -20,6 +20,11 @@ import {
   type RiverRunConditionRefresh,
   type RiverRunConditionsSuggestBaseline,
   scoreConditionsSuggest,
+  ST_JOSEPH_CONFIGURATION_DOCUMENT,
+  ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE,
+  ST_JOSEPH_FALL_COHO_RUN_PROFILE,
+  ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE,
+  ST_JOSEPH_RIVER_PROFILE,
 } from "../supabase/functions/_shared/riverRunEngine/index.ts";
 import type { RiverRunSnapshotResponse } from "../lib/riverRunContracts.ts";
 import type { RiverRunReviewGroup } from "../lib/riverRunReviewFixtures.types.ts";
@@ -32,16 +37,26 @@ if (
   requestedRunId !== "big_manistee_fall_steelhead" &&
   requestedRunId !== "muskegon_fall_chinook" &&
   requestedRunId !== "muskegon_fall_coho" &&
-  requestedRunId !== "muskegon_fall_steelhead"
+  requestedRunId !== "muskegon_fall_steelhead" &&
+  requestedRunId !== "st_joseph_fall_chinook" &&
+  requestedRunId !== "st_joseph_fall_coho" &&
+  requestedRunId !== "st_joseph_fall_steelhead"
 ) {
   throw new Error(
     `Unsupported regulated-tailwater review run: ${requestedRunId}`,
   );
 }
 const muskegon = requestedRunId.startsWith("muskegon_");
+const stJoseph = requestedRunId.startsWith("st_joseph_");
 const coho = requestedRunId.endsWith("_coho");
 const steelhead = requestedRunId.endsWith("_steelhead");
-const run = muskegon
+const run = stJoseph
+  ? steelhead
+    ? ST_JOSEPH_FALL_STEELHEAD_RUN_PROFILE
+    : coho
+    ? ST_JOSEPH_FALL_COHO_RUN_PROFILE
+    : ST_JOSEPH_FALL_CHINOOK_RUN_PROFILE
+  : muskegon
   ? steelhead
     ? MUSKEGON_FALL_STEELHEAD_RUN_PROFILE
     : coho
@@ -52,8 +67,14 @@ const run = muskegon
   : coho
   ? BIG_MANISTEE_FALL_COHO_RUN_PROFILE
   : BIG_MANISTEE_FALL_CHINOOK_RUN_PROFILE;
-const river = muskegon ? MUSKEGON_RIVER_PROFILE : BIG_MANISTEE_RIVER_PROFILE;
-const configuration = muskegon
+const river = stJoseph
+  ? ST_JOSEPH_RIVER_PROFILE
+  : muskegon
+  ? MUSKEGON_RIVER_PROFILE
+  : BIG_MANISTEE_RIVER_PROFILE;
+const configuration = stJoseph
+  ? ST_JOSEPH_CONFIGURATION_DOCUMENT
+  : muskegon
   ? MUSKEGON_CONFIGURATION_DOCUMENT
   : BIG_MANISTEE_CONFIGURATION_DOCUMENT;
 const configVersion = configuration.configVersion;
@@ -64,7 +85,16 @@ const weatherPoint = river.weatherPoints.find((point) =>
   point.role === "primary"
 )!;
 const engineVersion = "river-run-v1.5.3-review";
-const flow = muskegon
+const flow = stJoseph
+  ? {
+    veryLow: 1200,
+    low: 1550,
+    ideal: 2300,
+    high: 4100,
+    veryHigh: 5800,
+    blown: 7000,
+  }
+  : muskegon
   ? {
     veryLow: 800,
     low: 1000,
@@ -82,7 +112,51 @@ const flow = muskegon
     blown: 3600,
   };
 
-const stageDates = muskegon && steelhead
+const stageDates = stJoseph && steelhead
+  ? [
+    ["offseason", "Before fall monitoring", "2026-07-31"],
+    ["before_staging", "Skamania context", "2026-08-20"],
+    ["staging", "Winter-run staging watch", "2026-09-10"],
+    ["beginning_initial", "Beginning · first entry", "2026-09-25"],
+    ["beginning_accumulating", "Beginning · accumulating", "2026-10-05"],
+    ["building_established", "Building · established", "2026-10-15"],
+    ["building_broad", "Building · broad corridor", "2026-11-01"],
+    ["peak_core", "Peak · core", "2026-11-15"],
+    ["peak_late", "Peak · late", "2026-12-01"],
+    ["tapering", "Late fall", "2026-12-12"],
+    ["ending", "Holding transition", "2026-12-20"],
+    ["winter_holding", "Winter holding handoff", "2026-12-23"],
+  ]
+  : stJoseph && coho
+  ? [
+    ["offseason", "True offseason", "2026-08-09"],
+    ["before_staging", "Before staging", "2026-08-15"],
+    ["staging", "Lower-river staging", "2026-08-20"],
+    ["beginning_initial", "Beginning · initial entry", "2026-09-01"],
+    ["beginning_accumulating", "Beginning · accumulating", "2026-09-20"],
+    ["building_established", "Building · established", "2026-10-01"],
+    ["peak_core", "Peak · core", "2026-10-10"],
+    ["peak_shoulder", "Peak · shoulder", "2026-10-25"],
+    ["tapering", "Tapering", "2026-11-08"],
+    ["ending", "Ending", "2026-11-20"],
+    ["post_run", "Sparse late tail", "2026-12-01"],
+    ["after", "After migration", "2026-12-06"],
+  ]
+  : stJoseph
+  ? [
+    ["offseason", "True offseason", "2026-07-31"],
+    ["before_staging", "Before staging", "2026-08-10"],
+    ["staging", "Lower-river staging", "2026-08-15"],
+    ["beginning_initial", "Beginning · sectional entry", "2026-09-01"],
+    ["building_established", "Building · established", "2026-09-15"],
+    ["peak_core", "Peak · core", "2026-09-25"],
+    ["peak_shoulder", "Peak · shoulder", "2026-10-05"],
+    ["tapering", "Tapering", "2026-10-15"],
+    ["ending", "Ending", "2026-10-27"],
+    ["post_run", "Sparse late tail", "2026-11-05"],
+    ["after", "After migration", "2026-11-09"],
+  ]
+  : muskegon && steelhead
   ? [
     ["offseason", "Before fall monitoring", "2026-08-19"],
     ["before_staging", "Before staging", "2026-09-01"],
@@ -192,7 +266,52 @@ const stageDates = muskegon && steelhead
     ["post_run", "Late tail", "2026-11-01"],
   ] as const;
 
-const activityFixture = muskegon && steelhead
+const activityFixture = stJoseph && steelhead
+  ? {
+    staging: "2026-09-10",
+    beginning: "2026-10-05",
+    building: "2026-11-01",
+    peak: "2026-11-15",
+    tapering: "2026-12-12",
+    ending: "2026-12-20",
+    postRun: "2026-12-23",
+    beginningWarmF: 58,
+    buildingHighF: 50,
+    moderateF: 42,
+    warmF: 64,
+    barrierF: 68,
+  }
+  : stJoseph && coho
+  ? {
+    staging: "2026-08-20",
+    beginning: "2026-09-20",
+    building: "2026-10-02",
+    peak: "2026-10-10",
+    tapering: "2026-11-08",
+    ending: "2026-11-20",
+    postRun: "2026-12-01",
+    beginningWarmF: 62.5,
+    buildingHighF: 56,
+    moderateF: 63,
+    warmF: 68,
+    barrierF: 72,
+  }
+  : stJoseph
+  ? {
+    staging: "2026-08-15",
+    beginning: "2026-09-05",
+    building: "2026-09-20",
+    peak: "2026-09-25",
+    tapering: "2026-10-15",
+    ending: "2026-10-27",
+    postRun: "2026-11-05",
+    beginningWarmF: 67,
+    buildingHighF: 61,
+    moderateF: 68,
+    warmF: 72,
+    barrierF: 76,
+  }
+  : muskegon && steelhead
   ? {
     staging: "2026-09-10",
     beginning: "2026-10-05",
@@ -750,7 +869,9 @@ const groups: RiverRunReviewGroup[] = [
     scenarios: [
       scenario(
         "evidence_fresh",
-        `Fresh ${muskegon ? "Croton" : "Wellston"} source pair`,
+        `Fresh ${
+          stJoseph ? "Niles" : muskegon ? "Croton" : "Wellston"
+        } source pair`,
         muskegon ? "2026-10-01" : "2026-09-30",
       ),
       scenario("evidence_stale_gauge", "Limited · stale gauge", "2026-09-30", {
@@ -783,7 +904,13 @@ const groups: RiverRunReviewGroup[] = [
 ];
 
 const outputPath = new URL(
-  muskegon && steelhead
+  stJoseph && steelhead
+    ? "../lib/riverRunStJosephSteelheadReviewFixtures.generated.ts"
+    : stJoseph && coho
+    ? "../lib/riverRunStJosephCohoReviewFixtures.generated.ts"
+    : stJoseph
+    ? "../lib/riverRunStJosephReviewFixtures.generated.ts"
+    : muskegon && steelhead
     ? "../lib/riverRunMuskegonSteelheadReviewFixtures.generated.ts"
     : muskegon && coho
     ? "../lib/riverRunMuskegonCohoReviewFixtures.generated.ts"
@@ -803,7 +930,13 @@ const generated =
 import type { RiverRunReviewGroup } from "./riverRunReviewFixtures.types";
 
 export const ${
-    muskegon && steelhead
+    stJoseph && steelhead
+      ? "RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS"
+      : stJoseph && coho
+      ? "RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS"
+      : stJoseph
+      ? "RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS"
+      : muskegon && steelhead
       ? "RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS"
       : muskegon && coho
       ? "RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS"

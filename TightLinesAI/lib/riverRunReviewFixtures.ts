@@ -14,3 +14,6 @@ export { RIVER_RUN_BIG_MANISTEE_STEELHEAD_REVIEW_GROUPS } from "./riverRunBigMan
 export { RIVER_RUN_MUSKEGON_REVIEW_GROUPS } from "./riverRunMuskegonReviewFixtures.generated";
 export { RIVER_RUN_MUSKEGON_COHO_REVIEW_GROUPS } from "./riverRunMuskegonCohoReviewFixtures.generated";
 export { RIVER_RUN_MUSKEGON_STEELHEAD_REVIEW_GROUPS } from "./riverRunMuskegonSteelheadReviewFixtures.generated";
+export { RIVER_RUN_ST_JOSEPH_REVIEW_GROUPS } from "./riverRunStJosephReviewFixtures.generated";
+export { RIVER_RUN_ST_JOSEPH_COHO_REVIEW_GROUPS } from "./riverRunStJosephCohoReviewFixtures.generated";
+export { RIVER_RUN_ST_JOSEPH_STEELHEAD_REVIEW_GROUPS } from "./riverRunStJosephSteelheadReviewFixtures.generated";
