@@ -164,7 +164,7 @@ export default function SignInScreen() {
                 </View>
                 <View style={styles.centerBrand} pointerEvents="none">
                   <Image
-                    source={require('../../assets/images/finfindr-logo.png')}
+                    source={require('../../assets/images/finfindr-dashboard-logo.png')}
                     style={styles.centerBrandLogo}
                     resizeMode="contain"
                   />
@@ -354,8 +354,9 @@ const styles = StyleSheet.create({
     gap: 10,
   },
   centerBrandLogo: {
-    width: 28,
-    height: 36,
+    width: 34,
+    height: 34,
+    borderRadius: 8.5,
   },
   centerBrandLockup: {
     alignItems: 'flex-start',

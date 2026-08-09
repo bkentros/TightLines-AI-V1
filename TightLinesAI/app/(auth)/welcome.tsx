@@ -6,12 +6,9 @@
  * against the same auth store. Only the visual layer was rebuilt.
  *
  * Visual intent
- *  - The pin emblem sits inside a custom "scope target" stage — 4 corner
- *    crosshairs (no circular/square frame) with a horizontal scan beam
- *    that travels vertically across it, like a sonar sweep. Pulls the
- *    same scan-line vocabulary used throughout the dashboard (intelligence
- *    modules, today's-bite CTA) so the brand mark feels alive without a
- *    framing ring.
+ *  - The three-fish pin sits in a dashboard-blue orbital stage built for the
+ *    white cover: rotating signal nodes, a soft breathing aura, and a clipped
+ *    light sweep keep the mark alive without competing with its silhouette.
  *  - The hero card is short — everything (hero + value props + CTAs +
  *    footer) fits on a single iPhone screen without scrolling.
  *  - The three value props are presented as numbered field-guide entries
@@ -23,11 +20,14 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import {
   Animated,
   Easing,
+  Image,
   Platform,
   ScrollView,
   StyleSheet,
   Text,
+  type StyleProp,
   View,
+  type ViewStyle,
 } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
 import * as Crypto from "expo-crypto";
@@ -44,7 +44,7 @@ import { useAuthStore } from "../../store/authStore";
 import { supabase } from "../../lib/supabase";
 import { useAuthScrollLayout } from "../../hooks/useAuthScrollLayout";
 import { authScopeStageSize } from "../../lib/responsiveAuth";
-import { BrandScopeStage, TopographicLines } from "../../components/paper";
+import { TopographicLines } from "../../components/paper";
 import {
   IntelligenceModuleEmblem,
   type IntelligenceModuleId,
@@ -293,14 +293,9 @@ export default function WelcomeScreen() {
               <View style={styles.issueRubricRule} />
             </View>
 
-            {
-              /* Scope-target stage — 4 corner crosshairs, scan beam,
-                sonar pings, breathing emblem. Shared with onboarding
-                step-1 via the BrandScopeStage primitive. */
-            }
-            <BrandScopeStage
+            <WelcomeBrandOrbit
               size={scopeStage.stage}
-              emblemSize={scopeStage.emblem}
+              logoSize={scopeStage.emblem}
               style={styles.stageWrap}
             />
 
@@ -513,6 +508,166 @@ export default function WelcomeScreen() {
   );
 }
 
+function WelcomeBrandOrbit({
+  size,
+  logoSize,
+  style,
+}: {
+  size: number;
+  logoSize: number;
+  style?: StyleProp<ViewStyle>;
+}) {
+  const orbit = useRef(new Animated.Value(0)).current;
+  const breathe = useRef(new Animated.Value(0)).current;
+  const shimmer = useRef(new Animated.Value(0)).current;
+
+  useEffect(() => {
+    const orbitLoop = Animated.loop(
+      Animated.timing(orbit, {
+        toValue: 1,
+        duration: 12000,
+        easing: Easing.linear,
+        useNativeDriver: true,
+      }),
+    );
+    const breatheLoop = Animated.loop(
+      Animated.sequence([
+        Animated.timing(breathe, {
+          toValue: 1,
+          duration: 2100,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(breathe, {
+          toValue: 0,
+          duration: 2100,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+      ]),
+    );
+    const shimmerLoop = Animated.loop(
+      Animated.sequence([
+        Animated.delay(900),
+        Animated.timing(shimmer, {
+          toValue: 1,
+          duration: 1100,
+          easing: Easing.inOut(Easing.ease),
+          useNativeDriver: true,
+        }),
+        Animated.timing(shimmer, {
+          toValue: 0,
+          duration: 0,
+          useNativeDriver: true,
+        }),
+        Animated.delay(2800),
+      ]),
+    );
+
+    orbitLoop.start();
+    breatheLoop.start();
+    shimmerLoop.start();
+    return () => {
+      orbitLoop.stop();
+      breatheLoop.stop();
+      shimmerLoop.stop();
+    };
+  }, [breathe, orbit, shimmer]);
+
+  const orbitInset = Math.max(5, Math.round(size * 0.05));
+  const logoRadius = Math.round(logoSize * 0.235);
+
+  return (
+    <View
+      pointerEvents="none"
+      style={[styles.brandOrbitStage, { width: size, height: size }, style]}
+    >
+      <Animated.View
+        style={[
+          styles.brandAura,
+          {
+            width: logoSize + 28,
+            height: logoSize + 28,
+            borderRadius: (logoSize + 28) / 2,
+            opacity: breathe.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0.1, 0.24],
+            }),
+            transform: [{
+              scale: breathe.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0.9, 1.08],
+              }),
+            }],
+          },
+        ]}
+      />
+
+      <Animated.View
+        style={[
+          styles.brandOrbit,
+          {
+            top: orbitInset,
+            right: orbitInset,
+            bottom: orbitInset,
+            left: orbitInset,
+            borderRadius: size,
+            transform: [{
+              rotate: orbit.interpolate({
+                inputRange: [0, 1],
+                outputRange: ["0deg", "360deg"],
+              }),
+            }],
+          },
+        ]}
+      >
+        <View style={[styles.brandOrbitNode, styles.brandOrbitNodeTop]} />
+        <View style={[styles.brandOrbitNode, styles.brandOrbitNodeBottom]} />
+        <View style={styles.brandOrbitSpark} />
+      </Animated.View>
+
+      <Animated.View
+        style={[
+          styles.brandLogoShell,
+          {
+            width: logoSize,
+            height: logoSize,
+            borderRadius: logoRadius,
+            transform: [{
+              scale: breathe.interpolate({
+                inputRange: [0, 1],
+                outputRange: [1, 1.025],
+              }),
+            }],
+          },
+        ]}
+      >
+        <Image
+          source={require("../../assets/images/finfindr-dashboard-logo.png")}
+          style={styles.brandOrbitLogo}
+          resizeMode="cover"
+        />
+        <Animated.View
+          style={[
+            styles.brandLogoShimmer,
+            {
+              transform: [
+                {
+                  translateX: shimmer.interpolate({
+                    inputRange: [0, 1],
+                    outputRange: [-logoSize * 1.2, logoSize * 1.2],
+                  }),
+                },
+                { rotate: "18deg" },
+              ],
+            },
+          ]}
+        />
+      </Animated.View>
+    </View>
+  );
+}
+
 const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
   safe: { flex: 1 },
@@ -587,6 +742,69 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginBottom: 0,
     zIndex: 1,
+  },
+  brandOrbitStage: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  brandAura: {
+    position: "absolute",
+    backgroundColor: "#7CB8DA",
+  },
+  brandOrbit: {
+    position: "absolute",
+    borderWidth: 1,
+    borderStyle: "dashed",
+    borderColor: "rgba(42,110,150,0.42)",
+  },
+  brandOrbitNode: {
+    position: "absolute",
+    width: 7,
+    height: 7,
+    borderRadius: 3.5,
+    backgroundColor: "#2A6E96",
+    borderWidth: 1.5,
+    borderColor: "#FFFFFF",
+  },
+  brandOrbitNodeTop: {
+    top: -4,
+    left: "50%",
+    marginLeft: -3.5,
+  },
+  brandOrbitNodeBottom: {
+    bottom: -4,
+    left: "50%",
+    marginLeft: -3.5,
+  },
+  brandOrbitSpark: {
+    position: "absolute",
+    top: "50%",
+    right: -2.5,
+    width: 5,
+    height: 5,
+    borderRadius: 2.5,
+    backgroundColor: "#7CB8DA",
+  },
+  brandLogoShell: {
+    overflow: "hidden",
+    backgroundColor: "#011842",
+    borderWidth: 1,
+    borderColor: "rgba(1,24,66,0.18)",
+    shadowColor: "#011842",
+    shadowOpacity: 0.24,
+    shadowRadius: 14,
+    shadowOffset: { width: 0, height: 7 },
+  },
+  brandOrbitLogo: {
+    width: "100%",
+    height: "100%",
+  },
+  brandLogoShimmer: {
+    position: "absolute",
+    top: -24,
+    bottom: -24,
+    width: 18,
+    backgroundColor: "rgba(255,255,255,0.34)",
   },
 
   liveRow: {

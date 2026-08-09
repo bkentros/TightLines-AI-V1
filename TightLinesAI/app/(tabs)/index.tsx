@@ -2373,14 +2373,14 @@ const styles = StyleSheet.create({
   root: { flex: 1, backgroundColor: paper.dashboardCream },
 
   // ─── Nav bar (dark navy strip) ───────────────────────────────────────────
-  safeNav: { backgroundColor: "#011842" },
+  safeNav: { backgroundColor: paper.dashboardInk },
   navBar: {
     height: 66,
     paddingHorizontal: 16,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
-    backgroundColor: "#011842",
+    backgroundColor: paper.dashboardInk,
   },
   navBarLeft: { flexDirection: "row", alignItems: "center", gap: 8 },
   navLogo: {
