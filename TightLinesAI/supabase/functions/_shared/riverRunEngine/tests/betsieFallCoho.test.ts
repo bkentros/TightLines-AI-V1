@@ -68,6 +68,7 @@ Deno.test("Betsie Coho Activity is species-specific and continuously lifecycle-a
         clear_sky_shortwave_w_m2: hour >= 7 && hour < 19 ? 600 : 0,
         precipitation_in: hour >= 9 && hour < 13 ? 0.005 : 0,
       })),
+      copyStrategy: run.runStageCopyStrategy,
     });
   };
   const dates = [
@@ -81,9 +82,9 @@ Deno.test("Betsie Coho Activity is species-specific and continuously lifecycle-a
   for (const [index, result] of results.entries()) {
     assertEquals(result.confidence, "Limited", dates[index]);
     assertEquals(result.reasonCodes.includes("activity_weather_only"), true);
-    assertMatch(result.headline, /weather-only Coho activity outlook/i);
+    assertMatch(result.headline, /weather-only Betsie Coho responsiveness/i);
     assertMatch(result.headline, /Limited confidence/i);
-    assertMatch(result.detail, /sectional/i);
+    assertMatch(result.detail, /Confidence is Limited|Late-run Coho/i);
     assertEquals(/Chinook|Steelhead/i.test(JSON.stringify(result)), false);
     if (index) assert(result.score! <= results[index - 1].score!, dates[index]);
   }
@@ -155,19 +156,16 @@ Deno.test("Betsie Coho presence follows the accepted 30-point shifted PM curve",
   }
 });
 
-Deno.test("Betsie Coho stage copy is limited, Homestead-specific, and species-correct", () => {
+Deno.test("Betsie Coho stage copy is limited, two-reach, and species-correct", () => {
   const established = resolveRunStage(run, "2026-09-26");
-  assertMatch(established.headline, /select below-Homestead water/i);
-  assertMatch(established.detail, /late September/i);
-  assertMatch(established.detail, /Homestead end.*is realistic/i);
+  assertMatch(established.headline, /select Betsie water/i);
+  assertMatch(established.detail, /limited run/i);
+  assertEquals(established.whereToStart, "Betsie Lake–US-31 reach.");
 
   const peak = resolveRunStage(run, "2026-10-15");
-  assertMatch(peak.headline, /limited Coho salmon opportunity/i);
-  assertMatch(peak.whereToStart ?? "", /select substantial corridor holes/i);
-  assertMatch(peak.whereToStart ?? "", /lakeward end/i);
-  assertMatch(peak.whereToStart ?? "", /signed dam closure/i);
-  assertMatch(peak.detail, /overall run remains small/i);
-  assertMatch(peak.tip, /direct fish activity/i);
+  assertMatch(peak.headline, /limited Coho salmon run/i);
+  assertEquals(peak.whereToStart, "US-31–Homestead reach.");
+  assertMatch(peak.detail, /both reaches/i);
 
   for (
     let localDate = "2026-08-10";
@@ -234,7 +232,7 @@ Deno.test("Betsie Coho snapshots keep all sensor-dependent primitives unavailabl
   assertEquals(refresh.conditionsSuggest.label, "Unavailable");
   assertEquals(refresh.push.label, "Unavailable");
   assertEquals(refresh.fishability.label, "Unavailable");
-  assertMatch(refresh.push.tip, /not substitute air temperature/i);
+  assertMatch(refresh.push.tip, /Air temperature.*cannot replace/i);
 });
 
 Deno.test("Betsie Coho appears in the public catalog", () => {

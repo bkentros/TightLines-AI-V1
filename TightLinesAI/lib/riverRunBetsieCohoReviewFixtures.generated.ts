@@ -24,6 +24,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-11T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -47,12 +48,12 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Before migration",
             "headline": "Coho salmon have not started entering the Betsie yet.",
             "whereToStart": "Lake Michigan, Frankfort harbor, and Betsie Lake.",
-            "detail": "Dependable Coho salmon presence is not expected in the short river corridor below Homestead this early.",
-            "tip": "Keep the trip in lake and harbor water until the seasonal staging window begins.",
+            "detail": "Dependable Coho salmon presence is not expected in either Betsie reach this early.",
+            "tip": "Keep the trip in lake and harbor water until staging begins.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -70,24 +71,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -101,17 +102,19 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -120,14 +123,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Coho salmon presence is not expected in the Betsie yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for lake and harbor staging context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -153,11 +156,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -176,6 +179,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -197,15 +201,15 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Before migration",
-            "headline": "Coho salmon may be staging in Betsie Lake and near the river mouth.",
-            "whereToStart": "Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
-            "detail": "An occasional early Coho salmon can enter the short river corridor and may even reach Homestead, but that is still an exception—not evidence of dependable river numbers.",
-            "tip": "Keep most effort near the lake-to-river transition. Do not build the trip around Homestead or assume the downstream holes have filled in yet.",
+            "headline": "Coho salmon may be staging near the Betsie entrance.",
+            "whereToStart": "Lake Michigan, Frankfort harbor, and Betsie Lake.",
+            "detail": "A few early Coho salmon may enter the Betsie Lake–US-31 reach, but dependable river presence has not begun.",
+            "tip": "Keep the trip near the lake-to-river transition. Treat a river fish as an early exception.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -223,24 +227,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -254,21 +258,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie outlook is active with Limited confidence, but dependable Coho presence has not begun.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This outlook applies only to an early Coho already in the Betsie.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -321,10 +325,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -333,14 +340,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Coho salmon presence is not expected in the Betsie yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for lake and harbor staging context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -366,11 +373,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -389,6 +396,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-28T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -410,14 +418,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are beginning to enter the Betsie's below-Homestead corridor.",
-            "whereToStart": "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
-            "detail": "Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.",
-            "tip": "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+            "headline": "The first Coho salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -435,24 +443,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -466,21 +474,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -533,10 +541,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 3,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -545,14 +556,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Coho salmon may be in the river, and this limited seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -578,11 +589,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -601,6 +612,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-17T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -622,14 +634,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "More Coho salmon are entering the short corridor below Homestead.",
-            "whereToStart": "Start with substantial holes nearest the lake-to-river transition, then work hole by hole toward the legal Homestead approach.",
-            "detail": "Presence is growing beyond isolated early fish, but concentrations can still be uneven from hole to hole.",
-            "tip": "Cover the deeper holes instead of waiting at one access. Homestead can hold early fish, but it should not yet be treated as the only dependable destination.",
+            "headline": "More Coho salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Presence is building, but fish can still be uneven between the two reaches.",
+            "tip": "Cover Betsie Lake–US-31 before moving into US-31–Homestead.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -647,24 +659,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -678,21 +690,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -745,10 +757,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 9,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -757,14 +772,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "A small number of Coho salmon are likely in the river, with this limited seasonal presence still developing.",
-            "detail": "This part of the season usually brings limited presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Coho salmon presence is limited and building.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -790,16 +805,16 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
         "id": "stage_building_established",
-        "label": "Late September · Homestead realistic",
+        "label": "Established · both reaches",
         "note": "Canonical Betsie Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "betsie",
@@ -813,6 +828,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-27T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -834,14 +850,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "Coho salmon are becoming more established in select below-Homestead water.",
-            "whereToStart": "Select substantial corridor holes, including legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "By late September, Coho reaching the Homestead end of the short corridor is realistic. Newer arrivals can remain closer to Betsie Lake while earlier fish occupy select legal holding water downstream of the structure.",
-            "tip": "Begin with select deep downstream holes, stay mobile until direct fish activity gives you a reason to slow down, and remain outside the signed 300-foot closure.",
+            "headline": "Coho salmon are becoming established in select Betsie water.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "This is a limited run. Fish can use either reach, but dependable concentrations remain selective.",
+            "tip": "Check Betsie Lake–US-31 first. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -859,24 +875,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -890,21 +906,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -957,10 +973,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 15,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -969,14 +988,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A smaller number of Coho salmon are likely in the river, with this limited seasonal presence still building toward its high point.",
-            "detail": "This part of the season usually brings moderate presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an improving but still limited river opportunity. Stay mobile, and require direct fish activity before slowing down.",
+            "headline": "Seasonal Coho salmon presence is moderate and building.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1002,11 +1021,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -1025,6 +1044,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1046,14 +1066,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon opportunity.",
-            "whereToStart": "Select substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole.",
-            "tip": "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon run.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Coho can use both reaches, but dependable concentrations remain selective.",
+            "tip": "Test proven water in US-31–Homestead, then compare select Betsie Lake–US-31 water.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1071,24 +1091,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1102,21 +1122,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -1169,10 +1189,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -1181,14 +1204,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1214,11 +1237,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -1237,6 +1260,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1258,14 +1282,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Tapering",
-            "headline": "The Betsie's limited Coho salmon opportunity can persist, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Select proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
-            "detail": "A few fish may remain in select below-Homestead corridor water, but the limited opportunity is shifting from new arrivals toward fish already holding or spawning.",
-            "tip": "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+            "headline": "The Betsie's limited Coho salmon opportunity is tapering.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh Coho are less consistent, and remaining fish are concentrated in select established water.",
+            "tip": "Prioritize US-31–Homestead. Leave actively spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1283,24 +1307,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1314,21 +1338,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 69,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -1382,10 +1406,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 26,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -1394,14 +1421,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports this limited Coho salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. The overall seasonal opportunity remains limited, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1427,11 +1454,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -1450,6 +1477,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-17T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1471,14 +1499,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Ending",
-            "headline": "A few Coho salmon may still provide a late opportunity below Homestead.",
-            "whereToStart": "The deepest proven corridor holes and slow current edges, including legal water short of Homestead.",
-            "detail": "Remaining fish have often been in the system for a while, and fresh silver arrivals are no longer dependable.",
-            "tip": "Skip fast travel water. Fish deep holes carefully and leave actively spawning or visibly deteriorated fish alone.",
+            "headline": "A few Coho salmon may remain in select Betsie water.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are no longer dependable. Remaining fish are most likely in established holding water.",
+            "tip": "Keep the search narrow and leave actively spawning or visibly deteriorated fish alone.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1496,24 +1524,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1527,21 +1555,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Coho activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -1595,10 +1623,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 17,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 30,
@@ -1607,14 +1638,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
-            "detail": "This part of the season usually supports moderate presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a thinning, limited river opportunity. Expect substantial searching, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is moderate and declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1640,11 +1671,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -1663,6 +1694,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-27T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1685,13 +1717,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Betsie Coho salmon migration is over.",
-            "whereToStart": "No dependable starting location; any remaining fish are likely isolated in deep established water.",
-            "detail": "A few fish may remain below Homestead, but the seasonal pattern no longer supports a dependable Coho salmon opportunity.",
-            "tip": "Do not chase scattered holdovers between accesses. Shift to another seasonal species and leave spawning fish undisturbed.",
+            "whereToStart": "No dependable starting reach.",
+            "detail": "A few Coho salmon may remain, but neither Betsie reach supports a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1709,24 +1741,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1740,21 +1772,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 48,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Coho activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -1808,10 +1840,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -1820,14 +1855,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports a few Coho salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is limited and declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1859,16 +1894,16 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
         "id": "stage_offseason",
-        "label": "Offseason",
+        "label": "Fall run complete",
         "note": "Canonical Betsie Fall Coho production copy · owner audit",
         "snapshot": {
           "riverId": "betsie",
@@ -1882,6 +1917,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-12-30T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1902,16 +1938,15 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 49,
               "peakToEndDays": 41
             },
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their Betsie River migration season.",
-            "whereToStart": "No dependable Betsie River location for this species right now.",
-            "detail": "A dependable seasonal Coho salmon presence is not expected in the river corridor.",
-            "tip": "Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Betsie Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in mid August. This seasonal model is inactive until then.",
+            "tip": "Check back in mid August when Betsie fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1929,24 +1964,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1960,17 +1995,18 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -1978,15 +2014,15 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Coho salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Coho salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Betsie Coho salmon fall run is complete.",
+            "detail": "Coho salmon staging typically begins in mid August. This seasonal estimate is inactive until then.",
+            "tip": "Check back in mid August when Betsie fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2012,11 +2048,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -2041,6 +2077,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2062,14 +2099,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon opportunity.",
-            "whereToStart": "Select substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole.",
-            "tip": "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon run.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Coho can use both reaches, but dependable concentrations remain selective.",
+            "tip": "Test proven water in US-31–Homestead, then compare select Betsie Lake–US-31 water.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2087,24 +2124,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2118,21 +2155,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -2185,10 +2222,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -2197,14 +2237,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2230,11 +2270,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -2259,6 +2299,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2280,14 +2321,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon opportunity.",
-            "whereToStart": "Select substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole.",
-            "tip": "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon run.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Coho can use both reaches, but dependable concentrations remain selective.",
+            "tip": "Test proven water in US-31–Homestead, then compare select Betsie Lake–US-31 water.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2305,24 +2346,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2336,21 +2377,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -2403,10 +2444,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -2415,14 +2459,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2448,11 +2492,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -2477,6 +2521,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2498,14 +2543,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon opportunity.",
-            "whereToStart": "Select substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole.",
-            "tip": "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon run.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Coho can use both reaches, but dependable concentrations remain selective.",
+            "tip": "Test proven water in US-31–Homestead, then compare select Betsie Lake–US-31 water.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2523,24 +2568,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2554,21 +2599,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -2621,10 +2666,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -2633,14 +2681,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2666,11 +2714,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -2695,6 +2743,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-21T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2716,15 +2765,15 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Before migration",
-            "headline": "Coho salmon may be staging in Betsie Lake and near the river mouth.",
-            "whereToStart": "Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
-            "detail": "An occasional early Coho salmon can enter the short river corridor and may even reach Homestead, but that is still an exception—not evidence of dependable river numbers.",
-            "tip": "Keep most effort near the lake-to-river transition. Do not build the trip around Homestead or assume the downstream holes have filled in yet.",
+            "headline": "Coho salmon may be staging near the Betsie entrance.",
+            "whereToStart": "Lake Michigan, Frankfort harbor, and Betsie Lake.",
+            "detail": "A few early Coho salmon may enter the Betsie Lake–US-31 reach, but dependable river presence has not begun.",
+            "tip": "Keep the trip near the lake-to-river transition. Treat a river fish as an early exception.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2742,24 +2791,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2773,21 +2822,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 78,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie outlook is active with Limited confidence, but dependable Coho presence has not begun.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 9 AM–1 PM are the leading windows, but neither has a clear advantage. This outlook applies only to an early Coho already in the Betsie.",
+            "tip": "Choose between 5–9 AM and 9 AM–1 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -2840,10 +2889,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -2852,14 +2904,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Coho salmon presence is not expected in the Betsie yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for lake and harbor staging context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2885,11 +2937,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -2908,6 +2960,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-28T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2929,14 +2982,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are beginning to enter the Betsie's below-Homestead corridor.",
-            "whereToStart": "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
-            "detail": "Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.",
-            "tip": "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+            "headline": "The first Coho salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2954,24 +3007,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2985,21 +3038,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 62,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3052,10 +3105,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 5,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 3,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -3064,14 +3120,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Coho salmon may be in the river, and this limited seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3097,11 +3153,227 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
+        }
+      },
+      {
+        "id": "activity_clear_leader",
+        "label": "Beginning · clear strongest window",
+        "note": "Canonical Betsie Fall Coho production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_coho",
+          "localDate": "2026-08-27",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-08-27T12:00:00.000Z",
+          "conditionRefreshAt": "2026-08-27T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-08-27T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-08-28T05:00:00.000Z",
+          "runStage": {
+            "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-08-27",
+              "preRunStartDate": "2026-08-10",
+              "stagingStartDate": "2026-08-20",
+              "startDate": "2026-08-27",
+              "beginningEndDate": "2026-09-15",
+              "buildingEstablishedStartDate": "2026-09-26",
+              "peakStartDate": "2026-10-05",
+              "peakDate": "2026-10-15",
+              "peakEndDate": "2026-10-31",
+              "taperingEndDate": "2026-11-15",
+              "endDate": "2026-11-25",
+              "lateEndDate": "2026-12-26",
+              "postRunLateCopyEndDate": "2026-12-28",
+              "startToPeakDays": 49,
+              "peakToEndDays": 41
+            },
+            "label": "Beginning",
+            "headline": "The first Coho salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
+            "reasonCodes": [
+              "stage_beginning"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-08-27",
+            "trackingEndDate": "2026-11-25",
+            "throughDate": "2026-08-27",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "activity": {
+            "score": 68,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM is strongest because clouds or lower light make this window more favorable. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Begin with 5–9 AM. Re-rank the blocks if light or weather changes materially.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-coho-weather-activity-v1",
+            "targetDate": "2026-08-27",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 83,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 49,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 47,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 66,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              }
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "fishInRiver": {
+            "score": 3,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
+            "stage": "beginning",
+            "maximum": 100,
+            "riverCeiling": 30,
+            "historicalRunStrength": "limited",
+            "curveFraction": 0.1,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "Low presence",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
+            "reasonCodes": [
+              "stage_beginning",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3120,6 +3392,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-27T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3141,14 +3414,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "Coho salmon are becoming more established in select below-Homestead water.",
-            "whereToStart": "Select substantial corridor holes, including legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "By late September, Coho reaching the Homestead end of the short corridor is realistic. Newer arrivals can remain closer to Betsie Lake while earlier fish occupy select legal holding water downstream of the structure.",
-            "tip": "Begin with select deep downstream holes, stay mobile until direct fish activity gives you a reason to slow down, and remain outside the signed 300-foot closure.",
+            "headline": "Coho salmon are becoming established in select Betsie water.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "This is a limited run. Fish can use either reach, but dependable concentrations remain selective.",
+            "tip": "Check Betsie Lake–US-31 first. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3166,24 +3439,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3197,21 +3470,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 80,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s weather-only Coho activity outlook is highly active with Limited confidence.",
-            "detail": "The evaluated weather strongly favors a response from Coho that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is highly active with Limited confidence.",
+            "detail": "Weather strongly supports Coho responsiveness if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3264,10 +3537,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 15,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -3276,14 +3552,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A smaller number of Coho salmon are likely in the river, with this limited seasonal presence still building toward its high point.",
-            "detail": "This part of the season usually brings moderate presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an improving but still limited river opportunity. Stay mobile, and require direct fish activity before slowing down.",
+            "headline": "Seasonal Coho salmon presence is moderate and building.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3309,11 +3585,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3332,6 +3608,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3353,14 +3630,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon opportunity.",
-            "whereToStart": "Select substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole.",
-            "tip": "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon run.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Coho can use both reaches, but dependable concentrations remain selective.",
+            "tip": "Test proven water in US-31–Homestead, then compare select Betsie Lake–US-31 water.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3378,24 +3655,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3409,21 +3686,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 82,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s weather-only Coho activity outlook is highly active with Limited confidence.",
-            "detail": "The evaluated weather strongly favors a response from Coho that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 9 AM–1 PM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is highly active with Limited confidence.",
+            "detail": "Weather strongly supports Coho responsiveness if fish are present. 9 AM–1 PM is strongest because clouds or lower light make this window more favorable. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Begin with 9 AM–1 PM. Re-rank the blocks if light or weather changes materially.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3476,10 +3753,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -3488,14 +3768,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3521,11 +3801,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3544,6 +3824,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3565,14 +3846,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon opportunity.",
-            "whereToStart": "Select substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole.",
-            "tip": "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon run.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Coho can use both reaches, but dependable concentrations remain selective.",
+            "tip": "Test proven water in US-31–Homestead, then compare select Betsie Lake–US-31 water.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3590,24 +3871,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3621,21 +3902,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3688,10 +3969,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -3700,14 +3984,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3733,11 +4017,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3756,6 +4040,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-02T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3777,14 +4062,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Tapering",
-            "headline": "The Betsie's limited Coho salmon opportunity can persist, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Select proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
-            "detail": "A few fish may remain in select below-Homestead corridor water, but the limited opportunity is shifting from new arrivals toward fish already holding or spawning.",
-            "tip": "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+            "headline": "The Betsie's limited Coho salmon opportunity is tapering.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh Coho are less consistent, and remaining fish are concentrated in select established water.",
+            "tip": "Prioritize US-31–Homestead. Leave actively spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3802,24 +4087,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3833,21 +4118,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s weather-only Coho activity outlook is highly active with Limited confidence.",
-            "detail": "The evaluated weather strongly favors a response from Coho that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is highly active with Limited confidence.",
+            "detail": "Weather strongly supports Coho responsiveness if fish are present. 9 AM–1 PM is strongest because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 9 AM–1 PM. Re-rank the blocks if light or weather changes materially.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3901,10 +4186,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 26,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -3913,14 +4201,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports this limited Coho salmon presence holding near its seasonal high point in dependable water, even as the usual peak window may be easing.",
-            "detail": "Seasonal presence remains elevated relative to the rest of the season. The overall seasonal opportunity remains limited, but fresh arrivals may be less consistent than around the usual peak. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is high and declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3946,11 +4234,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3969,6 +4257,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3990,14 +4279,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Tapering",
-            "headline": "The Betsie's limited Coho salmon opportunity can persist, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Select proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
-            "detail": "A few fish may remain in select below-Homestead corridor water, but the limited opportunity is shifting from new arrivals toward fish already holding or spawning.",
-            "tip": "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+            "headline": "The Betsie's limited Coho salmon opportunity is tapering.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh Coho are less consistent, and remaining fish are concentrated in select established water.",
+            "tip": "Prioritize US-31–Homestead. Leave actively spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4015,24 +4304,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4046,21 +4335,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 67,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 9 AM–1 PM is strongest because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 9 AM–1 PM. Re-rank the blocks if light or weather changes materially.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -4114,10 +4403,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 18,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -4126,14 +4418,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
-            "detail": "This part of the season usually supports moderate presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a thinning, limited river opportunity. Expect substantial searching, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is moderate and declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -4159,11 +4451,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -4182,6 +4474,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-26T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4203,14 +4496,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Ending",
-            "headline": "A few Coho salmon may still provide a late opportunity below Homestead.",
-            "whereToStart": "The deepest proven corridor holes and slow current edges, including legal water short of Homestead.",
-            "detail": "Remaining fish have often been in the system for a while, and fresh silver arrivals are no longer dependable.",
-            "tip": "Skip fast travel water. Fish deep holes carefully and leave actively spawning or visibly deteriorated fish alone.",
+            "headline": "A few Coho salmon may remain in select Betsie water.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are no longer dependable. Remaining fish are most likely in established holding water.",
+            "tip": "Keep the search narrow and leave actively spawning or visibly deteriorated fish alone.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4228,24 +4521,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4259,21 +4552,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 59,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Coho activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Coho responsiveness. 9 AM–1 PM is strongest because clouds or lower light make this window more favorable. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Begin with 9 AM–1 PM. Re-rank the blocks if light or weather changes materially.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -4327,10 +4620,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 30,
@@ -4339,14 +4635,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports a few Coho salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is limited and declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -4372,11 +4668,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -4395,6 +4691,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-12-27T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4417,13 +4714,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Betsie Coho salmon migration is over.",
-            "whereToStart": "No dependable starting location; any remaining fish are likely isolated in deep established water.",
-            "detail": "A few fish may remain below Homestead, but the seasonal pattern no longer supports a dependable Coho salmon opportunity.",
-            "tip": "Do not chase scattered holdovers between accesses. Shift to another seasonal species and leave spawning fish undisturbed.",
+            "whereToStart": "No dependable starting reach.",
+            "detail": "A few Coho salmon may remain, but neither Betsie reach supports a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4441,24 +4738,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4472,21 +4769,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 34,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s weather-only Coho activity outlook is reserved with Limited confidence.",
-            "detail": "The evaluated weather provides limited support for responsiveness, and unknown river conditions add uncertainty. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is reserved with Limited confidence.",
+            "detail": "Coho may respond selectively under the weather limitations. 9 AM–1 PM and 5–9 AM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 9 AM–1 PM and 5–9 AM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -4540,10 +4837,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -4552,14 +4852,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Coho salmon may remain, but their presence is likely isolated rather than part of even a limited dependable opportunity.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed.",
+            "headline": "The Betsie Coho salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -4585,11 +4885,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -4614,6 +4914,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-27T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4635,15 +4936,15 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Before migration",
-            "headline": "Coho salmon may be staging in Betsie Lake and near the river mouth.",
-            "whereToStart": "Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
-            "detail": "An occasional early Coho salmon can enter the short river corridor and may even reach Homestead, but that is still an exception—not evidence of dependable river numbers.",
-            "tip": "Keep most effort near the lake-to-river transition. Do not build the trip around Homestead or assume the downstream holes have filled in yet.",
+            "headline": "Coho salmon may be staging near the Betsie entrance.",
+            "whereToStart": "Lake Michigan, Frankfort harbor, and Betsie Lake.",
+            "detail": "A few early Coho salmon may enter the Betsie Lake–US-31 reach, but dependable river presence has not begun.",
+            "tip": "Keep the trip near the lake-to-river transition. Treat a river fish as an early exception.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4661,24 +4962,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4692,21 +4993,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Coho that may already have entered. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie outlook is active with Limited confidence, but dependable Coho presence has not begun.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This outlook applies only to an early Coho already in the Betsie.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -4759,10 +5060,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -4771,14 +5075,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Even a limited dependable presence of Coho salmon is not expected in the river yet.",
-            "detail": "Most Coho salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Coho salmon presence is not expected in the Betsie yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for lake and harbor staging context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -4804,11 +5108,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -4827,6 +5131,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-28T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4848,14 +5153,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are beginning to enter the Betsie's below-Homestead corridor.",
-            "whereToStart": "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
-            "detail": "Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.",
-            "tip": "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+            "headline": "The first Coho salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4873,24 +5178,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4904,21 +5209,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -4971,10 +5276,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 3,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -4983,14 +5291,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Coho salmon may be in the river, and this limited seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5016,11 +5324,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5039,6 +5347,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-11T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5060,14 +5369,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Beginning",
-            "headline": "The first Coho salmon are beginning to enter the Betsie's below-Homestead corridor.",
-            "whereToStart": "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
-            "detail": "Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.",
-            "tip": "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+            "headline": "The first Coho salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5085,24 +5394,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5116,21 +5425,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Coho can remain reactive when measured water temperatures are suitable; this score applies only to fish already in the river. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -5183,10 +5492,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 6,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 30,
@@ -5195,14 +5507,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Coho salmon may be in the river, and this limited seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Coho salmon presence is low and building.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5228,11 +5540,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5251,6 +5563,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-27T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5272,14 +5585,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Building",
-            "headline": "Coho salmon are becoming more established in select below-Homestead water.",
-            "whereToStart": "Select substantial corridor holes, including legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "By late September, Coho reaching the Homestead end of the short corridor is realistic. Newer arrivals can remain closer to Betsie Lake while earlier fish occupy select legal holding water downstream of the structure.",
-            "tip": "Begin with select deep downstream holes, stay mobile until direct fish activity gives you a reason to slow down, and remain outside the signed 300-foot closure.",
+            "headline": "Coho salmon are becoming established in select Betsie water.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "This is a limited run. Fish can use either reach, but dependable concentrations remain selective.",
+            "tip": "Check Betsie Lake–US-31 first. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5297,24 +5610,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5328,21 +5641,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Coho are entering and settling into the river; measured water temperature matters, but this score describes reaction conditions rather than movement or abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -5395,10 +5708,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 15,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 30,
@@ -5407,14 +5723,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A smaller number of Coho salmon are likely in the river, with this limited seasonal presence still building toward its high point.",
-            "detail": "This part of the season usually brings moderate presence, with a smaller number of fish expected to enter and occupy its most dependable water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an improving but still limited river opportunity. Stay mobile, and require direct fish activity before slowing down.",
+            "headline": "Seasonal Coho salmon presence is moderate and building.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5440,11 +5756,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5463,6 +5779,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5484,14 +5801,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon opportunity.",
-            "whereToStart": "Select substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole.",
-            "tip": "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon run.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Coho can use both reaches, but dependable concentrations remain selective.",
+            "tip": "Test proven water in US-31–Homestead, then compare select Betsie Lake–US-31 water.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5509,24 +5826,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5540,21 +5857,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -5607,10 +5924,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 30,
+            "displayScore": 30,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -5619,14 +5939,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Coho salmon are likely near their highest seasonal presence in the river, although the overall opportunity remains limited.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. Even at that high point, the overall seasonal opportunity remains limited. The read does not place fish in a specific pool or confirm a live count.",
-            "tip": "Treat this as the best part of this river's limited seasonal opportunity, not a high-abundance fishery. Require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5652,11 +5972,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5675,6 +5995,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-01T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5696,14 +6017,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Peak",
-            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon opportunity.",
-            "whereToStart": "Select substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole.",
-            "tip": "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest part of the Betsie's limited Coho salmon run.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Coho can use both reaches, but dependable concentrations remain selective.",
+            "tip": "Test proven water in US-31–Homestead, then compare select Betsie Lake–US-31 water.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5721,24 +6042,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5752,21 +6073,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Coho activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence can make fish easier to locate, but this score measures the responsiveness of Coho already present rather than their abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Coho response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -5819,10 +6140,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 27,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 30,
@@ -5831,14 +6155,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Coho salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the limited seasonal opportunity remains near its high point. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as near the high point of a limited seasonal opportunity. Focus on the most dependable water, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence remains near its peak but is declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5864,11 +6188,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5887,6 +6211,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-16T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5908,14 +6233,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Tapering",
-            "headline": "The Betsie's limited Coho salmon opportunity can persist, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Select proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
-            "detail": "A few fish may remain in select below-Homestead corridor water, but the limited opportunity is shifting from new arrivals toward fish already holding or spawning.",
-            "tip": "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+            "headline": "The Betsie's limited Coho salmon opportunity is tapering.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh Coho are less consistent, and remaining fish are concentrated in select established water.",
+            "tip": "Prioritize US-31–Homestead. Leave actively spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5933,24 +6258,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5964,21 +6289,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Coho activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Coho of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -6032,10 +6357,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 18,
+            "displayScore": 15,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 30,
@@ -6044,14 +6372,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports a smaller number of Coho salmon, especially in the river's most dependable holding water.",
-            "detail": "This part of the season usually supports moderate presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a thinning, limited river opportunity. Expect substantial searching, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is moderate and declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -6077,11 +6405,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -6100,6 +6428,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-26T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6121,14 +6450,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 41
             },
             "label": "Ending",
-            "headline": "A few Coho salmon may still provide a late opportunity below Homestead.",
-            "whereToStart": "The deepest proven corridor holes and slow current edges, including legal water short of Homestead.",
-            "detail": "Remaining fish have often been in the system for a while, and fresh silver arrivals are no longer dependable.",
-            "tip": "Skip fast travel water. Fish deep holes carefully and leave actively spawning or visibly deteriorated fish alone.",
+            "headline": "A few Coho salmon may remain in select Betsie water.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are no longer dependable. Remaining fish are most likely in established holding water.",
+            "tip": "Keep the search narrow and leave actively spawning or visibly deteriorated fish alone.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6146,24 +6475,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6177,21 +6506,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 49,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Coho activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -6245,10 +6574,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 12,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 30,
@@ -6257,14 +6589,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports a few Coho salmon in the river's most dependable holding water, but this limited opportunity is thinning.",
-            "detail": "This part of the season usually supports limited presence concentrated in the river's most dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Coho salmon presence is limited and declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -6290,11 +6622,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -6313,6 +6645,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-12-11T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6335,13 +6668,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Betsie Coho salmon migration is over.",
-            "whereToStart": "No dependable starting location; any remaining fish are likely isolated in deep established water.",
-            "detail": "A few fish may remain below Homestead, but the seasonal pattern no longer supports a dependable Coho salmon opportunity.",
-            "tip": "Do not chase scattered holdovers between accesses. Shift to another seasonal species and leave spawning fish undisturbed.",
+            "whereToStart": "No dependable starting reach.",
+            "detail": "A few Coho salmon may remain, but neither Betsie reach supports a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6359,24 +6692,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6390,21 +6723,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 40,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Coho activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Coho responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -6458,10 +6791,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 6,
+            "displayScore": 5,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -6470,14 +6806,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A few Coho salmon may still be in the river, with this limited seasonal presence increasingly scattered.",
-            "detail": "This part of the season usually supports low presence within this river's limited seasonal opportunity, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Seasonal Coho salmon presence is low and declining.",
+            "detail": "Expected Betsie run strength is limited. Dependable presence can differ between the two reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -6509,11 +6845,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -6532,6 +6868,7 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-12-27T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6554,13 +6891,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Betsie Coho salmon migration is over.",
-            "whereToStart": "No dependable starting location; any remaining fish are likely isolated in deep established water.",
-            "detail": "A few fish may remain below Homestead, but the seasonal pattern no longer supports a dependable Coho salmon opportunity.",
-            "tip": "Do not chase scattered holdovers between accesses. Shift to another seasonal species and leave spawning fish undisturbed.",
+            "whereToStart": "No dependable starting reach.",
+            "detail": "A few Coho salmon may remain, but neither Betsie reach supports a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6578,24 +6915,24 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6609,21 +6946,21 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 30,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s weather-only Coho activity outlook is reserved with Limited confidence.",
-            "detail": "The evaluated weather provides limited support for responsiveness, and unknown river conditions add uncertainty. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Coho of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or deteriorating fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Coho of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Coho responsiveness is reserved with Limited confidence.",
+            "detail": "Coho may respond selectively under the weather limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Coho condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -6677,10 +7014,13 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 30,
@@ -6689,14 +7029,14 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Coho salmon may remain, but their presence is likely isolated rather than part of even a limited dependable opportunity.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed.",
+            "headline": "The Betsie Coho salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -6722,11 +7062,11 @@ export const RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]

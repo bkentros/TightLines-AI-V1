@@ -24,6 +24,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-02T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -48,12 +49,12 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "label": "Before migration",
             "headline": "Chinook salmon have not started entering the Betsie yet.",
             "whereToStart": "Lake Michigan, Frankfort harbor, and Betsie Lake.",
-            "detail": "Dependable Chinook salmon presence is not expected in the short river corridor below Homestead this early.",
-            "tip": "Keep the trip in lake and harbor water until the seasonal staging window begins.",
+            "detail": "Dependable Chinook salmon presence is not expected in either Betsie reach this early.",
+            "tip": "Keep the trip in lake and harbor water until staging begins.",
             "reasonCodes": [
               "stage_pre_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -71,24 +72,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -102,17 +103,19 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": null,
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -121,14 +124,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Betsie yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for lake and harbor staging context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -154,11 +157,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -177,6 +180,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-29T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -199,15 +203,15 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Betsie Lake and near the river mouth.",
-            "whereToStart": "Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
-            "detail": "An occasional early Chinook salmon can enter the short river corridor and may even reach Homestead, but that is still an exception—not evidence of dependable river numbers.",
-            "tip": "Keep most effort near the lake-to-river transition. Do not build the trip around Homestead or assume the downstream holes have filled in yet.",
+            "headline": "Chinook salmon may be staging near the Betsie entrance.",
+            "whereToStart": "Lake Michigan, Frankfort harbor, and Betsie Lake.",
+            "detail": "A few early Chinook salmon may enter the Betsie Lake–US-31 reach, but dependable river presence has not begun.",
+            "tip": "Keep the trip near the lake-to-river transition. Treat a river fish as an early exception.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -225,24 +229,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -256,21 +260,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie outlook is active with Limited confidence, but dependable Chinook presence has not begun.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This outlook applies only to an early Chinook already in the Betsie.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -323,10 +327,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -335,14 +342,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Betsie yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for lake and harbor staging context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -368,16 +375,16 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
         "id": "stage_beginning",
-        "label": "Beginning · rare Homestead arrival",
+        "label": "Beginning · downstream reach",
         "note": "Canonical Betsie Fall Chinook production copy · owner audit",
         "snapshot": {
           "riverId": "betsie",
@@ -391,6 +398,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-11T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -413,14 +421,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the Betsie's below-Homestead corridor.",
-            "whereToStart": "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
-            "detail": "Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.",
-            "tip": "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+            "headline": "The first Chinook salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -438,24 +446,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -469,21 +477,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -536,10 +544,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -548,14 +559,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -581,16 +592,16 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
         "id": "stage_building_early",
-        "label": "Building · downstream holes",
+        "label": "Building · downstream reach",
         "note": "Canonical Betsie Fall Chinook production copy · owner audit",
         "snapshot": {
           "riverId": "betsie",
@@ -604,6 +615,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-20T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -626,14 +638,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "More Chinook salmon are entering the short corridor below Homestead.",
-            "whereToStart": "Start with substantial holes nearest the lake-to-river transition, then work hole by hole toward the legal Homestead approach.",
-            "detail": "Presence is growing beyond isolated early fish, but concentrations can still be uneven from hole to hole.",
-            "tip": "Cover the deeper holes instead of waiting at one access. Homestead can hold early fish, but it should not yet be treated as the only dependable destination.",
+            "headline": "More Chinook salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Presence is building, but fish can still be uneven between the two reaches.",
+            "tip": "Cover Betsie Lake–US-31 before moving into US-31–Homestead.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -651,24 +663,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -682,21 +694,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -749,10 +761,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 29,
+            "displayScore": 30,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -761,14 +776,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Chinook salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Chinook salmon presence is limited and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -794,16 +809,16 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
         "id": "stage_building_established",
-        "label": "Late August · Homestead realistic",
+        "label": "Established · both reaches",
         "note": "Canonical Betsie Fall Chinook production copy · owner audit",
         "snapshot": {
           "riverId": "betsie",
@@ -817,6 +832,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-28T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -839,14 +855,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are becoming dependably established below Homestead.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "By late August, fish reaching the Homestead end of the short corridor is realistic. Newer arrivals can remain closer to Betsie Lake while earlier fish collect in legal holding water downstream of the structure.",
-            "tip": "Begin with the deepest downstream holes, then work toward Homestead without entering the signed 300-foot closure.",
+            "headline": "Chinook salmon are becoming established in both Betsie reaches.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "New arrivals favor the downstream reach while earlier fish can be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31, then compare US-31–Homestead after one complete pass.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -864,24 +880,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -895,21 +911,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -962,10 +978,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 44,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -974,14 +993,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Chinook salmon are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Chinook salmon presence is moderate and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1007,16 +1026,16 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
         "id": "stage_building_broad",
-        "label": "Broadly established corridor",
+        "label": "Broadly established · both reaches",
         "note": "Canonical Betsie Fall Chinook production copy · owner audit",
         "snapshot": {
           "riverId": "betsie",
@@ -1030,6 +1049,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-06T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -1052,14 +1072,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are becoming established throughout the below-Homestead corridor.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "The Betsie's migratory Chinook salmon water is short, so fish can occupy the full corridor quickly. Homestead is the upstream limit; the deepest legal water below it remains the dependable plan.",
-            "tip": "Work the substantial holes below Homestead section by section. Do not translate PM-scale section distances onto this short corridor.",
+            "headline": "Chinook salmon are established across both Betsie reaches.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have spread fish through this short migration corridor.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1077,24 +1097,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1108,21 +1128,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -1175,10 +1195,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 69,
+            "displayScore": 70,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -1187,14 +1210,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1220,11 +1243,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -1243,6 +1266,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1265,14 +1289,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable Betsie River Chinook salmon opportunity.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
-            "tip": "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest Betsie Chinook salmon window.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have given fish time to use both reaches.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1290,24 +1314,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1321,21 +1345,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -1388,10 +1412,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -1400,14 +1427,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1433,11 +1460,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -1456,6 +1483,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-27T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1478,14 +1506,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "The Betsie can remain productive for Chinook salmon, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
-            "detail": "Fish may remain distributed through the below-Homestead corridor, but the balance is shifting from new arrivals toward fish already holding or spawning.",
-            "tip": "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+            "headline": "The Betsie Chinook salmon run is tapering.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are less consistent, and more fish are already holding or spawning.",
+            "tip": "Prioritize US-31–Homestead. Leave actively spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1503,24 +1531,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1534,21 +1562,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 70,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -1602,10 +1630,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 92,
+            "displayScore": 90,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
@@ -1614,14 +1645,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence remains near its peak but is declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1647,11 +1678,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -1670,6 +1701,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-15T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1692,14 +1724,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Ending",
-            "headline": "Chinook salmon can still provide a worthwhile late opportunity below Homestead.",
-            "whereToStart": "The deepest proven corridor holes and slow current edges, including legal water short of Homestead.",
-            "detail": "Remaining fish have often been in the system for a while, and fresh silver arrivals are no longer dependable.",
-            "tip": "Skip fast travel water. Fish deep holes carefully and leave actively spawning or visibly deteriorated fish alone.",
+            "headline": "The Betsie Chinook salmon run is ending.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are no longer dependable. Remaining fish are most likely in established holding water.",
+            "tip": "Keep the search narrow and leave actively spawning or visibly deteriorated fish alone.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1717,24 +1749,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1748,21 +1780,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Chinook activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -1816,10 +1848,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 42,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 100,
@@ -1828,14 +1863,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Seasonal Chinook salmon presence is moderate and declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -1861,11 +1896,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -1884,6 +1919,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-24T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -1907,13 +1943,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Betsie Chinook salmon migration is over.",
-            "whereToStart": "No dependable starting location; any remaining fish are likely isolated in deep established water.",
-            "detail": "A few fish may remain below Homestead, but the seasonal pattern no longer supports a dependable Chinook salmon opportunity.",
-            "tip": "Do not chase scattered holdovers between accesses. Shift to another seasonal species and leave spawning fish undisturbed.",
+            "whereToStart": "No dependable starting reach.",
+            "detail": "A few Chinook salmon may remain, but neither Betsie reach supports a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -1931,24 +1967,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -1962,21 +1998,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 46,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Chinook activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -2030,10 +2066,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2042,14 +2081,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Seasonal Chinook salmon presence is low and declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2081,16 +2120,16 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
         "id": "stage_offseason",
-        "label": "Offseason",
+        "label": "Fall run complete",
         "note": "Canonical Betsie Fall Chinook production copy · owner audit",
         "snapshot": {
           "riverId": "betsie",
@@ -2104,6 +2143,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-07T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2125,16 +2165,15 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "startToPeakDays": 36,
               "peakToEndDays": 37
             },
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their Betsie River migration season.",
-            "whereToStart": "No dependable Betsie River location for this species right now.",
-            "detail": "A dependable seasonal Chinook salmon presence is not expected in the river corridor.",
-            "tip": "Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Betsie Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in late July. This seasonal model is inactive until then.",
+            "tip": "Check back in late July when Betsie fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "stage_offseason"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2152,24 +2191,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2183,17 +2222,18 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": null,
           "fishInRiver": {
-            "score": 0,
+            "score": null,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2201,15 +2241,15 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveFraction": 0,
             "curveDirection": "outside",
             "winterHoldingContext": false,
-            "label": "Offseason",
-            "headline": "Chinook salmon are outside their river migration season.",
-            "detail": "A dependable seasonal presence of Chinook salmon is not expected in the river right now.",
-            "tip": "Do not build a river trip around this species right now. Target a species with an active seasonal window and return as the next migration approaches.",
+            "label": "Fall run complete",
+            "headline": "The Betsie Chinook salmon fall run is complete.",
+            "detail": "Chinook salmon staging typically begins in late July. This seasonal estimate is inactive until then.",
+            "tip": "Check back in late July when Betsie fall-run tracking resumes.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2235,11 +2275,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -2264,6 +2304,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2286,14 +2327,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable Betsie River Chinook salmon opportunity.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
-            "tip": "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest Betsie Chinook salmon window.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have given fish time to use both reaches.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2311,24 +2352,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2342,21 +2383,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -2409,10 +2450,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2421,14 +2465,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2454,11 +2498,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -2483,6 +2527,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2505,14 +2550,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable Betsie River Chinook salmon opportunity.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
-            "tip": "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest Betsie Chinook salmon window.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have given fish time to use both reaches.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2530,24 +2575,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2561,21 +2606,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -2628,10 +2673,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2640,14 +2688,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2673,11 +2721,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -2702,6 +2750,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2724,14 +2773,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable Betsie River Chinook salmon opportunity.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
-            "tip": "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest Betsie Chinook salmon window.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have given fish time to use both reaches.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2749,24 +2798,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -2780,21 +2829,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -2847,10 +2896,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -2859,14 +2911,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -2892,11 +2944,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -2921,6 +2973,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-07-29T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -2943,15 +2996,15 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Betsie Lake and near the river mouth.",
-            "whereToStart": "Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
-            "detail": "An occasional early Chinook salmon can enter the short river corridor and may even reach Homestead, but that is still an exception—not evidence of dependable river numbers.",
-            "tip": "Keep most effort near the lake-to-river transition. Do not build the trip around Homestead or assume the downstream holes have filled in yet.",
+            "headline": "Chinook salmon may be staging near the Betsie entrance.",
+            "whereToStart": "Lake Michigan, Frankfort harbor, and Betsie Lake.",
+            "detail": "A few early Chinook salmon may enter the Betsie Lake–US-31 reach, but dependable river presence has not begun.",
+            "tip": "Keep the trip near the lake-to-river transition. Treat a river fish as an early exception.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -2969,24 +3022,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3000,21 +3053,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 79,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie outlook is active with Limited confidence, but dependable Chinook presence has not begun.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This outlook applies only to an early Chinook already in the Betsie.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3067,10 +3120,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 85,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3079,14 +3135,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Betsie yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for lake and harbor staging context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3112,11 +3168,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3135,6 +3191,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-11T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3157,14 +3214,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the Betsie's below-Homestead corridor.",
-            "whereToStart": "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
-            "detail": "Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.",
-            "tip": "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+            "headline": "The first Chinook salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3182,24 +3239,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3213,21 +3270,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 62,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3280,10 +3337,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 5,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3292,14 +3352,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3325,11 +3385,228 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
+        }
+      },
+      {
+        "id": "activity_clear_leader",
+        "label": "Beginning · clear strongest window",
+        "note": "Canonical Betsie Fall Chinook production copy · owner audit",
+        "snapshot": {
+          "riverId": "betsie",
+          "runId": "betsie_fall_chinook",
+          "localDate": "2026-08-10",
+          "timezone": "America/Detroit",
+          "progressionSnapshotAt": "2026-08-10T12:00:00.000Z",
+          "conditionRefreshAt": "2026-08-10T12:00:00.000Z",
+          "refreshSlot": "00:00",
+          "progressionExpiresAt": "2026-08-10T23:59:59.000Z",
+          "nextConditionRefreshAt": "2026-08-11T05:00:00.000Z",
+          "runStage": {
+            "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
+            "stagingContext": false,
+            "broadBuildingContext": false,
+            "winterHoldingContext": false,
+            "window": {
+              "snapshotDate": "2026-08-10",
+              "preRunStartDate": "2026-07-01",
+              "stagingStartDate": "2026-07-28",
+              "startDate": "2026-08-10",
+              "beginningEndDate": "2026-08-18",
+              "buildingEstablishedStartDate": "2026-08-27",
+              "buildingBroadStartDate": "2026-09-05",
+              "peakStartDate": "2026-09-10",
+              "peakDate": "2026-09-15",
+              "peakEndDate": "2026-09-25",
+              "taperingEndDate": "2026-10-13",
+              "endDate": "2026-10-22",
+              "lateEndDate": "2026-11-03",
+              "postRunLateCopyEndDate": "2026-11-05",
+              "startToPeakDays": 36,
+              "peakToEndDays": 37
+            },
+            "label": "Beginning",
+            "headline": "The first Chinook salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
+            "reasonCodes": [
+              "stage_beginning"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "conditionsSuggest": {
+            "score": null,
+            "label": "Unavailable",
+            "timingLabel": null,
+            "candidateLabel": null,
+            "completedCheckpointCount": 0,
+            "currentIndex": null,
+            "currentPercentile": null,
+            "gaugeResponsePercentile": null,
+            "waterTemperaturePercentile": null,
+            "usableDays": 0,
+            "expectedDays": 0,
+            "coveragePercent": 0,
+            "historicalYears": 0,
+            "sourceDates": [],
+            "sourceRefreshSlots": {},
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
+            "reasonCodes": [
+              "primitive_migration_timing_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "push": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
+            "reasonCodes": [
+              "primitive_push_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "pushHistory": {
+            "status": "unavailable",
+            "minimumSupportiveScore": 50,
+            "trackingStartDate": "2026-08-10",
+            "trackingEndDate": "2026-10-22",
+            "throughDate": "2026-08-10",
+            "recentDailyReadsStatus": "unavailable",
+            "recentDailyReads": []
+          },
+          "fishability": {
+            "score": null,
+            "label": "Unavailable",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
+            "reasonCodes": [
+              "primitive_fishability_unavailable_for_river"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "activity": {
+            "score": 68,
+            "maximum": 100,
+            "label": "Active",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM is strongest because clouds or lower light make this window more favorable. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Begin with 5–9 AM. Re-rank the blocks if light or weather changes materially.",
+            "reasonCodes": [
+              "activity_confidence_limited",
+              "activity_today",
+              "activity_run_present",
+              "activity_weather_only"
+            ],
+            "rulesVersion": "betsie-fall-chinook-weather-activity-v1",
+            "targetDate": "2026-08-10",
+            "targetDayLabel": "Today",
+            "confidence": "Limited",
+            "conditionalPresence": false,
+            "blocks": [
+              {
+                "id": "05-09",
+                "label": "5–9 AM",
+                "score": 85,
+                "activityLabel": "Highly active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 100,
+                "precipitationIn": 0
+              },
+              {
+                "id": "09-13",
+                "label": "9 AM–1 PM",
+                "score": 48,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              },
+              {
+                "id": "13-17",
+                "label": "1–5 PM",
+                "score": 46,
+                "activityLabel": "Moderate",
+                "positiveDriver": "The available light is workable in this window.",
+                "limitingFactor": "Brighter conditions are the main limitation.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              },
+              {
+                "id": "17-21",
+                "label": "5–9 PM",
+                "score": 66,
+                "activityLabel": "Active",
+                "positiveDriver": "Clouds or lower light make this window more favorable.",
+                "limitingFactor": "Rain adds little extra cover.",
+                "cloudCoverPct": 0,
+                "precipitationIn": 0
+              }
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "fishInRiver": {
+            "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
+            "stage": "beginning",
+            "maximum": 100,
+            "riverCeiling": 100,
+            "historicalRunStrength": "strong",
+            "curveFraction": 0.1,
+            "curveDirection": "rising",
+            "winterHoldingContext": false,
+            "label": "Low presence",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
+            "reasonCodes": [
+              "stage_beginning",
+              "historical_presence_curve"
+            ],
+            "copyVersion": "river-run-copy-v30"
+          },
+          "gauge": null,
+          "weather": null,
+          "waterTemperature": null,
+          "conditionsWaterTemperature": null,
+          "freshness": {
+            "gauge": "missing",
+            "weather": "fresh",
+            "waterTemperature": "missing",
+            "conditionsWaterTemperature": "missing",
+            "conditionsSuggestDaysUsable": 0
+          },
+          "dataQuality": {
+            "label": "Limited",
+            "reasonCodes": [
+              "gauge_missing",
+              "weather_fresh",
+              "temperature_unavailable",
+              "data_quality_limited"
+            ]
+          },
+          "interpretationNote": null,
+          "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
+          "safety": {
+            "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
+            "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
+          },
+          "engineVersion": "river-run-v1.5.3-review",
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3348,6 +3625,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-06T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": true,
             "winterHoldingContext": false,
@@ -3370,14 +3648,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are becoming established throughout the below-Homestead corridor.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "The Betsie's migratory Chinook salmon water is short, so fish can occupy the full corridor quickly. Homestead is the upstream limit; the deepest legal water below it remains the dependable plan.",
-            "tip": "Work the substantial holes below Homestead section by section. Do not translate PM-scale section distances onto this short corridor.",
+            "headline": "Chinook salmon are established across both Betsie reaches.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have spread fish through this short migration corridor.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3395,24 +3673,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3426,21 +3704,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 82,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s weather-only Chinook activity outlook is highly active with Limited confidence.",
-            "detail": "The evaluated weather strongly favors a response from Chinook that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is highly active with Limited confidence.",
+            "detail": "Weather strongly supports Chinook responsiveness if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3493,10 +3771,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 69,
+            "displayScore": 70,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3505,14 +3786,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Chinook salmon are likely spread through more of the river as seasonal presence builds toward its strongest point.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as one of the stronger parts of a strong river season. Give each stop a complete pass, but do not mistake this seasonal estimate for a live fish count.",
+            "headline": "Seasonal Chinook salmon presence is high and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3538,11 +3819,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3561,6 +3842,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3583,14 +3865,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable Betsie River Chinook salmon opportunity.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
-            "tip": "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest Betsie Chinook salmon window.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have given fish time to use both reaches.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3608,24 +3890,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3639,21 +3921,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 83,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s weather-only Chinook activity outlook is highly active with Limited confidence.",
-            "detail": "The evaluated weather strongly favors a response from Chinook that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 9 AM–1 PM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is highly active with Limited confidence.",
+            "detail": "Weather strongly supports Chinook responsiveness if fish are present. 9 AM–1 PM and 5–9 AM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 9 AM–1 PM and 5–9 AM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3706,10 +3988,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3718,14 +4003,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3751,11 +4036,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3774,6 +4059,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -3796,14 +4082,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable Betsie River Chinook salmon opportunity.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
-            "tip": "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest Betsie Chinook salmon window.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have given fish time to use both reaches.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -3821,24 +4107,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -3852,21 +4138,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 81,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s weather-only Chinook activity outlook is highly active with Limited confidence.",
-            "detail": "The evaluated weather strongly favors a response from Chinook that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is highly active with Limited confidence.",
+            "detail": "Weather strongly supports Chinook responsiveness if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -3919,10 +4205,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -3931,14 +4220,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -3964,11 +4253,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -3987,6 +4276,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-27T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4009,14 +4299,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "The Betsie can remain productive for Chinook salmon, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
-            "detail": "Fish may remain distributed through the below-Homestead corridor, but the balance is shifting from new arrivals toward fish already holding or spawning.",
-            "tip": "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+            "headline": "The Betsie Chinook salmon run is tapering.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are less consistent, and more fish are already holding or spawning.",
+            "tip": "Prioritize US-31–Homestead. Leave actively spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4034,24 +4324,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4065,21 +4355,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 82,
             "maximum": 100,
             "label": "Highly active",
-            "headline": "Today’s weather-only Chinook activity outlook is highly active with Limited confidence.",
-            "detail": "The evaluated weather strongly favors a response from Chinook that are present and capable of reacting, but unmeasured river conditions may change the actual response. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is highly active with Limited confidence.",
+            "detail": "Weather strongly supports Chinook responsiveness if fish are present. 9 AM–1 PM and 5–9 AM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 9 AM–1 PM and 5–9 AM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -4133,10 +4423,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 92,
+            "displayScore": 90,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
@@ -4145,14 +4438,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence remains near its peak but is declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -4178,11 +4471,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -4201,6 +4494,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-14T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4223,14 +4517,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "The Betsie can remain productive for Chinook salmon, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
-            "detail": "Fish may remain distributed through the below-Homestead corridor, but the balance is shifting from new arrivals toward fish already holding or spawning.",
-            "tip": "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+            "headline": "The Betsie Chinook salmon run is tapering.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are less consistent, and more fish are already holding or spawning.",
+            "tip": "Prioritize US-31–Homestead. Leave actively spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4248,24 +4542,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4279,21 +4573,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 68,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 9 AM–1 PM and 5–9 AM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 9 AM–1 PM and 5–9 AM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -4347,10 +4641,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 45,
+            "displayScore": 45,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
@@ -4359,14 +4656,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "Seasonal timing still supports meaningful Chinook salmon presence, especially in established holding water.",
-            "detail": "This part of the season usually supports moderate presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a worthwhile but less consistent river opportunity. Expect more searching than near the seasonal high, and let direct fish activity determine how long you stay.",
+            "headline": "Seasonal Chinook salmon presence is moderate and declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -4392,11 +4689,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -4415,6 +4712,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-23T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4437,14 +4735,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Ending",
-            "headline": "Chinook salmon can still provide a worthwhile late opportunity below Homestead.",
-            "whereToStart": "The deepest proven corridor holes and slow current edges, including legal water short of Homestead.",
-            "detail": "Remaining fish have often been in the system for a while, and fresh silver arrivals are no longer dependable.",
-            "tip": "Skip fast travel water. Fish deep holes carefully and leave actively spawning or visibly deteriorated fish alone.",
+            "headline": "The Betsie Chinook salmon run is ending.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are no longer dependable. Remaining fish are most likely in established holding water.",
+            "tip": "Keep the search narrow and leave actively spawning or visibly deteriorated fish alone.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4462,24 +4760,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4493,21 +4791,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 56,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Chinook activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Chinook responsiveness. 9 AM–1 PM and 5–9 AM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 9 AM–1 PM and 5–9 AM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -4561,10 +4859,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 21,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 100,
@@ -4573,14 +4874,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to be spread throughout the river.",
-            "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Chinook salmon presence is limited and declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -4606,11 +4907,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -4629,6 +4930,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-24T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4652,13 +4954,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Betsie Chinook salmon migration is over.",
-            "whereToStart": "No dependable starting location; any remaining fish are likely isolated in deep established water.",
-            "detail": "A few fish may remain below Homestead, but the seasonal pattern no longer supports a dependable Chinook salmon opportunity.",
-            "tip": "Do not chase scattered holdovers between accesses. Shift to another seasonal species and leave spawning fish undisturbed.",
+            "whereToStart": "No dependable starting reach.",
+            "detail": "A few Chinook salmon may remain, but neither Betsie reach supports a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4676,24 +4978,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4707,21 +5009,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 55,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Chinook activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 9 AM–1 PM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Chinook responsiveness. 9 AM–1 PM and 5–9 AM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 9 AM–1 PM and 5–9 AM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -4775,10 +5077,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 95,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 20,
+            "displayScore": 20,
+            "scoreIsApproximate": true,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -4787,14 +5092,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "Some Chinook salmon may still be in the river, with seasonal presence more likely to be scattered.",
-            "detail": "This part of the season usually supports low presence, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat any remaining fish as a bonus rather than a dependable trip plan. Keep expectations narrow and be ready to shift to another seasonal species.",
+            "headline": "Seasonal Chinook salmon presence is low and declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -4826,11 +5131,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]
@@ -4855,6 +5160,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-10T05:00:00.000Z",
           "runStage": {
             "stage": "pre_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": true,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -4877,15 +5183,15 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Before migration",
-            "headline": "Chinook salmon may be staging in Betsie Lake and near the river mouth.",
-            "whereToStart": "Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
-            "detail": "An occasional early Chinook salmon can enter the short river corridor and may even reach Homestead, but that is still an exception—not evidence of dependable river numbers.",
-            "tip": "Keep most effort near the lake-to-river transition. Do not build the trip around Homestead or assume the downstream holes have filled in yet.",
+            "headline": "Chinook salmon may be staging near the Betsie entrance.",
+            "whereToStart": "Lake Michigan, Frankfort harbor, and Betsie Lake.",
+            "detail": "A few early Chinook salmon may enter the Betsie Lake–US-31 reach, but dependable river presence has not begun.",
+            "tip": "Keep the trip near the lake-to-river transition. Treat a river fish as an early exception.",
             "reasonCodes": [
               "stage_pre_run",
               "stage_pre_run_staging"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -4903,24 +5209,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -4934,21 +5240,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Dependable river presence has not begun. The score applies only to a sparse early Chinook that may already have entered. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie outlook is active with Limited confidence, but dependable Chinook presence has not begun.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. This outlook applies only to an early Chinook already in the Betsie.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -5001,10 +5307,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "pre_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5013,14 +5322,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "outside",
             "winterHoldingContext": false,
             "label": "Not expected yet",
-            "headline": "Chinook salmon are not expected in meaningful numbers yet.",
-            "detail": "Most Chinook salmon are not expected to have entered the river in dependable numbers. Any fish already present would be early exceptions.",
-            "tip": "Treat this as no dependable in-river opportunity yet. Keep expectations at zero, and do not interpret an isolated early fish as evidence of dependable river presence.",
+            "headline": "Dependable Chinook salmon presence is not expected in the Betsie yet.",
+            "detail": "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+            "tip": "Use Migration Stage for lake and harbor staging context.",
             "reasonCodes": [
               "stage_pre_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5046,11 +5355,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5069,6 +5378,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-11T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5091,14 +5401,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the Betsie's below-Homestead corridor.",
-            "whereToStart": "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
-            "detail": "Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.",
-            "tip": "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+            "headline": "The first Chinook salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5116,24 +5426,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5147,21 +5457,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -5214,10 +5524,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 10,
+            "displayScore": 10,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5226,14 +5539,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Low presence",
-            "headline": "A small number of Chinook salmon may be in the river, and seasonal presence is still building.",
-            "detail": "This part of the season usually brings low presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as an early, low-odds river opportunity. Expect scattered results, and use direct fish activity before committing the full day.",
+            "headline": "Seasonal Chinook salmon presence is low and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5259,11 +5572,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5282,6 +5595,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-18T05:00:00.000Z",
           "runStage": {
             "stage": "beginning",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5304,14 +5618,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Beginning",
-            "headline": "The first Chinook salmon are beginning to enter the Betsie's below-Homestead corridor.",
-            "whereToStart": "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
-            "detail": "Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.",
-            "tip": "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+            "headline": "The first Chinook salmon are entering the Betsie.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
             "reasonCodes": [
               "stage_beginning"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5329,24 +5643,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5360,21 +5674,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Early lake-fresh Chinook can remain reactive in tolerable water, so warmth is penalized without automatically erasing response potential. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -5427,10 +5741,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 25,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "beginning",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5439,14 +5756,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Some Chinook salmon are likely in the river, but seasonal presence is still developing.",
-            "detail": "This part of the season usually brings limited presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for an emerging but uneven river opportunity. Cover water efficiently, and do not assume every promising stop holds fish.",
+            "headline": "Seasonal Chinook salmon presence is limited and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_beginning",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5472,11 +5789,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5495,6 +5812,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-08-31T05:00:00.000Z",
           "runStage": {
             "stage": "building",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5517,14 +5835,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Building",
-            "headline": "Chinook salmon are becoming dependably established below Homestead.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "By late August, fish reaching the Homestead end of the short corridor is realistic. Newer arrivals can remain closer to Betsie Lake while earlier fish collect in legal holding water downstream of the structure.",
-            "tip": "Begin with the deepest downstream holes, then work toward Homestead without entering the signed 300-foot closure.",
+            "headline": "Chinook salmon are becoming established in both Betsie reaches.",
+            "whereToStart": "Betsie Lake–US-31 reach.",
+            "detail": "New arrivals favor the downstream reach while earlier fish can be in the US-31–Homestead reach.",
+            "tip": "Start in Betsie Lake–US-31, then compare US-31–Homestead after one complete pass.",
             "reasonCodes": [
               "stage_building"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5542,24 +5860,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5573,21 +5891,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. More Chinook are moving and settling into the river; the score describes reaction conditions for fish already present. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -5640,10 +5958,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 50,
+            "displayScore": 50,
+            "scoreIsApproximate": true,
             "stage": "building",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5652,14 +5973,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "rising",
             "winterHoldingContext": false,
             "label": "Moderate presence",
-            "headline": "A meaningful number of Chinook salmon are likely in the river, with seasonal presence still building.",
-            "detail": "This part of the season usually brings moderate presence, with more fish expected to enter and spread through the river. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan for a credible river opportunity that is still improving. Stay mobile until direct fish activity gives you a reason to slow down.",
+            "headline": "Seasonal Chinook salmon presence is moderate and building.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_building",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5685,11 +6006,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5708,6 +6029,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-16T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5730,14 +6052,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable Betsie River Chinook salmon opportunity.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
-            "tip": "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest Betsie Chinook salmon window.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have given fish time to use both reaches.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5755,24 +6077,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5786,21 +6108,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -5853,10 +6175,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 100,
+            "displayScore": 100,
+            "scoreIsApproximate": false,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -5865,14 +6190,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "near_peak",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Chinook salmon are likely near their highest seasonal presence in the river.",
-            "detail": "This is the part of the season when in-river presence is usually strongest. The read describes the river as a whole; it does not place fish in a specific pool or confirm a live count.",
-            "tip": "Plan for the strongest seasonal presence this river usually offers, while remembering that this estimate cannot confirm fish at a specific spot or describe today's river conditions.",
+            "headline": "Seasonal Chinook salmon presence is at its expected peak.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -5898,11 +6223,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -5921,6 +6246,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-09-26T05:00:00.000Z",
           "runStage": {
             "stage": "peak",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -5943,14 +6269,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Peak",
-            "headline": "This is typically the strongest and most dependable Betsie River Chinook salmon opportunity.",
-            "whereToStart": "Substantial corridor holes from the lakeward end through legal Homestead-approach holding water, always outside the signed dam closure.",
-            "detail": "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
-            "tip": "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+            "headline": "This is typically the strongest Betsie Chinook salmon window.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Multiple entry periods have given fish time to use both reaches.",
+            "tip": "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
             "reasonCodes": [
               "stage_peak"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -5968,24 +6294,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -5999,21 +6325,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 71,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. Broad seasonal presence improves the chance of locating fish, but this score measures responsiveness rather than abundance. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Start with 5–9 AM only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Confidence is Limited because river level, clarity, and measured water temperature are unavailable.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -6066,10 +6392,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 95,
+            "displayScore": 95,
+            "scoreIsApproximate": true,
             "stage": "peak",
             "maximum": 100,
             "riverCeiling": 100,
@@ -6078,14 +6407,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Peak presence",
-            "headline": "Seasonal timing still supports Chinook salmon being near their strongest in-river presence, even if the migration may be just beyond its usual peak.",
-            "detail": "This point in the season may sit just beyond the usual peak while the seasonal pattern still supports strong in-river presence. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. Seasonal presence is still near its high point, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence remains near its peak but is declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_peak",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -6111,11 +6440,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -6134,6 +6463,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-05T05:00:00.000Z",
           "runStage": {
             "stage": "tapering",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6156,14 +6486,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Tapering",
-            "headline": "The Betsie can remain productive for Chinook salmon, although fresh arrivals are becoming less consistent.",
-            "whereToStart": "Proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
-            "detail": "Fish may remain distributed through the below-Homestead corridor, but the balance is shifting from new arrivals toward fish already holding or spawning.",
-            "tip": "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+            "headline": "The Betsie Chinook salmon run is tapering.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are less consistent, and more fish are already holding or spawning.",
+            "tip": "Prioritize US-31–Homestead. Leave actively spawning fish undisturbed.",
             "reasonCodes": [
               "stage_tapering"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6181,24 +6511,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6212,21 +6542,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 64,
             "maximum": 100,
             "label": "Active",
-            "headline": "Today’s weather-only Chinook activity outlook is active with Limited confidence.",
-            "detail": "The evaluated weather favors a meaningful reaction opportunity, but this does not verify the river conditions needed to support it. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a Chinook of unknown condition at this point in the season. A newly arrived or fresher fish may be more active than this score, while a spawning or deteriorating fish may be less responsive. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is active with Limited confidence.",
+            "detail": "Weather supports a meaningful Chinook response if fish are present. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -6280,10 +6610,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 70,
+            "displayScore": 70,
+            "scoreIsApproximate": true,
             "stage": "tapering",
             "maximum": 100,
             "riverCeiling": 100,
@@ -6292,14 +6625,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "High presence",
-            "headline": "Seasonal timing still supports Chinook salmon being well distributed, although fresh arrivals may be less consistent than near peak.",
-            "detail": "Seasonal presence is usually elevated relative to the rest of the season, while fresh arrivals often become less consistent later in the season. This is a seasonal estimate, not a live fish count.",
-            "tip": "Plan around fish already likely to be in the river. A meaningful seasonal presence may remain, but remember that this seasonal estimate cannot tell whether a fresh wave is entering today.",
+            "headline": "Seasonal Chinook salmon presence is high and declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_tapering",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -6325,11 +6658,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -6348,6 +6681,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-10-21T05:00:00.000Z",
           "runStage": {
             "stage": "ending",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6370,14 +6704,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
               "peakToEndDays": 37
             },
             "label": "Ending",
-            "headline": "Chinook salmon can still provide a worthwhile late opportunity below Homestead.",
-            "whereToStart": "The deepest proven corridor holes and slow current edges, including legal water short of Homestead.",
-            "detail": "Remaining fish have often been in the system for a while, and fresh silver arrivals are no longer dependable.",
-            "tip": "Skip fast travel water. Fish deep holes carefully and leave actively spawning or visibly deteriorated fish alone.",
+            "headline": "The Betsie Chinook salmon run is ending.",
+            "whereToStart": "US-31–Homestead reach.",
+            "detail": "Fresh arrivals are no longer dependable. Remaining fish are most likely in established holding water.",
+            "tip": "Keep the search narrow and leave actively spawning or visibly deteriorated fish alone.",
             "reasonCodes": [
               "stage_ending"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6395,24 +6729,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6426,21 +6760,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 49,
             "maximum": 100,
             "label": "Moderate",
-            "headline": "Today’s weather-only Chinook activity outlook is moderate with Limited confidence.",
-            "detail": "The evaluated weather provides mixed support for responsiveness; actual river conditions remain unknown. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is moderate with Limited confidence.",
+            "detail": "Weather offers mixed support for Chinook responsiveness. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -6494,10 +6828,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 25,
+            "displayScore": 25,
+            "scoreIsApproximate": true,
             "stage": "ending",
             "maximum": 100,
             "riverCeiling": 100,
@@ -6506,14 +6843,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Limited presence",
-            "headline": "Seasonal timing still supports some Chinook salmon in established holding water, but they are less likely to be spread throughout the river.",
-            "detail": "This part of the season usually supports limited presence concentrated in dependable holes and slower holding water. This is a seasonal estimate, not a live fish count.",
-            "tip": "Treat this as a lower-odds late-season opportunity. Keep the trip flexible, and require direct fish activity before committing more time.",
+            "headline": "Seasonal Chinook salmon presence is limited and declining.",
+            "detail": "Expected Betsie run strength is strong. Fish can use both reaches.",
+            "tip": "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "stage_ending",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -6539,11 +6876,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       },
       {
@@ -6562,6 +6899,7 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "nextConditionRefreshAt": "2026-11-04T05:00:00.000Z",
           "runStage": {
             "stage": "post_run",
+            "copyStrategy": "betsie_homestead",
             "stagingContext": false,
             "broadBuildingContext": false,
             "winterHoldingContext": false,
@@ -6585,13 +6923,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             },
             "label": "After migration",
             "headline": "The main Betsie Chinook salmon migration is over.",
-            "whereToStart": "No dependable starting location; any remaining fish are likely isolated in deep established water.",
-            "detail": "A few fish may remain below Homestead, but the seasonal pattern no longer supports a dependable Chinook salmon opportunity.",
-            "tip": "Do not chase scattered holdovers between accesses. Shift to another seasonal species and leave spawning fish undisturbed.",
+            "whereToStart": "No dependable starting reach.",
+            "detail": "A few Chinook salmon may remain, but neither Betsie reach supports a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "conditionsSuggest": {
             "score": null,
@@ -6609,24 +6947,24 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "historicalYears": 0,
             "sourceDates": [],
             "sourceRefreshSlots": {},
-            "headline": "Migration Timing is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent long-term gauge and measured water-temperature record for this river corridor, so an early, typical, or delayed comparison would not be reliable.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. Do not move upstream or stay lower based on timing from another river.",
+            "headline": "Migration Timing is not available for the Betsie.",
+            "detail": "The Betsie lacks an accepted long-term flow and measured water-temperature record for an early, typical, or delayed comparison.",
+            "tip": "Use Migration Stage and Fish In River. This card cannot shift the plan between the Betsie Lake–US-31 and US-31–Homestead reaches.",
             "reasonCodes": [
               "primitive_migration_timing_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "push": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Push is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live gauge or measured water-temperature sensor for this river corridor, so current flow and temperature cannot support a reliable movement read.",
-            "tip": "Use Run Stage and Fish In River for seasonal context. FinFindr will not substitute air temperature or another river's movement pattern.",
+            "headline": "Push is not available for the Betsie.",
+            "detail": "The Betsie lacks representative live flow and measured water temperature for a current movement read.",
+            "tip": "Use Migration Stage and Fish In River. Air temperature and another river's movement cannot replace Betsie measurements.",
             "reasonCodes": [
               "primitive_push_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "pushHistory": {
             "status": "unavailable",
@@ -6640,21 +6978,21 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "fishability": {
             "score": null,
             "label": "Unavailable",
-            "headline": "Fishability is not available for this river.",
-            "detail": "There is no sufficiently accurate and consistent live flow gauge representing this fishing corridor, so FinFindr cannot reliably describe its current fishing shape.",
-            "tip": "Verify conditions directly at a legal access and use trusted local guidance. Do not borrow flow ranges from another river.",
+            "headline": "Fishability is not available for the Betsie.",
+            "detail": "The Betsie lacks a continuous live flow gauge representing the two River Run reaches.",
+            "tip": "Verify current conditions directly or use trusted local guidance. Do not borrow flow ranges from another river.",
             "reasonCodes": [
               "primitive_fishability_unavailable_for_river"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "activity": {
             "score": 35,
             "maximum": 100,
             "label": "Reserved",
-            "headline": "Today’s weather-only Chinook activity outlook is reserved with Limited confidence.",
-            "detail": "The evaluated weather provides limited support for responsiveness, and unknown river conditions add uncertainty. The strongest window is 5–9 AM: Clouds or lower light make this window more favorable. The main limitation: Rain adds little extra cover. This score represents a remaining Chinook of unknown condition late in the season. A newly arrived or fresher fish may be more active than this score, while a spent or dying fish may respond less or not at all. This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature. This score ranks only the light, cloud cover, and precipitation included in the weather-only model. River level, clarity, and measured water temperature are unknown, so confidence remains Limited.",
-            "tip": "Use the four blocks only to compare weather support for a living Chinook of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.",
+            "headline": "Today’s weather-only Betsie Chinook responsiveness is reserved with Limited confidence.",
+            "detail": "Chinook may respond selectively under the weather limitations. 5–9 AM and 5–9 PM are the leading windows, but neither has a clear advantage. Late-run Chinook condition varies widely, so individual fish may respond above or below this outlook.",
+            "tip": "Choose between 5–9 AM and 5–9 PM using actual light. Neither has a dependable advantage.",
             "reasonCodes": [
               "activity_confidence_limited",
               "activity_today",
@@ -6708,10 +7046,13 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
                 "cloudCoverPct": 60,
                 "precipitationIn": 0
               }
-            ]
+            ],
+            "copyVersion": "river-run-copy-v30"
           },
           "fishInRiver": {
             "score": 0,
+            "displayScore": 0,
+            "scoreIsApproximate": false,
             "stage": "post_run",
             "maximum": 100,
             "riverCeiling": 100,
@@ -6720,14 +7061,14 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
             "curveDirection": "falling",
             "winterHoldingContext": false,
             "label": "Migration complete",
-            "headline": "The season no longer supports a dependable in-river migration.",
-            "detail": "A few Chinook salmon may remain, but their presence is likely isolated rather than part of a consistent river-wide opportunity.",
-            "tip": "Do not build a trip around scattered late fish. Shift to another seasonal species, and leave any actively spawning fish undisturbed.",
+            "headline": "The Betsie Chinook salmon migration no longer has dependable seasonal presence.",
+            "detail": "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+            "tip": "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
             "reasonCodes": [
               "stage_post_run",
               "historical_presence_curve"
             ],
-            "copyVersion": "river-run-copy-v27"
+            "copyVersion": "river-run-copy-v30"
           },
           "gauge": null,
           "weather": null,
@@ -6753,11 +7094,11 @@ export const RIVER_RUN_BETSIE_REVIEW_GROUPS: RiverRunReviewGroup[] = [
           "secondaryNote": "No sufficiently accurate and consistent live flow gauge or measured water-temperature sensor represents the Betsie below Homestead. Push, Fishability, and Migration Timing are unavailable. Activity is a Limited-confidence weather-only outlook; Run Stage and Fish In River remain seasonal context.",
           "safety": {
             "regulationReminder": "Fishing is closed within 300 feet of Homestead's lamprey barrier and fish-passage facility from August 1 through November 15, and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
-            "gaugeBasis": "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+            "gaugeBasis": "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
             "activityDisclaimer": "River Migration is not a wading, boating, floating, or personal-safety rating."
           },
           "engineVersion": "river-run-v1.5.3-review",
-          "configVersion": "2026-08-06-betsie-weather-activity.3"
+          "configVersion": "2026-08-10-betsie-copy.1"
         }
       }
     ]

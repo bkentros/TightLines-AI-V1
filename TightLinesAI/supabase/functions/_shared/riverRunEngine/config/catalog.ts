@@ -58,7 +58,7 @@ export const PERE_MARQUETTE_CONFIGURATION_DOCUMENT:
 
 export const BETSIE_CONFIGURATION_DOCUMENT: RiverRunConfigurationDocument = {
   schemaVersion: "river-run-config-v1",
-  configVersion: "2026-08-06-betsie-weather-activity.3",
+  configVersion: "2026-08-10-betsie-copy.1",
   movementEngineVersion: [
     getMovementEngineDefinition("fall_cooling").version,
     getMovementEngineDefinition("fall_entry_cooling").version,

@@ -145,6 +145,10 @@ Rules:
   rather than lower/middle/upper.
 - A river with a major barrier should normally name the upper section
   `Upper accessible corridor` and include the barrier in its boundary.
+- A structure may be the product's public upstream limit even when official
+  sources document limited or conditional biological passage. Store passage
+  and product scope separately; never rewrite `limited passage` as
+  `impassable`.
 
 ### 4.3 Mandatory dam and barrier inventory
 
@@ -595,10 +599,17 @@ Preferred form:
 > Start in the Middle river (Scottville–Maple Leaf). Add the Upper river
 > (Maple Leaf–M-37) only when direct fish activity supports the move.
 
-Barrier form:
+Barrier form for a confirmed impassable boundary:
 
-> Start in the Upper accessible corridor, ending below Homestead. Do not treat
-> water above the structure as part of this migration.
+> Start in the Upper accessible corridor, ending below the confirmed barrier.
+
+Public-endpoint form when passage is limited, conditional, or outside product
+scope:
+
+> Start in the US-31–Homestead reach. River Run guidance ends at the current
+> signed Homestead closure.
+
+The second form sets the product boundary without claiming fish cannot pass.
 
 ### 7.3 Why This Read
 

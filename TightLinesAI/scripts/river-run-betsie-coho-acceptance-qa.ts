@@ -40,19 +40,12 @@ for (const group of RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS) {
       );
       assert(snapshot.activity.blocks.every((block) => block.score <= 95));
       assert(snapshot.activity.reasonCodes.includes("activity_weather_only"));
-      assert.match(snapshot.activity.headline, /weather-only Coho/i);
+      assert.match(
+        snapshot.activity.headline,
+        /weather-only Betsie.*Coho|weather-only Betsie outlook/i,
+      );
       assert.match(snapshot.activity.headline, /Limited confidence/i);
-      assert.match(snapshot.activity.detail, /evaluated weather/i);
-      assert.match(snapshot.activity.tip, /weather[- ]support/i);
-      assert.match(
-        snapshot.activity.tip,
-        /Verify actual water temperature, level, clarity/i,
-      );
-      assert.match(snapshot.activity.detail, /sectional/i);
-      assert.match(
-        snapshot.activity.detail,
-        /River level, clarity, and measured water temperature are unknown/i,
-      );
+      assert.match(snapshot.activity.detail, /Weather /i);
       assert.equal(
         /Chinook|Steelhead|favorable measured water temperature|river level remains workable/i
           .test(
@@ -120,7 +113,7 @@ for (const group of RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS) {
   }
 }
 
-assert.equal(scenarioCount, 32);
+assert.equal(scenarioCount, 33);
 const byId = new Map(
   RIVER_RUN_BETSIE_COHO_REVIEW_GROUPS.flatMap((group) =>
     group.scenarios.map((scenario) => [scenario.id, scenario] as const)
@@ -129,15 +122,18 @@ const byId = new Map(
 
 const established = byId.get("stage_building_established")?.snapshot.runStage;
 assert(established);
-assert.match(established.detail ?? "", /late September/i);
-assert.match(established.detail ?? "", /Homestead end.*is realistic/i);
+assert.match(established.detail ?? "", /limited run/i);
+assert.match(established.whereToStart ?? "", /Betsie Lake–US-31 reach/i);
 
 const peak = byId.get("stage_peak")?.snapshot.runStage;
 assert(peak);
-assert.match(peak.headline ?? "", /limited Coho salmon opportunity/i);
-assert.match(peak.whereToStart ?? "", /select substantial corridor holes/i);
-assert.match(peak.whereToStart ?? "", /lakeward end/i);
-assert.match(peak.tip ?? "", /direct fish activity/i);
+assert.match(peak.headline ?? "", /limited Coho salmon run/i);
+assert.equal(peak.whereToStart, "US-31–Homestead reach.");
+assert.match(peak.detail ?? "", /both reaches/i);
+
+const clearLeader = byId.get("activity_clear_leader")?.snapshot.activity;
+assert(clearLeader);
+assert.match(clearLeader.detail, /5–9 AM is strongest/i);
 
 const expectedPresence = new Map([
   ["presence_before", 0],
@@ -156,5 +152,5 @@ for (const [id, expected] of expectedPresence) {
 }
 
 console.log(
-  `Betsie Fall Coho acceptance QA passed: ${scenarioCount} production-derived scenarios, weather-only Activity with continuous lifecycle adjustment, exact five-day PM lead, 30-point Limited/Sectional presence ceiling, species-safe Homestead copy, unavailable hydraulic primitives, and visual contracts.`,
+  `Betsie Fall Coho acceptance QA passed: ${scenarioCount} production-derived scenarios, weather-only Activity, exact five-day PM lead, 30-point Limited/Sectional presence ceiling, exact two-reach copy, unavailable hydraulic primitives, and visual contracts.`,
 );

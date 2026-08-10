@@ -64,10 +64,11 @@ export function scoreFishInRiver(
     run.runStageCopyStrategy !== "pere_marquette" &&
     stage === "post_run" && compareLocalDates(localDate, window.endDate) > 0;
   if (
-    run.runStageCopyStrategy === "pere_marquette" &&
-    run.runType === "fall_entry" &&
-    stage === "post_run"
+    (run.runStageCopyStrategy === "pere_marquette" ||
+      run.runStageCopyStrategy === "betsie_homestead") &&
+    run.runType === "fall_entry" && stage === "post_run"
   ) {
+    const betsie = run.runStageCopyStrategy === "betsie_homestead";
     return {
       score: null,
       displayScore: undefined,
@@ -80,16 +81,50 @@ export function scoreFishInRiver(
       curveDirection: "outside",
       winterHoldingContext: false,
       label: "Fall entry complete",
-      headline: "PM Steelhead fall entry is complete.",
+      headline: betsie
+        ? "Betsie Steelhead fall entry is complete."
+        : "PM Steelhead fall entry is complete.",
       detail:
         "Steelhead may remain in the river. This fall-entry model no longer estimates their current seasonal presence.",
       tip: `Check back ${
         seasonalReturnPhrase(window.stagingStartDate.slice(5))
-      } when PM fall movement tracking resumes.`,
+      } when ${betsie ? "Betsie" : "PM"} fall movement tracking resumes.`,
       reasonCodes: [
         stageReasonCode(stage),
         "historical_presence_curve",
       ],
+      copyVersion: RIVER_RUN_COPY_VERSION,
+    };
+  }
+  const latePostRunContext = stage === "post_run" &&
+    compareLocalDates(localDate, window.endDate) > 0 &&
+    compareLocalDates(localDate, window.postRunLateCopyEndDate) <= 0;
+  if (
+    run.runStageCopyStrategy === "betsie_homestead" &&
+    run.runType === "fall_spawn" && stage === "post_run" &&
+    !latePostRunContext
+  ) {
+    const species = anglerSpeciesName(run.species);
+    return {
+      score: null,
+      displayScore: undefined,
+      scoreIsApproximate: false,
+      stage,
+      maximum: 100,
+      riverCeiling,
+      historicalRunStrength: opportunity.strength,
+      curveFraction: 0,
+      curveDirection: "outside",
+      winterHoldingContext: false,
+      label: "Fall run complete",
+      headline: `The Betsie ${species} fall run is complete.`,
+      detail: `${species} staging typically begins ${
+        seasonalReturnPhrase(window.stagingStartDate.slice(5))
+      }. This seasonal estimate is inactive until then.`,
+      tip: `Check back ${
+        seasonalReturnPhrase(window.stagingStartDate.slice(5))
+      } when Betsie fall-run tracking resumes.`,
+      reasonCodes: [stageReasonCode(stage), "historical_presence_curve"],
       copyVersion: RIVER_RUN_COPY_VERSION,
     };
   }
@@ -146,11 +181,13 @@ export function scoreFishInRiver(
   const offseason = compareLocalDates(localDate, window.preRunStartDate) < 0 ||
     compareLocalDates(localDate, window.postRunLateCopyEndDate) > 0;
   const baseLabel = fishInRiverLabel(score, curveFraction, stage, offseason);
-  const label = run.runStageCopyStrategy === "pere_marquette" &&
+  const terminalCopyStrategy = run.runStageCopyStrategy === "pere_marquette" ||
+    run.runStageCopyStrategy === "betsie_homestead";
+  const label = terminalCopyStrategy &&
       baseLabel === "Offseason"
     ? "Fall run complete"
     : baseLabel;
-  const displayScore = run.runStageCopyStrategy === "pere_marquette"
+  const displayScore = terminalCopyStrategy
     ? statePreservingDisplayScore(score, riverCeiling, label, stage, offseason)
     : undefined;
   const curveDirection = resolveCurveDirection({
@@ -171,6 +208,7 @@ export function scoreFishInRiver(
     opportunity,
     fallEntry: run.runType === "fall_entry",
     pereMarquette: run.runStageCopyStrategy === "pere_marquette",
+    betsie: run.runStageCopyStrategy === "betsie_homestead",
     stagingStart: window.stagingStartDate.slice(5),
   });
   const scopedCopy = run.runStageCopyStrategy === "st_joseph_corridor" &&
@@ -275,6 +313,7 @@ function fishInRiverCopy(input: {
   opportunity: RunOpportunityCopyContext;
   fallEntry: boolean;
   pereMarquette: boolean;
+  betsie: boolean;
   stagingStart: string;
 }): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
   const {
@@ -290,6 +329,7 @@ function fishInRiverCopy(input: {
   if (input.pereMarquette) {
     return pereMarquetteFishInRiverCopy(input);
   }
+  if (input.betsie) return betsieFishInRiverCopy(input);
   if (label === "Offseason") {
     return {
       headline: `${species} are outside their river migration season.`,
@@ -361,6 +401,77 @@ function fishInRiverCopy(input: {
       fractionOfRiverMaximum,
       opportunity,
     ),
+  };
+}
+
+function betsieFishInRiverCopy(input: {
+  label: string;
+  score: number;
+  stage: RunStage;
+  direction: FishInRiverCurveDirection;
+  species: string;
+  opportunity: RunOpportunityCopyContext;
+  stagingStart: string;
+}): Pick<PrimitiveDisplay, "headline" | "detail" | "tip"> {
+  if (input.label === "Offseason" || input.label === "Fall run complete") {
+    return {
+      headline: `The Betsie ${input.species} fall run is complete.`,
+      detail: `${input.species} staging typically begins ${
+        seasonalReturnPhrase(input.stagingStart)
+      }. This seasonal estimate is inactive until then.`,
+      tip: `Check back ${
+        seasonalReturnPhrase(input.stagingStart)
+      } when Betsie fall-run tracking resumes.`,
+    };
+  }
+  if (input.score === 0 && input.stage === "pre_run") {
+    return {
+      headline:
+        `Dependable ${input.species} presence is not expected in the Betsie yet.`,
+      detail:
+        "The seasonal estimate remains at zero. Any river fish would be an early exception.",
+      tip: "Use Migration Stage for lake and harbor staging context.",
+    };
+  }
+  if (input.score === 0) {
+    return {
+      headline:
+        `The Betsie ${input.species} migration no longer has dependable seasonal presence.`,
+      detail:
+        "The seasonal estimate has reached zero. Isolated late fish are not a dependable migration opportunity.",
+      tip:
+        "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
+    };
+  }
+  const level = input.label.replace(/ presence$/i, "").toLowerCase();
+  const headline = input.label === "Peak presence"
+    ? input.direction === "falling"
+      ? `Seasonal ${input.species} presence remains near its peak but is declining.`
+      : `Seasonal ${input.species} presence is at its expected peak.`
+    : `Seasonal ${input.species} presence is ${level} and ${
+      input.direction === "rising"
+        ? "building"
+        : input.direction === "falling"
+        ? "declining"
+        : "holding steady"
+    }.`;
+  const strength = input.opportunity.strength === "limited"
+    ? "limited"
+    : input.opportunity.strength === "moderate"
+    ? "moderate"
+    : "strong";
+  const scope = input.opportunity.distributionScope === "sectional"
+    ? "dependable presence can differ between the two reaches"
+    : input.opportunity.distributionScope === "concentrated"
+    ? "dependable presence concentrates in select water"
+    : "fish can use both reaches";
+  return {
+    headline,
+    detail: `Expected Betsie run strength is ${strength}. ${
+      scope[0].toUpperCase()
+    }${scope.slice(1)}.`,
+    tip:
+      "Use Migration Stage to choose between the Betsie Lake–US-31 and US-31–Homestead reaches.",
   };
 }
 

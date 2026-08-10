@@ -64,7 +64,10 @@ export function buildDailySnapshot(input: {
   const fishInRiver = scoreFishInRiver(input.run, input.localDate);
   const timingCapability = input.run.primitiveCapabilities.migrationTiming;
   const conditionsSuggest = timingCapability.status === "unavailable"
-    ? unavailableMigrationTiming(timingCapability.reason)
+    ? unavailableMigrationTiming(
+      timingCapability.reason,
+      input.run.runStageCopyStrategy,
+    )
     : scoreConditionsSuggest({
       localDate: input.localDate,
       run: requireTimingConfiguration(input.run),

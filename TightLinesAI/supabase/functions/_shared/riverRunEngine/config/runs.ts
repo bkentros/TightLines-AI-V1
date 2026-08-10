@@ -1721,7 +1721,7 @@ export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     distributionScope: "broad",
     curveVersion: "betsie-fall-chinook-presence-v1",
     evidenceNotes:
-      "The Betsie supports a world-class wild Chinook fishery and extensive mainstem natural reproduction. The 10/10 ceiling represents historical opportunity, not a fish count. Broad distribution refers only to the entire short migratory corridor below Homestead; it must not be read as PM-scale lower, middle, and upper geography or imply access above the structure. The calendar is an owner-calibrated, evidence-consistent five-day lead over the accepted PM river-presence curve.",
+      "The Betsie supports a world-class wild Chinook fishery and extensive mainstem natural reproduction. The 10/10 ceiling represents historical opportunity, not a fish count. Broad distribution refers only to the two approved River Run reaches between Betsie Lake and the signed Homestead closure. The calendar is an owner-calibrated, evidence-consistent five-day lead over the accepted PM river-presence curve.",
     sourceNotes:
       "Michigan DNR Betsie River Survey 2004-3 documents primarily wild Chinook, extensive natural reproduction, an adult observed at Kurick Road on August 12, 2003, and historical migratory effort concentrated from Betsie Lake to Homestead Dam: https://www2.dnr.state.mi.us/publications/pdfs/ifr/ifrlibra/Status/Waterbody/2004-3Betsie.pdf . Michigan DNR describes the current wild Chinook population as a world-class fishery: https://content.govdelivery.com/accounts/MIDNR/bulletins/29f9c97 . Great Lakes Fishery Trust/USGS work at Homestead supports a mid-September-centered run with effort diminishing by the end of October: https://portal.glft.org/documents/653-rogers_chinook_final_report_v2-pdf . Exact five-day PM lead is owner field calibration rather than a paired-count estimate.",
     anchors: [
@@ -1740,7 +1740,7 @@ export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
     profile: "chinook_fall_reaction",
     dataMode: "weather_only",
     scopeCopy:
-      "This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature.",
+      "This weather context applies to the two Betsie River Run reaches; it does not measure river level, clarity, or water temperature.",
     weights: {
       light: 0.75,
       waterTemperature: 0,
@@ -1773,23 +1773,23 @@ export const BETSIE_FALL_CHINOOK_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   userCopyHints: {
     stagingTip:
-      "Use Betsie Lake, the mouth, and the first deep below-Homestead hole; an early fish at Homestead is possible but exceptional.",
+      "Use Betsie Lake and the lake-to-river transition; an early fish in either river reach remains exceptional.",
     preRunTip:
-      "Do not translate Pere Marquette lower, middle, and upper geography onto the Betsie's short core corridor.",
+      "Use the approved Betsie Lake–US-31 and US-31–Homestead reaches; do not create lower, middle, or upper Betsie sections.",
     peakTip:
-      "Work substantial holes throughout the below-Homestead corridor, always outside the signed closure; never direct migratory anglers above Homestead.",
+      "Compare the two approved reaches and keep all guidance below the current signed Homestead closure.",
     endingTip:
       "Prioritize deep established holes and leave actively spawning or visibly deteriorated fish alone.",
   },
   researchNotes:
-    "Betsie Fall Chinook owner-audit configuration. River presence begins August 10 at a deliberately low 10/100 index: a fish can reach Homestead that early, but dependable dam-area concentrations are unlikely. Late August makes Homestead arrival realistic, with deep holes downstream remaining the primary plan. The run reaches a September 15 peak reference, ends October 22, and retains a sparse tail through November 3. April 2026 flooding is a field-acceptance concern for changed holes, sand, access, and passage—not a reason to move the fixed seasonal calendar.",
+    "Betsie Fall Chinook owner-audit configuration. River presence begins August 10 at a deliberately low 10/100 index. Late August supports earlier arrivals using the US-31–Homestead reach while newer fish may remain in the Betsie Lake–US-31 reach. The run reaches a September 15 peak reference, ends October 22, and retains a sparse tail through November 3. April 2026 flooding is a field-acceptance concern for changed holes, sand, access, and passage—not a reason to move the fixed seasonal calendar.",
   sourceNotes:
     "River-specific evidence includes Michigan DNR Betsie fishery surveys and regulations, DNR Homestead infrastructure and access material, Betsie Lake staging documentation, the Great Lakes Fishery Trust/USGS naturalized Chinook study at Homestead, current DNR fishing reports, and explicit owner field experience. The 2026 regulations close fishing within 300 feet of Homestead from August 1 through November 15; public copy must never direct anglers into that closure. Push, Fishability, and Migration Timing intentionally have no calibration blocks because their required sources are unavailable.",
   publicAudit: {
     isEnabled: true,
-    auditVersion: "betsie-fall-chinook-weather-activity-audit-v1",
+    auditVersion: "betsie-fall-chinook-copy-audit-v2",
     notes:
-      "Research, historical weather replay, score/copy inspection, seasonal boundaries, Homestead geography, and unavailable-state behavior are accepted for public release.",
+      "The accepted calendar and 100-point ceiling remain public while renovated two-reach copy, Activity leader handling, public score rounding, and Fall run complete behavior enter owner review.",
   },
 };
 
@@ -1843,7 +1843,7 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     distributionScope: "sectional",
     curveVersion: "betsie-fall-coho-presence-v1",
     evidenceNotes:
-      "The Betsie supports a real but small, primarily wild-or-stray Coho migration. The 3/10 ceiling places it at the upper edge of Limited opportunity and is not a fish count. Sectional distribution describes select water only within the migratory corridor below Homestead and avoids claiming dependable opportunity throughout that corridor or above the structure. The calendar is an owner-accepted five-day lead over the separately accepted PM Coho curve.",
+      "The Betsie supports a real but small, primarily wild-or-stray Coho migration. The 3/10 ceiling places it at the upper edge of Limited opportunity and is not a fish count. Sectional distribution describes select water within the two approved River Run reaches and avoids claiming dependable opportunity throughout the corridor. The calendar is an owner-accepted five-day lead over the separately accepted PM Coho curve.",
     sourceNotes:
       "Michigan DNR Fisheries Report 24 describes large Betsie Chinook runs with smaller Coho numbers; its 2010 creel estimate recorded 63 harvested Coho, all in October and within the middle survey section containing Homestead, versus 13,620 Chinook, with Coho under 1% of total harvest: https://www2.dnr.state.mi.us/publications/pdfs/DNRFishLibrary/FisheriesReports/FR024.pdf . Michigan DNR Betsie Survey 2004-3 documents some migratory Coho, no direct Coho stocking, primarily wild-or-stray returns, and spawning in the mainstem and tributaries: https://www2.dnr.state.mi.us/publications/pdfs/DNRFishLibrary/StatusoftheFisheryResourceReports/0087_2004_BetsieRiver.pdf . Current DNR Better Fishing Waters omits Coho from the Betsie while listing Coho for nearby Platte and Pere Marquette waters: https://www.michigan.gov/dnr/things-to-do/fishing/where/better-fishing-waters . Exact strength and five-day PM lead remain owner calibration rather than a paired adult-count estimate.",
     anchors: [
@@ -1864,7 +1864,7 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     profile: "coho_fall_reaction",
     dataMode: "weather_only",
     scopeCopy:
-      "This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature, and Betsie Coho opportunity remains sectional.",
+      "This weather context applies to the two Betsie River Run reaches; it does not measure river level, clarity, or water temperature, and Coho opportunity remains sectional.",
     weights: {
       light: 0.7,
       waterTemperature: 0,
@@ -1897,11 +1897,11 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
   },
   userCopyHints: {
     stagingTip:
-      "Use Lake Michigan, Frankfort harbor, Betsie Lake, the river mouth, and one deliberate check of the first deep below-Homestead hole.",
+      "Use Lake Michigan, Frankfort harbor, Betsie Lake, and one deliberate early-fish check in the Betsie Lake–US-31 reach.",
     preRunTip:
-      "Treat the Betsie as a limited Coho river and do not translate Pere Marquette lower, middle, and upper geography onto its short core corridor.",
+      "Treat the Betsie as a Limited Coho river and use only its two approved River Run reaches.",
     peakTip:
-      "Cover select substantial holes across the below-Homestead corridor, always outside the signed closure, and require direct fish activity before committing time.",
+      "Compare select water in both approved reaches, stay outside the signed Homestead closure, and require direct fish activity before committing time.",
     endingTip:
       "Prioritize the deepest established holes and leave actively spawning or visibly deteriorated fish alone.",
   },
@@ -1911,9 +1911,9 @@ export const BETSIE_FALL_COHO_RUN_PROFILE: AuditedRiverRunProfile = {
     "River-specific evidence includes Michigan DNR Betsie fishery surveys, the 2010 full-river creel estimate, current DNR fishing-water listings, Homestead access and regulation material, and explicit owner acceptance of the 3/10 ceiling and five-day PM lead. The 2026 regulations close fishing within 300 feet of Homestead from August 1 through November 15 and within 100 feet for the rest of the year. Push, Fishability, and Migration Timing intentionally have no calibration blocks because their required sources remain unavailable.",
   publicAudit: {
     isEnabled: true,
-    auditVersion: "betsie-fall-coho-weather-activity-audit-v1",
+    auditVersion: "betsie-fall-coho-copy-audit-v2",
     notes:
-      "Research, historical weather replay, the 30-point presence ceiling, exact calendar, Limited/Sectional copy, Homestead geography, and unavailable-state behavior are accepted for public release.",
+      "The accepted calendar and 30-point Limited/Sectional ceiling remain public while renovated two-reach copy, Activity leader handling, public score rounding, and Fall run complete behavior enter owner review.",
   },
 };
 
@@ -1963,18 +1963,12 @@ export const BETSIE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
     lateEnd: "12-18",
     postRunLateCopyEnd: "12-19",
   },
-  handoff: {
-    type: "winter_holding",
-    start: "12-18",
-    destinationRunType: "holding",
-    retainedPresenceFraction: 0.875,
-  },
   historicalPresence: {
     maximum: 7,
     distributionScope: "broad",
     curveVersion: "betsie-fall-steelhead-presence-v1",
     evidenceNotes:
-      "The Betsie supports a strong and well-recognized Steelhead fishery. The owner-accepted 7/10 ceiling produces a 70/100 seasonal high and is not a fish count. Broad distribution refers only to the full short migratory corridor below Homestead; public copy must not borrow Pere Marquette lower, middle, and upper geography or recommend water above the structure. The calendar is exactly five days ahead of the accepted PM fall-entry curve.",
+      "The Betsie supports a strong and well-recognized Steelhead fishery. The owner-accepted 7/10 ceiling produces a 70/100 seasonal high and is not a fish count. Broad distribution refers only to the two approved River Run reaches between Betsie Lake and the signed Homestead closure. The calendar is exactly five days ahead of the accepted PM fall-entry curve, and the public estimate ends after December 17 without implying that Steelhead left the river.",
     sourceNotes:
       "Michigan DNR lists both the Betsie River and Betsie Lake as Better Fishing Waters for Steelhead and identifies Homestead as a popular Steelhead access. DNR Betsie Survey 2004-3 documents a substantial stocked and naturalized fishery. Michigan DNR describes fall-entering Steelhead as overwintering before spring spawning. Product guidance follows the accepted operational fact that Homestead is the upstream limit for this migratory fishery. The exact 7/10 ceiling and five-day PM lead are owner calibration rather than a paired adult-count estimate.",
     anchors: [
@@ -1995,7 +1989,7 @@ export const BETSIE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
     profile: "steelhead_feeding",
     dataMode: "weather_only",
     scopeCopy:
-      "This weather context covers the short migratory corridor below Homestead; it does not measure river level, clarity, or water temperature.",
+      "This weather context applies to the two Betsie River Run reaches; it does not measure river level, clarity, or water temperature.",
     weights: {
       light: 0.7,
       waterTemperature: 0,
@@ -2018,27 +2012,27 @@ export const BETSIE_FALL_STEELHEAD_RUN_PROFILE: AuditedRiverRunProfile = {
       weatherOnlyMaximum: 95,
     },
     evidenceNotes:
-      "Betsie Fall Steelhead Activity is an explicitly weather-only feeding and aggressive-responsiveness outlook for a Steelhead already present, not a river-condition, movement, abundance, fishability, or catch-probability estimate. Each fixed four-hour block uses its own actual-versus-clear-sky light, cloud fallback, total precipitation, and wet-hour duration from the Homestead weather point. Effective light carries 70% and precipitation context 30%, matching the natural reweighting of the shared Steelhead model's observable weather components while measured water temperature and river behavior remain zero. The evaluated weather variables retain their native range with a true upper bound of 95 and tomorrow bounded at 90. Confidence is always Limited. Steelhead receive no salmon floor, lifecycle deduction, tapering ceiling, ending constraint, or mortality copy; identical weather produces identical Activity scores across Peak, Late fall, Holding transition, and Winter holding. Air temperature and preceding-block rain are excluded, and precipitation never implies a river rise or clarity change.",
+      "Betsie Fall Steelhead Activity is an explicitly weather-only feeding and aggressive-responsiveness outlook for a Steelhead already present, not a river-condition, movement, abundance, fishability, or catch-probability estimate. Each fixed four-hour block uses its own actual-versus-clear-sky light, cloud fallback, total precipitation, and wet-hour duration from the Homestead weather point. Effective light carries 70% and precipitation context 30%, matching the natural reweighting of the shared Steelhead model's observable weather components while measured water temperature and river behavior remain zero. The evaluated weather variables retain their native range with a true upper bound of 95 and tomorrow bounded at 90. Confidence is always Limited. Steelhead receive no salmon floor, lifecycle deduction, tapering ceiling, ending constraint, or mortality copy; identical weather produces identical Activity scores through the final fall-entry day. After December 17, Activity returns Fall entry complete with no score. Air temperature and preceding-block rain are excluded, and precipitation never implies a river rise or clarity change.",
   },
   userCopyHints: {
     stagingTip:
-      "Use Frankfort harbor, Betsie Lake, the river mouth, and one deliberate check of the first deep below-Homestead travel water.",
+      "Use Frankfort harbor, Betsie Lake, and one deliberate early-fish check in the Betsie Lake–US-31 reach.",
     preRunTip:
-      "Do not translate Pere Marquette lower, middle, and upper geography onto the Betsie's short core corridor.",
+      "Use only the approved Betsie Lake–US-31 and US-31–Homestead reaches.",
     peakTip:
-      "Cover substantial holding water throughout the below-Homestead corridor outside the signed closure; never recommend water above Homestead for migratory Steelhead.",
+      "Compare substantial holding water in both approved reaches and end all guidance at the signed Homestead closure.",
     endingTip:
-      "Treat the late-fall endpoint as a transition into winter holding, not as Steelhead leaving the river.",
+      "Treat the endpoint as Fall entry complete, not as Steelhead leaving the river or as a winter read.",
   },
   researchNotes:
-    "Betsie Fall Steelhead owner-audit configuration. Every boundary is exactly five days ahead of the accepted PM fall-entry profile: early monitoring starts August 10, staging starts August 27, river presence starts September 15, the 70/100 ceiling begins November 10, and the fall-entry model hands off after December 17. The retained-presence calculation is 70 × 0.875 = 61.25, displayed as 61/100 at the December 18 winter-holding handoff—approximately the requested 6/10 ending level.",
+    "Betsie Fall Steelhead owner-audit configuration. Every boundary is exactly five days ahead of the accepted PM fall-entry profile: early monitoring starts August 10, staging starts August 27, river presence starts September 15, the 70/100 ceiling begins November 10, and the final fall-entry value is 61/100 on December 17. Beginning December 18, the public state is Fall entry complete: Fish In River and Activity stop scoring, no winter experience is referenced, and staging tracking resumes in late August.",
   sourceNotes:
     "River-specific evidence includes Michigan DNR Betsie Survey 2004-3, current DNR Better Fishing Waters, DNR Homestead access material, the DNR Steelhead species profile, current Homestead closure regulations, and explicit owner calibration. Fishing is closed within 300 feet of Homestead from August 1 through November 15 and within 100 feet from November 16 through July 31. Push, Fishability, and Migration Timing intentionally have no calibration blocks because their required sources remain unavailable.",
   publicAudit: {
     isEnabled: true,
-    auditVersion: "betsie-fall-steelhead-weather-activity-audit-v1",
+    auditVersion: "betsie-fall-steelhead-copy-audit-v2",
     notes:
-      "Research, historical weather replay, the 70-point presence ceiling, exact calendar, 61-point winter handoff, Homestead geography, and unavailable-state behavior are accepted for public release.",
+      "The accepted calendar and 70-point fall ceiling remain public while renovated two-reach copy and Fall entry complete behavior enter owner review.",
   },
 };
 

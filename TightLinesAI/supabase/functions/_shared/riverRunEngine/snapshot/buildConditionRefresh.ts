@@ -157,7 +157,10 @@ export function buildConditionRefresh(input: {
     status: "available" as const,
   };
   const push = pushCapability.status === "unavailable"
-    ? unavailablePush(pushCapability.reason)
+    ? unavailablePush(
+      pushCapability.reason,
+      input.dailySnapshot.runStage.copyStrategy,
+    )
     : scorePush({
       movementEngineId: input.movementEngineId,
       rules: requirePushRules(input.pushRules),
@@ -182,7 +185,10 @@ export function buildConditionRefresh(input: {
       monitoringStartDate: input.dailySnapshot.runStage.window.stagingStartDate,
     });
   const fishability = fishabilityCapability.status === "unavailable"
-    ? unavailableFishability(fishabilityCapability.reason)
+    ? unavailableFishability(
+      fishabilityCapability.reason,
+      input.dailySnapshot.runStage.copyStrategy,
+    )
     : scoreFishability({
       rules: requireFishabilityBands(input.fishabilityBands),
       gaugeFreshness: input.gaugeFreshness,
@@ -214,6 +220,7 @@ export function buildConditionRefresh(input: {
       copyStrategy: input.dailySnapshot.runStage.copyStrategy,
       fallEntryComplete:
         input.dailySnapshot.runStage.label === "Fall entry complete",
+      monitoringStartDate: input.dailySnapshot.runStage.window.stagingStartDate,
     })
     : null;
   const dataQuality = resolveDataQuality({

@@ -217,6 +217,105 @@ export const BETSIE_RIVER_PROFILE: RiverProfile = {
       role: "primary",
     },
   ],
+  foundation: {
+    version: "betsie-foundation-v1",
+    corridorLengthMiles: 10,
+    upstreamTerminus:
+      "The current signed fishing closure below Homestead Dam; River Run does not recommend fall migratory water above the structure",
+    downstreamTerminus:
+      "The Betsie River transition into Betsie Lake; Betsie Lake, Frankfort harbor, and Lake Michigan are staging context",
+    targetSpecies: ["chinook_salmon", "coho_salmon", "steelhead"],
+    reaches: [
+      {
+        reachId: "betsie_lake_harbor_context",
+        displayName:
+          "Lake Michigan, Frankfort harbor, and Betsie Lake staging context",
+        order: 1,
+        role: "mouth_context",
+        gaugeRepresented: false,
+        notes:
+          "Pre-run and staging context only. It must not be described as proof that fish have entered the Betsie River.",
+        sourceNotes:
+          "Michigan DNR Betsie Natural River Plan and Fisheries Report 24.",
+      },
+      {
+        reachId: "betsie_lake_to_us31",
+        displayName: "Betsie Lake–US-31 reach",
+        order: 2,
+        role: "downstream",
+        gaugeRepresented: false,
+        notes:
+          "Approved downstream River Run reach from the lake-to-river transition to the US-31 bridge. USGS 04126600 has discrete field measurements only and does not provide a live Fishability source.",
+        sourceNotes:
+          "Michigan DNR Fisheries Report 24 lower creel segment; USGS 04126600 inventory.",
+      },
+      {
+        reachId: "betsie_us31_to_homestead",
+        displayName: "US-31–Homestead reach",
+        order: 3,
+        role: "terminal",
+        gaugeRepresented: false,
+        notes:
+          "Approved terminal River Run reach from US-31 to the current signed Homestead closure. The structure permits limited passage, but River Run guidance ends below it and never recommends fall migratory water above it.",
+        sourceNotes:
+          "Michigan DNR Homestead access description, Fisheries Report 24, forest compartment 27 material, and 2026 fishing regulations.",
+      },
+    ],
+    locations: [
+      {
+        locationId: "betsie_homestead_barrier",
+        officialName: "Homestead Dam lamprey barrier and fish-passage facility",
+        aliases: ["Homestead Dam", "Homestead"],
+        state: "MI",
+        latitude: 44.596362,
+        longitude: -86.079163,
+        coordinateSource:
+          "Michigan DNR Central Lake Michigan Management Unit access-site record",
+        coordinateStatus: "verified",
+        reachId: "betsie_us31_to_homestead",
+        kind: "barrier",
+        fishPassage: "limited",
+        publicUpstreamLimit: true,
+        publicAccess: "restricted",
+        fishingSuitability: {
+          bank: "limited",
+          wading: "unknown",
+          boat: "limited",
+        },
+        beginnerSuitable: false,
+        restrictionNotes:
+          "River Run recommendations end at the signed closure. Fishing is closed within 300 feet August 1–November 15 and within 100 feet November 16–July 31; current signs and regulations control.",
+        sourceNotes:
+          "Michigan DNR Homestead structure/access description and 2026 Michigan Fishing Regulations, verified 2026-08-10.",
+      },
+    ],
+    primaryGaugeReachId: null,
+    contextualGaugeSiteIds: [],
+    weatherStrategy: {
+      mode: "single_point",
+      primaryWeatherPointId: "betsie_homestead_weather_context",
+      basinRepresentation:
+        "Modeled hourly light, cloud, and precipitation context near Homestead. It does not observe river level, clarity, or measured water temperature.",
+      sourceNotes:
+        "Open-Meteo point-weather adapter at the accepted Homestead context coordinates.",
+    },
+    stateRegulations: [
+      {
+        state: "MI",
+        version: "michigan-2026-fishing-regulations-through-2027-03-31",
+        jurisdiction:
+          "Michigan DNR; Betsie River and Homestead seasonal closure rules",
+        reminderCopy:
+          "Fishing is closed within 300 feet of Homestead from August 1 through November 15 and within 100 feet from November 16 through July 31. Follow current regulations and signed boundaries.",
+        accessAndSafetyNotes:
+          "River Run reach names are orientation ranges, not public-access or safety determinations. The US-31–Homestead reach ends at the current signed closure, not at the structure.",
+        sourceNotes:
+          "Michigan DNR 2026 Fishing Regulations and Fisheries Order 204 material.",
+      },
+    ],
+    evidenceNotes:
+      "Foundation researched and approved 2026-08-10 in docs/river_run_betsie_copy_foundation.md. The public river model uses two named reaches: Betsie Lake–US-31 and US-31–Homestead, ending at the current signed closure. Lower/Middle/Upper terminology is prohibited. Michigan DNR describes limited fish passage at Homestead, so River Run treats it as a conservative public guidance endpoint without claiming absolute biological impassability. No accepted continuous hydraulic or measured-water-temperature source represents the corridor; Activity remains weather-only with Limited confidence.",
+  },
   conditionRefreshSchedule: {
     activeSlots: [
       "00:00",

@@ -71,9 +71,10 @@ Deno.test("Betsie Steelhead Activity has no floor, taper, or mortality semantics
         clear_sky_shortwave_w_m2: hour >= 7 && hour < 19 ? 600 : 0,
         precipitation_in: hour >= 9 && hour < 13 ? 0.005 : 0,
       })),
+      copyStrategy: run.runStageCopyStrategy,
     });
   };
-  const dates = ["2026-11-29", "2026-11-30", "2026-12-15", "2026-12-18"];
+  const dates = ["2026-11-29", "2026-11-30", "2026-12-15", "2026-12-17"];
   const results = dates.map(scoreFor);
   assert(results.every((result) => result.score === results[0].score));
   for (const [index, result] of results.entries()) {
@@ -83,16 +84,12 @@ Deno.test("Betsie Steelhead Activity has no floor, taper, or mortality semantics
       result.reasonCodes.includes("activity_late_biology_cap"),
       false,
     );
-    assertMatch(result.headline, /weather-only Steelhead activity outlook/i);
+    assertMatch(
+      result.headline,
+      /weather-only Betsie Steelhead responsiveness/i,
+    );
     assertMatch(result.headline, /Limited confidence/i);
-    assertMatch(result.detail, /evaluated weather/i);
-    if (index === 0) {
-      assertMatch(result.tip, /strongest weather-supported window/i);
-    } else {
-      assertMatch(result.tip, /only to compare weather support/i);
-      assertMatch(result.tip, /remain alive/i);
-    }
-    assertMatch(result.tip, /verify actual water temperature, level, clarity/i);
+    assertMatch(result.detail, /Weather /i);
     assertEquals(
       /Chinook|Coho|spent|dying|deteriorat|mortality/i.test(
         JSON.stringify(result),
@@ -102,7 +99,7 @@ Deno.test("Betsie Steelhead Activity has no floor, taper, or mortality semantics
   }
 });
 
-Deno.test("every Betsie Steelhead calendar and handoff boundary is exactly five days ahead of PM", () => {
+Deno.test("every Betsie Steelhead calendar boundary is exactly five days ahead of PM", () => {
   const betsie = resolveActiveRunWindow(run, "2026-11-10");
   const pm = resolveActiveRunWindow(
     PERE_MARQUETTE_FALL_STEELHEAD_RUN_PROFILE,
@@ -127,14 +124,10 @@ Deno.test("every Betsie Steelhead calendar and handoff boundary is exactly five 
   ) {
     assertEquals(betsie[field], addDays(pm[field]!, -5), field);
   }
-  assertEquals(run.handoff?.start, "12-18");
-  assertEquals(
-    addDays(pm.endDate, -4).slice(5),
-    run.handoff?.start,
-  );
+  assertEquals(run.handoff, undefined);
 });
 
-Deno.test("Betsie Steelhead reaches 70 and hands 61 into winter holding", () => {
+Deno.test("Betsie Steelhead reaches 70 and ends fall scoring after 61", () => {
   const expected = new Map([
     ["2026-09-14", 0],
     ["2026-09-15", 7],
@@ -154,15 +147,15 @@ Deno.test("Betsie Steelhead reaches 70 and hands 61 into winter holding", () => 
     assertEquals(result.riverCeiling, 70, localDate);
     assertEquals(result.historicalRunStrength, "moderate", localDate);
   }
-  const handoff = scoreFishInRiver(run, "2026-12-18");
-  assertEquals(handoff.score, 61);
-  assertEquals(handoff.handoffScore, 61);
-  assertEquals(handoff.label, "Winter holding");
-  assertMatch(handoff.detail, /no accepted water-temperature or flow sensor/i);
-  assertEquals(/open the winter holding read/i.test(handoff.tip), false);
+  const complete = scoreFishInRiver(run, "2026-12-18");
+  assertEquals(complete.score, null);
+  assertEquals(complete.displayScore, undefined);
+  assertEquals(complete.label, "Fall entry complete");
+  assertMatch(complete.detail, /no longer estimates/i);
+  assertMatch(complete.tip, /late August/i);
 });
 
-Deno.test("Betsie Steelhead stage copy uses Homestead geography and an honest winter handoff", () => {
+Deno.test("Betsie Steelhead stage copy uses two-reach geography and Fall entry complete", () => {
   const expectedLabels = new Map([
     ["2026-08-10", "Before migration"],
     ["2026-09-15", "Beginning"],
@@ -171,23 +164,22 @@ Deno.test("Betsie Steelhead stage copy uses Homestead geography and an honest wi
     ["2026-11-10", "Peak"],
     ["2026-11-30", "Late fall"],
     ["2026-12-15", "Holding transition"],
-    ["2026-12-18", "Winter holding"],
+    ["2026-12-18", "Fall entry complete"],
   ]);
   for (const [localDate, label] of expectedLabels) {
     assertEquals(resolveRunStage(run, localDate).label, label, localDate);
   }
   const peak = resolveRunStage(run, "2026-11-10");
-  assertMatch(peak.headline, /strongest Betsie fall Steelhead opportunity/i);
-  assertMatch(peak.whereToStart ?? "", /lakeward end/i);
-  assertMatch(peak.whereToStart ?? "", /legal Homestead approach/i);
-  assertMatch(peak.whereToStart ?? "", /signed closure/i);
-  assertMatch(peak.tip, /direct fish activity/i);
+  assertMatch(peak.headline, /strongest Betsie fall Steelhead window/i);
+  assertEquals(peak.whereToStart, "US-31–Homestead reach.");
 
-  const winter = resolveRunStage(run, "2026-12-18");
-  assertEquals(winter.winterHoldingContext, true);
-  assertMatch(winter.detail, /have not simply left the river/i);
-  assertMatch(winter.tip, /61\/100/i);
-  assertEquals(/open the winter holding read/i.test(winter.tip), false);
+  const complete = resolveRunStage(run, "2026-12-18");
+  assertEquals(complete.winterHoldingContext, false);
+  assertMatch(
+    complete.detail,
+    /no longer estimates current presence or activity/i,
+  );
+  assertMatch(complete.tip, /late August/i);
 
   for (
     let localDate = "2026-08-10";
@@ -252,7 +244,7 @@ Deno.test("Betsie Steelhead snapshots keep every sensor-dependent primitive unav
   assertEquals(refresh.conditionsSuggest.label, "Unavailable");
   assertEquals(refresh.push.label, "Unavailable");
   assertEquals(refresh.fishability.label, "Unavailable");
-  assertMatch(refresh.push.tip, /not substitute air temperature/i);
+  assertMatch(refresh.push.tip, /Air temperature.*cannot replace/i);
 });
 
 Deno.test("Betsie Steelhead appears in the public catalog", () => {

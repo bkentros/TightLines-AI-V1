@@ -44,19 +44,12 @@ for (const group of RIVER_RUN_BETSIE_REVIEW_GROUPS) {
       );
       assert(snapshot.activity.blocks.every((block) => block.score <= 95));
       assert(snapshot.activity.reasonCodes.includes("activity_weather_only"));
-      assert.match(snapshot.activity.headline, /weather-only Chinook/i);
+      assert.match(
+        snapshot.activity.headline,
+        /weather-only Betsie.*Chinook|weather-only Betsie outlook/i,
+      );
       assert.match(snapshot.activity.headline, /Limited confidence/i);
-      assert.match(snapshot.activity.detail, /evaluated weather/i);
-      assert.match(snapshot.activity.tip, /weather[- ]support/i);
-      assert.match(
-        snapshot.activity.tip,
-        /Verify actual water temperature, level, clarity/i,
-      );
-      assert.match(snapshot.activity.detail, /weather-only/i);
-      assert.match(
-        snapshot.activity.detail,
-        /River level, clarity, and measured water temperature are unknown/i,
-      );
+      assert.match(snapshot.activity.detail, /Weather /i);
       assert.equal(
         /favorable measured water temperature|river level remains workable/i
           .test(JSON.stringify(snapshot.activity)),
@@ -117,7 +110,7 @@ for (const group of RIVER_RUN_BETSIE_REVIEW_GROUPS) {
   }
 }
 
-assert.equal(scenarioCount, 32);
+assert.equal(scenarioCount, 33);
 
 const byId = new Map(
   RIVER_RUN_BETSIE_REVIEW_GROUPS.flatMap((group) =>
@@ -128,16 +121,20 @@ const beginning = byId.get("stage_beginning")?.snapshot.runStage;
 assert(beginning);
 assert.match(
   beginning.detail ?? "",
-  /rare early fish can already reach Homestead/i,
+  /most dependable near the river entrance/i,
 );
-assert.match(beginning.detail ?? "", /unlikely/i);
-assert.match(beginning.whereToStart ?? "", /lake-to-river transition/i);
-assert.match(beginning.whereToStart ?? "", /toward Homestead/i);
+assert.equal(beginning.whereToStart, "Betsie Lake–US-31 reach.");
 
 const lateAugust = byId.get("stage_building_established")?.snapshot.runStage;
 assert(lateAugust);
-assert.match(lateAugust.detail ?? "", /Homestead end.*is realistic/i);
-assert.match(lateAugust.tip ?? "", /300-foot closure/i);
+assert.match(
+  lateAugust.detail ?? "",
+  /earlier fish can be in the US-31–Homestead reach/i,
+);
+
+const clearLeader = byId.get("activity_clear_leader")?.snapshot.activity;
+assert(clearLeader);
+assert.match(clearLeader.detail, /5–9 AM is strongest/i);
 
 const expectedPresence = new Map([
   ["presence_before", 0],
@@ -155,5 +152,5 @@ for (const [id, expected] of expectedPresence) {
 }
 
 console.log(
-  `Betsie Fall Chinook acceptance QA passed: ${scenarioCount} production-derived scenarios, weather-only Activity, continuous lifecycle adjustment, Homestead geography, exact seasonal anchors, capability-safe Guide's Reads, unavailable hydraulic primitives, and visual contracts.`,
+  `Betsie Fall Chinook acceptance QA passed: ${scenarioCount} production-derived scenarios, weather-only Activity, exact two-reach geography, seasonal anchors, capability-safe Guide's Reads, unavailable hydraulic primitives, and visual contracts.`,
 );

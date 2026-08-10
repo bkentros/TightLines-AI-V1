@@ -91,6 +91,7 @@ Deno.test("Betsie Chinook Activity is capped weather context with continuous lif
         clear_sky_shortwave_w_m2: hour >= 7 && hour < 19 ? 600 : 0,
         precipitation_in: hour >= 9 && hour < 13 ? 0.005 : 0,
       })),
+      copyStrategy: run.runStageCopyStrategy,
     });
   const peak = scoreFor("2026-09-25", "peak");
   const taperStart = scoreFor("2026-09-26", "tapering");
@@ -107,12 +108,9 @@ Deno.test("Betsie Chinook Activity is capped weather context with continuous lif
   for (const result of [peak, taperStart, taperEnd, ending, post, tailEnd]) {
     assertEquals(result.confidence, "Limited");
     assertEquals(result.reasonCodes.includes("activity_weather_only"), true);
-    assertMatch(result.headline, /weather-only Chinook activity outlook/i);
+    assertMatch(result.headline, /weather-only Betsie Chinook responsiveness/i);
     assertMatch(result.headline, /Limited confidence/i);
-    assertMatch(
-      result.detail,
-      /River level, clarity, and measured water temperature are unknown/i,
-    );
+    assertMatch(result.detail, /Confidence is Limited|Late-run Chinook/i);
     assertEquals(
       /favorable measured water temperature|river level remains workable/i.test(
         JSON.stringify(result),
@@ -158,25 +156,22 @@ Deno.test("Betsie calendar and five-day-advanced presence anchors remain exact",
   }
 });
 
-Deno.test("Betsie stage copy uses Homestead geography instead of PM sections", () => {
+Deno.test("Betsie stage copy uses the two approved reaches instead of PM sections", () => {
   const beginning = resolveRunStage(run, "2026-08-10");
   assertEquals(beginning.stage, "beginning");
-  assertMatch(beginning.whereToStart ?? "", /lake-to-river transition/i);
-  assertMatch(beginning.whereToStart ?? "", /toward Homestead/i);
-  assertMatch(beginning.detail, /rare early fish can already reach Homestead/i);
-  assertMatch(beginning.detail, /unlikely/i);
+  assertEquals(beginning.whereToStart, "Betsie Lake–US-31 reach.");
+  assertMatch(beginning.detail, /most dependable near the river entrance/i);
 
   const lateAugust = resolveRunStage(run, "2026-08-27");
   assertEquals(lateAugust.stage, "building");
-  assertMatch(lateAugust.detail, /late August/i);
-  assertMatch(lateAugust.detail, /Homestead end.*is realistic/i);
-  assertMatch(lateAugust.tip, /300-foot closure/i);
+  assertMatch(
+    lateAugust.detail,
+    /earlier fish can be in the US-31–Homestead reach/i,
+  );
 
   const peak = resolveRunStage(run, "2026-09-15");
   assertEquals(peak.stage, "peak");
-  assertMatch(peak.whereToStart ?? "", /lakeward end/i);
-  assertMatch(peak.whereToStart ?? "", /legal Homestead-approach/i);
-  assertMatch(peak.whereToStart ?? "", /signed dam closure/i);
+  assertEquals(peak.whereToStart, "US-31–Homestead reach.");
 
   for (
     const localDate of [
@@ -278,11 +273,11 @@ Deno.test("Betsie daily and condition snapshots expose only seasonal primitives"
   });
   assertEquals(refresh.push.label, "Unavailable");
   assertEquals(refresh.push.score, null);
-  assertMatch(refresh.push.detail, /accurate and consistent/i);
-  assertMatch(refresh.push.tip, /not substitute air temperature/i);
+  assertMatch(refresh.push.detail, /representative live flow/i);
+  assertMatch(refresh.push.tip, /Air temperature.*cannot replace/i);
   assertEquals(refresh.fishability.label, "Unavailable");
   assertEquals(refresh.fishability.score, null);
-  assertMatch(refresh.fishability.detail, /accurate and consistent/i);
+  assertMatch(refresh.fishability.detail, /continuous live flow gauge/i);
   assert(
     refresh.reasonCodes.includes(
       "primitive_migration_timing_unavailable_for_river",

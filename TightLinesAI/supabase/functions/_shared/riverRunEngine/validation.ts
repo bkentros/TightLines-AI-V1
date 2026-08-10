@@ -374,13 +374,16 @@ function validateRiverFoundation(
       }
       if (reach.gaugeRepresented) represented.push(reach.reachId);
     });
-    if (
-      represented.length !== 1 ||
-      represented[0] !== foundation.primaryGaugeReachId
-    ) {
+    const primaryGaugeInvalid = foundation.primaryGaugeReachId == null
+      ? represented.length !== 0
+      : represented.length !== 1 ||
+        represented[0] !== foundation.primaryGaugeReachId;
+    if (primaryGaugeInvalid) {
       issues.push(issue(
         "foundation.primaryGaugeReachId",
-        "Exactly one foundation reach must be represented by the primary gauge.",
+        foundation.primaryGaugeReachId == null
+          ? "A river without a primary gauge cannot mark a foundation reach as gauge-represented."
+          : "Exactly one foundation reach must be represented by the primary gauge.",
         "config_source_invalid",
       ));
     }
@@ -388,7 +391,7 @@ function validateRiverFoundation(
 
   if (foundation.locations != null) {
     const locationIds = new Set<string>();
-    let impassableBarrierCount = 0;
+    let upstreamLimitBarrierCount = 0;
     foundation.locations.forEach((location, index) => {
       const field = `foundation.locations[${index}]`;
       if (
@@ -427,9 +430,11 @@ function validateRiverFoundation(
         ));
       }
       if (
-        location.kind === "barrier" && location.fishPassage === "impassable"
+        location.kind === "barrier" &&
+        (location.fishPassage === "impassable" ||
+          location.publicUpstreamLimit === true)
       ) {
-        impassableBarrierCount++;
+        upstreamLimitBarrierCount++;
       }
       if (
         (location.publicAccess !== "verified" ||
@@ -443,10 +448,10 @@ function validateRiverFoundation(
         ));
       }
     });
-    if (impassableBarrierCount !== 1) {
+    if (upstreamLimitBarrierCount !== 1) {
       issues.push(issue(
         "foundation.locations",
-        "A supported migratory corridor requires exactly one configured impassable barrier.",
+        "A supported migratory corridor requires exactly one configured upstream-limit barrier.",
         "config_invalid_value",
       ));
     }

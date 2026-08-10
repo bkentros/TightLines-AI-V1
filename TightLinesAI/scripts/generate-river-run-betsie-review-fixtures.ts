@@ -36,13 +36,13 @@ const stageDates = steelhead
     ["before_staging", "Before staging", "2026-08-10"],
     ["staging", "Staging", "2026-08-27"],
     ["beginning", "Beginning", "2026-09-15"],
-    ["building_early", "Building · below Homestead", "2026-10-06"],
+    ["building_early", "Building · downstream reach", "2026-10-06"],
     ["building_established", "Established", "2026-10-10"],
     ["building_broad", "Broadly established", "2026-10-27"],
     ["peak", "Peak · 70 ceiling", "2026-11-10"],
     ["tapering", "Late fall", "2026-11-30"],
-    ["ending", "Holding transition", "2026-12-15"],
-    ["winter_holding", "Winter holding · retained 61", "2026-12-18"],
+    ["ending", "Fall entry ending", "2026-12-15"],
+    ["fall_entry_complete", "Fall entry complete", "2026-12-18"],
   ] as const
   : coho
   ? [
@@ -52,27 +52,27 @@ const stageDates = steelhead
     ["building_early", "Building · select deep holes", "2026-09-16"],
     [
       "building_established",
-      "Late September · Homestead realistic",
+      "Established · both reaches",
       "2026-09-26",
     ],
     ["peak", "Peak · limited opportunity", "2026-10-15"],
     ["tapering", "Tapering", "2026-11-01"],
     ["ending", "Ending", "2026-11-16"],
     ["late_tail", "Late residual tail", "2026-11-26"],
-    ["offseason", "Offseason", "2026-12-29"],
+    ["offseason", "Fall run complete", "2026-12-29"],
   ] as const
   : [
     ["before_staging", "Before staging", "2026-07-01"],
     ["staging", "Staging", "2026-07-28"],
-    ["beginning", "Beginning · rare Homestead arrival", "2026-08-10"],
-    ["building_early", "Building · downstream holes", "2026-08-19"],
-    ["building_established", "Late August · Homestead realistic", "2026-08-27"],
-    ["building_broad", "Broadly established corridor", "2026-09-05"],
+    ["beginning", "Beginning · downstream reach", "2026-08-10"],
+    ["building_early", "Building · downstream reach", "2026-08-19"],
+    ["building_established", "Established · both reaches", "2026-08-27"],
+    ["building_broad", "Broadly established · both reaches", "2026-09-05"],
     ["peak", "Peak", "2026-09-15"],
     ["tapering", "Tapering", "2026-09-26"],
     ["ending", "Ending", "2026-10-14"],
     ["late_tail", "Late residual tail", "2026-10-23"],
-    ["offseason", "Offseason", "2026-11-06"],
+    ["offseason", "Fall run complete", "2026-11-06"],
   ] as const;
 
 const presenceDates = steelhead
@@ -88,7 +88,7 @@ const presenceDates = steelhead
     ["late_fall", "Late fall · 69", "2026-11-30"],
     ["taper", "Taper · 63", "2026-12-14"],
     ["end", "Fall-entry end · 61", "2026-12-17"],
-    ["winter_holding", "Winter handoff · 61", "2026-12-18"],
+    ["fall_entry_complete", "Fall entry complete · no score", "2026-12-18"],
   ] as const
   : coho
   ? [
@@ -193,6 +193,12 @@ function activityScenarios() {
         { cloud: 5 },
       ),
       scenario(
+        "activity_clear_leader",
+        "Beginning · clear strongest window",
+        "2026-09-15",
+        { cloud: 20, blockClouds: [100, 0, 0, 0] },
+      ),
+      scenario(
         "activity_building_cloudy",
         "Building · dark and dry",
         "2026-10-27",
@@ -228,8 +234,8 @@ function activityScenarios() {
         { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
       ),
       scenario(
-        "activity_winter_holding",
-        "Winter holding · current responsiveness",
+        "activity_fall_entry_complete",
+        "Fall entry complete · no score",
         "2026-12-18",
         { cloud: 95, rainPerWetHour: 0.005, wetHours: 4 },
       ),
@@ -247,6 +253,12 @@ function activityScenarios() {
         "Beginning · bright and dry",
         "2026-08-27",
         { cloud: 5 },
+      ),
+      scenario(
+        "activity_clear_leader",
+        "Beginning · clear strongest window",
+        "2026-08-27",
+        { cloud: 20, blockClouds: [100, 0, 0, 0] },
       ),
       scenario(
         "activity_building_cloudy",
@@ -300,6 +312,12 @@ function activityScenarios() {
       "Beginning · bright and dry",
       "2026-08-10",
       { cloud: 5 },
+    ),
+    scenario(
+      "activity_clear_leader",
+      "Beginning · clear strongest window",
+      "2026-08-10",
+      { cloud: 20, blockClouds: [100, 0, 0, 0] },
     ),
     scenario(
       "activity_building_cloudy",
@@ -388,6 +406,7 @@ if (Deno.args.includes("--check")) {
 
 type ActivityFixture = {
   cloud: number;
+  blockClouds?: [number, number, number, number];
   rainPerWetHour?: number;
   wetHours?: number;
 };
@@ -449,7 +468,7 @@ function scenario(
       regulationReminder: BETSIE_RIVER_PROFILE.regulationReminderCopy ??
         "Follow current regulations and signed boundaries.",
       gaugeBasis:
-        "No accepted live gauge represents the below-Homestead corridor; Fishability is unavailable.",
+        "No accepted live gauge represents the two Betsie River Run reaches; Fishability is unavailable.",
       activityDisclaimer:
         "River Migration is not a wading, boating, floating, or personal-safety rating.",
     },
@@ -470,8 +489,11 @@ function buildUnavailableCondition(
   activityFixture?: ActivityFixture,
 ): RiverRunConditionRefresh {
   const activityActive = Boolean(
-    run.activity && localDate >= daily.runStage.window.stagingStartDate &&
-      localDate <= daily.runStage.window.lateEndDate,
+    run.activity && (
+      localDate >= daily.runStage.window.stagingStartDate &&
+        localDate <= daily.runStage.window.lateEndDate ||
+      steelhead && localDate === "2026-12-18"
+    ),
   );
   const fixture = activityFixture ?? { cloud: 60 };
   return buildConditionRefresh({
@@ -517,10 +539,18 @@ function buildUnavailableCondition(
               const wet = hour >= 9 &&
                 hour < 9 + Math.min(4, fixture.wetHours ?? 0);
               const clear = hour >= 5 && hour < 21 ? 650 : 0;
+              const blockIndex = hour < 9
+                ? 0
+                : hour < 13
+                ? 1
+                : hour < 17
+                ? 2
+                : 3;
+              const cloud = fixture.blockClouds?.[blockIndex] ?? fixture.cloud;
               return {
                 time_local: `${localDate}T${String(hour).padStart(2, "0")}:00`,
-                cloud_cover_pct: fixture.cloud,
-                shortwave_w_m2: clear * (1 - fixture.cloud / 100 * 0.88),
+                cloud_cover_pct: cloud,
+                shortwave_w_m2: clear * (1 - cloud / 100 * 0.88),
                 clear_sky_shortwave_w_m2: clear,
                 precipitation_in: wet ? fixture.rainPerWetHour ?? 0 : 0,
               };

@@ -274,7 +274,11 @@ export function resolveRunStage(
       broadBuildingContext,
       winterHoldingContext,
       window,
-      label: run.runType === "fall_entry"
+      label: stage === "post_run" && run.runType === "fall_entry"
+        ? "Fall entry complete"
+        : stage === "post_run" && !latePostRunContext
+        ? "Fall run complete"
+        : run.runType === "fall_entry"
         ? fallEntryStageLabel(stage, winterHoldingContext)
         : stageLabel(stage, latePostRunContext),
       ...betsieHomesteadStageCopy({
@@ -287,6 +291,7 @@ export function resolveRunStage(
         opportunity,
         fallEntry: run.runType === "fall_entry",
         winterHoldingContext,
+        stagingStart: window.stagingStartDate.slice(5),
       }),
       reasonCodes: [
         stageReasonCode(stage),
@@ -1446,144 +1451,127 @@ function betsieHomesteadStageCopy(input: {
   opportunity: RunOpportunityCopyContext;
   fallEntry: boolean;
   winterHoldingContext: boolean;
+  stagingStart: string;
 }): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
   if (input.fallEntry) return betsieHomesteadFallEntryStageCopy(input);
-  const legalHomesteadApproach =
-    "legal Homestead-approach holding water, always outside the signed dam closure";
   const limited = input.opportunity.strength === "limited";
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
         ? {
-          headline:
-            `${input.species} may be staging in Betsie Lake and near the river mouth.`,
-          whereToStart:
-            "Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
+          headline: `${input.species} may be staging near the Betsie entrance.`,
+          whereToStart: "Lake Michigan, Frankfort harbor, and Betsie Lake.",
           detail:
-            `An occasional early ${input.species} can enter the short river corridor and may even reach Homestead, but that is still an exception—not evidence of dependable river numbers.`,
+            `A few early ${input.species} may enter the Betsie Lake–US-31 reach, but dependable river presence has not begun.`,
           tip:
-            "Keep most effort near the lake-to-river transition. Do not build the trip around Homestead or assume the downstream holes have filled in yet.",
+            "Keep the trip near the lake-to-river transition. Treat a river fish as an early exception.",
         }
         : {
           headline:
             `${input.species} have not started entering the Betsie yet.`,
           whereToStart: "Lake Michigan, Frankfort harbor, and Betsie Lake.",
           detail:
-            `Dependable ${input.species} presence is not expected in the short river corridor below Homestead this early.`,
-          tip:
-            "Keep the trip in lake and harbor water until the seasonal staging window begins.",
+            `Dependable ${input.species} presence is not expected in either Betsie reach this early.`,
+          tip: "Keep the trip in lake and harbor water until staging begins.",
         };
     case "beginning":
       return {
-        headline:
-          `The first ${input.species} are beginning to enter the Betsie's below-Homestead corridor.`,
-        whereToStart:
-          "Begin at the lake-to-river transition, then cover the first substantial travel-and-resting holes toward Homestead—not the structure itself.",
+        headline: `The first ${input.species} are entering the Betsie.`,
+        whereToStart: "Betsie Lake–US-31 reach.",
         detail:
-          `Fresh fish may be scattered anywhere in this short corridor. A rare early fish can already reach Homestead, but dependable concentrations near the dam are unlikely this early.`,
+          `Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.`,
         tip:
-          "Cover deep holes from downstream toward Homestead. Treat one early fish as an exception and remain outside the signed 300-foot closure.",
+          "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
       };
     case "building":
       if (input.broadBuildingContext) {
         return {
           headline:
-            `${input.species} are becoming established throughout the below-Homestead corridor.`,
-          whereToStart:
-            `Substantial corridor holes from the lakeward end through ${legalHomesteadApproach}.`,
+            `${input.species} are established across both Betsie reaches.`,
+          whereToStart: "US-31–Homestead reach.",
           detail:
-            `The Betsie's migratory ${input.species} water is short, so fish can occupy the full corridor quickly. Homestead is the upstream limit; the deepest legal water below it remains the dependable plan.`,
+            "Multiple entry periods have spread fish through this short migration corridor.",
           tip:
-            "Work the substantial holes below Homestead section by section. Do not translate PM-scale section distances onto this short corridor.",
+            "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
         };
       }
       if (input.establishedBuildingContext) {
         return {
           headline: limited
-            ? `${input.species} are becoming more established in select below-Homestead water.`
-            : `${input.species} are becoming dependably established below Homestead.`,
+            ? `${input.species} are becoming established in select Betsie water.`
+            : `${input.species} are becoming established in both Betsie reaches.`,
           whereToStart: limited
-            ? `Select substantial corridor holes, including ${legalHomesteadApproach}.`
-            : `Substantial corridor holes from the lakeward end through ${legalHomesteadApproach}.`,
-          detail: input.species === "Chinook salmon"
-            ? "By late August, fish reaching the Homestead end of the short corridor is realistic. Newer arrivals can remain closer to Betsie Lake while earlier fish collect in legal holding water downstream of the structure."
-            : "By late September, Coho reaching the Homestead end of the short corridor is realistic. Newer arrivals can remain closer to Betsie Lake while earlier fish occupy select legal holding water downstream of the structure.",
+            ? "Betsie Lake–US-31 reach."
+            : "Betsie Lake–US-31 reach.",
+          detail: limited
+            ? "This is a limited run. Fish can use either reach, but dependable concentrations remain selective."
+            : "New arrivals favor the downstream reach while earlier fish can be in the US-31–Homestead reach.",
           tip: limited
-            ? "Begin with select deep downstream holes, stay mobile until direct fish activity gives you a reason to slow down, and remain outside the signed 300-foot closure."
-            : "Begin with the deepest downstream holes, then work toward Homestead without entering the signed 300-foot closure.",
+            ? "Check Betsie Lake–US-31 first. Add US-31–Homestead only when direct fish activity supports it."
+            : "Start in Betsie Lake–US-31, then compare US-31–Homestead after one complete pass.",
         };
       }
       return {
-        headline:
-          `More ${input.species} are entering the short corridor below Homestead.`,
-        whereToStart:
-          "Start with substantial holes nearest the lake-to-river transition, then work hole by hole toward the legal Homestead approach.",
+        headline: `More ${input.species} are entering the Betsie.`,
+        whereToStart: "Betsie Lake–US-31 reach.",
         detail:
-          "Presence is growing beyond isolated early fish, but concentrations can still be uneven from hole to hole.",
-        tip:
-          "Cover the deeper holes instead of waiting at one access. Homestead can hold early fish, but it should not yet be treated as the only dependable destination.",
+          "Presence is building, but fish can still be uneven between the two reaches.",
+        tip: "Cover Betsie Lake–US-31 before moving into US-31–Homestead.",
       };
     case "peak":
       return {
         headline: limited
-          ? `This is typically the strongest part of the Betsie's limited ${input.species} opportunity.`
-          : `This is typically the strongest and most dependable Betsie River ${input.species} opportunity.`,
-        whereToStart: limited
-          ? `Select substantial corridor holes from the lakeward end through ${legalHomesteadApproach}.`
-          : `Substantial corridor holes from the lakeward end through ${legalHomesteadApproach}.`,
+          ? `This is typically the strongest part of the Betsie's limited ${input.species} run.`
+          : `This is typically the strongest Betsie ${input.species} window.`,
+        whereToStart: "US-31–Homestead reach.",
         detail: limited
-          ? "Seasonal timing supports Coho using several parts of the short below-Homestead corridor, but the overall run remains small and fish should not be expected in every good-looking hole."
-          : "Multiple waves have had time to occupy the entire short corridor below Homestead, but concentrations are not equal in every piece of water.",
+          ? "Coho can use both reaches, but dependable concentrations remain selective."
+          : "Multiple entry periods have given fish time to use both reaches.",
         tip: limited
-          ? "Cover select substantial holes, require direct fish activity before committing time, stay outside the signed closure, and leave fish on shallow spawning gravel alone."
-          : "Fish substantial holes from head to tail, stay outside the signed closure, and leave fish on shallow spawning gravel alone.",
+          ? "Test proven water in US-31–Homestead, then compare select Betsie Lake–US-31 water."
+          : "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
       };
     case "tapering":
       return {
         headline: limited
-          ? `The Betsie's limited ${input.species} opportunity can persist, although fresh arrivals are becoming less consistent.`
-          : `The Betsie can remain productive for ${input.species}, although fresh arrivals are becoming less consistent.`,
-        whereToStart: limited
-          ? "Select proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead."
-          : "Proven corridor holes, especially slower edges near productive current and legal holding water short of Homestead.",
+          ? `The Betsie's limited ${input.species} opportunity is tapering.`
+          : `The Betsie ${input.species} run is tapering.`,
+        whereToStart: "US-31–Homestead reach.",
         detail: limited
-          ? "A few fish may remain in select below-Homestead corridor water, but the limited opportunity is shifting from new arrivals toward fish already holding or spawning."
-          : "Fish may remain distributed through the below-Homestead corridor, but the balance is shifting from new arrivals toward fish already holding or spawning.",
+          ? "Fresh Coho are less consistent, and remaining fish are concentrated in select established water."
+          : "Fresh arrivals are less consistent, and more fish are already holding or spawning.",
         tip:
-          "Prioritize deep established water, remain outside the dam closure, and leave shallow spawning fish undisturbed.",
+          "Prioritize US-31–Homestead. Leave actively spawning fish undisturbed.",
       };
     case "ending":
       return {
         headline: limited
-          ? `A few ${input.species} may still provide a late opportunity below Homestead.`
-          : `${input.species} can still provide a worthwhile late opportunity below Homestead.`,
-        whereToStart:
-          "The deepest proven corridor holes and slow current edges, including legal water short of Homestead.",
+          ? `A few ${input.species} may remain in select Betsie water.`
+          : `The Betsie ${input.species} run is ending.`,
+        whereToStart: "US-31–Homestead reach.",
         detail:
-          "Remaining fish have often been in the system for a while, and fresh silver arrivals are no longer dependable.",
+          "Fresh arrivals are no longer dependable. Remaining fish are most likely in established holding water.",
         tip:
-          "Skip fast travel water. Fish deep holes carefully and leave actively spawning or visibly deteriorated fish alone.",
+          "Keep the search narrow and leave actively spawning or visibly deteriorated fish alone.",
       };
     case "post_run":
       return input.latePostRunContext
         ? {
           headline: `The main Betsie ${input.species} migration is over.`,
-          whereToStart:
-            "No dependable starting location; any remaining fish are likely isolated in deep established water.",
+          whereToStart: "No dependable starting reach.",
           detail:
-            `A few fish may remain below Homestead, but the seasonal pattern no longer supports a dependable ${input.species} opportunity.`,
+            `A few ${input.species} may remain, but neither Betsie reach supports a dependable migration opportunity.`,
           tip:
-            "Do not chase scattered holdovers between accesses. Shift to another seasonal species and leave spawning fish undisturbed.",
+            "Do not build a two-reach search around isolated late fish. Leave spawning fish undisturbed.",
         }
         : {
-          headline:
-            `${input.species} are outside their Betsie River migration season.`,
-          whereToStart:
-            "No dependable Betsie River location for this species right now.",
-          detail:
-            `A dependable seasonal ${input.species} presence is not expected in the river corridor.`,
-          tip:
-            "Target a species with an active seasonal window and return as the next migration approaches.",
+          headline: `The Betsie ${input.species} fall run is complete.`,
+          detail: `${input.species} staging typically begins ${
+            seasonalReturnPhrase(input.stagingStart)
+          }. This seasonal model is inactive until then.`,
+          tip: `Check back ${
+            seasonalReturnPhrase(input.stagingStart)
+          } when Betsie fall-run tracking resumes.`,
         };
   }
 }
@@ -1595,128 +1583,102 @@ function betsieHomesteadFallEntryStageCopy(input: {
   broadBuildingContext: boolean;
   winterHoldingContext: boolean;
   species: string;
+  stagingStart: string;
 }): Pick<PrimitiveDisplay, "headline" | "whereToStart" | "detail" | "tip"> {
-  if (input.winterHoldingContext) {
-    return {
-      headline:
-        `${input.species} have transitioned from fall entry into winter holding in the Betsie.`,
-      whereToStart:
-        "Deep, slow corridor holes with nearby current and an easy feeding lane, always outside the signed Homestead closure.",
-      detail:
-        "The fish have not simply left the river. The seasonal migration model has ended, while retained Steelhead can remain distributed through the below-Homestead corridor for winter.",
-      tip:
-        "Treat 61/100 as retained seasonal presence, not a live activity score. Verify current conditions directly, use controlled cold-water presentations, and follow the signed 100-foot Homestead closure.",
-    };
-  }
-
   switch (input.stage) {
     case "pre_run":
       return input.stagingContext
         ? {
-          headline:
-            `${input.species} may be gathering around Betsie Lake and beginning to enter the river.`,
-          whereToStart:
-            "Frankfort harbor, Betsie Lake, the river mouth, and one deliberate check of the first deep travel-and-resting water after the lake-to-river transition.",
+          headline: `${input.species} may be staging near the Betsie entrance.`,
+          whereToStart: "Lake Michigan, Frankfort harbor, and Betsie Lake.",
           detail:
-            "An occasional early fish is possible, but dependable fall presence has not developed throughout the corridor.",
+            "A few early fish may enter the Betsie Lake–US-31 reach, but dependable fall presence has not begun.",
           tip:
-            "Keep most effort near the lake-to-river transition and treat an isolated fish as an exception—not proof that the system has filled in.",
+            "Keep the trip near the lake-to-river transition. Treat a river fish as an early exception.",
         }
         : {
           headline: `${input.species} fall entry has not started yet.`,
           whereToStart: "Lake Michigan, Frankfort harbor, and Betsie Lake.",
           detail:
-            "A dependable fall Steelhead presence is not expected in the Betsie River this early.",
-          tip:
-            "Do not build an inland-river trip around Steelhead yet. Return as the seasonal entry window approaches.",
+            "Dependable fall Steelhead presence is not expected in either Betsie reach this early.",
+          tip: "Keep the trip in lake and harbor water until staging begins.",
         };
     case "beginning":
       return {
-        headline:
-          `The first ${input.species} are beginning to enter the Betsie's below-Homestead corridor.`,
-        whereToStart:
-          "Begin at the lake-to-river transition, then cover travel lanes feeding the first substantial corridor holes toward Homestead—not the structure itself.",
+        headline: `The first ${input.species} are entering the Betsie.`,
+        whereToStart: "Betsie Lake–US-31 reach.",
         detail:
-          "Fresh fish may be scattered through the short corridor, from the lake transition to legal holding water downstream of Homestead.",
+          "Fresh fish are most dependable near the river entrance. A few may already be in the US-31–Homestead reach.",
         tip:
-          "Cover travel water and resting holes from downstream toward Homestead, always outside the signed 300-foot closure.",
+          "Start in Betsie Lake–US-31. Add US-31–Homestead only when direct fish activity supports it.",
       };
     case "building":
       if (input.broadBuildingContext) {
         return {
           headline:
-            `${input.species} are broadly established through the accessible Betsie system.`,
-          whereToStart:
-            "Substantial corridor holes from the lakeward end through the legal Homestead approach, always outside the signed closure.",
+            `${input.species} are established across both Betsie reaches.`,
+          whereToStart: "US-31–Homestead reach.",
           detail:
-            "Multiple entry periods have given Steelhead time to occupy the full short migratory corridor between Betsie Lake and Homestead.",
+            "Multiple entry periods have spread Steelhead through the short migration corridor.",
           tip:
-            "Cover deep holes, bends and current breaks rather than waiting at the structure. Stay outside the signed closure and use direct fish activity to choose a section.",
+            "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
         };
       }
       if (input.establishedBuildingContext) {
         return {
           headline:
-            `${input.species} are becoming established across more of the Betsie.`,
-          whereToStart:
-            "Substantial holes from the lakeward travel water through legal holding water short of the Homestead closure.",
+            `${input.species} are becoming established in both Betsie reaches.`,
+          whereToStart: "Betsie Lake–US-31 reach.",
           detail:
-            "Earlier arrivals have had time to pass the structure while newer fish continue entering from Betsie Lake, so concentrations can differ sharply between holes.",
+            "New arrivals favor the downstream reach while earlier fish can be in the US-31–Homestead reach.",
           tip:
-            "Cover each substantial below-Homestead hole and let direct fish activity determine where to slow down.",
+            "Start in Betsie Lake–US-31, then compare US-31–Homestead after one complete pass.",
         };
       }
       return {
-        headline:
-          `More ${input.species} are entering and spreading through the Betsie.`,
-        whereToStart:
-          "Travel water nearest the lake-to-river transition where current feeds the first substantial holes and resting pockets.",
+        headline: `More ${input.species} are entering the Betsie.`,
+        whereToStart: "Betsie Lake–US-31 reach.",
         detail:
-          "Presence is growing beyond isolated early fish, although arrivals and concentrations can still be uneven from hole to hole.",
-        tip:
-          "Stay mobile through the short corridor and remain outside the signed 300-foot closure instead of waiting near the dam.",
+          "Presence is building, but fish can still be uneven between the two reaches.",
+        tip: "Cover Betsie Lake–US-31 before moving into US-31–Homestead.",
       };
     case "peak":
       return {
         headline:
-          `This is typically the strongest Betsie fall ${input.species} opportunity.`,
-        whereToStart:
-          "Substantial corridor holes from the lakeward end through the legal Homestead approach, always outside the signed closure.",
+          `This is typically the strongest Betsie fall ${input.species} window.`,
+        whereToStart: "US-31–Homestead reach.",
         detail:
-          "Multiple entry periods have given Steelhead time to spread through the accessible system, while dependable concentrations can still form in deep corridor holes.",
+          "Multiple entry periods have given Steelhead time to use both reaches.",
         tip:
-          "Cover each substantial hole from head through seams and tail, stay outside the signed closure, and let direct fish activity determine where to slow down.",
+          "Cover US-31–Homestead first. Compare Betsie Lake–US-31 if needed.",
       };
     case "tapering":
       return {
         headline:
-          `${input.species} presence remains high as the Betsie shifts toward winter holding.`,
-        whereToStart:
-          "Proven corridor holes, especially slower edges beside productive current and legal holding water short of Homestead.",
+          `${input.species} remain well established as fall entry slows.`,
+        whereToStart: "US-31–Homestead reach.",
         detail:
-          "Steelhead remain broadly available, but the seasonal emphasis is shifting from new upstream entry toward fish already holding in the river.",
+          "Fewer fresh fish are entering, while Steelhead already in the river remain available.",
         tip:
-          "Prioritize efficient holding water, verify conditions directly, and remain outside the signed Homestead closure.",
+          "Prioritize US-31–Homestead, then check Betsie Lake–US-31 for fresh arrivals.",
       };
     case "ending":
       return {
-        headline:
-          `${input.species} remain strongly present as fall entry hands off to winter holding.`,
-        whereToStart:
-          "Deep, slower corridor holes with nearby current, including legal water short of Homestead.",
+        headline: `${input.species} remain in the Betsie as fall entry ends.`,
+        whereToStart: "US-31–Homestead reach.",
         detail:
-          "The migration phase is ending—not the in-river fishery. Many fall-entering Steelhead can remain in the Betsie through winter before spawning in spring.",
+          "The entry phase is ending. Steelhead already in the river may remain after this fall model stops.",
         tip:
-          "Slow the presentation as water cools, verify current conditions directly, and follow the signed Homestead closure rather than treating the structure as a fishing target.",
+          "Use direct observations to confirm current fish and water conditions.",
       };
     case "post_run":
       return {
-        headline: `${input.species} fall entry has not started yet.`,
-        whereToStart: "Lake Michigan, Frankfort harbor, and Betsie Lake.",
+        headline: `Betsie ${input.species} fall entry is complete.`,
         detail:
-          "A dependable fall Steelhead presence is not expected in the Betsie River this early.",
-        tip:
-          "Do not build an inland-river trip around Steelhead yet. Return as the seasonal entry window approaches.",
+          "Steelhead may remain in the river. This model no longer estimates current presence or activity.",
+        tip: `Check back ${
+          seasonalReturnPhrase(input.stagingStart)
+        } when Betsie fall-entry tracking resumes.`,
       };
   }
 }

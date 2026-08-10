@@ -47,23 +47,25 @@ for (const group of RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS) {
         "betsie-fall-steelhead-weather-activity-v1",
       );
       assert(snapshot.activity.blocks.every((block) => block.score <= 95));
-      assert(snapshot.activity.reasonCodes.includes("activity_weather_only"));
       assert.equal(
         snapshot.activity.reasonCodes.includes("activity_late_biology_cap"),
         false,
       );
-      assert.match(snapshot.activity.headline, /weather-only Steelhead/i);
-      assert.match(snapshot.activity.headline, /Limited confidence/i);
-      assert.match(snapshot.activity.detail, /evaluated weather/i);
-      assert.match(snapshot.activity.tip, /weather[- ]support/i);
-      assert.match(
-        snapshot.activity.tip,
-        /verify actual water temperature, level, clarity/i,
-      );
-      assert.match(
-        snapshot.activity.detail,
-        /River level, clarity, and measured water temperature are unknown/i,
-      );
+      if (snapshot.activity.score != null) {
+        assert(snapshot.activity.reasonCodes.includes("activity_weather_only"));
+        assert.match(
+          snapshot.activity.headline,
+          /weather-only Betsie.*Steelhead|weather-only Betsie outlook/i,
+        );
+        assert.match(snapshot.activity.headline, /Limited confidence/i);
+        assert.match(snapshot.activity.detail, /Weather /i);
+      } else {
+        assert(
+          snapshot.activity.reasonCodes.includes(
+            "activity_fall_entry_complete",
+          ),
+        );
+      }
       assert.equal(
         /Chinook|Coho|spent|dying|deteriorat|mortality|favorable measured water temperature|river level remains workable/i
           .test(
@@ -126,7 +128,7 @@ for (const group of RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS) {
   }
 }
 
-assert.equal(scenarioCount, 34);
+assert.equal(scenarioCount, 35);
 const byId = new Map(
   RIVER_RUN_BETSIE_STEELHEAD_REVIEW_GROUPS.flatMap((group) =>
     group.scenarios.map((scenario) => [scenario.id, scenario] as const)
@@ -135,22 +137,22 @@ const byId = new Map(
 
 const peak = byId.get("stage_peak")?.snapshot.runStage;
 assert(peak);
-assert.match(peak.headline, /strongest Betsie fall Steelhead opportunity/i);
-assert.match(peak.whereToStart ?? "", /lakeward end/i);
-assert.match(peak.whereToStart ?? "", /legal Homestead approach/i);
-assert.match(peak.whereToStart ?? "", /signed closure/i);
+assert.match(peak.headline, /strongest Betsie fall Steelhead window/i);
+assert.equal(peak.whereToStart, "US-31–Homestead reach.");
 
-const winter = byId.get("stage_winter_holding")?.snapshot.runStage;
-assert(winter);
-assert.equal(winter.winterHoldingContext, true);
-assert.match(winter.tip ?? "", /61\/100/i);
+const complete = byId.get("stage_fall_entry_complete")?.snapshot.runStage;
+assert(complete);
+assert.equal(complete.label, "Fall entry complete");
+assert.equal(complete.winterHoldingContext, false);
+assert.match(complete.tip ?? "", /late August/i);
 
 const preseason = resolveRunStage(
   BETSIE_FALL_STEELHEAD_RUN_PROFILE,
   "2026-08-07",
 );
 assert.equal(preseason.winterHoldingContext, false);
-assert.match(preseason.headline, /fall entry has not started yet/i);
+assert.equal(preseason.label, "Fall entry complete");
+assert.match(preseason.tip ?? "", /late August/i);
 assert.equal(
   /winter holding|have transitioned/i.test(JSON.stringify(preseason)),
   false,
@@ -162,9 +164,18 @@ const unchangedLateScores = [
   "activity_late_fall",
   "activity_holding_transition",
   "activity_fall_end",
-  "activity_winter_holding",
 ].map((id) => byId.get(id)?.snapshot.activity?.score);
 assert(unchangedLateScores.every((score) => score === unchangedLateScores[0]));
+
+const completedActivity = byId.get("activity_fall_entry_complete")?.snapshot
+  .activity;
+assert(completedActivity);
+assert.equal(completedActivity.score, null);
+assert.equal(completedActivity.label, "Fall entry complete");
+
+const clearLeader = byId.get("activity_clear_leader")?.snapshot.activity;
+assert(clearLeader);
+assert.match(clearLeader.detail, /5–9 AM is strongest/i);
 
 const expectedPresence = new Map([
   ["presence_before", 0],
@@ -178,7 +189,7 @@ const expectedPresence = new Map([
   ["presence_late_fall", 69],
   ["presence_taper", 63],
   ["presence_end", 61],
-  ["presence_winter_holding", 61],
+  ["presence_fall_entry_complete", null],
 ]);
 for (const [id, expected] of expectedPresence) {
   assert.equal(byId.get(id)?.snapshot.fishInRiver.score, expected, id);
@@ -191,5 +202,5 @@ assert(
 );
 
 console.log(
-  `Betsie Fall Steelhead acceptance QA passed: ${scenarioCount} production-derived scenarios, weather-only Activity with no salmon taper, exact five-day PM lead, 70-point Moderate/Broad presence ceiling, 61-point winter handoff, Homestead copy, unavailable hydraulic primitives, stripping-flies guidance, and visual contracts.`,
+  `Betsie Fall Steelhead acceptance QA passed: ${scenarioCount} production-derived scenarios, weather-only Activity with no salmon taper, exact five-day PM lead, 70-point Moderate presence ceiling, Fall entry complete terminal behavior, exact two-reach copy, unavailable hydraulic primitives, stripping-flies guidance, and visual contracts.`,
 );

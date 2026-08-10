@@ -275,6 +275,8 @@ export type RiverFoundationReach = {
   order: number;
   role:
     | "tailwater"
+    | "terminal"
+    | "downstream"
     | "upper"
     | "middle"
     | "lower"
@@ -297,7 +299,12 @@ export type RiverFoundationLocation = {
   riverMile?: number;
   reachId: string;
   kind: "access" | "landmark" | "dam" | "fish_ladder" | "gauge" | "barrier";
-  fishPassage: "passable" | "impassable" | "not_applicable";
+  fishPassage:
+    | "passable"
+    | "limited"
+    | "impassable"
+    | "not_applicable";
+  publicUpstreamLimit?: boolean;
   publicAccess: "verified" | "restricted" | "not_public" | "unknown";
   fishingSuitability: {
     bank: "yes" | "limited" | "no" | "unknown";
@@ -342,7 +349,7 @@ export type RiverFoundationConfig = {
   targetSpecies: MigratoryRiverTargetSpecies[];
   reaches: RiverFoundationReach[];
   locations?: RiverFoundationLocation[];
-  primaryGaugeReachId: string;
+  primaryGaugeReachId: string | null;
   contextualGaugeSiteIds: string[];
   weatherStrategy: {
     mode: "single_point";

@@ -94,6 +94,7 @@
     "qa:river-run:betsie-acceptance": "npm run check:river-run:betsie-review-fixtures && tsx scripts/river-run-betsie-acceptance-qa.ts",
     "qa:river-run:betsie-coho-acceptance": "npm run check:river-run:betsie-coho-review-fixtures && tsx scripts/river-run-betsie-coho-acceptance-qa.ts",
     "qa:river-run:betsie-steelhead-acceptance": "npm run check:river-run:betsie-steelhead-review-fixtures && tsx scripts/river-run-betsie-steelhead-acceptance-qa.ts",
+    "qa:river-run:betsie-copy": "tsx scripts/river-run-betsie-copy-qa.ts",
     "qa:river-run:big-manistee-acceptance": "npm run check:river-run:big-manistee-review-fixtures && tsx scripts/river-run-big-manistee-acceptance-qa.ts",
     "qa:river-run:big-manistee-coho-acceptance": "npm run check:river-run:big-manistee-coho-review-fixtures && tsx scripts/river-run-big-manistee-coho-acceptance-qa.ts",
     "qa:river-run:big-manistee-steelhead-acceptance": "npm run check:river-run:big-manistee-steelhead-review-fixtures && tsx scripts/river-run-big-manistee-steelhead-acceptance-qa.ts",

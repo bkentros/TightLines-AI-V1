@@ -73,17 +73,22 @@ export function scoreActivity(input: {
   hourlyWeather: ActivityWeatherHour[];
   copyStrategy?: RunStageCopyStrategy;
   fallEntryComplete?: boolean;
+  monitoringStartDate?: string;
 }): ActivityResult {
   if (input.fallEntryComplete) {
+    const river = input.copyStrategy === "betsie_homestead" ? "Betsie" : "PM";
+    const returnTiming = input.monitoringStartDate
+      ? seasonalReturnPhrase(input.monitoringStartDate.slice(5))
+      : "when fall tracking resumes";
     return {
       score: null,
       maximum: 100,
       label: "Fall entry complete",
-      headline: "PM Steelhead fall-entry Activity is complete.",
+      headline: `${river} Steelhead fall-entry Activity is complete.`,
       detail:
         "Steelhead may remain in the river. This fall-entry model no longer scores their current responsiveness.",
       tip:
-        "Do not use this completed fall outlook to infer current activity. Check back in early September.",
+        `Do not use this completed fall outlook to infer current activity. Check back ${returnTiming}.`,
       reasonCodes: ["activity_fall_entry_complete"],
       rulesVersion: input.rules.version,
       targetDate: input.targetDate,
@@ -335,6 +340,7 @@ export function scoreActivity(input: {
     secondBlock: sorted[1],
     weatherOnly,
     pereMarquette: input.copyStrategy === "pere_marquette",
+    betsieHomestead: input.copyStrategy === "betsie_homestead",
     hasWeather,
     blocksSeparated: hasWeather && sorted[0].score - sorted[1].score >= 3,
   });
@@ -385,10 +391,12 @@ function activityCopy(input: {
   secondBlock: ActivityBlock;
   weatherOnly: boolean;
   pereMarquette: boolean;
+  betsieHomestead: boolean;
   hasWeather: boolean;
   blocksSeparated: boolean;
 }) {
   if (input.pereMarquette) return pereMarquetteActivityCopy(input);
+  if (input.betsieHomestead) return betsieActivityCopy(input);
   const species = activitySpecies(input.profile);
   const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
   const confidence = input.weatherOnly
@@ -448,6 +456,64 @@ function activityCopy(input: {
       : `${day} ${species} activity outlook is ${input.label.toLowerCase()}.`,
     detail:
       `${interpretation} ${bestWindow} ${lifecycle}${scope}${earlySeasonScope} ${confidence}`,
+    tip,
+  };
+}
+
+function betsieActivityCopy(input: {
+  profile: ActivityRules["profile"];
+  label: string;
+  stage: RunStage;
+  conditionalPresence: boolean;
+  tomorrow: boolean;
+  confidence: ActivityConfidence;
+  bestBlock: ActivityBlock;
+  secondBlock: ActivityBlock;
+  weatherOnly: boolean;
+  hasWeather: boolean;
+  blocksSeparated: boolean;
+}): Pick<ActivityResult, "headline" | "detail" | "tip"> {
+  const species = activitySpecies(input.profile);
+  const day = input.tomorrow ? "Tomorrow’s" : "Today’s";
+  const headline = input.conditionalPresence
+    ? `${day} weather-only Betsie outlook is ${input.label.toLowerCase()} with Limited confidence, but dependable ${species} presence has not begun.`
+    : `${day} weather-only Betsie ${species} responsiveness is ${input.label.toLowerCase()} with Limited confidence.`;
+  const interpretation = ({
+    "Highly active":
+      `Weather strongly supports ${species} responsiveness if fish are present.`,
+    Active:
+      `Weather supports a meaningful ${species} response if fish are present.`,
+    Moderate: `Weather offers mixed support for ${species} responsiveness.`,
+    Reserved:
+      `${species} may respond selectively under the weather limitations.`,
+    Inactive:
+      `No time block broadly supports an aggressive ${species} response.`,
+  } as Record<string, string>)[input.label] ??
+    `The weather provides a conditional ${species} responsiveness outlook.`;
+  const blockPoint = input.blocksSeparated
+    ? pmStrongestBlockPoint(input.bestBlock)
+    : input.hasWeather
+    ? `${input.bestBlock.label} and ${input.secondBlock.label} are the leading windows, but neither has a clear advantage.`
+    : "Hourly light and weather data are unavailable, so no time block can be separated.";
+  const lifecycle = pmActivityLifecyclePoint(input.profile, input.stage);
+  const thirdPoint = lifecycle ??
+    (input.conditionalPresence
+      ? `This outlook applies only to an early ${species} already in the Betsie.`
+      : "Confidence is Limited because river level, clarity, and measured water temperature are unavailable.");
+  const tip = input.label === "Inactive"
+    ? input.blocksSeparated
+      ? `Every block is unfavorable. Use ${input.bestBlock.label} only as the least constrained window.`
+      : input.hasWeather
+      ? `Every block is unfavorable. If you fish, compare only ${input.bestBlock.label} and ${input.secondBlock.label}.`
+      : "Hourly conditions cannot identify a better window."
+    : input.blocksSeparated
+    ? `Begin with ${input.bestBlock.label}. Re-rank the blocks if light or weather changes materially.`
+    : input.hasWeather
+    ? `Choose between ${input.bestBlock.label} and ${input.secondBlock.label} using actual light. Neither has a dependable advantage.`
+    : "Choose the block that best fits current access. Hourly conditions cannot separate the windows.";
+  return {
+    headline,
+    detail: [interpretation, blockPoint, thirdPoint].join(" "),
     tip,
   };
 }
@@ -558,6 +624,28 @@ function weatherOnlyTip(
     return `Use the four blocks only to compare weather support for a living ${species} of unknown condition. Verify actual water temperature, level, clarity, and safe access before treating any block as favorable.`;
   }
   return `Start with ${bestBlockLabel} only as the strongest weather-supported window. Verify actual water temperature, level, clarity, and safe access before treating it as favorable.`;
+}
+
+function seasonalReturnPhrase(date: string): string {
+  const monthDay = date.length >= 5 ? date.slice(-5) : date;
+  const month = Number(monthDay.slice(0, 2));
+  const day = Number(monthDay.slice(3, 5));
+  const period = day <= 10 ? "in early" : day <= 20 ? "in mid" : "in late";
+  const monthName = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ][month - 1];
+  return `${period} ${monthName}`;
 }
 
 function weightedScore(
